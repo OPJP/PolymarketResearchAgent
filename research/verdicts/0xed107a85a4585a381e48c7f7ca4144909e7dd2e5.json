@@ -1,0 +1,29 @@
+{
+  "wallet": "0xed107a85a4585a381e48c7f7ca4144909e7dd2e5",
+  "name": "elmcap2",
+  "stage": "A2",
+  "verdict": "reject",
+  "archetype": "High-probability resting bids (bond-like carry)",
+  "headline": "Rests maker bids at 0.95-0.97 on long-dated political and event markets and holds to resolution. Profitable and significant, but it ties up about $6.5M to earn about $242k a month (3.7% per month), below the 10% per month bar.",
+  "mechanism": "98% of sampled fills are maker fills (on-chain, 95% CI 95-99%). Median fill price 0.95; 77% of resolved markets won. Income is carry on near-certain outcomes plus Polymarket holding yield ($12.4k in 30 days). Losses come from the minority of positions bought at 0.5-0.85 that resolved against it.",
+  "criteria": {
+    "roc": {"status": "fail", "detail": "peak capital at risk $6.46M (p95 $5.35M); 30-day PnL $242k; 3.7% per month < 10%"},
+    "onchain": {"status": "pass", "detail": "200/200 sampled fills confirmed on Polygon; maker share 98%"},
+    "match": {"status": "na", "detail": "not run: rejected at stage A2"},
+    "backtest": {"status": "na", "detail": "not run: rejected at stage A2"},
+    "replicable": {"status": "na", "detail": "not assessed"},
+    "persistence": {"status": "na", "detail": "not assessed"}
+  },
+  "key_numbers": {
+    "30-day PnL": "$242,047",
+    "Peak capital at risk": "$6,458,210",
+    "Monthly ROC": "3.7%",
+    "Maker fill share": "98%",
+    "Median fill price": "0.95"
+  },
+  "reasons": [
+    "Return on capital 3.7% per month on $6.46M peak capital at risk; the pre-registered bar is 10% per month.",
+    "Profit depends on holding yield (a Polymarket incentive program) for about 5% of PnL."
+  ],
+  "evidence": ["research/wallets/0xed107a85a4585a381e48c7f7ca4144909e7dd2e5/profile.json", "research/stage_a/stage_a1.json"]
+}

@@ -73,7 +73,7 @@ def fetch_windows(slugs: list[str], chunk: int = 20) -> dict[str, dict[str, Any]
     return out
 
 
-def load_period(asset: str, duration: str, blocks: list[tuple[int, int]], pm: PolymarketData, workers: int = 6) -> dict[str, Any]:
+def load_period(asset: str, duration: str, blocks: list[tuple[int, int]], pm: PolymarketData, workers: int = 6, with_full_tape: bool = False) -> dict[str, Any]:
     slugs = [s for a, b in blocks for s in window_slugs(asset, duration, a, b)]
     markets = fetch_windows(slugs)
     windows = [w for w in windows_from_markets(markets) if w.up_payout is not None]
@@ -85,6 +85,15 @@ def load_period(asset: str, duration: str, blocks: list[tuple[int, int]], pm: Po
     with ThreadPoolExecutor(workers) as ex:
         tapes_list = list(ex.map(tape, windows))
     tapes = {cid: rows for cid, rows, _ in tapes_list}
+    full_tapes: dict[str, list[dict[str, Any]]] = {}
+    if with_full_tape:
+
+        def full(w: Window):
+            rows, _, _ = pm.market_trades(w.condition_id, start=w.start_ts - 3600, end=w.end_ts + 120, taker_only=False)
+            return w.condition_id, rows
+
+        with ThreadPoolExecutor(workers) as ex:
+            full_tapes = dict(ex.map(full, windows))
     partial = [cid for cid, _, st in tapes_list if st == "partial"]
     spot_series = []
     for a, b in blocks:
@@ -100,6 +109,7 @@ def load_period(asset: str, duration: str, blocks: list[tuple[int, int]], pm: Po
         "slugs": len(slugs),
         "windows": windows,
         "tapes": tapes,
+        "full_tapes": full_tapes,
         "partial_tapes": partial,
         "spot": spot,
         "prints": taker_buy_prints(tapes, windows),
@@ -198,4 +208,98 @@ def run_updown_study(
         d = out_dir / w
         d.mkdir(parents=True, exist_ok=True)
         (d / f"updown_study_{asset}_{duration}.json").write_text(json.dumps(ev_out.to_dict(), indent=1))
+    return ev_out
+
+
+def run_updown_maker_study(
+    wallet: str,
+    asset: str = "btc",
+    duration: str = "5m",
+    as_of: int | None = None,
+    blocks_per_period: int = 12,
+    block_hours: int = 2,
+    seed: int = 7,
+    out_dir: Path | None = None,
+    n_perm: int = 200,
+) -> Evidence:
+    """Directional-maker hypothesis DM(delta, latency) for an Up/Down wallet.
+
+    Match: does spot-model edge (fair - price) predict which passive BUY fills
+    belong to the wallet (AUC on TEST vs. spot-clock-shift null)?
+    Backtest: a slow maker resting bids at fair - delta, filled only by later
+    taker prints that trade through the bid, on TEST windows with delta fitted
+    on FIT windows; latency degradation; the wallet's own maker-fill outcome.
+    """
+    from polyrea.analysis.updown import maker_backtest, maker_buy_prints, taker_flow
+    from polyrea.workflows.investigate import default_as_of
+
+    pm = PolymarketData()
+    as_of = as_of or default_as_of()
+    bs = block_hours * 3600
+    fit_blocks = sample_blocks(as_of - 14 * DAY, as_of - 7 * DAY, blocks_per_period, bs, seed)
+    test_blocks = sample_blocks(as_of - 7 * DAY, as_of, blocks_per_period, bs, seed + 1)
+    fit = load_period(asset, duration, fit_blocks, pm, with_full_tape=True)
+    test = load_period(asset, duration, test_blocks, pm, with_full_tape=True)
+    from polyrea.pit import TimeSeries
+
+    ev = np.concatenate([fit["spot"].event_ts, test["spot"].event_ts])
+    vals = np.concatenate([fit["spot"].values, test["spot"].values])
+    order = np.argsort(ev, kind="stable")
+    spot_ts = TimeSeries.build(fit["spot"].name, zip(ev[order].tolist(), vals[order].tolist()), availability_lag=1)
+    spot = SpotIndex(spot_ts)
+    w = wallet.lower()
+    fit_m = maker_buy_prints(fit["full_tapes"], fit["tapes"], fit["windows"])
+    test_m = maker_buy_prints(test["full_tapes"], test["tapes"], test["windows"])
+    mt = match_test(fit_m, test_m, w, spot, n_perm=n_perm, seed=seed) if len(fit_m) and len(test_m) else {}
+    lat = int(mt.get("chosen_latency_s", 1)) if mt else 1
+    fit_flow = taker_flow(fit["tapes"], fit["windows"])
+    test_flow = taker_flow(test["tapes"], test["windows"])
+    grid = [0.0, 0.01, 0.02, 0.03, 0.05, 0.08]
+    fit_scan = {d: maker_backtest(fit_flow, fit["windows"], spot, d, lat) for d in grid}
+    best_delta = max(grid, key=lambda d: (fit_scan[d].get("per_window_t") or -1e9) if fit_scan[d].get("fills", 0) >= 30 else -1e9)
+    bt = maker_backtest(test_flow, test["windows"], spot, best_delta, lat)
+    degraded = {str(lat + x): {k: v for k, v in maker_backtest(test_flow, test["windows"], spot, best_delta, lat + x).items() if k in ("fills", "pnl", "return_on_bought", "per_window_p")} for x in (1, 2, 5, 10)}
+    queue = {str(q): {k: v for k, v in maker_backtest(test_flow, test["windows"], spot, best_delta, lat, queue_share=q).items() if k in ("fills", "pnl", "per_window_p")} for q in (0.5, 0.25)}
+    mine = test_m[test_m["wallet"] == w]
+    replay = {}
+    if len(mine):
+        payout = np.where(mine["is_up"], mine["up_payout"], 1 - mine["up_payout"])
+        pnl = mine["size"] * (payout - mine["price"])
+        per_w = pd.Series(pnl.to_numpy(), index=mine["condition_id"]).groupby(level=0).sum()
+        from polyrea.stats.significance import hac_t_test
+
+        tt = hac_t_test(per_w.to_numpy())
+        replay = {"fills": int(len(mine)), "usd": float((mine["size"] * mine["price"]).sum()), "pnl": float(pnl.sum()), "return": float(pnl.sum() / (mine["size"] * mine["price"]).sum()), "per_window_p": tt.p_value}
+    ev_out = Evidence(
+        tool="updown_maker_study",
+        subject={"kind": "wallet", "wallet": w, "asset": asset, "duration": duration, "as_of": as_of},
+        observed={
+            "fit_windows": len(fit["windows"]),
+            "test_windows": len(test["windows"]),
+            "fit_passive_buys": int(len(fit_m)),
+            "test_passive_buys": int(len(test_m)),
+            "test_wallet_passive_buys": int(len(mine)),
+            "wallet_share_of_passive_buys": float(len(mine) / len(test_m)) if len(test_m) else None,
+        },
+        derived={
+            "match_test": mt,
+            "fit_delta_scan": {str(k): {kk: vv for kk, vv in v.items() if kk in ("fills", "pnl", "per_window_t", "per_window_p")} for k, v in fit_scan.items()},
+            "chosen_delta": best_delta,
+            "chosen_latency_s": lat,
+            "backtest_test_period": {k: v for k, v in bt.items() if k != "daily_pnl"},
+            "latency_degradation": degraded,
+            "queue_share_sensitivity": queue,
+            "wallet_maker_replay_test_period": replay,
+        },
+        coverage=Coverage("partial" if fit["partial_tapes"] or test["partial_tapes"] else "complete"),
+        limitations=[
+            "Trade-through fills ignore queue position at the touch (conservative) but assume our bid sat at the front among bids below the touch; queue-share sensitivity reports thinner fills.",
+            "Spot is Kraken per-second trades; resolution uses Chainlink's aggregate TWAP.",
+            "Maker rebates are excluded from backtest PnL (conservative).",
+        ],
+    )
+    if out_dir is not None:
+        d = out_dir / w
+        d.mkdir(parents=True, exist_ok=True)
+        (d / f"updown_maker_study_{asset}_{duration}.json").write_text(json.dumps(ev_out.to_dict(), indent=1))
     return ev_out

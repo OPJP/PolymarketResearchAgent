@@ -112,3 +112,36 @@ def test_backtest_settlement_arithmetic():
     res = backtest(prints, spot, theta=-1.0, latency=0)  # buy everything
     expected = 10 * 1.0 - 4.0 - 0.07 * 0.4 * 0.6 * 10
     assert res["pnl"] == pytest.approx(expected)
+
+
+def test_maker_backtest_trade_through_rules():
+    from polyrea.analysis.updown import maker_backtest
+
+    s = TimeSeries.build("spot", [(T0 + i, 60000.0) for i in range(4 * 3600)], availability_lag=1)
+    spot = SpotIndex(s)
+    # flat spot => fair_up ~ 0.5 (z = 0) ; delta 0.05 -> bid 0.45 on both sides
+    w = Window("c0", "btc", "5m", T0 + 3600, T0 + 3900, "u", "d", up_payout=1.0)
+    t = w.start_ts + 2  # inside the first 5 s requote interval
+    flow = pd.DataFrame(
+        [
+            {"condition_id": "c0", "ts": t, "is_up": True, "side": "SELL", "price": 0.45, "size": 100.0},  # at the bid: no fill
+            {"condition_id": "c0", "ts": t + 1, "is_up": True, "side": "SELL", "price": 0.44, "size": 7.0},  # through: fills 7
+            {"condition_id": "c0", "ts": t + 1, "is_up": True, "side": "BUY", "price": 0.60, "size": 5.0},  # mint vs Down bid (0.60 > 1-0.45)
+        ]
+    )
+    res = maker_backtest(flow, [w], spot, delta=0.05, latency=1, requote_s=5, size_shares=20)
+    assert res["fills"] == 2
+    # Up: 7 shares at 0.45 pay 1 -> +3.85 ; Down: 5 shares at 0.45 pay 0 -> -2.25
+    assert res["pnl"] == pytest.approx(7 * 0.55 - 5 * 0.45)
+
+
+def test_maker_backtest_respects_size_cap_and_queue_share():
+    from polyrea.analysis.updown import maker_backtest
+
+    s = TimeSeries.build("spot", [(T0 + i, 60000.0) for i in range(4 * 3600)], availability_lag=1)
+    w = Window("c0", "btc", "5m", T0 + 3600, T0 + 3900, "u", "d", up_payout=0.0)
+    flow = pd.DataFrame([{"condition_id": "c0", "ts": w.start_ts + 2, "is_up": True, "side": "SELL", "price": 0.40, "size": 100.0}])
+    full = maker_backtest(flow, [w], SpotIndex(s), 0.05, 1, size_shares=20)
+    half = maker_backtest(flow, [w], SpotIndex(s), 0.05, 1, size_shares=20, queue_share=0.1)
+    assert full["pnl"] == pytest.approx(-20 * 0.45)
+    assert half["pnl"] == pytest.approx(-10 * 0.45)

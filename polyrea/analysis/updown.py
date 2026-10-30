@@ -471,3 +471,146 @@ def wallet_replay(prints: pd.DataFrame, wallet: str) -> dict[str, Any]:
         "per_window_hac_t": t.statistic,
         "per_window_p": t.p_value,
     }
+
+
+# ----------------------------------------------------------------------------- maker (passive) hypotheses
+def maker_buy_prints(full_tapes: dict[str, list[dict[str, Any]]], taker_tapes: dict[str, list[dict[str, Any]]], windows: list[Window]) -> pd.DataFrame:
+    """Passive BUY fills (any wallet): full-tape rows that are not taker rows.
+
+    These are resting bids that a taker hit; the population a directional maker
+    competes in.
+    """
+    by_cid = {w.condition_id: w for w in windows}
+    rows = []
+    for cid, tape in full_tapes.items():
+        w = by_cid.get(cid)
+        if w is None:
+            continue
+        taker_keys: dict[tuple, int] = {}
+        for r in taker_tapes.get(cid, []):
+            k = (r.get("transactionHash"), (r.get("proxyWallet") or "").lower(), str(r.get("asset")), r.get("side"))
+            taker_keys[k] = taker_keys.get(k, 0) + 1
+        for r in tape:
+            k = (r.get("transactionHash"), (r.get("proxyWallet") or "").lower(), str(r.get("asset")), r.get("side"))
+            if taker_keys.get(k, 0) > 0:
+                taker_keys[k] -= 1
+                continue
+            if r.get("side") != "BUY":
+                continue
+            asset = str(r.get("asset"))
+            if asset not in (w.up_token, w.down_token):
+                continue
+            rows.append(
+                {
+                    "condition_id": cid,
+                    "ts": int(r["timestamp"]),
+                    "wallet": (r.get("proxyWallet") or "").lower(),
+                    "is_up": asset == w.up_token,
+                    "price": float(r["price"]),
+                    "size": float(r["size"]),
+                    "start_ts": w.start_ts,
+                    "end_ts": w.end_ts,
+                    "twap": w.twap_seconds,
+                    "fee_rate": w.fee_rate,
+                    "up_payout": w.up_payout,
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+def taker_flow(taker_tapes: dict[str, list[dict[str, Any]]], windows: list[Window]) -> pd.DataFrame:
+    """Every taker print (BUY and SELL) used by the trade-through fill model."""
+    by_cid = {w.condition_id: w for w in windows}
+    rows = []
+    for cid, tape in taker_tapes.items():
+        w = by_cid.get(cid)
+        if w is None:
+            continue
+        for r in tape:
+            asset = str(r.get("asset"))
+            if asset not in (w.up_token, w.down_token):
+                continue
+            rows.append({"condition_id": cid, "ts": int(r["timestamp"]), "is_up": asset == w.up_token, "side": r.get("side"), "price": float(r["price"]), "size": float(r["size"])})
+    return pd.DataFrame(rows)
+
+
+def maker_backtest(
+    flow: pd.DataFrame,
+    windows: list[Window],
+    spot: SpotIndex,
+    delta: float,
+    latency: int,
+    requote_s: int = 5,
+    size_shares: float = 20.0,
+    tick: float = 0.01,
+    min_secs_to_end: int = 0,
+    queue_share: float = 1.0,
+    rebate_share_of_fee_equiv: float = 0.0,
+) -> dict[str, Any]:
+    """PIT backtest of a slow directional maker.
+
+    Every ``requote_s`` seconds (from window start until ``min_secs_to_end``
+    before the end) the strategy computes fair values with spot that is
+    ``latency`` seconds old and rests BUY bids at floor((fair - delta)/tick)*tick
+    on each side, ``size_shares`` each, until the next requote. A bid at q on
+    side s fills only on a later taker print that trades *through* it: a taker
+    SELL of s at price < q, or a taker BUY of the other side at price > 1 - q
+    (complementary mint). Fill size = min(remaining, print size * queue_share).
+    No taker fee; maker rebates excluded unless ``rebate_share_of_fee_equiv`` > 0.
+    """
+    by_cid = {w.condition_id: w for w in windows}
+    if flow.empty:
+        return {"fills": 0}
+    out = []
+    for cid, g in flow.groupby("condition_id"):
+        w = by_cid[cid]
+        if w.up_payout is None:
+            continue
+        g = g.sort_values("ts")
+        ticks = np.arange(w.start_ts, w.end_ts - min_secs_to_end, requote_s)
+        if len(ticks) == 0:
+            continue
+        fu = fair_up_vectorized(spot, np.full(len(ticks), w.start_ts), np.full(len(ticks), w.end_ts), ticks - latency, w.twap_seconds)
+        ts_arr = g["ts"].to_numpy()
+        for i, t0 in enumerate(ticks):
+            if not np.isfinite(fu[i]):
+                continue
+            t1 = t0 + requote_s
+            lo, hi = np.searchsorted(ts_arr, t0, side="right"), np.searchsorted(ts_arr, t1, side="right")
+            if hi <= lo:
+                continue
+            seg = g.iloc[lo:hi]
+            for is_up, fair in ((True, fu[i]), (False, 1 - fu[i])):
+                q = math.floor((fair - delta) / tick + 1e-9) * tick
+                if q < tick or q > 1 - tick:
+                    continue
+                through_sell = seg[(seg["is_up"] == is_up) & (seg["side"] == "SELL") & (seg["price"] < q - 1e-9)]
+                through_mint = seg[(seg["is_up"] != is_up) & (seg["side"] == "BUY") & (seg["price"] > 1 - q + 1e-9)]
+                avail = float(through_sell["size"].sum() + through_mint["size"].sum()) * queue_share
+                filled = min(size_shares, avail)
+                if filled <= 0:
+                    continue
+                payout = w.up_payout if is_up else 1 - w.up_payout
+                rebate = rebate_share_of_fee_equiv * w.fee_rate * q * (1 - q) * filled
+                out.append({"condition_id": cid, "ts": int(t0), "is_up": is_up, "price": q, "shares": filled, "pnl": filled * (payout - q) + rebate, "fair": fair, "end_ts": w.end_ts})
+    if not out:
+        return {"fills": 0}
+    f = pd.DataFrame(out)
+    per_window = f.groupby("condition_id")["pnl"].sum()
+    day = pd.to_datetime(f["end_ts"], unit="s", utc=True).dt.floor("D")
+    daily = f.groupby(day)["pnl"].sum()
+    t = hac_t_test(per_window.to_numpy())
+    usd = float((f["price"] * f["shares"]).sum())
+    return {
+        "fills": int(len(f)),
+        "windows": int(per_window.size),
+        "usd_bought": usd,
+        "pnl": float(f["pnl"].sum()),
+        "return_on_bought": float(f["pnl"].sum() / usd) if usd else None,
+        "per_window_mean": float(per_window.mean()),
+        "per_window_t": t.statistic,
+        "per_window_p": t.p_value,
+        "per_window_bootstrap_p": stationary_bootstrap_pvalue(per_window.to_numpy(), n_boot=2000).p_value if per_window.size >= 5 else None,
+        "daily_pnl": {str(k.date()): float(v) for k, v in daily.items()},
+        "fill_win_rate": float((f["pnl"] > 0).mean()),
+    }
