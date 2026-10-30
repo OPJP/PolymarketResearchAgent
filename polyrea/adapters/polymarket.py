@@ -183,13 +183,22 @@ class PolymarketData:
         )
 
     def market_trades(
-        self, condition_id: str, start: int | None = None, end: int | None = None, max_rows: int | None = 200_000
+        self,
+        condition_id: str,
+        start: int | None = None,
+        end: int | None = None,
+        max_rows: int | None = 200_000,
+        taker_only: bool = False,
     ) -> tuple[list[dict[str, Any]], list[Source], Coverage]:
-        """Public tape of one market (every wallet's fills), oldest first."""
+        """Public tape of one market, oldest first.
+
+        ``taker_only=True`` returns one row per aggressive order (the taker's
+        side, price and wallet); otherwise maker rows are included too.
+        """
         end = end if end is not None else as_of_now()
         return self._cursor_scan(
             f"{DATA_API}/trades",
-            {"market": condition_id, "takerOnly": "false"},
+            {"market": condition_id, "takerOnly": "true" if taker_only else "false"},
             start=start,
             end=end,
             adapter="data-api.trades",

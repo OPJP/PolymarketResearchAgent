@@ -9,7 +9,7 @@ description = "Polymarket wallet strategy reverse engineering (REA-style evidenc
 requires-python = ">=3.11"
 dependencies = [
   "httpx>=0.27",
-  "mcp>=1.2",
+  "mcp>=1.2",  # 1.x FastMCP or 2.x MCPServer
   "numpy>=1.26",
   "pandas>=2.1",
   "scipy>=1.11",

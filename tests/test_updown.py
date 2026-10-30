@@ -1,0 +1,114 @@
+import numpy as np
+import pandas as pd
+import pytest
+
+from polyrea.analysis.updown import (
+    SpotIndex,
+    Window,
+    audit_vectorized_fair_value,
+    backtest,
+    fair_up_vectorized,
+    match_test,
+    score_prints,
+    taker_fee_per_share,
+    wallet_replay,
+)
+from polyrea.pit import PITStore, TimeSeries
+
+T0 = 1_700_000_000
+
+
+def _spot(n=4 * 3600, seed=0, vol=2e-4):
+    rng = np.random.default_rng(seed)
+    px = 60000 * np.exp(np.cumsum(rng.standard_normal(n) * vol))
+    return TimeSeries.build("spot", zip(range(T0, T0 + n), px.tolist()), availability_lag=1)
+
+
+def _windows(n, first=T0 + 3600, dur=300):
+    return [Window(f"c{i}", "btc", "5m", first + i * dur, first + (i + 1) * dur, f"u{i}", f"d{i}") for i in range(n)]
+
+
+def test_vectorized_matches_pit_reference_and_ignores_future():
+    store = PITStore()
+    store.add_series(_spot())
+    ws = _windows(20)
+    rng = np.random.default_rng(1)
+    probes = [(w, int(rng.integers(w.start_ts - 30, w.end_ts + 5))) for w in ws for _ in range(4)]
+    rep = audit_vectorized_fair_value(store, "spot", ws, probes, latency=1)
+    assert rep["passed"], rep
+    assert rep["probes"] >= 60
+
+
+def test_scores_unchanged_when_future_spot_is_corrupted():
+    s = _spot(seed=2)
+    ws = _windows(10)
+    prints = pd.DataFrame(
+        [
+            {"condition_id": w.condition_id, "ts": w.start_ts + k, "wallet": "x", "is_up": bool(k % 2), "price": 0.5, "size": 10,
+             "start_ts": w.start_ts, "end_ts": w.end_ts, "twap": 60, "fee_rate": 0.07, "up_payout": 1.0}
+            for w in ws for k in (10, 100, 250, 280)
+        ]
+    )
+    base = score_prints(prints, SpotIndex(s), latency=2)
+    for i, row in prints.iterrows():
+        cut = row["ts"] - 2  # decision time
+        vals = s.values.copy()
+        vals[s.available_ts > cut] *= 1.5  # wreck everything not yet available
+        corrupted = TimeSeries(s.name, s.event_ts, s.available_ts, vals)
+        assert score_prints(prints.iloc[[i]], SpotIndex(corrupted), latency=2)[0] == pytest.approx(base[i], abs=1e-12)
+
+
+def _synthetic_market(seed, n_windows=120, informed="w_inf"):
+    s = _spot(n=3600 + n_windows * 300 + 600, seed=seed)
+    spot = SpotIndex(s)
+    ws = _windows(n_windows)
+    rng = np.random.default_rng(seed)
+    rows = []
+    for w in ws:
+        final = spot.price_at(np.array([w.end_ts + 1]))[0] >= spot.price_at(np.array([w.start_ts]))[0]
+        for _ in range(40):
+            ts = int(rng.integers(w.start_ts + 5, w.end_ts - 5))
+            fu = fair_up_vectorized(spot, np.array([w.start_ts]), np.array([w.end_ts]), np.array([ts - 1]))[0]
+            is_up = bool(rng.random() < 0.5)
+            fair = fu if is_up else 1 - fu
+            price = float(np.clip(fair + rng.normal(0, 0.06), 0.02, 0.98))
+            edge = fair - price
+            wallet = informed if edge > 0.04 and rng.random() < 0.8 else f"r{rng.integers(50)}"
+            rows.append({"condition_id": w.condition_id, "ts": ts, "wallet": wallet, "is_up": is_up, "price": price, "size": 20.0,
+                         "start_ts": w.start_ts, "end_ts": w.end_ts, "twap": 60, "fee_rate": 0.07, "up_payout": float(final)})
+    return pd.DataFrame(rows).sort_values("ts").reset_index(drop=True), spot
+
+
+def test_match_test_detects_informed_wallet_and_rejects_random():
+    prints, spot = _synthetic_market(3)
+    half = prints["ts"].median()
+    fit, test = prints[prints["ts"] < half], prints[prints["ts"] >= half]
+    res = match_test(fit, test, "w_inf", spot, lags=[0, 1, 2], n_perm=60)
+    assert res["test"]["auc"] > 0.85
+    assert res["test"]["auc_perm_p"] < 0.05
+    assert res["test"]["decision"]["mcc"] > 0.5
+    rnd = match_test(fit, test, "r7", spot, lags=[0, 1, 2], n_perm=60)
+    assert rnd["test"]["auc_perm_p"] > 0.05
+
+
+def test_backtest_profits_only_with_real_edge():
+    prints, spot = _synthetic_market(4)
+    good = backtest(prints, spot, theta=0.03, latency=1)
+    assert good["pnl"] > 0 and good["per_window_p"] < 0.01
+    replay = wallet_replay(prints, "w_inf")
+    assert replay["pnl"] > 0
+
+
+def test_fee_formula():
+    assert taker_fee_per_share(0.5, 0.07) == pytest.approx(0.0175)
+    assert taker_fee_per_share(0.9, 0.07) == pytest.approx(0.0063)
+
+
+def test_backtest_settlement_arithmetic():
+    spot = SpotIndex(_spot(seed=5))
+    w = _windows(1)[0]
+    prints = pd.DataFrame([{"condition_id": "c0", "ts": w.end_ts - 1, "wallet": "z", "is_up": True, "price": 0.4, "size": 10.0,
+                            "start_ts": w.start_ts, "end_ts": w.end_ts, "twap": 60, "fee_rate": 0.07, "up_payout": 1.0}])
+    res = backtest(prints, spot, theta=-1.0, latency=0)  # buy everything
+    expected = 10 * 1.0 - 4.0 - 0.07 * 0.4 * 0.6 * 10
+    assert res["pnl"] == pytest.approx(expected)

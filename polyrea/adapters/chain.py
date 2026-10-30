@@ -124,7 +124,7 @@ class PolygonChain:
         self.http = http or shared_client()
         self.rpcs = rpcs
 
-    def receipts(self, tx_hashes: list[str], batch: int = 20) -> tuple[dict[str, dict[str, Any] | None], list[Source]]:
+    def receipts(self, tx_hashes: list[str], batch: int = 4) -> tuple[dict[str, dict[str, Any] | None], list[Source]]:
         """Fetch receipts with JSON-RPC batches; receipts are immutable (cached forever)."""
         out: dict[str, dict[str, Any] | None] = {}
         sources: list[Source] = []
@@ -138,7 +138,7 @@ class PolygonChain:
             result = None
             for rpc in self.rpcs:
                 try:
-                    result, src = self.http.post_json(rpc, body, adapter="polygon.rpc.receipts", max_age=None)
+                    result, src = self.http.post_json(rpc, body, adapter="polygon.rpc.receipts", max_age=None, max_retries=2)
                 except HttpError:
                     continue
                 if isinstance(result, list) and all(isinstance(r, dict) and r.get("result") for r in result):
@@ -163,6 +163,7 @@ class PolygonChain:
                     {"jsonrpc": "2.0", "id": 1, "method": "eth_getTransactionReceipt", "params": [tx]},
                     adapter="polygon.rpc.receipts",
                     max_age=None,
+                    max_retries=2,
                 )
             except HttpError:
                 continue

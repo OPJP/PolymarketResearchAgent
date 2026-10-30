@@ -66,3 +66,19 @@ def test_http_cache_roundtrip(tmp_path, monkeypatch):
     assert client.cache.get("k", None)[1] == b'{"a": 1}'
     assert client.cache.get("k", -1) is None  # expired
     assert HttpClient.build_url("https://h/p", {"a": 1, "b": None}) == "https://h/p?a=1"
+
+
+def test_error_bodies_are_never_served_from_cache(tmp_path):
+    import hashlib
+
+    client = HttpClient(cache_dir=tmp_path, offline=True)
+    url = "https://api.kraken.com/0/public/Trades?pair=XBTUSD"
+    key = hashlib.sha256(f"GET {url} ".encode()).hexdigest()
+    client.cache.put(key, url, 200, b'{"error": ["EGeneral:Too many requests"]}')
+    ok = lambda d: not d.get("error")  # noqa: E731
+    import pytest
+
+    with pytest.raises(Exception):  # offline + rejected cache -> must not return the error body
+        client.get_json("https://api.kraken.com/0/public/Trades", {"pair": "XBTUSD"}, adapter="k", max_age=None, cache_if=ok)
+    data, _ = client.get_json("https://api.kraken.com/0/public/Trades", {"pair": "XBTUSD"}, adapter="k", max_age=None)
+    assert data["error"]  # without a validator the raw cached body is returned

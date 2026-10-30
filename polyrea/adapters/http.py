@@ -18,7 +18,7 @@ import threading
 import time
 import zlib
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 from urllib.parse import urlencode, urlsplit
 
 import httpx
@@ -36,7 +36,7 @@ DEFAULT_RATES = {
     "polygon.drpc.org": 4.0,
     "polygon-bor-rpc.publicnode.com": 4.0,
     "api.exchange.coinbase.com": 3.0,
-    "api.kraken.com": 1.0,
+    "api.kraken.com": 0.6,
     "www.okx.com": 5.0,
 }
 
@@ -143,9 +143,16 @@ class HttpClient:
         adapter: str,
         max_age: float | None = 3600.0,
         allow_status: tuple[int, ...] = (),
+        cache_if: Callable[[Any], bool] | None = None,
     ) -> tuple[Any, Source]:
+        """GET JSON. ``cache_if`` rejects 200 bodies that are really errors.
+
+        A rejected body is neither cached nor returned; it is retried like a
+        throttled response, because APIs such as Kraken report rate limits in a
+        200 body.
+        """
         url = self.build_url(base, params)
-        return self._request("GET", url, None, adapter=adapter, max_age=max_age, allow_status=allow_status)
+        return self._request("GET", url, None, adapter=adapter, max_age=max_age, allow_status=allow_status, cache_if=cache_if)
 
     def post_json(
         self,
@@ -154,8 +161,9 @@ class HttpClient:
         *,
         adapter: str,
         max_age: float | None = None,
+        max_retries: int | None = None,
     ) -> tuple[Any, Source]:
-        return self._request("POST", url, body, adapter=adapter, max_age=max_age, allow_status=())
+        return self._request("POST", url, body, adapter=adapter, max_age=max_age, allow_status=(), max_retries=max_retries)
 
     def _request(
         self,
@@ -166,10 +174,14 @@ class HttpClient:
         adapter: str,
         max_age: float | None,
         allow_status: tuple[int, ...],
+        max_retries: int | None = None,
+        cache_if: Callable[[Any], bool] | None = None,
     ) -> tuple[Any, Source]:
         payload = json.dumps(body, sort_keys=True) if body is not None else ""
         key = hashlib.sha256(f"{method} {url} {payload}".encode()).hexdigest()
         hit = self.cache.get(key, max_age)
+        if hit is not None and cache_if is not None and not cache_if(json.loads(hit[1])):
+            hit = None  # a previously cached error body is never served
         if hit is not None:
             fetched_at, raw = hit
             return json.loads(raw), Source(
@@ -184,7 +196,8 @@ class HttpClient:
         host = urlsplit(url).hostname or ""
         limiter = self._limiter(host)
         last_exc: Exception | None = None
-        for attempt in range(self.max_retries + 1):
+        retries = self.max_retries if max_retries is None else max_retries
+        for attempt in range(retries + 1):
             limiter.wait()
             try:
                 if method == "GET":
@@ -198,6 +211,11 @@ class HttpClient:
             if resp.status_code == 200 or resp.status_code in allow_status:
                 raw = resp.content
                 data = json.loads(raw) if raw else None
+                if resp.status_code == 200 and cache_if is not None and not cache_if(data):
+                    last_exc = HttpError(200, url, raw[:300].decode(errors="replace"))
+                    if attempt < retries:
+                        time.sleep(min(60.0, 2.0 * 2**attempt + random.random()))
+                    continue
                 if resp.status_code == 200:
                     self.cache.put(key, url, resp.status_code, raw)
                 return data, Source(
@@ -210,7 +228,8 @@ class HttpClient:
             if resp.status_code in (429, 500, 502, 503, 504, 520, 522, 524):
                 retry_after = resp.headers.get("retry-after")
                 wait = float(retry_after) if retry_after and retry_after.isdigit() else 1.5 * 2**attempt
-                time.sleep(min(90.0, wait + random.random()))
+                if attempt < retries:
+                    time.sleep(min(90.0, wait + random.random()))
                 last_exc = HttpError(resp.status_code, url, resp.text)
                 continue
             raise HttpError(resp.status_code, url, resp.text)
