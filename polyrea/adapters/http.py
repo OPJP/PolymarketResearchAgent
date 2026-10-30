@@ -68,7 +68,7 @@ class ResponseCache:
     def __init__(self, path: Path):
         path.parent.mkdir(parents=True, exist_ok=True)
         self._lock = threading.Lock()
-        self._db = sqlite3.connect(str(path), check_same_thread=False)
+        self._db = sqlite3.connect(str(path), check_same_thread=False, timeout=120)
         self._db.execute("PRAGMA journal_mode=WAL")
         self._db.execute(
             "CREATE TABLE IF NOT EXISTS responses (key TEXT PRIMARY KEY, url TEXT, "
