@@ -96,6 +96,12 @@ are the wallet's.
 * Maker rules rest bids and are filled only by later taker prints that trade
   **through** the bid (a taker sell below it, or a complementary taker buy of
   the other outcome above `1 - bid`). Rebates are excluded.
+* Where no public event feed exists (esports, tennis), the maker
+  replicability study backtests a slow two-sided maker whose fair value is
+  the last public print known `latency` seconds late, with the same
+  trade-through fills, on the wallet's own markets (fit/test split by market
+  start time). It answers whether the market-making economics survive for a
+  replicator without the wallet's speed or data.
 * Settlement uses the resolved payout, which decision code never sees.
 * Significance: HAC t-test and block bootstrap over per-window or per-game
   PnL. Pass: p < 0.05 on TEST.
@@ -128,9 +134,12 @@ are the wallet's.
   replicator would not hold (Polymarket's taker rebate tiers run from 0% to 50%
   of fees by 30-day weighted volume).
 * **Conditions persist**: the wallet's last 30 days are significant on their
-  own, mean PnL has not significantly declined vs. earlier, there is no
-  significant negative trend or CUSUM break, and the policy the strategy relies
-  on (fees, rebates, rewards, market listings, taker delay) is still in force.
+  own (HAC one-sided p < 0.05), mean PnL has not significantly declined vs.
+  earlier days (p > 0.05), there is no significant negative trend (p > 0.05),
+  and the policy the strategy relies on (fees, rebates, rewards, market
+  listings, taker delay) is still in force. A CUSUM break is reported but only
+  counts against the wallet when the break is a decline. Results:
+  `research/stage_a/persistence_a1_survivors.json`.
 
 ## Changes after first run
 

@@ -147,7 +147,8 @@ def load_games(wallet: str, days: int, as_of: int | None, max_games: int, seed: 
     return {"games": out, "markets": markets, "window": win}
 
 
-def game_prints(entry: dict[str, Any], markets: dict[str, dict[str, Any]], wallet: str, pm: PolymarketData) -> pd.DataFrame:
+def game_prints(entry: dict[str, Any], markets: dict[str, dict[str, Any]], wallet: str, pm: PolymarketData, role: str = "taker") -> pd.DataFrame:
+    """BUY fills in the game's markets: taker prints (role="taker") or passive maker fills (role="maker")."""
     game: Game = entry["game"]
     end = game.plays[-1].ts + 600
     rows = []
@@ -157,6 +158,20 @@ def game_prints(entry: dict[str, Any], markets: dict[str, dict[str, Any]], walle
         outcomes = json.loads(m.get("outcomes") or "[]")
         res = resolution_info(m)
         tape, _, _ = pm.market_trades(cid, start=entry["start"], end=end, taker_only=True)
+        if role == "maker":
+            full, _, _ = pm.market_trades(cid, start=entry["start"], end=end, taker_only=False)
+            keys: dict[tuple, int] = {}
+            for r in tape:
+                k = (r.get("transactionHash"), (r.get("proxyWallet") or "").lower(), str(r.get("asset")), r.get("side"))
+                keys[k] = keys.get(k, 0) + 1
+            passive = []
+            for r in full:
+                k = (r.get("transactionHash"), (r.get("proxyWallet") or "").lower(), str(r.get("asset")), r.get("side"))
+                if keys.get(k, 0) > 0:
+                    keys[k] -= 1
+                    continue
+                passive.append(r)
+            tape = passive
         for r in tape:
             if r.get("side") != "BUY" or str(r.get("asset")) not in tokens:
                 continue
@@ -188,12 +203,16 @@ def run_sports_study(
     seed: int = 11,
     n_perm: int = 200,
     out_dir: Path | None = None,
+    role: str = "taker",
 ) -> Evidence:
+    """``role="taker"`` tests REACT on taker buys; ``role="maker"`` measures the
+    wallet's passive fills around plays (quote pulling vs. being picked off) and
+    what stale quotes filled within D seconds of a play earn."""
     pm = PolymarketData()
     loaded = load_games(wallet, days, as_of, max_games, seed, pm)
     games, markets = loaded["games"], loaded["markets"]
     with ThreadPoolExecutor(6) as ex:
-        frames = list(ex.map(lambda e: game_prints(e, markets, wallet, pm), games))
+        frames = list(ex.map(lambda e: game_prints(e, markets, wallet, pm, role), games))
     events = {e["event_slug"]: scoring_events(e["game"]) for e in games}
     split = int(np.median([e["start"] for e in games])) if games else 0
     fit_slugs = [e["event_slug"] for e in games if e["start"] < split]
@@ -260,9 +279,10 @@ def run_sports_study(
     for extra in (5, 10, 20, 30, 60):
         degraded[str(D + extra)] = {k: v for k, v in _backtest(annotated(test_slugs, D + extra), W).items() if k in ("trades", "pnl", "return_on_traded", "per_game_p")}
     replay = _replay(test_a)
+    stale = _stale_quote_pnl(annotated(fit_slugs + test_slugs, 0)) if role == "maker" else None
     ev_out = Evidence(
         tool="sports_study",
-        subject={"kind": "wallet", "wallet": wallet.lower(), "days": days},
+        subject={"kind": "wallet", "wallet": wallet.lower(), "days": days, "role": role},
         observed={
             "games_matched": len(games),
             "fit_games": len(fit_slugs),
@@ -286,6 +306,7 @@ def run_sports_study(
             "backtest_test_games": bt,
             "latency_degradation": degraded,
             "wallet_replay_test_games": replay,
+            "stale_quote_pnl_by_seconds_after_play": stale,
         },
         coverage=Coverage("partial", f"{len(games)} sampled games matched to ESPN"),
         limitations=[
@@ -298,7 +319,7 @@ def run_sports_study(
     if out_dir is not None:
         d = out_dir / wallet.lower()
         d.mkdir(parents=True, exist_ok=True)
-        (d / "sports_study.json").write_text(json.dumps(ev_out.to_dict(), indent=1))
+        (d / f"sports_study_{role}.json").write_text(json.dumps(ev_out.to_dict(), indent=1))
     return ev_out
 
 
@@ -337,3 +358,32 @@ def _replay(a: pd.DataFrame) -> dict[str, Any]:
     per_game = w.groupby("event_slug")["pnl"].sum()
     t = hac_t_test(per_game.to_numpy())
     return {"trades": int(len(w)), "usd_traded": float(usd.sum()), "pnl": float(w["pnl"].sum()), "return_on_traded": float(w["pnl"].sum() / usd.sum()), "per_game_p": t.p_value}
+
+
+def _stale_quote_pnl(a: pd.DataFrame) -> dict[str, Any]:
+    """Return per $ of passive buys by seconds since the last scoring play.
+
+    A maker whose information arrives D seconds late cannot cancel before D,
+    so passive fills in [0, D) after a play are the stale quotes it would be
+    left holding. Reported for all makers and for the wallet.
+    """
+    if a.empty:
+        return {}
+    a = a[a["payout"].notna()].copy()
+    a["usd"] = a["size"] * a["price"]
+    a["pnl"] = a["size"] * a["payout"] - a["usd"]
+    bins = [(0, 5), (5, 10), (10, 30), (30, 60), (60, 300), (300, 10**9)]
+    out = {}
+    for who, g in (("all_makers", a), ("wallet", a[a["is_wallet"]])):
+        rows = {}
+        for lo, hi in bins:
+            b = g[(g["since"] >= lo) & (g["since"] < hi)]
+            rows[f"{lo}-{hi if hi < 10**9 else 'inf'}s"] = {"fills": int(len(b)), "usd": float(b["usd"].sum()), "return": float(b["pnl"].sum() / b["usd"].sum()) if b["usd"].sum() else None}
+        out[who] = rows
+    w = a[a["is_wallet"]]
+    o = a[~a["is_wallet"]]
+    out["wallet_share_of_passive_fills_0_10s_vs_baseline"] = {
+        "wallet_0_10s": float(((w["since"] >= 0) & (w["since"] < 10)).mean()) if len(w) else None,
+        "others_0_10s": float(((o["since"] >= 0) & (o["since"] < 10)).mean()) if len(o) else None,
+    }
+    return out

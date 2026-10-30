@@ -1,0 +1,371 @@
+{
+ "tool": "sports_study",
+ "subject": {
+  "kind": "wallet",
+  "wallet": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+  "days": 30,
+  "role": "maker"
+ },
+ "observed": {
+  "games_matched": 54,
+  "fit_games": 27,
+  "test_games": 27,
+  "leagues": {
+   "cfb": 24,
+   "nhl": 13,
+   "nfl": 8,
+   "wnba": 3,
+   "mlb": 3,
+   "nba": 3
+  },
+  "taker_buy_prints": 120328,
+  "wallet_prints": 2900
+ },
+ "derived": {
+  "fit_scan_top": [
+   {
+    "delay": 60,
+    "window_s": 120,
+    "wallet_share_reactive": 0.22056384742951907,
+    "others_share_reactive": 0.18899505766062602,
+    "wallet_direction_agree": 0.5534351145038168,
+    "wallet_n_reactive": 262,
+    "others_direction_agree": 0.48130675787239063,
+    "others_n_reactive": 8479,
+    "excess": 0.031568789768893046
+   },
+   {
+    "delay": 20,
+    "window_s": 120,
+    "wallet_share_reactive": 0.23880597014925373,
+    "others_share_reactive": 0.20773201537616695,
+    "wallet_direction_agree": 0.5087719298245614,
+    "wallet_n_reactive": 285,
+    "others_direction_agree": 0.46309943394211256,
+    "others_n_reactive": 9363,
+    "excess": 0.031073954773086776
+   },
+   {
+    "delay": 30,
+    "window_s": 120,
+    "wallet_share_reactive": 0.2296849087893864,
+    "others_share_reactive": 0.20382207578253705,
+    "wallet_direction_agree": 0.5238095238095238,
+    "wallet_n_reactive": 273,
+    "others_direction_agree": 0.4648148148148148,
+    "others_n_reactive": 9180,
+    "excess": 0.025862833006849356
+   },
+   {
+    "delay": 10,
+    "window_s": 120,
+    "wallet_share_reactive": 0.24378109452736318,
+    "others_share_reactive": 0.22464579901153212,
+    "wallet_direction_agree": 0.5017301038062284,
+    "wallet_n_reactive": 289,
+    "others_direction_agree": 0.4564680304377903,
+    "others_n_reactive": 10119,
+    "excess": 0.01913529551583107
+   },
+   {
+    "delay": 60,
+    "window_s": 60,
+    "wallet_share_reactive": 0.148424543946932,
+    "others_share_reactive": 0.13087314662273475,
+    "wallet_direction_agree": 0.5738636363636364,
+    "wallet_n_reactive": 176,
+    "others_direction_agree": 0.4842842500854117,
+    "others_n_reactive": 5854,
+    "excess": 0.01755139732419725
+   },
+   {
+    "delay": 20,
+    "window_s": 60,
+    "wallet_share_reactive": 0.1583747927031509,
+    "others_share_reactive": 0.14392092257001649,
+    "wallet_direction_agree": 0.46842105263157896,
+    "wallet_n_reactive": 190,
+    "others_direction_agree": 0.4661003861003861,
+    "others_n_reactive": 6475,
+    "excess": 0.014453870133134428
+   },
+   {
+    "delay": 30,
+    "window_s": 60,
+    "wallet_share_reactive": 0.15422885572139303,
+    "others_share_reactive": 0.139945085118067,
+    "wallet_direction_agree": 0.483695652173913,
+    "wallet_n_reactive": 184,
+    "others_direction_agree": 0.4538669207559155,
+    "others_n_reactive": 6297,
+    "excess": 0.01428377060332603
+   },
+   {
+    "delay": 30,
+    "window_s": 30,
+    "wallet_share_reactive": 0.09701492537313433,
+    "others_share_reactive": 0.08742449203734212,
+    "wallet_direction_agree": 0.48695652173913045,
+    "wallet_n_reactive": 115,
+    "others_direction_agree": 0.44650571791613725,
+    "others_n_reactive": 3935,
+    "excess": 0.009590433335792209
+   }
+  ],
+  "chosen_delay_s": 60,
+  "chosen_window_s": 120,
+  "test_reaction": {
+   "window_s": 120,
+   "wallet_share_reactive": 0.20070838252656434,
+   "others_share_reactive": 0.327594119855917,
+   "wallet_direction_agree": 0.49698795180722893,
+   "wallet_n_reactive": 332,
+   "others_direction_agree": 0.5117634545841311,
+   "others_n_reactive": 23505
+  },
+  "test_excess_reactive_share": -0.12688573732935268,
+  "excess_null_p95": -0.12507512744975968,
+  "excess_perm_p": 0.06965174129353234,
+  "direction_binom_p_vs_half": 0.5653729479998186,
+  "direction_null_p95": 0.5963838913380197,
+  "direction_perm_p": 0.6467661691542289,
+  "wallet_lag_histogram_vs_espn_wallclock": {
+   "bin_edges_s": [
+    -120,
+    -115,
+    -110,
+    -105,
+    -100,
+    -95,
+    -90,
+    -85,
+    -80,
+    -75,
+    -70,
+    -65,
+    -60,
+    -55,
+    -50,
+    -45,
+    -40,
+    -35,
+    -30,
+    -25,
+    -20,
+    -15,
+    -10,
+    -5,
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    50,
+    55,
+    60,
+    65,
+    70,
+    75,
+    80,
+    85,
+    90,
+    95,
+    100,
+    105,
+    110,
+    115,
+    120
+   ],
+   "counts": [
+    25,
+    25,
+    44,
+    30,
+    21,
+    28,
+    28,
+    21,
+    26,
+    29,
+    20,
+    41,
+    32,
+    28,
+    30,
+    25,
+    25,
+    20,
+    29,
+    30,
+    29,
+    30,
+    32,
+    36,
+    40,
+    38,
+    61,
+    29,
+    45,
+    34,
+    43,
+    32,
+    30,
+    32,
+    62,
+    43,
+    34,
+    53,
+    26,
+    56,
+    36,
+    39,
+    39,
+    58,
+    80,
+    51,
+    47,
+    108
+   ]
+  },
+  "backtest_test_games": {
+   "trades": 12194,
+   "games": 27,
+   "usd_traded": 338598.8379758415,
+   "pnl": -1812.4016911412155,
+   "return_on_traded": -0.0053526518341758976,
+   "per_game_mean": -67.12598856078586,
+   "per_game_t": -0.23689791019944925,
+   "per_game_p": 0.5927037047134021,
+   "per_game_bootstrap_p": 0.6286856571714143
+  },
+  "latency_degradation": {
+   "65": {
+    "trades": 12098,
+    "pnl": 4269.734221863066,
+    "return_on_traded": 0.012729657101807347,
+    "per_game_p": 0.2948278549332319
+   },
+   "70": {
+    "trades": 12236,
+    "pnl": 4560.808658493823,
+    "return_on_traded": 0.013365562294813355,
+    "per_game_p": 0.2907109413121453
+   },
+   "80": {
+    "trades": 11878,
+    "pnl": 5321.243178591947,
+    "return_on_traded": 0.016109270713548184,
+    "per_game_p": 0.24340261649166647
+   },
+   "90": {
+    "trades": 11535,
+    "pnl": -729.370260124293,
+    "return_on_traded": -0.002257672298194515,
+    "per_game_p": 0.5348305773106117
+   },
+   "120": {
+    "trades": 10623,
+    "pnl": -7880.2811773455105,
+    "return_on_traded": -0.027143576406977548,
+    "per_game_p": 0.730903387053319
+   }
+  },
+  "wallet_replay_test_games": {
+   "trades": 1694,
+   "usd_traded": 598167.8301292103,
+   "pnl": -54647.6885932147,
+   "return_on_traded": -0.09135845466883474,
+   "per_game_p": 0.8782965163230095
+  },
+  "stale_quote_pnl_by_seconds_after_play": {
+   "all_makers": {
+    "0-5s": {
+     "fills": 5524,
+     "usd": 632008.9084956751,
+     "return": -0.2561391222949556
+    },
+    "5-10s": {
+     "fills": 5943,
+     "usd": 496817.08880855155,
+     "return": -0.29228356036985836
+    },
+    "10-30s": {
+     "fills": 10616,
+     "usd": 1668288.5021459942,
+     "return": -0.012742203898575893
+    },
+    "30-60s": {
+     "fills": 9392,
+     "usd": 1427567.38953888,
+     "return": 0.054358319326827526
+    },
+    "60-300s": {
+     "fills": 23486,
+     "usd": 4688696.8390432745,
+     "return": -0.08888869473768685
+    },
+    "300-infs": {
+     "fills": 57039,
+     "usd": 10150069.016074043,
+     "return": -0.05171450507959902
+    }
+   },
+   "wallet": {
+    "0-5s": {
+     "fills": 39,
+     "usd": 8991.739742000751,
+     "return": 0.009368033930717995
+    },
+    "5-10s": {
+     "fills": 35,
+     "usd": 5376.22199798015,
+     "return": 0.3081100450543496
+    },
+    "10-30s": {
+     "fills": 126,
+     "usd": 35922.91239205081,
+     "return": -0.0066122232089223295
+    },
+    "30-60s": {
+     "fills": 159,
+     "usd": 23563.981750032384,
+     "return": 0.07295021754823978
+    },
+    "60-300s": {
+     "fills": 662,
+     "usd": 209315.68247994303,
+     "return": -0.026527498724206094
+    },
+    "300-infs": {
+     "fills": 1689,
+     "usd": 655232.3751435615,
+     "return": -0.00654640755750463
+    }
+   },
+   "wallet_share_of_passive_fills_0_10s_vs_baseline": {
+    "wallet_0_10s": 0.025517241379310347,
+    "others_0_10s": 0.09702115338760772
+   }
+  }
+ },
+ "inferred": {},
+ "sources": [],
+ "coverage": {
+  "status": "partial",
+  "detail": "54 sampled games matched to ESPN"
+ },
+ "limitations": [
+  "ESPN wall clock is the play time, not the time ESPN's API published it; the delay D is fitted, not observed.",
+  "Backtest fills assume the observed taker liquidity at each print was available to us (no queue competition).",
+  "Only scoring plays are modelled as events; turnovers, injuries, and fouls also move prices.",
+  "Games are a deterministic random sample of the wallet's in-play games in the window."
+ ],
+ "unknowns": [],
+ "next_probes": [],
+ "generated_at": "2026-10-30T23:07:20+00:00"
+}

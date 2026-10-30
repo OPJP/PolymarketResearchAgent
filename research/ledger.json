@@ -1,5 +1,5 @@
 {
- "generated_at": 1793401178,
+ "generated_at": 1793401673,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -73,11 +73,11 @@
   },
   {
    "label": "High % profit (ROC)",
-   "count": 0
+   "count": 2
   },
   {
    "label": "Verified on-chain",
-   "count": 0
+   "count": 2
   },
   {
    "label": "Strategy match",
@@ -7939,11 +7939,81 @@
     1558459.127053
    ],
    "a1_pass": true,
-   "stage": "A1",
-   "verdict": "in_progress",
+   "stage": "C",
+   "verdict": "reject",
    "reasons": [
-    "passed stage A1; reverse engineering in progress"
-   ]
+    "The reverse-engineered reaction rule matches only the ~30% of fills that follow scoring plays.",
+    "The rule is not significantly profitable on 86 held-out games (p=0.21), even with zero added delay.",
+    "Speed is the edge: trades land within 0-10 s of the play; 5 s slower leaves +1.0% (p=0.41).",
+    "The wallet's own PnL has a significant negative trend (p=0.004) and its last 30 days are not significant."
+   ],
+   "archetype": "In-play sports taker reacting to scoring plays",
+   "deep_dive": {
+    "wallet": "0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705",
+    "name": "justaluckydude",
+    "stage": "C",
+    "verdict": "reject",
+    "archetype": "In-play sports taker reacting to scoring plays",
+    "headline": "Buys the side a scoring play just helped, within 0-10 seconds of the play, across NFL, college football, NBA, MLB and NHL moneylines, spreads and totals. The reaction is real and matches the wallet, but a public-data version is not significantly profitable, a 5-second delay removes most of the edge, and the wallet's own edge is decaying.",
+    "mechanism": "All 200 sampled fills are taker fills (on-chain) and 99.6% happen after game start. Against ESPN play-by-play wall-clock times, the wallet's fills spike from a baseline of ~300 per 5-second bin to 1,274 in the first 5 seconds after a scoring play and 797 in the next 5, with no rise before plays. Within 20 seconds after a play, 95% of its buys favour the scoring side (other takers: 62%). These reactive trades are about 30% of its fills; the rest are not explained by scoring plays.",
+    "criteria": {
+     "significance": {
+      "status": "pass",
+      "detail": "pre-selection 156d: HAC t=4.8, Holm p=8.1e-04, bootstrap p=2.5e-04; deflated Sharpe 0.975"
+     },
+     "monthly_50k": {
+      "status": "pass",
+      "detail": "last 30d $138,804; median month $207,103"
+     },
+     "consistency": {
+      "status": "pass",
+      "detail": "annualized Sharpe 7.2; positive weeks 81%; positive months 100%"
+     },
+     "roc": {
+      "status": "pass",
+      "detail": "peak capital at risk $507k; 30-day PnL $139k; 27% per month"
+     },
+     "onchain": {
+      "status": "pass",
+      "detail": "200/200 sampled fills confirmed; 0% maker (all taker)"
+     },
+     "match": {
+      "status": "fail",
+      "detail": "partial: direction after scoring plays 95% vs 62% for other takers, permutation p=0.005 (86 held-out games), but this explains only ~30% of fills"
+     },
+     "backtest": {
+      "status": "fail",
+      "detail": "REACT(D=0s, W=20s) on 86 held-out games: +3.8% on $1.26M traded, per-game p=0.21; wallet's own fills on the same games +3.2%, p=0.25"
+     },
+     "replicable": {
+      "status": "fail",
+      "detail": "reacts 0-10 s after the play's wall clock, faster than public feeds or broadcast; +5 s delay: +1.0%, p=0.41"
+     },
+     "persistence": {
+      "status": "fail",
+      "detail": "last 30 days not significant (p=0.13); daily mean fell from $9.1k to $4.6k; negative trend p=0.004"
+     }
+    },
+    "key_numbers": {
+     "30-day PnL": "$138,804",
+     "Monthly ROC": "27%",
+     "Fills within 0-5 s of a scoring play": "4.2x baseline",
+     "Direction agreement after plays": "95% (others 62%)",
+     "Held-out rule return": "+3.8% (p=0.21)",
+     "Recent-window p": "0.13"
+    },
+    "reasons": [
+     "The reverse-engineered reaction rule matches only the ~30% of fills that follow scoring plays.",
+     "The rule is not significantly profitable on 86 held-out games (p=0.21), even with zero added delay.",
+     "Speed is the edge: trades land within 0-10 s of the play; 5 s slower leaves +1.0% (p=0.41).",
+     "The wallet's own PnL has a significant negative trend (p=0.004) and its last 30 days are not significant."
+    ],
+    "evidence": [
+     "research/wallets/0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705/profile.json",
+     "research/wallets/0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705/sports_study.json",
+     "research/stage_a/persistence_a1_survivors.json"
+    ]
+   }
   },
   {
    "wallet": "0x731a241767938bb23d1b2fac4c9cd2f3cea9033f",
@@ -14696,11 +14766,78 @@
     1078357.7421980002
    ],
    "a1_pass": true,
-   "stage": "A1",
-   "verdict": "in_progress",
+   "stage": "C",
+   "verdict": "reject",
    "reasons": [
-    "passed stage A1; reverse engineering in progress"
-   ]
+    "No reverse-engineered rule matches its decisions at the required significance; the scoring-play reaction is weak (59% vs 55%).",
+    "Most of its volume trades sports without a public timestamped event feed, so its signal cannot be reconstructed from public data.",
+    "The best public-data proxy is not significantly profitable on held-out games (p=0.25)."
+   ],
+   "archetype": "In-play multi-sport taker (tennis, NBA, esports)",
+   "deep_dive": {
+    "wallet": "0xdbdd45150249e229eb4ca8aa48a30dca21faa5de",
+    "name": "0xdbdd45150249e229eB4c",
+    "stage": "C",
+    "verdict": "reject",
+    "archetype": "In-play multi-sport taker (tennis, NBA, esports)",
+    "headline": "Takes liquidity during live games across ITF/ATP tennis, NBA, CS2, Dota 2 and college football. Its profit is real and recent, but no public-data rule reproduces its decisions: on ESPN-covered games it barely reacts to scoring plays, and most of its volume is in sports with no public timestamped event feed.",
+    "mechanism": "All 200 sampled fills are taker fills (on-chain); 99.5% occur after game start; median fill $11; peak capital at risk $33k. Bought shares win more often than their price at 0.65-0.85 (e.g. paid 0.746, won 80.7%). On 128 ESPN-covered games there is no fill spike right after scoring plays (only a small bump 10-15 s after), and direction agreement after plays is 59% vs 55% for other takers.",
+    "criteria": {
+     "significance": {
+      "status": "pass",
+      "detail": "pre-selection 321d: HAC t=5.1, Holm p=1.5e-04, bootstrap p=2.5e-04; deflated Sharpe 0.999"
+     },
+     "monthly_50k": {
+      "status": "pass",
+      "detail": "last 30d $61,712; median month $102,447"
+     },
+     "consistency": {
+      "status": "pass",
+      "detail": "annualized Sharpe 6.4; positive weeks 76%; positive months 100%"
+     },
+     "roc": {
+      "status": "pass",
+      "detail": "peak capital at risk $33.4k; 30-day PnL $61.7k; 185% per month"
+     },
+     "onchain": {
+      "status": "pass",
+      "detail": "200/200 sampled fills confirmed; 0% maker"
+     },
+     "match": {
+      "status": "fail",
+      "detail": "ESPN-covered games: direction 59% vs 55% for other takers (perm p=0.005, weak), no excess reaction (perm p=0.30); ~70% of volume is in tennis/esports/other with no public event feed to test against"
+     },
+     "backtest": {
+      "status": "fail",
+      "detail": "REACT(D=10s, W=120s) on 66 held-out games: +4.6%, per-game p=0.25; wallet's own fills on those games +8.2%, p=0.19"
+     },
+     "replicable": {
+      "status": "fail",
+      "detail": "decision inputs unknown; the testable public-data proxy is not significantly profitable"
+     },
+     "persistence": {
+      "status": "pass",
+      "detail": "last 30 days significant (p=0.004); no significant decline (p=0.12) or trend (p=0.81)"
+     }
+    },
+    "key_numbers": {
+     "30-day PnL": "$61,712",
+     "Monthly ROC": "185%",
+     "Maker fill share": "0%",
+     "Taker rebate tier": "~18% (Gold)",
+     "Held-out rule return": "+4.6% (p=0.25)"
+    },
+    "reasons": [
+     "No reverse-engineered rule matches its decisions at the required significance; the scoring-play reaction is weak (59% vs 55%).",
+     "Most of its volume trades sports without a public timestamped event feed, so its signal cannot be reconstructed from public data.",
+     "The best public-data proxy is not significantly profitable on held-out games (p=0.25)."
+    ],
+    "evidence": [
+     "research/wallets/0xdbdd45150249e229eb4ca8aa48a30dca21faa5de/profile.json",
+     "research/wallets/0xdbdd45150249e229eb4ca8aa48a30dca21faa5de/sports_study_taker.json",
+     "research/stage_a/persistence_a1_survivors.json"
+    ]
+   }
   },
   {
    "wallet": "0xde7be6d489bce070a959e0cb813128ae659b5f4b",

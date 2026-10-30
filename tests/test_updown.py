@@ -145,3 +145,21 @@ def test_maker_backtest_respects_size_cap_and_queue_share():
     half = maker_backtest(flow, [w], SpotIndex(s), 0.05, 1, size_shares=20, queue_share=0.1)
     assert full["pnl"] == pytest.approx(-20 * 0.45)
     assert half["pnl"] == pytest.approx(-10 * 0.45)
+
+
+def test_tape_maker_backtest_uses_only_stale_tape_price():
+    from polyrea.analysis.tape_maker import tape_maker_backtest
+
+    flow = pd.DataFrame(
+        [
+            {"condition_id": "m", "ts": 100, "outcome": 0, "side": "BUY", "price": 0.50, "size": 10.0},
+            {"condition_id": "m", "ts": 115, "outcome": 0, "side": "SELL", "price": 0.30, "size": 50.0},  # crash print
+            {"condition_id": "m", "ts": 116, "outcome": 0, "side": "SELL", "price": 0.29, "size": 50.0},
+        ]
+    )
+    # latency 0: at t0=110 the last print is 0.50 -> bid 0.48 on outcome 0 is traded through at 115 -> picked off
+    r = tape_maker_backtest(flow, {"m": 0.0}, delta=0.02, latency=0, requote_s=10, active={"m": (110, 120)})
+    assert r["fills"] == 1 and r["pnl"] == pytest.approx(-20 * 0.48)
+    # the 0.30 print at 115 must not inform the 110 quote (no look-ahead)
+    r2 = tape_maker_backtest(flow, {"m": 0.0}, delta=0.02, latency=0, requote_s=10, active={"m": (110, 120)}, size_shares=5)
+    assert r2["pnl"] == pytest.approx(-5 * 0.48)
