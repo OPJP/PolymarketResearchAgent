@@ -1,0 +1,37 @@
+{
+  "wallet": "0x3725d52f3c252e8374999cc8617292ea2608ad88",
+  "name": "almach",
+  "stage": "C",
+  "verdict": "reject",
+  "archetype": "Directional maker on crypto Up/Down windows (two-wallet cluster with bosona)",
+  "headline": "bosona's twin: the same market mix, price distribution and maker style, with 6,524 shared transactions. Real and persistent profit with little rebate dependence, but no public-data rule matches its fills and every public-data maker version loses in the same windows.",
+  "mechanism": "92% of sampled fills are maker fills (on-chain, 95% CI 87-95%) across BTC 5m (53%), 15m (30%), hourly and 4h Up/Down windows. Directional residual +$83.5k with a 58% win rate; locked pair spread -$23.0k. Shares bought at 0.35 win 40% of the time.",
+  "criteria": {
+    "roc": {"status": "pass", "detail": "peak capital at risk $5.4k; 30-day PnL $72.2k"},
+    "onchain": {"status": "pass", "detail": "200/200 sampled fills confirmed; 92% maker"},
+    "match": {"status": "fail", "detail": "directional maker: held-out AUC 0.476 (perm p=0.74) on BTC 5m, 0.457 (p=0.79) on BTC 15m; spot-latency taker: AUC 0.50 (p=0.70)"},
+    "backtest": {"status": "fail", "detail": "public-data maker on held-out windows: -17.7% (5m), -23.9% (15m), -14% to -18% with optimistic at-touch fills; almach's own maker fills +10.3% on 15m (p=0.30); the fitted taker rule +7.7% at 0 s (p=0.23) fades to +0.9% at 10 s"},
+    "replicable": {"status": "fail", "detail": "slow makers are adversely selected at every latency tested; the edge needs queue priority and fast cancels"},
+    "persistence": {"status": "pass", "detail": "last 30 days significant (p=0.003), no decline (p=0.30); ~18% taker rebate, at 0% tier ~$70k/month"}
+  },
+  "key_numbers": {
+    "30-day PnL": "$72,204",
+    "Monthly ROC": "1,342% on $5.4k peak capital",
+    "Maker fill share": "92%",
+    "Shared tx with bosona": "6,524",
+    "Public-data maker, held out": "-17.7% (5m), -23.9% (15m)"
+  },
+  "reasons": [
+    "No public-data rule reproduces its fills (held-out AUC at chance on 5m and 15m).",
+    "Every public-data maker version loses significantly in the same windows, even under first-in-queue fills.",
+    "Appears to be the same operator as bosona."
+  ],
+  "evidence": [
+    "research/wallets/0x3725d52f3c252e8374999cc8617292ea2608ad88/profile.json",
+    "research/wallets/0x3725d52f3c252e8374999cc8617292ea2608ad88/updown_maker_study_btc_5m.json",
+    "research/wallets/0x3725d52f3c252e8374999cc8617292ea2608ad88/updown_maker_study_btc_15m.json",
+    "research/wallets/0x3725d52f3c252e8374999cc8617292ea2608ad88/updown_study_btc_5m.json",
+    "research/stage_a/updown_btc5m_maker_at_touch_bound.json",
+    "research/stage_a/persistence_a1_survivors.json"
+  ]
+}

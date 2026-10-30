@@ -546,8 +546,12 @@ def maker_backtest(
     min_secs_to_end: int = 0,
     queue_share: float = 1.0,
     rebate_share_of_fee_equiv: float = 0.0,
+    at_touch: bool = False,
 ) -> dict[str, Any]:
     """PIT backtest of a slow directional maker (vectorized).
+
+    ``at_touch=True`` is the optimistic bound: prints *at* the bid also fill it
+    (as if our order were first in the queue).
 
     Every ``requote_s`` seconds (from window start until ``min_secs_to_end``
     before the end) the strategy computes fair values with spot that is
@@ -586,7 +590,8 @@ def maker_backtest(
             q = np.floor((fair - delta) / tick + 1e-9) * tick
             valid = np.isfinite(fu) & (q >= tick) & (q <= 1 - tick)
             qj = q[j]
-            through = ((is_up == side_up) & sell & (price < qj - 1e-9)) | ((is_up != side_up) & buy & (price > 1 - qj + 1e-9))
+            eps = -1e-9 if at_touch else 1e-9
+            through = ((is_up == side_up) & sell & (price < qj - eps)) | ((is_up != side_up) & buy & (price > 1 - qj + eps))
             avail = np.bincount(j[through], weights=size[through], minlength=len(ticks)) * queue_share
             filled = np.where(valid, np.minimum(size_shares, avail), 0.0)
             idx = np.nonzero(filled > 0)[0]

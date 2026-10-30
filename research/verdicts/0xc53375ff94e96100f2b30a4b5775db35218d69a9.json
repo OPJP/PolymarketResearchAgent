@@ -1,0 +1,35 @@
+{
+  "wallet": "0xc53375ff94e96100f2b30a4b5775db35218d69a9",
+  "name": "dangerously-skip-permissions",
+  "stage": "C",
+  "verdict": "reject",
+  "archetype": "BTC 5-minute Up/Down bot (multi-wallet cluster)",
+  "headline": "The largest of the three wallets running one BTC 5-minute Up/Down bot (with GoodFallen and x-MoneyForWhiskas). Half a million fills a month, steady profit, but no public-data rule matches it, public-data versions lose, its taker buys alone break even, and without the 50% rebate it makes about $50k a month.",
+  "mechanism": "504k fills in 30 days, all BTC 5-minute Up/Down; buys both outcomes in 98% of windows at a median pair cost of 1.004; 35% maker fills (on-chain, 95% CI 29-42%). Shares 4,845 transactions with GoodFallen and 3,229 with x-MoneyForWhiskas, including direct fills against them. 30-day income: gross trading $179.3k, taker fees -$135.3k, taker rebate +$66.5k (49%), maker rebate +$5.8k.",
+  "criteria": {
+    "roc": {"status": "pass", "detail": "peak capital at risk $4.6k; 30-day PnL $116.3k"},
+    "onchain": {"status": "pass", "detail": "200/200 sampled fills confirmed; 35% maker"},
+    "match": {"status": "fail", "detail": "spot-latency taker: held-out AUC 0.565 vs a higher null (perm p=0.99); directional maker: AUC 0.477 (p=1.0)"},
+    "backtest": {"status": "fail", "detail": "public-data taker rule -2.3% (p=0.67), public-data maker -15.6% on 288 held-out windows; its own taker buys -0.2% (p=0.56), maker fills +3.3% (p=0.03)"},
+    "replicable": {"status": "fail", "detail": "edge invisible in 1-second public data; cross-wallet self-trading; at 0% rebate tier ~$49.7k/month"},
+    "persistence": {"status": "pass", "detail": "last 30 days significant (p=2e-9), rising; depends on the Taker Rebate Program"}
+  },
+  "key_numbers": {
+    "30-day PnL": "$116,255",
+    "Fills (30 d)": "503,851",
+    "Taker rebate share of PnL": "57%",
+    "PnL at 0% rebate tier": "~$49,700",
+    "Shared tx with sibling wallets": "8,074"
+  },
+  "reasons": [
+    "No reverse-engineered rule matches its decisions on held-out windows.",
+    "Public-data versions lose; its own taker buys break even before rebates.",
+    "Coordinated multi-wallet operation that trades against itself; depends on the top rebate tier."
+  ],
+  "evidence": [
+    "research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/profile.json",
+    "research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/updown_study_btc_5m.json",
+    "research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/updown_maker_study_btc_5m.json",
+    "research/stage_a/rebate_dependence.json"
+  ]
+}

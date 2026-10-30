@@ -1,0 +1,283 @@
+{
+ "tool": "updown_study",
+ "subject": {
+  "kind": "wallet",
+  "wallet": "0xc53375ff94e96100f2b30a4b5775db35218d69a9",
+  "asset": "btc",
+  "duration": "5m",
+  "as_of": 1793318400
+ },
+ "observed": {
+  "fit_blocks": [
+   [
+    1792159200,
+    1792166400
+   ],
+   [
+    1792166400,
+    1792173600
+   ],
+   [
+    1792180800,
+    1792188000
+   ],
+   [
+    1792202400,
+    1792209600
+   ],
+   [
+    1792252800,
+    1792260000
+   ],
+   [
+    1792310400,
+    1792317600
+   ],
+   [
+    1792411200,
+    1792418400
+   ],
+   [
+    1792447200,
+    1792454400
+   ],
+   [
+    1792476000,
+    1792483200
+   ],
+   [
+    1792576800,
+    1792584000
+   ],
+   [
+    1792605600,
+    1792612800
+   ],
+   [
+    1792648800,
+    1792656000
+   ]
+  ],
+  "test_blocks": [
+   [
+    1792756800,
+    1792764000
+   ],
+   [
+    1792792800,
+    1792800000
+   ],
+   [
+    1792836000,
+    1792843200
+   ],
+   [
+    1792843200,
+    1792850400
+   ],
+   [
+    1792893600,
+    1792900800
+   ],
+   [
+    1792908000,
+    1792915200
+   ],
+   [
+    1792929600,
+    1792936800
+   ],
+   [
+    1792944000,
+    1792951200
+   ],
+   [
+    1793059200,
+    1793066400
+   ],
+   [
+    1793066400,
+    1793073600
+   ],
+   [
+    1793088000,
+    1793095200
+   ],
+   [
+    1793181600,
+    1793188800
+   ]
+  ],
+  "fit_windows": 288,
+  "test_windows": 288,
+  "fit_taker_buy_prints": 362753,
+  "test_taker_buy_prints": 336429,
+  "test_wallet_taker_buys": 12867,
+  "test_windows_with_wallet": 285,
+  "wallet_share_of_taker_buys": 0.038245811151832926,
+  "spot_seconds": 221711
+ },
+ "derived": {
+  "match_test": {
+   "lag_scan_auc_fit": {
+    "-10": 0.5203767738676705,
+    "-5": 0.5201774237719451,
+    "-3": 0.5184858206230435,
+    "-2": 0.5175970359004567,
+    "-1": 0.5160686882952787,
+    "0": 0.5139388882587281,
+    "1": 0.5118880506626267,
+    "2": 0.5084534156370332,
+    "3": 0.5114002669674071,
+    "5": 0.5178763677278376,
+    "10": 0.5287754612099287,
+    "20": 0.5447268310092785
+   },
+   "chosen_latency_s": 20,
+   "theta": 0.065,
+   "fit": {
+    "prints": 362753,
+    "wallet_prints": 12786,
+    "auc": 0.5447268310092785
+   },
+   "test": {
+    "prints": 336429,
+    "wallet_prints": 12867,
+    "auc": 0.5650365733924447,
+    "auc_null_mean": 0.585361965947026,
+    "auc_null_p95": 0.5972609718324305,
+    "auc_perm_p": 0.9850746268656716,
+    "decision": {
+     "theta": 0.065,
+     "tp": 4826,
+     "fp": 80927,
+     "fn": 8041,
+     "tn": 242635,
+     "precision": 0.05627791447529532,
+     "recall": 0.3750680034196005,
+     "mcc": 0.05499088245228211,
+     "base_rate": 0.038245811151832926,
+     "lift": 1.4714791706698633
+    },
+    "mcc_null_p95": 0.06631130489629856,
+    "mcc_perm_p": 0.8109452736318408,
+    "wallet_mean_edge": 0.0029515509378594666,
+    "others_mean_edge": -0.045045922739117256,
+    "share_wallet_prints_with_positive_edge": 0.5047019507266651,
+    "mannwhitney_p": 6.431037228317976e-139
+   },
+   "n_perm": 200
+  },
+  "pit_audit": {
+   "probes": 30,
+   "max_abs_diff_vectorized_vs_pit": 1.8826819103701098e-08,
+   "max_abs_diff_full_vs_truncated_store": 0.0,
+   "passed": true
+  },
+  "backtest_test_period": {
+   "trades": 85753,
+   "windows": 288,
+   "usd_traded": 562852.4538658622,
+   "pnl": -12933.43755756379,
+   "fees": 20863.986046878577,
+   "return_on_traded": -0.022978379979926425,
+   "win_rate": 0.41802619150350423,
+   "per_window_mean": -44.90776929709649,
+   "per_window_hac_t": -0.44373924346986193,
+   "per_window_p": 0.6712172641349349,
+   "per_window_bootstrap_p": 0.688103965344885,
+   "daily_pnl": {
+    "2026-10-23": -8437.080675882891,
+    "2026-10-24": -2530.1910362202143,
+    "2026-10-25": -13005.659894262275,
+    "2026-10-27": 16579.834857854003,
+    "2026-10-28": -5540.340809052414
+   },
+   "daily_sharpe_annual": -4.339035840023916
+  },
+  "backtest_excluding_wallet_prints": {
+   "trades": 80927,
+   "windows": 288,
+   "usd_traded": 519187.6451658694,
+   "pnl": -11333.162221708277,
+   "fees": 19274.701287648248,
+   "return_on_traded": -0.021828643896346134,
+   "win_rate": 0.41806813548012406,
+   "per_window_mean": -39.35125771426485,
+   "per_window_hac_t": -0.41678371810488873,
+   "per_window_p": 0.6614259178988413,
+   "per_window_bootstrap_p": 0.6741086304565145,
+   "daily_pnl": {
+    "2026-10-23": -7384.851532911898,
+    "2026-10-24": -2893.5842519563857,
+    "2026-10-25": -12038.55756231388,
+    "2026-10-27": 15949.774935699974,
+    "2026-10-28": -4965.943810226084
+   },
+   "daily_sharpe_annual": -4.0328420698454295
+  },
+  "latency_degradation": {
+   "21": {
+    "trades": 86032,
+    "pnl": -15298.983785480152,
+    "return_on_traded": -0.027193564783962308,
+    "per_window_p": 0.7017917317066724
+   },
+   "22": {
+    "trades": 86326,
+    "pnl": -16064.608803855253,
+    "return_on_traded": -0.028512591248367004,
+    "per_window_p": 0.7117037849510712
+   },
+   "23": {
+    "trades": 86534,
+    "pnl": -18260.33838647893,
+    "return_on_traded": -0.03244814771822446,
+    "per_window_p": 0.7384020268651244
+   },
+   "25": {
+    "trades": 86746,
+    "pnl": -22203.321193250697,
+    "return_on_traded": -0.03963484435406974,
+    "per_window_p": 0.7848012708942056
+   },
+   "30": {
+    "trades": 87769,
+    "pnl": -23603.622560503944,
+    "return_on_traded": -0.042112996067804276,
+    "per_window_p": 0.8126475959407927
+   }
+  },
+  "wallet_replay_test_period": {
+   "trades": 12867,
+   "usd_traded": 136922.87729999938,
+   "pnl": -244.5731860439762,
+   "return_on_traded": -0.001786211266274473,
+   "per_window_hac_t": -0.1572930098982643,
+   "per_window_p": 0.562437151508793
+  },
+  "wallet_replay_fit_period": {
+   "trades": 12786,
+   "usd_traded": 166363.54357999115,
+   "pnl": -991.3199748725683,
+   "return_on_traded": -0.005958757270615124,
+   "per_window_hac_t": -0.5744529997852345,
+   "per_window_p": 0.7169047389045674
+  }
+ },
+ "inferred": {},
+ "sources": [],
+ "coverage": {
+  "status": "complete",
+  "detail": "0 truncated tapes"
+ },
+ "limitations": [
+  "Spot is Kraken trades; markets resolve on Chainlink's aggregated TWAP, so S0 and the TWAP are proxies.",
+  "Backtest fills assume the observed taker liquidity at each print was available to us; contested liquidity is reported via the excluding-wallet run and latency degradation, not modeled queue competition.",
+  "Polymarket tape timestamps are block times (~2 s), bounding the resolution of the latency estimate.",
+  "Only the wallet's taker buys are modeled; its maker fills are analysed separately in the profile."
+ ],
+ "unknowns": [],
+ "next_probes": [],
+ "generated_at": "2026-10-30T23:27:10+00:00"
+}

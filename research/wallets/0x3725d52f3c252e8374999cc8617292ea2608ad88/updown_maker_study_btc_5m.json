@@ -1,0 +1,181 @@
+{
+ "tool": "updown_maker_study",
+ "subject": {
+  "kind": "wallet",
+  "wallet": "0x3725d52f3c252e8374999cc8617292ea2608ad88",
+  "asset": "btc",
+  "duration": "5m",
+  "as_of": 1793318400
+ },
+ "observed": {
+  "fit_windows": 288,
+  "test_windows": 288,
+  "fit_passive_buys": 764901,
+  "test_passive_buys": 730959,
+  "test_wallet_passive_buys": 769,
+  "wallet_share_of_passive_buys": 0.001052042590624098
+ },
+ "derived": {
+  "match_test": {
+   "lag_scan_auc_fit": {
+    "-10": 0.4514106490973651,
+    "-5": 0.45949733649887553,
+    "-3": 0.4504855737083076,
+    "-2": 0.4414204870939605,
+    "-1": 0.4386838960638074,
+    "0": 0.4361653912442399,
+    "1": 0.4337997700636896,
+    "2": 0.433826926711761,
+    "3": 0.4442458797131403,
+    "5": 0.43225917581608936,
+    "10": 0.42184816602252356,
+    "20": 0.41998912319964693
+   },
+   "chosen_latency_s": 3,
+   "theta": 0.024999999999999994,
+   "fit": {
+    "prints": 764901,
+    "wallet_prints": 644,
+    "auc": 0.4442458797131403
+   },
+   "test": {
+    "prints": 730959,
+    "wallet_prints": 769,
+    "auc": 0.47552073795353794,
+    "auc_null_mean": 0.5045058113190214,
+    "auc_null_p95": 0.58880690728342,
+    "auc_perm_p": 0.736318407960199,
+    "decision": {
+     "theta": 0.024999999999999994,
+     "tp": 313,
+     "fp": 314779,
+     "fn": 456,
+     "tn": 415411,
+     "precision": 0.0009933606692648497,
+     "recall": 0.4070221066319896,
+     "mcc": -0.0015756425164327977,
+     "base_rate": 0.001052042590624098,
+     "lift": 0.9442209641679652
+    },
+    "mcc_null_p95": 0.009236673418194048,
+    "mcc_perm_p": 0.845771144278607,
+    "wallet_mean_edge": -0.0003223653921861189,
+    "others_mean_edge": 0.018247867662643524,
+    "share_wallet_prints_with_positive_edge": 0.5019505851755527,
+    "mannwhitney_p": 0.9906209483851646
+   },
+   "n_perm": 200
+  },
+  "fit_delta_scan": {
+   "0.0": {
+    "fills": 14942,
+    "pnl": -34099.582376700004,
+    "per_window_t": -7.141967821527206,
+    "per_window_p": 0.9999999999962047
+   },
+   "0.01": {
+    "fills": 13895,
+    "pnl": -32162.58030078,
+    "per_window_t": -6.6825437337719515,
+    "per_window_p": 0.9999999999390339
+   },
+   "0.02": {
+    "fills": 12918,
+    "pnl": -29955.81149876,
+    "per_window_t": -6.26688807819889,
+    "per_window_p": 0.9999999993270938
+   },
+   "0.03": {
+    "fills": 12039,
+    "pnl": -27968.424568200004,
+    "per_window_t": -5.919409371955978,
+    "per_window_p": 0.9999999953992241
+   },
+   "0.05": {
+    "fills": 10414,
+    "pnl": -24660.231916430002,
+    "per_window_t": -5.433924963313563,
+    "per_window_p": 0.9999999410975463
+   },
+   "0.08": {
+    "fills": 8370,
+    "pnl": -19986.292787090002,
+    "per_window_t": -4.805134838282962,
+    "per_window_p": 0.9999987517203163
+   }
+  },
+  "chosen_delta": 0.08,
+  "chosen_latency_s": 3,
+  "backtest_test_period": {
+   "fills": 7792,
+   "windows": 288,
+   "usd_bought": 75774.46627689002,
+   "pnl": -13419.835270890002,
+   "return_on_bought": -0.17710233974927825,
+   "per_window_mean": -46.59665024614584,
+   "per_window_t": -3.5244208955190324,
+   "per_window_p": 0.9997531296081148,
+   "per_window_bootstrap_p": 1.0,
+   "fill_win_rate": 0.4222279260780287
+  },
+  "latency_degradation": {
+   "4": {
+    "fills": 7849,
+    "pnl": -13919.66757193,
+    "return_on_bought": -0.1832657566140161,
+    "per_window_p": 0.9998762233192221
+   },
+   "5": {
+    "fills": 7936,
+    "pnl": -14312.36169757,
+    "return_on_bought": -0.18735311689862494,
+    "per_window_p": 0.9999346643287886
+   },
+   "8": {
+    "fills": 8184,
+    "pnl": -15873.525096820002,
+    "return_on_bought": -0.2049944285106093,
+    "per_window_p": 0.9999933426228886
+   },
+   "13": {
+    "fills": 8563,
+    "pnl": -17918.219565710002,
+    "return_on_bought": -0.2272200147336427,
+    "per_window_p": 0.9999998466990679
+   }
+  },
+  "queue_share_sensitivity": {
+   "0.5": {
+    "fills": 7792,
+    "pnl": -13316.337361810001,
+    "per_window_p": 0.9998321229293058
+   },
+   "0.25": {
+    "fills": 7792,
+    "pnl": -12935.438097655002,
+    "per_window_p": 0.9998950976432401
+   }
+  },
+  "wallet_maker_replay_test_period": {
+   "fills": 769,
+   "usd": 8072.705903984288,
+   "pnl": 111.95991601571231,
+   "return": 0.013868945226959703,
+   "per_window_p": 0.38081374732052087
+  }
+ },
+ "inferred": {},
+ "sources": [],
+ "coverage": {
+  "status": "complete",
+  "detail": ""
+ },
+ "limitations": [
+  "Trade-through fills ignore queue position at the touch (conservative) but assume our bid sat at the front among bids below the touch; queue-share sensitivity reports thinner fills.",
+  "Spot is Kraken per-second trades; resolution uses Chainlink's aggregate TWAP.",
+  "Maker rebates are excluded from backtest PnL (conservative)."
+ ],
+ "unknowns": [],
+ "next_probes": [],
+ "generated_at": "2026-10-30T23:21:43+00:00"
+}

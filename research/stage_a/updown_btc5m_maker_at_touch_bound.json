@@ -1,0 +1,74 @@
+{
+ "delta=0.0,latency=0": {
+  "fills": 16202,
+  "pnl": -25795.24051586,
+  "return_on_bought": -0.13825596422558295,
+  "per_window_p": 0.9999999659397497
+ },
+ "delta=0.0,latency=2": {
+  "fills": 16218,
+  "pnl": -27382.66700769,
+  "return_on_bought": -0.14783915262134842,
+  "per_window_p": 0.9999999978686696
+ },
+ "delta=0.0,latency=5": {
+  "fills": 16178,
+  "pnl": -28874.66967722,
+  "return_on_bought": -0.15847481802112284,
+  "per_window_p": 0.9999999999373825
+ },
+ "delta=0.02,latency=0": {
+  "fills": 13275,
+  "pnl": -21806.973872960003,
+  "return_on_bought": -0.1500019043648546,
+  "per_window_p": 0.9999968264227349
+ },
+ "delta=0.02,latency=2": {
+  "fills": 13215,
+  "pnl": -23306.768643680003,
+  "return_on_bought": -0.16287794949274706,
+  "per_window_p": 0.9999996709876959
+ },
+ "delta=0.02,latency=5": {
+  "fills": 13213,
+  "pnl": -24881.06983875,
+  "return_on_bought": -0.17650493751127544,
+  "per_window_p": 0.9999999856199134
+ },
+ "delta=0.05,latency=0": {
+  "fills": 10311,
+  "pnl": -16270.984675710004,
+  "return_on_bought": -0.15261894749972474,
+  "per_window_p": 0.9998365326530447
+ },
+ "delta=0.05,latency=2": {
+  "fills": 10402,
+  "pnl": -17721.28261275,
+  "return_on_bought": -0.16703571871703848,
+  "per_window_p": 0.9999717026643885
+ },
+ "delta=0.05,latency=5": {
+  "fills": 10528,
+  "pnl": -19022.309795090005,
+  "return_on_bought": -0.1804247623493226,
+  "per_window_p": 0.9999968140338775
+ },
+ "delta=0.08,latency=0": {
+  "fills": 8064,
+  "pnl": -11391.453089770002,
+  "return_on_bought": -0.1440944008755694,
+  "per_window_p": 0.9972331433506627
+ },
+ "delta=0.08,latency=2": {
+  "fills": 8208,
+  "pnl": -12679.48998134,
+  "return_on_bought": -0.159769391398782,
+  "per_window_p": 0.9992622218307202
+ },
+ "delta=0.08,latency=5": {
+  "fills": 8397,
+  "pnl": -14143.707071790002,
+  "return_on_bought": -0.17669040733707175,
+  "per_window_p": 0.9998872345900285
+ }
+}

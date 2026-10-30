@@ -1,0 +1,38 @@
+{
+  "wallet": "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed",
+  "name": "bosona",
+  "stage": "C",
+  "verdict": "reject",
+  "archetype": "Directional maker on crypto Up/Down windows (two-wallet cluster with almach)",
+  "headline": "Rests bids on the side of BTC (and some ETH/SOL) Up/Down windows that it expects to win, and gets filled by takers below fair value. The profit is real, persistent and barely depends on rebates. But no public-data quoting rule matches its fills, and every public-data maker version, including an optimistic one, loses 14-26% in the same windows.",
+  "mechanism": "94% of sampled fills are maker fills (on-chain, 95% CI 90-97%). It trades 5m (55%), 15m (28%), hourly and 4h windows, buys both sides in only 45% of markets and earns on the directional residual (+$68.8k, residual win rate 58%). Shares it buys at 0.35 win 41% of the time, at 0.14 win 19%. It shares 6,524 transactions and two-thirds of its markets with almach; 25% of their (market, second) pairs coincide.",
+  "criteria": {
+    "roc": {"status": "pass", "detail": "peak capital at risk $5.3k; 30-day PnL $88.3k"},
+    "onchain": {"status": "pass", "detail": "200/200 sampled fills confirmed; 94% maker"},
+    "match": {"status": "fail", "detail": "spot-model directional maker: held-out AUC 0.502 (perm p=0.30) on BTC 5m, 0.464 (p=0.75) on BTC 15m; spot-latency taker: AUC 0.48 (p=0.44); fixed-level bids: not its pattern and lose 45-81%"},
+    "backtest": {"status": "fail", "detail": "public-data maker on held-out windows: -25.6% (5m), -23.9% (15m), -14% to -18% even with optimistic at-touch fills; bosona's own maker fills there +3.5% (5m, p=0.20), +9.7% (15m, p=0.30)"},
+    "replicable": {"status": "fail", "detail": "a slow maker is adversely selected in these markets at every latency tested (0-10 s); the wallet's edge appears to come from queue priority and fast cancels"},
+    "persistence": {"status": "pass", "detail": "last 30 days significant (p=4e-4), no decline (p=0.40); only 18% taker rebate, at 0% tier still ~$86k/month"}
+  },
+  "key_numbers": {
+    "30-day PnL": "$88,325",
+    "Monthly ROC": "1,665% on $5.3k peak capital",
+    "Maker fill share": "94%",
+    "Directional residual win rate": "58%",
+    "Public-data maker, held out": "-25.6% (5m), -23.9% (15m)",
+    "Optimistic at-touch bound": "-14% to -18%"
+  },
+  "reasons": [
+    "No public-data rule reproduces which passive fills it gets (held-out AUC at chance on 5m and 15m).",
+    "Every public-data maker version loses significantly in the same windows, even assuming first-in-queue fills.",
+    "Its own fills profit modestly where a slow imitator loses, which points to speed and queue position the replicator would not have."
+  ],
+  "evidence": [
+    "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/profile.json",
+    "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_maker_study_btc_5m.json",
+    "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_maker_study_btc_15m.json",
+    "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_study_btc_5m.json",
+    "research/stage_a/updown_btc5m_maker_at_touch_bound.json",
+    "research/stage_a/persistence_a1_survivors.json"
+  ]
+}

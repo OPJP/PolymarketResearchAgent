@@ -1,5 +1,5 @@
 {
- "generated_at": 1793402100,
+ "generated_at": 1793403015,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -73,11 +73,11 @@
   },
   {
    "label": "High % profit (ROC)",
-   "count": 4
+   "count": 10
   },
   {
    "label": "Verified on-chain",
-   "count": 4
+   "count": 10
   },
   {
    "label": "Strategy match",
@@ -7956,11 +7956,79 @@
     266050.67147299997
    ],
    "a1_pass": true,
-   "stage": "A1",
-   "verdict": "in_progress",
+   "stage": "C",
+   "verdict": "reject",
    "reasons": [
-    "passed stage A1; reverse engineering in progress"
-   ]
+    "No reverse-engineered rule matches its decisions on held-out windows.",
+    "Public-data versions lose; its own taker buys break even before rebates.",
+    "Coordinated multi-wallet operation that trades against itself; depends on the top rebate tier."
+   ],
+   "archetype": "BTC 5-minute Up/Down bot (multi-wallet cluster)",
+   "deep_dive": {
+    "wallet": "0xc53375ff94e96100f2b30a4b5775db35218d69a9",
+    "name": "dangerously-skip-permissions",
+    "stage": "C",
+    "verdict": "reject",
+    "archetype": "BTC 5-minute Up/Down bot (multi-wallet cluster)",
+    "headline": "The largest of the three wallets running one BTC 5-minute Up/Down bot (with GoodFallen and x-MoneyForWhiskas). Half a million fills a month, steady profit, but no public-data rule matches it, public-data versions lose, its taker buys alone break even, and without the 50% rebate it makes about $50k a month.",
+    "mechanism": "504k fills in 30 days, all BTC 5-minute Up/Down; buys both outcomes in 98% of windows at a median pair cost of 1.004; 35% maker fills (on-chain, 95% CI 29-42%). Shares 4,845 transactions with GoodFallen and 3,229 with x-MoneyForWhiskas, including direct fills against them. 30-day income: gross trading $179.3k, taker fees -$135.3k, taker rebate +$66.5k (49%), maker rebate +$5.8k.",
+    "criteria": {
+     "significance": {
+      "status": "pass",
+      "detail": "pre-selection 74d: HAC t=6.1, Holm p=9.7e-06, bootstrap p=2.5e-04; deflated Sharpe 1.000"
+     },
+     "monthly_50k": {
+      "status": "pass",
+      "detail": "last 30d $116,255; median month $90,095"
+     },
+     "consistency": {
+      "status": "pass",
+      "detail": "annualized Sharpe 23.6; positive weeks 100%; positive months 100%"
+     },
+     "roc": {
+      "status": "pass",
+      "detail": "peak capital at risk $4.6k; 30-day PnL $116.3k"
+     },
+     "onchain": {
+      "status": "pass",
+      "detail": "200/200 sampled fills confirmed; 35% maker"
+     },
+     "match": {
+      "status": "fail",
+      "detail": "spot-latency taker: held-out AUC 0.565 vs a higher null (perm p=0.99); directional maker: AUC 0.477 (p=1.0)"
+     },
+     "backtest": {
+      "status": "fail",
+      "detail": "public-data taker rule -2.3% (p=0.67), public-data maker -15.6% on 288 held-out windows; its own taker buys -0.2% (p=0.56), maker fills +3.3% (p=0.03)"
+     },
+     "replicable": {
+      "status": "fail",
+      "detail": "edge invisible in 1-second public data; cross-wallet self-trading; at 0% rebate tier ~$49.7k/month"
+     },
+     "persistence": {
+      "status": "pass",
+      "detail": "last 30 days significant (p=2e-9), rising; depends on the Taker Rebate Program"
+     }
+    },
+    "key_numbers": {
+     "30-day PnL": "$116,255",
+     "Fills (30 d)": "503,851",
+     "Taker rebate share of PnL": "57%",
+     "PnL at 0% rebate tier": "~$49,700",
+     "Shared tx with sibling wallets": "8,074"
+    },
+    "reasons": [
+     "No reverse-engineered rule matches its decisions on held-out windows.",
+     "Public-data versions lose; its own taker buys break even before rebates.",
+     "Coordinated multi-wallet operation that trades against itself; depends on the top rebate tier."
+    ],
+    "evidence": [
+     "research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/profile.json",
+     "research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/updown_study_btc_5m.json",
+     "research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/updown_maker_study_btc_5m.json",
+     "research/stage_a/rebate_dependence.json"
+    ]
+   }
   },
   {
    "wallet": "0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705",
@@ -11097,11 +11165,79 @@
     406117.382058
    ],
    "a1_pass": true,
-   "stage": "A1",
-   "verdict": "in_progress",
+   "stage": "C",
+   "verdict": "reject",
    "reasons": [
-    "passed stage A1; reverse engineering in progress"
-   ]
+    "No reverse-engineered rule matches its decisions on held-out windows.",
+    "Public-data versions of the strategy lose money.",
+    "Coordinated with two sibling wallets that trade against each other; needs the top rebate tier to clear $50k/month."
+   ],
+   "archetype": "BTC 5-minute Up/Down bot (multi-wallet cluster)",
+   "deep_dive": {
+    "wallet": "0x3048d65321be3497164cdfc2996f94f98a2e7537",
+    "name": "x-MoneyForWhiskas",
+    "stage": "C",
+    "verdict": "reject",
+    "archetype": "BTC 5-minute Up/Down bot (multi-wallet cluster)",
+    "headline": "Same bot as GoodFallen and dangerously-skip-permissions: identical price and timing distributions, thousands of shared transactions, and direct fills against its sibling wallets. No public-data rule matches it, public-data versions lose, and below the top rebate tier its month falls to about $33k.",
+    "mechanism": "291k fills in 30 days, all BTC 5-minute Up/Down; buys both outcomes in 88% of windows at a median pair cost of 1.008; 40% maker fills (on-chain, 95% CI 34-47%). Price quantiles (0.16/0.32/0.48/0.64/0.82) and within-window timing match GoodFallen exactly. 30-day income: gross trading $120.5k, taker fees -$91.7k, taker rebate +$48.6k (53%), maker rebate +$4.7k.",
+    "criteria": {
+     "significance": {
+      "status": "pass",
+      "detail": "pre-selection 111d: HAC t=8.2, Holm p=1.4e-10, bootstrap p=2.5e-04; deflated Sharpe 1.000"
+     },
+     "monthly_50k": {
+      "status": "pass",
+      "detail": "last 30d $82,115; median month $93,219"
+     },
+     "consistency": {
+      "status": "pass",
+      "detail": "annualized Sharpe 25.0; positive weeks 100%; positive months 100%"
+     },
+     "roc": {
+      "status": "pass",
+      "detail": "peak capital at risk $5.8k; 30-day PnL $82.1k"
+     },
+     "onchain": {
+      "status": "pass",
+      "detail": "200/200 sampled fills confirmed; 40% maker"
+     },
+     "match": {
+      "status": "fail",
+      "detail": "spot-latency taker: held-out AUC 0.525 (perm p=0.97); directional maker: AUC 0.460 (p=0.85)"
+     },
+     "backtest": {
+      "status": "fail",
+      "detail": "public-data taker rule -$6.9k (p=0.62) and public-data maker -15.6% on 288 held-out windows"
+     },
+     "replicable": {
+      "status": "fail",
+      "detail": "sub-second edge not visible in 1-second public data; cross-wallet self-trading; at 0% rebate tier ~$33k/month"
+     },
+     "persistence": {
+      "status": "pass",
+      "detail": "last 30 days significant (p=7e-5), no decline (p=0.40); depends on the Taker Rebate Program"
+     }
+    },
+    "key_numbers": {
+     "30-day PnL": "$82,115",
+     "Fills (30 d)": "291,525",
+     "Taker rebate share of PnL": "59%",
+     "PnL at 0% rebate tier": "~$33,500",
+     "Shared tx with sibling wallets": "5,095"
+    },
+    "reasons": [
+     "No reverse-engineered rule matches its decisions on held-out windows.",
+     "Public-data versions of the strategy lose money.",
+     "Coordinated with two sibling wallets that trade against each other; needs the top rebate tier to clear $50k/month."
+    ],
+    "evidence": [
+     "research/wallets/0x3048d65321be3497164cdfc2996f94f98a2e7537/profile.json",
+     "research/wallets/0x3048d65321be3497164cdfc2996f94f98a2e7537/updown_study_btc_5m.json",
+     "research/wallets/0x3048d65321be3497164cdfc2996f94f98a2e7537/updown_maker_study_btc_5m.json",
+     "research/stage_a/rebate_dependence.json"
+    ]
+   }
   },
   {
    "wallet": "0xa4b7b1814b0da33f2b61be4939976898aa476008",
@@ -12854,11 +12990,80 @@
     593411.3254159999
    ],
    "a1_pass": true,
-   "stage": "A1",
-   "verdict": "in_progress",
+   "stage": "C",
+   "verdict": "reject",
    "reasons": [
-    "passed stage A1; reverse engineering in progress"
-   ]
+    "The strategy loses money on trading; the profit is Polymarket's fee rebate.",
+    "A replicator without the top rebate tier would lose money.",
+    "No public-data rule matches its decisions."
+   ],
+   "archetype": "Fee-rebate farmer on crypto Up/Down markets",
+   "deep_dive": {
+    "wallet": "0xb55fa1296e6ec55d0ce53d93b9237389f11764d4",
+    "name": "0xb55fa1296E6ec55D0cE5",
+    "stage": "C",
+    "verdict": "reject",
+    "archetype": "Fee-rebate farmer on crypto Up/Down markets",
+    "headline": "Churns $8.3M a month through 31,000 crypto Up/Down windows. Its trading loses money after fees; all of its profit is the 50%+ Obsidian taker rebate and maker rebates. A newcomer starts at a 0% rebate and would lose about $40k a month doing the same.",
+    "mechanism": "467k fills in 30 days across BTC/ETH/SOL 5m, 15m, hourly and 4h windows; 30% maker fills (on-chain, 95% CI 24-37%). Settled market PnL -$48.6k (locked pair spread -$90.2k, residual +$41.6k). Taker fees -$157.3k, taker rebate +$96.7k (61% of fees), maker rebate +$8.7k: incentives are 92% of its total PnL.",
+    "criteria": {
+     "significance": {
+      "status": "pass",
+      "detail": "pre-selection 152d: HAC t=4.8, Holm p=7.8e-04, bootstrap p=2.5e-04; deflated Sharpe 0.991"
+     },
+     "monthly_50k": {
+      "status": "pass",
+      "detail": "last 30d $56,365; median month $78,075"
+     },
+     "consistency": {
+      "status": "pass",
+      "detail": "annualized Sharpe 7.5; positive weeks 81%; positive months 100%"
+     },
+     "roc": {
+      "status": "pass",
+      "detail": "peak capital at risk $64.9k; 30-day PnL $56.4k; 87% per month"
+     },
+     "onchain": {
+      "status": "pass",
+      "detail": "200/200 sampled fills confirmed; 30% maker"
+     },
+     "match": {
+      "status": "fail",
+      "detail": "BTC 5m (10% of its volume): spot-latency taker AUC 0.483 (perm p=0.99), directional maker AUC 0.498 (p=0.97)"
+     },
+     "backtest": {
+      "status": "fail",
+      "detail": "public-data maker -17.7% (p>0.99 for loss); fitted taker rule +2.6% (p=0.34); its own trading is loss-making before rebates (-$48.6k in 30 days)"
+     },
+     "replicable": {
+      "status": "fail",
+      "detail": "profit exists only above the Platinum rebate tier: at 0% -$40.3k/month, Gold -$12.0k, Platinum +$10.0k; tiers need $1M-$10M of 30-day weighted volume"
+     },
+     "persistence": {
+      "status": "pass",
+      "detail": "last 30 days significant (p=0.034); no significant decline (daily mean $3.5k -> $1.9k, p=0.09) or trend (p=0.53); profit depends entirely on the Taker Rebate Program, in force today but changeable by Polymarket"
+     }
+    },
+    "key_numbers": {
+     "30-day PnL": "$56,365",
+     "Trading PnL after fees": "-$48,609",
+     "Taker rebate received": "$96,666",
+     "PnL at 0% rebate tier": "~-$40,300",
+     "30-day volume": "$8.3M"
+    },
+    "reasons": [
+     "The strategy loses money on trading; the profit is Polymarket's fee rebate.",
+     "A replicator without the top rebate tier would lose money.",
+     "No public-data rule matches its decisions."
+    ],
+    "evidence": [
+     "research/wallets/0xb55fa1296e6ec55d0ce53d93b9237389f11764d4/profile.json",
+     "research/wallets/0xb55fa1296e6ec55d0ce53d93b9237389f11764d4/updown_study_btc_5m.json",
+     "research/wallets/0xb55fa1296e6ec55d0ce53d93b9237389f11764d4/updown_maker_study_btc_5m.json",
+     "research/stage_a/rebate_dependence.json",
+     "research/stage_a/persistence_a1_survivors.json"
+    ]
+   }
   },
   {
    "wallet": "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
@@ -12894,11 +13099,81 @@
     158491.28129599997
    ],
    "a1_pass": true,
-   "stage": "A1",
-   "verdict": "in_progress",
+   "stage": "C",
+   "verdict": "reject",
    "reasons": [
-    "passed stage A1; reverse engineering in progress"
-   ]
+    "No reverse-engineered rule matches its decisions: both the taker and maker hypotheses are at chance on held-out windows.",
+    "Rules built from public data lose money in the same windows, at any latency.",
+    "It is one of three coordinated wallets that trade against each other, and below the top rebate tier its month falls under $50k."
+   ],
+   "archetype": "BTC 5-minute Up/Down bot (multi-wallet cluster)",
+   "deep_dive": {
+    "wallet": "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
+    "name": "GoodFallen",
+    "stage": "C",
+    "verdict": "reject",
+    "archetype": "BTC 5-minute Up/Down bot (multi-wallet cluster)",
+    "headline": "One of three wallets running the same BTC 5-minute Up/Down bot, which also trades against itself across accounts. Its trades are real and its returns are steady, but no public-data rule reproduces its decisions, public-data versions lose money, and half of its income is an Obsidian-tier fee rebate.",
+    "mechanism": "Trades only BTC 5-minute Up/Down markets: 252k fills in 30 days, buying both outcomes in 94% of windows at a median pair cost of 1.0125. 33% of sampled fills are maker fills. Bought shares win 1-2 points more often than their price at every price level. It shares 4,845 transactions with dangerously-skip-permissions and 1,866 with x-MoneyForWhiskas; in sampled shared transactions about a quarter are the cluster's wallets filling against each other. 30-day income: gross trading $98.9k, taker fees -$78.2k, taker rebate +$38.8k (50%), maker rebate +$3.5k.",
+    "criteria": {
+     "significance": {
+      "status": "pass",
+      "detail": "pre-selection 74d: HAC t=4.9, Holm p=1.6e-03, bootstrap p=2.5e-04; deflated Sharpe 1.000"
+     },
+     "monthly_50k": {
+      "status": "pass",
+      "detail": "last 30d $63,059; median month $62,212"
+     },
+     "consistency": {
+      "status": "pass",
+      "detail": "annualized Sharpe 17.3; positive weeks 100%; positive months 100%"
+     },
+     "roc": {
+      "status": "pass",
+      "detail": "peak capital at risk $3.2k; 30-day PnL $63.1k"
+     },
+     "onchain": {
+      "status": "pass",
+      "detail": "150/150 sampled fills confirmed; 33% maker"
+     },
+     "match": {
+      "status": "fail",
+      "detail": "spot-latency taker rule: held-out AUC 0.556 vs null 0.573 (perm p=0.95), flat lag scan; directional-maker rule: AUC 0.485 (p=0.96)"
+     },
+     "backtest": {
+      "status": "fail",
+      "detail": "public-data taker rule -2.3% on traded (288 held-out windows); public-data maker -15.6% (p>0.99 for loss); the wallet's own taker buys +0.3% (p=0.41), maker fills +3.2% (p=0.10)"
+     },
+     "replicable": {
+      "status": "fail",
+      "detail": "market price beats a 1-second public spot model (Brier 0.170 vs 0.218); edge is sub-second; profit relies on cross-wallet self-trading and the 50% Obsidian rebate (at 0%: ~$24k/month)"
+     },
+     "persistence": {
+      "status": "pass",
+      "detail": "last 30 days significant (p=1e-7), no decline; depends on the Taker Rebate Program (since 2026-05-28) staying unchanged"
+     }
+    },
+    "key_numbers": {
+     "30-day PnL": "$63,059",
+     "Fills (30 d)": "251,974",
+     "Taker rebate share of PnL": "62%",
+     "PnL at 0% rebate tier": "~$24,200",
+     "Shared tx with sibling wallets": "6,711",
+     "Public-data maker, held out": "-15.6%"
+    },
+    "reasons": [
+     "No reverse-engineered rule matches its decisions: both the taker and maker hypotheses are at chance on held-out windows.",
+     "Rules built from public data lose money in the same windows, at any latency.",
+     "It is one of three coordinated wallets that trade against each other, and below the top rebate tier its month falls under $50k."
+    ],
+    "evidence": [
+     "research/wallets/0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6/profile.json",
+     "research/wallets/0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6/updown_study_btc_5m.json",
+     "research/wallets/0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6/updown_maker_study_btc_5m.json",
+     "research/stage_a/rebate_dependence.json",
+     "research/stage_a/persistence_a1_survivors.json"
+    ]
+   }
   },
   {
    "wallet": "0x764b305694b026c1acce7bf862c3b5456a146bad",
@@ -14039,11 +14314,82 @@
     463335.006553
    ],
    "a1_pass": true,
-   "stage": "A1",
-   "verdict": "in_progress",
+   "stage": "C",
+   "verdict": "reject",
    "reasons": [
-    "passed stage A1; reverse engineering in progress"
-   ]
+    "No public-data rule reproduces which passive fills it gets (held-out AUC at chance on 5m and 15m).",
+    "Every public-data maker version loses significantly in the same windows, even assuming first-in-queue fills.",
+    "Its own fills profit modestly where a slow imitator loses, which points to speed and queue position the replicator would not have."
+   ],
+   "archetype": "Directional maker on crypto Up/Down windows (two-wallet cluster with almach)",
+   "deep_dive": {
+    "wallet": "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed",
+    "name": "bosona",
+    "stage": "C",
+    "verdict": "reject",
+    "archetype": "Directional maker on crypto Up/Down windows (two-wallet cluster with almach)",
+    "headline": "Rests bids on the side of BTC (and some ETH/SOL) Up/Down windows that it expects to win, and gets filled by takers below fair value. The profit is real, persistent and barely depends on rebates. But no public-data quoting rule matches its fills, and every public-data maker version, including an optimistic one, loses 14-26% in the same windows.",
+    "mechanism": "94% of sampled fills are maker fills (on-chain, 95% CI 90-97%). It trades 5m (55%), 15m (28%), hourly and 4h windows, buys both sides in only 45% of markets and earns on the directional residual (+$68.8k, residual win rate 58%). Shares it buys at 0.35 win 41% of the time, at 0.14 win 19%. It shares 6,524 transactions and two-thirds of its markets with almach; 25% of their (market, second) pairs coincide.",
+    "criteria": {
+     "significance": {
+      "status": "pass",
+      "detail": "pre-selection 119d: HAC t=10.6, Holm p=2.3e-16, bootstrap p=2.5e-04; deflated Sharpe 1.000"
+     },
+     "monthly_50k": {
+      "status": "pass",
+      "detail": "last 30d $88,325; median month $95,161"
+     },
+     "consistency": {
+      "status": "pass",
+      "detail": "annualized Sharpe 20.2; positive weeks 100%; positive months 100%"
+     },
+     "roc": {
+      "status": "pass",
+      "detail": "peak capital at risk $5.3k; 30-day PnL $88.3k"
+     },
+     "onchain": {
+      "status": "pass",
+      "detail": "200/200 sampled fills confirmed; 94% maker"
+     },
+     "match": {
+      "status": "fail",
+      "detail": "spot-model directional maker: held-out AUC 0.502 (perm p=0.30) on BTC 5m, 0.464 (p=0.75) on BTC 15m; spot-latency taker: AUC 0.48 (p=0.44); fixed-level bids: not its pattern and lose 45-81%"
+     },
+     "backtest": {
+      "status": "fail",
+      "detail": "public-data maker on held-out windows: -25.6% (5m), -23.9% (15m), -14% to -18% even with optimistic at-touch fills; bosona's own maker fills there +3.5% (5m, p=0.20), +9.7% (15m, p=0.30)"
+     },
+     "replicable": {
+      "status": "fail",
+      "detail": "a slow maker is adversely selected in these markets at every latency tested (0-10 s); the wallet's edge appears to come from queue priority and fast cancels"
+     },
+     "persistence": {
+      "status": "pass",
+      "detail": "last 30 days significant (p=4e-4), no decline (p=0.40); only 18% taker rebate, at 0% tier still ~$86k/month"
+     }
+    },
+    "key_numbers": {
+     "30-day PnL": "$88,325",
+     "Monthly ROC": "1,665% on $5.3k peak capital",
+     "Maker fill share": "94%",
+     "Directional residual win rate": "58%",
+     "Public-data maker, held out": "-25.6% (5m), -23.9% (15m)",
+     "Optimistic at-touch bound": "-14% to -18%"
+    },
+    "reasons": [
+     "No public-data rule reproduces which passive fills it gets (held-out AUC at chance on 5m and 15m).",
+     "Every public-data maker version loses significantly in the same windows, even assuming first-in-queue fills.",
+     "Its own fills profit modestly where a slow imitator loses, which points to speed and queue position the replicator would not have."
+    ],
+    "evidence": [
+     "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/profile.json",
+     "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_maker_study_btc_5m.json",
+     "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_maker_study_btc_15m.json",
+     "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_study_btc_5m.json",
+     "research/stage_a/updown_btc5m_maker_at_touch_bound.json",
+     "research/stage_a/persistence_a1_survivors.json"
+    ]
+   }
   },
   {
    "wallet": "0x6b97ebe911d7f2e5e3e8c4a0faad4a5c7c0b8d30",
@@ -16922,11 +17268,81 @@
     444971.508503
    ],
    "a1_pass": true,
-   "stage": "A1",
-   "verdict": "in_progress",
+   "stage": "C",
+   "verdict": "reject",
    "reasons": [
-    "passed stage A1; reverse engineering in progress"
-   ]
+    "No public-data rule reproduces its fills (held-out AUC at chance on 5m and 15m).",
+    "Every public-data maker version loses significantly in the same windows, even under first-in-queue fills.",
+    "Appears to be the same operator as bosona."
+   ],
+   "archetype": "Directional maker on crypto Up/Down windows (two-wallet cluster with bosona)",
+   "deep_dive": {
+    "wallet": "0x3725d52f3c252e8374999cc8617292ea2608ad88",
+    "name": "almach",
+    "stage": "C",
+    "verdict": "reject",
+    "archetype": "Directional maker on crypto Up/Down windows (two-wallet cluster with bosona)",
+    "headline": "bosona's twin: the same market mix, price distribution and maker style, with 6,524 shared transactions. Real and persistent profit with little rebate dependence, but no public-data rule matches its fills and every public-data maker version loses in the same windows.",
+    "mechanism": "92% of sampled fills are maker fills (on-chain, 95% CI 87-95%) across BTC 5m (53%), 15m (30%), hourly and 4h Up/Down windows. Directional residual +$83.5k with a 58% win rate; locked pair spread -$23.0k. Shares bought at 0.35 win 40% of the time.",
+    "criteria": {
+     "significance": {
+      "status": "pass",
+      "detail": "pre-selection 130d: HAC t=8.3, Holm p=2.6e-11, bootstrap p=2.5e-04; deflated Sharpe 1.000"
+     },
+     "monthly_50k": {
+      "status": "pass",
+      "detail": "last 30d $72,204; median month $99,225"
+     },
+     "consistency": {
+      "status": "pass",
+      "detail": "annualized Sharpe 16.8; positive weeks 86%; positive months 100%"
+     },
+     "roc": {
+      "status": "pass",
+      "detail": "peak capital at risk $5.4k; 30-day PnL $72.2k"
+     },
+     "onchain": {
+      "status": "pass",
+      "detail": "200/200 sampled fills confirmed; 92% maker"
+     },
+     "match": {
+      "status": "fail",
+      "detail": "directional maker: held-out AUC 0.476 (perm p=0.74) on BTC 5m, 0.457 (p=0.79) on BTC 15m; spot-latency taker: AUC 0.50 (p=0.70)"
+     },
+     "backtest": {
+      "status": "fail",
+      "detail": "public-data maker on held-out windows: -17.7% (5m), -23.9% (15m), -14% to -18% with optimistic at-touch fills; almach's own maker fills +10.3% on 15m (p=0.30); the fitted taker rule +7.7% at 0 s (p=0.23) fades to +0.9% at 10 s"
+     },
+     "replicable": {
+      "status": "fail",
+      "detail": "slow makers are adversely selected at every latency tested; the edge needs queue priority and fast cancels"
+     },
+     "persistence": {
+      "status": "pass",
+      "detail": "last 30 days significant (p=0.003), no decline (p=0.30); ~18% taker rebate, at 0% tier ~$70k/month"
+     }
+    },
+    "key_numbers": {
+     "30-day PnL": "$72,204",
+     "Monthly ROC": "1,342% on $5.4k peak capital",
+     "Maker fill share": "92%",
+     "Shared tx with bosona": "6,524",
+     "Public-data maker, held out": "-17.7% (5m), -23.9% (15m)"
+    },
+    "reasons": [
+     "No public-data rule reproduces its fills (held-out AUC at chance on 5m and 15m).",
+     "Every public-data maker version loses significantly in the same windows, even under first-in-queue fills.",
+     "Appears to be the same operator as bosona."
+    ],
+    "evidence": [
+     "research/wallets/0x3725d52f3c252e8374999cc8617292ea2608ad88/profile.json",
+     "research/wallets/0x3725d52f3c252e8374999cc8617292ea2608ad88/updown_maker_study_btc_5m.json",
+     "research/wallets/0x3725d52f3c252e8374999cc8617292ea2608ad88/updown_maker_study_btc_15m.json",
+     "research/wallets/0x3725d52f3c252e8374999cc8617292ea2608ad88/updown_study_btc_5m.json",
+     "research/stage_a/updown_btc5m_maker_at_touch_bound.json",
+     "research/stage_a/persistence_a1_survivors.json"
+    ]
+   }
   },
   {
    "wallet": "0x2e3ecedec4b004c61670f0dcda382ec0da1f0f92",

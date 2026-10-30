@@ -96,6 +96,14 @@ are the wallet's.
 * Maker rules rest bids and are filled only by later taker prints that trade
   **through** the bid (a taker sell below it, or a complementary taker buy of
   the other outcome above `1 - bid`). Rebates are excluded.
+* Maker results are reported under strict trade-through fills and, as an
+  optimistic upper bound, at-touch fills (a print at the bid also fills it,
+  as if first in queue). A rule only counts as replicable if it is profitable
+  under the strict model; a loss under the optimistic bound is decisive.
+* Alternative maker hypotheses that need no external data (fixed-price
+  resting bids, "buy the overreaction") are tested on the same windows
+  (`research/stage_a/updown_btc5m_maker_at_touch_bound.json`, and the ladder
+  results in each verdict).
 * Where no public event feed exists (esports, tennis), the maker
   replicability study backtests a slow two-sided maker whose fair value is
   the last public print known `latency` seconds late, with the same

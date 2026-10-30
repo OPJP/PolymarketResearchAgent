@@ -17,6 +17,41 @@ the same tools.
 - Per-wallet dossiers: `research/wallets/<wallet>/REPORT.md`
 - Methodology and pre-registered thresholds: [`docs/methodology.md`](docs/methodology.md)
 
+## Results (data as of 2026-10-30)
+
+**No wallet in the top 500 passed every criterion.** Full detail in
+[`research/README.md`](research/README.md) and the dashboard.
+
+| Step | Wallets |
+| --- | --- |
+| Screened (top 500 by monthly PnL) | 500 |
+| Profit significant outside the ranking window, above $50k/month, constant returns | 11 |
+| At least 10% per month on peak capital at risk | 10 |
+| Fills verified on Polygon | 10 |
+| Reverse-engineered rule matches the wallet on held-out data | 0 |
+
+What the 11 survivors actually do:
+
+- **BTC 5-minute Up/Down bots** (GoodFallen, x-MoneyForWhiskas,
+  dangerously-skip-permissions): one operator across three wallets that also
+  trade against each other. No public-data rule matches them; the market price
+  already beats a 1-second public spot model, so their edge is sub-second.
+  About half their profit is the 50% Obsidian fee rebate.
+- **Directional crypto makers** (bosona, almach, likely one operator): real,
+  persistent, rebate-independent profit, but every public-data maker version
+  loses 14-26% in the same windows, even with optimistic fills. Their edge is
+  queue priority and fast cancels.
+- **Rebate farmer** (0xb55f...): trading loses $49k a month; the whole profit
+  is the fee rebate. A newcomer at the 0% tier would lose ~$40k a month.
+- **In-play sports and esports makers** (RN1, TommyLeePeeca): they cancel
+  quotes within seconds of game events; a public-data maker in the same
+  markets loses 8-19%.
+- **In-play sports takers** (justaluckydude, 0xdbdd...): justaluckydude buys the
+  scoring side within 0-10 s of a play (95% direction agreement), but the
+  public-data rule is not significantly profitable, a 5-second delay removes the
+  edge, and its PnL has a significant downward trend.
+- **High-probability carry** (elmcap2): 3.7% per month on $6.5M of capital.
+
 ## Install
 
 ```bash

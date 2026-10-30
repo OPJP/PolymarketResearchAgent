@@ -1,0 +1,37 @@
+{
+  "wallet": "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
+  "name": "GoodFallen",
+  "stage": "C",
+  "verdict": "reject",
+  "archetype": "BTC 5-minute Up/Down bot (multi-wallet cluster)",
+  "headline": "One of three wallets running the same BTC 5-minute Up/Down bot, which also trades against itself across accounts. Its trades are real and its returns are steady, but no public-data rule reproduces its decisions, public-data versions lose money, and half of its income is an Obsidian-tier fee rebate.",
+  "mechanism": "Trades only BTC 5-minute Up/Down markets: 252k fills in 30 days, buying both outcomes in 94% of windows at a median pair cost of 1.0125. 33% of sampled fills are maker fills. Bought shares win 1-2 points more often than their price at every price level. It shares 4,845 transactions with dangerously-skip-permissions and 1,866 with x-MoneyForWhiskas; in sampled shared transactions about a quarter are the cluster's wallets filling against each other. 30-day income: gross trading $98.9k, taker fees -$78.2k, taker rebate +$38.8k (50%), maker rebate +$3.5k.",
+  "criteria": {
+    "roc": {"status": "pass", "detail": "peak capital at risk $3.2k; 30-day PnL $63.1k"},
+    "onchain": {"status": "pass", "detail": "150/150 sampled fills confirmed; 33% maker"},
+    "match": {"status": "fail", "detail": "spot-latency taker rule: held-out AUC 0.556 vs null 0.573 (perm p=0.95), flat lag scan; directional-maker rule: AUC 0.485 (p=0.96)"},
+    "backtest": {"status": "fail", "detail": "public-data taker rule -2.3% on traded (288 held-out windows); public-data maker -15.6% (p>0.99 for loss); the wallet's own taker buys +0.3% (p=0.41), maker fills +3.2% (p=0.10)"},
+    "replicable": {"status": "fail", "detail": "market price beats a 1-second public spot model (Brier 0.170 vs 0.218); edge is sub-second; profit relies on cross-wallet self-trading and the 50% Obsidian rebate (at 0%: ~$24k/month)"},
+    "persistence": {"status": "pass", "detail": "last 30 days significant (p=1e-7), no decline; depends on the Taker Rebate Program (since 2026-05-28) staying unchanged"}
+  },
+  "key_numbers": {
+    "30-day PnL": "$63,059",
+    "Fills (30 d)": "251,974",
+    "Taker rebate share of PnL": "62%",
+    "PnL at 0% rebate tier": "~$24,200",
+    "Shared tx with sibling wallets": "6,711",
+    "Public-data maker, held out": "-15.6%"
+  },
+  "reasons": [
+    "No reverse-engineered rule matches its decisions: both the taker and maker hypotheses are at chance on held-out windows.",
+    "Rules built from public data lose money in the same windows, at any latency.",
+    "It is one of three coordinated wallets that trade against each other, and below the top rebate tier its month falls under $50k."
+  ],
+  "evidence": [
+    "research/wallets/0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6/profile.json",
+    "research/wallets/0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6/updown_study_btc_5m.json",
+    "research/wallets/0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6/updown_maker_study_btc_5m.json",
+    "research/stage_a/rebate_dependence.json",
+    "research/stage_a/persistence_a1_survivors.json"
+  ]
+}
