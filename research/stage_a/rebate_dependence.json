@@ -1,0 +1,137 @@
+{
+ "GoodFallen": {
+  "economic_pnl": 63058.656772999995,
+  "position_pnl": 20715.811873000006,
+  "fees_paid": -78211.63990000001,
+  "taker_rebate": 38839.74600000001,
+  "maker_rebate": 3503.098900000001,
+  "reward_income": 0.0,
+  "yield_income": 0,
+  "observed_taker_rebate_rate": 0.4965980261973768,
+  "pnl_at_tier": {
+   "none 0%": 24218.910773000007,
+   "Gold 18%": 38297.00595500001,
+   "Platinum 32%": 49246.63554100001
+  }
+ },
+ "x-MoneyForWhiskas": {
+  "economic_pnl": 82114.786119,
+  "position_pnl": 28778.299318999983,
+  "fees_paid": -91685.21033999999,
+  "taker_rebate": 48626.928600000014,
+  "maker_rebate": 4709.5581999999995,
+  "reward_income": 0.0,
+  "yield_income": 0,
+  "observed_taker_rebate_rate": 0.5303682940757272,
+  "pnl_at_tier": {
+   "none 0%": 33487.85751899998,
+   "Gold 18%": 49991.19538019998,
+   "Platinum 32%": 62827.124827799984
+  }
+ },
+ "dangerously": {
+  "economic_pnl": 116254.79215700002,
+  "position_pnl": 43959.87245699999,
+  "fees_paid": -135310.58464000002,
+  "taker_rebate": 66529.4619,
+  "maker_rebate": 5765.4578,
+  "reward_income": 0.0,
+  "yield_income": 0,
+  "observed_taker_rebate_rate": 0.49167965741190656,
+  "pnl_at_tier": {
+   "none 0%": 49725.330256999994,
+   "Gold 18%": 74081.2354922,
+   "Platinum 32%": 93024.7173418
+  }
+ },
+ "0xb55f": {
+  "economic_pnl": 56365.14533899998,
+  "position_pnl": -48993.883961,
+  "fees_paid": -157292.37109999987,
+  "taker_rebate": 96665.66159999999,
+  "maker_rebate": 8693.367700000003,
+  "reward_income": 0.0,
+  "yield_income": 0,
+  "observed_taker_rebate_rate": 0.6145603942771263,
+  "pnl_at_tier": {
+   "none 0%": -40300.516261,
+   "Gold 18%": -11987.889463000021,
+   "Platinum 32%": 10033.042490999964
+  }
+ },
+ "bosona": {
+  "economic_pnl": 88325.030004,
+  "position_pnl": 77090.809404,
+  "fees_paid": -12306.284940000005,
+  "taker_rebate": 2241.5988000000007,
+  "maker_rebate": 8991.591099999998,
+  "reward_income": 1.0307000000002517,
+  "yield_income": 0,
+  "observed_taker_rebate_rate": 0.1821507311856538,
+  "pnl_at_tier": {
+   "none 0%": 86083.431204,
+   "Gold 18%": 88298.56249319999,
+   "Platinum 32%": 90021.4423848
+  }
+ },
+ "almach": {
+  "economic_pnl": 72204.00980299996,
+  "position_pnl": 60898.965203,
+  "fees_paid": -13064.264410000003,
+  "taker_rebate": 2365.0053,
+  "maker_rebate": 8938.862000000001,
+  "reward_income": 1.1773000000002867,
+  "yield_income": 0,
+  "observed_taker_rebate_rate": 0.1810285849840664,
+  "pnl_at_tier": {
+   "none 0%": 69839.00450299999,
+   "Gold 18%": 72190.5720968,
+   "Platinum 32%": 74019.56911419999
+  }
+ },
+ "RN1": {
+  "economic_pnl": 907319.301465001,
+  "position_pnl": 647528.6625650004,
+  "fees_paid": -155962.1542199999,
+  "taker_rebate": 77443.45279999997,
+  "maker_rebate": 141030.8322999999,
+  "reward_income": 41316.35379999998,
+  "yield_income": 0.0,
+  "observed_taker_rebate_rate": 0.4965528540389253,
+  "pnl_at_tier": {
+   "none 0%": 829875.8486650002,
+   "Gold 18%": 857949.0364246002,
+   "Platinum 32%": 879783.7380154001
+  }
+ },
+ "TommyLeePeeca": {
+  "economic_pnl": 60278.852306999994,
+  "position_pnl": 27189.83670699998,
+  "fees_paid": -54511.60107999999,
+  "taker_rebate": 27384.7981,
+  "maker_rebate": 5702.7959,
+  "reward_income": 1.421599999999998,
+  "yield_income": 0,
+  "observed_taker_rebate_rate": 0.5023664239802953,
+  "pnl_at_tier": {
+   "none 0%": 32894.05420699998,
+   "Gold 18%": 42706.14240139998,
+   "Platinum 32%": 50337.76655259998
+  }
+ },
+ "0xdbdd": {
+  "economic_pnl": 61711.50053900003,
+  "position_pnl": 55687.839038999984,
+  "fees_paid": -32404.61129999999,
+  "taker_rebate": 6023.661499999995,
+  "maker_rebate": 0,
+  "reward_income": 0,
+  "yield_income": 0,
+  "observed_taker_rebate_rate": 0.18588902191213744,
+  "pnl_at_tier": {
+   "none 0%": 55687.839038999984,
+   "Gold 18%": 61520.66907299998,
+   "Platinum 32%": 66057.31465499998
+  }
+ }
+}

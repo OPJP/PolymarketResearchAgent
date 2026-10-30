@@ -547,6 +547,96 @@ def maker_backtest(
     queue_share: float = 1.0,
     rebate_share_of_fee_equiv: float = 0.0,
 ) -> dict[str, Any]:
+    """PIT backtest of a slow directional maker (vectorized).
+
+    Every ``requote_s`` seconds (from window start until ``min_secs_to_end``
+    before the end) the strategy computes fair values with spot that is
+    ``latency`` seconds old and rests BUY bids at floor((fair - delta)/tick)*tick
+    on each side, ``size_shares`` each, until the next requote. A bid at q on
+    side s fills only on a later taker print in (t0, t0 + requote_s] that
+    trades *through* it: a taker SELL of s below q, or a taker BUY of the other
+    side above 1 - q (complementary mint). Fill = min(size, print size *
+    queue_share). No taker fee; maker rebates excluded unless
+    ``rebate_share_of_fee_equiv`` > 0. Equivalent to
+    :func:`_maker_backtest_reference` (tested).
+    """
+    by_cid = {w.condition_id: w for w in windows}
+    if flow.empty:
+        return {"fills": 0}
+    out = []
+    for cid, g in flow.groupby("condition_id"):
+        w = by_cid[cid]
+        if w.up_payout is None:
+            continue
+        ticks = np.arange(w.start_ts, w.end_ts - min_secs_to_end, requote_s)
+        if len(ticks) == 0:
+            continue
+        fu = fair_up_vectorized(spot, np.full(len(ticks), w.start_ts), np.full(len(ticks), w.end_ts), ticks - latency, w.twap_seconds)
+        ts = g["ts"].to_numpy().astype(np.int64)
+        j = (ts - w.start_ts - 1) // requote_s  # print in (t0, t0 + R] belongs to tick j
+        ok = (ts > w.start_ts) & (j >= 0) & (j < len(ticks))
+        if not ok.any():
+            continue
+        j, is_up = j[ok], g["is_up"].to_numpy()[ok]
+        sell = (g["side"].to_numpy()[ok] == "SELL")
+        buy = (g["side"].to_numpy()[ok] == "BUY")
+        price, size = g["price"].to_numpy()[ok], g["size"].to_numpy()[ok]
+        for side_up in (True, False):
+            fair = fu if side_up else 1 - fu
+            q = np.floor((fair - delta) / tick + 1e-9) * tick
+            valid = np.isfinite(fu) & (q >= tick) & (q <= 1 - tick)
+            qj = q[j]
+            through = ((is_up == side_up) & sell & (price < qj - 1e-9)) | ((is_up != side_up) & buy & (price > 1 - qj + 1e-9))
+            avail = np.bincount(j[through], weights=size[through], minlength=len(ticks)) * queue_share
+            filled = np.where(valid, np.minimum(size_shares, avail), 0.0)
+            idx = np.nonzero(filled > 0)[0]
+            if len(idx) == 0:
+                continue
+            payout = w.up_payout if side_up else 1 - w.up_payout
+            rebate = rebate_share_of_fee_equiv * w.fee_rate * q[idx] * (1 - q[idx]) * filled[idx]
+            for k, t0 in enumerate(ticks[idx]):
+                i = idx[k]
+                out.append({"condition_id": cid, "ts": int(t0), "is_up": side_up, "price": float(q[i]), "shares": float(filled[i]), "pnl": float(filled[i] * (payout - q[i]) + rebate[k]), "fair": float(fair[i]), "end_ts": w.end_ts})
+    return _maker_summary(out)
+
+
+def _maker_summary(out: list[dict[str, Any]]) -> dict[str, Any]:
+    if not out:
+        return {"fills": 0}
+    f = pd.DataFrame(out)
+    per_window = f.groupby("condition_id")["pnl"].sum()
+    day = pd.to_datetime(f["end_ts"], unit="s", utc=True).dt.floor("D")
+    daily = f.groupby(day)["pnl"].sum()
+    t = hac_t_test(per_window.to_numpy())
+    usd = float((f["price"] * f["shares"]).sum())
+    return {
+        "fills": int(len(f)),
+        "windows": int(per_window.size),
+        "usd_bought": usd,
+        "pnl": float(f["pnl"].sum()),
+        "return_on_bought": float(f["pnl"].sum() / usd) if usd else None,
+        "per_window_mean": float(per_window.mean()),
+        "per_window_t": t.statistic,
+        "per_window_p": t.p_value,
+        "per_window_bootstrap_p": stationary_bootstrap_pvalue(per_window.to_numpy(), n_boot=2000).p_value if per_window.size >= 5 else None,
+        "daily_pnl": {str(k.date()): float(v) for k, v in daily.items()},
+        "fill_win_rate": float((f["pnl"] > 0).mean()),
+    }
+
+
+def _maker_backtest_reference(
+    flow: pd.DataFrame,
+    windows: list[Window],
+    spot: SpotIndex,
+    delta: float,
+    latency: int,
+    requote_s: int = 5,
+    size_shares: float = 20.0,
+    tick: float = 0.01,
+    min_secs_to_end: int = 0,
+    queue_share: float = 1.0,
+    rebate_share_of_fee_equiv: float = 0.0,
+) -> dict[str, Any]:
     """PIT backtest of a slow directional maker.
 
     Every ``requote_s`` seconds (from window start until ``min_secs_to_end``

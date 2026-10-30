@@ -1,5 +1,5 @@
 {
- "generated_at": 1793401673,
+ "generated_at": 1793402100,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -73,11 +73,11 @@
   },
   {
    "label": "High % profit (ROC)",
-   "count": 2
+   "count": 4
   },
   {
    "label": "Verified on-chain",
-   "count": 2
+   "count": 4
   },
   {
    "label": "Strategy match",
@@ -1376,11 +1376,80 @@
     15453508.1882
    ],
    "a1_pass": true,
-   "stage": "A1",
-   "verdict": "in_progress",
+   "stage": "C",
+   "verdict": "reject",
    "reasons": [
-    "passed stage A1; reverse engineering in progress"
-   ]
+    "A slow two-sided maker with public data loses money in the same markets at every tested delay (0-30 s).",
+    "RN1's edge depends on pulling quotes within seconds of live events, which needs low-latency sports and esports data.",
+    "No public-data rule reproduces its quoting at the required significance."
+   ],
+   "archetype": "In-play two-sided market maker (tennis, esports, US sports)",
+   "deep_dive": {
+    "wallet": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+    "name": "RN1",
+    "stage": "C",
+    "verdict": "reject",
+    "archetype": "In-play two-sided market maker (tennis, esports, US sports)",
+    "headline": "Runs a large in-play market-making book: resting bids on both sides of live tennis, CS2 and football markets, about $65M of fills a month across 28,000 markets. It pulls quotes within seconds of game events. A maker without that speed, using public data, loses 8-19% of capital deployed in the same markets.",
+    "mechanism": "92% of sampled fills are maker fills (on-chain, 95% CI 88-95%); 97% happen after game start. Pairs are bought at a median combined 0.98, locking +$964k of spread in 30 days, while the unmatched residual loses $319k to adverse selection. Around ESPN scoring plays, only 2.6% of its passive fills land in the 10 s after a play versus 9.7% for other makers, whose fills in that window lose 26-29%: RN1 cancels quotes within seconds of events.",
+    "criteria": {
+     "significance": {
+      "status": "pass",
+      "detail": "pre-selection 447d: HAC t=8.8, Holm p=1.0e-14, bootstrap p=2.5e-04; deflated Sharpe 1.000"
+     },
+     "monthly_50k": {
+      "status": "pass",
+      "detail": "last 30d $907,319; median month $1,152,105"
+     },
+     "consistency": {
+      "status": "pass",
+      "detail": "annualized Sharpe 9.6; positive weeks 94%; positive months 100%"
+     },
+     "roc": {
+      "status": "pass",
+      "detail": "peak capital at risk $1.14M; 30-day PnL $907k; 79% per month"
+     },
+     "onchain": {
+      "status": "pass",
+      "detail": "200/200 sampled fills confirmed; 92% maker"
+     },
+     "match": {
+      "status": "fail",
+      "detail": "quote pulling after plays observed (2.6% vs 9.7% of passive fills in 0-10 s), but no public-data quoting rule reproduces its fills; most volume is tennis/esports with no public event feed"
+     },
+     "backtest": {
+      "status": "fail",
+      "detail": "public-data two-sided maker on 70 held-out RN1 markets: -7.8% (0 s), -11.7% (2 s), -12.2% (5 s), -18.9% (30 s); RN1's own passive fills there +6.5%"
+     },
+     "replicable": {
+      "status": "fail",
+      "detail": "requires cancelling quotes within seconds of live events; stale passive fills right after scoring plays lose 26-29% for other makers"
+     },
+     "persistence": {
+      "status": "pass",
+      "detail": "last 30 days significant (p=0.0025); no decline (p=0.41)"
+     }
+    },
+    "key_numbers": {
+     "30-day PnL": "$907,319",
+     "Monthly ROC": "79%",
+     "30-day fills / volume": "248,770 / $64.7M",
+     "Locked pair spread (30 d)": "+$963,976",
+     "Residual adverse selection (30 d)": "-$319,040",
+     "Slow imitator, held out": "-7.8% to -18.9%"
+    },
+    "reasons": [
+     "A slow two-sided maker with public data loses money in the same markets at every tested delay (0-30 s).",
+     "RN1's edge depends on pulling quotes within seconds of live events, which needs low-latency sports and esports data.",
+     "No public-data rule reproduces its quoting at the required significance."
+    ],
+    "evidence": [
+     "research/wallets/0x2005d16a84ceefa912d4e380cd32e7ff827875ea/profile.json",
+     "research/wallets/0x2005d16a84ceefa912d4e380cd32e7ff827875ea/maker_replicability_study.json",
+     "research/wallets/0x2005d16a84ceefa912d4e380cd32e7ff827875ea/sports_study_maker.json",
+     "research/stage_a/persistence_a1_survivors.json"
+    ]
+   }
   },
   {
    "wallet": "0xa38a455bbdd4b68486548b7e19da99903f4f821d",
@@ -15778,11 +15847,80 @@
     277381.47659
    ],
    "a1_pass": true,
-   "stage": "A1",
-   "verdict": "in_progress",
+   "stage": "C",
+   "verdict": "reject",
    "reasons": [
-    "passed stage A1; reverse engineering in progress"
-   ]
+    "A public-data maker loses significantly in the same CS2 markets at every delay tested.",
+    "Its edge depends on live round-level information that has no free public feed.",
+    "It relies on the 50% Obsidian taker rebate to clear $50k per month."
+   ],
+   "archetype": "In-play two-sided market maker (CS2 esports)",
+   "deep_dive": {
+    "wallet": "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2",
+    "name": "TommyLeePeeca",
+    "stage": "C",
+    "verdict": "reject",
+    "archetype": "In-play two-sided market maker (CS2 esports)",
+    "headline": "Quotes both sides of live CS2 (and some Dota 2) match markets and collects the spread plus Obsidian-tier taker rebates. A maker without its live game data loses 8-9% of capital deployed in the same matches at every delay tested, and below the top rebate tier its month falls to about $33k.",
+    "mechanism": "87% of sampled fills are maker fills (on-chain, 95% CI 82-91%); 99% occur after match start; 98% of volume is CS2. It buys both outcomes in 92% of markets at a median pair cost of 1.00 (balance 0.84). Locked pair spread is -$50k over 30 days and the residual +$137k, so profit comes from leaning quotes toward the side that wins rounds, which needs live round-level information.",
+    "criteria": {
+     "significance": {
+      "status": "pass",
+      "detail": "pre-selection 105d: HAC t=4.6, Holm p=3.1e-03, bootstrap p=2.5e-04; deflated Sharpe 1.000"
+     },
+     "monthly_50k": {
+      "status": "pass",
+      "detail": "last 30d $60,279; median month $58,068"
+     },
+     "consistency": {
+      "status": "pass",
+      "detail": "annualized Sharpe 12.3; positive weeks 84%; positive months 100%"
+     },
+     "roc": {
+      "status": "pass",
+      "detail": "peak capital at risk $9.6k; 30-day PnL $60.3k; 629% per month"
+     },
+     "onchain": {
+      "status": "pass",
+      "detail": "200/200 sampled fills confirmed; 87% maker"
+     },
+     "match": {
+      "status": "fail",
+      "detail": "no public timestamped CS2 round feed exists to reconstruct its quote decisions; tape-only rule does not reproduce its fills"
+     },
+     "backtest": {
+      "status": "fail",
+      "detail": "public-data two-sided maker on 80 held-out matches: -8.3% (0 s) to -9.3% (30 s), all significant losses; wallet's own passive fills there +1.9% (p=0.056)"
+     },
+     "replicable": {
+      "status": "fail",
+      "detail": "needs low-latency live game data to avoid adverse selection; at a 0% taker rebate tier its 30-day PnL would be ~$33k (< $50k)"
+     },
+     "persistence": {
+      "status": "pass",
+      "detail": "last 30 days significant (p=0.013); no decline (p=0.48)"
+     }
+    },
+    "key_numbers": {
+     "30-day PnL": "$60,279",
+     "Monthly ROC": "629%",
+     "Maker fill share": "87%",
+     "Taker rebate rate observed": "50% (Obsidian)",
+     "PnL at 0% rebate tier": "~$32,900",
+     "Slow imitator, held out": "-8.3% to -9.3%"
+    },
+    "reasons": [
+     "A public-data maker loses significantly in the same CS2 markets at every delay tested.",
+     "Its edge depends on live round-level information that has no free public feed.",
+     "It relies on the 50% Obsidian taker rebate to clear $50k per month."
+    ],
+    "evidence": [
+     "research/wallets/0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2/profile.json",
+     "research/wallets/0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2/maker_replicability_study.json",
+     "research/stage_a/rebate_dependence.json",
+     "research/stage_a/persistence_a1_survivors.json"
+    ]
+   }
   },
   {
    "wallet": "0xb6192410f9c651ee55eb0bc98d695d732cc86586",

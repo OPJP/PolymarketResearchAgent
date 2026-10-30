@@ -1,0 +1,36 @@
+{
+  "wallet": "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2",
+  "name": "TommyLeePeeca",
+  "stage": "C",
+  "verdict": "reject",
+  "archetype": "In-play two-sided market maker (CS2 esports)",
+  "headline": "Quotes both sides of live CS2 (and some Dota 2) match markets and collects the spread plus Obsidian-tier taker rebates. A maker without its live game data loses 8-9% of capital deployed in the same matches at every delay tested, and below the top rebate tier its month falls to about $33k.",
+  "mechanism": "87% of sampled fills are maker fills (on-chain, 95% CI 82-91%); 99% occur after match start; 98% of volume is CS2. It buys both outcomes in 92% of markets at a median pair cost of 1.00 (balance 0.84). Locked pair spread is -$50k over 30 days and the residual +$137k, so profit comes from leaning quotes toward the side that wins rounds, which needs live round-level information.",
+  "criteria": {
+    "roc": {"status": "pass", "detail": "peak capital at risk $9.6k; 30-day PnL $60.3k; 629% per month"},
+    "onchain": {"status": "pass", "detail": "200/200 sampled fills confirmed; 87% maker"},
+    "match": {"status": "fail", "detail": "no public timestamped CS2 round feed exists to reconstruct its quote decisions; tape-only rule does not reproduce its fills"},
+    "backtest": {"status": "fail", "detail": "public-data two-sided maker on 80 held-out matches: -8.3% (0 s) to -9.3% (30 s), all significant losses; wallet's own passive fills there +1.9% (p=0.056)"},
+    "replicable": {"status": "fail", "detail": "needs low-latency live game data to avoid adverse selection; at a 0% taker rebate tier its 30-day PnL would be ~$33k (< $50k)"},
+    "persistence": {"status": "pass", "detail": "last 30 days significant (p=0.013); no decline (p=0.48)"}
+  },
+  "key_numbers": {
+    "30-day PnL": "$60,279",
+    "Monthly ROC": "629%",
+    "Maker fill share": "87%",
+    "Taker rebate rate observed": "50% (Obsidian)",
+    "PnL at 0% rebate tier": "~$32,900",
+    "Slow imitator, held out": "-8.3% to -9.3%"
+  },
+  "reasons": [
+    "A public-data maker loses significantly in the same CS2 markets at every delay tested.",
+    "Its edge depends on live round-level information that has no free public feed.",
+    "It relies on the 50% Obsidian taker rebate to clear $50k per month."
+  ],
+  "evidence": [
+    "research/wallets/0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2/profile.json",
+    "research/wallets/0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2/maker_replicability_study.json",
+    "research/stage_a/rebate_dependence.json",
+    "research/stage_a/persistence_a1_survivors.json"
+  ]
+}

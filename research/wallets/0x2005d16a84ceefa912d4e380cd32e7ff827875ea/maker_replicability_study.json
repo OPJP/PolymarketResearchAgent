@@ -1,0 +1,144 @@
+{
+ "tool": "maker_replicability_study",
+ "subject": {
+  "kind": "wallet",
+  "wallet": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+  "days": 30,
+  "families": null
+ },
+ "observed": {
+  "markets_sampled": 140,
+  "fit_markets": 70,
+  "test_markets": 70,
+  "taker_prints": 38649,
+  "wallet_passive_buys": 2577
+ },
+ "derived": {
+  "fit_delta_scan": {
+   "0.005": {
+    "fills": 2498,
+    "pnl": -1202.9340133600006,
+    "return_on_bought": -0.06185637635004436,
+    "per_market_t": -2.4649057980415483,
+    "per_market_p": 0.9918218816291587
+   },
+   "0.01": {
+    "fills": 2232,
+    "pnl": -1164.9313387100003,
+    "return_on_bought": -0.06709370878267691,
+    "per_market_t": -2.761027240903223,
+    "per_market_p": 0.9962452028609572
+   },
+   "0.02": {
+    "fills": 1373,
+    "pnl": -1019.8003817200004,
+    "return_on_bought": -0.0955726717183102,
+    "per_market_t": -2.836333049904894,
+    "per_market_p": 0.9969352381496193
+   },
+   "0.03": {
+    "fills": 966,
+    "pnl": -646.7140484600002,
+    "return_on_bought": -0.08466264416546325,
+    "per_market_t": -2.7354919696853894,
+    "per_market_p": 0.9959595930052058
+   },
+   "0.05": {
+    "fills": 498,
+    "pnl": -180.97902170000006,
+    "return_on_bought": -0.04502667243263668,
+    "per_market_t": -0.8517171236893984,
+    "per_market_p": 0.8010924774355808
+   }
+  },
+  "chosen_delta": 0.05,
+  "test_by_latency_s": {
+   "0": {
+    "fills": 316,
+    "markets": 56,
+    "usd_bought": 2502.4283556600003,
+    "pnl": -195.78549066000005,
+    "return_on_bought": -0.07823820019349277,
+    "per_market_mean": -3.4961694760714295,
+    "per_market_t": -2.503197709468316,
+    "per_market_p": 0.992346729237023,
+    "per_market_bootstrap_p": 0.9975012493753124,
+    "matched_pairs_shares": 1844.708525,
+    "share_markets_positive": 0.3392857142857143
+   },
+   "2": {
+    "fills": 333,
+    "markets": 56,
+    "usd_bought": 2617.7819774600002,
+    "pnl": -307.1688374600001,
+    "return_on_bought": -0.11733935068116023,
+    "per_market_mean": -5.485157811785714,
+    "per_market_t": -3.0944633392798186,
+    "per_market_p": 0.9984511116596287,
+    "per_market_bootstrap_p": 0.999000499750125,
+    "matched_pairs_shares": 1838.313439,
+    "share_markets_positive": 0.2857142857142857
+   },
+   "5": {
+    "fills": 372,
+    "markets": 56,
+    "usd_bought": 2903.6276058300004,
+    "pnl": -353.7797918300001,
+    "return_on_bought": -0.12184062140739715,
+    "per_market_mean": -6.317496282678573,
+    "per_market_t": -3.35410819465876,
+    "per_market_p": 0.999276329110751,
+    "per_market_bootstrap_p": 1.0,
+    "matched_pairs_shares": 2079.033219,
+    "share_markets_positive": 0.25
+   },
+   "10": {
+    "fills": 415,
+    "markets": 56,
+    "usd_bought": 3250.1189704999997,
+    "pnl": -384.5485765000001,
+    "return_on_bought": -0.11831830772669868,
+    "per_market_mean": -6.86693886607143,
+    "per_market_t": -3.1209843128301045,
+    "per_market_p": 0.9985647047127948,
+    "per_market_bootstrap_p": 1.0,
+    "matched_pairs_shares": 2327.0067,
+    "share_markets_positive": 0.26785714285714285
+   },
+   "30": {
+    "fills": 609,
+    "markets": 57,
+    "usd_bought": 4704.08583276,
+    "pnl": -890.08929076,
+    "return_on_bought": -0.18921620956855784,
+    "per_market_mean": -15.615601592280704,
+    "per_market_t": -5.2131320629877145,
+    "per_market_p": 0.9999986110041397,
+    "per_market_bootstrap_p": 1.0,
+    "matched_pairs_shares": 3366.198216,
+    "share_markets_positive": 0.15789473684210525
+   }
+  },
+  "wallet_passive_replay_test": {
+   "fills": 1086,
+   "usd": 276523.60582743154,
+   "pnl": 17845.73932156846,
+   "return": 0.06453604301943519,
+   "per_market_p": 0.3018480671979065
+  }
+ },
+ "inferred": {},
+ "sources": [],
+ "coverage": {
+  "status": "partial",
+  "detail": "140 sampled markets"
+ },
+ "limitations": [
+  "Fair value is the last public print (no external event data); a real maker would also use game state.",
+  "Trade-through fills: conservative at the touch, optimistic about queue position below it.",
+  "Maker rebates and liquidity rewards are excluded from backtest PnL."
+ ],
+ "unknowns": [],
+ "next_probes": [],
+ "generated_at": "2026-10-30T23:12:14+00:00"
+}

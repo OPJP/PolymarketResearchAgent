@@ -163,3 +163,23 @@ def test_tape_maker_backtest_uses_only_stale_tape_price():
     # the 0.30 print at 115 must not inform the 110 quote (no look-ahead)
     r2 = tape_maker_backtest(flow, {"m": 0.0}, delta=0.02, latency=0, requote_s=10, active={"m": (110, 120)}, size_shares=5)
     assert r2["pnl"] == pytest.approx(-5 * 0.48)
+
+
+def test_vectorized_maker_backtest_equals_reference():
+    from polyrea.analysis.updown import _maker_backtest_reference, maker_backtest
+
+    rng = np.random.default_rng(9)
+    s = _spot(n=3600 + 30 * 300 + 600, seed=9)
+    spot = SpotIndex(s)
+    ws = [Window(w.condition_id, "btc", "5m", w.start_ts, w.end_ts, w.up_token, w.down_token, up_payout=float(rng.random() < 0.5)) for w in _windows(30)]
+    rows = []
+    for w in ws:
+        for _ in range(200):
+            rows.append({"condition_id": w.condition_id, "ts": int(rng.integers(w.start_ts - 20, w.end_ts + 20)), "is_up": bool(rng.random() < 0.5),
+                         "side": "SELL" if rng.random() < 0.5 else "BUY", "price": float(np.round(rng.uniform(0.02, 0.98), 2)), "size": float(rng.integers(1, 40))})
+    flow = pd.DataFrame(rows)
+    for delta, lat, q in ((0.0, 1, 1.0), (0.03, 2, 0.5), (0.08, 5, 1.0)):
+        a = maker_backtest(flow, ws, spot, delta, lat, queue_share=q)
+        b = _maker_backtest_reference(flow, ws, spot, delta, lat, queue_share=q)
+        assert a["fills"] == b["fills"]
+        assert a["pnl"] == pytest.approx(b["pnl"], rel=1e-9, abs=1e-9)

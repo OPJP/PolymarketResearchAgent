@@ -1,0 +1,36 @@
+{
+  "wallet": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+  "name": "RN1",
+  "stage": "C",
+  "verdict": "reject",
+  "archetype": "In-play two-sided market maker (tennis, esports, US sports)",
+  "headline": "Runs a large in-play market-making book: resting bids on both sides of live tennis, CS2 and football markets, about $65M of fills a month across 28,000 markets. It pulls quotes within seconds of game events. A maker without that speed, using public data, loses 8-19% of capital deployed in the same markets.",
+  "mechanism": "92% of sampled fills are maker fills (on-chain, 95% CI 88-95%); 97% happen after game start. Pairs are bought at a median combined 0.98, locking +$964k of spread in 30 days, while the unmatched residual loses $319k to adverse selection. Around ESPN scoring plays, only 2.6% of its passive fills land in the 10 s after a play versus 9.7% for other makers, whose fills in that window lose 26-29%: RN1 cancels quotes within seconds of events.",
+  "criteria": {
+    "roc": {"status": "pass", "detail": "peak capital at risk $1.14M; 30-day PnL $907k; 79% per month"},
+    "onchain": {"status": "pass", "detail": "200/200 sampled fills confirmed; 92% maker"},
+    "match": {"status": "fail", "detail": "quote pulling after plays observed (2.6% vs 9.7% of passive fills in 0-10 s), but no public-data quoting rule reproduces its fills; most volume is tennis/esports with no public event feed"},
+    "backtest": {"status": "fail", "detail": "public-data two-sided maker on 70 held-out RN1 markets: -7.8% (0 s), -11.7% (2 s), -12.2% (5 s), -18.9% (30 s); RN1's own passive fills there +6.5%"},
+    "replicable": {"status": "fail", "detail": "requires cancelling quotes within seconds of live events; stale passive fills right after scoring plays lose 26-29% for other makers"},
+    "persistence": {"status": "pass", "detail": "last 30 days significant (p=0.0025); no decline (p=0.41)"}
+  },
+  "key_numbers": {
+    "30-day PnL": "$907,319",
+    "Monthly ROC": "79%",
+    "30-day fills / volume": "248,770 / $64.7M",
+    "Locked pair spread (30 d)": "+$963,976",
+    "Residual adverse selection (30 d)": "-$319,040",
+    "Slow imitator, held out": "-7.8% to -18.9%"
+  },
+  "reasons": [
+    "A slow two-sided maker with public data loses money in the same markets at every tested delay (0-30 s).",
+    "RN1's edge depends on pulling quotes within seconds of live events, which needs low-latency sports and esports data.",
+    "No public-data rule reproduces its quoting at the required significance."
+  ],
+  "evidence": [
+    "research/wallets/0x2005d16a84ceefa912d4e380cd32e7ff827875ea/profile.json",
+    "research/wallets/0x2005d16a84ceefa912d4e380cd32e7ff827875ea/maker_replicability_study.json",
+    "research/wallets/0x2005d16a84ceefa912d4e380cd32e7ff827875ea/sports_study_maker.json",
+    "research/stage_a/persistence_a1_survivors.json"
+  ]
+}
