@@ -1,0 +1,92 @@
+{
+ "S1_certainty": {
+  "build_auc": 0.7336,
+  "validate_auc": 0.6402,
+  "validate_family_auc": {
+   "crypto": 0.939,
+   "deadline": 0.809,
+   "election": 0.784,
+   "fomc": 0.713,
+   "other": 0.006
+  },
+  "selection_V": {
+   "markets": 3212,
+   "wallet_markets": 57,
+   "auc": 0.7429,
+   "auc_null_mean": 0.5032,
+   "auc_p": 0.004975124378109453,
+   "thr": 3.301029995664029,
+   "predicted": 1397,
+   "recall": 0.912,
+   "precision": 0.0372,
+   "lift": 2.1,
+   "lift_p": 2.56231433149759e-14
+  },
+  "side_price_V": {
+   "cells": 277,
+   "side_acc_fav": 0.8428,
+   "price_within_tick": 0.7726,
+   "median_wpx_minus_pf": -0.0005
+  }
+ },
+ "S2_certainty_after_end": {
+  "build_auc": 0.7342,
+  "validate_auc": 0.6382,
+  "validate_family_auc": {
+   "crypto": 0.939,
+   "deadline": 0.791,
+   "election": 0.747,
+   "fomc": 0.74,
+   "other": 0.04
+  },
+  "selection_V": {
+   "markets": 3212,
+   "wallet_markets": 57,
+   "auc": 0.8269,
+   "auc_null_mean": 0.5036,
+   "auc_p": 0.004975124378109453,
+   "thr": 4.301029995664029,
+   "predicted": 589,
+   "recall": 0.719,
+   "precision": 0.0696,
+   "lift": 3.92,
+   "lift_p": 5.836246038680421e-19
+  },
+  "side_price_V": {
+   "cells": 277,
+   "side_acc_fav": 0.8428,
+   "price_within_tick": 0.7726,
+   "median_wpx_minus_pf": -0.0005
+  }
+ },
+ "L1_lgbm_all": {
+  "build_auc": 0.9856,
+  "validate_auc": 0.8844,
+  "validate_family_auc": {
+   "crypto": 0.903,
+   "deadline": 0.87,
+   "election": 0.993,
+   "fomc": 0.848,
+   "other": 0.753
+  },
+  "selection_V": {
+   "markets": 3212,
+   "wallet_markets": 57,
+   "auc": 0.8853,
+   "auc_null_mean": 0.5033,
+   "auc_p": 0.004975124378109453,
+   "thr": 0.09116994284678005,
+   "predicted": 108,
+   "recall": 0.526,
+   "precision": 0.2778,
+   "lift": 15.65,
+   "lift_p": 6.142793180988898e-31
+  },
+  "side_price_V": {
+   "cells": 277,
+   "side_acc_fav": 0.8428,
+   "price_within_tick": 0.7726,
+   "median_wpx_minus_pf": -0.0005
+  }
+ }
+}

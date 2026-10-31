@@ -24,7 +24,11 @@ full public taker tapes for the markets it traded with game start in [start_ts, 
 features, scores and returns selection (within-market AUC, recall/lift at top 15%, stratified rank-sum p),
 side baseline, and outcome metrics (rule's per-market PnL on flagged other-taker prints vs the wallet's).
 
-**VALIDATE performance**: see `state.json` -> `best.validate_metrics` (filled at the end of iteration 1).
+**VALIDATE performance** (games 2026-10-13..10-22, 4,759 markets, 812,569 in-play taker BUY prints, 10,914 of
+them the wallet's): within-market selection AUC **0.731** (pre-registered primary metric), recall 40.4% at lift
+2.64 when flagging the top 15% within each market, precision 3.5% vs base rate 1.34%, stratified rank-sum
+p ~ 0. Target (AUC >= 0.80 with recall >= 50% at lift >= 3) NOT met. Side and price models not yet built;
+per-market PnL correlation of the rule vs the wallet ~0.14 (300-market smoke test).
 
 **Known limits**: the population is conditional on the wallet's market choice; the side model and price model
 are not yet frozen; the rule identifies *when* the wallet tends to trade within a market (early in the in-play

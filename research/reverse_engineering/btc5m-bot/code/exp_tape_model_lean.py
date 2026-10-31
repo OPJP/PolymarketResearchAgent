@@ -20,15 +20,14 @@ wv = has(win[(win.start_ts >= V0) & (win.end_ts <= V1)])
 cb = add_tape_feats(build_cells(wb, f, sp), f, sp)
 cv = add_tape_feats(build_cells(wv, f, sp), f, sp)
 print("BUILD windows w/ tape", len(wb), "VALIDATE windows w/ tape", len(wv), round(time.time() - t0), flush=True)
-params = dict(objective="binary", learning_rate=0.08, num_leaves=127, min_data_in_leaf=300, feature_fraction=0.8, bagging_fraction=0.5, bagging_freq=1, verbose=-1, num_threads=4)
+params = dict(objective="binary", learning_rate=0.1, num_leaves=63, min_data_in_leaf=300, feature_fraction=0.8, bagging_fraction=0.5, bagging_freq=1, verbose=-1, num_threads=2)
 ALL = FEATS + TAPE_FEATS
 res = {"n_build_windows": int(len(wb)), "n_val_windows": int(len(wv))}
-ps = pd.read_parquet(f"{C}/val_pred_spot.parquet")
-cv = cv.merge(ps[["cid", "is_up", "rel", "p_spot"]], on=["cid", "is_up", "rel"], how="left")
+cv["p_spot"] = lgb.Booster(model_file=f"{R}/code/model_spot_only_y.txt").predict(cv[FEATS])
 res["spot14d:y_same_windows"] = round(float(roc_auc_score(cv.y, cv.p_spot)), 4)
 print("14-day spot-only model on same VALIDATE windows", res["spot14d:y_same_windows"], flush=True)
 for lab in ["y", "yT", "yM"]:
-    m = lgb.train(params, lgb.Dataset(cb[ALL], cb[lab]), num_boost_round=250)
+    m = lgb.train(params, lgb.Dataset(cb[ALL], cb[lab]), num_boost_round=150)
     p = m.predict(cv[ALL])
     imp = sorted(zip(ALL, m.feature_importance("gain")), key=lambda t: -t[1]); tot = sum(v for _, v in imp)
     res[f"spot_tape:{lab}"] = {"auc": round(float(roc_auc_score(cv[lab], p)), 4), "top_gain_share": [(a, round(float(b / tot), 3)) for a, b in imp[:14]]}

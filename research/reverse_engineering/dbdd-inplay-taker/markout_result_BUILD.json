@@ -1,222 +1,402 @@
 {
  "others": {
   "mo5": 0.0003,
-  "mo30": 0.0008,
-  "mo120": 0.0027,
-  "mo600": 0.0037,
-  "mo_res": 0.0085,
-  "n": 152389,
+  "mo30": 0.0013,
+  "mo120": 0.0024,
+  "mo600": 0.0015,
+  "mo_res": 0.0011,
+  "n": 1744083,
   "quiet_med": 5.0,
-  "quiet_ge10": 0.3679202567114424,
-  "mv60_mean": 0.003080864641130885,
-  "mv10_mean": 0.0017005053813215613,
-  "sib_n10_mean": 0.6185092099823478,
-  "dp_print_mean": 0.012459144791093883,
-  "price_mean": 0.5443144650113564,
-  "usd_med": 10.085600000000001
+  "quiet_ge10": 0.3309584463583442,
+  "mv60_mean": 0.003021643940534741,
+  "mv10_mean": 0.0012608115527160846,
+  "sib_n10_mean": 1.0279218362887546,
+  "dp_print_mean": 0.01072843204910229,
+  "price_mean": 0.5360331558473304,
+  "usd_med": 11.260000000781805
  },
  "wallet": {
-  "mo5": 0.0018,
-  "mo30": 0.0058,
-  "mo120": 0.0136,
-  "mo600": 0.0192,
-  "mo_res": 0.0146,
-  "n": 3129,
-  "quiet_med": 18.0,
-  "quiet_ge10": 0.6490891658676894,
-  "mv60_mean": 0.006948097018785453,
-  "mv10_mean": 0.002644469193302692,
-  "sib_n10_mean": 0.45573665707893896,
-  "dp_print_mean": 0.013036835621216087,
-  "price_mean": 0.5123888555858102,
-  "usd_med": 9.0
+  "mo5": 0.0051,
+  "mo30": 0.0103,
+  "mo120": 0.0172,
+  "mo600": 0.0246,
+  "mo_res": 0.0181,
+  "n": 21383,
+  "quiet_med": 17.0,
+  "quiet_ge10": 0.6096431744844035,
+  "mv60_mean": 0.004544571753669207,
+  "mv10_mean": 0.0019199619768202948,
+  "sib_n10_mean": 0.9203105270542019,
+  "dp_print_mean": 0.011694867989197263,
+  "price_mean": 0.4932776245100453,
+  "usd_med": 10.999999999607837
  },
  "by_fam": [
   {
    "fam": "esports:cs",
    "is_wallet": false,
-   "n": 44772,
-   "mo30": 0.002,
-   "mo600": 0.0042,
-   "mo_res": 0.0059,
-   "quiet_ge10": 0.4029
+   "n": 372924,
+   "mo30": 0.0021,
+   "mo600": 0.0008,
+   "mo_res": -0.0025,
+   "quiet_ge10": 0.3392
   },
   {
    "fam": "esports:cs",
    "is_wallet": true,
-   "n": 1509,
-   "mo30": 0.0041,
-   "mo600": 0.0091,
-   "mo_res": -0.0477,
-   "quiet_ge10": 0.6766
+   "n": 5111,
+   "mo30": 0.0104,
+   "mo600": 0.0202,
+   "mo_res": -0.0202,
+   "quiet_ge10": 0.5746
   },
   {
    "fam": "esports:dota",
    "is_wallet": false,
-   "n": 28665,
-   "mo30": -0.0014,
-   "mo600": -0.0095,
-   "mo_res": -0.0047,
-   "quiet_ge10": 0.1595
+   "n": 240606,
+   "mo30": -0.0003,
+   "mo600": -0.0036,
+   "mo_res": 0.0017,
+   "quiet_ge10": 0.1551
   },
   {
    "fam": "esports:dota",
    "is_wallet": true,
-   "n": 259,
-   "mo30": 0.0146,
-   "mo600": 0.0437,
-   "mo_res": 0.0785,
-   "quiet_ge10": 0.4788
+   "n": 1259,
+   "mo30": 0.0145,
+   "mo600": 0.0337,
+   "mo_res": 0.0069,
+   "quiet_ge10": 0.3654
   },
   {
    "fam": "esports:lol",
    "is_wallet": false,
-   "n": 10185,
-   "mo30": -0.0026,
-   "mo600": -0.0119,
-   "mo_res": -0.0214,
-   "quiet_ge10": 0.1958
+   "n": 192694,
+   "mo30": 0.0014,
+   "mo600": 0.002,
+   "mo_res": 0.0011,
+   "quiet_ge10": 0.1681
   },
   {
    "fam": "esports:lol",
    "is_wallet": true,
-   "n": 23,
-   "mo30": 0.0164,
-   "mo600": -0.0166,
-   "mo_res": -0.1217,
-   "quiet_ge10": 0.4783
+   "n": 708,
+   "mo30": 0.0119,
+   "mo600": 0.0274,
+   "mo_res": -0.0106,
+   "quiet_ge10": 0.404
+  },
+  {
+   "fam": "esports:val",
+   "is_wallet": false,
+   "n": 39091,
+   "mo30": 0.0008,
+   "mo600": 0.0005,
+   "mo_res": -0.0023,
+   "quiet_ge10": 0.2227
+  },
+  {
+   "fam": "esports:val",
+   "is_wallet": true,
+   "n": 128,
+   "mo30": 0.0137,
+   "mo600": 0.0174,
+   "mo_res": 0.0031,
+   "quiet_ge10": 0.4453
   },
   {
    "fam": "other",
    "is_wallet": false,
-   "n": 13244,
-   "mo30": 0.0001,
-   "mo600": 0.0146,
-   "mo_res": 0.0129,
+   "n": 259523,
+   "mo30": 0.0017,
+   "mo600": 0.0044,
+   "mo_res": 0.0073,
+   "quiet_ge10": 0.4134
+  },
+  {
+   "fam": "other",
+   "is_wallet": true,
+   "n": 4760,
+   "mo30": 0.0137,
+   "mo600": 0.0387,
+   "mo_res": 0.0844,
+   "quiet_ge10": 0.6366
+  },
+  {
+   "fam": "sports:atp",
+   "is_wallet": false,
+   "n": 197336,
+   "mo30": 0.0006,
+   "mo600": 0.002,
+   "mo_res": -0.0003,
+   "quiet_ge10": 0.3906
+  },
+  {
+   "fam": "sports:atp",
+   "is_wallet": true,
+   "n": 2204,
+   "mo30": 0.009,
+   "mo600": 0.0313,
+   "mo_res": 0.018,
+   "quiet_ge10": 0.5635
+  },
+  {
+   "fam": "sports:bun",
+   "is_wallet": false,
+   "n": 6634,
+   "mo30": 0.0026,
+   "mo600": 0.0147,
+   "mo_res": 0.0295,
+   "quiet_ge10": 0.3592
+  },
+  {
+   "fam": "sports:bun",
+   "is_wallet": true,
+   "n": 32,
+   "mo30": 0.0085,
+   "mo600": 0.0667,
+   "mo_res": -0.0129,
+   "quiet_ge10": 0.5
+  },
+  {
+   "fam": "sports:cfb",
+   "is_wallet": false,
+   "n": 65364,
+   "mo30": 0.0008,
+   "mo600": -0.0004,
+   "mo_res": 0.0041,
+   "quiet_ge10": 0.4651
+  },
+  {
+   "fam": "sports:cfb",
+   "is_wallet": true,
+   "n": 760,
+   "mo30": 0.0075,
+   "mo600": 0.0114,
+   "mo_res": -0.004,
+   "quiet_ge10": 0.7421
+  },
+  {
+   "fam": "sports:epl",
+   "is_wallet": false,
+   "n": 5094,
+   "mo30": 0.0012,
+   "mo600": -0.0035,
+   "mo_res": 0.0251,
+   "quiet_ge10": 0.3763
+  },
+  {
+   "fam": "sports:epl",
+   "is_wallet": true,
+   "n": 74,
+   "mo30": 0.0122,
+   "mo600": 0.079,
+   "mo_res": 0.1608,
+   "quiet_ge10": 0.7027
+  },
+  {
+   "fam": "sports:itf",
+   "is_wallet": false,
+   "n": 70571,
+   "mo30": 0.0022,
+   "mo600": 0.0049,
+   "mo_res": 0.0068,
+   "quiet_ge10": 0.588
+  },
+  {
+   "fam": "sports:itf",
+   "is_wallet": true,
+   "n": 3398,
+   "mo30": 0.0058,
+   "mo600": 0.0083,
+   "mo_res": -0.0037,
+   "quiet_ge10": 0.7572
+  },
+  {
+   "fam": "sports:lal",
+   "is_wallet": false,
+   "n": 3949,
+   "mo30": 0.0027,
+   "mo600": 0.0013,
+   "mo_res": -0.0061,
+   "quiet_ge10": 0.3568
+  },
+  {
+   "fam": "sports:lal",
+   "is_wallet": true,
+   "n": 43,
+   "mo30": 0.013,
+   "mo600": 0.0355,
+   "mo_res": -0.0486,
+   "quiet_ge10": 0.7442
+  },
+  {
+   "fam": "sports:mlb",
+   "is_wallet": false,
+   "n": 12762,
+   "mo30": 0.0015,
+   "mo600": 0.0092,
+   "mo_res": -0.0075,
    "quiet_ge10": 0.4918
   },
   {
-   "fam": "other",
-   "is_wallet": true,
-   "n": 289,
-   "mo30": 0.0078,
-   "mo600": 0.019,
-   "mo_res": 0.0362,
-   "quiet_ge10": 0.6228
-  },
-  {
-   "fam": "sports:atp",
-   "is_wallet": false,
-   "n": 17019,
-   "mo30": 0.0017,
-   "mo600": 0.0112,
-   "mo_res": 0.0432,
-   "quiet_ge10": 0.3998
-  },
-  {
-   "fam": "sports:atp",
-   "is_wallet": true,
-   "n": 282,
-   "mo30": 0.0071,
-   "mo600": 0.0674,
-   "mo_res": 0.086,
-   "quiet_ge10": 0.5142
-  },
-  {
-   "fam": "sports:itf",
-   "is_wallet": false,
-   "n": 13171,
-   "mo30": 0.0031,
-   "mo600": 0.015,
-   "mo_res": 0.0288,
-   "quiet_ge10": 0.6165
-  },
-  {
-   "fam": "sports:itf",
-   "is_wallet": true,
-   "n": 562,
-   "mo30": 0.0024,
-   "mo600": 0.0062,
-   "mo_res": 0.0882,
-   "quiet_ge10": 0.7936
-  },
-  {
-   "fam": "sports:mlb",
-   "is_wallet": false,
-   "n": 4324,
-   "mo30": -0.0018,
-   "mo600": 0.0119,
-   "mo_res": -0.0165,
-   "quiet_ge10": 0.4241
-  },
-  {
    "fam": "sports:mlb",
    "is_wallet": true,
-   "n": 19,
-   "mo30": 0.0083,
-   "mo600": 0.1193,
-   "mo_res": 0.0216,
-   "quiet_ge10": 0.7368
+   "n": 89,
+   "mo30": -0.003,
+   "mo600": 0.0105,
+   "mo_res": -0.0278,
+   "quiet_ge10": 0.7079
+  },
+  {
+   "fam": "sports:mls",
+   "is_wallet": false,
+   "n": 12489,
+   "mo30": 0.0011,
+   "mo600": 0.0017,
+   "mo_res": -0.0204,
+   "quiet_ge10": 0.3996
+  },
+  {
+   "fam": "sports:mls",
+   "is_wallet": true,
+   "n": 101,
+   "mo30": 0.0205,
+   "mo600": 0.0501,
+   "mo_res": 0.0356,
+   "quiet_ge10": 0.5842
+  },
+  {
+   "fam": "sports:nba",
+   "is_wallet": false,
+   "n": 60668,
+   "mo30": 0.0027,
+   "mo600": 0.0052,
+   "mo_res": 0.0055,
+   "quiet_ge10": 0.3682
+  },
+  {
+   "fam": "sports:nba",
+   "is_wallet": true,
+   "n": 990,
+   "mo30": 0.0088,
+   "mo600": 0.0284,
+   "mo_res": 0.0209,
+   "quiet_ge10": 0.6263
+  },
+  {
+   "fam": "sports:nfl",
+   "is_wallet": false,
+   "n": 72779,
+   "mo30": 0.0014,
+   "mo600": 0.0033,
+   "mo_res": -0.0045,
+   "quiet_ge10": 0.3231
+  },
+  {
+   "fam": "sports:nfl",
+   "is_wallet": true,
+   "n": 391,
+   "mo30": 0.005,
+   "mo600": 0.0118,
+   "mo_res": 0.0464,
+   "quiet_ge10": 0.7161
+  },
+  {
+   "fam": "sports:nhl",
+   "is_wallet": false,
+   "n": 23746,
+   "mo30": 0.0034,
+   "mo600": 0.0034,
+   "mo_res": 0.0,
+   "quiet_ge10": 0.5043
+  },
+  {
+   "fam": "sports:nhl",
+   "is_wallet": true,
+   "n": 322,
+   "mo30": 0.0151,
+   "mo600": 0.0236,
+   "mo_res": -0.0139,
+   "quiet_ge10": 0.6646
+  },
+  {
+   "fam": "sports:wnba",
+   "is_wallet": false,
+   "n": 18068,
+   "mo30": 0.0026,
+   "mo600": 0.0042,
+   "mo_res": 0.0051,
+   "quiet_ge10": 0.3497
+  },
+  {
+   "fam": "sports:wnba",
+   "is_wallet": true,
+   "n": 150,
+   "mo30": 0.0073,
+   "mo600": 0.0182,
+   "mo_res": 0.0527,
+   "quiet_ge10": 0.6467
   },
   {
    "fam": "sports:wta",
    "is_wallet": false,
-   "n": 15169,
-   "mo30": 0.0013,
-   "mo600": 0.003,
-   "mo_res": -0.0084,
-   "quiet_ge10": 0.3559
+   "n": 81741,
+   "mo30": 0.0004,
+   "mo600": 0.0007,
+   "mo_res": -0.0058,
+   "quiet_ge10": 0.3931
   },
   {
    "fam": "sports:wta",
    "is_wallet": true,
-   "n": 99,
-   "mo30": 0.0078,
-   "mo600": 0.0175,
-   "mo_res": 0.0739,
-   "quiet_ge10": 0.4242
+   "n": 770,
+   "mo30": 0.0081,
+   "mo600": 0.0124,
+   "mo_res": 0.0078,
+   "quiet_ge10": 0.5065
   }
  ],
  "wallet_mo_res_by_price": [
   {
    "price": "(0.0, 0.2]",
-   "size": 317,
-   "mean": 0.0362
+   "size": 2748,
+   "mean": 0.0274
   },
   {
    "price": "(0.2, 0.4]",
-   "size": 657,
-   "mean": -0.0255
+   "size": 4553,
+   "mean": 0.0045
   },
   {
    "price": "(0.4, 0.5]",
-   "size": 522,
-   "mean": 0.0195
+   "size": 3635,
+   "mean": 0.0066
   },
   {
    "price": "(0.5, 0.6]",
-   "size": 447,
-   "mean": 0.0705
+   "size": 3094,
+   "mean": 0.0235
   },
   {
    "price": "(0.6, 0.7]",
-   "size": 478,
-   "mean": -0.0472
+   "size": 2856,
+   "mean": 0.02
   },
   {
    "price": "(0.7, 0.8]",
-   "size": 385,
-   "mean": 0.0305
+   "size": 2580,
+   "mean": 0.0162
   },
   {
    "price": "(0.8, 0.9]",
-   "size": 309,
-   "mean": 0.0616
+   "size": 1807,
+   "mean": 0.0497
   },
   {
    "price": "(0.9, 1.0]",
-   "size": 14,
-   "mean": 0.0801
+   "size": 110,
+   "mean": 0.0517
   }
  ]
 }

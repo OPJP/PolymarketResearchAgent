@@ -21,7 +21,7 @@ cands = {
     'S2_certainty_after_end': lambda d: d.lpf.values + 1.0 * d.after_end.values,
 }
 # LightGBM behaviour clone
-params = dict(objective='binary', learning_rate=0.03, num_leaves=15, min_child_samples=100, subsample=0.8, subsample_freq=1, colsample_bytree=0.8, reg_lambda=5.0, verbose=-1, seed=1)
+params = dict(objective='binary', learning_rate=0.03, num_leaves=15, min_child_samples=100, subsample=0.8, subsample_freq=1, colsample_bytree=0.8, reg_lambda=5.0, verbose=-1, seed=1, num_threads=2)
 m = lgb.train(params, lgb.Dataset(B[FEATS], B.y, weight=B.w), num_boost_round=400)
 imp = pd.Series(m.feature_importance('gain'), index=FEATS).sort_values(ascending=False)
 print('LGBM gain importance:', (imp / imp.sum()).round(3).head(12).to_dict())
@@ -31,7 +31,7 @@ for k, f in cands.items():
     sb, sv = f(B), f(V)
     thr = float(np.quantile(pd.Series(sb).groupby(B.cid.values).max(), 0.9))  # threshold fixed on BUILD: top 10% of markets
     r = dict(build_auc=round(float(roc_auc_score(B.y, sb, sample_weight=B.w)), 4), validate_auc=round(presence_auc(V, sv), 4), validate_family_auc=family_auc(V, sv),
-             selection_V=selection(V, sv, thr, n_perm=500))
+             selection_V=selection(V, sv, thr, n_perm=200))
     # side/price on predicted-positive cells (score above BUILD 95th pct of cells)
     cthr = float(np.quantile(sb, 0.95))
     r['side_price_V'] = side_price(V, sv >= -np.inf)

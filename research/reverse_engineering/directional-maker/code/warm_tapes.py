@@ -16,14 +16,15 @@ H = 1792713600
 OUT = ROOT / ".cache/re/directional-maker"
 
 if __name__ == "__main__":
-    lo, hi, rev = int(sys.argv[1]), min(int(sys.argv[2]), H), len(sys.argv) > 3 and sys.argv[3] == "rev"
+    lo, hi, rev = int(sys.argv[1]), min(int(sys.argv[2]), H), "rev" in sys.argv[3:]
+    full = "full" in sys.argv[3:]  # full tape (maker rows too) instead of taker-only
     pm = PolymarketData()
     w = pd.read_parquet(OUT / "windows_5m.parquet")
     w = w[(w["start_ts"] >= lo) & (w["end_ts"] <= hi)].sort_values("start_ts", ascending=not rev)
     t0 = time.time()
 
     def go(r):
-        rows, _, _ = pm.market_trades(r[0], start=int(r[1]) - 900, end=min(int(r[2]), H - 1), taker_only=True)
+        rows, _, _ = pm.market_trades(r[0], start=int(r[1]) - 900, end=min(int(r[2]), H - 1), taker_only=not full)
         return len(rows)
 
     with ThreadPoolExecutor(6) as ex:

@@ -6,17 +6,214 @@
   "holdout": "endDate/resolution on or after 2026-10-23 (never loaded; October 2026 FOMC excluded)"
  },
  "best": {
-  "rule_id": null,
-  "validate_metrics": {}
+  "rule_id": "L2_lgbm_price_time_lag3660",
+  "validate_metrics": {
+   "presence_auc": 0.8962,
+   "presence_auc_by_family": {
+    "crypto": 0.926,
+    "deadline": 0.851,
+    "election": 0.974,
+    "fomc": 0.853,
+    "other": 0.859
+   },
+   "selection_auc": 0.9064,
+   "selection_auc_p": 0.000999000999000999,
+   "selection_recall": 0.596,
+   "selection_lift": 6.93,
+   "selection_lift_p": 7.738819551212033e-23,
+   "side_acc_fav_predicted_cells": 0.971,
+   "side_acc_fav_all_wallet_cells": 0.8484,
+   "side_baseline": "buy the favourite (identical to rule)",
+   "price_within_tick_predicted_cells": 0.9038,
+   "price_within_tick_all_wallet_cells": 0.7726,
+   "pnl_pearson": 0.0151,
+   "pnl_spearman": 0.2408,
+   "cell_recall_at_thr": 0.375,
+   "cell_lift_at_thr": 10.05,
+   "usd_capture_at_thr": 0.527,
+   "timing_within_traded_auc": 0.6157,
+   "timing_shift_null_mean": 0.5472,
+   "timing_p": 0.0033,
+   "pnl_strict_pearson": 0.1952,
+   "pnl_strict_spearman": 0.1415,
+   "capital_strict_pearson": 0.5039,
+   "rule_strict_ret": 0.00284,
+   "wallet_ret_same_markets": 0.0089
+  }
  },
- "hypotheses": [],
+ "hypotheses": [
+  {
+   "id": "S1",
+   "family": "certainty threshold",
+   "description": "score = -log10(1-favourite price)",
+   "validate_metrics": {
+    "presence_auc": 0.6402,
+    "selection_auc": 0.7429,
+    "recall": 0.912,
+    "lift": 2.1
+   },
+   "verdict": "necessary not sufficient"
+  },
+  {
+   "id": "S2",
+   "family": "certainty + deadline passed",
+   "description": "lpf + 1[after endDate]",
+   "validate_metrics": {
+    "presence_auc": 0.6382,
+    "selection_auc": 0.8269,
+    "recall": 0.719,
+    "lift": 3.92
+   },
+   "verdict": "helps market selection only"
+  },
+  {
+   "id": "L1",
+   "family": "behaviour clone (LightGBM, 22 features incl. text family, age, hour)",
+   "description": "BUILD-fitted",
+   "validate_metrics": {
+    "presence_auc": 0.8844,
+    "selection_auc": 0.8853,
+    "recall": 0.526,
+    "lift": 15.65
+   },
+   "verdict": "strong, overfit"
+  },
+  {
+   "id": "L2",
+   "family": "behaviour clone (LightGBM, 10 price/time features, lag 1h+60s)",
+   "description": "pf, lpf, h_end, after_end, pf6/24/72, hrs99, hrs95, vol24",
+   "validate_metrics": {
+    "presence_auc": 0.8962,
+    "selection_auc": 0.9064,
+    "recall": 0.596,
+    "lift": 6.93,
+    "side_fav": 0.971,
+    "price_tick": 0.904,
+    "pnl_pearson": 0.0151
+   },
+   "verdict": "best; frozen"
+  },
+  {
+   "id": "D1",
+   "family": "explicit lookup table",
+   "description": "BUILD presence rate by pf bucket x hours-to-endDate bucket x hrs99 bucket",
+   "validate_metrics": {
+    "presence_auc": 0.8026
+   },
+   "verdict": "explicit approximation, weaker"
+  },
+  {
+   "id": "R1",
+   "family": "leakage check",
+   "description": "price lag 60 s vs 3,660 s; ablations",
+   "validate_metrics": {
+    "lag60_all": 0.8844,
+    "lag3660_all": 0.8814,
+    "lag60_price_time": 0.8982,
+    "lag3660_price_time": 0.8962,
+    "no_age": 0.8988,
+    "no_fam": 0.8931
+   },
+   "verdict": "no hourly-bucket leakage"
+  },
+  {
+   "id": "T1",
+   "family": "entry timing within traded markets",
+   "description": "L2 score among cells of wallet-traded markets vs circular timeline-shift null",
+   "validate_metrics": {
+    "pooled_auc": 0.6157,
+    "null_mean": 0.5472,
+    "p": 0.0033
+   },
+   "verdict": "real but modest"
+  },
+  {
+   "id": "P1",
+   "family": "pricing (on-chain orders, BUILD)",
+   "description": "limit price = PIT price rounded down to tick, capped at 1-tick",
+   "validate_metrics": {
+    "build_orders_within_0.001_of_PIT": 0.745,
+    "V_wallet_cells_within_tick": 0.7726,
+    "V_predicted_cells_within_tick": 0.9038
+   },
+   "verdict": "mostly joins the market; 23% at 0.999, 11% passive ladder"
+  },
+  {
+   "id": "Z1",
+   "family": "sizing (price/time features)",
+   "description": "Spearman of per-cell USD with features on BUILD",
+   "validate_metrics": {
+    "h_end": -0.185,
+    "vol24": 0.168,
+    "pf": -0.019
+   },
+   "verdict": "not explained by price series; needs tape liquidity"
+  },
+  {
+   "id": "X1",
+   "family": "side: 0.49 bids in coin-flip markets",
+   "description": "non-favourite buys are 0.49 bids at PIT favourite 0.50-0.51",
+   "validate_metrics": {
+    "build_share_cells": 0.032,
+    "build_share_usd": 0.0116
+   },
+   "verdict": "second small behaviour, to model"
+  },
+  {
+   "id": "O1",
+   "family": "outcome: strict maker fills",
+   "description": "unlimited bid at rule price in predicted cells, filled by taker SELL prints <= bid stamped >= t0+2s",
+   "validate_metrics": {
+    "pnl_pearson": 0.1952,
+    "pnl_spearman": 0.1415,
+    "capital_pearson": 0.5039,
+    "rule_ret": 0.00284,
+    "wallet_ret": 0.0089
+   },
+   "verdict": "capital allocation matches; PnL correlation below 0.5"
+  },
+  {
+   "id": "F1",
+   "family": "flow capture (BUILD)",
+   "description": "taker SELL flow of favourite at >=0.99 in L2-predicted cells: traded vs untraded markets",
+   "validate_metrics": {
+    "build_flow_traded_shares": 17647072,
+    "build_flow_untraded_shares": 2141210,
+    "median_flow_traded": 3110,
+    "median_flow_untraded": 34,
+    "wallet_to_flow_ratio_traded": 1.25
+   },
+   "verdict": "it trades where the near-certain flow is (89% of flow); complement-side matching must be added"
+  }
+ ],
  "data_sources": [
   "data-api /activity full history 2023-04-29..2026-10-22 (91,634 rows)",
   "data-api /v2/user-pnl daily (truncated < H)",
   "gamma /markets metadata for 2,196 traded markets",
   "gamma /markets universe scans by endDate (vol>=20k): VALIDATE 47,211 raw / 3,419 kept; BUILD 84,184 raw / 7,315 kept",
   "clob /prices-history hourly for universe markets (VALIDATE all; BUILD wallet-traded + 2,000 sample)",
-  "Polygon receipts (drpc) of the wallet's trade transactions -> OrderFilled with orderHash (VALIDATE period; BUILD Jul15-Aug31 queued)"
+  "Polygon receipts (drpc) of the wallet's trade transactions -> OrderFilled with orderHash (VALIDATE period; BUILD Jul15-Aug31 queued)",
+  "data-api /trades taker rows for 462 VALIDATE markets (predicted or wallet-traded)",
+  "data-api /trades taker rows for 421 BUILD-sample markets with predicted cells"
  ],
- "iterations": []
+ "iterations": [
+  {
+   "n": 1,
+   "minutes": 48,
+   "best_validate_score": 0.8962,
+   "families": [
+    "certainty threshold",
+    "deadline passed",
+    "behaviour clone LightGBM",
+    "explicit lookup",
+    "leakage/lag checks",
+    "within-market timing",
+    "on-chain order pricing",
+    "sizing correlates",
+    "side (0.49 coin-flip bids)",
+    "strict maker-fill outcome",
+    "flow capture (BUILD tapes)"
+   ]
+  }
+ ]
 }

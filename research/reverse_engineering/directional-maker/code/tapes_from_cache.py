@@ -35,7 +35,7 @@ if __name__ == "__main__":
             if r.get("timestamp", 0) >= H:
                 continue
             out.append((win.cid, int(r["timestamp"]), r.get("side"), str(r.get("asset")), snap_price(float(r.get("price", 0))),
-                        float(r.get("size", 0)), (r.get("proxyWallet") or "").lower()))
-    df = pd.DataFrame(out, columns=["cid", "ts", "side", "asset", "price", "size", "wallet"])
+                        float(r.get("size", 0)), (r.get("proxyWallet") or "").lower(), r.get("transactionHash")))
+    df = pd.DataFrame(out, columns=["cid", "ts", "side", "asset", "price", "size", "wallet", "tx"])
     df.to_parquet(OUT / f"taker_5m_{lo}_{hi}.parquet", index=False)
     print("windows", len(w), "missing", miss, "rows", len(df))

@@ -122,6 +122,16 @@ def build_panel(w: pd.DataFrame, sp: "Spot", tk: pd.DataFrame, mk: pd.DataFrame)
         c_vu = np.concatenate([[0], np.cumsum(sz * hit_up)])
         c_vd = np.concatenate([[0], np.cumsum(sz * ~hit_up)])
         feats = {"last_up": last_up, "n_prints": idx}
+        # book proxies from the tape: last implied Up bid (a bid-hit on Up) and last implied Up ask (an ask-lift on Up)
+        ih = np.flatnonzero(hit_up)
+        il = np.flatnonzero(~hit_up)
+        jb = np.searchsorted(tts[ih], t, side="left") - 1
+        jl = np.searchsorted(tts[il], t, side="left") - 1
+        lb_up = np.where(jb >= 0, up_px[ih][np.clip(jb, 0, None)] if len(ih) else np.nan, np.nan)
+        la_up = np.where(jl >= 0, up_px[il][np.clip(jl, 0, None)] if len(il) else np.nan, np.nan)
+        age_b = np.where(jb >= 0, t - (tts[ih][np.clip(jb, 0, None)] if len(ih) else 0), 9999)
+        age_l = np.where(jl >= 0, t - (tts[il][np.clip(jl, 0, None)] if len(il) else 0), 9999)
+        age_any = np.where(idx > 0, t - tts[np.clip(idx - 1, 0, None)] if len(tts) else 9999, 9999)
         for k in (10, 30, 60):
             j = np.searchsorted(tts, t - k, side="left")
             feats[f"hu{k}"] = c_hu[idx] - c_hu[j]
@@ -152,6 +162,14 @@ def build_panel(w: pd.DataFrame, sp: "Spot", tk: pd.DataFrame, mk: pd.DataFrame)
             d["z_s"] = zsc * sgn
             d["last_s"] = last_up if side == "up" else 1 - last_up
             d["edge_s"] = d["fair_s"] - d["last_s"]
+            # side s: its bid-hits are Up bid-hits for Up, Up ask-lifts (=Down bid-hits) for Down
+            d["lb_s"] = lb_up if side == "up" else 1 - la_up
+            d["la_s"] = la_up if side == "up" else 1 - lb_up
+            d["age_lb_s"] = age_b if side == "up" else age_l
+            d["age_la_s"] = age_l if side == "up" else age_b
+            d["age_any"] = age_any
+            d["edge_lb_s"] = d["fair_s"] - d["lb_s"]
+            d["edge_la_s"] = d["fair_s"] - d["la_s"]
             d["n_prints"] = feats["n_prints"]
             for k in (10, 30, 60):
                 d[f"hit_s{k}"] = feats[f"hu{k}"] if side == "up" else feats[f"hd{k}"]

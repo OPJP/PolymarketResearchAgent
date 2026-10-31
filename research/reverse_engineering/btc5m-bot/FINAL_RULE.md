@@ -2,7 +2,7 @@
 
 Code: `code/final_rule.py` (`evaluate(start_ts, end_ts) -> dict`), model files
 `code/model_spot_tape_y.txt`, `code/model_spot_tape_yT.txt`, `code/model_spot_tape_yM.txt`
-(LightGBM, trained on BUILD windows 2026-10-09..16 only; nothing fitted on VALIDATE or the
+(LightGBM, trained only on the 1,210 most recent BUILD windows before 2026-10-16 that had tapes; nothing fitted on VALIDATE or the
 holdout), helper modules `code/cells.py`, `code/tape_feats.py`, `code/spot.py`, `code/rpc.py`.
 
 ## What the rule says the bot does (mechanism as decoded so far)
@@ -38,8 +38,23 @@ higher score; its predicted price for a taker fill is the last implied ask of th
 
 ## VALIDATE metrics (2026-10-16..23, chosen and reported on VALIDATE only)
 
-See `results_spot_model.json`, `results_tape_model.json`, `results_validate_metrics.json`, and
-`state.json`. Summary in NOTES.md (iteration 1).
+| metric | VALIDATE | target |
+|---|---|---|
+| presence AUC, any fill, no own-state (PRIMARY) | **0.892** | >= 0.85 (met) |
+| presence AUC taker / maker | 0.893 / 0.867 | |
+| presence AUC WITH own state (inventory; secondary, not the frozen rule) | 0.906 | |
+| presence AUC per wallet GF / XM / DS | 0.888 / 0.902 / 0.880 | |
+| at p >= 0.30: recall / lift / flagged share | 55.8% / 3.81 / 14.6% (p~0) | |
+| side accuracy (seconds with a one-sided buy) | 66.3% vs favourite 45.9%, tape-flow 52.5% (McNemar p~0) | >= 80% (not met) |
+| taker price within one tick of last implied ask | 49.2% (exact 25.7%) | |
+| selection AUC among all taker prints (pooled / within window) | 0.692 / 0.679; recall 62.9% at lift 1.64 | >= 0.80 (not met) |
+| per-window PnL correlation (crude proxy) | 0.305 (Spearman 0.256) | >= 0.5 (not met) |
+| ablation: without 1-2 s tape activity/age features | 0.831 | |
+| ablation: market-only (tape + rel/tau, no Binance) | 0.878 | |
+| spot-only model (14-day BUILD) | 0.805 | |
+
+Files: `results_tape_model.json`, `results_validate_metrics.json`, `results_spot_model.json`,
+`results_ablation.json`.
 
 ## Known limitations
 

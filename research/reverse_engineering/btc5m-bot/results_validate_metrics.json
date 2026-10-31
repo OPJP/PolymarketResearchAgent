@@ -1,0 +1,85 @@
+{
+ "windows": 2016,
+ "presence": {
+  "auc_any": 0.892,
+  "auc_taker": 0.8927,
+  "auc_maker": 0.8672,
+  "base_rate": 0.1074,
+  "recall": 0.5576,
+  "lift": 3.81,
+  "flag_share": 0.1464,
+  "p_value": 0.0,
+  "recall_lift_by_quantile": {
+   "q80": {
+    "recall": 0.681,
+    "lift": 3.41
+   },
+   "q85": {
+    "recall": 0.567,
+    "lift": 3.78
+   },
+   "q90": {
+    "recall": 0.429,
+    "lift": 4.29
+   },
+   "q95": {
+    "recall": 0.255,
+    "lift": 5.1
+   }
+  }
+ },
+ "side": {
+  "n_seconds": 90170,
+  "accuracy": 0.6634,
+  "baseline_favourite": 0.459,
+  "baseline_tape_flow5": 0.525,
+  "mcnemar_p_vs_favourite": 0.0,
+  "share_seconds_both_sides": 0.1805
+ },
+ "price": {
+  "T": {
+   "n": 147489,
+   "within_1tick_of_last_ask": 0.4924,
+   "exact_last_ask": 0.2574,
+   "within_1tick_of_last_bid": 0.4024,
+   "diff_quantiles": [
+    -0.05,
+    -0.011,
+    0.0,
+    0.015,
+    0.04
+   ]
+  },
+  "M": {
+   "n": 88036,
+   "within_1tick_of_last_ask": 0.4997,
+   "exact_last_ask": 0.1726,
+   "within_1tick_of_last_bid": 0.4415,
+   "diff_quantiles": [
+    -0.04,
+    -0.02,
+    -0.01,
+    0.01,
+    0.04
+   ]
+  }
+ },
+ "selection": {
+  "taker_prints": 2735396,
+  "cluster_share": 0.0539,
+  "auc_pooled": 0.6915,
+  "auc_within_window_weighted": 0.6794,
+  "recall": 0.6293,
+  "lift": 1.635,
+  "p_value": 0.0
+ },
+ "outcome": {
+  "per_window_pnl_corr_pearson": 0.3052,
+  "per_window_pnl_corr_spearman": 0.2555,
+  "rule_return_crude": -0.0188,
+  "rule_trades": 176970,
+  "wallet_return_before_rebates": 0.0017,
+  "wallet_return_taker": -0.0025,
+  "wallet_return_maker": 0.0168
+ }
+}

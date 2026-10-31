@@ -2,8 +2,8 @@
 
 Point-in-time behaviour-cloning rule for the three-wallet BTC 5-minute Up/Down bot
 (GF 0x0ca4e9d2..., XM 0x3048d653..., DS 0xc53375ff...). The rule scores every cell
-(window, outcome, second) with a frozen LightGBM model (trained on BUILD only,
-2026-10-09..16; model files next to this script) from public data available before the
+(window, outcome, second) with a frozen LightGBM model (trained on BUILD only:
+the 1,210 most recent BUILD windows before 2026-10-16 that had tapes, about 10-11 20:00 .. 10-16 00:00 UTC; model files next to this script) from public data available before the
 second: Binance 1-s closes of seconds <= s-2, other traders' taker prints with block
 ts <= s-1 (cluster prints and prints that traded against the cluster removed), and listing
 metadata. No own-state features, nothing fitted on VALIDATE or the holdout.
@@ -40,15 +40,23 @@ import tape_feats as tf
 
 # ----------------------------------------------------------------------------- frozen constants
 WALLETS = {"0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6": "GF", "0x3048d65321be3497164cdfc2996f94f98a2e7537": "XM", "0xc53375ff94e96100f2b30a4b5775db35218d69a9": "DS"}
-FEATURES = [
+SPOT_FEATURES = [
     "rel", "tau", "sig", "z", "fv", "r1", "r2", "r3", "r5", "r10", "r20", "r30", "r60",
     "rn1", "rn2", "rn3", "rn5", "rn10", "rn20", "rn30", "rn60", "absr1", "mxf3", "mxa3", "mxf10", "mxa10",
+]
+TAPE_FEATURES = [
     "m_last", "age_last", "ask_o", "age_ask", "bid_o", "age_bid", "vwap10", "vwap30", "n1", "n2", "n5", "n30", "vol30",
     "flow1", "flow2", "flow5", "flow30", "sp_since", "gap_m", "gap_ask", "gap_vw", "spread",
 ]
-MODEL_Y = f"{CODE}/model_spot_tape_y.txt"   # label: any cluster BUY fill on (window, outcome, second)
-MODEL_T = f"{CODE}/model_spot_tape_yT.txt"  # label: cluster taker fill
-MODEL_M = f"{CODE}/model_spot_tape_yM.txt"  # label: cluster maker fill
+MODEL_SET = "spot_tape"  # frozen choice made on VALIDATE (see FINAL_RULE.md): "spot_tape" or "spot_only"
+if MODEL_SET == "spot_tape":
+    FEATURES = SPOT_FEATURES + TAPE_FEATURES
+    MODEL_Y = f"{CODE}/model_spot_tape_y.txt"   # label: any cluster BUY fill on (window, outcome, second)
+    MODEL_T = f"{CODE}/model_spot_tape_yT.txt"  # label: cluster taker fill
+    MODEL_M = f"{CODE}/model_spot_tape_yM.txt"  # label: cluster maker fill
+else:
+    FEATURES = SPOT_FEATURES
+    MODEL_Y = MODEL_T = MODEL_M = f"{CODE}/model_spot_only_y.txt"
 P_THRESH = 0.30          # flag a cell when the presence score >= this (fixed in iteration 1, not tuned on VALIDATE)
 ORDER_SHARES = 30.0      # rule order size for the PnL proxy
 FEE_RATE = 0.07
@@ -126,7 +134,7 @@ def load_windows(start_ts: int, end_ts: int) -> pd.DataFrame:
     return w[(w.start_ts >= start_ts) & (w.end_ts <= end_ts)].reset_index(drop=True)
 
 
-def load_tapes(windows: pd.DataFrame) -> str:
+def load_tapes(windows: pd.DataFrame, end_ts: int) -> str:
     d = f"{EVAL_DIR}/tapes"
     os.makedirs(d, exist_ok=True)
     pm = PolymarketData()
@@ -134,7 +142,7 @@ def load_tapes(windows: pd.DataFrame) -> str:
         p = f"{d}/{r.cid}.parquet"
         if os.path.exists(p):
             continue
-        rows, _, cov = pm.market_trades(r.cid, start=int(r.start_ts) - 3600, end=int(r.end_ts) + 120, taker_only=True)
+        rows, _, cov = pm.market_trades(r.cid, start=int(r.start_ts) - 3600, end=min(int(r.end_ts) + 120, int(end_ts) - 1), taker_only=True)
         df = pd.DataFrame(rows)
         keep = [c for c in ["proxyWallet", "side", "asset", "conditionId", "size", "price", "timestamp", "outcome", "outcomeIndex", "transactionHash"] if c in df.columns]
         df = df[keep] if len(df) else df
@@ -144,7 +152,7 @@ def load_tapes(windows: pd.DataFrame) -> str:
 
 
 def load_spot(start_ts: int, end_ts: int) -> spotmod.Spot:
-    sp, _ = binance_seconds("btc", start_ts - 7200, end_ts + 10)
+    sp, _ = binance_seconds("btc", start_ts - 7200, end_ts)
     s = pd.DataFrame(sp, columns=["sec", "close"])
     s["sec"] = s.sec.astype(np.int64)
     return spotmod.Spot(frame=s)
@@ -175,8 +183,8 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
     win = load_windows(start_ts, end_ts)
     win = win[win.up_payout.notna()].reset_index(drop=True)
     sp = load_spot(start_ts, end_ts)
-    fills = cluster_fills(start_ts, end_ts + 300, win)
-    tf.TAPE_DIR = load_tapes(win)
+    fills = cluster_fills(start_ts, end_ts, win)
+    tf.TAPE_DIR = load_tapes(win, end_ts)
     cells = cellsmod.build_cells(win, fills, sp)
     cells = tf.add_tape_feats(cells, fills, sp)
     X = cells[FEATURES]

@@ -35,8 +35,8 @@ sys.path.insert(0, str(HERE))
 
 from features import BIN, Spot, build_panel  # noqa: E402
 
-MODEL = "all"  # chosen on VALIDATE among {all, all_reg} (iteration 1)
-BASELINE_MODEL = "activity"  # market-activity-only baseline, frozen too
+MODEL = "all_reg"  # chosen on VALIDATE among {all, all_reg} (iteration 1): 0.7723 vs 0.7682
+BASELINE_MODEL = "activity_reg"  # market-activity-only baseline, frozen too
 F_TIME = ["rel", "side_up"]
 F_SPOT = ["fair_s", "z_s", "sig", "r1", "r2", "r3", "r5", "r10", "r30", "r60"]
 F_TAPE = ["last_s", "edge_s", "n_prints"] + [f"{a}{k}" for a in ("hit_s", "hit_o", "vol_s", "vol_o", "dpx_s") for k in (10, 30, 60)]
@@ -57,13 +57,13 @@ def _windows(start_ts: int, end_ts: int) -> pd.DataFrame:
                           "down_token": w.down_token, "up_payout": w.up_payout} for w in ws])
 
 
-def _tapes(w: pd.DataFrame, pm) -> pd.DataFrame:
+def _tapes(w: pd.DataFrame, pm, end_ts: int) -> pd.DataFrame:
     from polyrea.adapters.http import HttpError
     from polyrea.analysis.updown import snap_price
     out = []
     for win in w.itertuples(index=False):
         try:
-            rows, _, _ = pm.market_trades(win.cid, start=int(win.start_ts) - PRE, end=int(win.end_ts) - 1, taker_only=True)
+            rows, _, _ = pm.market_trades(win.cid, start=int(win.start_ts) - PRE, end=min(int(win.end_ts), end_ts - 1), taker_only=True)
         except HttpError:
             continue  # only in cache-only mode
         for r in rows:
@@ -102,7 +102,7 @@ def evaluate(start_ts: int, end_ts: int, cache_only: bool = False) -> dict:
     from polyrea.adapters.spot import binance_seconds
     pm = PolymarketData()
     w = _windows(start_ts, end_ts)
-    tk = _tapes(w, pm)
+    tk = _tapes(w, pm, end_ts)
     sec_px, _ = binance_seconds("btc", start_ts - 7200, end_ts)
     spd = np.asarray(sec_px)
     sp = Spot(spd[:, 0].astype(np.int64), spd[:, 1])

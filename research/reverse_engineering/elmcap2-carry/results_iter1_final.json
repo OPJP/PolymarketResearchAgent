@@ -1,0 +1,79 @@
+{
+ "rule_id": "L2_lgbm_price_time_lag3660",
+ "features": [
+  "pf",
+  "lpf",
+  "h_end",
+  "after_end",
+  "pf6",
+  "pf24",
+  "pf72",
+  "hrs99",
+  "hrs95",
+  "vol24"
+ ],
+ "importance_gain": {
+  "hrs99": 0.231,
+  "pf72": 0.161,
+  "h_end": 0.16,
+  "pf": 0.106,
+  "vol24": 0.099,
+  "pf24": 0.084,
+  "hrs95": 0.072,
+  "pf6": 0.067,
+  "lpf": 0.017,
+  "after_end": 0.002
+ },
+ "SEL_THR": 0.05083237430462293,
+ "CELL_THR": 0.0267238585457027,
+ "build_auc_weighted": 0.952,
+ "validate": {
+  "presence_auc": 0.8962,
+  "presence_auc_by_family": {
+   "crypto": 0.926,
+   "deadline": 0.851,
+   "election": 0.974,
+   "fomc": 0.853,
+   "other": 0.859
+  },
+  "selection": {
+   "markets": 3208,
+   "wallet_markets": 57,
+   "auc": 0.9064,
+   "auc_null_mean": 0.4994,
+   "auc_p": 0.000999000999000999,
+   "thr": 0.05083237430462293,
+   "predicted": 276,
+   "recall": 0.596,
+   "precision": 0.1232,
+   "lift": 6.93,
+   "lift_p": 7.738819551212033e-23
+  },
+  "side_price_all_wallet_cells": {
+   "cells": 277,
+   "side_acc_fav": 0.8484,
+   "price_within_tick": 0.7726,
+   "median_wpx_minus_pf": -0.0005
+  },
+  "side_price_rule_cells": {
+   "cells": 104,
+   "side_acc_fav": 0.971,
+   "price_within_tick": 0.9038,
+   "median_wpx_minus_pf": -0.0005
+  },
+  "pnl": {
+   "markets": 3208,
+   "pearson": 0.0151,
+   "spearman": 0.2408,
+   "wallet_pnl": 51852.55,
+   "rule_pnl_per_unit": 11.65
+  },
+  "cell_level": {
+   "pred_cells": 4319,
+   "recall": 0.375,
+   "precision": 0.0241,
+   "lift": 10.05,
+   "usd_capture": 0.527
+  }
+ }
+}

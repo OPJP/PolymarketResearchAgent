@@ -1,0 +1,10 @@
+{
+ "traded_markets": 57,
+ "cells": 3288,
+ "pooled_auc_within_traded": 0.6157,
+ "mean_per_market_auc": 0.6654,
+ "n_markets_auc": 56,
+ "shift_null_mean": 0.5472,
+ "shift_null_p95": 0.5741,
+ "p": 0.0033222591362126247
+}
