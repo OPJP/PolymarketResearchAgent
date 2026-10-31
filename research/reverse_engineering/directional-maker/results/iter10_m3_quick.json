@@ -1,0 +1,45 @@
+{
+ "n": 1084,
+ "almach|off": {
+  "n": 94,
+  "at_touch": 0.564,
+  "improve": 0.064,
+  "px_minus_mid_ticks_median": -23.5,
+  "gap_median": 0.09
+ },
+ "almach|on": {
+  "n": 319,
+  "at_touch": 0.853,
+  "improve": 0.122,
+  "px_minus_mid_ticks_median": -0.5,
+  "gap_median": 0.12
+ },
+ "bosona|off": {
+  "n": 56,
+  "at_touch": 0.732,
+  "improve": 0.054,
+  "px_minus_mid_ticks_median": -0.5,
+  "gap_median": 0.028
+ },
+ "bosona|on": {
+  "n": 188,
+  "at_touch": 0.83,
+  "improve": 0.064,
+  "px_minus_mid_ticks_median": -0.5,
+  "gap_median": 0.118
+ },
+ "momoney|off": {
+  "n": 150,
+  "at_touch": 0.647,
+  "improve": 0.147,
+  "px_minus_mid_ticks_median": -0.5,
+  "gap_median": 0.055
+ },
+ "momoney|on": {
+  "n": 277,
+  "at_touch": 0.816,
+  "improve": 0.029,
+  "px_minus_mid_ticks_median": -0.5,
+  "gap_median": 0.124
+ }
+}

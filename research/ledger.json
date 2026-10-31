@@ -1,5 +1,5 @@
 {
- "generated_at": 1793490458,
+ "generated_at": 1793490909,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -194,17 +194,17 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 10,
-   "minutes": 709,
-   "hypotheses": 125,
+   "minutes": 689,
+   "hypotheses": 126,
    "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state, clean tape (every print in a cluster transaction removed). From iteration 4 VALIDATE = 2026-10-27..30.",
    "best_validate_score": 0.7723,
    "best_rule": "R6 = R5 (BTC 5m) + R3-class BTC 15m presence + per-fill Chainlink posture side (match clock) + R4 price",
    "has_final_rule": true,
-   "strategy_statement": "[engine: VALIDATE-only] One engine family (timestamp-0 orders, per-wallet sequential salt counters reset by the daily ~01:00 UTC restart; 25-32 orders/s per wallet in July, 11-18 in October) runs three separately treasured wallets (weekly Monday sweeps). [selection: hypothesis] It quotes nearly every crypto Up/Down window of the modules it runs; BTC 5m/15m are switched off for hours, mostly Fri-Sun US-Eastern evenings, sometimes ad hoc (10-31 16:53); only the all-crypto universe meets the scope bar in every 6-h block. [timing: VALIDATE-only] It re-prices on each Chainlink report within ~0-150 ms of the RTDS relay's publish and after Binance moves; filled orders are fresh posts at the touch; its filled rungs agree with the report at the match, not at the taker's signing. [side: VALIDATE-only for the 500 ladder, hypothesis off-session] Its US-session 500-share rungs buy the outcome whose Chainlink edge over the Polymarket mid is positive (live 10-31 0.79 per fill, 0.965 where Chainlink and the market disagree; historical VALIDATE with a calibrated match clock 0.74 per fill and 0.93 in that region); its off-session 62/250 rungs (00-12 UTC) follow no public side rule (0.48-0.53), as an unskewed two-sided ladder would. Imbalance pairing bids (exactly |Up - Down| own shares) always sit on the under-held outcome. [price: exam-verified (block clock) / VALIDATE-only (match clock)] Fill price = last clean print minus a tick; pairing bids are priced at the market, not off its own cost. [size: VALIDATE-only] 500 x 2^k schedule rungs (100/12 only at 30-120 s left) plus imbalance-sized pairing bids. [exit: VALIDATE-only] Holds to resolution, completes pairs, merges ~65 s before the end. [economics: VALIDATE-only] BTC 5m earns 2-4% on volume; rebates and rewards are about a fifth of net PnL; the split between locked pairs and the directional residual changes sign between STUDY and VALIDATE, and the residual carries most of the window-to-window variance.",
+   "strategy_statement": "[engine: VALIDATE-only] One engine family (timestamp-0 orders, per-wallet sequential salt counters reset by the daily ~01:00 UTC restart; 25-32 orders/s per wallet in July, 11-18 in October) runs three separately treasured wallets (weekly Monday sweeps). [selection: hypothesis] It quotes nearly every crypto Up/Down window of the modules it runs; BTC 5m/15m are switched off for hours, mostly Fri-Sun US-Eastern evenings, sometimes ad hoc (10-31 16:53); only the all-crypto universe meets the scope bar in every 6-h block. [timing: VALIDATE-only] It re-prices on each Chainlink report within ~0-150 ms of the RTDS relay's publish and after Binance moves; filled orders are fresh posts at the touch; its filled rungs agree with the report at the match, not at the taker's signing. [side: VALIDATE-only for the 500 ladder, hypothesis off-session] Its US-session 500-share rungs buy the outcome whose Chainlink edge over the Polymarket mid is positive (live 10-31 0.79 per fill, 0.965 where Chainlink and the market disagree; historical VALIDATE with a calibrated match clock 0.74 per fill and 0.93 in that region); its off-session 62/250 ladder (00-12 UTC) enters a window on the same posture side (first fills 0.66-0.72) and then keeps adding to the outcome it already holds (250s 0.68-0.90, own state), so over all its fills no public side rule fits (0.48-0.53). Imbalance pairing bids (exactly |Up - Down| own shares) always sit on the under-held outcome. [price: exam-verified (block clock) / VALIDATE-only (match clock)] Fill price = last clean print minus a tick; pairing bids are priced at the market, not off its own cost. [size: VALIDATE-only] 500 x 2^k schedule rungs (100/12 only at 30-120 s left) plus imbalance-sized pairing bids. [exit: VALIDATE-only] Holds to resolution, completes pairs, merges ~65 s before the end. [economics: VALIDATE-only] BTC 5m earns 2-4% on volume; rebates and rewards are about a fifth of net PnL; the split between locked pairs and the directional residual changes sign between STUDY and VALIDATE, and the residual carries most of the window-to-window variance.",
    "exam_rounds": 1,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 5,
+   "panels": 6,
    "exam": {
     "target_met": false,
     "leakage_passed": true,

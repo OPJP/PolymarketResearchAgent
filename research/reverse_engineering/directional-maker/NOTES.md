@@ -2048,3 +2048,391 @@ family) for the next iteration's per-family presence models.
 **Posture at the add time vs the match time (`code9/posture_at_add.py`; iteration-6 confirmed filled orders, 10-31 14:04-16:13).** Exact-500 orders: almach 0.771 at the add / 0.825 at the match (n 411), bosona 0.768 / 0.851 (n 241), **mo-money 0.646 / 0.722** (n 424); the posture flips between add and match for 9-12% of the orders in every wallet. Mo-money's 500s are off the posture already when they are posted, so they are not stale rungs left behind by a slower re-price: its 500 pass places rungs on the disfavoured side more often (a different rung of the two-sided ladder, or another reference). Every wallet's filled orders agree with the posture more at the match than at the add (orders that turn against the posture are pulled before they fill).
 - Final open list (22:03 UTC; X54 closed with the re-derived order facts): D3, X9, X24, X41, X52, X57, X59, X61, X62, X64, X67, X68, X71, X75, X76, X83.
 - Recorders at 22:03 UTC: shared live.py running (status 20:56); own examrec (pid 24316), dy_rtds (29508), dz_rtdsbn (32308) writing (status files 22:03); the delayed full-depth recorder launcher (17192) waits for 11-01 05:55 UTC. Iteration 9 ends at 22:04 UTC (69 minutes).
+
+### Iteration 10 (2026-10-31, local Windows laptop, started 22:33 UTC; 585 of 1,200 budget minutes used before it)
+
+Read first: BRIEF, NOTES (iteration 9 in full), state.json, FINAL_RULE.md, panels/iter9_{information,mechanics,
+assumptions}.md. Calendar (`tools/sealed.py directional-maker`, 22:34 UTC): released h1, h2; development [10-23, 10-31
+06:00) and [10-31 12:00, 18:00); the current block (10-31 18-24) and 11-01 00-06 are sealed; the next development block
+is 11-01 06-12 UTC, after this iteration ends: again no new live development data. Shared live.py running (status
+22:34 UTC: clob_crypto, clob_wallets, rtds, sports connected). Panel proposals added as catalog items: information
+I9-1..I9-5 = X87-X91, mechanics M1-M5 = X92-X96, assumptions A1-A4 = X97-X100.
+
+**Competing explanations (iteration 10) and the observation that separates them**
+1. E1 two-process maker (panel M1/A4): the ladder carries schedule-size posture rungs (Chainlink skew) and imbalance
+   pairing bids (size = |own imbalance| on the under-held outcome); the money is the locked pairs plus rebates, and the
+   posture is a defence that decides which side fills first. Separates: per-window PnL split (locked pairs vs residual vs
+   rebates); the pairing bid's price follows a held-side anchor (1 - held-side cost - m); the residual is ~0 or negative.
+2. E2 information-edge directional maker (FINAL_RULE's reading): the profit is the residual from the Chainlink lead;
+   pairs are incidental. Separates: residual PnL positive in every split and rising with posture accuracy; locked pairs
+   small.
+3. E3 regime- or version-specific posture (panel A1, alternative): the Chainlink skew is visible only in the noise regime
+   since 10-30/31 (or a recent version); the smooth-regime engine used another side rule. Separates: the sigma-free
+   region D on a historical match clock (taker signing ms + calibrated delay) with the real Chainlink value: >= 0.80
+   (stable rule) vs ~0.60 (regime-specific), after the same proxies reproduce ~0.85 on 10-31 12-18.
+4. E4 queue-selection artefact (panel A2a): mo-money's deficit is its front-of-queue rank (it is filled during the brief
+   life of wrong-posture rungs), not a different configuration. Separates: P(filled | wrong posture at the add) by queue
+   rank within burst triplets, compared at equal rank across wallets.
+5. E5 lost cancel races (panel M5): off-posture fills are takers that arrive before the re-price after a publish that
+   flipped the posture. Separates: the posture at the taker's arrival (sign_ms + b - lambda) beats the match-clock posture
+   by >= 2 points, concentrated where a flipping publish fell inside [sign_ms, match].
+6. E6 rebate and volume engine (unlikely): the objective is maker-rebate share; before rebates the 15m family is flat,
+   and the side rule only limits adverse selection. Separates: rebates vs PnL by family; volume tilted to p ~ 0.5 where
+   the fee 0.07 p(1-p) peaks.
+7. E7 operator clocks (panel I9-3/A3): a UTC cron (01:00 restart, Monday sweep) plus a US-Eastern human schedule (size
+   session, weekend gate). Separates: switch times across the US DST change (11-01): UTC features shift by one hour in
+   ET-driven components only (observable only from 11-01 06:00 development blocks).
+8. E8 inventory-target engine (unlikely): every rung's side steers the window inventory to a target ratio. Separates:
+   schedule rungs on the under-held side (panel: 29-31%, i.e. anti-balancing: already against E8 for schedule rungs).
+
+This iteration discriminates E1 vs E2 (M1 pairing-bid decode + A4 PnL split, all on disk), E3 (A1 calibrated historical
+match clock; needs Chainlink seconds from the 30-day endpoint, fetched now, which also starts I9-4's rescue of BUILD and
+the lot before 11-08), E4 (A2a) and E5 (M5) on the 10-31 12-18 recordings.
+
+**Pre-registration A3 (X99), written 23:13 UTC 10-31, before any post-DST data exists (US DST ends 11-01 06:00 UTC; EU
+ended 10-25).** Every clock feature gets two frozen variants, UTC and US-Eastern (ET = UTC-4 before 11-01 06:00, UTC-5
+after): hour of day, US-session flag (ET 08-17 = UTC 12-21 before, 13-22 after), size session (500s in the weekday
+12-21 UTC session before the change; ET reading: 08-17 ET), calendar gate (Fri-Sun 18:00-09:00 ET; UTC reading: the
+same UTC hours as before, 22:00-13:00 UTC), daily restart (01:00 UTC; ET reading 21:00 ET = 02:00 UTC after the change).
+Observations, in development blocks only, timestamps only (never sweep amounts, recipients or which wallets swept):
+(1) 11-02 00-06 UTC: time of the three salt-counter resets and of any treasury transaction (01:00 UTC -> UTC cron; 02:00
+UTC -> ET cron). (2) 11-02 12-18 UTC: time of the first exact-500 order of the weekday session (12:00 UTC -> UTC; 13:00
+UTC -> ET). (3) 11-01 18-24 UTC (Sunday evening): any BTC 5m/15m switch, at which ET hour. Each component's convention
+is frozen by the observation that bears on it; R6's clock features are then re-scored under both on the post-DST
+development blocks. Until then the frozen rule keeps UTC (no decision changes).
+
+**M1 (X92): the imbalance pairing bid on the lot (`code10/m1_pair_lot.py`, `results/iter10_m1_pair_lot.json`; class frozen
+as in the panel: calldata original size not a schedule size and within 2% of |own imbalance| at the block second; schedule
+set {500, 1000, 2000, 250, 125, 100, 62, 50, 40, 31, 25, 20, 12, 10, 5, 300, 200}).**
+- Share of the cluster's BTC 5m maker BUY fills: pairing class 11.2% (STUDY) / 14.1% (VALIDATE aggregate), other
+  non-schedule sizes 2.9% / 4.4%. On the under-held outcome: pairing 1.000 / 1.000, other non-schedule 0.996 / 0.985,
+  schedule rungs 0.298 / 0.316 (they pile onto the held side). Panel finding replicated.
+- **Price: the pairing bid is not priced off the wallet's own held side.** Pair cost (limit + held-side VWAP) median 0.91
+  (STUDY) / 0.81 (VALIDATE), q10-q90 0.50-1.42 / 0.44-1.24; below 1 in only 61% / 72%. Within a tick of 1 - held VWAP - m:
+  1.4-4.7% for every m in 0-5 c; of 1 - last held fill price - m: 1.7-4.8%. The M1 signature (>= 60% within a tick of
+  one own-cost anchor) fails: the pairing bid is a size/side decision (complete the pair) placed at a market price, like
+  the posture rungs (the block-clock price rule "last print - 0.01" applies to both).
+- PnL held to resolution by class: pairing fills +1.1% (STUDY, $13k) / -0.3% (VALIDATE, $81k); other fills +1.5% / +4.7%.
+- **A4 (X100) window split (per wallet x window, all BTC 5m BUY activity): locked pairs min(Up, Down) x (1 - avg Up - avg
+  Down) vs residual.** STUDY: locked -$0.9k, residual +$5.7k (total +$4.8k on $185k); VALIDATE (aggregate): locked
+  +$33.3k, residual -$10.3k (total +$23.0k on $586k). var(residual)/var(total) 0.69 / 0.58, corr(total, residual) 0.86 /
+  0.79, corr(total, locked) 0.56 / 0.65. Neither part is positive in every split: A4's signature ("the residual is ~0 or
+  negative and pairs positive in every split") fails on STUDY, and E2's ("the residual earns in every split") fails on
+  VALIDATE. The residual carries most of the cross-window variance, so the outcome bar needs the directional fills
+  reproduced, not only the pairs.
+
+**A1 (X97): is the posture a stable rule? Calibration first (`code10/a1_delay.py`, `code10/a1_score.py live`,
+`results/iter10_a1_delay.json`, `results/iter10_a1_live.json`; 10-31 14:06-16:30).** Taker sign-to-match delay (1,649
+takers of cluster fills): median 620 ms (q25 260, q75 2,455; by signatureType 404-640 ms); block second minus match
+1.52 / 2.29 / 2.98 s (q10 / median / q90). Pre-registered match clock T_hat = clip(sign_ms + 620, block - 3.0 s, block -
+1.5 s): |T_hat - T| median 368 ms. On 737 joined fills the sigma-free region D (Chainlink and market disagree on the
+favourite) scores: truth (match ms, book mid) **0.965** (n 141); T_hat + Chainlink + book mid 0.908; **T_hat + Chainlink +
+last clean print at b - 3 (the historical proxy) 0.953**; block clock (report b - 4) + last print 0.952; fill-price
+diagnostic 0.898. The historical proxies reproduce the truth: neither the block clock nor the print proxy destroys the
+region-D signal.
+
+**M5 (X96): off-posture fills as lost cancel races, rejected (`a1_score.py live`, m5_cancel_race; 647 fills with taker
+sign_ms).** The posture with the report in force at the taker's arrival (sign_ms + b - lambda, b {0, 190} ms, lambda {0,
+100, 150} ms, the pre-registered grid) scores 0.698-0.718 vs 0.739-0.740 at the match on the same rows; where the two
+disagree (5-8% of fills) the match-clock posture is right 0.70-0.75 and the arrival posture 0.25-0.30. The cluster's
+filled rungs agree with the report at the match, not at the taker's arrival: its ladder had already re-priced for the
+publish that arrived between the taker's signing and the match. E5 rejected.
+
+**M2 (X93): a per-phase posture rule (`code10/m2_phase.py`, `results/iter10_m2_phase.json`; 2,244 live fills; candidates
+frozen, slow v3600, TWAP lock-in digital; per phase the best on 12-15, scored on 15-18).** Chosen: slow for BTC 5m >= 120
+s and both 15m phases, lock-in for 5m 60-120 s, frozen for 30-60 s and < 30 s. Test 15-18: **0.835 vs frozen 0.813** (n
+1,644); per wallet mo-money 0.777 (0.751), almach 0.878 (0.868), bosona 0.860 (0.830); 60-120 s phase 0.782 (frozen 0.756;
+slow would be 0.848). Per wallet and phase (frozen, whole block): mo-money 60-120 s 0.672 (n 177), 15m >= 120 s 0.640;
+almach 0.80 / 0.80; bosona 0.725 / 0.756. The phase gain is mostly the slow sigma again, which failed its pre-registered
+historical replications; the M2 signature (60-120 s >= 0.82, every wallet >= 0.80) is not met. Not adopted; the per-phase
+rule is pre-registered as a secondary for 11-01 06-12 (choices above frozen).
+
+**I9-2 (X88): can the examiner label the quote unit? (`code10/i92_label.py`, `code10/i92_dx.py`).** From the SHARED
+recorder: no. Its `clob_crypto` files hold only 21,751 top-of-book snapshots for the 28 BTC 5m tokens over 14:06-16:30
+(~0.09 per token-second): the "+500 at the touch" label has recall 0.010-0.022 (0.018-0.039 within +-1 s) against the raw
+label. From the OWN exam recorder `dx_clob` (code6/examrec.py, schedule-size deltas within 3 ticks with server ms; BTC 5m
+current+next, 15m current; running to 11-03 00:00 UTC, status updated 22:57 UTC): **recall 1.00** on the 15:53-16:30
+overlap (7 windows, 4,200 cells), precision 0.44 (it also marks +500 adds that left the touch within the second; the raw
+label keeps only those still at the touch: definitional, fixable from dx's touch fields). So the quote unit is examinable
+on BTC 5m/15m through 11-03 00:00 from dx_clob, not from the shared recorder.
+- New recorder (I9-2 step 3 / M4 = X95): `code10/famrec.py`, feed **dw_clob**, examrec's reduction for ETH, SOL, XRP, BNB,
+  DOGE, HYPE 5m (current + next) and 15m (current); started 22:59:41 UTC (pid 31812 launcher), hard stop 11-03 00:00 UTC,
+  disk cap 280 MB, status `.cache/re/directional-maker/famrec_status.json`. Hourly/daily and 4h books are not in it.
+
+**I9-1 (X87) step 1: the pmxt archive version check (`code10/pmxt_pilot.py`, `results/iter10_pmxt_pilot_2026-07-22T13.json`).**
+Host verified 23:00 UTC: `HEAD r2v2.pmxt.dev/polymarket_orderbook_2026-07-20T13.parquet` 200 (527,534,573 bytes),
+08-09T13 200, 10-20T13 404. Hour 07-22 13:00-14:00 UTC, 11 BTC 5m windows, 490 cluster trades; the row groups of those
+markets cost 67 MB of range reads (4.2 M events: 4.11 M price_change, 70,780 book, 33,266 last_trade_price, 11
+tick_size_change). Calldata of 150 cluster-fill txs (166 cluster orders): **timestamp 0 and metadata 0 in 100%** (the
+October engine family), per-wallet salt counters monotone 92-100% at **25-32 orders/s** (October ~11-18/s); original
+sizes 500 (75), 300 (43), 50 (27), plus pairing-class sizes (454.89, 370.17, 123.48, ...). Book fingerprints of the
+filled orders (add of exactly the original size at the limit price before the same-tx trade found for 62%): age median
+1,044 ms (October ~0.7 s), at the touch 49% (October 78%), posted a median 69 ms after the market's previous trade
+(October ~95 ms), 26% in same-size same-price bursts within 20 ms; of all 500-share adds in these books 12% are in such
+bursts (300s 3%, 50s 6%). Verdict: same engine family with a different configuration (faster signer, less at the touch,
+500/300/50 rungs); usable for ladder mechanics, queue and replay calibration; no Chainlink history exists for July, so
+not for the Chainlink posture. The reduced events of this hour (36 MB) are cached in `.cache/re/directional-maker/pmxt/`.
+
+**A1 (X97) on the lot and on 10-31 00-06: the strong posture is NOT a stable rule (`code10/a1_score.py lot`,
+`code10/a1_0006.py`, `code10/a1_hours.py`; results `iter10_a1_lot.json`, `iter10_a1_dev1031_0006.json`,
+`iter10_a1_hours.json`).** Chainlink values come from the detached fetch (`code10/fetch_cl_hist.py`; one random
+pre-registered order over the lot's fill stamps, so the scored fills are a random subsample; ~12-13% of the lot fills at
+23:11 UTC). Same pre-registered proxies as the calibration.
+- STUDY (case by case; 979 fills scored): region D share 0.112 (live 0.19-0.20); **bought the Chainlink favourite 0.657 (n
+  108; schedule-size rungs only 0.667, n 105)**; per-window mean 0.64 over 32 windows (one window holds 28 of the fills);
+  per wallet mo-money 0.645, almach 0.605, bosona 0.735; fill-price diagnostic 0.455.
+- VALIDATE (aggregate; 3,663 fills scored): region D share 0.042; **0.680 (n 153; schedule only 0.697)**; fill-price
+  diagnostic 0.349.
+- By the size of the disagreement |fair_CL - mid| (frozen sigma): STUDY 0.70 / 0.75 / 0.57 / 0.71 (gaps 0-0.05 / 0.05-0.1 /
+  0.1-0.2 / > 0.2); VALIDATE 0.92 / 0.63 / 0.54 / 0.50. The live block's accuracy rises with the gap (0.84-0.86 above 0.1);
+  the lot's does not (it falls on VALIDATE). Binance does not explain the misses: in Chainlink-region D the cluster buys the
+  Binance favourite 0.50 / 0.56, and its Chainlink accuracy is about the same whether Binance agrees with Chainlink or with
+  the market.
+- The frozen posture with S = the real Chainlink value (instead of the Binance stand-in): STUDY 0.567 (Binance 0.543),
+  VALIDATE 0.710 (0.645). The real reference helps by +0.02 / +0.07, far from the live 0.79.
+- **10-31 00:00-06:00 UTC (development, block clock, all 1,178 BTC 5m fills scored): region D 0.679 (n 109, share 0.093)**,
+  by hour 00 UTC 0.24 (n 37), 02 0.93 (n 15), 05 0.88 (n 50); per wallet bosona 0.714, almach 0.581, mo-money 0.774. On the
+  lot, hour 00 UTC is low too (VALIDATE aggregate 0.33, n 21) while 12-13 UTC are 1.0 (n 30): region D fills cluster in a
+  few windows and the accuracy swings by window.
+- Verdict for A1: with proxies that reproduce the 10-31 truth (0.953 vs 0.965), the lot's disagreement fills land on the
+  Chainlink side only about two thirds of the time (0.66-0.70, window mean 0.64), so the 10-31 12-18 posture (0.96 in
+  region D, 0.79 per fill) is regime-, time- or version-specific, not the engine's stable rule over its history. The side
+  component stays the frozen R6 rule for live blocks (the exam blocks are in the same regime as 10-31), tagged
+  VALIDATE-only with this failed historical replication. What drives the lot's side in region D is not decoded: neither
+  Chainlink nor Binance nor the market favourite (0.32-0.34).
+
+**Chainlink noise regime by hour (`code10/cl_noise.py`, `results/iter10_cl_noise.json`; 30-s runs of consecutive endpoint
+seconds).** 10-31 00:00-04:00 UTC (16 runs): sd of 1-s changes $3.2-8.8, lag-1 autocorrelation -0.14 to -0.80 (median
+-0.5) in every hour including 00 UTC; lot days (few runs): sd $1.5-1.9, autocorrelation ~0. So the noise regime was
+already on in hour 00 of 10-31, where region D was 0.24 (n 37), while hours 02-05 gave 0.88-0.93: the noise regime alone
+does not make the fills follow Chainlink. Whether a configuration changed at the 10-31 01:00 restart is open (the stored
+it9rs calldata has only salts; the order structure across that restart is for the next iteration).
+
+**I9-5 (X91) candidate (b): the RTDS TWAP-60 topic (`code10/i95_twap.py`, `results/iter10_i95_twap.json`; 1,265
+confirmed filled orders of 10-31 14:04-16:13).** Posture at the add, Chainlink vs TWAP-60: mo-money 500s 0.646 vs 0.608,
+almach 0.771 vs 0.572, bosona 0.768 vs 0.589 (at the match 0.722 / 0.825 / 0.851 vs 0.58-0.61). The TWAP-60 topic is
+nobody's input; it lowers every wallet. Candidates (a) the Binance relay (dz_rtdsbn, sealed so far), (c) the 15m mid and
+(d) the complement's ask remain.
+
+**M3 (X94) light form (`code10/m3_quick.py`, `results/iter10_m3_quick.json`; filled exact-500 orders, posture at the add;
+selected on being filled, descriptive).** Off-posture filled 500s improved the touch when posted in 14.7% of mo-money's
+(n 150) vs 2.9% of its on-posture ones and 5.4-6.4% of the other wallets' off-posture ones; at the touch 0.65 (mo-money
+off) vs 0.82 (on); the off-posture fills sit at small edges (median |fair - mid| 0.03-0.09 vs 0.12 on-posture).
+Mo-money's off-posture rungs step ahead of the book more often, which is the M3 direction; the survival test on unfilled
+adds (11-01 full-depth book) is still needed.
+
+**Pre-registration for the next exam claim: the quote unit (written 23:20 UTC 10-31; the fill-presence unit cannot pass,
+oracle ceiling 0.80).** Unit (window, side s, second t) for every BTC 5m and 15m window (dx_clob) and, from 11-01 06:00,
+the ETH / SOL / XRP / BNB / DOGE / HYPE 5m and 15m windows (dw_clob); label = an add of a schedule size (500 x 2^k, 250,
+100, 62, 50, 12) at or above the touch of s in (t - 1 s, t] that is still at the touch at t; public features only (time
+left, the Chainlink edge with the frozen sigma, the futures edge, book state excluding schedule-size levels, other
+traders' prints, clock); activity-only baseline of the same model class; fit on the development blocks up to 11-02 00:00
+UTC, choose on the later development blocks (aggregate). The 10-s fill presence on BTC 5m stays the reported primary
+(0.716) until this unit has a VALIDATE value.
+
+**Discovery (23:17 UTC): on the lot the Chainlink posture belongs to the 500-share rungs.** A quick split of the A1
+region-D fills by the filled order's calldata original size: 500-share rungs follow Chainlink in region D 0.759 (STUDY, n
+58) and **0.973 (VALIDATE aggregate, n 73)**, the live block's level; 62-share rungs 0.532 / 0.458 (n 47 / 48), 250-share
+rungs 0.484 on VALIDATE (n 31). Frozen posture over all fills by class: 500s 0.613 / 0.742, 62s 0.509 / 0.650, 250s 0.549 /
+0.654. The live block was 78% 500s (lot: 39-42% 500s, 19-35% 62s, 7-18% 250s), which is why it looked so strong. So the
+A1 failure is a composition effect of rung classes, not (only) a regime: the 500 pass is the Chainlink-skewed rung; the
+62/250 rungs follow another rule.
+
+**Pre-registration R7-side (written 23:21 UTC, before code10/a1_class.py's per-class candidate table is read).** Side of a
+fill by the class of the filled order (calldata original size): 500 x 2^k -> the frozen Chainlink posture (R6, unchanged);
+62 / 250 / 125 / 100 / 12 -> the public candidate with the best STUDY accuracy among {cheaper side, market favourite (last
+clean print), Binance posture (Binance S and strike, 1.4 x v300), Chainlink posture}; pairing class -> the under-held
+outcome (own state, reported separately); other sizes -> the Chainlink posture. Confirmation on VALIDATE (aggregate):
+the class-conditional public rule beats the frozen posture applied to all fills by >= +0.03, with the window-clustered
+(2-h block) bootstrap lower bound > 0. If it passes it becomes R7's side component (the size class needs the calldata of
+the fills, which evaluate() can fetch); it is then pre-registered for 11-01 06-12.
+
+**R7-side test (pre-registered 23:21 UTC; `code10/r7_side.py`, `results/iter10_r7_side.json`; the same scored lot fills,
+vectorised own imbalance).** Class mix of the scored fills: STUDY 500-class 41%, 62 34%, 250 8%, pairing 10%; VALIDATE
+500-class 45%, 62 18%, 250 17%, pairing 13%. By UTC block (VALIDATE aggregate): 12-18 UTC 74% 500s, 18-24 53%, 00-06 22%
+(62 32%, 250 25%), 06-12 3.5% (250 50%, 62 31%): the 500 rungs are the US-session ladder, the 62/250 rungs the off-session
+ladder.
+- **Region D by class (bought the Chainlink favourite, n, windows):** VALIDATE 500-class **0.973 (73 fills, 26 windows;
+  window mean 0.974)**, 62s 0.458 (48, 25), 250s 0.484 (31, 15), pairing 0.444 (9); STUDY 500-class 0.759 (58, 11; window
+  mean 0.694), 62s 0.532 (47, 17). Frozen posture over all fills by class: VALIDATE 500s 0.742, 62s 0.651, 250s 0.654,
+  pairing 0.698, other 0.836; STUDY 500s 0.613, 62s 0.509, 250s 0.549.
+- STUDY candidates for the off-session rungs: 62s cheaper 0.497 / favourite 0.503 / Binance posture 0.476 / Chainlink
+  posture 0.509 (n 336): no public candidate; 250s favourite 0.634 (n 82); 100/12 favourite 0.735 (n 34). Chosen:
+  62 -> Chainlink, 250 -> favourite, 100/12 -> favourite.
+- **VALIDATE (aggregate): R7 public 0.660 vs the frozen posture 0.710, gain -0.049 (2-h block bootstrap [-0.085,
+  -0.017]): the pre-registered R7-side FAILS** (the 250s' STUDY choice "favourite" scores 0.379 on VALIDATE; their
+  cheaper side would be 0.62). With the pairing class on the under-held outcome (own state) 0.701. STUDY: 0.577 vs 0.567.
+  Not adopted.
+- Reading: the Chainlink posture is the side rule of the US-session 500 ladder, and it replicates on the historical
+  VALIDATE in the sigma-free region at the live level (0.97 vs 0.965 live); the A1 "failure" on all fills is a
+  composition effect of the off-session 62/250 ladder, whose side follows no public candidate (0.48-0.51 on STUDY, a coin
+  flip against the reference): an unskewed two-sided ladder whose fill side the takers choose is the leading
+  explanation (to be tested on the quote unit in an off-session development block, 11-01 06-12 is one).
+
+## Iteration-10 checkpoint
+- Primary metric (historical VALIDATE 10-27..30, BTC 5m 10-s fill presence AUC, no own state): unchanged at **0.716**;
+  the frozen rule stays **R6** (no decision changed; the class-conditional side rule failed its pre-registered test).
+- Paradigm: stability and composition of the decision. A calibrated historical match clock (taker signing ms + 620 ms,
+  real Chainlink seconds from the 30-day endpoint) reproduces the live truth on 10-31 (region D 0.953 vs 0.965) and shows
+  that the Chainlink posture is the side rule of the **US-session 500 ladder**: on the historical VALIDATE its 500-share
+  rungs follow the report where it disagrees with the market 0.973 (26 windows), like live; the off-session 62/250 ladder
+  (00-12 UTC) follows no public side candidate (0.46-0.53), which is why the posture looked unstable over all lot fills
+  (0.66-0.68). The imbalance pairing bids are a separate order type (on the under-held outcome 100%, priced at the market,
+  break-even), and the profit split between locked pairs and the directional residual changes sign between STUDY and
+  VALIDATE.
+- Rejected / not met: M5 cancel races (arrival posture 0.70-0.72 vs 0.74 at the match), M1's own-cost pairing price
+  (2-5% within a tick), A4's and E2's profit signatures, I9-5's TWAP-60 input, M2's phase signature, the R7-side
+  class-conditional rule (VALIDATE 0.660 vs 0.710).
+- Data: pmxt archive verified (07-16..08-10 unaggregated books, same engine family in July: timestamp 0, salt counters at
+  25-32 orders/s, 500/300/50 + pairing sizes); the shared recorder cannot label the quote unit (recall 0.01-0.02) but the
+  own dx_clob can (recall 1.00) to 11-03 00:00; new recorder dw_clob (ETH/SOL/XRP/BNB/DOGE/HYPE 5m-15m) from 22:59 UTC;
+  detached Chainlink fetch (52k stamps queued: the lot fills, switch-noise runs, BUILD, 15m; hard stop 11-01 10:00 UTC).
+- Closed this iteration: X52, X68 (via X97), X88, X92, X93, X96, X97, X98, X100. Open: D3, X9, X24, X41, X57, X59, X61,
+  X62, X64, X67, X71, X75, X76, X83, X87, X89, X90, X91, X94, X95, X99.
+
+**Next steps (iteration 11; the next development block is 11-01 06:00-12:00 UTC, an off-session block).**
+1. Off-session ladder (the undecoded side): on 11-01 06-12 with dx_clob / dw_clob and the 11-01 full-depth recorder
+   (code8/delayed_rawrec.py, 05:55-12:00), test "unskewed two-sided ladder": are 62/250 rungs posted on both outcomes at
+   symmetric distances from the mid, and does the fill side follow the taker flow (mint vs direct sell) rather than any
+   reference? Then the per-fill side of the off-session ladder should be scored against a taker-flow baseline.
+2. The 500 ladder: re-run R7-side with the 500-class posture only and the off-session classes scored separately (no
+   transfer of STUDY choices); finish the lot fetch and report region D by class, day and wallet with window clustering;
+   predict the size mode (500 vs 62/250) from public inputs (UTC/ET session, weekday, futures vol at the open) as the
+   selector of the side rule.
+3. Switch-noise test (X89 step 3) when the runs are fetched; the A3 clock observations on 11-01 18-24 and 11-02.
+4. The quote unit as the target unit (pre-registered above): build it on dx_clob for 10-31 15:53-18:00 + 11-01 06-12.
+5. pmxt (X87): reduce 3 h/day of 07-16..08-09 to per-market ladder events (bounded disk), the off-session ladder and the
+   pairing bids at full depth; the replay (X64).
+
+**Confirmation on a fresh development block: 10-31 00:00-06:00 UTC by rung class (`code10/a1_0006_class.py`,
+`results/iter10_a1_0006_class.json`; calldata of all 1,178 cluster orders in the block's BTC 5m fill transactions fetched
+this iteration; prediction written in the script before it ran: 500s >= 0.9 in region D, 62/250s ~0.5).** Region D
+(Chainlink and the last clean print disagree on the favourite; report b - 4, block clock): **500-class 1.000 (41 fills, 10
+windows)**, 62s 0.448 (58 fills, 6 windows), 100/12 0.25 (n 4). The block's hour 00 UTC was a 62-share hour (265 of 400
+fills): its 62s bought the Chainlink favourite in region D 0.103 (n 29) while its 500s did 1.0 (n 6), which is the whole
+"hour-00 anomaly" (0.24); hours 01-05 were 500-share hours (500s 1.0 in region D; 62s in hour 05 0.79, n 29). Prediction
+met. The Chainlink posture is a property of the 500 ladder in every sample examined: live 10-31 12-18 (0.965), historical
+VALIDATE (0.973, 26 windows), 10-31 00-06 (1.000, 10 windows); STUDY is weaker (0.759, 11 windows). The 62/250 ladder's
+side rule is not decoded (0.10-0.79 by hour, 0.45-0.53 pooled).
+
+**Skew of the fill price by class (`code10/skew_class.py`, `results/iter10_skew_class.json`): inconclusive.** The slope of
+d = (bought token's last print - fill price) on e = (token's Chainlink fair - last print) is -0.10 / -0.03 for 500s and
+-0.32 / -0.22 for 62s, -0.23 / -0.13 for 250s (STUDY / VALIDATE aggregate), but d and e share the last print with opposite
+signs, so a stale print alone makes the slope negative: the fill-level test cannot measure the ladder's skew. The
+"unskewed off-session ladder" stays a hypothesis for the quote-level test on 11-01 06-12.
+
+**Per wallet, 500 ladder on the lot (`results/iter10_wallet_500.json`; same scored fills).** Region D (n, accuracy):
+VALIDATE aggregate almach 14 / 1.000, bosona 16 / 1.000, **mo-money 43 / 0.953**; STUDY almach 28 / 0.643, bosona 18 /
+0.944, mo-money 12 / 0.750. Frozen posture over all 500-class fills: VALIDATE almach 0.754, bosona 0.688, **mo-money
+0.781**; STUDY 0.645 / 0.552 / 0.634. Mo-money's 500 deficit of the live block (0.735 vs 0.81-0.84) does not appear on the
+historical VALIDATE (it is the best wallet there): X76 / X91 / X94 should treat it as a property of the 10-31 block (its
+volatility bursts and the ad-hoc restarts), not as a fixed per-account parameter.
+
+**Pre-registration H-VOL-500 (written 23:34 UTC before scoring).** The slow sigma restricted to the US-session 500 ladder
+with the real Chainlink value on the calibrated match clock (the same scored lot fills as R7-side): candidate fixed in
+advance v3600 x 1 (Binance 1-s realised vol over 3,600 s at b - 3) vs the frozen 1.4 x v300. Confirmation on VALIDATE
+(aggregate) 500-class fills: gain >= +0.01 with the 2-h block bootstrap lower bound > 0. STUDY is reported alongside.
+
+**H-VOL-500 result (`code10/hvol500.py`, `results/iter10_hvol500.json`): the slow sigma fails on the 500 ladder too.**
+VALIDATE (aggregate) 500-class fills (n 1,633): frozen 1.4 x v300 **0.742** vs v3600 x 1 0.617, gain -0.125 (2-h block
+bootstrap [-0.230, -0.034]); region A 0.731 vs 0.601; cheaper-side baseline 0.707. STUDY (n 403): 0.613 vs 0.633 (+0.020,
+[-0.12, +0.15]). With the real reference and the right rung class, the historical evidence favours the frozen (fast) sigma,
+as the 5m quote unit did in iteration 9; the live per-fill preference for the slow sigma was a property of 10-31's burst
+fills. The frozen side rule stays.
+
+**evaluate() smoke test with the new order-class diagnostic (`code10/smoke_r6_it10.py`,
+`results/iter10_eval_r6_1793461200_1793464800.json`; development hour 10-31 15:00-16:00, FETCH_CL off, 2 rotation draws).**
+Runs end to end; `side_posture_match_clock`: 0.844 per fill (n 1,104, Chainlink coverage 1.0, 1,086 transactions fetched);
+`it10_by_order_class`: 500-class posture 0.855, region D 0.888 (n 267); 62/250-class posture 0.429 (n 28), region D 0.167
+(n 12); other sizes 0.855 / 0.923 (n 165 / 39). The off-session classes go against Chainlink in this hour, as the 62s did
+in hour 00 of 10-31 (0.10), while on the historical VALIDATE they are a coin flip (0.46-0.48).
+
+**Are 62/250 rungs the far side of the 500 posture ladder? (`code10/opp_side.py`, `results/iter10_opp_side.json`; all lot
+fills with calldata sizes; nearest same-wallet 500-class fill in the same window within +-30 s).** Control: a 500 fill's
+nearest other 500 fill is on the opposite outcome only 3.7% (STUDY, 2,359 pairs) / 4.5% (VALIDATE aggregate, 9,236): the
+posture ladder holds one side. 62/250 fills next to a 500 fill: 15% opposite on STUDY (only 20 pairs, 22 windows with both
+classes) but **71% opposite on VALIDATE (163 pairs, 116 windows)**. Where the two classes coexist, the 62/250 rungs are
+mostly the other outcome's rungs of the same ladder (which is why they go against Chainlink on 10-31 15-16, 0.17, and in
+hour 00, 0.10); in the off-session windows without 500s their side is still undecoded.
+
+**500 ladder by day (`results/iter10_500_by_day.json`; [region D n, region D accuracy, posture over 500 fills]).** VALIDATE
+(aggregate per day): 10-27 [17, 1.000, 0.827], 10-28 [25, 0.920, 0.648], 10-29 [11, 1.000, 0.691], 10-30 [20, 1.000,
+0.843]; STUDY: 10-23 [49, 0.735, 0.607], 10-24 and 10-25 no 500-class region-D fills (weekend: few 500s), 10-26 [9, 0.889,
+0.584]. The 500 ladder follows Chainlink in region D on every VALIDATE day; the weak 500 day is Friday 10-23 (the day of
+the 20:40 UTC switch-off), where 49 of STUDY's 58 region-D 500 fills sit.
+
+**I9-3 (X89) step 3 result: Chainlink data quality before the switch-offs (`code10/i93_switch_noise.py`,
+`results/iter10_i93_switch_noise.json`; six 30-s runs of consecutive endpoint seconds in the 2 h before each switch and at
+the same clock times 3 and 4 days earlier; 104 runs).** Calendar switches (Fri-Sun evenings ET): sd of 1-s changes
+$0.34 / 1.36 / 1.88 / 2.29 / 1.30 before 10-17 20:35, 10-17 22:30, 10-18 22:15, 10-23 20:40, 10-24 22:30 vs controls
+$1.0-2.0; lag-1 autocorrelation -0.13..+0.44 vs -0.05..+0.29; Chainlink - Binance basis sd within a run 0.6-3.1 vs 1.4-3.2:
+**no data-quality excursion before the calendar switches**. The ad-hoc 10-31 16:53 switch: sd **$9.29**, autocorrelation
+**-0.51**, basis sd 6.8 and basis -$134 vs controls $2.0-2.6, ~0, 2.3-3.2 and -$112..-125: it happened inside the Chainlink
+noise regime, which had been on since at least 10-31 00:00 (all hours of 00-04 noisy), i.e. after hours of the regime and
+the block's losses, not minutes after an excursion. Reading: calendar switches are a schedule; the ad-hoc one is a
+reaction to the noise regime (or to its losses). Signature partly met; the full-history zone test (DST) stays open.
+
+**Recorders and jobs at the end of iteration 10 (23:46 UTC):** shared live.py running; own examrec (dx_*, to 11-03 00:00),
+dy_rtds, dz_rtdsbn running; the delayed full-depth recorder for 11-01 05:55-12:00 still scheduled; new famrec (dw_clob,
+pid 31812 launcher / 10824 worker, 4.6 MB at 23:38, to 11-03 00:00); detached Chainlink fetch code10/fetch_cl_hist.py
+(pid 32528 launcher; queue `.cache/re/directional-maker/a1_queue10.parquet`: switch runs done, then the lot BTC 5m fill
+stamps (random order), BUILD BTC 5m, BTC 15m; hard stop 11-01 10:00 UTC; chunks `cl/cl_hist10_<start>_*.parquet`). The
+reduced pmxt hour (36 MB) is in `.cache/re/directional-maker/pmxt/`. Iteration 10 ends at ~00:10 UTC.
+
+**Window-bootstrap intervals for region D by class (`results/iter10_classD_ci.json`; 23:47 UTC, the fetched subsample has
+grown).** VALIDATE (aggregate): 500-class **0.933 (89 fills, 30 windows; 95% window bootstrap [0.837, 1.000])**, 62s 0.443
+(70, 30; [0.25, 0.64]), 250s 0.515 (33, 16; [0.26, 0.84]); STUDY 500s 0.770 (61, 13; [0.63, 0.97]), 62s 0.549 (51, 18;
+[0.34, 0.80]). The 500-vs-62 contrast on VALIDATE is outside both intervals. These are the numbers to quote; the earlier
+0.973 (73 fills) was the smaller subsample.
+
+**X61 (strike publication lag) scheduled; an endpoint fact.** `code10/strike_poll.py` (pid 30244 launcher, sleeping) polls,
+for every BTC 5m and 15m window starting in the development hour 11-01 06:00-07:00 UTC, Gamma priceToBeat and the
+crypto-price openPrice once per second from S - 15 s to S + 20 s, and writes the first-availability times to
+`.cache/re/directional-maker/strike_poll_1793512800.jsonl` (hard stop 07:00; skips sealed windows). While choosing the 15m
+variant name (development time 10-31 12:00 UTC): `variant=fiveminute` and `variant=fifteen` return the Chainlink value
+stamped S (77490.7058...), while `fifteenminute` / `fifteen_minute` return a cents-rounded 77618.97, about $128 higher: the
+size of the Chainlink - Binance BTCUSDT basis that day, i.e. probably a Binance-based price. Which one the 15m strike uses
+must be checked against Gamma priceToBeat (the RE's 15m code takes the Gamma value, so R6 is unaffected).
+
+Check (23:50 UTC): Gamma priceToBeat of the 10-31 12:00 windows is 77504.787 for both BTC 5m and BTC 15m (the Chainlink
+TWAP of [S - 61, S - 2], full precision), not the cents-rounded `fifteenminute` value (77618.97): the 15m strike is the
+Chainlink stream, as R6 assumes.
+
+**Off-session rungs in windows without 500s (`results/iter10_offsession_side.json`; scored lot fills with a nonzero own
+imbalance).** 62s (STUDY n 256 / VALIDATE n 581): under-held outcome 0.41 / 0.49, cheaper 0.50 / 0.57, Chainlink posture
+0.43 / 0.58, Binance posture 0.40 / 0.59. **250s (n 49 / 586): on the already-held outcome 0.90 / 0.68** (under-held 0.10 /
+0.32), Chainlink 0.55 / 0.65, cheaper 0.31 / 0.65. 62s in windows that also have 500s: under-held 0.97 (n 32, VALIDATE).
+So the off-session 250 rungs keep buying the outcome the wallet already holds (own state: a within-window momentum of its
+own inventory, like the "side of the previous event" baseline of iteration 9), the 62s next to a 500 ladder complete pairs,
+and the pure off-session 62s follow nothing measured (0.41-0.59). Own-state descriptions only; the first side of an
+off-session window is not decoded.
+
+**The entry side of each window (`results/iter10_first_fill.json`; scored lot fills where the wallet holds nothing in the
+window yet).** Chainlink posture / Binance posture / cheaper / favourite: off-session 62/250 first fills (no 500 in the
+window) **0.661 / 0.618 / 0.550 / 0.454 (STUDY, n 251)** and **0.719 / 0.660 / 0.609 / 0.402 (VALIDATE aggregate, n 473)**;
+500 first fills 0.675 / 0.669 / 0.497 / 0.528 and 0.753 / 0.691 / 0.676 / 0.315; all first fills 0.664 and 0.734. So the
+off-session ladder ENTERS on the Chainlink posture side about as often as the 500 ladder does (0.66-0.72), and its later
+fills drift away from the posture because its 250 rungs keep adding to the held outcome (0.68-0.90). Reading for
+iteration 11: one posture decides the entry in both ladders; the off-session ladder then follows its own inventory
+(momentum), while the 500 ladder keeps re-pricing on every Chainlink report. To test on the quote unit (11-01 06-12).
+
+- Checkpoint addendum (23:52 UTC): the late findings change next step 1. The off-session ladder is better described as
+  "enter on the Chainlink posture side (first fills 0.66-0.72), then keep adding to the held outcome (250s 0.68-0.90, own
+  state)" than as an unskewed two-sided ladder; on 11-01 06-12 test both on the quote unit (are the off-session rungs
+  re-priced on each Chainlink report, or left on the entry side?). Final 500-ladder number: VALIDATE region D 0.933 (30
+  windows, [0.84, 1.00]); 10-31 00-06 1.000 (10 windows). Open catalog items: D3, X9, X24, X41, X57, X59, X61 (poller
+  scheduled), X62, X64, X67, X71, X75, X76, X83, X87, X89, X90 (fetch running), X91, X94, X95, X99. Iteration 10 ends
+  ~23:53 UTC (about 80 minutes).
+
+**Entry side on 10-31 00-06 with sigma-free rules only (`code10/entry_0006.py`, `results/iter10_entry_0006.json`):
+inconclusive for the posture.** Without the Binance 1-s vol for that block only sigma-free rules were scored: entries
+(first block second of each wallet-window, n 295) bought the Chainlink favourite 0.45, the market favourite 0.39, the
+cheaper side 0.61; later fills 0.33 / 0.31 / 0.69. The block was an underdog-buying block (and lost 10% on maker fills);
+the sigma-free favourite rule is not the posture outside region D, so the entry-follows-posture reading (lot: 0.66-0.75)
+still needs the posture with sigma on this block (fetch the 1-s klines next iteration).
+
+**Frozen posture on the fresh 10-31 00-06 block by class (`results/iter10_entry_0006_posture.json`; block clock, report
+b - 4, Binance 1-s v300 from the REST klines, Gamma strike; 1,234 fills).** All fills 0.664; **500-class 0.799 at the entry
+(n 278) and 0.784 later (n 399)**, i.e. the live block's 0.785; 62/250 later fills 0.444 (n 338; only 2 entries, the
+windows were entered with 500s); other sizes 0.60. On a block never used for a choice, the 500 ladder follows the frozen
+posture at the live level, and the 62/250 rungs go against it, as on 10-31 15-16 and in hour 00.

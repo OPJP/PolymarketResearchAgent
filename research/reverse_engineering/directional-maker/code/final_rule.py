@@ -530,6 +530,7 @@ def _evaluate_btc15m(start_ts, end_ts, intervals, pm, sp, ct, local):
 # relay publish delay measured on 10-31). Market-only baselines: the Binance-spot fair edge sign (pre-window spot TWAP
 # strike), the cheaper side, always-Up.
 CL_DELAY_MS = 1432
+IT10_MAX_TX = 3000             # iteration 10 diagnostic: at most this many fill transactions fetched for the order class
 
 
 def _ptb_any(w: pd.DataFrame) -> dict:
@@ -633,10 +634,10 @@ def side_posture_match_clock(mk: pd.DataFrame, w: pd.DataFrame, start_ts: int, e
         i = np.searchsorted(ts_, T, side="left") - 1
         if i < 0 or T - ts_[i] > 10000:
             continue
-        rows.append((str(r.wallet), int(inf[0]), int(inf[1]), int(inf[2]), int(T), float(mid_[i])))
+        rows.append((str(r.wallet), int(inf[0]), int(inf[1]), int(inf[2]), int(T), float(mid_[i]), str(h).lower(), str(r.token_id)))
     if not rows:
         return {"n": 0, "matched_trades": len(match_ms), "books_tokens": len(bk)}
-    D = pd.DataFrame(rows, columns=["wallet", "st", "en", "is_up", "T", "mid_up"])
+    D = pd.DataFrame(rows, columns=["wallet", "st", "en", "is_up", "T", "mid_up", "txh", "token"])
     ptb = _ptb_any(w)
     D["K"] = [ptb.get(("15m" if e - s == 900 else "5m", s)) for s, e in zip(D["st"], D["en"])]
     D = D.dropna(subset=["K"])
@@ -708,6 +709,36 @@ def side_posture_match_clock(mk: pd.DataFrame, w: pd.DataFrame, start_ts: int, e
                                    "n_with_prev": int(hp.sum())}
     except Exception as ex:  # noqa: BLE001
         out["it9_diag_error"] = repr(ex)[:200]
+    # iteration 10 diagnostics (reported only; the frozen side above is unchanged): the side by the class of the filled
+    # order (calldata original size; 500 x 2^k = the US-session posture ladder, 62 / 250 = the off-session ladder, pairing
+    # bids = |own imbalance|, not separable here and counted as "other"), and in the sigma-free region D (Chainlink and
+    # the book mid disagree on the favourite). Needs the fills' transactions from Polygon RPC (at most IT10_MAX_TX).
+    try:
+        sys.path.insert(0, str(HERE.parent / "code4"))
+        import calldata as _cd
+        txs = list(dict.fromkeys(D["txh"].astype(str)))[:IT10_MAX_TX]
+        sizes = {}
+        for hh, tx in _cd.fetch_txs(txs):
+            dd = _cd.decode(tx["input"]) if tx else None
+            if not dd:
+                continue
+            for o in dd.get("makers", []):
+                if o["maker"].lower() in CLUSTER and int(o["oside"]) == 0:
+                    sizes[(hh.lower(), o["maker"].lower(), str(o["token_id"]))] = round(int(o["taker_amount"]) / 1e6, 2)
+        orig = np.array([sizes.get((t_, w_, k_), np.nan) for t_, w_, k_ in zip(D["txh"], D["wallet"].str.lower(), D["token"])])
+        cls = np.where(np.isin(orig, [500.0, 1000.0, 2000.0]), "500", np.where(np.isin(orig, [62.0, 61.99, 250.0, 125.0]), "62_250",
+                       np.where(np.isfinite(orig), "other", "unjoined")))
+        pf_ = D["fair_cl"].to_numpy() > D["mid_up"].to_numpy()
+        xx_ = np.log(D["cl"].to_numpy(dtype=float) / D["K"].to_numpy(dtype=float))
+        dD = ((xx_ > 0) != (D["mid_up"].to_numpy() > 0.5)) & (xx_ != 0)
+        hitD = (xx_ > 0) == y
+        out["it10_by_order_class"] = {c: {"n": int((cls == c).sum()), "posture": float(np.mean((pf_ == y)[cls == c])),
+                                          "region_D_n": int((dD & (cls == c)).sum()),
+                                          "region_D_bought_cl_favourite": float(np.mean(hitD[dD & (cls == c)])) if (dD & (cls == c)).any() else None}
+                                      for c in ("500", "62_250", "other", "unjoined") if (cls == c).any()}
+        out["it10_tx_fetched"] = len(txs)
+    except Exception as ex:  # noqa: BLE001
+        out["it10_diag_error"] = repr(ex)[:200]
     return out
 
 
