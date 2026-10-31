@@ -1,0 +1,18 @@
+{
+ "n_perm": 99,
+ "rows": 285240,
+ "pos": 13154,
+ "obs_strat_global": 0.7557845808916858,
+ "obs_strat_window": 0.6578899389224833,
+ "null_global_mean": 0.6789142125010942,
+ "null_global_max": 0.6980208080007196,
+ "null_global_sd": 0.008823932983077064,
+ "null_window_mean": 0.653360844152117,
+ "null_window_max": 0.6735239600109393,
+ "null_window_sd": 0.008324189050900347,
+ "p_global": 0.01,
+ "p_window": 0.35,
+ "p": 0.35,
+ "z_global": 8.71157663346005,
+ "z_window": 0.5440884082127325
+}

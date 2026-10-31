@@ -1,5 +1,5 @@
 {
- "generated_at": 1793438794,
+ "generated_at": 1793438903,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -174,7 +174,7 @@
    "status": "in_progress",
    "wall_reason": "partial wall for the presence metric only: which BTC 5m windows the cluster trades is an operator schedule (active elsewhere in 89-93% of its BTC 5m-off slots; VALIDATE on 74-75% of windows 12-20 UTC vs 38-40% 00-12 UTC) and on/off windows have the same public tape statistics; not an information wall on quotes (no lead over Binance 1-s)",
    "iterations": 2,
-   "minutes": 120,
+   "minutes": 110,
    "hypotheses": 27,
    "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state; from iteration 2 on the tape excludes every print in a cluster transaction (iteration-1 value 0.7723 was leaky; clean equivalent 0.7592)",
    "best_validate_score": 0.7723,

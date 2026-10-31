@@ -142,3 +142,159 @@ polyrea notes (no bug fixed, nothing modified):
   PnL corr 0.42 (Spearman 0.49) < 0.5; selection pilot 0.755 with recall 43% at lift 3.8 (close to the recall/lift bar).
 - Status: continue. Background cache warmers for full tapes (maker rows) were started at the end of iteration 1 and
   stopped at the checkpoint; whatever they fetched is in the shared HTTP cache (`warm_tapes.py ... full`).
+
+### Iteration 2 (2026-10-31, local Windows laptop, started 08:40 UTC)
+
+Local re-fetch (all < H; `code/fetch_local.py`; HTTP cache was empty):
+- Gamma metadata of the 4,032 BTC 5m windows 2026-10-09..H (`windows_5m.parquet`), activity of the 3 wallets
+  2026-10-08..H (49,345 / 47,789 / 52,405 rows: identical counts to iteration 1), Binance 1-s klines 2026-10-08..H.
+- data-api taker tapes [start-120, end) of every BTC 5m window 2026-10-09..H (14 day files `taker5m_day_<d>.parquet`,
+  ~430k rows/day). About half of the windows were read (read-only) from another agent's identical pulls in
+  `.cache/re/btc5m-bot/tapes/<cid>.parquet` (same endpoint, wider range [start-600, end+5], cut to ours). Running two
+  fetchers at 8 req/s next to the other agent triggered Cloudflare 429 (retries exhausted) once; the fetcher now backs
+  off per window (5 req/s, 4 threads). PRE is 120 s now (was 900): only `last_s` at rel=0 and `n_prints` change meaning.
+- Free disk on C: dropped to 2.2 GB for a few minutes at ~09:00 UTC (not this agent: our folder is ~0.2 GB);
+  it recovered to 17 GB later.
+
+**LEAK FIX (important).** Iteration 1 computed every tape feature from the full taker tape, including the prints that
+filled the cluster (hit_s10 etc. partly counted its own fills; last_s was often its own fill price). The brief forbids
+it. `features2.clean_tape` now drops every print whose transaction contains any cluster trade (maker or taker) or whose
+taker is a cluster wallet. Only ~1% of tape rows are removed (the cluster is a small share of BTC 5m taker prints).
+The iteration-1 primary score 0.7723 is therefore leaky; the comparable clean v1 feature set scores 0.7592.
+
+New measurements (descriptive, activity + spot only, `code/onoff_side.py`, `code/open_wallets.py`):
+- **On/off is not downtime.** In 5-min slots where the cluster has no BTC 5m fill it still trades other markets in 89%
+  (VALIDATE) / 93% (BUILD) of slots. VALIDATE BTC 5m participation by hour: 38-40% of windows 00-12 UTC, 74-75%
+  12-20 UTC, 51% 20-24 UTC (BUILD flat 77-94%). By day x 3-h block it is a regime, not a clock: BTC 5m off for
+  13 h twice, 10-17 23:00 -> 10-18 12:00 and 10-18 23:00 -> 10-19 12:00 UTC (while trading other markets), then 33-86%
+  per block on 10-20..22 (BUILD blocks 50-100%); 10-19 was its worst day (fills won 0.327 at avg price 0.407). Public clean-tape statistics of on and off windows are the
+  same (VALIDATE medians at rel=60: prints since start 296 vs 277, s-bid hits in 60 s 141 vs 141, distinct takers 158 vs
+  152, vol 0.27 vs 0.28 bp/s). => a per-market schedule chosen by the operator, invisible in public data.
+- **Opening decision:** first fill <= 6 s after the start in 21% of active BUILD windows (11% VALIDATE): orders rest at
+  the open. Side = sign(Binance spot at the start - Binance TWAP strike) 66% (BUILD), 76-79% when |gap| > 3 bp
+  (n = 59 / 24); price corr 0.85-0.89 with the Binance fair at the open. First fill side = previous window's proxy
+  outcome 60-62% (momentum; the same strike-lag effect).
+- **Three wallets:** no rotation by window index (first-wallet shares equal across window index mod 3), no side split
+  (Up share 0.47-0.50 each), same median second (133-154 s); all 3 wallets in 56-63% of active windows. Consecutive
+  fills come from the same wallet 72% of the time vs 43% under a within-window shuffle: each wallet works its own
+  resting orders in parallel (three copies of one quoting engine).
+
+Presence (primary metric, `code/train2.py`, BUILD = 2026-10-09..16, VALIDATE = 2026-10-16..23, clean tape,
+LightGBM 15 leaves / min leaf 1000 / l2 10 / 300 rounds / max_bin 63):
+
+| model | VALIDATE AUC | within active windows |
+| --- | --- | --- |
+| time only | 0.546 | 0.548 |
+| market activity only (co-occurrence baseline) | 0.735 | 0.712 |
+| spot only (+time) | 0.710 | 0.685 |
+| all, iteration-1 features (clean) | 0.759 | 0.732 |
+| + window path features | 0.760 | 0.733 |
+| **+ path + previous-window features (R2, frozen)** | **0.763** | 0.736 |
+| R2 + own inventory (reported separately) | 0.822 | 0.756 |
+| activity + own inventory | 0.812 | 0.738 |
+
+Daily R2 AUC 0.724-0.786. Top gain: edge_s, last_s, hit_o10, sig, hit_s10, rel, strike_move_s, vol_s60, e_open_s.
+Window on/off from the mean predicted presence in the first 60 s: AUC 0.576.
+Side (3,805 one-sided fill bins): R2 0.679 vs favourite 0.515 / Binance favourite 0.545 (sign test p ~ 0);
+by time in window 0.769 (0-30 s), 0.715 (30-120 s), 0.638 (120-300 s); in the 25% / 10% most confident bins 0.816 / 0.879.
+
+Price (`code/price2.py`, 13,934 VALIDATE maker fills; 99.0% of them on the 0.01 grid, as in BUILD; price2's own
+`grid_0.01_share_val` = 0.816 is a float-tolerance artefact of the activity prices, ignore it): last clean print on s - 0.01: exact 31.4%, within 0.01 58.5% (BUILD 32.5% / 58.5%). Alternatives worse:
+floor(fair - m) 11%, last ask-lift - 0.01 51.7%, last hit bid 50.7%, LightGBM regression 51.1%; own previous fill price
+adds nothing. Price - last clean print: -0.01 (34%), 0 (16%), -0.02 (12%).
+
+Selection (`code/sel2.py`; population = in-window taker prints except the cluster's own taker prints; label = the
+print's transaction holds a cluster maker fill; BUILD negatives 10%, VALIDATE 25% with weights; threshold = BUILD top 15%):
+
+| score | AUC | strat. AUC price50 x time40 x side | within-window strata | recall | lift |
+| --- | --- | --- | --- | --- | --- |
+| all (bin panel + print fields + spot) | 0.769 | 0.758 (null 0.678, max 0.694) | 0.665 (null 0.655, max 0.660) | 49.0% | 3.80 |
+| market activity only | 0.743 | 0.724 | 0.660 | 47.2% | 3.22 |
+
+Rotation null with 10 draws (p = 1/11 is the floor; observed above every draw on both strata). Top features: print size,
+maker price, vol, price minus last clean print, opening edge, strike move, edge.
+
+99-draw rotation null (`code/null99.py`, VALIDATE negatives 10%): stratified (price x time x side) AUC 0.756 vs null
+0.679 +- 0.009 (max 0.698): p = 0.01, z = 8.7. Within-window strata: 0.658 vs null 0.653 +- 0.008 (max 0.674): p = 0.35,
+z = 0.5. => the spot part of the selection score separates windows / moments (vol, strike move, opening edge), not
+which print inside a window fills the cluster; inside a window the print's size and its price relative to the last
+print do the work. The brief's selection criterion (p = max of both < 0.01, AUC >= 0.80) fails; recall 49% at lift 3.8.
+End-to-end `final_rule.evaluate(VALIDATE, local=True)` reproduces every number above (presence 0.7634 / baseline 0.7349 /
+own 0.8216, side 0.679, price 0.313 / 0.585, selection 0.7695 / 0.7578 / 0.6652, recall 48.9%, lift 3.81) and gives the
+per-window PnL correlation rule vs wallet: Pearson 0.334, Spearman 0.393 (1,086 windows; iteration 1's 0.418 / 0.492
+was on the leaky tape). Wallet's own BTC 5m maker return on VALIDATE -2.3%.
+Within-second print order matters for the price rule: an unstable sort by second gave 0.255 / 0.506 instead of
+0.313 / 0.585; every sort is now stable (data-api row order, i.e. on-chain order within a second).
+
+polyrea / environment notes (nothing modified):
+- Two fetchers at 8 req/s each plus another agent's fetchers on data-api /trades hit Cloudflare 429 ("retries
+  exhausted") within 3 minutes; HttpClient's per-process limiter cannot see other processes. Use <= 5 req/s per process
+  and per-window retry with back-off when several agents share the connection.
+
+On-chain orders, VALIDATE (`code/fetch_chain.py` via publicnode, 5,000-block ranges, 190 s: 40,357 OrderFilled of
+the 3 wallets, 36,595 maker / 3,762 taker, 37% in BTC 5m; `code/orders2.py`): one price per order (100%); 58.5% of
+BTC 5m orders filled once; filled shares per order median 76, modes 500 (363 orders), 125 (275), 250 (247), 5, 10, 25,
+50 (BUILD modes were 500 / 1000 / 498 / 502 / 333: smaller orders in VALIDATE, a 500-250-125 ladder); ~4 orders per
+active window. Multi-fill orders are consumed within 0-2 s (99% within 8 s): the fill record shows no long-resting
+orders; only 73 orders rest >= 5 s between fills, where the Binance fair moved no less than at random times
+(|dfair| median 0.003 vs 0.004): too few to measure requote rules. At the first fill the bid is ~0.019 below the Binance
+fair (median).
+
+Window-level side (817 active VALIDATE windows with >= 70% of the shares on one side; dominant side forecast from the
+mean R2 presence per side over the first T seconds, point-in-time at T): T = 30 s 0.621, 60 s 0.641, 120 s 0.657 vs
+favourite by last print 0.51-0.54 and Binance favourite 0.53-0.55 (sign test p 5e-5 .. 4e-9); most confident half
+0.665 / 0.694 / 0.716. The window's side is only partly decodable from public data.
+
+Final end-to-end run of the frozen rule on VALIDATE (`final_rule.evaluate(1792108800, 1792713600, local=True)`, defaults
+n_perm = 99, selection negatives 10%; output `results_iter2_evaluate_validate.json`): presence 0.7634 (baseline 0.7349,
+own 0.8216, active windows 0.7363); side 0.679 (activity-only model 0.621; favourite 0.515; Binance favourite 0.545;
+p = 1.7e-46); price 0.313 / 0.585; PnL corr 0.334 / 0.393; selection AUC 0.770, stratified 0.757 (null 0.680 +- 0.009,
+p = 0.01, z 8.7), within-window 0.669 (null 0.655 +- 0.008, max 0.670, p = 0.04, z 1.7), recall 48.9% at lift 3.80;
+activity-only selection 0.744 / 0.724 / 0.664, recall 47.1%, lift 3.23. The within-window null p moves between 0.04
+and 0.35 with the negative subsample (null99.py used another seed): not significant at 0.01 either way.
+
+Schedule vs own PnL (own-state, descriptive): next-hour BTC 5m participation does not depend on the last 3 hours' PnL
+(corr 0.009 BUILD, 0.062 VALIDATE; flat by quartile). The two long VALIDATE off runs both ran 23:00 -> 12:00 UTC
+(13 h, 10-17/18 and 10-18/19) and both followed a 6-h loss of 22% on the dollars bought (-$3.3k, -$1.7k): an overnight
+stop after bad evenings, two events only.
+
+Counterparties (clean classification of every BTC 5m taker print): the prints that fill the cluster come from many
+takers (5,305 in BUILD, 3,200 in VALIDATE; top-10 = 11% / 13%) and are larger than other prints (median 11 / 18 shares vs
+7 / 8; 90th pct 193 / 312 vs 53 / 57); 86-89% are takers buying the complement (others 84-85%). The busiest takers
+(0xc53375ff: 94,770 VALIDATE prints) hit the cluster in only 0.3% of their prints: it is not the bots' liquidity, it
+absorbs the larger, dispersed orders at the top of the book.
+
+On/off cap with the clean features: giving R2 an oracle for which windows the cluster trades (p = 0 elsewhere) lifts
+the VALIDATE presence AUC from 0.763 to 0.862 (hour-level oracle 0.802; activity baseline with the window oracle 0.849).
+
+Examiner path checked: `evaluate(1792418400, 1792425600)` with local=False (adapters only) runs in 24 s on 24 windows
+(311 fills; presence 0.780 vs baseline 0.722). A full holdout run fetches ~3 data-api pages per window (about 15-20 min for
+a week at 8 req/s) and the 99-draw null adds ~5 min per week of windows.
+
+Stability (walk-forward inside VALIDATE, test 10-20..22): frozen BUILD-only R2 0.777; refit on BUILD + 10-16..19 0.781;
+10-16..19 only 0.780 (activity baseline 0.754 / 0.761 / 0.755). The presence relationship is stable across the
+regime change; a refit on all pre-H data would add ~0.004, so R2 stays frozen as validated.
+
+## Iteration-2 checkpoint
+- Primary metric (presence AUC, VALIDATE, no own-state, clean tape): **0.7634** (rule R2, `code/final_rule.py`);
+  activity-only baseline 0.7349 (gain +0.029); with own inventory 0.8216. Iteration 1's 0.7723 was leaky (clean: 0.7592),
+  so the honest improvement this iteration is +0.004 from the new path and cross-window features.
+- Target not met: presence 0.763 < 0.85 (capped by the operator's BTC 5m schedule, which is invisible in public data);
+  side 0.679 < 0.80 (0.769 in the first 30 s, 0.816 in the 25% most confident bins); price within 0.01 58.5%;
+  PnL corr 0.33 / 0.39 < 0.5; selection AUC 0.770 (strat 0.757, p = 0.01 global but p = 0.04-0.35 within windows),
+  recall 49% at lift 3.8.
+- Status: continue.
+
+## Next steps (iteration 3)
+1. Order level (on-chain orderHash, VALIDATE fetched at the end of iteration 2: `chain_fills_1792108800_1792713600.parquet`,
+   `code/orders2.py`): how long orders rest, how far fair moves before it requotes, replacement triggers (spot move,
+   print, time), order sizes; a requote model would turn the presence model into a quote model.
+2. Reference feed at the open: windows where the Binance gap (spot at the start vs TWAP strike) and the Chainlink-implied
+   gap disagree (priceToBeat as a diagnostic, basis carried from the previous window): which one does the opening side
+   follow? Coinbase/Kraken trades around the open as a third feed.
+3. Full tapes (maker rows) for a sample of VALIDATE windows: competitor bids at the cluster's fill moments; test "its
+   bid is at the top iff its quote > best competitor bid"; competitor maker prints are public features.
+4. Within-window selection is driven by print mechanics: features of the print relative to the predicted quote
+   (q - (last clean print - 0.01)), size relative to 500, prints in the same second.
+5. Own-state description of the schedule (does it switch BTC 5m off after losses?), reported separately.
+6. BTC 15m (28% of volume) with the same pipeline.

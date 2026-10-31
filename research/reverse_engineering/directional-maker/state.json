@@ -20,30 +20,71 @@
   ],
   "description_only": "history before BUILD"
  },
- "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state",
+ "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state; from iteration 2 on the tape excludes every print in a cluster transaction (iteration-1 value 0.7723 was leaky; clean equivalent 0.7592)",
  "best": {
-  "rule_id": "R1-presence-lgbm-all_reg",
+  "rule_id": "R2-presence-lgbm-clean-path-xwin",
   "validate_metrics": {
-   "presence_auc": 0.7723,
-   "presence_auc_activity_only_baseline": 0.7323,
-   "presence_auc_with_own_inventory": 0.8229,
-   "presence_auc_within_active_windows": 0.7431,
-   "presence_auc_oracle_window_on_off_ceiling": 0.8656,
-   "side_accuracy_one_sided_fill_bins": 0.6752,
-   "side_baseline_favourite_last_print": 0.5151,
-   "side_baseline_binance_favourite": 0.5453,
-   "side_vs_favourite_sign_test_p": 5.1e-45,
-   "price_exact_0.001": 0.2096,
-   "price_within_0.01": 0.5289,
-   "pnl_corr_pearson": 0.4176,
-   "pnl_corr_spearman": 0.4922,
+   "presence_auc": 0.7634140839140156,
+   "presence_auc_activity_only_baseline": 0.734880150899294,
+   "presence_gain_over_baseline": 0.028533933014721513,
+   "presence_auc_with_own_inventory": 0.8216019471989515,
+   "presence_auc_within_active_windows": 0.7363327359202009,
+   "side_accuracy_one_sided_fill_bins": 0.678580814717477,
+   "side_baseline_favourite_last_print": 0.5151116951379764,
+   "side_baseline_binance_favourite": 0.545335085413929,
+   "side_activity_only_model": 0.621287779237845,
+   "side_vs_favourite_sign_test_p": 1.6989790232861708e-46,
+   "side_acc_0_30s": 0.769,
+   "side_acc_top25pct_confidence": 0.816,
+   "side_acc_with_own_inventory": 0.7054,
+   "price_exact": 0.31340605712645325,
+   "price_within_0.01": 0.5846131764030429,
+   "pnl_corr_pearson": 0.33443049847009526,
+   "pnl_corr_spearman": 0.3925945747036249,
    "pnl_windows": 1086,
-   "selection_pilot_auc_taker_prints": 0.7551,
-   "selection_pilot_recall_top15pct_build_threshold": 0.432,
-   "selection_pilot_lift": 3.78,
-   "cluster_btc5m_maker_return_validate": -0.0254,
-   "selection_pilot_auc_without_print_size": 0.7033,
-   "selection_pilot_stratified_auc": 0.7463
+   "selection_auc": 0.7697568927159787,
+   "selection_auc_strat_price_time_side": 0.7573639240400584,
+   "selection_auc_within_window": 0.6688861707820503,
+   "selection_recall_at_build_top15": 0.4893568496274897,
+   "selection_lift": 3.7981597360964328,
+   "selection_null10": {
+    "global_mean": 0.680117868351128,
+    "global_max": 0.6991012086358821,
+    "global_sd": 0.008837321641307008,
+    "window_mean": 0.6546817459821054,
+    "window_max": 0.6704839079581072,
+    "window_sd": 0.008128697598579218,
+    "n_perm": 99
+   },
+   "selection_null99": {
+    "n_perm": 99,
+    "rows": 285240,
+    "pos": 13154,
+    "obs_strat_global": 0.7557845808916858,
+    "obs_strat_window": 0.6578899389224833,
+    "null_global_mean": 0.6789142125010942,
+    "null_global_max": 0.6980208080007196,
+    "null_global_sd": 0.008823932983077064,
+    "null_window_mean": 0.653360844152117,
+    "null_window_max": 0.6735239600109393,
+    "null_window_sd": 0.008324189050900347,
+    "p_global": 0.01,
+    "p_window": 0.35,
+    "p": 0.35,
+    "z_global": 8.71157663346005,
+    "z_window": 0.5440884082127325
+   },
+   "selection_activity_baseline": {
+    "auc": 0.7436880183799489,
+    "auc_strat_global": 0.7242605166692843,
+    "auc_strat_window": 0.6644063909487042,
+    "recall_at_theta": 0.4711114489889007,
+    "lift_at_theta": 3.225060265892689
+   },
+   "cluster_btc5m_maker_return_validate": -0.023314591774712595,
+   "presence_auc_oracle_window_on_off_ceiling": 0.8621,
+   "presence_auc_oracle_hour_on_off": 0.8019,
+   "window_side_forecast_at_60s": 0.641
   }
  },
  "hypotheses": [
@@ -235,15 +276,231 @@
     "stratified_auc_price_time_side": 0.7463
    },
    "verdict": "promising but not the brief's match_test (no rotation null, no stratification); print size is the top feature (book-depth mechanics)"
+  },
+  {
+   "id": "H17",
+   "family": "correctness: own-print leak",
+   "description": "drop every taker print in a transaction where a cluster wallet traded before computing features (brief rule)",
+   "validate_metrics": {
+    "iter1_features_leaky": 0.7723,
+    "iter1_features_clean": 0.7592,
+    "rows_removed_share": 0.005
+   },
+   "verdict": "fixed; all iteration-2 numbers use the clean tape"
+  },
+  {
+   "id": "H18",
+   "family": "window path / side commitment from public path",
+   "description": "edge at the first clean print, running max/mean/share-positive of the edge, fair and z at 10 s",
+   "validate_metrics": {
+    "presence_auc": 0.7598,
+    "delta": 0.0006,
+    "side_acc": 0.6662
+   },
+   "verdict": "small gain (side +0.014)"
+  },
+  {
+   "id": "H19",
+   "family": "cross-window state",
+   "description": "previous window's Binance proxy outcome (momentum), strike move between windows, previous window's print count",
+   "validate_metrics": {
+    "presence_auc": 0.7634,
+    "delta": 0.0036,
+    "side_acc": 0.6788,
+    "first_fill_side_eq_prev_outcome": [
+     0.616,
+     0.595
+    ]
+   },
+   "verdict": "small gain; adopted (R2)"
+  },
+  {
+   "id": "H20",
+   "family": "operator on/off: downtime vs per-market schedule",
+   "description": "activity in other markets when BTC 5m is off; hour profile; public tape of on vs off windows",
+   "validate_metrics": {
+    "other_markets_active_when_btc5m_off": [
+     0.892,
+     0.932
+    ],
+    "val_on_00_12utc": 0.39,
+    "val_on_12_20utc": 0.745,
+    "on_vs_off_median_prints": [
+     296,
+     277
+    ],
+    "on_vs_off_hits60": [
+     141,
+     141
+    ],
+    "window_on_off_auc_public": 0.576
+   },
+   "verdict": "not downtime: a schedule invisible in public data (caps the no-own-state presence AUC)"
+  },
+  {
+   "id": "H21",
+   "family": "opening decision",
+   "description": "first fills <= 6 s after the start: side vs sign(Binance spot at start - TWAP strike)",
+   "validate_metrics": {
+    "build_share_windows": 0.214,
+    "build_acc": 0.664,
+    "build_acc_gap_gt3bp": 0.763,
+    "val_acc": 0.512,
+    "val_acc_gap_gt3bp": 0.792,
+    "n_gap_gt3bp": [
+     59,
+     24
+    ]
+   },
+   "verdict": "partial: strong only when the spot-strike gap is large; few windows"
+  },
+  {
+   "id": "H22",
+   "family": "multi-wallet work split",
+   "description": "rotation by window index, side split, time split, sequencing of fills",
+   "validate_metrics": {
+    "first_wallet_by_widx_mod3_flat": true,
+    "up_share_by_wallet": [
+     0.47,
+     0.5
+    ],
+    "next_fill_same_wallet": 0.722,
+    "null": 0.426
+   },
+   "verdict": "rejected rotation/side split: three parallel copies, each working its own resting orders"
+  },
+  {
+   "id": "H23",
+   "family": "price anchoring",
+   "description": "price = last clean print - 0.01 vs last ask-lift - 0.01, last hit bid, floor(fair - m), LightGBM regression (+ own previous price)",
+   "validate_metrics": {
+    "last_clean_minus_0.01_within": 0.5846131764030429,
+    "exact": 0.31340605712645325,
+    "ask_lift": 0.517,
+    "hit_bid": 0.507,
+    "fair_minus_m": 0.111,
+    "lgbm": 0.511,
+    "lgbm_own": 0.508
+   },
+   "verdict": "last clean print - 0.01 is best; the within-second print order matters (stable data-api order)"
+  },
+  {
+   "id": "H24",
+   "family": "selection (match_test-style)",
+   "description": "which in-window taker prints fill the cluster: LightGBM (BUILD) on bin panel + print fields; strata price50 x time40 x side and window x price10 x time10 x side; rotation null",
+   "validate_metrics": {
+    "auc": 0.7697568927159787,
+    "strat": 0.7573639240400584,
+    "within_window": 0.6688861707820503,
+    "recall": 0.4893568496274897,
+    "lift": 3.7981597360964328,
+    "activity_only": {
+     "auc": 0.7436880183799489,
+     "auc_strat_global": 0.7242605166692843,
+     "auc_strat_window": 0.6644063909487042,
+     "recall_at_theta": 0.4711114489889007,
+     "lift_at_theta": 3.225060265892689
+    },
+    "null10": {
+     "global_mean": 0.680117868351128,
+     "global_max": 0.6991012086358821,
+     "global_sd": 0.008837321641307008,
+     "window_mean": 0.6546817459821054,
+     "window_max": 0.6704839079581072,
+     "window_sd": 0.008128697598579218,
+     "n_perm": 99
+    },
+    "null99": {
+     "n_perm": 99,
+     "rows": 285240,
+     "pos": 13154,
+     "obs_strat_global": 0.7557845808916858,
+     "obs_strat_window": 0.6578899389224833,
+     "null_global_mean": 0.6789142125010942,
+     "null_global_max": 0.6980208080007196,
+     "null_global_sd": 0.008823932983077064,
+     "null_window_mean": 0.653360844152117,
+     "null_window_max": 0.6735239600109393,
+     "null_window_sd": 0.008324189050900347,
+     "p_global": 0.01,
+     "p_window": 0.35,
+     "p": 0.35,
+     "z_global": 8.71157663346005,
+     "z_window": 0.5440884082127325
+    }
+   },
+   "verdict": "significant vs rotation null; recall/lift at the bar but AUC < 0.80; mostly print size/price mechanics (activity-only 0.743)"
+  },
+  {
+   "id": "H25",
+   "family": "side by confidence / time",
+   "description": "accuracy of the R2 side pick by time in window and model confidence",
+   "validate_metrics": {
+    "0_30s": 0.769,
+    "30_120s": 0.715,
+    "120_300s": 0.638,
+    "top50pct_conf": 0.76,
+    "top25pct_conf": 0.816,
+    "top10pct_conf": 0.879
+   },
+   "verdict": "the side is decodable early and when the model is confident; late fills are close to the market baseline"
+  },
+  {
+   "id": "H26",
+   "family": "window-level side forecast",
+   "description": "dominant side of one-sided active windows (>= 70% shares) from the mean R2 presence per side over the first T s",
+   "validate_metrics": {
+    "n_windows": 817,
+    "T30": 0.621,
+    "T60": 0.641,
+    "T120": 0.657,
+    "favourite": [
+     0.512,
+     0.537
+    ],
+    "binance_favourite": [
+     0.53,
+     0.548
+    ],
+    "top_half_conf": [
+     0.665,
+     0.694,
+     0.716
+    ]
+   },
+   "verdict": "significant (p < 1e-4) but far from 0.80"
+  },
+  {
+   "id": "H27",
+   "family": "on-chain order structure (VALIDATE)",
+   "description": "orders by orderHash: fills per order, sizes, how long an order keeps being filled, fair drift while it rests",
+   "validate_metrics": {
+    "single_fill_share": 0.585,
+    "one_price_per_order": 1.0,
+    "size_modes": [
+     500,
+     125,
+     250,
+     5,
+     10
+    ],
+    "multi_fill_life_q50_q90_q99_s": [
+     0,
+     2,
+     8
+    ],
+    "orders_life_ge5s": 73,
+    "bid_below_fair_median": 0.019
+   },
+   "verdict": "orders are consumed within seconds; smaller 500/250/125 ladder in VALIDATE; requote rules not measurable from fills alone"
   }
  ],
  "data_sources": [
-  "data-api activity of the 3 wallets 2026-10-08..H (.cache/re/directional-maker/activity_<name>.parquet)",
-  "on-chain OrderFilled logs (V2 exchanges, maker topic = cluster) 2026-10-09..H via polygon-bor-rpc.publicnode.com (chain_fills_*.parquet, 109,822 fills)",
-  "600 on-chain receipts of BUILD sweeps (sweeps_*.parquet)",
-  "Gamma metadata of all 4,032 BTC 5m windows 2026-10-09..H (windows_5m.parquet); eventMetadata used only as a diagnostic (chainlink_ref_*.parquet)",
-  "data-api taker tapes [start-900, end) of all 4,032 BTC 5m windows (taker_5m_<lo>_<hi>.parquet, ~6.0M rows)",
-  "Binance BTCUSDT 1-s klines 2026-10-08..H (spot_btc_1s.parquet)"
+  "data-api activity of the 3 wallets 2026-10-08..H (.cache/re/directional-maker/activity_<name>.parquet; re-fetched locally in iteration 2)",
+  "Gamma metadata of the 4,032 BTC 5m windows 2026-10-09..H (windows_5m.parquet)",
+  "data-api taker tapes [start-120, end) of all 4,032 BTC 5m windows (taker5m_day_<d>.parquet, ~430k rows/day; about half read from identical pulls in .cache/re/btc5m-bot/tapes)",
+  "Binance BTCUSDT 1-s klines 2026-10-08..H (spot_btc_1s.parquet)",
+  "on-chain OrderFilled logs of the 3 wallets, VALIDATE 2026-10-16..H via publicnode (chain_fills_1792108800_1792713600.parquet, 40,357 fills; re-fetched in iteration 2); BUILD logs and 600 sweep receipts only in iteration 1 (cloud)"
  ],
  "iterations": [
   {
@@ -264,6 +521,27 @@
     "book proxies",
     "selection pilot"
    ]
+  },
+  {
+   "n": 2,
+   "minutes": 50,
+   "best_validate_score": 0.7634,
+   "families": [
+    "leak fix (clean tape)",
+    "window path features",
+    "cross-window state",
+    "operator schedule / on-off",
+    "opening decision",
+    "multi-wallet split",
+    "price anchoring",
+    "selection with rotation null",
+    "side by confidence",
+    "window-level side",
+    "on-chain order structure",
+    "walk-forward stability"
+   ]
   }
- ]
+ ],
+ "status": "continue",
+ "wall_reason": "partial wall for the presence metric only: which BTC 5m windows the cluster trades is an operator schedule (active elsewhere in 89-93% of its BTC 5m-off slots; VALIDATE on 74-75% of windows 12-20 UTC vs 38-40% 00-12 UTC) and on/off windows have the same public tape statistics; not an information wall on quotes (no lead over Binance 1-s)"
 }
