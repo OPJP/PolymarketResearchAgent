@@ -1,0 +1,18 @@
+{
+ "rule_id": "tommy-v1-league-ladder",
+ "markets": 358,
+ "markets_traded": 107,
+ "selection_auc": 0.8765,
+ "selection_recall": 0.636,
+ "selection_lift": 2.646,
+ "selection_baseline": 0.8816,
+ "presence_auc": 0.8271,
+ "presence_baseline": 0.899,
+ "coverage_fills": null,
+ "size_100_accuracy": 0.883,
+ "price_within_tick": 0.115,
+ "price_within_cent": 0.305,
+ "side_accuracy": null,
+ "pnl_corr_pearson": null,
+ "pnl_corr_spearman": null
+}

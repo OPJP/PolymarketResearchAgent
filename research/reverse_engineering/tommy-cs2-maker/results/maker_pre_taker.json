@@ -1,0 +1,30 @@
+{
+ "BUILD": {
+  "pre_same_taker": {
+   "n": 384,
+   "fav": 0.604
+  },
+  "pre_opp_taker": {
+   "n": 143,
+   "fav": 0.378
+  },
+  "other": {
+   "n": 10146,
+   "fav": 0.419
+  }
+ },
+ "VALIDATE": {
+  "pre_same_taker": {
+   "n": 466,
+   "fav": 0.62
+  },
+  "pre_opp_taker": {
+   "n": 225,
+   "fav": 0.32
+  },
+  "other": {
+   "n": 11402,
+   "fav": 0.41
+  }
+ }
+}

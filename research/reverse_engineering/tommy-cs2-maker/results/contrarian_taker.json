@@ -1,0 +1,89 @@
+{
+ "wallet_taker_edge_pct": {
+  "BUILD": 6.71,
+  "VALIDATE": 5.25
+ },
+ "grid_build": [
+  {
+   "D": 0.08,
+   "W": 30,
+   "n_build": 849,
+   "edge_build_pct": -4.49
+  },
+  {
+   "D": 0.12,
+   "W": 30,
+   "n_build": 398,
+   "edge_build_pct": -4.5
+  },
+  {
+   "D": 0.08,
+   "W": 60,
+   "n_build": 1071,
+   "edge_build_pct": -5.34
+  },
+  {
+   "D": 0.03,
+   "W": 10,
+   "n_build": 2153,
+   "edge_build_pct": -6.12
+  },
+  {
+   "D": 0.03,
+   "W": 60,
+   "n_build": 2637,
+   "edge_build_pct": -6.76
+  },
+  {
+   "D": 0.12,
+   "W": 10,
+   "n_build": 279,
+   "edge_build_pct": -6.83
+  },
+  {
+   "D": 0.03,
+   "W": 30,
+   "n_build": 2356,
+   "edge_build_pct": -6.98
+  },
+  {
+   "D": 0.05,
+   "W": 30,
+   "n_build": 1566,
+   "edge_build_pct": -7.0
+  },
+  {
+   "D": 0.12,
+   "W": 60,
+   "n_build": 516,
+   "edge_build_pct": -7.43
+  },
+  {
+   "D": 0.05,
+   "W": 60,
+   "n_build": 1831,
+   "edge_build_pct": -7.63
+  },
+  {
+   "D": 0.08,
+   "W": 10,
+   "n_build": 693,
+   "edge_build_pct": -7.69
+  },
+  {
+   "D": 0.05,
+   "W": 10,
+   "n_build": 1389,
+   "edge_build_pct": -9.16
+  }
+ ],
+ "best": {
+  "D": 0.08,
+  "W": 30,
+  "val_n": 1033,
+  "val_edge_pct": -7.52,
+  "val_mean_edge_c": -3.34,
+  "wallet_taker_recall_10s": 0.035,
+  "trigger_share_followed_by_wallet": null
+ }
+}

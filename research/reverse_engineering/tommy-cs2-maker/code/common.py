@@ -38,7 +38,7 @@ def token_map() -> dict[str, tuple[str, int]]:
 
 
 def chain_fills() -> pd.DataFrame:
-    f = pd.read_parquet(OUT / "chain_fills_1791072000_1792713600.parquet")
+    f = pd.read_parquet(OUT / "chain_fills_1792108800_1792713600.parquet")
     f = f[f["bts"] < H].copy()
     tm = token_map()
     f["cid"] = f["token_id"].map(lambda t: tm.get(str(t), (None, -1))[0])

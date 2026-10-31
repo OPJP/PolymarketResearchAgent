@@ -1,0 +1,48 @@
+{
+ "universe_build": 662,
+ "universe_val": 358,
+ "pos_build": 113,
+ "pos_val": 107,
+ "S_meta": {
+  "val_auc": 0.8765,
+  "thr": 0.34436493738819324,
+  "val_recall": 0.636,
+  "val_lift": 2.65,
+  "val_selected": 86
+ },
+ "B_e_pre_n": {
+  "val_auc": 0.8614,
+  "thr": 114.0,
+  "val_recall": 0.29,
+  "val_lift": 2.96,
+  "val_selected": 35
+ },
+ "B_e_pre_v": {
+  "val_auc": 0.8819,
+  "thr": 3815.0116869332596,
+  "val_recall": 0.57,
+  "val_lift": 2.76,
+  "val_selected": 74
+ },
+ "B_e_pre_w": {
+  "val_auc": 0.874,
+  "thr": 32.0,
+  "val_recall": 0.514,
+  "val_lift": 2.49,
+  "val_selected": 74
+ },
+ "B_act_logit": {
+  "val_auc": 0.8874,
+  "thr": 0.23432036189113503,
+  "val_recall": 0.598,
+  "val_lift": 2.78,
+  "val_selected": 77
+ },
+ "S_meta_act_logit": {
+  "val_auc": 0.9198,
+  "thr": 0.13356992902907444,
+  "val_recall": 0.804,
+  "val_lift": 2.42,
+  "val_selected": 119
+ }
+}
