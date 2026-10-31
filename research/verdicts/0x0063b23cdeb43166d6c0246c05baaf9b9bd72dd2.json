@@ -21,7 +21,7 @@
   },
   "backtest": {
    "status": "fail",
-   "detail": "30-day split: tape-only two-sided maker on 80 held-out markets -8.3% to -9.3% at 0-30 s (strict), -7.5% to -8.6% at 0-5 s with first-in-queue fills; the wallet's own passive fills there +1.9% (p=0.056); six reviewer rules (momentum taker, favourite / momentum-lean / post-drop / between-rounds / inventory-balancing makers) all lose held out"
+   "detail": "30-day split: tape-only two-sided maker on 80 held-out markets -8.3% to -9.3% at 0-30 s (strict), -7.5% to -8.6% at 0-5 s with first-in-queue fills; the wallet's own passive fills there +1.9% (p=0.056); maker regime only (FIT/TEST inside 17-29 October): tape-only two-sided maker on 100 held-out markets -5.7% to -8.8% at 0-30 s (strict), -5.0% to -6.5% at 0-5 s with first-in-queue fills; the wallet's own passive fills there +0.1% (p=0.47); six reviewer rules (momentum taker, favourite / momentum-lean / post-drop / between-rounds / inventory-balancing makers) all lose held out"
   },
   "replicable": {
    "status": "fail",
