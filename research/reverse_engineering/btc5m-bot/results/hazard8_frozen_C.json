@@ -1,0 +1,13 @@
+{
+ "grid_points": 67030,
+ "positives": 1993,
+ "windows": 16,
+ "auc_full": 0.6556,
+ "auc_pm_activity_baseline": 0.598,
+ "gain": 0.0576,
+ "gain_ci95_window_bootstrap": [
+  0.0405,
+  0.0758
+ ],
+ "gain_p_le_0": 0.0
+}

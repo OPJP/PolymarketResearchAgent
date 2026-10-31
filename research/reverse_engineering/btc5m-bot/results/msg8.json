@@ -1,0 +1,217 @@
+{
+ "B_W100": {
+  "n": 275,
+  "lags_ms": {
+   "bf_BTC": 275,
+   "bf_ETH": 275,
+   "bs_ETH": 475,
+   "by_BTC": 375,
+   "by_ETH": 325,
+   "hl_BTC": 75,
+   "hl_ETH": 175,
+   "ok_BTC": 275,
+   "ok_ETH": 325
+  },
+  "trigger_cover": 0.615,
+  "trigger_agree": 0.68,
+  "strong_3plus": {
+   "n": 103,
+   "vote_agree": 0.854,
+   "trigger_cover": 0.786,
+   "trigger_agree": 0.84
+  },
+  "weak_1_2": {
+   "n": 130,
+   "vote_agree": 0.662,
+   "trigger_cover": 0.508,
+   "trigger_agree": 0.591
+  },
+  "no_vote": {
+   "n": 42,
+   "vote_agree": null,
+   "trigger_cover": 0.524,
+   "trigger_agree": 0.364
+  }
+ },
+ "B_W150": {
+  "n": 275,
+  "lags_ms": {
+   "bf_BTC": 275,
+   "bf_ETH": 275,
+   "bs_ETH": 475,
+   "by_BTC": 375,
+   "by_ETH": 325,
+   "hl_BTC": 75,
+   "hl_ETH": 175,
+   "ok_BTC": 275,
+   "ok_ETH": 325
+  },
+  "trigger_cover": 0.749,
+  "trigger_agree": 0.675,
+  "strong_3plus": {
+   "n": 103,
+   "vote_agree": 0.854,
+   "trigger_cover": 0.883,
+   "trigger_agree": 0.835
+  },
+  "weak_1_2": {
+   "n": 130,
+   "vote_agree": 0.662,
+   "trigger_cover": 0.677,
+   "trigger_agree": 0.58
+  },
+  "no_vote": {
+   "n": 42,
+   "vote_agree": null,
+   "trigger_cover": 0.643,
+   "trigger_agree": 0.444
+  }
+ },
+ "B_W250": {
+  "n": 275,
+  "lags_ms": {
+   "bf_BTC": 275,
+   "bf_ETH": 275,
+   "bs_ETH": 475,
+   "by_BTC": 375,
+   "by_ETH": 325,
+   "hl_BTC": 75,
+   "hl_ETH": 175,
+   "ok_BTC": 275,
+   "ok_ETH": 325
+  },
+  "trigger_cover": 0.865,
+  "trigger_agree": 0.651,
+  "strong_3plus": {
+   "n": 103,
+   "vote_agree": 0.854,
+   "trigger_cover": 0.951,
+   "trigger_agree": 0.806
+  },
+  "weak_1_2": {
+   "n": 130,
+   "vote_agree": 0.662,
+   "trigger_cover": 0.831,
+   "trigger_agree": 0.565
+  },
+  "no_vote": {
+   "n": 42,
+   "vote_agree": null,
+   "trigger_cover": 0.762,
+   "trigger_agree": 0.469
+  }
+ },
+ "C_W100": {
+  "n": 446,
+  "lags_ms": {
+   "bf_BTC": 275,
+   "bf_ETH": 275,
+   "bs_ETH": 475,
+   "by_BTC": 375,
+   "by_ETH": 325,
+   "hl_BTC": 75,
+   "hl_ETH": 175,
+   "ok_BTC": 275,
+   "ok_ETH": 325
+  },
+  "trigger_cover": 0.648,
+  "trigger_agree": 0.779,
+  "strong_3plus": {
+   "n": 202,
+   "vote_agree": 0.941,
+   "trigger_cover": 0.847,
+   "trigger_agree": 0.854
+  },
+  "weak_1_2": {
+   "n": 162,
+   "vote_agree": 0.741,
+   "trigger_cover": 0.58,
+   "trigger_agree": 0.702
+  },
+  "no_vote": {
+   "n": 82,
+   "vote_agree": null,
+   "trigger_cover": 0.293,
+   "trigger_agree": 0.542
+  }
+ },
+ "C_W150": {
+  "n": 446,
+  "lags_ms": {
+   "bf_BTC": 275,
+   "bf_ETH": 275,
+   "bs_ETH": 475,
+   "by_BTC": 375,
+   "by_ETH": 325,
+   "hl_BTC": 75,
+   "hl_ETH": 175,
+   "ok_BTC": 275,
+   "ok_ETH": 325
+  },
+  "trigger_cover": 0.706,
+  "trigger_agree": 0.771,
+  "strong_3plus": {
+   "n": 202,
+   "vote_agree": 0.941,
+   "trigger_cover": 0.901,
+   "trigger_agree": 0.841
+  },
+  "weak_1_2": {
+   "n": 162,
+   "vote_agree": 0.741,
+   "trigger_cover": 0.642,
+   "trigger_agree": 0.712
+  },
+  "no_vote": {
+   "n": 82,
+   "vote_agree": null,
+   "trigger_cover": 0.354,
+   "trigger_agree": 0.552
+  }
+ },
+ "C_W250": {
+  "n": 446,
+  "lags_ms": {
+   "bf_BTC": 275,
+   "bf_ETH": 275,
+   "bs_ETH": 475,
+   "by_BTC": 375,
+   "by_ETH": 325,
+   "hl_BTC": 75,
+   "hl_ETH": 175,
+   "ok_BTC": 275,
+   "ok_ETH": 325
+  },
+  "trigger_cover": 0.785,
+  "trigger_agree": 0.746,
+  "strong_3plus": {
+   "n": 202,
+   "vote_agree": 0.941,
+   "trigger_cover": 0.95,
+   "trigger_agree": 0.828
+  },
+  "weak_1_2": {
+   "n": 162,
+   "vote_agree": 0.741,
+   "trigger_cover": 0.753,
+   "trigger_agree": 0.664
+  },
+  "no_vote": {
+   "n": 82,
+   "vote_agree": null,
+   "trigger_cover": 0.439,
+   "trigger_agree": 0.583
+  }
+ },
+ "lags_ms": {
+  "bf_BTC": 275,
+  "bf_ETH": 275,
+  "bs_ETH": 475,
+  "by_BTC": 375,
+  "by_ETH": 325,
+  "hl_BTC": 75,
+  "hl_ETH": 175,
+  "ok_BTC": 275,
+  "ok_ETH": 325
+ }
+}

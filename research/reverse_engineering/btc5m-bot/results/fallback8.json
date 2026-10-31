@@ -1,0 +1,137 @@
+{
+ "C_exam_six_series": {
+  "n": 446,
+  "series": [
+   "bf_BTC",
+   "bf_ETH",
+   "bs_BTC",
+   "bs_ETH",
+   "ok_BTC",
+   "ok_ETH"
+  ],
+  "full_coverage_accuracy": 0.722,
+  "covered": 1.0,
+  "vote": [
+   0.86,
+   300
+  ],
+  "pm_ask_fell_600": [
+   0.317,
+   63
+  ],
+  "pm_ask_fell_3000": [
+   0.574,
+   61
+  ],
+  "favourite": [
+   0.409,
+   22
+  ],
+  "by_wallet": {
+   "DS": [
+    0.717,
+    346
+   ],
+   "GF": [
+    0.759,
+    87
+   ],
+   "XM": [
+    0.615,
+    13
+   ]
+  }
+ },
+ "C_lab_ten_series": {
+  "n": 446,
+  "series": [
+   "bf_BTC",
+   "bf_ETH",
+   "bs_BTC",
+   "bs_ETH",
+   "by_BTC",
+   "by_ETH",
+   "hl_BTC",
+   "hl_ETH",
+   "ok_BTC",
+   "ok_ETH"
+  ],
+  "full_coverage_accuracy": 0.7803,
+  "covered": 1.0,
+  "vote": [
+   0.852,
+   364
+  ],
+  "pm_ask_fell_600": [
+   0.294,
+   34
+  ],
+  "pm_ask_fell_3000": [
+   0.667,
+   36
+  ],
+  "favourite": [
+   0.333,
+   12
+  ],
+  "by_wallet": {
+   "DS": [
+    0.786,
+    346
+   ],
+   "GF": [
+    0.77,
+    87
+   ],
+   "XM": [
+    0.692,
+    13
+   ]
+  }
+ },
+ "C_lab_eight_series_no_hl": {
+  "n": 446,
+  "series": [
+   "bf_BTC",
+   "bf_ETH",
+   "bs_BTC",
+   "bs_ETH",
+   "by_BTC",
+   "by_ETH",
+   "ok_BTC",
+   "ok_ETH"
+  ],
+  "full_coverage_accuracy": 0.7399,
+  "covered": 1.0,
+  "vote": [
+   0.848,
+   330
+  ],
+  "pm_ask_fell_600": [
+   0.314,
+   51
+  ],
+  "pm_ask_fell_3000": [
+   0.583,
+   48
+  ],
+  "favourite": [
+   0.353,
+   17
+  ],
+  "by_wallet": {
+   "DS": [
+    0.74,
+    346
+   ],
+   "GF": [
+    0.759,
+    87
+   ],
+   "XM": [
+    0.615,
+    13
+   ]
+  }
+ }
+}

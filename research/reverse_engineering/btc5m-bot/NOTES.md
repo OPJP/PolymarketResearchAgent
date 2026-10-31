@@ -1187,3 +1187,282 @@ recorder's clob_crypto keeps the throttled touch as before.
     before 46.9% of matches and agreed with the bot's side in 74.0% (placebo 41.6% moved, 48.9% agree); over
     [m - 2000, m - 100) 57.5% at 67.7% (placebo 49.4% / 49.8%). Kalshi moves with the same underlying ticks but less
     sharply than the Binance USD-M microprice (87.9% at its peak): a co-follower, not the bot's input (A4b tried).
+
+### Iteration 8 (2026-10-31 17:40 UTC start, local Windows laptop; development data: before H, and 10-31 00-06 / 12-18 blocks)
+
+Split and primary metric unchanged (BUILD = 10-09..16, VALIDATE = 10-16..23). Calendar: released lots none; 10-31 18-24 and
+11-01 00-06 are SEALED (this iteration ran into the 18-24 block from 18:00 UTC: no live record after 18:00 was read). The
+shared recorder runs (pid 27184); rec_lab6 v2 (pid 14304) and rec_exam7 (pid 32576) run. Other agents' feeds not read.
+
+Competing explanations at the start of iteration 8 (and what separates them):
+- E1 latency taker on venue microprice ticks, paid by the taker rebate (current model). Separates: the side follows the vote
+  out of sample; trading PnL ~ 0 after fees.
+- E2 complete-set builder: the SIDE references the operator's own book (buy the leg it is short when the set is cheap).
+  Separates: own-state terms add to the frozen side model on VALIDATE (panel-mechanics P2).
+- E3 position-scaling overlay: the SIZE follows the operator's net on the outcome, not market features (panel-mechanics P1).
+  Separates: within-wallet AUC of the net (BUILD -> VALIDATE) far above market controls and above a market-only trend analog.
+- E4 stale-liquidity gate: the bot fires only while the touch of o is still unrepriced after a tick (panel-assumptions P3).
+  Separates: hazard high for tick x unrepriced, low when the touch already moved.
+- E5 Polymarket-internal value taker: without a venue tick it buys the outcome whose Polymarket ask just fell.
+- E6 an unrecorded fast stream (Binance USDC-M / COIN-M / FDUSD books, Deribit, liquidations, signed aggressive flow) drives
+  the weak-vote decisions (panel-information P1).
+- E7 time-driven value (theta, the TWAP lock-in) with the exact strike drives the quiet late decisions (panel-information P2).
+- E8 the wallets are concurrency slots (one in-flight order each), which is why the operator runs several (panel-assumptions P2).
+
+Data added (iteration 8):
+- NEW RECORDER `code/rec_fam8.py` (pid 20608, started 10-31 17:45:19 UTC, hard stop 11-03 18:00 UTC, cap 290 MB, ~4 MB/h;
+  status .cache/re/btc5m-bot/rec_fam8.status): feed `btc5m_xfam` = Binance USDC-M perps (uc), COIN-M perps (cm), spot
+  BTCUSDC/ETHUSDC (su) and BTCFDUSD (sf) bookTicker, Deribit quote.*-PERPETUAL (db), Bybit linear orderbook.1 (by), sized top of
+  book coalesced to 30 ms; feed `btc5m_xliq` = Binance USD-M !forceOrder (BTC*/ETH*). Written in EVERY block through the Writer
+  (sealed blocks filed into .cache/live/sealed/ and never read), so a series that passes on development blocks has exam inputs.
+  Test run 17:44 (25 s): db 21/s, by 12/s, uc 11/s, cm 6/s, su 5/s, sf 1/s; no liquidation in 25 s.
+- EXAM-INPUT CONTINUATION `code/rec_exam8.py` (launcher pid 19600, sleeps until 11-02 05:59:00 UTC, then runs rec_exam7's
+  recorder unchanged under feed names btc5m_xclob8 / btc5m_xven8 until 11-03 18:00 UTC, cap 290 MB; status
+  rec_exam78.status): covers the WEEKDAY sealed blocks 11-02 06-12, 11-02 18-24, 11-03 00-06, 11-03 12-18 (rec_exam7 stops at
+  11-02 06:00). final_rule reads both name sets.
+- On-chain cluster fills 10-31 16:33-17:56 (`post/own_1793464380_1793469400.parquet`, 1,498 fills; a FOURTH live interval).
+- Gamma eventMetadata.priceToBeat for all 4,032 BUILD + VALIDATE windows (`.cache/re/btc5m-bot/ptb.parquet`, 99.98% filled;
+  finalPrice kept only as `finalPrice_SETTLEMENT_ONLY`). Multi-slug /events requests (25 slugs per GET) work.
+- VALIDATE taker tapes re-read from the shared HTTP cache into the session scratchpad (2,016 windows, 2.9 M rows, 70 s).
+
+Findings (iteration 8):
+1. SIDE DOES NOT REFERENCE THE SET (X50 = panel-mechanics P2, `own8.py`, results/own8_side.json; 90,170 VALIDATE one-sided
+   seconds; operator state = the three wallets' filled shares per outcome with block second <= s - 1 or s - 2): the own-only
+   rule "buy the leg the operator is short" 51.0% (cover 98%); 48.4% at rel 0-60 s rising to 57.6% at 240-300 s; BUILD-fitted
+   own model 55.5%; the frozen side model psb 75.3%; psb + own logit (no VALIDATE fit) 75.5%; VALIDATE-half-fitted weights
+   75.9% vs 75.6% on the second half. +0.2 points overall, +0.7-0.9 at 240-300 s: the complete-set side hypothesis is rejected
+   at the block clock (pairing is an accident of two-sided triggers, plus a small late balancing tilt).
+2. THE LARGE SIZE IS OWN-STATE POLICY (X49 = panel-mechanics P1, `size8.py`, results/size8.json; calldata sample, signed
+   sizes; BUILD hours 10-09/11/13/15 -> VALIDATE hours 10-16..22). Within-wallet VALIDATE AUC of P(large):
+
+   | wallet (VALIDATE orders) | market controls | + BTC return since open (market analog) | + operator net | + siblings' net only | univariate net |
+   |---|---|---|---|---|---|
+   | GF (2,139) | 0.489 | 0.528 | 0.751 (halves 0.72 / 0.81) | 0.650 | 0.745 |
+   | XM (488) | 0.353 | 0.420 | 0.666 (0.64 / 0.71) | 0.642 | 0.762 |
+   | DS (4,924) | 0.546 | 0.558 | 0.578 (0.56 / 0.73) | 0.598 | 0.567 |
+
+   The market analog alone is 0.52-0.53 (univariate), so the net is not a proxy for the trend. P(large) by operator net on o
+   (VALIDATE): GF 12% (< -200 shares) -> 28% -> 47% -> 77% (flat) -> 59-63% (long); XM 15% -> 38% -> 59% -> 83% -> 59-69%; DS
+   10% -> 21% -> 21% -> 24% -> 18-27%. At a fixed net, P(large) is highest when BTC has not moved since the open (|ret| < 1 bp:
+   42% at net >= 0, 27% at net < -60). Large orders lose after fees (VALIDATE, >= 90 filled shares): DS -1.92, GF -1.06,
+   XM -1.62 c per share; small orders +0.17 / +0.54 / +1.32 c. So the size is an own-book overlay: large when flat or adding,
+   small when the order reduces an opposite position; it is value-destroying and invisible to market features (why X29
+   failed).
+3. OWN-NET SIZING DOES NOT LIFT THE EXECUTABLE REPLICA (X49 step 4, `replica8.py`, results/replica8.json; BUILD table
+   P(large | net bin) = 5.8% / 14.2% / 19.9% / 21.5% / 18.5% / 23.8% / 25.0%): convention (b) pool Pearson / Spearman: 30
+   shares 0.158 / 0.137, presence-weighted 0.179 / 0.159 (iteration 7), net table 0.149 / 0.142, net threshold 0.128 / 0.120,
+   net table x presence 0.156 / 0.146; convention (a) 0.09-0.12. The replica's own net does not track the wallet's net: the
+   binding constraint of the PnL condition is DECISION OVERLAP (block-clock decisions), not the size rule. (The panel's oracle
+   0.60 used the wallet's own decisions.)
+4. FOURTH OUT-OF-SAMPLE LIVE INTERVAL (10-31 16:33-17:55, 462 taker matches; `live8.py`, results/live8.json): the frozen
+   exam-feed vote (`final_rule._live_vote`, six series) covers 68.0% at 85.4% (placebo 47.0% / 53.9%; DS 85.6%, GF 85.5%, XM
+   7/9); the ten-series lab vote 85.2% on 81.6% voted, by strength |vote| = 1: 69.9% (93), 2: 79.7% (69), 3-4: 89.5% (76),
+   >= 5: 96.8% (126); weak share 44.5%. Agreement by interval: 86.4% / 83.0% / 75.3% / 85.2% (ten-series), 80.4% / 85.4%
+   (six-series exam feeds): the 75.3% of 16:04-16:25 was a low, not a trend; per-strength agreement stays stable.
+5. THE GATE IS A MOVING TOUCH, NOT A STALE ONE (X56 = panel-assumptions P3, `gate8.py`, results/gate8_1793458500.json;
+   14:55-16:04, 59,784 grid points of 100 ms, 610 matches): P(match on o in [t+100, t+600)) by the ten-series tick toward o
+   over [t-500, t) x the change of o's ask over [t-500, t): tick > 0.5 bp: ask fell 22.2% (279), ask rose 12.0%, unchanged
+   11.4%; 0.1-0.5 bp: 13.0% / 9.2% / 6.4%; no tick: 5.3% / 5.2% / 2.1% (25,831); tick against o: 5.5-6.2% / 2.8-3.9% /
+   1.7-2.2%. The "unrepriced touch" hypothesis is reversed: the hazard doubles whenever the Polymarket touch of o is moving,
+   and is highest when the venue ticks toward o while o's ask falls (a maker moving the wrong way). Interleaved half-split
+   AUC: activity 0.641, tick 0.636, activity + tick 0.674, activity + tick + gate 0.742, Polymarket-activity-only (trades +
+   touch changes + age + price) 0.697.
+6. DECISION-LEVEL PRESENCE OUT OF SAMPLE (`live8.py`, `fit_hazard8.py`, results/live8.json, hazard8_frozen_C.json): models
+   fitted on one interval and scored on a later one (no refit). Lab feeds, fit 14:55-16:04: on 16:04-16:33 full 0.759 vs
+   Polymarket-activity baseline 0.718 (gain +0.041, window-block 95% CI [0.016, 0.073]); on 16:33-17:55 0.700 vs 0.608
+   ([0.066, 0.119]). EXAM feeds (btc5m_xven six series + btc5m_xclob), fit 16:04-16:33, frozen in final_rule as
+   `HAZ_FULL_COEF` / `HAZ_BASE_COEF` (`_live_hazard`, reported as presence_live_decision): on 16:33-17:55 (16 windows, 67,030
+   points, 1,993 positives) AUC 0.656 vs 0.598, gain +0.058 [0.041, 0.076], p(gain <= 0) = 0 / 2,000. A decision-level
+   presence rule with a positive gain over a Polymarket-activity baseline exists for the future-block exam; its AUC (0.66-0.76
+   on a 100-ms grid) is far below the 0.85 bar of the block-second unit.
+7. WEAK-VOTE SIDE: NO FLOW SIGNAL, AN UNSTABLE POLYMARKET SIGNAL (X44 step 0 = panel-information P1, `weakflow8.py`,
+   results/weakflow8.json; 302 matches 14:22-14:47 + 14:54-15:10 with REST aggTrades): signed aggressive notional of Binance
+   USD-M over [m-600, m-100) agrees on weak votes BTC 55.1% (placebo 55.8%, n = 68), ETH 47.3% (40.0%); no vote 45% / 40%
+   (n = 25); strong votes BTC 60.8%, ETH 68.1% (> $10k: 70% / 87%). Signed flow follows the same ticks and adds nothing on weak
+   votes. Polymarket book (`pmside8.py`, results/pmside8_1793458500.json): on 14:55-16:04 weak votes (n = 223) buy the outcome
+   whose ask FELL over [m-600, m-100) in 56.1% (placebo 44.8%) and against the Up-mid move 55.2%; strong votes follow the mid
+   (60.2% vs 47.7%). On 16:33-17:55 (`fallback8.py`, results/fallback8.json) no-vote decisions did the opposite at 600 ms
+   (ask fell 29-32%, i.e. they bought the outcome whose ask ROSE 68-71%) and the value direction only at 3 s (57-67%).
+   The weak / no-vote side is not a stable function of any recorded Polymarket or venue input at these n.
+8. FULL-COVERAGE LIVE SIDE (PRE-REGISTERED 10-31 18:16 UTC in `final_rule._live_vote`, chosen on intervals A-C; first clean
+   test = 11-01 06-12): vote -> outcome whose ask rose over [m-600, m-100) -> outcome whose ask fell over [m-3000, m-100) ->
+   underdog. In-sample: B (16:04-16:33) 70.6%, C (16:33-17:55) 78.2% (vote 85.4% on 314, rose-600 64.2% on 53, fell-3000
+   57.6% on 66, underdog 70.6% on 17). The first pre-registered order (fell-600 first, favourite last) gave 72.2% (six
+   series) / 78.0% (ten series) on C: below 80%.
+9. TIME-DRIVEN VALUE WITH THE EXACT STRIKE IS NOT THE QUIET SIDE (X45 = panel-information P2, `ptb8.py`, results/ptb8.json;
+   VALIDATE one-sided seconds, FV from Binance spot x a basis fixed at the open from priceToBeat, vol k x 5-min realized):
+   "buy Up iff FV_up > last tape Up price" scores 50-55% overall for k = 0.8-2.0 (psb 75.3%); in quiet late seconds (no move,
+   rel >= 180, n = 4,281) 47-55% (psb 61.5%); last-minute quiet 51-54% (psb 56.3%); where FV_TWAP and FV_spot disagree (6-33%
+   of seconds) the bot follows the TWAP version 42-53%; adding the gap to psb lowers accuracy (69.9-73.3%). Rejected at the
+   block clock (the theta hazard on the live unit is not done).
+10. DECISION INSTANT ON POLYMARKET'S CLOCK (X47 = panel-information P4, `lstar8.py`, results/lstar8.json; 171 live taker
+    orders with calldata limits inside my unthrottled book, 14:14-14:47): P(limit == ask_o(m - L)) = 29.8% at L = 0 (the
+    match itself moves the ask), 74.9% at 50 ms, 73.7% at 100 ms, 70.8% at 200 ms, 62.6% at 300 ms, 49.1% at 500 ms, 38% at
+    1 s (placebo 5-7%; changed-in-1-s subset 73.1% at 50 ms). The bot's view of the touch is <= ~50-150 ms old at the match:
+    the Polymarket leg is fast and the 250-350 ms venue-to-match lag is mostly upstream (venue feed + decision). Pay-up (21 of
+    171, 12.3%): 18 deliberate (the ask it saw = the consumed touch < limit), 1 stale. Pay-up is a deliberate limit above the
+    touch, not a stale view.
+11. WALLETS ARE CONCURRENCY SLOTS (X55 = panel-assumptions P2, `events8.py`, results/refractory8.json, events8_1793458500.json;
+    replication on two new intervals): taker matches of one wallet are never < 120 ms apart (14:55-16:04: DS min 123 ms, p1
+    256, n = 406; GF 128 / 206, n = 169; XM 171 / 206, n = 35; 16:04-16:33: DS 288, GF 76 (one gap), XM 320); same-wallet pairs
+    among < 300 ms pairs 14 of 161 (8.7%) and 3 of 76 (3.9%) vs an independence share of 52% / 51%; within 100 ms 0 / 1
+    same-wallet vs 75 / 37 cross-wallet. One in-flight order per wallet (~120-300 ms) is a mechanical reason to run several
+    wallets; the dispatcher (which wallet gets which leg) is not fitted yet.
+12. MULTI-LEG EVENTS: INTENSITY IS WEAKLY PREDICTABLE (X54 = panel-assumptions P1, `events8.py`; 14:55-16:04, 604 taker matches
+    -> 494 events, legs 1: 412, 2: 67, 3+: 15; every multi-leg event spans >= 2 wallets): P(legs >= 2) 16.6%; univariate AUC
+    rel 0.64, |vote| 0.58, composite toward o 0.58, |composite| 0.56, ask change of o 0.40 (more legs when o's ask fell);
+    half-split logistic activity (trades, |p - 0.5|, rel) 0.61 / 0.63 vs + trigger features 0.64 / 0.67; P(multi-leg) by
+    |composite|: 15.7% (< 0.01 bp), 12.0%, 16.5%, 22.2% (0.5-1 bp), 25.0% (> 1 bp). The panel's signature (>= 0.70 vs an
+    activity baseline <= 0.60) is not met; the reservation-price fit is not done.
+13. VERSIONS TRANSFER (X57 step 4 = panel-assumptions P4, `version8.py`, results/version8.json; calldata, VALIDATE hours vs
+    10-31 13:00-14:47): signing-time quantiles of filled taker orders (rel s) [-89.7, 40.8, 42.9, 172.7, 174.6] vs [-89.6,
+    42.3, 43.5, 173.2, 174.7] (BUILD [-89.8, 40.5, 42.2, 170.5, 174.1]); pay-up share 16.1% vs 16.0% (DS 9.6 / 9.4%, GF 26.9
+    / 26.1%, XM 38.4 / 46.2%); consecutive same-block same-token cluster pairs cross-wallet 70.7% vs 79.5% (BUILD 79.3%),
+    +-1 c apart 45% vs 53%. The menu changed (VALIDATE 30/50 then 30/100; 10-31 30/100 with 30/60/100 later) and the large
+    share is much lower on the Saturday sample (DS 0.6%, GF 5.4%; XM 46%). Schedule, pay-up and the multi-leg structure
+    transfer to h1; the large share is day / regime dependent.
+14. ECONOMICS: LOCKED SETS + REBATE (X50 step 4, `econ8.py`, results/econ8.json; VALIDATE 1,904 cluster windows): 87.4% of
+    bought shares are paired within the window at a share-weighted pair cost of 0.9786; gross trading PnL before fees
+    $65,960 = locked sets $48,923 + unpaired remainder $17,037; fees $61,572; taker rebate (0.5 x taker fees) $30,786;
+    per-window total vs unpaired r = 0.93, vs locked 0.39. BUILD: paired 90.2%, pair cost 0.983, locked $48,374, unpaired
+    $52,991, fees $78,451. The gross edge is mostly set-building (2.1 c per pair from buying each leg below its later value);
+    the per-window PnL variance is the unpaired remainder, which the value-destroying large overlay builds.
+
+Code changes: `final_rule.py`: LIVE_VOTE_FEEDS read both the rec_exam7 and the rec_exam8 feed names (same rule);
+`side_live_decision_ext` (pre-registered secondary: the six series plus Bybit L1 from btc5m_xfam); `_live_vote` adds a
+pre-registered FULL-COVERAGE side (finding 8; reported as side_accuracy_live_decision_full_coverage); `_live_hazard` /
+`_live_hazard_data` (finding 6; frozen HAZ_*_COEF; reported as presence_live_decision). Historical metrics unchanged
+(smoke test `evaluate(1792706400, 1792713600)`: identical to iteration 7, 51 s; the live entries return None there).
+
+Status after iteration 8: target not reached; primary metric unchanged (0.9132 all seconds; block seconds 0.8747 vs
+0.8193). Closed this iteration: the complete-set side (rejected), the size as own-state policy (VALIDATE-only; no executable
+PnL gain), the stale-touch gate (reversed: the bot acts in moving books), time-driven value with the exact strike (rejected
+at the block clock), signed flow on weak votes (no signal), the refractory (replicated), the Polymarket-leg latency
+(<= 50-150 ms). The unexplained parts, quantified: (i) the weak / no-vote live decisions (31-45% of decisions; side 64-80%
+by strength 1-2, unstable fallbacks); (ii) at the block clock the side is capped at ~73-77% by the clock itself
+(iteration 7); (iii) the executable PnL correlation is capped by decision overlap (replica 0.16-0.18 at the decoded latency
+for every size rule tried; oracle with the wallet's own decisions 0.41 at 30 shares, 0.60 with the own-net size table).
+
+## Next (iteration 9)
+
+1. 11-01 06-12 UTC (the next development block, Sunday): first clean test of the pre-registered full-coverage side and of the
+   frozen decision-level hazard on the exam feeds; per-series kernels and weak-vote agreement of the NEW btc5m_xfam series
+   (uc, cm, su, sf, db, by) and of btc5m_xliq; the extended eight-series vote (side_live_decision_ext).
+2. Weekday development blocks 11-02 00-06 and 12-18: the weekend vs weekday regime (weak-vote share, large share, legs per
+   event) and the live size decoder (operator net vs microprice strength) with >= 100 large orders.
+3. Still open: X48 co-terminal 15m/1h/4h, X51 depth-aware strict fills from calldata, X52 single triggering message, X53
+   rebate-tier controller, X58 return-unit threshold, X30 step 3, X36 replay replica, X5, X7 (options), X9, X10/X43
+   (GitHub, no token), X12, X21-X23, X26, X27, X33, X37 (Tardis 11-01 sample, available from 11-01), X39, X40, X42.
+
+Addendum, iteration 8:
+15. SINGLE TRIGGERING MESSAGE (X52 = panel-mechanics P4, `msg8.py`, results/msg8.json; per-series lags from the iteration-7
+    kernels, never refit; trigger = the tick with the latest lag-shifted time in [m - W, m]): weak votes 16:04-16:33 vote
+    66.2% vs single message 56.5-59.1% (W = 100-250 ms), 16:33-17:55 74.1% vs 66.4-71.2%; strong votes 85.4% / 94.1% vs
+    80.6-84.0% / 82.8-85.4%; no-vote decisions 36-58%. The bot does not act on one identifiable message; the vote (an
+    accumulated composite over ~500 ms) is the better description, and the hazard of finding 6 is its presence form.
+16. UNDERDOG TILT: NOT A RETURN-UNIT THRESHOLD (X58 = panel-assumptions P5, `tilt8.py`, results/tilt8.json; 147,489 VALIDATE
+    cluster taker orders, Binance 1-s moves toward the bought outcome): at matched |p - 0.5| the median 4-s move preceding a
+    buy (given a move toward o) is the same for favourite and underdog buys (ratio 0.96-1.03 for |p - 0.5| 0.02-0.4) where a
+    return threshold predicts 1.28-5.14. Underdog buys come more often on flat 4-s moves (78-79% vs 72-74%) and after ADVERSE
+    12-s moves (23-25% vs 13-15% for favourite buys at |p - 0.5| >= 0.1; mean 12-s move -0.15 to -0.26 bp vs +0.35 to
+    +0.53 bp). The tilt is a value / fade component on the underdog side (consistent with a wider-vol or slower fair value),
+    not a threshold in return units; the cent / log-odds families are not distinguished by this test.
+17. EIGHT-SERIES EXAM VOTE, PIPELINE CHECK (side_live_decision_ext; 10-31 17:46-17:55, the only development minutes with
+    btc5m_xfam): 54 taker matches; six-series 84.1% on 81.5% (placebo 55.9%), eight series with Bybit L1 from btc5m_xfam
+    86.4% on 81.5% (placebo 52.9%). Too few matches to judge; it shows that the recorded Bybit series reads correctly.
+18. REVEALED-PREFERENCE FAIR VALUE (X30 step 3, `revpref8.py`, results/revpref8.json; 147,489 VALIDATE cluster taker orders
+    vs 579,045 other takers' BUY prints from a seeded 600-window sample; exact strike from priceToBeat, index = Binance spot
+    x open basis, vol k x 5-min realized, TWAP variance, spot lag L): the share of buys priced below the FV ('value') rises
+    with k for the cluster relative to other takers: k = 0.8: 49.5% vs 58.1% (excess -0.09); k = 1.3: 51.4% vs 48.1%
+    (+0.03); k = 2.0: 52.8% vs 39.0% (+0.14); k = 2.5-3.0: 51-53% vs 36-38% (+0.145-0.150, saturated). The lag L (0-20 s)
+    changes the excess by <= 0.01. At high k the 'value' buys are the underdog buys (underdog 85-94% value, favourite 8-15%):
+    a fair value ~2.5-3x wider than 5-min realized vol reproduces the underdog TILT (the bot's FV sits closer to 0.5 than
+    the market's), but no (k, L) makes more than 53% of its buys value trades: the decisions are tick-triggered, and the
+    level FV only shapes which side the tilt favours. No lag (slow FV) signature.
+Disk note (10-31 18:30 UTC): free disk on the laptop fell from ~14.7 GB to 2.9 GB between 18:20 and 18:30, not from this
+workspace (.cache/re/btc5m-bot 1.4 GB, unchanged; .cache/live 422 MB in total); no new downloads were started after that.
+The session scratchpad tapes (274 MB) were deleted at the end of the iteration (rebuildable from the HTTP cache in 70 s).
+19. PUBLIC BOT TEMPLATES (X10 / X43, catalog C8): unauthenticated GitHub code search returns HTTP 401 "Requires
+    authentication" (10-31 18:35 UTC), so X43 is infeasible. Two more web searches found Up/Down bots built on
+    clob-client-v2 (github.com/lorine93s/dfdsf; an OpenClaw skill with momentum / whale-flow signals), a two-sided maker
+    spread bot, and a Binance + Bybit websocket micro-arb with a >= 0.35% momentum threshold; none has the decoded
+    fingerprint (pre-signed 1-cent ladders at -89.5 / +42 / +172.7 s, 30/100 menus, 0.002-bp microprice ticks, one in-flight
+    order per wallet). No untrusted code was downloaded or run.
+20. WHO THE BOT TAKES FROM, HISTORICALLY (X23 historical part, X51 step 5; `prey8.py`, results/prey8.json; calldata sample,
+    11 pre-H hours, 24,976 maker orders consumed by 11,382 cluster taker orders): 93.2% are BUY orders on the complementary
+    token (mints), 6.8% SELLs; 1,217 distinct makers, the top 10 hold 17.3% (0xd4fa2e10, 0x41e2e1cc, 0x31393e2f, 0x239e726f,
+    0xec10d230); 88% of the consumed orders belong to makers with more than 3 orders in the hour (quoters); median original
+    size 10 shares, only 3.6% at least 3x the cluster order; median age at the block 3.6 s (~1.4 s at the match, the block
+    comes ~2.2 s later), 8% older than 60 s. Large and small cluster orders, quiet and moving markets take the same kind of
+    counterparty (age 3.9 vs 3.6 s, quoters 84% vs 89%, >= 3x size 3.0% vs 3.7%). The prey is a fragmented crowd of small,
+    frequently re-quoting makers whose quotes are ~1-2 s old, not stale retail lottery orders and not large resting makers;
+    the panel-mechanics claim that big fills come from large hidden makers is not supported.
+21. THE WIDE-VOL FAIR VALUE IS AN IMPLIED-VOL FAIR VALUE (X7 options part with X30; `dvol8.py`, results/dvol8.json; Deribit
+    public get_volatility_index_data, BTC DVOL hourly for 10-16..23, HTTP 200, 168 rows, fetched 18:38 UTC into the
+    scratchpad; 146,611 VALIDATE cluster taker orders): DVOL median 37.7% annualized = 0.67 bp per sqrt(s); the 5-min
+    realized vol of Binance spot at the orders has quartiles 0.24 / 0.32 / 0.44 bp per sqrt(s), so DVOL / realized has
+    quartiles 1.53 / 2.11 / 2.85 (p10 1.03, p90 3.95): exactly the multiplier the revealed-preference fit found (k ~ 2-3).
+    With sigma = DVOL of the last complete hour, 53.6% of the cluster's buys are below the fair value (underdog 81.3%,
+    favourite 24.2%, mean gap +0.76 c), higher than at any fixed multiplier of realized vol (max 52.8%). Hypothesis (VALIDATE-
+    only): the bot prices the digital with an implied (options-market) vol about twice the short-horizon realized vol, so its
+    fair value sits closer to 0.5 than Polymarket's and underdogs look cheap; this is the underdog tilt.
+22. HOW EXECUTABLE THE DECODED TRIGGER IS, LIVE (X36 first step, `overlap8.py`, results/overlap8.json; interval C, frozen
+    exam-feed hazard, 67,030 grid points, base rate 2.97%): flagging the top 2.97% of grid points (as many as the wallet's
+    match-points) catches 8.2% of them (precision = recall 8.2%, lift 2.75; Polymarket-activity baseline 7.3%, lift 2.46); at
+    2x volume recall 16.1% (baseline 11.8%), at 5x 32.0% (25.4%). At matched volume ~92% of the wallet's decision instants are
+    not reproduced within its 100-600 ms reaction window: the decoded trigger is necessary but far from sufficient, which is
+    the live face of the decision-overlap limit on the PnL condition.
+23. WEEKEND REGIME, HISTORICALLY (X57 step 1 on VALIDATE, `weekend8.py`, results/weekend8.json): the share of one-sided block
+    seconds with no six-series move is 28.0% on Saturday-Sunday (Sat 36.1%, Sun 21.2%) vs 14.6% on weekdays (12.7-16.1%);
+    the block-clock side accuracy is 74.1% vs 75.6% (Sat 74.3%, Sun 73.9%, weekdays 74.8-76.5%). The weekend doubles the
+    quiet (weak-trigger) decisions; the block-clock side barely moves; the large-share comparison is confounded by the day's
+    menu (no orders >= 90 shares on the 30/50 days 10-14, 10-18). The first future-block exam (weekend blocks) will see the
+    weak-trigger regime; the weekday sealed blocks are now recorded (rec_exam8).
+
+Next (iteration 9), additions from the late findings 16-23:
+4. Pre-register BEFORE looking at 11-01 06-12 (then score it there): (a) a DVOL fair-value side for no-vote decisions (buy
+   the outcome with the larger FV_DVOL - ask gap) as an alternative fallback to the frozen one; (b) the hazard with the
+   DVOL fair-value gap as an extra feature. Keep the frozen rules unchanged and report both.
+5. Liquidations (btc5m_xliq) and funding (X7): event study of the cluster's match rate and side around liquidation prints on
+   the next development blocks; funding as a regime variable.
+6. Disk dipped to 2.9 GB free at 18:30 UTC (external, recovered to 14.3 GB by 18:42): run resources.py --need-disk 5000
+   before the larger fetches (X48 15m/1h tapes, X51 calldata).
+Sealed-data note (10-31 18:41 UTC): a Deribit DVOL request for 10-31 13:00-18:00 used an inclusive end timestamp and
+returned one hourly bar starting 18:00 (inside the sealed block 18-24). Its one value was printed once by the loading check
+and the bar was then deleted from the scratchpad file; it was not used in any analysis (only bars ending by 18:00 are kept).
+Disk note, update (18:42 UTC): free disk is back at 14.3 GB (the drop was temporary and external to this workspace).
+24. THE VALUE-GAP LEVEL DOES NOT TIME THE DECISIONS (follow-up of 21 and 6; `val8.py`, results/val8.json; lab feeds; exact
+    strike from Gamma priceToBeat for the 38 development windows of 10-31 14:50-17:55 (finalPrice not kept), S = Binance
+    USD-M BTC microprice x open basis, sigma = DVOL of the last complete hour): gap = FV_o - ask_o alone has AUC 0.48-0.50
+    for a match on o in the next 100-600 ms; added to the frozen gate design it moves AUC from 0.700 to 0.702 (fit
+    14:55-16:04 -> 16:33-17:55) and from 0.680 to 0.685 (fit 16:04-16:33 -> 16:33-17:55). P(match) is U-shaped in the gap
+    (3.0% below -5 c, 1.4-1.6% at -5..0 c, 2.1-2.8% at 0..5 c, 3.2% above 5 c): large gaps mark fast markets, not value. The
+    bot reacts to CHANGES (venue ticks, a moving Polymarket touch); the implied-vol level shapes which side it leans to
+    (finding 21), not when it acts.
+25. EXAM PATH FOR FUTURE BLOCKS FIXED (code): `evaluate` on a 10-31 period crashed in load_spot (the Binance 1-s daily
+    archive of a day is published the next day, so the spot frame was empty) before any live component ran. `evaluate` is
+    now a wrapper: `_evaluate_full` (unchanged rule) and, if it raises, `_evaluate_live_only` (windows, on-chain fills, the
+    frozen live vote with its full-coverage fallback, the eight-series vote, the frozen hazard and the live-book price;
+    historical keys None, error recorded). Test through the exam path, evaluate(1793464500, 1793466300) (10-31 16:35-17:05,
+    development, 6 windows, 463 fills, 76 s): live vote 87.5% on 54.4% (placebo 39.3%), full coverage 78.5% on 91.8%,
+    hazard 0.652 vs 0.573 (gain +0.079, CI [0.055, 0.099]), price within a tick 92.9%. (In-sample for the fallback choice:
+    the interval overlaps C.) For a lot whose archives are published, the full path runs as before.
+26. CO-TERMINAL 15m WINDOWS (X48 = panel-information P5, `coterm8.py`, results/coterm8.json; 120 seeded VALIDATE 15m windows,
+    Gamma priceToBeat for both windows (open-time fields), the 15m data-api taker tape over the co-terminal 5m window, DVOL as
+    the common scale): P5_implied = Phi(Phi^-1(p15) + ln(K15/K5) / v) vs the 5m tape price on 5,436 cluster one-sided
+    seconds: "buy Up iff P5_implied > m_last" 50.5% (quiet 52.0%; psb 74.2% / 62.6%), BELOW its 60-s time-shift null (53.0% /
+    56.1%). Caveat: the mean |gap| is 20 c, so a DVOL-scaled conversion between the two markets is noisy (Polymarket's
+    prices imply a different scale); a common market-implied scale per window would be the refined test. As measured, the
+    15m market carries no side information for the bot's co-terminal 5m decisions at the block clock (X8 had found the 15m
+    mid a co-follower live).
+
+Catalog after iteration 8: 12 items open (X5, X7, X9, X26, X27, X33, X36, X37, X44, X51, X53, X57); X48 and X42 were closed by
+findings 26 and 27 (listed as open in the Next list above, written before them). Iteration 8 wall time ~75 minutes.
+Recorders at the end: shared (pid 27184), rec_lab6 v2 (pid 14304, development blocks only), rec_exam7 (pid 32576, to 11-02
+06:00), rec_fam8 (pid 20608, to 11-03 18:00), rec_exam8 launcher (pid 19600, starts 11-02 05:59, to 11-03 18:00).
+27. PAY-UP AS A (WEAK) RESERVATION PRICE (X42, `pay8.py`, results/pay8.json; 6,306 VALIDATE calldata taker orders; FV at
+    sigma = DVOL with the exact strike): P(limit above the consumed touch) is 12-14% when the FV is below the touch, 15% at
+    0-2 c above, 17% at 2-10 c, 23% at > 10 c; median FV - touch +2.6 c for pay-up orders vs +0.3 c otherwise; pay-up
+    limits are below the FV in 54.4% (touch below FV for the others 51.8%); large orders pay up 41% (median gap +1.6 c) vs
+    small 12.8% (+0.5 c). The ladder depth rises with the implied-vol value above the touch, but the limit is not a clean
+    reservation price (FV - margin) at the block clock. With finding 10 (pay-up is deliberate, not stale), X42 is tried.

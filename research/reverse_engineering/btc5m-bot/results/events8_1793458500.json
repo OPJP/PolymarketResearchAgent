@@ -1,0 +1,98 @@
+{
+ "interval": [
+  1793458500,
+  1793462640
+ ],
+ "refractory": {
+  "DS": {
+   "n": 889,
+   "min_ms": 1,
+   "p1": 5,
+   "p5": 19,
+   "share_lt_100": 0.1599,
+   "share_lt_200": 0.223
+  },
+  "GF": {
+   "n": 429,
+   "min_ms": 4,
+   "p1": 5,
+   "p5": 16,
+   "share_lt_100": 0.1799,
+   "share_lt_200": 0.2383
+  },
+  "XM": {
+   "n": 486,
+   "min_ms": 0,
+   "p1": 1,
+   "p5": 5,
+   "share_lt_100": 0.3237,
+   "share_lt_200": 0.4021
+  }
+ },
+ "pairs_lt300": {
+  "same_wallet": 1070,
+  "cross_wallet": 1013,
+  "same_lt100": 644,
+  "cross_lt100": 500,
+  "independence_same_share": 0.372
+ },
+ "events": {
+  "n_matches": 604,
+  "n_events": 494,
+  "legs_dist": {
+   "1": 412,
+   "2": 67,
+   "3": 7,
+   "4": 4,
+   "5": 3,
+   "6": 1
+  },
+  "multi_wallet_share_of_multileg": 1.0
+ },
+ "intensity": {
+  "share_multileg": 0.166,
+  "n": 494,
+  "univariate_auc_multileg": {
+   "absvote": 0.58,
+   "vote_toward": 0.569,
+   "comp_toward": 0.577,
+   "abs_comp": 0.564,
+   "bf_btc_350_250": 0.51,
+   "dask_o": 0.398,
+   "act": 0.54,
+   "absp": 0.537,
+   "rel": 0.64
+  },
+  "auc_halfsplit_activity": [
+   0.606,
+   0.631
+  ],
+  "auc_halfsplit_activity+trigger": [
+   0.638,
+   0.667
+  ],
+  "p_multileg_by_abs_comp_bp": {
+   "(-1.0, 0.01]": [
+    0.157,
+    127
+   ],
+   "(0.01, 0.1]": [
+    0.12,
+    167
+   ],
+   "(0.1, 0.5]": [
+    0.165,
+    79
+   ],
+   "(0.5, 1.0]": [
+    0.222,
+    45
+   ],
+   "(1.0, 100.0]": [
+    0.25,
+    76
+   ]
+  },
+  "auc_event_shares_ge_100_by_abs_comp": 0.587
+ }
+}

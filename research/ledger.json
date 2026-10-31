@@ -1,5 +1,5 @@
 {
- "generated_at": 1793472617,
+ "generated_at": 1793472913,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -108,8 +108,8 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 8,
-   "minutes": 492.4,
-   "hypotheses": 100,
+   "minutes": 498.9,
+   "hypotheses": 102,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9132,
    "best_rule": "it8: it7 rule + full-coverage live side + decision-level hazard (exam feeds) + rec_exam8 / rec_fam8 inputs (code/final_rule.py)",
@@ -118,7 +118,7 @@
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 2
+   "panels": 3
   },
   {
    "key": "elmcap2-carry",

@@ -1,4 +1,17 @@
-"""btc5m-bot frozen rule (iteration 6).
+"""btc5m-bot frozen rule (iteration 8).
+
+Iteration 8 additions (live / future-block components only; the historical rule is unchanged; nothing fitted on VALIDATE):
+  - LIVE_VOTE_FEEDS read both the rec_exam7 feed names and their continuation by rec_exam8 (btc5m_xclob8 / btc5m_xven8,
+    11-02 05:59 -> 11-03 18:00 UTC, weekday sealed blocks); identical records, identical rule.
+  - side_live_decision.full_coverage: PRE-REGISTERED 10-31 18:16 UTC fallbacks for decisions without a vote (Polymarket ask
+    rose over [m-600, m-100) -> ask fell over [m-3000, m-100) -> underdog); target key side_accuracy_live_decision_full_coverage.
+  - side_live_decision_ext: pre-registered secondary vote = the six series plus Bybit linear L1 from btc5m_xfam (rec_fam8.py).
+  - presence_live_decision (_live_hazard): decision-level hazard of a cluster taker match on o in [t+100, t+600) ms on a
+    100-ms grid, frozen coefficients HAZ_FULL_COEF (Polymarket activity + venue tick + touch-change gate) and HAZ_BASE_COEF
+    (Polymarket-activity baseline), fitted on development interval 10-31 16:04:30-16:33 UTC; target keys
+    presence_live_decision_auc / presence_live_decision_baseline.
+
+Iteration 6 header:
 
 Iteration 6 additions (frozen; nothing fitted on VALIDATE):
   - price.calldata_touch: for every sampled cluster TAKER order, the limit vs the best effective ask of the maker orders the
@@ -618,7 +631,15 @@ def _live_touch(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: i
     return out
 
 
-LIVE_VOTE_FEEDS = ("btc5m_xclob", "btc5m_xven")  # iteration 7: exam-input recorder (code/rec_exam7.py), written in EVERY block
+LIVE_VOTE_FEEDS = (("btc5m_xclob", "btc5m_xclob8"), ("btc5m_xven", "btc5m_xven8"))
+# iteration 7: exam-input recorder (code/rec_exam7.py, every block, until 11-02 06:00 UTC); iteration 8: the same recorder
+# continued as code/rec_exam8.py (feed names with suffix 8, 11-02 05:59 -> 11-03 18:00 UTC, weekday sealed blocks). The rule is
+# unchanged: the two name sets carry identical records.
+LIVE_VOTE_FEEDS_EXT = (("btc5m_xclob", "btc5m_xclob8"), ("btc5m_xven", "btc5m_xven8", "btc5m_xfam"))
+LIVE_VOTE_VENUES_EXT = ("bf", "bs", "ok", "by")
+# iteration 8 (pre-registered SECONDARY, 10-31 18:08 UTC, before any exam-feed evaluation of it): the frozen vote plus Bybit linear
+# BTC/ETH L1 from code/rec_fam8.py (btc5m_xfam, every block from 10-31 17:45 UTC to 11-03 18:00 UTC). Bybit was one of the ten
+# lab series validated on four development intervals; Hyperliquid (a follower) stays out. Reported as side_live_decision_ext.
 LIVE_VOTE_WIN_MS = (600, 100)   # iteration 6 (frozen): reaction window [m - 600, m - 100) ms before the matching-engine ms m
 LIVE_TICK_BP = 0.002            # iteration 6 (frozen): a series votes when its microprice moved by more than this (bp)
 ETH_SCALE = 1.235               # iteration 6 (frozen): ETH moves in BTC units
@@ -639,22 +660,29 @@ def _live_vote(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: in
         return None
 
     def recs(feed, a, b):
-        hh = int(a // 3600) * 3600
-        while hh < b:
-            try:
-                for r in _live.iter_live(feed, max(a, hh), min(b, hh + 3600), allow_sealed=ALLOW_SEALED):
-                    yield r
-            except (zlib.error, EOFError, OSError):
-                pass
-            hh += 3600
+        for fd in ((feed,) if isinstance(feed, str) else tuple(feed)):
+            hh = int(a // 3600) * 3600
+            while hh < b:
+                try:
+                    for r in _live.iter_live(fd, max(a, hh), min(b, hh + 3600), allow_sealed=ALLOW_SEALED):
+                        yield r
+                except (zlib.error, EOFError, OSError, FileNotFoundError):
+                    pass
+                hh += 3600
 
     if not len(fills):
         return None
     lo, hi = int(start_ts) - 60, int(end_ts) + 400
     mt = {}
+    tok2st, touch = {}, []
     for r in recs(feeds[0], lo, hi):
-        if r.get("k") == "x" and r.get("h"):
+        k_ = r.get("k")
+        if k_ == "x" and r.get("h"):
             h = r["h"].lower(); mt[h] = min(mt.get(h, 1e18), r["s"])
+        elif k_ == "S":
+            tok2st[str(r["u"])] = int(r["m"]); tok2st[str(r["d"])] = int(r["m"])
+        elif k_ == "p" and r.get("bb") is not None and r.get("ba") is not None:
+            touch.append((int(r["s"]), int(r["m"]), float(r["bb"]), float(r["ba"])))
     rows = {}
     for r in recs(feeds[1], lo, hi):
         v = r.get("v")
@@ -702,6 +730,200 @@ def _live_vote(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: in
         s = k & (wal == w)
         if s.any():
             out["by_wallet"][w] = {"n_voted": int(s.sum()), "agree": round(float(ok[s].mean()), 4)}
+    # iteration 8, PRE-REGISTERED 10-31 18:16 UTC (chosen on development intervals A-C = 10-31 14:55-17:55: fallback8.py and
+    # this function's B / C output; its first clean test is the next development block, 11-01 06-12 UTC): FULL-COVERAGE side
+    # = the vote where any series voted; else the outcome whose Polymarket ask ROSE over [m - 600, m - 100) (others lifting:
+    # momentum; B 51.6%, C 64.2%); else the outcome whose ask FELL over [m - 3000, m - 100) (value; B 64.7%, C 57.6%); else
+    # the UNDERDOG (ask < 0.5) at m - 100 (the favourite scored 41.7% / 29.4% on B / C, n = 12 / 17).
+    if touch:
+        tc = pd.DataFrame(touch, columns=["s", "w", "bb", "ba"]).sort_values("s", kind="stable")
+        st_m = f.token.astype(str).map(tok2st).to_numpy()
+        pred = np.where(cov & (vote > 0), 1.0, np.where(cov & (vote < 0), -1.0, 0.0))
+        src = np.where(pred != 0, 0, -1)
+        dU6 = np.full(len(m), np.nan); dD6 = np.full(len(m), np.nan); dU30 = np.full(len(m), np.nan); dD30 = np.full(len(m), np.nan)
+        aU = np.full(len(m), np.nan)
+        for w0, g0 in tc.groupby("w"):
+            sel = np.where(st_m == w0)[0]
+            if not len(sel):
+                continue
+            rs = g0.s.to_numpy(np.int64); bbv = g0.bb.to_numpy(float); bav = g0.ba.to_numpy(float)
+
+            def at(xv, tt):
+                i = np.searchsorted(rs, tt, "right") - 1
+                o_ = xv[np.clip(i, 0, None)].astype(float); o_[i < 0] = np.nan
+                return o_
+            mm = m[sel]
+            aU[sel] = at(bav, mm - 100)
+            dU6[sel] = at(bav, mm - 100) - at(bav, mm - 600); dD6[sel] = -(at(bbv, mm - 100) - at(bbv, mm - 600))
+            dU30[sel] = at(bav, mm - 100) - at(bav, mm - 3000); dD30[sel] = -(at(bbv, mm - 100) - at(bbv, mm - 3000))
+        rose = np.where((dU6 > 0.005) & ~(dD6 > 0.005), 1.0, np.where((dD6 > 0.005) & ~(dU6 > 0.005), -1.0, 0.0))
+        kk = (pred == 0) & (rose != 0); pred[kk] = rose[kk]; src[kk] = 1
+        fell = np.where((dU30 < -0.005) & ~(dD30 < -0.005), 1.0, np.where((dD30 < -0.005) & ~(dU30 < -0.005), -1.0, 0.0))
+        kk = (pred == 0) & (fell != 0); pred[kk] = fell[kk]; src[kk] = 2
+        kk = (pred == 0) & np.isfinite(aU); pred[kk] = np.where(aU[kk] < 0.5, 1.0, -1.0); src[kk] = 3
+        okf = (pred > 0) == up
+        cv = pred != 0
+        out["full_coverage"] = {"covered": round(float(cv.mean()), 4), "accuracy": round(float(okf[cv].mean()), 4) if cv.any() else None,
+                                "by_source": {nm: [round(float(okf[src == i].mean()), 4) if (src == i).any() else None, int((src == i).sum())]
+                                              for i, nm in enumerate(("vote", "pm_ask_rose_600", "pm_ask_fell_3000", "underdog"))},
+                                "by_wallet": {w: round(float(okf[cv & (wal == w)].mean()), 4) for w in ("DS", "GF", "XM") if (cv & (wal == w)).any()}}
+    return out
+
+
+# iteration 8 (X56 = panel-assumptions iter7 P3, decision-level presence on the exam-input recording): logistic hazard of a
+# cluster taker match on outcome o in [t + 100, t + 600) ms on a 100-ms grid of window time (rel 5..285 s). Features at t:
+# act = other traders' Polymarket trades on the window in [t - 1000, t) (btc5m_xclob trades minus cluster txs); tick = sum of
+# the six exam-feed microprice moves toward o over [t - 500, t) (bp, ETH / 1.235); rp = sign of the change of o's ask over
+# [t - 500, t) (Up ask = ba, Down ask = 1 - bb of the Up book; btc5m_xclob touch records); age = ms since o's ask last changed;
+# |ask - 0.5|. FULL = activity + tick + gate; BASE = the Polymarket-activity model (trades, touch changes, age, price level;
+# no venue feed). Coefficients FROZEN from a fit on development interval 10-31 16:04:30-16:33 UTC (code/fit_hazard8.py).
+# [intercept, coefficients in _haz_design order]; fit_hazard8.py fit on 24,705 grid points (1,072 positives), 10-31 18:08 UTC
+HAZ_FULL_COEF = [-1.528663, 0.034989, 0.10605, 0.121965, -0.216997, -0.047516, -0.513175, -0.498611, -0.334245, -0.118567, 0.087896,
+                 -0.382857, 0.535861, -3.964875]
+HAZ_BASE_COEF = [-1.541862, 0.036447, 0.082306, -0.548028, -0.475293, -0.36622, -0.318605, -3.868469]
+
+
+def _haz_design(tick, rp, age, act, ask):
+    la = np.log1p(np.nan_to_num(age, nan=1e5) / 100.0)
+    base = np.c_[act, np.log1p(act), rp == 0, rp > 0, rp < 0, la, np.abs(ask - 0.5)].astype(float)
+    full = np.c_[act, np.log1p(act), tick, np.abs(tick), np.clip(tick, 0, None), rp == 0, rp > 0, rp < 0,
+                 np.clip(tick, 0, None) * (rp == 0), np.clip(tick, 0, None) * (rp > 0), la, la * (tick > 0.02), np.abs(ask - 0.5)].astype(float)
+    return full, base
+
+
+def _live_hazard_data(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals=None):
+    """Design of the decision-level hazard from the exam-input feeds; returns (y, full, base, unit) or None."""
+    import zlib
+    sys.path.insert(0, _ROOT + "/research/reverse_engineering/tools")
+    try:
+        import live as _live
+    except Exception:
+        return None
+
+    def recs(feeds, a, b):
+        for fd in feeds:
+            hh = int(a // 3600) * 3600
+            while hh < b:
+                try:
+                    for r in _live.iter_live(fd, max(a, hh), min(b, hh + 3600), allow_sealed=ALLOW_SEALED):
+                        yield r
+                except (zlib.error, EOFError, OSError, FileNotFoundError):
+                    pass
+                hh += 3600
+
+    lo, hi = int(start_ts) - 300, int(end_ts) + 400
+    toks, trades, touch = {}, [], []
+    for r in recs(LIVE_VOTE_FEEDS[0], lo, hi):
+        k = r.get("k")
+        if k == "S":
+            toks[int(r["m"])] = (r["u"], r["d"])
+        elif k == "x" and r.get("h"):
+            trades.append((int(r["s"]), int(r["m"]), r["h"].lower()))
+        elif k == "p" and r.get("bb") is not None and r.get("ba") is not None:
+            touch.append((int(r["s"]), int(r["m"]), float(r["bb"]), float(r["ba"])))
+    rows = {}
+    for r in recs(LIVE_VOTE_FEEDS[1], lo, hi):
+        v = r.get("v")
+        if v in ("bf", "bs", "ok") and r.get("b") and r.get("a"):
+            rows.setdefault((v, r["y"]), []).append((r.get("E") or 0, r["t"], r["b"], r.get("B") or 0, r["a"], r.get("A") or 0))
+    if not toks or not trades or not touch or not rows:
+        return None
+    off = None
+    if ("bf", "BTC") in rows:
+        x = np.array(rows[("bf", "BTC")], float); off = float(np.median(x[:, 1] - x[:, 0]))
+    S = {}
+    for key, lst in sorted(rows.items()):
+        x = np.array(lst, float)
+        T = x[:, 0] if key[0] != "bs" else x[:, 1] - (off or 0)
+        o = np.argsort(T, kind="stable"); x = x[o]; T = T[o].astype(np.int64)
+        S[key] = (T, (x[:, 2] * x[:, 5] + x[:, 4] * x[:, 3]) / np.maximum(x[:, 3] + x[:, 5], 1e-12), ETH_SCALE if key[1] == "ETH" else 1.0)
+
+    def mv(key, t0, t1):
+        T, p, sc = S[key]
+        i0 = np.searchsorted(T, t0, "right") - 1; i1 = np.searchsorted(T, t1, "right") - 1
+        r = (p[np.clip(i1, 0, None)] / p[np.clip(i0, 0, None)] - 1) * 1e4 / sc
+        r[(i0 < 0) | (t0 < T[0] + 3000) | (t1 > T[-1] - 200)] = np.nan
+        return r
+
+    tr = pd.DataFrame(trades, columns=["s", "m", "h"]).drop_duplicates()
+    tc = pd.DataFrame(touch, columns=["s", "m", "bb", "ba"]).sort_values("s", kind="stable")
+    cl = fills[fills.role == "T"].drop_duplicates(["tx", "wallet", "token"]).copy()
+    cl["h"] = cl.tx.str.lower()
+    mt = tr.groupby("h").s.min()
+    cl["mm"] = cl.h.map(mt)
+    cl = cl[cl.mm.notna()]
+    tok2st = {}
+    for st0, (u0, d0) in toks.items():
+        tok2st[str(u0)] = st0; tok2st[str(d0)] = st0
+    cl["st"] = cl.token.astype(str).map(tok2st)
+    cl_tx = set(fills.tx.str.lower())
+    oth = tr[~tr.h.isin(cl_tx)]
+    Y, F, B, U = [], [], [], []
+    for st, (upt, dnt) in sorted(toks.items()):
+        if st < start_ts or st >= end_ts:
+            continue
+        if intervals is not None and not any(a <= st < b for a, b in intervals):
+            continue
+        g = np.arange((st + 5) * 1000, (st + 285) * 1000, 100, dtype=np.int64)
+        g = g[(g >= int(start_ts) * 1000 + 5000) & (g < int(end_ts) * 1000)]
+        if not len(g):
+            continue
+        tw = tc[tc.m == st]
+        if len(tw) < 2:
+            continue
+        rs = tw.s.to_numpy(np.int64); bb = tw.bb.to_numpy(float); ba = tw.ba.to_numpy(float)
+
+        def at(xv, tt):
+            i = np.searchsorted(rs, tt, "right") - 1
+            o = xv[np.clip(i, 0, None)].astype(float); o[i < 0] = np.nan
+            return o
+        comp = np.zeros(len(g)); okc = np.zeros(len(g), bool)
+        for key in S:
+            r = mv(key, g - 500, g); okc |= np.isfinite(r); comp += np.nan_to_num(r)
+        om = np.sort(oth[oth.m == st].s.to_numpy(np.int64))
+        act = (np.searchsorted(om, g, "left") - np.searchsorted(om, g - 1000, "left")).astype(float)
+        cw = cl[cl.st == st]
+        for is_up, sg in ((True, 1.0), (False, -1.0)):
+            if is_up:
+                ak, ak5 = at(ba, g), at(ba, g - 500); ch = np.r_[True, np.diff(ba) != 0]
+            else:
+                ak, ak5 = 1 - at(bb, g), 1 - at(bb, g - 500); ch = np.r_[True, np.diff(bb) != 0]
+            tch = rs[ch]; ic = np.searchsorted(tch, g, "right") - 1
+            age = np.where(ic >= 0, g - tch[np.clip(ic, 0, None)], np.nan).astype(float)
+            mm = np.sort(cw[cw.is_up == is_up].mm.to_numpy(np.int64))
+            y = (np.searchsorted(mm, g + 600, "left") - np.searchsorted(mm, g + 100, "left")) > 0
+            k = okc & np.isfinite(ak) & np.isfinite(ak5) & (ak > 0.03) & (ak < 0.97)
+            if not k.any():
+                continue
+            rp = np.sign(np.round((ak[k] - ak5[k]) * 100))
+            fu, ba_ = _haz_design(sg * comp[k], rp, age[k], act[k], ak[k])
+            Y.append(y[k]); F.append(fu); B.append(ba_); U.append(np.full(k.sum(), st))
+    if not Y:
+        return None
+    return np.concatenate(Y).astype(int), np.vstack(F), np.vstack(B), np.concatenate(U)
+
+
+def _live_hazard(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals=None) -> dict | None:
+    d = _live_hazard_data(fills, start_ts, end_ts, intervals)
+    if d is None or HAZ_FULL_COEF is None:
+        return None
+    y, F, B, U = d
+    if y.min() == y.max():
+        return {"grid_points": int(len(y)), "positives": int(y.sum())}
+    sf = F @ np.array(HAZ_FULL_COEF[1:]) + HAZ_FULL_COEF[0]
+    sb = B @ np.array(HAZ_BASE_COEF[1:]) + HAZ_BASE_COEF[0]
+    out = {"grid_points": int(len(y)), "positives": int(y.sum()), "windows": int(len(np.unique(U))),
+           "auc_full": round(float(_auc(y, sf)), 4), "auc_pm_activity_baseline": round(float(_auc(y, sb)), 4)}
+    rng = np.random.default_rng(3); uu = np.unique(U); idx = {u: np.where(U == u)[0] for u in uu}; gains = []
+    for _ in range(2000):
+        pick = np.concatenate([idx[u] for u in rng.choice(uu, len(uu))])
+        if y[pick].min() == y[pick].max():
+            continue
+        gains.append(_auc(y[pick], sf[pick]) - _auc(y[pick], sb[pick]))
+    g = np.array(gains)
+    out["gain"] = round(out["auc_full"] - out["auc_pm_activity_baseline"], 4)
+    out["gain_ci95_window_bootstrap"] = [round(float(np.percentile(g, 2.5)), 4), round(float(np.percentile(g, 97.5)), 4)] if len(g) else None
+    out["gain_p_le_0"] = round(float((g <= 0).mean()), 4) if len(g) else None
     return out
 
 
@@ -810,6 +1032,54 @@ def _calldata_touch(d: pd.DataFrame) -> dict | None:
 
 
 def evaluate(start_ts: int, end_ts: int, intervals=None) -> dict:
+    """The frozen rule on [start_ts, end_ts) (only windows starting in `intervals` when given). Iteration 8 robustness wrapper
+    (the rule is unchanged): if the historical pipeline cannot run (e.g. the Binance daily archive of a recent day is not
+    published yet, so the spot frame is empty), the live components are still computed from the exam-input recordings and
+    returned with the historical keys set to None and the error recorded."""
+    try:
+        return _evaluate_full(start_ts, end_ts, intervals)
+    except Exception as e:
+        return _evaluate_live_only(start_ts, end_ts, intervals, f"{type(e).__name__}: {e}"[:300])
+
+
+def _evaluate_live_only(start_ts: int, end_ts: int, intervals, err: str) -> dict:
+    t0 = time.time()
+    win = load_windows(start_ts, end_ts)
+    win = win[win.up_payout.notna()].sort_values("start_ts").reset_index(drop=True)
+    if intervals:
+        st = win.start_ts.to_numpy()
+        keep = np.zeros(len(win), bool)
+        for a, b in intervals:
+            keep |= (st >= a) & (st < b)
+        win = win[keep].reset_index(drop=True)
+    out = {"historical_error": err, "windows": int(len(win)),
+           "note": "historical components need the Binance daily archives (published the next day UTC); live components only"}
+    fills = cluster_fills(start_ts, end_ts, win)
+    out["fills"] = int(len(fills))
+    for key, fn in (("side_live_decision", lambda: _live_vote(fills, win, start_ts, end_ts)),
+                    ("side_live_decision_ext", lambda: _live_vote(fills, win, start_ts, end_ts, feeds=LIVE_VOTE_FEEDS_EXT, venues=LIVE_VOTE_VENUES_EXT)),
+                    ("presence_live_decision", lambda: _live_hazard(fills, start_ts, end_ts, intervals)),
+                    ("price_live_book", lambda: _live_touch(fills, win, start_ts, end_ts))):
+        try:
+            out[key] = fn()
+        except Exception as e:
+            out[key] = {"error": type(e).__name__}
+    sl = out.get("side_live_decision") or {}
+    pl = out.get("presence_live_decision") or {}
+    lb = out.get("price_live_book") or {}
+    out["target_metrics"] = {k: None for k in ("presence_auc", "presence_baseline", "selection_auc", "selection_baseline", "selection_recall", "selection_lift",
+                                                "side_accuracy", "side_baseline", "pnl_corr_pearson", "pnl_corr_spearman")}
+    out["target_metrics"].update({
+        "side_accuracy_live_decision": sl.get("agree_on_voted"), "side_accuracy_live_decision_abstain_half": sl.get("accuracy_all_covered_abstain_half"),
+        "side_accuracy_live_decision_full_coverage": (sl.get("full_coverage") or {}).get("accuracy"),
+        "presence_live_decision_auc": pl.get("auc_full"), "presence_live_decision_baseline": pl.get("auc_pm_activity_baseline"),
+        "price_within_tick": lb.get("within_1tick_ask_match") if isinstance(lb, dict) else None,
+        "coverage_fills": 1.0 if len(fills) else None, "coverage_abs_pnl": 1.0 if len(fills) else None})
+    out["elapsed_s"] = round(time.time() - t0, 1)
+    return out
+
+
+def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
     t0 = time.time()
     win = load_windows(start_ts, end_ts)
     win = win[win.up_payout.notna()].sort_values("start_ts").reset_index(drop=True)
@@ -1067,6 +1337,15 @@ def evaluate(start_ts: int, end_ts: int, intervals=None) -> dict:
         out["side_live_decision"] = _live_vote(fills, win, start_ts, end_ts)
     except Exception as e:
         out["side_live_decision"] = {"error": type(e).__name__}
+    # iteration 8: pre-registered secondary vote with Bybit linear L1 (btc5m_xfam), and the decision-level hazard (presence)
+    try:
+        out["side_live_decision_ext"] = _live_vote(fills, win, start_ts, end_ts, feeds=LIVE_VOTE_FEEDS_EXT, venues=LIVE_VOTE_VENUES_EXT)
+    except Exception as e:
+        out["side_live_decision_ext"] = {"error": type(e).__name__}
+    try:
+        out["presence_live_decision"] = _live_hazard(fills, start_ts, end_ts, intervals)
+    except Exception as e:
+        out["presence_live_decision"] = {"error": type(e).__name__}
     try:
         res_o["pnl_overlap_diagnostics"] = _pnl_overlap(fills, win)
     except Exception as e:
@@ -1095,6 +1374,9 @@ def evaluate(start_ts: int, end_ts: int, intervals=None) -> dict:
         "side_accuracy": sd.get("y", {}).get("accuracy_side_model"), "side_baseline": sd.get("y", {}).get("baseline_market_only_model"),
         "side_accuracy_live_decision": (out.get("side_live_decision") or {}).get("agree_on_voted"),
         "side_accuracy_live_decision_abstain_half": (out.get("side_live_decision") or {}).get("accuracy_all_covered_abstain_half"),
+        "side_accuracy_live_decision_full_coverage": ((out.get("side_live_decision") or {}).get("full_coverage") or {}).get("accuracy"),
+        "presence_live_decision_auc": (out.get("presence_live_decision") or {}).get("auc_full"),
+        "presence_live_decision_baseline": (out.get("presence_live_decision") or {}).get("auc_pm_activity_baseline"),
         "share_one_sided_windows": one_w,
         "price_within_tick": lb.get("within_1tick_ask_match") if lb.get("within_1tick_ask_match") is not None else (lb.get("within_1tick_ask_lag") if lb.get("within_1tick_ask_lag") is not None else ((out["price"].get("calldata_touch") or {}).get("within_1tick_touch") or out["price"].get("T_within_1tick_of_last_ask"))),
         "price_source": "recorded book 50 ms before the recorded match" if lb.get("within_1tick_ask_match") is not None else ("recorded book (block - DECISION_LAG_S)" if lb.get("within_1tick_ask_lag") is not None else ("touch of the same match from calldata (consumed maker orders; trivial touch anchor, not a PIT forecast)" if (out["price"].get("calldata_touch") or {}).get("within_1tick_touch") is not None else "last implied ask from others' prints")),

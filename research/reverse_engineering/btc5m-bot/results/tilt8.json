@@ -1,0 +1,153 @@
+{
+ "orders": 147489,
+ "0.02-0.1": {
+  "n": 43270,
+  "underdog_share": 0.493,
+  "underdog": {
+   "n": 21325,
+   "mean_m4_bp": 0.181,
+   "toward_m4": 0.171,
+   "against_m4": 0.057,
+   "flat_m4": 0.772,
+   "mean_m12_bp": 0.039,
+   "toward_m12": 0.205,
+   "against_m12": 0.197,
+   "median_abs_m4_given_toward": 1.162,
+   "mean_price": 0.438
+  },
+  "favourite": {
+   "n": 21945,
+   "mean_m4_bp": 0.206,
+   "toward_m4": 0.2,
+   "against_m4": 0.058,
+   "flat_m4": 0.742,
+   "mean_m12_bp": 0.352,
+   "toward_m12": 0.274,
+   "against_m12": 0.151,
+   "median_abs_m4_given_toward": 1.128,
+   "mean_price": 0.56
+  },
+  "move_ratio_fav_over_und": 0.971,
+  "return_threshold_prediction": 1.279
+ },
+ "0.1-0.2": {
+  "n": 41944,
+  "underdog_share": 0.491,
+  "underdog": {
+   "n": 20611,
+   "mean_m4_bp": 0.145,
+   "toward_m4": 0.156,
+   "against_m4": 0.063,
+   "flat_m4": 0.781,
+   "mean_m12_bp": -0.146,
+   "toward_m12": 0.177,
+   "against_m12": 0.228,
+   "median_abs_m4_given_toward": 1.114,
+   "mean_price": 0.352
+  },
+  "favourite": {
+   "n": 21333,
+   "mean_m4_bp": 0.227,
+   "toward_m4": 0.204,
+   "against_m4": 0.052,
+   "flat_m4": 0.743,
+   "mean_m12_bp": 0.513,
+   "toward_m12": 0.304,
+   "against_m12": 0.128,
+   "median_abs_m4_given_toward": 1.072,
+   "mean_price": 0.652
+  },
+  "move_ratio_fav_over_und": 0.962,
+  "return_threshold_prediction": 1.852
+ },
+ "0.2-0.3": {
+  "n": 32003,
+  "underdog_share": 0.559,
+  "underdog": {
+   "n": 17887,
+   "mean_m4_bp": 0.111,
+   "toward_m4": 0.14,
+   "against_m4": 0.066,
+   "flat_m4": 0.794,
+   "mean_m12_bp": -0.255,
+   "toward_m12": 0.158,
+   "against_m12": 0.252,
+   "median_abs_m4_given_toward": 1.058,
+   "mean_price": 0.256
+  },
+  "favourite": {
+   "n": 14116,
+   "mean_m4_bp": 0.236,
+   "toward_m4": 0.212,
+   "against_m4": 0.049,
+   "flat_m4": 0.739,
+   "mean_m12_bp": 0.531,
+   "toward_m12": 0.312,
+   "against_m12": 0.126,
+   "median_abs_m4_given_toward": 1.09,
+   "mean_price": 0.747
+  },
+  "move_ratio_fav_over_und": 1.03,
+  "return_threshold_prediction": 2.918
+ },
+ "0.3-0.4": {
+  "n": 20481,
+  "underdog_share": 0.587,
+  "underdog": {
+   "n": 12016,
+   "mean_m4_bp": 0.135,
+   "toward_m4": 0.155,
+   "against_m4": 0.063,
+   "flat_m4": 0.782,
+   "mean_m12_bp": -0.206,
+   "toward_m12": 0.173,
+   "against_m12": 0.239,
+   "median_abs_m4_given_toward": 1.091,
+   "mean_price": 0.163
+  },
+  "favourite": {
+   "n": 8465,
+   "mean_m4_bp": 0.254,
+   "toward_m4": 0.223,
+   "against_m4": 0.059,
+   "flat_m4": 0.718,
+   "mean_m12_bp": 0.497,
+   "toward_m12": 0.303,
+   "against_m12": 0.137,
+   "median_abs_m4_given_toward": 1.068,
+   "mean_price": 0.838
+  },
+  "move_ratio_fav_over_und": 0.979,
+  "return_threshold_prediction": 5.141
+ },
+ "0.4-0.48": {
+  "n": 64,
+  "underdog_share": 0.125,
+  "underdog": {
+   "n": 8,
+   "mean_m4_bp": -0.504,
+   "toward_m4": 0.125,
+   "against_m4": 0.5,
+   "flat_m4": 0.375,
+   "mean_m12_bp": -0.596,
+   "toward_m12": 0.125,
+   "against_m12": 0.5,
+   "median_abs_m4_given_toward": 1.036,
+   "mean_price": 0.097
+  },
+  "favourite": {
+   "n": 56,
+   "mean_m4_bp": 0.719,
+   "toward_m4": 0.429,
+   "against_m4": 0.036,
+   "flat_m4": 0.536,
+   "mean_m12_bp": 1.138,
+   "toward_m12": 0.446,
+   "against_m12": 0.071,
+   "median_abs_m4_given_toward": 1.258,
+   "mean_price": 0.901
+  },
+  "move_ratio_fav_over_und": 1.214,
+  "return_threshold_prediction": 9.289
+ }
+}

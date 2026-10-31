@@ -1,0 +1,23 @@
+{
+ "orders": 146611,
+ "dvol_annual_median": 0.3765,
+ "realized_per_s_bp_quantiles": [
+  0.17,
+  0.236,
+  0.32,
+  0.441,
+  0.65
+ ],
+ "dvol_per_s_bp_median": 0.671,
+ "ratio_dvol_over_realized_quantiles": [
+  1.029,
+  1.529,
+  2.108,
+  2.847,
+  3.952
+ ],
+ "value_share_sigma_dvol": 0.5356,
+ "value_share_underdog": 0.8128,
+ "value_share_favourite": 0.2416,
+ "mean_gap_c": 0.763
+}
