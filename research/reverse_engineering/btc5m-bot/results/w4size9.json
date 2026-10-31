@@ -1,0 +1,26 @@
+{
+ "w4_fills": 2615,
+ "w4_fills_in_windows": 2615,
+ "DS": {
+  "n_val": 4924,
+  "auc_ctrl+net3": 0.5783,
+  "uni_net3": 0.567,
+  "auc_ctrl+net4": 0.5912,
+  "uni_net4": 0.5715
+ },
+ "GF": {
+  "n_val": 2139,
+  "auc_ctrl+net3": 0.7506,
+  "uni_net3": 0.7452,
+  "auc_ctrl+net4": 0.7705,
+  "uni_net4": 0.7658
+ },
+ "XM": {
+  "n_val": 488,
+  "auc_ctrl+net3": 0.6663,
+  "uni_net3": 0.762,
+  "auc_ctrl+net4": 0.7033,
+  "uni_net4": 0.7886
+ },
+ "w4_share_of_operator_abs_flow": 0.142
+}

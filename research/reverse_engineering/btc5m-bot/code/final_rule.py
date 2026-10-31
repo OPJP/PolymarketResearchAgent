@@ -781,6 +781,14 @@ def _live_vote(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: in
 HAZ_FULL_COEF = [-1.528663, 0.034989, 0.10605, 0.121965, -0.216997, -0.047516, -0.513175, -0.498611, -0.334245, -0.118567, 0.087896,
                  -0.382857, 0.535861, -3.964875]
 HAZ_BASE_COEF = [-1.541862, 0.036447, 0.082306, -0.548028, -0.475293, -0.36622, -0.318605, -3.868469]
+# iteration 9 (X72, pre-registered secondary, reported inside presence_live_decision as edge_rule_V8; never counted toward the
+# target): the fee-aware delta-scaled edge rule. k chosen on 10-31 14:55-16:04 (lab feeds) among 1 / 1.5 / 2 / 3 / 5 / 8 by
+# step ratio x recall (code/fee9b.py); on 16:33-17:55 it flagged 2.7% of grid points at precision 19.7% / recall 13.0% (decision
+# label, lab feeds) vs 18.1% / 11.9% for the fitted hazard at the same volume.
+EDGE_K = 8.0
+EDGE_SIGMA_BP = 0.67        # bp per sqrt(s) (Deribit DVOL ~38%, iteration 8)
+EDGE_FEE_NET = 0.035        # taker fee 0.07 p (1 - p) net of the 50% rebate
+EDGE_MOVE_WIN_MS = (600, 100)
 
 
 def _haz_design(tick, rp, age, act, ask):
@@ -792,8 +800,10 @@ def _haz_design(tick, rp, age, act, ask):
 
 
 def _live_hazard_data(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals=None):
-    """Design of the decision-level hazard from the exam-input feeds; returns (y, full, base, unit) or None."""
+    """Design of the decision-level hazard from the exam-input feeds; returns (y, full, base, unit) or None (iteration 9: the
+    edge-rule values of the same grid points are left in _live_hazard_data.edge_V)."""
     import zlib
+    _live_hazard_data.edge_V = None
     sys.path.insert(0, _ROOT + "/research/reverse_engineering/tools")
     try:
         import live as _live
@@ -858,7 +868,7 @@ def _live_hazard_data(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals
     cl["st"] = cl.token.astype(str).map(tok2st)
     cl_tx = set(fills.tx.str.lower())
     oth = tr[~tr.h.isin(cl_tx)]
-    Y, F, B, U = [], [], [], []
+    Y, F, B, U, V = [], [], [], [], []
     for st, (upt, dnt) in sorted(toks.items()):
         if st < start_ts or st >= end_ts:
             continue
@@ -880,6 +890,14 @@ def _live_hazard_data(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals
         comp = np.zeros(len(g)); okc = np.zeros(len(g), bool)
         for key in S:
             r = mv(key, g - 500, g); okc |= np.isfinite(r); comp += np.nan_to_num(r)
+        # iteration 9 (pre-registered secondary, X72): mean BTC microprice move over the vote window, for the edge rule
+        mvb = np.zeros(len(g)); nb_ = np.zeros(len(g))
+        for key in S:
+            if key[1] == "BTC":
+                r = mv(key, g - EDGE_MOVE_WIN_MS[0], g - EDGE_MOVE_WIN_MS[1]); mvb += np.nan_to_num(r); nb_ += np.isfinite(r)
+        mvb = np.where(nb_ > 0, mvb / np.maximum(nb_, 1), np.nan)
+        midU = (at(bb, g) + at(ba, g)) / 2
+        tau = np.clip(st + 300 - g / 1000.0, 5, 300)
         om = np.sort(oth[oth.m == st].s.to_numpy(np.int64))
         act = (np.searchsorted(om, g, "left") - np.searchsorted(om, g - 1000, "left")).astype(float)
         cw = cl[cl.st == st]
@@ -898,8 +916,14 @@ def _live_hazard_data(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals
             rp = np.sign(np.round((ak[k] - ak5[k]) * 100))
             fu, ba_ = _haz_design(sg * comp[k], rp, age[k], act[k], ak[k])
             Y.append(y[k]); F.append(fu); B.append(ba_); U.append(np.full(k.sum(), st))
+            from scipy.stats import norm as _norm
+            mo = np.clip(midU[k] if is_up else 1 - midU[k], 0.01, 0.99)
+            dl = _norm.pdf(_norm.ppf(mo)) / (EDGE_SIGMA_BP * np.sqrt(tau[k]))
+            gain = 100 * dl * sg * mvb[k]; cost = 100 * ((ak[k] - mo) + EDGE_FEE_NET * ak[k] * (1 - ak[k]))
+            V.append(EDGE_K * gain - cost)
     if not Y:
         return None
+    _live_hazard_data.edge_V = np.concatenate(V)
     return np.concatenate(Y).astype(int), np.vstack(F), np.vstack(B), np.concatenate(U)
 
 
@@ -924,6 +948,20 @@ def _live_hazard(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals=None
     out["gain"] = round(out["auc_full"] - out["auc_pm_activity_baseline"], 4)
     out["gain_ci95_window_bootstrap"] = [round(float(np.percentile(g, 2.5)), 4), round(float(np.percentile(g, 97.5)), 4)] if len(g) else None
     out["gain_p_le_0"] = round(float((g <= 0).mean()), 4) if len(g) else None
+    # iteration 9, PRE-REGISTERED secondary (10-31 ~20:15 UTC, k chosen on 10-31 14:55-16:04 lab feeds; first clean test
+    # 11-01 06-12): the two-parameter EDGE RULE "act on o iff EDGE_K x 100 Delta_o x (mean BTC microprice move toward o over
+    # [t - 600, t - 100) ms) > 100 x (half spread + EDGE_FEE_NET x p (1 - p))", Delta_o = phi(Phi^-1(mid_o)) / (sigma sqrt(tau)).
+    # Precision / recall for the match label, against the frozen FULL hazard flagging the same volume.
+    Vv = getattr(_live_hazard_data, "edge_V", None)
+    if Vv is not None and len(Vv) == len(y):
+        fl = np.nan_to_num(Vv, nan=-1e9) > 0
+        rule = {"flagged_share": round(float(fl.mean()), 4), "base_rate": round(float(y.mean()), 4)}
+        if fl.any():
+            rule["precision"] = round(float(y[fl].mean()), 4); rule["recall"] = round(float(fl[y == 1].mean()), 4)
+            rule["lift"] = round(float(y[fl].mean() / max(y.mean(), 1e-9)), 3)
+            thr = np.quantile(sf, 1 - fl.mean()); ff = sf >= thr
+            rule["full_hazard_same_volume_precision"] = round(float(y[ff].mean()), 4); rule["full_hazard_same_volume_recall"] = round(float(ff[y == 1].mean()), 4)
+        out["edge_rule_V8"] = rule
     return out
 
 

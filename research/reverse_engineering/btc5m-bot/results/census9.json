@@ -1,0 +1,609 @@
+{
+ "by_period": {
+  "BUILD": {
+   "DS": {
+    "one_sided_share": 0.037,
+    "count_null": 0.047,
+    "windows": 1824,
+    "maker_share_fills": 0.325,
+    "maker_first_order_share": 0.154,
+    "fills_per_day": 14249.0
+   },
+   "GF": {
+    "one_sided_share": 0.076,
+    "count_null": 0.087,
+    "windows": 1798,
+    "maker_share_fills": 0.304,
+    "maker_first_order_share": 0.158,
+    "fills_per_day": 7777.0
+   },
+   "XM": {
+    "one_sided_share": 0.058,
+    "count_null": 0.069,
+    "windows": 1807,
+    "maker_share_fills": 0.412,
+    "maker_first_order_share": 0.185,
+    "fills_per_day": 12487.0
+   }
+  },
+  "VALIDATE": {
+   "DS": {
+    "one_sided_share": 0.002,
+    "count_null": 0.007,
+    "windows": 1903,
+    "maker_share_fills": 0.359,
+    "maker_first_order_share": 0.172,
+    "fills_per_day": 21125.0
+   },
+   "GF": {
+    "one_sided_share": 0.031,
+    "count_null": 0.037,
+    "windows": 1892,
+    "maker_share_fills": 0.389,
+    "maker_first_order_share": 0.206,
+    "fills_per_day": 10173.0
+   },
+   "XM": {
+    "one_sided_share": 0.243,
+    "count_null": 0.261,
+    "windows": 1727,
+    "maker_share_fills": 0.441,
+    "maker_first_order_share": 0.272,
+    "fills_per_day": 2349.0
+   }
+  },
+  "dev_10-31": {
+   "DS": {
+    "one_sided_share": 0.007,
+    "count_null": 0.016,
+    "windows": 142,
+    "maker_share_fills": 0.536,
+    "maker_first_order_share": 0.305,
+    "fills_per_day": 8068.0
+   },
+   "GF": {
+    "one_sided_share": 0.063,
+    "count_null": 0.068,
+    "windows": 142,
+    "maker_share_fills": 0.59,
+    "maker_first_order_share": 0.394,
+    "fills_per_day": 3978.0
+   },
+   "XM": {
+    "one_sided_share": 0.035,
+    "count_null": 0.061,
+    "windows": 141,
+    "maker_share_fills": 0.91,
+    "maker_first_order_share": 0.809,
+    "fills_per_day": 5099.0
+   }
+  }
+ },
+ "by_day": {
+  "10-09": {
+   "DS": {
+    "fills": 11185,
+    "maker_share_fills": 0.311,
+    "maker_share_shares": 0.123,
+    "maker_first_order_share": 0.141,
+    "orders": 8646,
+    "windows": 237,
+    "one_sided_share": 0.008,
+    "one_sided_null": 0.012,
+    "orders_per_window": 36.5
+   },
+   "GF": {
+    "fills": 6776,
+    "maker_share_fills": 0.313,
+    "maker_share_shares": 0.119,
+    "maker_first_order_share": 0.158,
+    "orders": 5295,
+    "windows": 235,
+    "one_sided_share": 0.03,
+    "one_sided_null": 0.035,
+    "orders_per_window": 22.5
+   },
+   "XM": {
+    "fills": 19981,
+    "maker_share_fills": 0.366,
+    "maker_share_shares": 0.155,
+    "maker_first_order_share": 0.157,
+    "orders": 14319,
+    "windows": 239,
+    "one_sided_share": 0.004,
+    "one_sided_null": 0.008,
+    "orders_per_window": 59.9
+   }
+  },
+  "10-10": {
+   "DS": {
+    "fills": 5516,
+    "maker_share_fills": 0.46,
+    "maker_share_shares": 0.233,
+    "maker_first_order_share": 0.231,
+    "orders": 3699,
+    "windows": 283,
+    "one_sided_share": 0.11,
+    "one_sided_null": 0.125,
+    "orders_per_window": 13.1
+   },
+   "GF": {
+    "fills": 3456,
+    "maker_share_fills": 0.484,
+    "maker_share_shares": 0.237,
+    "maker_first_order_share": 0.255,
+    "orders": 2265,
+    "windows": 276,
+    "one_sided_share": 0.225,
+    "one_sided_null": 0.251,
+    "orders_per_window": 8.2
+   },
+   "XM": {
+    "fills": 11226,
+    "maker_share_fills": 0.491,
+    "maker_share_shares": 0.257,
+    "maker_first_order_share": 0.217,
+    "orders": 6957,
+    "windows": 287,
+    "one_sided_share": 0.035,
+    "one_sided_null": 0.058,
+    "orders_per_window": 24.2
+   }
+  },
+  "10-11": {
+   "DS": {
+    "fills": 4815,
+    "maker_share_fills": 0.497,
+    "maker_share_shares": 0.258,
+    "maker_first_order_share": 0.26,
+    "orders": 3132,
+    "windows": 231,
+    "one_sided_share": 0.113,
+    "one_sided_null": 0.161,
+    "orders_per_window": 13.6
+   },
+   "GF": {
+    "fills": 2745,
+    "maker_share_fills": 0.458,
+    "maker_share_shares": 0.235,
+    "maker_first_order_share": 0.253,
+    "orders": 1896,
+    "windows": 219,
+    "one_sided_share": 0.224,
+    "one_sided_null": 0.233,
+    "orders_per_window": 8.7
+   },
+   "XM": {
+    "fills": 9858,
+    "maker_share_fills": 0.519,
+    "maker_share_shares": 0.275,
+    "maker_first_order_share": 0.242,
+    "orders": 5950,
+    "windows": 236,
+    "one_sided_share": 0.038,
+    "one_sided_null": 0.07,
+    "orders_per_window": 25.2
+   }
+  },
+  "10-12": {
+   "DS": {
+    "fills": 9820,
+    "maker_share_fills": 0.37,
+    "maker_share_shares": 0.163,
+    "maker_first_order_share": 0.184,
+    "orders": 7298,
+    "windows": 226,
+    "one_sided_share": 0.027,
+    "one_sided_null": 0.031,
+    "orders_per_window": 32.3
+   },
+   "GF": {
+    "fills": 5667,
+    "maker_share_fills": 0.346,
+    "maker_share_shares": 0.144,
+    "maker_first_order_share": 0.185,
+    "orders": 4369,
+    "windows": 223,
+    "one_sided_share": 0.045,
+    "one_sided_null": 0.06,
+    "orders_per_window": 19.6
+   },
+   "XM": {
+    "fills": 19597,
+    "maker_share_fills": 0.411,
+    "maker_share_shares": 0.186,
+    "maker_first_order_share": 0.181,
+    "orders": 13415,
+    "windows": 226,
+    "one_sided_share": 0.009,
+    "one_sided_null": 0.013,
+    "orders_per_window": 59.4
+   }
+  },
+  "10-13": {
+   "DS": {
+    "fills": 16404,
+    "maker_share_fills": 0.313,
+    "maker_share_shares": 0.126,
+    "maker_first_order_share": 0.141,
+    "orders": 12609,
+    "windows": 280,
+    "one_sided_share": 0.0,
+    "one_sided_null": 0.004,
+    "orders_per_window": 45.0
+   },
+   "GF": {
+    "fills": 9538,
+    "maker_share_fills": 0.269,
+    "maker_share_shares": 0.107,
+    "maker_first_order_share": 0.137,
+    "orders": 7768,
+    "windows": 279,
+    "one_sided_share": 0.018,
+    "one_sided_null": 0.021,
+    "orders_per_window": 27.8
+   },
+   "XM": {
+    "fills": 18734,
+    "maker_share_fills": 0.404,
+    "maker_share_shares": 0.155,
+    "maker_first_order_share": 0.176,
+    "orders": 12710,
+    "windows": 280,
+    "one_sided_share": 0.046,
+    "one_sided_null": 0.041,
+    "orders_per_window": 45.4
+   }
+  },
+  "10-14": {
+   "DS": {
+    "fills": 25650,
+    "maker_share_fills": 0.279,
+    "maker_share_shares": 0.132,
+    "maker_first_order_share": 0.13,
+    "orders": 20638,
+    "windows": 288,
+    "one_sided_share": 0.003,
+    "one_sided_null": 0.004,
+    "orders_per_window": 71.7
+   },
+   "GF": {
+    "fills": 14366,
+    "maker_share_fills": 0.23,
+    "maker_share_shares": 0.112,
+    "maker_first_order_share": 0.121,
+    "orders": 12280,
+    "windows": 288,
+    "one_sided_share": 0.0,
+    "one_sided_null": 0.011,
+    "orders_per_window": 42.6
+   },
+   "XM": {
+    "fills": 4940,
+    "maker_share_fills": 0.266,
+    "maker_share_shares": 0.133,
+    "maker_first_order_share": 0.159,
+    "orders": 4149,
+    "windows": 279,
+    "one_sided_share": 0.075,
+    "one_sided_null": 0.089,
+    "orders_per_window": 14.9
+   }
+  },
+  "10-15": {
+   "DS": {
+    "fills": 26354,
+    "maker_share_fills": 0.306,
+    "maker_share_shares": 0.159,
+    "maker_first_order_share": 0.151,
+    "orders": 20916,
+    "windows": 279,
+    "one_sided_share": 0.004,
+    "one_sided_null": 0.007,
+    "orders_per_window": 75.0
+   },
+   "GF": {
+    "fills": 11892,
+    "maker_share_fills": 0.308,
+    "maker_share_shares": 0.165,
+    "maker_first_order_share": 0.169,
+    "orders": 9610,
+    "windows": 278,
+    "one_sided_share": 0.014,
+    "one_sided_null": 0.02,
+    "orders_per_window": 34.6
+   },
+   "XM": {
+    "fills": 3076,
+    "maker_share_fills": 0.369,
+    "maker_share_shares": 0.213,
+    "maker_first_order_share": 0.231,
+    "orders": 2428,
+    "windows": 260,
+    "one_sided_share": 0.188,
+    "one_sided_null": 0.186,
+    "orders_per_window": 9.3
+   }
+  },
+  "10-16": {
+   "DS": {
+    "fills": 25013,
+    "maker_share_fills": 0.342,
+    "maker_share_shares": 0.173,
+    "maker_first_order_share": 0.156,
+    "orders": 18854,
+    "windows": 271,
+    "one_sided_share": 0.0,
+    "one_sided_null": 0.007,
+    "orders_per_window": 69.6
+   },
+   "GF": {
+    "fills": 11573,
+    "maker_share_fills": 0.396,
+    "maker_share_shares": 0.212,
+    "maker_first_order_share": 0.198,
+    "orders": 8344,
+    "windows": 269,
+    "one_sided_share": 0.037,
+    "one_sided_null": 0.038,
+    "orders_per_window": 31.0
+   },
+   "XM": {
+    "fills": 2559,
+    "maker_share_fills": 0.435,
+    "maker_share_shares": 0.254,
+    "maker_first_order_share": 0.263,
+    "orders": 1843,
+    "windows": 247,
+    "one_sided_share": 0.243,
+    "one_sided_null": 0.248,
+    "orders_per_window": 7.5
+   }
+  },
+  "10-17": {
+   "DS": {
+    "fills": 13627,
+    "maker_share_fills": 0.453,
+    "maker_share_shares": 0.262,
+    "maker_first_order_share": 0.214,
+    "orders": 9164,
+    "windows": 287,
+    "one_sided_share": 0.007,
+    "one_sided_null": 0.019,
+    "orders_per_window": 31.9
+   },
+   "GF": {
+    "fills": 6271,
+    "maker_share_fills": 0.488,
+    "maker_share_shares": 0.293,
+    "maker_first_order_share": 0.258,
+    "orders": 4147,
+    "windows": 283,
+    "one_sided_share": 0.046,
+    "one_sided_null": 0.074,
+    "orders_per_window": 14.7
+   },
+   "XM": {
+    "fills": 1590,
+    "maker_share_fills": 0.53,
+    "maker_share_shares": 0.321,
+    "maker_first_order_share": 0.324,
+    "orders": 1056,
+    "windows": 243,
+    "one_sided_share": 0.35,
+    "one_sided_null": 0.399,
+    "orders_per_window": 4.3
+   }
+  },
+  "10-18": {
+   "DS": {
+    "fills": 17256,
+    "maker_share_fills": 0.483,
+    "maker_share_shares": 0.292,
+    "maker_first_order_share": 0.238,
+    "orders": 11242,
+    "windows": 288,
+    "one_sided_share": 0.003,
+    "one_sided_null": 0.008,
+    "orders_per_window": 39.0
+   },
+   "GF": {
+    "fills": 7333,
+    "maker_share_fills": 0.467,
+    "maker_share_shares": 0.285,
+    "maker_first_order_share": 0.263,
+    "orders": 5074,
+    "windows": 284,
+    "one_sided_share": 0.056,
+    "one_sided_null": 0.063,
+    "orders_per_window": 17.9
+   },
+   "XM": {
+    "fills": 1754,
+    "maker_share_fills": 0.479,
+    "maker_share_shares": 0.261,
+    "maker_first_order_share": 0.309,
+    "orders": 1257,
+    "windows": 255,
+    "one_sided_share": 0.318,
+    "one_sided_null": 0.345,
+    "orders_per_window": 4.9
+   }
+  },
+  "10-19": {
+   "DS": {
+    "fills": 21124,
+    "maker_share_fills": 0.348,
+    "maker_share_shares": 0.189,
+    "maker_first_order_share": 0.158,
+    "orders": 15847,
+    "windows": 263,
+    "one_sided_share": 0.0,
+    "one_sided_null": 0.008,
+    "orders_per_window": 60.3
+   },
+   "GF": {
+    "fills": 9319,
+    "maker_share_fills": 0.362,
+    "maker_share_shares": 0.206,
+    "maker_first_order_share": 0.185,
+    "orders": 7053,
+    "windows": 263,
+    "one_sided_share": 0.042,
+    "one_sided_null": 0.035,
+    "orders_per_window": 26.8
+   },
+   "XM": {
+    "fills": 2275,
+    "maker_share_fills": 0.389,
+    "maker_share_shares": 0.242,
+    "maker_first_order_share": 0.237,
+    "orders": 1760,
+    "windows": 237,
+    "one_sided_share": 0.207,
+    "one_sided_null": 0.235,
+    "orders_per_window": 7.4
+   }
+  },
+  "10-20": {
+   "DS": {
+    "fills": 26147,
+    "maker_share_fills": 0.287,
+    "maker_share_shares": 0.15,
+    "maker_first_order_share": 0.133,
+    "orders": 20972,
+    "windows": 277,
+    "one_sided_share": 0.0,
+    "one_sided_null": 0.004,
+    "orders_per_window": 75.7
+   },
+   "GF": {
+    "fills": 11379,
+    "maker_share_fills": 0.339,
+    "maker_share_shares": 0.191,
+    "maker_first_order_share": 0.181,
+    "orders": 8903,
+    "windows": 276,
+    "one_sided_share": 0.011,
+    "one_sided_null": 0.021,
+    "orders_per_window": 32.3
+   },
+   "XM": {
+    "fills": 2565,
+    "maker_share_fills": 0.403,
+    "maker_share_shares": 0.247,
+    "maker_first_order_share": 0.258,
+    "orders": 1982,
+    "windows": 255,
+    "one_sided_share": 0.224,
+    "one_sided_null": 0.231,
+    "orders_per_window": 7.8
+   }
+  },
+  "10-21": {
+   "DS": {
+    "fills": 20001,
+    "maker_share_fills": 0.327,
+    "maker_share_shares": 0.188,
+    "maker_first_order_share": 0.173,
+    "orders": 15825,
+    "windows": 234,
+    "one_sided_share": 0.0,
+    "one_sided_null": 0.003,
+    "orders_per_window": 67.6
+   },
+   "GF": {
+    "fills": 11277,
+    "maker_share_fills": 0.357,
+    "maker_share_shares": 0.205,
+    "maker_first_order_share": 0.197,
+    "orders": 8727,
+    "windows": 234,
+    "one_sided_share": 0.013,
+    "one_sided_null": 0.016,
+    "orders_per_window": 37.3
+   },
+   "XM": {
+    "fills": 2730,
+    "maker_share_fills": 0.422,
+    "maker_share_shares": 0.244,
+    "maker_first_order_share": 0.258,
+    "orders": 2029,
+    "windows": 221,
+    "one_sided_share": 0.19,
+    "one_sided_null": 0.183,
+    "orders_per_window": 9.2
+   }
+  },
+  "10-22": {
+   "DS": {
+    "fills": 24706,
+    "maker_share_fills": 0.35,
+    "maker_share_shares": 0.2,
+    "maker_first_order_share": 0.18,
+    "orders": 19038,
+    "windows": 283,
+    "one_sided_share": 0.0,
+    "one_sided_null": 0.001,
+    "orders_per_window": 67.3
+   },
+   "GF": {
+    "fills": 14058,
+    "maker_share_fills": 0.381,
+    "maker_share_shares": 0.22,
+    "maker_first_order_share": 0.206,
+    "orders": 10602,
+    "windows": 283,
+    "one_sided_share": 0.011,
+    "one_sided_null": 0.008,
+    "orders_per_window": 37.5
+   },
+   "XM": {
+    "fills": 2968,
+    "maker_share_fills": 0.467,
+    "maker_share_shares": 0.288,
+    "maker_first_order_share": 0.289,
+    "orders": 2112,
+    "windows": 269,
+    "one_sided_share": 0.171,
+    "one_sided_null": 0.182,
+    "orders_per_window": 7.9
+   }
+  },
+  "10-31": {
+   "DS": {
+    "fills": 8068,
+    "maker_share_fills": 0.536,
+    "maker_share_shares": 0.388,
+    "maker_first_order_share": 0.305,
+    "orders": 5223,
+    "windows": 142,
+    "one_sided_share": 0.007,
+    "one_sided_null": 0.017,
+    "orders_per_window": 36.8
+   },
+   "GF": {
+    "fills": 3978,
+    "maker_share_fills": 0.59,
+    "maker_share_shares": 0.452,
+    "maker_first_order_share": 0.394,
+    "orders": 2590,
+    "windows": 142,
+    "one_sided_share": 0.063,
+    "one_sided_null": 0.069,
+    "orders_per_window": 18.2
+   },
+   "XM": {
+    "fills": 5099,
+    "maker_share_fills": 0.91,
+    "maker_share_shares": 0.867,
+    "maker_first_order_share": 0.809,
+    "orders": 2291,
+    "windows": 141,
+    "one_sided_share": 0.035,
+    "one_sided_null": 0.06,
+    "orders_per_window": 16.2
+   }
+  }
+ }
+}

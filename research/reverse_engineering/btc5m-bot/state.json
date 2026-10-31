@@ -14,7 +14,7 @@
   "note": "BUILD may be extended back in time in later iterations"
  },
  "best": {
-  "rule_id": "it8: it7 rule + full-coverage live side + decision-level hazard (exam feeds) + rec_exam8 / rec_fam8 inputs (code/final_rule.py)",
+  "rule_id": "it9: unchanged frozen rule of iteration 8 (code/final_rule.py); iteration 9 added measurements, no new rule component",
   "validate_metrics": {
    "presence_auc": 0.8747,
    "presence_baseline": 0.8193,
@@ -435,6 +435,14 @@
      "C_lab_ten_series": 0.7803,
      "C_lab_eight_series_no_hl": 0.7399
     }
+   },
+   "iteration9": {
+    "presence_gain_vs_stronger_baseline": 0.0536,
+    "pnl_ceiling_pooled_q061": [
+     0.7115,
+     0.74,
+     0.7644
+    ]
    }
   }
  },
@@ -5119,6 +5127,822 @@
     }
    },
    "verdict": "weak value dependence (12% -> 23%)"
+  },
+  {
+   "id": "H100",
+   "family": "decision record: maker-first orders = lost races (X68 / X65)",
+   "description": "insertions of maker-first orders classified by the ask path; vote at insertion",
+   "validate_metrics": {
+    "refined": {
+     "lost_300": 624,
+     "lost_1000": 205,
+     "passive_2s": 149,
+     "other": 63
+    },
+    "vote_lost_300": 0.8049
+   },
+   "verdict": "supported (live development): lost races 80% of maker-first orders, vote 80.5% = won races"
+  },
+  {
+   "id": "H101",
+   "family": "XM passive 60-share component (X67)",
+   "description": "post-only quotes below the ask",
+   "validate_metrics": {
+    "n": 346,
+    "covered": 346,
+    "voted_share": 0.7717,
+    "agree_on_voted": 0.7978,
+    "by_strength": {
+     "1": [
+      0.65,
+      80
+     ],
+     "2": [
+      0.7746,
+      71
+     ],
+     "3-4": [
+      0.8873,
+      71
+     ],
+     "5+": [
+      0.9556,
+      45
+     ]
+    },
+    "placebo": 0.5138,
+    "vote_1000_200": 0.7705
+   },
+   "verdict": "rejected: late taker legs (lost races 87%, vote 79.8%)"
+  },
+  {
+   "id": "H102",
+   "family": "race lottery vs selective bot (X65)",
+   "description": "decisions per filled order",
+   "validate_metrics": {
+    "lost_300+1000": {
+     "T_first": 1336,
+     "M_lost": 871.4,
+     "M_rest": 219.6,
+     "decisions": 3457.0,
+     "q": 0.7021
+    },
+    "lost_300+1000+other": {
+     "T_first": 1336,
+     "M_lost": 934.8,
+     "M_rest": 156.2,
+     "decisions": 3532.0,
+     "q": 0.6872
+    }
+   },
+   "verdict": "selective (~1.45 per filled order)"
+  },
+  {
+   "id": "H103",
+   "family": "PnL test-retest ceiling (X69)",
+   "description": "r = 1 - (1 - q) kappa under independent races",
+   "validate_metrics": {
+    "windows": 1904,
+    "orders_per_window": 92.3,
+    "kappa": 0.6679,
+    "split_half_pred": 0.1991,
+    "r_ceiling": {
+     "0.5": 0.6661,
+     "0.6": 0.7328,
+     "0.7": 0.7996,
+     "0.8": 0.8664,
+     "0.9": 0.9332
+    },
+    "spearman_gauss": {
+     "0.5": 0.6484,
+     "0.6": 0.7165,
+     "0.7": 0.7856,
+     "0.8": 0.8557,
+     "0.9": 0.9271
+    },
+    "q_needed_for_r_0.5": 0.2514,
+    "split_half_emp": 0.2011,
+    "boot_r_q0.61": [
+     0.7115,
+     0.74,
+     0.7644
+    ],
+    "boot_r_q0.70": [
+     0.7781,
+     0.8,
+     0.8188
+    ]
+   },
+   "verdict": "ceiling 0.74-0.80 pooled: condition 5 attainable in principle; bound by decision overlap"
+  },
+  {
+   "id": "H104",
+   "family": "stale-quote edge (X63)",
+   "description": "edge since o's last touch change",
+   "validate_metrics": {
+    "y_match_on_B": {
+     "base": 0.718,
+     "full": 0.7591,
+     "E": 0.673,
+     "base+E": 0.7242,
+     "full+E": 0.7595,
+     "gain_fullE_vs_full_CI": [
+      -0.002,
+      0.0002,
+      0.0044
+     ],
+     "gain_full_vs_base_CI": [
+      -0.0006,
+      0.0411,
+      0.0873
+     ],
+     "gain_baseE_vs_base_CI": [
+      -0.004,
+      0.0057,
+      0.0222
+     ]
+    },
+    "y_match_on_C": {
+     "base": 0.6073,
+     "full": 0.6995,
+     "E": 0.6177,
+     "base+E": 0.6253,
+     "full+E": 0.6998,
+     "gain_fullE_vs_full_CI": [
+      -0.0013,
+      0.0003,
+      0.0021
+     ],
+     "gain_full_vs_base_CI": [
+      0.0625,
+      0.0922,
+      0.1238
+     ],
+     "gain_baseE_vs_base_CI": [
+      0.0071,
+      0.0178,
+      0.0318
+     ]
+    },
+    "y_dec_on_B": {
+     "base": 0.7324,
+     "full": 0.7675,
+     "E": 0.7007,
+     "base+E": 0.7409,
+     "full+E": 0.7689,
+     "gain_fullE_vs_full_CI": [
+      -0.0012,
+      0.0013,
+      0.0065
+     ],
+     "gain_full_vs_base_CI": [
+      0.0104,
+      0.0358,
+      0.067
+     ],
+     "gain_baseE_vs_base_CI": [
+      0.0006,
+      0.0085,
+      0.0196
+     ]
+    },
+    "y_dec_on_C": {
+     "base": 0.6437,
+     "full": 0.7278,
+     "E": 0.6527,
+     "base+E": 0.6634,
+     "full+E": 0.7286,
+     "gain_fullE_vs_full_CI": [
+      -0.001,
+      0.0009,
+      0.003
+     ],
+     "gain_full_vs_base_CI": [
+      0.0605,
+      0.0839,
+      0.1078
+     ],
+     "gain_baseE_vs_base_CI": [
+      0.0116,
+      0.0197,
+      0.0291
+     ]
+    }
+   },
+   "verdict": "rejected (< 0.002 AUC over the tick)"
+  },
+  {
+   "id": "H105",
+   "family": "visible depth (X64)",
+   "description": "pay-up at the depth-cover level; size from depth",
+   "validate_metrics": {
+    "payup": {
+     "n": 363,
+     "L==depth_cover": 0.1763,
+     "L==touch+1c": 0.5179,
+     "L>=depth_cover": 0.8623,
+     "touch_covered_Z": 0.5482,
+     "L_minus_touch_c": {
+      "1.0": 188,
+      "2.0": 42,
+      "3.0": 22,
+      "4.0": 15,
+      "5.0": 96
+     },
+     "by_wallet": {
+      "DS": [
+       0.1712,
+       146
+      ],
+      "GF": [
+       0.1919,
+       172
+      ],
+      "XM": [
+       0.1333,
+       45
+      ]
+     }
+    },
+    "size": {
+     "DS": {
+      "n": 926,
+      "large_share": 0.0205,
+      "auc_tz": 0.3669,
+      "auc_d1": 0.3249,
+      "auc_d2": 0.3127,
+      "P(payup|large)": 0.7368,
+      "P(payup|small)": 0.1455
+     },
+     "GF": {
+      "n": 338,
+      "large_share": 0.0592,
+      "auc_tz": 0.4631,
+      "auc_d1": 0.3956,
+      "auc_d2": 0.3764,
+      "P(payup|large)": 0.85,
+      "P(payup|small)": 0.4874
+     },
+     "XM": {
+      "n": 62,
+      "large_share": 0.2581,
+      "auc_tz": 0.5285,
+      "auc_d1": 0.481,
+      "auc_d2": 0.4205,
+      "P(payup|large)": 0.75,
+      "P(payup|small)": 0.7174
+     }
+    }
+   },
+   "verdict": "rejected for the price (17.6%); size weakly inverse, under-powered"
+  },
+  {
+   "id": "H106",
+   "family": "shared capacity across assets (X71)",
+   "description": "fingerprinted wallets on ETH / SOL 5m, BTC 15m",
+   "validate_metrics": {
+    "operator_orders_by_kind": {
+     "btc5m|DS": 32,
+     "btc5m|GF": 13,
+     "btc5m|W4": 8,
+     "btc5m|XM": 19
+    },
+    "other_assets_fingerprinted_in_burst": 0.0308
+   },
+   "verdict": "rejected (BTC-5m-only)"
+  },
+  {
+   "id": "H107",
+   "family": "flagged instants (X61)",
+   "description": "what happens at top-hazard instants without a decision",
+   "validate_metrics": {
+    "top1pct": {
+     "n": 671,
+     "P(decision)": 0.2325,
+     "no_decision": {
+      "n": 515,
+      "other_taker_buys_o": 0.7981,
+      "ask_up_no_other_trade": 0.0252,
+      "nothing": 0.1767
+     },
+     "with_decision": {
+      "other_taker_buys_o_too": 0.9359
+     },
+     "P(decision|busy)": [
+      0.2941,
+      68
+     ],
+     "P(decision|not busy)": [
+      0.2255,
+      603
+     ]
+    },
+    "top3pct": {
+     "n": 2011,
+     "P(decision)": 0.1735,
+     "no_decision": {
+      "n": 1662,
+      "other_taker_buys_o": 0.725,
+      "ask_up_no_other_trade": 0.0205,
+      "nothing": 0.2545
+     },
+     "with_decision": {
+      "other_taker_buys_o_too": 0.9054
+     },
+     "P(decision|busy)": [
+      0.2346,
+      260
+     ],
+     "P(decision|not busy)": [
+      0.1645,
+      1751
+     ]
+    },
+    "bottom50pct": {
+     "n": 33515,
+     "P(decision)": 0.0173,
+     "no_decision": {
+      "n": 32934,
+      "other_taker_buys_o": 0.3511,
+      "ask_up_no_other_trade": 0.0188,
+      "nothing": 0.6301
+     },
+     "with_decision": {
+      "other_taker_buys_o_too": 0.6954
+     },
+     "P(decision|busy)": [
+      0.0619,
+      323
+     ],
+     "P(decision|not busy)": [
+      0.0169,
+      33192
+     ]
+    }
+   },
+   "verdict": "others take ~80%; the cluster decides ~23%; busy slots do not suppress"
+  },
+  {
+   "id": "H108",
+   "family": "stronger presence baseline (X70 partial)",
+   "description": "pure + dm1/dm2 + other outcome + ask sum",
+   "validate_metrics": {
+    "val_cells": 804746,
+    "auc_full": 0.8747,
+    "auc_pure_baseline_it5": 0.8193,
+    "auc_augmented_baseline": 0.8211,
+    "gain_vs_pure": 0.0554,
+    "gain_vs_augmented": 0.0536,
+    "by_wallet": {
+     "GF": {
+      "full": 0.8745,
+      "pure": 0.8098,
+      "augmented": 0.8117,
+      "gain_vs_augmented": 0.0628
+     },
+     "XM": {
+      "full": 0.8927,
+      "pure": 0.825,
+      "augmented": 0.8269,
+      "gain_vs_augmented": 0.0658
+     },
+     "DS": {
+      "full": 0.8571,
+      "pure": 0.8047,
+      "augmented": 0.8063,
+      "gain_vs_augmented": 0.0508
+     }
+    },
+    "halves": {
+     "first": {
+      "full": 0.875,
+      "augmented": 0.8219,
+      "gain": 0.0531
+     },
+     "second": {
+      "full": 0.8725,
+      "augmented": 0.8195,
+      "gain": 0.053
+     }
+    },
+    "gain_vs_augmented_block_bootstrap_2h": {
+     "lo95": 0.0506,
+     "hi95": 0.0563,
+     "one_sided_p_gain_le_0": 0.0,
+     "n_boot": 2000,
+     "blocks": 84
+    },
+    "augmented_importance_top": {
+     "m_last": 170406.0,
+     "vwap10": 167006.0,
+     "O_ask_o": 79202.0,
+     "ask_o": 78931.0,
+     "bid_o": 69029.0,
+     "n1": 58117.0,
+     "n2": 43414.0,
+     "n30": 42608.0,
+     "tau": 32372.0,
+     "dm2": 19331.0,
+     "dm5": 15771.0,
+     "O_bid_o": 15327.0,
+     "O_n1": 14938.0,
+     "spread": 14716.0,
+     "rel": 14065.0
+    }
+   },
+   "verdict": "gain +0.054 [0.051, 0.056]: presence holds"
+  },
+  {
+   "id": "H109",
+   "family": "fee-aware delta-scaled edge (X72 step)",
+   "description": "V = 100 Delta move - half spread - net fee",
+   "validate_metrics": {
+    "univariate_auc_V": {
+     "A": {
+      "y_dec": 0.4138,
+      "y_match": 0.422,
+      "gain_only_y_dec": 0.6475
+     },
+     "C": {
+      "y_dec": 0.478,
+      "y_match": 0.4996,
+      "gain_only_y_dec": 0.6685
+     }
+    },
+    "hazard_by_V_cents_ydec": {
+     "A": {
+      "(-100, -5]": [
+       0.1284,
+       483
+      ],
+      "(-5, -2]": [
+       0.1322,
+       2595
+      ],
+      "(-2, -1]": [
+       0.0598,
+       43177
+      ],
+      "(-1, 0]": [
+       0.0302,
+       13026
+      ],
+      "(0, 1]": [
+       0.2621,
+       248
+      ],
+      "(1, 2]": [
+       0.3016,
+       126
+      ],
+      "(2, 5]": [
+       0.3558,
+       104
+      ],
+      "(5, 10]": [
+       0.2941,
+       17
+      ],
+      "(10, 100]": [
+       0.25,
+       8
+      ]
+     },
+     "C": {
+      "(-100, -5]": [
+       0.0586,
+       529
+      ],
+      "(-5, -2]": [
+       0.0953,
+       2530
+      ],
+      "(-2, -1]": [
+       0.0386,
+       45433
+      ],
+      "(-1, 0]": [
+       0.0326,
+       18209
+      ],
+      "(0, 1]": [
+       0.267,
+       191
+      ],
+      "(1, 2]": [
+       0.283,
+       53
+      ],
+      "(2, 5]": [
+       0.303,
+       66
+      ],
+      "(5, 10]": [
+       0.0,
+       18
+      ],
+      "(10, 100]": [
+       NaN,
+       0
+      ]
+     }
+    },
+    "models_fit_A_on_C_ydec": {
+     "full": 0.7278,
+     "full+V": 0.7288,
+     "base+V": 0.6578,
+     "base": 0.6437
+    },
+    "gain_fullV_vs_full_CI": [
+     0.0004,
+     0.001,
+     0.0018
+    ],
+    "gain_baseV_vs_base_CI": [
+     0.0076,
+     0.014,
+     0.0228
+    ],
+    "top3pct_full": {
+     "n": 2011,
+     "P(decision)": 0.1735,
+     "auc_V_taken_vs_skipped": 0.6175,
+     "auc_cost_taken_vs_skipped(neg=cheaper)": 0.6067,
+     "auc_gain_taken_vs_skipped": 0.6367,
+     "auc_act_taken_vs_skipped": 0.4715,
+     "P(decision) by V": {
+      "-100..0": [
+       0.1637,
+       1808
+      ],
+      "0..2": [
+       0.2742,
+       124
+      ],
+      "2..5": [
+       0.3115,
+       61
+      ],
+      "5..10": [
+       0.0,
+       18
+      ],
+      "10..100": [
+       null,
+       0
+      ]
+     }
+    }
+   },
+   "verdict": "see NOTES iteration 9 finding 12"
+  },
+  {
+   "id": "H110",
+   "family": "PnL ceiling replication on 10-31 (X69)",
+   "description": "same exact ceiling on development windows of 10-31",
+   "validate_metrics": {
+    "windows": 142,
+    "orders_per_window": 71.2,
+    "kappa": 0.4068,
+    "split_half_pred": 0.4216,
+    "r_ceiling": {
+     "0.5": 0.7966,
+     "0.6": 0.8373,
+     "0.7": 0.878,
+     "0.8": 0.9186,
+     "0.9": 0.9593
+    },
+    "spearman_gauss": {
+     "0.5": 0.7824,
+     "0.6": 0.8249,
+     "0.7": 0.868,
+     "0.8": 0.9114,
+     "0.9": 0.9554
+    },
+    "q_needed_for_r_0.5": -0.229,
+    "split_half_emp": 0.417,
+    "boot_r_q0.70": [
+     0.8449,
+     0.8777,
+     0.8965
+    ]
+   },
+   "verdict": "replicated (0.88 pooled at q = 0.70)"
+  },
+  {
+   "id": "H111",
+   "family": "size from the tick at the decision (live)",
+   "description": "within-wallet AUC of the large size from the tick / gain / cost at m - 50 ms",
+   "validate_metrics": {
+    "n": 1287,
+    "large": 50,
+    "DS": {
+     "n": 897,
+     "n_large": 16,
+     "auc_V": 0.4628,
+     "auc_gain": 0.6051,
+     "auc_cost": 0.8178,
+     "auc_tick": 0.6193,
+     "auc_dist": 0.3112,
+     "auc_rel": 0.607,
+     "auc_ask": 0.553,
+     "P(large|V>0)": [
+      0.1053,
+      19
+     ],
+     "P(large|V<=0)": 0.0159
+    },
+    "GF": {
+     "n": 329,
+     "n_large": 19,
+     "auc_V": 0.5908,
+     "auc_gain": 0.674,
+     "auc_cost": 0.5912,
+     "auc_tick": 0.7143,
+     "auc_dist": 0.3901,
+     "auc_rel": 0.4895,
+     "auc_ask": 0.4335,
+     "P(large|V>0)": [
+      0.25,
+      16
+     ],
+     "P(large|V<=0)": 0.0479
+    },
+    "XM": {
+     "n": 61,
+     "n_large": 15,
+     "auc_V": 0.6754,
+     "auc_gain": 0.7449,
+     "auc_cost": 0.4652,
+     "auc_tick": 0.8087,
+     "auc_dist": 0.6435,
+     "auc_rel": 0.2391,
+     "auc_ask": 0.5217,
+     "P(large|V>0)": [
+      0.4,
+      5
+     ],
+     "P(large|V<=0)": 0.2321
+    },
+    "pooled": {
+     "n": 1287,
+     "n_large": 50,
+     "auc_V": 0.5575,
+     "auc_gain": 0.6807,
+     "auc_cost": 0.6775,
+     "auc_tick": 0.7121,
+     "auc_dist": 0.3973,
+     "auc_rel": 0.5325,
+     "auc_ask": 0.4941,
+     "P(large|V>0)": [
+      0.2,
+      40
+     ],
+     "P(large|V<=0)": 0.0337
+    }
+   },
+   "verdict": "suggestive (AUC 0.62-0.81 from the tick; 50 large orders): hypothesis, pre-registered for 11-01 06-12"
+  },
+  {
+   "id": "H112",
+   "family": "W4 in the operator net (X66 step 2)",
+   "description": "size8 design with the four-wallet net",
+   "validate_metrics": {
+    "w4_fills": 2615,
+    "w4_fills_in_windows": 2615,
+    "DS": {
+     "n_val": 4924,
+     "auc_ctrl+net3": 0.5783,
+     "uni_net3": 0.567,
+     "auc_ctrl+net4": 0.5912,
+     "uni_net4": 0.5715
+    },
+    "GF": {
+     "n_val": 2139,
+     "auc_ctrl+net3": 0.7506,
+     "uni_net3": 0.7452,
+     "auc_ctrl+net4": 0.7705,
+     "uni_net4": 0.7658
+    },
+    "XM": {
+     "n_val": 488,
+     "auc_ctrl+net3": 0.6663,
+     "uni_net3": 0.762,
+     "auc_ctrl+net4": 0.7033,
+     "uni_net4": 0.7886
+    },
+    "w4_share_of_operator_abs_flow": 0.142
+   },
+   "verdict": "supported: +0.013 / +0.020 / +0.037 AUC"
+  },
+  {
+   "id": "H113",
+   "family": "historical size vs short tick",
+   "description": "Binance 1-5 s move toward o at the block clock",
+   "validate_metrics": {
+    "n": 13443,
+    "DS": {
+     "n_val": 4924,
+     "large_val": 0.1803,
+     "uni_tk1": 0.4537,
+     "uni_abs_tk1": 0.443,
+     "uni_tk2": 0.4626,
+     "uni_abs_tk2": 0.4325,
+     "uni_tk3": 0.4924,
+     "uni_abs_tk3": 0.445,
+     "uni_tk5": 0.4939,
+     "uni_abs_tk5": 0.4394,
+     "uni_mret": 0.5206,
+     "uni_abs_mret": 0.3843,
+     "auc_ctrl": 0.5463,
+     "auc_ctrl+ticks": 0.5493
+    },
+    "GF": {
+     "n_val": 2139,
+     "large_val": 0.4025,
+     "uni_tk1": 0.4998,
+     "uni_abs_tk1": 0.458,
+     "uni_tk2": 0.5182,
+     "uni_abs_tk2": 0.4788,
+     "uni_tk3": 0.5279,
+     "uni_abs_tk3": 0.465,
+     "uni_tk5": 0.5291,
+     "uni_abs_tk5": 0.4596,
+     "uni_mret": 0.5231,
+     "uni_abs_mret": 0.4337,
+     "auc_ctrl": 0.4958,
+     "auc_ctrl+ticks": 0.5448
+    },
+    "XM": {
+     "n_val": 488,
+     "large_val": 0.4324,
+     "uni_tk1": 0.4981,
+     "uni_abs_tk1": 0.4921,
+     "uni_tk2": 0.5034,
+     "uni_abs_tk2": 0.4976,
+     "uni_tk3": 0.4951,
+     "uni_abs_tk3": 0.4759,
+     "uni_tk5": 0.4982,
+     "uni_abs_tk5": 0.4833,
+     "uni_mret": 0.5335,
+     "uni_abs_mret": 0.3929,
+     "auc_ctrl": 0.354,
+     "auc_ctrl+ticks": 0.3931
+    }
+   },
+   "verdict": "no signal at the block clock (0.45-0.55)"
+  },
+  {
+   "id": "H114",
+   "family": "FV reference from opposite-outcome brackets (X62)",
+   "description": "bracket midpoint vs PM mid and the venue move",
+   "validate_metrics": {
+    "pairs": 140,
+    "width_c": {
+     "-5.0": 6,
+     "-4.0": 3,
+     "-3.0": 7,
+     "-2.0": 15,
+     "-1.0": 28,
+     "0.0": 28,
+     "1.0": 12,
+     "2.0": 9,
+     "3.0": 7,
+     "4.0": 3,
+     "5.0": 7,
+     "6.0": 15
+    },
+    "share_width_le_1c": 0.7071,
+    "share_negative_width(pair cost > 1)": 0.4214,
+    "pm_mid_inside": 0.0214,
+    "midpoint_minus_mid_c_q": [
+     -2.05,
+     0.0,
+     3.0
+    ],
+    "corr(midpoint - mid, move)": 0.9414,
+    "sign_agree(midpoint - mid, move) |move|>0.1bp, midpoint != mid": 0.95,
+    "n_moving": 20
+   },
+   "verdict": "PM-mid-anchored value shifted by the venue move (small n)"
+  },
+  {
+   "id": "H115",
+   "family": "selection among flagged instants (X72)",
+   "description": "taken vs skipped from public features and own set state",
+   "validate_metrics": {
+    "flagged_A": 1794,
+    "flagged_C": 1094,
+    "P(dec|flagged) A / C": [
+     0.2709,
+     0.2038
+    ],
+    "auc_C_public": 0.5777,
+    "auc_C_public+own_set_state": 0.6021,
+    "auc_C_own_set_state_only": 0.601,
+    "auc_C_full_score_within_flagged": 0.5702
+   },
+   "verdict": "mostly unexplained (AUC 0.58 public, 0.60 with own state)"
   }
  ],
  "data_sources": [
@@ -5153,7 +5977,10 @@
   "Iteration 8: own recorders rec_fam8 (Binance USDC-M / COIN-M / spot USDC-FDUSD books, Deribit, Bybit L1, liquidations) and rec_exam8 (exam inputs on weekday blocks)",
   "Iteration 8: Deribit public get_volatility_index_data (BTC DVOL, hourly, VALIDATE week; kept in the session scratchpad only)",
   "Iteration 8: Gamma priceToBeat for the 38 development windows of 10-31 14:50-17:55 and Deribit DVOL hourly 10-31 09:00-17:00 bars (scratchpad only; finalPrice not kept)",
-  "Iteration 8: Gamma events + data-api taker tapes of 120 seeded VALIDATE BTC 15m windows (co-terminal test)"
+  "Iteration 8: Gamma events + data-api taker tapes of 120 seeded VALIDATE BTC 15m windows (co-terminal test)",
+  "Iteration 9: V2 calldata of all 7,179 cluster txs of 10-31 12:00-17:56 (it9/cd9.parquet + post/cd*.parquet)",
+  "Iteration 9: calldata of 1,882 sampled ETH 5m / SOL 5m / BTC 15m / BTC 5m txs of 10-31 16-17 UTC (decoded in memory; results/other9.json)",
+  "Iteration 9: pmxt v2 archive host verified (r2v2.pmxt.dev, HTTP 206 without a key)"
  ],
  "iterations": [
   {
@@ -5368,6 +6195,36 @@
     "evaluate robustness: live-only fallback when the spot archive is not yet published",
     "co-terminal 15m cross-market consistency (X48)",
     "pay-up as a reservation price with the implied-vol FV (X42)"
+   ]
+  },
+  {
+   "n": 9,
+   "minutes": 67.0,
+   "best_validate_score": 0.9132,
+   "block_seconds_presence": 0.8747,
+   "block_seconds_stronger_baseline": 0.8211,
+   "pnl_corr": 0.1755,
+   "paradigm": "decision record from the book (insertions incl. lost races) + PnL test-retest ceiling + selectivity of flagged instants",
+   "families": [
+    "decision record: maker-first insertions as decisions (X68, X65)",
+    "XM role change decoded as late legs (X67)",
+    "side-condition applicability by order-count null (X67)",
+    "PnL test-retest ceiling under a race lottery (X69)",
+    "stale-quote edge (X63)",
+    "visible depth for pay-up and size (X64)",
+    "other assets fingerprint search (X71)",
+    "flagged-instant classification and own slots (X61)",
+    "stronger presence baseline (X70 partial)",
+    "fee-aware delta-scaled edge (X72 step)",
+    "pmxt archive host verification (X18 / X60)",
+    "PnL ceiling replication on 10-31 development windows (X69)",
+    "anonymous lost-race fill rate (X65 robustness)",
+    "size from the tick at the decision instant (live)",
+    "competitor identities at flagged instants (X61)",
+    "W4 in the operator net for size (X66 step 2)",
+    "historical size vs short-horizon tick",
+    "FV brackets of opposite-outcome pairs (X62)",
+    "selection predictability among flagged instants (X72)"
    ]
   }
  ],
@@ -5602,7 +6459,7 @@
   "X9": {
    "status": "open",
    "source": "catalog C4: change-point detection over the full history (back to July, V1 exchange)",
-   "evidence": ""
+   "evidence": "Iteration 9 partial (census9 by day over 10-09..22 and 10-31 only): weekly cycle in the maker share; XM's fill count steps 19-20k/day (10-09..13) -> 1.6-3.1k (10-14..22) -> ~10k pace on 10-31 (as the late leg). Not done: the full history back to July (V1 exchanges)."
   },
   "X10": {
    "status": "tried",
@@ -5645,8 +6502,8 @@
    "source": "panel iteration 5, assumptions proposal 5 (panels/iter5_assumptions.md)"
   },
   "X18": {
-   "status": "infeasible",
-   "evidence": "Panel iteration 5 (information P1) pmxt v2 archive. curl https://archive.pmxt.dev/ and /docs/v2-data-overview from this laptop 2026-10-31 14:15 UTC: 'Connection timed out after 15005 ms' (the panel saw connection refused at 13:50-14:00 and HTTP 401 'missing api key' from the keyed API, which must not be used). Used instead: own unthrottled recorder (X19) and calldata touch (X25).",
+   "status": "open",
+   "evidence": "Panel iteration 5 (information P1) pmxt v2 archive. curl https://archive.pmxt.dev/ and /docs/v2-data-overview from this laptop 2026-10-31 14:15 UTC: 'Connection timed out after 15005 ms' (the panel saw connection refused at 13:50-14:00 and HTTP 401 'missing api key' from the keyed API, which must not be used). Used instead: own unthrottled recorder (X19) and calldata touch (X25). | Iteration 9: RE-OPENED as X60. The data host is not archive.pmxt.dev: https://r2v2.pmxt.dev/polymarket_orderbook_2026-08-01T12.parquet answers HTTP 206 to a 1-byte range request without a key (Content-Range bytes 0-0/477191092, 0.39 s, 10-31 19:57 UTC). Coverage 2026-04-13 .. 08-10 (panel); not downloaded yet.",
    "source": "panel iteration 5, information proposal 1 (panels/iter5_information.md)"
   },
   "X19": {
@@ -5842,12 +6699,82 @@
   "X57": {
    "status": "open",
    "source": "panel iteration 7, assumptions P4 (aim at the exams: h1 first, weekday sealed recording, fallback, version transfer)",
-   "evidence": "Recording re-planned (rec_exam8, weekday sealed blocks); the block-clock fallback is the historical rule already in evaluate (scope 100%); version check (version8.py): signing schedule, pay-up share (16.1% vs 16.0%) and cross-wallet multi-leg structure transfer from VALIDATE to 10-31; the large share is day / regime dependent. Open: the weekday vs weekend comparison on 11-02 development blocks. | Iteration 8 step 1 on VALIDATE (weekend8.py): quiet one-sided seconds 28.0% on the weekend (Sat 36.1%) vs 14.6% on weekdays; block-clock side 74.1% vs 75.6%. Live weekday comparison pending (11-02 development blocks)."
+   "evidence": "Recording re-planned (rec_exam8, weekday sealed blocks); the block-clock fallback is the historical rule already in evaluate (scope 100%); version check (version8.py): signing schedule, pay-up share (16.1% vs 16.0%) and cross-wallet multi-leg structure transfer from VALIDATE to 10-31; the large share is day / regime dependent. Open: the weekday vs weekend comparison on 11-02 development blocks. | Iteration 8 step 1 on VALIDATE (weekend8.py): quiet one-sided seconds 28.0% on the weekend (Sat 36.1%) vs 14.6% on weekdays; block-clock side 74.1% vs 75.6%. Live weekday comparison pending (11-02 development blocks). | Iteration 9 (census9 by day): the maker share of fills rises on weekends for every wallet (DS 0.45-0.50 vs 0.28-0.37 on weekdays; maker-first orders 0.21-0.26 vs 0.13-0.18): more races are lost on weekends; 10-31 DS/GF fit that cycle, XM's 0.91 does not."
   },
   "X58": {
    "status": "tried",
    "source": "panel iteration 7, assumptions P5 (underdog tilt from a return-unit threshold or a liquidity shape)",
    "evidence": "tilt8.py (results/tilt8.json; 147,489 VALIDATE cluster taker orders): at matched |p - 0.5| the median 4-s BTC move before a buy (given a move toward o) is equal for favourite and underdog buys (ratio 0.96-1.03; return-threshold prediction 1.28-5.14): return-unit threshold rejected. Underdog buys come on flat 4-s moves (78-79% vs 72-74%) and after adverse 12-s moves (23-25% vs 13-15%; mean -0.15..-0.26 bp vs +0.35..+0.53 bp): a value / fade component on the underdog side (wider-vol or slower FV). Liquidity-shape (round-price exclusion) step not done."
+  },
+  "X59": {
+   "status": "open",
+   "source": "panel iteration 8, information P1 (per-block historical match clock from fresh-signed anchors; strong form of X12 / X22 / X40)",
+   "evidence": "Not tested in iteration 9 (the decision-record pivot came first). Panel numbers: within-block log-index vs match-ms Spearman 0.80; oracle-anchor interpolation 54.9% of txs within 200 ms vs 24.5% for a constant lag; naive fresh-signed anchors 38.9% vs 25.3%."
+  },
+  "X60": {
+   "status": "open",
+   "source": "panel iteration 8, information P2 (historical live lab: pmxt v2 archive with server ms and tx hashes 2026-04-13..08-10, Tardis free days 07-01 / 08-01)",
+   "evidence": "Endpoint verified in iteration 9 (HTTP 206, no key; see X18). The reducer and the decision-level tests are not run (disk fell to 3.3 GB free at 20:00 UTC, external)."
+  },
+  "X61": {
+   "status": "tried",
+   "source": "panel iteration 8, information P3 (who takes the liquidity at the instants the trigger flags: a lost race or no decision?)",
+   "evidence": "who9.py (results/who9.json): the asks the cluster's lost races aimed at were taken by other takers 52.9%, by the cluster's own earlier legs 19.2%, requoted away 27.9%. flag9.py (results/flag9.json; FULL hazard on the decision label, fit A, scored C, AUC 0.728): top 1% of the score P(cluster decision) 23.3%; where it did not decide another taker bought o in [t+100, t+600) in 79.8% (bottom 50%: 35.1%), nothing 17.7%; top 3% 17.4% / 72.5%; own busy slots do not suppress decisions (23.5% busy vs 16.5%). Decision count (ins9b): ~1.45 decisions per filled order. Answer: mostly NO DECISION at instants other fast takers take; the selection rule is open. | Identities (comp9.py): 516 distinct wallets took the skipped flagged instants (top 10: 19.8%); a top competitor's activity in the previous 2 s does not change P(decision) (15-19% vs 17-19%)."
+  },
+  "X62": {
+   "status": "tried",
+   "source": "panel iteration 8, information P4 (which reference: an absolute digital at implied vol vs a Polymarket-anchored value; bracket midpoints of opposite-outcome pairs)",
+   "evidence": "Part (b) in hazard form tested by X63 (a Polymarket-anchored edge since o's last touch change adds < 0.002 AUC; weak-vote side 52-72%). The bracket-midpoint regression is not done. | Iteration 9 bracket9.py (140 opposite-outcome pairs within 1 s): bracket <= 1 c wide in 71%, negative (pair cost > 1) in 42%, contains the PM mid 2.1%; midpoint - mid median 0.0 c and follows the 500-ms Binance USD-M move (corr 0.94, same sign 95%, n = 20 moving pairs): the implied value is the PM mid plus the venue move (family b), not an absolute digital level. The held-out regression with EMA half-lives is not done (small n)."
+  },
+  "X63": {
+   "status": "tried",
+   "source": "panel iteration 8, mechanics P1 (stale-quote edge since o's touch last changed; inverse-fit of the trigger's quote function)",
+   "evidence": "stale9.py (results/stale9.json): E = mid_o(a) + k Delta dS - ask_o (anchor = last change of o's bid or ask, k = 2 chosen on A among 6 variants, univariate AUC 0.48-0.52); hazard U-shaped in E; FULL + E vs FULL +0.0002 / +0.0003 (match label, B / C), +0.0013 / +0.0009 (decision label), CIs include 0; weak / no-vote side by argmax E 52-72%. Rejected: subsumed by the tick terms. With decisions as positives the frozen FULL design rises 0.759 -> 0.768 (B), 0.700 -> 0.728 (C)."
+  },
+  "X64": {
+   "status": "tried",
+   "source": "panel iteration 8, mechanics P2 (visible Polymarket depth sets the pay-up level, the size and the fan-out)",
+   "evidence": "depth9.py (results/depth9.json; 1,326 taker-first orders, book at m - 50 ms): pay-up limit == depth-cover level 17.6% (touch + 1 c 51.8%); the touch covered the order in 54.8% of pay-ups; P(pay-up | touch < size) 30.4% vs 25.3%. Large size vs depth: within-wallet AUC of the touch size DS 0.37 / GF 0.46 / XM 0.53 (thin books; 16-20 large orders per wallet, under-powered). Rejected for the price; size stays own-state policy. Fan-out from depth not tested (X54 covers intensity)."
+  },
+  "X65": {
+   "status": "tried",
+   "source": "panel iteration 8, mechanics P3 (ghost orders: the full decision record from the touch feeds)",
+   "evidence": "ins9.py / ins9b.py: truth set of 502 MT remainders (finder 92.4%); 1,041 maker-first insertions: lost races 79.7% (73.9% + 19.7% of unambiguous ones), passive 3.1% of unambiguous; pi_rem = 0.458 -> 1.42-1.46 decisions per filled order (q = 0.69-0.70): a SELECTIVE bot (panel thresholds: lottery >= 2.5, selective ~1.5). Anonymous ghost attribution not needed for the count (X15's identity problem stands for unfilled orders). | Robustness (pianon9.py): 44,525 anonymous lost-race-like bot-size insertions fill before cancel in 33.9% (cancel median 70 ms); with pi = 0.34 the count is ~1.70 decisions per filled order (q = 0.59): still selective."
+  },
+  "X66": {
+   "status": "open",
+   "source": "panel iteration 8, mechanics P4 (operator completeness: W4 into the operator net and out of the market-activity baseline)",
+   "evidence": "Step 2 done (w4size9.py, results/w4size9.json): W4's 2,615 fills in the calldata sample hours (14.2% of the operator's flow); four-wallet operator net lifts the within-wallet VALIDATE AUC of the large size DS 0.578 -> 0.591, GF 0.751 -> 0.771, XM 0.666 -> 0.703. Open: step 3 (W4's prints out of the tape features of both presence models; needs the tapes) and step 4 (sibling census by mechanical fingerprint on a full-market calldata sample; iteration 9's other9 found no fingerprinted wallets on other assets)."
+  },
+  "X67": {
+   "status": "tried",
+   "source": "panel iteration 8, assumptions P1 (XM changed role: decode its passive 60-share component; re-derive which conditions bind)",
+   "evidence": "ins9b / who9: 346 XM 60-share maker-first orders are lost races in 87% (69% within 300 ms), passive 10%; vote at insertion 79.8% (65 / 77 / 89 / 96% by strength, placebo 51%); the ask they aimed at was taken by DS 26% / GF 8% / others 45% / requoted 21%, median 124 ms earlier: XM is the late leg of the fan-out, not a passive quoter. census9.py: one-sided share vs the order-count null VALIDATE XM 24.3% vs 26.1%, GF 3.1% vs 3.7%, DS 0.2% vs 0.7%; 10-31 XM 3.5% vs 6.1%: no wallet chooses a side per window beyond its order count. Maker share of fills XM 41% / 44% / 91% (BUILD / VALIDATE / 10-31)."
+  },
+  "X68": {
+   "status": "tried",
+   "source": "panel iteration 8, assumptions P2 (score the decisions that lost the race: insertions of filled maker-first orders as decision instants)",
+   "evidence": "ins9b: 8-series vote at lost-race insertions 80.5% on 78.9% voted (strength 62.6 / 83.5 / 86.1 / 94.7%; placebo 52.0%) = won races 80.6% (70.9 / 74.6 / 84.0 / 95.5%). Gate: o's ask rose before 33.6% of lost races vs 24.5% of won races. Hazard with decisions as positives: OOS AUC +0.009 (B) / +0.028 (C) (stale9)."
+  },
+  "X69": {
+   "status": "tried",
+   "source": "panel iteration 8, assumptions P3 (the PnL condition's test-retest ceiling by race-lottery resampling)",
+   "evidence": "pnlceil9.py (results/pnlceil9.json; VALIDATE): exact ceiling under independent races r = 1 - (1 - q) kappa; the model reproduces the empirical split-half (pooled 0.199 vs 0.201, DS 0.011 vs 0.013, GF 0.188 vs 0.193, XM -0.024 vs -0.020). Pooled kappa 0.668: r = 0.74 [0.71, 0.76] at q = 0.61, 0.80 [0.78, 0.82] at q = 0.70; per wallet at q = 0.61 DS 0.62, GF 0.73, XM 0.59; q needed for 0.5: 0.25 / 0.49 / 0.27 / 0.52. Hypothesis (ceiling < 0.5) REJECTED: condition 5 is attainable in principle and bound by decision overlap (the replica reproduces ~8% of the decision instants). | Replication on the 142 development windows of 10-31 (pnlceil9b.py): kappa 0.407, split-half predicted 0.422 vs empirical 0.417, ceiling at q = 0.70 pooled 0.878 [0.845, 0.897], DS 0.85, GF 0.67, XM 0.72."
+  },
+  "X70": {
+   "status": "open",
+   "source": "panel iteration 8, assumptions P4 (audit the presence gain against an examiner-strength market-only baseline, W4 removed from both models)",
+   "evidence": "Partial (blkaug9.py, results/blkaug9.json): baseline + dm1, dm2, the other outcome's tape state, Up + Down ask sum: VALIDATE AUC 0.8211 (pure 0.8193); full 0.8747; gain +0.0536, 2-h block bootstrap [0.0506, 0.0563], p = 0 / 2,000; GF +0.063, XM +0.066, DS +0.051; halves +0.053 / +0.053. Open: bot-size print counts, sub-second intensities and W4's prints removed (need the tapes and W4's fills); the live 100-ms baseline extension."
+  },
+  "X71": {
+   "status": "tried",
+   "source": "panel iteration 8, assumptions P5 (one process, several assets: shared capacity)",
+   "evidence": "other9.py (results/other9.json; 1,882 sampled txs, 11 windows of 10-31 16-17 UTC: ETH 5m x3, SOL 5m x3, BTC 15m x2, BTC 5m x3): operator wallets only in BTC 5m (100% / 88% of their orders inside the bursts); no maker with >= 8 orders on another asset signs >= 60% inside the -89.5 / +42 / +172.7 s bursts; fingerprinted orders on other assets 3.1% in-burst (random). Rejected: the process is BTC-5m-only."
+  },
+  "X72": {
+   "status": "open",
+   "source": "iteration 9 (own, from X61 / X65): the SELECTION RULE among flagged instants",
+   "evidence": "The bot decides at ~1 of 4-5 top-hazard instants (up to ~1 of 3 with unfilled lost races) while other takers take ~80% of the rest. Ruled out as the selector: own busy slots (flag9), other assets (X71), the stale-quote edge (X63), visible depth (X64). PARTLY EXPLAINED by a fee-aware delta-scaled edge V = k 100 Delta move - (half spread + 0.035 p(1-p)) (fee9 / fee9b): the hazard steps up ~8x where V crosses 0 (A: 3.0% -> 26.2%; C: 3.3% -> 26.7%), within the top 3% of the hazard V separates taken from skipped instants with AUC 0.62 (cost alone 0.61, gain 0.64), FULL + V +0.001 [0.0004, 0.0018]; k scan in results/fee9b.json (k = 8: +0.0037 [0.0015, 0.0059]); on the exam feeds the pre-registered rule V_8 > 0 (final_rule edge_rule_V8) has lift 1.5 / 7.7 / 3.1 on three 30-60-min intervals (unstable). Own-book set completion tilts it too (setgate9, own state: P(decision | flagged) 31% when the leg pairs unpaired shares below 0.97 vs 12% with no holdings of the other outcome; AUC 0.59-0.60). Next: the competitor set from tx senders, the queue ahead at the touch, the touch size, time since o's last trade, the window's running volume; replicate on 11-01 06-12 and on the pmxt summer hours (X60). | Size note (size9): the large size follows the tick strength at the decision (within-wallet AUC 0.62-0.81), a hypothesis for 11-01 06-12. | Specific competitors ruled out as the selector (comp9). | Quantified (select9.py): taken vs skipped among flagged instants, fit A -> scored C: public features AUC 0.578, + own set state 0.602, the hazard score itself 0.570: the selection is close to random given every recorded public input."
   }
  },
  "components": {
@@ -5857,35 +6784,35 @@
    "description": "Every BTC 5m Up/Down window (94-99% traded), nothing else; prices in the ladder range ~0.12-0.88; whole-cluster outages are bot-side."
   },
   "timing": {
-   "confidence": 0.8,
+   "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Decision = submission of a pre-signed ladder order ~250-350 ms after a Binance USD-M / OKX / Bybit microprice tick toward the outcome (Polymarket leg <= 50-150 ms); the hazard doubles when the Polymarket touch of the outcome is moving (22% per 500 ms with a > 0.5 bp tick while o's ask falls, 2% with neither); decision-level hazard frozen on the exam feeds: AUC 0.656 vs Polymarket-activity baseline 0.598 out of sample (+0.058, CI [0.041, 0.076]); historically presence on block seconds 0.875 vs 0.819."
+   "description": "Decision = submission of a pre-signed ladder order ~250-350 ms after a Binance USD-M / OKX / Bybit microprice tick toward the outcome (Polymarket leg <= 50-150 ms); ~1.45 decisions per filled order (lost races rest at the old ask and fill as maker in 46%): the bot is SELECTIVE - at the top 1% of the decoded hazard it decides ~23% of the time while other takers take ~80% of the instants it skips; its own slots, other assets, a stale-quote edge and visible depth do not explain the skips. Decision-level hazard frozen on the exam feeds: AUC 0.656 vs 0.598 out of sample (0.728 on decisions incl. lost races, lab feeds); historically presence on block seconds 0.875 vs 0.821 for a stronger market baseline (+0.054, CI [0.051, 0.056])."
   },
   "side": {
    "confidence": 0.6,
    "tag": "VALIDATE-only",
-   "description": "Per decision (live): the microprice vote over [m-600, m-100) ms, 85.2% on the fourth interval (stable by strength: 70% / 80% / 90% / 97% for 1 / 2 / 3-4 / 5+ agreeing series); exam-feed six-series vote 85.4% on 68% of decisions; pre-registered full-coverage fallbacks (Polymarket ask moves, underdog) 70.6-78.2% in sample; at the block clock 72.7% per order. The side does not reference the operator's book (+0.2 points) nor the exact-strike fair value. Its fair value is consistent with pricing at Deribit implied vol (DVOL ~2.1x the 5-min realized vol), which explains the underdog tilt (hypothesis)."
+   "description": "Per decision (live): the microprice vote over [m-600, m-100) ms, the SAME for won races (80.6%) and lost races (80.5% at the insertion; 63 / 84 / 86 / 95% by strength); exam-feed six-series vote 85.4% on 68% of decisions; pre-registered full-coverage fallbacks 70.6-78.2% in sample; at the block clock 72.7% per order. No wallet is one-sided beyond its order-count null (XM 24.3% vs 26.1% on VALIDATE, 3.5% vs 6.1% on 10-31), so the side condition does not bind in substance. The side does not reference the operator's book, an exact-strike FV or a stale-quote edge; the underdog tilt is consistent with an implied-vol FV (hypothesis)."
   },
   "price": {
    "confidence": 0.9,
    "tag": "VALIDATE-only",
-   "description": "Limit = the touch it saw 50-150 ms before the match (74-75% exact live, 95.1% within a tick on VALIDATE calldata; trivial touch anchor, stated as such); 16% of orders deliberately 1+ c above the touch (GF 27%, XM 38-46%, DS 9-10%; more for large orders and late in the window). The pay-up share rises with the implied-vol FV above the touch (12-14% -> 23%; X42)."
+   "description": "Limit = the touch it saw 50-150 ms before the match (74-75% exact live, 95.1% within a tick on VALIDATE calldata; trivial touch anchor, stated as such); maker-first orders are the same limits after a lost race (the ask 150-1,000 ms before the insertion, which the order then rests at); 16% of taker orders deliberately 1+ c above the touch (not the depth-cover level: 17.6%)."
   },
   "size": {
    "confidence": 0.7,
    "tag": "VALIDATE-only",
-   "description": "Fixed (small, large) menu per day; the large size follows the OPERATOR's own net on the outcome (own state): large when flat or adding (GF 59-77%, XM 59-83%), small when the order would reduce an opposite position (12-15%); within-wallet AUC GF 0.75, XM 0.67, DS 0.58 vs market controls 0.35-0.55 and a market-trend analog 0.52; large orders lose 1-2 c per share after fees."
+   "description": "Fixed (small, large) menu per day; the large size follows the OPERATOR's own net on the outcome (own state): large when flat or adding, small when reducing an opposite position; within-wallet AUC GF 0.75, XM 0.67, DS 0.58 (0.77 / 0.70 / 0.59 with the fourth wallet W4 in the net) vs market controls 0.35-0.55; large orders come with thin visible books (weak, under-powered) and lose 1-2 c per share after fees. XM's 60-share class on 10-31 is its late-leg size (lost races), not a passive component. Live (10-31, 50 large orders; hypothesis): the large size is more likely on strong ticks (within-wallet AUC of the 500-ms tick toward o DS 0.62, GF 0.71, XM 0.81; P(large | fee-aware edge > 0) 20% vs 3.4%): a public decision-level component the block clock blurs; pre-registered test on 11-01 06-12."
   },
   "exit": {
    "confidence": 0.9,
    "tag": "VALIDATE-only",
-   "description": "Taker remainders rest as GTC for at most a few seconds and are cancelled; every position is held to resolution (no sells, merges, splits); 87% of shares end paired in complete sets at a pair cost of 0.979; REDEEM per window; TAKER_REBATE = 0.5 x the previous day's taker fees; one in-flight order per wallet (refractory >= 120 ms), so decisions fan out across wallets."
+   "description": "Taker remainders (38% of taker-first orders on 10-31) and lost races rest as GTC bids at the old ask for seconds; 46% of remainders get a maker fill (10-31), then the rest is cancelled; every position is held to resolution (no sells, merges, splits); 87% of shares end paired at 0.979; REDEEM per window; TAKER_REBATE = 0.5 x the previous day's taker fees; one in-flight order per wallet, so decisions fan out across wallets and XM, the last leg, loses most races."
   }
  },
- "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth) wallets in every BTC 5-minute Up/Down window. It pre-signs a ladder of BUY orders on both outcomes at every cent three times per window [VALIDATE-only] and submits one about 250-350 ms after a microprice tick of the Binance USD-M / OKX / Bybit BTC and ETH perps toward an outcome, more often while the Polymarket touch is moving [VALIDATE-only], at the touch it saw 50-150 ms earlier, deliberately 1+ c higher in 16% of orders [VALIDATE-only]. The side is the tick direction (85% per decision on live development data, 97% on strong ticks, 70% on single-series ticks) [VALIDATE-only]; the size is small unless the operator's own book is flat or long the outcome [VALIDATE-only, own state]; each wallet carries one order at a time, so a decision fans out across wallets [VALIDATE-only]. Remainders are cancelled within seconds; positions are held to resolution; 87% of shares end in complete sets bought at 0.979 [VALIDATE-only]. Income = locked sets (~2.1 c per pair) and the 50% taker-fee rebate; the large-size overlay loses money [VALIDATE-only]. Nothing is exam-verified; the weak-tick decisions (31-45% of live decisions) remain unexplained [hypothesis: an unrecorded fast stream; recording since 10-31 17:45].",
+ "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs a ladder of BUY orders on both outcomes at every cent three times per window [VALIDATE-only] and submits one about 250-350 ms after a microprice tick of the Binance USD-M / OKX / Bybit BTC and ETH perps toward an outcome, at the touch it saw 50-150 ms earlier, deliberately 1+ c higher in 16% of orders [VALIDATE-only]. It is selective: about 1.45 decisions per filled order, and at the instants its decoded trigger flags most strongly it acts about one time in four while other fast takers take the liquidity [VALIDATE-only; what selects those instants is a hypothesis-level open question]. The side is the tick direction (85% per decision on live development data, 97% on strong ticks; the same for races it wins and races it loses) [VALIDATE-only]; a lost race rests at the old ask and fills as maker about half the time, which is where half of its 10-31 maker fills (and XM's 91% maker share) come from [VALIDATE-only]. The size is small unless the operator's own book is flat or long the outcome [VALIDATE-only, own state]; each wallet carries one order at a time, so a decision fans out across wallets [VALIDATE-only]. Positions are held to resolution; 87% of shares end in complete sets bought at 0.979 [VALIDATE-only]. Income = locked sets (~2.1 c per pair) and the 50% taker-fee rebate; the large-size overlay loses money [VALIDATE-only]. Nothing is exam-verified. The PnL condition is attainable in principle (true-rule test-retest ceiling 0.74-0.80 pooled) and is bound by decision overlap.",
  "target_metrics": {
   "presence_auc": 0.8747,
-  "presence_baseline": 0.8193,
+  "presence_baseline": 0.8211,
   "selection_auc": 0.8693,
   "selection_recall": 0.6858,
   "selection_lift": 4.625,
@@ -5900,14 +6827,15 @@
  },
  "target_metrics_notes": {
   "presence_unit": "BLOCK SECONDS (iteration 5): seconds without a Polygon block (1 in 3) cannot hold a fill; chain clock fitted per hour; 100% of VALIDATE fills inside; models retrained on BUILD block seconds (model_it5_blk_*). Gain +0.0554, 2-h block bootstrap 95% CI [0.0524, 0.0582], p < 0.0005; halves +0.055 / +0.055; wallets GF 0.8745/0.8098, XM 0.8927/0.825, DS 0.8571/0.8047. All-seconds unit (pre-registered in iteration 1): 0.9132 vs pure 0.8781 (+0.035, CI [0.0337, 0.0364]).",
-  "presence_baseline": "PURE market-activity model (iteration 5); the iteration 2-4 baseline 0.8889 contained Binance fair-value gaps",
+  "presence_baseline": "Iteration 9: the STRONGER of my two market-activity baselines on VALIDATE block seconds: the iteration-5 pure baseline (0.8193) augmented with dm1, dm2, the other outcome's tape state and the Up + Down ask sum (blkaug9.py: 0.8211); gain of the frozen full model +0.0536, 2-h block bootstrap [0.0506, 0.0563]; per wallet GF +0.063, XM +0.066, DS +0.051.",
   "side": "window-level one-sided share 0.2% pooled (DS 0.2%, GF 3.1%, XM 24.3%): the side condition does not apply pooled; per-second side reported",
   "price_within_tick": "taker fills vs the last implied ask from others' prints (last 2 VALIDATE hours); no public book history before 10-31",
   "pnl_corr": "executable strict-fill replay (latency >= 2 s, observed liquidity); the volume proxy gives 0.439 / 0.414",
   "selection": "size classes + cell score; baseline = size classes + pure market cell score",
   "iteration6": "price_within_tick = calldata touch on the 7 sampled VALIDATE hours (6,306 taker orders; trivial touch anchor measured on the match, not a PIT forecast; tape anchor 53%; live book 93%). presence/selection/side/pnl unchanged from iteration 5. Side: XM is one-sided in 24.3% of its windows (condition likely applies to XM: 80.6% where pooled one-sided, 72.7% on all XM one-sided seconds). PnL correlation ceiling: sibling wallets correlate 0.00-0.20 with each other per window.",
   "iteration_7": "Iteration 7: target_metrics unchanged (best rule unchanged on VALIDATE); pnl_corr 0.1755 is the strict-fill (>= 2 s, 30 shares) replica, whose oracle ceiling with the wallet's own decisions is 0.14 / 0.21; live decision-level side reported separately (side_accuracy_live_decision).",
-  "iteration8": "VALIDATE target_metrics unchanged (historical rule unchanged). Live development (not VALIDATE, not counted): exam-feed side vote 85.4% on 68% of decisions (16:33-17:55); pre-registered full-coverage side 70.6% / 78.2% in sample; decision-level presence (frozen exam-feed hazard) 0.656 vs a Polymarket-activity baseline 0.598 out of sample (gain +0.058, CI [0.041, 0.076]). Executable PnL: no size rule lifts the replica (0.13-0.18)."
+  "iteration8": "VALIDATE target_metrics unchanged (historical rule unchanged). Live development (not VALIDATE, not counted): exam-feed side vote 85.4% on 68% of decisions (16:33-17:55); pre-registered full-coverage side 70.6% / 78.2% in sample; decision-level presence (frozen exam-feed hazard) 0.656 vs a Polymarket-activity baseline 0.598 out of sample (gain +0.058, CI [0.041, 0.076]). Executable PnL: no size rule lifts the replica (0.13-0.18).",
+  "iteration9": "Historical rule unchanged; presence_baseline now the stronger baseline. Side: no wallet is one-sided beyond its order-count null (XM 24.3% vs 26.1%), so the side condition does not bind in substance; side_accuracy keeps the per-one-sided-second value. PnL: the true-rule test-retest ceiling is 0.74 [0.71, 0.76] pooled at q = 0.61 (DS 0.62, GF 0.73, XM 0.59): attainable in principle; the replica's 0.18 is a decision-overlap gap."
  },
  "catalog_open_after_iteration8": [
   "X5",
@@ -5922,5 +6850,25 @@
   "X51",
   "X53",
   "X57"
+ ],
+ "catalog_open_after_iteration9": [
+  "X5",
+  "X7",
+  "X9",
+  "X18",
+  "X26",
+  "X27",
+  "X33",
+  "X36",
+  "X37",
+  "X44",
+  "X51",
+  "X53",
+  "X57",
+  "X59",
+  "X60",
+  "X66",
+  "X70",
+  "X72"
  ]
 }

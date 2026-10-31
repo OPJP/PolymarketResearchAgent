@@ -1,5 +1,5 @@
 {
- "generated_at": 1793478654,
+ "generated_at": 1793478910,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -108,8 +108,8 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 9,
-   "minutes": 583.9,
-   "hypotheses": 117,
+   "minutes": 565.9,
+   "hypotheses": 118,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9132,
    "best_rule": "it9: unchanged frozen rule of iteration 8 (code/final_rule.py); iteration 9 added measurements, no new rule component",
@@ -118,7 +118,7 @@
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 3
+   "panels": 4
   },
   {
    "key": "elmcap2-carry",

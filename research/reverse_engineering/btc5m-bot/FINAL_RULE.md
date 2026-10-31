@@ -1,12 +1,14 @@
-# btc5m-bot: frozen rule (iteration 8)
+# btc5m-bot: frozen rule (iteration 9; the scored rule is unchanged since iteration 8, one pre-registered secondary added)
 
-Target status on VALIDATE: scope met; presence met in the block-second unit (0.875, +0.055 over a pure market baseline,
-CI > 0); price within a tick met (95.1% of VALIDATE taker orders against the touch of the same match, from calldata; the
-trivial touch anchor, stated as such); side not met where it likely applies (XM, one-sided in 24.3% of its windows:
-72.6% per one-sided second, 73.1% per taker order; per taker order pooled 72.7% at the block clock); executable PnL
-correlation 0.18 (< 0.5). Iteration 8 showed that no size rule lifts the executable replica (0.13-0.18 for every rule,
-including a size driven by the replica's own book): the PnL condition is bound by decision overlap at the block clock.
-Target not reached; nothing is exam-verified.
+Target status on VALIDATE: scope met; presence met in the block-second unit (0.875; +0.054 over the stronger of my two
+market baselines, 0.821, 2-h block CI [0.051, 0.056]; per wallet +0.051 to +0.066); price within a tick met (95.1% of
+VALIDATE taker orders against the touch of the same match, from calldata; the trivial touch anchor, stated as such); side
+76.7% per one-sided second (72.7% per taker order), below 80%, but no wallet is one-sided beyond its order-count null (XM
+24.3% vs 26.1% on VALIDATE, 3.5% vs 6.1% on 10-31), so the condition does not bind in substance (XM is above the literal
+20% bar on VALIDATE); executable PnL correlation 0.18 (< 0.5). Iteration 9 showed the PnL condition is attainable in
+principle: the true rule replayed under the race lottery would correlate 0.74 [0.71, 0.76] with the wallet pooled (0.59-0.73
+per wallet) at the measured fill rate per decision, so the 0.18 is a decision-overlap gap, not luck. Target not reached;
+nothing is exam-verified.
 
 Code: `code/final_rule.py`, `evaluate(start_ts, end_ts, intervals=None) -> dict` (with `intervals`, only windows that start
 in one of the `[a, b)` pairs count; live recordings are read through `iter_live(..., allow_sealed=ALLOW_SEALED)` with the
@@ -22,6 +24,12 @@ Live (future-block) components, all fitted or chosen on development blocks of 10
 - `evaluate` is a wrapper (iteration 8): if the historical pipeline cannot run (e.g. a day's Binance 1-s archive is not
   published yet), it returns the live components only (`_evaluate_live_only`) instead of failing; tested through the exam
   path on 10-31 16:35-17:05 (development).
+- `presence_live_decision.edge_rule_V8` (iteration 9, PRE-REGISTERED secondary, never counted toward the target; constants
+  `EDGE_K = 8`, `EDGE_SIGMA_BP = 0.67`, `EDGE_FEE_NET = 0.035`, `EDGE_MOVE_WIN_MS = (600, 100)`): act on o iff 8 x 100 x
+  Delta_o x (mean BTC microprice move toward o over [t - 600, t - 100) ms) exceeds 100 x (half spread + 0.035 p (1 - p)),
+  Delta_o = phi(Phi^-1(mid_o)) / (sigma sqrt(tau)); precision and recall for the match label against the frozen hazard at the
+  same volume. On the exam feeds of 10-31: lift 1.5 / 7.7 / 3.1 on 16:04-16:33 / 16:35-17:05 / 17:05-17:55 (unstable); first
+  clean test 11-01 06-12. The frozen rule itself is unchanged.
 Exam inputs recorded through the sealed blocks: `code/rec_exam7.py` (btc5m_xclob / btc5m_xven, 10-31 16:03 -> 11-02 06:00),
 `code/rec_exam8.py` (the same recorder as btc5m_xclob8 / btc5m_xven8, 11-02 05:59 -> 11-03 18:00: weekday sealed blocks
 11-02 06-12 and 18-24, 11-03 00-06 and 12-18) and `code/rec_fam8.py` (btc5m_xfam: Binance USDC-M and COIN-M perps, spot
@@ -74,14 +82,21 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    more cents ABOVE the touch (GF 27%, XM 38-46%, DS 9-10%; the same shares on VALIDATE and 10-31; 18 of 21 live pay-up
    orders had seen the consumed touch, so it is not a stale view). The pay-up share rises with the implied-vol fair value
    above the touch (12-14% when the FV is below the touch, 23% when it is > 10 c above), a weak reservation-price
-   behaviour rather than a clean FV - margin limit.
+   behaviour rather than a clean FV - margin limit. Pay-up is not the level where the visible depth covers the order
+   (17.6%; iteration 9). The value the decisions imply (iteration 9, hypothesis on 140 pairs): opposite-outcome legs within
+   1 s bracket the Polymarket mid shifted by the venue move (midpoint - mid follows the 500-ms Binance move, corr 0.94 on 20
+   moving pairs), and 42% of those pairs cost more than 1: the legs answer successive opposite ticks; they are not set
+   arbitrage at a static value.
 6. **Size - VALIDATE-only (own state).** A fixed (small, large) menu per day, the same at every price: 60/100 (10-09..13),
    30/50 (10-15..18), 30/100 (10-19..22 and 10-31). Which size is used follows the OPERATOR'S OWN BOOK in the window: the
    large size is used when the three wallets together are flat or long the bought outcome (GF 59-77%, XM 59-83% of orders)
    and rarely when the order would reduce an opposite position (net < -200 shares: GF 12%, XM 15%, DS 10%). Within-wallet
    VALIDATE AUC (BUILD-fitted): GF 0.751, XM 0.666, DS 0.578 vs market controls 0.489 / 0.353 / 0.546 and a market-trend
    analog (BTC return since the open) 0.52. Large orders lose 1.1-1.9 c per share after fees. Report without own state:
-   the size is not predictable (within-wallet 0.44-0.59, iteration 7).
+   the size is not predictable (within-wallet 0.44-0.59, iteration 7). Iteration 9: the operator's book includes the fourth
+   wallet W4 (14% of the flow): with W4 in the net the AUC is GF 0.771, XM 0.703, DS 0.591. Live (10-31, 50 large orders;
+   hypothesis) the large size is also more likely on strong ticks (within-wallet AUC of the 500-ms tick 0.62-0.81), which the
+   block clock does not show (0.45-0.55); pre-registered test on 11-01 06-12.
 7. **Exit / inventory - VALIDATE-only.** 59% of taker orders leave a remainder; it rests as a GTC bid for at most a few
    seconds and is cancelled. Holds every position to resolution: no sells, merges, splits or conversions; REDEEM once per
    window; TAKER_REBATE once a day = exactly 0.5 x the previous day's taker fees; MAKER_REBATE once a day. 87.4% of the
@@ -92,6 +107,21 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    on 2+ wallets, usually 1 c apart); DS goes first in ~80%. The number of legs rises weakly with the trigger strength
    (12-16% -> 22-25%; AUC 0.64-0.67 vs 0.61-0.63 for activity).
 
+9. **The decision record: lost races, selectivity - VALIDATE-only (live development block 10-31 12-18; iteration 9).**
+   Every cluster order is a decision at the touch. Of 1,041 located insertions of orders whose first fill was a maker fill,
+   80% are LOST RACES: the order's limit was o's ask within 300 ms (60%) or 1 s (20%) before it reached the book, someone
+   else took that ask first (other takers 53%, the operator's own earlier legs 19%, a maker requote 28%), and the order then
+   rested at the old ask. The vote at those insertions is 80.5% (63 / 84 / 86 / 95% by strength), the same as at won races
+   (80.6%). A resting remainder or lost race gets a maker fill 46% of the time before its cancel, so the bot makes ~1.45
+   decisions per filled order: it is SELECTIVE, not a race lottery. At the top 1% of the decoded hazard it decides ~23% of the
+   time (17% at the top 3%), while another taker buys the outcome in ~80% of the flagged instants it skips; its own busy
+   slots, other assets (none: the process is BTC-5m-only), a stale-quote edge and the visible depth do not explain the skips.
+   XM's 91% maker share and 60-share class on 10-31 are its place at the end of the fan-out (late legs that lose the race,
+   vote 79.8%), not a passive quoting component. What selects the decisions among flagged instants is the open part: taken
+   vs skipped flagged instants are separated at AUC 0.58 by every recorded public input (0.60 with the operator's own set
+   state; a fee-aware edge "8 x Delta x move > half spread + net fee" marks a 6-10x hazard step but reaches 13% of decisions).
+   The PnL condition would need ~68% of the decisions reproduced (r ~ overlap x 0.74).
+
 ## VALIDATE metrics (2026-10-16..23; target thresholds in brackets)
 
 | metric | VALIDATE | target |
@@ -99,6 +129,9 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
 | scope: fills / abs PnL in the rule's universe | 100% / 100% (every BTC 5m window) | >= 80% (met) |
 | presence AUC over BLOCK seconds, no own state, `model_it5_blk_full` | **0.8747** (GF 0.875, XM 0.893, DS 0.857; halves 0.875 / 0.873) | >= 0.85 (met) |
 | PURE market-activity baseline on the same bins | 0.8193 -> gain **+0.055**, 2-h block bootstrap 95% CI [0.052, 0.058] | gain >= 0.05, CI > 0 (met with my baseline) |
+| STRONGER baseline (pure + dm1, dm2, the other outcome's tape state, Up + Down ask sum; iteration 9) | 0.8211 -> gain **+0.054**, CI [0.051, 0.056]; GF +0.063, XM +0.066, DS +0.051; halves +0.053 / +0.053 | met (not yet: bot-size print counts, W4 removed) |
+| one-sided windows vs order-count null (side applicability) | XM 24.3% vs 26.1%, GF 3.1% vs 3.7%, DS 0.2% vs 0.7% (10-31: 3.5 / 6.3 / 0.7% vs 6.1 / 6.8 / 1.6%) | condition applies at >= 20% |
+| PnL test-retest ceiling of the TRUE rule (race lottery, r = 1 - (1 - q) kappa; iteration 9) | pooled 0.74 [0.71, 0.76] at q = 0.61, 0.80 at q = 0.70; DS 0.62, GF 0.73, XM 0.59 (q = 0.61) | shows 0.5 is attainable |
 | presence over ALL seconds (unit pre-registered in iteration 1) | 0.9132 vs pure 0.8781 (+0.035) | |
 | selection (size classes + cell score) | AUC 0.869, recall 68.6% at lift 4.63 (pure baseline 0.846) | met; gain 0.023 < 0.05 |
 | side, pooled one-sided seconds (n = 90,170) | 76.7% (taker 79.4%); market-only 63.2%; own-inventory-only (short leg) 51.0%; side model + own state 75.5% | >= 80% where it applies |
@@ -142,6 +175,9 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   the fair value of the 5-minute digital; ~250-350 ms later the bot lifts the ask before the makers (mostly complementary
   BUY orders, i.e. the other side of a mint) reprice, and it does so most often while the Polymarket touch is already
   moving. Each pre-signed order is one HTTP submission; one order in flight per wallet is why it runs several wallets.
+  It competes with a crowd of fast takers: at the instants its trigger flags most strongly another taker buys the outcome
+  ~80% of the time, and a race the bot loses leaves its order resting at the old ask, where it is filled as a maker about
+  half the time (no taker fee on that fill).
 - **What loses:** the large-size overlay. The bot uses its large size when its own book is flat or long the outcome, so the
   large orders build the window's unpaired position; they lose 1.1-1.9 c per share after fees and carry most of the
   per-window PnL variance (per-window PnL vs the unpaired part r = 0.93).
@@ -164,15 +200,23 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   sizes give 0.40). At the decoded latency the ceiling is 0.66-0.70 with the right size class, but the executable replica
   built from block-second decisions reaches 0.13-0.18 whatever its size rule (iteration 8): the gap is decision overlap.
   Live, at the decoded latency, the frozen hazard flagging as many 100-ms instants as the wallet's matches catches only
-  8.2% of them (lift 2.75): the trigger is necessary but not sufficient.
+  8.2% of them (lift 2.75): the trigger is necessary but not sufficient. Iteration 9 showed this is not a lottery wall: the
+  true rule replayed would correlate 0.74 pooled (0.59-0.73 per wallet) with the wallet (the model reproduces the measured
+  split-half correlations exactly), and the bot makes only ~1.45 decisions per filled order. Closing the gap needs the
+  selection rule among the instants the trigger flags (the bot takes ~1 in 4-5 of them; others take most of the rest).
 - The weekend regime: quiet one-sided seconds are 28% on weekend days vs 15% on weekdays (VALIDATE), and the live
   weak-vote share was 44-56% on Saturday; the first future-block exam (weekend sealed blocks) will be scored in that regime.
 - The live side: per decision strength it is stable (90-97% on strong votes) but the weak / no-vote decisions (31-45% of
   live decisions) are 64-80% at best, and their Polymarket fallbacks were not stable between intervals; the full-coverage
   rule is pre-registered and untested out of sample. At the block clock every decision scores 72-79%.
-- Presence passes only in the block-second unit (+0.055 over my pure baseline); the examiner's own baseline may be
-  stronger. Selection gain over the pure baseline is +0.023 (< 0.05). The decision-level hazard gains +0.058 out of sample
-  but at an AUC of 0.66.
+- Presence passes only in the block-second unit (+0.055 over my pure baseline, +0.054 over the stronger baseline of
+  iteration 9 with the other outcome's state and 1-2 s price changes; DS +0.051 is closest to the bar); the examiner's own
+  baseline may be stronger still (bot-size print counts, sub-second intensities and W4's prints are not yet in mine).
+  Selection gain over the pure baseline is +0.023 (< 0.05). The decision-level hazard gains +0.058 out of sample but at an
+  AUC of 0.66 (0.73 when lost races count as decisions, lab feeds).
+- Maker fills: half of the 10-31 filled shares are maker fills of lost races; their limit is the ask the bot saw 150-1,000
+  ms before the order reached the book, which a historical (block-clock) rule cannot see. The 95.1% price figure covers
+  taker orders only.
 - Price uses the touch of the match itself (calldata) for historical lots: it measures the decoded rule, not a PIT
   forecast of the touch; live, the recorded book 50 ms before the match gives 75% exact and 93% within a tick.
 - The size rule uses own state (the operator's net); without own state the size is not predictable.

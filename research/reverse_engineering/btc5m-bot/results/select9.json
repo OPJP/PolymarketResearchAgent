@@ -1,0 +1,12 @@
+{
+ "flagged_A": 1794,
+ "flagged_C": 1094,
+ "P(dec|flagged) A / C": [
+  0.2709,
+  0.2038
+ ],
+ "auc_C_public": 0.5777,
+ "auc_C_public+own_set_state": 0.6021,
+ "auc_C_own_set_state_only": 0.601,
+ "auc_C_full_score_within_flagged": 0.5702
+}

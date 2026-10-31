@@ -1,0 +1,375 @@
+{
+ "interval": [
+  1793458456,
+  1793469300
+ ],
+ "orders": 2427,
+ "first_role": {
+  "T": 1336,
+  "M": 1091
+ },
+ "calldata_share": 1.0,
+ "T_first": {
+  "n": 1336,
+  "with_remainder": 504,
+  "remainder_share": 0.3772,
+  "pi_rem": 0.4583,
+  "pi_rem_by_wallet": {
+   "DS": [
+    0.4747,
+    356
+   ],
+   "GF": [
+    0.4508,
+    122
+   ],
+   "XM": [
+    0.2692,
+    26
+   ]
+  }
+ },
+ "truth_remainder_insertion": {
+  "n": 502,
+  "found_share": 0.9243,
+  "lag_ms_q": [
+   -37.699999999999996,
+   -20.5,
+   -17.0
+  ]
+ },
+ "M_first": {
+  "n": 1087,
+  "found_share": 0.9577,
+  "ambiguous_share(>1 cand)": 0.5695,
+  "class": {
+   "passive": 711,
+   "lost_race": 330,
+   "not_found": 46
+  },
+  "class_by_wallet": {
+   "DS": {
+    "passive": 314,
+    "lost_race": 97,
+    "not_found": 14
+   },
+   "GF": {
+    "passive": 153,
+    "lost_race": 65,
+    "not_found": 10
+   },
+   "XM": {
+    "passive": 244,
+    "lost_race": 168,
+    "not_found": 22
+   }
+  },
+  "class_by_wallet_size": {
+   "DS_30": {
+    "passive": 301,
+    "lost_race": 91,
+    "not_found": 10
+   },
+   "DS_100": {
+    "passive": 13,
+    "lost_race": 6,
+    "not_found": 4
+   },
+   "GF_30": {
+    "passive": 142,
+    "lost_race": 53,
+    "not_found": 4
+   },
+   "GF_100": {
+    "lost_race": 12,
+    "passive": 9,
+    "not_found": 6
+   },
+   "XM_30": {
+    "passive": 31,
+    "lost_race": 10,
+    "not_found": 3
+   },
+   "XM_60": {
+    "passive": 200,
+    "lost_race": 146,
+    "not_found": 17
+   },
+   "XM_100": {
+    "passive": 13,
+    "lost_race": 12,
+    "not_found": 2
+   }
+  },
+  "lost_race_at_other_lags": {
+   "L>=ask50": 0.172,
+   "L>=ask150": 0.4063,
+   "L>=ask300": 0.5524
+  },
+  "passive_below_ask_c_q": [
+   1.0,
+   2.0,
+   4.0
+  ],
+  "passive_vs_bid_c": {
+   "-5.0": 5,
+   "-4.0": 4,
+   "-3.0": 3,
+   "-2.0": 69,
+   "-1.0": 123,
+   "0.0": 264,
+   "1.0": 151,
+   "2.0": 53,
+   "3.0": 16,
+   "4.0": 12,
+   "5.0": 11
+  },
+  "gap_ins_to_fill_s_q": {
+   "lost_race": [
+    0.03779999999999999,
+    0.448,
+    7.271000000000007
+   ],
+   "passive": [
+    0.008,
+    0.335,
+    6.043
+   ]
+  },
+  "ins_minus_sign_s_q": {
+   "lost_race": [
+    15.221499999999999,
+    69.345,
+    116.42600000000003
+   ],
+   "passive": [
+    13.728,
+    67.731,
+    121.574
+   ]
+  }
+ },
+ "vote": {
+  "won_race_match": {
+   "n": 1326,
+   "covered": 1326,
+   "voted_share": 0.7828,
+   "agree_on_voted": 0.8064,
+   "by_strength": {
+    "1": [
+     0.709,
+     323
+    ],
+    "2": [
+     0.7461,
+     193
+    ],
+    "3-4": [
+     0.8395,
+     299
+    ],
+    "5+": [
+     0.9552,
+     223
+    ]
+   },
+   "placebo": 0.5185,
+   "by_wallet": {
+    "DS": [
+     0.8128,
+     0.7786,
+     926
+    ],
+    "GF": [
+     0.7941,
+     0.8047,
+     338
+    ],
+    "XM": [
+     0.7778,
+     0.7258,
+     62
+    ]
+   }
+  },
+  "lost_race_insertion": {
+   "n": 330,
+   "covered": 330,
+   "voted_share": 0.8,
+   "agree_on_voted": 0.8144,
+   "by_strength": {
+    "1": [
+     0.6429,
+     84
+    ],
+    "2": [
+     0.8367,
+     49
+    ],
+    "3-4": [
+     0.8767,
+     73
+    ],
+    "5+": [
+     0.9655,
+     58
+    ]
+   },
+   "placebo": 0.402,
+   "by_wallet": {
+    "DS": [
+     0.7368,
+     0.7835,
+     97
+    ],
+    "GF": [
+     0.8113,
+     0.8154,
+     65
+    ],
+    "XM": [
+     0.8593,
+     0.8036,
+     168
+    ]
+   }
+  },
+  "passive_insertion": {
+   "n": 711,
+   "covered": 711,
+   "voted_share": 0.7131,
+   "agree_on_voted": 0.6469,
+   "by_strength": {
+    "1": [
+     0.5393,
+     191
+    ],
+    "2": [
+     0.6496,
+     117
+    ],
+    "3-4": [
+     0.7018,
+     114
+    ],
+    "5+": [
+     0.8118,
+     85
+    ]
+   },
+   "placebo": 0.4762,
+   "by_wallet": {
+    "DS": [
+     0.6175,
+     0.6911,
+     314
+    ],
+    "GF": [
+     0.5905,
+     0.6863,
+     153
+    ],
+    "XM": [
+     0.7135,
+     0.7582,
+     244
+    ]
+   }
+  },
+  "M_first_at_first_fill": {
+   "n": 1041,
+   "covered": 1041,
+   "voted_share": 0.683,
+   "agree_on_voted": 0.571,
+   "by_strength": {
+    "1": [
+     0.5281,
+     303
+    ],
+    "2": [
+     0.5472,
+     159
+    ],
+    "3-4": [
+     0.6087,
+     161
+    ],
+    "5+": [
+     0.6932,
+     88
+    ]
+   },
+   "placebo": 0.4909,
+   "by_wallet": {
+    "DS": [
+     0.5979,
+     0.6837,
+     411
+    ],
+    "GF": [
+     0.5948,
+     0.7018,
+     218
+    ],
+    "XM": [
+     0.5307,
+     0.6723,
+     412
+    ]
+   }
+  },
+  "XM60_insertion": {
+   "n": 346,
+   "covered": 346,
+   "voted_share": 0.7717,
+   "agree_on_voted": 0.7978,
+   "by_strength": {
+    "1": [
+     0.65,
+     80
+    ],
+    "2": [
+     0.7746,
+     71
+    ],
+    "3-4": [
+     0.8873,
+     71
+    ],
+    "5+": [
+     0.9556,
+     45
+    ]
+   }
+  }
+ },
+ "gate_ask_change_500_100": {
+  "won_race": {
+   "n": 1326,
+   "fell": 0.2134,
+   "unch": 0.5415,
+   "rose": 0.2451
+  },
+  "lost_race_insertion": {
+   "n": 330,
+   "fell": 0.1939,
+   "unch": 0.4697,
+   "rose": 0.3364
+  }
+ },
+ "decisions": {
+  "T_first": 1336,
+  "M_lost": 330,
+  "M_passive": 711,
+  "M_unclassified": 50,
+  "pi_rem": 0.4583,
+  "decisions_est": 2835.8,
+  "filled_orders": 2427,
+  "q_fill_per_decision": 0.8558,
+  "q_by_wallet": {
+   "DS": 0.9242,
+   "GF": 0.8723,
+   "XM": 0.509
+  }
+ }
+}

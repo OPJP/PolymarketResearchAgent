@@ -1,0 +1,118 @@
+{
+ "flagged": 2011,
+ "P(decision)": 0.1735,
+ "distinct_takers_at_skipped": 516,
+ "top10_share_of_skipped_takers": 0.1975,
+ "top_competitors": [
+  {
+   "w": "0x1f19c48a",
+   "at_skipped": 129,
+   "at_decided": 43
+  },
+  {
+   "w": "0x1b414826",
+   "at_skipped": 120,
+   "at_decided": 31
+  },
+  {
+   "w": "0x9c61c69f",
+   "at_skipped": 111,
+   "at_decided": 41
+  },
+  {
+   "w": "0x5d634050",
+   "at_skipped": 100,
+   "at_decided": 42
+  },
+  {
+   "w": "0x26d76c9b",
+   "at_skipped": 97,
+   "at_decided": 56
+  },
+  {
+   "w": "0xeebde7a0",
+   "at_skipped": 91,
+   "at_decided": 45
+  },
+  {
+   "w": "0xb9587c37",
+   "at_skipped": 80,
+   "at_decided": 20
+  },
+  {
+   "w": "0x3b840769",
+   "at_skipped": 75,
+   "at_decided": 23
+  },
+  {
+   "w": "0x75cc3b63",
+   "at_skipped": 73,
+   "at_decided": 17
+  },
+  {
+   "w": "0xd40fe989",
+   "at_skipped": 73,
+   "at_decided": 12
+  }
+ ],
+ "competitor_recent_2s_effect": [
+  {
+   "w": "0x1f19c48a",
+   "P(dec|recent)": 0.1538,
+   "n_recent": 839,
+   "P(dec|not)": 0.1877
+  },
+  {
+   "w": "0x1b414826",
+   "P(dec|recent)": 0.1733,
+   "n_recent": 450,
+   "P(dec|not)": 0.1736
+  },
+  {
+   "w": "0x9c61c69f",
+   "P(dec|recent)": 0.1786,
+   "n_recent": 599,
+   "P(dec|not)": 0.1714
+  },
+  {
+   "w": "0x5d634050",
+   "P(dec|recent)": 0.187,
+   "n_recent": 631,
+   "P(dec|not)": 0.1674
+  },
+  {
+   "w": "0x26d76c9b",
+   "P(dec|recent)": 0.1923,
+   "n_recent": 624,
+   "P(dec|not)": 0.1651
+  },
+  {
+   "w": "0xeebde7a0",
+   "P(dec|recent)": 0.1498,
+   "n_recent": 621,
+   "P(dec|not)": 0.1842
+  }
+ ],
+ "P(decision) by number of distinct other takers in the last 2 s": {
+  "0": [
+   0.6667,
+   6
+  ],
+  "1": [
+   0.2273,
+   22
+  ],
+  "2": [
+   0.0345,
+   29
+  ],
+  "3": [
+   0.1842,
+   38
+  ],
+  "4": [
+   0.1975,
+   81
+  ]
+ }
+}
