@@ -1,0 +1,53 @@
+{
+ "market_markouts": {
+  "fit_10-10..19": {
+   "n": 3168,
+   "active_share": 0.703,
+   "auc": 0.5244
+  },
+  "test_10-20..26": {
+   "n": 1728,
+   "active_share": 0.521,
+   "auc": 0.4738
+  },
+  "validate_10-27..30": {
+   "n": 1141,
+   "active_share": 0.948,
+   "auc": 0.4797
+  }
+ },
+ "own_markouts": {
+  "fit_10-10..19": {
+   "n": 2846,
+   "active_share": 0.781,
+   "auc": 0.546
+  },
+  "test_10-20..26": {
+   "n": 1345,
+   "active_share": 0.668,
+   "auc": 0.4747
+  },
+  "validate_10-27..30": {
+   "n": 1151,
+   "active_share": 0.945,
+   "auc": 0.4871
+  }
+ },
+ "switch_offs": [
+  {
+   "t": "10-24 22:30",
+   "mkt_ret_12": -0.0015,
+   "mkt_ret_36": 0.0119,
+   "own_ret_12": -0.2635
+  }
+ ],
+ "switch_ons": [
+  "10-25 13:30"
+ ],
+ "baseline_active_windows": {
+  "mkt_ret_12_median": 0.0008,
+  "mkt_ret_12_p10": -0.0255,
+  "own_ret_12_median": 0.0399,
+  "own_ret_12_p10": -0.3122
+ }
+}

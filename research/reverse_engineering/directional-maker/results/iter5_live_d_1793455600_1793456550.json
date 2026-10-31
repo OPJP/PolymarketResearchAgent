@@ -1,0 +1,68 @@
+{
+ "period": [
+  1793455600,
+  1793456550
+ ],
+ "requotes": {
+  "all": 0,
+  "near": 0,
+  "near_same_price_share": NaN,
+  "near_dq_counts": {},
+  "cancel_to_add_ms_q": {
+   "0.1": NaN,
+   "0.5": NaN,
+   "0.9": NaN
+  }
+ },
+ "interval_hist_near_50ms": {},
+ "interval_q_near": {
+  "0.1": NaN,
+  "0.25": NaN,
+  "0.5": NaN,
+  "0.75": NaN,
+  "0.9": NaN
+ },
+ "interval_hist_all_50ms": {},
+ "interval_q_all": {
+  "0.1": NaN,
+  "0.25": NaN,
+  "0.5": NaN,
+  "0.75": NaN,
+  "0.9": NaN
+ },
+ "direction": {
+  "futtrade_0-100": [
+   0,
+   null
+  ],
+  "futtrade_0-250": [
+   0,
+   null
+  ],
+  "futtrade_50-250": [
+   0,
+   null
+  ],
+  "futtrade_0-500": [
+   0,
+   null
+  ],
+  "futtrade_250-1000": [
+   0,
+   null
+  ],
+  "futtrade_1000-3000": [
+   0,
+   null
+  ],
+  "own_touch_250": [
+   0,
+   null
+  ],
+  "own_touch_1000": [
+   0,
+   null
+  ]
+ },
+ "near_up_requotes_with_down_requote_within_50ms": 0.0
+}

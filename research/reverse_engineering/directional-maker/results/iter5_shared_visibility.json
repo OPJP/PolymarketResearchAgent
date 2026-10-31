@@ -1,0 +1,22 @@
+{
+ "deltas": {
+  "500": 235,
+  "1000": 122,
+  "1500": 65,
+  "-500": 200,
+  "-1000": 97,
+  "-1500": 67
+ },
+ "visibility": {
+  "2": {
+   "bursts": 481,
+   "exact_delta_seen": 0.114,
+   "delta_ge_seen": 0.64
+  },
+  "3": {
+   "bursts": 415,
+   "exact_delta_seen": 0.101,
+   "delta_ge_seen": 0.571
+  }
+ }
+}

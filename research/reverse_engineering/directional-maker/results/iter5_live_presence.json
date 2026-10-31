@@ -1,0 +1,10 @@
+{
+ "windows": 6,
+ "bins": 360,
+ "pos_rate": 0.078,
+ "test_bins": 180,
+ "activity(act10,rel,bb)": 0.7563,
+ "activity+futures_edge": 0.7446,
+ "activity+observed_cluster_quote_gap": 0.6849,
+ "all": 0.6797
+}

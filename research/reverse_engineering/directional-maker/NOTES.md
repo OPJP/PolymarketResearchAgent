@@ -646,3 +646,156 @@ archived as `code/final_rule_r2.py`).
   EOAs of almach and bosona from their wrapped signatures (ERC-1271) and search for the same signer elsewhere.
   (4) Coinbase / OKX ms trades and a composite (A2), cross-asset moves (A4), Kalshi (A4b), matching-engine events
   (A8, X7), hazard / HMM models (D2), an own sub-second replay (D3).
+
+### Iteration 5 (2026-10-31, local Windows laptop, started 13:59 UTC; 225 of 1,200 budget minutes used before it)
+
+Read first: NOTES, state.json, FINAL_RULE.md, panels/iter4_{information,mechanics,assumptions}.md, EXAM.md. The 16 panel
+proposals are catalog items X10-X25 (state.json). Split unchanged (BUILD < 2026-10-27, STUDY = 10-23..26 case by case,
+VALIDATE = 10-27..30 aggregate only; development live blocks after T0 = extra description data). Primary metric unchanged.
+Shared recorder running (pid 27184). Own raw-event recorder `code5/rawrec.py` started 14:04 UTC (restarted 14:06 to add
+the futures aggTrade stream, which Binance now serves only under `fstream.binance.com/market/stream`; the old
+`/stream` path delivers bookTicker only), hard stop 18:00 UTC (end of this development block), feeds `dm_*`.
+
+**Competing explanations (iteration 5) and what separates them**
+1. H1 fast fair-value requoter (E1): quotes = f(Binance futures fair) re-signed every ~1 s; edge = spread minus a
+   smaller adverse selection than slower makers. Separates: its fingerprinted quotes in the raw book move within a
+   fixed lag (tens to hundreds of ms) after futures moves; quote prices sit at fair - h, not at the touch.
+2. H2 book-pegged back-of-queue joiner (panel P2/P5): it joins the best bid (price set by the book, not by fair) and is
+   filled only when a taker clears the level; edge = level-clearing takers are large uninformed sweeps. Separates:
+   P(cluster in the match | the hit clears the level) >> P(... | not clearing); its quote = best bid whatever the fair.
+3. H3 post-only race at the touch (panel Q3): most signed orders never rest; it fires post-only orders at the new touch
+   right after a reprice and is the youngest order there. Separates: posted/signed << 1 at its size class; adds live
+   < 1-2 s and cluster 100-500 ms after futures moves.
+4. H4 settlement-informed (E3): prices off Chainlink TWAP-60 vs the true priceToBeat. Separates: in windows where the
+   Binance proxy outcome is wrong, its late net side follows the true outcome (panel I5); RTDS-based fair beats the
+   futures fair on quote residuals.
+5. H5 risk controller (panel Q5): markets and size classes are switched by rolling markouts. Separates: switch-offs
+   follow drops of market-wide or own markouts; on/off AUC from markouts > 0.7.
+6. H6 cross-outcome round-tripper: profit is buying both outcomes cheaply at different moments (pair cost 0.89 in busy
+   periods), with a flatten-and-merge exit (panel P4). Separates: its complement bids tighten as the held side's
+   average cost falls; exact-size complement taker buys after adverse moves.
+7. H7 one cross-market engine (panel Q1): BTC 15m/hourly/4h and ETH/SOL quotes are the same function with horizon
+   parameters; BTC 15m loses. Separates: per-family price/side rules transfer; coverage needs the union.
+This iteration discriminates H1/H2/H3 with the raw recorder (live, development block) and the historical
+level-clearing test, H4 with the disagreement windows, H6 with the flatten rule, H7 with coverage by family.
+
+**Data added (iteration 5).** (1) Own raw-event recorder `code5/rawrec.py` (tools/live.py Writer, dev/sealed by block, feeds
+`dm_*`, hard stop 18:00 UTC, disk cap 280 MB, ~12 MB per 40 min for the CLOB feed): every CLOB market-channel message of the
+current and next BTC 5m and the current BTC 15m window (price_change rows of the Up token, book snapshots, last trades with
+tx hash, server ms); Binance USD-M futures bookTicker (`/stream`, every size change from 14:22:43) and aggTrade (served only
+under `fstream.binance.com/market/stream` now: the old path returns bookTicker only), Binance spot, Coinbase ticker, OKX
+swap, Bybit perp, Hyperliquid, and RTDS with one connection per topic reconnected every 25 s, staggered (~99% second
+coverage vs ~52% in the shared feed; the `crypto_prices` subscription returns nothing). Read with `code5/rawread.py`, which
+splits files at real gzip member starts (a member cut by a restart keeps its complete lines; my first reader lost whole
+members). Restarts at 14:06 and 14:22 (feed fixes) and 14:41 (detached, so it survives the iteration; status in
+`.cache/re/directional-maker/rawrec_status.json`). (2) Cluster activity of the block and calldata of its live txs, plus
+calldata of all 797 trades of 14:10-14:13 UTC. (3) BTC 15m windows and taker tapes 2026-10-09..30
+(`.cache/re/directional-maker/t15/`, 148 MB, `code5/fetch15.py`).
+
+**Historical tests (development data; VALIDATE aggregate only)**
+- **Q1 coverage (X21), `code5/coverage5.py`.** Cash-flow PnL per market (SELL + MERGE + REDEEM - BUY - SPLIT; redemptions
+  arrive ~90 s after the end). VALIDATE: BTC 5m 78.3% of fills / 68.6% of absolute PnL (+$23.0k, +3.9%); BTC 15m 8.5% /
+  20.5% (+$28.3k, +30.5% on dollars bought); BTC 5m + 15m 86.8% / 89.1%. STUDY: BTC 5m 53.6% / 55.5%; BTC 15m 9.1% / 19.2%
+  (-$6.3k, -13.3%); 80/80 needs six families (BTC 5m, 15m, hourly, XRP 5m, ETH 15m, BTC 4h: 82.7% / 92.4%). A BTC 5m-only
+  rule cannot meet the scope condition in quiet periods. `coverage_abs_pnl` of R3's universe on VALIDATE = 0.686.
+- **BTC 15m transfer (`code5/q1_15m.py`).** 94-97% maker; R3's price rule (last clean print - 0.01) is within one tick for
+  65.6% (STUDY) / 66.6% (VALIDATE) of its 15m maker fills (BTC 5m 70.9%); fills sit late in the window (median 718-726 s of
+  900, p10 331 / 72 s): the engine works the 15m window mostly in its last five minutes. Same engine, horizon parameter.
+- **P2(a) level clearing (X16), `code5/clear5.py`.** 938k bid hits in STUDY: P(cluster in the tx | the next hit on s is lower
+  = level cleared) 0.63% vs 0.85% when the level holds (stratified rate ratio 0.63); 83% of the cluster's prints are followed
+  by a hit at the same or a higher level. The strong form ("filled only when a hit uses up the level") is rejected. P(cluster)
+  rises with print size (4.8% for prints > 200 sh) and with volume already absorbed at the level (0.75% -> 1.27%).
+- **I5 settlement-disagreement windows (X14), `code5/disagree5.py`.** The Binance-TWAP proxy outcome is wrong in 1.8-2.6% of
+  windows. The cluster's net shares at end - 30 s follow the real outcome in 7/10 (STUDY), 18/30 (VALIDATE), 38/65 (BUILD) =
+  60% pooled (one-sided p ~0.02) while the last clean print follows it in 85% / 73%; near-strike decile 51% vs 80-85%. Over
+  all VALIDATE windows its late net side wins only 40.7% (its profit there came from paired shares). Not settlement-informed.
+- **P4 flatten (X18), `code5/flatten5.py`.** 219 STUDY / 621 VALIDATE BTC 5m taker buys: 72% / 83% buy the under-held side;
+  size = imbalance exactly in 46% / 42% (median ratio 1.0 / 0.80, p25 0.2: the one-fifth level); pair cost median 1.12 / 1.06
+  (10-90%: 0.82-1.42 / 0.72-1.32); median 176 / 115 s into the window; a MERGE follows in 17% / 51%. Taker-fill PnL +$215 /
+  +$422 (4% / 2% of the period PnL); maker-maker pairs are 89-90% of paired shares. Real but small.
+- **Q2 size in the PnL metric (X22), `code5/q2size5.py`.** VALIDATE (1,089 windows): per-share R3 rule 0.329 / 0.325; x public
+  clock size (500 in the weekday US session else 62) 0.321 / 0.283; x own-state size (largest own BTC 5m fill in the previous
+  30 min, reported separately) 0.341 / 0.288; ceiling (its own fills at one share) 0.688 / 0.780. On STUDY (inside R3's BUILD)
+  0.466 -> 0.499 / 0.520 with size. Size is not what keeps the PnL correlation below 0.5 on VALIDATE.
+
+**Live lab (development block 2026-10-31 14:04-14:45 UTC, quiet Saturday; descriptive, not VALIDATE)**
+1. **Sizes today: 500 with a 100 second level**, plus re-signed remainders (492.44, 76.38, 51.x): a partially filled order is
+   re-posted with the remainder. The clock schedule (62 at weekends) is contradicted.
+2. **Signed ~ posted (X17, X23).** Salt slopes 16.7-17.2 orders/s per wallet (51/s for three, all markets); exact-500 and
+   exact-100 adds in the three recorded BTC markets alone run at 7.1 + ~14 per second (sizes 499/501 almost never). Orders are
+   not post-only (one 500 BUY at 0.66 matched first as the taker, its remainder later as a maker, same salt).
+3. **The three-wallet signature.** Exact-500 adds come in bursts on the same side of a market within 20 ms: 1 add 49.5%,
+   2 adds 22.4%, **3 adds 27.4%, 4+ adds 0.6%**, 88% at one price. Bursts of 2-3 are the three copies of the engine posting
+   the same quote (3,460 bursts in 31 min, half in BTC 15m). The size class alone is shared with other makers (a resting 500
+   at the hit level raises P(cluster in the trade) only to 12.5% from 0.96%; `iter5_live_f`).
+4. **Its filled orders were posted just before the match** (`iter5_live_j`): an add of exactly the order's original size at
+   its level within 250 ms / 1 s / 5 s before the match for 29% / 46% / 80% of its 138 filled maker orders, vs 3.6% / 5.8% /
+   14.5% at the same level 20 s earlier (null); 63% were posted at the touch.
+5. **Requote cadence.** Each side's burst quote is re-posted about every second (median 0.98 s, p25 0.48 s, p75 1.9 s) at a
+   new price 96% of the time; cancel-to-re-add 15 ms; Up and Down are re-posted independently (0.4% within 50 ms).
+6. **Reference feed = Binance USD-M futures (X10, A2).** Direction of the next re-post vs each venue's move over the previous
+   window: near-touch 500/100 re-posts follow the futures bookTicker mid in 97% (50-250 ms, n 77; 0-500 ms 92.5%; 1-3 s 62%);
+   the cluster's bursts 89.5% (0-100 ms, n 38), 85.5% (0-250 ms), 51% (0.5-2 s). Bybit perp 57-74%, OKX swap 59-68%, Coinbase
+   41-53%, Binance spot 53-55%, Hyperliquid 40-53%; the futures microprice (size-weighted) 55-62%. But 94% of near-touch
+   re-posts follow no futures mid move in the previous 0.5 s (quiet market): between futures moves the re-posts follow the
+   Polymarket touch of the token (89% of 396 cases with a touch move in the previous 250 ms). Rerun on 14:06-15:00 UTC (55 min): near-touch re-posts agree with the futures mid move over 50-250 ms before in 91% (n 255; 0-100 ms 76%, n 115; 0-500 ms 89%, n 451; 1-3 s 55%), Bybit 70%, OKX 66%, Coinbase 52%, Binance spot 55%, Hyperliquid 48% (`iter5_live_c_1793455600_1793458800.json`): the reaction comes mostly 50-250 ms after the futures move.
+7. **Quote level.** Burst quotes: OLS q = -0.055 + 0.246 x futures fair + 0.688 x token mid (residual MAD 0.037, within one
+   tick 14.5%); q - mid median -0.075 (MAD 0.04), q - futures fair -0.080 (MAD 0.045, corr 0.93); 51% of burst quotes sit 8+
+   ticks below the touch and 5% at it. The gap widens near the end (q - fair -0.07 with > 2 min left, -0.18 at 60-120 s, -0.27
+   in the last minute) and above fair 0.8 (-0.19). The cluster's ladder rests well below the touch and is filled when the
+   market comes down to it. (Near-touch 500/100 adds fit fair - 0.02 with MAD 0.03, but that subset is selected on the touch.)
+8. **Quote state vs fills (`iter5_live_k`).** In 2,312 window-side seconds of four BTC 5m windows the cluster's latest burst
+   quote is at the token's best bid 3.9% of the time; P(fill in the next 10 s) is 28.9% then vs 10.0% otherwise (AUC 0.54);
+   its quote minus the best bid ranks fills at AUC 0.62, the futures edge at 0.59. Too few windows for a model yet; the
+   at-touch state explains only a small part of its fills.
+9. **Settlement source (A1, X12).** RTDS `crypto_prices_twap_sixty` stamped at the window end equals Gamma `finalPrice` to 4+
+   decimals (3/3 windows); the Chainlink 1-s mean over [end-60, end) equals the TWAP stamped one second later. Near-touch
+   quotes vs a Chainlink TWAP-60 fair: MAD 0.105 / corr 0.90 vs futures 0.037 / 0.97 (the +0.08 median offset of the Chainlink
+   fair needs a recheck of its stamping before it counts as more than indicative).
+
+**Verdicts on the iteration-5 explanations.** H1 (fast futures-fair requoter): supported in part: it follows Binance futures
+within ~250 ms when they move (85-97%), but its level is mostly anchored to the Polymarket mid (weight 0.69) with a fair
+component (0.25) and a time-left widening. H2 (book-pegged back-of-queue): the level-clearing form is rejected on the tape;
+the quote is book-anchored, though, and usually rests well below the touch. H3 (post-only race, signed >> posted): rejected.
+H4 (settlement-informed): not supported. H5 (markout controller): not tested. H6 (round-tripper with flatten): the flatten
+exit exists but carries 2-4% of PnL. H7 (one engine across horizons): supported (same price rule within 4 points in BTC 15m,
+the same burst quote stream in BTC 15m live, the 15m window worked in its last five minutes).
+
+- **Late addendum (live, 14:04-14:43 UTC).** The burst quotes form a ladder: within 1.5 s a side shows 2+ distinct burst
+  prices 65% of the time (2-4 ticks apart in 55% of those), and only 44% of bursts follow a 500-removal on the same side
+  within 50 ms, so each wallet keeps several 500-share rungs per side and re-posts them one by one. A held-out-in-time
+  LightGBM of the burst price on (futures fair, token best bid and ask, time left, horizon, side) is within one tick for
+  only 20.8% (MAD 0.04) of the later 40% of bursts, no better than "best bid - 7.5 ticks" (21.3%; `iter5_live_quotefit.json`).
+  So a single quote function of public inputs does not exist at tick precision: the next iteration should model the rung
+  structure (rung index, spacing, which rung is re-posted when) and the at-touch rung only.
+
+- **Skew vs own inventory (X20, live, own state, descriptive).** Burst quote minus the token mid: -0.085 when flat or long 1-200 shares, -0.18 when long > 200 (n 77), -0.105 / -0.125 when short (n 366 / 107); slope ~0 per 100 shares. It does not bid higher on the side it holds, so its "adds to the held side" pattern is not a quote skew.
+
+- **X13 DVOL (`code5/dvol5.py`).** Deribit DVOL 1-min for the lot (public API works). Fill prices vs a TWAP-60 digital fair: realised 1-s vol x 1.4 (fitted on STUDY) gives VALIDATE MAD 0.043 (per-day best k 1.0-1.4); DVOL x k is best at the grid edge k = 0.6 with MAD 0.062 and an unstable per-day k (DVOL/realised median 1.62). Its vol input is short-term realised vol scaled ~1.2-1.4, not implied vol.
+- **X25 markout controller (`code5/markout5.py`).** Trailing market-wide maker returns of the clean tape (12/36/72 resolved windows) predict window activity at AUC 0.524 (fit 10-10..19) / 0.474 (test 10-20..26) / 0.480 (VALIDATE agg.); own markouts 0.546 / 0.475 / 0.487. Rejected.
+- **Shared-feed visibility.** The shared recorder's 200-ms top-10 snapshots show exact +1000 / +1500 increments (122 / 65 in 20 min, neighbours ~0) but only 10-11% of the raw bursts appear as an exact increment (57-64% inside a larger change): a rule fed by the shared recorder sees the cluster's quotes only partly.
+- **Live presence pilot (`results/iter5_live_presence.json`).** Six BTC 5m windows (360 bins, about 14 positive test bins): too small to read; no conclusion.
+- Clock note: the detached recorder restart was at 14:41 UTC (not 14:48); the live analyses cover 14:04-14:45 UTC.
+
+- **A1_B3b last-60-s lock-in.** Fills in [end-60, end): prices fit a TWAP-60 lock-in fair (known part of the closing average + remaining spot) far better than a spot-only fair (MAD 0.068 vs 0.141 STUDY, 0.087 vs 0.138 VALIDATE agg.); where the two favourites disagree, 64% (n 39) / 67% (n 294) of its fills are on the lock-in favourite. It prices the partly observed closing TWAP and withdraws (quotes 0.18-0.27 below the fair in the last two minutes live; fills fall to a third in the last 30 s).
+
+- **C8 bot fingerprint search.** Polymarket's V2 migration docs: the signed `timestamp` is the order-creation ms and replaces the nonce as the uniqueness check; the official V2 SDKs default metadata/builder to zero bytes. The cluster's timestamp 0 with a sequential salt therefore means a custom signer. `gh search` for public Polymarket market makers and BTC 5m Up/Down bots (0xbrutusdev/polymarket-5min-crypto-trading-bot, miracle709/polymarket-market-maker-bot, KaustubhPatange/polymarket-trade-engine, and others) found no salt counter, timestamp 0 or 500/100 defaults. No public match.
+
+- **A8 / X7 operational events.** status.polymarket.com/history lists for 10-09..31 only: 10-27 Perpetuals maintenance 08-09 UTC, 10-29 CLOB maintenance 05-06 UTC, 10-29 security incident 17:38-18:15 UTC and cancel-only 18:05-19:05 UTC. None is on the dates of the BTC 5m off-switches (10-17/18, 10-18/19, 10-23/24, 10-24/25) or of the ad-hoc counter restarts (10-26, 10-28). Not the cause.
+
+## Iteration-5 checkpoint
+- Primary metric unchanged at **0.716** (R3; no new rule this iteration). The paradigm moved from fills to observed quotes:
+  the cluster's own quote events are visible in the raw book (three-wallet 500-bursts), and the reference feed and its
+  latency are identified (Binance USD-M futures, <= 250 ms). The quote level is not decoded to a tick yet (residual MAD
+  0.037), which is what a quote-state rule needs.
+- Target metrics: R3 values unchanged; `coverage_fills` 0.783 and `coverage_abs_pnl` 0.686 measured for BTC 5m on VALIDATE
+  (BTC 5m + 15m: 0.868 / 0.891).
+- tools/live.py notes: the shared rtds feed's `written` counter is never incremented (records exist); `iter_live` stops at
+  a gzip member cut by a restart (zlib.error not caught); `code5/rawread.py` handles both for the dm_ feeds.
+- Next (iteration 6): (1) keep `code5/rawrec.py` running in development blocks (it stops at 18:00 UTC; restart it with
+  `--until <block end>` in the next development block, 2026-11-01 06:00-12:00 UTC) and fit the burst-quote law
+  q = f(futures fair(t - lag), token mid / touch, time left, inventory) to a tick on one block, test it on the next (D3
+  replay); (2) the examinable route: a rule whose inputs are the shared recorder's books (200 ms) and Binance futures aggTrades
+  archives (public the next day), predicting the cluster's quote and P(at the touch); (3) extend R3 to BTC 15m (tapes
+  fetched) to reach 80/80 scope on VALIDATE; (4) open items X11 (match clock), X13 (DVOL), X19, X20 (skew vs inventory), X24
+  (fast makers' maker rows), X25 (markout controller), A8/X7 (engine events), D2 (hazard/HMM), C8 (GitHub bots).

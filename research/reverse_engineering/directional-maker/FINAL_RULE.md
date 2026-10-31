@@ -1,30 +1,28 @@
-# directional-maker: frozen rule R3 (iteration 4)
+# directional-maker: frozen rule R3 (iteration 4, kept in iteration 5)
 
 Rule id: **R3-presence-lgbm-refit-build4-clock**. Code: `code/final_rule.py` (`evaluate(start_ts, end_ts, intervals=None)`,
 pooled and per wallet), features `code/features2.py`, selection helpers `code/sel2.py`. Frozen model files next to the
 code: `presence3_rule.txt` (rule), `presence3_activity.txt` (market-activity-only baseline), `presence3_own.txt`
-(own-inventory variant, reported separately), `selection2_all.txt` / `selection2_activity.txt` with `THETA_SEL` (R2's,
-unchanged). The previous rule R2 (examined in round 1) is archived unchanged as `code/final_rule_r2.py`.
-
-What changed from R2: the presence models are refitted on BUILD = 2026-10-09..26 (the old BUILD and VALIDATE plus the
-first half of the released lot) with R2's features and LightGBM parameters, plus three clock inputs (UTC hour,
-weekday, US-session flag = weekday 12:00-21:00 UTC). Chosen on the new VALIDATE = 2026-10-27..30 (the lot's second
-half, aggregate metrics only). Scope: BTC 5m Up/Down windows (about 55% of the cluster's fills), the three wallets
-(bosona, almach, mo-money) pooled, with per-wallet metrics.
+(own-inventory variant, reported separately), `selection2_all.txt` / `selection2_activity.txt` with `THETA_SEL`. The rule
+reads no live recording (`ALLOW_SEALED = False` is kept for the examiner's driver). Iteration 5 did not change the rule:
+it moved the investigation from fills to the cluster's observed quotes in the raw book (development block 2026-10-31),
+which is where the next rule has to come from. Scope: BTC 5m Up/Down windows, the three wallets (bosona, almach,
+mo-money) pooled, with per-wallet metrics.
 
 ## Components (tags: exam-verified / VALIDATE-only / hypothesis)
 
 | component | what the cluster does | tag | evidence |
 | --- | --- | --- | --- |
-| Engine | One engine signs every order of the three wallets: per-wallet sequential salt counter, `timestamp`, `metadata` and `builder` left at 0, restarted together daily at 01:00 UTC (plus ad-hoc restarts). | VALIDATE-only | B1 calldata of all 34,606 lot transactions that filled it (NOTES iteration 4) |
-| Selection | BTC 5m is switched on or off inside the running engine: on in weekday US hours, off overnight or at weekends on some days (10-23 21:00 to 10-24 15:25, 10-24 23:00 to 10-25 13:33 UTC); 94.5% of VALIDATE windows active. The switch is not a restart and has no public correlate beyond the clock. | hypothesis | salt counter keeps running at the same rate while BTC 5m is off; clock features add +0.002 AUC |
-| Timing | Continuous requoting, 10-23 orders/s per wallet, faster when Binance moves (Spearman 0.67). Its fills are exposed only to Binance moves of the last ~0.25-1.5 s (the average other maker 3-5 s). It is not the fastest maker: at levels holding a competing order under 0.5 s old it is almost never at the top (pilot book from all matches of 10-26 13:00-13:30). Orders rest at the open; it stops about 30 s before the end. | VALIDATE-only (STUDY ms data) | takers' signing ms as match clock; aggTrades; all-match calldata |
-| Side | Bids the side its fair value says the market underprices (strongest at the open: spot vs the new strike), adds to the side it holds. Rule: side with the higher predicted presence. | exam-verified (partial) | VALIDATE 0.663 vs 0.613 activity-only; exam r1 0.655 vs 0.600 |
-| Price | 0.01 grid at the best bid. Rule: last clean print on s minus 0.01. | exam-verified (partial) | within one tick 0.709 VALIDATE (exam r1 0.688); live pilot: fill = best bid in 11/15 |
-| Size | Clock schedule: 500 shares on weekdays 12:00 to ~21:00 UTC, 62 (or 250) at night and at weekends, plus a one-fifth level (100 / 12 / 50). Size does not depend on the edge within a session. | VALIDATE-only | original sizes from calldata (STUDY 75.7% / 65.3% on schedule; VALIDATE 70.4% / 38.8% + 25.7% at 250) |
-| Exit | Holds to resolution; occasional merges; adds to the held side. | hypothesis | REDEEM / MERGE rows |
+| Engine | One engine signs every order of the three wallets: per-wallet sequential salt counter, `timestamp`, `metadata` and `builder` 0, restarted together daily at 01:00 UTC. About 17 signed orders/s per wallet (10-31). The three wallets post the same quote within 20 ms (same-side bursts of exactly 2-3 adds: 27% triplets, 0.6% of 4+). Orders are not post-only. | VALIDATE-only (counter); hypothesis (bursts, live block) | B1 calldata of the lot; `code5/live5k.py` |
+| Selection | One engine over crypto Up/Down. BTC 5m is 78% of VALIDATE fills and 69% of absolute PnL; BTC 5m + 15m 87% / 89% (STUDY 54% / 56% and 63% / 75%). The BTC 15m window is worked mostly in its last five minutes with the same price rule (within one tick 66% vs 71% in BTC 5m). Which BTC 5m windows are switched on is a runtime switch with no public correlate yet. | hypothesis | `results/iter5_coverage.json`, `iter5_q1_15m.json` |
+| Timing | Each wallet re-posts every quote about once a second (median 0.98 s per side, cancel-to-re-add 15 ms, a new price 96% of the time); Up and Down independently. When the Binance USD-M futures mid moves, the next re-post moves the same way within 50-250 ms (91% of 255 near-touch re-posts over 55 min, 85-97% in sub-samples; Bybit 70%, OKX 66%, Coinbase, Binance spot and Hyperliquid 48-55%); between futures moves the re-posts follow the Polymarket touch (89%). Its filled orders were posted 0-5 s before the match (46% within 1 s vs 6% at random). It stops about 30 s before the end. | VALIDATE-only (STUDY ms clocks); hypothesis (live block) | `iter5_live_c/d/g/j/k_*.json` |
+| Side | Up and Down are quoted independently; it is filled on the side whose rung reaches the best bid, i.e. the side the futures fair says the market underprices. Rule: side with the higher predicted presence. | exam-verified (partial) | VALIDATE 0.663 vs 0.613 activity-only; exam round 1 0.655 vs 0.600 |
+| Price | Fill tape: 0.01 grid at the best bid; rule = last clean print on s minus 0.01. Quotes (live): a ladder of 500-share rungs about 7.5 cents below the token's mid (q = -0.055 + 0.69 mid + 0.25 futures TWAP-60 fair, residual MAD 0.037), deeper near the end of the window and above fair 0.8; rung prices are not predictable to a tick from public inputs (held-out 21%). | exam-verified (partial) for the fill rule; hypothesis for the ladder | within one tick 0.709 VALIDATE, 0.688 exam; `iter5_live_quotefit.json` |
+| Size | Runtime size class with a one-fifth level: 500/100 on Saturday 10-31, 62/12 or 250/50 on other days (not a clock schedule); several 500 rungs per side; a partially filled order is re-posted with its remainder (492.44, 76.38, ...). Size does not depend on the edge. | VALIDATE-only (calldata); hypothesis (live) | calldata of the lot and of the live block |
+| Exit | Holds to resolution. Taker-buys the under-held complement (72-83% of its BTC 5m taker buys), sized to the imbalance or one fifth of it, at a pair cost of 1.06-1.12, then merges in 17-51% of those windows: a loss cap that carries only 2-4% of PnL; maker-maker pairs are ~90% of paired shares. | VALIDATE-only | `results/iter5_flatten.json` |
+| Information | Reference = Binance USD-M futures (bookTicker mid). Not settlement-informed: its late inventory follows the true outcome in 60% of the windows where the Binance proxy is wrong (market 73-85%); a Chainlink TWAP-60 fair explains its quotes worse than the futures fair (MAD 0.105 vs 0.037). Settlement = RTDS `crypto_prices_twap_sixty` at the window end (= Gamma finalPrice, 3/3). | VALIDATE-only (disagreement windows, aggregate); hypothesis (live) | `iter5_disagree.json`, `iter5_live_h_*.json` |
 
-## The rule (all parameters constant)
+## The rule (all parameters constant; unchanged since iteration 4)
 
 1. Tape hygiene: drop every data-api taker print in a transaction where a cluster wallet traded, and the cluster's own
    taker prints.
@@ -39,62 +37,42 @@ half, aggregate metrics only). Scope: BTC 5m Up/Down windows (about 55% of the c
 
 ## VALIDATE metrics (2026-10-27..30, 1,152 windows, 27,988 cluster maker fills; `results/iter4_r3_validate_*.json`)
 
-| metric | R3 | frozen R2 on the same days | target |
-| --- | --- | --- | --- |
-| presence AUC, no own state (primary) | **0.716** | 0.705 | >= 0.85 |
-| market-activity-only baseline (same BUILD) | 0.685 (gain +0.032) | 0.673 | gain >= 0.05 |
-| with own inventory (separate) | 0.747 | 0.740 | |
-| within active windows | 0.708 | 0.698 | |
-| side accuracy, 6,339 one-sided fill bins | **0.663** | 0.652 | >= 0.80 |
-| side baseline (activity-only model) / own-inventory model | 0.613 / 0.70 | 0.600 | |
-| price within one tick / exact | **0.709** / 0.359 | same | >= 0.80 |
-| per-window PnL corr, Pearson / Spearman (1,089 windows) | **0.329 / 0.325** | 0.264 / 0.303 | >= 0.5 |
-| selection AUC / within-window / recall / lift (R2 model) | 0.685 / 0.639 / 29.5% / 2.87 | same | 0.80 / 50% / 3 |
-| per wallet presence (bosona / almach / mo-money) | 0.712 / 0.706 / 0.705 | | |
-| per wallet side | 0.655 / 0.666 / 0.654 | | |
-| per wallet price within tick | 0.710 / 0.706 / 0.710 | | |
-| per wallet PnL corr Pearson | 0.302 / 0.290 / 0.316 | | |
-| wallets' own BTC 5m maker return | +4.3% | | |
+| metric | R3 | target |
+| --- | --- | --- |
+| presence AUC, no own state (primary) | **0.716** | >= 0.85 |
+| market-activity-only baseline (same BUILD) | 0.685 (gain +0.032) | gain >= 0.05 |
+| with own inventory (separate) | 0.747 | |
+| side accuracy, 6,339 one-sided fill bins | **0.663** (activity 0.613, own inventory 0.70) | >= 0.80 |
+| price within one tick / exact | **0.709** / 0.359 | >= 0.80 |
+| per-window PnL corr, Pearson / Spearman (1,089 windows) | **0.329 / 0.325** (x size class: 0.321-0.341 / 0.283-0.288; ceiling 0.688 / 0.780) | >= 0.5 |
+| selection AUC / recall / lift | 0.685 / 29.5% / 2.87 | 0.80 / 50% / 3 |
+| coverage of fills / of absolute PnL (BTC 5m) | 0.783 / 0.686 (BTC 5m + 15m: 0.868 / 0.891) | 0.80 / 0.80 |
+| per wallet presence (bosona / almach / mo-money) | 0.712 / 0.706 / 0.705 | |
+| wallets' own BTC 5m maker return | +4.3% | |
 
-The high-accuracy target is not met. Why it is capped (VALIDATE aggregate): even with an oracle for the bin's own
-future taker flow, a presence model reaches only 0.68 (0.73 with R3's features). In active windows 89.5% of bins
-have bids hit on the side, but the cluster is filled in 11.7% of them. The missing variable is whether its bid is at
-the top of the book at that moment, which the historical tape cannot show. Only books (the live lab, recording since
-2026-10-31 12:18 UTC) or a book rebuilt from every match's calldata can.
+The high-accuracy target is not met. Where the gap is (iteration 5): the fill is decided by whether one of its ladder rungs
+stands at the price a taker reaches. The rung prices are visible in the raw book but are not a tick-precise function of
+the public inputs tried (futures fair, the token's book, time left: 21% within a tick on held-out time). The historical
+tape shows neither the rungs nor the book.
 
 ## Why it works
 
-It is a fast (though not the fastest) liquidity provider. It earns the spread from many dispersed takers whose orders
-are larger than the tape's typical print, and it avoids most of the stale-quote losses that the average maker takes.
-Sub-second makers own the freshly repriced levels; the cluster is filled where its price stands alone or ahead of
-older orders. On 2026-10-26, measured
-with each taker's own signing millisecond: other makers' bids are hit right after adverse Binance moves (12.5% of
-their fills follow an adverse move of more than $5 in the last second, 7.2% within 250 ms). The cluster's fills are
-exposed only to the last ~0.25-1.5 s (9.8% and 4.1%), because it re-signs its quotes 10-23 times a second and faster
-when Binance moves. Its quotes track a TWAP-60 fair value of Binance (best explained by the futures price at the match
-time) with a skew toward the side the market underprices, most clearly right after the open. It scales size with the
-clock: 500-share orders in weekday US hours, when its return is highest (+4.7% STUDY, +5.1% VALIDATE on dollars
-bought), and 62-250 at night and at weekends (+0.4% / +3.3%). In the busy second half of the lot most of the profit
-came from round trips across the two outcomes: the shares it ends up holding on both sides of a window cost 0.89 per
-pair on average (+$38.1k, +11.0% on $347k of paired dollars), while the unpaired directional remainder lost $14.4k
-(-7.3%). In the quiet first half the directional part carried the profit (+4.6%). It sits at the best price but
-usually behind part of the queue (first at its level in 31% of multi-maker matches), so it is filled when larger or
-repeated taker orders use up the orders ahead of it. It is not paid for liquidity rewards ($0.81 in nine days) and
-only a little for rebates ($5.0k, 8% of the lot PnL). The losers are the slower makers whose stale bids absorb the
-informed flow, and the takers who cross its spread in both directions during a window without a speed edge.
+It is a liquidity provider whose ladder is anchored to the Polymarket book and pulled along by the Binance USD-M futures
+price faster than the average maker: its re-posts follow a futures move within 50-250 ms, while other makers' stale bids
+stay exposed for 3-5 s (STUDY ms clocks). It earns the spread from many dispersed and large takers: its fills come from
+larger prints than the tape's typical one and from prints that reach down to its rungs. In busy periods most of the profit
+came from buying both outcomes cheaply at different moments of a window (paired shares at 0.89 per pair, +11% on paired
+dollars), while the unpaired directional remainder lost. It is not paid for information about settlement (it prices off
+Binance futures, not Chainlink, and its late inventory is no better than the market's), not for liquidity rewards ($0.81
+in nine days), and only a little for rebates (8% of PnL). The losers are slower makers whose stale bids absorb the
+informed flow, and takers who cross its spread in both directions during a window.
 
 ## Can a normal user deploy it now
 
-Not from this rule. The public-data version (R2) lost 12.8% under strict fills at 2 s latency in exam round 1, on
-every day, because a quote that reacts in 2+ seconds is exactly the stale quote that takers pick off. The wallets'
-own edge persists (+3.95% exam lot, +4.3% on VALIDATE). It depends on:
-
-- sub-second requoting against Binance (spot or futures websocket) and the Polymarket CLOB: thousands of signed
-  orders per minute per wallet (10-23 per second), which needs a co-located or low-latency setup and an API rate
-  budget a home connection may not sustain;
-- being at the top of the book on the 0.01 grid ahead of competing makers;
-- capital for 500-share orders on both sides of several windows at once (roughly $50-150k turnover a day per wallet);
-- the conditions in the latest development data: unchanged fee rate (0.07), continuous listings, the 01:00 UTC restart.
-
-A replicator with a normal connection and computer should expect to be one of the slow makers this strategy profits
-from, so zero or a loss, unless they can requote within about a second of every Binance move.
+Not from this rule. The public-data version (R2) lost 12.8% under strict fills at 2 s latency in exam round 1, because a
+quote that reacts in 2+ seconds is the stale quote that takers pick off. The wallets' own edge persists (+3.95% exam lot,
++4.3% VALIDATE). It depends on: a Binance USD-M futures websocket feed and a Polymarket CLOB connection with re-posts within
+~250 ms (several 500-share rungs per side, re-posted about once a second, ~17 signed orders a second per wallet); capital
+for 500-share rungs on both sides of several BTC 5m and 15m windows at once; and unchanged fees (0.07 taker), listings and
+matching behaviour, which held on 2026-10-31. A replicator with a home connection and computer should expect to be one of
+the slower makers this strategy profits from: zero or a loss, unless they can match its re-post speed.

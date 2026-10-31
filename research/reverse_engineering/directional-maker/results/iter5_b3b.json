@@ -1,0 +1,35 @@
+{
+ "twap_lockin_study": {
+  "n": 1034,
+  "mad": 0.068,
+  "corr": 0.8618
+ },
+ "twap_lockin_validate": {
+  "n": 3071,
+  "mad": 0.087,
+  "corr": 0.7976
+ },
+ "spot_only_study": {
+  "n": 1185,
+  "mad": 0.1406,
+  "corr": 0.7285
+ },
+ "spot_only_validate": {
+  "n": 3690,
+  "mad": 0.1384,
+  "corr": 0.7114
+ },
+ "disagree_study": {
+  "n": 39,
+  "fill_on_lockin_favourite": 0.641,
+  "win_rate": 0.744
+ },
+ "disagree_validate": {
+  "n": 294,
+  "fill_on_lockin_favourite": 0.667,
+  "win_rate": 0.442
+ },
+ "last60_fill_share": {
+  "study": 1210.0
+ }
+}

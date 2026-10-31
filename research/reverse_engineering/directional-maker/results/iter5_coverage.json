@@ -1,0 +1,1270 @@
+{
+ "study": {
+  "almach": {
+   "by_family": {
+    "btc-5m": {
+     "fills": 2637,
+     "abs_pnl": 24403.3894,
+     "pnl": 649.9883,
+     "buy": 62621.4034,
+     "markets": 493,
+     "fill_share": 0.5154,
+     "abs_pnl_share": 0.5694,
+     "ret": 0.0104
+    },
+    "btc-15m": {
+     "fills": 503,
+     "abs_pnl": 7873.7348,
+     "pnl": -2074.6218,
+     "buy": 15067.3834,
+     "markets": 88,
+     "fill_share": 0.0983,
+     "abs_pnl_share": 0.1837,
+     "ret": -0.1377
+    },
+    "bitcoin-hourly": {
+     "fills": 349,
+     "abs_pnl": 1822.3978,
+     "pnl": -84.016,
+     "buy": 9036.879,
+     "markets": 85,
+     "fill_share": 0.0682,
+     "abs_pnl_share": 0.0425,
+     "ret": -0.0093
+    },
+    "xrp-5m": {
+     "fills": 281,
+     "abs_pnl": 1038.4467,
+     "pnl": 337.3203,
+     "buy": 1820.8791,
+     "markets": 185,
+     "fill_share": 0.0549,
+     "abs_pnl_share": 0.0242,
+     "ret": 0.1853
+    },
+    "eth-15m": {
+     "fills": 266,
+     "abs_pnl": 1170.4708,
+     "pnl": 113.6912,
+     "buy": 2472.573,
+     "markets": 136,
+     "fill_share": 0.052,
+     "abs_pnl_share": 0.0273,
+     "ret": 0.046
+    },
+    "btc-4h": {
+     "fills": 158,
+     "abs_pnl": 3262.5222,
+     "pnl": 304.7299,
+     "buy": 10876.4723,
+     "markets": 24,
+     "fill_share": 0.0309,
+     "abs_pnl_share": 0.0761,
+     "ret": 0.028
+    },
+    "ethereum-hourly": {
+     "fills": 146,
+     "abs_pnl": 430.4206,
+     "pnl": 63.4249,
+     "buy": 2361.2684,
+     "markets": 44,
+     "fill_share": 0.0285,
+     "abs_pnl_share": 0.01,
+     "ret": 0.0269
+    },
+    "sol-5m": {
+     "fills": 136,
+     "abs_pnl": 623.0297,
+     "pnl": 257.6116,
+     "buy": 970.0132,
+     "markets": 88,
+     "fill_share": 0.0266,
+     "abs_pnl_share": 0.0145,
+     "ret": 0.2656
+    },
+    "eth-5m": {
+     "fills": 133,
+     "abs_pnl": 700.5658,
+     "pnl": 131.6121,
+     "buy": 1439.7905,
+     "markets": 64,
+     "fill_share": 0.026,
+     "abs_pnl_share": 0.0163,
+     "ret": 0.0914
+    },
+    "ethereum-daily": {
+     "fills": 101,
+     "abs_pnl": 151.7763,
+     "pnl": 37.6715,
+     "buy": 2225.3885,
+     "markets": 4,
+     "fill_share": 0.0197,
+     "abs_pnl_share": 0.0035,
+     "ret": 0.0169
+    },
+    "bnb-hourly": {
+     "fills": 94,
+     "abs_pnl": 399.0879,
+     "pnl": 155.8308,
+     "buy": 1200.4908,
+     "markets": 40,
+     "fill_share": 0.0184,
+     "abs_pnl_share": 0.0093,
+     "ret": 0.1298
+    },
+    "solana-daily": {
+     "fills": 79,
+     "abs_pnl": 112.0567,
+     "pnl": -97.2294,
+     "buy": 1926.5749,
+     "markets": 4,
+     "fill_share": 0.0154,
+     "abs_pnl_share": 0.0026,
+     "ret": -0.0505
+    }
+   },
+   "cum_top": {
+    "btc-5m": {
+     "fill_share": 0.5154,
+     "abs_pnl_share": 0.5694
+    },
+    "btc-15m": {
+     "fill_share": 0.6138,
+     "abs_pnl_share": 0.7532
+    },
+    "bitcoin-hourly": {
+     "fill_share": 0.682,
+     "abs_pnl_share": 0.7957
+    },
+    "xrp-5m": {
+     "fill_share": 0.7369,
+     "abs_pnl_share": 0.8199
+    },
+    "eth-15m": {
+     "fill_share": 0.7889,
+     "abs_pnl_share": 0.8472
+    },
+    "btc-4h": {
+     "fill_share": 0.8198,
+     "abs_pnl_share": 0.9234
+    },
+    "ethereum-hourly": {
+     "fill_share": 0.8483,
+     "abs_pnl_share": 0.9334
+    },
+    "sol-5m": {
+     "fill_share": 0.8749,
+     "abs_pnl_share": 0.948
+    }
+   }
+  },
+  "bosona": {
+   "by_family": {
+    "btc-5m": {
+     "fills": 2950,
+     "abs_pnl": 22352.9268,
+     "pnl": 2628.4621,
+     "buy": 58569.6652,
+     "markets": 505,
+     "fill_share": 0.5345,
+     "abs_pnl_share": 0.5425,
+     "ret": 0.0449
+    },
+    "btc-15m": {
+     "fills": 475,
+     "abs_pnl": 8193.7944,
+     "pnl": -2141.6675,
+     "buy": 16123.1974,
+     "markets": 86,
+     "fill_share": 0.0861,
+     "abs_pnl_share": 0.1989,
+     "ret": -0.1328
+    },
+    "bitcoin-hourly": {
+     "fills": 375,
+     "abs_pnl": 1947.4096,
+     "pnl": -223.2168,
+     "buy": 9159.7474,
+     "markets": 82,
+     "fill_share": 0.0679,
+     "abs_pnl_share": 0.0473,
+     "ret": -0.0244
+    },
+    "xrp-5m": {
+     "fills": 296,
+     "abs_pnl": 1081.7446,
+     "pnl": 371.2602,
+     "buy": 1820.9397,
+     "markets": 202,
+     "fill_share": 0.0536,
+     "abs_pnl_share": 0.0263,
+     "ret": 0.2039
+    },
+    "eth-15m": {
+     "fills": 250,
+     "abs_pnl": 1172.5998,
+     "pnl": 114.2966,
+     "buy": 2477.2485,
+     "markets": 127,
+     "fill_share": 0.0453,
+     "abs_pnl_share": 0.0285,
+     "ret": 0.0461
+    },
+    "btc-4h": {
+     "fills": 195,
+     "abs_pnl": 3222.6022,
+     "pnl": -168.4138,
+     "buy": 11809.3893,
+     "markets": 24,
+     "fill_share": 0.0353,
+     "abs_pnl_share": 0.0782,
+     "ret": -0.0143
+    },
+    "ethereum-hourly": {
+     "fills": 155,
+     "abs_pnl": 393.43,
+     "pnl": 119.0642,
+     "buy": 2361.8829,
+     "markets": 43,
+     "fill_share": 0.0281,
+     "abs_pnl_share": 0.0095,
+     "ret": 0.0504
+    },
+    "sol-5m": {
+     "fills": 132,
+     "abs_pnl": 618.974,
+     "pnl": 179.3254,
+     "buy": 845.7343,
+     "markets": 94,
+     "fill_share": 0.0239,
+     "abs_pnl_share": 0.015,
+     "ret": 0.212
+    },
+    "eth-5m": {
+     "fills": 124,
+     "abs_pnl": 667.0693,
+     "pnl": 126.1921,
+     "buy": 1344.8269,
+     "markets": 62,
+     "fill_share": 0.0225,
+     "abs_pnl_share": 0.0162,
+     "ret": 0.0938
+    },
+    "bnb-hourly": {
+     "fills": 121,
+     "abs_pnl": 410.2254,
+     "pnl": 166.0355,
+     "buy": 1350.5021,
+     "markets": 48,
+     "fill_share": 0.0219,
+     "abs_pnl_share": 0.01,
+     "ret": 0.1229
+    },
+    "ethereum-daily": {
+     "fills": 118,
+     "abs_pnl": 165.5238,
+     "pnl": 1.5049,
+     "buy": 2620.4737,
+     "markets": 4,
+     "fill_share": 0.0214,
+     "abs_pnl_share": 0.004,
+     "ret": 0.0006
+    },
+    "solana-daily": {
+     "fills": 86,
+     "abs_pnl": 84.1606,
+     "pnl": -84.1606,
+     "buy": 2210.0956,
+     "markets": 4,
+     "fill_share": 0.0156,
+     "abs_pnl_share": 0.002,
+     "ret": -0.0381
+    }
+   },
+   "cum_top": {
+    "btc-5m": {
+     "fill_share": 0.5345,
+     "abs_pnl_share": 0.5425
+    },
+    "btc-15m": {
+     "fill_share": 0.6206,
+     "abs_pnl_share": 0.7413
+    },
+    "bitcoin-hourly": {
+     "fill_share": 0.6885,
+     "abs_pnl_share": 0.7886
+    },
+    "xrp-5m": {
+     "fill_share": 0.7422,
+     "abs_pnl_share": 0.8149
+    },
+    "eth-15m": {
+     "fill_share": 0.7875,
+     "abs_pnl_share": 0.8433
+    },
+    "btc-4h": {
+     "fill_share": 0.8228,
+     "abs_pnl_share": 0.9215
+    },
+    "ethereum-hourly": {
+     "fill_share": 0.8509,
+     "abs_pnl_share": 0.9311
+    },
+    "sol-5m": {
+     "fill_share": 0.8748,
+     "abs_pnl_share": 0.9461
+    }
+   }
+  },
+  "momoney": {
+   "by_family": {
+    "btc-5m": {
+     "fills": 2888,
+     "abs_pnl": 22550.0651,
+     "pnl": 1472.8344,
+     "buy": 64077.6409,
+     "markets": 490,
+     "fill_share": 0.5566,
+     "abs_pnl_share": 0.554,
+     "ret": 0.023
+    },
+    "btc-15m": {
+     "fills": 458,
+     "abs_pnl": 7928.354,
+     "pnl": -2066.6313,
+     "buy": 15943.9137,
+     "markets": 94,
+     "fill_share": 0.0883,
+     "abs_pnl_share": 0.1948,
+     "ret": -0.1296
+    },
+    "bitcoin-hourly": {
+     "fills": 346,
+     "abs_pnl": 1962.3023,
+     "pnl": -224.5353,
+     "buy": 9498.4943,
+     "markets": 85,
+     "fill_share": 0.0667,
+     "abs_pnl_share": 0.0482,
+     "ret": -0.0236
+    },
+    "xrp-5m": {
+     "fills": 269,
+     "abs_pnl": 988.8471,
+     "pnl": 285.5021,
+     "buy": 1786.6668,
+     "markets": 182,
+     "fill_share": 0.0518,
+     "abs_pnl_share": 0.0243,
+     "ret": 0.1598
+    },
+    "eth-15m": {
+     "fills": 256,
+     "abs_pnl": 1186.4655,
+     "pnl": 146.2522,
+     "buy": 2423.8509,
+     "markets": 130,
+     "fill_share": 0.0493,
+     "abs_pnl_share": 0.0291,
+     "ret": 0.0603
+    },
+    "ethereum-hourly": {
+     "fills": 149,
+     "abs_pnl": 422.8797,
+     "pnl": -2.0511,
+     "buy": 2564.4942,
+     "markets": 42,
+     "fill_share": 0.0287,
+     "abs_pnl_share": 0.0104,
+     "ret": -0.0008
+    },
+    "btc-4h": {
+     "fills": 140,
+     "abs_pnl": 3061.1154,
+     "pnl": 166.0594,
+     "buy": 9570.2078,
+     "markets": 24,
+     "fill_share": 0.027,
+     "abs_pnl_share": 0.0752,
+     "ret": 0.0174
+    },
+    "sol-5m": {
+     "fills": 132,
+     "abs_pnl": 516.9662,
+     "pnl": 183.5164,
+     "buy": 939.6514,
+     "markets": 86,
+     "fill_share": 0.0254,
+     "abs_pnl_share": 0.0127,
+     "ret": 0.1953
+    },
+    "eth-5m": {
+     "fills": 120,
+     "abs_pnl": 744.036,
+     "pnl": 336.8262,
+     "buy": 1595.8813,
+     "markets": 60,
+     "fill_share": 0.0231,
+     "abs_pnl_share": 0.0183,
+     "ret": 0.2111
+    },
+    "ethereum-daily": {
+     "fills": 96,
+     "abs_pnl": 191.7776,
+     "pnl": 46.2139,
+     "buy": 2011.0982,
+     "markets": 4,
+     "fill_share": 0.0185,
+     "abs_pnl_share": 0.0047,
+     "ret": 0.023
+    },
+    "bnb-hourly": {
+     "fills": 89,
+     "abs_pnl": 311.5493,
+     "pnl": 170.7235,
+     "buy": 1165.1616,
+     "markets": 43,
+     "fill_share": 0.0172,
+     "abs_pnl_share": 0.0077,
+     "ret": 0.1465
+    },
+    "solana-daily": {
+     "fills": 69,
+     "abs_pnl": 90.5354,
+     "pnl": -90.5354,
+     "buy": 1720.6954,
+     "markets": 4,
+     "fill_share": 0.0133,
+     "abs_pnl_share": 0.0022,
+     "ret": -0.0526
+    }
+   },
+   "cum_top": {
+    "btc-5m": {
+     "fill_share": 0.5566,
+     "abs_pnl_share": 0.554
+    },
+    "btc-15m": {
+     "fill_share": 0.6448,
+     "abs_pnl_share": 0.7487
+    },
+    "bitcoin-hourly": {
+     "fill_share": 0.7115,
+     "abs_pnl_share": 0.7969
+    },
+    "xrp-5m": {
+     "fill_share": 0.7633,
+     "abs_pnl_share": 0.8212
+    },
+    "eth-15m": {
+     "fill_share": 0.8127,
+     "abs_pnl_share": 0.8504
+    },
+    "ethereum-hourly": {
+     "fill_share": 0.8414,
+     "abs_pnl_share": 0.8608
+    },
+    "btc-4h": {
+     "fill_share": 0.8684,
+     "abs_pnl_share": 0.936
+    },
+    "sol-5m": {
+     "fill_share": 0.8938,
+     "abs_pnl_share": 0.9487
+    }
+   }
+  },
+  "pooled": {
+   "by_family": {
+    "btc-5m": {
+     "fills": 8475,
+     "abs_pnl": 69306.3814,
+     "pnl": 4751.2848,
+     "buy": 185268.7094,
+     "markets": 1488,
+     "fill_share": 0.5356,
+     "abs_pnl_share": 0.5555,
+     "ret": 0.0256
+    },
+    "btc-15m": {
+     "fills": 1436,
+     "abs_pnl": 23995.8833,
+     "pnl": -6282.9205,
+     "buy": 47134.4945,
+     "markets": 268,
+     "fill_share": 0.0907,
+     "abs_pnl_share": 0.1923,
+     "ret": -0.1333
+    },
+    "bitcoin-hourly": {
+     "fills": 1070,
+     "abs_pnl": 5732.1098,
+     "pnl": -531.7681,
+     "buy": 27695.1208,
+     "markets": 252,
+     "fill_share": 0.0676,
+     "abs_pnl_share": 0.0459,
+     "ret": -0.0192
+    },
+    "xrp-5m": {
+     "fills": 846,
+     "abs_pnl": 3109.0384,
+     "pnl": 994.0826,
+     "buy": 5428.4856,
+     "markets": 569,
+     "fill_share": 0.0535,
+     "abs_pnl_share": 0.0249,
+     "ret": 0.1831
+    },
+    "eth-15m": {
+     "fills": 772,
+     "abs_pnl": 3529.5361,
+     "pnl": 374.24,
+     "buy": 7373.6725,
+     "markets": 393,
+     "fill_share": 0.0488,
+     "abs_pnl_share": 0.0283,
+     "ret": 0.0508
+    },
+    "btc-4h": {
+     "fills": 493,
+     "abs_pnl": 9546.2398,
+     "pnl": 302.3754,
+     "buy": 32256.0693,
+     "markets": 72,
+     "fill_share": 0.0312,
+     "abs_pnl_share": 0.0765,
+     "ret": 0.0094
+    },
+    "ethereum-hourly": {
+     "fills": 450,
+     "abs_pnl": 1246.7302,
+     "pnl": 180.438,
+     "buy": 7287.6455,
+     "markets": 129,
+     "fill_share": 0.0284,
+     "abs_pnl_share": 0.01,
+     "ret": 0.0248
+    },
+    "sol-5m": {
+     "fills": 400,
+     "abs_pnl": 1758.97,
+     "pnl": 620.4535,
+     "buy": 2755.399,
+     "markets": 268,
+     "fill_share": 0.0253,
+     "abs_pnl_share": 0.0141,
+     "ret": 0.2252
+    },
+    "eth-5m": {
+     "fills": 377,
+     "abs_pnl": 2111.6711,
+     "pnl": 594.6304,
+     "buy": 4380.4987,
+     "markets": 186,
+     "fill_share": 0.0238,
+     "abs_pnl_share": 0.0169,
+     "ret": 0.1357
+    },
+    "ethereum-daily": {
+     "fills": 315,
+     "abs_pnl": 509.0778,
+     "pnl": 85.3903,
+     "buy": 6856.9605,
+     "markets": 12,
+     "fill_share": 0.0199,
+     "abs_pnl_share": 0.0041,
+     "ret": 0.0125
+    },
+    "bnb-hourly": {
+     "fills": 304,
+     "abs_pnl": 1120.8626,
+     "pnl": 492.5897,
+     "buy": 3716.1545,
+     "markets": 131,
+     "fill_share": 0.0192,
+     "abs_pnl_share": 0.009,
+     "ret": 0.1326
+    },
+    "solana-daily": {
+     "fills": 234,
+     "abs_pnl": 286.7527,
+     "pnl": -271.9254,
+     "buy": 5857.3658,
+     "markets": 12,
+     "fill_share": 0.0148,
+     "abs_pnl_share": 0.0023,
+     "ret": -0.0464
+    }
+   },
+   "cum_top": {
+    "btc-5m": {
+     "fill_share": 0.5356,
+     "abs_pnl_share": 0.5555
+    },
+    "btc-15m": {
+     "fill_share": 0.6263,
+     "abs_pnl_share": 0.7478
+    },
+    "bitcoin-hourly": {
+     "fill_share": 0.6939,
+     "abs_pnl_share": 0.7938
+    },
+    "xrp-5m": {
+     "fill_share": 0.7474,
+     "abs_pnl_share": 0.8187
+    },
+    "eth-15m": {
+     "fill_share": 0.7962,
+     "abs_pnl_share": 0.847
+    },
+    "btc-4h": {
+     "fill_share": 0.8274,
+     "abs_pnl_share": 0.9235
+    },
+    "ethereum-hourly": {
+     "fill_share": 0.8558,
+     "abs_pnl_share": 0.9335
+    },
+    "sol-5m": {
+     "fill_share": 0.8811,
+     "abs_pnl_share": 0.9476
+    }
+   }
+  }
+ },
+ "validate": {
+  "almach": {
+   "by_family": {
+    "btc-5m": {
+     "fills": 9265,
+     "abs_pnl": 65534.6842,
+     "pnl": 8251.9431,
+     "buy": 199834.4932,
+     "markets": 1012,
+     "fill_share": 0.7858,
+     "abs_pnl_share": 0.6966,
+     "ret": 0.0413
+    },
+    "btc-15m": {
+     "fills": 981,
+     "abs_pnl": 18646.2681,
+     "pnl": 9391.9732,
+     "buy": 30176.9687,
+     "markets": 166,
+     "fill_share": 0.0832,
+     "abs_pnl_share": 0.1982,
+     "ret": 0.3112
+    },
+    "bitcoin-hourly": {
+     "fills": 261,
+     "abs_pnl": 2899.5924,
+     "pnl": 343.5127,
+     "buy": 7659.8971,
+     "markets": 69,
+     "fill_share": 0.0221,
+     "abs_pnl_share": 0.0308,
+     "ret": 0.0448
+    },
+    "eth-15m": {
+     "fills": 231,
+     "abs_pnl": 1028.1995,
+     "pnl": -4.3966,
+     "buy": 2342.9242,
+     "markets": 119,
+     "fill_share": 0.0196,
+     "abs_pnl_share": 0.0109,
+     "ret": -0.0019
+    },
+    "eth-5m": {
+     "fills": 146,
+     "abs_pnl": 1426.1464,
+     "pnl": -0.8959,
+     "buy": 3353.5225,
+     "markets": 57,
+     "fill_share": 0.0124,
+     "abs_pnl_share": 0.0152,
+     "ret": -0.0003
+    },
+    "ethereum-daily": {
+     "fills": 119,
+     "abs_pnl": 163.1699,
+     "pnl": -163.1699,
+     "buy": 2431.6204,
+     "markets": 4,
+     "fill_share": 0.0101,
+     "abs_pnl_share": 0.0017,
+     "ret": -0.0671
+    },
+    "bnb-hourly": {
+     "fills": 112,
+     "abs_pnl": 268.2977,
+     "pnl": -60.1501,
+     "buy": 1074.4883,
+     "markets": 37,
+     "fill_share": 0.0095,
+     "abs_pnl_share": 0.0029,
+     "ret": -0.056
+    },
+    "xrp-5m": {
+     "fills": 96,
+     "abs_pnl": 579.403,
+     "pnl": -38.3068,
+     "buy": 1130.4989,
+     "markets": 70,
+     "fill_share": 0.0081,
+     "abs_pnl_share": 0.0062,
+     "ret": -0.0339
+    },
+    "btc-4h": {
+     "fills": 94,
+     "abs_pnl": 1496.1015,
+     "pnl": 91.343,
+     "buy": 5012.6977,
+     "markets": 21,
+     "fill_share": 0.008,
+     "abs_pnl_share": 0.0159,
+     "ret": 0.0182
+    },
+    "bnb-5m": {
+     "fills": 82,
+     "abs_pnl": 107.0528,
+     "pnl": 0.5186,
+     "buy": 506.5,
+     "markets": 36,
+     "fill_share": 0.007,
+     "abs_pnl_share": 0.0011,
+     "ret": 0.001
+    },
+    "sol-5m": {
+     "fills": 74,
+     "abs_pnl": 332.7688,
+     "pnl": 123.5478,
+     "buy": 828.5542,
+     "markets": 49,
+     "fill_share": 0.0063,
+     "abs_pnl_share": 0.0035,
+     "ret": 0.1491
+    },
+    "solana-daily": {
+     "fills": 63,
+     "abs_pnl": 112.8732,
+     "pnl": -97.598,
+     "buy": 1491.4702,
+     "markets": 4,
+     "fill_share": 0.0053,
+     "abs_pnl_share": 0.0012,
+     "ret": -0.0654
+    }
+   },
+   "cum_top": {
+    "btc-5m": {
+     "fill_share": 0.7858,
+     "abs_pnl_share": 0.6966
+    },
+    "btc-15m": {
+     "fill_share": 0.869,
+     "abs_pnl_share": 0.8948
+    },
+    "bitcoin-hourly": {
+     "fill_share": 0.8911,
+     "abs_pnl_share": 0.9256
+    },
+    "eth-15m": {
+     "fill_share": 0.9107,
+     "abs_pnl_share": 0.9366
+    },
+    "eth-5m": {
+     "fill_share": 0.9231,
+     "abs_pnl_share": 0.9517
+    },
+    "ethereum-daily": {
+     "fill_share": 0.9332,
+     "abs_pnl_share": 0.9535
+    },
+    "bnb-hourly": {
+     "fill_share": 0.9427,
+     "abs_pnl_share": 0.9563
+    },
+    "xrp-5m": {
+     "fill_share": 0.9508,
+     "abs_pnl_share": 0.9625
+    }
+   }
+  },
+  "bosona": {
+   "by_family": {
+    "btc-5m": {
+     "fills": 9563,
+     "abs_pnl": 60892.3897,
+     "pnl": 8503.6429,
+     "buy": 183448.7316,
+     "markets": 1023,
+     "fill_share": 0.7785,
+     "abs_pnl_share": 0.6662,
+     "ret": 0.0464
+    },
+    "btc-15m": {
+     "fills": 1098,
+     "abs_pnl": 20331.8833,
+     "pnl": 9789.9238,
+     "buy": 31238.1868,
+     "markets": 173,
+     "fill_share": 0.0894,
+     "abs_pnl_share": 0.2224,
+     "ret": 0.3134
+    },
+    "bitcoin-hourly": {
+     "fills": 296,
+     "abs_pnl": 3314.4055,
+     "pnl": 587.2449,
+     "buy": 8556.1292,
+     "markets": 76,
+     "fill_share": 0.0241,
+     "abs_pnl_share": 0.0363,
+     "ret": 0.0686
+    },
+    "eth-15m": {
+     "fills": 223,
+     "abs_pnl": 1053.2806,
+     "pnl": 83.8051,
+     "buy": 2051.6783,
+     "markets": 121,
+     "fill_share": 0.0182,
+     "abs_pnl_share": 0.0115,
+     "ret": 0.0408
+    },
+    "eth-5m": {
+     "fills": 137,
+     "abs_pnl": 1382.1396,
+     "pnl": 53.1199,
+     "buy": 3024.2841,
+     "markets": 56,
+     "fill_share": 0.0112,
+     "abs_pnl_share": 0.0151,
+     "ret": 0.0176
+    },
+    "bnb-hourly": {
+     "fills": 136,
+     "abs_pnl": 296.7652,
+     "pnl": -86.7033,
+     "buy": 1300.9755,
+     "markets": 42,
+     "fill_share": 0.0111,
+     "abs_pnl_share": 0.0032,
+     "ret": -0.0666
+    },
+    "ethereum-daily": {
+     "fills": 119,
+     "abs_pnl": 182.5144,
+     "pnl": -182.5144,
+     "buy": 2468.1387,
+     "markets": 4,
+     "fill_share": 0.0097,
+     "abs_pnl_share": 0.002,
+     "ret": -0.0739
+    },
+    "xrp-5m": {
+     "fills": 109,
+     "abs_pnl": 648.643,
+     "pnl": 48.2729,
+     "buy": 1208.9475,
+     "markets": 71,
+     "fill_share": 0.0089,
+     "abs_pnl_share": 0.0071,
+     "ret": 0.0399
+    },
+    "btc-4h": {
+     "fills": 108,
+     "abs_pnl": 1184.6331,
+     "pnl": 235.1781,
+     "buy": 4226.8539,
+     "markets": 21,
+     "fill_share": 0.0088,
+     "abs_pnl_share": 0.013,
+     "ret": 0.0556
+    },
+    "bnb-5m": {
+     "fills": 79,
+     "abs_pnl": 110.6276,
+     "pnl": 15.375,
+     "buy": 476.523,
+     "markets": 33,
+     "fill_share": 0.0064,
+     "abs_pnl_share": 0.0012,
+     "ret": 0.0323
+    },
+    "ethereum-hourly": {
+     "fills": 73,
+     "abs_pnl": 273.3351,
+     "pnl": 47.3918,
+     "buy": 1157.4839,
+     "markets": 28,
+     "fill_share": 0.0059,
+     "abs_pnl_share": 0.003,
+     "ret": 0.0409
+    },
+    "sol-5m": {
+     "fills": 73,
+     "abs_pnl": 395.1525,
+     "pnl": 107.0231,
+     "buy": 1038.4053,
+     "markets": 55,
+     "fill_share": 0.0059,
+     "abs_pnl_share": 0.0043,
+     "ret": 0.1031
+    }
+   },
+   "cum_top": {
+    "btc-5m": {
+     "fill_share": 0.7785,
+     "abs_pnl_share": 0.6662
+    },
+    "btc-15m": {
+     "fill_share": 0.8679,
+     "abs_pnl_share": 0.8886
+    },
+    "bitcoin-hourly": {
+     "fill_share": 0.892,
+     "abs_pnl_share": 0.9249
+    },
+    "eth-15m": {
+     "fill_share": 0.9101,
+     "abs_pnl_share": 0.9364
+    },
+    "eth-5m": {
+     "fill_share": 0.9213,
+     "abs_pnl_share": 0.9515
+    },
+    "bnb-hourly": {
+     "fill_share": 0.9324,
+     "abs_pnl_share": 0.9548
+    },
+    "ethereum-daily": {
+     "fill_share": 0.942,
+     "abs_pnl_share": 0.9568
+    },
+    "xrp-5m": {
+     "fill_share": 0.9509,
+     "abs_pnl_share": 0.9639
+    }
+   }
+  },
+  "momoney": {
+   "by_family": {
+    "btc-5m": {
+     "fills": 9781,
+     "abs_pnl": 67104.8339,
+     "pnl": 6279.9794,
+     "buy": 202508.2261,
+     "markets": 1023,
+     "fill_share": 0.7864,
+     "abs_pnl_share": 0.694,
+     "ret": 0.031
+    },
+    "btc-15m": {
+     "fills": 1021,
+     "abs_pnl": 18927.7301,
+     "pnl": 9163.8282,
+     "buy": 31480.8039,
+     "markets": 170,
+     "fill_share": 0.0821,
+     "abs_pnl_share": 0.1957,
+     "ret": 0.2911
+    },
+    "bitcoin-hourly": {
+     "fills": 298,
+     "abs_pnl": 3268.0713,
+     "pnl": 376.427,
+     "buy": 8501.7293,
+     "markets": 72,
+     "fill_share": 0.024,
+     "abs_pnl_share": 0.0338,
+     "ret": 0.0443
+    },
+    "eth-15m": {
+     "fills": 232,
+     "abs_pnl": 1053.176,
+     "pnl": -34.6093,
+     "buy": 2058.7637,
+     "markets": 121,
+     "fill_share": 0.0187,
+     "abs_pnl_share": 0.0109,
+     "ret": -0.0168
+    },
+    "bnb-hourly": {
+     "fills": 141,
+     "abs_pnl": 311.9548,
+     "pnl": -25.3183,
+     "buy": 1271.6078,
+     "markets": 51,
+     "fill_share": 0.0113,
+     "abs_pnl_share": 0.0032,
+     "ret": -0.0199
+    },
+    "eth-5m": {
+     "fills": 133,
+     "abs_pnl": 1484.8361,
+     "pnl": 94.404,
+     "buy": 3023.7281,
+     "markets": 54,
+     "fill_share": 0.0107,
+     "abs_pnl_share": 0.0154,
+     "ret": 0.0312
+    },
+    "ethereum-daily": {
+     "fills": 116,
+     "abs_pnl": 213.061,
+     "pnl": -213.061,
+     "buy": 2448.031,
+     "markets": 4,
+     "fill_share": 0.0093,
+     "abs_pnl_share": 0.0022,
+     "ret": -0.087
+    },
+    "btc-4h": {
+     "fills": 93,
+     "abs_pnl": 1663.9674,
+     "pnl": -427.5908,
+     "buy": 4687.6092,
+     "markets": 22,
+     "fill_share": 0.0075,
+     "abs_pnl_share": 0.0172,
+     "ret": -0.0912
+    },
+    "xrp-5m": {
+     "fills": 90,
+     "abs_pnl": 627.0351,
+     "pnl": 19.4663,
+     "buy": 1111.5535,
+     "markets": 69,
+     "fill_share": 0.0072,
+     "abs_pnl_share": 0.0065,
+     "ret": 0.0175
+    },
+    "ethereum-hourly": {
+     "fills": 82,
+     "abs_pnl": 219.3126,
+     "pnl": 59.89,
+     "buy": 1138.1538,
+     "markets": 24,
+     "fill_share": 0.0066,
+     "abs_pnl_share": 0.0023,
+     "ret": 0.0526
+    },
+    "bnb-5m": {
+     "fills": 79,
+     "abs_pnl": 109.1403,
+     "pnl": 7.1786,
+     "buy": 492.6572,
+     "markets": 34,
+     "fill_share": 0.0064,
+     "abs_pnl_share": 0.0011,
+     "ret": 0.0146
+    },
+    "sol-5m": {
+     "fills": 78,
+     "abs_pnl": 353.6626,
+     "pnl": 75.1222,
+     "buy": 777.1542,
+     "markets": 61,
+     "fill_share": 0.0063,
+     "abs_pnl_share": 0.0037,
+     "ret": 0.0967
+    }
+   },
+   "cum_top": {
+    "btc-5m": {
+     "fill_share": 0.7864,
+     "abs_pnl_share": 0.694
+    },
+    "btc-15m": {
+     "fill_share": 0.8685,
+     "abs_pnl_share": 0.8897
+    },
+    "bitcoin-hourly": {
+     "fill_share": 0.8924,
+     "abs_pnl_share": 0.9235
+    },
+    "eth-15m": {
+     "fill_share": 0.9111,
+     "abs_pnl_share": 0.9344
+    },
+    "bnb-hourly": {
+     "fill_share": 0.9224,
+     "abs_pnl_share": 0.9377
+    },
+    "eth-5m": {
+     "fill_share": 0.9331,
+     "abs_pnl_share": 0.953
+    },
+    "ethereum-daily": {
+     "fill_share": 0.9424,
+     "abs_pnl_share": 0.9552
+    },
+    "btc-4h": {
+     "fill_share": 0.9499,
+     "abs_pnl_share": 0.9724
+    }
+   }
+  },
+  "pooled": {
+   "by_family": {
+    "btc-5m": {
+     "fills": 28609,
+     "abs_pnl": 193531.9078,
+     "pnl": 23035.5654,
+     "buy": 585791.451,
+     "markets": 3058,
+     "fill_share": 0.7835,
+     "abs_pnl_share": 0.6859,
+     "ret": 0.0393
+    },
+    "btc-15m": {
+     "fills": 3100,
+     "abs_pnl": 57905.8815,
+     "pnl": 28345.7253,
+     "buy": 92895.9594,
+     "markets": 509,
+     "fill_share": 0.0849,
+     "abs_pnl_share": 0.2052,
+     "ret": 0.3051
+    },
+    "bitcoin-hourly": {
+     "fills": 855,
+     "abs_pnl": 9482.0692,
+     "pnl": 1307.1846,
+     "buy": 24717.7556,
+     "markets": 217,
+     "fill_share": 0.0234,
+     "abs_pnl_share": 0.0336,
+     "ret": 0.0529
+    },
+    "eth-15m": {
+     "fills": 686,
+     "abs_pnl": 3134.6561,
+     "pnl": 44.7992,
+     "buy": 6453.3662,
+     "markets": 361,
+     "fill_share": 0.0188,
+     "abs_pnl_share": 0.0111,
+     "ret": 0.0069
+    },
+    "eth-5m": {
+     "fills": 416,
+     "abs_pnl": 4293.1221,
+     "pnl": 146.6281,
+     "buy": 9401.5347,
+     "markets": 167,
+     "fill_share": 0.0114,
+     "abs_pnl_share": 0.0152,
+     "ret": 0.0156
+    },
+    "bnb-hourly": {
+     "fills": 389,
+     "abs_pnl": 877.0177,
+     "pnl": -172.1717,
+     "buy": 3647.0716,
+     "markets": 130,
+     "fill_share": 0.0107,
+     "abs_pnl_share": 0.0031,
+     "ret": -0.0472
+    },
+    "ethereum-daily": {
+     "fills": 354,
+     "abs_pnl": 558.7452,
+     "pnl": -558.7452,
+     "buy": 7347.79,
+     "markets": 12,
+     "fill_share": 0.0097,
+     "abs_pnl_share": 0.002,
+     "ret": -0.076
+    },
+    "xrp-5m": {
+     "fills": 295,
+     "abs_pnl": 1855.0811,
+     "pnl": 29.4323,
+     "buy": 3450.9999,
+     "markets": 210,
+     "fill_share": 0.0081,
+     "abs_pnl_share": 0.0066,
+     "ret": 0.0085
+    },
+    "btc-4h": {
+     "fills": 295,
+     "abs_pnl": 4344.702,
+     "pnl": -101.0697,
+     "buy": 13927.1608,
+     "markets": 64,
+     "fill_share": 0.0081,
+     "abs_pnl_share": 0.0154,
+     "ret": -0.0073
+    },
+    "bnb-5m": {
+     "fills": 240,
+     "abs_pnl": 326.8206,
+     "pnl": 23.0722,
+     "buy": 1475.6802,
+     "markets": 103,
+     "fill_share": 0.0066,
+     "abs_pnl_share": 0.0012,
+     "ret": 0.0156
+    },
+    "sol-5m": {
+     "fills": 225,
+     "abs_pnl": 1081.5839,
+     "pnl": 305.693,
+     "buy": 2644.1137,
+     "markets": 165,
+     "fill_share": 0.0062,
+     "abs_pnl_share": 0.0038,
+     "ret": 0.1156
+    },
+    "ethereum-hourly": {
+     "fills": 215,
+     "abs_pnl": 755.2053,
+     "pnl": 188.8335,
+     "buy": 3376.7593,
+     "markets": 71,
+     "fill_share": 0.0059,
+     "abs_pnl_share": 0.0027,
+     "ret": 0.0559
+    }
+   },
+   "cum_top": {
+    "btc-5m": {
+     "fill_share": 0.7835,
+     "abs_pnl_share": 0.6859
+    },
+    "btc-15m": {
+     "fill_share": 0.8684,
+     "abs_pnl_share": 0.8911
+    },
+    "bitcoin-hourly": {
+     "fill_share": 0.8918,
+     "abs_pnl_share": 0.9247
+    },
+    "eth-15m": {
+     "fill_share": 0.9106,
+     "abs_pnl_share": 0.9358
+    },
+    "eth-5m": {
+     "fill_share": 0.922,
+     "abs_pnl_share": 0.951
+    },
+    "bnb-hourly": {
+     "fill_share": 0.9327,
+     "abs_pnl_share": 0.9541
+    },
+    "ethereum-daily": {
+     "fill_share": 0.9424,
+     "abs_pnl_share": 0.9561
+    },
+    "xrp-5m": {
+     "fill_share": 0.9505,
+     "abs_pnl_share": 0.9627
+    }
+   }
+  }
+ }
+}

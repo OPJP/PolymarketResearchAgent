@@ -1,0 +1,35 @@
+{
+ "orders": 138,
+ "sizes": {
+  "500.0": 94,
+  "100.0": 19,
+  "492.0": 8,
+  "51.0": 6,
+  "76.0": 3
+ },
+ "within_250ms": {
+  "cluster_at_match": 0.29,
+  "null_shift_20s": 0.036,
+  "null_shift_60s": 0.0
+ },
+ "within_1000ms": {
+  "cluster_at_match": 0.464,
+  "null_shift_20s": 0.058,
+  "null_shift_60s": 0.007
+ },
+ "within_5000ms": {
+  "cluster_at_match": 0.804,
+  "null_shift_20s": 0.145,
+  "null_shift_60s": 0.051
+ },
+ "500_100_only_within_1000ms": {
+  "n": 113,
+  "cluster": 0.496,
+  "null20": 0.062
+ },
+ "remainder_sizes_within_1000ms": {
+  "n": 25,
+  "cluster": 0.32,
+  "null20": 0.04
+ }
+}
