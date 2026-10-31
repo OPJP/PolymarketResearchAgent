@@ -4,9 +4,10 @@ Uses taker rows of OTHER traders only: rows whose taker is a cluster wallet are 
 transaction contains a cluster maker fill (takers that traded against the cluster), so no feature carries the
 cluster's own fills. At cell second s only prints with block ts <= s-1 are used.
 """
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 import os
 import numpy as np, pandas as pd
-C = "/home/user/PolymarketResearchAgent/.cache/re/btc5m-bot"
+C = _ROOT + "/.cache/re/btc5m-bot"
 TAPE_DIR = f"{C}/tapes"
 CL = {"0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6", "0x3048d65321be3497164cdfc2996f94f98a2e7537", "0xc53375ff94e96100f2b30a4b5775db35218d69a9"}
 TF = ["has_tape", "pU_last", "age_last", "askU", "age_askU", "bidU", "age_bidU", "vwap10", "vwap30", "n1", "n2", "n5", "n30", "flow1", "flow2", "flow5", "flow30", "vol30", "sp_since_last"]

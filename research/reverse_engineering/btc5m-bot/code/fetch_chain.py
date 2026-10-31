@@ -6,6 +6,7 @@ Writes one parquet per block chunk to .cache/re/btc5m-bot/chain/<mode>/.
 Usage: python fetch_chain.py MODE FROM_BLOCK TO_BLOCK [chunk] [threads]
 TO_BLOCK must be < block at H (96005486, first block with ts >= 1792713600).
 """
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 import os, sys, time
 from concurrent.futures import ThreadPoolExecutor
 import pandas as pd
@@ -15,7 +16,7 @@ import rpc
 H = 1792713600
 BH = 96005486
 W = {"GF": "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6", "XM": "0x3048d65321be3497164cdfc2996f94f98a2e7537", "DS": "0xc53375ff94e96100f2b30a4b5775db35218d69a9"}
-OUT = "/home/user/PolymarketResearchAgent/.cache/re/btc5m-bot/chain"
+OUT = _ROOT + "/.cache/re/btc5m-bot/chain"
 
 
 def decode(log):

@@ -1,6 +1,7 @@
 """Writes state.json from the iteration results files."""
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 import json, os
-R = "/home/user/PolymarketResearchAgent/research/reverse_engineering/btc5m-bot"
+R = _ROOT + "/research/reverse_engineering/btc5m-bot"
 ld = lambda n: json.load(open(f"{R}/{n}")) if os.path.exists(f"{R}/{n}") else {}
 spot = ld("results_spot_model.json"); tape = ld("results_tape_model.json"); vm = ld("results_validate_metrics.json")
 st = json.load(open(f"{R}/state.json"))

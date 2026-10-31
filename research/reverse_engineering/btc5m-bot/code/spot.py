@@ -1,8 +1,9 @@
 """Dense per-second Binance close array + point-in-time fair value helpers.
 px(s) = close of kline [s, s+1). Under the brief's rule it is usable from s+2 on."""
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 import numpy as np, pandas as pd
 from scipy.special import ndtr
-C = "/home/user/PolymarketResearchAgent/.cache/re/btc5m-bot"
+C = _ROOT + "/.cache/re/btc5m-bot"
 
 
 class Spot:

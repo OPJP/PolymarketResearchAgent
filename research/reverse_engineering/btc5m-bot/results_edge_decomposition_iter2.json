@@ -1,0 +1,50 @@
+{
+ "M_moving": {
+  "fills": 23605,
+  "shares": 313850,
+  "usd": 163741,
+  "avg_price": 0.5217,
+  "win_rate_share_wtd": 0.5455,
+  "gross_edge_c_per_share": 2.38,
+  "fee_c_per_share": 0.0,
+  "net_c_per_share_before_rebate": 2.38,
+  "net_plus_50pct_rebate_c": 2.38,
+  "return_before_rebate": 0.0456
+ },
+ "M_quiet": {
+  "fills": 64431,
+  "shares": 796119,
+  "usd": 388814,
+  "avg_price": 0.4884,
+  "win_rate_share_wtd": 0.4907,
+  "gross_edge_c_per_share": 0.23,
+  "fee_c_per_share": 0.0,
+  "net_c_per_share_before_rebate": 0.23,
+  "net_plus_50pct_rebate_c": 0.23,
+  "return_before_rebate": 0.0047
+ },
+ "T_moving": {
+  "fills": 44187,
+  "shares": 1233169,
+  "usd": 614982,
+  "avg_price": 0.4987,
+  "win_rate_share_wtd": 0.5299,
+  "gross_edge_c_per_share": 3.12,
+  "fee_c_per_share": 1.5,
+  "net_c_per_share_before_rebate": 1.63,
+  "net_plus_50pct_rebate_c": 2.37,
+  "return_before_rebate": 0.0326
+ },
+ "T_quiet": {
+  "fills": 103302,
+  "shares": 2899218,
+  "usd": 1371748,
+  "avg_price": 0.4731,
+  "win_rate_share_wtd": 0.4794,
+  "gross_edge_c_per_share": 0.63,
+  "fee_c_per_share": 1.49,
+  "net_c_per_share_before_rebate": -0.86,
+  "net_plus_50pct_rebate_c": -0.12,
+  "return_before_rebate": -0.0182
+ }
+}

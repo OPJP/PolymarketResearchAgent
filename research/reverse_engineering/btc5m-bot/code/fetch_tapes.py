@@ -1,12 +1,13 @@
 """Taker tapes (data-api /trades takerOnly=true) for BTC 5m windows in [A, B), B <= H. Same call signature as
 polyrea load_period (start-3600, end+120) so earlier cached tapes are reused; end is capped below H."""
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 import os, sys, time, json
-sys.path.insert(0, "/home/user/PolymarketResearchAgent")
+sys.path.insert(0, _ROOT + "")
 from concurrent.futures import ThreadPoolExecutor
 import pandas as pd
 from polyrea.adapters.polymarket import PolymarketData
 H = 1792713600
-C = "/home/user/PolymarketResearchAgent/.cache/re/btc5m-bot"
+C = _ROOT + "/.cache/re/btc5m-bot"
 A, B = int(sys.argv[1]), int(sys.argv[2])
 order = sys.argv[3] if len(sys.argv) > 3 else "desc"
 assert B <= H

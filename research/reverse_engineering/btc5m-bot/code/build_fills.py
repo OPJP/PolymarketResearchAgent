@@ -1,8 +1,9 @@
 """Assemble cluster fills (on-chain, own orders) with window context. Dev period only (< H)."""
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 import glob, sys
 import numpy as np, pandas as pd
 H = 1792713600
-C = "/home/user/PolymarketResearchAgent/.cache/re/btc5m-bot"
+C = _ROOT + "/.cache/re/btc5m-bot"
 W = {"0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6": "GF", "0x3048d65321be3497164cdfc2996f94f98a2e7537": "XM", "0xc53375ff94e96100f2b30a4b5775db35218d69a9": "DS"}
 
 
@@ -25,6 +26,7 @@ def load_fills():
     tok = pd.concat([up, dn])
     df = df.merge(tok, on="token", how="left")
     df["rel"] = df.ts - df.start_ts
+    df = df[df.cid.notna()].copy(); df["is_up"] = df.is_up.astype(bool)  # iteration 2: drop unmapped tokens, bool dtype
     df = df.sort_values(["block", "li"]).reset_index(drop=True)
     return df[["block", "ts", "tx", "li", "oh", "wallet", "role", "cp_wallet", "side", "token", "usdc", "shares", "price", "fee_usd", "cid", "start_ts", "end_ts", "rel", "is_up", "fee_rate", "up_payout"]]
 

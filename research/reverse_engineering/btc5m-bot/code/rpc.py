@@ -1,6 +1,7 @@
 """Cached Polygon RPC helpers (drpc via polyrea HttpClient; every call cached)."""
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 import sys
-sys.path.insert(0, "/home/user/PolymarketResearchAgent")
+sys.path.insert(0, _ROOT + "")
 from polyrea.adapters.http import shared_client, HttpError
 
 RPC = "https://polygon.drpc.org"

@@ -1,9 +1,9 @@
-"""btc5m-bot frozen rule (iteration 1).
+"""btc5m-bot frozen rule (iteration 2; models retrained locally because the iteration-1 model files were lost).
 
 Point-in-time behaviour-cloning rule for the three-wallet BTC 5-minute Up/Down bot
 (GF 0x0ca4e9d2..., XM 0x3048d653..., DS 0xc53375ff...). The rule scores every cell
 (window, outcome, second) with a frozen LightGBM model (trained on BUILD only:
-the 1,210 most recent BUILD windows before 2026-10-16 that had tapes, about 10-11 20:00 .. 10-16 00:00 UTC; model files next to this script) from public data available before the
+BUILD windows 2026-10-09 .. 2026-10-16 00:00 UTC that had tapes; model files model_it2_*.txt next to this script) from public data available before the
 second: Binance 1-s closes of seconds <= s-2, other traders' taker prints with block
 ts <= s-1 (cluster prints and prints that traded against the cluster removed), and listing
 metadata. No own-state features, nothing fitted on VALIDATE or the holdout.
@@ -13,6 +13,7 @@ Binance 1-s archive, data-api taker tapes, on-chain OrderFilled logs of the clus
 applies the frozen rule and returns the brief's metrics.
 """
 from __future__ import annotations
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 
 import os
 import sys
@@ -20,7 +21,7 @@ import time
 
 CODE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, CODE)
-sys.path.insert(0, "/home/user/PolymarketResearchAgent")
+sys.path.insert(0, _ROOT + "")
 
 import numpy as np
 import pandas as pd
@@ -37,6 +38,8 @@ import cells as cellsmod
 import rpc
 import spot as spotmod
 import tape_feats as tf
+from build_cells_day import add_inv, add_extra, OWN, EXTRA
+from fetch_tapes2 import fetch_one as _fetch_tape
 
 # ----------------------------------------------------------------------------- frozen constants
 WALLETS = {"0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6": "GF", "0x3048d65321be3497164cdfc2996f94f98a2e7537": "XM", "0xc53375ff94e96100f2b30a4b5775db35218d69a9": "DS"}
@@ -48,20 +51,21 @@ TAPE_FEATURES = [
     "m_last", "age_last", "ask_o", "age_ask", "bid_o", "age_bid", "vwap10", "vwap30", "n1", "n2", "n5", "n30", "vol30",
     "flow1", "flow2", "flow5", "flow30", "sp_since", "gap_m", "gap_ask", "gap_vw", "spread",
 ]
-MODEL_SET = "spot_tape"  # frozen choice made on VALIDATE (see FINAL_RULE.md): "spot_tape" or "spot_only"
-if MODEL_SET == "spot_tape":
-    FEATURES = SPOT_FEATURES + TAPE_FEATURES
-    MODEL_Y = f"{CODE}/model_spot_tape_y.txt"   # label: any cluster BUY fill on (window, outcome, second)
-    MODEL_T = f"{CODE}/model_spot_tape_yT.txt"  # label: cluster taker fill
-    MODEL_M = f"{CODE}/model_spot_tape_yM.txt"  # label: cluster maker fill
-else:
-    FEATURES = SPOT_FEATURES
-    MODEL_Y = MODEL_T = MODEL_M = f"{CODE}/model_spot_only_y.txt"
-P_THRESH = 0.30          # flag a cell when the presence score >= this (fixed in iteration 1, not tuned on VALIDATE)
+FEATURES = SPOT_FEATURES + TAPE_FEATURES + list(EXTRA)          # primary score: public PIT data only, no own state
+MARKET_FEATURES = ["rel", "tau"] + TAPE_FEATURES + list(EXTRA)    # co-occurrence baseline: market activity only (no Binance)
+OWN_FEATURES = FEATURES + list(OWN)                               # secondary: + cluster inventory (own state)
+MODEL_Y = f"{CODE}/model_it2_spot_tape_y.txt"     # label: any cluster BUY fill on (window, outcome, second)
+MODEL_T = f"{CODE}/model_it2_spot_tape_yT.txt"    # label: cluster taker fill
+MODEL_M = f"{CODE}/model_it2_spot_tape_yM.txt"    # label: cluster maker fill
+MODEL_MKT = f"{CODE}/model_it2_market_only_y.txt" # co-occurrence baseline
+MODEL_OWN = f"{CODE}/model_it2_spot_tape_own_y.txt"  # with own state (secondary)
+ORDER_SIZES = (30.0, 50.0, 60.0)  # the bot's fixed order sizes (shares), decoded on BUILD (iteration 1)
+SEL_THRESH = 1.30  # print-level selection flag: size rule AND cell score >= P_THRESH (fixed before VALIDATE was scored)
+P_THRESH = 0.30         # flag a cell when the presence score >= this (fixed in iteration 1, not tuned on VALIDATE)
 ORDER_SHARES = 30.0      # rule order size for the PnL proxy
 FEE_RATE = 0.07
 EXCHANGES = rpc.V2_EXCHANGES
-EVAL_DIR = "/home/user/PolymarketResearchAgent/.cache/re/btc5m-bot/eval"
+EVAL_DIR = _ROOT + "/.cache/re/btc5m-bot/eval"
 
 
 # ----------------------------------------------------------------------------- data loading
@@ -135,19 +139,12 @@ def load_windows(start_ts: int, end_ts: int) -> pd.DataFrame:
 
 
 def load_tapes(windows: pd.DataFrame, end_ts: int) -> str:
+    """Taker tapes for every window, same range and columns as in training (fetch_tapes2.fetch_one: [start-600, end+5])."""
     d = f"{EVAL_DIR}/tapes"
     os.makedirs(d, exist_ok=True)
     pm = PolymarketData()
     for r in windows.itertuples():
-        p = f"{d}/{r.cid}.parquet"
-        if os.path.exists(p):
-            continue
-        rows, _, cov = pm.market_trades(r.cid, start=int(r.start_ts) - 3600, end=min(int(r.end_ts) + 120, int(end_ts) - 1), taker_only=True)
-        df = pd.DataFrame(rows)
-        keep = [c for c in ["proxyWallet", "side", "asset", "conditionId", "size", "price", "timestamp", "outcome", "outcomeIndex", "transactionHash"] if c in df.columns]
-        df = df[keep] if len(df) else df
-        df["coverage"] = cov.status
-        df.to_parquet(p, index=False)
+        _fetch_tape(pm, r.cid, r.start_ts, r.end_ts, int(end_ts), d)
     return d
 
 
@@ -178,48 +175,66 @@ def _recall_lift(y, flag):
     return {"recall": round(float(rec), 4), "precision": round(float(prec), 4), "lift": round(float(lift), 3), "flag_share": round(float(flag.mean()), 4), "p_value": pval}
 
 
+def _side(cells: pd.DataFrame, pcol: str, lab: str = "y") -> pd.DataFrame:
+    """Per second where the cluster bought exactly one outcome (label lab): truth and the pcol scores of both outcomes."""
+    pv = cells.pivot_table(index=["cid", "rel"], columns="is_up", values=[pcol, lab, "m_last"], aggfunc="first")
+    one = (pv[(lab, True)] + pv[(lab, False)]) == 1
+    sub = pv[one]
+    return pd.DataFrame({"truth_up": (sub[(lab, True)] == 1).to_numpy(), "pred_up": (sub[(pcol, True)] >= sub[(pcol, False)]).to_numpy(),
+                         "fav_up": (sub[("m_last", True)] >= 0.5).to_numpy()})
+
+
+def _mcnemar(a_ok, b_ok):
+    b = int((a_ok & ~b_ok).sum()); c = int((~a_ok & b_ok).sum())
+    return float(stats.binomtest(b, b + c, 0.5, alternative="greater").pvalue) if b + c > 0 else None
+
+
 def evaluate(start_ts: int, end_ts: int) -> dict:
     t0 = time.time()
     win = load_windows(start_ts, end_ts)
-    win = win[win.up_payout.notna()].reset_index(drop=True)
+    win = win[win.up_payout.notna()].sort_values("start_ts").reset_index(drop=True)
     sp = load_spot(start_ts, end_ts)
     fills = cluster_fills(start_ts, end_ts, win)
     tf.TAPE_DIR = load_tapes(win, end_ts)
     cells = cellsmod.build_cells(win, fills, sp)
     cells = tf.add_tape_feats(cells, fills, sp)
-    X = cells[FEATURES]
-    p = lgb.Booster(model_file=MODEL_Y).predict(X)
-    pT = lgb.Booster(model_file=MODEL_T).predict(X)
-    pM = lgb.Booster(model_file=MODEL_M).predict(X)
-    cells["p"] = p
+    cells = add_inv(cells, fills, len(win))
+    cells = add_extra(cells)
+    p = lgb.Booster(model_file=MODEL_Y).predict(cells[FEATURES])
+    pT = lgb.Booster(model_file=MODEL_T).predict(cells[FEATURES])
+    pM = lgb.Booster(model_file=MODEL_M).predict(cells[FEATURES])
+    pK = lgb.Booster(model_file=MODEL_MKT).predict(cells[MARKET_FEATURES])
+    pO = lgb.Booster(model_file=MODEL_OWN).predict(cells[OWN_FEATURES])
+    cells["p"] = p; cells["p_mkt"] = pK
     flag = p >= P_THRESH
     out = {"period": [int(start_ts), int(end_ts)], "windows": int(len(win)), "cells": int(len(cells)), "cluster_fills": int(len(fills))}
-    # (a) presence
+    # (a) presence, with the co-occurrence baseline (market activity only) and the own-state variant
+    a_any = _auc(cells.y, p); a_mkt = _auc(cells.y, pK)
     out["presence"] = {
-        "auc_any_no_own_state": _auc(cells.y, p), "auc_taker": _auc(cells.yT, pT), "auc_maker": _auc(cells.yM, pM),
+        "auc_any_no_own_state": a_any, "auc_taker": _auc(cells.yT, pT), "auc_maker": _auc(cells.yM, pM),
         "auc_any_by_wallet": {w: _auc(cells[f"y{w}"], p) for w in ("GF", "XM", "DS")},
+        "co_occurrence_baseline_auc": a_mkt, "gain_over_baseline": round(a_any - a_mkt, 4) if a_any and a_mkt else None,
+        "auc_with_own_state": _auc(cells.y, pO),
         "base_rate": round(float(cells.y.mean()), 4), "at_threshold": _recall_lift(cells.y, flag),
-        "with_own_state": "not implemented in iteration 1",
+        "baseline_at_threshold": _recall_lift(cells.y, pK >= P_THRESH),
     }
-    # (b) side: seconds where the cluster bought exactly one outcome
-    pv = cells.pivot_table(index=["cid", "rel"], columns="is_up", values=["p", "y", "m_last", "flow5"], aggfunc="first")
-    one = (pv[("y", True)] + pv[("y", False)]) == 1
-    sub = pv[one]
-    truth_up = sub[("y", True)] == 1
-    pred_up = sub[("p", True)] >= sub[("p", False)]
-    fav_up = sub[("m_last", True)] >= 0.5
-    mom_up = sub[("flow5", True)] >= 0
-    acc = float((pred_up == truth_up).mean()); acc_fav = float((fav_up == truth_up).mean()); acc_mom = float((mom_up == truth_up).mean())
-    b = int(((pred_up == truth_up) & (fav_up != truth_up)).sum()); c = int(((pred_up != truth_up) & (fav_up == truth_up)).sum())
-    mcnemar_p = float(stats.binomtest(b, b + c, 0.5, alternative="greater").pvalue) if b + c > 0 else None
-    out["side"] = {"n_seconds": int(len(sub)), "accuracy": round(acc, 4), "baseline_favourite": round(acc_fav, 4), "baseline_tape_flow5": round(acc_mom, 4), "mcnemar_p_vs_favourite": mcnemar_p}
+    # (b) side: seconds with a one-sided cluster buy; rule = outcome with the higher presence score
+    sd = {}
+    for lab in ("y", "yT"):
+        s1 = _side(cells, "p", lab); s0 = _side(cells.assign(p=pK), "p", lab)
+        ok1 = s1.pred_up.to_numpy() == s1.truth_up.to_numpy(); ok0 = s0.pred_up.to_numpy() == s0.truth_up.to_numpy()
+        okf = s1.fav_up.to_numpy() == s1.truth_up.to_numpy()
+        sd[lab] = {"n_seconds": int(len(s1)), "accuracy": round(float(ok1.mean()), 4), "baseline_market_only_model": round(float(ok0.mean()), 4),
+                   "baseline_favourite": round(float(okf.mean()), 4), "mcnemar_p_vs_market_only": _mcnemar(ok1, ok0), "mcnemar_p_vs_favourite": _mcnemar(ok1, okf)}
+    out["side"] = sd
     # (c) price: predicted taker price = last implied ask of the outcome from others' prints (<= s-1)
-    key = cells.set_index(["cid", "is_up", "rel"])[["ask_o", "bid_o"]]
+    key = cells.set_index(["cid", "is_up", "rel"])[["ask_o"]]
     fz = fills[(fills.rel >= 0) & (fills.rel < 300)]
     j = fz.join(key, on=["cid", "is_up", "rel"])
+    out["price"] = {}
     for role in ("T", "M"):
-        g = j[j.role == role]
-        out.setdefault("price", {})[f"{role}_within_1tick_of_last_ask"] = round(float((np.abs(g.price - g.ask_o) <= 0.0101).mean()), 4) if len(g) else None
+        g = j[(j.role == role) & np.isfinite(j.ask_o)]
+        out["price"][f"{role}_within_1tick_of_last_ask"] = round(float((np.abs(g.price - g.ask_o) <= 0.0101).mean()), 4) if len(g) else None
     # selection: all in-window taker prints (every trader), cluster vs others, scored by p of the print's cell
     rows = []
     for cid in win.cid:
@@ -227,33 +242,48 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
         if os.path.exists(tp):
             d = pd.read_parquet(tp)
             if len(d) and "timestamp" in d:
-                rows.append(d[["proxyWallet", "outcome", "timestamp", "price"]].assign(cid=cid))
+                rows.append(d[["proxyWallet", "outcome", "timestamp", "price", "size"]].assign(cid=cid))
     if rows:
-        tp = pd.concat(rows)
-        tp = tp.merge(win[["cid", "start_ts"]], on="cid")
+        tp = pd.concat(rows).merge(win[["cid", "start_ts"]], on="cid")
         tp["rel"] = tp.timestamp - tp.start_ts
         tp = tp[(tp.rel >= 0) & (tp.rel < 300)]
         tp["is_up"] = tp.outcome == "Up"
-        tp = tp.join(cells.set_index(["cid", "is_up", "rel"])["p"], on=["cid", "is_up", "rel"])
+        tp = tp.join(cells.set_index(["cid", "is_up", "rel"])[["p", "p_mkt"]], on=["cid", "is_up", "rel"])
         lab = tp.proxyWallet.str.lower().isin(WALLETS).to_numpy()
-        out["selection"] = {"taker_prints": int(len(tp)), "cluster_share": round(float(lab.mean()), 4), "auc": _auc(lab, tp.p.to_numpy()),
-                            "at_threshold": _recall_lift(lab, tp.p.to_numpy() >= P_THRESH), "note": "pooled AUC, no rotation null in iteration 1"}
-    # outcome: crude PnL proxy (rule buys ORDER_SHARES at the last implied ask when flagged)
-    c2 = cells[flag & np.isfinite(cells.ask_o) & (cells.ask_o > 0.05) & (cells.ask_o < 0.95)].merge(win[["cid", "up_payout"]], on="cid")
+        # iteration 2: print-level score = 1[print size is one of the bot's fixed order sizes] + cell score p
+        size_rule = np.isin(np.round(tp["size"].astype(float).to_numpy(), 2), ORDER_SIZES)
+        score = size_rule.astype(float) + tp.p.to_numpy()
+        aw, ww = [], []
+        for _, g in pd.DataFrame({"cid": tp.cid.to_numpy(), "lab": lab, "score": score}).groupby("cid"):
+            if 0 < g.lab.sum() < len(g):
+                aw.append(roc_auc_score(g.lab, g.score)); ww.append(g.lab.sum())
+        out["selection"] = {"taker_prints": int(len(tp)), "cluster_share": round(float(lab.mean()), 4),
+                            "auc_cell_score_only": _auc(lab, tp.p.to_numpy()), "co_occurrence_baseline_auc": _auc(lab, tp.p_mkt.to_numpy()),
+                            "auc_size_plus_cell_score": _auc(lab, score),
+                            "co_occurrence_baseline_auc_size_plus_market_only_score": _auc(lab, size_rule.astype(float) + tp.p_mkt.to_numpy()),
+                            "auc_within_window_size_plus_cell_score": round(float(np.average(aw, weights=ww)), 4) if aw else None,
+                            "at_preregistered_threshold_score_ge_1.30": _recall_lift(lab, score >= SEL_THRESH),
+                            "size_rule_only": _recall_lift(lab, size_rule),
+                            "note": "pooled AUC over in-window taker prints of every trader"}
+    # outcome: per-window PnL correlation, hard proxy (flag -> buy 30 at last implied ask) and soft proxy (p * 30 shares)
+    c2 = cells[np.isfinite(cells.ask_o) & (cells.ask_o > 0.05) & (cells.ask_o < 0.95)].merge(win[["cid", "up_payout"]], on="cid")
     pay = np.where(c2.is_up, c2.up_payout, 1 - c2.up_payout)
-    c2["pnl"] = ORDER_SHARES * (pay - c2.ask_o - FEE_RATE * c2.ask_o * (1 - c2.ask_o))
-    c2["usd"] = ORDER_SHARES * c2.ask_o
-    rule_w = c2.groupby("cid").pnl.sum()
+    unit = pay - c2.ask_o - FEE_RATE * c2.ask_o * (1 - c2.ask_o)
+    c2["pnl_h"] = np.where(c2.p >= P_THRESH, ORDER_SHARES * unit, 0.0); c2["usd_h"] = np.where(c2.p >= P_THRESH, ORDER_SHARES * c2.ask_o, 0.0)
+    c2["pnl_s"] = c2.p * ORDER_SHARES * unit; c2["usd_s"] = c2.p * ORDER_SHARES * c2.ask_o
+    rule_w = c2.groupby("cid")[["pnl_h", "pnl_s", "usd_h", "usd_s"]].sum()
     fw = fills.assign(pay=np.where(fills.is_up, fills.up_payout, 1 - fills.up_payout))
     fw["pnl"] = fw.shares * (fw.pay - fw.price) - fw.fee_usd
-    wal_w = fw.groupby("cid").pnl.sum()
-    both = pd.concat([rule_w.rename("rule"), wal_w.rename("wallet")], axis=1).reindex(win.cid).fillna(0.0)
+    wal_w = fw.groupby("cid").pnl.sum().rename("wallet")
+    both = rule_w.join(wal_w, how="outer").reindex(win.cid).fillna(0.0)
     out["outcome"] = {
-        "per_window_pnl_corr_pearson": round(float(both.rule.corr(both.wallet)), 4),
-        "per_window_pnl_corr_spearman": round(float(both.rule.corr(both.wallet, method="spearman")), 4),
-        "rule_return_crude": round(float(c2.pnl.sum() / c2.usd.sum()), 4) if len(c2) else None,
+        "per_window_pnl_corr_hard_pearson": round(float(both.pnl_h.corr(both.wallet)), 4),
+        "per_window_pnl_corr_soft_pearson": round(float(both.pnl_s.corr(both.wallet)), 4),
+        "per_window_pnl_corr_soft_spearman": round(float(both.pnl_s.corr(both.wallet, method="spearman")), 4),
+        "rule_return_hard": round(float(both.pnl_h.sum() / both.usd_h.sum()), 4) if both.usd_h.sum() > 0 else None,
+        "rule_return_soft": round(float(both.pnl_s.sum() / both.usd_s.sum()), 4) if both.usd_s.sum() > 0 else None,
         "wallet_return_before_rebates": round(float(fw.pnl.sum() / fw.usdc.sum()), 4) if len(fw) else None,
-        "note": "rule PnL is a crude proxy (buys at the last observed ask at s-1, no queue/fill check); strict-fill backtest not implemented in iteration 1",
+        "note": "rule PnL is a proxy (buys at the last observed ask at s-1, no queue/fill check), not a strict-fill backtest",
     }
     out["elapsed_s"] = round(time.time() - t0, 1)
     return out

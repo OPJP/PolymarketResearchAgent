@@ -1,5 +1,5 @@
 {
- "generated_at": 1793435890,
+ "generated_at": 1793438794,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -106,13 +106,13 @@
     "0xc53375ff94e96100f2b30a4b5775db35218d69a9"
    ],
    "status": "in_progress",
-   "wall_reason": null,
-   "iterations": 1,
-   "minutes": 47,
-   "hypotheses": 11,
+   "wall_reason": "",
+   "iterations": 2,
+   "minutes": 95,
+   "hypotheses": 19,
    "primary_metric": "presence_auc",
-   "best_validate_score": 0.892,
-   "best_rule": "H8-spot+tape",
+   "best_validate_score": 0.8957,
+   "best_rule": "H8b-spot+tape-it2 (retrained locally)",
    "has_final_rule": true
   },
   {
@@ -172,13 +172,13 @@
     "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed"
    ],
    "status": "in_progress",
-   "wall_reason": null,
-   "iterations": 1,
-   "minutes": 60,
-   "hypotheses": 16,
-   "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state",
+   "wall_reason": "partial wall for the presence metric only: which BTC 5m windows the cluster trades is an operator schedule (active elsewhere in 89-93% of its BTC 5m-off slots; VALIDATE on 74-75% of windows 12-20 UTC vs 38-40% 00-12 UTC) and on/off windows have the same public tape statistics; not an information wall on quotes (no lead over Binance 1-s)",
+   "iterations": 2,
+   "minutes": 120,
+   "hypotheses": 27,
+   "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state; from iteration 2 on the tape excludes every print in a cluster transaction (iteration-1 value 0.7723 was leaky; clean equivalent 0.7592)",
    "best_validate_score": 0.7723,
-   "best_rule": "R1-presence-lgbm-all_reg",
+   "best_rule": "R2-presence-lgbm-clean-path-xwin",
    "has_final_rule": true
   },
   {
