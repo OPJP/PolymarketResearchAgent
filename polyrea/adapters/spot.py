@@ -25,7 +25,7 @@ from typing import Any
 
 import numpy as np
 
-from polyrea.adapters.http import HttpClient, shared_client
+from polyrea.adapters.http import HttpClient, HttpError, shared_client
 from polyrea.evidence import Source
 from polyrea.pit import TimeSeries
 
@@ -47,7 +47,13 @@ def binance_seconds(asset: str, start: int, end: int, http: HttpClient | None = 
     for day0 in range(int(start) // 86400 * 86400, int(end), 86400):
         day = time.strftime("%Y-%m-%d", time.gmtime(day0))
         url = BINANCE_ARCHIVE.format(sym=sym, day=day)
-        body, src = http.get_bytes(url, adapter="binance.archive", max_age=None)
+        try:
+            body, src = http.get_bytes(url, adapter="binance.archive", max_age=None)
+        except HttpError as exc:
+            # a day's archive is published the next day; the latest days may not exist yet
+            if exc.status == 404 and day0 >= int(time.time()) // 86400 * 86400 - 86400:
+                continue
+            raise
         check, _ = http.get_bytes(url + ".CHECKSUM", adapter="binance.archive", max_age=None)
         expected = check.decode().split()[0]
         if hashlib.sha256(body).hexdigest() != expected:
