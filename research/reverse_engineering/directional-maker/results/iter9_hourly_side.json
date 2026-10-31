@@ -1,0 +1,32 @@
+{
+ "build": {
+  "fills": 1781,
+  "markets": 134,
+  "frozen": 0.563,
+  "slow": 0.657,
+  "regionD_share": 0.097,
+  "regionD_acc": 0.884,
+  "cheaper": 0.486,
+  "always_up": 0.517
+ },
+ "study": {
+  "fills": 893,
+  "markets": 70,
+  "frozen": 0.458,
+  "slow": 0.682,
+  "regionD_share": 0.053,
+  "regionD_acc": 0.681,
+  "cheaper": 0.325,
+  "always_up": 0.538
+ },
+ "validate": {
+  "fills": 738,
+  "markets": 69,
+  "frozen": 0.607,
+  "slow": 0.634,
+  "regionD_share": 0.111,
+  "regionD_acc": 0.988,
+  "cheaper": 0.531,
+  "always_up": 0.554
+ }
+}

@@ -667,6 +667,47 @@ def side_posture_match_clock(mk: pd.DataFrame, w: pd.DataFrame, start_ts: int, e
         if k.any():
             pwr[name] = {"n": int(k.sum()), "accuracy": float(np.mean(((D["fair_cl"] > D["mid_up"]).to_numpy() == y)[k]))}
     out["per_wallet"] = pwr
+    # iteration 9 diagnostics (reported only; the frozen side above is unchanged), pre-registered for 11-01 06-12:
+    # (a) the secondary slow-sigma variant (sigma = 3,600-s realised vol, k 1), (b) by vol regime, (c) per taker event
+    # (fills on the same side of one window within 100 ms collapsed) with the own-history baseline "side of the
+    # previous event" (own state, reported separately), (d) per half of the period.
+    try:
+        tsec2 = (D["T"] // 1000).to_numpy()
+        sig_s = np.array([float(sp.sigma(np.array([t]), look=3600)[0]) for t in tsec2])
+        sig_f = np.array([float(sp.sigma(np.array([t]), look=300)[0]) for t in tsec2])
+        tau2 = np.maximum(D["en"].to_numpy() - D["T"].to_numpy() / 1000.0, 1.0)
+        xx = np.log(D["cl"].to_numpy(dtype=float) / D["K"].to_numpy(dtype=float))
+        pf = D["fair_cl"].to_numpy() > D["mid_up"].to_numpy()
+        ps = norm.cdf(xx / (sig_s * np.sqrt(tau2))) > D["mid_up"].to_numpy()
+        burst = (sig_f / sig_s) > 1.5
+        out["it9_slow_sigma_v3600"] = {"accuracy": acc(ps), "per_family": {f: float(np.mean((ps == y)[fam == f])) for f in ("5m", "15m") if (fam == f).any()},
+                                       "per_wallet": {nm: float(np.mean((ps == y)[(D["wallet"] == ad).to_numpy()])) for ad, nm in CLUSTER.items() if (D["wallet"] == ad).any()}}
+        out["it9_by_regime"] = {"burst_n": int(burst.sum()), "burst_frozen": float(np.mean((pf == y)[burst])) if burst.any() else None,
+                                "burst_slow": float(np.mean((ps == y)[burst])) if burst.any() else None,
+                                "calm_frozen": float(np.mean((pf == y)[~burst])) if (~burst).any() else None}
+        mid_t = (int(D["T"].min()) + int(D["T"].max())) // 2
+        h1 = (D["T"] < mid_t).to_numpy()
+        out["it9_halves"] = {"first": {"n": int(h1.sum()), "frozen": float(np.mean((pf == y)[h1])), "slow": float(np.mean((ps == y)[h1]))},
+                             "second": {"n": int((~h1).sum()), "frozen": float(np.mean((pf == y)[~h1])), "slow": float(np.mean((ps == y)[~h1]))}}
+        o = np.argsort(D["T"].to_numpy(), kind="stable")
+        Tm, yy, key = D["T"].to_numpy()[o], y[o], (D["st"].astype(str) + "_" + D["en"].astype(str)).to_numpy()[o]
+        pfo, pso = pf[o], ps[o]
+        last, prev, ev = {}, {}, []
+        for i in range(len(o)):
+            k_ = key[i]
+            if k_ in last and Tm[i] - last[k_][0] <= 100 and yy[i] == last[k_][1]:
+                continue
+            ev.append((i, prev.get(k_)))
+            last[k_] = (Tm[i], yy[i])
+            prev[k_] = yy[i]
+        idx = np.array([e[0] for e in ev], dtype=int)
+        pv = np.array([np.nan if e[1] is None else float(e[1]) for e in ev])
+        hp = np.isfinite(pv)
+        out["it9_taker_events"] = {"n": int(len(idx)), "frozen": float(np.mean(pfo[idx] == yy[idx])), "slow": float(np.mean(pso[idx] == yy[idx])),
+                                   "own_history_prev_event_baseline": float(np.mean((pv[hp] == 1) == yy[idx][hp])) if hp.any() else None,
+                                   "n_with_prev": int(hp.sum())}
+    except Exception as ex:  # noqa: BLE001
+        out["it9_diag_error"] = repr(ex)[:200]
     return out
 
 

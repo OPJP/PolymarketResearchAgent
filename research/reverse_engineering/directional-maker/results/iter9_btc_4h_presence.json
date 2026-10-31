@@ -1,0 +1,28 @@
+{
+ "bins_fit": 169920,
+ "bins_val": 63360,
+ "pos_fit": 0.005832156308851224,
+ "pos_val": 0.0033775252525252526,
+ "markets_fit": 59,
+ "markets_val": 22,
+ "activity": 0.6146,
+ "rule": 0.6165,
+ "importance_rule": {
+  "last": 0.175,
+  "fair": 0.092,
+  "v3600": 0.09,
+  "rel": 0.085,
+  "edge": 0.076,
+  "vr": 0.067,
+  "tau": 0.064,
+  "dow": 0.058,
+  "z": 0.052,
+  "age": 0.048
+ },
+ "rule_no_clock": 0.6351,
+ "gain_rule_minus_activity": 0.0019,
+ "gain_ci95_2h_blocks": [
+  -0.0524,
+  0.0652
+ ]
+}

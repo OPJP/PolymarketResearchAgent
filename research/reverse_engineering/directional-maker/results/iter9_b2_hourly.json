@@ -1,0 +1,38 @@
+{
+ "fills": 40,
+ "markets": 6,
+ "with_chainlink": 40,
+ "acc_binance_fair": 0.75,
+ "acc_chainlink_fair": 0.7,
+ "refs_disagree_share": 0.25,
+ "cheaper_side": 0.525,
+ "always_up": 0.4,
+ "median_abs_fair_gap": 0.03850219280875022,
+ "median_cl_minus_bn_usd": -133.68569984277565,
+ "per_market": {
+  "bitcoin-up-or-down-october-31-2026-10am-et": {
+   "n": 8,
+   "bought_up": 0.0
+  },
+  "bitcoin-up-or-down-october-31-2026-11am-et": {
+   "n": 1,
+   "bought_up": 0.0
+  },
+  "bitcoin-up-or-down-october-31-2026-12pm-et": {
+   "n": 13,
+   "bought_up": 0.5384615384615384
+  },
+  "bitcoin-up-or-down-october-31-2026-1pm-et": {
+   "n": 2,
+   "bought_up": 1.0
+  },
+  "bitcoin-up-or-down-october-31-2026-8am-et": {
+   "n": 12,
+   "bought_up": 0.5
+  },
+  "bitcoin-up-or-down-october-31-2026-9am-et": {
+   "n": 4,
+   "bought_up": 0.25
+  }
+ }
+}

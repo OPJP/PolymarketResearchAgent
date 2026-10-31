@@ -1,5 +1,5 @@
 {
- "generated_at": 1793484271,
+ "generated_at": 1793484292,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -204,7 +204,7 @@
    "exam_rounds": 1,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 4,
+   "panels": 5,
    "exam": {
     "target_met": false,
     "leakage_passed": true,

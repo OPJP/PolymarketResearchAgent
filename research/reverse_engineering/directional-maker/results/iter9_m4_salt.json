@@ -1,0 +1,61 @@
+{
+ "t_last_btc5m_trade": 1793465634,
+ "t_last_btc5m_utc": "16:53:54",
+ "bosona": {
+  "orders": 36,
+  "pre_n": 8,
+  "post_n": 28,
+  "slope_pre": 12.077243754785473,
+  "slope_post": 10.95740158878834,
+  "jump_at_switch": 2070.674700987991,
+  "resid_sd_pre": 47.83255687536641,
+  "resid_sd_post": 528.5048780796662,
+  "last_pre": [
+   1793465634,
+   739095.0
+  ],
+  "first_post": [
+   1793465716,
+   740208.0
+  ],
+  "monotone_share": 1.0
+ },
+ "almach": {
+  "orders": 51,
+  "pre_n": 9,
+  "post_n": 42,
+  "slope_pre": 12.576096946154491,
+  "slope_post": -148.0952689214678,
+  "jump_at_switch": -342880.3951448448,
+  "resid_sd_pre": 13.86239343885865,
+  "resid_sd_post": 233955.52394935774,
+  "last_pre": [
+   1793465611,
+   735424.0
+  ],
+  "first_post": [
+   1793465716,
+   736744.0
+  ],
+  "monotone_share": 0.96
+ },
+ "mo-money": {
+  "orders": 37,
+  "pre_n": 6,
+  "post_n": 31,
+  "slope_pre": 13.477371803512803,
+  "slope_post": -87.21447566457067,
+  "jump_at_switch": -495276.7187279406,
+  "resid_sd_pre": 7.461140271092275,
+  "resid_sd_post": 194044.7944029933,
+  "last_pre": [
+   1793465626,
+   739632.0
+  ],
+  "first_post": [
+   1793465716,
+   740867.0
+  ],
+  "monotone_share": 0.9166666666666666
+ }
+}

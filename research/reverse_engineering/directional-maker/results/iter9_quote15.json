@@ -1,0 +1,29 @@
+{
+ "seconds": 16126,
+ "windows": 9,
+ "pos_rate": 0.022,
+ "univariate_all": {
+  "frozen": 0.7241,
+  "slow": 0.7747
+ },
+ "univariate_test": {
+  "frozen": 0.7311,
+  "slow": 0.7636
+ },
+ "univariate_by_lookback_all": {
+  "e_v300": 0.7559,
+  "e_v900": 0.7614,
+  "e_v1800": 0.7666,
+  "e_sl": 0.7747,
+  "e_v7200": 0.7874,
+  "e_fz": 0.7241
+ },
+ "univariate_burst": {
+  "n": 1706,
+  "frozen": 0.5932,
+  "slow": 0.6891
+ },
+ "lgbm_activity": 0.5509,
+ "lgbm_activity+frozen": 0.6766,
+ "lgbm_activity+slow": 0.6887
+}

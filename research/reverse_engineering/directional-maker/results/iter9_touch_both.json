@@ -1,0 +1,57 @@
+{
+ "fills": 2181,
+ "touch_size_ge_500": {
+  "both": {
+   "share": 0.16,
+   "frozen": 0.831,
+   "slow": 0.819,
+   "burst_share": 0.052
+  },
+  "only_bought": {
+   "share": 0.363,
+   "frozen": 0.866,
+   "slow": 0.891,
+   "burst_share": 0.029
+  },
+  "only_other": {
+   "share": 0.156,
+   "frozen": 0.698,
+   "slow": 0.812,
+   "burst_share": 0.05
+  },
+  "neither": {
+   "share": 0.321,
+   "frozen": 0.707,
+   "slow": 0.79,
+   "burst_share": 0.119
+  },
+  "quote_side_predictor_when_one_sided": 0.699
+ },
+ "touch_size_ge_250": {
+  "both": {
+   "share": 0.282,
+   "frozen": 0.818,
+   "slow": 0.844,
+   "burst_share": 0.041
+  },
+  "only_bought": {
+   "share": 0.337,
+   "frozen": 0.87,
+   "slow": 0.87,
+   "burst_share": 0.03
+  },
+  "only_other": {
+   "share": 0.173,
+   "frozen": 0.706,
+   "slow": 0.81,
+   "burst_share": 0.077
+  },
+  "neither": {
+   "share": 0.208,
+   "frozen": 0.66,
+   "slow": 0.788,
+   "burst_share": 0.143
+  },
+  "quote_side_predictor_when_one_sided": 0.661
+ }
+}
