@@ -1,0 +1,29 @@
+{
+ "maps_matched": 101,
+ "wallet": {
+  "take_events": 422,
+  "maps": 87,
+  "share_buy_T_side": 0.538,
+  "binom_p_two_sided": 0.131,
+  "map_bootstrap_ci95": [
+   0.492,
+   0.586
+  ],
+  "share_half1": 0.561,
+  "share_half2": 0.508,
+  "swapped_halves_share": 0.462
+ },
+ "P4e": {
+  "take_events": 1133,
+  "maps": 63,
+  "share_buy_T_side": 0.408,
+  "binom_p_two_sided": 5.77e-10,
+  "map_bootstrap_ci95": [
+   0.354,
+   0.456
+  ],
+  "share_half1": 0.388,
+  "share_half2": 0.433,
+  "swapped_halves_share": 0.592
+ }
+}

@@ -1,0 +1,76 @@
+{
+ "orders_scored": 171,
+ "orders_total": 171,
+ "A_full_book_bid": {
+  "within_tick": 0.526,
+  "exact": 0.216,
+  "n": 171
+ },
+ "B_join_others_bid": {
+  "within_tick": 0.456,
+  "exact": 0.187,
+  "n": 171
+ },
+ "E_last_trade": {
+  "within_tick": 0.193,
+  "exact": 0.099,
+  "n": 171
+ },
+ "C_cap_0.96": {
+  "within_tick": 0.24,
+  "exact": 0.088,
+  "n": 171
+ },
+ "D_fullshade_0.96": {
+  "within_tick": 0.24,
+  "exact": 0.088,
+  "n": 171
+ },
+ "C_cap_0.97": {
+  "within_tick": 0.316,
+  "exact": 0.111,
+  "n": 171
+ },
+ "D_fullshade_0.97": {
+  "within_tick": 0.316,
+  "exact": 0.111,
+  "n": 171
+ },
+ "C_cap_0.98": {
+  "within_tick": 0.456,
+  "exact": 0.152,
+  "n": 171
+ },
+ "D_fullshade_0.98": {
+  "within_tick": 0.456,
+  "exact": 0.152,
+  "n": 171
+ },
+ "q_minus_others_bid_cents": {
+  "-6": 0.064,
+  "-5": 0.053,
+  "-4": 0.07,
+  "-3": 0.058,
+  "-2": 0.041,
+  "-1": 0.064,
+  "0": 0.187,
+  "1": 0.205,
+  "2": 0.064,
+  "3": 0.064,
+  "4": 0.018,
+  "5": 0.012,
+  "6": 0.012
+ },
+ "others_bid_sum_cents": {
+  "90": 0.012,
+  "91": 0.058,
+  "93": 0.012,
+  "94": 0.047,
+  "95": 0.129,
+  "96": 0.105,
+  "97": 0.175,
+  "98": 0.216,
+  "99": 0.152
+ },
+ "share_above_others_bid": 0.415
+}

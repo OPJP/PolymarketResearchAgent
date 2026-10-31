@@ -1,0 +1,69 @@
+{
+ "window_utc": [
+  "14:50",
+  "18:00"
+ ],
+ "markets": 8,
+ "wallet_takes": 39,
+ "pulls_detected": 11147,
+ "x49": {
+  "takes": 39,
+  "with_own_pull_0_60ms": 0.897,
+  "own_pull_offset_ms_p10_p50_p90": [
+   11.0,
+   14.0,
+   18.6
+  ],
+  "pull_sizes": {
+   "100.0": 19,
+   "68.0": 8,
+   "54.0": 7,
+   "58.0": 1
+  },
+  "share_other_cancel_before_own_pull": 0.286,
+  "share_other_cancel_in_50ms_before_sign": 0.103,
+  "other_first_cancel_lag_after_own_ms_p10_p25_p50_p75": [
+   -34.8,
+   -6.0,
+   8.0,
+   87.5
+  ],
+  "other_first_cancel_after_sign_ms_p10_p25_p50": [
+   -0.1,
+   9.0,
+   19.0
+  ]
+ },
+ "x46": {
+  "multi_level_pulls_with_take": {
+   "n": 33,
+   "strict_signature": 0.636,
+   "mid_up_ge1c_10s": 0.879,
+   "mid_down_ge1c_10s": 0.091
+  },
+  "multi_level_pulls_without_take": {
+   "n": 8000,
+   "strict_signature": 0.019,
+   "mid_up_ge1c_10s": 0.311,
+   "mid_down_ge1c_10s": 0.275
+  },
+  "pulls_without_take_with_signature": {
+   "n": 154,
+   "strict_signature": 1.0,
+   "mid_up_ge1c_10s": 0.416,
+   "mid_down_ge1c_10s": 0.234
+  },
+  "pulls_without_take_no_signature": {
+   "n": 7846,
+   "strict_signature": 0.0,
+   "mid_up_ge1c_10s": 0.309,
+   "mid_down_ge1c_10s": 0.276
+  },
+  "random_times": {
+   "n": 600,
+   "strict_signature": 0.027,
+   "mid_up_ge1c_10s": 0.258,
+   "mid_down_ge1c_10s": 0.285
+  }
+ }
+}

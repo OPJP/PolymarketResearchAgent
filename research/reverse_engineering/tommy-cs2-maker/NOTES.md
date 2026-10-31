@@ -937,3 +937,303 @@ result: **all live timing is on the CLOB server clock (record field `s`)**, neve
 - Recorders: shared recorder running (status OK at 16:45); own `tommy_cs2_near` (pid 29844, 12.5 MB) and
   `tommy_dota_live` (pid 14548) running, both with a hard stop of 11-03 00:00 UTC.
 - Time used: about 72 minutes of wall-clock (15:49-17:01 UTC); the remaining open items need the user (video consent, a PandaScore token) or future dev blocks (Dota 2 recorder, live VALIDATE from 11-01 18:00). Fan-out wave onsets (X21 event clock): only 1 pair with own-recorder coverage (onsets 9 and 15 ms), insufficient (`fanout_waves.json`).
+
+---
+
+# Iteration 4 (2026-10-31, started 17:29 UTC; 221 of 1200 budget minutes used before it)
+
+Read first: NOTES (iterations 1-3), state.json, FINAL_RULE.md, panels/iter3_{information,mechanics,assumptions}.md. No
+EXAM or wall-audit files. Calendar: no released lots; the current block 10-31 12-18 UTC is development, 18-24 sealed,
+11-01 00-06 sealed, 11-01 06-12 development. Shared recorder status OK at 17:33 (clob_wallets 400 tokens, sports
+connected); own recorders `tommy_cs2_near` (pid 29844, 18.5 MB) and `tommy_dota_live` (pid 14548) running.
+The 16 iteration-3 panel proposals are catalog items X37-X52 (state.json): information P1-P6 = X37-X42, mechanics P1-P4 = X43-X46, assumptions P1-P6 = X47-X52.
+
+## Competing explanations (iteration 4) and the observation that separates them
+1. **V1 private upstream feed (server log / venue scout / GOTV without delay) + delay-window sniping, public-book
+   maker.** The taker leg sees in-round events before the broadcast; the maker ladder is a public-book function
+   (join others' bids, pair-sum cap) whose only private input is the pull / re-pair at its own events. Separator: an
+   event clock (demo ticks, chat) puts its signings well before the broadcast (O_M - O_W >= 5 s); a replay of the
+   public quote rule WITHOUT its pulls reproduces the per-market PnL ranking.
+2. **V2 stream-derived provider feed (scouts / CV on the broadcast) shared with the fastest makers.** Separator: the
+   event clock gives O_M ~ O_W within 1-3 s; after order-level attribution, other makers' first cancels have a floor at
+   the moment its own pull becomes public (book readers), or precede it (co-subscribers).
+3. **V3 the first public trace is in the round markets** (round handicap / totals of the same map, never traded by it,
+   never recorded). Separator: round-market book changes in [-200, 0) ms before its signing well above the random
+   rate (own round-market recorder started this iteration; historical round-market taker signings).
+4. **V4 an in-play odds / win-probability feed** (e.g. the organiser-bookmaker's own live odds: 1win, Stake run several
+   of its leagues). Separator: the FAK limit premium predicts the size of the repricing and the move levels off near
+   the limit; fan-out premiums follow one valuation (premium ratio = series sensitivity); selection = events with
+   in-play odds at that source.
+5. **V5 passive liquidity provision + rebates is the money; the informed leg is secondary.** Separator: per-market
+   PnL ~ passive locked margin (panel: 0.83-0.85); a queue-aware replay of a public quote rule reproduces the ranking
+   (Spearman >= 0.5) without private input.
+6. **V6 intermediation inside the delay window** (sell the bought team back to the slower informed pack through the
+   1.04-s re-post). Separator: event pairs are 3-7% of locked dollars (panel), so this is minor unless the pulls carry
+   the margin (replay with oracle pulls vs without).
+7. **V7 a human spotter**: already disfavoured (decisions in concurrent events independent, assumptions panel).
+This iteration discriminates V5 vs V1/V6 (queue-aware replay with and without its pulls), V4 vs raw-state feeds
+(premium dose-response, fan-out ratio), V3 (round-market recorder; historical check), and V1 vs V2 (GRID-era price
+paths, slow UI takers as a broadcast clock), and records the X items that need the user (demo / video downloads).
+
+## Actions (iteration 4)
+- **Round-market recorder started** (assumptions P1b, X47): `code/iter4/round_recorder.py`, feed `tommy_cs2_rounds`,
+  launcher pid 33544 (worker 29380), started 17:36 UTC 10-31: books of every non-moneyline CS2 market (round handicap, round
+  totals, map handicap, total maps) of NON-GRID events in play whose game start is in a development block; it idles in
+  sealed blocks and never subscribes a sealed unit; same near-touch format as `tommy_cs2_near`; hard stop 11-03 00:00
+  UTC, 200 MB cap. 38 markets at start.
+- Disk warning: free disk on C: fell from 15.1 GB (17:39) to 2.9 GB (17:53 UTC), not from this agent (its cache is
+  160 MB, its recorders < 25 MB); it was back at 14.1-14.8 GB from 18:06. No large downloads this iteration (brief:
+  `--need-disk 5000`).
+
+## Findings (iteration 4); numbers in results/*.json
+1. **Queue-aware replay of a public quote rule (X44, mechanics P2; `code/iter4/queue_replay.py`,
+   `queue_replay.json`).** Full matched-order record of the wallet's 229 markets (109,170 taker txs). Rule: join the
+   other makers' last OBSERVED best bid on both tokens (observations only from public txs that contain no wallet
+   order, usable LAT = 2 s after their match time), pair-sum cap K, shade the long side, 100 shares, strict
+   price-time-priority fills (only volume the taker gave to makers below our price, or at our price with a later
+   signing than our post), the wallet's taker txs removed from the flow, its maker volume displaceable.
+   | Variant | BUILD return | BUILD corr P / S | VALIDATE return | VALIDATE corr P / S | paired-volume corr (B / V, Spearman) |
+   | --- | --- | --- | --- | --- | --- |
+   | K 0.97, 1 level | -5.2% | -0.32 / -0.13 | -4.4% | -0.04 / -0.04 | 0.79 / 0.91 |
+   | + oracle pulls (its complement pulled 0-1.04 s after each take) | -5.1% | -0.35 / -0.14 | -4.4% | -0.01 / -0.02 | 0.79 / 0.91 |
+   | K 0.97, 3 levels | -5.2% | -0.38 / -0.13 | -5.3% | -0.12 / -0.07 | 0.80 / 0.92 |
+   | K 0.96 / 0.98 | -5.1% / -5.2% | -0.40 / -0.27 (P) | -4.7% / -4.0% | -0.15 / -0.07 (P) | ~0.79 / ~0.91 |
+   | LAT 1 s (+ oracle) | -5.0% (-4.9%) | -0.36 (-0.35) | -4.2% (-4.2%) | +0.02 (+0.06) | 0.79 / 0.91 |
+   The replay puts its volume where the wallet's is (paired volume Spearman 0.79-0.92), but its pair cost is a median
+   1.005 against the wallet's 0.978, and per-market PnL does not correlate (best VALIDATE +0.06 / +0.01). Inserting
+   the wallet's own pulls changes nothing (+/-0.03). So the margin is not carried by the event pulls at its takes; it
+   needs what a 2-s-stale tape view cannot give: the live book (others' cancels, the real touch) and possibly the
+   zero-fill / protective pulls (X46). The outcome target is therefore not reachable from tape and calldata alone
+   (h1 / h2); it needs a live-book replay on future blocks. (The wallet's maker leg alone earned only +0.47% at
+   settlement in 16-22 Oct; its 0.978 pair cost includes the informed taker legs.)
+2. **The FAK limit premium is a private valuation (X45 / X48a; `code/iter4/premium_value.py`,
+   `premium_value.json`).** Premium = limit - stale ask (first matched level).
+   - Wallet: Spearman(premium, bought team's move) 0.26 at 10 s (event-bootstrap CI [0.16, 0.35] BUILD,
+     [0.17, 0.35] VALIDATE), 0.13-0.17 at 60 s, 0.12-0.13 at 120 s. VALIDATE 60-s move by premium 0 / 1 / 2 / 3 / 4 /
+     5+c: +2.2 / +2.0 / +2.1 / +5.5 / +5.0 / +9.6c.
+   - Other takers in the same markets (about 42k BUY orders per split): Spearman 0.04-0.05 at 10 s, about 0 at 60 s;
+     their 5c+ premiums see +0.1-0.4c. Premium scaling is specific to the wallet.
+   - It does not level off at the limit: at 60-120 s the price sits a median +2 to +5c ABOVE its limit at every
+     premium. The limit is "stale ask + a premium that grows with the event", kept below the post-event value (an
+     edge requirement), not a fair-value target (the odds-feed form of V4, "buy up to the new fair price", is not
+     supported; a model-based value with a margin fits).
+   - Fan-out legs (56 pairs, map + match signed <= 5 ms apart): mean premium map 1.81c vs match 1.05c on map 1
+     (ratio 0.58), 2.06c vs 1.03c on map 2 (ratio 0.50); the series sensitivity at q = 0.5 is 0.50 for maps 1-2.
+     Per-pair premiums do not correlate (whole cents), but on average the match leg's premium is the map leg's times
+     the series sensitivity: one valuation propagated from map to match (no map-3 pairs).
+3. **No shared signer (X52, assumptions P6; `code/iter4/signer_check.py`, `signer_check.json`, 51 txs decoded).**
+   The 3-wallet cluster (0x72aaaaf9, 0xfe8a28be, 0x2529c68d) are POLY_PROXY wallets (sigType 1) with three
+   different signer EOAs (0xf15f4f45..., 0x21ac60ff..., 0x799204d1...); P93 signs with 0xbac5c53a..., Pf1 with
+   0x5dfc48b5..., 0x893575c7 with 0xdb889f28...; the wallet, P4e and the fast late makers (0xed446954, 0x5d40576b,
+   0x68915897, 0x758dac51, 0xfca6d645) are deposit wallets (sigType 3) whose signer is the wallet itself (owners read
+   in iteration 2 differ). No signer is shared by two makers among all 51 txs' orders. Funding links not checked.
+4. **Data-rights falsifier (X39, information P3).** PGL holds an exclusive official data partnership with Oddin.gg
+   for its CS2 and Dota 2 events (2024-2026, at least 11 tier-1 CS2 tournaments; europeangaming.eu 2024-04-23,
+   sbcamericas.com 2024-04-29). The wallet traded the PGL Bucharest Closed Qualifier (tier 4, community co-streams:
+   twitch vanfantv / watchfulTVb / Trottah / officialhyper), 9 of 13 events. An organiser-level "official data
+   holder" flag would mark PGL as covered and predict a skip: the organiser-level form is falsified. Only an event-level
+   coverage flag (is this qualifier in the data deal?) could survive, and that is not public. Not adopted.
+5. **Demo clock prerequisites (X37, information P1).** bo3.gg `/api/v1/games/<id>` (verified on game 190260, A NATA
+   vs ARK, 10-16): `demo_url` is a relative path (`demos/manually_uploaded/1792137147_...-m3-mirage.dem`), `demo_data`
+   is null, `game_rounds` carry no kill times, `duration` 3,482.9 s includes pauses. The download host is still
+   unverified (iteration-3 panel: bo3.gg/<path> serves the SPA, files.bo3.gg 404). Downloading 50-300 MB demos and
+   installing a demo parser from PyPI need the user's consent, and the disk has 2.9 GB free: left open for the user.
+6. **Its own pull follows 90% of its takes, and some other makers act within ~10 ms of it (X49, assumptions P3;
+   `code/iter4/pull_attrib.py`, `pull_attrib.json`; own recorder 14:50-18:00 UTC, server clock, 39 CS2 takes).**
+   - Own pull = equal-size cancels on >= 2 levels within 5 ms, or 100-share cancels, plus remainders of its partly
+     filled orders (calldata; 5 cancels). It follows 89.7% of its takes at +11 / +14 / +19 ms (p10 / p50 / p90);
+     sizes 100 (19 takes), 68 (8), 54 (7), 58 (1): the assumptions panel's inventory-scaled ladder is confirmed.
+   - In 20.0% of the takes with an own pull, a cancel that is NOT attributable to the wallet lands between its
+     signing and its own pull, when nothing of its action is public yet (a ~11-14 ms window). The base rate for a
+     random 14-ms window on that side is 0.37% (about 54x). A non-own cancel in the 50 ms before its signing: 10.3%
+     (about the base rate). Others' first cancel relative to its pull: p10 -37, p25 -6, p50 +10, p75 +89 ms.
+   - So the wallet is not the only fast leader. In about one take in five another maker acts on the same event
+     within ~10 ms (a shared pushed source); the rest of the wave follows its pull or the event later. The
+     "shared feed" reading of iteration 3 survives the order-level attribution. Whether that source sits before or
+     after the broadcast is still open (X37 / X38).
+7. **Zero-fill FAK attempts are a minority (X46, mechanics P4).** Own-size pulls (100 / 68 / 58 / 54, >= 2 levels):
+   with an on-chain take 33, strict re-post signature (no own re-add in [60, 1000) ms, one in [1000, 1150) ms)
+   63.6%, team up >= 1c at 10 s 87.9%. Without a take 829, signature 3.5% (random times 2.7%), and those 29 go up
+   62.1% / down 17.2% (random 25.8% / 28.5%). About 7-11 hidden attempts against 33 visible ones (20-35% more
+   attempts than fills). The signature is not specific enough to be a taker label by itself.
+8. **Round-market takers follow it; none leads (X47a, assumptions P1; `code/iter4/round_takers_hist.py`,
+   `round_takers_hist.json`).** VALIDATE, 39 events, 665 round / handicap / total markets, 529 decoded round-market
+   taker txs near its takes and controls. A round-market taker signed in the 1 s before its take in 0.93% (controls
+   at -120 / +120 / +240 s: 0.21-0.72%), in the 200 ms before in 0.10% (0-0.10%), and in the 500 ms AFTER it in
+   6.7% (controls 0.2-0.8%; the 3-wallet cluster among them). The round markets add no earlier taker trace. Their
+   books (cancels) are recorded from 17:36 UTC (`tommy_cs2_rounds`), but the wallet made no take between 17:36 and
+   18:00, so the live test waits for the 11-01 06-12 development block.
+9. **Slow UI takers are not a broadcast clock (X40, information P4; `code/iter4/ui_clock.py`, `ui_clock.json`).**
+   Retail (<= 20 orders per address) net flow on its team per 4-s bin, minus time-shifted controls: contra in 0-12 s
+   (-95), cumulative turn at 68 s (mid-size takers 36 s). Takes followed by a >= 4c public jump within 10 s: contra
+   -65, turn at 72 s. Takes with the next jump > 40 s away: no contra, turn at 40 s. Retail trades against the public
+   repricing rather than after a fixed delay: no broadcast-delay signature.
+10. **The 10-16 switch changed the input's speed, not only the universe (X51, assumptions P5;
+    `code/iter4/grid_latency.py`, `grid_latency.json`).** Same clock for all groups (decision = block time - 2 s);
+    bet-on team's price relative to 60 s before:
+
+    | Group | -10 s | 0 | +10 s | +60 s |
+    | --- | --- | --- | --- | --- |
+    | Taker regime, GRID (1,435 trades, 70 markets) | +1.41c | +2.86c | +6.17c | +6.78c |
+    | Taker regime, non-GRID (208 trades, 15 markets) | +0.97c | +2.04c | +4.19c | +5.62c |
+    | Maker regime takes, non-GRID (1,629) | -0.85c | -0.98c | +1.75c | +3.06c |
+
+    Before 10-16 about 30-40% of the move came before its decision, in GRID and non-GRID events alike: late,
+    momentum-like trades, consistent with its losses before fees. From 10-16 the path is flat or falling before its
+    take and the move comes after. The new regime brought a faster input (and a new client: immediate signing instead
+    of pre-signed orders), not only a new universe.
+11. **Clock-free event type: bomb plants, not opening kills (X50, assumptions P4; `code/iter4/event_type_counts.py`,
+    `event_type_counts.json`).** 91 maps of 16-22 Oct matched to bo3.gg per-round team stats. Binomial GLM (map fixed
+    effects) of the share of its take events (orders within 5 ms merged) on team A, per 10 rounds of difference:
+
+    | Model | Wallet (82 maps, 541 events) | P4e (55 maps, 1,307 events) |
+    | --- | --- | --- |
+    | Round wins dW | +0.28 (p 0.12) | +0.63 (p 8e-8) |
+    | Opening kills dFK alone | +0.06 (p 0.71) | +0.49 (p 5e-5) |
+    | dFK beyond dW | -0.17 (p 0.44) | +0.09 (p 0.59) |
+    | Bomb plants dBP beyond dW, dFK, dCL | +0.60 (p 0.059) | -0.67 (p 0.0008) |
+
+    Raw correlations of its share: dBP 0.38, dW 0.27, dK 0.27, dFK 0.11. The opening-kill reading of iteration 3 is
+    not supported. A bomb plant (a discrete, feed-visible event that lifts the T side's round odds) is the leading
+    candidate for its trigger, at weak power. The pack (P4e) follows round wins and leans away from plants.
+12. **Other proposals.**
+    - Azuro (X41): thegraph.azuro.org and thegraph-1.onchainfeed.org fail DNS, api.onchainfeed.org answers 404, and
+      no LiveCore address was found. Open.
+    - Dota 2 at 3-5 s (X42): OpenDota's free tier (60 calls/min, ~50k per month) rules out 3-5-s polling over days.
+      The 30-s recorder runs, with no wallet Dota take inside its dev-block coverage yet. Open.
+    - Chat clock (X38): an anonymous Twitch recorder was started (below). Kick needs a client key read from Kick's web
+      page and was not attempted.
+    - Odds sources (X48b): not probed (terms first; odds-api.io needs a key from the user).
+- **Chat recorder started** (X38): `code/iter4/chat_recorder.py`, feed `tommy_chat`, launcher pid 27360 (worker
+  28984), 18:16 UTC 10-31.
+  - Anonymous Twitch IRC: nick justinfanNNNNN with Twitch's public anonymous placeholder pass; login verified
+    ("001 Welcome").
+  - Channels = the Gamma resolutionSource of non-GRID CS2 events in play that started in a development block.
+  - It stores only the channel, the Twitch server timestamp (tmi-sent-ts), the receive time, the message length and
+    the emote count: no text, no user names.
+  - Idle in sealed blocks; hard stop 11-03 00:00 UTC; 50 MB cap. It is idle now (10-31 18-24 and 11-01 00-06 are
+    sealed) and first records in 11-01 06-12.
+
+## Hypothesis ledger (iteration 4)
+- V1 private upstream feed: consistent. Nothing public precedes it, round-market takers included; a few makers act
+  within ~10 ms of it; a faster input arrived with the 10-16 switch.
+- V2 stream-derived provider feed: not separable from V1 yet (needs X37 / X38).
+- V3 round-market lead: rejected for takers (historical); the book test is pending.
+- V4 odds feed with limit = fair price: not supported (the price overshoots its limit by 2-5c). A model valuation with
+  a margin and map-to-match propagation fits.
+- V5 passive liquidity provision reproducible from public data: rejected on tape + calldata (the copy gets the
+  volume but a 1.005 pair cost).
+- V6 intermediation inside the delay window: minor (oracle pulls add nothing in the replay).
+- V7 human spotter: not revisited.
+
+## What is unexplained (quantitative)
+- The taker input. None of the obtained public sources precedes its signing; ~20% of its takes share the event with
+  another maker within ~10 ms; its per-map take shares follow round wins and bomb plants. Needed: an event clock
+  (demo ticks, chat) to place the source relative to the broadcast.
+- The maker margin. A public copy with queue priority on tape + calldata gets the wallet's volume (Spearman
+  0.79-0.91) but a pair cost of 1.005 instead of 0.978 (about 2.7c per pair). The wallet's maker leg alone earned
+  +0.47%, so the gap is the live book (real touch, others' cancels) plus its private pulls.
+- Price: no rule reaches 0.8 within one tick (live filled orders: full-book bid 0.53, others' bid 0.46).
+- The primary metric is unchanged at 0.8721 for the second iteration, so iteration 5 must pivot (quote-presence
+  target on the own recorder, or the event clock).
+
+## Next iteration (plan)
+1. Pivot the primary target to quote presence: its resting ladder per token and 10-s bin, own levels by fingerprint
+   100 / 68 / 58 / 54 on `tommy_cs2_near`, against an activity baseline; BUILD = 10-31 12-18, VALIDATE = from 11-01
+   18:00. Or, with the user's consent, the demo-tick event clock (X37), which is also the only taker label h1 / h2
+   can have.
+2. 11-01 06-12 development block: X47b (round-market books before its signings), X38 (chat lead-lag), more takes for
+   X46 / X49 (pull attribution), and the bomb-plant trigger once a clock exists.
+3. Ask the user (through the run's reviewer): demo downloads + parser (X37), a PandaScore token (X23), an odds-api
+   key or consent to probe bookmaker frontends (X48b).
+4. A live-book replay of the ladder for the outcome target on future blocks: fills from the recorded book plus the
+   matched-order record, pulls at the public cancel wave.
+- Time used this iteration: about 81 minutes (17:29-18:50 UTC). Status: continue. Recorders: shared recorder OK
+  (17:33); own `tommy_cs2_near`, `tommy_dota_live`, `tommy_cs2_rounds` and `tommy_chat` running.
+- **Late check, T side or CT side?** (X50 follow-up, `code/iter4/t_side_share.py`, `t_side_share.json`). Half-level
+  clock: bo3 begin_at + duration x (share of the first 12 rounds' durations) = halftime; takes within 3 min of it
+  and in overtime dropped; 101 maps matched. The wallet buys the T side in 53.8% of 422 take events on 87 maps
+  (binomial p 0.13, map-bootstrap CI [0.49, 0.59]; half 1 56.1%, half 2 50.8%). A plant-driven trigger would show a
+  strong T preference, so the per-map bomb-plant association above is not confirmed by side. The pack P4e buys the CT
+  side in 59.2% of 1,133 events (p 6e-10), so its trigger set differs from the wallet's. The clock is good enough to
+  detect a side effect (P4e's), which makes the wallet's near-0.5 share informative: its trigger is close to
+  side-neutral (kills / man advantage on either side), with at most a weak T lean.
+- **Who cancels inside its pre-pull window** (X49 follow-up; the cancels are listed in `pull_attrib.json`). There
+  are 11 cancels in 7 takes, at +3 to +14 ms (one at +34 ms), sizes 31.26, 168, 5, 45, 199, 180, 40.47, 46.75, 7.01,
+  60 and 20 shares. The 168 (= 100 + 68) is probably the wallet's own double level, so the share of takes is 17-20%
+  (6-7 of 35). Two of them match orders of 0x51dbdd2b19427dc8e88bb15a4046a38d8427f9b3 (199 at 0.49, and a 40.47
+  remainder at 0.38). That wallet is a POLY_PROXY co-maker present in 2,185 of the wallet's 16-22 Oct transactions,
+  with orders of 300 / 50 / 100 / 60 shares. The rest are unfilled orders of unknown makers. Candidate co-subscriber
+  of the same event source: 0x51dbdd2b (next: its cancel timing on every take, its owner and its selection of
+  events).
+  Historical timing of 0x51dbdd2b (16-22 Oct matched-order record; 5,760 filled maker orders in 147 of the
+  wallet's 210 markets). Rate of its filled maker signings after each wallet take, relative to its average rate in
+  that market:
+
+  | Token | 0-100 ms | 100-500 ms | 0.5-1 s | 1.00-1.15 s | 1.15-3 s |
+  | --- | --- | --- | --- | --- | --- |
+  | Team the wallet bought | 0.0x | 7.5x | 1.2x | 15x | 7.0x |
+  | Complement (asks on that team) | 7.5x | 3.4x | 3.3x | 8.0x | 4.9x |
+
+  It re-quotes the complement within 100 ms of the wallet's signing and the bought team from 100 ms on. That is fast
+  enough to act on the same source, or on the wallet's public pull at +11-14 ms. Its +1.0-1.15 s peak matches the
+  delay window. It is the first named lead for a second subscriber of the feed.
+- **0x51dbdd2b has nearly the wallet's event selection** (`code/iter4/cosub_coverage.py`, `cosub_coverage.json`).
+  - Its activity 10-16..10-22: 16,571 TRADE rows, 61% CS2 and 29% Dota 2.
+  - It traded 68.8% of the wallet's 77 traded CS2 events, against 11.9% of the 185 non-GRID events the wallet skipped
+    and 17.2% of the 122 GRID events.
+  - Its signer EOA is 0xdecd4b4cb7e41b6824518b704161cb423833e780 (POLY_PROXY). That is not the wallet's owner
+    0x8af810f0, and nothing links the two on chain yet.
+  - A second operator therefore shares the wallet's events and timing: it cancels inside the wallet's pre-pull window
+    and re-quotes within 0.1-0.5 s of its takes. It is the first named co-subscriber candidate, and its funding links
+    are the next C1 check.
+- Maker price anchor from own state: its own last fill price on the same token is within one tick of its next maker
+  order in only 26.7% (BUILD) / 27.9% (VALIDATE), worse than the last print (0.305). Not adopted.
+- `final_rule.py` v3 re-run on VALIDATE (build constants) reproduces the iteration-3 numbers: selection 0.9538 vs
+  0.8916, recall 0.722, lift 3.302, presence 0.8721 vs 0.899, price 0.305, pnl -0.121 / -0.061.
+- **0x51dbdd2b never leads the wallet, but sometimes acts within 9-13 ms of it** (`cosub_timing.json`; own
+  recorder, its non-generic order sizes 300 / 60 / 258 / 268.3 / ... as a loose fingerprint).
+  - 896 such cancels lie in the wallet's take markets. Of these, 0.11% are followed by a wallet take within 1 s, and
+    1.23% are preceded by one (11x more).
+  - Around the 39 takes they fall at -640, +9, +11, +12, +13, +25, +56, +108, +285, ... ms after the wallet's
+    signing.
+  - The +9 to +13 ms cancels are as early as the wallet's own pull message (+11-14 ms), too early to be a reaction
+    to it.
+  - Reading: the wallet signs first. A second operator with nearly the same event selection gets the same event
+    within about 10 ms in some takes. That fits two subscribers of one pushed in-round source, with the wallet the
+    faster one.
+- 0x51dbdd2b also traded all 3 of the wallet's Dota 2 events of 16-22 Oct (it traded 51 Dota events in all). It is a
+  maker, not a taker: 7 taker orders in the wallet's markets, 2 of them on the same team 77-84 ms after a wallet take.
+  So it is a fast canceller / re-quoter, the maker-side counterpart of the wallet's information.
+- **Sealed-data handling this iteration.**
+  - Live data was read only through `iter_live` (development blocks), and units were filtered by game start.
+  - The wallet's dev-unit trades and calldata were refreshed only for units that started in the 12-18 block. Rows
+    of those units after 18:00 are development data by the unit rule, and only takes before 18:00 were analysed.
+  - Every historical fetch ends before H: round-market tapes, taker-regime tapes, 0x51dbdd2b's activity, signer
+    decodes and bo3 games of 10-16..10-22.
+  - Once, at 18:30 UTC, `ls .cache/live/sealed/ | grep -c tommy_cs2_rounds` listed that folder's entry names, to
+    confirm that the new round recorder had written nothing sealed. The count was 0, and no file there was opened.
+    It will not be repeated: the recorder's own status file shows this.
+- **Premium dose-response with controls** (X45 robustness; stored in `premium_value.json` under
+  `controlled_ols_10s_event_clustered`). OLS of the bought team's 10-s move on the premium, controlling for the price
+  level |a - 0.5|, map vs match and hours since game start, with event-clustered SEs:
+  - BUILD: +0.82c per 1c of premium (SE 0.17, p 9e-7, n 518);
+  - VALIDATE: +0.87c per 1c (SE 0.13, p 7e-11, n 603).
+  Each cent it adds to its limit predicts most of a cent of extra repricing. The limit carries a quantitative,
+  private estimate of the event's size.
+- **Premium as a confidence estimate.** At premium 0 / 1 / 2 / 3+c, a favourable >= 4c move within 60 s follows 52.6 /
+  61.7 / 70.1 / 83.3% of its takes (BUILD) and 53.5 / 56.5 / 58.0 / 79.1% (VALIDATE). An adverse >= 4c move follows
+  21-31% at every premium. Taker size grows weakly with the premium (Spearman 0.22 BUILD, 0.14 VALIDATE). The bot's
+  private estimate sets both the limit and, weakly, the size. Stored in `premium_value.json`
+  (`reversal_and_size_by_premium`).
+
+## Iteration 4 closing state
+- Status: continue. Primary metric `presence_auc` 0.8721, unchanged for the second iteration, so iteration 5 must
+  pivot. Frozen rule v3 is unchanged; its VALIDATE re-run reproduces selection 0.954 / 0.892, recall 0.722, lift 3.30,
+  price 0.305 and pnl -0.121 / -0.061.
+- Open catalog items: X4, X22 and X37 (video / demo downloads; need the user's consent); X24 and X42 (Dota 2 recorder
+  running); X38 and X47 (chat and round-market recorders running; data arrives in the 11-01 06-12 development block);
+  X41 (Azuro endpoints fail, address not found); X48 (odds-source probes).
+- Recorders: shared recorder OK (18:48); own `tommy_cs2_near`, `tommy_dota_live`, `tommy_cs2_rounds` (idle in sealed
+  blocks) and `tommy_chat` (idle in sealed blocks) are running, all with hard stop 11-03 00:00 UTC.
+- Time used: about 81 minutes (17:29-18:50 UTC).

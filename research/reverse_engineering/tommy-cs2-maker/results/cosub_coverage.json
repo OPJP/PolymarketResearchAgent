@@ -1,0 +1,21 @@
+{
+ "rows": 16571,
+ "share_cs2_rows": 0.613,
+ "top_event_prefixes": {
+  "cs2": 10158,
+  "dota2": 4854,
+  "lowest": 938,
+  "val": 464,
+  "lol": 157
+ },
+ "cs2_events": 96,
+ "cs2_events_grid": 21,
+ "cs2_events_nongrid": 75,
+ "cs2_events_unknown": 0,
+ "share_of_wallet_traded_events_with_0x51": 0.688,
+ "n_wallet_traded_events": 77,
+ "share_of_nongrid_skipped_events_with_0x51": 0.119,
+ "n_nongrid_skipped_events": 185,
+ "share_of_grid_events_with_0x51": 0.172,
+ "n_grid_events": 122
+}

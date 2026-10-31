@@ -1,0 +1,76 @@
+{
+ "window_utc": [
+  "17:36:29",
+  "18:00:00"
+ ],
+ "round_markets_subscribed": 41,
+ "round_events": [
+  "cs2-ep-dnk2-2026-10-31",
+  "cs2-gg1-esprot-2026-10-31-total",
+  "cs2-hachae-wc1-2026-10-31",
+  "cs2-hachae-wc1-2026-10-31-total",
+  "cs2-omega1-priv-2026-10-31",
+  "cs2-omega1-priv-2026-10-31-total",
+  "cs2-optibe-gg1-2026-10-31-total",
+  "cs2-shin-isg-2026-10-31",
+  "cs2-shin-isg-2026-10-31-total"
+ ],
+ "wallet_takes_in_window": 0,
+ "takes_by_event": {},
+ "by_source": {
+  "round_markets": {
+   "takes_covered": 0,
+   "last_100ms": {
+    "take_any": null,
+    "take_dec": null,
+    "rnd_any": null,
+    "rnd_dec": null
+   },
+   "last_200ms": {
+    "take_any": null,
+    "take_dec": null,
+    "rnd_any": null,
+    "rnd_dec": null
+   },
+   "last_500ms": {
+    "take_any": null,
+    "take_dec": null,
+    "rnd_any": null,
+    "rnd_dec": null
+   },
+   "last_1000ms": {
+    "take_any": null,
+    "take_dec": null,
+    "rnd_any": null,
+    "rnd_dec": null
+   }
+  },
+  "match_map_markets": {
+   "takes_covered": 0,
+   "last_100ms": {
+    "take_any": null,
+    "take_dec": null,
+    "rnd_any": null,
+    "rnd_dec": null
+   },
+   "last_200ms": {
+    "take_any": null,
+    "take_dec": null,
+    "rnd_any": null,
+    "rnd_dec": null
+   },
+   "last_500ms": {
+    "take_any": null,
+    "take_dec": null,
+    "rnd_any": null,
+    "rnd_dec": null
+   },
+   "last_1000ms": {
+    "take_any": null,
+    "take_dec": null,
+    "rnd_any": null,
+    "rnd_dec": null
+   }
+  }
+ }
+}

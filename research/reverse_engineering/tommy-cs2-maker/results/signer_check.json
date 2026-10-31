@@ -1,0 +1,193 @@
+{
+ "wallets": {
+  "0x0063b23c": {
+   "address": "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2",
+   "sig_types": [
+    3
+   ],
+   "signers": [
+    "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2"
+   ],
+   "n_orders": 17,
+   "signer_is_maker": true
+  },
+  "0x4ebc2722": {
+   "address": "0x4ebc2722adc772bde8680792d0a6fdf15499a33d",
+   "sig_types": [
+    3
+   ],
+   "signers": [
+    "0x4ebc2722adc772bde8680792d0a6fdf15499a33d"
+   ],
+   "n_orders": 4,
+   "signer_is_maker": true
+  },
+  "0x93078b5d": {
+   "address": "0x93078b5dd1c34d0f288d2f51b23f1347520d9da3",
+   "sig_types": [
+    1
+   ],
+   "signers": [
+    "0xbac5c53ae4d8947b18db81e6198fe10624c2b39f"
+   ],
+   "n_orders": 4,
+   "signer_is_maker": false
+  },
+  "0x72aaaaf9": {
+   "address": "0x72aaaaf9f6b0286e390de5b568af0f99a00c90e0",
+   "sig_types": [
+    1
+   ],
+   "signers": [
+    "0xf15f4f456254e45a18d6190d947c478d80e66b4c"
+   ],
+   "n_orders": 9,
+   "signer_is_maker": false
+  },
+  "0xfe8a28be": {
+   "address": "0xfe8a28be83ba295a9384f72f240d2cfa96bc23ce",
+   "sig_types": [
+    1
+   ],
+   "signers": [
+    "0x21ac60ffcdb3df3462ff05216f8673db5ff9ecb5"
+   ],
+   "n_orders": 6,
+   "signer_is_maker": false
+  },
+  "0x2529c68d": {
+   "address": "0x2529c68db36ce8aa64c64affe620267744a3548a",
+   "sig_types": [
+    1
+   ],
+   "signers": [
+    "0x799204d16d70eb901f3306498fe596e00d4faa90"
+   ],
+   "n_orders": 8,
+   "signer_is_maker": false
+  },
+  "0xf1ee4842": {
+   "address": "0xf1ee4842fa0c7283632185e42577027452d4519c",
+   "sig_types": [
+    1
+   ],
+   "signers": [
+    "0x5dfc48b515e9ad48663c35a9dbca7a5feda9233d"
+   ],
+   "n_orders": 3,
+   "signer_is_maker": false
+  },
+  "0x8a80528d": {
+   "address": "0x8a80528dce46711a54aa3455c2cc81dea51e11c5",
+   "sig_types": [
+    3
+   ],
+   "signers": [
+    "0x8a80528dce46711a54aa3455c2cc81dea51e11c5"
+   ],
+   "n_orders": 3,
+   "signer_is_maker": true
+  },
+  "0xddb6e624": {
+   "address": "0xddb6e6246546230503f153506ac1e9914978b9b3",
+   "sig_types": [
+    2
+   ],
+   "signers": [
+    "0xa4f6d7e43888d1890551301b19c2595ac1097b10"
+   ],
+   "n_orders": 3,
+   "signer_is_maker": false
+  },
+  "0xed446954": {
+   "address": "0xed446954680979932092e970b443e6ae61e34f76",
+   "sig_types": [
+    3
+   ],
+   "signers": [
+    "0xed446954680979932092e970b443e6ae61e34f76"
+   ],
+   "n_orders": 5,
+   "signer_is_maker": true
+  },
+  "0x5d40576b": {
+   "address": "0x5d40576be2e9c61d283f4fd80d7a5ccf2331ba95",
+   "sig_types": [
+    3
+   ],
+   "signers": [
+    "0x5d40576be2e9c61d283f4fd80d7a5ccf2331ba95"
+   ],
+   "n_orders": 6,
+   "signer_is_maker": true
+  },
+  "0x893575c7": {
+   "address": "0x893575c7d99542163c6b6e8a0fe5af0b6d217daa",
+   "sig_types": [
+    1
+   ],
+   "signers": [
+    "0xdb889f28a1dd30f06db40ead3c8858bd212d27a5"
+   ],
+   "n_orders": 9,
+   "signer_is_maker": false
+  },
+  "0x68915897": {
+   "address": "0x6891589732cf8beaaf424b117d5c5c20919f6bb9",
+   "sig_types": [
+    3
+   ],
+   "signers": [
+    "0x6891589732cf8beaaf424b117d5c5c20919f6bb9"
+   ],
+   "n_orders": 6,
+   "signer_is_maker": true
+  },
+  "0x758dac51": {
+   "address": "0x758dac51ba3cc9a246a79787da9df11c5f425d9e",
+   "sig_types": [
+    3
+   ],
+   "signers": [
+    "0x758dac51ba3cc9a246a79787da9df11c5f425d9e"
+   ],
+   "n_orders": 8,
+   "signer_is_maker": true
+  },
+  "0x2005d16a": {
+   "address": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+   "sig_types": [
+    1
+   ],
+   "signers": [
+    "0x5d4fd194c4181ad61b1b5cb72dab8f9c4f9a2edc"
+   ],
+   "n_orders": 3,
+   "signer_is_maker": false
+  },
+  "0xe8e1b119": {
+   "address": "0xe8e1b119302ae410e77b2af7d7456809007549dd",
+   "sig_types": [
+    2
+   ],
+   "signers": [
+    "0xe418313e974e15be43b106727f5df3d60a774cb7"
+   ],
+   "n_orders": 10,
+   "signer_is_maker": false
+  },
+  "0xfca6d645": {
+   "address": "0xfca6d6452c039c139ad44449a13078c5a2366595",
+   "sig_types": [
+    3
+   ],
+   "signers": [
+    "0xfca6d6452c039c139ad44449a13078c5a2366595"
+   ],
+   "n_orders": 4,
+   "signer_is_maker": true
+  }
+ },
+ "shared_signers_among_all_decoded_orders": {},
+ "txs": 51
+}
