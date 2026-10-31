@@ -14,62 +14,103 @@
   "note": "BUILD may be extended back in time in later iterations"
  },
  "best": {
-  "rule_id": "H8b-spot+tape-it2 (retrained locally)",
+  "rule_id": "H23-multivenue-six-it3 (code/final_rule.py, models code/model_it3s_*.txt)",
   "validate_metrics": {
-   "presence_auc": 0.8957,
-   "presence_auc_taker": 0.8966,
-   "presence_auc_maker": 0.8753,
+   "presence_auc": 0.9095,
+   "presence_auc_taker": 0.9136,
+   "presence_auc_maker": 0.8821,
    "presence_by_wallet": {
-    "GF": 0.8922,
-    "XM": 0.9088,
-    "DS": 0.8836
+    "GF": 0.9083,
+    "XM": 0.9241,
+    "DS": 0.897
    },
    "at_p0.30": {
-    "recall": 0.5644,
-    "lift": 3.894,
-    "flag_share": 0.1449,
+    "recall": 0.6084,
+    "lift": 4.293,
+    "flag_share": 0.1417,
     "p_value": 0.0
    },
    "co_occurrence_baseline_auc": 0.8889,
-   "gain_over_baseline": 0.0068,
-   "spot_only_auc": 0.7993,
-   "with_own_state_auc": 0.9091,
-   "side_accuracy_any": 0.6706,
-   "side_accuracy_taker": 0.6708,
-   "side_market_only_baseline": 0.6388,
+   "gain_over_baseline": 0.0206,
+   "with_own_state_auc": 0.9206,
+   "iteration2_rule_auc": 0.8957,
+   "futures_only_rule_auc": 0.9038,
+   "three_venue_rule_auc": 0.9082,
+   "side_accuracy_any": 0.7317,
+   "side_accuracy_taker": 0.7521,
+   "side_accuracy_spot_3s_zero": 0.6889,
+   "side_accuracy_binance_flat": 0.6712,
+   "side_accuracy_moving": 0.7969,
+   "side_market_only_baseline": 0.6323,
    "side_favourite_baseline": 0.459,
-   "side_with_own_state": 0.675,
+   "side_futures_only_model": 0.7034,
    "outcome": {
+    "kind": "six",
     "windows": 2016,
-    "pnl_corr_hard_pearson": 0.3159,
-    "pnl_corr_hard_spearman": 0.2732,
-    "pnl_corr_soft_pearson": 0.3989,
-    "pnl_corr_soft_spearman": 0.3629,
-    "net_position_corr_soft": 0.415,
-    "rule_return_hard": -0.0176,
-    "rule_return_soft": -0.028,
-    "wallet_return_before_rebates": 0.0017
+    "soft": {
+     "pnl_corr_pearson": 0.4118,
+     "pnl_corr_spearman": 0.3967,
+     "net_position_corr": 0.4402,
+     "rule_return": -0.0196
+    },
+    "soft_side": {
+     "pnl_corr_pearson": 0.4359,
+     "pnl_corr_spearman": 0.4179,
+     "net_position_corr": 0.4513,
+     "rule_return": -0.0045
+    },
+    "soft_side_sharp": {
+     "pnl_corr_pearson": 0.412,
+     "pnl_corr_spearman": 0.381,
+     "net_position_corr": 0.4347,
+     "rule_return": 0.0175
+    },
+    "soft_side_sq": {
+     "pnl_corr_pearson": 0.4344,
+     "pnl_corr_spearman": 0.4106,
+     "net_position_corr": 0.4522,
+     "rule_return": 0.0091
+    },
+    "wallet_return_before_rebates": 0.0017,
+    "diag_corr_wallet_pnl_vs_own_net_x_outcome": 0.8846
    },
    "selection": {
-    "auc_pooled_size_plus_cell_score": 0.8372,
-    "auc_within_window": 0.8248,
-    "auc_cell_score_only": 0.691,
-    "at_preregistered_1.30": {
-     "recall": 0.3131,
-     "lift": 12.67,
-     "flag_share": 0.0247,
-     "p_value": 0.0
+    "taker_prints": 2735396,
+    "cluster_share": 0.0539,
+    "rule": {
+     "auc_pooled": 0.8662,
+     "auc_within_window": 0.86,
+     "at_preregistered_flag": {
+      "recall": 0.6767,
+      "lift": 4.648,
+      "flag_share": 0.1456,
+      "p_value": 0.0
+     }
     },
-    "size_rule_only": {
-     "recall": 0.4976,
-     "lift": 10.237,
-     "flag_share": 0.0486
+    "co_occurrence_baseline": {
+     "auc_pooled": 0.852,
+     "auc_within_window": 0.8452,
+     "at_preregistered_flag": {
+      "recall": 0.6405,
+      "lift": 4.779,
+      "flag_share": 0.134,
+      "p_value": 0.0
+     }
     },
-    "co_occurrence_baseline_auc_size_plus_market_only": 0.8269
-   },
-   "side_with_futures_features_not_frozen": {
-    "any": 0.6983,
-    "taker": 0.7067
+    "size_classes_only": {
+     "full_only": {
+      "recall": 0.5244,
+      "lift": 8.31,
+      "flag_share": 0.0631,
+      "p_value": 0.0
+     },
+     "full_or_partial": {
+      "recall": 0.7354,
+      "lift": 3.04,
+      "flag_share": 0.2419,
+      "p_value": 0.0
+     }
+    }
    }
   }
  },
@@ -306,6 +347,461 @@
     "co_occurrence_baseline_auc": 0.8269
    },
    "verdict": "supported: selection AUC 0.837 >= 0.80; recall at the pre-registered flag 31% < 50%"
+  },
+  {
+   "id": "H20",
+   "family": "alternative reference feed: Binance USD-M futures in the frozen rule",
+   "description": "PIT futures aggTrades features (moves 0.25-10 s, OFI, since-last-print move, basis-adjusted futures fair value) in presence and side models",
+   "validate_metrics": {
+    "presence_auc": 0.9038,
+    "side_model": 0.7034,
+    "side_spot_r3_zero": 0.6477
+   },
+   "verdict": "supported: presence 0.896 -> 0.904, side 67.1% -> 70.3%"
+  },
+  {
+   "id": "H21",
+   "family": "information wall test (anticipation beyond public PIT data)",
+   "description": "Bot side vs our best PIT side model in predicting FUTURE Binance futures moves when Binance futures and spot were flat up to the horizon",
+   "validate_metrics": {
+    "futures_only_model": {
+     "share": 0.5014,
+     "f_m1_0": {
+      "bot": [
+       0.5516,
+       21046
+      ],
+      "our_PIT_model": [
+       0.5031,
+       21046
+      ]
+     },
+     "f_0_2": {
+      "bot": [
+       0.5539,
+       25460
+      ],
+      "our_PIT_model": [
+       0.5137,
+       25460
+      ]
+     },
+     "f_2_5": {
+      "bot": [
+       0.5408,
+       27819
+      ],
+      "our_PIT_model": [
+       0.5083,
+       27819
+      ]
+     },
+     "f_5_15": {
+      "bot": [
+       0.5227,
+       35597
+      ],
+      "our_PIT_model": [
+       0.505,
+       35597
+      ]
+     },
+     "logit_future_0_15_on_bot_side_and_our_score": {
+      "coef_bot": 0.1897,
+      "z_bot": 17.55,
+      "coef_ours": 0.0759,
+      "z_ours": 2.3,
+      "n": 38189
+     },
+     "bot_disagrees_with_model:bot_agrees_future_0_15": [
+      0.5509,
+      14370
+     ]
+    },
+    "three_venue_model": {
+     "share": 0.5014,
+     "f_m1_0": {
+      "bot": [
+       0.5516,
+       21046
+      ],
+      "our_PIT_model": [
+       0.5339,
+       21046
+      ]
+     },
+     "f_0_2": {
+      "bot": [
+       0.5539,
+       25460
+      ],
+      "our_PIT_model": [
+       0.5435,
+       25460
+      ]
+     },
+     "f_2_5": {
+      "bot": [
+       0.5408,
+       27819
+      ],
+      "our_PIT_model": [
+       0.5244,
+       27819
+      ]
+     },
+     "f_5_15": {
+      "bot": [
+       0.5227,
+       35597
+      ],
+      "our_PIT_model": [
+       0.5184,
+       35597
+      ]
+     },
+     "logit_future_0_15_on_bot_side_and_our_score": {
+      "coef_bot": 0.1404,
+      "z_bot": 12.5,
+      "coef_ours": 0.3335,
+      "z_ours": 12.58,
+      "n": 38189
+     },
+     "bot_disagrees_with_model:bot_agrees_future_0_15": [
+      0.5219,
+      12871
+     ]
+    }
+   },
+   "verdict": "with Binance-only features the bot anticipates futures (z=17.6 vs our 2.3); with OKX+Bybit features most of it is explained (z 12.5 vs ours 12.6): cross-venue information, not a private feed; small residual remains"
+  },
+  {
+   "id": "H22",
+   "family": "other perpetual venues (OKX swap, Bybit perp)",
+   "description": "Bot side vs OKX / Bybit moves when Binance is flat",
+   "validate_metrics": {
+    "okx": {
+     "n_seconds_covered": 30339,
+     "trades": 4855307,
+     "all:[s-4,s-1)": [
+      0.661,
+      0.653,
+      30339
+     ],
+     "binance_flat:[s-4,s-1)": [
+      0.5596,
+      0.487,
+      17398
+     ],
+     "all:[s-3,s-2)": [
+      0.6569,
+      0.472,
+      30339
+     ],
+     "binance_flat:[s-3,s-2)": [
+      0.5601,
+      0.341,
+      17398
+     ],
+     "all:[s-2,s-1)": [
+      0.6312,
+      0.457,
+      30339
+     ],
+     "binance_flat:[s-2,s-1)": [
+      0.538,
+      0.337,
+      17398
+     ],
+     "all:[s-1,s)_nonPIT": [
+      0.5814,
+      0.437,
+      30339
+     ],
+     "binance_flat:[s-1,s)_nonPIT": [
+      0.546,
+      0.363,
+      17398
+     ],
+     "all:[s,s+2)_future": [
+      0.5629,
+      0.557,
+      30339
+     ],
+     "binance_flat:[s,s+2)_future": [
+      0.5366,
+      0.481,
+      17398
+     ],
+     "binance_flat:venue_|3s|>=0.5bp_share": 0.0418,
+     "binance_flat:venue_|3s|>=0.5bp_agree": 0.7483,
+     "corr_venue_t_binfut_t+k": {
+      "-2": 0.0377,
+      "-1": 0.1174,
+      "0": 0.8539,
+      "1": 0.0908,
+      "2": 0.0409
+     }
+    },
+    "bybit": {
+     "n_seconds_covered": 9502,
+     "trades": 437032,
+     "all:[s-4,s-1)": [
+      0.6685,
+      0.559,
+      9502
+     ],
+     "binance_flat:[s-4,s-1)": [
+      0.6027,
+      0.44,
+      6990
+     ],
+     "all:[s-3,s-2)": [
+      0.682,
+      0.319,
+      9502
+     ],
+     "binance_flat:[s-3,s-2)": [
+      0.6001,
+      0.227,
+      6990
+     ],
+     "all:[s-2,s-1)": [
+      0.6591,
+      0.3,
+      9502
+     ],
+     "binance_flat:[s-2,s-1)": [
+      0.5875,
+      0.22,
+      6990
+     ],
+     "all:[s-1,s)_nonPIT": [
+      0.5967,
+      0.283,
+      9502
+     ],
+     "binance_flat:[s-1,s)_nonPIT": [
+      0.5588,
+      0.241,
+      6990
+     ],
+     "all:[s,s+2)_future": [
+      0.5718,
+      0.412,
+      9502
+     ],
+     "binance_flat:[s,s+2)_future": [
+      0.5529,
+      0.365,
+      6990
+     ],
+     "binance_flat:venue_|3s|>=0.5bp_share": 0.0489,
+     "binance_flat:venue_|3s|>=0.5bp_agree": 0.8158,
+     "corr_venue_t_binfut_t+k": {
+      "-2": 0.0388,
+      "-1": 0.1011,
+      "0": 0.8201,
+      "1": 0.0979,
+      "2": 0.0589
+     }
+    }
+   },
+   "verdict": "supported: Binance-flat side agreement 56% (OKX) / 60% (Bybit); 75-82% when the venue moved >= 0.5 bp"
+  },
+  {
+   "id": "H23",
+   "family": "multi-venue composite trigger (behaviour cloning)",
+   "description": "Presence + side models with Binance futures, OKX swap, Bybit perp (and in 'six': Binance spot aggTrades, Bybit spot, OKX spot) and composites (mean / largest venue move)",
+   "validate_metrics": {
+    "three_venues": {
+     "presence": 0.9082,
+     "side": 0.7268
+    },
+    "six_series": {
+     "presence": 0.9095,
+     "side": 0.7317
+    },
+    "top_side_features": [
+     [
+      "C6_pm2000",
+      0.21
+     ],
+     [
+      "C6_mx2000",
+      0.103
+     ],
+     [
+      "C_mx2000",
+      0.07
+     ],
+     [
+      "C_pm2000",
+      0.059
+     ],
+     [
+      "C6_since_mx",
+      0.017
+     ]
+    ]
+   },
+   "verdict": "supported: the bot fires on whichever venue moves first; best rule"
+  },
+  {
+   "id": "H25",
+   "family": "Kraken XBT/USD (Chainlink input; REST paged by time)",
+   "description": "Does Kraken explain the side in seconds when none of the six archived series moved (<= 0.1 bp over the PIT 3 s)?",
+   "validate_metrics": {
+    "hours": [
+     1792249200,
+     1792317600,
+     1792440000,
+     1792504800,
+     1792548000,
+     1792659600
+    ],
+    "n_seconds": 3436,
+    "all": {
+     "share": 1.0,
+     "kr3": {
+      "agree": 0.6358,
+      "nonzero_share": 0.5809,
+      "n": 1996
+     },
+     "kr_m1": {
+      "agree": 0.644,
+      "nonzero_share": 0.282,
+      "n": 969
+     },
+     "our_side_model_acc": 0.7302
+    },
+    "no_move_six_series": {
+     "share": 0.2791,
+     "kr3": {
+      "agree": 0.4985,
+      "nonzero_share": 0.3493,
+      "n": 335
+     },
+     "kr_m1": {
+      "agree": 0.5699,
+      "nonzero_share": 0.194,
+      "n": 186
+     },
+     "our_side_model_acc": 0.6288
+    }
+   },
+   "verdict": "rejected: 49.9% agreement in no-move seconds (6 sampled VALIDATE hours)"
+  },
+  {
+   "id": "H24",
+   "family": "sizing rule v3 (full orders + partial fills)",
+   "description": "Size classes decoded on BUILD: full orders {30,50,60,100}, partial taker fills {5,...,25}; flag = full OR (partial AND p >= 0.30)",
+   "validate_metrics": {
+    "taker_prints": 2735396,
+    "cluster_share": 0.0539,
+    "rule": {
+     "auc_pooled": 0.8662,
+     "auc_within_window": 0.86,
+     "at_preregistered_flag": {
+      "recall": 0.6767,
+      "lift": 4.648,
+      "flag_share": 0.1456,
+      "p_value": 0.0
+     }
+    },
+    "co_occurrence_baseline": {
+     "auc_pooled": 0.852,
+     "auc_within_window": 0.8452,
+     "at_preregistered_flag": {
+      "recall": 0.6405,
+      "lift": 4.779,
+      "flag_share": 0.134,
+      "p_value": 0.0
+     }
+    },
+    "size_classes_only": {
+     "full_only": {
+      "recall": 0.5244,
+      "lift": 8.31,
+      "flag_share": 0.0631,
+      "p_value": 0.0
+     },
+     "full_or_partial": {
+      "recall": 0.7354,
+      "lift": 3.04,
+      "flag_share": 0.2419,
+      "p_value": 0.0
+     }
+    }
+   },
+   "verdict": "selection target met on VALIDATE (AUC 0.865, recall 67.6% at lift 4.6); co-occurrence baseline 0.852"
+  },
+  {
+   "id": "H26",
+   "family": "distilled explicit trigger rule",
+   "description": "Side = sign of the largest 2-s move among the six reference series (PIT); presence trigger = move toward o >= x bp with ask in [0.12, 0.88]",
+   "validate_metrics": {
+    "cells": 1209600,
+    "base_rate_y": 0.1074,
+    "presence_trigger": {
+     "0.3": {
+      "flag_share": 0.1366,
+      "recall": 0.3982,
+      "precision": 0.3129,
+      "lift": 2.914,
+      "p_value": 0.0
+     },
+     "0.5": {
+      "flag_share": 0.1097,
+      "recall": 0.3331,
+      "precision": 0.3259,
+      "lift": 3.035,
+      "p_value": 0.0
+     },
+     "1.0": {
+      "flag_share": 0.0573,
+      "recall": 0.1852,
+      "precision": 0.3472,
+      "lift": 3.234,
+      "p_value": 0.0
+     },
+     "2.0": {
+      "flag_share": 0.0146,
+      "recall": 0.0482,
+      "precision": 0.3553,
+      "lift": 3.309,
+      "p_value": 0.0
+     }
+    },
+    "side_trigger_sign_C6_mx2000": {
+     "0.0": {
+      "coverage": 0.9701,
+      "accuracy": 0.691
+     },
+     "0.1": {
+      "coverage": 0.6497,
+      "accuracy": 0.7718
+     },
+     "0.3": {
+      "coverage": 0.5578,
+      "accuracy": 0.7902
+     },
+     "0.5": {
+      "coverage": 0.4591,
+      "accuracy": 0.8043
+     },
+     "1.0": {
+      "coverage": 0.2505,
+      "accuracy": 0.8281
+     },
+     "2.0": {
+      "coverage": 0.0654,
+      "accuracy": 0.838
+     }
+    },
+    "n_one_sided_seconds": 90170
+   },
+   "verdict": "supported: 69.1% side on all one-sided seconds, 80.4% on the 46% with a >= 0.5 bp move; presence trigger recall 33% at lift 3.0"
   }
  ],
  "data_sources": [
@@ -316,7 +812,12 @@
   "data-api taker tapes: all 2,016 VALIDATE windows + BUILD windows 2026-10-09..16 (partial)",
   "Iteration 2 (local): chain own fills 2026-10-09..H re-fetched (483,048 logs), Gamma 4,032 windows, Binance 1-s 10-08..H-1, data-api taker tapes for all 4,032 windows",
   "Binance spot BTCUSDT aggTrades REST, 32 sampled hours (16 BUILD, 16 VALIDATE)",
-  "Binance USD-M futures BTCUSDT aggTrades archives 2026-10-12..15 (BUILD) and 2026-10-16..22 (VALIDATE), reduced to parquet (.cache/re/btc5m-bot/fut/)"
+  "Binance USD-M futures BTCUSDT aggTrades archives 2026-10-12..15 (BUILD) and 2026-10-16..22 (VALIDATE), reduced to parquet (.cache/re/btc5m-bot/fut/)",
+  "Iteration 3: Binance USD-M futures aggTrades archives 2026-10-09..11 (all 14 BUILD+VALIDATE days now)",
+  "Iteration 3: OKX BTC-USDT-SWAP and BTC-USDT spot daily trade archives (static.okx.com, UTC+8 files) 2026-10-09..10-22 files; the 10-23 file extends past H and is never loaded (last 8 h of VALIDATE without OKX)",
+  "Iteration 3: Bybit BTCUSDT linear perp and spot daily trade archives (public.bybit.com) 2026-10-09..10-22",
+  "Iteration 3: Binance spot BTCUSDT aggTrades daily archives (checksummed) 2026-10-09..10-22",
+  "Iteration 3: Kraken XBTUSD REST trades (paged by time) for 6 sampled VALIDATE hours (.cache/re/btc5m-bot/venues/kraken)"
  ],
  "iterations": [
   {
@@ -351,9 +852,26 @@
     "time of day",
     "sizing rule / print-level selection"
    ]
+  },
+  {
+   "n": 3,
+   "minutes": 47,
+   "best_validate_score": 0.9095,
+   "co_occurrence_baseline": 0.8889,
+   "families": [
+    "Binance futures in the frozen rule",
+    "information-wall test vs best PIT model",
+    "other perpetual venues (OKX, Bybit)",
+    "spot venues (Binance aggTrades, Bybit, OKX)",
+    "multi-venue composite trigger",
+    "sizing rule v3 (full + partial size classes)",
+    "outcome proxy variants",
+    "Kraken (time-paged REST) for the no-trigger residual",
+    "distilled explicit trigger rule"
+   ]
   }
  ],
- "frozen_rule": "code/final_rule.py uses model_it2_spot_tape_{y,yT,yM}.txt, model_it2_market_only_y.txt, model_it2_spot_tape_own_y.txt",
+ "frozen_rule": "code/final_rule.py (USE_VENUES=True, SIX_SERIES=True) uses model_it3s_all_{y,yT,yM}.txt, model_it3s_all_own_y.txt, model_it3s_side.txt, model_it2_market_only_y.txt (baseline), model_it2_spot_tape_y.txt (comparison)",
  "target_reached": false,
  "status": "continue",
  "wall_reason": ""

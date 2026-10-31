@@ -1,0 +1,30 @@
+{
+ "kind": "six",
+ "windows": 2016,
+ "soft": {
+  "pnl_corr_pearson": 0.4118,
+  "pnl_corr_spearman": 0.3967,
+  "net_position_corr": 0.4402,
+  "rule_return": -0.0196
+ },
+ "soft_side": {
+  "pnl_corr_pearson": 0.4359,
+  "pnl_corr_spearman": 0.4179,
+  "net_position_corr": 0.4513,
+  "rule_return": -0.0045
+ },
+ "soft_side_sharp": {
+  "pnl_corr_pearson": 0.412,
+  "pnl_corr_spearman": 0.381,
+  "net_position_corr": 0.4347,
+  "rule_return": 0.0175
+ },
+ "soft_side_sq": {
+  "pnl_corr_pearson": 0.4344,
+  "pnl_corr_spearman": 0.4106,
+  "net_position_corr": 0.4522,
+  "rule_return": 0.0091
+ },
+ "wallet_return_before_rebates": 0.0017,
+ "diag_corr_wallet_pnl_vs_own_net_x_outcome": 0.8846
+}

@@ -1,122 +1,134 @@
-# btc5m-bot: frozen rule (iteration 2)
+# btc5m-bot: frozen rule (iteration 3)
 
-Code: `code/final_rule.py` (`evaluate(start_ts, end_ts) -> dict`). Models, all trained on BUILD only
-(2026-10-09 .. 2026-10-16 00:00 UTC, 2,016 windows, every window with a tape; negatives subsampled to 30% with
-weight 1/0.3; nothing fitted on VALIDATE or the holdout):
+Code: `code/final_rule.py` (`evaluate(start_ts, end_ts) -> dict`, constants `USE_VENUES = True`,
+`SIX_SERIES = True`). Models, all trained on BUILD only (2026-10-09 .. 2026-10-16 00:00 UTC, 2,016 windows;
+negatives subsampled to 30% with weight 1/0.3; nothing fitted on VALIDATE or the holdout):
 
-- `code/model_it2_spot_tape_y.txt` (primary score), `..._yT.txt` (taker fills), `..._yM.txt` (maker fills)
-- `code/model_it2_market_only_y.txt`: co-occurrence baseline (market activity only, no Binance)
-- `code/model_it2_spot_tape_own_y.txt`: secondary score with own state (cluster inventory)
+- `code/model_it3s_all_y.txt` (primary presence score), `..._yT.txt` (taker fills), `..._yM.txt` (maker fills)
+- `code/model_it3s_side.txt`: side model (one row per second where the cluster bought exactly one outcome)
+- `code/model_it3s_all_own_y.txt`: secondary score with own state (cluster inventory)
+- `code/model_it2_market_only_y.txt`: co-occurrence baseline (market activity only, no reference feed)
+- `code/model_it2_spot_tape_y.txt`: the iteration-2 rule, reported for comparison
 
-Helpers: `cells.py`, `tape_feats.py`, `spot.py`, `rpc.py`, `build_cells_day.py` (`add_inv`, `add_extra`),
-`fetch_tapes2.py` (`fetch_one`). Iteration 1's model files were lost with the cloud machine; iteration 2 retrained
-the same model family locally (plus five PIT price-change features) and re-measured everything.
+Helpers: `cells.py`, `tape_feats.py`, `spot.py`, `rpc.py`, `build_cells_day.py`, `fetch_tapes2.py`, `ofi.py`,
+`fut_cells.py`, `venue_cells.py`, `venue_cells2.py`. `evaluate` downloads every archive it needs (Binance futures and
+spot aggTrades, OKX swap and spot, Bybit perp and spot daily trade files; tested against the development cache, byte
+for byte the same trades) and, on a development period (end <= H), never loads a file that extends past H.
 
 ## What the rule says the bot does (mechanism as decoded so far)
 
-1. Universe: every BTC 5-minute Up/Down window (all three wallets in the same windows). Activity at rel 2..~270 s,
+1. Universe: every BTC 5-minute Up/Down window, all three wallets in the same windows. Activity at rel 2..~270 s,
    prices 0.12-0.88.
-2. One order type: BUY-only limit orders of a fixed share size (60 shares until 2026-10-12, then 30; 50 on some
-   days), priced at the current best ask of the outcome it wants. 72% fill completely as taker, 12% fill partly and
-   rest at the same price, 16% rest entirely (mostly lost races: another taker took that ask first).
-3. Two regimes with the same order type (new in iteration 2):
-   - MOVING (~33% of taker orders): Binance BTCUSDT moved >= 0.5 bp in the visible 3 s before the order. Latency
-     taking: the side follows the move of seconds s-3..s-2 before the block (62-63% agreement per second, 80-84%
-     when the 3-s move is 1-5 bp). Gross edge +3.1 c/share, fee 1.5 c, net +1.6 c/share (+3.3%).
-   - QUIET (~67% of taker orders): no visible Binance move. Side is almost unrelated to every public signal I could
-     get (fair-value gap, other traders' prints, own inventory, Binance spot at 1 s or 1 ms resolution, order flow;
-     Binance futures adds a few points). Gross edge only +0.6 c/share, fee 1.5 c: -0.9 c/share before rebates,
-     about -0.1 c with a 50% fee rebate. This is rebate-driven volume with a weak side signal that predicts the
-     next Binance moves (53-54% agreement with the move 1-10 s AFTER the order on a flat past; placebo 50%).
-4. The bot's information horizon ends about 1 s before the block timestamp (the Binance move in the last second
-   before the block barely matters: 57% overall, 52% in quiet periods), so the brief's 1-s availability lag is not
-   what limits the rule.
-5. The three wallets are parallel instances of one strategy (DS 58%, GF 34%, XM 8% of VALIDATE dollars; stable
-   shares per day; same edge profile).
+2. One order type: BUY-only limit orders priced at the current best ask of the outcome it wants, full sizes 30 / 50 /
+   60 / 100 shares (60 until 2026-10-12, then mostly 30). 72% fill completely as taker, 12% partly (partial fills of
+   5..25 shares, because makers rest in multiples of 5) and rest at the same price, 16% rest entirely (mostly lost
+   races against other latency takers).
+3. Trigger and side: a move of BTC on ANY of several exchanges. The side follows the move of the last ~2 s before
+   its information horizon (about 1-2 s before the block): the strongest single features are the mean and the
+   largest 2-s move across Binance USD-M futures, OKX swap, Bybit perp, Binance spot, Bybit spot and OKX spot. When
+   Binance is flat but Bybit moved >= 0.5 bp, the bot buys in Bybit's direction 82% of the time (OKX 75%). Side
+   accuracy rises with the largest venue move: 62% when no venue moved (26% of its one-sided seconds), 76% at
+   0.5-1 bp, 80% at 1-2 bp, 84% at 2-5 bp.
+4. Economics by regime (iteration 2, Binance-only split): after a visible Binance move (~1/3 of taker orders) +3.1 c
+   gross, +1.6 c net per share; the other 2/3 +0.6 c gross, about -0.1 c with a 50% fee rebate. Much of that
+   second group is now explained as reactions to other venues' small moves.
+5. The three wallets are parallel instances of one strategy (DS 58%, GF 34%, XM 8% of VALIDATE dollars).
+
+Distilled explicit rule (VALIDATE, `results_trigger_rule_iter3.json`): side = the sign of the largest 2-s move
+among the six series (PIT). Accuracy 69.1% on all one-sided seconds (97% have some move), 80.4% on the 46% with a
+move >= 0.5 bp, 82.8% at >= 1 bp. As a presence trigger (move toward o >= 0.5 bp, ask in [0.12, 0.88]): recall
+33% at lift 3.0. The frozen models below add tape context and the seconds without a venue move.
 
 ## The frozen score
 
-For each cell (window, outcome o, second s), `p = model_it2_spot_tape_y(features)`, features from public data
-available before s, no own state:
+For each cell (window, outcome o, second s), features from public data available before s, no own state:
 
-- Binance 1-s closes of seconds <= s-2: signed returns toward o over 1..60 s (raw and vol-normalised), largest
-  favourable/adverse 1-s moves in the last 3 and 10 s, 30-min sigma, z-score and fair value of o (60-s TWAP strike),
-  seconds elapsed/remaining.
-- Other traders' data-api taker prints with block ts <= s-1 (cluster prints and every print in a transaction where
-  a cluster order was the maker removed): last implied ask/bid of o and their ages, last price, VWAP 10/30 s, print
-  counts 1/2/5/30 s, signed flow, 30-s volume, Binance move since the last print, FV-minus-market gaps, implied
-  spread, and (new) the 5/10/30-s change of the last price and the 5/10-s change of the FV-minus-price gap.
+- Binance spot 1-s closes of seconds <= s-2 (returns toward o over 1..60 s, largest 1-s moves, sigma, z and fair
+  value with the 60-s TWAP strike, time in the window);
+- Binance USD-M futures aggTrades with T < (s-1)*1000 ms: moves over 0.25..10 s, order-flow imbalance, trade count,
+  trade age, futures move since the last Polymarket print, basis-adjusted futures fair value and its gaps;
+- OKX swap, Bybit perp, Binance spot aggTrades, Bybit spot, OKX spot trades with T < (s-1)*1000 ms: moves over
+  0.5..10 s, OFI, age, count; composites: mean and largest move over 1-5 s, number of series moving each way, and the
+  largest / mean move since the last Polymarket print;
+- other traders' data-api taker prints with block ts <= s-1 (cluster prints and prints in transactions where a
+  cluster order was the maker removed): implied ask/bid and ages, last price, VWAP, print counts, flow, volume,
+  gaps, spread, recent changes.
 
-A cell is flagged when `p >= 0.30` (fixed in iteration 1). Predicted side in a second = the outcome with the higher
-`p`. Predicted taker price = last implied ask of that outcome. Selection (print level): a taker print scores
-`1[size in {30, 50, 60} shares] + p` of its cell; it is flagged at score >= 1.30 (size rule and p >= 0.30). Outcome proxy: the rule buys `p * 30` shares at the
-last implied ask in every cell (soft proxy, chosen on VALIDATE over the iteration-1 hard proxy).
+Presence: `p = model_it3s_all_y`; a cell is flagged at `p >= 0.30` (fixed in iteration 1). Side in a second:
+Up if `model_it3s_side >= 0.5`. Price: last implied ask of the chosen outcome. Selection (print level):
+`score = 2*1[size in {30,50,60,100}] + 1[size in {5,10,15,20,25}] + p`, flag = full size OR (partial size AND
+`p >= 0.30`). Outcome proxy (primary, chosen on VALIDATE): per second the expected volume `(p_up + p_down) x 30`
+shares split by the side model, bought at the last implied ask.
 
 ## VALIDATE metrics (2026-10-16..23, all 2,016 windows, 1.21M cells)
 
 | metric | VALIDATE | target |
 |---|---|---|
-| presence AUC, any fill, no own state (PRIMARY) | **0.896** | >= 0.85 (met) |
-| co-occurrence baseline (market activity only, same model family) | 0.889 (gain +0.007) | |
-| presence AUC taker / maker | 0.897 / 0.875 | |
-| presence AUC per wallet GF / XM / DS | 0.892 / 0.909 / 0.884 | |
-| at p >= 0.30: recall / lift / flagged share | 56.4% / 3.89 / 14.5% (p~0); baseline 50.3% / 3.81 | |
-| spot-only model | 0.799 | |
-| presence AUC WITH own state (secondary) | 0.909 | |
-| side accuracy, one-sided seconds (n=90,170) | 67.1% (taker 67.1%, maker 68.2%) | >= 80% (not met) |
-| side baselines: market-only model / favourite | 63.9% / 45.9% (McNemar p ~ 1e-99 vs market-only) | |
-| side with own state | 67.5% | |
-| side by visible 3-s Binance move 0 / 0.5-1 / 1-2 / 2-5 bp | 60.1% / 77.2% / 80.7% / 83.5% | |
-| per-window PnL correlation (soft proxy) | 0.399 (Spearman 0.363); hard proxy 0.316 | >= 0.5 (not met) |
-| net-position correlation rule vs cluster | 0.415 | |
-| rule return (proxy, buys at last implied ask) / cluster before rebates | -2.8% / +0.17% | |
-| selection among all 2.74M in-window taker prints (cluster 5.4%): size rule + cell score, pooled / within-window AUC | **0.837** / 0.825 (cell score alone 0.691) | >= 0.80 (met) |
-| selection co-occurrence baseline (size rule + market-only cell score) | 0.827 (gain +0.010; market-only cell score alone 0.676) | |
-| selection at the pre-registered flag (size rule AND p >= 0.30) | recall 31.3% at lift 12.7 (p~0) | recall >= 50% at lift >= 3 (not met) |
-| selection, size rule alone (print size in {30, 50, 60}) | recall 49.8% at lift 10.2 (flags 4.9% of prints) | |
-| taker price within one tick of last implied ask (iteration 1; 53.2% on the last 2 VALIDATE hours) | 49.2% | |
+| presence AUC, any fill, no own state (PRIMARY) | **0.9095** (it2 rule 0.8957; futures only 0.9038; three venues 0.9082) | >= 0.85 (met) |
+| co-occurrence baseline (market activity only) | 0.8889 (gain +0.021) | |
+| presence AUC taker / maker | 0.914 / 0.882 | |
+| presence AUC per wallet GF / XM / DS | 0.908 / 0.924 / 0.897 | |
+| at p >= 0.30: recall / lift / flagged share | 60.8% / 4.29 / 14.2% (p ~ 0) | |
+| presence AUC WITH own state (secondary) | 0.921 | |
+| side accuracy, one-sided seconds (n = 90,170) | **73.2%** (taker 75.2%) | >= 80% (not met) |
+| side baselines: market-only model / favourite | 63.2% / 45.9% (McNemar p ~ 0) | |
+| side: futures-only model / it2 rule | 70.3% / 67.1% | |
+| side by largest six-series 3-s move: <= 0.1 / 0.5-1 / 1-2 / 2-5 bp | 62.2% / 76.2% / 80.3% / 83.7% | |
+| side in Binance-flat seconds (50%) / moving | 67.1% / 79.7% | |
+| selection, all 2.74M in-window taker prints (cluster 5.4%): pooled / within-window AUC | **0.866** / 0.860 | >= 0.80 (met) |
+| selection at the pre-registered flag | **recall 67.7% at lift 4.65** (p ~ 0) | recall >= 50% at lift >= 3 (met) |
+| selection co-occurrence baseline (size classes + market-only cell score) | 0.852 / 0.845; recall 64.1% at lift 4.78 | |
+| per-window PnL correlation, primary proxy (soft_side) | 0.436 (Spearman 0.418); soft 0.412; futures-only soft 0.442 | >= 0.5 (not met) |
+| net-position correlation rule vs cluster | 0.451 (cluster PnL vs its own net position x outcome: 0.885) | |
+| rule proxy return / cluster before rebates | -0.45% / +0.17% | |
+| taker price within one tick of the last implied ask (last 2 VALIDATE hours) | 53.2% | |
 
-Files: `results_presence_iter2.json`, `results_side_iter2.json`, `results_outcome_iter2.json`,
-`results_order_leadlag_iter2.json`, `results_edge_decomposition_iter2.json`, `results_futures_leadlag_iter2.json`,
-`results_ofi_side_iter2.json`, `results_selection_print_iter2.json`.
+End-to-end check `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours): presence 0.889 (baseline 0.869),
+side 72.2%, selection AUC 0.881 with recall 71.4% at lift 4.59, PnL correlation 0.454 (soft_side).
+
+Files: `results_iter3_models.json` (futures), `results_iter3_venues.json`, `results_iter3_six.json`,
+`results_selection_iter3.json`, `results_outcome_iter3_{fut,six}.json`, `results_fut_leadlag_iter3.json`,
+`results_venues_iter3.json`, `results_wall_test_iter3*.json`, `results_side_by_composite_move_iter3.json`.
 
 ## Why it works
 
-- Who pays it: the makers on the other side of its taker buys, mostly resting BUY orders on the complementary
-  outcome (92% of hits are mints). After a Binance move those bids are stale: buying Up at the Up ask is selling
-  Down to a Down bidder whose bid has not caught up. That is classic latency arbitrage against slow quoters, worth
-  about +3 c/share gross on the third of its orders that follow a visible move.
+- Who pays it: makers whose quotes lag the BTC price. 92% of the makers it hits are resting BUY orders on the
+  complementary outcome; buying Up at the Up ask is selling Down to a Down bidder who has not yet repriced after a
+  move. The bot watches several exchanges at once and fires on whichever moves first, so it also picks off quotes
+  that track only Binance (when Bybit or OKX moves first, it is right 75-82% of the time). That is latency
+  arbitrage, worth about +3 c/share gross after a clear move.
 - What it is mostly paid for in the study weeks: the fee rebate. Its taker volume pays ~1.5 c/share in fees; with a
-  50% rebate the large "quiet" volume roughly breaks even, and the rebate on all of it (~$30k in the VALIDATE week
-  against ~$4k of trading profit before rebates) is most of the profit. The quiet orders' weak side signal (+0.6 c
-  gross) is just enough to make the volume free.
-- Its resting remainders (lost races) earn +2.4 c/share when placed after a move and ~0 otherwise: no fee, and the
-  limit sits at a price that was the ask a moment before a move that continued.
+  50% rebate the large volume of small-move orders roughly breaks even, and the rebate on all of it (~$30k in the
+  VALIDATE week against ~$4k of trading profit before rebates) is most of the profit.
+- Its resting remainders (lost races) earn about +2.4 c/share after moves: no fee, and the limit sits at a price
+  that was the ask just before a move that continued.
 
 ## Can a normal user deploy it now
 
-- Dependencies: a co-located or low-latency Binance feed (the edge sits in the 1-3 s after a move and competes with
-  other latency takers who often win: 69-83% of its orders follow another trader taking the same price within 5 s),
-  fast order submission to the Polymarket CLOB, enough capital for thousands of 30-share orders a day (~$2.5M bought
-  per week across the three wallets), and above all a high fee-rebate tier: without the 50% rebate the quiet volume
-  loses ~0.9 c/share (-1.8%) and the whole book is near zero (+0.17% before rebates in VALIDATE).
-- Do the conditions still hold before H? Yes in the latest data: activity, fee formula (0.07 p(1-p)) and the
-  latency edge are stable through 2026-10-22; the moving-regime edge is +1.6 c/share net of fees in VALIDATE.
-- What a replicator with a normal connection and computer would earn: the latency part needs to beat co-racers that
-  act within ~1-2 s; a normal home setup (>= 2 s latency, strict fills) loses: the iteration-1 frozen executable
-  version lost 5-9% on 2,011 unseen windows, and the rule proxy here returns -2.8% (buys at the last observed ask
-  without queue priority). A normal user without the rebate tier should expect to lose money.
+- Dependencies: low-latency feeds from several exchanges (Binance futures and spot, Bybit, OKX; all public
+  websockets), order submission to the Polymarket CLOB within about 1-2 s of a move (it races other latency takers
+  and often loses: most of its orders follow another trader taking the same price within 5 s), capital for
+  thousands of 30-share orders a day (~$2.5M bought per week across the three wallets), and above all a high
+  fee-rebate tier: without the 50% rebate the small-move volume loses ~0.9 c/share and the whole book is near zero
+  (+0.17% before rebates in VALIDATE).
+- Do the conditions still hold before H? Yes: activity, the fee formula (0.07 p(1-p)), the order sizes and the
+  latency edge are stable through 2026-10-22, and all six exchange feeds are public and archived daily.
+- What a replicator with a normal connection and computer would earn: the feeds are free, but the edge sits in the
+  1-3 s after a move, against co-located racers. With >= 2 s latency and strict fills, the iteration-1 executable
+  version lost 5-9% on 2,011 unseen windows; this rule's proxy (no queue priority) returns -0.45% before rebates.
+  A normal user without the rebate tier should expect to lose money; with the rebate tier and a fast multi-venue
+  feed the small-move volume roughly breaks even and the latency part pays.
 
 ## Known limitations
 
-- Not frozen yet: PIT Binance USD-M futures features raise VALIDATE side accuracy to 69.8% (taker 70.7%) in a
-  side model trained on 4 BUILD days (`results_futures_side_iter2.json`); the frozen rule still uses spot only.
-
-- The side decision in quiet periods (2/3 of orders) is not decoded; candidates not yet tested: Coinbase / Chainlink
-  Data Streams (the resolution source) and the Polymarket order book itself (no public history for the development
-  period; a live recording would be holdout-period data).
-- The outcome metric is a proxy (no queue/fill simulation). The price metric was re-measured only on the last two
-  VALIDATE hours (53.2%); `evaluate` computes it.
-- The size rule depends on the bot keeping its order sizes in {30, 50, 60} shares; a size change in the holdout
-  would lower the selection metric (the cell score alone gives 0.69).
+- About a quarter of its one-sided seconds have no visible trigger on any of the six trade feeds (side accuracy 62%
+  there); Kraken XBT/USD does not explain them either (49.9% agreement in those seconds, 6 sampled VALIDATE hours).
+  Untested: Coinbase (no archive; trade-id paging needs a post-H anchor), Deribit, order books (no
+  public sub-second history: the Binance futures bookTicker archive is not published for 2026-10), and the
+  Polymarket order book (no public history for the development period).
+- OKX archives are UTC+8 days; on development periods ending at H the last 8 h have no OKX data (the 10-23 file
+  extends past H). On the holdout the examiner gets full OKX coverage; the model handles missing venues (NaN).
+- The outcome metric is a proxy (no queue/fill simulation).
+- The size rule depends on the bot keeping its order sizes ({30, 50, 60, 100} full, multiples of 5 partial); a size
+  change in the holdout would lower the selection metric (the cell score alone gives ~0.69).
 - Tape features need data-api tapes (`evaluate` fetches them, [start-600, end+5] per window).

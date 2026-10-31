@@ -1,0 +1,165 @@
+{
+ "n_seconds": 90128,
+ "all": {
+  "share": 1.0,
+  "f_m1_0": {
+   "bot": [
+    0.5797,
+    47719
+   ],
+   "our_PIT_model": [
+    0.5899,
+    47719
+   ]
+  },
+  "f_0_2": {
+   "bot": [
+    0.5705,
+    56257
+   ],
+   "our_PIT_model": [
+    0.5751,
+    56257
+   ]
+  },
+  "f_2_5": {
+   "bot": [
+    0.5457,
+    60730
+   ],
+   "our_PIT_model": [
+    0.5443,
+    60730
+   ]
+  },
+  "f_5_15": {
+   "bot": [
+    0.5185,
+    75785
+   ],
+   "our_PIT_model": [
+    0.5187,
+    75785
+   ]
+  },
+  "logit_future_0_15_on_bot_side_and_our_score": {
+   "coef_bot": 0.094,
+   "z_bot": 11.19,
+   "coef_ours": 0.3167,
+   "z_ours": 20.73,
+   "n": 80284
+  },
+  "bot_disagrees_with_model:bot_agrees_future_0_15": [
+   0.5003,
+   21621
+  ]
+ },
+ "flat_PIT_futures_and_spot": {
+  "share": 0.5014,
+  "f_m1_0": {
+   "bot": [
+    0.5516,
+    21046
+   ],
+   "our_PIT_model": [
+    0.5339,
+    21046
+   ]
+  },
+  "f_0_2": {
+   "bot": [
+    0.5539,
+    25460
+   ],
+   "our_PIT_model": [
+    0.5435,
+    25460
+   ]
+  },
+  "f_2_5": {
+   "bot": [
+    0.5408,
+    27819
+   ],
+   "our_PIT_model": [
+    0.5244,
+    27819
+   ]
+  },
+  "f_5_15": {
+   "bot": [
+    0.5227,
+    35597
+   ],
+   "our_PIT_model": [
+    0.5184,
+    35597
+   ]
+  },
+  "logit_future_0_15_on_bot_side_and_our_score": {
+   "coef_bot": 0.1404,
+   "z_bot": 12.5,
+   "coef_ours": 0.3335,
+   "z_ours": 12.58,
+   "n": 38189
+  },
+  "bot_disagrees_with_model:bot_agrees_future_0_15": [
+   0.5219,
+   12871
+  ]
+ },
+ "flat_futures_to_s_nonPIT": {
+  "share": 0.4487,
+  "f_m1_0": {
+   "bot": [
+    0.5114,
+    16289
+   ],
+   "our_PIT_model": [
+    0.4898,
+    16289
+   ]
+  },
+  "f_0_2": {
+   "bot": [
+    0.5495,
+    22096
+   ],
+   "our_PIT_model": [
+    0.537,
+    22096
+   ]
+  },
+  "f_2_5": {
+   "bot": [
+    0.5383,
+    24479
+   ],
+   "our_PIT_model": [
+    0.5218,
+    24479
+   ]
+  },
+  "f_5_15": {
+   "bot": [
+    0.5226,
+    31421
+   ],
+   "our_PIT_model": [
+    0.519,
+    31421
+   ]
+  },
+  "logit_future_0_15_on_bot_side_and_our_score": {
+   "coef_bot": 0.1374,
+   "z_bot": 11.55,
+   "coef_ours": 0.3443,
+   "z_ours": 12.05,
+   "n": 33721
+  },
+  "bot_disagrees_with_model:bot_agrees_future_0_15": [
+   0.5209,
+   11503
+  ]
+ }
+}

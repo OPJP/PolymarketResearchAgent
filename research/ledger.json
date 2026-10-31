@@ -1,5 +1,5 @@
 {
- "generated_at": 1793441297,
+ "generated_at": 1793441469,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -108,8 +108,8 @@
    "status": "in_progress",
    "wall_reason": "",
    "iterations": 3,
-   "minutes": 137.0,
-   "hypotheses": 25,
+   "minutes": 142,
+   "hypotheses": 26,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9095,
    "best_rule": "H23-multivenue-six-it3 (code/final_rule.py, models code/model_it3s_*.txt)",
