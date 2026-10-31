@@ -1,0 +1,72 @@
+{
+ "maker_orders": 622,
+ "trade_msgs": 1144,
+ "actual": {
+  "n": 388,
+  "share_within_50ms": 0.034,
+  "share_within_100ms": 0.041,
+  "share_within_50ms_after_own_fill_msg": 0.031,
+  "share_within_50ms_after_others_msg": 0.003,
+  "offset_ms_p10_p25_p50": [
+   336,
+   2040,
+   8894
+  ],
+  "hist_5ms_first_20_bins": [
+   2,
+   8,
+   0,
+   3,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   0,
+   0,
+   1,
+   0,
+   0,
+   0,
+   1,
+   0
+  ]
+ },
+ "shifted_-7s": {
+  "n": 390,
+  "share_within_50ms": 0.005,
+  "share_within_100ms": 0.023,
+  "share_within_50ms_after_own_fill_msg": 0.0,
+  "share_within_50ms_after_others_msg": 0.005,
+  "offset_ms_p10_p25_p50": [
+   699,
+   2553,
+   6984
+  ],
+  "hist_5ms_first_20_bins": [
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   0,
+   0,
+   3,
+   0,
+   2,
+   0,
+   1,
+   1,
+   0,
+   0,
+   0
+  ]
+ }
+}

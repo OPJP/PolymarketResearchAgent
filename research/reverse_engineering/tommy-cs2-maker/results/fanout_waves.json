@@ -1,0 +1,11 @@
+{
+ "pairs": 1,
+ "pairs_with_both_onsets": 1,
+ "onset_ms_leg1": [
+  9.0
+ ],
+ "onset_ms_leg2": [
+  15.0
+ ],
+ "abs_diff_ms_median": 6.0
+}

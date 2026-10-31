@@ -1,0 +1,32 @@
+{
+ "wallet": {
+  "orders": 40,
+  "size100_cancel_consumed_side_0_40ms": 0.45,
+  "size100_cancel_other_side_0_40ms": 0.0,
+  "mean_count_consumed": 2.12
+ },
+ "pack": {
+  "orders": 74,
+  "size100_cancel_consumed_side_0_40ms": 0.041,
+  "size100_cancel_other_side_0_40ms": 0.014,
+  "mean_count_consumed": 0.04
+ },
+ "other": {
+  "orders": 1200,
+  "size100_cancel_consumed_side_0_40ms": 0.006,
+  "size100_cancel_other_side_0_40ms": 0.002,
+  "mean_count_consumed": 0.01
+ },
+ "random_time_size100_cancel_0_40ms": 0.0013,
+ "size100_cancels_total": 4696,
+ "share_of_size100_cancels_within_0_40ms_after_wallet_take": 0.018,
+ "all_cancels_total": 60673,
+ "cancelled_minus_reposted_top_complement_bid_cents": {
+  "n": 3,
+  "values": [
+   3,
+   6,
+   8
+  ]
+ }
+}

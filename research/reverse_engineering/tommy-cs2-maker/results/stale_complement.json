@@ -1,0 +1,62 @@
+{
+ "BUILD": {
+  "after_take": {
+   "taker_orders": 729,
+   "share_with_complement_fills": 0.088,
+   "shares_ratio_median": 0.553,
+   "pair_cost_median": 0.96,
+   "pair_cost_iqr": [
+    0.95,
+    1.01
+   ],
+   "stale_share_median": 0.0,
+   "stale_share_mean": 0.016,
+   "maker_age_at_take_median_s": 1.06,
+   "pack_taker_share_mean": 0.549
+  },
+  "control_minus30s": {
+   "taker_orders": 729,
+   "share_with_complement_fills": 0.03,
+   "shares_ratio_median": 1.099,
+   "pair_cost_median": 1.005,
+   "pair_cost_iqr": [
+    0.954,
+    1.069
+   ],
+   "stale_share_median": 1.0,
+   "stale_share_mean": 1.0,
+   "maker_age_at_take_median_s": -43.75,
+   "pack_taker_share_mean": 0.0
+  }
+ },
+ "VALIDATE": {
+  "after_take": {
+   "taker_orders": 969,
+   "share_with_complement_fills": 0.107,
+   "shares_ratio_median": 1.199,
+   "pair_cost_median": 0.99,
+   "pair_cost_iqr": [
+    0.95,
+    1.005
+   ],
+   "stale_share_median": 0.0,
+   "stale_share_mean": 0.091,
+   "maker_age_at_take_median_s": 1.04,
+   "pack_taker_share_mean": 0.665
+  },
+  "control_minus30s": {
+   "taker_orders": 969,
+   "share_with_complement_fills": 0.025,
+   "shares_ratio_median": 0.884,
+   "pair_cost_median": 1.002,
+   "pair_cost_iqr": [
+    0.978,
+    1.035
+   ],
+   "stale_share_median": 1.0,
+   "stale_share_mean": 1.0,
+   "maker_age_at_take_median_s": -40.0,
+   "pack_taker_share_mean": 0.292
+  }
+ }
+}

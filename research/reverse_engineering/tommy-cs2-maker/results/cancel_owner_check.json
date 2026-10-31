@@ -1,0 +1,12 @@
+{
+ "wallet_bursts_confirmed": 50,
+ "size100_cancels": 4126,
+ "after_take": {
+  "n_with_prior_add": 85,
+  "prior_add_is_wallet_ladder": 0.012
+ },
+ "other": {
+  "n_with_prior_add": 3972,
+  "prior_add_is_wallet_ladder": 0.01
+ }
+}

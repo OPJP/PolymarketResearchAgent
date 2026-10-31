@@ -22,39 +22,44 @@
    "what": "own recorder v2, feed tommy_cs2_near (code/iter2/cs2_recorder.py): same markets; price changes within 5c of the best bid/ask, near-touch snapshots every 30 s or when the best moves >= 2c, all last trades; filed dev/sealed by block via live.Writer; detached process, hard stop 2026-11-03 00:00 UTC, 280 MB cap",
    "start": 1793458232,
    "end": 1793664000
+  },
+  {
+   "what": "own recorder, feed tommy_dota_live (code/iter3/dota_live_recorder.py): OpenDota /api/live league games (compact: match, league, teams, scores, radiant_lead, game_time, last_update_time, delay, building_state) every 30 s, only while a Polymarket Dota 2 PARI Universe event is in play (Gamma series 10309 checked every 10 min); filed dev/sealed by live.Writer; detached (pid 14548), hard stop 2026-11-03 00:00 UTC, 60 MB cap",
+   "start": 1793465020,
+   "end": 1793664000
   }
  ],
- "strategy_statement": "CS2 in-play bot (maker regime from 10-16; before that a round-trip taker in GRID tier-1/2 events). [VALIDATE-only] Selection: whole events (match + all maps) of non-GRID tier-3 leagues (1win, Stake, PGL, Circuit X, DraculaN, NODWIN, ...; since 10-31 also CyberClash and FiReSPORTS), never an event with a GRID official-data series id (0/122), favouring events with high pre-game popularity; event-level rule AUC 0.954 vs activity baseline 0.892 (gain +0.062, p 0.002), recall 0.72 at lift 3.3. [VALIDATE-only] Maker: from game start it keeps 100-share BUY orders on whole cents on BOTH outcome tokens, joining the best bid (43% of filled orders exactly at the bid in live books; 24% at a touch rebuilt from all makers' filled orders), never sells, merges complete pairs (97% of shares paired, pair cost 0.978) and holds the residual; it does not pull its bids when other makers do, so the pack fills them. [VALIDATE-only live, small sample; hypothesis as a frozen rule] Taker trigger: about 0.3-1.0 s after other makers cancel the near-touch asks of one team without any trade (depth collapse; precedes 87% of its taker orders, random times 3%), it sends a FAK BUY of that team at the best ask + 0-2c (median fill 12%), acting on 5-8% of such collapses (the deeper ones that leave a stale best ask); the informed pack (0x4ebc2722 and a 3-wallet operator) does the same 0.3-0.5 s later; the bought team then gains +2.6-2.9c in 10 s and +4-5c in 60 s, with adverse >= 4c moves in 20-23% (in-round information, not known round results). [hypothesis] The cancelling makers have a faster game feed than the stream-priced makers; the wallet either reads their cancels from the public book or shares a similar feed slightly later. [VALIDATE-only] Economics: locked pair margins plus the informed taker legs; a generic public-data ladder in the same markets loses 5-10% and its per-market PnL correlates negatively with the wallet's.",
+ "strategy_statement": "CS2 (and some Dota 2) in-play bot; from 10-16 a buy-only two-sided maker plus an informed taker, before that a round-trip taker in GRID tier-1/2 events. [VALIDATE-only] Selection: whole events (match + all maps) of non-GRID tier-3 leagues (1win, Stake, PGL, Circuit X, DraculaN, NODWIN, ...; since 10-31 also CyberClash and FiReSPORTS), never an event with a GRID official-data series id (0/122), favouring popular events, and always events the informed pack also trades in play (100% of traded vs 50% of skipped non-GRID events); event rule AUC 0.954 vs activity 0.892. These are exactly the events in which Polymarket's own sports feed carries no round scores. [VALIDATE-only] Maker: from game start it keeps whole-cent BUY orders near the best bid on BOTH outcome tokens (100 shares in CS2, 10 in Dota 2), never sells, merges complete pairs (97% paired, pair cost 0.978) and holds the residual; at its own takes it cancels its 100-share complement bids within 13-16 ms (the earliest cancels of the wave are its own) and re-quotes them 3-8c lower about 1.04 s later (as soon as its FAK returns from the in-play delay) and the slower informed takers fill them, so it sells the bought team back to them and locks pairs at 0.96-0.99. [hypothesis, live dev block] Taker: on in-round game events it sends FAK BUYs of the team that gained (in map and match markets within 1-4 ms) at the pre-event best ask + 0-5c, sized about 0.3x the pre-event depth; on the CLOB server clock it signs before every public trace and is the first same-team signer in 90% of cases: its own complement cancels come first (+13-16 ms), other makers' cancels of that team's asks follow at +17 / +67 / +124 ms (p10 / p25 / p50), so the fastest of them act on the same external event within tens of ms, the informed pack signs 0.2-0.5 s later, and its order matches 1.04 s after signing (the in-play delay) against makers who did not cancel. Its input is a private in-round feed that none of the obtained public data contains; the iteration-2 'book-collapse trigger' was a receive-clock artefact and is retracted. [VALIDATE-only] Economics: locked pair margins and rebates plus the informed taker legs; a generic public-data ladder in the same markets loses 5-10%.",
  "components": {
   "selection": {
    "confidence": 0.7,
    "tag": "VALIDATE-only",
-   "description": "Events (all markets) of non-GRID tier-3 leagues; GRID events never (0/122); event-level logistic (league rate with GRID zeroing + pre-game popularity) AUC 0.954 vs 0.892 baseline, recall 0.72 at lift 3.3 on VALIDATE."
+   "description": "Whole events of non-GRID CS2 leagues (never a GRID event: 0/122), a subset of the events the informed pack covers (pack in play in 100% of traded vs 50% of skipped non-GRID events); event logistic (league rate with GRID zeroing + pre-game popularity) AUC 0.954 vs activity 0.892 (gain +0.062, p 0.002), recall 0.72 at lift 3.3; bo3 stars add nothing."
   },
   "timing": {
-   "confidence": 0.55,
+   "confidence": 0.4,
    "tag": "hypothesis",
-   "description": "Maker: continuous from game start (VALIDATE-only). Taker: 0.3-1.0 s (median 0.77) after a public depth collapse on one side of the book (other makers cancel, no trade); live-BUILD only (one dev block, 40 orders): S_col AUC 0.846 vs market-grouped CV prints baseline 0.512; live VALIDATE from 11-01 18:00 UTC."
+   "description": "Maker: quotes from game start; at its own taker signal it cancels its 100-share complement bids within 13-16 ms and re-posts them ~1.04 s later, when its FAK returns (VALIDATE-only for the re-post, live for the cancel). Taker: at in-round game events seen on an unobserved private feed; on the server clock it signs before every public trace (first same-team signer in 90%); fan-out legs in map + match within 1-4 ms (hypothesis for the input)."
   },
   "side": {
-   "confidence": 0.6,
-   "tag": "VALIDATE-only",
-   "description": "Maker: both outcomes. Taker: the team whose asks collapsed (100% of matched orders on the collapse side); that team gains in 72-77% of cases within 60 s."
+   "confidence": 0.5,
+   "tag": "hypothesis",
+   "description": "Maker: both outcomes (VALIDATE-only). Taker: the team that just gained in-round (the team whose asks other makers pull right after it signs; +2.6-2.9c in 10 s)."
   },
   "price": {
-   "confidence": 0.4,
+   "confidence": 0.35,
    "tag": "VALIDATE-only",
-   "description": "Maker: join the best bid on whole cents (43% exact in live books, 24% vs rebuilt touch, 11.5% vs last print); deeper ladder levels are censored. Taker: FAK at best ask (52%) or ask + 1-2c (29%)."
+   "description": "Maker: whole-cent BUYs near the best bid (server clock: 29% at the bid, 55% within 1c; in-play tick 0.01; last-print anchor 0.305). Taker: FAK limit at the pre-event best ask + 0-5c (0c 26%, +1c 22%, +2-3c 29%, +4-5c 21%; server-clock book 50 ms before signing)."
   },
   "size": {
-   "confidence": 0.6,
+   "confidence": 0.65,
    "tag": "VALIDATE-only",
-   "description": "Maker 100 shares (88% VALIDATE, 78% live); taker sizes variable (1000/2000 caps early, odd later), not decoded."
+   "description": "Maker 100 shares in CS2 markets, 10 in Dota 2 (all 10-share orders are Dota 2). Taker: about 0.31x of the pre-event depth up to its limit (server clock); the cancel wave removes 82% of that depth and it fills ~98% of what is left; exact 1000/2000 caps fading (14% VALIDATE, 0% on 10-31)."
   },
   "exit": {
    "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Never sells; merges complete pairs; holds the unpaired residual to resolution."
+   "description": "Never sells; at its own takes it pulls its complement ladder at once and re-posts it 3-8c lower ~1.04 s later, which the slower informed takers fill (pair cost 0.96-0.99); merges complete pairs; holds the unpaired residual to resolution."
   }
  },
  "catalog": {
@@ -80,7 +85,7 @@
   },
   "A5": {
    "status": "tried",
-   "evidence": "Sports websocket has round scores only for GRID events (info panel); the wallet's events are non-GRID, so it cannot time their rounds. bo3.gg: no live coverage for the wallet's live matches today (live_coverage None); bo3 round durations do not align pack clusters better than permuted durations (round_align.json). HLTV blocked (403). Kick VOD stream clock = X4 (open)."
+   "evidence": "Sports websocket has round scores only for GRID events (info panel); the wallet's events are non-GRID, so it cannot time their rounds. bo3.gg: no live coverage for the wallet's live matches today (live_coverage None); bo3 round durations do not align pack clusters better than permuted durations (round_align.json). HLTV blocked (403). Kick VOD stream clock = X4 (open). Iter 3: for its dev-block events the socket's round part stays 000-000 (map scores only) while GRID events carry per-round scores; its taker signing precedes every public trace on the server clock. HLTV scorebot also blocked (X36). SX Bet lists the same tier-3 events in play but its odds need a key (X23)."
   },
   "A6": {
    "status": "not_applicable",
@@ -92,7 +97,7 @@
   },
   "A7": {
    "status": "tried",
-   "evidence": "Recorded books (clob_wallets, dev block 10-31 12-18): a near-touch depth collapse by other makers' cancels precedes 87% of its taker orders (random 3%); live taker presence AUC 0.943 vs 0.529; maker orders join the best bid 43% (dev_books.json, collapse_*.json). prices-history unused."
+   "evidence": "Recorded books on the CLOB SERVER clock (iter 3, server_clock.json): the consumed-side depth is flat until its signing and the cancel wave starts a median 51 ms after it (p25 14 ms); the iter-2 'collapse precedes 87%' was a receive-clock artefact (laptop 0.9-1.4 s slow). The book is downstream of its decision. Maker price vs server-clock bid 50 ms before signing: at bid 29.3%, within 1c 55.4%."
   },
   "A8": {
    "status": "tried",
@@ -104,11 +109,11 @@
   },
   "B2": {
    "status": "tried",
-   "evidence": "Filled orders: lifetimes median 15.8 s; live books: filled maker orders at the bid 43%; cancellations of OTHER makers are the taker trigger (A7). Its own cancels: lost depth before its taker orders is not in 100-share units (11%), so it does not pull; own ladder depth not yet measured."
+   "evidence": "Filled orders: lifetimes median 15.8 s; live books: filled maker orders at the bid 43%; cancellations of OTHER makers are the taker trigger (A7). Its own cancels: lost depth before its taker orders is not in 100-share units (11%), so it does not pull; own ladder depth not yet measured. Iter 3: the 43% join-the-bid figure was measured on a book from after its own order (receive clock); server clock: 29.3% at the bid, 14.7% 1c above."
   },
   "B3": {
    "status": "tried",
-   "evidence": "Touch rebuilt from every maker's filled orders: price = best known resting bid 24% (within 1c 40%); last print 11.5%; own last fill (match clock) 18.7%; live: join the bid 43% (price_touch.json, dev_books.json). Fair-value models not needed for the maker: it joins the touch."
+   "evidence": "Touch rebuilt from every maker's filled orders: price = best known resting bid 24% (within 1c 40%); last print 11.5%; own last fill (match clock) 18.7%; live: join the bid 43% (price_touch.json, dev_books.json). Fair-value models not needed for the maker: it joins the touch. Iter 3, in-play tick (0.01 for 89.7% of VALIDATE maker orders): within one tick of the last print 0.305 (frozen rule), rebuilt touch 0.396."
   },
   "B4": {
    "status": "tried",
@@ -140,7 +145,7 @@
   },
   "C2": {
    "status": "tried",
-   "evidence": "Pack signs after the wallet (+0.48 s cluster; P4e -51 ms); following the pack's prints loses out of sample (iter 1). Today the pack also follows the book collapse, about 0.3 s after the wallet: a common trigger, not copying."
+   "evidence": "Pack signs after the wallet (+0.48 s cluster; P4e -51 ms); following the pack's prints loses out of sample (iter 1). Today the pack also follows the book collapse, about 0.3 s after the wallet: a common trigger, not copying. Iter 3 server clock: the pack signs 0.2-0.5 s after the cancel wave, the wallet ~50 ms before it; nobody public signs before the wallet."
   },
   "C3": {
    "status": "tried",
@@ -191,8 +196,8 @@
    "evidence": "Reviewer (C4b): no fee / rewards / delay change on CS2 markets 10-01..10-22; the switch is a change of universe GRID -> non-GRID (taker_regime.json)."
   },
   "X2": {
-   "status": "open",
-   "evidence": "Reviewer: round-boundary Markov quoting. Boundary-only requoting rejected (iter 1); maker price = join the bid (live); Markov valuation of the taker filter untested."
+   "status": "ruled_out",
+   "evidence": "Round-boundary requoting rejected (iter 1: 14.1% of maker signings within 15 s after a round-end proxy vs 8.1%); a public round-score Markov model has no input for its events: the sports socket carries only map scores for them (round part constant 000-000 on the dev block) and its taker signing precedes every public trace (server_clock.json)."
   },
   "X3": {
    "status": "ruled_out",
@@ -212,11 +217,11 @@
   },
   "X7": {
    "status": "tried",
-   "evidence": "info panel P4: own recorder for all CS2 markets started (tommy_cs2_books, then tommy_cs2_near); book-event trigger measured on the shared recorder: depth collapse precedes 87% of its taker orders vs 3% random (collapse_trigger.json)."
+   "evidence": "info panel P4: own recorder for all CS2 markets started (tommy_cs2_books, then tommy_cs2_near); book-event trigger measured on the shared recorder: depth collapse precedes 87% of its taker orders vs 3% random (collapse_trigger.json). Iter 3: RETRACTED as a trigger: on the server clock the collapse follows its signing (wave onset p50 +51 ms)."
   },
   "X8": {
    "status": "open",
-   "evidence": "info panel P5: bo3 per-round team stats as labels; needs a round clock (bo3 durations do not align, round_align.json)."
+   "evidence": "info panel P5: bo3 per-round team stats as labels; needs a round clock (bo3 durations do not align, round_align.json). Iter 3: bo3 per-round team stats include first_kills / kills / trade kills / equipment but no in-round times (kills endpoints 404); in 40 of its traded matches the opening-kill team wins 72.1% of 1,689 rounds, close to its 64-67% next-jump hit rate (opening_kill_rate.json). Still needs an in-round clock."
   },
   "X9": {
    "status": "tried",
@@ -236,7 +241,7 @@
   },
   "X13": {
    "status": "tried",
-   "evidence": "mechanics panel P4: live books (40 orders): taker size / depth up to its limit at signing median 1.22 (IQR 0.91-4.29), never equal; fill / that depth median 0.95: size is a cap above the stale depth left, which it takes almost fully (taker_size_depth.json). Stale-depth league score not built."
+   "evidence": "mechanics panel P4: live books (40 orders): taker size / depth up to its limit at signing median 1.22 (IQR 0.91-4.29), never equal; fill / that depth median 0.95: size is a cap above the stale depth left, which it takes almost fully (taker_size_depth.json). Stale-depth league score not built. Iter 3: measured on the receive clock (book from ~1 s after signing), so 'depth at signing' was post-wave depth; to be redone on the server clock. Iter 3 redo on the SERVER clock (taker_price_size_server.json, 69 orders): limit minus pre-event best ask (book 50 ms before signing) 0c 26%, +1c 22%, +2c 14.5%, +3c 14.5%, +4c 9%, +5c 12% (>= ask 98.6%); size / pre-event depth up to its limit median 0.31; the wave removes 82% of that depth by +0.9 s; fill / post-wave depth 0.98 (it takes what the non-cancelling makers leave)."
   },
   "X14": {
    "status": "tried",
@@ -257,6 +262,78 @@
   "X18": {
    "status": "tried",
    "evidence": "assumptions panel P4: h1/h2 have no books or game feed (recordings start 10-31): the taker trigger can only be examined on future blocks (own recorder running); h1/h2 claims limited to selection, size, price vs last print, exit. Sports-api REST history probe not done."
+  },
+  "X19": {
+   "status": "tried",
+   "evidence": "information panel P1 (iter 2): bo3.gg stars / tier_rank / bookmaker line as selection coverage proxy. Non-GRID traded rate 0* 4%, 1* 45%, 2* 87%, 3* 100%, but VALIDATE AUC activity+GRID 0.930 vs +stars 0.929; inside non-GRID 0.899 vs 0.882: a popularity proxy, no gain (selection_bo3.json). PIT check moot."
+  },
+  "X20": {
+   "status": "tried",
+   "evidence": "information panel P2 (iter 2): book reader with a confirmation rule vs slower feed. Resolved by the server clock: neither; the wallet signs before the collapse (wave onset +51 ms median), so it reads neither the book nor a slower copy of the cancellers' feed (server_clock.json)."
+  },
+  "X21": {
+   "status": "tried",
+   "evidence": "information panel P3 (iter 2), first cut on the own recorder (server clock, 33 wallet takes after 14:50): 20 cancels per 500-ms window after its signing vs 0.93 at random times; the earliest (13-16 ms, IQR 2 ms) are size-100 cancels of its OWN complement ladder (54-61% of its takes, 0% on the other side; pack 5%, others 0.5%, random 0.15%); other makers' cancels p10/p25/p50 17/67/124 ms; size fingerprints attribute 16% of wave cancels to 0x2e3c40fa (POLY_GNOSIS_SAFE, 120/20-share orders), little to others; 62% ambiguous. Owners of fast late makers all differ from the wallet's. Cross-market event clock not measured (canceller_id.json, own_cancels.json, late_maker_owners.json). Event clock across fan-out legs: only 1 pair with own-recorder coverage (onsets 9 and 15 ms), insufficient (fanout_waves.json)."
+  },
+  "X22": {
+   "status": "open",
+   "evidence": "information panel P4 (iter 2): event-locked Kick VOD stream clock with ~50 MB of 160p segments. Needs the user's explicit consent to download video (not given); asked in the return."
+  },
+  "X23": {
+   "status": "infeasible",
+   "evidence": "information panel P5 (iter 2). SX Bet: GET api.sx.bet/markets/active (no key) lists in-play CS2 markets of the same tier-3 events (e.g. FiReSPORTS ShindeN v Isurus, which the wallet trades on 10-31), but every odds / order endpoint needs a key: GET /orders-v3/odds/best -> 401 {\"message\":\"BAD_AUTH\"}, GET /orders-v3 -> 401, GET /orders/odds/best -> 400 \"OrderBook V2 is no longer supported\" (docs.sx.bet: V3 replaced V2). PandaScore /matches/<id> and /lives -> 403 \"Token is missing\". No account may be created here; both need a key or token from the user (asked in the return). Used instead: the CLOB server clock and the own recorder."
+  },
+  "X24": {
+   "status": "open",
+   "evidence": "information panel P6 (iter 2). Retrospective variant run (dota_align.json, dota_end.json): OpenDota parses its 6 Dota 2 maps (kills_log in game seconds, start_time, 90-s pre-game); its 72 Dota taker orders vs kills of the bought / other team show no sharp offset peak (best bins 10-13 vs 1-2 pairs at +1,036-1,044 s) and the market settlement offset is unstable (-1,024..+1,007 s): inconclusive, because game time does not map to wall time without draft and pause lengths. The live variant (record /api/live, verified 200, 143 KB per poll, with a 'delay' field, during dev blocks with Dota 2 events in its leagues) is still to run. Live variant STARTED 10-31 16:43 UTC (feed tommy_dota_live, live_lab): analyse on dev blocks against the wallet's Dota 2 taker signings."
+  },
+  "X25": {
+   "status": "tried",
+   "evidence": "mechanics panel P1 (iter 2): server-clock forensics. Laptop offset -0.90 s (13:00) to -1.40 s (15:45); wallet match - sign 1,034 / 1,040 / 1,052 ms (p5/p50/p90); consumed-side depth 1.00 up to signing, 0.66 at +0.1 s, 0.13 at +1.0 s, refill at +1.04 s; collapse pre-sign 14.1% vs random 2.3% (receive clock 70.3%); v2 trigger retracted; final_rule.py v3 reports the server-clock diagnostic only (server_clock.json)."
+  },
+  "X26": {
+   "status": "tried",
+   "evidence": "mechanics panel P2 (iter 2): tried. (a) Around its own takes it re-quotes the complement ~1.04 s later (hazard 236x in [1.00, 1.14) s, 0x during [0, 0.5) s) and the pack fills those bids (pair cost 0.96-0.99; only 2-9% of those fills come from bids signed before the take); (b) it CANCELS its own 100-share complement ladder 13-16 ms after the FAK signing (54-61% of takes), so the maker leg shares the signal; (c) after other takers' orders its complement re-signs peak at their match time (+1.04 s, 9-17x), but on the dev-block server clock only 3.4% of its maker signings fall within 50 ms of a trade message (mostly its own fills): public trades are not its general requote trigger (stale_complement.json, maker_hazard.json, own_cancels.json, maker_trade_latency.json). Price rule K(inv) - own complement bid not fitted."
+  },
+  "X27": {
+   "status": "tried",
+   "evidence": "mechanics panel P3 (iter 2): per-signer calibration on the dev block: wallet match - sign 1,040 ms (p5 1,034), pack Pfe 1,064 / Pf1 1,082, fast others 1,038-1,060, slow 2.0-2.2 s. Race rank (race_rank_dev.json): first same-team signer within +-2 s in 90.4% of its 73 taker orders; followers within 2 s in 27.4% (0.86 vs 0.10 at random), first follower +375 ms median. Act / no-act vs leftover not modelled (oracle-conditioned)."
+  },
+  "X28": {
+   "status": "tried",
+   "evidence": "mechanics panel P4 (iter 2): late-signed makers in its FAK txs supply 19% of its taker maker-USD (16-22 Oct), offsets p10/p25/p50/p75 121/254/537/827 ms after its signing; top late makers 0xed446954 (p50 948 ms), 0x5d40576b, 0x893575c7, 0x68915897 (p10 83 ms), 0x2005d16a, 0x758dac51; dev block 23%, p50 346 ms; the wallet itself is the second-largest late maker in the pack's txs (its re-pair). Premium / size regression on requoter presence not run (late_makers.json)."
+  },
+  "X29": {
+   "status": "tried",
+   "evidence": "mechanics panel P5 (iter 2): match-clock tape for VALIDATE maker orders (match_ms = min(block_ms, taker sign_ms + 1,040 ms); taker sign_ms known for 100% of prints; txs with any wallet order excluded): last-print anchor within one in-play tick 0.353 vs 0.305 on block time (exact 0.141 vs 0.115). The match clock can run up to ~3 s early for slow signers (possible look-ahead), so it is reported for the examiner to rule on and not adopted (match_clock_price.json)."
+  },
+  "X30": {
+   "status": "tried",
+   "evidence": "assumptions panel P1 (iter 2): attempt censoring. 1,212 server-clock collapses in its markets, 25 acted; 873 kept >= 30% of the reference depth 1 s later (a FAK would have filled) and it acted on 0.9% of them: skipped collapses are not lost races (burst_fanout.json)."
+  },
+  "X31": {
+   "status": "tried",
+   "evidence": "assumptions panel P2 (iter 2): activity + GRID flag without the league rate: VALIDATE AUC 0.930 (gain +0.033 [0.008, 0.065], p 0.0025) vs frozen v2 0.954; listing-time candidates inside non-GRID events: bo3 stars no gain (X19), stream channel +0.005 (X6). The quote-in-untraded-events detector (step 4) not run. Step 4 (quote detector in untraded markets, quote_presence.json): inconclusive: whole-cent +100 level adds are common in GRID markets it never trades (median 112/h), untraded non-GRID median 0.7/h vs traded 348/h. Hour-of-day flag adds +0.0015 VALIDATE AUC (not adopted). Pack coverage (selection_pack_lag.json): every traded non-GRID event had in-play pack prints (100% vs 50.3% of skipped); a lagged league pack-presence feature with activity + GRID gives VALIDATE 0.949 (gain +0.052, p 0.0003; new leagues 0.941 vs 0.914), comparable to v2 (0.954)."
+  },
+  "X32": {
+   "status": "tried",
+   "evidence": "assumptions panel P3 (iter 2): fan-out legs: 60 map + match pairs signed a median 1 ms apart (p90 4 ms) in 16-22 Oct; 11% of dev-block taker orders; no book precedes either leg on the server clock: one signal per game event (burst_fanout.json)."
+  },
+  "X33": {
+   "status": "tried",
+   "evidence": "assumptions panel P4 (iter 2): in-play tick 0.01 (first sub-cent resting order median price 0.999; 89.7% of VALIDATE maker orders before it). price_within_tick at the tick in force: last print 0.305 (frozen rule), rebuilt touch 0.396; live server clock at the bid 29.3%, within 1c 55.4% (versions_price.json). Ladder-from-unfilled-levels not run. Step 2 (ladder_decode.json): filled orders confirmed in the own-recorder book by a +100 add 24 ms (median) after signing; ladders 1-6 levels at 1c spacing (88%); top vs pre-burst book: ask - 1c exact 48%, bid exact 32% (within 1c 58%), -3/-4c 32% (unexplained, includes re-pair bursts); 50 confirmed bursts."
+  },
+  "X34": {
+   "status": "tried",
+   "evidence": "assumptions panel P5 (iter 2): size-fingerprint attribution of wave cancels: 0x2e3c40fa 91 of 560 wave cancels (3.25 per wave vs 0.08 per random window), 0x893575c7 7, 0x6c1415bf 7; the 100-share cancels at +13-16 ms are the wallet's own complement ladder. Acted vs non-acted comparison moot (the waves follow its own decision); per-league presence of 0x2e3c40fa as a selection feature not tested (canceller_id.json)."
+  },
+  "X35": {
+   "status": "tried",
+   "evidence": "assumptions panel P6 (iter 2): versions. All 10-share maker orders are Dota 2 (10-22 and dev block), so the 10-22 'version' was the game mix; CS2 maker 100 shares 89.4% (16-22 Oct) vs 78.4% (dev); taker caps 1000/2000 14.4% vs 0%, size median 470 vs 183, fill frac 0.155 vs 0.242: taker sizing drifts, maker rule stable (versions_price.json)."
+  },
+  "X36": {
+   "status": "infeasible",
+   "evidence": "own direction (iter 3): HLTV scorebot as a public in-round CS2 feed. GET https://scorebot-lb.hltv.org/socket.io/?EIO=3&transport=polling -> 403 Cloudflare challenge ('Just a moment...'); scorebot-secure.hltv.org -> connect timeout; www.hltv.org/matches -> 403 Cloudflare (bot challenges are not bypassed). Used instead: Polymarket sports socket (map scores only for its events) and bo3.gg (no live coverage)."
   }
  },
  "target_metrics": {
@@ -268,14 +345,14 @@
   "selection_baseline": 0.8916,
   "side_accuracy": null,
   "side_baseline": null,
-  "price_within_tick": 0.115,
+  "price_within_tick": 0.305,
   "pnl_corr_pearson": -0.121,
   "pnl_corr_spearman": -0.061,
   "coverage_fills": 0.9273,
   "coverage_abs_pnl": 0.9898
  },
  "best": {
-  "rule_id": "tommy-v2-grid-league-collapse",
+  "rule_id": "tommy-v3-grid-league-upstream",
   "validate_metrics": {
    "events": 128,
    "events_traded": 36,
@@ -291,8 +368,8 @@
    "selection_lift": 3.302,
    "presence_auc": 0.8721,
    "presence_baseline": 0.899,
-   "price_within_tick": 0.115,
-   "price_within_cent": 0.305,
+   "price_within_tick": 0.305,
+   "price_exact_last_print": 0.115,
    "size_100_accuracy": 0.883,
    "pnl_corr_pearson": -0.121,
    "pnl_corr_spearman": -0.061
@@ -439,15 +516,14 @@
   {
    "id": "H14",
    "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after X's near-touch ask depth collapses without trades",
+   "description": "v2: the taker fires 0.3-1.0 s after a public near-touch depth collapse (other makers cancel).",
    "validate_metrics": {
-    "live_recall": 0.871,
-    "live_precision": 0.049,
-    "presence_auc": 0.943,
-    "prints_baseline": 0.529,
-    "n_orders": 31
+    "server_clock_pre_sign_collapse": 0.141,
+    "random": 0.023,
+    "post_sign_collapse": 0.672,
+    "receive_clock_pre_sign_collapse": 0.703
    },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
+   "verdict": "RETRACTED (iteration 3): receive-clock artefact; on the CLOB server clock the wave starts a median 51 ms after its signing"
   },
   {
    "id": "H15",
@@ -471,800 +547,253 @@
    "verdict": "partial (censored fills)"
   },
   {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
+   "id": "H17",
+   "family": "taker-upstream-feed",
+   "description": "U1: the taker decisions run on a private in-round game feed upstream of all Polymarket data; FAK BUYs of the team that gained, matched 1.04 s later against makers that did not cancel.",
    "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
+    "wave_onset_after_sign_ms_p25_p50_p75": [
+     14,
+     51,
+     168
+    ],
+    "flat_book_before_sign_median": 1.0,
+    "match_minus_sign_ms_p50": 1040
    },
-   "verdict": "best selection rule; gain at the significance edge"
+   "verdict": "supported (dev block, 64 orders): nothing public precedes its signing; input not obtained"
   },
   {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
+   "id": "H18",
+   "family": "taker-unit-event",
+   "description": "Assumptions P3: one internal signal per game event fires legs in map and match markets.",
    "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
+    "hist_pairs_within_50ms": 60,
+    "gap_ms_p50_p90": [
+     1,
+     4
+    ],
+    "dev_fanout_share": 0.11
    },
-   "verdict": "supported (descriptive)"
+   "verdict": "supported"
   },
   {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
+   "id": "H19",
+   "family": "taker-censoring",
+   "description": "Assumptions P1: its skipped collapses are FAK attempts lost in a fill race.",
    "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
+    "events": 1212,
+    "acted": 25,
+    "P_acted_given_depth_left_ge_30pct": 0.009,
+    "n": 873
    },
-   "verdict": "not supported"
+   "verdict": "rejected: skipped collapses had fillable depth"
   },
   {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after X's near-touch ask depth collapses without trades",
+   "id": "H20",
+   "family": "selection-bo3",
+   "description": "Information P1: bo3.gg stars / tier as a coverage proxy beyond activity.",
    "validate_metrics": {
-    "live_recall": 0.871,
-    "live_precision": 0.049,
-    "presence_auc": 0.943,
-    "prints_baseline": 0.529,
-    "n_orders": 31
+    "auc_G_plus_stars": 0.929,
+    "auc_G": 0.93,
+    "auc_A": 0.897,
+    "nonGRID_A": 0.899,
+    "nonGRID_G_plus_stars": 0.882
    },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
+   "verdict": "rejected: popularity proxy, no gain beyond pre-game activity + GRID"
   },
   {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
+   "id": "H21",
+   "family": "selection-grid-only",
+   "description": "Assumptions P2: activity + GRID flag without the league rate.",
    "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
+    "auc": 0.93,
+    "gain": 0.033,
+    "gain_ci95": [
+     0.008,
+     0.065
+    ],
+    "p": 0.0025
    },
-   "verdict": "rejected as an outcome model"
+   "verdict": "weaker than v2 (0.954); v2 kept"
   },
   {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
+   "id": "H22",
+   "family": "price-inplay-tick",
+   "description": "Assumptions P4: score price at the in-play tick (0.01).",
    "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
+    "within_tick_last_print": 0.305,
+    "within_tick_rebuilt_touch": 0.396,
+    "live_server_clock_at_bid": 0.293,
+    "live_within_1c": 0.554
    },
-   "verdict": "partial (censored fills)"
+   "verdict": "metric corrected; price still far below 0.8"
   },
   {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
+   "id": "H23",
+   "family": "size-by-game",
+   "description": "Assumptions P6: 10-share maker orders are a Dota 2 rule, not a version change.",
    "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
+    "dota_10share_share": 1.0,
+    "cs2_100share_validate": 0.894,
+    "cs2_100share_dev": 0.784
    },
-   "verdict": "best selection rule; gain at the significance edge"
+   "verdict": "supported (size rule v3)"
   },
   {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
+   "id": "H24",
+   "family": "round-score-model",
+   "description": "U5 / X2: quotes or takes from a public round-score model.",
    "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
+    "sports_socket_round_part_constant_for_its_events": true
    },
-   "verdict": "supported (descriptive)"
+   "verdict": "rejected for its events: no public round data exists for them"
   },
   {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
+   "id": "H25",
+   "family": "re-pair",
+   "description": "Mechanics P2 (first part): around its own takes the maker leg re-quotes the complement 1.04 s later (when its FAK returns) and the slower pack fills those bids (asks on the bought team), locking pairs.",
    "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
+    "share_takes_with_complement_fills_2.5s": 0.107,
+    "control": 0.025,
+    "maker_age_at_take_median_s": 1.04,
+    "signed_before_take": 0.091,
+    "pair_cost_median": 0.99,
+    "pack_share": 0.665
    },
-   "verdict": "not supported"
+   "verdict": "supported (VALIDATE, descriptive): deliberate re-pair, not stale bids"
   },
   {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after X's near-touch ask depth collapses without trades",
+   "id": "H26",
+   "family": "maker-cancel-coupling",
+   "description": "One client: at its signal it sends FAK BUYs of team X and cancels its own 100-share bids on team Y within 13-16 ms; re-posts them 3-8c lower when the FAK returns.",
    "validate_metrics": {
-    "live_recall": 0.871,
-    "live_precision": 0.049,
-    "presence_auc": 0.943,
-    "prints_baseline": 0.529,
-    "n_orders": 31
+    "takes": 33,
+    "size100_cancel_consumed_0_40ms": 0.545,
+    "other_side": 0.0,
+    "pack": 0.052,
+    "others": 0.005,
+    "random": 0.0015,
+    "offset_ms_p10_p50_p75": [
+     13,
+     14,
+     16
+    ]
    },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
+   "verdict": "supported (dev block, server clock) as the wallet's own client or a same-operator process; a direct ownership check (cancel_owner_check.json) has no power (only 50 anchored ladders)"
   },
   {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
+   "id": "H27",
+   "family": "delay-window-requoters",
+   "description": "Mechanics P4: makers posting into its 1-s delay window.",
    "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
+    "late_usd_share": 0.19,
+    "offset_ms_p10_p50": [
+     121,
+     537
+    ]
    },
-   "verdict": "rejected as an outcome model"
+   "verdict": "descriptive; regression not run"
   },
   {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
+   "id": "H28",
+   "family": "maker-hazard",
+   "description": "Mechanics P2: maker re-sign hazards by trigger type.",
    "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
+    "own_take_complement_1000_1140ms": 236,
+    "own_take_complement_0_500ms": 0.0,
+    "others_complement_1000_1140ms": 9.1,
+    "dev_within_50ms_of_trade_msg": 0.034
    },
-   "verdict": "partial (censored fills)"
+   "verdict": "re-pair timed by its own FAK response; not a public-trade requoter"
   },
   {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
+   "id": "H29",
+   "family": "price-match-clock",
+   "description": "Mechanics P5: last print on the match clock as the maker price anchor.",
    "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
+    "within_tick_block": 0.305,
+    "within_tick_match": 0.353,
+    "exact_block": 0.115,
+    "exact_match": 0.141
    },
-   "verdict": "best selection rule; gain at the significance edge"
+   "verdict": "small gain (+0.048); PIT status for the examiner; not adopted"
   },
   {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
+   "id": "H30",
+   "family": "taker-price-size-server-clock",
+   "description": "Taker limit and size against the pre-event (server-clock) book.",
    "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
+    "limit_minus_pre_ask_cents_dist": {
+     "0": 0.261,
+     "1": 0.217,
+     "2": 0.145,
+     "3": 0.145,
+     "4": 0.087,
+     "5": 0.116
+    },
+    "size_over_pre_depth_median": 0.312,
+    "post_over_pre_depth": 0.183,
+    "fill_over_post_depth": 0.979
    },
-   "verdict": "supported (descriptive)"
+   "verdict": "descriptive (live dev block); replaces the receive-clock figures"
   },
   {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
+   "id": "H31",
+   "family": "ladder-top",
+   "description": "Assumptions P4 step 2: the full ladder (filled and unfilled levels) and its top relative to the pre-burst book.",
    "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
+    "confirmed_bursts": 50,
+    "top_eq_ask_minus_1c": 0.48,
+    "top_eq_bid": 0.32,
+    "top_within_1c_of_bid": 0.58,
+    "levels_1": 0.46,
+    "spacing_1c": 0.88,
+    "book_latency_ms_p50": 24
    },
-   "verdict": "not supported"
+   "verdict": "partial: ~50% of tops at ask - 1c / bid; a -3/-4c group unexplained"
   },
   {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after the near-touch ask depth of X collapses without trades",
+   "id": "H32",
+   "family": "taker-event-type",
+   "description": "The taker buys the team that just won a duel (opening kill / man advantage).",
    "validate_metrics": {
-    "live_recall_cs2": 0.76,
-    "live_recall_all": 0.7,
-    "live_precision": 0.037,
-    "presence_auc": 0.847,
-    "prints_baseline": 0.532,
-    "n_orders": 40,
-    "frozen_rule_all_markets_auc": 0.9,
-    "frozen_rule_baseline": 0.437
+    "opening_kill_team_round_win_rate": 0.721,
+    "wallet_next_jump_hit_rate": [
+     0.642,
+     0.672
+    ]
    },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
+   "verdict": "consistent, untestable without an in-round clock (hypothesis)"
   },
   {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
+   "id": "H33",
+   "family": "outcome-volume",
+   "description": "Per-market wallet PnL vs locked pair margin and public in-play volume.",
    "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
+    "corr_locked_pnl_pearson": 0.824,
+    "corr_pubvol_pnl_pearson": 0.386,
+    "corr_pubvol_pnl_spearman": 0.333,
+    "locked_var_share": 0.826
    },
-   "verdict": "rejected as an outcome model"
+   "verdict": "per-market PnL is the pair margin (0.82-0.85), only loosely tied to volume (0.37-0.39): a volume-proportional rule cannot reach 0.5"
   },
   {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
+   "id": "H34",
+   "family": "selection-pack-coverage",
+   "description": "U7: the wallet trades a subset of the events its feed peers (the informed pack) cover; a lagged league pack-presence rate (PIT) as a selection feature.",
    "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
+    "pack_present_traded_nonGRID": 1.0,
+    "pack_present_skipped_nonGRID": 0.503,
+    "auc_G_plus_packlag": 0.9487,
+    "gain": 0.0519,
+    "gain_ci95": [
+     0.0184,
+     0.0939
+    ],
+    "p": 0.0003,
+    "new_league_auc_packlag": 0.941,
+    "new_league_auc_G": 0.914
    },
-   "verdict": "partial (censored fills)"
-  },
-  {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
-   "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
-   },
-   "verdict": "best selection rule; gain at the significance edge"
-  },
-  {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
-   "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
-   },
-   "verdict": "supported (descriptive)"
-  },
-  {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
-   "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
-   },
-   "verdict": "not supported"
-  },
-  {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after the near-touch ask depth of X collapses without trades",
-   "validate_metrics": {
-    "live_recall_cs2": 0.76,
-    "live_recall_all": 0.7,
-    "live_precision": 0.037,
-    "presence_auc": 0.847,
-    "prints_baseline": 0.532,
-    "n_orders": 40,
-    "frozen_rule_all_markets_auc": 0.9,
-    "frozen_rule_baseline": 0.437
-   },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
-  },
-  {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
-   "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
-   },
-   "verdict": "rejected as an outcome model"
-  },
-  {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
-   "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
-   },
-   "verdict": "partial (censored fills)"
-  },
-  {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
-   "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
-   },
-   "verdict": "best selection rule; gain at the significance edge"
-  },
-  {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
-   "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
-   },
-   "verdict": "supported (descriptive)"
-  },
-  {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
-   "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
-   },
-   "verdict": "not supported"
-  },
-  {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after the near-touch ask depth of X collapses without trades",
-   "validate_metrics": {
-    "live_recall_cs2": 0.76,
-    "live_recall_all": 0.7,
-    "live_precision": 0.037,
-    "presence_auc": 0.847,
-    "prints_baseline": 0.532,
-    "n_orders": 40,
-    "frozen_rule_all_markets_auc": 0.9,
-    "frozen_rule_baseline": 0.437,
-    "cv_market_grouped_gbm_prints_baseline": 0.512,
-    "cv_logistic_prints_baseline": 0.413,
-    "s_col_no_fit": 0.846
-   },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
-  },
-  {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
-   "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
-   },
-   "verdict": "rejected as an outcome model"
-  },
-  {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
-   "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
-   },
-   "verdict": "partial (censored fills)"
-  },
-  {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
-   "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
-   },
-   "verdict": "best selection rule; gain at the significance edge"
-  },
-  {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
-   "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
-   },
-   "verdict": "supported (descriptive)"
-  },
-  {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
-   "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
-   },
-   "verdict": "not supported"
-  },
-  {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after the near-touch ask depth of X collapses without trades",
-   "validate_metrics": {
-    "live_recall_cs2": 0.76,
-    "live_recall_all": 0.7,
-    "live_precision": 0.037,
-    "presence_auc": 0.847,
-    "prints_baseline": 0.532,
-    "n_orders": 40,
-    "frozen_rule_all_markets_auc": 0.9,
-    "frozen_rule_baseline": 0.437,
-    "cv_market_grouped_gbm_prints_baseline": 0.512,
-    "cv_logistic_prints_baseline": 0.413,
-    "s_col_no_fit": 0.846
-   },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
-  },
-  {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
-   "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
-   },
-   "verdict": "rejected as an outcome model"
-  },
-  {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
-   "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
-   },
-   "verdict": "partial (censored fills)"
-  },
-  {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
-   "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
-   },
-   "verdict": "best selection rule; gain at the significance edge"
-  },
-  {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
-   "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
-   },
-   "verdict": "supported (descriptive)"
-  },
-  {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
-   "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
-   },
-   "verdict": "not supported"
-  },
-  {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after the near-touch ask depth of X collapses without trades",
-   "validate_metrics": {
-    "live_recall_cs2": 0.76,
-    "live_recall_all": 0.7,
-    "live_precision": 0.037,
-    "presence_auc": 0.847,
-    "prints_baseline": 0.532,
-    "n_orders": 40,
-    "frozen_rule_all_markets_auc": 0.9,
-    "frozen_rule_baseline": 0.437,
-    "cv_market_grouped_gbm_prints_baseline": 0.512,
-    "cv_logistic_prints_baseline": 0.413,
-    "s_col_no_fit": 0.846
-   },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
-  },
-  {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
-   "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
-   },
-   "verdict": "rejected as an outcome model"
-  },
-  {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
-   "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
-   },
-   "verdict": "partial (censored fills)"
-  },
-  {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
-   "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
-   },
-   "verdict": "best selection rule; gain at the significance edge"
-  },
-  {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
-   "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
-   },
-   "verdict": "supported (descriptive)"
-  },
-  {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
-   "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
-   },
-   "verdict": "not supported"
-  },
-  {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after the near-touch ask depth of X collapses without trades",
-   "validate_metrics": {
-    "live_recall_cs2": 0.76,
-    "live_recall_all": 0.7,
-    "live_precision": 0.037,
-    "presence_auc": 0.847,
-    "prints_baseline": 0.532,
-    "n_orders": 40,
-    "frozen_rule_all_markets_auc": 0.9,
-    "frozen_rule_baseline": 0.437,
-    "cv_market_grouped_gbm_prints_baseline": 0.512,
-    "cv_logistic_prints_baseline": 0.413,
-    "s_col_no_fit": 0.846
-   },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
-  },
-  {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
-   "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
-   },
-   "verdict": "rejected as an outcome model"
-  },
-  {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
-   "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
-   },
-   "verdict": "partial (censored fills)"
-  },
-  {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
-   "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
-   },
-   "verdict": "best selection rule; gain at the significance edge"
-  },
-  {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
-   "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
-   },
-   "verdict": "supported (descriptive)"
-  },
-  {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
-   "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
-   },
-   "verdict": "not supported"
-  },
-  {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after the near-touch ask depth of X collapses without trades",
-   "validate_metrics": {
-    "live_recall_cs2": 0.76,
-    "live_recall_all": 0.7,
-    "live_precision": 0.037,
-    "presence_auc": 0.847,
-    "prints_baseline": 0.532,
-    "n_orders": 40,
-    "frozen_rule_all_markets_auc": 0.9,
-    "frozen_rule_baseline": 0.437,
-    "cv_market_grouped_gbm_prints_baseline": 0.512,
-    "cv_logistic_prints_baseline": 0.413,
-    "s_col_no_fit": 0.846
-   },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
-  },
-  {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
-   "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
-   },
-   "verdict": "rejected as an outcome model"
-  },
-  {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
-   "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
-   },
-   "verdict": "partial (censored fills)"
-  },
-  {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
-   "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
-   },
-   "verdict": "best selection rule; gain at the significance edge"
-  },
-  {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
-   "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
-   },
-   "verdict": "supported (descriptive)"
-  },
-  {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
-   "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
-   },
-   "verdict": "not supported"
-  },
-  {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after the near-touch ask depth of X collapses without trades",
-   "validate_metrics": {
-    "live_recall_cs2": 0.76,
-    "live_recall_all": 0.7,
-    "live_precision": 0.037,
-    "presence_auc": 0.847,
-    "prints_baseline": 0.532,
-    "n_orders": 40,
-    "frozen_rule_all_markets_auc": 0.9,
-    "frozen_rule_baseline": 0.437,
-    "cv_market_grouped_gbm_prints_baseline": 0.512,
-    "cv_logistic_prints_baseline": 0.413,
-    "s_col_no_fit": 0.846
-   },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
-  },
-  {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
-   "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
-   },
-   "verdict": "rejected as an outcome model"
-  },
-  {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
-   "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
-   },
-   "verdict": "partial (censored fills)"
-  },
-  {
-   "id": "H11",
-   "family": "selection-event",
-   "description": "Event-level: GRID zeroing + league rate + pre-game popularity (logistic)",
-   "validate_metrics": {
-    "selection_auc": 0.9538,
-    "baseline": 0.8916,
-    "gain": 0.0622,
-    "p": 0.002,
-    "recall": 0.722,
-    "lift": 3.302
-   },
-   "verdict": "best selection rule; gain at the significance edge"
-  },
-  {
-   "id": "H12",
-   "family": "regime",
-   "description": "10-16 switch = GRID tier-1/2 round-trip taker -> non-GRID tier-3 maker+FAK",
-   "validate_metrics": {
-    "grid_usd_share_taker_regime": 0.99,
-    "grid_usd_share_maker_regime": 0.0
-   },
-   "verdict": "supported (descriptive)"
-  },
-  {
-   "id": "H13",
-   "family": "trigger-round-end",
-   "description": "Pack/wallet taker clusters are round ends (bo3 timing alignment)",
-   "validate_metrics": {
-    "tight_links_per_map": 5.0,
-    "permuted_control": 4.7
-   },
-   "verdict": "not supported"
-  },
-  {
-   "id": "H14",
-   "family": "trigger-book-collapse",
-   "description": "Taker BUY of team X within 2 s after the near-touch ask depth of X collapses without trades",
-   "validate_metrics": {
-    "live_recall_cs2": 0.76,
-    "live_recall_all": 0.7,
-    "live_precision": 0.037,
-    "presence_auc": 0.847,
-    "prints_baseline": 0.532,
-    "n_orders": 40,
-    "frozen_rule_all_markets_auc": 0.9,
-    "frozen_rule_baseline": 0.437,
-    "cv_market_grouped_gbm_prints_baseline": 0.512,
-    "cv_logistic_prints_baseline": 0.413,
-    "s_col_no_fit": 0.846
-   },
-   "verdict": "supported on one dev block (live BUILD); VALIDATE pending (dev blocks from 11-01 18:00)"
-  },
-  {
-   "id": "H15",
-   "family": "outcome-replay",
-   "description": "Generic two-sided tape ladder per-market PnL vs the wallet",
-   "validate_metrics": {
-    "pearson": -0.121,
-    "spearman": -0.061
-   },
-   "verdict": "rejected as an outcome model"
-  },
-  {
-   "id": "H16",
-   "family": "maker-price",
-   "description": "Maker order joins the best bid",
-   "validate_metrics": {
-    "live_exact": 0.427,
-    "rebuilt_touch_exact": 0.244,
-    "last_print_exact": 0.115
-   },
-   "verdict": "partial (censored fills)"
+   "verdict": "supported descriptively; comparable to the frozen v2 on VALIDATE (not adopted, to avoid choosing on VALIDATE)"
   }
  ],
  "data_sources": [
@@ -1280,72 +809,12 @@
   "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
   "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
   "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)",
-  "taker-regime activity 06-16..10-16 (activity_taker.parquet, 72,639 rows) + Gamma metadata of 2,645 markets",
-  "Gamma event listing projection with gridSeriesId (events_meta.parquet)",
-  "pre-switch taker tapes of 506 markets (09-26..10-15)",
-  "dev-block (10-31 12-18) wallet activity, 2,264 decoded transactions, clob_wallets books",
-  "own recorder tommy_cs2_books (all CS2 match/map markets, unthrottled)",
-  "deposit-wallet owner() via eth_call; bo3.gg live list (dev-block units only)"
+  "CLOB /time and HTTP Date clock probes (code/iter3/clock_probe.py)",
+  "dev-unit market list from own recorder sub records + data-api /trades?user&market per dev market (no sealed-unit activity requested)",
+  "calldata of every taker tx of the wallet's 9 dev-unit markets (4,234 txs, calldata_dev.parquet)",
+  "bo3.gg finished lists 2026-10-15..10-22 (460 matches) matched to 295 of 384 events",
+  "OpenDota /api/live probe (200, 143 KB per poll, 100 games, field 'delay')",
+  "SX Bet markets/active (no key; odds endpoints 401 / 400)"
  ],
  "iterations": [
   {
@@ -1380,11 +849,43 @@
     "generic ladder PnL replay",
     "own all-market book recorder"
    ]
+  },
+  {
+   "n": 3,
+   "minutes": 72,
+   "best_validate_score": 0.8721,
+   "families": [
+    "server-clock forensics and laptop clock calibration (retraction of the v2 book trigger)",
+    "per-signer calibration through the in-play delay",
+    "fan-out legs / event unit",
+    "attempt-censoring test on server-clock collapses",
+    "bo3.gg pre-match fields for selection",
+    "activity + GRID selection without league rate",
+    "price at the in-play tick and server-clock touch",
+    "version fingerprints (size by game)",
+    "sports socket round coverage by event",
+    "own cancel coupling (size-100 cancels after its takes)",
+    "canceller attribution by size fingerprint and owners",
+    "delay-window requoters",
+    "maker re-sign hazards by trigger",
+    "quote detector in untraded markets",
+    "match-clock price anchor (h1/h2)",
+    "SX Bet v3 / PandaScore / HLTV scorebot probes",
+    "Dota 2 OpenDota retrospective + live recorder",
+    "full ladder from own recorder",
+    "first public print and pre-sign public traces",
+    "per-market PnL vs locked margin and volume",
+    "taker limit/size on the server clock"
+   ],
+   "primary_metric_note": "presence_auc unchanged (0.8721): first iteration with < 0.01 gain; if the next one also brings < 0.01 the following must pivot"
   }
  ],
  "tool_bugs": [
   "tools/live.py iter_live does not catch zlib.error on the hour file being written (reader stops at the current hour)",
-  "tools/live.py iter_live: hour-12 files of 10-31 are unreadable after the 12:18 UTC recorder restart (zlib.error, a new gzip member after an unterminated one); readers stop there"
+  "tools/live.py iter_live: hour-12 files of 10-31 are unreadable after the 12:18 UTC recorder restart (zlib.error, a new gzip member after an unterminated one); readers stop there",
+  "Laptop clock: the shared recorder's receive time t runs 0.9-1.4 s behind the CLOB server and drifts by about -130 to -180 ms per hour (-0.90 s at 13:00, -1.40 s at 15:45, -1.58 s at 16:45 UTC on 10-31); every live timing must use the record's server field s (sports feed: correct t with a rolling offset from CLOB x records).",
+  "tools/live.py status: 'written' stays 0 for sports and rtds although their hour files grow (counter only).",
+  "live.Writer files records by the laptop receive time; with the laptop ~1.5 s behind the server, the first ~1.5 s (true time) of each sealed block land in the preceding dev hour file and the first ~1.5 s of each dev block in sealed files. Readers that cut dev units at the block boundary by receive time therefore see up to ~1.5 s past the true boundary."
  ],
  "live_split": {
   "note": "pre-registered 2026-10-31 for rules that need live books (none exist before 10-31)",
@@ -1392,10 +893,17 @@
   "VALIDATE": "development blocks from 2026-11-01 18:00 UTC on"
  },
  "target_metrics_notes": {
-  "selection": "event level, frozen v2 rule with BUILD constants on VALIDATE (gain +0.062 [0.019, 0.115], p 0.002)",
-  "presence": "fill per (market, 30-s bin), event score x in-play: still below the activity baseline (co-occurrence by construction)",
-  "live_taker_presence": "dev block 10-31 12:00-15:00 only: collapse score AUC 0.847 vs prints-only 0.532 (40 orders, wallet markets); frozen rule over all CS2 markets with books 0.900 vs 0.437 (34 orders); not VALIDATE",
-  "price": "last-print anchor; rebuilt touch 0.24; live join-the-bid 0.43",
+  "selection": "event level, frozen rule (v2 selection constants, BUILD) on VALIDATE: gain +0.062 [0.019, 0.115], p 0.002",
+  "presence": "fill per (market, 30-s bin), event score x in-play: below the activity baseline (co-occurrence by construction)",
+  "live_taker": "RETRACTED (receive clock). Server-clock diagnostic on the 10-31 dev block (61 taker orders): collapse in 2 s before signing 14.8% vs random 2.1%, after signing 72.1%; match - sign p50 1,040 ms",
+  "price": "in-play tick (0.01): last-print anchor 0.305 (exact 0.001 match 0.115); rebuilt touch 0.396; live server-clock bid 0.293 (within 1c 0.554)",
   "pnl": "generic tape ladder (executable, strict fills); negative"
- }
+ },
+ "next_steps": [
+  "Canceller identity beyond size fingerprints (X21/X34) and funding links of the fast cancellers",
+  "Outcome via the pull-and-re-pair mechanism on live VALIDATE blocks (from 11-01 18:00): a wave-follower rule replayed on recorded books, reported as a follower rule",
+  "Ask the user: PandaScore token (live.supported, X23) and consent to fetch ~50 MB of Kick VOD segments (X4/X22) for an in-round clock (opening-kill test)",
+  "Analyse tommy_dota_live against its Dota 2 taker signings (X24)",
+  "Consider a quote-presence target from the own recorder in non-GRID markets (resting 100-share ladders), since fill presence is co-occurrence-bound"
+ ]
 }

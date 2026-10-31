@@ -1,8 +1,13 @@
-"""tommy-cs2-maker frozen rule v2 (`tommy-v2-grid-league-collapse`, iteration 2, 2026-10-31).
+"""tommy-cs2-maker frozen rule v3 (`tommy-v3-grid-league-upstream`, iteration 3, 2026-10-31).
 
-All parameters are constants in final_rule_v2_constants.json:
+Selection constants are unchanged from v2 (final_rule_v2_constants.json):
   "build": fitted on BUILD (gameStart 2026-10-16 .. 10-21), used for the VALIDATE numbers in state.json;
   "exam":  refitted on all development data (10-16 .. 10-23) with the same recipe; used by evaluate() (CONSTANTS).
+
+Iteration-3 changes: (1) the v2 taker book trigger is RETRACTED: it read the recorder's laptop receive clock, which
+runs 0.9-1.4 s behind the CLOB server; on the server clock the cancel wave starts a median 51 ms AFTER the wallet signs.
+evaluate() now reports a server-clock diagnostic (live_taker_diagnostic_server_clock) and makes no taker-timing claim.
+(2) price_within_tick uses the in-play tick (0.01 for mid-range prices). (3) size rule: CS2 100 shares, Dota 2 10.
 
 Components (tags in FINAL_RULE.md):
   selection  unit = CS2 event (all its match / map-winner markets). s_lg = 0 if the event has a GRID series id
@@ -10,12 +15,11 @@ Components (tags in FINAL_RULE.md):
              tier rate. score = logistic(log1p pre-game taker prints, USD, distinct wallets in [gs-1h, gs) summed over
              the event's markets; s_lg). Trade the event iff score >= thr (thr = 20th percentile of the fitted
              positives' scores, i.e. fitted recall 0.8).
-  timing     maker: quotes from game start (in-play only). taker: fires within ~1 s after a collapse of the near-touch
-             depth on one side of the book (other makers cancel, no trade): S_col = 1 - D(t) / max D[t-1.5 s, t-0.4 s]
-             on the team's ask side (live books only).
-  side       maker: both outcomes. taker: the team whose asks collapsed.
-  price      maker: BUY at the best bid (join), whole cents, ladder 1c apart; taker: FAK at best ask + 1c.
-  size       maker 100 shares; taker variable (not decoded).
+  timing     maker: quotes from game start (in-play only). taker: NOT decoded; its decisions precede every public
+             Polymarket trace (book, trades, sports socket) on the server clock: an unobserved in-round game feed.
+  side       maker: both outcomes. taker: the team that just gained in-round (from the unobserved feed).
+  price      maker: BUY near the best bid, whole cents (the in-play tick), ladder 1c apart; taker: FAK at best ask + 0-2c.
+  size       maker 100 shares in CS2 markets, 10 shares in Dota 2 markets; taker variable (not decoded).
   exit       never sells; merge pairs; hold the residual.
 
 evaluate(start_ts, end_ts, intervals=None) -> dict (one wallet: per wallet = pooled). Units = events whose earliest
@@ -238,8 +242,136 @@ def _replay(d, gs, pay0, delta=0.0, levels=1, req=10, lat=2, size=100.0):
     return float(sh[0] * pay0 + sh[1] * (1 - pay0) - cost)
 
 
+def _live_diag(u, fills, iv) -> dict | None:
+    """Iteration-3 replacement of the v2 book trigger (which was a receive-clock artefact). Diagnostic only, no
+    decision rule: on the CLOB SERVER clock (record field s), for each wallet taker order with a recorded book, is
+    there a near-touch depth collapse on the consumed side in [sign - 2 s, sign] (before its decision) or in
+    (sign, sign + 1.1 s] (during its 1-s in-play delay)? Random-time control on the same books. Also the wallet's
+    clock calibration: server match time (first x record of its tx) minus sign_ms."""
+    try:
+        import live
+    except Exception:  # noqa: BLE001
+        return None
+    tok0, team_of = {}, {}
+    for r in u.itertuples():
+        t = json.loads(r.tokens) if isinstance(r.tokens, str) else r.tokens
+        if t and len(t) == 2:
+            tok0[str(t[0])] = r.cid
+            team_of[str(t[0])] = (r.cid, 0)
+            team_of[str(t[1])] = (r.cid, 1)
+    if not tok0 or not len(fills):
+        return None
+    lo, hi = min(a for a, b in iv), max(b for a, b in iv) + 5 * 3600
+
+    def near(L, side):
+        if not L:
+            return 0.0
+        if side == "o":
+            b = min(L)
+            return sum(z for p, z in L.items() if p <= b + 0.03 + 1e-9)
+        b = max(L)
+        return sum(z for p, z in L.items() if p >= b - 0.03 - 1e-9)
+
+    ser, xs = {}, {}
+    own_first = {}
+    for feed in ("tommy_cs2_near", "clob_wallets"):
+        state = {}
+        h = int(lo // 3600 * 3600)
+        while h < hi:
+            try:
+                for r in live.iter_live(feed, h, min(h + 3600, hi), allow_sealed=ALLOW_SEALED):
+                    a = r.get("a")
+                    if a not in tok0 or "s" not in r:
+                        continue
+                    k = r.get("k")
+                    if k == "x":
+                        xs.setdefault(((r.get("h") or "").lower(), a), r["s"])
+                        continue
+                    if feed == "clob_wallets" and r["s"] >= own_first.get(a, 1e18):
+                        continue
+                    if k in ("q", "f"):
+                        b = {float(p): float(z) for p, z in (r.get("b") or [])}
+                        o = {float(p): float(z) for p, z in (r.get("o") or [])}
+                        state[a] = (b, o)
+                    elif k == "pc" and a in state:
+                        bd, od = state[a]
+                        for sd, p, z in r.get("c") or []:
+                            book = bd if sd == "BUY" else od
+                            if float(z) == 0:
+                                book.pop(float(p), None)
+                            else:
+                                book[float(p)] = float(z)
+                    else:
+                        continue
+                    bd, od = state[a]
+                    ser.setdefault(a, []).append((r["s"], near(bd, "b"), near(od, "o")))
+                    if feed == "tommy_cs2_near":
+                        own_first[a] = min(own_first.get(a, r["s"]), r["s"])
+            except Exception:  # noqa: BLE001  (damaged hour member: keep what was read)
+                pass
+            h += 3600
+    if not ser:
+        return None
+    tr = {}
+    for (hsh, a), s in xs.items():
+        tr.setdefault(a, []).append(s)
+    tr = {a: np.sort(np.array(v, float)) for a, v in tr.items()}
+
+    def events(S, D, trs):
+        ev, last = [], -1e18
+        for i in range(len(S)):
+            l1, h1 = np.searchsorted(S, S[i] - 1500), np.searchsorted(S, S[i] - 400, side="right")
+            if h1 <= l1:
+                continue
+            ref = D[l1:h1].max()
+            if ref < COL_MINREF or D[i] > COL_FRAC * ref:
+                continue
+            k = np.searchsorted(trs, S[i] - 1500)
+            if k < len(trs) and trs[k] <= S[i]:
+                continue
+            if S[i] - last < 3000:
+                continue
+            last = S[i]
+            ev.append(S[i])
+        return np.array(ev)
+
+    evt = {}
+    for a, rows in ser.items():
+        x = np.array(sorted(rows))
+        S = x[:, 0]
+        for team, col in ((0, 2), (1, 1)):
+            evt[(tok0[a], team)] = (events(S, x[:, col], tr.get(a, np.array([]))), S)
+    tk = fills[fills["role"] == "taker"].drop_duplicates("tx")
+    pre, post, cal = [], [], []
+    for r in tk.itertuples():
+        team = r.oi if r.side == 0 else 1 - r.oi
+        e, S = evt.get((r.cid, team), (None, None))
+        if e is None or len(S) == 0 or r.sign_ms < S[0] + 2000 or r.sign_ms > S[-1]:
+            continue
+        pre.append(bool(((e >= r.sign_ms - 2000) & (e <= r.sign_ms)).any()))
+        post.append(bool(((e > r.sign_ms) & (e <= r.sign_ms + 1100)).any()))
+    for r in tk.itertuples():
+        for (hsh, a), s in ((k_, v_) for k_, v_ in xs.items() if k_[0] == str(r.tx).lower()):
+            cal.append(s - r.sign_ms)
+            break
+    rng = np.random.default_rng(7)
+    ctrl = []
+    for (cid, team), (e, S) in evt.items():
+        if len(S) < 10:
+            continue
+        for t in rng.uniform(S[0] + 2000, S[-1], 200):
+            ctrl.append(bool(((e >= t - 2000) & (e <= t)).any()))
+    return {"taker_orders_with_book": len(pre),
+            "collapse_in_2s_before_sign": round(float(np.mean(pre)), 3) if pre else None,
+            "collapse_in_1.1s_after_sign": round(float(np.mean(post)), 3) if post else None,
+            "random_time_collapse_in_prior_2s": round(float(np.mean(ctrl)), 3) if ctrl else None,
+            "match_minus_sign_ms_p10_p50_p90": [int(np.percentile(cal, q)) for q in (10, 50, 90)] if len(cal) >= 3 else None}
+
+
 def _live_trigger(u, fills, iv) -> dict | None:
-    """Taker presence on recorded books (0.5-s bins per market x team): AUC of S_col vs a prints-only baseline."""
+    """RETRACTED in iteration 3 (kept for the record, not called): v2 taker presence on recorded books indexed by the
+    laptop's receive time t, which runs 0.9-1.4 s behind the CLOB server; on the server clock the collapse follows the
+    wallet's signing (median wave onset +51 ms), so S_col read the future."""
     try:
         import live
     except Exception:  # noqa: BLE001
@@ -379,7 +511,7 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
     u["grid"] = u["grid_series_id"].notna() if "grid_series_id" in u else False
     ev = u.groupby("event_slug").agg(y=("y", "max"), n=("n", "sum"), v=("v", "sum"), w=("w", "sum"), league=("league", "first"),
                                      tier=("league_tier", "first"), grid=("grid", "max"), gs=("gs_ts", "min")).reset_index()
-    out = {"rule_id": "tommy-v2-grid-league-collapse", "constants": CONSTANTS, "events": int(len(ev)), "events_traded": int(ev["y"].sum()),
+    out = {"rule_id": "tommy-v3-grid-league-upstream", "constants": CONSTANTS, "events": int(len(ev)), "events_traded": int(ev["y"].sum()),
            "markets": int(len(u)), "markets_traded": int(u["y"].sum()), "grid_events": int(ev["grid"].sum()),
            "grid_events_traded": int(ev.loc[ev["grid"], "y"].sum())}
     sc, ba = selection_score(ev, C), activity_baseline(ev, C)
@@ -438,9 +570,17 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
             anc.append(pd.DataFrame({"p": g2["price"].to_numpy(), "a": np.round(lp, 2)}))
         if anc:
             a = pd.concat(anc).dropna()
-            out["price_within_tick"] = round(float((np.abs(a["p"] - a["a"]) <= 0.001 + 1e-9).mean()), 3)
+            # in-play tick: 0.01 until a map is decided (first sub-cent resting order median price 0.999), so the
+            # tick in force at signing is 0.01 for mid-range prices and 0.001 near 0 / 1 (iteration-3 correction)
+            tick = np.where((a["a"] >= 0.04) & (a["a"] <= 0.96), 0.01, 0.001)
+            out["price_within_tick"] = round(float((np.abs(a["p"] - a["a"]) <= tick + 1e-9).mean()), 3)
+            out["price_exact_last_print"] = round(float((np.abs(a["p"] - a["a"]) <= 0.001 + 1e-9).mean()), 3)
             out["price_within_cent"] = round(float((np.abs(a["p"] - a["a"]) <= 0.01 + 1e-9).mean()), 3)
         out["size_100_accuracy"] = round(float((mo["shares"].round(0) == 100).mean()), 3)
+        # size rule v3: CS2 markets 100 shares, Dota 2 markets 10 shares (all 10-share maker orders are Dota 2)
+        evs = dict(zip(u["cid"], u["event_slug"]))
+        want = np.where(mo["cid"].map(evs).fillna("").str.startswith("dota2"), 10, 100)
+        out["size_rule_accuracy"] = round(float((mo["shares"].round(0).to_numpy() == want).mean()), 3)
     # outcome: executable generic ladder on the selected events' markets, per-market PnL vs the wallet's
     selected = set(ev.loc[sel, "event_slug"])
     pm = []
@@ -456,8 +596,9 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
         out["pnl_corr_pearson"] = round(float(np.corrcoef(x["r"], x["w"])[0, 1]), 3)
         out["pnl_corr_spearman"] = round(float(x["r"].rank().corr(x["w"].rank())), 3)
         out["pnl_markets"] = int(len(x))
-    out["side_accuracy"] = None  # two-sided maker at market level; taker side = collapse side (live metric below)
-    out["live_trigger"] = _live_trigger(u, fills, iv)
+    out["side_accuracy"] = None  # two-sided maker at market level; the taker side comes from an unobserved feed
+    out["live_trigger"] = None  # v2 book trigger retracted (receive-clock artefact); see live_taker_diagnostic
+    out["live_taker_diagnostic_server_clock"] = _live_diag(u, fills, iv)
     # one wallet: per-wallet metrics equal the pooled ones
     core = {k: v for k, v in out.items() if k not in ("rule_id", "constants")}
     out["per_wallet"] = {WALLET: core}

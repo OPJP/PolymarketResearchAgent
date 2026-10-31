@@ -1,0 +1,13 @@
+{
+ "wallet_taker_orders": 73,
+ "share_first_signer_in_pm2s": 0.904,
+ "share_with_same_team_takers_after_2s": 0.274,
+ "other_takers_before_2s_mean": 0.1,
+ "after_2s_mean": 0.86,
+ "first_follower_ms_p10_p50_p90": [
+  84.5,
+  375.0,
+  1825.8
+ ],
+ "control_after_2s_mean": 0.102
+}

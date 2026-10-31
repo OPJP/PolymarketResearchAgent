@@ -604,3 +604,336 @@ as a frozen event-level selection rule against the activity baseline, and starts
   CS2 activity slowed). Exactly at the best bid at signing: 43.8%, within 1c 56%; the rest are 1-5c below. This matches
   the throttled-book figure (42.7%). For filled orders the point price rule tops out near 43%; the deeper levels need
   the ladder (unfilled orders) to be decoded from the own recorder next.
+  **(Iteration 3: this figure is a receive-clock artefact too; on the server clock it is 29.3%, see below.)**
+
+---
+
+# Iteration 3 (2026-10-31, started 15:49 UTC; 150 of 1200 budget minutes used before it)
+
+Read first: NOTES (iterations 1-2), state.json, FINAL_RULE.md, panels/iter2_{information,mechanics,assumptions}.md. No
+EXAM or wall-audit files. Calendar unchanged (no released lots; the current block 10-31 12-18 UTC is development).
+Shared recorder status OK at 15:50 (clob_wallets 400 tokens, sports connected; its `written` counter for sports and
+rtds reads 0 although the hour files grow). Own recorder `tommy_cs2_near` running (pid 29844, 7 MB at 15:50).
+
+## Competing explanations (iteration 3) and what separates them
+The mechanics panel showed that every iteration-2 live result compared the wallet's signing ms (its own clock, equal
+to the CLOB server's within ~40 ms) with the laptop's receive time (about 1 s slow). So the explanations are restated:
+1. **U1 private in-round feed + delay-window sniping.** A push feed of in-round state for non-GRID tier-3 matches
+   (a betting-data provider's websocket, server logs or a scout); on an in-round swing it fires FAK BUYs of the team
+   that gained, before anyone moves the public book; its FAKs match 1.04 s later against makers that did not cancel.
+   Separator: on the server clock nothing public precedes its signing; fan-out legs in two markets within ms.
+2. **U2 one operator on both sides of the race.** The fast cancelling makers are the same operator (a sibling maker
+   wallet pulls while this wallet takes). Separator: canceller identity (level decrements matched to calldata orders),
+   shared owner / funder.
+3. **U3 low-latency stream reader (CV on the broadcast).** Separator: offsets between the wallet and the cancellers
+   would be spread over hundreds of ms or seconds (frame / segment arrival), not tens of ms.
+4. **U4 market-making economics.** The money is the locked pair margin plus rebates; the taker leg only completes pairs.
+   Separator: per-market PnL decomposition (pair margin carries most of the variance, assumptions panel).
+5. **U5 public score model (round-score Markov valuation, X2).** Separator: a public score update precedes its orders;
+   Polymarket's sports socket must carry round scores for its events.
+6. **U6 follower of a faster private actor (C2 strong form, privately visible orders).** Separator: some identifiable
+   wallet's orders sign before its own on the same team.
+7. **U7 selection = coverage of the private feed.** It trades exactly the non-GRID events its feed covers. Separator:
+   a per-match provider coverage flag (PandaScore `live.supported`, needs a token) beyond activity and GRID.
+
+## Pre-registration (unchanged)
+Primary metric `presence_auc` (30-s market bins, no own state), BUILD 10-16..10-20, VALIDATE 10-21..10-22; live split
+BUILD = dev blocks before 11-01 12:00, VALIDATE = dev blocks from 11-01 18:00. New this iteration, for every live
+result: **all live timing is on the CLOB server clock (record field `s`)**, never on the receive time `t`.
+
+## Data gathered (iteration 3)
+- `code/iter3/clock_probe.py`: clob.polymarket.com/time and HTTP Date second flips (15:55 UTC): server minus laptop
+  = +1.38 .. +1.50 s (intersection of 6 flip bounds); Google Date +1.28 .. +1.63 s.
+- `code/iter3/dev_markets.py`: dev-unit market list from the own recorder's `sub` records (49 CS2 match / map markets
+  of 17 events with gameStart in 12:00-16:15 UTC; sealed units dropped first) and the wallet's trades in each via
+  data-api `/trades?user&market` (takerOnly=false), so no sealed unit's wallet activity is requested (iteration 2
+  fetched [T0, now] activity and dropped sealed rows in memory; this replaces it). The wallet traded 4 dev events
+  (gls1-pcy 291 trades, bhe-bar2 84, wraith-ntr 7, dota2-ty-gl 383); none of the 13 events starting 14:00-16:15.
+- `code/iter3/dev_calldata3.py`: calldata of every taker tx of the wallet's 9 dev-unit markets refreshed (4,234 txs).
+
+## Findings (iteration 3); numbers in results/*.json
+1. **The clock error is confirmed and the v2 book trigger is retracted** (`server_clock.json`).
+   - Laptop offset t - s on trade records drifts steadily: -0.90 s (13:00 UTC), -1.07 (14:00), -1.21 (14:45), -1.31
+     (15:15), -1.40 s (15:45); about -130 ms per hour. Any live timing on `t` is wrong by about a second, and by a
+     drifting amount (a tool issue for every strategy that uses the shared recorder's `t`).
+   - The wallet's clock: server match time minus sign_ms p5 / p50 / p90 = 1,034 / 1,040 / 1,052 ms (34 orders): the
+     1-s in-play delay plus about 40 ms.
+   - Consumed-side near-touch depth around its 64 CS2 + Dota taker orders with books, server clock, relative to -2 s:
+     1.00 at every offset up to 0, then 0.66 (+0.1 s), 0.29 (+0.2), 0.19 (+0.5), 0.13 (+1.0), refill 0.35 at +1.04 s
+     (its match). On the receive clock the same orders show the iteration-2 picture (0.41 at -0.7 s, 0.18 at -0.5 s).
+   - Wave onset (first time D <= 0.8 x D(sign)) after its signing: p10 13 ms, p25 14 ms, p50 51 ms, p75 168 ms,
+     p90 256 ms; 7 of 64 orders see no drop within 1.1 s.
+   - Collapse rule (unchanged constants) in [sign - 2 s, sign]: 14.1% of its orders (random times 2.3%) on the server
+     clock, 70.3% on the receive clock; in (sign, sign + 1.1 s]: 67.2% vs 6.2%.
+   - The pack signs after the wave: its depth profile is already 0.76 at -0.2 s; other takers see a flat book.
+   - So the wallet is the first public trace of the game event. The fastest cancelling makers follow it by 14-51 ms
+     (median), the pack by 0.2-0.5 s. Its input is upstream of every Polymarket feed. The iteration-2 numbers that
+     depended on the receive clock are void: "collapse precedes 76-87% of its taker orders", "lag 0.77 s", "acts on
+     4-8% of collapses" and its filter, the live taker presence AUCs 0.846 / 0.900 / 0.943, "book reader or feed
+     reader", and the 43% join-the-bid figure.
+2. **Fan-out legs: one internal signal per game event** (`burst_fanout.json`). 16-22 Oct: 60 pairs of taker orders in a
+   map market and the match market of the same event signed a median 1 ms apart (p90 4 ms); dev block: 11% of its
+   taker orders are fan-out legs. No book precedes either leg, so the decision is per game event, not per book.
+3. **Its skipped collapses are not a fill race** (assumptions P1, `burst_fanout.json` race). 1,212 server-clock
+   collapse events in its markets; it acted (taker order within [-0.3, +0.1] s) on 25. In 873 events at least 30% of
+   the reference depth was still resting 1 s later, so a FAK would have filled; it acted on 0.9% of those. The
+   collapses it skips are not censored attempts: they are events its signal does not flag (other makers' requotes,
+   or information it does not act on).
+4. **Polymarket's own sports socket has no round data for its events.** Dev block: for Galorys-Procyon (gls1-pcy),
+   Bounty Hunters-BARCA and WRAITH-Nuclear TigeRES the round part of the score stays `000-000` (map scores only),
+   while GRID events (Saint Sinners-Misa, naocopulas-paiN, Invicta-Donstu, FOKUS-BakS, ...) carry per-round scores.
+   The wallet works exactly the events in which Polymarket's feed (and GRID) gives the market no round data (U5 out).
+5. **Selection with bo3.gg pre-match fields** (information P1, `selection_bo3.json`; bo3 finished lists 10-15..10-22,
+   460 matches, 295 of 384 events matched by both team names and start within 3 h).
+   - Non-GRID traded rate by bo3 stars: 0 stars 4.4% (n 91), 1 star 45% (60), 2 stars 87% (30), 3 stars 100% (11),
+     unmatched 13% (70).
+   - But stars add nothing beyond pre-game activity: VALIDATE AUC activity A 0.897; activity + GRID flag G 0.930
+     (gain +0.033 [0.008, 0.065], p 0.0025); G + stars 0.929 (gain +0.033, p 0.09); inside non-GRID events A 0.899,
+     G + stars 0.882. Stars are a popularity proxy. Not adopted (so the point-in-time check is moot).
+   - Activity + GRID without the league rate (assumptions P2 step 1): 0.930; the frozen v2 with the league rate 0.954
+     (gain +0.062, p 0.002). The league rate does add +0.024 on VALIDATE here.
+6. **Price at the in-play tick** (assumptions P4, `versions_price.json`). The first sub-cent resting order in a market
+   has a median price of 0.999; 89.7% of VALIDATE maker orders were signed while the tick was 0.01. Within one tick
+   (the tick in force): last print 0.256, rebuilt touch 0.396 (was reported as 0.115 at a 0.001 tick). Live, server
+   clock, book 50 ms before signing (368 orders): at the best bid 29.3%, 1c above 14.7%, 1c below 11.4%, within +-1c
+   55.4%; with the book 300 ms after signing 46.2% at the bid (its own order is in it: self-reference).
+7. **Versions** (assumptions P6). Every 10-share maker order is in a Dota 2 market (1,292 on 10-22; all Dota 2 maker
+   orders of the dev block), so the "10-share version from 10-22" was the arrival of Dota 2 markets. CS2 maker orders
+   are 100 shares in 89.4% (16-22 Oct) and 78.4% (dev block). Size rule v3: CS2 100, Dota 2 10. Taker orders keep
+   drifting: exact 1000 / 2000-share caps 14.4% (VALIDATE) vs 0% (dev block), size median 470 vs 183 shares, fill
+   fraction median 0.155 vs 0.242.
+8. **Per-signer calibration** (mechanics P3). Server match minus sign (dev block): wallet 1,040 ms; pack Pfe 1,064,
+   Pf1 1,082; other fast signers 1,038-1,060 (0x84ad9c5c, 0x47138dc1, 0x68915897, 0xb4cd4d6f, 0xfca6d645); slow ones
+   2.0-2.2 s. With the wave starting 14-51 ms after the wallet and the pack 0.2-0.5 s after the wave, the wallet ranks
+   first in the race on most events.
+
+## Hypothesis ledger (iteration 3)
+- U1 private in-round feed: **supported** (findings 1-4). U2 one operator on both sides: partly tested in the late
+  additions (the earliest cancels are its own complement ladder; the other fast cancellers and late makers have
+  different owners; funding links not checked). U3 stream CV: disfavoured (cancellers follow within 14-51 ms). U4: per-market PnL is the
+  pair margin (panel), consistent. U5 public score model: **rejected** for its events (no round data in the socket,
+  and nothing public precedes its orders). U6: nobody public signs before it. U7: open (needs a provider flag).
+- H14 (book collapse trigger): **retracted** (clock artefact).
+
+## What is unexplained (quantitative)
+- The taker decisions (about 70% of settlement PnL in 16-22 Oct): on the server clock its signing precedes every public
+  Polymarket trace. The consumed-side book is flat (median 1.00) up to its signing in 57 of 64 orders; the first
+  cancels after it are its own (+13-16 ms), other makers' follow at +17 / +67 / +124 ms (p10 / p25 / p50); pre-sign
+  collapse 14% vs 2.3% random; no excess of book changes anywhere in the event in the 100 ms before it. The input is an external game feed that
+  none of the obtained data contains (sports socket: map scores only for its events; bo3: no live coverage).
+- Selection inside non-GRID events beyond popularity and league.
+- Maker price beyond the touch (29% at the bid on the server clock) and the outcome target.
+
+## Late additions (iteration 3)
+- **The re-pair is deliberate, not a stale bid** (mechanics P2 first part, `stale_complement.json`, 16-22 Oct
+  calldata). For each of its taker orders (BUY team X at t), its maker fills on the complement token inside other
+  takers' transactions whose taker signed in (t, t + 2.5 s]:
+  | Split | Taker orders | With such fills | Control (t-30 s) | Maker order age at t (median) | Signed before t | Pair cost median (IQR) | Pack share of the takers |
+  | --- | --- | --- | --- | --- | --- | --- | --- |
+  | BUILD | 729 | 8.8% | 3.0% | +1.06 s | 1.6% | 0.96 (0.95-1.01) | 55% |
+  | VALIDATE | 969 | 10.7% | 2.5% | +1.04 s | 9.1% | 0.99 (0.95-1.005) | 67% |
+  The complement bids the pack fills are signed about 1.04 s after its take, i.e. as soon as its FAK returns from the
+  1-s in-play delay (the client's 1,000-1,100 ms burst interval, information panel check A). They are effectively asks
+  on team X at 1 - bid, which the pack's FAKs (signed 0.2-0.5 s after the wave, matching ~1 s later) consume. So
+  around an event the wallet buys X from makers who did not cancel and immediately sells X back to the slower informed
+  takers through complement bids, locking a pair at 0.96-0.99. The panel's "stale complement bids it does not pull"
+  holds for only 2-9% of those fills. Control fills 30 s earlier are old orders (median -40 s) at pair cost 1.00.
+- Mechanics P2 is therefore partly answered: the maker leg is not feed-blind around its own takes (it re-quotes the
+  complement 1.04 s later, timed by its FAK response); whether it also re-quotes on other public events (hazards by
+  trigger type) remains open (X26).
+- `final_rule.py` v3 ran end to end on VALIDATE (build constants: selection 0.954 / 0.892, presence 0.872 / 0.899,
+  price_within_tick 0.305 at the in-play tick, exact 0.115) and on the 10-31 12:00-16:30 development block (exam
+  constants; live server-clock diagnostic: 61 taker orders with books, collapse before signing 14.8% vs random 2.1%,
+  after signing 72.1%, match - sign p50 1,040 ms). The old receive-clock function is kept as `_live_trigger`
+  (not called) and archived as `code/iter2/final_rule_v2_receive_clock.py`.
+- **Race rank** (`race_rank_dev.json`, dev block, 73 taker orders, signing clocks): it is the first signer among all
+  same-team takers of the market within +-2 s in 90.4% of its orders; same-team takers follow within 2 s in 27.4%
+  (mean 0.86 followers vs 0.10 at random times); the first follower signs a median 375 ms after it (p10 85 ms).
+- **Caveat on "first".** Its FAK reaches the engine about 34-40 ms after signing (match - sign = 1,034-1,040 ms with
+  the 1,000-ms delay, if its clock is synchronized), and book messages are stamped when the server publishes them. The
+  first cancels are stamped +13-14 ms (p10-p25) and +51 ms (p50) after its signing, so at the server the fastest
+  cancelling makers and the wallet act on the same external event within a few tens of ms of each other. It is
+  ahead of every taker (the pack by 0.2-0.5 s) and ahead of every public trace, but not provably ahead of the fastest
+  cancellers' own feed.
+- **It pulls its own complement ladder 13-16 ms after its FAK signing** (X26 / X34; `canceller_id.json`,
+  `canceller_offsets.json`, `own_cancels.json`; own recorder from 14:50, server clock, 28 wallet taker orders).
+  - In the 500 ms after its signing the consumed side loses 20 cancels per window (level decreases with no trade
+    within 150 ms), against 0.93 at random times.
+  - Cancels of exactly 100 shares on the consumed side (team X asks = mirrored bids on team Y) follow 60.7% of its
+    taker orders within 0-40 ms (mean 2.75 levels per order), never on the other side (0%), against 4.8% after pack
+    orders, 0.4% after other takers' orders and 0.0% at random times. Their offsets after its signing: p10 / p25 / p50
+    / p75 = 13 / 14 / 14 / 16 ms (90 cancels). Only 1.8% of all 4,169 size-100 cancels in these books sit in such a
+    window, so the coupling is specific to its takes.
+  - Reading: one client sends the FAK on team X and cancels its own 100-share bids on team Y at the same moment
+    (cancels are not delayed; its FAK reaches the engine about 34-40 ms after signing). It re-posts the complement 3-8c
+    lower when the FAK returns (3 cases with both measured). So the maker leg is not feed-blind: the same signal pulls
+    its stale complement quotes, and the earliest "wave" cancels (p10-p25 13-14 ms) are its own.
+  - Other makers' cancels in the same windows: offsets p10 17 ms, p25 67, p50 124, p75 221 ms. Size fingerprints from
+    calldata attribute 91 of 560 wave cancels to 0x2e3c40fa (POLY_GNOSIS_SAFE type 2, sizes 120 / 20 shares; 3.25 per
+    wave vs 0.08 per control window), 7 to 0x893575c7, 7 to 0x6c1415bf; 62% stay ambiguous or unfingerprinted. Owners
+    of the fast late makers (0x68915897, 0x5d40576b, 0xed446954, 0x758dac51, 0x7eeb94f2, 0x9f63eb94, 0x8a68a3dc,
+    0xf1f2b3c6) all differ from the wallet's 0x8af810f0 (`late_maker_owners.json`): no shared operator at owner level.
+  - Ownership check (`cancel_owner_check.json`): whether the cancelled 100-share levels had been added by a ladder
+    anchored on one of its filled orders. 1.2% for the after-take cancels vs 1.0% for others. This has no power: only
+    50 of its ladders are anchored (unfilled ladders cannot be anchored), so it neither confirms nor rejects. The
+    attribution rests on size (100), side (the complement only), timing (IQR ~2 ms after its own signing) and
+    specificity (55-61% of its takes vs 5% of the pack's). That points to the wallet's own client, or a same-operator
+    process sharing its signal.
+- **Delay-window requoters** (X28, `late_makers.json`). In its taker transactions of 16-22 Oct, 19% of the maker USD
+  comes from orders signed after its FAK, at offsets p10 / p25 / p50 / p75 = 121 / 254 / 537 / 827 ms (only 43 of
+  1,549 within 50 ms). The top late makers: 0xed446954 (8.5k USD, p50 948 ms), 0x5d40576b, 0x893575c7, 0x68915897
+  (p10 83 ms), 0x2005d16a (the rn1-inplay-maker wallet), 0x758dac51. Dev block: 23% late USD, p50 346 ms. In the pack's
+  dev-block transactions the second-largest late maker is the wallet itself (offset p50 683 ms after the pack signs:
+  its re-pair at +1.04 s after its own take). Premium / size regression on requoter presence not run.
+- **Maker re-sign hazards by trigger** (X26, `maker_hazard.json`, 16-22 Oct, filled maker orders only). Rate ratio of
+  its maker signings against the same market's baseline:
+  | Trigger | Same team | Complement team |
+  | --- | --- | --- |
+  | Its own take, [0, 100) ms | 6.6x | 0.0x |
+  | Its own take, [500, 1000) ms | 1.3x | 2.6x |
+  | Its own take, [1000, 1140) ms | 17x | 236x (peak bins 1,000-1,040 ms: 450-690x) |
+  | Takers that hit its bids, [0, 100) ms | 1.9x | 6.4x |
+  | Takers that hit only others, [1000, 1140) ms | 3.8x | 9.1x (peak 1,040 ms: 17x) |
+  It never re-posts the complement during its own delay window, and re-posts it as soon as its FAK returns. On the dev
+  block server clock only 3.4% of its maker signings fall within 50 ms after a trade message (0.5% with times shifted
+  7 s), nearly all after its own fills (5-20 ms): public trades are not its general requote trigger
+  (`maker_trade_latency.json`).
+- **Quote presence in untraded markets** (assumptions P2 step 4, `quote_presence.json`): inconclusive. Whole-cent
+  +100-share level additions are common in GRID markets that it never trades (median 112 per hour, up to 2,585 in CCT
+  Europe), so the 100-share fingerprint is shared with other makers. Untraded non-GRID markets show a median of 0.7 per
+  hour against 348 in its traded markets; the FiReSPORTS shin-isg markets showed 87-226 per hour before its first fills
+  there (it then traded them, 29 trades by 16:20).
+- **Taker limit and size on the server clock** (X13 redo, `taker_price_size_server.json`, 69 taker orders; book 50 ms
+  before signing = the pre-event book). Limit minus the pre-event best ask: 0c 26%, +1c 22%, +2c 14.5%, +3c 14.5%,
+  +4c 9%, +5c 12% (98.6% at or above the ask): it pays up to 5c over the stale ask, anticipating the repricing. Size
+  is a median 0.31x of the pre-event depth up to its limit; by +0.9 s the wave has removed 82% of that depth, and it
+  fills 98% of what is left (fill / pre-event depth 0.07). The iteration-2 "size 1.22x the visible depth" and "limit =
+  ask 52%" were measured on the post-wave book (receive clock).
+- **Full ladder from the own recorder** (X33 step 2, `ladder_decode.py` / `ladder_decode.json`; 82 filled CS2 maker
+  orders after 14:50). 61% of them (98% of the 100-share ones) are confirmed by a +100 level add at their price on the
+  mirrored side 19 / 24 / 170 ms (p10 / p50 / p90) after signing, so its orders reach the book ~24 ms after signing
+  (its cancels at +13-16 ms come first: cancel, then sign and post). Ladders per burst: 1 level 46%, 2 12%, 3 18%,
+  4-6 24%; 1c spacing 88%; filled orders sit at level 0 in 76%. Top vs the pre-burst book: at the best bid 32%, +1c
+  20%, -3/-4c 32%, exactly best ask - 1c 48%. Rule scores on burst tops: "top = ask - 1c" exact 48% (within 1c 52%),
+  "top = bid" exact 32% (within 1c 58%). The -3/-4c group includes its re-pair bursts after its own takes (n = 6) and
+  is not explained; the sample is small (50 confirmed bursts).
+- **Any public trace of the event before its signing?** (`presign_public.json`, server clock, 75 taker orders vs
+  1,500 random times in the same event's markets.) A trade message in any market of the event in the last 1 s: 5.3% vs
+  1.3%. Any near-touch book change in any market of the event in the last 300 ms: 54.7% vs 34.0%; in the last 100 ms:
+  14.7% vs 14.4%. So its takes come in busier phases (in-round action), but nothing public marks the moment: no excess
+  of book changes in the 100 ms before it, and the consumed side keeps its depth (median 1.00) up to its signing.
+- **First public print** (`first_print.json`, 78 taker orders, server clock). Another trade prints in any market of the
+  event within 1,040 ms after its signing in only 2.6% of its orders. The first other print comes 2.4 / 5.6 / 43 s
+  later (p10 / p25 / p50). So the first public trace of the event's price is the cancel wave (+17-124 ms) and then
+  its own fill (+1.04 s).
+- **Opening-kill consistency check** (X8 lead, `opening_kill_rate.json`). bo3.gg per-round team stats carry
+  `first_kills`, kills, trade kills and equipment (no in-round times; the kills endpoints answer 404). In 40 of its
+  traded matches (16-22 Oct, 1,689 rounds with a unique opening-kill team) that team wins the round 72.1% of the time.
+  Its taker orders see the next >= 4c public jump go their way 64-67% (74% / 67% when within 60 s): consistent with
+  buying the team that just won a duel (an opening kill or a man advantage), not proof. Testing it needs an in-round
+  clock (stream, X4 / X22) because neither bo3 nor Polymarket's socket has kill times for these events.
+- **Match-clock price anchor** (X29, `match_clock_price.json`). Last print on the match clock (min(block, taker sign +
+  1,040 ms); taker signing known for 100% of prints; every tx with a wallet order excluded) vs block time, VALIDATE
+  maker orders: within one in-play tick 0.353 vs 0.305, exact 0.141 vs 0.115. Small gain; it may run up to ~3 s early
+  for slow signers, so it is left to the examiner and not adopted.
+- **SX Bet / PandaScore** (X23): infeasible without a key. `api.sx.bet/markets/active` (no key) lists in-play CS2
+  markets of the same tier-3 events (FiReSPORTS ShindeN v Isurus, which the wallet trades today), but
+  `/orders-v3/odds/best` and `/orders-v3` answer 401 BAD_AUTH and `/orders/odds/best` 400 "OrderBook V2 is no longer
+  supported" (docs.sx.bet: V3 replaced V2). PandaScore: 403 "Token is missing" (information panel).
+- **Dota 2, retrospective** (X24 variant, `dota_align.json`, `dota_end.json`): OpenDota parses its Dota 2 maps (kills_log
+  in game seconds, start_time, 90-s pre-game). Matched 6 maps (PARI Universe: 10-22 Yandex-GamerLegion and
+  Liquid-1win, 10-31 Yandex-GamerLegion; development units). Its 72 Dota taker orders against kills of the bought vs
+  the other team show no sharp offset peak (best bins 10-13 vs 1-2 pairs at +1,036-1,044 s), and the market's
+  settlement offset is unstable (-1,024 .. +1,007 s after start + duration). Inconclusive: game time does not map to
+  wall time without the draft and pause lengths. The live variant (record /api/live with its `delay` field during dev
+  blocks with Dota 2 events) stays open.
+- **Dota 2 live recorder started** (X24 live variant): `code/iter3/dota_live_recorder.py`, feed `tommy_dota_live`,
+  detached at 16:43 UTC (pid 14548; status in `.cache/re/tommy-cs2-maker/dota_recorder_status.json`). It polls OpenDota
+  /api/live every 30 s (league games only, compact records with `delay`, scores, radiant_lead, game_time) only while a
+  Polymarket Dota 2 PARI Universe event is in play (Gamma series 10309, checked every 10 min); live.Writer files dev /
+  sealed; hard stop 11-03 00:00 UTC, 60 MB cap. Next: lead-lag of its Dota taker signings against kill-score changes,
+  with the feed's `delay` (spectator delay) as the reference.
+- Exposure note: the OpenDota proMatches pages fetched to find these maps (shared HTTP cache) also list other pro
+  matches, including some from sealed days; their fields were skipped in code before any print or storage.
+- Not done this iteration (open X items): X21 / X34 canceller identity beyond size fingerprints, X22 / X4 stream clock (needs the user's
+  consent to download ~50 MB of video), X23 PandaScore `live.supported` (needs a token from the user), X24 Dota 2
+  OpenDota recorder (endpoint verified: 200, 143 KB per poll, 100 live games with a `delay` field), X26 hazards,
+  X28 delay-window requoters, X29 match-clock tape, X8 bo3 round labels.
+
+- **The followers, by behaviour** (`followers.json`; other taker orders on the same team and market signed in
+  (0, 1.5 s] after a wallet take).
+  - 16-22 Oct: P93 0x93078b5d (388 follows, lag p50 489 ms); the 3-wallet cluster 0x72aaaaf9 / 0xfe8a28be / 0x2529c68d
+    (about 300 each, p10 374-383 ms, p50 464-475 ms; 15-17% of their takes); Pf1 0xf1ee4842 (p50 168 ms); and fast
+    followers at p50 149-197 ms (0x8a80528d, 0xddb6e624, 0x67706ec3, 0x14e72e19, 0xbb8ef638, 0x7c8cc255).
+  - 10-31 dev block: the same 3-wallet cluster (17 / 17 / 15 follows, p10 360-366 ms, p50 376-382 ms, 19-24% of their
+    takes); Pf1 and 0xfca6d645 at about 88 ms.
+  - So there is a latency ladder behind the wallet: its own cancels (+13-16 ms), fast makers' cancels (+17-124 ms),
+    fast takers (+85-200 ms), the 3-wallet cluster (a fixed +380 ms), P93 (+490 ms). The fast followers may be book
+    readers of the wallet's own cancels, or slower subscribers of the same feed. The fixed +380 ms of the cluster fits
+    a constant processing or feed lag. That is not separable with this data.
+
+- **Selection follows the pack's coverage** (U7, `selection_pack_lag.json`; complete 16-22 Oct universe, windowed
+  taker tapes of all 384 events). Every non-GRID event the wallet traded also had in-play prints by the informed pack
+  (P4e, P93, the 3-wallet cluster, Pf1): 100%, against 50.3% of the non-GRID events it skipped. A point-in-time lagged
+  league feature (the pack-presence rate of the league's earlier events that ended at least 4 h before, shrunk k = 3;
+  only 16-22 Oct events feed it):
+  | Model (logistic, BUILD fit) | VALIDATE AUC | Gain vs activity [95% CI], p | Gain 10-21 / 10-22 | Recall / lift |
+  | --- | --- | --- | --- | --- |
+  | Activity + GRID | 0.930 | +0.033 [0.009, 0.064], 0.002 | +0.010 / +0.056 | 0.78 / 2.77 |
+  | + pack-league lag | 0.949 | +0.052 [0.018, 0.094], 0.0003 | +0.020 / +0.091 | 0.75 / 2.67 |
+  | + pack lag + league rate | 0.953 | +0.056 [0.019, 0.102], 0.0003 | +0.023 / +0.097 | 0.69 / 2.96 |
+  | Frozen v2 (league rate) | 0.954 | +0.062 [0.019, 0.115], 0.002 | +0.034 / +0.094 | 0.72 / 3.30 |
+  On the 27 VALIDATE events of leagues not seen in BUILD (8 traded), the pack-lag model scores 0.941 against 0.914 for
+  activity + GRID, so it carries over to new leagues better. The 10-21 gain stays small in every variant, so the
+  replication risk remains. The frozen rule is not changed: these AUCs are within noise of v2, and switching on VALIDATE
+  would be selection on the test set. Reading: the wallet trades a subset of the events its feed peers cover; whatever
+  feed the pack uses covers these events too.
+- **Refresh at 16:53 UTC** (more FiReSPORTS shin-isg orders; same code, results files overwritten). Server clock, 76
+  taker orders: collapse in the 2 s before signing 15.8% vs 1.8% at random, after signing 61.8%; depth profile 1.00
+  up to 0, then 0.65 at +0.1 s and 0.15 at +1.0 s; match - sign p50 1,040 ms (n = 40); laptop offset -1.58 s at 16:45
+  (drift -0.68 s since 13:00, about -180 ms per hour). Own-cancel coupling, 40 takes after 14:50: size-100 cancels on
+  the consumed side within 40 ms after 45% of its takes (other side 0%), against 4.1% of the pack's, 0.6% of other
+  takers' and 0.13% at random times. Public traces before signing (82 orders): a trade in any event market in the
+  last 1 s 6.1% vs 1.3%; a book change in the last 300 ms 58.5% vs 33.0%; in the last 100 ms 19.5% vs 15.9% (not
+  significant at n = 82).
+
+## Lead of its taker signing over every public source obtained (dev block 10-31, server clock)
+| Source | First trace after its signing | How often it precedes the signing |
+| --- | --- | --- |
+| CLOB book, consumed side, own market | its own 100-share cancels +13-16 ms; other makers' cancels +17 / +67 / +124 ms (p10 / p25 / p50) | depth flat (median 1.00) up to signing; collapse in the prior 2 s 13-16% vs 1.6-2.3% at random |
+| CLOB book, any market of the event | (fan-out legs signed 1-4 ms apart) | change in the prior 100 ms 14.7-19.5% vs 14.4-15.9% at random |
+| CLOB trades, any market of the event | its own fill at +1.04 s; another print within 1.04 s in 2.6% | a trade in the prior 1 s 5.3-6.1% vs 1.3% at random |
+| Other takers (pack and all) | first same-team follower +85 / +375 ms (p10 / p50) | it is the first same-team signer in 90.4% |
+| Polymarket sports socket | map scores only for its events | no round data at all |
+| Public tape repricing | next >= 4c jump a median 32-37 s later (iteration 1) | - |
+| bo3.gg, HLTV, SX Bet, PandaScore | no live data / blocked / key needed | - |
+
+## Next iteration (plan, revised at the end of iteration 3)
+1. **Canceller identity beyond size fingerprints (X21 / X34).** The earliest cancels (+13-16 ms) are the wallet's own
+   ladder; other makers' cancels come at +17-124 ms. Attribute those on the own recorder (size / price matching against
+   calldata orders, time-shift control), then the owners and funders of the top cancellers. Test whether their
+   presence across events is a selection feature (feed coverage).
+2. **Outcome via the pull-and-re-pair mechanism.** An executable follower rule on the recorded books. At each
+   server-clock cancel wave in a selected event, post complement bids 3-8c under the pre-wave level about 1 s later,
+   and replay fills against the pack's delayed FAKs (public calldata), plus the ladder. Compare per-market PnL with the
+   wallet's on the live VALIDATE blocks (from 11-01 18:00), and report it as a follower rule.
+3. **Maker price.** Explain the -3/-4c ladder group (ladder_decode) on more blocks, and the ask - 1c rule.
+4. **Ask the user** for a PandaScore token (X23) and for consent to fetch ~50 MB of Kick VOD segments (X22 / X4). An
+   in-round clock would test the opening-kill reading of the taker trigger (X8).
+5. **Dota 2 (X24).** Analyse `tommy_dota_live` (running) against its Dota 2 taker signings.
+6. **Primary metric.** `presence_auc` did not move this iteration (0.8721). If the next iteration also brings < 0.01,
+   the one after must pivot. A candidate is a quote-presence target (its resting ladders on the own recorder in
+   non-GRID markets) instead of fill presence, which co-occurrence bounds.
+
+## Iteration 3 closing state
+- Status: continue. Primary metric `presence_auc` 0.8721 (unchanged; activity baseline 0.899). Selection 0.954 vs
+  0.892 (gain +0.062, p 0.002), recall 0.72, lift 3.30. `price_within_tick` 0.305 at the in-play tick. pnl_corr
+  -0.12 / -0.06. Target not met (price, outcome, presence).
+- The v2 taker trigger is retracted (receive-clock artefact). `final_rule.py` is v3: selection unchanged, an in-play
+  tick price metric, a size rule by game, and a server-clock live diagnostic.
+- Open catalog items: X4 and X22 (stream clock; needs the user's consent to download video), X8 (bo3 round labels;
+  needs an in-round clock), X24 (Dota 2 live recorder running; analysis pending). X23 is infeasible without a key or
+  token from the user.
+- Recorders: shared recorder running (status OK at 16:45); own `tommy_cs2_near` (pid 29844, 12.5 MB) and
+  `tommy_dota_live` (pid 14548) running, both with a hard stop of 11-03 00:00 UTC.
+- Time used: about 72 minutes of wall-clock (15:49-17:01 UTC); the remaining open items need the user (video consent, a PandaScore token) or future dev blocks (Dota 2 recorder, live VALIDATE from 11-01 18:00). Fan-out wave onsets (X21 event clock): only 1 pair with own-recorder coverage (onsets 9 and 15 ms), insufficient (`fanout_waves.json`).

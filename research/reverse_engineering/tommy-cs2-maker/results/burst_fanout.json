@@ -1,0 +1,54 @@
+{
+ "wallet_orders_with_book": 64,
+ "first_orders": {
+  "n": 64,
+  "pre_event": 0.141,
+  "post_event": 0.672
+ },
+ "follow_up_orders": {
+  "n": 0,
+  "pre_event": null,
+  "post_event": null
+ },
+ "dev_fanout_orders_share": 0.11,
+ "orders_columns": [
+  "salt",
+  "sign_ms",
+  "token_id",
+  "price",
+  "shares",
+  "cid",
+  "oi",
+  "smt",
+  "gs_ts",
+  "event",
+  "role",
+  "first_fill_ts",
+  "last_fill_ts",
+  "n_fills",
+  "filled",
+  "sig_type",
+  "builder",
+  "metadata",
+  "sign_ts",
+  "fill_frac",
+  "life_first",
+  "life_last"
+ ],
+ "hist_fanout_pairs_within_50ms": 60,
+ "hist_fanout_gap_ms_p50_p90": [
+  1.0,
+  4.0
+ ],
+ "hist_taker_orders": 1698,
+ "race": {
+  "events": 1212,
+  "acted": 25,
+  "P_acted_left_ge_30pct": 0.009,
+  "n_left_ge_30pct": 873,
+  "P_acted_left_lt_30pct": 0.05,
+  "n_left_lt_30pct": 339,
+  "left_at_plus1s_acted_median": 0.178,
+  "left_at_plus1s_not_acted_median": 0.444
+ }
+}
