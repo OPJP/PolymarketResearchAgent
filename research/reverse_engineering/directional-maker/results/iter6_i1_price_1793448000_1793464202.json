@@ -1,0 +1,361 @@
+{
+ "period": [
+  1793448000,
+  1793464202
+ ],
+ "n_fills_activity": 1994,
+ "n_with_match_ms": 1950,
+ "n_maker": 1744,
+ "x_coverage_of_fills": 0.9853,
+ "all": {
+  "rule_a_last_clean_print_minus_0.01": {
+   "within_tick": 0.8171,
+   "exact": 0.5075,
+   "n": 1744
+  },
+  "anchor_last_print": {
+   "within_tick": 0.8056,
+   "exact": 0.258,
+   "n": 1744
+  },
+  "anchor_touch_200ms": {
+   "within_tick": 0.832,
+   "exact": 0.7357,
+   "n": 1744
+  },
+  "anchor_touch_200ms_minus_0.01": {
+   "within_tick": 0.8286,
+   "exact": 0.07,
+   "n": 1744
+  },
+  "decay_last_print_minus_0.01_at_least_L_ms": {
+   "250": {
+    "within_tick": 0.7477,
+    "exact": 0.4329,
+    "n": 1744
+   },
+   "500": {
+    "within_tick": 0.6737,
+    "exact": 0.3635,
+    "n": 1744
+   },
+   "1000": {
+    "within_tick": 0.6061,
+    "exact": 0.2821,
+    "n": 1744
+   },
+   "1500": {
+    "within_tick": 0.5894,
+    "exact": 0.2546,
+    "n": 1744
+   },
+   "2000": {
+    "within_tick": 0.5625,
+    "exact": 0.2339,
+    "n": 1744
+   },
+   "2500": {
+    "within_tick": 0.543,
+    "exact": 0.2093,
+    "n": 1744
+   },
+   "3000": {
+    "within_tick": 0.4891,
+    "exact": 0.1674,
+    "n": 1744
+   }
+  },
+  "per_wallet_rule_a": {
+   "almach": {
+    "within_tick": 0.7766,
+    "exact": 0.5381,
+    "n": 591
+   },
+   "bosona": {
+    "within_tick": 0.8124,
+    "exact": 0.489,
+    "n": 501
+   },
+   "momoney": {
+    "within_tick": 0.8574,
+    "exact": 0.4939,
+    "n": 652
+   }
+  },
+  "side_eq_token_just_sold": 0.3974,
+  "last_print_age_ms_quantiles": {
+   "0.1": 20.0,
+   "0.25": 49.0,
+   "0.5": 140.0,
+   "0.75": 354.0,
+   "0.9": 867.0
+  },
+  "rule_a_error_ticks": {
+   "-4": 0.0424,
+   "-3": 0.0103,
+   "-2": 0.0252,
+   "-1": 0.0493,
+   "0": 0.508,
+   "1": 0.2597,
+   "2": 0.039,
+   "3": 0.0166,
+   "4": 0.0493
+  },
+  "rule_a_by_size": {
+   "(0.0, 20.0]": {
+    "within_tick": 0.8214,
+    "exact": 0.5322,
+    "n": 1103
+   },
+   "(20.0, 100.0]": {
+    "within_tick": 0.8042,
+    "exact": 0.4604,
+    "n": 480
+   },
+   "(100.0, 499.9]": {
+    "within_tick": 0.8864,
+    "exact": 0.5152,
+    "n": 132
+   },
+   "(499.9, 1000000000.0]": {
+    "within_tick": 0.5517,
+    "exact": 0.3103,
+    "n": 29
+   }
+  }
+ },
+ "live_build": {
+  "rule_a_last_clean_print_minus_0.01": {
+   "within_tick": 0.7945,
+   "exact": 0.4545,
+   "n": 550
+  },
+  "anchor_last_print": {
+   "within_tick": 0.7691,
+   "exact": 0.2727,
+   "n": 550
+  },
+  "anchor_touch_200ms": {
+   "within_tick": 0.8036,
+   "exact": 0.6982,
+   "n": 550
+  },
+  "anchor_touch_200ms_minus_0.01": {
+   "within_tick": 0.8,
+   "exact": 0.0709,
+   "n": 550
+  },
+  "decay_last_print_minus_0.01_at_least_L_ms": {
+   "250": {
+    "within_tick": 0.6927,
+    "exact": 0.3418,
+    "n": 550
+   },
+   "500": {
+    "within_tick": 0.6255,
+    "exact": 0.3,
+    "n": 550
+   },
+   "1000": {
+    "within_tick": 0.5982,
+    "exact": 0.26,
+    "n": 550
+   },
+   "1500": {
+    "within_tick": 0.5491,
+    "exact": 0.1909,
+    "n": 550
+   },
+   "2000": {
+    "within_tick": 0.5309,
+    "exact": 0.1691,
+    "n": 550
+   },
+   "2500": {
+    "within_tick": 0.5364,
+    "exact": 0.1727,
+    "n": 550
+   },
+   "3000": {
+    "within_tick": 0.4891,
+    "exact": 0.1618,
+    "n": 550
+   }
+  },
+  "per_wallet_rule_a": {
+   "almach": {
+    "within_tick": 0.6837,
+    "exact": 0.4186,
+    "n": 215
+   },
+   "bosona": {
+    "within_tick": 0.7671,
+    "exact": 0.3904,
+    "n": 146
+   },
+   "momoney": {
+    "within_tick": 0.9418,
+    "exact": 0.545,
+    "n": 189
+   }
+  },
+  "side_eq_token_just_sold": 0.4436,
+  "last_print_age_ms_quantiles": {
+   "0.1": 16.0,
+   "0.25": 44.0,
+   "0.5": 128.0,
+   "0.75": 421.0,
+   "0.9": 968.0
+  },
+  "rule_a_error_ticks": {
+   "-4": 0.0745,
+   "-3": 0.0145,
+   "-2": 0.0291,
+   "-1": 0.06,
+   "0": 0.4564,
+   "1": 0.2782,
+   "2": 0.0382,
+   "3": 0.0109,
+   "4": 0.0382
+  },
+  "rule_a_by_size": {
+   "(0.0, 20.0]": {
+    "within_tick": 0.8195,
+    "exact": 0.5089,
+    "n": 338
+   },
+   "(20.0, 100.0]": {
+    "within_tick": 0.774,
+    "exact": 0.411,
+    "n": 146
+   },
+   "(100.0, 499.9]": {
+    "within_tick": 0.8222,
+    "exact": 0.3111,
+    "n": 45
+   },
+   "(499.9, 1000000000.0]": {
+    "within_tick": 0.4762,
+    "exact": 0.1905,
+    "n": 21
+   }
+  }
+ },
+ "live_validate": {
+  "rule_a_last_clean_print_minus_0.01": {
+   "within_tick": 0.8275,
+   "exact": 0.5318,
+   "n": 1194
+  },
+  "anchor_last_print": {
+   "within_tick": 0.8224,
+   "exact": 0.2513,
+   "n": 1194
+  },
+  "anchor_touch_200ms": {
+   "within_tick": 0.8451,
+   "exact": 0.7529,
+   "n": 1194
+  },
+  "anchor_touch_200ms_minus_0.01": {
+   "within_tick": 0.8417,
+   "exact": 0.0695,
+   "n": 1194
+  },
+  "decay_last_print_minus_0.01_at_least_L_ms": {
+   "250": {
+    "within_tick": 0.773,
+    "exact": 0.4749,
+    "n": 1194
+   },
+   "500": {
+    "within_tick": 0.696,
+    "exact": 0.3928,
+    "n": 1194
+   },
+   "1000": {
+    "within_tick": 0.6097,
+    "exact": 0.2923,
+    "n": 1194
+   },
+   "1500": {
+    "within_tick": 0.608,
+    "exact": 0.2839,
+    "n": 1194
+   },
+   "2000": {
+    "within_tick": 0.5771,
+    "exact": 0.2638,
+    "n": 1194
+   },
+   "2500": {
+    "within_tick": 0.5461,
+    "exact": 0.2261,
+    "n": 1194
+   },
+   "3000": {
+    "within_tick": 0.4891,
+    "exact": 0.17,
+    "n": 1194
+   }
+  },
+  "per_wallet_rule_a": {
+   "almach": {
+    "within_tick": 0.8298,
+    "exact": 0.6064,
+    "n": 376
+   },
+   "bosona": {
+    "within_tick": 0.831,
+    "exact": 0.5296,
+    "n": 355
+   },
+   "momoney": {
+    "within_tick": 0.8229,
+    "exact": 0.473,
+    "n": 463
+   }
+  },
+  "side_eq_token_just_sold": 0.376,
+  "last_print_age_ms_quantiles": {
+   "0.1": 22.0,
+   "0.25": 52.0,
+   "0.5": 142.0,
+   "0.75": 340.0,
+   "0.9": 816.0
+  },
+  "rule_a_error_ticks": {
+   "-4": 0.0276,
+   "-3": 0.0084,
+   "-2": 0.0235,
+   "-1": 0.0444,
+   "0": 0.5318,
+   "1": 0.2513,
+   "2": 0.0394,
+   "3": 0.0193,
+   "4": 0.0544
+  },
+  "rule_a_by_size": {
+   "(0.0, 20.0]": {
+    "within_tick": 0.8222,
+    "exact": 0.5425,
+    "n": 765
+   },
+   "(20.0, 100.0]": {
+    "within_tick": 0.8174,
+    "exact": 0.482,
+    "n": 334
+   },
+   "(100.0, 499.9]": {
+    "within_tick": 0.9195,
+    "exact": 0.6207,
+    "n": 87
+   },
+   "(499.9, 1000000000.0]": {
+    "within_tick": 0.75,
+    "exact": 0.625,
+    "n": 8
+   }
+  }
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "txs": 5528,
+ "maker_orders": 11253,
+ "cluster_share_all_maker_orders": 0.0164,
+ "S500": {
+  "n": 207,
+  "cluster_share": 0.879,
+  "distinct_other_makers": 8,
+  "top_other": {
+   "0xbc1fc906a4f56c242a720a7b9a8e2c4a92d8723f": 6,
+   "0x86b14772a4da70f3e6d5eee06933ebef143efc87": 5,
+   "0x48ac40fc545cf327edd5365435c3a9f385614a7e": 5
+  }
+ },
+ "S100": {
+  "n": 161,
+  "cluster_share": 0.0,
+  "distinct_other_makers": 23,
+  "top_other": {
+   "0xb9587c373c773d023f47c2f85a30b3d5bddcf513": 34,
+   "0xd84403efd50b49a1d8a7181627e00307e6ea5908": 28,
+   "0x0ec70123be6004c7aa6c533f53cc7f97accd4be2": 15
+  }
+ },
+ "S250": {
+  "n": 90,
+  "cluster_share": 0.0,
+  "distinct_other_makers": 6,
+  "top_other": {
+   "0x485d9d9f9627ea80357ab2b17ac11783f09c1fe5": 46,
+   "0xaef68b9bbd746ffe4e582a687cf8a21f1c44134f": 17,
+   "0x94f34879376a064ef460a8eb9ea60607a65732e3": 11
+  }
+ },
+ "S62": {
+  "n": 2,
+  "cluster_share": 0.0,
+  "distinct_other_makers": 2,
+  "top_other": {
+   "0x21f4c1a1be34a39a7bc20985df4b7e5a39fb691d": 1,
+   "0xb4d250f58c26840e09723a83ce9c8149aa32ce99": 1
+  }
+ },
+ "cluster_orders_size_mix": {
+  "500.0": 0.984,
+  "471.15": 0.005,
+  "377.86": 0.005,
+  "246.08": 0.005
+ }
+}

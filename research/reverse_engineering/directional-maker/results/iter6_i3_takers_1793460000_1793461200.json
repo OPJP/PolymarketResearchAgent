@@ -1,0 +1,14 @@
+{
+ "taker_orders": 5512,
+ "cluster_matches": 182,
+ "sign_to_match_ms_q": {
+  "0.1": 201.0,
+  "0.5": 684.0,
+  "0.9": 65985.0
+ },
+ "P_fut5_cluster": 0.0,
+ "P_fut5_other": 0.055,
+ "P_fut3_cluster": 0.005,
+ "P_fut3_other": 0.076,
+ "base_P_fut5_random": 0.005
+}

@@ -1,4 +1,15 @@
-"""Frozen rule for the directional-maker cluster (bosona, almach, mo-money), BTC 5m Up/Down. Iteration 4 rule R3.
+"""Frozen rule for the directional-maker cluster (bosona, almach, mo-money), BTC 5m Up/Down. Iteration 6 rule R4 =
+iteration-4 rule R3 (unchanged below) + a price rule on the match clock for periods the shared live recorder covers.
+
+R4 addition (iteration 6, panel iter5 information I1; chosen on the pre-registered live split, BUILD = 2026-10-31
+12:00-15:00 UTC, VALIDATE = 15:00-18:00 UTC): for each cluster maker BUY fill whose transaction appears in the shared
+recorder's trade stream (tools/live.py feed clob_crypto, records 'x' with tx hash and server ms), the predicted limit
+price = the last trade of the same market before the fill's match ms whose transaction holds no cluster trade (either
+token, mapped to the fill's token) minus 0.01. This is the trivial anchor "last print" minus a tick on the match clock.
+Fills without a recorded match fall back to R3's block-clock anchor. evaluate() reports it under "price_match_clock"
+(pooled and per wallet, with the trivial anchors and the coverage). The live trades are read with a tolerant gzip-member
+reader that honours ALLOW_SEALED (development blocks only unless the examiner's driver sets it).
+
 
 R3 = R2 (iteration 2; archived unchanged in final_rule_r2.py) with two changes, both chosen on the iteration-4
 VALIDATE (2026-10-27..30, the second half of the released lot):
@@ -24,8 +35,8 @@ evaluate(start_ts, end_ts, intervals=None) loads [start_ts, end_ts) through the 
 data-api taker tapes [start-120, end) and the three wallets' activity, Binance 1-s archive), applies the frozen
 models and returns presence / side / price / PnL / selection metrics with the market-activity-only baselines, pooled
 and per wallet. With intervals (list of [a, b) pairs) only windows starting in them count. Nothing is fitted here.
-local=True (development only) reads cached day files when they exist. The rule reads no live recording;
-ALLOW_SEALED is kept for the examiner's driver.
+local=True (development only) reads cached day files when they exist. R3 reads no live recording; R4 reads the
+shared trade stream for its price part only (ALLOW_SEALED is set by the examiner's driver).
 """
 from __future__ import annotations
 
@@ -44,7 +55,7 @@ sys.path.insert(0, str(HERE))
 from features2 import Spot, build_panel, clean_tape  # noqa: E402
 from train2 import SETS  # noqa: E402
 
-ALLOW_SEALED = False             # only the examiner's driver sets True (no live input is read by R3)
+ALLOW_SEALED = False             # only the examiner's driver sets True (R4 price reads the shared live trade stream)
 MODEL = "rule"                   # presence3_rule.txt: R2 features + clock, refit on BUILD 2026-10-09..26 (iteration 4)
 BASELINE = "activity"            # presence3_activity.txt: market-activity-only (co-occurrence) baseline, same BUILD
 OWN_MODEL = "own"                # presence3_own.txt: reported separately (own inventory)
@@ -173,6 +184,113 @@ def _wallet_labels(panel: pd.DataFrame, w: pd.DataFrame, mk: pd.DataFrame, walle
     return np.array([(c, sd, r) in keys for c, sd, r in zip(panel["cid"], panel["side_up"], panel["rel"])], dtype=np.int8)
 
 
+LIVE_FEED = "clob_crypto"        # shared recorder (tools/live.py): 'x' = every last trade with tx hash and server ms
+LIVE_PAD_S = 120
+
+
+def _iter_live_x(start_ts: int, end_ts: int):
+    """Tolerant reader of the shared recorder's trade records ('x'), development blocks only unless the examiner's
+    driver sets ALLOW_SEALED = True. Each gzip member is decoded on its own (a member cut by a recorder restart keeps
+    its complete lines; tools/live.iter_live stops there with zlib.error). Only lines holding a trade are parsed."""
+    import calendar
+    import json
+    import time as _time
+    import zlib
+    sys.path.insert(0, str(ROOT / "research" / "reverse_engineering" / "tools"))
+    import sealed as _sealed
+    sys.path.insert(0, str(HERE.parent / "code5"))
+    import rawread
+    base = ROOT / ".cache" / "live"
+    parts = ["dev", "sealed"] if ALLOW_SEALED else ["dev"]
+    files = sorted((p for part in parts for p in (base / part / LIVE_FEED).glob("*.jsonl.gz")), key=lambda p: p.name)
+    for p in files:
+        hour = calendar.timegm(_time.strptime(p.name[:11], "%Y%m%dT%H"))
+        if hour + 3600 <= start_ts or hour >= end_ts:
+            continue
+        try:
+            raw = p.read_bytes()
+        except OSError:
+            continue
+        for chunk in rawread._members(raw):
+            for line in chunk.split(b"\n"):
+                if b'"k":"x"' not in line:
+                    continue
+                try:
+                    r = json.loads(line)
+                except ValueError:
+                    continue
+                t = r.get("t", 0) / 1000.0
+                if start_ts <= t < end_ts and (ALLOW_SEALED or not _sealed.future_block_sealed(t)):
+                    yield r
+
+
+def price_match_clock(mk: pd.DataFrame, w: pd.DataFrame, start_ts: int, end_ts: int, block_pred: pd.DataFrame) -> dict:
+    """R4 price rule on the match clock (iteration 6, panel I1): for each cluster maker BUY fill whose transaction is in
+    the shared recorder's trade stream, the server match ms is the first trade record of its tx hash; the predicted
+    limit price = the last trade of the same market (either token, mapped to the fill's token) before the match whose
+    transaction holds no cluster trade, minus PRICE_OFFSET. This IS the trivial anchor 'last print' (minus a tick) on
+    the match clock; the trivial anchors are reported next to it. Fills without a recorded match fall back to R3's
+    block-clock anchor (combined metric). Point-in-time with respect to the match (strictly earlier server ms)."""
+    up2cid = dict(zip(w["up_token"], w["cid"]))
+    dn2cid = dict(zip(w["down_token"], w["cid"]))
+    rows = []
+    for r in _iter_live_x(start_ts - LIVE_PAD_S, end_ts + LIVE_PAD_S):
+        a = r.get("a")
+        if a in up2cid:
+            rows.append((r.get("s", 0), up2cid[a], True, float(r.get("p") or 0), (r.get("h") or "").lower()))
+        elif a in dn2cid:
+            rows.append((r.get("s", 0), dn2cid[a], False, float(r.get("p") or 0), (r.get("h") or "").lower()))
+    out = {"x_records": len(rows), "fills": int(len(mk))}
+    if not rows or not len(mk):
+        out["note"] = "no live trade records for this period (block-clock price only)"
+        return out
+    X = pd.DataFrame(rows, columns=["s", "cid", "isup", "p", "h"]).sort_values("s", kind="stable")
+    X["p_up"] = np.where(X["isup"], X["p"], 1 - X["p"])
+    ctx = set(mk["tx"].str.lower())
+    match_s = X.groupby("h")["s"].min()
+    Xc = X[~X["h"].isin(ctx)]
+    byc = {c: (g["s"].to_numpy(), g["p_up"].to_numpy()) for c, g in Xc.groupby("cid")}
+    upset = set(w["up_token"])
+    tok2cid = {**up2cid, **dn2cid}
+    bp = dict(zip(zip(block_pred["tx"], block_pred["token_id"]), block_pred["pred_block"])) if len(block_pred) else {}
+    recs = []
+    for r in mk.itertuples(index=False):
+        tx = str(r.tx).lower()
+        cid = tok2cid.get(r.token_id)
+        isup = r.token_id in upset
+        pb = bp.get((r.tx, r.token_id))
+        pm = np.nan
+        if cid is not None and tx in match_s.index and cid in byc:
+            ss, pp = byc[cid]
+            i = np.searchsorted(ss, match_s[tx], side="left") - 1
+            if i >= 0:
+                lp = pp[i] if isup else 1 - pp[i]
+                pm = round(lp - PRICE_OFFSET, 2)
+        recs.append((r.wallet, float(r.price), pm, np.nan if pb is None else pb, tx in match_s.index))
+    D = pd.DataFrame(recs, columns=["wallet", "price", "pm", "pb", "in_x"])
+    D["pc"] = D["pm"].where(D["pm"].notna(), D["pb"])
+
+    def acc(col, d):
+        m = d[col].notna()
+        e = np.abs(d.loc[m, col] - d.loc[m, "price"])
+        return (float(np.mean(e <= 0.0105)) if m.any() else float("nan"), float(np.mean(e < 0.0005)) if m.any() else float("nan"), int(m.sum()))
+    a1, a2, a3 = acc("pm", D)
+    b1, b2, b3 = acc("pc", D)
+    c1, _, c3 = acc("pb", D[D["pm"].notna()])
+    D["last"] = D["pm"] + PRICE_OFFSET
+    l1, _, _ = acc("last", D)
+    out.update({"coverage_in_x": float(D["in_x"].mean()), "n_match_clock": a3, "within_0.01": a1, "exact": a2,
+                "combined_within_0.01": b1, "combined_exact": b2, "combined_n": b3,
+                "block_clock_same_fills_within_0.01": c1, "anchor_last_print_within_0.01": l1, "per_wallet": {}})
+    for addr, name in CLUSTER.items():
+        d = D[D["wallet"] == addr]
+        if len(d):
+            x1, x2, x3 = acc("pm", d)
+            y1, _, _ = acc("pc", d)
+            out["per_wallet"][name] = {"within_0.01": x1, "exact": x2, "n": x3, "combined_within_0.01": y1}
+    return out
+
+
 def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_perm: int = 99,
              cache_only: bool = False) -> dict:
     import lightgbm as lgb
@@ -241,6 +359,7 @@ def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_
     c2 = clean.merge(w[["cid", "up_token"]], on="cid")
     c2["up_px"] = np.where(c2["asset"] == c2["up_token"], c2["price"], 1 - c2["price"])
     by = {c: (g["ts"].to_numpy(), g["up_px"].to_numpy()) for c, g in c2.sort_values("ts", kind="stable").groupby("cid")}
+    by_block = by
     pred, actual, pw_wal = [], [], []
     for r in mk.itertuples(index=False):
         cid = tok2cid.get(r.token_id)
@@ -261,6 +380,27 @@ def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_
     for addr, name in CLUSTER.items():
         k = pw_wal == addr
         per_wallet[name]["price_within_0.01"] = float(np.mean(e[k] <= 0.0105)) if k.any() else float("nan")
+    # R4 price on the match clock (iteration 6): shared live recorder 'x' stream where it exists, block clock elsewhere
+    try:
+        bt = pd.DataFrame({"tx": [], "pred_block": []})
+        if len(mk):
+            bt_rows = []
+            for r in mk.itertuples(index=False):
+                cid = tok2cid.get(r.token_id)
+                if cid not in by_block:
+                    continue
+                ts_, px_ = by_block[cid]
+                i = np.searchsorted(ts_, r.ts, side="left") - 1
+                if i >= 0:
+                    ls = px_[i] if r.token_id in upset else 1 - px_[i]
+                    bt_rows.append((r.tx, r.token_id, round(ls - PRICE_OFFSET, 2)))
+            bt = pd.DataFrame(bt_rows, columns=["tx", "token_id", "pred_block"])
+        res["price_match_clock"] = price_match_clock(mk, w, start_ts, end_ts, bt)
+        for name, v in res["price_match_clock"].get("per_wallet", {}).items():
+            per_wallet[name]["price_match_clock_within_0.01"] = v.get("within_0.01")
+            per_wallet[name]["price_combined_within_0.01"] = v.get("combined_within_0.01")
+    except Exception as ex:  # the live part must never break the tape evaluation
+        res["price_match_clock"] = {"error": repr(ex)[:300]}
     # PnL per window: wallet maker fills vs the rule's expected PnL
     pay = dict(zip(w["cid"], w["up_payout"]))
     mk2 = mk.assign(c=[tok2cid.get(t) for t in mk["token_id"]], up=mk["token_id"].isin(upset))

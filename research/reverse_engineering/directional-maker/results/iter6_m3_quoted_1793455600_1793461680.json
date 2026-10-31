@@ -1,0 +1,17 @@
+{
+ "windows": 19,
+ "quoted_windows(>=50 adds)": 19,
+ "P0_fills_given_quoted": 0.053,
+ "zero_fill_windows": [
+  {
+   "w": "btc-updown-5m-1793457300",
+   "adds_near_touch": 324,
+   "prints": 738,
+   "print_shares": 16954.381396999997
+  }
+ ],
+ "corr_fills_prints": 0.606,
+ "corr_fills_adds": 0.454,
+ "median_adds": 437.0,
+ "median_fills": 29.0
+}

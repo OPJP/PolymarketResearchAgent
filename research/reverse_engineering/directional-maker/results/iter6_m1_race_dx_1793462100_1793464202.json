@@ -1,0 +1,83 @@
+{
+ "seconds": 814,
+ "futures0": [
+  0.002,
+  814
+ ],
+ "futures1": [
+  0.003,
+  814
+ ],
+ "futures2": [
+  0.001,
+  814
+ ],
+ "futures3": [
+  0.002,
+  814
+ ],
+ "deribit_index0": [
+  0.0,
+  814
+ ],
+ "deribit_index1": [
+  0.001,
+  814
+ ],
+ "deribit_index2": [
+  0.001,
+  814
+ ],
+ "deribit_index3": [
+  0.0,
+  814
+ ],
+ "deribit_perp_mid0": [
+  0.004,
+  814
+ ],
+ "deribit_perp_mid1": [
+  0.003,
+  814
+ ],
+ "deribit_perp_mid2": [
+  0.005,
+  814
+ ],
+ "deribit_perp_mid3": [
+  0.005,
+  814
+ ],
+ "bitstamp0": [
+  0.03,
+  814
+ ],
+ "bitstamp1": [
+  0.03,
+  814
+ ],
+ "bitstamp2": [
+  0.028,
+  814
+ ],
+ "bitstamp3": [
+  0.026,
+  814
+ ],
+ "chainlink0": [
+  0.033,
+  814
+ ],
+ "chainlink1": [
+  0.038,
+  814
+ ],
+ "chainlink2": [
+  0.247,
+  814
+ ],
+ "chainlink3": [
+  0.144,
+  814
+ ]
+}

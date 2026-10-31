@@ -1,0 +1,44 @@
+{
+ "study": {
+  "windows": 511,
+  "off_session_windows": 361,
+  "off_session_500_share": 0.069,
+  "session_500_share": 0.98,
+  "class_counts_off": {
+   "62.0": 276,
+   "250.0": 53,
+   "500.0": 25,
+   "12.0": 6,
+   "50.0": 1
+  },
+  "auc_vol60": 0.769,
+  "auc_vol300": 0.76,
+  "auc_vol900": 0.741,
+  "auc_absret60": 0.789,
+  "auc_absret300": 0.659
+ },
+ "valid": {
+  "windows": 1049,
+  "off_session_windows": 659,
+  "off_session_500_share": 0.112,
+  "session_500_share": 0.964,
+  "class_counts_off": {
+   "62.0": 353,
+   "250.0": 228,
+   "500.0": 74,
+   "12.0": 3,
+   "50.0": 1
+  },
+  "auc_vol60": 0.932,
+  "auc_vol300": 0.945,
+  "auc_vol900": 0.946,
+  "auc_absret60": 0.778,
+  "auc_absret300": 0.801
+ },
+ "study_threshold_vol300": 7.525963471301238e-05,
+ "validate_with_study_threshold": {
+  "recall": 0.878,
+  "precision": 0.707,
+  "share_500_explained": 0.878
+ }
+}
