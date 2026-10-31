@@ -11,6 +11,14 @@ Fills without a recorded match fall back to R3's block-clock anchor. evaluate() 
 reader that honours ALLOW_SEALED (development blocks only unless the examiner's driver sets it).
 
 
+Iteration 7 rule R5 = R4 + a presence score stacked with the Chainlink settlement stream (code/r5.py, code/cl_source.py):
+p_R5 = sigmoid(b0 + b . [logit(p_R3), Chainlink fair - Binance fair, Chainlink edge, 10-s Chainlink change, z, fair]) with
+the Chainlink value stamped t - 3 s (live recorders dy_rtds / dx_rtds / dm_rtds, else Polymarket's crypto-price endpoint,
+fetched only when <= MAX_CL_REQUESTS requests are needed) and Gamma priceToBeat; fitted on a STUDY sample, adopted on the
+pre-registered VALIDATE sample criterion (gain +0.0075, 2-h block-bootstrap 95% [+0.0016, +0.0131]). evaluate() reports
+it under 'presence_r5' (bins with Chainlink; R3 fallback elsewhere) next to R3's 'presence'.
+
+
 R3 = R2 (iteration 2; archived unchanged in final_rule_r2.py) with two changes, both chosen on the iteration-4
 VALIDATE (2026-10-27..30, the second half of the released lot):
 * the presence models are refitted on the expanded BUILD (2026-10-09..26: old BUILD + old VALIDATE + the lot's first
@@ -62,6 +70,8 @@ OWN_MODEL = "own"                # presence3_own.txt: reported separately (own i
 CLOCK = ["hour_utc", "dow", "us_session"]
 FEATS = {"rule": SETS["all_path_xwin"] + CLOCK, "activity": SETS["activity"],
          "own": SETS["all_path_xwin"] + CLOCK + ["inv_s", "inv_o"]}
+FETCH_CL = True                  # R5: fetch missing Chainlink stamps from the endpoint (slow: ~1.5 requests/s)
+MAX_CL_REQUESTS = 3000
 THETA_SEL = {"all": 0.01698130336758783, "activity": 0.01736697994132774}  # BUILD top-15% score thresholds (sel2.py fit)
 PRICE_OFFSET = 0.01
 PRE = 120
@@ -78,6 +88,23 @@ def _windows(start_ts: int, end_ts: int) -> pd.DataFrame:
           if start_ts <= x.start_ts and x.end_ts <= end_ts]
     return pd.DataFrame([{"cid": x.condition_id, "start_ts": x.start_ts, "end_ts": x.end_ts, "up_token": x.up_token,
                           "down_token": x.down_token, "up_payout": x.up_payout} for x in ws]).sort_values("start_ts").reset_index(drop=True)
+
+
+def _ptb(w: pd.DataFrame) -> dict:
+    """Gamma priceToBeat (the strike, fixed at the window start; eventMetadata) by window start."""
+    from polyrea.workflows.updown_study import fetch_windows
+    out = {}
+    raw = fetch_windows([f"btc-updown-5m-{int(s)}" for s in w["start_ts"]])
+    for m in raw.values():
+        try:
+            st = int(str(m.get("slug")).rsplit("-", 1)[1])
+        except (IndexError, ValueError):
+            continue
+        for e in m.get("events") or []:
+            v = (e.get("eventMetadata") or {}).get("priceToBeat")
+            if v is not None:
+                out[st] = float(v)
+    return out
 
 
 def _txint(x: pd.Series) -> pd.Series:
@@ -337,6 +364,26 @@ def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_
     for nm in (MODEL, BASELINE, OWN_MODEL):
         m = lgb.Booster(model_file=str(HERE / f"presence3_{nm}.txt"))
         panel["p_" + nm] = m.predict(panel[FEATS[nm]])
+    # R5 (iteration 7): R3 stacked with the Chainlink settlement stream where it is available
+    try:
+        import cl_source
+        import r5
+        ptb = _ptb(w)
+        cl = cl_source.cl_values(r5.stamps_needed(panel), allow_sealed=ALLOW_SEALED, fetch=FETCH_CL, max_requests=MAX_CL_REQUESTS)
+        panel = r5.add_cl(panel, cl, ptb)
+        okb = panel["cl_ok"].to_numpy()
+        panel["p_r5"] = np.where(okb, r5.score(panel, panel["p_" + MODEL].to_numpy()), panel["p_" + MODEL].to_numpy())
+        okw = panel.groupby("cid")["cl_ok"].transform("all").to_numpy()
+        sub = panel[okw]
+        res["presence_r5"] = {"cl_coverage_bins": float(okb.mean()), "windows_with_cl": int(sub["cid"].nunique()),
+                              "auc_r5_with_r3_fallback": _auc(panel["y"], panel["p_r5"]),
+                              "auc_r5_on_cl_windows": _auc(sub["y"], sub["p_r5"]), "auc_r3_on_cl_windows": _auc(sub["y"], sub["p_" + MODEL]),
+                              "auc_activity_on_cl_windows": _auc(sub["y"], sub["p_" + BASELINE])}
+        if len(sub) and sub["y"].sum():
+            res["presence_r5"]["side_r5_on_cl_windows"] = side_metrics(sub, "p_r5")
+            res["presence_r5"]["side_r3_on_cl_windows"] = side_metrics(sub, "p_" + MODEL)
+    except Exception as ex:  # the Chainlink part must never break the tape evaluation
+        res["presence_r5"] = {"error": repr(ex)[:300]}
     act = panel.groupby("cid")["y"].transform("max") > 0
     res["presence"] = {"auc": _auc(panel["y"], panel["p_" + MODEL]), "auc_activity_baseline": _auc(panel["y"], panel["p_" + BASELINE]),
                        "auc_with_own_inventory": _auc(panel["y"], panel["p_" + OWN_MODEL]),
@@ -353,6 +400,11 @@ def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_
                             "presence_auc": _auc(yw, panel["p_" + MODEL].to_numpy()),
                             "presence_auc_activity_baseline": _auc(yw, panel["p_" + BASELINE].to_numpy()),
                             "side": side_metrics(pw, "p_" + MODEL)["acc"] if yw.sum() else float("nan")}
+        if "p_r5" in panel.columns and "cl_ok" in panel.columns:
+            okw_ = panel.groupby("cid")["cl_ok"].transform("all").to_numpy()
+            if okw_.any():
+                per_wallet[name]["presence_auc_r5_on_cl_windows"] = _auc(yw[okw_], panel["p_r5"].to_numpy()[okw_])
+                per_wallet[name]["presence_auc_r3_on_cl_windows"] = _auc(yw[okw_], panel["p_" + MODEL].to_numpy()[okw_])
     # price: last clean print on s strictly before the fill second - 0.01
     upset = set(w["up_token"])
     tok2cid = {**dict(zip(w["up_token"], w["cid"])), **dict(zip(w["down_token"], w["cid"]))}

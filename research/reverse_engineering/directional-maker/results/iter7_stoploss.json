@@ -1,0 +1,107 @@
+{
+ "n_switch_offs": 6,
+ "build": [
+  {
+   "switch_window": 1792269000,
+   "utc": "10-17 20:30",
+   "off_windows": 16,
+   "pnl": -278.4,
+   "usd": 444.4,
+   "pnl_pct_rank": 0.093,
+   "pnl2": -278.4,
+   "daycum": -901.1,
+   "daydd": 8525.2,
+   "dd24": 8525.2,
+   "dd24_pct_rank": 0.933,
+   "valid": false
+  },
+  {
+   "switch_window": 1792275900,
+   "utc": "10-17 22:25",
+   "off_windows": 168,
+   "pnl": -324.7,
+   "usd": 380.9,
+   "pnl_pct_rank": 0.079,
+   "pnl2": -445.0,
+   "daycum": -1546.0,
+   "daydd": 9170.0,
+   "dd24": 9170.0,
+   "dd24_pct_rank": 0.955,
+   "valid": false
+  },
+  {
+   "switch_window": 1792361400,
+   "utc": "10-18 22:10",
+   "off_windows": 171,
+   "pnl": 250.0,
+   "usd": 250.0,
+   "pnl_pct_rank": 0.87,
+   "pnl2": -157.0,
+   "daycum": -2337.0,
+   "daydd": 2415.7,
+   "dd24": 2782.0,
+   "dd24_pct_rank": 0.708,
+   "valid": false
+  },
+  {
+   "switch_window": 1792787700,
+   "utc": "10-23 20:35",
+   "off_windows": 225,
+   "pnl": -946.7,
+   "usd": 1261.7,
+   "pnl_pct_rank": 0.018,
+   "pnl2": -1379.1,
+   "daycum": -4618.1,
+   "daydd": 5345.4,
+   "dd24": 7195.3,
+   "dd24_pct_rank": 0.895,
+   "valid": false
+  },
+  {
+   "switch_window": 1792880700,
+   "utc": "10-24 22:25",
+   "off_windows": 180,
+   "pnl": -11.0,
+   "usd": 382.3,
+   "pnl_pct_rank": 0.382,
+   "pnl2": -84.2,
+   "daycum": 747.3,
+   "daydd": 266.6,
+   "dd24": 266.6,
+   "dd24_pct_rank": 0.259,
+   "valid": false
+  }
+ ],
+ "validate_aggregate": {
+  "n": 1,
+  "median_pnl_pct_rank": 0.048,
+  "median_dd24_pct_rank": 0.623
+ },
+ "all_active_windows": {
+  "pnl_q10_50_90": [
+   -260.2,
+   3.8,
+   322.5
+  ],
+  "dd24_q50_90": [
+   1095.3,
+   7445.5
+  ]
+ },
+ "build_P_switch_given_pnl_le_500": [
+  0.005,
+  184
+ ],
+ "build_P_switch_given_pnl_le_1000": [
+  0.0,
+  60
+ ],
+ "build_P_switch_given_pnl_le_1500": [
+  0.0,
+  22
+ ],
+ "build_P_switch_overall": 0.0015,
+ "build_auc_switch_by_neg_pnl": 0.7141751042287076,
+ "build_auc_switch_by_dd24": 0.7111375818939845,
+ "build_auc_switch_by_neg_daycum": 0.800774270399047
+}

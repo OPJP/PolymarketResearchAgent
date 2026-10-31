@@ -1,0 +1,64 @@
+{
+ "updates": 1771,
+ "trades": 8438,
+ "5m": {
+  "W1000": {
+   "corr_netsell_after_vs_minus_dcl": 0.03169123238121669,
+   "corr_netsell_before_vs_minus_dcl": -0.025888115154188717,
+   "corr_netsell_after_vs_minus_dfut_after": 0.08828393873747774,
+   "ols_change_on[dcl,dfut_before,dfut_after]": [
+    -1.576,
+    -0.672,
+    -7.435
+   ],
+   "prints_after_big_dcl": 4.419700214132762,
+   "prints_after_small_dcl": 3.517051705170517,
+   "prints_before_big_dcl": 4.882226980728052,
+   "prints_before_small_dcl": 3.627062706270627
+  },
+  "W2000": {
+   "corr_netsell_after_vs_minus_dcl": 0.02594945215601652,
+   "corr_netsell_before_vs_minus_dcl": -0.0042323169998910665,
+   "corr_netsell_after_vs_minus_dfut_after": 0.12140512458423243,
+   "ols_change_on[dcl,dfut_before,dfut_after]": [
+    -1.163,
+    9.471,
+    -11.061
+   ],
+   "prints_after_big_dcl": 8.588865096359743,
+   "prints_after_small_dcl": 7.4543454345434546,
+   "prints_before_big_dcl": 9.571734475374733,
+   "prints_before_small_dcl": 6.948294829482948
+  }
+ },
+ "15m": {
+  "W1000": {
+   "corr_netsell_after_vs_minus_dcl": -0.013133707166962072,
+   "corr_netsell_before_vs_minus_dcl": 0.05417652438299385,
+   "corr_netsell_after_vs_minus_dfut_after": 0.11801136286596252,
+   "ols_change_on[dcl,dfut_before,dfut_after]": [
+    0.782,
+    -1.733,
+    -5.138
+   ],
+   "prints_after_big_dcl": 0.708779443254818,
+   "prints_after_small_dcl": 0.5786578657865786,
+   "prints_before_big_dcl": 0.8115631691648822,
+   "prints_before_small_dcl": 0.47084708470847086
+  },
+  "W2000": {
+   "corr_netsell_after_vs_minus_dcl": -0.029257881170743422,
+   "corr_netsell_before_vs_minus_dcl": 0.042013297877128424,
+   "corr_netsell_after_vs_minus_dfut_after": 0.1761720015415983,
+   "ols_change_on[dcl,dfut_before,dfut_after]": [
+    1.086,
+    4.807,
+    -6.007
+   ],
+   "prints_after_big_dcl": 1.4004282655246252,
+   "prints_after_small_dcl": 1.1683168316831682,
+   "prints_before_big_dcl": 1.7323340471092077,
+   "prints_before_small_dcl": 0.9273927392739274
+  }
+ }
+}

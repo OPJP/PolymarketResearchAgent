@@ -1,0 +1,46 @@
+{
+ "15m": {
+  "n": 729,
+  "agree_cl_all": 0.72,
+  "agree_cl_when_fut_S_same=True": [
+   0.667,
+   24
+  ],
+  "agree_cl_when_fut_S_same=False": [
+   0.654,
+   26
+  ],
+  "agree_cl_when_fut_P_same=True": [
+   0.704,
+   27
+  ],
+  "agree_cl_when_fut_P_same=False": [
+   0.552,
+   29
+  ],
+  "agree_futS_when_disagree": [
+   0.346,
+   26
+  ],
+  "agree_cl_when_futS_flat": [
+   0.725,
+   679
+  ]
+ },
+ "5m": {
+  "n": 2,
+  "agree_cl_all": 0.0,
+  "agree_cl_when_fut_S_same=True": null,
+  "agree_cl_when_fut_S_same=False": null,
+  "agree_cl_when_fut_P_same=True": null,
+  "agree_cl_when_fut_P_same=False": [
+   0.0,
+   1
+  ],
+  "agree_futS_when_disagree": null,
+  "agree_cl_when_futS_flat": [
+   0.0,
+   2
+  ]
+ }
+}
