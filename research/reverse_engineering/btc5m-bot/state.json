@@ -1,0 +1,9 @@
+{
+  "primary_metric": "presence_auc",
+  "primary_metric_definition": "Pooled ROC AUC over all VALIDATE cells (window, outcome Up/Down, second 0..299 of the window); label = any of GF/XM/DS has an on-chain BUY OrderFilled (taker or maker role) on that outcome token with block timestamp in that second; score = frozen point-in-time model using only public data available before the second (Binance 1-s closes of second <= s-2, other traders' prints <= s-1, listing metadata), no own-state features.",
+  "split": {"BUILD": [1790899200, 1792108800], "VALIDATE": [1792108800, 1792713600], "H": 1792713600, "note": "BUILD may be extended back in time in later iterations"},
+  "best": {"rule_id": null, "validate_metrics": {}},
+  "hypotheses": [],
+  "data_sources": [],
+  "iterations": []
+}

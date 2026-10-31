@@ -1,0 +1,11 @@
+{
+ "strategy": "dbdd-inplay-taker",
+ "wallet": "0xdbdd45150249e229eb4ca8aa48a30dca21faa5de",
+ "primary_metric": "sel_auc: within-market selection AUC on VALIDATE (wallet taker BUY prints vs other takers' BUY prints, in-play, same market pairs only, no own-state features)",
+ "split": {"H": 1792713600, "BUILD": [1790121600, 1791849600], "VALIDATE": [1791849600, 1792713600], "unit": "gameStartTime (fallback first wallet fill)"},
+ "preregistered": {"flag_threshold": "top 15% of scores within each market's print population", "perm_null": "within-market label permutation", "decision_lag_s": 2},
+ "best": {"rule_id": null, "validate_metrics": {}},
+ "hypotheses": [],
+ "data_sources": [],
+ "iterations": []
+}

@@ -1,0 +1,22 @@
+{
+ "primary_metric": "presence_auc_V: ROC AUC on VALIDATE of the rule's point-in-time score (no own-state) for 'wallet has >=1 BUY fill in (market, 6h bin)', universe U = Gamma markets endDate in window, volumeNum>=20k, resolved before H, non-sports, non-Up/Down; cells endDate-14d .. min(closedTime, endDate+14d)",
+ "split": {
+  "BUILD": "endDate in [2026-06-01, 2026-09-01), closedTime < H (fit on all wallet-traded BUILD-universe markets + fixed random 2,000 others, weighted)",
+  "VALIDATE": "endDate in [2026-09-01, 2026-10-23), closedTime < H (full universe: 3,419 markets, 117,132 cells, 277 positive cells, 57 positive markets)",
+  "holdout": "endDate/resolution on or after 2026-10-23 (never loaded; October 2026 FOMC excluded)"
+ },
+ "best": {
+  "rule_id": null,
+  "validate_metrics": {}
+ },
+ "hypotheses": [],
+ "data_sources": [
+  "data-api /activity full history 2023-04-29..2026-10-22 (91,634 rows)",
+  "data-api /v2/user-pnl daily (truncated < H)",
+  "gamma /markets metadata for 2,196 traded markets",
+  "gamma /markets universe scans by endDate (vol>=20k): VALIDATE 47,211 raw / 3,419 kept; BUILD 84,184 raw / 7,315 kept",
+  "clob /prices-history hourly for universe markets (VALIDATE all; BUILD wallet-traded + 2,000 sample)",
+  "Polygon receipts (drpc) of the wallet's trade transactions -> OrderFilled with orderHash (VALIDATE period; BUILD Jul15-Aug31 queued)"
+ ],
+ "iterations": []
+}

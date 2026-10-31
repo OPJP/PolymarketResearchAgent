@@ -1,0 +1,8 @@
+# regenerable model dumps and data: keep the workspaces to code, notes and small results
+*/code/model_*.txt
+*.lgb
+*.pkl
+*.parquet
+*.npy
+*.npz
+*.feather

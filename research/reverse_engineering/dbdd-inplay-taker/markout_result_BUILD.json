@@ -1,0 +1,222 @@
+{
+ "others": {
+  "mo5": 0.0003,
+  "mo30": 0.0008,
+  "mo120": 0.0027,
+  "mo600": 0.0037,
+  "mo_res": 0.0085,
+  "n": 152389,
+  "quiet_med": 5.0,
+  "quiet_ge10": 0.3679202567114424,
+  "mv60_mean": 0.003080864641130885,
+  "mv10_mean": 0.0017005053813215613,
+  "sib_n10_mean": 0.6185092099823478,
+  "dp_print_mean": 0.012459144791093883,
+  "price_mean": 0.5443144650113564,
+  "usd_med": 10.085600000000001
+ },
+ "wallet": {
+  "mo5": 0.0018,
+  "mo30": 0.0058,
+  "mo120": 0.0136,
+  "mo600": 0.0192,
+  "mo_res": 0.0146,
+  "n": 3129,
+  "quiet_med": 18.0,
+  "quiet_ge10": 0.6490891658676894,
+  "mv60_mean": 0.006948097018785453,
+  "mv10_mean": 0.002644469193302692,
+  "sib_n10_mean": 0.45573665707893896,
+  "dp_print_mean": 0.013036835621216087,
+  "price_mean": 0.5123888555858102,
+  "usd_med": 9.0
+ },
+ "by_fam": [
+  {
+   "fam": "esports:cs",
+   "is_wallet": false,
+   "n": 44772,
+   "mo30": 0.002,
+   "mo600": 0.0042,
+   "mo_res": 0.0059,
+   "quiet_ge10": 0.4029
+  },
+  {
+   "fam": "esports:cs",
+   "is_wallet": true,
+   "n": 1509,
+   "mo30": 0.0041,
+   "mo600": 0.0091,
+   "mo_res": -0.0477,
+   "quiet_ge10": 0.6766
+  },
+  {
+   "fam": "esports:dota",
+   "is_wallet": false,
+   "n": 28665,
+   "mo30": -0.0014,
+   "mo600": -0.0095,
+   "mo_res": -0.0047,
+   "quiet_ge10": 0.1595
+  },
+  {
+   "fam": "esports:dota",
+   "is_wallet": true,
+   "n": 259,
+   "mo30": 0.0146,
+   "mo600": 0.0437,
+   "mo_res": 0.0785,
+   "quiet_ge10": 0.4788
+  },
+  {
+   "fam": "esports:lol",
+   "is_wallet": false,
+   "n": 10185,
+   "mo30": -0.0026,
+   "mo600": -0.0119,
+   "mo_res": -0.0214,
+   "quiet_ge10": 0.1958
+  },
+  {
+   "fam": "esports:lol",
+   "is_wallet": true,
+   "n": 23,
+   "mo30": 0.0164,
+   "mo600": -0.0166,
+   "mo_res": -0.1217,
+   "quiet_ge10": 0.4783
+  },
+  {
+   "fam": "other",
+   "is_wallet": false,
+   "n": 13244,
+   "mo30": 0.0001,
+   "mo600": 0.0146,
+   "mo_res": 0.0129,
+   "quiet_ge10": 0.4918
+  },
+  {
+   "fam": "other",
+   "is_wallet": true,
+   "n": 289,
+   "mo30": 0.0078,
+   "mo600": 0.019,
+   "mo_res": 0.0362,
+   "quiet_ge10": 0.6228
+  },
+  {
+   "fam": "sports:atp",
+   "is_wallet": false,
+   "n": 17019,
+   "mo30": 0.0017,
+   "mo600": 0.0112,
+   "mo_res": 0.0432,
+   "quiet_ge10": 0.3998
+  },
+  {
+   "fam": "sports:atp",
+   "is_wallet": true,
+   "n": 282,
+   "mo30": 0.0071,
+   "mo600": 0.0674,
+   "mo_res": 0.086,
+   "quiet_ge10": 0.5142
+  },
+  {
+   "fam": "sports:itf",
+   "is_wallet": false,
+   "n": 13171,
+   "mo30": 0.0031,
+   "mo600": 0.015,
+   "mo_res": 0.0288,
+   "quiet_ge10": 0.6165
+  },
+  {
+   "fam": "sports:itf",
+   "is_wallet": true,
+   "n": 562,
+   "mo30": 0.0024,
+   "mo600": 0.0062,
+   "mo_res": 0.0882,
+   "quiet_ge10": 0.7936
+  },
+  {
+   "fam": "sports:mlb",
+   "is_wallet": false,
+   "n": 4324,
+   "mo30": -0.0018,
+   "mo600": 0.0119,
+   "mo_res": -0.0165,
+   "quiet_ge10": 0.4241
+  },
+  {
+   "fam": "sports:mlb",
+   "is_wallet": true,
+   "n": 19,
+   "mo30": 0.0083,
+   "mo600": 0.1193,
+   "mo_res": 0.0216,
+   "quiet_ge10": 0.7368
+  },
+  {
+   "fam": "sports:wta",
+   "is_wallet": false,
+   "n": 15169,
+   "mo30": 0.0013,
+   "mo600": 0.003,
+   "mo_res": -0.0084,
+   "quiet_ge10": 0.3559
+  },
+  {
+   "fam": "sports:wta",
+   "is_wallet": true,
+   "n": 99,
+   "mo30": 0.0078,
+   "mo600": 0.0175,
+   "mo_res": 0.0739,
+   "quiet_ge10": 0.4242
+  }
+ ],
+ "wallet_mo_res_by_price": [
+  {
+   "price": "(0.0, 0.2]",
+   "size": 317,
+   "mean": 0.0362
+  },
+  {
+   "price": "(0.2, 0.4]",
+   "size": 657,
+   "mean": -0.0255
+  },
+  {
+   "price": "(0.4, 0.5]",
+   "size": 522,
+   "mean": 0.0195
+  },
+  {
+   "price": "(0.5, 0.6]",
+   "size": 447,
+   "mean": 0.0705
+  },
+  {
+   "price": "(0.6, 0.7]",
+   "size": 478,
+   "mean": -0.0472
+  },
+  {
+   "price": "(0.7, 0.8]",
+   "size": 385,
+   "mean": 0.0305
+  },
+  {
+   "price": "(0.8, 0.9]",
+   "size": 309,
+   "mean": 0.0616
+  },
+  {
+   "price": "(0.9, 1.0]",
+   "size": 14,
+   "mean": 0.0801
+  }
+ ]
+}
