@@ -125,13 +125,23 @@ def _gapped(seed, n_blocks=8, gap=6 * 3600):
     return df, spot, blocks
 
 
-@pytest.mark.parametrize("pref", ["expensive", "late"])
+@pytest.mark.parametrize("pref", ["expensive", "late", "first15s", "busy_windows"])
 def test_match_null_is_not_fooled_by_spot_blind_preferences(pref):
-    """A wallet that picks prints by price or timing alone, ignoring spot, must not
-    'match' a spot hypothesis (the earlier clock-shift null passed such a wallet)."""
+    """A wallet that picks prints by price, timing or window alone, ignoring spot, must not
+    'match' a spot hypothesis (the earlier clock-shift null passed such a wallet, and
+    coarse time strata or pooled windows let timing and activity preferences through)."""
     df, spot, blocks = _gapped(11)
     rng = np.random.default_rng(12)
-    wgt = df["price"].to_numpy() ** 3 if pref == "expensive" else ((df["ts"] - df["start_ts"]).to_numpy() / 300.0) ** 3
+    rel = (df["ts"] - df["start_ts"]).to_numpy()
+    if pref == "expensive":
+        wgt = df["price"].to_numpy() ** 3
+    elif pref == "late":
+        wgt = (rel / 300.0) ** 3
+    elif pref == "first15s":
+        wgt = np.where(rel < 15, 20.0, 1.0)
+    else:  # far more active in a random quarter of the windows
+        busy = {c: rng.random() < 0.25 for c in df["condition_id"].unique()}
+        wgt = np.where(df["condition_id"].map(busy).to_numpy(), 12.0, 1.0)
     pick = rng.random(len(df)) < np.clip(0.06 * wgt / wgt.mean(), 0, 1)
     df["wallet"] = np.where(pick, "blind", "other")
     fit = df[df["start_ts"] < blocks[4][0]]
@@ -300,3 +310,10 @@ def test_tape_float_noise_is_snapped_to_the_grid():
     assert snap_price(0.5099999753) == 0.51  # usdc/size of a market buy
     assert snap_price(0.5123456) == 0.5123456  # a genuine sweep average stays
     assert float(quote_price(snap_price(0.5099999753) - 0.02)) == pytest.approx(0.49)
+
+
+def test_rotation_null_refuses_blocks_with_too_few_windows():
+    from polyrea.analysis.updown import rotation_shifts
+
+    with pytest.raises(ValueError):
+        rotation_shifts(np.zeros(4, dtype=int), np.array([0, 0, 1, 1]), np.array([2, 2, 2, 2]), np.random.default_rng(0))

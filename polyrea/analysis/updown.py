@@ -138,6 +138,12 @@ class SpotIndex:
         out = np.where(i >= 0, self.px[np.clip(i, 0, None)], np.nan)
         return out
 
+    def age_at(self, t: np.ndarray) -> np.ndarray:
+        """Seconds between t and the event time of the latest record available at t (inf if none)."""
+        t = np.asarray(t)
+        i = self._idx_available(t)
+        return np.where(i >= 0, t - self.ev[np.clip(i, 0, None)], np.inf)
+
     def sigma_at(self, t: np.ndarray, lookback: int = VOL_LOOKBACK) -> np.ndarray:
         """Realized per-second log-return std over records available in (t-lookback, t]."""
         t = np.asarray(t)
@@ -396,27 +402,72 @@ def rotation_shifts(bid: np.ndarray, widx: np.ndarray, nwin: np.ndarray, rng: np
     for b in np.unique(bid[bid >= 0]):
         m = bid == b
         n = int(nwin[m][0])
-        if n < 2:
-            continue
+        if n < 4:
+            raise ValueError(f"block has {n} windows: the rotation null needs at least 4 per block (use longer blocks)")
         k = int(rng.integers(1, n))
         shift[m] = ((widx[m] + k) % n - widx[m])
     return shift
 
 
-def match_strata(prints: pd.DataFrame, n_price_bins: int = 50) -> np.ndarray:
-    """Strata of comparable decisions: price quantile x time in window x side.
+def match_strata(
+    prints: pd.DataFrame,
+    n_price_bins: int = 50,
+    n_time_bins: int = 40,
+    by_window: bool = False,
+    extra: np.ndarray | None = None,
+) -> np.ndarray:
+    """Strata of comparable decisions: price quantile x time in window x side (x window) (x extra).
 
-    A wallet may prefer some prices, times or sides for reasons unrelated to
-    the hypothesis; comparing it with other traders only inside a stratum
-    removes those static preferences from the match statistic.
+    A wallet may prefer some prices, seconds of the window, sides or windows
+    for reasons unrelated to the hypothesis; comparing it with other traders
+    only inside a stratum removes those preferences from the match statistic.
+    ``n_time_bins`` splits the window into equal bins (40 = 7.5 s for 5m
+    windows; quartiles were too coarse: a wallet trading only in the first 15
+    s looked spot-driven 7-15% of the time at a nominal 1%), plus one bin
+    before the start and one after the end. ``by_window`` compares the wallet
+    with others only inside the same window, so a wallet that is simply more
+    active in some windows cannot fake an association. ``extra`` adds any
+    static per-decision control, e.g. the sign of the recent tape move, which
+    separates reacting to spot from reacting to the market's own tape.
     """
     price = prints["price"].to_numpy()
     edges = np.unique(np.quantile(price, np.linspace(0, 1, n_price_bins + 1)[1:-1])) if len(price) else np.array([])
     pbin = np.searchsorted(edges, price, side="right")
     span = (prints["end_ts"] - prints["start_ts"]).to_numpy()
     frac = (prints["ts"] - prints["start_ts"]).to_numpy() / np.maximum(span, 1)
-    tbin = np.digitize(frac, [0.0, 0.25, 0.5, 0.75, 1.0])
-    return (pbin * 10 + tbin) * 2 + prints["is_up"].to_numpy().astype(int)
+    tbin = np.where(frac < 0, 0, np.where(frac >= 1, n_time_bins + 1, 1 + np.floor(frac * n_time_bins))).astype(np.int64)
+    cols = [pbin, tbin, prints["is_up"].to_numpy().astype(int)]
+    if by_window:
+        cols.append(pd.factorize(prints["condition_id"])[0])
+    if extra is not None:
+        cols.append(pd.factorize(np.asarray(extra))[0])
+    return pd.MultiIndex.from_arrays(cols).factorize()[0]
+
+
+def tape_momentum_sign(prints: pd.DataFrame, flow: pd.DataFrame, lookback: int = 6, lag: int = 1) -> np.ndarray:
+    """Sign of the move of the bought side's implied price on the public taker tape,
+    between the last print at or before ts - lookback and the last print at or
+    before ts - lag (strictly before the decision). A control stratum for
+    "the wallet reacts to the market's own tape, not to spot"."""
+    out = np.zeros(len(prints), dtype=np.int64)
+    if flow.empty or prints.empty:
+        return out
+    pos = {cid: i for i, cid in enumerate(prints["condition_id"].unique())}
+    for cid, g in flow.groupby("condition_id"):
+        if cid not in pos:
+            continue
+        g = g.sort_values("ts", kind="stable")
+        ts = g["ts"].to_numpy()
+        up = np.where(g["is_up"].to_numpy(), g["price"].to_numpy(), 1 - g["price"].to_numpy())
+        m = (prints["condition_id"] == cid).to_numpy()
+        t = prints.loc[m, "ts"].to_numpy()
+        a = np.searchsorted(ts, t - lookback, side="right") - 1
+        b = np.searchsorted(ts, t - lag, side="right") - 1
+        ok = (a >= 0) & (b >= 0)
+        d = np.where(ok, up[np.clip(b, 0, None)] - up[np.clip(a, 0, None)], 0.0)
+        d = np.where(prints.loc[m, "is_up"].to_numpy(), d, -d)
+        out[m] = np.sign(np.round(d, 6)).astype(np.int64)
+    return out
 
 
 def stratified_auc(score: np.ndarray, y: np.ndarray, strata: np.ndarray) -> float:
@@ -447,6 +498,9 @@ def match_test(
     n_perm: int = 200,
     seed: int = 0,
     n_price_bins: int = 50,
+    n_time_bins: int = 40,
+    extra_fit: np.ndarray | None = None,
+    extra_test: np.ndarray | None = None,
 ) -> dict[str, Any]:
     """Walk-forward decision-level match test of a spot hypothesis vs. the wallet.
 
@@ -454,16 +508,25 @@ def match_test(
     stratified AUC, and the decision threshold theta by MCC. TEST (later,
     untouched) measures the stratified AUC of the fitted score for which
     prints are the wallet's, against a rotation null (:func:`rotation_shifts`):
-    every print keeps its price, time in window and side and is scored on
-    another real spot path of the same block. Under "the wallet ignores spot
-    beyond those static features" the observed and rotated statistics are
-    exchangeable. Effect size is the rule's recall and lift at theta.
+    every print keeps its price, time in window, side and window and is
+    scored on another real spot path of the same block. Two statistics are
+    computed on the same draws and a match must beat the null on both
+    (p = the larger of the two):
+
+    * global strata, price (50) x time in window (40 bins) x side: controls
+      a preference for particular prices or seconds of the window;
+    * within-window strata, window x price (10) x time (10) x side: controls
+      a wallet that is simply more active in some windows.
+
+    ``extra_*`` adds controls to both, e.g. :func:`tape_momentum_sign` to
+    separate reacting to spot from reacting to the market's own tape (which
+    moves with spot). Effect size is the rule's recall and lift at theta.
     """
     score_fns = score_fns or {"fair_minus_price": score_prints}
     lags = lags if lags is not None else [-10, -5, -3, -2, -1, 0, 1, 2, 3, 5, 10, 20]
     w = wallet.lower()
     y_fit = (fit_prints["wallet"] == w).to_numpy().astype(int)
-    g_fit = match_strata(fit_prints, n_price_bins)
+    g_fit = match_strata(fit_prints, n_price_bins, n_time_bins, False, extra_fit)
     lag_scan: dict[str, float] = {}
     for name, fn in score_fns.items():
         for L in lags:
@@ -475,22 +538,30 @@ def match_test(
     s_fit = fn(fit_prints, spot, best_lag)
     theta = fit_theta(s_fit, y_fit)
     y_te = (test_prints["wallet"] == w).to_numpy().astype(int)
-    g_te = match_strata(test_prints, n_price_bins)
+    g_te = match_strata(test_prints, n_price_bins, n_time_bins, False, extra_test)
+    g_tw = match_strata(test_prints, 10, 10, True, extra_test)
     s_te = fn(test_prints, spot, best_lag)
     auc_te = stratified_auc(s_te, y_te, g_te)
+    auc_tw = stratified_auc(s_te, y_te, g_tw)
     dm = decision_metrics(s_te, y_te, theta)
     bid, widx, nwin = window_positions(test_prints, test_blocks, duration_s)
     rng = np.random.default_rng(seed)
-    null_auc, null_finite = [], []
+    null_auc, null_auc_w, null_finite, null_stale = [], [], [], []
+    t_dec0 = test_prints["ts"].to_numpy() - best_lag
     for _ in range(n_perm):
         sh = rotation_shifts(bid, widx, nwin, rng) * duration_s
         sp = fn(test_prints, spot, best_lag, shift=sh)
         null_finite.append(float(np.isfinite(sp).mean()) if len(sp) else float("nan"))
+        null_stale.append(float((spot.age_at(t_dec0 + sh) > 5).mean()) if len(sp) else float("nan"))
         null_auc.append(stratified_auc(sp, y_te, g_te))
+        null_auc_w.append(stratified_auc(sp, y_te, g_tw))
     null_auc = np.array([x for x in null_auc if np.isfinite(x)])
+    null_auc_w = np.array([x for x in null_auc_w if np.isfinite(x)])
+    p_w = permutation_pvalue(auc_tw, null_auc_w) if len(null_auc_w) and np.isfinite(auc_tw) else 1.0
     w_scores = s_te[(y_te == 1) & np.isfinite(s_te)]
     o_scores = s_te[(y_te == 0) & np.isfinite(s_te)]
-    p = permutation_pvalue(auc_te, null_auc) if len(null_auc) else None
+    p_g = permutation_pvalue(auc_te, null_auc) if len(null_auc) else None
+    p = max(p_g, p_w) if p_g is not None else None
     recall_ok = bool(np.isfinite(dm["recall"]) and dm["recall"] >= MATCH_MIN_RECALL)
     lift_ok = bool(np.isfinite(dm["lift"]) and dm["lift"] >= MATCH_MIN_LIFT)
     return {
@@ -510,8 +581,15 @@ def match_test(
             "auc_null_sd": float(null_auc.std(ddof=1)) if len(null_auc) > 1 else None,
             "auc_z_vs_null": float((auc_te - null_auc.mean()) / null_auc.std(ddof=1)) if len(null_auc) > 1 and null_auc.std(ddof=1) > 0 else None,
             "auc_perm_p": p,
+            "auc_perm_p_global_strata": p_g,
+            "auc_within_window": auc_tw,
+            "auc_within_window_null_mean": float(null_auc_w.mean()) if len(null_auc_w) else None,
+            "auc_within_window_null_max": float(null_auc_w.max()) if len(null_auc_w) else None,
+            "auc_perm_p_within_window": p_w,
             "score_finite_share": float(np.isfinite(s_te).mean()) if len(s_te) else None,
             "null_finite_share_min": float(np.nanmin(null_finite)) if null_finite else None,
+            "null_stale_spot_share_max": float(np.nanmax(null_stale)) if null_stale else None,
+            "observed_stale_spot_share": float((spot.age_at(t_dec0) > 5).mean()) if len(t_dec0) else None,
             "decision": dm,
             "wallet_mean_score": float(w_scores.mean()) if len(w_scores) else None,
             "others_mean_score": float(o_scores.mean()) if len(o_scores) else None,
@@ -522,7 +600,7 @@ def match_test(
             f"lift_ge_{MATCH_MIN_LIFT}": lift_ok,
             "pass": bool(p is not None and p < 0.01 and recall_ok and lift_ok),
         },
-        "null": "within-block window rotation, stratified by price x time-in-window x side",
+        "null": f"within-block window rotation; p = max over global strata price({n_price_bins}) x time({n_time_bins}) x side and within-window strata window x price(10) x time(10) x side" + (" (+ extra control)" if extra_test is not None else ""),
         "n_perm": n_perm,
     }
 
