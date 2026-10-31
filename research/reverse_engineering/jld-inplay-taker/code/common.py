@@ -88,8 +88,8 @@ class EspnGame:
         p = p[p.ts > 0]
         self.D = D
         self.known = p.ts.to_numpy(np.int64) + D
-        self.hs = p.home_score.fillna(method='ffill').fillna(0).to_numpy(float) if 'home_score' in p else np.zeros(len(p))
-        self.as_ = p.away_score.fillna(method='ffill').fillna(0).to_numpy(float) if 'away_score' in p else np.zeros(len(p))
+        self.hs = p.home_score.ffill().fillna(0).to_numpy(float) if 'home_score' in p else np.zeros(len(p))
+        self.as_ = p.away_score.ffill().fillna(0).to_numpy(float) if 'away_score' in p else np.zeros(len(p))
         wp = p.home_wp.to_numpy(float)
         # forward fill WP
         s = pd.Series(wp).ffill().to_numpy()
