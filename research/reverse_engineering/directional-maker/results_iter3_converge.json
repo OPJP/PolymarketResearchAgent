@@ -1,0 +1,82 @@
+{
+ "build": {
+  "cluster": {
+   "n": 29576,
+   "fair_minus_q_at_fill": 0.0285,
+   "won_minus_q": 0.0206,
+   "prefill_market_minus_q": 0.0046,
+   "fair_minus_prefill_market": 0.0239,
+   "market_move_5s": 0.004,
+   "market_vs_prefill_5s": -0.0006,
+   "fair_move_5s": -0.0017,
+   "market_move_15s": 0.0055,
+   "market_vs_prefill_15s": 0.0009,
+   "fair_move_15s": -0.0026,
+   "market_move_30s": 0.0056,
+   "market_vs_prefill_30s": 0.0009,
+   "fair_move_30s": -0.0084,
+   "market_move_60s": 0.0116,
+   "market_vs_prefill_60s": 0.007,
+   "fair_move_60s": -0.0073
+  },
+  "other_makers": {
+   "n": 123369,
+   "fair_minus_q_at_fill": -0.001,
+   "won_minus_q": -0.0008,
+   "prefill_market_minus_q": 0.0114,
+   "fair_minus_prefill_market": -0.0124,
+   "market_move_5s": -0.0015,
+   "market_vs_prefill_5s": -0.013,
+   "fair_move_5s": -0.0028,
+   "market_move_15s": -0.0012,
+   "market_vs_prefill_15s": -0.0127,
+   "fair_move_15s": -0.0036,
+   "market_move_30s": -0.001,
+   "market_vs_prefill_30s": -0.0124,
+   "fair_move_30s": -0.0033,
+   "market_move_60s": -0.0016,
+   "market_vs_prefill_60s": -0.013,
+   "fair_move_60s": -0.003
+  }
+ },
+ "validate": {
+  "cluster": {
+   "n": 11813,
+   "fair_minus_q_at_fill": 0.0287,
+   "won_minus_q": -0.017,
+   "prefill_market_minus_q": 0.0127,
+   "fair_minus_prefill_market": 0.016,
+   "market_move_5s": 0.0012,
+   "market_vs_prefill_5s": -0.0115,
+   "fair_move_5s": -0.0031,
+   "market_move_15s": -0.0047,
+   "market_vs_prefill_15s": -0.0174,
+   "fair_move_15s": -0.0086,
+   "market_move_30s": -0.0065,
+   "market_vs_prefill_30s": -0.0192,
+   "fair_move_30s": -0.0123,
+   "market_move_60s": -0.0045,
+   "market_vs_prefill_60s": -0.0172,
+   "fair_move_60s": -0.0164
+  },
+  "other_makers": {
+   "n": 119394,
+   "fair_minus_q_at_fill": -0.0027,
+   "won_minus_q": -0.0047,
+   "prefill_market_minus_q": 0.0121,
+   "fair_minus_prefill_market": -0.0148,
+   "market_move_5s": -0.0026,
+   "market_vs_prefill_5s": -0.0146,
+   "fair_move_5s": -0.0032,
+   "market_move_15s": -0.0021,
+   "market_vs_prefill_15s": -0.0141,
+   "fair_move_15s": -0.0045,
+   "market_move_30s": -0.0025,
+   "market_vs_prefill_30s": -0.0145,
+   "fair_move_30s": -0.0046,
+   "market_move_60s": -0.0028,
+   "market_vs_prefill_60s": -0.0148,
+   "fair_move_60s": -0.0027
+  }
+ }
+}

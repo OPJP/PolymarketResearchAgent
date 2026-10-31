@@ -1,0 +1,163 @@
+{
+ "desc_own_activity_elsewhere": {
+  "build": {
+   "alt5m": {
+    "mean_on": 0.8723277909738717,
+    "mean_off": 0.4879518072289157,
+    "share_slots_active_on": 0.28741092636579574,
+    "share_slots_active_off": 0.18373493975903615
+   },
+   "alt_other": {
+    "mean_on": 0.37292161520190026,
+    "mean_off": 0.22289156626506024,
+    "share_slots_active_on": 0.1514251781472684,
+    "share_slots_active_off": 0.11746987951807229
+   },
+   "btc15m": {
+    "mean_on": 7.264251781472684,
+    "mean_off": 7.301204819277109,
+    "share_slots_active_on": 0.5486935866983373,
+    "share_slots_active_off": 0.6174698795180723
+   },
+   "btc4h": {
+    "mean_on": 0.7090261282660333,
+    "mean_off": 0.5873493975903614,
+    "share_slots_active_on": 0.27850356294536815,
+    "share_slots_active_off": 0.23795180722891565
+   },
+   "eth15m": {
+    "mean_on": 0.5017814726840855,
+    "mean_off": 0.4397590361445783,
+    "share_slots_active_on": 0.1543942992874109,
+    "share_slots_active_off": 0.16265060240963855
+   },
+   "eth5m": {
+    "mean_on": 2.2915676959619953,
+    "mean_off": 1.0210843373493976,
+    "share_slots_active_on": 0.37707838479809974,
+    "share_slots_active_off": 0.2319277108433735
+   },
+   "other": {
+    "mean_on": 3.115795724465558,
+    "mean_off": 2.8463855421686746,
+    "share_slots_active_on": 0.6561757719714965,
+    "share_slots_active_off": 0.6204819277108434
+   }
+  },
+  "validate": {
+   "alt5m": {
+    "mean_on": 1.0607734806629834,
+    "mean_off": 0.8494623655913979,
+    "share_slots_active_on": 0.30847145488029465,
+    "share_slots_active_off": 0.27204301075268816
+   },
+   "alt_other": {
+    "mean_on": 0.22007366482504603,
+    "mean_off": 0.24408602150537634,
+    "share_slots_active_on": 0.09576427255985268,
+    "share_slots_active_off": 0.110752688172043
+   },
+   "btc15m": {
+    "mean_on": 7.024861878453039,
+    "mean_off": 4.534408602150537,
+    "share_slots_active_on": 0.5340699815837937,
+    "share_slots_active_off": 0.37526881720430105
+   },
+   "btc4h": {
+    "mean_on": 0.43554327808471455,
+    "mean_off": 0.4,
+    "share_slots_active_on": 0.21915285451197053,
+    "share_slots_active_off": 0.2
+   },
+   "eth15m": {
+    "mean_on": 0.7081031307550645,
+    "mean_off": 0.7333333333333333,
+    "share_slots_active_on": 0.19244935543278086,
+    "share_slots_active_off": 0.2064516129032258
+   },
+   "eth5m": {
+    "mean_on": 2.4419889502762433,
+    "mean_off": 1.6043010752688172,
+    "share_slots_active_on": 0.2946593001841621,
+    "share_slots_active_off": 0.22365591397849463
+   },
+   "other": {
+    "mean_on": 2.5257826887661143,
+    "mean_off": 2.264516129032258,
+    "share_slots_active_on": 0.5828729281767956,
+    "share_slots_active_off": 0.5408602150537635
+   }
+  }
+ },
+ "val_on_share": 0.5386904761904762,
+ "build_on_share": 0.8353174603174603,
+ "n_hft_takers": 72,
+ "taker_mix": {
+  "val_auc": 0.4662884413552744,
+  "imp": {
+   "buy_sh1h": 912.0,
+   "hft_sh1h": 748.0,
+   "top_sh1h": 696.0,
+   "big_sh1h": 636.0,
+   "n1h": 522.0
+  }
+ },
+ "spot_regime": {
+  "val_auc": 0.5398686112596289,
+  "imp": {
+   "vol4h": 1563.0,
+   "ret1h": 794.0,
+   "vol1h": 604.0
+  }
+ },
+ "mix+spot": {
+  "val_auc": 0.49041367155785265,
+  "imp": {
+   "vol4h": 782.0,
+   "vol1h": 749.0,
+   "buy_sh1h": 646.0,
+   "big_sh1h": 615.0,
+   "ret1h": 571.0
+  }
+ },
+ "mix+spot+hour": {
+  "val_auc": 0.5088516604289195,
+  "imp": {
+   "vol4h": 830.0,
+   "vol1h": 638.0,
+   "buy_sh1h": 548.0,
+   "big_sh1h": 509.0,
+   "ret1h": 498.0
+  }
+ },
+ "univariate_val_auc": {
+  "n1h": 0.554,
+  "top_sh1h": 0.544,
+  "hft_sh1h": 0.507,
+  "big_sh1h": 0.508,
+  "buy_sh1h": 0.519,
+  "nt_prev": 0.545,
+  "med_prev": 0.499,
+  "n_prev": 0.541,
+  "vol1h": 0.497,
+  "vol4h": 0.5,
+  "ret1h": 0.486,
+  "hour_sin": 0.392,
+  "hour_cos": 0.441
+ },
+ "univariate_build_auc": {
+  "n1h": 0.445,
+  "top_sh1h": 0.438,
+  "hft_sh1h": 0.431,
+  "big_sh1h": 0.529,
+  "buy_sh1h": 0.443,
+  "nt_prev": 0.485,
+  "med_prev": 0.474,
+  "n_prev": 0.495,
+  "vol1h": 0.394,
+  "vol4h": 0.397,
+  "ret1h": 0.487,
+  "hour_sin": 0.484,
+  "hour_cos": 0.494
+ }
+}

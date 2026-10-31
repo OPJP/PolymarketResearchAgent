@@ -1,4 +1,6 @@
-"""Frozen rule for the directional-maker cluster (bosona, almach, mo-money), BTC 5m Up/Down. Iteration 2.
+"""Frozen rule for the directional-maker cluster (bosona, almach, mo-money), BTC 5m Up/Down. Iteration 2 rule R2,
+kept unchanged in iteration 3 (no iteration-3 candidate beat it on VALIDATE; see NOTES.md). Code and models are
+byte-identical to the iteration-2 checkpoint.
 
 Rule R2 (all parameters constant, LightGBM model files frozen next to this file, trained once on BUILD
 2026-10-09..16 (code/train2.py, code/sel2.py) and chosen on VALIDATE 2026-10-16..23):

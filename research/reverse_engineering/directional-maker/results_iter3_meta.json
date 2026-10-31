@@ -1,0 +1,87 @@
+{
+ "varying_listing_fields": {
+  "orderPriceMinTickSize": [
+   [
+    "0.001",
+    4019,
+    0.686
+   ],
+   [
+    "0.01",
+    13,
+    0.923
+   ]
+  ],
+  "rewardsMinSize": [
+   [
+    "0",
+    2,
+    1.0
+   ],
+   [
+    "50",
+    4030,
+    0.687
+   ]
+  ],
+  "rewardsMaxSpread": [
+   [
+    "0.0",
+    2,
+    1.0
+   ],
+   [
+    "4.5",
+    4030,
+    0.687
+   ]
+  ],
+  "clobRewards": [
+   [
+    "[{\"assetAddress\": \"0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb\", \"conditionId\": \"0x112547fb821e49f5ca965c127b2bc6f96e748fb8c8f29b76d3214ab7c26fcf18\", \"endDate\": \"2500-12-31\", \"id\": \"4019536\", \"rewardsAmount\": 0, \"rewardsDailyRate\": 0.001, \"startDate\": \"2026-10-17\"}]",
+    1,
+    0.0
+   ],
+   [
+    "[{\"assetAddress\": \"0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb\", \"conditionId\": \"0x11601ffeecd3cc5c59aad7d8be5437f574287154fff8eb7df674019457d6dd7b\", \"endDate\": \"2500-12-31\", \"id\": \"3628604\", \"rewardsAmount\": 0, \"rewardsDailyRate\": 0.001, \"startDate\": \"2026-10-12\"}]",
+    1,
+    0.0
+   ],
+   [
+    "[{\"assetAddress\": \"0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb\", \"conditionId\": \"0x2b297474fcc9be03d8d320107e7f0683f067a9678e088f7de64effa4cc5334a0\", \"endDate\": \"2500-12-31\", \"id\": \"3734932\", \"rewardsAmount\": 0, \"rewardsDailyRate\": 0.001, \"startDate\": \"2026-10-14\"}]",
+    1,
+    0.0
+   ],
+   [
+    "[{\"assetAddress\": \"0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb\", \"conditionId\": \"0x343f99774082ac6182e50461ba6c16a039f28bdfa3063a4dddb45aca134a4bfd\", \"endDate\": \"2500-12-31\", \"id\": \"3922722\", \"rewardsAmount\": 0, \"rewardsDailyRate\": 0.001, \"startDate\": \"2026-10-16\"}]",
+    1,
+    1.0
+   ],
+   [
+    "[{\"assetAddress\": \"0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb\", \"conditionId\": \"0x3cd5e610b0ec6b3dfc89064780d38b341e7eb05a4cc3059fd48117fdff534801\", \"endDate\": \"2500-12-31\", \"id\": \"4330224\", \"rewardsAmount\": 0, \"rewardsDailyRate\": 0.001, \"startDate\": \"2026-10-22\"}]",
+    1,
+    1.0
+   ],
+   [
+    "[{\"assetAddress\": \"0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb\", \"conditionId\": \"0x590e45ed7171dfe47ee22a66cdf034b2282a693d34382995e19c6b6eda4a3c54\", \"endDate\": \"2500-12-31\", \"id\": \"4205038\", \"rewardsAmount\": 0, \"rewardsDailyRate\": 0.001, \"startDate\": \"2026-10-20\"}]",
+    1,
+    0.0
+   ],
+   [
+    "[{\"assetAddress\": \"0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb\", \"conditionId\": \"0x6bbe54b8fa290a1d630a3f15e4cbf29e54cf1cb2e6d698e7add75499182f57f6\", \"endDate\": \"2500-12-31\", \"id\": \"4144995\", \"rewardsAmount\": 0, \"rewardsDailyRate\": 0.001, \"startDate\": \"2026-10-19\"}]",
+    1,
+    0.0
+   ],
+   [
+    "[{\"assetAddress\": \"0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb\", \"conditionId\": \"0x89577933aef071afadf7426bc60cfcac03ad34a30a49c3bb9917f8957515e870\", \"endDate\": \"2500-12-31\", \"id\": \"3674857\", \"rewardsAmount\": 0, \"rewardsDailyRate\": 0.001, \"startDate\": \"2026-10-13\"}]",
+    1,
+    0.0
+   ],
+   [
+    "[{\"assetAddress\": \"0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb\", \"conditionId\": \"0xf0e0787f7235b6bdfbd817fd23740feed449946952b2f08b832c59708356c805\", \"endDate\": \"2500-12-31\", \"id\": \"3523676\", \"rewardsAmount\": 0, \"rewardsDailyRate\": 0.001, \"startDate\": \"2026-10-11\"}]",
+    1,
+    1.0
+   ]
+  ]
+ }
+}
