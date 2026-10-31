@@ -1,0 +1,20 @@
+{
+ "windows": 34,
+ "one_sided_windows": 21,
+ "one_sided_share": 0.618,
+ "public_mean_chainlink_edge": 0.619,
+ "at_fill_times_chainlink_edge": 0.762,
+ "mean_futures_edge": 0.429,
+ "cheaper_side_mid_life": 0.476,
+ "always_up": 0.571,
+ "per_family_public": {
+  "15m": [
+   0.75,
+   4
+  ],
+  "5m": [
+   0.588,
+   17
+  ]
+ }
+}

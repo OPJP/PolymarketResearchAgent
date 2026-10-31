@@ -1,0 +1,38 @@
+{
+ "fill_presence": {
+  "bins": 1680,
+  "windows": 28,
+  "pos_rate": 0.1679,
+  "test_windows": 10,
+  "test_pos": 177,
+  "activity": 0.6347,
+  "public_rule": 0.6767,
+  "activity+quote_oracle": 0.8048,
+  "public+quote_oracle": 0.8123,
+  "activity+future_flow": 0.6533,
+  "activity+quote_oracle+future_flow": 0.8067,
+  "all_oracles": 0.8133,
+  "univariate_o_n500": 0.5873,
+  "univariate_o_ntouch": 0.7547,
+  "univariate_o_nburst_touch": 0.6413,
+  "univariate_o_top_gap": 0.7023,
+  "univariate_o_qahead": 0.6394
+ },
+ "quote_unit": {
+  "seconds": 16800,
+  "pos_rate": 0.0397,
+  "test_pos_rate": 0.0508,
+  "activity": 0.6817,
+  "activity+futures": 0.6839,
+  "activity+chainlink": 0.7458,
+  "activity+futures+chainlink": 0.7472,
+  "chainlink_only": 0.6509,
+  "gain_ci95_window_bootstrap": [
+   0.0324,
+   0.0939
+  ],
+  "univariate_e_cl": 0.6122,
+  "univariate_e_f": 0.4835,
+  "test_windows": 10
+ }
+}

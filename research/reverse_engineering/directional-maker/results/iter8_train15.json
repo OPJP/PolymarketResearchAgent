@@ -1,0 +1,35 @@
+{
+ "build_rows": 311040,
+ "validate_rows": 69120,
+ "build_pos": 0.0227,
+ "validate_pos": 0.0131,
+ "validate_windows": 384,
+ "btc15m": {
+  "auc": 0.8118,
+  "baseline": 0.7775,
+  "within_active": 0.7916,
+  "active_window_share": 0.531,
+  "side": {
+   "n": 895,
+   "acc": 0.7329608938547486,
+   "fav_last_print": 0.39776536312849164,
+   "binance_fav": 0.42793296089385474,
+   "p_vs_fav": 1.361520290088722e-49
+  },
+  "side_activity": 0.6145251396648045
+ },
+ "btc5m_r3_check": {
+  "auc": 0.7159,
+  "baseline": 0.6843
+ },
+ "union_5m_15m": {
+  "auc": 0.7883,
+  "baseline": 0.7796,
+  "rows": 138240,
+  "pos": 7642,
+  "gain_ci95": [
+   0.0025,
+   0.0158
+  ]
+ }
+}

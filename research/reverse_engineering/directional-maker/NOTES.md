@@ -1319,3 +1319,341 @@ window-block bootstrap of it and the examiner-style clean-book baseline remain f
 11:45, nine hours earlier), 10-24 22:25 +$747; live 10-31 16:53 -$2,424 (the day's low). Four of six switch-offs come at
 a new daily low, but there is no fixed daily loss threshold (-$0.9k to -$4.6k, one after a gain): a loss controller
 with a varying limit, or an operator reacting to losses, remains a hypothesis (X58 open).
+
+### Iteration 8 (2026-10-31, local Windows laptop, started 19:04 UTC; 431 of 1,200 budget minutes used before it)
+
+Read first: BRIEF, NOTES, state.json, FINAL_RULE.md, panels/iter7_{information,mechanics,assumptions}.md. The 15 panel
+proposals are catalog items X59-X73 (information I7-1..I7-4 = X59-X62, mechanics M1-M6 = X63-X68, assumptions A1-A5 =
+X69-X73). Calendar: the current block (10-31 18-24) and 11-01 00-06 are sealed; the next development block is 11-01
+06-12 UTC, so this iteration has no new live development data: it works on the 10-31 12-18 recordings, the released lot
+and the history before H. Recorders: shared live.py running (pid 27184); examrec (pid 24316) and dy_rtds (pid 29508)
+alive (status files updated 19:07 UTC).
+
+**PIVOT (required: progress flat for two iterations).** New paradigm: **the quote as the unit of decision, with an oracle
+decomposition of fills (presence and selection ceilings given the observed quote), a structural inversion of the
+engine's internal price across simultaneous markets, and a new data source: the June engine's signed millisecond
+timestamps (true decision times).** No tuning of R3/R5.
+
+**Competing explanations (iteration 8) and the observation that separates them**
+1. L1 mid-anchored skewed ladder (current reading): each market's ladder hangs off that market's own Polymarket mid,
+   skewed by the Chainlink edge (beta ~0.2), re-priced at each Chainlink publish; fills = seller arrival at the rung.
+   Separates: the internal price inverted from two markets at the same instant disagrees by the mids' disagreement.
+2. L2 one internal price for every market (structural digital pricer, panel M1): quotes_m = digital(S_hat, K_m, tau_m)
+   +- h. Separates: S_hat_5m = S_hat_15m within a tick-equivalent in >= 70% of seconds; S_hat tracks Chainlink.
+3. L3 path-dependent ladder (state machine, panel A3): rungs keep their rank and step toward the touch; the level
+   depends on history. Separates: history features of public inputs predict the at-touch state beyond the current inputs.
+4. L4 taker-bound fills (panel A4): given the quote, the fill is the sellers' choice; no quote decoder can reach 0.85
+   on 10-s fill presence. Separates: the presence ceiling with the observed quote as an oracle.
+5. L5 quote-bound selection: at the print level the quote decides whether a print reaches the cluster. Separates: the
+   print-selection ceiling with the observed quote is above the target bar (AUC 0.80, recall 50% at lift 3).
+6. L6 version change: the June engine (real signing ms, sizes 50/100/300) was a futures/spot-triggered signer and the
+   October engine (timestamp 0) reads Chainlink; separates: lead-lag of June signing ms against Binance futures/spot
+   at ms resolution and the phase of signing within the second.
+7. L7 operator / loss controller for selection (BTC 5m off-switches): separates: switch-off hazard vs own PnL against
+   public breakers on the full history (panel A2; needs the full-history activity, not done this iteration).
+
+**Recorders started this iteration (development and sealed blocks filed by tools/live.py Writer).**
+- `code8/rtdsbn.py` (I7-1 / X59): RTDS `crypto_prices` (Polymarket's Binance relay) with filters "" (btcusdt, ethusdt,
+  solusdt: value, value stamp, publish ms, receive ms), feed dz_rtdsbn, hard stop 11-03 00:00 UTC, disk cap 60 MB;
+  started 19:12 UTC (launcher pid 8580, worker pid 32308). Status counts after 2 min: 1,314 messages, 657 kept, 200 of
+  another shape written raw (capped): the topic streams. Content not inspected (sealed block); check the format on 11-01
+  06-12.
+- `code8/delayed_rawrec.py` (mechanics critique 5): starts code5/rawrec.py (full-depth unaggregated BTC 5m current+next
+  and 15m current books plus the reference feeds) at 11-01 05:55 UTC and stops it at 12:00 UTC (pid 17192, sleeping).
+
+**A4 (X72): the fill-presence ceiling with the observed quote as an oracle (`code8/a4_ceiling.py`,
+`results/iter8_a4_ceiling_1793455600_1793464202.json`; development block 10-31 14:06-16:30 UTC, BTC 5m; live split fit
+< 15:00, test >= 15:00: 18 test windows, 1,080 test bins, 227 positive).** Unit = (window, side, 10-s bin), label =
+cluster maker BUY fill. Held-out AUC: activity 0.624; public rule (+ futures + Chainlink edge) 0.661; **activity + the
+contemporaneous cluster-class quote state (exact-500 adds at/above the touch of s in the bin, bursts, the highest 500
+vs the touch, queue ahead) 0.796; public + quote oracle 0.804; + the bin's own future taker flow 0.794-0.803** (the
+flow adds nothing once the quote is known: at-touch posts already follow trades). Univariate: at-touch 500 adds in the
+bin 0.759. So even a perfect quote decoder would reach about 0.80 on 10-s fill presence, below the 0.85 bar: the
+presence condition on fills is bound by which posted bid the sellers hit, not by the quote. Quantitative account for
+fills: quote known 0.80, public 0.66, activity 0.62.
+
+**A4 step 4: a quote-unit presence metric (same script).** Unit = (window, side, second), label = a cluster-class 500 at
+the touch now (an exact-500 add at/above the touch of s in the last second whose price is still >= the touch; base rate
+4.0%). Held-out AUC: activity (prints in 2/10 s, ms since the last trade and whether it sold s, ms since the last touch
+change, mid, spread, time left) 0.672; + futures edge 0.671; **+ Chainlink edge (report stamped floor((t-1432)/1000))
+0.740; + both 0.748; gain over activity +0.076 (window bootstrap 95% [+0.042, +0.110])**; Chainlink edge alone 0.623.
+The quote state is predicted from public inputs at 0.75: the Chainlink input carries the gain (the futures add
+nothing), but the at-touch state is far from deterministic.
+
+**A4 / selection: the print-level selection ceiling with the observed quote (`code8/sel_oracle.py`,
+`results/iter8_sel_oracle_1793455600_1793464202.json`; 27,318 test prints, 1,189 cluster).** Unit = clean BTC 5m print,
+label = its transaction fills a cluster maker order. Held-out AUC (recall / lift at the BUILD top-15% threshold):
+activity 0.611 (0.21 / 1.36); public (+ Chainlink + futures edges vs the print price) 0.686 (0.32 / 1.79); **activity +
+quote oracle (an exact-500 add in the last 1.5 s at a price the print reaches, its gap, burst size, age, queue) 0.814
+(0.62 / 3.32); public + oracle 0.834 (0.685 / 3.40)**. Only 50.5% of cluster-filled prints had a reachable exact-500
+add in the previous 1.5 s (10.1% of other prints). So at the print level the quote IS the binding variable: with the
+quote known, print selection passes the selection bar (AUC >= 0.80, recall >= 50% at lift >= 3). The target route is
+selection, and the work is decoding the quote from public inputs (now 0.75 on the quote unit). (This sel_oracle public
+set is smaller than code7/sel_clock.py's, which reached 0.764 with sequence features.)
+
+**M1 (X64): one internal price for every market? Rejected (`code8/m1_invert.py`,
+`results/iter8_m1_invert_1793455600_1793464202.json`; 2,266 seconds with top rungs on both outcomes of the current 5m
+and 15m windows, tau >= 70 s in both).** Inverting each market's ladder center F = (top Up 500 + lowest Up-ask 500)/2
+through the digital pricer with its own true strike (RTDS TWAP-60 at the start) and sigma = 1.4 x the 300-s futures vol:
+|S_hat_5m - S_hat_15m| median 2.8 tick-equivalents (p75 6.0, p90 12.2; one tick-equivalent = $0.85 in 5m, $1.23 in
+15m); **within one tick-equivalent 20% (M1's signature needed >= 70%)**. The disagreement is the markets' own mids:
+regressing S_hat_5m - S_hat_15m on S_mid_5m - S_mid_15m (each mid inverted the same way) gives slope 0.83, R^2 0.79.
+Each S_hat tracks its own market's mid-implied S best (residual sd $4.7 / $5.2, corr of 2-s changes 0.68 / 0.82)
+against the futures in Chainlink units ($7.8 / $11.9; 0.56 / 0.70), Chainlink ($9.8 / $13.9; 0.43 / 0.47) or EMAs of
+Chainlink (k = 2 s best: $8.5 / $13.1). The blend S_hat = S_mid + beta (CL - S_mid) is best near beta = 0.2 in both
+markets (median error 2.5 / 2.3 tick-equivalents vs 2.9 / 2.5 at beta 0, 7.8 / 5.5 at beta 1). Verdict: L2 rejected,
+L1 supported. There is no common model price behind the two ladders: each ladder hangs off its own market's mid with a
+~0.2 Chainlink skew, and its level is not decodable to a tick from any reference price.
+
+**A3 light (X71): public path-history features for the quote unit (`code8/a3_hist.py`,
+`results/iter8_a3_hist_1793455600_1793464202.json`).** Adding the touch's changes over 1-10 s, the futures returns over
+1-10 s and the Chainlink fair changes over 1-10 s to the quote-unit model lowers the held-out AUC (0.748 -> 0.737 ->
+0.720; the BUILD hour has only 10 windows). No public path dependence is visible at this sample size; the strong form
+(per-wallet rung state machine) is not tested.
+
+**A5 (X73): the June engine signed real millisecond timestamps: decision times (`code8/june_fetch.py`,
+`code8/fut_ms.py`, `code8/june_lag.py`, `code8/june_trig.py`, `code8/june_price.py`; results `iter8_june_*`).** Data:
+the cluster's activity on 2026-06-10, 06-12 and 06-16 (~3,000 trades per wallet-day; mo-money absent on 06-10), up to
+1,500 sampled transactions per wallet-day, calldata of every order in them (publicnode, ~13 tx/s: 06-12 21,475 orders
+of which 4,685 the cluster's; 06-16 19,946 / 4,783; 06-10 20,284 / 3,016), Binance BTCUSDT USD-M futures and spot
+aggTrades of 06-12 and 06-16 reduced to 50-ms last prices (SHA-256 checked, zips not stored).
+- Verified: every June cluster order carries a real sign_ms and a per-wallet counter salt (06-12: 97-99% monotone;
+  salt slopes 24-26 orders/s for bosona and mo-money, 4.3/s for almach); all BUY; sizes 300 / 100 / 50 / 40 / 200;
+  markets BTC 5m (5,422 trades on 06-12), BTC 15m (1,041), BTC/ETH 4h, ETH/SOL/BNB 5m, daily DOGE.
+- Sign-to-block lag of filled cluster orders (06-12): p1 1.39 s, p10 2.0, median 3.1, p90 7.5, p99 39 s.
+- **Trigger: the cluster signs ~100-400 ms after Binance moves.** Mean |50-ms log move| around the signing ms relative to
+  random times (06-12, n 3,049 BTC orders): futures 2.2-2.4x at 0.7-1 s before, rising to 4.0-4.8x at 150-400 ms before
+  (peak 250-300 ms), 3.1x at 50-100 ms, **back to 1.0x in the last 50 ms and after the signature (0.7-1.3x)**; spot
+  peaks 7.3x at 100-150 ms before, 1.0x in the last 50 ms. Other makers peak at 50-100 ms before signing (3.4x) and stay
+  elevated at 0-50 ms; takers peak at 50-100 ms (5.9x). 06-16 (n 2,415): futures and spot peak 4.8x / 5.2x at 300-350 ms,
+  elevated 3-4x across 50-500 ms and 1.8-2.1x at 0 (less sharp). Moves in [S-450, S-50] ms (1 bp): spot-only 5.3x vs
+  futures-only 3.1x random on 06-12, but 3.3x vs 3.1x on 06-16 (and 5.6x vs 5.8x at 2 bp): which Binance market
+  triggers it is not stable across the two days. So in June the engine was a Binance-reactive re-signer with a
+  100-400 ms reaction (slower than other makers' 50-100 ms), with no sign of anticipating moves.
+- **Price at the decision time (B3 at signing).** Limit price of 2,426 (06-12) / 1,171 (06-16) BTC 5m cluster BUY orders
+  vs a digital fair from Binance at S - lag (venue's own pre-window TWAP strike, 1.4 x 300-s vol): futures corr 0.849 /
+  0.853 (best at -250..0 ms, i.e. the reference at signing; 0.80-0.82 at 1 s, 0.77-0.80 at 3 s), spot 0.840 / 0.853;
+  MAD(q - fair - median) 0.053 (futures, 06-12). The June quote is current at signing (no stale reference) but, as in
+  October, is not a deterministic function of a Binance fair (MAD ~5 ticks).
+- Chainlink 1-s values are not available for June (the endpoint refuses dates older than 30 days), so whether the June
+  engine also re-priced on Chainlink publishes cannot be tested directly; the signing phase within the second is only
+  mildly non-uniform (06-12 deciles 372-552 per 100 ms, no concentration in the relay's x.7-x.3 publish phases).
+  Verdict on L6: the June version reacts to Binance moves at 100-400 ms; the October version's per-report Chainlink
+  re-price pass is a later addition or was invisible then. Version boundary (timestamp -> 0 on 06-21/22) not decoded.
+
+**A1 / M3 (X69, X65): the union universe BTC 5m + 15m, rule R6 (`code8/features15.py` = code/features15.py,
+`code8/panel15.py`, `code8/train15.py`, `code8/union_val.py`; `results/iter8_train15.json`,
+`results/iter8_union_val.json`).** R3's model class (same features with bins [0, 900) s, same LightGBM parameters, clock)
+fitted on BUILD 15m windows 2026-10-09..26 (311,040 bins, 2.3% positive) and scored on VALIDATE 10-27..30 (aggregate;
+384 windows, 69,120 bins, 1.3% positive, 53% of 15m windows active):
+- BTC 15m: presence **0.812** vs activity 0.778 (gain +0.034); within active windows 0.792; side 0.733 (n 895; activity
+  0.615, favourite 0.398); per-window PnL corr (expectation) 0.18 / 0.35.
+- Union (pooled bins, 5m R3 frozen + 15m): presence **0.788** vs activity 0.780 (gain +0.009, 2-h block bootstrap
+  [+0.003, +0.016]); side 0.672 (activity 0.613); PnL corr 0.260 / 0.327 (1,293 windows); price within a tick on the
+  block clock ~0.705 (5m 0.709 on 27,988 fills, 15m 0.666 on 2,996). Coverage of the union on VALIDATE 0.868 of fills /
+  0.891 of absolute PnL (iteration 5), development blocks 10-31 00-06 0.914 of trades / 0.949 of dollars, 12:00-16:54
+  0.94 / 0.93, 16:54-18:00 0.82 / 0.93 (panel); BUILD 10-20 12-16 only 0.59 / 0.65 (smoke test): the union meets the
+  scope bar on VALIDATE and in every development block since 10-27, not in early BUILD.
+- Pre-registered here (before any sealed block is scored): R6's universe is BTC 5m + BTC 15m; a block with BTC 5m off is
+  scored on BTC 15m; pooled and per-family metrics are both reported.
+- evaluate() now builds the 15m panel through the same adapters (Gamma 15m windows, data-api taker tapes, activity),
+  applies presence15_rule / presence15_activity, and reports `btc15m`, `union_btc5m_15m` and `scope`; smoke-tested on
+  BUILD 10-20 12:00-16:00 (in-sample for both models: runs end to end; numbers not a validation).
+
+**Per-fill side with the decoded quote-side rule (mechanics critique 4; `code8/fill_side.py`,
+`results/iter8_fill_side_1793455600_1793464202.json`; development block 10-31 14:06-16:30 UTC; no fitted
+parameter).** For every cluster maker BUY fill with a server match ms: predicted side = Up iff the Chainlink digital
+fair of Up (report stamped floor((T - 1432)/1000), true strike, 1.4 x 300-s futures vol) exceeds the Up mid just before
+the match. **BTC 5m live VALIDATE (15:00-16:30): 0.841 (n 1,207; at-touch fills 0.844, n 1,172; deeper 0.743, n 35);
+BTC 15m 0.874 (n 199); pooled 0.846 (n 1,406).** Market-only baselines on the same fills: futures-edge sign 0.552 /
+0.603, cheaper side 0.522 / 0.538, always-Up 0.607 / 0.513, the side the previous clean print sold 0.379 / 0.427. Per
+wallet (5m): almach 0.905, bosona 0.849, mo-money 0.783; (15m) 0.84 / 0.89 / 0.91. Halves of live VALIDATE: 5m 0.890 /
+0.788, 15m 0.853 / 0.887. Clock robustness (5m): report stamped t-0.7 s 0.788, t-1.083 0.814, t-1.432 0.841, t-2 0.822,
+t-3 0.761; mid 1 s before the match 0.853, last clean print instead of the mid 0.851 (so the cluster's own resting bid
+in the touch does not drive it). But live BUILD (14:06-15:00) is only 0.664 (5m, n 226) and 0.306 (15m, n 36): the
+half hour 14:30-15:00 scores 0.447 (n 152) with fresh Chainlink values and strikes equal to Gamma's (checked), i.e.
+whole windows where the cluster bought the side the Chainlink edge disfavoured (5m 14:55: 24 Down fills at a median
+edge of +0.115 for Up; 15m 14:45: 0.14). So the side rule is ~0.84 on 90 minutes and fails on some windows: it must
+replicate on 11-01 06-12. This is the first decision component at the 0.80 bar on held-out time against market-only
+baselines (it is the quote-side posture of iteration 7 showing up in the fills: the fill lands on the outcome whose
+500 the Chainlink edge put at the touch).
+
+**R6 through `evaluate()` on the live development slices (`code8/smoke_r6_live.py`, `code8/eval_live_more.py`;
+`results/iter8_eval_r6_*.json`).** The frozen path (shared recorder 'q' book mid, live Chainlink recordings, Gamma
+strike, Binance REST 1-s fallback) reproduces the per-fill side: **15:00-16:30 UTC 0.836 (n 1,341; 5m 0.836, 15m
+0.834; bosona 0.858, almach 0.871, mo-money 0.787)** vs Binance-spot edge 0.562, cheaper side 0.550, always-Up 0.608.
+But **16:30-18:00 only 0.708 (n 284; 5m 16:30-16:53 0.609, n 115; 15m 0.775, n 169) against a Binance-spot-edge
+baseline of 0.718**: in the half hour before the BTC 5m switch-off and in the 15m-only hour the rule is no better than
+the market baseline. Match-clock price 0.860 (n 1,194, 15:00-16:30) and 0.765 (n 115, 16:30-16:53; anchor last print
+0.835). 15m presence 0.767 / 0.775 vs activity 0.765 / 0.766 on the two slices (no gain live). Bug fixed on the way:
+`price_match_clock` received compact transaction keys and raised AttributeError (R4's live price never ran inside
+`evaluate()` with `_cluster_trades`' compact keys); it now maps them to full hashes (`_cluster_tx_hashes`).
+
+**What the posture side depends on (live, `fill_side_*.parquet`; descriptive).** Live VALIDATE accuracy by |Chainlink
+edge|: <= 1 c 0.33 (n 64), 1-2 c 0.71, 2-5 c 0.85, 5-10 c 0.83, 10-20 c 0.91, > 20 c 0.89; it does not depend on whether
+the futures edge agrees (0.857 disagreeing, n 565, vs 0.838 agreeing), on time in the window (0.80-0.92) or on the mid
+(0.82-0.89). Vol scale: our 1.4 x realised vol is best (x0.7 0.836, x1.4 0.765, x2 0.672); a threshold of +1 c would give
+0.867 on VALIDATE but 0.599 on BUILD (not adopted). Live BUILD (14:06-15:00) stays at 0.56-0.68 for every variant; the
+Chainlink noise was present then too (sd of 1-s changes $5.9-7.2, lag-1 -0.42..-0.53 by half hour, vs $8.8-10.9 later), so
+the weak hour is not a smooth-stream regime. Example of a failing window (5m 14:55): 24 Down fills at 0.67-0.95 while
+both the Chainlink and the futures fair valued Up 5-15 c above the mid (the cluster bought the favourite against both
+references), i.e. there are windows where the engine's side has another driver.
+
+**M4 step 1 (X66) on VALIDATE, aggregate (`code8/m4_pop.py`, `results/iter8_m4_pop_validate.json`; 27,971 cluster maker
+fills, +$110.0k, +3.6% on dollars, 88% complement mints; window-block bootstrap CIs).** By the taker's signatureType:
+EOA 2.2% of fills +17.2% [+2.9%, +30.1%] (13.5% of PnL); Magic proxy 24.4% +6.7% [-0.8%, +13.2%] (46.7%); Safe 13.8%
++5.5% [-2.9%, +14.7%] (19.4%); type 3 59.6% +1.3% [-4.7%, +6.9%] (20.4%). Taker limit beyond the cluster's level: <= 0.5 c
+32.7% of fills +0.4%; 0.5-3 c +3.0%; 3-10 c 27.8% +5.3% (41% of PnL); > 10 c 12.7% +7.0% [+0.2%, +13.3%] (34%).
+Round-USD buys 36% of fills +3.5% (35% of PnL; STUDY 107%); non-zero builder +2.6%. The direction of the panel's STUDY
+finding holds (front-end order types and loose-limit sweeps pay; the type-3 majority roughly breaks even), but on
+VALIDATE no population carries >= 80% of the profit with a CI above 0 (M4's signature not met). Step 2 (live arrival
+hazard by population after display-only moves) not done.
+
+**The posture side needs the match clock.** Same fills, inputs on the block clock instead (Chainlink stamped block
+second - 3, the last clean print before block second - 2 as the mid; block time is a median 2.24 s after the match):
+live VALIDATE 0.723 (5m 0.719, 15m 0.744) vs 0.846 on the match clock; live BUILD 0.504 vs 0.615. As for the price
+(0.86 vs 0.69), the side decision is made on sub-second-fresh inputs; historical tapes (block clock) cannot show it at
+full strength, which is also why the historical bin-level side stays at 0.66-0.67.
+
+**Print selection with the posture edge (`code8/sel_oracle.py`, second run, `results/iter8_sel_oracle2_*.json`).** Adding
+the Chainlink and futures edges relative to the mid (the posture variables) to the public print model does not help
+(0.670 vs 0.686 held out): the live BUILD hour (14:06-15:00, 10 windows, the hour where the posture side is weak) is too
+small and atypical to fit sub-second models on; the next fits should use all of 10-31 12:18-18:00 from the shared
+recorder ('q' / 'x', 5.7 h) rather than the own raw recorder's 1-hour BUILD.
+
+**Pre-registration for the next development block (11-01 06:00-12:00 UTC; written 10-31 19:55 UTC, before any data of
+that block exists).**
+1. Side: `final_rule.side_posture_match_clock` as frozen (CL_DELAY_MS 1432, no fitted parameter), per family, per wallet
+   and per half of the block, against the Binance-spot-edge, cheaper-side and always-Up baselines; secondary variant on
+   the strict publish clock (the latest Chainlink report whose dy_rtds publish ms is <= T - 50 ms). Pass mark for the
+   component: >= 0.80 pooled and >= 0.77 in each half.
+2. Presence and scope: `evaluate()` (R6 union) on the block, with `btc15m`, `union_btc5m_15m`, `scope`.
+3. Quote unit (cluster-class 500 at the touch now) and print selection: models fitted on 10-31 12:18-18:00 from the shared
+   recorder, tested on 11-01 06-12; the quote-oracle ceilings recomputed on 11-01.
+4. X59: check dz_rtdsbn's message format in the first minutes; re-posts not within 200 ms after a Chainlink publish vs
+   the latest RTDS-Binance publish (25-ms bins) and vs dx_bnf event time.
+5. M1/A3/M2 on the full-depth recording (code8/delayed_rawrec.py, 05:55-12:00).
+6. BTC 5m on/off: whether and when BTC 5m comes back (X58/X70).
+
+## Iteration-8 checkpoint
+- Primary metric (historical VALIDATE 10-27..30, BTC 5m presence AUC, no own state): unchanged at **0.716** (R3/R4; R5
+  ~0.72-0.73 estimated). New frozen rule **R6** = R5 on BTC 5m + R3's model class refitted on BTC 15m + the per-fill
+  Chainlink posture side; on the union universe VALIDATE presence 0.788 vs 0.780 activity (gain +0.009), side 0.672,
+  price 0.705 (block clock), PnL 0.260 / 0.327, coverage 0.868 / 0.891 (scope bar met for the first time).
+- Paradigm (pivot): the quote as the unit. Oracle decomposition: 10-s fill presence is capped at ~0.80 even with the
+  quote known (taker-bound), print selection with the quote known reaches 0.81-0.83 at recall 62-69% / lift 3.3-3.4 (the
+  selection bar), public quote prediction 0.748 (quote unit). Structural inversion across markets rejected (no common
+  internal price; each ladder hangs off its own mid with a ~0.2 Chainlink skew). June decision times: a Binance-reactive
+  signer (100-400 ms). New decoded component at the bar on held-out time: **fill side = sign of the Chainlink edge over
+  the mid at the match ms, 0.836-0.846 on live VALIDATE 15:00-16:30 (n 1,341-1,406) vs <= 0.61 market-only**, but 0.71
+  on 16:30-18:00 (baseline 0.72) and ~0.62 on 14:06-15:00: pooled over the live development data about 0.79.
+- Not decoded: the ladder level to a tick; what makes the posture fail in some windows; the BTC 5m on/off trigger; the
+  between-report clock (X59 recorder now running); a strict-fill replay for the outcome metric (X64).
+- Recorders: shared live.py running; examrec (24316) and dy_rtds (29508) alive; new dz_rtdsbn (RTDS Binance relay) and a
+  scheduled full-depth recorder for 11-01 05:55-12:00.
+
+**X60 / I7-2 step 1 (live, `code8/x60_cross.py`, `results/iter8_x60_cross_1793449080_1793466000.json`; 10-31
+12:18-16:40 UTC, shared recorder mids and trades).** For the 5m windows that end on a 15m boundary (same closing
+TWAP-60), the 15m mid implies a 5m fair (Gaussian closing mean, 1.4 x 300-s Binance vol); gap = implied - 5m mid
+(p10/50/90 -0.15 / -0.005 / +0.24 over 3,055 aligned seconds). The 5m taker flow does not arbitrage it: corr(gap, net
+taker Up-buying over the next 3 s) +0.045 aligned vs -0.063 in the non-aligned placebo, and the next print buys Up 0.44
+of the time when the gap favours Up vs 0.50 when it disfavours Up (the opposite of an arbitrage trigger). The cluster's
+fill side goes against the gap in aligned windows (sign of the gap 0.285; the posture rule 0.821 on the same 358 fills):
+the 15m book lags the 5m book, which in turn lags the Chainlink fair. Cross-horizon traders are not the trigger of the
+sellers who fill the cluster (I7-2's live signature not met); Kalshi and the historical step not done.
+
+**Side posture over the whole development block (`results/iter8_eval_r6_1793448000_1793458800.json`,
+`iter8_side_pubclock_1793467740_1793469600.json`).** Through `evaluate()`: 12:00-15:00 **0.712** (n 600; 5m 0.738, 15m
+0.589; baselines Binance-spot edge 0.557, cheaper side 0.627, always-Up 0.552), 15:00-16:30 0.836 (n 1,341), 16:30-18:00
+0.708 (n 284; baseline 0.718); pooled 12:00-18:00 **0.786** (n 2,225). On the strict publish clock (17:29-18:00, 15m only,
+n 56): 0.54 (stamp convention 0.57). By 15 minutes (own raw recorder, 14:00-16:30): 0.93, 0.93, **0.33** (14:45, n 122;
+the futures-edge sign 0.14: the cluster bought the side both references disfavoured), 0.81, 0.94, 0.82, 0.89, 0.84,
+0.77. The side rule is the dominant driver in most quarter hours and fails completely in some; the failing quarter
+hours are not explained by the Chainlink noise level, the at-touch share (0.92-1.0 everywhere) or the edge size.
+Other evaluate() numbers on 12:00-15:00: match-clock price 0.817 (n 526; anchor 0.781); 5m presence R3 0.708 vs 0.680,
+R5 0.726 on the same windows (live gain +0.018); 15m presence 0.824 vs 0.818; union scope 0.88 of trades / 0.89 of
+dollars.
+
+**D2: a discrete-time hazard of the three-wallet burst posts on public clocks (`code8/d2_hazard.py`).** Unit: 50-ms bin
+of each (market, Up-book side); event = a burst (>= 2 same-price exact-500 adds within 20 ms). Held-out AUC (last 40% of
+the period): 14:06-16:30 with the publish proxy (stamp + 1.09 s): time/side 0.594, trade clock 0.595, futures clock
+0.585, Chainlink clock 0.629, all 0.639; **17:29-18:00 with the true dy_rtds publish ms (BTC 15m, 1,384 bursts): time/side
+0.743, trade clock 0.753, futures clock 0.773, Chainlink publish clock 0.793, all public clocks 0.826**. Hazard by ms
+since the publish: 0.024-0.028 per bin in 0-150 ms, 0.006-0.010 at 150-1,000 ms (a 3-4x step down at 150 ms); by ms since
+a futures mid change: 0.023-0.033 at 50-200 ms vs 0.008-0.010 after 500 ms. On the exact clocks the posting times are
+predictable at 0.83 from public events alone; the stamp-based proxy blurs the step (0.64). The RTDS Binance-relay clock
+(X59, now recorded) is the missing third clock.
+
+polyrea note (not modified): `polyrea.analysis.updown.windows_from_markets` skips Up/Down markets whose Gamma record has
+no `cryptoMarketConfig.asset`; the June 2026 BTC 5m records have none, so June windows were built from the raw records
+(`code8/june_price.py`).
+
+**R5 on the live slices (`evaluate()`, BTC 5m windows with Chainlink).** 12:00-15:00 R5 0.726 vs R3 0.708 vs activity
+0.680 (36 windows); 15:00-16:30 0.730 vs 0.721 vs 0.659 (10); 16:30-18:00 0.680 vs 0.663 vs 0.710 (15, BTC 5m off
+after 16:53). R5's stack (fitted on the smooth lot) adds +0.009..+0.018 live; R5 side 0.69-0.73 vs R3 0.57-0.70.
+
+**A3 verification and X51 (`code8/a3_rungshift_verify.py`, the panel's p7/rungshift.py on 14:06-16:30 with an
+addition).** 20,537 exact-500 removals followed within 20 ms by an exact-500 add at another price on the same side
+(median rung age 590 ms): offset to the mid before and after correlates 0.85 (rank persists; quintiles -0.195 -> -0.155
+... -0.035 -> -0.015); the step dp is +3.6 c on average and unrelated to the mid change since the old post (corr 0.002),
+to the Chainlink change (0.007) and to the futures change (-0.023); dp > 0 in 95% of the pairs whatever the Chainlink
+change (0.967 after +$5, 0.960 after -$5, 0.94 when |dCL| <= $1). These fast remove-then-add pairs are a mechanical
+ratchet toward the touch (or a wallet-pairing artefact of the three-wallet bursts), not center moves; downward moves
+must happen another way (add before cancel, or a delayed add). Rung depth is therefore not i.i.d. (X51's designed
+randomness in its i.i.d. form is ruled out); the per-wallet state machine (A3 strong form) remains the open route to
+the ladder level.
+
+**Economics of the posture (14:06-16:30, fills held to resolution, Gamma payouts).** Fills on the side the Chainlink edge
+favoured returned **+21.3%** on dollars; the 318 fills against it **-2.5%** (all fills +14.9%). In the failing quarter
+hour (14:45) the fills against the posture lost 12.7% while the few posture-consistent ones made +59%: the deviations
+are not better information, they cost money. Per wallet over the whole block (evaluate() slices pooled): bosona 0.785
+(n 628), almach 0.813 (n 780), mo-money 0.761 (n 817).
+- Add-then-remove order (5,409 pairs of an exact-500 add followed within 20 ms by an exact-500 removal at another price on
+  the same side): the new add sits ABOVE the removed rung in 87% (median +3 c). In both orders the fast re-posts step up
+  by 3-4 c; downward ladder moves do not happen as fast pairs. With a median rung age of 0.59 s, a rung climbs ~6 c/s
+  toward the touch: the 500 stream behaves like a creeping bid that ratchets up to the touch (where it is filled or pulled),
+  which fits "fresh joins at the touch" and is the move law A3's state machine should start from.
+
+**Next steps (iteration 9; the next development block is 11-01 06:00-12:00 UTC).**
+1. Run the pre-registered checks on 11-01 06-12 (side posture through `evaluate()`, R6 union presence and scope, the
+   quote-oracle ceilings, the publish-clock hazard) and the X59 test once dz_rtdsbn's format is confirmed.
+2. Decode the ladder as a state machine (A3 / X71 strong form) starting from the creeping-bid law measured here (fast
+   re-posts step up 3-4 c every ~0.6 s, independent of the mid and of Chainlink; persistent rank): per-wallet rung
+   resolution, the reset/pull rule, then a replay that predicts the at-touch state (the quote unit, 0.748 now) and print
+   reach (selection ceiling 0.81-0.83 with the quote known).
+3. Strict-fill replay (X64) of the posture + creeping-bid generator against the recorded takers for the outcome metric.
+4. Why the posture side fails in some quarter hours (14:45 0.33, 17:29-18:00 0.54): own inventory (adds to the held side
+   0.83 there, own state), the window's outcome, the market's own lead.
+5. The BTC 5m on/off trigger on the full history (A2 / X70), the paying-population hazard live (X66 step 2), Kalshi and the
+   historical cross-horizon step (X60), strike publication lag (X61), RTDS activity latency (X62).
+
+**A4 robustness: a longer live BUILD (fit < 15:40, test 15:40-16:30, 10 windows; `results/iter8_a4_ceiling_*_split1793461200.json`).**
+Fill presence: activity 0.635, public 0.677, + quote oracle 0.805-0.813 (+ future flow 0.807-0.813); quote unit: activity
+0.682, + Chainlink 0.746, + futures 0.747 (gain +0.066, window bootstrap [+0.032, +0.094]). The ceiling (~0.81) and the
+quote-unit level (~0.75) do not move with twice the training data.
+
+**A3 public creep-state features (`code8/a3_creep.py`, `results/iter8_a3_creep_1793455600_1793464202.json`).** Run length
+of a positive Chainlink edge, of an edge > 2 c, of a negative edge, and 3 / 10-s mean edges add nothing to the quote unit
+(0.748 -> 0.748). The at-touch rate is 0.025 while the edge is negative, 0.063-0.074 in the first 1-8 s after it turns
+positive and falls after that (0.054-0.060 at 8-32 s, 0.038 beyond): the 500 reaches the touch when the posture turns
+(a step at the re-price pass), not by a slow creep that grows with the run length; the fast +3-4 c re-post pairs are a
+within-pass mechanic. Iteration 8 stops new analyses here (20:06 UTC).
+
+**A4b / X48 first measurement: Kalshi KXBTC15M (`code8/a4b_kalshi.py`; results `iter8_a4b_kalshi_*`; development block
+10-31 12:45-16:45 UTC; Kalshi public trades API, no key, 646,684 trades in 18 quarters; quarters with > 40,000 trades are
+truncated to their last 40,000).** Lead-lag of 1-s changes, Kalshi yes price vs the Polymarket 15m Up mid: corr 0.151 at
+lag 0, **0.296 with Polymarket one second later**, 0.12 at 2-5 s, ~0 at negative lags: Kalshi moves first. Against
+Binance spot 1-s returns (t-1, t, t+1) the Polymarket change is explained at R^2 0.094; adding the Kalshi change raises it
+to 0.134 (standardised beta 0.22, the largest; in-sample): Kalshi's book leads Polymarket's 15m book by about a second
+beyond what 1-s Binance spot shows (a ms futures control is still needed). The cluster's 15m fill side (159 fills with
+Kalshi data, ~9 quarters, 14:06-16:30): the sign of the Kalshi 5-s change 0.433 (no information); the posture rule 0.692 on
+the same fills; **the PM side that is cheap relative to Kalshi (PM Up mid above the Kalshi yes price -> Down) 0.792**.
+The strikes differ (Kalshi: CF Benchmarks BRTI; Polymarket: Chainlink TWAP-60) and fills cluster by window, so this
+is a lead to replicate with aligned strikes, not a result.
+6. Replicate the Kalshi lead with aligned strikes and ms futures as the control; test sign(PM mid - Kalshi) as a side and
+   posture input for BTC 15m (and the Kalshi hourly market for the hourly family).
+- Kalshi lead with a millisecond futures control (14:15-17:15 UTC, dm_bnf bookTicker mid at the second boundaries and its
+  move over the next 0.5 s; `results/iter8_a4b_kalshi_control_futures.json`, n 10,044 s): R^2 of the next-second Polymarket
+  15m mid change 0.115 from the futures alone, 0.143 with the Kalshi change added (standardised beta 0.18; in-sample). The
+  Kalshi lead survives the futures control: Kalshi is a candidate input the cluster's 15m quotes (or the 15m sellers) may
+  use. Iteration 8 stops new analyses at 20:29 UTC.

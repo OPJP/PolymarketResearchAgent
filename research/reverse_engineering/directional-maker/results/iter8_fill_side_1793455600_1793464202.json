@@ -1,0 +1,172 @@
+{
+ "fills": 1668,
+ "windows": 27,
+ "5m": {
+  "all": {
+   "n": 1433,
+   "chainlink_edge_sign": 0.813,
+   "futures_edge_sign": 0.545,
+   "cheaper_side": 0.519,
+   "always_up": 0.595,
+   "prev_print_sold_side": 0.37
+  },
+  "live_build": {
+   "n": 226,
+   "chainlink_edge_sign": 0.664,
+   "futures_edge_sign": 0.509,
+   "cheaper_side": 0.504,
+   "always_up": 0.531,
+   "prev_print_sold_side": 0.323
+  },
+  "live_validate": {
+   "n": 1207,
+   "chainlink_edge_sign": 0.841,
+   "futures_edge_sign": 0.552,
+   "cheaper_side": 0.522,
+   "always_up": 0.607,
+   "prev_print_sold_side": 0.379
+  },
+  "validate_at_touch": {
+   "n": 1172,
+   "chainlink_edge_sign": 0.844,
+   "futures_edge_sign": 0.556,
+   "cheaper_side": 0.521,
+   "always_up": 0.603,
+   "prev_print_sold_side": 0.378
+  },
+  "validate_deeper": {
+   "n": 35,
+   "chainlink_edge_sign": 0.743,
+   "futures_edge_sign": 0.4,
+   "cheaper_side": 0.543,
+   "always_up": 0.743,
+   "prev_print_sold_side": 0.4
+  },
+  "validate_variants": {
+   "e_cl_block": 0.719,
+   "e_cl_D700": 0.788,
+   "e_cl_D1083": 0.814,
+   "e_cl_D1432": 0.841,
+   "e_cl_D2000": 0.822,
+   "e_cl_D3000": 0.761,
+   "e_cl_mid1s": 0.853,
+   "e_cl_lastprint": 0.851
+  },
+  "validate_per_wallet": {
+   "almach": 0.905,
+   "bosona": 0.849,
+   "momoney": 0.783
+  },
+  "validate_n_per_wallet": {
+   "almach": 380,
+   "bosona": 357,
+   "momoney": 470
+  },
+  "by_30min": {
+   "1793455200": [
+    0.835,
+    103
+   ],
+   "1793457000": [
+    0.52,
+    123
+   ],
+   "1793458800": [
+    0.918,
+    170
+   ],
+   "1793460600": [
+    0.868,
+    568
+   ],
+   "1793462400": [
+    0.78,
+    469
+   ]
+  }
+ },
+ "15m": {
+  "all": {
+   "n": 235,
+   "chainlink_edge_sign": 0.787,
+   "futures_edge_sign": 0.557,
+   "cheaper_side": 0.472,
+   "always_up": 0.451,
+   "prev_print_sold_side": 0.421
+  },
+  "live_build": {
+   "n": 36,
+   "chainlink_edge_sign": 0.306,
+   "futures_edge_sign": 0.306,
+   "cheaper_side": 0.111,
+   "always_up": 0.111,
+   "prev_print_sold_side": 0.389
+  },
+  "live_validate": {
+   "n": 199,
+   "chainlink_edge_sign": 0.874,
+   "futures_edge_sign": 0.603,
+   "cheaper_side": 0.538,
+   "always_up": 0.513,
+   "prev_print_sold_side": 0.427
+  },
+  "validate_at_touch": {
+   "n": 189,
+   "chainlink_edge_sign": 0.884,
+   "futures_edge_sign": 0.598,
+   "cheaper_side": 0.54,
+   "always_up": 0.524,
+   "prev_print_sold_side": 0.429
+  },
+  "validate_deeper": {
+   "n": 10,
+   "chainlink_edge_sign": 0.7,
+   "futures_edge_sign": 0.7,
+   "cheaper_side": 0.5,
+   "always_up": 0.3,
+   "prev_print_sold_side": 0.4
+  },
+  "validate_variants": {
+   "e_cl_block": 0.744,
+   "e_cl_D700": 0.824,
+   "e_cl_D1083": 0.91,
+   "e_cl_D1432": 0.874,
+   "e_cl_D2000": 0.794,
+   "e_cl_D3000": 0.794,
+   "e_cl_mid1s": 0.749,
+   "e_cl_lastprint": 0.879
+  },
+  "validate_per_wallet": {
+   "almach": 0.838,
+   "bosona": 0.892,
+   "momoney": 0.907
+  },
+  "validate_n_per_wallet": {
+   "almach": 80,
+   "bosona": 65,
+   "momoney": 54
+  },
+  "by_30min": {
+   "1793455200": [
+    1.0,
+    7
+   ],
+   "1793457000": [
+    0.138,
+    29
+   ],
+   "1793458800": [
+    0.56,
+    25
+   ],
+   "1793460600": [
+    0.901,
+    71
+   ],
+   "1793462400": [
+    0.932,
+    103
+   ]
+  }
+ }
+}

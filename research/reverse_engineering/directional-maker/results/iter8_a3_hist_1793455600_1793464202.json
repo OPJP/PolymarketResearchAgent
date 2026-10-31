@@ -1,0 +1,34 @@
+{
+ "fill_presence": {
+  "bins": 1680,
+  "windows": 28,
+  "pos_rate": 0.1679,
+  "test_windows": 18,
+  "test_pos": 227,
+  "activity": 0.6236,
+  "univariate_o_n500": 0.5618,
+  "univariate_o_ntouch": 0.7589,
+  "univariate_o_nburst_touch": 0.6464,
+  "univariate_o_top_gap": 0.6935,
+  "univariate_o_qahead": 0.6476
+ },
+ "quote_unit": {
+  "seconds": 16800,
+  "pos_rate": 0.0397,
+  "test_pos_rate": 0.0428,
+  "activity": 0.6718,
+  "activity+book_hist": 0.6565,
+  "activity+futures": 0.6714,
+  "activity+futures+chainlink": 0.7478,
+  "activity+book_hist+futures_hist": 0.6549,
+  "activity+book_hist+futures+chainlink": 0.7374,
+  "activity+book_hist+futures+chainlink+cl_hist+fut_hist": 0.72,
+  "gain_ci95_window_bootstrap": [
+   0.0314,
+   0.0953
+  ],
+  "univariate_e_cl": 0.6232,
+  "univariate_e_f": 0.4854,
+  "test_windows": 18
+ }
+}

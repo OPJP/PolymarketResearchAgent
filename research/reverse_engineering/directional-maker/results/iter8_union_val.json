@@ -1,0 +1,50 @@
+{
+ "5m": {
+  "bins": 69120,
+  "pos": 6735,
+  "presence_auc": 0.7159,
+  "baseline": 0.6843,
+  "side": {
+   "n": 6339,
+   "acc": 0.6634
+  },
+  "side_activity": 0.6127,
+  "pnl": {
+   "windows": 1089,
+   "pearson": 0.329,
+   "spearman": 0.3252
+  },
+  "maker_fills": 27988
+ },
+ "15m": {
+  "bins": 69120,
+  "pos": 907,
+  "presence_auc": 0.8118,
+  "baseline": 0.7775,
+  "side": {
+   "n": 895,
+   "acc": 0.733
+  },
+  "side_activity": 0.6145,
+  "pnl": {
+   "windows": 204,
+   "pearson": 0.1795,
+   "spearman": 0.345
+  },
+  "maker_fills": 2996
+ },
+ "union": {
+  "presence_auc": 0.7883,
+  "baseline": 0.7796,
+  "side": {
+   "n": 7234,
+   "acc": 0.672
+  },
+  "side_activity": 0.6129,
+  "pnl": {
+   "windows": 1293,
+   "pearson": 0.2601,
+   "spearman": 0.3267
+  }
+ }
+}

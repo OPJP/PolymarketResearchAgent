@@ -1,5 +1,5 @@
 {
- "generated_at": 1793478529,
+ "generated_at": 1793478654,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -109,7 +109,7 @@
    "wall_reason": null,
    "iterations": 9,
    "minutes": 583.9,
-   "hypotheses": 116,
+   "hypotheses": 117,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9132,
    "best_rule": "it9: unchanged frozen rule of iteration 8 (code/final_rule.py); iteration 9 added measurements, no new rule component",
@@ -194,7 +194,7 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 8,
-   "minutes": 539,
+   "minutes": 542,
    "hypotheses": 96,
    "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state, clean tape (every print in a cluster transaction removed). From iteration 4 VALIDATE = 2026-10-27..30.",
    "best_validate_score": 0.7723,
@@ -204,7 +204,7 @@
    "exam_rounds": 1,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 3,
+   "panels": 4,
    "exam": {
     "target_met": false,
     "leakage_passed": true,

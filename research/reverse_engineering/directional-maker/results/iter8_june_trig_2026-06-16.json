@@ -1,0 +1,167 @@
+{
+ "thr_0.5bp": {
+  "random_rates": {
+   "spot_only": 0.0124,
+   "fut_only": 0.0527,
+   "both": 0.041,
+   "none": 0.8939,
+   "n": 100000
+  },
+  "rate_ratio_vs_random": {
+   "cluster_maker": {
+    "spot_only": 4.01,
+    "fut_only": 2.67,
+    "both": 3.62,
+    "none": 0.74
+   },
+   "other_maker": {
+    "spot_only": 2.58,
+    "fut_only": 2.31,
+    "both": 3.57,
+    "none": 0.78
+   },
+   "taker": {
+    "spot_only": 1.53,
+    "fut_only": 1.61,
+    "both": 2.35,
+    "none": 0.89
+   }
+  }
+ },
+ "thr_1.0bp": {
+  "random_rates": {
+   "spot_only": 0.0051,
+   "fut_only": 0.0226,
+   "both": 0.0159,
+   "none": 0.9565,
+   "n": 100000
+  },
+  "rate_ratio_vs_random": {
+   "cluster_maker": {
+    "spot_only": 3.25,
+    "fut_only": 3.12,
+    "both": 4.41,
+    "none": 0.88
+   },
+   "other_maker": {
+    "spot_only": 3.58,
+    "fut_only": 2.9,
+    "both": 4.11,
+    "none": 0.89
+   },
+   "taker": {
+    "spot_only": 1.9,
+    "fut_only": 2.37,
+    "both": 2.96,
+    "none": 0.93
+   }
+  }
+ },
+ "thr_2.0bp": {
+  "random_rates": {
+   "spot_only": 0.001,
+   "fut_only": 0.0044,
+   "both": 0.0033,
+   "none": 0.9913,
+   "n": 100000
+  },
+  "rate_ratio_vs_random": {
+   "cluster_maker": {
+    "spot_only": 5.63,
+    "fut_only": 5.75,
+    "both": 5.9,
+    "none": 0.96
+   },
+   "other_maker": {
+    "spot_only": 3.95,
+    "fut_only": 2.46,
+    "both": 3.54,
+    "none": 0.98
+   },
+   "taker": {
+    "spot_only": 6.27,
+    "fut_only": 3.57,
+    "both": 5.17,
+    "none": 0.97
+   }
+  }
+ },
+ "latency_last_move": {
+  "fut": {
+   "cluster_maker": {
+    "share_with_move_2s": 0.523,
+    "ms_since_last_move_q": [
+     400.0,
+     1050.0,
+     1500.0,
+     1800.0
+    ]
+   },
+   "other_maker": {
+    "share_with_move_2s": 0.444,
+    "ms_since_last_move_q": [
+     550.0,
+     1050.0,
+     1600.0,
+     1900.0
+    ]
+   },
+   "taker": {
+    "share_with_move_2s": 0.391,
+    "ms_since_last_move_q": [
+     300.0,
+     750.0,
+     1350.0,
+     1800.0
+    ]
+   },
+   "random": {
+    "share_with_move_2s": 0.255,
+    "ms_since_last_move_q": [
+     300.0,
+     650.0,
+     1200.0,
+     1650.0
+    ]
+   }
+  },
+  "spot": {
+   "cluster_maker": {
+    "share_with_move_2s": 0.386,
+    "ms_since_last_move_q": [
+     400.0,
+     900.0,
+     1350.0,
+     1750.0
+    ]
+   },
+   "other_maker": {
+    "share_with_move_2s": 0.333,
+    "ms_since_last_move_q": [
+     400.0,
+     900.0,
+     1450.0,
+     1800.0
+    ]
+   },
+   "taker": {
+    "share_with_move_2s": 0.28,
+    "ms_since_last_move_q": [
+     300.0,
+     600.0,
+     1250.0,
+     1700.0
+    ]
+   },
+   "random": {
+    "share_with_move_2s": 0.145,
+    "ms_since_last_move_q": [
+     250.0,
+     600.0,
+     1150.0,
+     1600.0
+    ]
+   }
+  }
+ }
+}
