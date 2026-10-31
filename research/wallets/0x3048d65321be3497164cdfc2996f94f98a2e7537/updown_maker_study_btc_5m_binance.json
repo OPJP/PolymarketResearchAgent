@@ -1,0 +1,336 @@
+{
+ "tool": "updown_maker_study",
+ "subject": {
+  "kind": "wallet",
+  "wallet": "0x3048d65321be3497164cdfc2996f94f98a2e7537",
+  "asset": "btc",
+  "duration": "5m",
+  "as_of": 1793318400,
+  "spot_source": "binance"
+ },
+ "observed": {
+  "fit_windows": 288,
+  "test_windows": 288,
+  "fit_passive_buys": 765117,
+  "test_passive_buys": 732148,
+  "test_wallet_passive_buys": 1754,
+  "wallet_share_of_passive_buys": 0.0023956904888082736
+ },
+ "derived": {
+  "match_test": {
+   "lag_scan_auc_fit": {
+    "fair_minus_price@-10": 0.5356553221014428,
+    "fair_minus_price@-5": 0.532226155953673,
+    "fair_minus_price@-3": 0.5236809644956028,
+    "fair_minus_price@-2": 0.5227475433945928,
+    "fair_minus_price@-1": 0.5150477088485237,
+    "fair_minus_price@0": 0.495963576414216,
+    "fair_minus_price@1": 0.4792918690363939,
+    "fair_minus_price@2": 0.4450292657759434,
+    "fair_minus_price@3": 0.39056764337858113,
+    "fair_minus_price@5": 0.35262235585048657,
+    "fair_minus_price@10": 0.38851548091349547,
+    "fair_minus_price@20": 0.4346282030754268
+   },
+   "chosen_score": "fair_minus_price",
+   "chosen_latency_s": 0,
+   "theta": 0.16606471441806372,
+   "fit": {
+    "prints": 765117,
+    "wallet_prints": 929,
+    "auc": 0.495963576414216
+   },
+   "test": {
+    "prints": 732148,
+    "wallet_prints": 1754,
+    "auc": 0.4402563831955387,
+    "auc_unstratified": 0.4544369304945421,
+    "auc_null_mean": 0.5038504549592256,
+    "auc_null_p95": 0.5286748529381408,
+    "auc_null_max": 0.544298087621626,
+    "auc_perm_p": 1.0,
+    "score_finite_share": 1.0,
+    "null_finite_share_min": 1.0,
+    "decision": {
+     "theta": 0.16606471441806372,
+     "tp": 144,
+     "fp": 40998,
+     "fn": 1610,
+     "tn": 689396,
+     "precision": 0.0035000729181857955,
+     "recall": 0.08209806157354618,
+     "mcc": 0.005512222843664543,
+     "base_rate": 0.0023956904888082736,
+     "lift": 1.4609871076989134
+    },
+    "wallet_mean_score": -0.007845278992922712,
+    "others_mean_score": 0.007877960570115448
+   },
+   "criterion_6": {
+    "perm_p_below_0.01": false,
+    "recall_ge_0.2": false,
+    "lift_ge_2.0": false,
+    "pass": false
+   },
+   "null": "within-block window rotation, stratified by price x time-in-window x side",
+   "n_perm": 200
+  },
+  "match_test_spot_reactive": {
+   "lag_scan_auc_fit": {
+    "spot_return_1s@0": 0.5676356692581852,
+    "spot_return_1s@1": 0.589478256744175,
+    "spot_return_1s@2": 0.6107761509129618,
+    "spot_return_1s@3": 0.591182017114697,
+    "spot_return_1s@5": 0.5052678396698038,
+    "spot_return_2s@0": 0.6109896398560136,
+    "spot_return_2s@1": 0.6402678693210458,
+    "spot_return_2s@2": 0.646242001577446,
+    "spot_return_2s@3": 0.61226256767896,
+    "spot_return_2s@5": 0.49870068257159295,
+    "spot_return_3s@0": 0.6510386830104313,
+    "spot_return_3s@1": 0.6657415479134421,
+    "spot_return_3s@2": 0.6517989408576326,
+    "spot_return_3s@3": 0.5961302163947648,
+    "spot_return_3s@5": 0.48639274849223435,
+    "spot_return_5s@0": 0.6736106910518481,
+    "spot_return_5s@1": 0.6523427446375729,
+    "spot_return_5s@2": 0.6192733073588452,
+    "spot_return_5s@3": 0.566152217616396,
+    "spot_return_5s@5": 0.49504142278520047
+   },
+   "chosen_score": "spot_return_5s",
+   "chosen_latency_s": 0,
+   "theta": 6.037409037328781e-05,
+   "fit": {
+    "prints": 765117,
+    "wallet_prints": 929,
+    "auc": 0.6736106910518481
+   },
+   "test": {
+    "prints": 732148,
+    "wallet_prints": 1754,
+    "auc": 0.6227853500134757,
+    "auc_unstratified": 0.6206292759426584,
+    "auc_null_mean": 0.5028491856030706,
+    "auc_null_p95": 0.5247982069690152,
+    "auc_null_max": 0.5555125265333523,
+    "auc_perm_p": 0.004975124378109453,
+    "score_finite_share": 1.0,
+    "null_finite_share_min": 1.0,
+    "decision": {
+     "theta": 6.037409037328781e-05,
+     "tp": 472,
+     "fp": 83554,
+     "fn": 1282,
+     "tn": 646840,
+     "precision": 0.005617308928188894,
+     "recall": 0.2690992018244014,
+     "mcc": 0.023727831677334214,
+     "base_rate": 0.0023956904888082736,
+     "lift": 2.3447556996326355
+    },
+    "wallet_mean_score": 3.6048385227134586e-05,
+    "others_mean_score": -1.5476937522047573e-05
+   },
+   "criterion_6": {
+    "perm_p_below_0.01": true,
+    "recall_ge_0.2": true,
+    "lift_ge_2.0": true,
+    "pass": true
+   },
+   "null": "within-block window rotation, stratified by price x time-in-window x side",
+   "n_perm": 200
+  },
+  "fit_delta_scan": {
+   "0.0": {
+    "fills": 16910,
+    "pnl": -18497.796413603006,
+    "per_window_t": -7.093640530170675,
+    "per_window_p": 0.9999999999948878
+   },
+   "0.01": {
+    "fills": 14523,
+    "pnl": -15757.799955217004,
+    "per_window_t": -5.891482729008618,
+    "per_window_p": 0.9999999946491546
+   },
+   "0.02": {
+    "fills": 12938,
+    "pnl": -13905.040351334002,
+    "per_window_t": -5.2728334778167465,
+    "per_window_p": 0.9999998676405379
+   },
+   "0.03": {
+    "fills": 11512,
+    "pnl": -12061.010236003003,
+    "per_window_t": -4.663152736518749,
+    "per_window_p": 0.9999976110743346
+   },
+   "0.05": {
+    "fills": 8883,
+    "pnl": -8855.610770080002,
+    "per_window_t": -3.719492630713972,
+    "per_window_p": 0.9998799592635844
+   },
+   "0.08": {
+    "fills": 5915,
+    "pnl": -4955.848523070003,
+    "per_window_t": -2.727554907218785,
+    "per_window_p": 0.9966131363008247
+   }
+  },
+  "chosen_delta": 0.08,
+  "chosen_latency_s": 1,
+  "backtest_test_period": {
+   "fills": 5679,
+   "windows": 288,
+   "usd_bought": 59712.12209367,
+   "pnl": -7699.8612846700025,
+   "return_on_bought": -0.12894971765684834,
+   "per_window_mean": -26.735629460659723,
+   "per_window_t": -2.9769763041618664,
+   "per_window_p": 0.9984203893966657,
+   "per_window_bootstrap_p": 0.9950024987506247,
+   "fill_win_rate": 0.4921641134002465
+  },
+  "backtest_test_period_at_touch": {
+   "fills": 6264,
+   "windows": 288,
+   "usd_bought": 65296.07556394,
+   "pnl": -7723.665600940001,
+   "return_on_bought": -0.11828682710612128,
+   "per_window_mean": -26.818283336597222,
+   "per_window_t": -2.84149177967749,
+   "per_window_p": 0.9975939846342714,
+   "per_window_bootstrap_p": 0.9945027486256871,
+   "fill_win_rate": 0.49936143039591313
+  },
+  "latency_degradation": {
+   "2": {
+    "fills": 5758,
+    "pnl": -8378.97325242,
+    "return_on_bought": -0.139912301984197,
+    "per_window_p": 0.9994019814972034
+   },
+   "3": {
+    "fills": 5882,
+    "pnl": -8900.60446339,
+    "return_on_bought": -0.14720836386932307,
+    "per_window_p": 0.9997722597936032
+   },
+   "6": {
+    "fills": 6336,
+    "pnl": -10673.686128060002,
+    "return_on_bought": -0.16869622287160185,
+    "per_window_p": 0.9999937044587213
+   },
+   "11": {
+    "fills": 6951,
+    "pnl": -13375.350285428001,
+    "return_on_bought": -0.20010820895198148,
+    "per_window_p": 0.9999999954547266
+   }
+  },
+  "queue_share_sensitivity": {
+   "0.5": {
+    "fills": 5679,
+    "pnl": -7615.766769840001,
+    "per_window_p": 0.9987023083270878
+   },
+   "0.25": {
+    "fills": 5679,
+    "pnl": -7537.621333940002,
+    "per_window_p": 0.9992197652262584
+   }
+  },
+  "spot_reactive_maker": {
+   "fit_best": {
+    "theta": 0.0001,
+    "delta": 0.02,
+    "horizon": 2,
+    "requote_s": 2,
+    "latency": 2,
+    "fills": 136,
+    "pnl": 65.13832447999997,
+    "return_on_bought": 0.05394887918684626,
+    "per_window_t_incl_zero": 0.8601160181780122
+   },
+   "fit_configs": 125,
+   "fit_share_positive": 0.048,
+   "test_strict": {
+    "fills": 80,
+    "windows": 55,
+    "usd_bought": 775.94792293,
+    "pnl": 52.90211706999998,
+    "return_on_bought": 0.06817740663605384,
+    "per_window_mean": 0.9618566739999996,
+    "per_window_t": 0.7825060250666594,
+    "per_window_p": 0.2186676689355775,
+    "per_window_bootstrap_p": 0.19390304847576212,
+    "fill_win_rate": 0.5625,
+    "windows_total": 288,
+    "per_window_t_incl_zero": 0.7247270723416562,
+    "per_window_p_incl_zero": 0.2346049513801489,
+    "per_window_bootstrap_p_incl_zero": 0.22138930534732634
+   },
+   "test_at_touch": {
+    "fills": 109,
+    "windows": 68,
+    "usd_bought": 990.5936549300001,
+    "pnl": 96.72377406999999,
+    "return_on_bought": 0.09764223058428023,
+    "per_window_mean": 1.4224084422058818,
+    "per_window_t": 1.4815466088562612,
+    "per_window_p": 0.07157448492841371,
+    "per_window_bootstrap_p": 0.054972513743128434,
+    "fill_win_rate": 0.5688073394495413,
+    "windows_total": 288,
+    "per_window_t_incl_zero": 1.351044345978569,
+    "per_window_p_incl_zero": 0.08887267027356874,
+    "per_window_bootstrap_p_incl_zero": 0.0814592703648176
+   },
+   "test_latency_degradation_at_touch": {
+    "3": {
+     "fills": 137,
+     "pnl": 89.98284514999997,
+     "return_on_bought": 0.07562866842135621,
+     "per_window_p_incl_zero": 0.14926641369843605
+    },
+    "5": {
+     "fills": 183,
+     "pnl": -95.28691056000005,
+     "return_on_bought": -0.05847076265967353,
+     "per_window_p_incl_zero": 0.8507197197701497
+    }
+   },
+   "test_latency_1s_reference_at_touch": {
+    "fills": 163,
+    "pnl": 246.72057466,
+    "return_on_bought": 0.19148109112943454,
+    "per_window_p_incl_zero": 0.006240264067646695
+   }
+  },
+  "wallet_maker_replay_test_period": {
+   "fills": 1754,
+   "usd": 12172.823453019364,
+   "pnl": 76.83966598063611,
+   "return": 0.006312394677964108,
+   "per_window_p": 0.4441213910683615
+  }
+ },
+ "inferred": {},
+ "sources": [],
+ "coverage": {
+  "status": "complete",
+  "detail": ""
+ },
+ "limitations": [
+  "Trade-through fills ignore queue position at the touch (conservative) but assume our bid sat at the front among bids below the touch; queue-share sensitivity reports thinner fills; at-touch is the first-in-queue bound.",
+  "Taker tape rows of multi-level sweeps carry the sweep's average price, so trade-through is judged on that price (it misses some fills at levels the sweep reached).",
+  "Spot is binance per-second prices; resolution uses Chainlink's aggregated feed.",
+  "Maker rebates are excluded from backtest PnL (conservative)."
+ ],
+ "unknowns": [],
+ "next_probes": [],
+ "generated_at": "2026-10-31T04:45:26+00:00"
+}

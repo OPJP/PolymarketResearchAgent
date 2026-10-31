@@ -1,0 +1,222 @@
+{
+ "fit_candidates": 279,
+ "fit_leaders": [
+  {
+   "wallet": "0x621efa310f59013ce082e4af3e4ca130e43b8e10",
+   "n": 258,
+   "fol": 65,
+   "fol_shift": 5,
+   "mk": 124,
+   "rate": 0.25193798449612403,
+   "excess": 60
+  },
+  {
+   "wallet": "0xc785252b25901a591e9d962e09f4342468444ef2",
+   "n": 614,
+   "fol": 38,
+   "fol_shift": 7,
+   "mk": 95,
+   "rate": 0.06188925081433225,
+   "excess": 31
+  },
+  {
+   "wallet": "0xddb6e6246546230503f153506ac1e9914978b9b3",
+   "n": 692,
+   "fol": 31,
+   "fol_shift": 6,
+   "mk": 67,
+   "rate": 0.044797687861271675,
+   "excess": 25
+  },
+  {
+   "wallet": "0x580325efbb00a3262513d16bce6bbcc979313f3f",
+   "n": 120,
+   "fol": 25,
+   "fol_shift": 2,
+   "mk": 11,
+   "rate": 0.20833333333333334,
+   "excess": 23
+  },
+  {
+   "wallet": "0x10d79cc72df76ea3d6bdc2d54f41dbcbbb18bbf6",
+   "n": 187,
+   "fol": 22,
+   "fol_shift": 0,
+   "mk": 13,
+   "rate": 0.11764705882352941,
+   "excess": 22
+  },
+  {
+   "wallet": "0x775d9de0c72c76a459fadfbb4cd79d5715236beb",
+   "n": 561,
+   "fol": 23,
+   "fol_shift": 4,
+   "mk": 61,
+   "rate": 0.040998217468805706,
+   "excess": 19
+  },
+  {
+   "wallet": "0x93ef3fca8816946cb9a43b49fcfd66d7668d6dda",
+   "n": 77,
+   "fol": 19,
+   "fol_shift": 1,
+   "mk": 58,
+   "rate": 0.24675324675324675,
+   "excess": 18
+  },
+  {
+   "wallet": "0xe91171f655be1568e4c63f29663c0028649e3d4e",
+   "n": 315,
+   "fol": 21,
+   "fol_shift": 3,
+   "mk": 78,
+   "rate": 0.06666666666666667,
+   "excess": 18
+  },
+  {
+   "wallet": "0x821dab0565ebf5b327f51db06223fdcfe01acf16",
+   "n": 1932,
+   "fol": 22,
+   "fol_shift": 6,
+   "mk": 133,
+   "rate": 0.011387163561076604,
+   "excess": 16
+  },
+  {
+   "wallet": "0x592997c2d8119d82d71f21119957c6434d244684",
+   "n": 148,
+   "fol": 17,
+   "fol_shift": 1,
+   "mk": 64,
+   "rate": 0.11486486486486487,
+   "excess": 16
+  },
+  {
+   "wallet": "0xc70974218b9c6570f7701cd6fafc04ed490fbda9",
+   "n": 301,
+   "fol": 17,
+   "fol_shift": 3,
+   "mk": 44,
+   "rate": 0.05647840531561462,
+   "excess": 14
+  },
+  {
+   "wallet": "0x61f621ed129a8b64f0d2abbef50d23cd52d1e497",
+   "n": 117,
+   "fol": 14,
+   "fol_shift": 0,
+   "mk": 56,
+   "rate": 0.11965811965811966,
+   "excess": 14
+  },
+  {
+   "wallet": "0xc9f4bec86118be62d973fd53004efca8fed8c1e4",
+   "n": 254,
+   "fol": 21,
+   "fol_shift": 7,
+   "mk": 6,
+   "rate": 0.08267716535433071,
+   "excess": 14
+  },
+  {
+   "wallet": "0x870a742f10c5d80433825e8e90fe4e00ae9b6c6e",
+   "n": 61,
+   "fol": 14,
+   "fol_shift": 0,
+   "mk": 39,
+   "rate": 0.22950819672131148,
+   "excess": 14
+  },
+  {
+   "wallet": "0x5c18d1f705989046f5106d64a0cb34d5deb02f76",
+   "n": 171,
+   "fol": 15,
+   "fol_shift": 1,
+   "mk": 41,
+   "rate": 0.08771929824561403,
+   "excess": 14
+  },
+  {
+   "wallet": "0xfe67df6e0c585e50cbe8bdcad804d980c6b8a2e8",
+   "n": 578,
+   "fol": 15,
+   "fol_shift": 2,
+   "mk": 90,
+   "rate": 0.025951557093425604,
+   "excess": 13
+  },
+  {
+   "wallet": "0x25bf42fe847ca0d55db331103a11d0496202ef3d",
+   "n": 96,
+   "fol": 14,
+   "fol_shift": 1,
+   "mk": 7,
+   "rate": 0.14583333333333334,
+   "excess": 13
+  },
+  {
+   "wallet": "0x1d1d408f7378a5ce9db1e796b15fb5574aebf2df",
+   "n": 184,
+   "fol": 12,
+   "fol_shift": 0,
+   "mk": 65,
+   "rate": 0.06521739130434782,
+   "excess": 12
+  },
+  {
+   "wallet": "0x86df6ce94c9263d09a6052b43d652adb7b51d902",
+   "n": 114,
+   "fol": 13,
+   "fol_shift": 2,
+   "mk": 3,
+   "rate": 0.11403508771929824,
+   "excess": 11
+  },
+  {
+   "wallet": "0x21ce81f50e18b8d301186a0d64ccf68c4d4de2ea",
+   "n": 41,
+   "fol": 11,
+   "fol_shift": 1,
+   "mk": 27,
+   "rate": 0.2682926829268293,
+   "excess": 10
+  }
+ ],
+ "n_leaders": 53,
+ "fit_wallet_hit": 0.45064377682403434,
+ "fit_others_hit": 0.4369599717862811,
+ "test_match_label_perm": {
+  "wallet_hit_rate": 0.25625,
+  "others_hit_rate": 0.4218625498007968,
+  "diff": -0.16561254980079682,
+  "null_p95": -0.15717961487383797,
+  "perm_p": 0.14285714285714285,
+  "n_wallet": 480,
+  "n_others": 40160
+ },
+ "test_match_shift_null": {
+  "obs": -0.16561254980079682,
+  "null_p95": -0.09450033200531208,
+  "perm_p": 0.9303482587064676
+ },
+ "test_backtest": {
+  "trades": 13576,
+  "events": 160,
+  "usd": 454176.6641819912,
+  "pnl": 14290.353442114076,
+  "ret": 0.03146430578473721,
+  "per_event_t": 0.2836418179847834,
+  "per_event_p": 0.3885269419410756,
+  "boot_p": 0.38830584707646176
+ },
+ "test_leaders_own_buys": {
+  "trades": 6455,
+  "events": 201,
+  "usd": 196753.5014870143,
+  "pnl": 16293.656949624967,
+  "ret": 0.08281253866630854,
+  "per_event_t": 1.1201588552074668,
+  "per_event_p": 0.13199470576618103,
+  "boot_p": 0.11744127936031984
+ }
+}

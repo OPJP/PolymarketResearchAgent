@@ -1,0 +1,77 @@
+{
+ "fit_best": {
+  "D": 0,
+  "W": 120,
+  "fit_stat": 0.09548490379382629
+ },
+ "test_stat_others_minus_rn1_share": 0.0694496578076865,
+ "test_rn1_share_in_window": 0.05998286203941731,
+ "test_others_share_in_window": 0.1294325198471038,
+ "test_rn1_events_in_window": 70,
+ "test_rn1_events": 1167,
+ "test_other_events": 17005,
+ "null_mean": -0.00013444243804496233,
+ "null_p99": 0.04131550249724928,
+ "perm_p": 0.0004997501249375312,
+ "around_first_tape_jump_after_goal": {
+  "(-61, -10]": {
+   "others_events": 1125.0,
+   "rn1_events": 67.0,
+   "rn1_share_of_touch_events": 0.05620805369127517,
+   "others_ret_cap50": 0.1161081460284508
+  },
+  "(-10, -3]": {
+   "others_events": 179.0,
+   "rn1_events": 7.0,
+   "rn1_share_of_touch_events": 0.03763440860215054,
+   "others_ret_cap50": -0.14992716699450664
+  },
+  "(-3, 0]": {
+   "others_events": 443.0,
+   "rn1_events": 8.0,
+   "rn1_share_of_touch_events": 0.017738359201773836,
+   "others_ret_cap50": -0.09721975658456687
+  },
+  "(0, 3]": {
+   "others_events": 431.0,
+   "rn1_events": 1.0,
+   "rn1_share_of_touch_events": 0.0023148148148148147,
+   "others_ret_cap50": -0.04465486666589542
+  },
+  "(3, 10]": {
+   "others_events": 459.0,
+   "rn1_events": 0.0,
+   "rn1_share_of_touch_events": 0.0,
+   "others_ret_cap50": 0.013808985608461007
+  },
+  "(10, 30]": {
+   "others_events": 1054.0,
+   "rn1_events": 9.0,
+   "rn1_share_of_touch_events": 0.008466603951081843,
+   "others_ret_cap50": -0.007758049903287097
+  },
+  "(30, 60]": {
+   "others_events": 1662.0,
+   "rn1_events": 27.0,
+   "rn1_share_of_touch_events": 0.015985790408525755,
+   "others_ret_cap50": 0.013717451393821951
+  },
+  "(60, 120]": {
+   "others_events": 3178.0,
+   "rn1_events": 144.0,
+   "rn1_share_of_touch_events": 0.04334738109572547,
+   "others_ret_cap50": 0.007366281236735939
+  },
+  "(120, 181]": {
+   "others_events": 2227.0,
+   "rn1_events": 176.0,
+   "rn1_share_of_touch_events": 0.07324178110694965,
+   "others_ret_cap50": -0.013782167403104341
+  }
+ },
+ "baseline_rn1_share_all_touch_events": 0.07063668698130084
+}
+
+real	0m24.686s
+user	0m24.344s
+sys	0m0.431s

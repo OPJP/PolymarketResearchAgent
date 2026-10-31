@@ -1,0 +1,460 @@
+{
+ "as_of": 1793318400,
+ "tiers": "docs.polymarket.com/programs/taker-rebates (2026)",
+ "wallets": {
+  "RN1": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 907319.301465001,
+    "position_pnl": 647528.6625650004,
+    "fees_paid": -155962.1542199999,
+    "taker_rebate": 77443.45279999997,
+    "maker_rebate": 141030.8322999999,
+    "reward_income": 41316.35379999998,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 155962.1542199999,
+   "observed_taker_rebate_rate_median": 0.5000395717036237,
+   "observed_tier": "Obsidian",
+   "one_off_payments": [],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 907319.301465001,
+   "pnl_at_tier": {
+    "None 0%": 829875.8486650002,
+    "Bronze 3%": 834554.7132916001,
+    "Silver 8%": 842352.8210026001,
+    "Gold 18%": 857949.0364246002,
+    "Platinum 32%": 879783.7380154001,
+    "Diamond 44%": 898499.1965218001,
+    "Obsidian 50%": 907856.9257750001
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+   "name": "RN1",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x2005d16a84ceefa912d4e380cd32e7ff827875ea&interval=all&fidelity=1d",
+    "body_sha256": "fb971be091910b58daecd82ba88e0e307e1d808dd78747266cca581f90e18ea1",
+    "fetched_at": "2026-10-31T04:33:17+00:00"
+   }
+  },
+  "elmcap2": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 242046.50689100008,
+    "position_pnl": 228391.33529100008,
+    "fees_paid": -1284.53431,
+    "taker_rebate": 102.47390000000001,
+    "maker_rebate": 467.14500000000044,
+    "reward_income": 649.4204000000009,
+    "yield_income": 12436.132299999997,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 1284.53431,
+   "observed_taker_rebate_rate_median": 0.0799991642485345,
+   "observed_tier": "Silver",
+   "one_off_payments": [],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 242046.50689100008,
+   "pnl_at_tier": {
+    "None 0%": 241944.03299100007,
+    "Bronze 3%": 241982.56902030008,
+    "Silver 8%": 242046.7957358001,
+    "Gold 18%": 242175.24916680006,
+    "Platinum 32%": 242355.08397020007,
+    "Diamond 44%": 242509.2280874001,
+    "Obsidian 50%": 242586.30014600008
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0xed107a85a4585a381e48c7f7ca4144909e7dd2e5",
+   "name": "elmcap2",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xed107a85a4585a381e48c7f7ca4144909e7dd2e5&interval=all&fidelity=1d",
+    "body_sha256": "b3360d3b67f107920f61dc759d1e76f7d802a52669f7aeefb01f8ab1e30a4968",
+    "fetched_at": "2026-10-31T04:33:03+00:00"
+   }
+  },
+  "dangerously-skip-permissions": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 116254.79215700002,
+    "position_pnl": 43959.87245699999,
+    "fees_paid": -135310.58464000002,
+    "taker_rebate": 66529.4619,
+    "maker_rebate": 5765.4578,
+    "reward_income": 0.0,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 135310.58464000002,
+   "observed_taker_rebate_rate_median": 0.4994599924041268,
+   "observed_tier": "Obsidian",
+   "one_off_payments": [],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 116254.79215700002,
+   "pnl_at_tier": {
+    "None 0%": 49725.330256999994,
+    "Bronze 3%": 53784.64779619999,
+    "Silver 8%": 60550.17702819999,
+    "Gold 18%": 74081.2354922,
+    "Platinum 32%": 93024.7173418,
+    "Diamond 44%": 109261.9874986,
+    "Obsidian 50%": 117380.622577
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0xc53375ff94e96100f2b30a4b5775db35218d69a9",
+   "name": "dangerously-skip-permissions",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xc53375ff94e96100f2b30a4b5775db35218d69a9&interval=all&fidelity=1d",
+    "body_sha256": "c1e07477296e3bed51d87780a13e13c84ff42c4dbf36cf0dae7557d20612d1e2",
+    "fetched_at": "2026-10-31T04:36:30+00:00"
+   }
+  },
+  "justaluckydude": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 138804.19092199998,
+    "position_pnl": 113210.76822199998,
+    "fees_paid": -50747.40020000003,
+    "taker_rebate": 25593.422700000025,
+    "maker_rebate": 0.0,
+    "reward_income": 0.0,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 50747.40020000003,
+   "observed_taker_rebate_rate_median": 0.5012803172888175,
+   "observed_tier": "Obsidian",
+   "one_off_payments": [],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 138804.19092199998,
+   "pnl_at_tier": {
+    "None 0%": 113210.76822199998,
+    "Bronze 3%": 114733.19022799999,
+    "Silver 8%": 117270.56023799999,
+    "Gold 18%": 122345.30025799999,
+    "Platinum 32%": 129449.936286,
+    "Diamond 44%": 135539.62430999998,
+    "Obsidian 50%": 138584.468322
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705",
+   "name": "justaluckydude",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705&interval=all&fidelity=1d",
+    "body_sha256": "6fbb5036bb8e643145ef9197549d166d05bc3feb990be66463c0e96a9a8c813a",
+    "fetched_at": "2026-10-31T04:34:30+00:00"
+   }
+  },
+  "x-MoneyForWhiskas": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 82114.786119,
+    "position_pnl": 28778.299318999983,
+    "fees_paid": -91685.21033999999,
+    "taker_rebate": 48626.928600000014,
+    "maker_rebate": 4709.5581999999995,
+    "reward_income": 0.0,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 91685.21033999999,
+   "observed_taker_rebate_rate_median": 0.4999465774134899,
+   "observed_tier": "Obsidian",
+   "one_off_payments": [],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 82114.786119,
+   "pnl_at_tier": {
+    "None 0%": 33487.85751899998,
+    "Bronze 3%": 36238.413829199984,
+    "Silver 8%": 40822.67434619998,
+    "Gold 18%": 49991.19538019998,
+    "Platinum 32%": 62827.124827799984,
+    "Diamond 44%": 73829.35006859998,
+    "Obsidian 50%": 79330.46268899998
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0x3048d65321be3497164cdfc2996f94f98a2e7537",
+   "name": "x-MoneyForWhiskas",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x3048d65321be3497164cdfc2996f94f98a2e7537&interval=all&fidelity=1d",
+    "body_sha256": "5062cb8097b8cc9388377795fc6be3d742af9bf8350ec3da05d0e769d1f7759d",
+    "fetched_at": "2026-10-31T04:36:02+00:00"
+   }
+  },
+  "0xb55fa1296E6ec55D0cE53d93B9237389f11764d4-1777575277609": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 56365.14533899998,
+    "position_pnl": -48993.88396100001,
+    "fees_paid": -157292.37109999987,
+    "taker_rebate": 96665.66159999999,
+    "maker_rebate": 8693.367700000003,
+    "reward_income": 0.0,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 157292.37109999987,
+   "observed_taker_rebate_rate_median": 0.4405219491225537,
+   "observed_tier": "Diamond",
+   "one_off_payments": [
+    {
+     "day_index_from_end": 5,
+     "rebate": 27270.599099999992,
+     "excess": 25263.862121964627,
+     "nearest_level_up_bonus": {
+      "tier": "Obsidian",
+      "usd": 25000.0
+     },
+     "matches_bonus": true
+    }
+   ],
+   "level_up_bonus_total": 25263.862121964627,
+   "economic_pnl_recurring": 31101.283217035354,
+   "pnl_at_tier": {
+    "None 0%": -40300.516261000004,
+    "Bronze 3%": -35581.74512800001,
+    "Silver 8%": -27717.126573000016,
+    "Gold 18%": -11987.889463000029,
+    "Platinum 32%": 10033.042490999956,
+    "Diamond 44%": 28908.127022999943,
+    "Obsidian 50%": 38345.66928899993
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0xb55fa1296e6ec55d0ce53d93b9237389f11764d4",
+   "name": "0xb55fa1296E6ec55D0cE53d93B9237389f11764d4-1777575277609",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xb55fa1296e6ec55d0ce53d93b9237389f11764d4&interval=all&fidelity=1d",
+    "body_sha256": "424868c80082c1f8e4b811bea4469e2ce00b7a53c32db841caf1e50174f2ac6a",
+    "fetched_at": "2026-10-31T04:38:22+00:00"
+   }
+  },
+  "GoodFallen": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 63058.656772999995,
+    "position_pnl": 20715.811873000006,
+    "fees_paid": -78211.63990000001,
+    "taker_rebate": 38839.74600000001,
+    "maker_rebate": 3503.098900000001,
+    "reward_income": 0.0,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 78211.63990000001,
+   "observed_taker_rebate_rate_median": 0.499827889096499,
+   "observed_tier": "Obsidian",
+   "one_off_payments": [],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 63058.656772999995,
+   "pnl_at_tier": {
+    "None 0%": 24218.910773000007,
+    "Bronze 3%": 26565.259970000006,
+    "Silver 8%": 30475.841965000007,
+    "Gold 18%": 38297.00595500001,
+    "Platinum 32%": 49246.63554100001,
+    "Diamond 44%": 58632.03232900001,
+    "Obsidian 50%": 63324.730723000015
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
+   "name": "GoodFallen",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6&interval=all&fidelity=1d",
+    "body_sha256": "6aa2ed8cdd559eb6c3704c0b5e2bd802e7548e965b73bb7ff65453f499000ebb",
+    "fetched_at": "2026-10-31T04:35:31+00:00"
+   }
+  },
+  "bosona": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 88325.030004,
+    "position_pnl": 77090.809404,
+    "fees_paid": -12306.284940000005,
+    "taker_rebate": 2241.5988000000007,
+    "maker_rebate": 8991.591099999998,
+    "reward_income": 1.0307000000002517,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 12306.284940000005,
+   "observed_taker_rebate_rate_median": 0.1799997810055121,
+   "observed_tier": "Gold",
+   "one_off_payments": [],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 88325.030004,
+   "pnl_at_tier": {
+    "None 0%": 86083.431204,
+    "Bronze 3%": 86452.6197522,
+    "Silver 8%": 87067.93399919999,
+    "Gold 18%": 88298.56249319999,
+    "Platinum 32%": 90021.4423848,
+    "Diamond 44%": 91498.1965776,
+    "Obsidian 50%": 92236.573674
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed",
+   "name": "bosona",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed&interval=all&fidelity=1d",
+    "body_sha256": "c32f6478d796ea32d46685201aed05eb5b100ea9c96a732a4d083ebf31c8a501",
+    "fetched_at": "2026-10-31T04:36:57+00:00"
+   }
+  },
+  "mo-money": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 84638.51689300005,
+    "position_pnl": 72244.91089300002,
+    "fees_paid": -14571.832469999994,
+    "taker_rebate": 2639.6086000000005,
+    "maker_rebate": 9752.766799999998,
+    "reward_income": 1.2305999999998676,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 14571.832469999994,
+   "observed_taker_rebate_rate_median": 0.17997955017802186,
+   "observed_tier": "Gold",
+   "one_off_payments": [],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 84638.51689300005,
+   "pnl_at_tier": {
+    "None 0%": 81998.90829300001,
+    "Bronze 3%": 82436.06326710002,
+    "Silver 8%": 83164.65489060001,
+    "Gold 18%": 84621.83813760002,
+    "Platinum 32%": 86661.89468340001,
+    "Diamond 44%": 88410.51457980002,
+    "Obsidian 50%": 89284.82452800001
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3",
+   "name": "mo-money",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x32ed2e546b187ca15e2841edc82b22c713cf8ec3&interval=all&fidelity=1d",
+    "body_sha256": "7577ebf955ff669c7f4751c47578a42390a13336aca304a487d1ed976a51afed",
+    "fetched_at": "2026-10-31T04:32:08+00:00"
+   }
+  },
+  "0xdbdd45150249e229eB4cA8aa48A30Dca21Faa5de-1757094771846": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 61711.50053900003,
+    "position_pnl": 55687.839038999984,
+    "fees_paid": -32404.61129999999,
+    "taker_rebate": 6023.661499999995,
+    "maker_rebate": 0.0,
+    "reward_income": 0.0,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 32404.61129999999,
+   "observed_taker_rebate_rate_median": 0.18011593034619555,
+   "observed_tier": "Gold",
+   "one_off_payments": [],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 61711.50053900003,
+   "pnl_at_tier": {
+    "None 0%": 55687.839038999984,
+    "Bronze 3%": 56659.97737799998,
+    "Silver 8%": 58280.20794299999,
+    "Gold 18%": 61520.66907299998,
+    "Platinum 32%": 66057.31465499998,
+    "Diamond 44%": 69945.86801099998,
+    "Obsidian 50%": 71890.14468899998
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0xdbdd45150249e229eb4ca8aa48a30dca21faa5de",
+   "name": "0xdbdd45150249e229eB4cA8aa48A30Dca21Faa5de-1757094771846",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xdbdd45150249e229eb4ca8aa48a30dca21faa5de&interval=all&fidelity=1d",
+    "body_sha256": "c2e721fa7911b3b209f2436a533cd040e1deb3c8bb611c78073ae0ef442be181",
+    "fetched_at": "2026-10-31T04:34:54+00:00"
+   }
+  },
+  "TommyLeePeeca": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 60278.852306999994,
+    "position_pnl": 27189.83670699998,
+    "fees_paid": -54511.60107999999,
+    "taker_rebate": 27384.7981,
+    "maker_rebate": 5702.7959,
+    "reward_income": 1.421599999999998,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 54511.60107999999,
+   "observed_taker_rebate_rate_median": 0.49999993825340383,
+   "observed_tier": "Obsidian",
+   "one_off_payments": [
+    {
+     "day_index_from_end": 13,
+     "rebate": 867.8433000000077,
+     "excess": 867.8433000000077,
+     "nearest_level_up_bonus": {
+      "tier": "Gold",
+      "usd": 250.0
+     },
+     "matches_bonus": false
+    }
+   ],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 60278.852306999994,
+   "pnl_at_tier": {
+    "None 0%": 32894.05420699998,
+    "Bronze 3%": 34529.40223939998,
+    "Silver 8%": 37254.98229339998,
+    "Gold 18%": 42706.14240139998,
+    "Platinum 32%": 50337.76655259998,
+    "Diamond 44%": 56879.15868219998,
+    "Obsidian 50%": 60149.854746999976
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2",
+   "name": "TommyLeePeeca",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2&interval=all&fidelity=1d",
+    "body_sha256": "c4b85bcacf3975e3c98056bfb791670b990030760c41a12b9363c3543c9ba5ea",
+    "fetched_at": "2026-10-31T04:32:57+00:00"
+   }
+  },
+  "almach": {
+   "days": 30,
+   "window": {
+    "economic_pnl": 72204.00980299996,
+    "position_pnl": 60898.965203,
+    "fees_paid": -13064.264410000003,
+    "taker_rebate": 2365.0053,
+    "maker_rebate": 8938.862000000001,
+    "reward_income": 1.1773000000002867,
+    "yield_income": 0.0,
+    "referral_income": 0.0
+   },
+   "taker_fees_paid": 13064.264410000003,
+   "observed_taker_rebate_rate_median": 0.17999963928502075,
+   "observed_tier": "Gold",
+   "one_off_payments": [],
+   "level_up_bonus_total": 0.0,
+   "economic_pnl_recurring": 72204.00980299996,
+   "pnl_at_tier": {
+    "None 0%": 69839.00450299999,
+    "Bronze 3%": 70230.93243529998,
+    "Silver 8%": 70884.14565579999,
+    "Gold 18%": 72190.5720968,
+    "Platinum 32%": 74019.56911419999,
+    "Diamond 44%": 75587.28084339999,
+    "Obsidian 50%": 76371.13670799999
+   },
+   "note": "pnl_at_tier = position PnL after fees + maker rebates + rewards + yield + tier rate x taker fees; level-up bonuses excluded.",
+   "wallet": "0x3725d52f3c252e8374999cc8617292ea2608ad88",
+   "name": "almach",
+   "source": {
+    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x3725d52f3c252e8374999cc8617292ea2608ad88&interval=all&fidelity=1d",
+    "body_sha256": "d991b96e6223d7fb8345c618162b44f1058862d5d455c1b3a6732940c53dc9de",
+    "fetched_at": "2026-10-31T04:37:34+00:00"
+   }
+  }
+ }
+}

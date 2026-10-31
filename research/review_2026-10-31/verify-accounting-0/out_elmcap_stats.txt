@@ -1,0 +1,5 @@
+recorded market_win_rate 0.7678571428571429
+market_win_rate coded 0.768 correct 0.768; resolved 56
+                                                                   cid        coded      correct  has_sell
+1   0x0a1a4f3a726c32d2c0f663ee973add0c7052481cd257025aa028b5c39828f7c8 -4943.771488 -1459.560668      True
+28  0x9cf563d7b55aa9aa876d5d7e55126347eee473f0ae56d799e325fdef2bf25297   795.402880   495.402880      True

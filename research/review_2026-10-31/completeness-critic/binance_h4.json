@@ -1,0 +1,401 @@
+{
+ "binance_seconds": 1036800,
+ "leadlag": {
+  "fit": {
+   "-6": 0.0024,
+   "-5": 0.002,
+   "-4": 0.0046,
+   "-3": 0.0055,
+   "-2": 0.0163,
+   "-1": 0.0118,
+   "0": 0.9415,
+   "1": 0.0363,
+   "2": 0.024,
+   "3": 0.0188,
+   "4": 0.0124,
+   "5": 0.0057,
+   "6": 0.0055
+  },
+  "test": {
+   "-6": 0.0028,
+   "-5": 0.0057,
+   "-4": 0.0084,
+   "-3": 0.0053,
+   "-2": 0.0071,
+   "-1": 0.0091,
+   "0": 0.9364,
+   "1": 0.0307,
+   "2": 0.0165,
+   "3": 0.0113,
+   "4": 0.0088,
+   "5": 0.0122,
+   "6": 0.006
+  }
+ },
+ "h4": {
+  "fit": {
+   "GF": {
+    "fills": 3454,
+    "kraken_L0": {
+     "auc": 0.5949
+    },
+    "kraken_L1": {
+     "auc": 0.6062
+    },
+    "kraken_L2": {
+     "auc": 0.5821,
+     "null_max": 0.5094,
+     "perm_p": 0.0099
+    },
+    "kraken_L3": {
+     "auc": 0.5518,
+     "null_max": 0.5142,
+     "perm_p": 0.0099
+    },
+    "kraken_L5": {
+     "auc": 0.5258,
+     "null_max": 0.5154,
+     "perm_p": 0.0099
+    },
+    "binance_L0": {
+     "auc": 0.5822
+    },
+    "binance_L1": {
+     "auc": 0.613
+    },
+    "binance_L2": {
+     "auc": 0.6144,
+     "null_max": 0.5156,
+     "perm_p": 0.0099
+    },
+    "binance_L3": {
+     "auc": 0.5703,
+     "null_max": 0.5174,
+     "perm_p": 0.0099
+    },
+    "binance_L5": {
+     "auc": 0.5159,
+     "null_max": 0.5193,
+     "perm_p": 0.0198
+    }
+   },
+   "XM": {
+    "fills": 929,
+    "kraken_L0": {
+     "auc": 0.6101
+    },
+    "kraken_L1": {
+     "auc": 0.6411
+    },
+    "kraken_L2": {
+     "auc": 0.6237,
+     "null_max": 0.5228,
+     "perm_p": 0.0099
+    },
+    "kraken_L3": {
+     "auc": 0.5741,
+     "null_max": 0.5237,
+     "perm_p": 0.0099
+    },
+    "kraken_L5": {
+     "auc": 0.5224,
+     "null_max": 0.5257,
+     "perm_p": 0.0198
+    },
+    "binance_L0": {
+     "auc": 0.606
+    },
+    "binance_L1": {
+     "auc": 0.6384
+    },
+    "binance_L2": {
+     "auc": 0.6454,
+     "null_max": 0.5332,
+     "perm_p": 0.0099
+    },
+    "binance_L3": {
+     "auc": 0.6116,
+     "null_max": 0.5384,
+     "perm_p": 0.0099
+    },
+    "binance_L5": {
+     "auc": 0.5132,
+     "null_max": 0.5356,
+     "perm_p": 0.1584
+    }
+   },
+   "DS": {
+    "fills": 6764,
+    "kraken_L0": {
+     "auc": 0.5784
+    },
+    "kraken_L1": {
+     "auc": 0.5866
+    },
+    "kraken_L2": {
+     "auc": 0.5749,
+     "null_max": 0.5135,
+     "perm_p": 0.0099
+    },
+    "kraken_L3": {
+     "auc": 0.5412,
+     "null_max": 0.5076,
+     "perm_p": 0.0099
+    },
+    "kraken_L5": {
+     "auc": 0.5203,
+     "null_max": 0.5102,
+     "perm_p": 0.0099
+    },
+    "binance_L0": {
+     "auc": 0.5791
+    },
+    "binance_L1": {
+     "auc": 0.6048
+    },
+    "binance_L2": {
+     "auc": 0.5955,
+     "null_max": 0.5133,
+     "perm_p": 0.0099
+    },
+    "binance_L3": {
+     "auc": 0.5489,
+     "null_max": 0.5182,
+     "perm_p": 0.0099
+    },
+    "binance_L5": {
+     "auc": 0.5165,
+     "null_max": 0.5136,
+     "perm_p": 0.0099
+    }
+   },
+   "mo-money": {
+    "fills": 614,
+    "kraken_L0": {
+     "auc": 0.5283
+    },
+    "kraken_L1": {
+     "auc": 0.5324
+    },
+    "kraken_L2": {
+     "auc": 0.5443,
+     "null_max": 0.5328,
+     "perm_p": 0.0099
+    },
+    "kraken_L3": {
+     "auc": 0.513,
+     "null_max": 0.5422,
+     "perm_p": 0.099
+    },
+    "kraken_L5": {
+     "auc": 0.4871,
+     "null_max": 0.531,
+     "perm_p": 0.8416
+    },
+    "binance_L0": {
+     "auc": 0.5019
+    },
+    "binance_L1": {
+     "auc": 0.529
+    },
+    "binance_L2": {
+     "auc": 0.5221,
+     "null_max": 0.5531,
+     "perm_p": 0.1188
+    },
+    "binance_L3": {
+     "auc": 0.5173,
+     "null_max": 0.557,
+     "perm_p": 0.1881
+    },
+    "binance_L5": {
+     "auc": 0.5181,
+     "null_max": 0.5717,
+     "perm_p": 0.2079
+    }
+   }
+  },
+  "test": {
+   "GF": {
+    "fills": 5104,
+    "kraken_L0": {
+     "auc": 0.5791
+    },
+    "kraken_L1": {
+     "auc": 0.5831
+    },
+    "kraken_L2": {
+     "auc": 0.5734,
+     "null_max": 0.513,
+     "perm_p": 0.0099
+    },
+    "kraken_L3": {
+     "auc": 0.5512,
+     "null_max": 0.5181,
+     "perm_p": 0.0099
+    },
+    "kraken_L5": {
+     "auc": 0.4992,
+     "null_max": 0.5125,
+     "perm_p": 0.703
+    },
+    "binance_L0": {
+     "auc": 0.5762
+    },
+    "binance_L1": {
+     "auc": 0.6061
+    },
+    "binance_L2": {
+     "auc": 0.6091,
+     "null_max": 0.5231,
+     "perm_p": 0.0099
+    },
+    "binance_L3": {
+     "auc": 0.5867,
+     "null_max": 0.5203,
+     "perm_p": 0.0099
+    },
+    "binance_L5": {
+     "auc": 0.52,
+     "null_max": 0.5202,
+     "perm_p": 0.0198
+    }
+   },
+   "XM": {
+    "fills": 1751,
+    "kraken_L0": {
+     "auc": 0.5832
+    },
+    "kraken_L1": {
+     "auc": 0.6132
+    },
+    "kraken_L2": {
+     "auc": 0.6027,
+     "null_max": 0.5316,
+     "perm_p": 0.0099
+    },
+    "kraken_L3": {
+     "auc": 0.5683,
+     "null_max": 0.5225,
+     "perm_p": 0.0099
+    },
+    "kraken_L5": {
+     "auc": 0.51,
+     "null_max": 0.5255,
+     "perm_p": 0.0495
+    },
+    "binance_L0": {
+     "auc": 0.5664
+    },
+    "binance_L1": {
+     "auc": 0.5958
+    },
+    "binance_L2": {
+     "auc": 0.6117,
+     "null_max": 0.5273,
+     "perm_p": 0.0099
+    },
+    "binance_L3": {
+     "auc": 0.5834,
+     "null_max": 0.5193,
+     "perm_p": 0.0099
+    },
+    "binance_L5": {
+     "auc": 0.5289,
+     "null_max": 0.5329,
+     "perm_p": 0.0198
+    }
+   },
+   "DS": {
+    "fills": 10233,
+    "kraken_L0": {
+     "auc": 0.5593
+    },
+    "kraken_L1": {
+     "auc": 0.5703
+    },
+    "kraken_L2": {
+     "auc": 0.5641,
+     "null_max": 0.5092,
+     "perm_p": 0.0099
+    },
+    "kraken_L3": {
+     "auc": 0.5432,
+     "null_max": 0.5062,
+     "perm_p": 0.0099
+    },
+    "kraken_L5": {
+     "auc": 0.5047,
+     "null_max": 0.5063,
+     "perm_p": 0.0396
+    },
+    "binance_L0": {
+     "auc": 0.5639
+    },
+    "binance_L1": {
+     "auc": 0.5817
+    },
+    "binance_L2": {
+     "auc": 0.5889,
+     "null_max": 0.5177,
+     "perm_p": 0.0099
+    },
+    "binance_L3": {
+     "auc": 0.5637,
+     "null_max": 0.5162,
+     "perm_p": 0.0099
+    },
+    "binance_L5": {
+     "auc": 0.5142,
+     "null_max": 0.5168,
+     "perm_p": 0.0297
+    }
+   },
+   "mo-money": {
+    "fills": 846,
+    "kraken_L0": {
+     "auc": 0.5074
+    },
+    "kraken_L1": {
+     "auc": 0.5453
+    },
+    "kraken_L2": {
+     "auc": 0.5574,
+     "null_max": 0.5565,
+     "perm_p": 0.0099
+    },
+    "kraken_L3": {
+     "auc": 0.5998,
+     "null_max": 0.5902,
+     "perm_p": 0.0099
+    },
+    "kraken_L5": {
+     "auc": 0.5553,
+     "null_max": 0.5596,
+     "perm_p": 0.0198
+    },
+    "binance_L0": {
+     "auc": 0.43
+    },
+    "binance_L1": {
+     "auc": 0.5058
+    },
+    "binance_L2": {
+     "auc": 0.5095,
+     "null_max": 0.5683,
+     "perm_p": 0.4158
+    },
+    "binance_L3": {
+     "auc": 0.5641,
+     "null_max": 0.5574,
+     "perm_p": 0.0099
+    },
+    "binance_L5": {
+     "auc": 0.5773,
+     "null_max": 0.5599,
+     "perm_p": 0.0099
+    }
+   }
+  }
+ }
+}

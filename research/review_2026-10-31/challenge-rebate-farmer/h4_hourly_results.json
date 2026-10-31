@@ -1,0 +1,184 @@
+{
+ "match": {
+  "lag_scan_auc_fit": {
+   "0": 0.5817616451498439,
+   "1": 0.5751935199828274,
+   "2": 0.5610244668461108,
+   "3": 0.5410649121939649,
+   "5": 0.49884743040383706,
+   "10": 0.4571404242576336,
+   "20": 0.41076748063235613,
+   "30": 0.39494641237826966,
+   "60": 0.3735026021702275
+  },
+  "chosen_latency_s": 0,
+  "theta": -0.05,
+  "fit": {
+   "prints": 13530,
+   "wallet_prints": 1022,
+   "auc": 0.5817616451498439
+  },
+  "test": {
+   "prints": 10287,
+   "wallet_prints": 973,
+   "auc": 0.5061358747598075,
+   "auc_null_mean": 0.47794908565739264,
+   "auc_null_p95": 0.5236412347663183,
+   "auc_perm_p": 0.19402985074626866,
+   "decision": {
+    "theta": -0.05,
+    "tp": 815,
+    "fp": 7475,
+    "fn": 158,
+    "tn": 1839,
+    "precision": 0.09831121833534379,
+    "recall": 0.8376156217882836,
+    "mcc": 0.02594025388823589,
+    "base_rate": 0.0945853990473413,
+    "lift": 1.0393910616810704
+   },
+   "mcc_null_p95": -0.010506551099638984,
+   "mcc_perm_p": 0.004975124378109453,
+   "wallet_mean_edge": 0.004540369800772423,
+   "others_mean_edge": 0.005584904804000725,
+   "share_wallet_prints_with_positive_edge": 0.5529290853031861,
+   "mannwhitney_p": 0.2640711199882364
+  },
+  "n_perm": 200
+ },
+ "bt": {
+  "2": {
+   "theta": 0.14,
+   "fit": {
+    "trades": 154,
+    "windows": 12,
+    "pnl": 557.8378071164562,
+    "return_on_traded": 0.30176801819383225,
+    "per_window_hac_t": 2.5669804565441723,
+    "per_window_p": 0.013095454082753748
+   },
+   "test": {
+    "trades": 182,
+    "windows": 12,
+    "usd_traded": 1632.1383490051492,
+    "pnl": -10.084458046048212,
+    "fees": 44.16328054387911,
+    "return_on_traded": -0.0061786784509996195,
+    "win_rate": 0.5,
+    "per_window_mean": -0.8403715038373486,
+    "per_window_hac_t": -0.018116940340068614,
+    "per_window_p": 0.5070649995450791,
+    "per_window_bootstrap_p": 0.4995001666111296,
+    "daily_sharpe_annual": -0.1473085590320425
+   },
+   "test_excl_wallet": {
+    "trades": 178,
+    "windows": 12,
+    "usd_traded": 1556.5195490051492,
+    "pnl": -4.607350245967723,
+    "fees": 42.46941942387911,
+    "return_on_traded": -0.0029600336525888895,
+    "win_rate": 0.4943820224719101,
+    "per_window_mean": -0.38394585383064356,
+    "per_window_hac_t": -0.008087327912022726,
+    "per_window_p": 0.503153937541691,
+    "per_window_bootstrap_p": 0.4931689436854382,
+    "daily_sharpe_annual": -0.06670004814955793
+   }
+  },
+  "5": {
+   "theta": 0.16,
+   "fit": {
+    "trades": 81,
+    "windows": 11,
+    "pnl": 243.38570370191877,
+    "return_on_traded": 0.27852854324456094,
+    "per_window_hac_t": 1.6701102047024339,
+    "per_window_p": 0.0629265295322753
+   },
+   "test": {
+    "trades": 117,
+    "windows": 13,
+    "usd_traded": 1001.9234810031476,
+    "pnl": -171.61951636508854,
+    "fees": 28.89136974196218,
+    "return_on_traded": -0.17129004322092478,
+    "win_rate": 0.37606837606837606,
+    "per_window_mean": -13.20150125885296,
+    "per_window_hac_t": -0.4185400310091069,
+    "per_window_p": 0.6585271748304247,
+    "per_window_bootstrap_p": 0.6487837387537487,
+    "daily_sharpe_annual": -3.165634394959925
+   },
+   "test_excl_wallet": {
+    "trades": 117,
+    "windows": 13,
+    "usd_traded": 1001.9234810031476,
+    "pnl": -171.61951636508854,
+    "fees": 28.89136974196218,
+    "return_on_traded": -0.17129004322092478,
+    "win_rate": 0.37606837606837606,
+    "per_window_mean": -13.20150125885296,
+    "per_window_hac_t": -0.4185400310091069,
+    "per_window_p": 0.6585271748304247,
+    "per_window_bootstrap_p": 0.6487837387537487,
+    "daily_sharpe_annual": -3.165634394959925
+   }
+  },
+  "30": {
+   "theta": 0.16,
+   "fit": {
+    "trades": 379,
+    "windows": 19,
+    "pnl": 962.9080440992698,
+    "return_on_traded": 0.2711116880141133,
+    "per_window_hac_t": 1.0304690995426635,
+    "per_window_p": 0.15821910301125997
+   },
+   "test": {
+    "trades": 303,
+    "windows": 19,
+    "usd_traded": 1948.5613830036561,
+    "pnl": -806.3716920774307,
+    "fees": 71.7227359315196,
+    "return_on_traded": -0.41382924813712046,
+    "win_rate": 0.31683168316831684,
+    "per_window_mean": -42.44061537249635,
+    "per_window_hac_t": -2.1092790354503395,
+    "per_window_p": 0.9754063302207114,
+    "per_window_bootstrap_p": 0.9753415528157281,
+    "daily_sharpe_annual": -18.758046674846526
+   },
+   "test_excl_wallet": {
+    "trades": 302,
+    "windows": 19,
+    "usd_traded": 1935.3613830040847,
+    "pnl": -792.7651320684477,
+    "fees": 71.316175922108,
+    "return_on_traded": -0.40962124129908534,
+    "win_rate": 0.31788079470198677,
+    "per_window_mean": -41.72448063518146,
+    "per_window_hac_t": -2.0645829915434257,
+    "per_window_p": 0.973161296532298,
+    "per_window_bootstrap_p": 0.9710096634455182,
+    "daily_sharpe_annual": -17.9824598910984
+   }
+  }
+ },
+ "wallet_replay_test": {
+  "trades": 973,
+  "usd_traded": 30661.289504067947,
+  "pnl": -1958.4550387396814,
+  "return_on_traded": -0.06387386409432799,
+  "per_window_hac_t": -1.537222317845498,
+  "per_window_p": 0.9307510409780317
+ },
+ "wallet_replay_fit": {
+  "trades": 1022,
+  "usd_traded": 36134.95140306924,
+  "pnl": 192.1375850347238,
+  "return_on_traded": 0.005317222732404283,
+  "per_window_hac_t": 0.08442347745560894,
+  "per_window_p": 0.4667416414373559
+ }
+}

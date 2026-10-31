@@ -1,0 +1,272 @@
+<title>Polymarket Strategy Ledger</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a research ledger - run facts, the elimination funnel, one dossier per deep-dived wallet, then the full 500-wallet register */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --ink: #131a22;
+  --muted: #586473;
+  --line: #d8dde4;
+  --accent: #23539f;
+  --pass: #1c7547; --pass-bg: #e2f1e8;
+  --fail: #ad2a20; --fail-bg: #f9e6e3;
+  --warn: #8f5600; --warn-bg: #f8ecd8;
+  --na: #6b7684; --na-bg: #e9edf1;
+  --bar: #c9d3df;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Public Sans", "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1419; --surface: #161c23; --ink: #e5e9ef; --muted: #98a3b1; --line: #29313b; --accent: #82aaf0;
+    --pass: #63c493; --pass-bg: #15291f; --fail: #f08b80; --fail-bg: #2f1a18; --warn: #e3ab55; --warn-bg: #2d2416;
+    --na: #8e99a7; --na-bg: #1e252e; --bar: #34404d; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1419; --surface: #161c23; --ink: #e5e9ef; --muted: #98a3b1; --line: #29313b; --accent: #82aaf0;
+  --pass: #63c493; --pass-bg: #15291f; --fail: #f08b80; --fail-bg: #2f1a18; --warn: #e3ab55; --warn-bg: #2d2416;
+  --na: #8e99a7; --na-bg: #1e252e; --bar: #34404d; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: 1.25rem; font-weight: 700; }
+h3 { font-size: 1.05rem; font-weight: 700; }
+p { margin: 0; max-width: 72ch; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, tr:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.eyebrow { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+header.top { display: grid; gap: 10px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--muted); font-size: 0.9rem; }
+.facts b { color: var(--ink); font-weight: 600; }
+section { display: grid; gap: 16px; }
+.section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+.funnel { display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; }
+.frow { display: grid; grid-template-columns: minmax(0, 17rem) 3.5rem minmax(0, 1fr); gap: 12px; align-items: center; font-size: 0.92rem; }
+.frow .n { font-family: var(--mono); text-align: right; font-weight: 500; }
+.frow .track { height: 12px; background: var(--na-bg); border-radius: 2px; overflow: hidden; }
+.frow .fill { height: 100%; background: var(--accent); min-width: 2px; }
+.frow.zero .fill { background: var(--fail); }
+.dossiers { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 16px; align-items: start; }
+.dossier { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.dossier .head { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+.dossier .who { display: grid; gap: 2px; min-width: 0; }
+.dossier .who h3 { overflow-wrap: anywhere; }
+.dossier > * { min-width: 0; }
+.dossier .addr { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); overflow-wrap: anywhere; }
+.pill { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; white-space: nowrap; }
+.pill.pass { color: var(--pass); background: var(--pass-bg); }
+.pill.reject { color: var(--fail); background: var(--fail-bg); }
+.pill.inconclusive, .pill.in_progress { color: var(--warn); background: var(--warn-bg); }
+.pill.archetype { color: var(--muted); background: var(--na-bg); text-transform: none; letter-spacing: 0; white-space: normal; }
+.headline { font-size: 0.93rem; }
+.checks { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.checks li { display: grid; grid-template-columns: 1.3rem minmax(0, 1fr); gap: 6px; font-size: 0.85rem; align-items: start; }
+.checks .mark { font-family: var(--mono); font-weight: 600; text-align: center; border-radius: 3px; font-size: 0.75rem; line-height: 1.35rem; height: 1.35rem; }
+.mark.pass { color: var(--pass); background: var(--pass-bg); }
+.mark.fail { color: var(--fail); background: var(--fail-bg); }
+.mark.partial { color: var(--warn); background: var(--warn-bg); }
+.mark.untested, .mark.na { color: var(--na); background: var(--na-bg); }
+.checks .lbl { font-weight: 600; }
+.checks .det { color: var(--muted); }
+.nums { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px 14px; margin: 0; }
+.nums div { display: grid; gap: 0; min-width: 0; }
+.nums dt { font-size: 0.72rem; color: var(--muted); }
+.nums dd { margin: 0; font-family: var(--mono); font-size: 0.85rem; overflow-wrap: anywhere; }
+.spark { width: 100%; height: 54px; display: block; }
+.spark path.line { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+.spark path.area { fill: var(--accent); opacity: 0.1; }
+.spark line.zero { stroke: var(--line); stroke-width: 1; }
+.spark circle { fill: var(--accent); }
+details.more summary { cursor: pointer; font-size: 0.85rem; color: var(--accent); }
+details.more ul { margin: 8px 0 0; padding-left: 18px; font-size: 0.85rem; color: var(--muted); display: grid; gap: 4px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.controls input, .controls select { font: inherit; font-size: 0.9rem; padding: 7px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--ink); }
+.controls input { min-width: 0; flex: 1 1 220px; }
+.tablebox { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; min-width: 1040px; font-size: 0.86rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; position: sticky; top: 0; background: var(--surface); cursor: pointer; user-select: none; white-space: nowrap; }
+td.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--bg); }
+tr.reasons td { background: var(--bg); color: var(--muted); cursor: default; }
+tr.reasons ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
+.reason1 { color: var(--muted); min-width: 28ch; max-width: 52ch; }
+.count { color: var(--muted); font-size: 0.85rem; }
+.method { display: grid; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; }
+.method ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 0.9rem; }
+.method code { font-family: var(--mono); font-size: 0.85em; }
+.method .mark { display: inline-block; min-width: 1.4em; padding: 0 4px; border-radius: 3px; font-family: var(--mono); font-weight: 600; text-align: center; }
+@media (max-width: 560px) {
+  .frow { grid-template-columns: minmax(0, 1fr) 3rem; }
+  .frow .track { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">polyrea research run</span>
+    <h1>Polymarket Strategy Ledger</h1>
+    <p>Every wallet in the top 500 of the monthly profit leaderboard, screened on its own on-chain PnL record and, where it survived, reverse engineered and tested against held-out data with no future information.</p>
+    <div class="facts" id="facts"></div>
+  </header>
+
+  <section aria-labelledby="funnel-h">
+    <div class="section-head"><h2 id="funnel-h">Elimination funnel</h2><span class="count">Each step keeps only wallets that passed every step above it</span></div>
+    <div class="funnel" id="funnel"></div>
+  </section>
+
+  <section aria-labelledby="dossier-h">
+    <div class="section-head"><h2 id="dossier-h">Deep-dive dossiers</h2><span class="count" id="dossier-count"></span></div>
+    <div class="dossiers" id="dossiers"></div>
+  </section>
+
+  <section aria-labelledby="register-h">
+    <div class="section-head"><h2 id="register-h">All screened wallets</h2><span class="count" id="reg-count"></span></div>
+    <div class="controls">
+      <label class="eyebrow" for="q">Search</label>
+      <input id="q" type="search" placeholder="Name or 0x address">
+      <label class="eyebrow" for="vf">Verdict</label>
+      <select id="vf"><option value="">All</option><option value="pass">Pass</option><option value="reject">Reject</option><option value="inconclusive">Inconclusive</option><option value="in_progress">In progress</option></select>
+      <label class="eyebrow" for="sf">Stage</label>
+      <select id="sf"><option value="">All</option><option value="A1">A1 screen</option><option value="A2">A2 capital</option><option value="C">Reverse engineered</option></select>
+    </div>
+    <div class="tablebox">
+      <table>
+        <thead><tr>
+          <th data-k="rank">Rank</th><th data-k="name">Wallet</th><th data-k="pnl_30d">PnL 30d</th><th data-k="median_month_pnl">Median month</th>
+          <th data-k="annual_sharpe">Sharpe</th><th data-k="share_positive_weeks">Weeks +</th><th data-k="p_holm_pre">p (Holm)</th>
+          <th data-k="stage">Stage</th><th data-k="verdict">Verdict</th><th>Main reason</th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="method-h">
+    <h2 id="method-h">How a wallet passes</h2>
+    <div class="method" id="method"></div>
+  </section>
+</div>
+
+<script id="ledger-data" type="application/json">__DATA__</script>
+<script>
+(function () {
+  const L = JSON.parse(document.getElementById("ledger-data").textContent);
+  const W = L.wallets;
+  const money = (x) => x == null ? "n/a" : (x < 0 ? "-$" : "$") + Math.abs(x).toLocaleString("en-US", { maximumFractionDigits: 0 });
+  const num = (x, d = 2) => x == null || !isFinite(x) ? "n/a" : Number(x).toFixed(d);
+  const pct = (x) => x == null ? "n/a" : Math.round(x * 100) + "%";
+  const pval = (x) => x == null ? "n/a" : (x < 0.001 ? x.toExponential(1) : x.toFixed(3));
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const short = (a) => a.slice(0, 6) + "..." + a.slice(-4);
+
+  const asOf = L.as_of ? new Date(L.as_of * 1000).toISOString().slice(0, 10) : "n/a";
+  const deep = W.filter((r) => r.deep_dive);
+  const passed = W.filter((r) => r.verdict === "pass");
+  document.getElementById("facts").innerHTML =
+    `<span>Data as of <b>${asOf}</b> (UTC)</span><span>Wallets screened <b>${W.length}</b></span>` +
+    `<span>Deep-dived <b>${deep.length}</b></span><span>Final pass <b>${passed.length}</b></span>` +
+    `<span>Generated <b>${new Date(L.generated_at * 1000).toISOString().slice(0, 16).replace("T", " ")}</b></span>`;
+
+  const top = L.funnel.length ? L.funnel[0].count : 1;
+  document.getElementById("funnel").innerHTML = L.funnel.map((f) =>
+    `<div class="frow${f.count === 0 ? " zero" : ""}"><span>${esc(f.label)}</span><span class="n">${f.count}</span>` +
+    `<span class="track" aria-hidden="true"><span class="fill" style="display:block;width:${(100 * f.count / top).toFixed(2)}%"></span></span></div>`).join("");
+
+  function spark(vals) {
+    if (!vals || vals.length < 2) return "";
+    const w = 300, h = 54, pad = 4;
+    const lo = Math.min(0, ...vals), hi = Math.max(0, ...vals), span = hi - lo || 1;
+    const x = (i) => pad + (i * (w - 2 * pad)) / (vals.length - 1);
+    const y = (v) => h - pad - ((v - lo) * (h - 2 * pad)) / span;
+    const pts = vals.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
+    const zero = y(0).toFixed(1);
+    return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" role="img" aria-label="Cumulative PnL, weekly, ending at ${money(vals[vals.length - 1])}">` +
+      `<line class="zero" x1="${pad}" x2="${w - pad}" y1="${zero}" y2="${zero}"></line>` +
+      `<path class="area" d="M${x(0)},${zero} L${pts.join(" L")} L${x(vals.length - 1)},${zero} Z"></path>` +
+      `<path class="line" d="M${pts.join(" L")}"></path>` +
+      `<circle cx="${x(vals.length - 1)}" cy="${y(vals[vals.length - 1])}" r="2.6"></circle></svg>`;
+  }
+
+  const crit = L.criteria;
+  const markChar = { pass: "✓", fail: "✕", partial: "◐", untested: "·", na: "–" };
+  document.getElementById("dossier-count").textContent = `${deep.length} wallets passed the stage A screen`;
+  document.getElementById("dossiers").innerHTML = deep.sort((a, b) => (a.rank || 0) - (b.rank || 0)).map((r) => {
+    const v = r.deep_dive;
+    const checks = crit.map((c) => {
+      const s = (v.criteria && v.criteria[c.key]) || { status: "untested", detail: "" };
+      return `<li><span class="mark ${esc(s.status)}" title="${esc(s.status)}">${markChar[s.status] || "·"}</span>` +
+        `<span><span class="lbl">${esc(c.label)}.</span> <span class="det">${esc(s.detail || "")}</span></span></li>`;
+    }).join("");
+    const nums = Object.entries(v.key_numbers || {}).map(([k, val]) => `<div><dt>${esc(k)}</dt><dd>${esc(val)}</dd></div>`).join("");
+    const reasons = (v.reasons || []).map((x) => `<li>${esc(x)}</li>`).join("");
+    return `<article class="dossier" id="w-${r.wallet}">
+      <div class="head"><div class="who"><span class="eyebrow">Rank ${r.rank}</span><h3>${esc(r.name)}</h3>
+        <a class="addr" href="https://polymarket.com/profile/${r.wallet}" target="_blank" rel="noopener">${r.wallet}</a></div>
+        <span class="pill ${esc(r.verdict)}">${esc(r.verdict)}</span></div>
+      <div><span class="pill archetype">${esc(r.archetype || v.archetype || "")}</span></div>
+      <p class="headline">${esc(v.headline || "")}</p>
+      ${spark(r.cumulative_weekly)}
+      <dl class="nums">${nums}</dl>
+      <ul class="checks">${checks}</ul>
+      ${reasons ? `<details class="more"><summary>Why this verdict</summary><ul>${reasons}</ul></details>` : ""}
+    </article>`;
+  }).join("");
+
+  let sortKey = "rank", sortDir = 1;
+  const q = document.getElementById("q"), vf = document.getElementById("vf"), sf = document.getElementById("sf");
+  const open = new Set();
+  function render() {
+    const term = q.value.trim().toLowerCase();
+    let rows = W.filter((r) => (!term || (r.name || "").toLowerCase().includes(term) || r.wallet.includes(term)) &&
+      (!vf.value || r.verdict === vf.value) && (!sf.value || r.stage === sf.value));
+    rows.sort((a, b) => {
+      const x = a[sortKey], y = b[sortKey];
+      if (x == null) return 1; if (y == null) return -1;
+      return (typeof x === "string" ? x.localeCompare(y) : x - y) * sortDir;
+    });
+    document.getElementById("reg-count").textContent = `${rows.length} of ${W.length} shown`;
+    document.getElementById("rows").innerHTML = rows.map((r) => {
+      const main = (r.reasons && r.reasons[0]) || "";
+      const row = `<tr tabindex="0" data-w="${r.wallet}"><td class="num">${r.rank}</td>` +
+        `<td><div>${esc(r.name)}</div><div class="mono" style="color:var(--muted);font-size:.75rem">${short(r.wallet)}</div></td>` +
+        `<td class="num">${money(r.pnl_30d)}</td><td class="num">${money(r.median_month_pnl)}</td><td class="num">${num(r.annual_sharpe, 1)}</td>` +
+        `<td class="num">${pct(r.share_positive_weeks)}</td><td class="num">${pval(r.p_holm_pre)}</td><td class="mono">${esc(r.stage)}</td>` +
+        `<td><span class="pill ${esc(r.verdict)}">${esc(r.verdict)}</span></td><td class="reason1">${esc(main)}</td></tr>`;
+      const det = open.has(r.wallet) ? `<tr class="reasons"><td></td><td colspan="9"><ul>${(r.reasons || []).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` +
+        `<div style="margin-top:6px"><a href="https://polymarket.com/profile/${r.wallet}" target="_blank" rel="noopener">Polymarket profile</a>${r.deep_dive ? ` · <a href="#w-${r.wallet}">Dossier</a>` : ""}</div></td></tr>` : "";
+      return row + det;
+    }).join("");
+  }
+  document.getElementById("rows").addEventListener("click", (e) => {
+    const tr = e.target.closest("tr[data-w]"); if (!tr || e.target.closest("a")) return;
+    const w = tr.dataset.w; open.has(w) ? open.delete(w) : open.add(w); render();
+  });
+  document.getElementById("rows").addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const tr = e.target.closest("tr[data-w]"); if (!tr) return; e.preventDefault();
+    const w = tr.dataset.w; open.has(w) ? open.delete(w) : open.add(w); render();
+  });
+  document.querySelectorAll("th[data-k]").forEach((th) => th.addEventListener("click", () => {
+    const k = th.dataset.k; sortDir = sortKey === k ? -sortDir : 1; sortKey = k; render();
+  }));
+  [q, vf, sf].forEach((el) => el.addEventListener("input", render));
+  render();
+
+  document.getElementById("method").innerHTML =
+    `<p>A wallet passes only if every criterion holds. The first three are judged from the wallet's own daily PnL, before any reverse engineering; the rest come from the reverse-engineering studies.</p>` +
+    `<ol>${crit.map((c) => `<li><b>${esc(c.label)}.</b> ${esc(c.rule)}</li>`).join("")}</ol>` +
+    `<p>Marks: <span class="mark pass">✓</span> pass, <span class="mark fail">✕</span> fail, <span class="mark partial">◐</span> partial (a significant association too small to call a match, or a criterion that passes as written but not on recurring profit), <span class="mark na">–</span> not assessed.</p>` +
+    `<p>No future data: every strategy decision at time <code>t</code> reads only records whose publication time is at or before <code>t</code>. Resolution outcomes are used only to settle positions. Fair-value code is audited by recomputing samples on data physically truncated at <code>t</code>.</p>`;
+})();
+</script>

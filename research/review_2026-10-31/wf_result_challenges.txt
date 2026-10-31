@@ -1,0 +1,929 @@
+[
+ {
+  "group": "btc5m-cluster",
+  "wallets": "GoodFallen 0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6, x-MoneyForWhiskas 0x3048d65321be3497164cdfc2996f94f98a2e7537, dangerously-skip-permissions 0xc53375ff94e96100f2b30a4b5775db35218d69a9",
+  "review": {
+   "overturned": true,
+   "criteria_rechecked": [
+    {
+     "criterion": "(1) Profit significant outside the ranking window (HAC Holm p<0.05, bootstrap p<0.01, deflated Sharpe>0.95)",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "I recomputed this from the cached user-pnl series (recheck_a1.py, as_of=1793318400) and every metric came out identical. GF: pre-selection 74 d, HAC t=4.86, Holm p=1.6e-3, bootstrap p=2.5e-4, DSR=1.0. XM: 111 d, t=8.18, Holm p=1.4e-10. DS: 74 d, t=6.14, Holm p=9.7e-6. All three have lb_series_inconsistent=true (for example GF leaderboard $100.5k vs series $63.1k). The methodology ignores the leaderboard figure, which is the conservative choice."
+    },
+    {
+     "criterion": "(2) Net profit > $50k/month (last 30 d and median 30-day block)",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "Identical on recompute. Last 30 d: $63,059 / $82,115 / $116,255. Median block: $62,212 / $93,219 / $90,095. Caveat: only 3 (GF, DS) or 4 (XM) complete 30-day blocks exist, not six, and GF's oldest block is $30.6k. XM made only $18.9k in the last 15 days, a pace of about $38k per 30 days."
+    },
+    {
+     "criterion": "(3) Constant returns (Sharpe>=3, >=75% positive weeks, >=80% positive blocks)",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "Recomputed identically. Annualized Sharpe 17.3 / 25.0 / 23.6. 100% of weeks and 100% of 30-day blocks are positive. Negative days: 11 / 7 / 7."
+    },
+    {
+     "criterion": "(4) >=10%/month on peak capital at risk",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "I re-ran load_window + capital_and_roc from cache and got exact matches. Peak capital $3,188 / $5,821 / $4,560, giving ROC of 1978% / 1411% / 2549% per month. Collateral for resting orders is not counted, but even a 10x larger capital base would still clear 10%."
+    },
+    {
+     "criterion": "(5) Fills verified on-chain",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "I re-ran verify_onchain from cached Polygon receipts and got exact matches: 150/150, 200/200 and 200/200 confirmed, maker share 33% / 40% / 35%, observed taker fee rate 2.7-3.3% of USDC."
+    },
+    {
+     "criterion": "(6) Reverse-engineered rule matches decisions on held-out data (perm p<0.01)",
+     "recorded_status": "fail",
+     "your_status": "disagree",
+     "detail": "The recorded tests reproduce exactly (repro_match.py). Spot-latency taker AUC is 0.556 / 0.525 / 0.565 against null 0.573 / 0.559 / 0.585 (p 0.95 / 0.97 / 0.985); the directional maker (fair - price) is also at chance, and stays at chance with the corrected strike (0.466 / 0.459 / 0.465, p 0.83-1.0). A NEW maker-side hypothesis does pass, using the project's exact design: lag fitted on FIT, AUC on TEST, spot-clock-shift null of 1-6 h with 200 draws. The score is the signed 2-second Kraken return toward the bought side, with spot L=1 s old. It predicts which passive BUY fills belong to the cluster: TEST AUC 0.583 / 0.613 / 0.570 vs null mean 0.500 (null max 0.517 / 0.515 / 0.511), perm p=0.005 for each wallet. The result holds at L=2 and L=3 (AUC 0.573/0.603/0.564 and 0.551/0.568/0.543, p<=0.0099 with 100 draws) and disappears by L=5 (0.499/0.510/0.505), a clean latency signature. It also holds inside every price bucket (0.56-0.66) and every time-in-window bucket (0.55-0.64), and it does not appear on the wallets' own taker buys (0.49-0.52), so it is specific to their quoting. A multivariate version (static price/time plus spot returns, refit under the null) gives the same answer over 250 draws with 0 exceedances, p=0.004, z=14 / 4.5 / 36. Effect size is modest: lift 1.4-2.2 and precision 0.6-2.1% at the FIT threshold. The taker side also shows a weak contrarian timing link (p 0.008 / 0.004 / 0.004 over 250 draws), but it adds only +0.001-0.005 AUC and GF's bootstrap CI includes 0, so I do not rely on it."
+    },
+    {
+     "criterion": "(7) That rule profitable in held-out PIT backtest (p<0.05)",
+     "recorded_status": "fail",
+     "your_status": "agree",
+     "detail": "I turned the matched rule into a strategy (h4_spotmom_maker.py): bid on a side only when the 2 s spot return toward it exceeds theta, at the tape anchor, with tick 0.001 and parameters chosen on FIT. Under strict trade-through fills it has 0/64 FIT configs positive and makes TEST +2.4% (1,607 fills), p=0.12, which fails. Under optimistic at-touch fills (first in queue) it makes TEST +2.3%, p=0.043 and bootstrap p=0.038, but the FIT best was only +1.2% (t=1.1) and just 4.7% of FIT configs were positive. One more second of latency turns it into -2.8% at-touch and -5.3% strict. The methodology requires a profit under strict fills, and roughly 11 TEST evaluations in this review would not survive multiplicity correction. Every other rule loses on TEST: recorded taker -2.3% and maker -15.6% (reproduced exactly); matched contrarian taker -2.9% / -0.4% / -2.5%; profit-tuned contrarian taker -9.7% (FIT +13.8%); tape-anchored maker -9.3% strict / -8.7% at-touch; corrected-strike taker -3.2% (FIT +14.2%); corrected-strike maker -16.1% / -15.8%. The wallets' own taker buys roughly break even after fees (+0.3% / -2.0% / -0.2%)."
+    },
+    {
+     "criterion": "(8) Replicable on a normal computer/connection",
+     "recorded_status": "fail",
+     "your_status": "agree",
+     "detail": "The only robust public-data decision link (spot-reactive quoting) pays only at about 1 s after Polymarket block time, which may be at or before the true match time, and it needs queue priority. It turns negative at +1 s. Rebate dependence: 30-day PnL at the 0% taker tier is $24.2k / $33.5k / $49.7k, and with no rebates at all $20.7k / $28.8k / $44.0k. I disagree with one part of the recorded reasoning, 'profit relies on cross-wallet self-trading'. In the sampled tapes, sibling makers fill only 0.50% / 0.42% / 0.15% of each wallet's taker USD. Direct cluster-vs-cluster fills are 11% of shared transactions in TEST (27% in FIT); most shared transactions are siblings quoting side by side as makers. 'Sub-second' is inferred, not measured, given ~2 s block timestamps."
+    },
+    {
+     "criterion": "(9) Conditions persist (GF, DS)",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "Recomputed identically. GF: recent p=9.5e-8, decline p=0.98, trend p=1.0. DS: recent p=1.7e-9, decline p=0.999. On a finer split, the last 15 d vs the prior 15 d shows no decline either (p 0.89 / 0.54). The CUSUM breaks (p~0.002) are upward. The rebate was still being paid through 2026-10-30 at an observed rate of 0.49-0.53."
+    },
+    {
+     "criterion": "(9) Conditions persist (x-MoneyForWhiskas)",
+     "recorded_status": "pass",
+     "your_status": "uncertain",
+     "detail": "The pre-registered test (last 30 d vs the earlier 111 d) passes: recent p=7.3e-5, decline p=0.40. It hides a collapse, though. Volume fell 84% from 2026-10-15 (about $250k/day down to about $30k/day). Last 15 d made $18.9k vs $63.2k in the prior 15 d (z=-4.4, p<1e-4), with a negative trend inside the last 30 d (z=-2.93, p=0.0017). Activity appears to have moved to DS, whose volume rose 43%."
+    }
+   ],
+   "new_hypotheses_tested": [
+    {
+     "hypothesis": "H1 contrarian tape/spot timing taker: the cluster's taker buys of a side follow recent moves against that side (implied price change, taker flow excluding cluster transactions, Kraken return), on top of a static price band and time-in-window preference",
+     "method": "PIT features from tape blocks <= t-2 s and Kraken seconds available by t-2. Logistic model fitted on FIT; TEST AUC compared with a static-only model (window-cluster bootstrap) and with a clock-shift null (features from a window 5 min-6 h away, model refit), 250 draws over two seeds. Backtests take min(print size, $25) at observed taker prints and pay fee 0.07*p*(1-p).",
+     "fit_result": "Univariate dside_60 AUC 0.42 and fx_20 AUC 0.43-0.44, but the static price/time model alone gives AUC 0.71 / 0.76 / 0.69. The profit-tuned variant (buy after a >=0.20 drop over 20 s, prices 0.3-0.7) made FIT +13.8% (p=0.0099), with 79% of 75 FIT configs positive.",
+     "held_out_result": "Full-model AUC 0.7127 / 0.7643 / 0.6911 vs static 0.7123 / 0.7601 / 0.6884. Gain +0.0003 (CI -0.0007 to 0.0013) / +0.0042 / +0.0027. Clock-shift perm p 0.008 / 0.004 / 0.004, precision 2.9% / 1.1% / 6.4%. Matched rule TEST -2.9% (p=0.92) / -0.4% (0.59) / -2.5% (0.88). Profit-tuned contrarian TEST -9.7% (p=0.88).",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H2 tape-anchored two-sided maker (no spot): bid both sides at the last implied tape price minus delta, requoted every R s with information L s old; optional 50/50 blend with spot fair",
+     "method": "Vectorized maker backtest with tick 0.001, strict trade-through and at-touch fills, rebates excluded, windows with no fills counted as zero. 108-config FIT grid over delta, R, stop and blend weight; TEST untouched. Decision-level association tested with a logistic model of fill price vs anchor plus dynamics against a clock-shift refit null (40 draws).",
+     "fit_result": "All 108 FIT configs lose under both fill models. Best: delta 0.08, R 10 s, stop 120 s, -3.5%.",
+     "held_out_result": "TEST strict -9.3% (2,002 fills, p~1.0) and at-touch -8.7%; +1/+3/+8 s latency gives -9.9% to -13.2%. Association model AUC 0.696 / 0.755 / 0.673 vs null max 0.656 / 0.711 / 0.630 (p=0.024 at 40 draws). That association is mostly where the wallet's fills sit relative to the stale tape price, not the delta-anchored rule.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H3 corrected public spot model: the strike is the Kraken 60-s TWAP over [start-60, start), because the market's priceToBeat is the Chainlink 60-s TWAP (equal to the previous window's finalPrice in 555/555 pairs). The recorded model used the last Kraken trade. Sigma scale fitted on FIT. Used for the latency taker and the directional maker.",
+     "method": "Brier score at 12 fixed times per window vs the market price. Project-style match tests: lag scan on FIT, TEST AUC vs spot-clock-shift null, 200 draws. Taker LA(theta, L) and maker DM(delta, R, stop) backtests with parameters from FIT.",
+     "fit_result": "Brier FIT 0.1306 (recorded model 0.159, market 0.125). Taker FIT best (L=1, theta=0.08) +14.2% with 24/24 configs positive. Maker FIT best +4.6% (t=0.6), only 7% of configs positive.",
+     "held_out_result": "Brier TEST 0.127 (recorded model 0.143, market 0.118). Taker match AUC 0.573 / 0.535 / 0.583 vs null 0.566 / 0.552 / 0.579 (p 0.27 / 0.83 / 0.40). Maker fair-minus-price match p 0.83-1.0. Taker TEST -3.2% (p=0.67), and -5.7% / -8.5% at +1 / +3 s. Maker TEST -16.1% strict, -15.8% at-touch.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H4 spot-reactive quoting (maker): the cluster's resting bids are filled right after BTC spot moves toward that side. Score = signed 2-s Kraken log return with spot L s old. Executable form: bid on a side only when that return exceeds theta, at the tape anchor minus delta.",
+     "method": "Match: project-style lag scan on FIT over passive BUY fills, TEST AUC vs spot-clock-shift null (200 draws), plus a multivariate version (250 draws), latency, price and time stratification, and the same score on taker buys. Backtest: vectorized maker with tick 0.001, R=1-2 s, L=1-2 s, 64-config FIT grid, strict and at-touch fills, rebates excluded.",
+     "fit_result": "Lag scan on FIT peaks at L=1 (AUC 0.606 / 0.641 / 0.587). Strict backtest: 0/64 FIT configs positive (best -0.1%). At-touch: best +1.2% (t=1.1), 4.7% of configs positive.",
+     "held_out_result": "Match TEST AUC 0.583 / 0.613 / 0.570 vs null mean 0.500 (max <=0.517), perm p=0.005 for each wallet. It holds at L=2 and L=3, is gone at L=5, holds inside every price and time bucket, and is absent on taker buys. Lift 1.4-2.2. Backtest TEST strict +2.4% (p=0.12). At-touch +2.3% (p=0.043, bootstrap 0.038), which flips to -2.8% at +1 s latency; the L=0 reference is +5.4%.",
+     "matches_wallet": true,
+     "profitable_held_out": false
+    }
+   ],
+   "errors_found_in_recorded_numbers": [
+    "The spot fair-value model has a misspecified strike. S0 is the last Kraken trade at window start, but the market's priceToBeat is the Chainlink 60-s TWAP at the start, which equals the previous window's finalPrice in 555/555 consecutive pairs. Using a Kraken 60-s TWAP strike improves TEST Brier from 0.143 to 0.127 (market 0.118) and removes most of the late-window error (rel 285 s: 0.098 vs 0.028 in FIT). The recorded taker/maker conclusions do not change.",
+    "The 'market Brier 0.170 vs spot model 0.218' figure in the verdicts cannot be reproduced from any saved evidence file. My fixed-time sample gives market 0.118 vs recorded model 0.143 on TEST. Same direction, different numbers.",
+    "The maker backtests use tick 0.01, but orderPriceMinTickSize is 0.001. Re-running the recorded directional maker with tick 0.001 gives -14.9% instead of -15.6% (7,580 vs 8,110 fills). The conclusion does not change.",
+    "'In sampled shared transactions about a quarter are the cluster's wallets filling against each other' holds in FIT (59/221 = 27%) but not in TEST (52/490 = 11%). 'Profit relies on cross-wallet self-trading' is overstated: sibling makers fill only 0.15-0.50% of each wallet's taker USD in the sampled tapes.",
+    "The maker-side 'no match / at chance' finding reflects the choice of score (fair - price). A 2-s spot-return score matches all three wallets' passive fills at perm p=0.005 (see H4).",
+    "The median-month criterion is described as the median of six 30-day blocks, but only 3 (GF, DS) or 4 (XM) blocks exist.",
+    "XM's persistence pass rests on a 30-day vs 111-day comparison that hides a significant decline after 2026-10-15: last 15 d vs prior 15 d z=-4.4, trend z=-2.93, volume -84%.",
+    "Reproducibility hazard: default_as_of() now returns 2026-10-31 (1793404800). The frozen as_of 1793318400 has to be passed explicitly. The HTTP cache path is relative to cwd unless POLYREA_CACHE_DIR is set."
+   ],
+   "concerns": [
+    "The match criterion has no effect-size floor. The maker spot-reactive score passes at p=0.005 with lift of only 1.4-2.2, and the taker contrarian timing passes at p 0.004-0.008 while adding just +0.001-0.005 AUC. The p<0.01 bar alone does not show that the rule reproduces the wallet's decisions.",
+    "Polymarket tape timestamps are ~2 s block times. L=1 s relative to block time may be at or after the true match time, so the H4 at-touch profit (+2.3%, p=0.043) may contain look-ahead. It vanishes at L=2.",
+    "There is a strong FIT/TEST regime divergence. The contrarian taker (FIT +13.8%) and corrected-strike taker (FIT +14.2%, 24/24 configs positive) both lose in TEST. Twelve 2-hour blocks per period is thin, and window outcomes are correlated.",
+    "I ran about 11 held-out backtests in this review. The single p=0.043 (H4 at-touch, an optimistic fill model) does not survive multiplicity correction.",
+    "The H1 clock-shift null combines two runs: seed 0 was OOM-killed after 100 draws (partial results saved), and seed 1 ran 150 draws. Windows without a valid shift target keep their true features, which only makes the null conservative.",
+    "XM looks like it is being wound down (or its flow moved to DS). Its forward profit is below $50k/month."
+   ],
+   "summary": "Formally, one criterion is overturned: criterion 6 (match). The final verdict for all three wallets is still reject, because criteria 7 and 8 still fail.\n\nRe-check (1-5, 9): all recorded numbers reproduce exactly from cache.\n- A1: Holm p 1.6e-3 / 1.4e-10 / 9.7e-6; last 30 d $63,059 / $82,115 / $116,255; Sharpe 17-25.\n- ROC 14-25x per month; on-chain 150/150, 200/200, 200/200.\n- Recorded match and backtests reproduced: AUC 0.556 / 0.525 / 0.565 with perm p 0.95-0.985; maker -15.6%; the wallets' taker replay is about break-even.\n- Persistence: GF and DS agree. XM's pass is uncertain: volume fell 84% from 2026-10-15 and the last 15 days are significantly down (z=-4.4).\n\nErrors in the recorded work:\n- The spot model's strike should be a 60-s TWAP (priceToBeat equals the previous window's finalPrice, 555/555). Correcting it improves Brier from 0.143 to 0.127 (market 0.118) but changes no conclusion.\n- The backtests use tick 0.01; the real tick is 0.001. Re-running gives -14.9% instead of -15.6%.\n- The self-trading claim is overstated: sibling fills are 0.15-0.5% of each wallet's taker USD.\n\nNew hypotheses, all fitted on FIT and evaluated on TEST:\n- **H1, contrarian taker:** the timing effect is tiny. The matched rule loses (-2.9% / -0.4% / -2.5%), and the profit-tuned version goes from FIT +13.8% to TEST -9.7%.\n- **H2, tape-anchored maker:** -9.3% strict and -8.7% at-touch on TEST.\n- **H3, corrected-strike spot taker and maker:** no match (p 0.27-0.83); taker -3.2%, maker -16%.\n- **H4, spot-reactive quoting:** the signed 2-s Kraken return toward a side predicts which passive fills are the cluster's.\n  - TEST AUC 0.583 / 0.613 / 0.570 vs a null mean of 0.500 (max 0.517), perm p=0.005 for each wallet.\n  - It holds at 1-3 s latency, is gone by 5 s, holds inside every price and time bucket, and does not appear on the wallets' taker buys.\n  - Under the project's own test design this passes criterion 6.\n  - Its executable form fails criterion 7: TEST +2.4% under strict fills (p=0.12). Under optimistic at-touch fills it is +2.3% (p=0.043), but that turns into -2.8% with one more second of latency, and FIT was not significant.\n\nReplicability: no for a normal computer and connection.\n- The only robust public-data link to the wallets' decisions pays only at about 1 s of block time with queue priority. That is a latency race.\n- The taker leg roughly breaks even before rebates.\n- At the 0% taker-rebate tier, 30-day PnL is $24.2k / $33.5k / $49.7k.\n\nCommands: `/home/user/PolymarketResearchAgent/.venv/bin/python <script>`. Run `load_data.py`, `recheck_a1.py` and `recheck_roc_chain.py` from the repo root with POLYREA_OFFLINE=1. Run `features.py` (which reads data.pkl) and the rest (`make_slim.py`, `h1_match.py`, `h1_null.py`, `h1_backtest.py`, `h2_maker.py`, `h2_match.py`, `h2_spot_null*.py`, `h3_twapstrike.py`, `h3_maker_match.py`, `h4_spotmom_maker.py`, `h4_match_robust.py`, `selftrade.py`, `tick_check.py`, `brier.py`, `repro_match.py`) from /tmp/claude-0/-home-user-PolymarketResearchAgent/fbff9ea9-e0dd-5fe1-93b9-0952feb8b6ba/scratchpad/wf/challenge-btc5m-cluster/. JSON outputs are in the same directory. No repository files were changed (git status is clean)."
+  }
+ },
+ {
+  "group": "crypto-maker-cluster",
+  "wallets": "bosona 0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed, almach 0x3725d52f3c252e8374999cc8617292ea2608ad88",
+  "review": {
+   "overturned": false,
+   "criteria_rechecked": [
+    {
+     "criterion": "(1) Profit significant outside the ranking window",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "Recomputed from the cached user-pnl with polyrea.workflows.screen.wallet_pnl_metrics; recheck_a1.py gives identical numbers. bosona: 119 pre-selection days, HAC t=10.56, p=4.7e-19, x500 bound 2.3e-16, bootstrap p=2.5e-4 (floor at 4000 draws), DSR 1.0. almach: 130 days, t=8.32, x500 bound 2.6e-11, bootstrap 2.5e-4, DSR 0.99999999999."
+    },
+    {
+     "criterion": "(2) Net profit > $50k/month",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "bosona last 30d $88,325, 30-day blocks [88.3k, 102.0k, 132.3k, 77.2k], median $95,161. almach $72,204, blocks [72.2k, 106.9k, 122.1k, 99.2k, 44.5k], median $99,225. Only 4 and 5 blocks exist, not six. Without maker rebates ($9.0k / $8.9k) both still clear $50k."
+    },
+    {
+     "criterion": "(3) Constant returns",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "Annualized Sharpe 20.2 / 16.8; positive weeks 100% / 86.4%; positive 30-day blocks 100% / 100%. Recomputed identically."
+    },
+    {
+     "criterion": "(4) >= 10%/month on peak capital",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "Pass is robust, but the 1,665% / 1,342% headline ignores collateral for resting orders. On-chain balances of the collateral token 0xc011a7e1... (eth_call, 2026-10-31) are $51,255 (bosona) and $47,766 (almach). Counting that cash as capital gives about 88.3k/56.6k = 156% and 72.2k/53.2k = 136% per month, still far above 10%."
+    },
+    {
+     "criterion": "(5) Fills verified on-chain",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "Re-decoded the same 200-group samples from cached receipts (onchain_fees.py): 200/200 confirmed for each wallet. Maker events 189/201 (94.0%) for bosona, 184/200 (92.0%) for almach; maker USDC share 93.3% / 87.9%. Maker fee 0; taker fee/notional 1.83% / 2.79%. The twin was never the counterparty."
+    },
+    {
+     "criterion": "(6) Reverse-engineered rule matches the wallet (perm p<0.01)",
+     "recorded_status": "fail",
+     "your_status": "uncertain",
+     "detail": "bosona: agree with fail. almach: weak borderline signature. The new H2 score is the signed Kraken move toward the bought side over 3 s with 1 s latency (chosen on FIT). It ranks almach's passive buys above 730,959 other makers' fills on 5m TEST: AUC 0.5505, within-window circular-shift p=0.0005 (2000 perms), spot-clock-shift p=0.002 (1000). It agrees across splits: 5m FIT 0.5385 (p=0.012/0.027), 15m FIT 0.622 (p=0.001), 15m TEST 0.572 (p=0.029/0.012). bosona is inconsistent: 5m FIT 0.494 (p=0.69); 5m TEST 0.538 (circular p=0.0035, spot-shift p=0.012); 15m TEST 0.537 (p=0.06-0.10). Effect size is tiny: only 6.4% of almach's TEST fills pass the 2 bps gate, vs 1.8% of others. almach 5m clears 0.01 after Holm over my 4 scores (0.008) but not over the 7 match hypotheses tried on this wallet (0.014), and 15m TEST misses 0.01. This is a feature correlation, not a rule that reproduces the wallet's decisions."
+    },
+    {
+     "criterion": "(7) Rule profitable in held-out PIT backtest (p<0.05)",
+     "recorded_status": "fail",
+     "your_status": "agree",
+     "detail": "All three new rule families were fitted on FIT and fail on TEST, using an exact maker-row fill model. H1 market-anchored deep bids: 5m -8.8% (p=1.0), 15m -12.2% (p=0.9995). H2 spot-lead bids: 5m -2.8% to -10.7% at realistic lag; best optimistic +2.5% (p=0.30). 15m +1.9-2.4% (p=0.32-0.37) at 1-2 s, -17% at 5 s. H3 tape-dip bids: -13% to -21% (p\u22481). The wallets' own 5m TEST fills reproduce exactly: +3.49% (p=0.203) and +1.39% (p=0.381)."
+    },
+    {
+     "criterion": "(8) Replicable on a normal computer/connection",
+     "recorded_status": "fail",
+     "your_status": "agree",
+     "detail": "No public-data maker survives realistic latency. H1 loses even with zero tape lag, 1 s requotes and first-in-queue fills (-2.8% to -7.0% on FIT); losses roughly double at 2 s lag. H2's small gain disappears by 3-5 s of spot latency. No self-trading: in the 6,524 shared transactions both wallets bought the same token (99.8%) from the same taker, and both are ~100% buyers. 'Queue priority and fast cancels' is an inference, since cancels are not public; an untested alternative is a better oracle feed (below)."
+    },
+    {
+     "criterion": "(9) Conditions persist",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "persistence_report recomputed identically. Recent 30d p=4.0e-4 / 0.0034; decline p=0.40 / 0.30; trend p=0.86 / 0.95. almach's CUSUM p=0.032 sits at an early break with a positive trend, so it is not a decline. TEST-period market metadata still shows feeSchedule {rate 0.07, takerOnly, rebateRate 0.2} and makerRebatesFeeShareBps 10000. At the 0% taker-rebate tier PnL is about $86k / $70k."
+    }
+   ],
+   "new_hypotheses_tested": [
+    {
+     "hypothesis": "H1 market-anchored deep-bid / sweep catcher: every R s rest bids on both sides at floor(last visible public trade - k)",
+     "method": "PIT: trade visible at ts+2 s. Exact fills from maker rows: a fill at a worse level means our better bid would have filled first; optional at-touch share. FIT grid over k (0.01-0.12), R (2/5), extra latency (0/2), stop (0/30): 48 configs, plus optimistic bounds (tape lag 0, R=1, queue share 1.0). Selected by FIT per-window t with at least 30 fills. TEST once on 288 5m and 96 15m windows; HAC t over windows plus stationary bootstrap. Match score: fill depth below the last visible trade; AUC vs within-window circular-shift null.",
+     "fit_result": "All 48 FIT configs lose 4.1-10.8%, t from -2.4 to -16.3. Optimistic bounds still lose 2.8-7.0%. 15m FIT loses 4.8-11.0%.",
+     "held_out_result": "5m TEST, k=0.12, R=5: -8.8% (p=1.0); at-touch -7.0%; zero lag -7.5% to -10%. 15m TEST: -12.2% (p=0.9995); zero lag -3.2% to -6.1%. Match: bosona AUC 0.519 (p=0.17), almach 0.484 (p=0.94).",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H2 spot-gated market-anchored maker. 'protect' pulls the bid on the side Kraken just moved against; 'lead' bids only on the side Kraken moved toward by at least theta bps over X s (a directional maker anchored to the market price, not the badly calibrated spot model).",
+     "method": "Spot available at t0 - L, L=1 s. FIT grid: k 0-0.03, X 2-10 s, theta 0.5-5 bps, both modes. Selected on FIT; TEST under tape lag 0/1/2, queue share 0/0.5/1 and spot latency 1-5 s. Match score: signed 3 s spot move toward the bought side at L=1. Nulls: within-window circular shift (2000 perms) and spot-clock shift of 1-6 h (1000 perms). Robustness over lookback 2-10 s and L 0-2. Replicated on 15m windows.",
+     "fit_result": "'protect' loses 4.8-8.8% in all configs. 'lead' best on 5m is k=0, X=3, theta=2: 189 fills, +6.3%, p=0.14. 15m best is k=0.01, X=3, theta=1: +5.8%, p=0.17.",
+     "held_out_result": "5m TEST backtest: -2.8% to -10.7% at 2 s tape lag (p 0.75-0.997); best optimistic +2.5% (p=0.30) on ~$2.5k bought. 15m TEST: +1.9% / +2.4% at 1-2 s (p=0.37/0.32), -4.2% / -17.4% at 3/5 s, best optimistic +5.1% (p=0.15). Match on 5m TEST: almach AUC 0.5505 (circular p=0.0005, spot-shift p=0.002); bosona 0.538 (p=0.0035 / 0.012). 15m TEST: almach 0.572 (p=0.029/0.012), bosona 0.537 (p=0.105/0.061). Fills passing the 2 bps gate: 6.4% / 7.3% of wallet fills vs 1.8% of others.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H3 tape-dip maker: bid on side s just below the last trade only after its public price fell by lo..hi over the last lb s (buy the overreaction, keyed to tape)",
+     "method": "FIT grid: k 0-0.03, lb 10/30/60 s, four drop bands: 36 configs. Selected on FIT; TEST under tape lag 0/2, queue 0/0.5/1, extra latency 0-5 s. Match score: minus the 30 s tape move; circular-shift null.",
+     "fit_result": "All 36 FIT configs lose; best t=-1.17 (k=0.03, lb=30, band -10c to -3c, -3.6%). The +4.5% earned by real makers' fills after dips is not available to a slow resting bid.",
+     "held_out_result": "TEST -11.0% to -21.2%, p\u22481.0, under every lag and queue assumption. Match: bosona AUC 0.513 (p=0.11), almach 0.530 (p=0.027).",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "Diagnostic, not a strategy: a FIT-fitted logistic blend of market last-trade and Kraken model as a better public fair value",
+     "method": "5 s grid per window with PIT values. Logistic regression of the outcome on logit(market), logit(model) and time-left interactions, fitted on FIT, scored on TEST by log loss and Brier.",
+     "fit_result": "Log loss: market 0.404, Kraken model 0.535, blend 0.4036. Weights: 1.01 on market, 0.034 on model.",
+     "held_out_result": "TEST log loss: market 0.384, model 0.467, blend 0.381. The repo's maker quoted from a fair value much worse than the tape; my market-anchored versions still lose, so the conclusion holds. Kraken also mis-resolves 8.0-9.7% of 5m and 1-4% of 15m windows.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    }
+   ],
+   "errors_found_in_recorded_numbers": [
+    "bosona match detail 'fixed-level bids: not its pattern and lose 45-81%': no evidence file or code backs it; there is no ladder code in polyrea/ and no such JSON under research/.",
+    "ROC 1,665% / 1,342% ignores resting-order collateral (a documented limitation). Current on-chain collateral is $51.3k / $47.8k, so cash-inclusive ROC is about 156% / 136% per month. The pass holds but the headline overstates capital efficiency about 10x.",
+    "'shares two-thirds of its markets with almach': 10,974 shared markets is 79.5% of bosona's 13,807 and 81.4% of almach's 13,487. Two-thirds (67.2%) is the Jaccard overlap. The 6,524 shared transactions and the 25% of (market, second) pairs (13,453 / 53,313) reproduce exactly.",
+    "Maker shares 94% / 92% are fill-count shares; USDC maker shares are 93.3% / 87.9%. API fees_paid of $12.3k / $13.1k in 30 days is 2-4x what the sampled taker share times the observed fee rate implies (~$3k / ~$8k). The 200-fill sample probably understates taker volume.",
+    "The maker backtests fill on taker-row prices, but the taker row is the sweep VWAP: in 96% of multi-level mint sweeps it lies strictly between the maker levels. Exact level prices are only in maker rows. My exact model reaches the same conclusion, so the verdict is unchanged.",
+    "The directional-maker backtests and the at-touch bound used the Kraken spot model as fair value, which is much worse calibrated than the market's own last trade (TEST log loss 0.467 vs 0.384). 'Every public-data maker loses' was first shown against a weak fair value; my market-anchored H1-H3 now support it properly."
+   ],
+   "concerns": [
+    "Criterion 6 for almach is borderline. A pre-specified FIT-chosen spot-lead score clears p<0.01 on 5m TEST (AUC 0.5505, spot-shift p=0.002, circular p=0.0005) and points the same way in FIT and 15m. It fails after correcting for all 7 match hypotheses tried on this wallet (Holm 0.014), misses 0.01 on 15m TEST (p=0.012), and covers only about 6% of fills. I did not count it as a pass. Even if counted, criteria 7 and 8 fail for the same rule, so the reject verdict stands.",
+    "The repo's match test missed this short-horizon spot-lead signature. It scored model-fair minus price at lags up to 20 s and chose 20 s for bosona 5m. The signature supports the recorded archetype (spot-informed directional maker) but does not make it replicable.",
+    "Untested family: a fair value from the actual resolution feed (Chainlink BTC/USD 60 s TWAP, available live via Polymarket's public real-time data socket). There is no public historical archive, so it cannot be backtested point-in-time here. It would need live forward recording.",
+    "Low power: the wallets' own fills in the 288 sampled 5m TEST windows are not significant (+3.49% p=0.20, +1.39% p=0.38). A rule matching their economics could miss p<0.05 on this sample. The replicas fail because they lose significantly, not for lack of power.",
+    "The tape has 1 s timestamps (block time), so sub-second quote and cancel behaviour, the likely source of the edge, cannot be observed or simulated. 'Queue priority / fast cancels' stays an inference.",
+    "Process: default_as_of() now returns 2026-10-31; I passed the frozen as_of=1793318400 explicitly so the cached blocks were used. The A1 recheck used the newer date, but the cached PnL series ends 2026-10-30, so results are identical.",
+    "Process: my first scripts accidentally wrote outputs into the repo root via relative paths (pickles, two JSONs, two .py files). I moved or deleted them immediately and git status is clean. A 15m load started from the scratch dir made a few uncached network fetches before I killed it. Using the tool also appended entries (on-chain receipts, a balance call) to the repo's .cache/http.sqlite."
+   ],
+   "summary": "No rejected criterion is overturned: bosona and almach stay rejected. I re-checked every criterion from the evidence files and recomputed most of them from cached data; they reproduce. That covers A1 significance, $50k/month, consistency, persistence and rebate dependence, the 200/200 on-chain confirmations (94% / 92% maker), the 6,524 shared transactions, and the wallets' own 5m TEST fills (+3.49% p=0.20, +1.39% p=0.38). Real errors: the 1,665% / 1,342% ROC ignores about $51k / $48k of on-chain collateral, so the cash-inclusive figure is about 156% / 136% (still a pass); 'two-thirds of markets shared' is really 79-81% per wallet; the 'fixed-level bids lose 45-81%' claim has no evidence file; the repo's maker backtests used a spot fair value far worse calibrated than the market (TEST log loss 0.467 vs 0.384); and the taker-row prices they fill on are sweep VWAPs. I tested three new public-data maker families on FIT, selected on FIT and ran TEST once, with an exact maker-row fill model: H1 market-anchored deep bids, H2 spot-gated bids anchored to the market price, and H3 tape-dip bids. All fail the held-out backtest. H1 loses even with zero tape lag and first-in-queue fills (-2.8% to -7% FIT; -8.8% / -12.2% TEST). H2 is at best +2.5-5% optimistic and insignificant (p >= 0.15), fading to -10% to -17% at 3-5 s latency. H3 loses 11-21%. H2's spot-lead score is the one partial match: almach 5m TEST AUC 0.5505, spot-shift p=0.002, consistent across FIT and 15m. But it misses p<0.01 after correcting for all hypotheses tried and on 15m TEST, covers about 6% of fills, and the same rule loses money, so criterion 6 for almach is uncertain rather than passed. bosona's version is inconsistent (FIT AUC 0.494). Replicability: any public-data maker with 1 s or more of staleness on a normal connection gets adversely selected, so criterion 8 fails. The untested route is a fair value from the Chainlink resolution feed (public live, no archive; Kraken mis-resolves 8-10% of 5m windows), which would need forward recording. Everything is in /tmp/claude-0/-home-user-PolymarketResearchAgent/fbff9ea9-e0dd-5fe1-93b9-0952feb8b6ba/scratchpad/wf/challenge-crypto-maker-cluster/: SUMMARY_all_results.json plus the scripts engine.py, h1_fit.py, h1_select_test.py, h2_fit.py, h2_lead_select_and_test.py, h3_dip.py, match.py, match_h2_precise.py, calib.py, oracle_proxy.py, recheck_a1.py, onchain_fees.py, twin_overlap.py and cash_check.py. Run them with cwd=/home/user/PolymarketResearchAgent so the repo cache is used. Repo git status is clean."
+  }
+ },
+ {
+  "group": "rebate-farmer",
+  "wallets": "0xb55f 0xb55fa1296e6ec55d0ce53d93b9237389f11764d4",
+  "review": {
+   "overturned": false,
+   "criteria_rechecked": [
+    {
+     "criterion": "(1) Profit significant outside the ranking window",
+     "recorded_status": "pass (pre-selection 152d HAC t=4.84, p=1.6e-6, Holm p=7.8e-4; bootstrap p=2.5e-4; deflated Sharpe 0.991)",
+     "your_status": "agree",
+     "detail": "I recomputed these from the cached v2/user-pnl series (182 days, 2026-05-02..2026-10-30) and got the same HAC t=4.84 and bootstrap p=2.5e-4. One small mismatch: screen.py computes the deflated Sharpe on the full 182-day history, ranking window included, while the criterion is stated as pre-selection. On pre-selection days only it is 0.981. It is 0.965 after also removing the three one-off taker-rebate lumps (2026-06-24, 07-09, 10-25). Every version clears 0.95."
+    },
+    {
+     "criterion": "(2) Net profit > $50k/month (last 30 days and median 30-day block)",
+     "recorded_status": "pass (last 30d $56,365; median block $78,075)",
+     "your_status": "uncertain",
+     "detail": "The recorded numbers reproduce exactly. But $25,266 of the last-30-day PnL is a single non-recurring taker-rebate payment on 2026-10-25: $27,271 against $4,555 of fees the day before. On normal days the rebate is 0.440 x the previous day's fees with very little spread. The size matches the $25,000 one-time Obsidian level-up bonus in docs.polymarket.com/programs/taker-rebates plus a 50% daily rebate. Without that bonus the last 30 days come to $31,099, which is below $50k. The median of six blocks ($78,075) still passes. So the rule passes as written, but the recurring monthly profit does not."
+    },
+    {
+     "criterion": "(3) Constant returns",
+     "recorded_status": "pass (annual Sharpe 7.46, 80.8% positive weeks, 100% positive 30d blocks)",
+     "your_status": "agree",
+     "detail": "Recomputed: Sharpe 7.46, positive weeks 0.808 (21/26), 6/6 positive 30-day blocks. Without the bonus lumps: Sharpe 7.35, and every block is still positive."
+    },
+    {
+     "criterion": "(4) >=10%/month on peak capital",
+     "recorded_status": "pass (peak capital $64.9k, 87%/month)",
+     "your_status": "agree",
+     "detail": "Rebuilt the ledger from cached activity (657,411 rows): peak $64,873 and ROC 0.869, both identical. The peak is a one-day spike on 2026-10-06; the p95 is $31.0k and most days sit at $15-30k. Even on the $31.1k recurring PnL the return is 48% of peak, so it still passes."
+    },
+    {
+     "criterion": "(5) Fills verified on-chain",
+     "recorded_status": "pass (200/200 confirmed, 30% maker)",
+     "your_status": "agree",
+     "detail": "Same 200 receipts reproduced. New check: on these markets the activity usdcSize equals price*size plus 0.07*p*(1-p)*size for taker fills, and exactly price*size for maker fills. That gives the role of all 466,950 fills: 157,962 maker (33.8% by count, 23.2% of USD) and 308,988 taker. These fee-inferred roles agree with the on-chain OrderFilled role on 200 of 200 sampled fills. No self-matching was found: 0 of 3,441 sampled taker orders filled against the wallet's own maker orders. Its taker counterparties are spread out, with the largest single maker at about 13%."
+    },
+    {
+     "criterion": "(6) Reverse-engineered rule matches decisions (perm p<0.01)",
+     "recorded_status": "fail (BTC 5m spot-latency taker AUC 0.483 p=0.99; directional maker AUC 0.498 p=0.97)",
+     "your_status": "agree",
+     "detail": "No new rule passes. BTC 15m spot taker: AUC 0.549, p=0.030. BTC 15m directional maker: AUC 0.528, p=0.83. Hourly BTC slow spot taker: AUC 0.506, p=0.19. Tape-anchored two-sided maker: AUC 0.573, p=0.14 on 15m and AUC 0.565, p=0.10 on 5m; both nulls shift the reference clock, and a biased label-shift null I tried first gave a spurious p=0.005 on 5m, which I discarded. Late-favourite taker: AUC 0.47 (p=0.66) on 15m and 0.42 (p=1.0) on 5m. A lag scan shows AUC rising when the model is fed Kraken spot from 1-10 s in the future (15m test 0.549 at lag 0 vs 0.577 at -10 s; 1h fit 0.582 vs 0.596). So the wallet's taker buys anticipate Kraken moves, which looks like a faster feed or a seconds-scale race that no t-L rule can reproduce."
+    },
+    {
+     "criterion": "(7) Rule profitable in held-out PIT backtest (p<0.05)",
+     "recorded_status": "fail (public maker -17.7%; fitted taker +2.6% p=0.34; own trading -$48.6k)",
+     "your_status": "agree",
+     "detail": "Every new rule loses or is not significant on TEST. BTC 15m spot taker: -17.6% (p=0.85). BTC 15m directional maker: -24.7% (p>0.99; -23.2% even with optimistic at-touch fills). Hourly slow taker: -0.6% (p=0.51) at L=2 s, -17% at 5 s, -41% at 30 s. Tape maker: -12.7% / -10.1%; widening the grid to delta 0.20 still gives -5.9% / -8.1% under strict fills and -8.1% / -8.9% at-touch. Late-favourite taker: HAC t up to 11, but that comes from a short-option payoff with almost no observed losses. An exact window-level binomial test against the breakeven loss rate gives p=0.49-0.92 on TEST. The wallet's own fills: settled PnL -$48,609 includes fees. Pre-fee it is +$108.3k: taker +$95.8k pre-fee and -$61.5k after $157.3k of fees, maker +$12.9k (daily HAC p=0.18). The maker fills plus maker rebate make $21.6k/month (p=0.07)."
+    },
+    {
+     "criterion": "(8) Replicable on a normal computer/connection",
+     "recorded_status": "fail (0% tier -$40.3k/month; Gold -$12.0k; Platinum +$10.0k)",
+     "your_status": "agree",
+     "detail": "The fail stands, but the tier reasoning should be corrected. The official tier table (docs.polymarket.com/programs/taker-rebates) is Gold 18% at $200k wV, Platinum 32% at $1M, Diamond 44% at $4M, Obsidian 50% at $10M. The wallet's steady rebate is exactly 44.0%, i.e. Diamond, not 'Obsidian 50%+'. Its estimated 30-day wV is $5.2M (crypto weight 2.3). A newcomer trading the same volume (~$172k wV a day) would reach Diamond in about 23 days, so the 'newcomer lacks the tier' argument only holds for the first month. Even so: 0% tier -$39.9k; Diamond 44% +$29.3k; Obsidian 50% +$38.7k; the ramp month about +$9k. All are below $50k/month, and only 2-3 s latency is realistic. On top of that, its taker edge anticipates Kraken by seconds."
+    },
+    {
+     "criterion": "(9) Conditions persist",
+     "recorded_status": "pass (last 30d p=0.034; decline p=0.09; trend p=0.53)",
+     "your_status": "disagree",
+     "detail": "The recorded statistics reproduce exactly, but the pass depends on the one-off $25.3k bonus on 2026-10-25. Without it: last 30 days HAC p=0.089 (fails the p<0.05 requirement) and mean decline p=0.0086 (a significant decline); trend p=0.39. Pre-fee trading PnL has also declined significantly (p=5.9e-6, already in persistence_a1_survivors.json under 'trade'). Pre-fee edge per dollar of volume fell from 2.58% to 1.33% across the six 30-day blocks, and 0%-tier PnL turned negative in the last two blocks (-$40.3k, -$32.1k) after four positive ones."
+    }
+   ],
+   "new_hypotheses_tested": [
+    {
+     "hypothesis": "H1: tape-anchored two-sided maker. Every 10 s, rest bids on Up and Down at (last public implied price known L s earlier) minus delta. No spot data needed.",
+     "method": "BTC 15m (96+96 windows) and BTC 5m (288+288 windows); cached FIT/TEST blocks from sample_blocks(seed 7/8). Match: population is all passive buy prints; score = -|price - implied_side(t-L) + delta|; L and delta chosen by FIT AUC; TEST AUC compared with 200 reference-clock shifts (+-60-600 s for 15m, +-30-240 s for 5m). Backtest: strict trade-through fills (polyrea tape_maker logic, vectorized copy checked equal to the repo on 15m: -$1,117.43 both), delta and latency fitted on FIT, plus an at-touch optimistic bound, queue 0.5 and +5 s latency. Maker fees are zero; rebates excluded (adding them is +$40-106).",
+     "fit_result": "15m: match L=30, delta=0.08, FIT AUC 0.548; backtest FIT best -4.5% (delta 0.08, 2 s). 5m: match L=2, delta=0.08, FIT AUC 0.559; backtest FIT -6.4%. Extended grid best on FIT: delta 0.20, -0.3% to +2.2%.",
+     "held_out_result": "Match fails. 15m TEST AUC 0.573 vs null mean 0.526, p=0.14. 5m TEST AUC 0.565 vs null mean 0.504, p=0.10. Backtest fails: 15m -12.7% (-$1,117, p>0.999); 5m -10.1% (-$2,385, p>0.999). Extended grid: 15m -5.9% strict / -8.1% at-touch; 5m -8.1% (p=0.99) / -8.9% (p=0.996). The wallet's own passive fills on the same TEST windows: -1.0% (15m) and -2.0% (5m).",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H2: late-window favourite taker. Buy any side whose print price is >= theta within the last T seconds, optionally only when Kraken spot fair value at t-2 s exceeds price plus fee by m. Fees are low at high prices.",
+     "method": "Taker-buy prints on cached BTC 15m and 5m FIT/TEST tapes. Grid over T (30-450 s), theta (0.6-0.97) and m (0-0.04), chosen on FIT by per-window HAC t. On TEST: buy min(print, $25) at the print price, pay 0.07*p*(1-p) per share, settle on resolution; the wallet's own prints are excluded. Match: AUC of a late-favourite score vs a circular within-window label-shift null. Tail risk: exact one-sided binomial test of losing windows against the breakeven loss rate.",
+     "fit_result": "15m: T=120 s, theta=0.97, FIT +1.47% on $22k, t=12.9, no losing windows. 5m: T=30 s, theta=0.95, +1.45%, t=2.6. Spot-filtered versions are similar on FIT.",
+     "held_out_result": "15m TEST +$325 on $23k (+1.4%), HAC t=11.2, but 1 losing window in 66 against a 1.4% breakeven loss rate gives binomial p=0.76. 5m TEST +$538 (+1.5%), binomial p=0.70. 5m spot-filtered: +0.08%, p=0.47. Match fails everywhere (TEST AUC 0.47 / 0.42 / 0.46, p=0.66-1.0): the wallet's taker buys are less late and less favourite-heavy than other takers'. Capacity is about $300-500 per sampled day.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H3: the spot-latency taker and directional-maker family, extended from BTC 5m to BTC 15m. BTC 15m is the wallet's largest family ($2.24M, 27% of volume; its taker fills there lost $22k after fees).",
+     "method": "The repo's own match_test (lag scan on FIT, theta by MCC, 200 spot-clock shifts of 1-6 h), backtest, maker_backtest and wallet_replay, run on cached BTC 15m FIT/TEST blocks.",
+     "fit_result": "Taker: chosen latency 0 s, theta 0.075, FIT AUC 0.524. Maker: latency 3 s, delta 0.08.",
+     "held_out_result": "Taker TEST AUC 0.549 vs null 0.473, perm p=0.030 (not below 0.01); the rule loses -17.6% (-$55k on $312k, p=0.85), and -17.7% at +2 s. The wallet's own 15m taker buys on TEST: +12.2% (p=0.051, 277 prints). Maker TEST AUC 0.528, p=0.83; backtest -24.7% (p=0.999), at-touch -23.2%. Lag diagnostic: AUC 0.577 when the model uses Kraken spot from 10 s in the future.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H4: slow spot-vs-open fair-value taker on BTC hourly markets, where latency should matter less. These resolve on the Binance BTC/USDT 1h candle; Kraken is the proxy. Hourly-or-daily is the wallet's best family after fees (+$12k in 30 days).",
+     "method": "Newly fetched taker tapes for the 23+23 BTC hourly windows inside the same FIT/TEST blocks (46 requests). Point close (twap=1). Lags scanned 0-60 s on FIT; theta fitted on FIT for L in {2, 5, 30} s; the repo's match_test (spot-clock shift) and backtest with fees.",
+     "fit_result": "FIT AUC falls steadily with lag: 0.582 at 0 s, 0.561 at 2 s, 0.499 at 5 s, 0.374 at 60 s. Backtest FIT: +30% (L=2, theta=0.14, p=0.013), +28% (L=5, p=0.063), +27% (L=30, p=0.16), each on only 11-19 windows.",
+     "held_out_result": "Match fails: TEST AUC 0.506 vs null 0.478, p=0.19. Backtest fails: L=2 -0.6% (p=0.51), L=5 -17.1% (p=0.66), L=30 -41.4% (p=0.975). The wallet's own hourly taker buys on TEST: -6.4% after fees (p=0.93).",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    }
+   ],
+   "errors_found_in_recorded_numbers": [
+    "The taker rebate rate '61% of fees' and the 'Obsidian 50%+' label are wrong. The daily taker rebate is 0.440 x the previous day's fees (median, tight spread), which is the Diamond tier (44%, $4M 30-day wV) in the official table. Estimated wV is $5.2M, below the $10M Obsidian threshold. The 61% average comes from a single $27,271 payment on 2026-10-25: about $25,266 above the normal rate, consistent with the $25,000 one-time Obsidian level-up bonus.",
+    "Last-30-day PnL $56,365 includes that one-off $25.3k bonus. Recurring 30-day PnL is $31,099, below the $50k threshold.",
+    "Persistence 'last 30 days significant (p=0.034)' depends on the bonus. Without it: p=0.089, and the mean decline becomes significant (p=0.0086 vs the recorded 0.09).",
+    "rebate_dependence.json lists only none / Gold 18% / Platinum 32% and leaves out the wallet's actual tier, Diamond 44% (+$29.3k/month). The docs' Obsidian tier is 50% (+$38.7k), not 'above 50%'.",
+    "Deflated Sharpe 0.991 is computed on the full 182-day history including the ranking window. The criterion says pre-selection; on those days it is 0.981. Pass either way.",
+    "The verdict text 'Settled market PnL -$48.6k ... Taker fees -$157.3k' reads as if fees were separate. In fact activity usdcSize includes the fee (checked on-chain: api_usdc = chain_usdc + fee), so -$48.6k is already after fees. Pre-fee trading was +$108.3k (user-pnl trade_pnl) and the fill-level fees sum to $157,253. The headline number itself is correct.",
+    "Families: BTC 15m is $2.24M (27% of volume), the largest family together with hourly-or-daily ($2.24M). The tested BTC 5m family is $0.83M (10%), as recorded."
+   ],
+   "concerns": [
+    "Only 12 two-hour blocks per period were sampled (96 windows for 15m, 23 for hourly), so results are noisy and outcomes within a window are correlated. The H2 HAC t of 11 shows how a per-window t-test can mislead for short-option payoffs; I used exact binomial tests for that rule.",
+    "My first null for H1 (moving the wallet's labels to the nearest print at circularly shifted times) is biased toward isolated prints and gave a spurious p=0.005 on 5m. I replaced it with a reference-clock shift (p=0.10). Shifted label nulls should not be used to declare a match.",
+    "Kraken is only a proxy for the resolution sources: Chainlink for 5m/15m, Binance BTC/USDT 1h candle for hourly. Binance and Bybit are geo-blocked from this host, so I could not test whether the wallet's apparent lead over Kraken (AUC rising with future spot) comes from Binance or Coinbase feeds.",
+    "I could not explain the earlier rebate lumps (2026-06-24 +$25.8k excess, 2026-07-09 +$41.0k excess). The docs describe level-up bonuses as one-time, so a second ~$25k on 10-25 is unexplained, but in every reading it is non-recurring.",
+    "Scale arithmetic for a newcomer assumes rebates apply going forward from each tier upgrade (as the docs say), constant volume, and that fills are not contested. Contested fills would make replication worse.",
+    "Ran many hypotheses and variants (4 families, 2-3 durations each). The best match p (0.030, BTC 15m spot taker) is not significant after any multiplicity correction and fails the pre-set 0.01 bar anyway."
+   ],
+   "summary": "The rejection stands; nothing is overturned. Criteria (1), (3), (4) and (5) reproduce from cached data. I classified the role of all 466,950 fills from the fee embedded in usdcSize, and those roles agree with the on-chain OrderFilled role on 200 of 200 sampled fills. Maker fills made +$12.9k, not significant (p=0.18). Taker fills were +$95.8k before fees and -$61.5k after $157.3k of fees, so settled PnL is -$48.6k after fees. Against the record: the steady taker rebate is the Diamond 44% tier, not 'Obsidian 50%+' / 61%. The 61% comes from a one-off $25.3k payment on 2026-10-25 that matches the $25,000 Obsidian level-up bonus. Without it the last 30 days are $31.1k (below $50k, so criterion 2 is uncertain), recent significance is p=0.089 and the mean decline is significant (p=0.0086), so criterion 9 should fail. Four new or extended hypotheses all fail on held-out TEST data. H1 tape-anchored two-sided maker: match p=0.14 (15m) / 0.10 (5m), backtest -6% to -13%. H2 late-favourite taker: match AUC 0.42-0.47, profit not significant once tail risk is tested (binomial p=0.49-0.92). H3 spot taker/maker on BTC 15m: best match p=0.030; rules lose -18% / -25%. H4 slow hourly spot taker: match p=0.19, backtest -0.6% to -41%. The wallet's taker buys line up better with future Kraken spot than past spot, which points to a faster feed or a seconds-scale race. Replicability still fails: a newcomer at equal volume reaches Diamond in about 23 days, but even then makes about $29k/month (about $39k at Obsidian), below $50k, and the pre-fee edge has fallen from 2.6% to 1.3% of volume. Scripts and outputs are in /tmp/claude-0/-home-user-PolymarketResearchAgent/fbff9ea9-e0dd-5fe1-93b9-0952feb8b6ba/scratchpad/wf/challenge-rebate-farmer/. Combined results are in SUMMARY_results.json; per-hypothesis files are h1_tapemaker_results.json, h2_favorite_results.json, h2_tail_check.json, h3_spot_btc15m_results.json, h4_hourly_results.json and lag_diagnostic.json; criterion re-checks are in recheck_a1_persistence.json, role_decomposition.json and counterparties.json; the Polymarket docs copies are in docs_dl/."
+  }
+ },
+ {
+  "group": "inplay-maker-RN1",
+  "wallets": "RN1 0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+  "review": {
+   "overturned": false,
+   "criteria_rechecked": [
+    {
+     "criterion": "(1) Profit significant outside ranking window",
+     "recorded_status": "pass (HAC t=8.8, Holm p=1.0e-14, bootstrap p=2.5e-4, DSR 1.000)",
+     "your_status": "agree",
+     "detail": "I recomputed this from the cached user-pnl series (recheck_a.py, as_of 1793318400). Over 447 pre-selection days: HAC t=8.76 (5 lags), project p=2.07e-17, stationary bootstrap p=2.5e-4, deflated Sharpe 1.0 over 500 trials."
+    },
+    {
+     "criterion": "(2) Net profit > $50k/month",
+     "recorded_status": "pass ($907,319 last 30 d; median month $1,152,105)",
+     "your_status": "agree",
+     "detail": "I get the same figures: $907,319 last 30 days and a $1,152,105 median over the last six 30-day blocks. With all incentives stripped out (economic PnL minus wallet income) the last 30 days are still $647,529. At a 0% taker-rebate tier the figure is $829,876."
+    },
+    {
+     "criterion": "(3) Constant returns",
+     "recorded_status": "pass (Sharpe 9.6, 94% positive weeks, 100% positive months)",
+     "your_status": "agree",
+     "detail": "Annualized daily Sharpe is 9.59 (9.50 before selection). 94.1% of 68 weeks are positive and all 15 30-day blocks are positive."
+    },
+    {
+     "criterion": "(4) >=10%/month on peak capital",
+     "recorded_status": "pass (peak capital $1.14M, 79%/month)",
+     "your_status": "agree",
+     "detail": "It passes, but 79% overstates the return. The ledger counts only the cost of open positions. On-chain, RN1's pUSD collateral balance (token 0xc011a7e1...) was $1.54M-$2.43M at 7 blocks sampled across the window, and $1.82M at the last fill before as_of. That cash backs resting orders. Total capital is about $2.7-3.6M, so the return is about 25-34% a month, still above 10%."
+    },
+    {
+     "criterion": "(5) Fills verified on-chain",
+     "recorded_status": "pass (200/200, 92% maker)",
+     "your_status": "agree",
+     "detail": "The original sample (seed 0) reproduces from cached receipts: 200/200 confirmed, maker share 0.923. A fresh sample (seed 7) confirmed 60/60, maker share 0.90 (CI 0.80-0.95), observed taker fee rate 2.5%."
+    },
+    {
+     "criterion": "(6) Reverse-engineered rule matches decisions (held-out permutation p<0.01)",
+     "recorded_status": "fail",
+     "your_status": "uncertain",
+     "detail": "One part of the behaviour now matches on held-out data using public data; the full decision rule still does not. Using ESPN soccer key events (not used by the project), the rule 'stay off the book for 120 s after a goal or red card at its ESPN wall-clock time' (D=0, W=120, fitted on 32 FIT games) was tested on 32 TEST games. In that window RN1 has 6.0% of its touch fills against 12.9% for other makers. The gap of 0.069 compares with a shifted-timeline null mean of 0.000 and 99th percentile of 0.041: permutation p=0.0005. RN1 is under-represented in 23 of 32 games, and leaving out any one game keeps the gap between 0.056 and 0.082. Scored on all touch fills, no public rule predicts which fills are RN1's: own-tape calm AUC 0.531 (p=0.59), sibling-market jumps 0.563 (p=0.115), both 0.584 (p=0.146), ESPN time-since-goal 0.547 (p=0.18). RN1 is already gone before the first public price jump (its share of touch fills falls to 1.8% in the 3 s before the jump and 0.2% in the 3 s after), and ESPN's timestamp comes a median 3.5 s after that jump. So the ESPN rule describes when RN1 is absent but cannot reproduce when it pulls out. I do not count this as a pass."
+    },
+    {
+     "criterion": "(7) Rule profitable in held-out PIT backtest (p<0.05)",
+     "recorded_status": "fail (-7.8% to -18.9%)",
+     "your_status": "agree",
+     "detail": "I rebuilt the 160-market sample with the same seed and ran the project's code. The naive maker on TEST under strict fills: -5.1% (0 s), -7.0% (2 s), -6.9% (5 s), -12.5% (30 s). I added the optimistic at-touch bound, which the methodology promises but the recorded study omits: -8.3% to -11.4%, p about 1.0, so the loss holds even in the best case. Each new hypothesis had its filter fitted on FIT and was tested on TEST: own-tape calm -15.5% strict / -7.8% at-touch (1 s latency, p 0.96-0.999); sibling-market calm -10.5% / -6.6%; ESPN goal pause -2.9% to -5.3% strict (p 0.67-0.82) and +0.7% to -0.5% at-touch (p 0.45-0.53). An idealized zero-latency maker always at the touch earns +2.7% on TEST, p=0.29, not significant. Adding maker rebates moves returns by only about +0.25%."
+    },
+    {
+     "criterion": "(8) Replicable on normal computer/connection",
+     "recorded_status": "fail",
+     "your_status": "agree",
+     "detail": "In-play sports markets carry a 1 s taker delay (secondsDelay=1 on 27,293 of 28,218 RN1 markets, $63.9M of $64.7M). RN1 cancels inside that window, before the public tape moves. Other makers' touch fills just before and after the first jump after a goal lose 15.0% (-10 to -3 s), 9.7% (-3 to 0 s) and 4.5% (0 to 3 s). ESPN soccer lags the tape (median -3.5 s; the tape moves first 65% of the time). Following other makers' cancellations on Polymarket's public book websocket would itself be a sub-second race, and no historical book data exists to backtest it."
+    },
+    {
+     "criterion": "(9) Conditions persist",
+     "recorded_status": "pass (p=0.0025, decline p=0.41)",
+     "your_status": "agree",
+     "detail": "Last 30 days HAC t=3.04 (p=0.0025), decline p=0.41, trend slope +$80/day. The CUSUM break is an increase, not a decline. Without incentives: last 30 days t=2.22 (p=0.017), decline p=0.25. The policies RN1 relies on (feeSchedule rate 0.05 with rebateRate 0.15, the 1 s taker delay, rewards) were still in market metadata at as_of."
+    }
+   ],
+   "new_hypotheses_tested": [
+    {
+     "hypothesis": "H-A: RN1 quotes at the touch only while the market's own public tape is calm (no move of 3/5/10c within 30 s for P seconds, 30 s range <= R); a replicator uses the same tape signal to pull quotes.",
+     "method": "Built a table of touch events (every taker order hitting resting bids at the best price, from the public taker and maker rows) in 160 RN1 markets, 42,644 events. Features use only prints before t-1 s. Match: logistic score fitted on FIT markets, AUC on TEST, null = rotating labels within each market (2000 times). Backtest: the project's 10 s re-quote maker (fair = last print at t-latency), with J, P, R and delta fitted on FIT by per-market t; TEST at 1, 2 and 5 s latency under strict and at-touch fills.",
+     "fit_result": "Best FIT filter J=3c, P=300 s, R=0.02, delta=0.005: +1.6%, t=0.31. Match score coefficients: calmer tape means more RN1.",
+     "held_out_result": "Match: TEST AUC 0.531 vs null mean 0.536 (p99 0.586), p=0.59. Single features with fixed sign: time since jump AUC 0.554 (p=0.36), 30 s range 0.567 (p=0.40). Backtest at 1 s latency: strict -15.5% (p=0.999), at-touch -7.8% (p=0.96). At 5 s: strict -16.9%, at-touch -10.7%.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H-B: use the public tapes of sibling markets in the same game (the two RN1 traded most) as an early event signal and pause quoting after a sibling jumps.",
+     "method": "Fetched taker tapes for 267 sibling markets. Same match test (AUC plus label rotation) and the same backtest (J and P fitted on FIT).",
+     "fit_result": "Every FIT setting lost money; best was J=5c, P=300 s, delta=0.005: -4.7%, t=-1.67.",
+     "held_out_result": "Match: sibling only AUC 0.563 vs null 0.534 (p99 0.584), p=0.115; with own-tape features 0.584 vs null 0.559, p=0.146. Backtest at 1 s latency: strict -10.5% (p=0.9998), at-touch -6.6% (p=0.98).",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H-C: RN1 withdraws quotes around soccer goals and red cards (soccer is about 45% of its volume). ESPN's soccer API publishes key events with wall-clock times, so a public maker can stand aside for W seconds after an event known at wall clock + D.",
+     "method": "Matched 64 of 70 sampled RN1 soccer games to ESPN (183 goals, 202 key events). Pulled taker and maker tapes for the top 3 RN1 markets per game (189 markets). Split FIT/TEST by kickoff (32/32 games). Match: share of touch fills inside the window, other makers minus RN1, with D and W fitted on FIT; null = shifting each game's event timeline by 5-40 min (2000 times). Also computed AUC over all touch fills. Backtest: re-quote maker pausing P s after events known at D = 0, 5, 10 or 30 s, with delta and P fitted on FIT.",
+     "fit_result": "Match: D=0, W=120, FIT gap 0.095. Backtest: FIT strict t was -2.5 to -2.7 at every D, best P=600 s.",
+     "held_out_result": "Match within the window: TEST gap 0.069 (RN1 6.0% vs others 12.9% of touch fills) vs null p99 0.041, p=0.0005; 23 of 32 games; leaving out any one game gives 0.056-0.082. Over all touch fills: AUC 0.547 vs null 0.528, p=0.18. RN1 is already absent before the first tape jump, and ESPN's wall clock trails that jump by a median 3.5 s. Backtest on TEST: strict -2.9% (D=0, p=0.67) to -5.3% (D=30, p=0.82); at-touch +0.7% (p=0.45) to -0.5% (p=0.53).",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    }
+   ],
+   "errors_found_in_recorded_numbers": [
+    "The match/verdict text says 'most volume is tennis/esports with no public event feed'. Tennis plus esports is $26.0M, 40% of $64.7M. Soccer is larger: $15.4M (24%) in named soccer families plus most of the $14.1M (22%) 'other' bucket (unl, bra, arg, por, elc, efl, mex and so on), about 45% in total. ESPN publishes soccer key events with wall-clock times (wallclockAvailable).",
+    "Monthly ROC of 79% counts only the cost of open positions ($1.14M peak). RN1 held $1.54M-$2.43M of pUSD collateral on-chain through the window, which backs resting orders. On total capital the return is about 25-34% a month. The criterion still passes.",
+    "The methodology says maker rules report an optimistic at-touch fill bound, but maker_replicability_study.json has only strict fills. Computed here, at-touch is also negative: -8.3% to -11.4% on TEST, p about 1.0.",
+    "maker_replicability_study.json records 140 sampled markets. Re-running the same seed (5) at the same as_of gives 160 resolved two-outcome markets, probably because some markets resolved later. The sign and size of the result are unchanged (strict -5% to -12.5%)."
+   ],
+   "concerns": [
+    "The backtest test cannot detect an edge as small as RN1's. Its per-market settled PnL over the 10,376 markets with at least 5 fills averages $58 with sd $3,595 (t=1.65). A random 70-80-market TEST sample shows p<0.05 for RN1's own fills only 6.4-6.7% of the time; 80% power would need about 23,600 markets. The recorded study's own replay of RN1's passive fills was p=0.30. The rejection is still sound because the imitators lose significantly (t -3 to -5), not merely fail to win.",
+    "The match test (6) has the same weakness. RN1 is about 6-7% of touch-level fills, and a quote-pulling rule acts only in short windows, so AUC over all fills is weak almost by construction. A window-specific statistic (as in H-C) is the more appropriate test.",
+    "Every replicator backtest, including the project's, quotes inside RN1's own first-to-last-fill window in markets chosen because RN1 traded them. That is mild look-ahead in market and window selection. It favours the replicator, so it does not weaken the rejection.",
+    "At-touch event-level PnL is an upper bound: it assumes the replicator is always at the current best price at zero latency and at the front of the queue. The truth lies between strict and at-touch, and both are negative or insignificant here.",
+    "Polymarket has no public historical order book. A replicator watching fast makers' cancellations on the public live book websocket cannot be backtested. Even if it worked, it is a sub-second race inside the 1 s taker delay, which criterion (8) excludes.",
+    "To avoid writing to the repo, I ran everything against a copy of .cache/http.sqlite in the scratchpad. Fetching about 1,000 new tape, sibling, ESPN and RPC requests worked within rate limits. ESPN soccer team matching used fuzzy names with kickoff within 30 minutes; 6 of 70 games did not match."
+   ],
+   "summary": "The rejection of RN1 (0x2005d16a...) stands: I could not show any rejected criterion passing.\n\n**Recorded criteria.** Criteria 1-5 and 9 hold up when recomputed from the cached data:\n- Significance: HAC t=8.76 before selection, bootstrap p=2.5e-4, deflated Sharpe 1.0.\n- Profit: $907k in the last 30 days, still $648k with all incentives removed.\n- Consistency: Sharpe 9.59, 94% positive weeks, all 15 30-day blocks positive.\n- On-chain: 200/200 fills confirmed, plus 60/60 in a fresh sample.\n- Persistence: last 30 days p=0.0025, no significant decline (p=0.41).\n- Return on capital passes but is overstated. RN1 holds $1.5-2.4M of pUSD cash on-chain, which the 79% figure leaves out; on total capital it is about 25-34% a month.\n\nCorrections to the record: soccer, not tennis/esports, is RN1's largest family (about 45% of volume) and ESPN does publish soccer event times. The optimistic at-touch bound the methodology promises was missing; I computed it and it also loses (-8% to -11%).\n\n**New hypotheses.** I tested three, each fitted on the older half of games or markets and tested on the newer half. Each got a decision-match test against a permutation null and a backtest under strict and at-touch fills:\n- **H-A, own price tape calm:** no match (p=0.59); loses 7.8-15.5% held out.\n- **H-B, sibling-market jumps as an early signal:** no match (p=0.12-0.15); loses 6.6-10.5%.\n- **H-C, ESPN soccer goals and red cards:** this found something real. RN1 is significantly absent from the book in the 120 s after ESPN-timed goals (held-out p=0.0005, 23 of 32 games). But its withdrawal starts before the first public price jump, and ESPN's timestamp comes a median 3.5 s after that jump. A maker pausing on ESPN events is not profitable: -2.9% to -5.3% strict, about 0% at-touch, p 0.45-0.82. Over all fills the rule does not predict RN1's decisions (AUC p=0.18), so I marked criterion 6 uncertain rather than passed.\n\n**Replicability.** It fails. Nearly all of RN1's volume is in markets with a 1-second delay on incoming orders. RN1 cancels within that window, before the public price moves, while other makers' fills around those moments lose 4.5-15%. Copying it would take a sub-second race or a private data feed.\n\n**Caveat.** The held-out backtest test is underpowered: RN1's own fills would pass it in only about 7% of 70-market samples. The rejection still holds because every imitator loses money significantly.\n\nEverything (scripts, JSON outputs, and the copied HTTP cache) is in /tmp/claude-0/-home-user-PolymarketResearchAgent/fbff9ea9-e0dd-5fe1-93b9-0952feb8b6ba/scratchpad/wf/challenge-inplay-maker-RN1/; results_summary.json there bundles all results. The repository itself is untouched."
+  }
+ },
+ {
+  "group": "inplay-maker-TommyLee",
+  "wallets": "TommyLeePeeca 0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2",
+  "review": {
+   "overturned": false,
+   "criteria_rechecked": [
+    {
+     "criterion": "(1) Profit significant outside the ranking window",
+     "recorded_status": "pass (HAC t=4.6, Holm p=3.1e-3, bootstrap p=2.5e-4, DSR 1.000)",
+     "your_status": "agree",
+     "detail": "Recomputed from the cached user-pnl series (sha a5a4ea48...): 106 pre-selection days, HAC t=4.586, p=6.3e-6; stationary bootstrap p=2.5e-4; Holm over all 500 stage_a1 p-values = 0.00308. Caveat: this profit came from an earlier TAKER strategy. The current maker strategy only started on 2026-10-16/17 (see criterion 5), so no pre-selection history exists for it."
+    },
+    {
+     "criterion": "(2) Net profit > $50k/month",
+     "recorded_status": "pass (last 30d $60,279; median block $58,068)",
+     "your_status": "agree",
+     "detail": "30-day blocks recomputed as [60,279; 55,856; 104,003; 44,717], median $58,068. Part of this (the 16 days before Oct 17) was a taker regime that was net-negative before rebates."
+    },
+    {
+     "criterion": "(3) Constant returns",
+     "recorded_status": "pass (Sharpe 12.3, 84% positive weeks, 100% positive months)",
+     "your_status": "agree",
+     "detail": "Recomputed: annualized Sharpe 12.27, positive weeks 84.2%, 4/4 complete 30-day blocks positive."
+    },
+    {
+     "criterion": "(4) >= 10%/month on peak capital",
+     "recorded_status": "pass (peak $9.6k, 629%/month)",
+     "your_status": "agree",
+     "detail": "capital_and_roc on the rebuilt ledger gives peak $9,577, p95 $8,865, ROC 6.29x. Collateral in resting orders is not counted, but even 10x the capital would still give about 63% a month."
+    },
+    {
+     "criterion": "(5) Fills verified on-chain",
+     "recorded_status": "pass (200/200, 87% maker)",
+     "your_status": "agree",
+     "detail": "Reproduced with the same seed: 200/200 confirmed, maker share 0.869, maker USDC share 0.479. The 87% figure blends two regimes. Split by date, the same sample has 0/25 maker fills before Oct 16 and 225/234 after. The 160-market tape sample agrees: 18 wallet maker fills in markets that started before 2026-10-16 23:34, against 12,619 after."
+    },
+    {
+     "criterion": "(6) Reverse-engineered rule matches decisions (permutation p<0.01)",
+     "recorded_status": "fail",
+     "your_status": "uncertain",
+     "detail": "One new tape-only score passes the permutation statistic on held-out data. H4 scores how far the bought outcome fell in the previous D seconds, using prints up to fill-2 s. On a pre-registered test (D=120 chosen on the first 40 maker-phase markets) over 60 fresh maker-phase markets I had never looked at: AUC 0.541, circular time-shift p=0.002 (500 draws, null 99th percentile 0.517). The score is specific to this wallet: the 8 largest other makers score AUC 0.43-0.49. But the effect is weak (precision 12.7% vs 10.6% base rate, lift 1.2), and the same rule loses money (criterion 7). It looks like a quoting-style fingerprint (bids stay pegged while the price falls, where other makers pull theirs), not the source of the edge. H1, H2, H3 and H5 all fail the match test (AUC 0.469 p=1.0; 0.501 p=0.42; 0.456 in the wrong direction; 0.535 p=0.02)."
+    },
+    {
+     "criterion": "(7) Rule profitable in held-out PIT backtest",
+     "recorded_status": "fail (-8.3% to -9.3%)",
+     "your_status": "agree",
+     "detail": "My vectorized re-implementation reproduces the recorded TEST L=2 result exactly (1,221 fills, $10,273 bought, -$869.78, -8.47%). The loss holds with the real 0.001 tick (the study used 0.01), requotes every 2/5/10 s, offsets of 0-2c, and at-touch (optimistic) fills: -3.0% to -6.2% on TEST, and -2.7% to -6.6% on 60 fresh markets, all with p>=0.97 against profit. Every new rule (H1-H6) fails on TEST."
+    },
+    {
+     "criterion": "(8) Replicable on a normal computer and connection",
+     "recorded_status": "fail (needs low-latency game data; ~$33k at 0% rebate tier)",
+     "your_status": "agree",
+     "detail": "I agree with the outcome but not with the rebate reason. Tape-only makers lose even at latency 0 and with optimistic fills, so the edge needs information the public tape does not carry. The markets have secondsDelay=1 (a 1 s taker delay), which rewards makers who can cancel within about 1 s of a round event. The $32.9k-at-0%-tier figure is correct for the blended window: $60,279 minus $27,384.80 of TAKER_REBATE rows. But it does not describe the current strategy. Over Oct 17-29 (13 days) the wallet made $43.7k economic PnL, including only $4.9k of taker rebate: $38.8k at a 0% tier, or about $89.5k per 30 days. Its daily PnL was positive on all 13 days (HAC p=0.0006). The old taker regime (Sep 30-Oct 15) netted -$6.1k after fees and was positive only through the $21.6k taker rebate."
+    },
+    {
+     "criterion": "(9) Conditions persist",
+     "recorded_status": "pass (recent p=0.013, decline p=0.48)",
+     "your_status": "agree",
+     "detail": "Recomputed: recent-30 HAC p=0.0128, decline p=0.476, trend p=0.83. Concern: the 'last 30 days vs earlier' comparison spans a strategy change. The old taker edge had decayed below fees inside the window (-$6.1k net over 16 days, p=0.68). The new maker strategy has only 13-14 days of history."
+    }
+   ],
+   "new_hypotheses_tested": [
+    {
+     "hypothesis": "H1 tape-momentum taker (and fade variant): buy outcome X at observed taker BUY prints when X's last-print price moved >= theta over Delta s ending ts-L",
+     "method": "160 markets from the recorded sample, split FIT 80 / TEST 80 by start time. Fee = shares*0.05*p*(1-p), cap $50 per print, wallet prints not purchasable, settled at resolution. Grid Delta {5,10,30,60} x theta {+-0.02..0.10} at L=2. Match test: AUC over all TEST taker BUY prints with a 300-draw circular time-shift null.",
+     "fit_result": "No setting significant. Best Delta=5, theta=0.10: +7.9%, per-market t=1.22. Fade variants lose 7-30% (t down to -3.0).",
+     "held_out_result": "TEST return -13.2% (L=1), -7.0% (L=2, p=0.76), +12.7% (L=5, p=0.17), +14.9% (L=10, p=0.13; event p=0.089), on 167-303 trades. Match AUC 0.469, perm p=1.0. The wallet's own TEST taker buys made +$9 on $67k after fees.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H2 favourite-side maker: rest bids only on the outcome whose fair (last print at t0-L) >= theta",
+     "method": "Strict trade-through fills (as in tape_maker.py), 0.001 tick, 20 shares per 10 s. Grid theta {0.55..0.85} x delta {0.005..0.05}, chosen on FIT at L=2. Match score = favourite-ness of the bought outcome, over all TEST maker BUY fills, with a time-shift null.",
+     "fit_result": "Best theta=0.85, delta=0.05: +8.6%, p=0.027 (4 of 20 grid points had p<0.05, so multiple-testing risk).",
+     "held_out_result": "TEST -6.0% to -11.3% at L 0-10, strict and at-touch, p 0.79-0.92. Match AUC 0.501, p=0.42.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H3 momentum-lean maker (bid only the side whose price just rose, i.e. the round winner); H3b lean (tight on favourite, wide on underdog)",
+     "method": "Same maker engine as H2. Grid over D {30,60,120}, theta, delta; H3b over delta_fav x delta_dog. FIT->TEST.",
+     "fit_result": "H3: nothing significant (best t=0.03). H3b: best +3.8%, p=0.17.",
+     "held_out_result": "H3 TEST -2.3% to -33%. H3b -6.7% to -6.9% (5.8k fills, event p=0.94). Momentum score match AUC 0.456, below the null (p_low=0.003): the wallet does the opposite.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H4 post-drop maker: bid only on the outcome whose last print fell >= theta over D s ending t0-L, at fair-delta",
+     "method": "Backtest params chosen on FIT (D=60, theta=0.05, delta=0.05), TEST at L {0,2,5,10}. Match score D chosen on the first 40 maker-phase markets, then confirmed on 60 fresh, never-inspected maker-phase markets with a 500-draw circular time-shift null. Specificity checked against the 8 largest other makers.",
+     "fit_result": "Backtest FIT +4.3%, p=0.28 (nothing p<0.05). Match: first-40 AUC 0.564 at D=120.",
+     "held_out_result": "Backtest TEST -4.1% to -10.6% (p 0.70-0.97). Fresh 60: -11% to +2.3% (p>=0.39). Match on fresh 60: AUC 0.541, perm p=0.002 (D=60: 0.546, p=0.002), lift 1.2. Other big makers score AUC 0.43-0.49. Caveat: the direction was first seen on the original TEST markets, so only the fresh-60 test is fully clean.",
+     "matches_wallet": true,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H5 between-rounds maker: quote both sides only while time since the last tape jump (round-end proxy, |dp|>=theta in 10 s) is within [a,b]",
+     "method": "Grid theta {0.03,0.05} x windows {[3,20]..[30,120]} x delta, requote 5 s, FIT->TEST. Match uses a likelihood-ratio score over time-since-jump bins, fitted on the first 40 maker-phase markets and tested on the last 40.",
+     "fit_result": "Every configuration loses. Best: -4.6%, p=0.99 for a loss.",
+     "held_out_result": "TEST -0.8% to -4.7% (p 0.67-0.98). Match AUC 0.535, perm p=0.020 (fails the 0.01 bar).",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H6 inventory-balancing two-sided maker (aimed at the maker-phase mechanism: locked pair spread)",
+     "method": "Sequential simulation: widen the side already held by k per 20-share excess, cap unmatched inventory, requote every 5 s, strict and at-touch fills. FIT grid delta x k x cap at L=2.",
+     "fit_result": "All 36 configurations lose -5.5% to -6.3%.",
+     "held_out_result": "TEST -4.3% to -6.8%, per-event t from -4.5 to -5.7. Pairs make up about 90% of fills, but pair cost is above 1, whereas the wallet's pair cost is 0.977.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    }
+   ],
+   "errors_found_in_recorded_numbers": [
+    "Mechanism mixes two regimes. The verdict says the locked spread (-$50k) and residual (+$137k) mean profit comes from 'leaning quotes toward the side that wins rounds'. per_market.csv splits it differently. Maker regime (499 markets first traded on or after Oct 17): locked +$55.3k at pair cost 0.977, residual -$22.2k, settled PnL +$33.1k, HAC p~0. Taker regime (574 markets before Oct 16): locked -$105.9k at pair cost 1.055, residual +$159.2k. So the current strategy earns the locked spread and loses on residual inventory, the opposite of the stated mechanism.",
+    "'87% maker' holds only after Oct 16. In the same 200-fill on-chain sample (seed 0), 0/25 fills before Oct 16 are maker and 225/234 after are. In the 160-market tape sample the wallet was a pure taker until 2026-10-14 and a maker from Oct 16-17 on.",
+    "Rebate dependence ('~$32.9k at 0% tier, relies on Obsidian') is right for the blended 30 days but wrong for the current strategy. Oct 17-29: $43.7k economic PnL, of which $4.9k taker rebate, so $38.8k at 0% tier (~$89.5k per 30 days). The rebate dependence belonged to the old taker regime: -$6.1k net of fees over 16 days, offset by a $21.6k rebate.",
+    "The maker study's FIT/TEST split (median start 2026-10-16 23:34) lands on the regime change. The FIT markets hold 18 wallet maker fills against 12,619 in TEST, so FIT could not inform any maker-decision match. The study also quoted on a 0.01 grid while the markets tick at 0.001 (rerun on 0.001: still -3.8% to -6.2%).",
+    "'No public timestamped CS2 round feed exists' overstates it. Polymarket's own gamma event exposes a live round score field (e.g. score '000-000|2-1|Bo3', live, period, gameId), and api.bo3.gg serves post-hoc round-by-round data (winner, round_duration, economy) for parsed matches. Neither offers historical wall-clock round timestamps, so the practical conclusion (no PIT backtest possible) stands.",
+    "'Wallet's own passive fills +1.9% (p=0.056)' is a noisy sample estimate. On 60 fresh maker-phase markets the wallet's maker buys returned -0.96% (p=0.79) at settlement, while all 499 maker-phase markets together are clearly positive."
+   ],
+   "concerns": [
+    "H4 technically meets the match criterion's statistic (AUC 0.541, p=0.002 on 60 fresh markets). I did not count it as an overturn: the effect is weak (lift 1.2), it looks like a quoting-style fingerprint, and the same rule loses money held out, so criteria 7 and 8 still fail. The orchestrator may weigh it differently.",
+    "The verdict and its persistence and significance checks treat the 30-day window as one strategy. In fact there was a taker strategy with a decayed edge (pre-Oct 16) and a new two-sided maker strategy (Oct 17 on, 13/13 positive days, about $89k per 30 days at 0% rebate tier). The maker strategy lacks the history needed for criteria 1-2 on its own, which strengthens rather than weakens the rejection.",
+    "Replicability with a live public feed is untested, not refuted. Polymarket's live score field and HLTV scorebot / bo3.gg live exist but have no history. A forward test could record the gamma 'score' field (or the sports websocket) against the tape during live CS2 matches (the next one starts 2026-10-31 08:00 UTC) to measure whether public round scores lead or lag price jumps. With a 1 s taker delay, a maker that avoids adverse selection probably needs a sub-second to ~1 s game feed. Public scoreboards are usually seconds behind.",
+    "Sample sizes: 80 FIT, 80 TEST and 60 fresh markets, with map and match markets of one series clustered by event (54-71 events per half). Per-market settlement PnL is noisy, which is why the wallet's own maker buys swing from +1.9% to -1.0% between samples.",
+    "The quoting window (wallet's first to last trade per market) follows the original study and uses the wallet's activity span. This is a mild look-ahead that applies equally to all simulated rules.",
+    "New fetches (tapes for 60 fresh markets) were written to the repo's .cache/http.sqlite by the project's HTTP adapter. No tracked file changed (git status clean). The bo3.gg, HLTV, PandaScore, Liquipedia and gamma probes used curl into the scratch dir. HLTV is Cloudflare-blocked (403), PandaScore needs a token, Liquipedia returned 429."
+   ],
+   "summary": "The rejection of TommyLeePeeca (0x0063b23c...) stands; not overturned. Criteria 7 (backtest) and 8 (replicable) clearly still fail. Criterion 6 (match) is uncertain: one new tape-only score passes its permutation statistic, but the rule behind it loses money.\n\nWhat I checked:\n- I reproduced the recorded numbers: user-pnl HAC p=6.3e-6, Holm p=0.00308, Sharpe 12.27, peak capital $9,577 (629%/month), on-chain 200/200 with 86.9% maker, rebate rows $27,384.80 taker and $5,702.80 maker.\n- My independent maker simulator reproduces the recorded TEST loss exactly (-8.47% at L=2).\n\nMain new finding: the wallet changed strategy inside the window.\n- Until Oct 15 it was a pure taker (0/25 sampled on-chain fills maker). That edge had decayed to -$6.1k net of fees over 16 days, positive only because of a $21.6k taker rebate.\n- From Oct 16-17 it became a two-sided CS2 maker. On 499 markets it locked +$55.3k at pair cost 0.977 and lost $22.2k on residual inventory. Over 13 days it made $43.7k, positive every day, about $89.5k per 30 days with a 0% taker-rebate tier.\n- So the recorded mechanism ('leaning toward round winners') and the rebate-tier reason are wrong for the current strategy. The project's own criteria still reject it, because the maker strategy has only about 2 weeks of history and cannot be replicated from public data.\n\nSix new public-data hypotheses (fit on FIT, evaluated on TEST and on 60 fresh markets):\n- None of the six rules is profitable on held-out markets (H1 taker momentum / fade; H2 favourite-only maker; H3 momentum-lean / favourite-tight maker; H4 post-drop maker; H5 between-rounds window maker; H6 inventory-balancing maker).\n- The symmetric maker loses 2.7-6.6% even at latency 0 with at-touch fills, the real 0.001 tick and 2 s requotes.\n- Only H4 matches the wallet's maker fills (fresh-60 AUC 0.541, p=0.002, specific to this wallet), but with lift 1.2 and a losing rule.\n\nReplicability: the edge needs game-state information faster than the public tape, and the markets' 1 s taker delay rewards makers who cancel within about a second. Public live scores (Polymarket's own score field, HLTV scorebot, bo3.gg) exist but have no history, so a PIT test is impossible. Replication on a normal connection is undemonstrated and unlikely.\n\nScripts and JSON outputs are in /tmp/claude-0/-home-user-PolymarketResearchAgent/fbff9ea9-e0dd-5fe1-93b9-0952feb8b6ba/scratchpad/wf/challenge-inplay-maker-TommyLee/: validate_makerbt.py, pnl_split.py, phase_economics.json, recheck_ab.py, h1_momentum_taker.json, h2h3_maker.json, h4_postjump.json, h4_specificity.json, h5_window_maker.json, h6_inventory_maker.json, sym_fast.csv, confirm_fresh60.json. All were run as `.venv/bin/python <script>` from the repo root."
+  }
+ },
+ {
+  "group": "inplay-taker-justaluckydude",
+  "wallets": "justaluckydude 0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705",
+  "review": {
+   "overturned": false,
+   "criteria_rechecked": [
+    {
+     "criterion": "(1) Profit significant outside ranking window",
+     "recorded_status": "pass (HAC t=4.8, Holm p=8.1e-4, bootstrap p=2.5e-4, DSR 0.975)",
+     "your_status": "agree",
+     "detail": "Recomputed from cached v2/user-pnl (186 days, 156 pre-selection): my own Newey-West t=4.82 (normal p=7.0e-7, repo t-dist p=1.66e-6), repo bootstrap p=2.5e-4. Independent Bailey/Lopez de Prado DSR = 0.97478 (SR/day 0.377, SR0 0.224, skew -0.06, kurt 3.94), same as recorded. Script: recheck_a1.py plus an inline DSR check."
+    },
+    {
+     "criterion": "(2) Net profit > $50k/month",
+     "recorded_status": "pass ($138,804 last 30d; median block $207,103)",
+     "your_status": "agree",
+     "detail": "30-day blocks, newest first: 138,804 / 174,150 / 117,337 / 240,057 / 354,287 / 520,977. One omission: $25,593 of the last 30 days is taker rebate (fees paid $50,747, observed rebate rate 50.4%). Without it the month is $113,211, still above $50k. rebate_dependence.json has no entry for this wallet."
+    },
+    {
+     "criterion": "(3) Constant returns",
+     "recorded_status": "pass (Sharpe 7.2, 81% positive weeks, 100% positive months)",
+     "your_status": "agree",
+     "detail": "Recomputed: annualized Sharpe 7.206, positive weeks 0.808 (26 weeks), all six 30-day blocks positive."
+    },
+    {
+     "criterion": "(4) >=10%/month on peak capital",
+     "recorded_status": "pass (peak $507k, 27%)",
+     "your_status": "agree",
+     "detail": "capital_and_roc on the replayed ledger gives peak $506,910, 30-day PnL $138,804, ROC 27.4%. Without the taker rebate it is 22.3%."
+    },
+    {
+     "criterion": "(5) Fills verified on-chain",
+     "recorded_status": "pass (200/200, 0% maker)",
+     "your_status": "agree",
+     "detail": "Fresh random sample with a different seed (seed 12345): 25/25 fills confirmed against Polygon receipts, 0% maker, taker fee 0.686% of notional. Matches the recorded result."
+    },
+    {
+     "criterion": "(6) Rule matches wallet decisions on held-out data",
+     "recorded_status": "fail (direction 95% vs 62%, perm p=0.005, but ~30% of fills)",
+     "your_status": "uncertain",
+     "detail": "Re-ran run_sports_study (seed 11, 200 games, cached) and got the recorded numbers exactly. Read literally, the methodology passes a match at permutation p<0.01, and both REACT's direction test (p=0.005) and my new WP-REACT rule pass that bar. WP-REACT: TEST AUC 0.648 against a null 95th percentile of 0.510, p=0.005; direction 89% against a null 95th percentile of 56%; it covers 51% of team-side buys in games with ESPN win probability and 36% of all wallet buys, versus REACT's 30%. So the recorded 'fail' is a coverage judgment that is stricter than the written rule. It does not change the verdict, because (7), (8) and (9) fail anyway. Caveat: REACT's 'excess reactive share' is actually negative on TEST (-0.006; wallet 29.9% vs other takers 30.5%), so its 'excess_perm_p=0.005' does not mean the wallet is more reactive than other takers."
+    },
+    {
+     "criterion": "(7) Rule profitable in held-out PIT backtest",
+     "recorded_status": "fail (REACT +3.8%, p=0.21)",
+     "your_status": "agree",
+     "detail": "REACT reproduced: +3.8% on $1.26M, per-game p=0.21. The best-matching rule, WP-REACT (D=0, W=30 s, dWP>=0.02), made +3.2% on $1.66M over 68 TEST games: HAC p=0.068, bootstrap p=0.089. On FIT it made +1.9% (p=0.29). The wallet's own fills on the TEST games, capped at $100: +4.5%, p=0.056. No rule that matches the wallet reaches p<0.05."
+    },
+    {
+     "criterion": "(8) Replicable on normal computer/connection",
+     "recorded_status": "fail (reacts 0-10 s after wall clock; +5 s gives +1.0%, p=0.41)",
+     "your_status": "agree",
+     "detail": "WP-REACT loses its edge with delay: +1.1% at D=+5 s (p=0.25), -0.9% at +10 s, -1.1% at +30 s, -1.4% at +60 s. The wallet's fills jump to 1,274 per 5-second bin in the first 5 s after ESPN wall-clock time (baseline about 300). That is faster than ESPN's public API publishes, so a replicator would need a faster, probably non-public feed. On top of that the wallet holds a ~50% taker-rebate tier worth $25.6k/month that a newcomer would not have. The value rule that tolerates delay (WP-VALUE) loses money on TEST."
+    },
+    {
+     "criterion": "(9) Conditions persist",
+     "recorded_status": "fail (last 30d p=0.13; trend p=0.004)",
+     "your_status": "agree",
+     "detail": "Robust to how it is computed. Last-30-day HAC p is 0.109 to 0.125 for lags 0 to 7 (plain t-test p=0.118). Trend slope is -$72/day, z=-2.56 to -2.68, p=0.004 to 0.005 for lags 4 to 30, and p=0.019 even with the first month dropped. Weekly Spearman rho=-0.45, p=0.021. Mean-decline test alone: p=0.15. PnL per $ of volume in 30-day blocks, oldest to newest: 15.5%, 9.9%, 7.8%, 2.3%, 3.3%, 2.45%. The edge per dollar is shrinking, not just the trade size."
+    }
+   ],
+   "new_hypotheses_tested": [
+    {
+     "hypothesis": "H1 FAIR-LINE: cross-line stale-quote arbitrage using only the Polymarket tape. Fit a normal model of final home margin (moneyline plus every spread line) or total (every O/U line) by probit-linear weighted least squares on sibling markets' last prices, keeping only prints in the last F s at or before t-L and excluding the target market. Buy any line whose ask is below the model's fair value by at least theta.",
+     "method": "170 ESPN-matched games from the study's sample (seed 11), FIT/TEST split at the median start (84/86 games). FIT scanned F in {30,120,600} and theta in {0,...,0.15} and kept the best per-game t: F=120 s, theta=0.04, L=1 s. Match: TEST AUC of the score, wallet vs other takers, against a null that shifts each game's sibling-tape lookups by \u00b1300-1500 s (60 shifts). Backtest: join every qualifying taker BUY print at its price, $100 cap, the market's own fee schedule, per-game HAC t-test and stationary bootstrap, latency L=1-30 s.",
+     "fit_result": "FIT AUC 0.40, meaning the wallet buys lines priced ABOVE the stale sibling fair value: it moves first rather than arbitraging. FIT backtest +6.5%, p=0.18.",
+     "held_out_result": "TEST AUC 0.401 (null mean 0.489, 95th percentile 0.506, perm p=1.0): no match. Backtest +13.2% on $840k across 70 games, HAC p=0.046, bootstrap p=0.062. Same result with the wallet's own prints removed (+13.6%, p=0.047). Latency: L=5 s +11.1% (p=0.058), L=10 s +9.1% (p=0.077), L=30 s +6.5% (p=0.11). Fragile: all of the PnL is NBA moneyline (+$125.6k; NBA does not appear in FIT), CFB -14%, NFL -1%. Five games produce 95% of the PnL, only 47% of games are positive, and dropping the single best game gives p=0.17. With Holm over the three new hypotheses p becomes about 0.14.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H2 WP-REACT: a generalization of REACT. React to ANY play that moves ESPN's public win probability by at least Delta (turnovers, big gains, fouls, not only scores): within W s after wallclock+D, buy the moneyline or spread outcome of the team the play favoured.",
+     "method": "135 games with ESPN win probability (NFL, CFB, NBA, WNBA, MLB partial), team-side BUY prints only. FIT grid D in {0,5,10,20,30}, Delta in {0.02,0.05,0.1}, W in {10,20,30,60}, chosen to maximize the wallet-minus-others share of buys that are both reactive and agreeing: D=0, Delta=0.02, W=30. TEST: reactive share, direction and AUC, each against 200 play-timeline shifts of \u00b1300-1500 s. Backtest: every favoured taker BUY print inside the window, $100 cap, fees, per-game HAC t-test and bootstrap, extra delay +5 to +60 s.",
+     "fit_result": "FIT: 54% of the wallet's buys are reactive (others 27%), 92.6% agree with the play (others 59%), excess 0.339. FIT backtest +1.9%, p=0.29.",
+     "held_out_result": "Match passes: TEST AUC 0.648 (null 95th percentile 0.510, p=0.005); direction 89.2% (null 95th percentile 55.9%, p=0.005); 51% of team-side buys and 36% of all wallet buys are reactive and agreeing. Backtest fails: +3.2% on $1.66M across 68 games, HAC p=0.068, bootstrap p=0.089. Without the wallet's own prints: +3.2%, p=0.084. Extra delay: +5 s +1.1% (p=0.25), +10 s -0.9%, +30 s -1.1%, +60 s -1.4%. Post-hoc split: only NBA is positive (+4.1%, p=0.044, 23 games); CFB +1.4% (p=0.43), NFL -1.3%.",
+     "matches_wallet": true,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H3 WP-VALUE: a value rule rather than a speed rule. Buy the moneyline side whose ESPN win probability (latest play known at wallclock+D) exceeds the taker's price by at least theta.",
+     "method": "Moneyline BUY prints in 135 games with win probability. FIT scanned D in {5,10,20,30,60} and theta in {0,...,0.15} by per-game t (at least 300 trades): D=5, theta=0.10. TEST: AUC against 200 timeline shifts, backtest with fees and $100 cap, delays D+10/30/60.",
+     "fit_result": "FIT +42.7% on $206k, p=0.012, bootstrap p=0.025; FIT AUC 0.518.",
+     "held_out_result": "Collapses on TEST: -29.9% on $475k across 60 games (p=0.96). Also -28.5% at D=15 s and -25.0% at D=65 s. Match: AUC 0.520 against null 95th percentile 0.512, p=0.025, above the 0.01 bar. 12.2% of wallet buys are flagged vs 11.5% of other takers' buys. Post-hoc: NBA -29.8%, NFL -50.5%, CFB +4.7% (p=0.43). This looks like FIT overfitting plus a league-mix shift (no NBA in FIT).",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    }
+   ],
+   "errors_found_in_recorded_numbers": [
+    "None material. Every recorded number I recomputed matches: A1 metrics, DSR 0.9748, ROC 27.4%, persistence p values, and a full re-run of run_sports_study (D=0, W=20, direction 95.2% vs 62.4%, backtest +3.8% p=0.21, wallet replay +3.2% p=0.25, +5 s gives +1.0% p=0.41).",
+    "Misleading: sports_study.json reports excess_perm_p=0.005 although the observed TEST excess reactive share is negative (-0.0057; wallet 29.9% vs other takers 30.5%). The '~30% of fills are reactive' figure is no higher than other takers' share; only the direction result (95% vs 62%) separates the wallet.",
+    "Omitted: the verdict and rebate_dependence.json leave out that $25,593 (18%) of the last-30-day PnL is a 50.4% taker-fee rebate. Without it: $113,211 per month and ROC 22.3%. Both still pass (2) and (4).",
+    "Wording: the verdict file is named sports_study.json, but the current code writes sports_study_<role>.json. A naming inconsistency only."
+   ],
+   "concerns": [
+    "Persistence (9) fails on the wallet's own PnL no matter which rule is found. Last 30 days p\u22480.12, trend p\u22480.004, and PnL per $ volume fell from 15.5% to 2.5%. No reverse-engineering result can overturn this wallet.",
+    "The FIT/TEST split changes the league mix: FIT has 0 NBA games and TEST has 23 (the NBA season started mid-October). Parameters fitted on football and MLB are judged largely on NBA, which drives the H1/H2/H3 TEST results either way.",
+    "The backtest convention (join observed taker prints at their price, $100 cap) ignores queue competition and only trades at moments when someone else hit the book. It is optimistic, especially for stale-quote rules where one sniper may take all the liquidity.",
+    "Per-game PnL is heavy-tailed. With 60-86 TEST games a ~3% edge per $ cannot be detected reliably (top 5 games = 95% of H1's PnL).",
+    "ESPN wallclock is the time of the play, not when it was published. D=0 is therefore not achievable from the public API, so the D=0 results describe the wallet's timing, not what a replicator could do.",
+    "I tested three new hypotheses plus grid scans. H1's borderline p=0.046 would not survive a multiple-testing correction, and it does not match the wallet anyway.",
+    "Totals (29% of the wallet's buys) and the roughly 50% of team-side buys that do not follow a win-probability-moving play remain unexplained."
+   ],
+   "summary": "The rejection of justaluckydude (0xbca08c1b\u2026) stands; nothing is overturned.\n\n(1)-(5) re-checked independently from the cached data, and all agree: pre-selection HAC t=4.82, DSR 0.9748, $138.8k last 30 days, Sharpe 7.21, 81% positive weeks, ROC 27.4%, and 25/25 fresh fills confirmed on-chain with 0% maker. One omission: the wallet earns a 50% taker-fee rebate ($25.6k of the month). Without it the month is $113k and ROC 22%, still passing.\n\nRe-running the repo's sports study reproduced REACT exactly.\n\nThree new public-data hypotheses, each fitted on FIT and judged on the 86 later TEST games:\n- **H1, cross-line fair value from the Polymarket tape only.** It does not match the wallet (AUC 0.40, perm p=1.0): the wallet trades ahead of the other lines, not against stale ones. Its backtest is borderline (+13.2%, HAC p=0.046, bootstrap p=0.062) and fragile: all of it is NBA moneyline in 5 games, and dropping the best game gives p=0.17.\n- **H2, WP-REACT: react to any play that moves ESPN's win probability.** This matches the wallet better than REACT: TEST AUC 0.648 (p=0.005), 89% direction agreement, covering 51% of team-side buys and 36% of all buys. It is not significantly profitable (+3.2%, p=0.068) and goes to zero or negative at +5 s or +10 s of delay.\n- **H3, ESPN win-probability value.** Strong on FIT (+42.7%) but -29.9% on TEST, with no match.\n\nCriterion (6) is arguably a pass under the methodology's literal p<0.01 rule. Criteria (7), (8) and (9) fail on every check:\n- (7): no rule that matches the wallet reaches p<0.05.\n- (8): the edge needs reactions within 0-10 s of the play, faster than public feeds.\n- (9): last 30 days p\u22480.12 and trend p\u22480.004, holding across all lag choices.\n\nScripts and outputs are in /tmp/claude-0/-home-user-PolymarketResearchAgent/fbff9ea9-e0dd-5fe1-93b9-0952feb8b6ba/scratchpad/wf/challenge-inplay-taker-justaluckydude/ (recheck_a1.py/.out, load_data.py, fv.py, h1_test.py, h1_decomp.py, h2_wpreact.py, h3_wpvalue.py, diag_league.py, rerun_react.out, challenge_summary.json)."
+  }
+ },
+ {
+  "group": "inplay-taker-0xdbdd",
+  "wallets": "0xdbdd 0xdbdd45150249e229eb4ca8aa48a30dca21faa5de",
+  "review": {
+   "overturned": false,
+   "criteria_rechecked": [
+    {
+     "criterion": "(1) Profit significant outside the ranking window",
+     "recorded_status": "pass (HAC t=5.1, Holm p=1.5e-4, bootstrap p=2.5e-4, DSR 0.999)",
+     "your_status": "agree",
+     "detail": "Recomputed from the cached user-pnl series (body sha 20daef85\u2026) with screen.wallet_pnl_metrics at as_of=1793318400: 321 pre-selection days, HAC t_pre=5.088, p_pre=3.08e-7. The Bonferroni bound p_pre*500=1.54e-4 caps the Holm value, so it is below 0.05. Stationary bootstrap p=2.5e-4 (<0.01). Deflated Sharpe recomputed by hand: per-day SR 0.333 vs SR0 0.163 (500 trials, skew 0.46, kurt 4.50), DSR=0.99947 (>0.95). Script: recheck_a1.py."
+    },
+    {
+     "criterion": "(2) Net profit > $50k/month",
+     "recorded_status": "pass (last 30d $61,712; median month $102,447)",
+     "your_status": "agree",
+     "detail": "Last 30 days $61,711.50. The six 30-day blocks are 61.7k, 23.7k, 22.5k, 183.7k, 236.6k and 143.2k, median $102,447. Without the taker rebate the last 30 days are still $55.7k (rebate $6.0k, observed rate 18.6%). Caveat: blocks 2 and 3 were each below $50k."
+    },
+    {
+     "criterion": "(3) Constant returns",
+     "recorded_status": "pass (Sharpe 6.4, 76% positive weeks, 100% positive months)",
+     "your_status": "agree",
+     "detail": "Annualized Sharpe 6.37. Positive weeks are 38/50 = 0.76 against a 0.75 threshold, so this passes by a single week. All 11 of the 30-day blocks are positive."
+    },
+    {
+     "criterion": "(4) >=10%/month on peak capital at risk",
+     "recorded_status": "pass (peak $33.4k, ROC 185%)",
+     "your_status": "agree",
+     "detail": "Recomputed with capital_and_roc on the frozen ledger: peak capital $33,408.49, 30-day PnL $61,711.50, monthly ROC 1.847. Script: recheck_roc_chain.py."
+    },
+    {
+     "criterion": "(5) Fills verified on-chain",
+     "recorded_status": "pass (200/200, 0% maker)",
+     "your_status": "agree",
+     "detail": "Independent resample of 12 fills (seed 2026) against Polygon receipts: 12/12 confirmed, 0 maker fills, observed taker fee 1.66% of USDC. Separately, the activity usdc equals price*size plus 0.05*p*(1-p)*size, so the tape prices are pre-fee and the backtest fee convention is consistent."
+    },
+    {
+     "criterion": "(6) Reverse-engineered rule matches the wallet on held-out data",
+     "recorded_status": "fail",
+     "your_status": "agree",
+     "detail": "Several new rules beat permutation nulls on TEST, but each describes only a small slice of the wallet's decisions or only its unprofitable US-sports trading. The best soccer match, ESPN goal reaction H7, gives a 37.9% vs 11.1% hit rate (p=0.001, shift p=0.003), but as a rule it loses 12%. H5 cross-market lag: 49% vs 43%, p=0.002, and it replicates on fresh games, but only for US spreads, where the wallet itself loses 8.4%. H2 quiet-book: 20% vs 11%, p=0.001, precision 2.1%. H3 WP-gap fails the timeline-shift null (p=0.063). H4 copy-leader fails (p=0.93). Taken together, no rule reconstructs the strategy. The recorded REACT figures (59% vs 55%, excess-reaction perm p=0.30) match the JSON. Note that the recorded direction perm p=0.005 is the floor for 200 permutations."
+    },
+    {
+     "criterion": "(7) Rule profitable in held-out PIT backtest (p<0.05)",
+     "recorded_status": "fail (REACT +4.6%, p=0.25)",
+     "your_status": "agree",
+     "detail": "No new rule is significantly profitable on held-out data that also replicates. The closest cases: H5 +16.3% p=0.051 on the original TEST, but on 141 fresh games -3.4% (p=0.88) post-split and -6.2% pooled (t=-2.83). H6 GOAL-lag +50% p=0.014 on TEST, but it lost 43.7% in FIT, the top 3 events are 89% of PnL, and on 295 fresh events it gives +13.9% p=0.28. H3 +10-12.5% p=0.09-0.13, with the top 5 games at 125% of PnL. H7 -12.3% p=0.82. H1 -5.7% p=0.65. H2 +5.7% p=0.15. H4 +3.1% p=0.39. Recorded REACT numbers (+4.6% p=0.25; wallet replay +8.2% p=0.19) confirmed from sports_study_taker.json."
+    },
+    {
+     "criterion": "(8) Replicable on normal computer/connection",
+     "recorded_status": "fail",
+     "your_status": "agree",
+     "detail": "The infrastructure could be replicated. The wallet does not race: median 16 s since the previous print in the market vs 4 s for other takers, 18% of its buys are within 3 s of a prior print vs 46%, and its soccer post-goal buys mostly land 10-120 s after the ESPN wallclock. It places about 1,000 small taker orders a day (median $11) across about 440 markets a day, with no maker fills and no self-trading seen. The Gold rebate is not decisive ($55.7k without it). The trading edge could not be replicated: no public-data rule reproduces its profitable selections. Its own post-goal soccer fills earn +65% (p=0.058, only $2.2k), while the generic public rule loses. The decision inputs remain unknown, most likely a commercial live-data or odds feed."
+    },
+    {
+     "criterion": "(9) Conditions persist",
+     "recorded_status": "pass (recent p=0.004; decline p=0.12; trend p=0.81)",
+     "your_status": "agree",
+     "detail": "Numbers match persistence_a1_survivors.json: recent HAC t=2.85, p=0.004; mean-decline p=0.122; trend p=0.81; economic CUSUM p=0.13. Concern: the last three 30-day blocks average about $36k vs about $188k for the three before, and 30-day volume fell from $3.7M to $1.7M. The fee schedule (5% rate, takerOnly, rebateRate 0.15) is still in force."
+    }
+   ],
+   "new_hypotheses_tested": [
+    {
+     "hypothesis": "H1 UNDER-DRIFT: in-play soccer totals, buy Under when the book has been quiet >= s seconds, game minute in [m1,m2], price in [a,b] (time-decay not priced in)",
+     "method": "Taker tapes for 240 sampled wallet soccer-totals markets (120 FIT games before Oct 15, 120 TEST). Grid (s, m1, m2, a, b) fitted on FIT by per-event backtest t and separately by wallet match. Backtest buys at observed taker prints, $100 cap, market fee 0.05*p*(1-p); per-event HAC t and stationary bootstrap. Match tested with a within-market label permutation (2000 perms). Features use prints at or before t-2 s.",
+     "fit_result": "Profit-optimal (s=60, 0-200 min, 0.2-0.8): FIT +31.7%, t=2.38. Match-optimal (s=5, 0.05-0.8): FIT match diff +0.10. Baseline 'buy every in-play Under': FIT +7.0% (p=0.32).",
+     "held_out_result": "Profit-fit TEST -5.7%, p=0.65, match p=0.88. Match-fit TEST +3.9%, p=0.43, match p=0.67. Baseline TEST +7.4%, p=0.34. Wallet's own fills in these markets +40%, p=0.09.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H2 TAPE-ONLY momentum/contrarian plus quiet book: buy a token after its price moved >= theta over the last N s (either sign), when no print for >= s seconds, price in a band",
+     "method": "500 sampled wallet markets across all sports (104k taker prints, 946 wallet buys). 374 rules scanned on FIT. FIT-best by wallet match and FIT-best by profit evaluated on TEST. Continuous momentum AUC with within-market permutation. Decomposed into its staleness and momentum parts.",
+     "fit_result": "Match-fit: 5-min drop >= 1c and no print for >= 10 s; FIT hit rate 21.5% vs 11.8%, but FIT return -7.5%. Profit-fit (30 s rise, quiet 30 s, 0.3-0.9): FIT +21%, t=2.65. FIT momentum AUC 0.48-0.54.",
+     "held_out_result": "Match-fit TEST hit 20.2% vs 11.2% (label-perm p=0.001), almost entirely from the staleness part (quiet >= 10 s: wallet 62% vs others 33%); precision 2.1% vs base 1.2%. Its backtest: +5.7%, p=0.146. Profit-fit TEST -1.1%, p=0.53. Momentum AUC 0.473, p=0.76.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H3 WP-GAP: on ESPN-covered moneylines, buy the side whose ESPN win probability (known at play wallclock + D) exceeds the Polymarket print price by >= delta",
+     "method": "Cached 128-game ESPN sample (109 games with WP; 52 FIT / 57 TEST, split at the median start). D in {-10..60}, delta in {0..0.15}, fitted on FIT. Match tested with label permutation and a WP-timeline shift null (+-300-1500 s, 300 draws). Backtest with fees and latency degradation.",
+     "fit_result": "FIT AUC of the gap 0.60-0.66. Match-fit D=30, delta=0: FIT hit 66% vs 46%, return +8.5% (t=1.12). Profit-fit D=-10: +10.2% (t=1.40).",
+     "held_out_result": "TEST AUC 0.609; hit 56% vs 46% (label p=0.003) but shift-null p=0.063. Backtest +10.1%, p=0.127 (bootstrap 0.107). Top 5 games give 125% of PnL; 54% of games positive; gains come only from underdog prices. D=-10 variant +12.5%, p=0.091. The wallet's US-league fills lose 0.75% overall.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H4 COPY-LEADER: the wallet copies specific other takers, buying the same token within (2, 60] s after a leader's buy",
+     "method": "Leaders chosen on FIT as wallets whose buys are followed by this wallet far more often than under a +600 s shifted baseline (53 leaders). TEST match tested with label permutation and a leader-clock shift null; backtest copies the leaders' buys.",
+     "fit_result": "53 leaders found. The strongest co-trader, 0x621efa\u2026, co-traded 65 times vs 5 shifted, but it trades about 2 s AFTER this wallet (317 after vs 132 before) and disappears in TEST.",
+     "held_out_result": "TEST wallet hit 25.6% vs others 42.2%; shift-null p=0.93. Copy backtest +3.1%, p=0.39.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H5 CROSS-MARKET LAG: in US games, spreads lag the moneyline; buy spread side X when X's moneyline price rose more than its spread price over the last N s",
+     "method": "Public tapes only, from the 128-game sample (fit/test at the median start). Then a FROZEN-rule replication on 141 fresh wallet games not in that sample (540 newly fetched tapes; 81 post-split games). Label permutation plus moneyline-clock shift null; latency 2-30 s.",
+     "fit_result": "FIT AUC 0.52-0.55. N=60 rule: FIT +3.2% (t=0.84). N=120 rule: FIT match diff +0.088.",
+     "held_out_result": "Original TEST: hit 48-49% vs 42-43% (label p=0.002, shift p=0.005-0.010); +16.3%, p=0.051 (N=60). Fresh 81 post-split games: the match replicates (47.7% vs 42.6%, p=0.001, shift p=0.0099), but the backtest gives -3.4% p=0.88 (N=60) and -2.4% (N=120). All 141 fresh games: -6.2%, t=-2.83. The wallet's own fresh spread fills: -29%.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H6 SOCCER GOAL-LAG via tape: a goal moves the event's win/draw markets; buy Over when max |dYes| over the moneyline markets in the last N s is >= theta while the Over price has moved < theta/2 (NO-GOAL mirror: buy Under when moneylines are quiet)",
+     "method": "Fetched the 669 moneyline tapes of the 223 sampled soccer events. Grid on FIT (games before Oct 15), TEST evaluated, then a FROZEN-rule replication on 320 fresh wallet soccer-totals markets (295 events, 1,208 new tapes). Label permutation, moneyline-clock shift null, latency, concentration.",
+     "fit_result": "GOAL match-fit N=300, theta=0.15: FIT match diff +0.073 but FIT return -43.7% (t=-1.64). Profit-fit theta=0.03: FIT -8%. NO-GOAL variants: FIT t <= 0.12.",
+     "held_out_result": "TEST: GOAL theta=0.15 +50%, p=0.014; but the top 3 events are 89% of PnL, 41% of events are positive, excluding the wallet's prints p=0.055, and FIT+TEST pooled p=0.42. Fresh 295 events: +13.9%, p=0.28 (post-split +18.6%, p=0.28). Match on fresh data: hit 6.5% vs 2.8%, p=0.001, shift p=0.0099, i.e. a real but tiny slice. theta=0.03 fresh: -24%, p=0.95. NO-GOAL TEST: +8.3% p=0.37 / -22.8% p=0.91.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H7 SOCCER-REACT on ESPN keyEvents: after a goal (ESPN wallclock + D), buy Over on totals within W seconds",
+     "method": "Verified ESPN soccer summaries publish goal keyEvents with wallclock (eng.1, usa.1, usa.usl.1, arg.1, bra.1, ksa.1). Matched 131 of the wallet's sampled soccer events (451 goals; 59 FIT / 72 TEST). D in {-10..90}, W in {15..300} fitted on FIT. Label permutation and goal-clock shift null (300 draws). Lag histogram; return by seconds after the goal.",
+     "fit_result": "Match-fit D=0, W=300: FIT +13.5% (t=0.64), match diff +0.046. Profit-fit D=-10, W=15 (needs the data before its wallclock, effectively look-ahead): FIT +46% (t=1.64).",
+     "held_out_result": "Match-fit TEST hit 37.9% vs 11.1% (label p=0.001, shift p=0.003). Overall, 25.8% of the wallet's buys fall within 60 s after a goal vs 9.8% for others, and 96% of those are Over. As a rule, though, TEST gives -12.3%, p=0.82. Profit-fit +24.1%, p=0.117, and does not match (p=0.85). The wallet's own fills within 300 s after a goal earn +65%, p=0.058, on only $2.2k; at other times -6.5%.",
+     "matches_wallet": false,
+     "profitable_held_out": false
+    }
+   ],
+   "errors_found_in_recorded_numbers": [
+    "Verdict/REPORT reason 'most of its volume trades sports without a public timestamped event feed' is wrong for soccer. ESPN's public soccer summary API publishes goal keyEvents with wallclock times (checked eng.1, usa.1, usa.usl.1, arg.1, bra.1, ksa.1). Soccer is where the wallet makes its money: 'other'-family markets +$41.1k on $547k; Under buys +$35.1k on $262k.",
+    "The original REACT test covered only US leagues (NBA/CFB/NFL/NHL/WNBA), which is the wallet's unprofitable segment: US-league fills -$2.9k (-0.75%), US spreads -$7.6k (-8.4%), non-US +$59.8k (+4.5%). The ESPN test therefore said nothing about the profitable part.",
+    "'Barely reacts to scoring plays' holds for US leagues only. In soccer, 25.8% of the wallet's totals buys fall within 60 s after an ESPN goal wallclock vs 9.8% for other takers, and 96% of those are Over. TEST hit rate 37.9% vs 11.1%, perm p=0.001.",
+    "'~70% of volume' outside public-feed sports: recomputed 77.2% of USD volume is outside the ESPN US leagues tested. Much of it, however, is soccer that ESPN does cover.",
+    "The sports_study direction_perm_p=0.004975 is the floor for 200 permutations (1/201), so it is technically below the 0.01 bar; 'weak' rests on others' 55% agreement, not on the p-value. All other recorded numbers (A1 metrics, ROC 185%, peak $33,408, on-chain 200/200, REACT +4.6% p=0.25, replay +8.2% p=0.19, persistence p-values) reproduce exactly."
+   ],
+   "concerns": [
+    "Positive weeks are 38/50 = 0.76 against a 0.75 threshold; one more losing week would fail criterion (3).",
+    "PnL is decaying: the last three 30-day blocks are $61.7k, $23.7k and $22.5k vs $143-237k before, and 30-day volume fell from $3.7M to $1.7M. The persistence decline test (recent 30 days vs earlier 321) has low power (p=0.12).",
+    "Per-event backtest PnL is heavy-tailed: the $100 cap on low-price prints makes a few events dominate (H3 top 5 = 125%, H6 top 3 = 89% of PnL), so per-event tests have low power and single TEST p-values are fragile.",
+    "Multiplicity: I evaluated about 14 TEST variants across 7 hypothesis families. The single p<0.05 (H6, p=0.014) did not replicate on 295 fresh events (p=0.28), and the near miss (H5, p=0.051) turned negative on 141 fresh games.",
+    "ESPN's API publication delay is unobserved, so wallclock + D is an assumption. ESPN win-probability values read after the game may differ from the live values. D=-10 variants effectively use data from before the play's timestamp and should not count as point-in-time valid.",
+    "Backtests assume the observed taker liquidity at each print was available to the replicator, with no queue competition; this favours the rules.",
+    "A possible sibling or copy account, 0x621efa310f59013ce082e4af3e4ca130e43b8e10, bought the same tokens about 2 s after this wallet in 124 FIT markets and was absent in TEST. Same-direction trading, not self-trading, but worth noting for cluster analysis.",
+    "The behavioural signature points to soccer goal reaction plus picking off quiet or stale books (wallet buys at 16 s median since the last print). Profit depends on which line and price it picks after a goal; that selection probably needs a faster or richer live feed than ESPN, and no public rule reproduced it."
+   ],
+   "summary": "The rejection stands: I could not overturn it, and overturned=false.\n\n**Re-check:** all criteria agree. Every recorded figure reproduces from cached data, including the stage-A1 metrics, peak capital $33,408 and 185% ROC, persistence, and the REACT backtest (+4.6%, p=0.25). A fresh 12-fill on-chain sample confirmed 12/12, all taker.\n\n**Error in the recorded reasoning:** the verdict says most volume has no public timestamped event feed. That is wrong for soccer: ESPN's soccer API publishes goal times with wall-clock timestamps. Soccer is where the wallet profits. The original test covered only US leagues, where the wallet loses (-0.75%; US spreads -8.4%). All of its profit is outside them (+$59.8k on $1.32M).\n\n**Seven new hypotheses, fit on FIT and evaluated on TEST:**\n- **H1 Under-drift (soccer totals):** profit-fit FIT t=2.38 became -5.7% on TEST (p=0.65).\n- **H2 tape momentum / quiet book (500 markets):** wallet buys are enriched (p=0.001), mostly because it trades in quiet books, but the rule is not profitable (+5.7%, p=0.15).\n- **H3 ESPN win-probability gap:** +10.1% (p=0.13), driven by 5 games; fails the timeline-shift null (p=0.063).\n- **H4 copy-leader:** fails (shift p=0.93).\n- **H5 spreads lag the moneyline:** matches on TEST and on 141 fresh games (p\u22640.01). Profit was +16.3% (p=0.051) on TEST but -3.4% to -6.2% on the fresh games.\n- **H6 soccer goal-lag from moneyline jumps:** +50% (p=0.014) on TEST, but it lost 43.7% in FIT and gave +13.9% (p=0.28) on 295 fresh events.\n- **H7 ESPN soccer goals:** the strongest match. 38% of the wallet's TEST soccer-totals buys are Overs within 300 s of a goal, vs 11% for other takers (p=0.001, shift p=0.003). As a rule it loses 12% (p=0.82); the wallet's own post-goal fills earn +65% (p=0.058) on only $2.2k.\n\n**Conclusion:** the wallet is a soccer goal-reaction and stale-book taker that does not need sub-second speed. Its profitable choice of line and price after a goal is not reproduced by any public rule. No rule both matches the wallet and is profitable at p<0.05 on fresh data, so criteria 6, 7 and 8 still fail.\n\n**Commands:** `.venv/bin/python <script> <dir>` from the repo root, for each script below in `/tmp/claude-0/-home-user-PolymarketResearchAgent/fbff9ea9-e0dd-5fe1-93b9-0952feb8b6ba/scratchpad/wf/challenge-inplay-taker-0xdbdd/`. New fetches came to about 3,400 public tapes plus gamma and ESPN calls.\n- Data loading and prep: load.py, prep.py, recheck_a1.py, recheck_roc_chain.py\n- Tape fetches: fetch_tapes.py, fetch_fresh.py, fetch_soccer_ml.py, fetch_fresh_soccer.py\n- Feature building: build_prints.py, evalkit.py\n- Hypothesis tests: h1_under.py, h2_tape.py, h3_espn_wp.py, h4_leader.py, h5_crossmarket.py, h5_robust.py, h5_fresh_eval2.py, h6_soccer_lag.py, h6_robust.py, h6_fresh_eval.py, h7_espn_soccer.py, h7_lag.py\n- Results: h*_result.json in the same folder\n\nNo repository files were changed."
+  }
+ },
+ {
+  "group": "carry-elmcap2",
+  "wallets": "elmcap2 0xed107a85a4585a381e48c7f7ca4144909e7dd2e5",
+  "review": {
+   "overturned": false,
+   "criteria_rechecked": [
+    {
+     "criterion": "(1) Profit significant outside the ranking window",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "I recomputed this from the cached user-pnl series with wallet_pnl_metrics (s3_metrics.py). Over 1249 pre-selection days: HAC t=6.22, p=3.36e-10, Holm about 1.7e-7, stationary bootstrap p=2.5e-4, deflated Sharpe 0.999998. All match the record."
+    },
+    {
+     "criterion": "(2) Net profit > $50k/month (last 30d and median 30-day block)",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "Recomputed: last 30 days $242,047 and median of the last six 30-day blocks $87,128, matching the record. The pass is fragile. The two days covering the October FOMC (+$105,874 and +$174,399) make up all of the 30-day PnL; the other 28 days sum to -$38,226. Settled PnL by market tells the same story: the 4 October Fed markets made +$257,863 on $4.39M of cost, and every other resolved market together made -$43,676."
+    },
+    {
+     "criterion": "(3) Constant returns (Sharpe >= 3, >= 75% positive weeks, >= 80% positive 30-day blocks)",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "Recomputed: annualized Sharpe 3.153, positive weeks 0.764, positive 30-day blocks 0.857 (42 blocks). Matches the record, though the margins over the bars are thin (3.15 vs 3.0; 0.764 vs 0.75)."
+    },
+    {
+     "criterion": "(4) >= 10%/month on peak capital at risk",
+     "recorded_status": "fail",
+     "your_status": "agree",
+     "detail": "Recomputed exactly: peak $6,458,210, p95 $5,350,910, 30-day PnL $242,047, ROC 3.75%. I found a methodology error, but it does not change the verdict. $4.0M of the peak (plus an earlier $2M split) is complete sets SPLIT into 'Will JD Vance win the 2028 US Presidential Election?'. The wallet never traded that market; it splits idle cash into Yes+No sets to earn about 4% APY holding yield and merges them back when it needs cash. These sets carry no outcome risk. With those SPLIT/MERGE rows removed (s7_capital_fix.py): peak $5,708,768, reached just before the Fed resolution on 2026-10-28; ROC 4.24%; p95 $4.55M (5.3%). Error in the other direction: the data-api positions endpoint shows about $0.29M of directional positions opened before the warm-up that the ledger cannot see (Greenland NO $176k, Iran war NO $38k, ...), which puts true ROC near 4.0%. The best single component, the October FOMC book, returned 5.9% on its own cost. Only time-weighted average capital, which is not the pre-registered measure, reaches 11-19%. The fail stands."
+    },
+    {
+     "criterion": "(5) Fills verified on-chain",
+     "recorded_status": "pass",
+     "your_status": "agree",
+     "detail": "Re-ran verify_onchain with seed 0 (from cache): 200/200 confirmed, maker share 98%. A fresh independent sample (seed 7, 40 fills fetched from polygon.drpc.org) also confirmed 40/40, maker count share 92.5%. One caveat: the USDC-weighted maker share in the fresh sample was only 30% because of one large taker fill, so the 93% maker-by-USD figure is less robust than the maker-by-count figure."
+    },
+    {
+     "criterion": "(6) Reverse-engineered rule matches the wallet on held-out data",
+     "recorded_status": "na",
+     "your_status": "uncertain",
+     "detail": "Not run by the project. My two component rules, fit on FIT only, both beat a within-period label-permutation null on TEST at p<0.01. H1 (FOMC consensus carry): AUC 0.785 vs null 0.493, p=0.0002. H2 (deadline-NO carry): AUC 0.854 vs null 0.515, p=0.0003. But each describes only part of the book. H1 at its fitted threshold has recall 26% and precision 49%. H2 has precision 5.6%: the wallet picks about 1 in 18 eligible cells, by some filter I could not identify. So a partial match is shown, not a full one."
+    },
+    {
+     "criterion": "(7) Rule profitable in held-out PIT backtest (p<0.05)",
+     "recorded_status": "na",
+     "your_status": "uncertain",
+     "detail": "Not run by the project. H1 maker backtest on TEST (strict proxy: fill only if the hourly price later went below the bid) had fills in 4 of 7 2026 meetings: returns 1.0%, 26.7%, 17.6%, 6.8%; mean 13.0%; one-sided t-test p=0.053 (0.046 with a 0.2-cent lower bid); sign test p=0.0625. The taker variant had 5 meetings, t-test p=0.054, sign test p=0.031. Neither is a robust p<0.05. H2 lost money on FIT (-0.10% per market; one loss in 188, 'Iran target Jordan by Aug 31' bought at 0.997; p=0.71). It made +0.52% per market on TEST with zero losers, so the TEST p-value says nothing about tail risk."
+    },
+    {
+     "criterion": "(8) Replicable on a normal computer and connection",
+     "recorded_status": "na",
+     "your_status": "uncertain",
+     "detail": "My judgment: technically replicable. The wallet uses resting limit bids held for hours to days. Inputs are public: CLOB prices, the published FOMC calendar, and market deadlines. Even its last buys a few minutes before the FOMC statement involve no sub-second race. Maker fees are zero on these markets, rebates are negligible ($552 maker plus $152 taker in the window), and the holding-yield parking is open to anyone. The binding constraint is economic: per-meeting carry of 0.3-6% needs millions of dollars to produce $50k/month, and ROC stays below 10%."
+    },
+    {
+     "criterion": "(9) Conditions persist",
+     "recorded_status": "na",
+     "your_status": "disagree",
+     "detail": "Recorded as 'not assessed', but research/stage_a/persistence_a1_survivors.json already shows this criterion fails, and I recomputed it: last-30-day HAC t=1.02, one-sided p=0.157; stationary bootstrap p=0.153. Both are above the 0.05 bar. Decline and trend tests are not adverse (recent mean $8,068/day vs $1,802/day earlier). So the wallet would also fail (9) because its recent month is one lumpy event."
+    }
+   ],
+   "new_hypotheses_tested": [
+    {
+     "hypothesis": "H1 FOMC consensus carry: in the K days before each scheduled FOMC statement, rest bids on the consensus side (YES on the leading outcome, NO on the others) of every 'Fed Decision in <month>' market, scored by days-to-statement and the consensus price.",
+     "method": "15 meetings (2025-01..2026-10). Data: Gamma 'Fed Decision in' events; hourly CLOB prices-history for 15 days before each statement; the wallet's activity per market (data-api /activity?user&market). Statement times come from the published Fed calendar, cross-checked against Gamma endDates. Cells are (meeting, market, day k=1..14). Decision inputs are the last published price at or before the cell start (PIT) and k; the label is whether the wallet bought the consensus token that day. FIT = 8 meetings in 2025, TEST = 7 meetings in 2026. Fit on FIT: a grid rule chosen by MCC, and a logistic score on [k, log(1-q), log(1-q)^2, k*log(1-q)] with its threshold set by FIT F1. Null: labels permuted within meeting, 5000 permutations. Backtest: $1 per cell at bid = PIT price floored to the tick, filled only if a later hourly price in the same day is strictly lower, zero maker fee. Taker variant pays +0.5c plus fee 0.05*p*(1-p). Settlement uses the resolved payout only. Scripts: h1_fetch.py, h1_analyze.py, h1_wallet_realized.py, h1_backtest2.py, s9_replicator_roc.py.",
+     "fit_result": "FIT grid best: K=6 days, consensus price in [0.94,0.99), MCC 0.435. Logistic FIT AUC 0.843. Maker FIT backtest: 8/8 meetings positive, mean +3.05% per meeting, t-test p=4e-4. Descriptive check: the wallet bought only consensus outcomes ($56.4M, $0 against consensus) and was profitable in 15/15 meetings: $1.03M PnL on $58.5M bought, about 41% of its lifetime PnL.",
+     "held_out_result": "TEST: logistic AUC 0.785 vs null mean 0.493 (null p99 0.575), permutation p=0.0002. Grid rule MCC 0.216 vs null 0.000, p=0.0004, but recall only 8% because 2026 Fed markets traded at 0.99+ while the FIT band stopped at 0.99. Maker backtest on TEST: 4 meetings filled, returns 1.0%, 26.7%, 17.6%, 6.8%; mean 13.0%; t-test p=0.053; sign test p=0.0625. Taker: 5 meetings, mean 9.7%, t-test p=0.054. A replicator reusing the same capital averages 4.0% per month on peak capital over Jan-Oct 2026; its best 30-day window was 17.6%; only 2 of 10 months exceeded 10%. The gains come from buying 0.74-0.88 favorites that all won, a tail risk the 7 test meetings cannot measure.",
+     "matches_wallet": true,
+     "profitable_held_out": false
+    },
+    {
+     "hypothesis": "H2 deadline 'nothing happens' NO carry: in the last K days before a 'by/before/in <Month>' deadline, buy NO when its price is in [lo, hi] and hold to resolution.",
+     "method": "Universe: binary Yes/No markets on Gamma whose question has a deadline phrase, with endDate at the Jul 31 or Aug 31 deadlines (FIT: 578 markets) or the Sep 30 or Oct 15 deadlines (TEST: 342 markets), volume >= $20k. Inputs: hourly NO prices-history for 11 days before endDate and the wallet's activity per market. Cells are (market, day k=1..10); decision inputs are the PIT NO price and k only. Fit on FIT: grid by MCC and a logistic score. Null: labels permuted within each deadline. Backtest: first firing cell per market, maker at bid = PIT price floored to the tick with strict fill below the bid, or taker at +half tick plus the market's fee schedule. Settlement uses the resolved payout only. Significance by event-clustered t-test and bootstrap. Scripts: h2_fetch.py, h2_analyze.py.",
+     "fit_result": "The wallet never bought YES; all of its $1.46M in these markets was NO across 77 markets, with no loser. Its buy rate rises with NO price (4.6% of cells at >=0.995). FIT best rule: K=3 days, NO >= 0.99, MCC 0.152; logistic FIT AUC 0.846. FIT maker backtest: 188 markets, -0.10% per market (one loss: 'Iran target Jordan by Aug 31' bought at 0.997, which the wallet avoided), event-cluster t-test p=0.71. FIT taker: +0.09%, p=0.66.",
+     "held_out_result": "TEST: logistic AUC 0.854 vs null 0.515, permutation p=0.0003. Rule MCC 0.133 vs null 0.002, p=0.0003; precision 5.6%, recall 52.7%; the rule's cells hold 95.5% of the wallet's TEST NO dollars. Maker backtest on TEST: 104 markets, +0.52% per market, 0 losers, t-test p about 2e-24, which is meaningless with zero losses. Taker: +0.36%. Capital earns about 0.5% per deadline cycle (FIT Aug: -0.7%), far below 10% per month.",
+     "matches_wallet": true,
+     "profitable_held_out": false
+    }
+   ],
+   "errors_found_in_recorded_numbers": [
+    "Peak capital at risk counts riskless complete sets: a $4,000,000 SPLIT on 2026-10-28 21:15 (and an earlier $2,000,000 SPLIT on 2026-10-01) in 'Will JD Vance win the 2028 US Presidential Election?', a market with no trades where the wallet parks idle cash as complete sets for about 4% APY holding yield (YIELD about $381/day while about $3.5M was parked). Excluding them: peak $5,708,768 instead of $6,458,210, p95 $4.55M instead of $5.35M, ROC 4.24% instead of 3.75%. The criterion still fails. Root cause in polyrea/analysis/ledger.py: SPLIT opens a pseudo-position 'split:<cid>' that counts its full cost as exposure even though it is mergeable at once and has no outcome risk.",
+    "The opposite bias: about $0.29M of directional positions opened before the 7-day warm-up are invisible to the ledger (data-api /positions: Greenland NO $176k, US-Iran war NO $38k, China x Japan NO $13k, ...), and about $2.5M of the current $6.26M portfolio value is pre-existing JD Vance complete sets.",
+    "Mechanism and headline misattribute the month's profit. They say income is carry on long-dated political markets at 0.95-0.97, but about 107% of the 30-day settled PnL is the October 2026 FOMC book (+$257,863 on $4,387,288 bought at 0.92-0.97 within about 5 days of the statement). All other resolved markets together lost $43,676, and the daily series excluding the two FOMC days is -$38,226.",
+    "Criterion (9) is recorded 'na / not assessed', but persistence_a1_survivors.json already shows a last-30-day HAC p=0.157 (fail). Recomputed: t=1.02, p=0.157; bootstrap p=0.153.",
+    "Minor: the profile's 98% maker share (and 93% by USDC) comes from one seeded sample. A fresh 40-fill sample gives 92.5% by count but only 30% by USDC, so the maker share by dollar value is not robust."
+   ],
+   "concerns": [
+    "Prices for decisions and maker fills come from hourly CLOB prices-history, not taker trade-through on the tape. The strict fill (a later hourly price below the bid) only approximates queue position; Fed markets are deep and use a 0.001 tick, so true fill rates are uncertain.",
+    "TEST samples are small: 7 FOMC meetings and 2 deadline clusters (one with only 32 markets). Both carry strategies have rare, total-loss tail events that these samples cannot price: H1 TEST profits come from 0.74-0.88 favorites that all won, and H2 TEST had zero losers while FIT had one.",
+    "The H2 universe filter uses post-hoc total volume (>= $20k) and a question regex. The Oct 15 Gamma scan was truncated at 3 same-second endDate buckets (crypto/up-down markets, which do not match the regex). Decision inputs themselves are PIT-only.",
+    "I hardcoded the FOMC statement times from the public Fed calendar, which is known in advance, and cross-checked them against each Gamma event's endDate.",
+    "The ledger has only 37 days of fills, so ROC in earlier months is unknown. Monthly PnL of $61-169k in prior months on similar capital suggests ROC was also well below 10%.",
+    "Network use: about 2,800 Gamma market pages (month-end windows contain 25-36k markets, mostly crypto up/down), plus about 900 prices-history and about 900 activity calls, all now cached."
+   ],
+   "summary": "The rejection of elmcap2 (0xed107a85a4585a381e48c7f7ca4144909e7dd2e5) stands; it is not overturned.\n\n**Return on capital (criterion 4).** I recomputed the recorded figure exactly: $242,047 over 30 days on a $6.458M peak is 3.75% per month.\n- **Error found:** the peak counts $4M of riskless complete sets. The wallet splits idle cash into Yes+No sets in the JD Vance 2028 market and merges them back as needed, to collect about 4% APY holding yield.\n- **Corrected:** excluding those sets, the peak is $5.71M and ROC is 4.24% (p95 $4.55M, 5.3%).\n- **Opposite bias:** about $0.29M of directional positions opened before the warm-up are invisible to the ledger. Counting them puts ROC near 4%.\n- **Best component:** the October FOMC book returned 5.9% on its cost.\n- Only time-weighted average capital, which is not the pre-registered measure, exceeds 10%.\n\n**Other recorded criteria.**\n- (1)-(3) recompute exactly: HAC t=6.22, last 30 days $242k, median month $87k, Sharpe 3.15, 76.4% positive weeks, 85.7% positive months.\n- The 30-day profit is essentially one event. The October FOMC carry made +$258k; everything else lost $44k, and the daily series without the two FOMC days is -$38k.\n- (5) on-chain holds: 200/200 from cache and a fresh 40/40.\n- (9), recorded as not assessed, would fail: last-30-day HAC p=0.157.\n\n**Two new hypotheses** (fit on FIT, tested on TEST, point-in-time inputs only):\n- **H1, FOMC consensus carry** (2025 meetings fit, 2026 tested).\n  - Match: TEST AUC 0.785 vs permutation null 0.49 (p=0.0002). The wallet bought only consensus outcomes ($58.5M across 15 meetings) and was profitable in all 15 ($1.03M).\n  - Backtest: maker-proxy TEST mean 13% per meeting over 4 filled meetings, t-test p=0.053, sign test p=0.0625. That is not robustly below 0.05, and it rests on 0.74-0.88 favorites that all won.\n  - A replicator averages 4.0% per month on peak capital.\n- **H2, deadline NO carry** (buy NO at 0.99 or higher in the last 3 days before a deadline).\n  - Match: TEST AUC 0.854 (p=0.0003); the rule's cells hold 95.5% of the wallet's TEST NO dollars.\n  - Backtest: FIT loses (-0.10% per market, one total loss), and the TEST gain of +0.52% is significant only because no tail event occurred. About 0.5% per cycle.\n\n**Replicability.** Technically replicable: slow resting bids, public data, zero maker fees, holding yield open to anyone. But the edge is low-yield carry that ties up millions of dollars for 0.3-6% per event, so it cannot reach 10% per month.\n\nAll scripts and outputs are in /tmp/claude-0/-home-user-PolymarketResearchAgent/fbff9ea9-e0dd-5fe1-93b9-0952feb8b6ba/scratchpad/wf/challenge-carry-elmcap2/ (s1-s9, h1_*, h2_*, capital_variants.json, h1_results.json, h1_backtest2.json, h1_auc_and_wallet.json, h2_results.json, replicator_roc.json)."
+  }
+ }
+]

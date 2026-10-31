@@ -1,0 +1,9 @@
+elmcap2         activity usdc $    7,503,787  series volume $    7,502,138  fees $    1,285  activity - volume - fees = $      364 (+0.005%)  rows 5045 vs series trade_count 5,042
+justaluckydude  activity usdc $    5,708,127  series volume $    5,657,333  fees $   50,747  activity - volume - fees = $       47 (+0.001%)  rows 35097 vs series trade_count 35,089
+GoodFallen      activity usdc $    3,257,473  series volume $    3,178,964  fees $   78,212  activity - volume - fees = $      297 (+0.009%)  rows 251974 vs series trade_count 251,943
+RN1             activity usdc $   64,701,515  series volume $   64,545,538  fees $  155,962  activity - volume - fees = $       15 (+0.000%)  rows 248770 vs series trade_count 248,778
+dbdd            activity usdc $    1,712,572  series volume $    1,680,302  fees $   32,405  activity - volume - fees = $     -135 (-0.008%)  rows 29543 vs series trade_count 29,546
+b55f            activity usdc $    8,317,112  series volume $    8,161,551  fees $  157,292  activity - volume - fees = $   -1,732 (-0.021%)  rows 466950 vs series trade_count 466,920
+almach          activity usdc $    2,524,164  series volume $    2,512,534  fees $   13,064  activity - volume - fees = $   -1,434 (-0.057%)  rows 83167 vs series trade_count 83,230
+bosona          activity usdc $    2,480,113  series volume $    2,469,344  fees $   12,306  activity - volume - fees = $   -1,537 (-0.062%)  rows 85814 vs series trade_count 85,890
+Tommy           activity usdc $    5,188,911  series volume $    5,175,234  fees $   54,512  activity - volume - fees = $  -40,835 (-0.789%)  rows 104950 vs series trade_count 104,913

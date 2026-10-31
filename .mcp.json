@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "polyrea": {
+      "command": "python",
+      "args": ["-m", "polyrea.server"],
+      "env": {"POLYREA_CACHE_DIR": ".cache"}
+    }
+  }
+}

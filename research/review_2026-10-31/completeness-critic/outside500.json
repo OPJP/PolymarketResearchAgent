@@ -1,0 +1,224 @@
+{
+ "0x6de64d3ac2358383498c9e135df693f3bb12c060": {
+  "history_days": 10,
+  "pre_selection_days": 0,
+  "last_30d_pnl": -10150.796767000002,
+  "median_month_pnl": null,
+  "share_positive_months": null,
+  "annual_sharpe": -4.849639073330797,
+  "share_positive_weeks": 0.0,
+  "p_pre": 1.0,
+  "p_holm_pre": 1.0,
+  "deflated_sharpe": 9.326812725672053e-08,
+  "volume_30d": 130128.593346,
+  "sampled_btc5m_pnl_fit_test": [
+   5543.0,
+   659.1
+  ],
+  "a1_reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 9.33e-08 < 0.95",
+   "last-30d PnL $-10,151 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe -4.85 < 3.0 (returns not constant enough)",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0xa0e72d5575095199ae08ce0dce447f21b7249461": {
+  "history_days": 126,
+  "pre_selection_days": 96,
+  "last_30d_pnl": 22122.76306700002,
+  "median_month_pnl": 38015.010413,
+  "share_positive_months": 1.0,
+  "annual_sharpe": 4.3507987872434795,
+  "share_positive_weeks": 0.8888888888888888,
+  "p_pre": 0.0023103523600755027,
+  "p_holm_pre": 1.0,
+  "deflated_sharpe": 0.2927548601358718,
+  "volume_30d": 3765032.303950999,
+  "sampled_btc5m_pnl_fit_test": [
+   4486.2,
+   1272.5
+  ],
+  "a1_reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.293 < 0.95",
+   "last-30d PnL $22,123 < $50k",
+   "median monthly PnL $38,015 < $50k"
+  ]
+ },
+ "0x86b14772a4da70f3e6d5eee06933ebef143efc87": {
+  "history_days": 406,
+  "pre_selection_days": 376,
+  "last_30d_pnl": 25252.524454,
+  "median_month_pnl": -209.3157430000001,
+  "share_positive_months": 0.38461538461538464,
+  "annual_sharpe": 2.050757066206522,
+  "share_positive_weeks": 0.3620689655172414,
+  "p_pre": 0.11470917218355767,
+  "p_holm_pre": 1.0,
+  "deflated_sharpe": 0.1603643273302941,
+  "volume_30d": 2682349.5262070005,
+  "sampled_btc5m_pnl_fit_test": [
+   2362.5,
+   2823.3
+  ],
+  "a1_reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.139 > 0.01",
+   "deflated Sharpe 0.16 < 0.95",
+   "last-30d PnL $25,253 < $50k",
+   "median monthly PnL $-209 < $50k",
+   "positive months 0.385 < 0.8",
+   "annualized Sharpe 2.05 < 3.0 (returns not constant enough)",
+   "positive weeks 0.362 < 0.75"
+  ]
+ },
+ "0x6b9deede2ecf4e68ea8fdcb099007b8cbb7dbdc0": {
+  "history_days": 436,
+  "pre_selection_days": 406,
+  "last_30d_pnl": -107.98098600000017,
+  "median_month_pnl": -0.00010999999999938836,
+  "share_positive_months": 0.21428571428571427,
+  "annual_sharpe": 0.012362392069308793,
+  "share_positive_weeks": 0.08064516129032258,
+  "p_pre": 0.48210017177309417,
+  "p_holm_pre": 1.0,
+  "deflated_sharpe": 0.0011964048116456624,
+  "volume_30d": 144187.631724,
+  "sampled_btc5m_pnl_fit_test": [
+   3580.8,
+   174.2
+  ],
+  "a1_reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.404 > 0.01",
+   "deflated Sharpe 0.0012 < 0.95",
+   "last-30d PnL $-108 < $50k",
+   "median monthly PnL $-0 < $50k",
+   "positive months 0.214 < 0.8",
+   "annualized Sharpe 0.0124 < 3.0 (returns not constant enough)",
+   "positive weeks 0.0806 < 0.75"
+  ]
+ },
+ "0x57d9a9ea3da2d4f0637d7d9cd578553d02327686": {
+  "history_days": 30,
+  "pre_selection_days": 0,
+  "last_30d_pnl": 7293.684702,
+  "median_month_pnl": 7293.684702,
+  "share_positive_months": 1.0,
+  "annual_sharpe": 6.217496695641313,
+  "share_positive_weeks": 0.75,
+  "p_pre": 1.0,
+  "p_holm_pre": 1.0,
+  "deflated_sharpe": 0.05943826849468462,
+  "volume_30d": 61521.487345999994,
+  "sampled_btc5m_pnl_fit_test": [
+   311.6,
+   3126.5
+  ],
+  "a1_reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0594 < 0.95",
+   "last-30d PnL $7,294 < $50k",
+   "median monthly PnL $7,294 < $50k"
+  ]
+ },
+ "0xb129a54d3b23214728dcc544034fc83067cd890c": {
+  "history_days": 127,
+  "pre_selection_days": 97,
+  "last_30d_pnl": 29538.023861,
+  "median_month_pnl": 1761.5879844999995,
+  "share_positive_months": 0.5,
+  "annual_sharpe": 3.4764500172997588,
+  "share_positive_weeks": 0.5,
+  "p_pre": 0.4934165988761858,
+  "p_holm_pre": 1.0,
+  "deflated_sharpe": 0.1332595138367471,
+  "volume_30d": 1667582.9363830006,
+  "sampled_btc5m_pnl_fit_test": [
+   1736.0,
+   1662.2
+  ],
+  "a1_reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.497 > 0.01",
+   "deflated Sharpe 0.133 < 0.95",
+   "last-30d PnL $29,538 < $50k",
+   "median monthly PnL $1,762 < $50k",
+   "positive months 0.5 < 0.8",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x5e4aa0f176014729f5168e821ce614484fbebe6b": {
+  "history_days": 282,
+  "pre_selection_days": 252,
+  "last_30d_pnl": 18331.62559,
+  "median_month_pnl": 4180.4419915,
+  "share_positive_months": 0.6666666666666666,
+  "annual_sharpe": 2.6032094607357448,
+  "share_positive_weeks": 0.575,
+  "p_pre": 0.15197491629550566,
+  "p_holm_pre": 1.0,
+  "deflated_sharpe": 0.22048119627108792,
+  "volume_30d": 3338426.7754899994,
+  "sampled_btc5m_pnl_fit_test": [
+   1056.6,
+   1825.2
+  ],
+  "a1_reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.143 > 0.01",
+   "deflated Sharpe 0.22 < 0.95",
+   "last-30d PnL $18,332 < $50k",
+   "median monthly PnL $4,180 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 2.6 < 3.0 (returns not constant enough)",
+   "positive weeks 0.575 < 0.75"
+  ]
+ },
+ "0x129246beaac356e104c397f0985c11b7469be5a6": {
+  "history_days": 195,
+  "pre_selection_days": 165,
+  "last_30d_pnl": 25389.093464999998,
+  "median_month_pnl": 2921.262452,
+  "share_positive_months": 0.8333333333333334,
+  "annual_sharpe": 7.58673410583355,
+  "share_positive_weeks": 0.8148148148148148,
+  "p_pre": 0.002881069060516038,
+  "p_holm_pre": 1.0,
+  "deflated_sharpe": 0.9980676936547432,
+  "volume_30d": 315972.9728009999,
+  "sampled_btc5m_pnl_fit_test": [
+   652.0,
+   2212.3
+  ],
+  "a1_reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "last-30d PnL $25,389 < $50k",
+   "median monthly PnL $2,921 < $50k"
+  ]
+ },
+ "0xb0f85baa97990910a3e8ac2b4a58a322f01ecef5": {
+  "history_days": 330,
+  "pre_selection_days": 300,
+  "last_30d_pnl": 28926.32581499999,
+  "median_month_pnl": 30238.06111000001,
+  "share_positive_months": 1.0,
+  "annual_sharpe": 11.266572375429154,
+  "share_positive_weeks": 0.9787234042553191,
+  "p_pre": 2.7551873634517305e-12,
+  "p_holm_pre": 1.3775936817258653e-09,
+  "deflated_sharpe": 0.9999999999999997,
+  "volume_30d": 763317.433646,
+  "sampled_btc5m_pnl_fit_test": [
+   1291.9,
+   1274.7
+  ],
+  "a1_reasons": [
+   "last-30d PnL $28,926 < $50k",
+   "median monthly PnL $30,238 < $50k"
+  ]
+ }
+}

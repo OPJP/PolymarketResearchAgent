@@ -1,0 +1,18 @@
+{
+ "bosona_tx": 85422,
+ "almach_tx": 82812,
+ "shared_tx": 6524,
+ "bosona_markets": 13807,
+ "almach_markets": 13487,
+ "shared_markets": 10974,
+ "share_of_bosona_markets_shared": 0.7948142246686464,
+ "share_of_almach_markets_shared": 0.8136724252984355,
+ "market_second_pairs_bosona": 53313,
+ "market_second_pairs_almach": 52738,
+ "shared_market_second_pairs": 13453,
+ "jaccard_market_second": 0.14528391541933952,
+ "shared_tx_same_token_share": 0.9977007970570202,
+ "shared_tx_same_price_share": 0.7739117106069896,
+ "bosona_buy_share": 0.9999883468897849,
+ "almach_buy_share": 1.0
+}

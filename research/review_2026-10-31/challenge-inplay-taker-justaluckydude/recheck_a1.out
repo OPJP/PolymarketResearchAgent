@@ -1,0 +1,40 @@
+days 186 2026-04-28 2026-10-30
+pre n 156 NW t/p (np.float64(4.824736476390136), np.float64(7.009424895943339e-07), 4)
+recent 30 NW t/p (np.float64(1.1715506147980002), np.float64(0.12068876270035211), 3) plain t p TtestResult(statistic=np.float64(1.2108859458547354), pvalue=np.float64(0.11785764684112088), df=np.int64(29))
+ recent lags 0 (np.float64(1.231586350397191), np.float64(0.10905182115702328), 0)
+ recent lags 1 (np.float64(1.149126096862168), np.float64(0.1252519944290275), 1)
+ recent lags 2 (np.float64(1.1529104942491082), np.float64(0.12447356211404209), 2)
+ recent lags 5 (np.float64(1.1866057504147904), np.float64(0.11769158331463542), 5)
+ recent lags 7 (np.float64(1.1697944860573244), np.float64(0.12104184158120684), 7)
+recent30 sum 138804.19092199998 mean 4626.806364066666 pos days 0.6666666666666666
+annual sharpe 7.2058152674147635
+pos weeks 0.8076923076923077 26
+30d blocks recent first [138804, 174150, 117337, 240057, 354287, 520977]
+trend lags 4 beta -72.08 z -2.654 p 0.003980456896555221
+trend lags 7 beta -72.08 z -2.555 p 0.00530532875994411
+trend lags 14 beta -72.08 z -2.563 p 0.0051878892911673274
+trend lags 30 beta -72.08 z -2.676 p 0.0037290690197923494
+spearman daily SignificanceResult(statistic=np.float64(-0.14129489157952155), pvalue=np.float64(0.054395092041861645))
+spearman weekly SignificanceResult(statistic=np.float64(-0.4488888888888889), pvalue=np.float64(0.021432025479478024))
+trend excl first 30d: beta -75.77928613290449 z -2.0817674290123205 p 0.01868185908939203
+block ending 2026-10-30: pnl     138804 vol      5657333 pnl/vol 0.0245 fees    -50747 income     25593 pnl_ex_income     113211
+block ending 2026-09-30: pnl     174150 vol      5321777 pnl/vol 0.0327 fees    -80866 income     41757 pnl_ex_income     132393
+block ending 2026-08-31: pnl     117337 vol      5073668 pnl/vol 0.0231 fees   -103160 income     54550 pnl_ex_income      62787
+block ending 2026-08-01: pnl     240057 vol      3078391 pnl/vol 0.0780 fees    -55032 income     38287 pnl_ex_income     201770
+block ending 2026-07-02: pnl     354287 vol      3571699 pnl/vol 0.0992 fees    -42501 income      5874 pnl_ex_income     348413
+block ending 2026-06-02: pnl     520977 vol      3358163 pnl/vol 0.1551 fees    -41146 income         0 pnl_ex_income     520977
+repo persistence:
+TestResult(name='hac_t', statistic=1.1715506147980002, p_value=0.12545669270269386, n=30, detail='lags=3')
+TestResult(name='trend', statistic=-2.6537230441834496, p_value=0.003980456896555221, n=186, detail='slope_per_day=-72.08')
+TestResult(name='mean_decline', statistic=-1.022149544513703, p_value=0.15335506346577504, n=186, detail='recent=4626.81 earlier=9100.35')
+TestResult(name='cusum', statistic=1.385743936792905, p_value=0.042962172976534416, n=186, detail='most_likely_break_index=108')
+{'last_30d_pnl': 138804.19092199998, 'median_month_pnl': 207103.40016449994, 'annual_sharpe': 7.2058152674147635, 'share_positive_weeks': 0.8076923076923077, 'share_positive_months': 1.0, 'p_pre': 1.6631509047785777e-06, 'p_boot_pre': 0.00024993751562109475}
+last30 taker/maker income: wallet_income 25593.422699999996 fees_paid -50747.40020000003 econ 138804.19092199998
+  taker_rebate 25593.4
+  maker_rebate 0.0
+  reward_income 0.0
+  fees_paid -50747.4
+  economic_pnl 138804.2
+  trade_pnl 163958.2
+  volume_usdc 5657332.6
+  observed taker rebate rate 0.5043297311612824

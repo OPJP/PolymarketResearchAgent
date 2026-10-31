@@ -1,0 +1,25 @@
+5m fit
+        ts  is_up  price  size  count   name        cid
+1792651335  False   0.69 125.0    1.0 bosona 0x721208e8
+5m test
+        ts  is_up  price   size  count       name        cid
+1792848513   True   0.75   5.20    1.0 GoodFallen 0x9278daf8
+1792848513   True   0.75   7.80    1.0 GoodFallen 0x9278daf8
+1792848513   True   0.75  17.00    1.0 GoodFallen 0x9278daf8
+1792848513   True   0.74   0.50    1.0       xMFW 0x9278daf8
+1792848513   True   0.74   4.00    1.0       xMFW 0x9278daf8
+1792848513   True   0.74  30.00    1.0       xMFW 0x9278daf8
+1792848513   True   0.76  13.34    1.0        DSP 0x9278daf8
+1792848513   True   0.76  16.66    1.0        DSP 0x9278daf8
+1792848513   True   0.78   5.00    1.0        DSP 0x9278daf8
+1792911638   True   0.74  24.00    1.0 GoodFallen 0xacc8ec2e
+1792911638   True   0.77  30.00    1.0 GoodFallen 0xacc8ec2e
+1792911638   True   0.75   7.01    1.0        DSP 0xacc8ec2e
+1792911638   True   0.76  30.00    1.0        DSP 0xacc8ec2e
+1792763280   True   0.57 500.00    1.0     almach 0xc827d8ab
+1792763280   True   0.57 500.00    1.0     bosona 0xc827d8ab
+15m test
+        ts  is_up  price  size  count   name        cid
+1792948697   True   0.69 62.00    1.0 almach 0x888172be
+1792948697   True   0.69 62.00    1.0 bosona 0x888172be
+1792946237   True   0.52 25.73    1.0 0xb55f 0xb8dc298e

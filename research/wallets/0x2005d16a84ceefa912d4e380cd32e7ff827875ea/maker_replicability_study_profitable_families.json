@@ -1,0 +1,193 @@
+{
+ "tool": "maker_replicability_study",
+ "subject": {
+  "kind": "wallet",
+  "wallet": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+  "days": 30,
+  "families": [
+   "wta",
+   "atp",
+   "cs2",
+   "ucl",
+   "lal",
+   "sea",
+   "cfb"
+  ]
+ },
+ "observed": {
+  "markets_sampled": 158,
+  "fit_markets": 79,
+  "test_markets": 79,
+  "taker_prints": 67109,
+  "wallet_passive_buys": 3758
+ },
+ "derived": {
+  "fit_delta_scan": {
+   "0.005": {
+    "fills": 5123,
+    "pnl": -2077.8882630840008,
+    "return_on_bought": -0.05086406763873312,
+    "per_market_t": -3.4527269807831504,
+    "per_market_p": 0.9995304007705985
+   },
+   "0.01": {
+    "fills": 4524,
+    "pnl": -1842.138337223001,
+    "return_on_bought": -0.051458299222197926,
+    "per_market_t": -3.099141430835438,
+    "per_market_p": 0.9986027923395026
+   },
+   "0.02": {
+    "fills": 2903,
+    "pnl": -980.7272729110003,
+    "return_on_bought": -0.04274447662336695,
+    "per_market_t": -2.90450900828449,
+    "per_market_p": 0.9975310861419225
+   },
+   "0.03": {
+    "fills": 1847,
+    "pnl": -722.9769209900003,
+    "return_on_bought": -0.0498809325822848,
+    "per_market_t": -2.3074413548122514,
+    "per_market_p": 0.9879596280274323
+   },
+   "0.05": {
+    "fills": 825,
+    "pnl": -315.2832091300001,
+    "return_on_bought": -0.04880953462143953,
+    "per_market_t": -1.4370829934208953,
+    "per_market_p": 0.9221389723335796
+   }
+  },
+  "chosen_delta": 0.05,
+  "test_by_latency_s": {
+   "0": {
+    "fills": 495,
+    "markets": 64,
+    "usd_bought": 3915.1773283700004,
+    "pnl": -390.56449237000015,
+    "return_on_bought": -0.09975652687297391,
+    "per_market_mean": -6.1025701932812515,
+    "per_market_t": -3.862527335153354,
+    "per_market_p": 0.9998662911740167,
+    "per_market_bootstrap_p": 1.0,
+    "matched_pairs_shares": 3283.674803,
+    "share_markets_positive": 0.296875
+   },
+   "2": {
+    "fills": 568,
+    "markets": 65,
+    "usd_bought": 4509.31685877,
+    "pnl": -372.5029597700001,
+    "return_on_bought": -0.08260740405623374,
+    "per_market_mean": -5.730814765692309,
+    "per_market_t": -3.1953937153547,
+    "per_market_p": 0.9989154703280031,
+    "per_market_bootstrap_p": 0.9995002498750625,
+    "matched_pairs_shares": 3736.843998,
+    "share_markets_positive": 0.3230769230769231
+   },
+   "5": {
+    "fills": 668,
+    "markets": 66,
+    "usd_bought": 5361.5750463,
+    "pnl": -549.7608763000002,
+    "return_on_bought": -0.10253719691555707,
+    "per_market_mean": -8.329710246969698,
+    "per_market_t": -3.43035221258088,
+    "per_market_p": 0.9994740021800108,
+    "per_market_bootstrap_p": 1.0,
+    "matched_pairs_shares": 4324.731344,
+    "share_markets_positive": 0.2878787878787879
+   },
+   "10": {
+    "fills": 793,
+    "markets": 67,
+    "usd_bought": 6215.96602928,
+    "pnl": -717.5502482800002,
+    "return_on_bought": -0.11543664249450775,
+    "per_market_mean": -10.709705198208958,
+    "per_market_t": -3.45162153596837,
+    "per_market_p": 0.9995115881623089,
+    "per_market_bootstrap_p": 0.9985007496251874,
+    "matched_pairs_shares": 5045.77703,
+    "share_markets_positive": 0.31343283582089554
+   },
+   "30": {
+    "fills": 1384,
+    "markets": 68,
+    "usd_bought": 10869.76845947,
+    "pnl": -1392.0021584700003,
+    "return_on_bought": -0.1280618040448925,
+    "per_market_mean": -20.470619977500004,
+    "per_market_t": -4.294970032407619,
+    "per_market_p": 0.9999711362985879,
+    "per_market_bootstrap_p": 1.0,
+    "matched_pairs_shares": 8988.39223,
+    "share_markets_positive": 0.25
+   }
+  },
+  "test_at_touch_by_latency_s": {
+   "0": {
+    "fills": 644,
+    "markets": 64,
+    "usd_bought": 4973.30494164,
+    "pnl": -541.0007556400001,
+    "return_on_bought": -0.10878093380326671,
+    "per_market_mean": -8.453136806875001,
+    "per_market_t": -3.678334070715856,
+    "per_market_p": 0.9997560480031511,
+    "per_market_bootstrap_p": 1.0,
+    "matched_pairs_shares": 4100.979367,
+    "share_markets_positive": 0.265625
+   },
+   "2": {
+    "fills": 731,
+    "markets": 65,
+    "usd_bought": 5676.29906279,
+    "pnl": -486.8492687900001,
+    "return_on_bought": -0.08576878409762738,
+    "per_market_mean": -7.489988750615386,
+    "per_market_t": -3.1433227491976385,
+    "per_market_p": 0.9987341579684892,
+    "per_market_bootstrap_p": 0.9995002498750625,
+    "matched_pairs_shares": 4736.119898,
+    "share_markets_positive": 0.3384615384615385
+   },
+   "5": {
+    "fills": 848,
+    "markets": 67,
+    "usd_bought": 6616.98418757,
+    "pnl": -551.1486675700002,
+    "return_on_bought": -0.08329303077455323,
+    "per_market_mean": -8.226099515970152,
+    "per_market_t": -2.9098188184251415,
+    "per_market_p": 0.9975375541433219,
+    "per_market_bootstrap_p": 0.9960019990004998,
+    "matched_pairs_shares": 5487.067396,
+    "share_markets_positive": 0.2537313432835821
+   }
+  },
+  "wallet_passive_replay_test": {
+   "fills": 1949,
+   "usd": 592706.6343548524,
+   "pnl": -5091.538713852457,
+   "return": -0.008590318411729067,
+   "per_market_p": 0.5744469101066557
+  }
+ },
+ "inferred": {},
+ "sources": [],
+ "coverage": {
+  "status": "partial",
+  "detail": "158 sampled markets"
+ },
+ "limitations": [
+  "Fair value is the last public print (no external event data); a real maker would also use game state.",
+  "Trade-through fills: conservative at the touch, optimistic about queue position below it; at-touch results are the first-in-queue bound.",
+  "Maker rebates and liquidity rewards are excluded from backtest PnL."
+ ],
+ "unknowns": [],
+ "next_probes": [],
+ "generated_at": "2026-10-31T04:49:01+00:00"
+}

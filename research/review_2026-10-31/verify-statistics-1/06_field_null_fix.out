@@ -1,0 +1,16 @@
+t(n-1)/exact critical value at 1e-4: n=69 3.932/4.431  n=152 3.812/4.111
+field-null FWER over 334 (HAC step only): repo 98.3% (E#=3.68); exact-calibrated 97.6% (E#=3.39)
+excluding 87 left-skewed wallets (skew<-1, carry-like): repo 23.0% (E#=0.26); exact 18.5% (E#=0.20)
+top contributors (repo rate): name n rate_repo rate_exact skew share_zero_days share_neg_days
+  Vps1                     95 0.336 0.324 skew= -9.00 zero=0.35 neg=0.25
+  0xC9BFc7986767173b4f1c  123 0.335 0.335 skew=-10.84 zero=0.98 neg=0.02
+  0x89AD2f89b0291415F2f6  256 0.234 0.233 skew= -9.62 zero=0.73 neg=0.20
+  gotigers                706 0.223 0.212 skew=-23.81 zero=0.30 neg=0.30
+  8DDD                     83 0.217 0.193 skew= -6.87 zero=0.14 neg=0.41
+  testebzai               233 0.198 0.182 skew=-11.53 zero=0.10 neg=0.51
+  0x389D2790cD8eaD87028F  248 0.195 0.176 skew=-13.94 zero=0.12 neg=0.54
+  eschaworldchampion2026  275 0.165 0.165 skew= -5.82 zero=0.96 neg=0.03
+  anoin123                274 0.163 0.141 skew=-14.55 zero=0.00 neg=0.47
+  Zraadir                 255 0.162 0.154 skew= -4.52 zero=0.71 neg=0.15
+  robustmst                88 0.145 0.145 skew= -1.28 zero=0.89 neg=0.06
+  cm2897                  513 0.120 0.117 skew= -8.49 zero=0.71 neg=0.17

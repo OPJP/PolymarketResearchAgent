@@ -1,0 +1,59 @@
+# dangerously-skip-permissions (`0xc53375ff94e96100f2b30a4b5775db35218d69a9`)
+
+Leaderboard rank 123 (monthly PnL). Verdict: **REJECT**. Archetype: BTC 5-minute Up/Down bot (three-wallet cluster).
+
+Profile: https://polymarket.com/profile/0xc53375ff94e96100f2b30a4b5775db35218d69a9
+
+## Mechanism
+
+Trades only BTC 5-minute windows, buying both outcomes in most windows at a median pair cost of 1.004; 35% maker fills on-chain. Its taker buys roughly break even before rebates (-0.2% held out); its maker fills earn +3.3% (p=0.03). The maker side is spot-reactive: fills come right after a 2-5 s spot move toward the bought side, strongest at 1 s on Binance, gone by 5 s. The three wallets share thousands of transactions, mostly quoting side by side; direct fills against each other are under 0.5% of each wallet's taker volume. Observed taker-rebate tier Obsidian (50% of fees); 30-day PnL at the 0% tier $49,725, Gold $74,081, Diamond $109,262, Obsidian $117,381.
+
+## Criteria
+
+| Criterion | Status | Evidence |
+| --- | --- | --- |
+| Profit significant, not luck | pass | pre-selection 74d: HAC t=6.1, Holm p=3.7e-04, bootstrap p=2.5e-04; deflated Sharpe 1.000 |
+| Net profit above $50k/month | pass | last 30d $116,255; median month $90,095 |
+| Constant returns (low std) | pass | annualized Sharpe 23.6; positive weeks 100%; positive months 100% |
+| High % profit | pass | 2549%/month: 30-day PnL $116,255 on peak capital at risk $4,560; counting the on-chain collateral too ($94,887), at least 117%/month |
+| Trades verified on-chain | pass | 200/200 sampled fills confirmed in Polygon OrderFilled events; 35% maker fills (95% CI 29%-42%), 20% of USDC |
+| Reverse-engineered rule matches the wallet | partial | spot-reactive maker, Binance spot: stratified AUC 0.591 vs rotation null 0.500 (max 0.517), p=0.005; rule flags 35% of the wallet's decisions at 1.3x the base rate (z=12.0); same on Kraken: stratified AUC 0.581 vs rotation null 0.501 (max 0.515), p=0.005; rule flags 29% of the wallet's decisions at 1.3x the base rate (z=11.9); frozen, on 2,016 unseen windows (100 rotations, so p cannot go below 0.0099): stratified AUC 0.597 vs rotation null 0.501 (max 0.505), p=0.0099; rule flags 40% of the wallet's decisions at 1.3x the base rate (z=48.6); latency taker, Binance: stratified AUC 0.533 vs rotation null 0.510 (max 0.520), p=0.005; rule flags 37% of the wallet's decisions at 1.5x the base rate (z=5.5); directional maker (fair - price): stratified AUC 0.465 vs rotation null 0.498 (max 0.522), p=1.00; rule flags 14% of the wallet's decisions at 1.1x the base rate; Holm over the six families tested leaves the spot-reactive p far below 0.01 (z >= 9) |
+| Rule profitable in held-out PIT backtest | fail | with correct fill timing (block-time slack 2 s) 0 of the 128 FIT configurations were profitable (best -6.9%); the best one, frozen (theta 5e-05, delta 0.04, 2 s move, requote 1 s, 2 s latency), on 2,011 unseen resolved windows: rest of the TEST week strict -5.7% (2,705 fills, p(profit)=1.00); the day after as_of strict -8.7% (1,124 fills, p(profit)=1.00); all, first-in-queue -5.3% (4,575 fills, p(profit)=1.00); at the size the tape allows it would lose about $9,305 a month; without the slack (optimistic): strict +2.5% (1,783 fills, p(profit)=0.12); same rule on the standard TEST sample (no slack) strict +6.8% (80 fills, p(profit)=0.23); latency taker on Binance at 20 s spot age (not achievable) -10.5% (85,617 trades, p(profit)=1.00); same taker rule frozen on the unseen windows at >= 2 s -3.8% (684,438 trades, p(profit)=1.00); directional maker strict -12.9% (5,679 fills, p(profit)=1.00); the wallet's own maker fills +3.3%, taker buys -0.2% |
+| Replicable on a normal computer and connection | fail | the matched rule shows a profit only with optimistic fill timing (an order credited with trades that may have matched before it existed) and at most 1 s of spot age; timed correctly at a normal connection's 2 s it loses about $9,305 a month at the size the tape allows, nowhere near $50k. The wallet's own month depends on the rebate tier: at 0% it is $49,725 |
+| Conditions still hold now | pass | last 30 days p=1.0e-06; decline vs earlier p=1.00; last 15 vs prior 15 p=0.53; trend p=1.00 |
+
+## Key numbers
+
+- 30-day PnL: $116,255
+- PnL at 0% rebate tier: $49,725
+- Spot-reactive match (Binance): AUC 0.591, z=12.0
+- Frozen rule on unseen windows (strict, 2 s slack): -6.6% (p=1.00)
+- Matched rule at tape size: -$9,305/month
+- Its own maker fills on the unseen windows: +2.6%
+
+## Why this verdict
+
+- A public spot-reactive quoting rule matches part of its behaviour on held-out windows (a partial match).
+- Traded as a strategy, the matched rule loses money on 2,011 unseen windows once fills are timed correctly.
+- Its own profit at a 0% rebate tier is $49,725 a month.
+
+## Corrections after the adversarial review (2026-10-31)
+
+- The match test now uses a rotation null; the earlier 'AUC at chance' came from the broken clock-shift null.
+- The spot-reactive signature was found by the reviewer and is now a polyrea hypothesis; on Binance spot it meets the full match bar for GoodFallen and x-MoneyForWhiskas.
+- 'Profit relies on cross-wallet self-trading' was overstated: sibling makers fill under 0.5% of each wallet's taker volume.
+- The market-vs-model Brier figures are now computed in the study files (TEST: market 0.127, Kraken model 0.137, Binance model 0.135).
+
+## Evidence files
+
+- `research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/profile.json`
+- `research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/updown_study_btc_5m.json`
+- `research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/updown_study_btc_5m_binance.json`
+- `research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/updown_maker_study_btc_5m.json`
+- `research/wallets/0xc53375ff94e96100f2b30a4b5775db35218d69a9/updown_maker_study_btc_5m_binance.json`
+- `research/stage_a/updown_btc5m_frozen_rule_extension_binance.json`
+- `research/stage_a/rebate_dependence.json`
+- `research/stage_a/persistence_a1_survivors.json`
+- `research/stage_a/collateral.json`
+- `research/review_2026-10-31/challenge-btc5m-cluster/h4_match_robust.json`
+- `research/review_2026-10-31/challenge-btc5m-cluster/selftrade.json`

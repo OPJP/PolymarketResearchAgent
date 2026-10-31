@@ -1,0 +1,8 @@
+cheap3_edge  seed 0 n_perm 100 lat  20 AUC 0.7653 null_mean 0.7555 null_p95 0.7826 perm_p 0.3168 mcc_p 0.030 AUC(-price) 0.859 MW p 0 (17s)
+cheap3_edge  seed 1 n_perm 100 lat  20 AUC 0.7589 null_mean 0.7574 null_p95 0.7857 perm_p 0.4653 mcc_p 0.059 AUC(-price) 0.856 MW p 0 (15s)
+cheap3_edge  seed 2 n_perm 100 lat  20 AUC 0.7624 null_mean 0.7536 null_p95 0.7853 perm_p 0.3366 mcc_p 0.079 AUC(-price) 0.857 MW p 0 (12s)
+cheap3_edge  seed 3 n_perm 100 lat  20 AUC 0.7626 null_mean 0.7528 null_p95 0.7913 perm_p 0.3465 mcc_p 0.050 AUC(-price) 0.858 MW p 0 (12s)
+cheap3_edge  seed 4 n_perm 100 lat  20 AUC 0.7627 null_mean 0.7516 null_p95 0.7835 perm_p 0.2574 mcc_p 0.020 AUC(-price) 0.857 MW p 0 (12s)
+edge_only    seed 0 n_perm 100 lat   2 AUC 0.6524 null_mean 0.5323 null_p95 0.5557 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.548 MW p 0 (14s)
+edge_only    seed 1 n_perm 100 lat   2 AUC 0.6537 null_mean 0.5397 null_p95 0.5621 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.552 MW p 0 (18s)
+edge_only    seed 2 n_perm 100 lat   2 AUC 0.6491 null_mean 0.5401 null_p95 0.5667 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.559 MW p 0 (18s)

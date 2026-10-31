@@ -1,0 +1,52 @@
+{
+ "fit": {
+  "cluster_tx_per_wallet": {
+   "DS": 19530,
+   "GF": 9466,
+   "XM": 2212
+  },
+  "shared_tx_pairs": {
+   "XM-DS": 45,
+   "GF-DS": 145,
+   "GF-XM": 31
+  },
+  "direct_cluster_taker_vs_cluster_maker_tx": {
+   "DS->GF": 17,
+   "XM->DS": 6,
+   "GF->DS": 14,
+   "XM->GF": 3,
+   "GF->XM": 10,
+   "DS->XM": 9
+  },
+  "taker_usd_filled_by_sibling_maker_share": {
+   "DS": 0.0025510488808131566,
+   "GF": 0.004440180893235477,
+   "XM": 0.004279182853636143
+  }
+ },
+ "test": {
+  "cluster_tx_per_wallet": {
+   "GF": 10545,
+   "XM": 2879,
+   "DS": 23055
+  },
+  "shared_tx_pairs": {
+   "GF-DS": 336,
+   "GF-XM": 69,
+   "XM-DS": 85
+  },
+  "direct_cluster_taker_vs_cluster_maker_tx": {
+   "DS->GF": 9,
+   "GF->XM": 4,
+   "GF->DS": 21,
+   "XM->DS": 2,
+   "DS->XM": 10,
+   "XM->GF": 6
+  },
+  "taker_usd_filled_by_sibling_maker_share": {
+   "GF": 0.004961303306904379,
+   "XM": 0.004184391422813137,
+   "DS": 0.0014590882635373852
+  }
+ }
+}

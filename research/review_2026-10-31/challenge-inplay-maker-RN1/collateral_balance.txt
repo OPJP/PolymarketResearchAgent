@@ -1,0 +1,10 @@
+decimals 6
+symbol pUSD
+<stdin>:18: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+0 96408643 2026-10-29 23:59:54 collateral balance $ 1817210
+5 96192643 2026-10-26 05:58:56 collateral balance $ 2425806
+10 95976643 2026-10-22 11:58:56 collateral balance $ 2080057
+15 95760643 2026-10-18 17:58:32 collateral balance $ 1765096
+20 95544643 2026-10-14 23:58:09 collateral balance $ 1993874
+25 95328643 2026-10-11 05:56:56 collateral balance $ 1763633
+30 95112643 2026-10-07 11:55:55 collateral balance $ 1539654

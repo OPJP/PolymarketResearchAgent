@@ -1,0 +1,3 @@
+test games with RN1 touch events 32 ; games where RN1 share in window < others share: 23 ; equal: 0
+per-game mean diff 0.0701, sign test p=0.01003
+leave-one-game-out stat min 0.0560 max 0.0815

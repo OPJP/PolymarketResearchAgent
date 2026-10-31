@@ -1,0 +1,25 @@
+total cached /trades URLs: 21203
+start==end walks WITHOUT limit: 19
+start==end walks WITH limit: 0
+row-count distribution (no limit): Counter({100: 19})
+offset distribution (no limit): Counter({('0',): 19})
+takerOnly: Counter({('false',): 19})
+1792651335 0x721208e819 100 ['0'] ['false']
+1792763280 0xc827d8ab1e 100 ['0'] ['false']
+1792763933 0x0d70225ec4 100 ['0'] ['false']
+1792763949 0x0d70225ec4 100 ['0'] ['false']
+1792763952 0x0d70225ec4 100 ['0'] ['false']
+1792763954 0x0d70225ec4 100 ['0'] ['false']
+1792794396 0x161a4c7f51 100 ['0'] ['false']
+1792796420 0x1feb105da5 100 ['0'] ['false']
+1792797365 0xcb42608f83 100 ['0'] ['false']
+1792848513 0x9278daf898 100 ['0'] ['false']
+1792897802 0xae411b51f6 100 ['0'] ['false']
+1792897829 0xae411b51f6 100 ['0'] ['false']
+1792898876 0x825bb51500 100 ['0'] ['false']
+1792899753 0xa4e52dada0 100 ['0'] ['false']
+1792899756 0xa4e52dada0 100 ['0'] ['false']
+1792899786 0xa4e52dada0 100 ['0'] ['false']
+1792911638 0xacc8ec2ec2 100 ['0'] ['false']
+1792946237 0xb8dc298e91 100 ['0'] ['false']
+1792948697 0x888172bef7 100 ['0'] ['false']

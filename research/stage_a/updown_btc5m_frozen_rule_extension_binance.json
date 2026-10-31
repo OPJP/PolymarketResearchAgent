@@ -1,0 +1,1300 @@
+{
+ "tool": "frozen_rule_extension",
+ "subject": {
+  "kind": "wallets",
+  "wallets": [
+   "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
+   "0x3048d65321be3497164cdfc2996f94f98a2e7537",
+   "0xc53375ff94e96100f2b30a4b5775db35218d69a9",
+   "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3",
+   "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed",
+   "0x3725d52f3c252e8374999cc8617292ea2608ad88"
+  ],
+  "asset": "btc",
+  "duration": "5m",
+  "as_of": 1793318400,
+  "spot_source": "binance",
+  "forward_days": 1
+ },
+ "observed": {
+  "fit_blocks": [
+   [
+    1792159200,
+    1792166400
+   ],
+   [
+    1792166400,
+    1792173600
+   ],
+   [
+    1792180800,
+    1792188000
+   ],
+   [
+    1792202400,
+    1792209600
+   ],
+   [
+    1792252800,
+    1792260000
+   ],
+   [
+    1792310400,
+    1792317600
+   ],
+   [
+    1792411200,
+    1792418400
+   ],
+   [
+    1792447200,
+    1792454400
+   ],
+   [
+    1792476000,
+    1792483200
+   ],
+   [
+    1792576800,
+    1792584000
+   ],
+   [
+    1792605600,
+    1792612800
+   ],
+   [
+    1792648800,
+    1792656000
+   ]
+  ],
+  "unseen_test_week_blocks": 72,
+  "forward_blocks": 12,
+  "windows": 2016,
+  "passive_buys_kept": 1372771,
+  "taker_buys_kept": 771872,
+  "taker_flow_rows": 3125044,
+  "others_sample": 0.25
+ },
+ "derived": {
+  "spot_reactive_maker": {
+   "match_slack_2": {
+    "fit_best": {
+     "theta": 5e-05,
+     "delta": 0.04,
+     "horizon": 2,
+     "requote_s": 1,
+     "latency": 2,
+     "fills": 464,
+     "pnl": -272.2582024500001,
+     "return_on_bought": -0.06875973394784042,
+     "per_window_t_incl_zero": -1.2606474403426224
+    },
+    "fit_configs": 128,
+    "fit_share_positive": 0.0,
+    "unseen_test_week": {
+     "windows": 1728,
+     "strict": {
+      "fills": 2705,
+      "windows": 867,
+      "usd_bought": 23572.29996819,
+      "pnl": -1341.8105541900006,
+      "return_on_bought": -0.05692319188202795,
+      "per_window_mean": -1.547647698027682,
+      "per_window_t": -3.008717250289034,
+      "per_window_p": 0.9986502500865961,
+      "per_window_bootstrap_p": 0.9995002498750625,
+      "fill_win_rate": 0.466913123844732,
+      "windows_total": 1723,
+      "per_window_t_incl_zero": -3.0250917413324294,
+      "per_window_p_incl_zero": 0.9987388190362767,
+      "per_window_bootstrap_p_incl_zero": 0.9995002498750625
+     },
+     "at_touch": {
+      "fills": 3241,
+      "windows": 952,
+      "usd_bought": 27333.520360950002,
+      "pnl": -1226.8122629500006,
+      "return_on_bought": -0.04488306836256205,
+      "per_window_mean": -1.2886683434348747,
+      "per_window_t": -2.5957718608282563,
+      "per_window_p": 0.9952083198764129,
+      "per_window_bootstrap_p": 0.9985007496251874,
+      "fill_win_rate": 0.4618944770132675,
+      "windows_total": 1723,
+      "per_window_t_incl_zero": -2.620714827510432,
+      "per_window_p_incl_zero": 0.9955741250338999,
+      "per_window_bootstrap_p_incl_zero": 0.9955022488755623
+     },
+     "at_touch_latency_plus_1": {
+      "fills": 4214,
+      "windows": 1081,
+      "usd_bought": 35152.67799913,
+      "pnl": -2025.279841130001,
+      "return_on_bought": -0.05761381369522188,
+      "per_window_mean": -1.873524367372804,
+      "per_window_t": -3.7241235129330654,
+      "per_window_p": 0.9998969385289116,
+      "per_window_bootstrap_p": 1.0,
+      "fill_win_rate": 0.4568106312292359,
+      "windows_total": 1723,
+      "per_window_t_incl_zero": -3.694651110066017,
+      "per_window_p_incl_zero": 0.9998864655201074,
+      "per_window_bootstrap_p_incl_zero": 1.0
+     }
+    },
+    "forward": {
+     "windows": 288,
+     "strict": {
+      "fills": 1124,
+      "windows": 230,
+      "usd_bought": 9444.48608117,
+      "pnl": -823.9705061700001,
+      "return_on_bought": -0.0872435513259738,
+      "per_window_mean": -3.582480461608696,
+      "per_window_t": -2.598698700273555,
+      "per_window_p": 0.9950173605459159,
+      "per_window_bootstrap_p": 0.9985007496251874,
+      "fill_win_rate": 0.4306049822064057,
+      "windows_total": 288,
+      "per_window_t_incl_zero": -2.5941105779147393,
+      "per_window_p_incl_zero": 0.9950147849049376,
+      "per_window_bootstrap_p_incl_zero": 0.9940029985007496
+     },
+     "at_touch": {
+      "fills": 1334,
+      "windows": 242,
+      "usd_bought": 10927.33135125,
+      "pnl": -811.5027032500002,
+      "return_on_bought": -0.07426357608870081,
+      "per_window_mean": -3.353316955578513,
+      "per_window_t": -2.6156260501924016,
+      "per_window_p": 0.9952657242613187,
+      "per_window_bootstrap_p": 0.9955022488755623,
+      "fill_win_rate": 0.4340329835082459,
+      "windows_total": 288,
+      "per_window_t_incl_zero": -2.5890903937938323,
+      "per_window_p_incl_zero": 0.994943238432394,
+      "per_window_bootstrap_p_incl_zero": 0.993503248375812
+     },
+     "at_touch_latency_plus_1": {
+      "fills": 1633,
+      "windows": 252,
+      "usd_bought": 13362.142636659999,
+      "pnl": -1483.0767756600003,
+      "return_on_bought": -0.11099094029957984,
+      "per_window_mean": -5.885225300238097,
+      "per_window_t": -4.092239548751499,
+      "per_window_p": 0.9999711906511027,
+      "per_window_bootstrap_p": 1.0,
+      "fill_win_rate": 0.4188609920391917,
+      "windows_total": 288,
+      "per_window_t_incl_zero": -4.137162801904153,
+      "per_window_p_incl_zero": 0.9999768801291412,
+      "per_window_bootstrap_p_incl_zero": 1.0
+     }
+    },
+    "all": {
+     "strict": {
+      "fills": 3829,
+      "windows": 1097,
+      "usd_bought": 33016.78604936,
+      "pnl": -2165.781060360001,
+      "return_on_bought": -0.0655963623207348,
+      "per_window_mean": -1.9742762628623527,
+      "per_window_t": -4.007398531835246,
+      "per_window_p": 0.9999672303994444,
+      "per_window_bootstrap_p": 1.0,
+      "fill_win_rate": 0.456254896839906,
+      "windows_total": 2011,
+      "per_window_t_incl_zero": -4.108897210051284,
+      "per_window_p_incl_zero": 0.9999793244951973,
+      "per_window_bootstrap_p_incl_zero": 1.0
+     },
+     "at_touch": {
+      "fills": 4575,
+      "windows": 1194,
+      "usd_bought": 38260.851712200005,
+      "pnl": -2038.3149662000008,
+      "return_on_bought": -0.05327416602046148,
+      "per_window_mean": -1.7071314624790626,
+      "per_window_t": -3.6656531798562764,
+      "per_window_p": 0.9998712227825276,
+      "per_window_bootstrap_p": 1.0,
+      "fill_win_rate": 0.45377049180327866,
+      "windows_total": 2011,
+      "per_window_t_incl_zero": -3.7154292742974877,
+      "per_window_p_incl_zero": 0.9998958010042799,
+      "per_window_bootstrap_p_incl_zero": 1.0
+     }
+    }
+   },
+   "match_slack_0": {
+    "fit_best": {
+     "theta": 0.0001,
+     "delta": 0.02,
+     "horizon": 2,
+     "requote_s": 2,
+     "latency": 2,
+     "fills": 136,
+     "pnl": 65.13832447999997,
+     "return_on_bought": 0.05394887918684626,
+     "per_window_t_incl_zero": 0.8601160181780122
+    },
+    "fit_configs": 125,
+    "fit_share_positive": 0.048,
+    "unseen_test_week": {
+     "windows": 1728,
+     "strict": {
+      "fills": 1211,
+      "windows": 502,
+      "usd_bought": 10919.52997806,
+      "pnl": 326.3605109399997,
+      "return_on_bought": 0.029887780114687866,
+      "per_window_mean": 0.6501205397211149,
+      "per_window_t": 1.0906301739116784,
+      "per_window_p": 0.13797994986049517,
+      "per_window_bootstrap_p": 0.12893553223388307,
+      "fill_win_rate": 0.5161023947151114,
+      "windows_total": 1723,
+      "per_window_t_incl_zero": 1.1644261353204108,
+      "per_window_p_incl_zero": 0.12220632766553363,
+      "per_window_bootstrap_p_incl_zero": 0.13193403298350825
+     },
+     "at_touch": {
+      "fills": 1566,
+      "windows": 597,
+      "usd_bought": 13556.224446200002,
+      "pnl": 529.5576927999997,
+      "return_on_bought": 0.039063803856422726,
+      "per_window_mean": 0.8870313112227802,
+      "per_window_t": 1.6212987200675497,
+      "per_window_p": 0.05274123490080282,
+      "per_window_bootstrap_p": 0.062468765617191405,
+      "fill_win_rate": 0.5153256704980843,
+      "windows_total": 1723,
+      "per_window_t_incl_zero": 1.7341729573890976,
+      "per_window_p_incl_zero": 0.04153318039973305,
+      "per_window_bootstrap_p_incl_zero": 0.04697651174412794
+     },
+     "at_touch_latency_plus_1": {
+      "fills": 1897,
+      "windows": 646,
+      "usd_bought": 16687.213663190003,
+      "pnl": -641.0216511900004,
+      "return_on_bought": -0.038413941603925014,
+      "per_window_mean": -0.9922935776934992,
+      "per_window_t": -2.0006879483547806,
+      "per_window_p": 0.9770776653130886,
+      "per_window_bootstrap_p": 0.9710144927536232,
+      "fill_win_rate": 0.47601476014760147,
+      "windows_total": 1723,
+      "per_window_t_incl_zero": -1.9861086775037604,
+      "per_window_p_incl_zero": 0.9764102121073128,
+      "per_window_bootstrap_p_incl_zero": 0.9765117441279361
+     }
+    },
+    "forward": {
+     "windows": 288,
+     "strict": {
+      "fills": 572,
+      "windows": 186,
+      "usd_bought": 4913.9663132099995,
+      "pnl": 68.86392478999994,
+      "return_on_bought": 0.014013918777765342,
+      "per_window_mean": 0.3702361547849457,
+      "per_window_t": 0.37786077475342844,
+      "per_window_p": 0.35298360085524316,
+      "per_window_bootstrap_p": 0.3268365817091454,
+      "fill_win_rate": 0.49125874125874125,
+      "windows_total": 288,
+      "per_window_t_incl_zero": 0.3652426284596383,
+      "per_window_p_incl_zero": 0.3575996600237732,
+      "per_window_bootstrap_p_incl_zero": 0.3403298350824588
+     },
+     "at_touch": {
+      "fills": 712,
+      "windows": 198,
+      "usd_bought": 6061.029466489999,
+      "pnl": 85.59020150999987,
+      "return_on_bought": 0.014121396700545326,
+      "per_window_mean": 0.43227374499999943,
+      "per_window_t": 0.40936650681181147,
+      "per_window_p": 0.341357727254101,
+      "per_window_bootstrap_p": 0.35782108945527236,
+      "fill_win_rate": 0.4943820224719101,
+      "windows_total": 288,
+      "per_window_t_incl_zero": 0.38868138249508055,
+      "per_window_p_incl_zero": 0.3489000218228784,
+      "per_window_bootstrap_p_incl_zero": 0.335832083958021
+     },
+     "at_touch_latency_plus_1": {
+      "fills": 891,
+      "windows": 225,
+      "usd_bought": 7481.217288637001,
+      "pnl": -397.1947356370001,
+      "return_on_bought": -0.05309226029837249,
+      "per_window_mean": -1.7653099361644453,
+      "per_window_t": -1.5140787738764736,
+      "per_window_p": 0.934292215012574,
+      "per_window_bootstrap_p": 0.9575212393803099,
+      "fill_win_rate": 0.45454545454545453,
+      "windows_total": 288,
+      "per_window_t_incl_zero": -1.5460363864753945,
+      "per_window_p_incl_zero": 0.9384011447049905,
+      "per_window_bootstrap_p_incl_zero": 0.9490254872563718
+     }
+    },
+    "all": {
+     "strict": {
+      "fills": 1783,
+      "windows": 688,
+      "usd_bought": 15833.496291270001,
+      "pnl": 395.2244357299997,
+      "return_on_bought": 0.02496128640570129,
+      "per_window_mean": 0.574454121700581,
+      "per_window_t": 1.1367209708191846,
+      "per_window_p": 0.1280256436424563,
+      "per_window_bootstrap_p": 0.13993003498250875,
+      "fill_win_rate": 0.5081323611890073,
+      "windows_total": 2011,
+      "per_window_t_incl_zero": 1.1795341974111393,
+      "per_window_p_incl_zero": 0.11916255874583352,
+      "per_window_bootstrap_p_incl_zero": 0.1424287856071964
+     },
+     "at_touch": {
+      "fills": 2278,
+      "windows": 795,
+      "usd_bought": 19617.25391269,
+      "pnl": 615.1478943099996,
+      "return_on_bought": 0.03135749259543778,
+      "per_window_mean": 0.7737709362389931,
+      "per_window_t": 1.5549480985674566,
+      "per_window_p": 0.06017845554607544,
+      "per_window_bootstrap_p": 0.06646676661669165,
+      "fill_win_rate": 0.5087796312554873,
+      "windows_total": 2011,
+      "per_window_t_incl_zero": 1.644695590391858,
+      "per_window_p_incl_zero": 0.050094486014367216,
+      "per_window_bootstrap_p_incl_zero": 0.07396301849075462
+     }
+    }
+   }
+  },
+  "per_wallet": {
+   "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6": {
+    "match_spot_reactive": {
+     "lag_scan_auc_fit": {
+      "spot_return_1s@0": 0.5576553391757951,
+      "spot_return_1s@1": 0.5682354141464196,
+      "spot_return_1s@2": 0.6107474089605235,
+      "spot_return_1s@3": 0.5713151646515101,
+      "spot_return_1s@5": 0.5142060380433237,
+      "spot_return_2s@0": 0.5856437014472898,
+      "spot_return_2s@1": 0.6252994973039864,
+      "spot_return_2s@2": 0.6257513893024234,
+      "spot_return_2s@3": 0.5716539274904552,
+      "spot_return_2s@5": 0.505198736007207,
+      "spot_return_3s@0": 0.629666699286731,
+      "spot_return_3s@1": 0.6381944169718725,
+      "spot_return_3s@2": 0.6182337831432,
+      "spot_return_3s@3": 0.5727207424049038,
+      "spot_return_3s@5": 0.5107820417522944,
+      "spot_return_5s@0": 0.6300718821291325,
+      "spot_return_5s@1": 0.6221001630309175,
+      "spot_return_5s@2": 0.5947082621070757,
+      "spot_return_5s@3": 0.5511184170801433,
+      "spot_return_5s@5": 0.5136362973867165
+     },
+     "chosen_score": "spot_return_3s",
+     "chosen_latency_s": 1,
+     "theta": 8.477445364146327e-07,
+     "fit": {
+      "prints": 765117,
+      "wallet_prints": 3454,
+      "auc": 0.6381944169718725
+     },
+     "test": {
+      "prints": 1372771,
+      "wallet_prints": 32213,
+      "auc": 0.6189686849761254,
+      "auc_unstratified": 0.6150801888504067,
+      "auc_null_mean": 0.5003200009925931,
+      "auc_null_p95": 0.5055457559195142,
+      "auc_null_max": 0.5072496941630714,
+      "auc_null_sd": 0.002984181015060766,
+      "auc_z_vs_null": 39.75921145021973,
+      "auc_perm_p": 0.009900990099009901,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 8.477445364146327e-07,
+       "tp": 10748,
+       "fp": 247064,
+       "fn": 21465,
+       "tn": 1093494,
+       "precision": 0.04168929297317425,
+       "recall": 0.3336541147983733,
+       "mcc": 0.057889045775118324,
+       "base_rate": 0.0234656763582564,
+       "lift": 1.7766073449873465
+      },
+      "wallet_mean_score": 2.4807574616812596e-05,
+      "others_mean_score": -1.956084766361963e-05
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": true,
+      "recall_ge_0.2": true,
+      "lift_ge_2.0": false,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "match_latency_taker": {
+     "lag_scan_auc_fit": {
+      "fair_minus_price@-10": 0.5314157536562002,
+      "fair_minus_price@-5": 0.5294634316730353,
+      "fair_minus_price@-3": 0.5283247894904407,
+      "fair_minus_price@-2": 0.52613764067647,
+      "fair_minus_price@-1": 0.5240731324370614,
+      "fair_minus_price@0": 0.5200331972924896,
+      "fair_minus_price@1": 0.5119122125413867,
+      "fair_minus_price@2": 0.4993289030450706,
+      "fair_minus_price@3": 0.4907742837122775,
+      "fair_minus_price@5": 0.4974574043631932,
+      "fair_minus_price@10": 0.5038794306103846,
+      "fair_minus_price@20": 0.5127404756767546
+     },
+     "chosen_score": "fair_minus_price",
+     "chosen_latency_s": 0,
+     "theta": 0.1789203935060391,
+     "fit": {
+      "prints": 362753,
+      "wallet_prints": 6015,
+      "auc": 0.5200331972924896
+     },
+     "test": {
+      "prints": 771872,
+      "wallet_prints": 43243,
+      "auc": 0.5195731832429616,
+      "auc_unstratified": 0.5061690951617994,
+      "auc_null_mean": 0.5054507649744098,
+      "auc_null_p95": 0.5082356835945884,
+      "auc_null_max": 0.5098995775806462,
+      "auc_null_sd": 0.00152519383606321,
+      "auc_z_vs_null": 9.259425218373742,
+      "auc_perm_p": 0.009900990099009901,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 0.1789203935060391,
+       "tp": 2285,
+       "fp": 25520,
+       "fn": 40958,
+       "tn": 703109,
+       "precision": 0.08217946412515735,
+       "recall": 0.05284092223018755,
+       "mcc": 0.021986681730748598,
+       "base_rate": 0.05602353758136064,
+       "lift": 1.4668738832461545
+      },
+      "wallet_mean_score": 0.006311389274938424,
+      "others_mean_score": 0.0007463638913121027
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": true,
+      "recall_ge_0.2": false,
+      "lift_ge_2.0": false,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "latency_taker_backtest_L_ge_2": {
+     "trades": 74671,
+     "windows": 1191,
+     "usd_traded": 521637.98161912645,
+     "pnl": 34784.19938353825,
+     "fees": 18880.828949825947,
+     "return_on_traded": 0.06668264315334291,
+     "win_rate": 0.4684013874194801,
+     "per_window_mean": 29.205876896337745,
+     "per_window_hac_t": 0.9896783261854366,
+     "per_window_p": 0.1612662786548447,
+     "per_window_bootstrap_p": 0.1486171276241253,
+     "daily_sharpe_annual": 8.156508267176829
+    },
+    "wallet_maker_replay": {
+     "fills": 32213,
+     "usd": 192184.91006590638,
+     "pnl": 6430.85909109363,
+     "return": 0.03346183157089847
+    }
+   },
+   "0x3048d65321be3497164cdfc2996f94f98a2e7537": {
+    "match_spot_reactive": {
+     "lag_scan_auc_fit": {
+      "spot_return_1s@0": 0.5676356692581852,
+      "spot_return_1s@1": 0.589478256744175,
+      "spot_return_1s@2": 0.6107761509129618,
+      "spot_return_1s@3": 0.591182017114697,
+      "spot_return_1s@5": 0.5052678396698038,
+      "spot_return_2s@0": 0.6109896398560136,
+      "spot_return_2s@1": 0.6402678693210458,
+      "spot_return_2s@2": 0.646242001577446,
+      "spot_return_2s@3": 0.61226256767896,
+      "spot_return_2s@5": 0.49870068257159295,
+      "spot_return_3s@0": 0.6510386830104313,
+      "spot_return_3s@1": 0.6657415479134421,
+      "spot_return_3s@2": 0.6517989408576326,
+      "spot_return_3s@3": 0.5961302163947648,
+      "spot_return_3s@5": 0.48639274849223435,
+      "spot_return_5s@0": 0.6736106910518481,
+      "spot_return_5s@1": 0.6523427446375729,
+      "spot_return_5s@2": 0.6192733073588452,
+      "spot_return_5s@3": 0.566152217616396,
+      "spot_return_5s@5": 0.49504142278520047
+     },
+     "chosen_score": "spot_return_5s",
+     "chosen_latency_s": 0,
+     "theta": 6.037409037328781e-05,
+     "fit": {
+      "prints": 765117,
+      "wallet_prints": 929,
+      "auc": 0.6736106910518481
+     },
+     "test": {
+      "prints": 1372771,
+      "wallet_prints": 18809,
+      "auc": 0.6080614112941708,
+      "auc_unstratified": 0.609979298182528,
+      "auc_null_mean": 0.5020068285892275,
+      "auc_null_p95": 0.509280302356785,
+      "auc_null_max": 0.5117381862104793,
+      "auc_null_sd": 0.004257915552576472,
+      "auc_z_vs_null": 24.907629424629963,
+      "auc_perm_p": 0.009900990099009901,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 6.037409037328781e-05,
+       "tp": 5770,
+       "fp": 222646,
+       "fn": 13039,
+       "tn": 1131316,
+       "precision": 0.025260927430652842,
+       "recall": 0.3067680365782338,
+       "mcc": 0.04442544648310736,
+       "base_rate": 0.013701484078553525,
+       "lift": 1.843663597740695
+      },
+      "wallet_mean_score": 3.429731549056181e-05,
+      "others_mean_score": -2.1903920470328326e-05
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": true,
+      "recall_ge_0.2": true,
+      "lift_ge_2.0": false,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "match_latency_taker": {
+     "lag_scan_auc_fit": {
+      "fair_minus_price@-10": 0.534132762154545,
+      "fair_minus_price@-5": 0.5251262681027347,
+      "fair_minus_price@-3": 0.5234263898258317,
+      "fair_minus_price@-2": 0.5240188555444917,
+      "fair_minus_price@-1": 0.5199897195200843,
+      "fair_minus_price@0": 0.5091638389194606,
+      "fair_minus_price@1": 0.5006782901919238,
+      "fair_minus_price@2": 0.4781405989440821,
+      "fair_minus_price@3": 0.45467914105390606,
+      "fair_minus_price@5": 0.45033208534090313,
+      "fair_minus_price@10": 0.4799355301322343,
+      "fair_minus_price@20": 0.4996184040893054
+     },
+     "chosen_score": "fair_minus_price",
+     "chosen_latency_s": 0,
+     "theta": 0.12084831854110623,
+     "fit": {
+      "prints": 362753,
+      "wallet_prints": 1283,
+      "auc": 0.5091638389194606
+     },
+     "test": {
+      "prints": 771872,
+      "wallet_prints": 10340,
+      "auc": 0.5038672936890837,
+      "auc_unstratified": 0.5023481180956709,
+      "auc_null_mean": 0.5065813874035622,
+      "auc_null_p95": 0.5117779033967722,
+      "auc_null_max": 0.5137359413981702,
+      "auc_null_sd": 0.003014657510099872,
+      "auc_z_vs_null": -0.9002991900027112,
+      "auc_perm_p": 0.801980198019802,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 0.12084831854110623,
+       "tp": 1599,
+       "fp": 61464,
+       "fn": 8741,
+       "tn": 700068,
+       "precision": 0.025355596784168214,
+       "recall": 0.154642166344294,
+       "mcc": 0.031029876853063545,
+       "base_rate": 0.013396003482442685,
+       "lift": 1.8927732302697764
+      },
+      "wallet_mean_score": 0.005648624674291277,
+      "others_mean_score": 0.0009958071401422878
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": false,
+      "recall_ge_0.2": false,
+      "lift_ge_2.0": false,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "latency_taker_backtest_L_ge_2": {
+     "trades": 174396,
+     "windows": 1749,
+     "usd_traded": 1316505.4843958984,
+     "pnl": 38001.64886750374,
+     "fees": 39817.46464502419,
+     "return_on_traded": 0.028865545429111114,
+     "win_rate": 0.5448404779926145,
+     "per_window_mean": 21.727643720699668,
+     "per_window_hac_t": 0.8220136056875428,
+     "per_window_p": 0.2055906304300077,
+     "per_window_bootstrap_p": 0.1939353548817061,
+     "daily_sharpe_annual": 6.711813567553413
+    },
+    "wallet_maker_replay": {
+     "fills": 18809,
+     "usd": 151978.75701790396,
+     "pnl": 6492.647433096053,
+     "return": 0.04272075624576389
+    }
+   },
+   "0xc53375ff94e96100f2b30a4b5775db35218d69a9": {
+    "match_spot_reactive": {
+     "lag_scan_auc_fit": {
+      "spot_return_1s@0": 0.5477246109283735,
+      "spot_return_1s@1": 0.5652490840796591,
+      "spot_return_1s@2": 0.5909632378319081,
+      "spot_return_1s@3": 0.5518035413662069,
+      "spot_return_1s@5": 0.5156928315500905,
+      "spot_return_2s@0": 0.5825038361183943,
+      "spot_return_2s@1": 0.6111226430426054,
+      "spot_return_2s@2": 0.5978327150441073,
+      "spot_return_2s@3": 0.5465226282708205,
+      "spot_return_2s@5": 0.5144572374413119,
+      "spot_return_3s@0": 0.616285567667549,
+      "spot_return_3s@1": 0.6148199026774291,
+      "spot_return_3s@2": 0.5853652224271795,
+      "spot_return_3s@3": 0.5469590794351074,
+      "spot_return_3s@5": 0.5218711338950814,
+      "spot_return_5s@0": 0.608084639009364,
+      "spot_return_5s@1": 0.5944888899388551,
+      "spot_return_5s@2": 0.5746950963580251,
+      "spot_return_5s@3": 0.5461449059008768,
+      "spot_return_5s@5": 0.5226451263163462
+     },
+     "chosen_score": "spot_return_3s",
+     "chosen_latency_s": 0,
+     "theta": 1.224119137738248e-07,
+     "fit": {
+      "prints": 765117,
+      "wallet_prints": 6764,
+      "auc": 0.616285567667549
+     },
+     "test": {
+      "prints": 1372771,
+      "wallet_prints": 66226,
+      "auc": 0.5971906781014381,
+      "auc_unstratified": 0.5931814675531768,
+      "auc_null_mean": 0.5005428353279958,
+      "auc_null_p95": 0.5035940636836023,
+      "auc_null_max": 0.5051733469147387,
+      "auc_null_sd": 0.00198721034507379,
+      "auc_z_vs_null": 48.634933394458315,
+      "auc_perm_p": 0.009900990099009901,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 1.224119137738248e-07,
+       "tp": 26489,
+       "fp": 383491,
+       "fn": 39737,
+       "tn": 923054,
+       "precision": 0.06461046880335626,
+       "recall": 0.39997886026636065,
+       "mcc": 0.04984595532865943,
+       "base_rate": 0.04824256922676834,
+       "lift": 1.339283330861779
+      },
+      "wallet_mean_score": 1.5102407094059503e-05,
+      "others_mean_score": -1.555737551612098e-05
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": true,
+      "recall_ge_0.2": true,
+      "lift_ge_2.0": false,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "match_latency_taker": {
+     "lag_scan_auc_fit": {
+      "fair_minus_price@-10": 0.5282673355349455,
+      "fair_minus_price@-5": 0.5278743372607275,
+      "fair_minus_price@-3": 0.5272034622275341,
+      "fair_minus_price@-2": 0.5258470617875105,
+      "fair_minus_price@-1": 0.525463350088931,
+      "fair_minus_price@0": 0.5223090365826234,
+      "fair_minus_price@1": 0.516454731266115,
+      "fair_minus_price@2": 0.5079774486718556,
+      "fair_minus_price@3": 0.5089394098173035,
+      "fair_minus_price@5": 0.516243381613653,
+      "fair_minus_price@10": 0.518011273422485,
+      "fair_minus_price@20": 0.5246672663979911
+     },
+     "chosen_score": "fair_minus_price",
+     "chosen_latency_s": 20,
+     "theta": 0.050762640004544606,
+     "fit": {
+      "prints": 362753,
+      "wallet_prints": 12786,
+      "auc": 0.5246672663979911
+     },
+     "test": {
+      "prints": 771872,
+      "wallet_prints": 101734,
+      "auc": 0.5293180705766976,
+      "auc_unstratified": 0.55122930344322,
+      "auc_null_mean": 0.5106584071181952,
+      "auc_null_p95": 0.5126948565792094,
+      "auc_null_max": 0.5140778076531964,
+      "auc_null_sd": 0.001218592919758604,
+      "auc_z_vs_null": 15.312466662122661,
+      "auc_perm_p": 0.009900990099009901,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 0.050762640004544606,
+       "tp": 36681,
+       "fp": 177259,
+       "fn": 65053,
+       "tn": 492879,
+       "precision": 0.1714546134430214,
+       "recall": 0.3605579255706057,
+       "mcc": 0.0725873863856355,
+       "base_rate": 0.13180164586874507,
+       "lift": 1.300853356670256
+      },
+      "wallet_mean_score": 0.001449458348205293,
+      "others_mean_score": -0.03330808021257093
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": true,
+      "recall_ge_0.2": true,
+      "lift_ge_2.0": false,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "latency_taker_backtest_L_ge_2": {
+     "trades": 684438,
+     "windows": 2004,
+     "usd_traded": 4722778.467986066,
+     "pnl": -180612.86809651746,
+     "fees": 164730.6597152864,
+     "return_on_traded": -0.0382429261335936,
+     "win_rate": 0.44607108313682176,
+     "per_window_mean": -90.12618168488895,
+     "per_window_hac_t": -3.321660844106635,
+     "per_window_p": 0.9995445408980239,
+     "per_window_bootstrap_p": 1.0,
+     "daily_sharpe_annual": -20.356012221950976
+    },
+    "wallet_maker_replay": {
+     "fills": 66226,
+     "usd": 347035.4020287794,
+     "pnl": 9154.441470220583,
+     "return": 0.02637898443992585
+    }
+   },
+   "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3": {
+    "match_spot_reactive": {
+     "lag_scan_auc_fit": {
+      "spot_return_1s@0": 0.5016828975753354,
+      "spot_return_1s@1": 0.5236142867576009,
+      "spot_return_1s@2": 0.5311773190490101,
+      "spot_return_1s@3": 0.5032980298195546,
+      "spot_return_1s@5": 0.5121738837329498,
+      "spot_return_2s@0": 0.5128273100604481,
+      "spot_return_2s@1": 0.5301085228421833,
+      "spot_return_2s@2": 0.5212600559537988,
+      "spot_return_2s@3": 0.5078400625828633,
+      "spot_return_2s@5": 0.5144168108581829,
+      "spot_return_3s@0": 0.5195817228826318,
+      "spot_return_3s@1": 0.5358675226399406,
+      "spot_return_3s@2": 0.5287992123772499,
+      "spot_return_3s@3": 0.517066329970113,
+      "spot_return_3s@5": 0.5141636564346869,
+      "spot_return_5s@0": 0.5316386850857284,
+      "spot_return_5s@1": 0.5384338273297229,
+      "spot_return_5s@2": 0.5354324902811173,
+      "spot_return_5s@3": 0.5271015679422935,
+      "spot_return_5s@5": 0.5055883575649985
+     },
+     "chosen_score": "spot_return_5s",
+     "chosen_latency_s": 1,
+     "theta": 0.000337172550404158,
+     "fit": {
+      "prints": 765117,
+      "wallet_prints": 618,
+      "auc": 0.5384338273297229
+     },
+     "test": {
+      "prints": 1372771,
+      "wallet_prints": 11537,
+      "auc": 0.5220777424446394,
+      "auc_unstratified": 0.5025186268776235,
+      "auc_null_mean": 0.5038817065462307,
+      "auc_null_p95": 0.5140667219788108,
+      "auc_null_max": 0.5157978091069161,
+      "auc_null_sd": 0.006927943356014863,
+      "auc_z_vs_null": 2.6264700739233,
+      "auc_perm_p": 0.009900990099009901,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 0.000337172550404158,
+       "tp": 541,
+       "fp": 31561,
+       "fn": 10996,
+       "tn": 1329673,
+       "precision": 0.01685253255248894,
+       "recall": 0.04689260639681026,
+       "mcc": 0.014320661920176413,
+       "base_rate": 0.008404169377121165,
+       "lift": 2.0052585563502467
+      },
+      "wallet_mean_score": -1.3208134988762204e-05,
+      "others_mean_score": -1.9501194677485157e-05
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": true,
+      "recall_ge_0.2": false,
+      "lift_ge_2.0": true,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "match_latency_taker": {
+     "lag_scan_auc_fit": {
+      "fair_minus_price@-10": 0.4821278044352224,
+      "fair_minus_price@-5": 0.46718162365451954,
+      "fair_minus_price@-3": 0.43951011541953056,
+      "fair_minus_price@-2": 0.42414245882505514,
+      "fair_minus_price@-1": 0.41180618596809754,
+      "fair_minus_price@0": 0.3997130722344702,
+      "fair_minus_price@1": 0.40749416418104006,
+      "fair_minus_price@2": 0.3742786279341201,
+      "fair_minus_price@3": 0.37022597587861494,
+      "fair_minus_price@5": 0.3673891194397614,
+      "fair_minus_price@10": 0.36944786668395796,
+      "fair_minus_price@20": 0.3824974063026845
+     },
+     "chosen_score": "fair_minus_price",
+     "chosen_latency_s": 1,
+     "theta": 0.14788864852802933,
+     "fit": {
+      "prints": 362753,
+      "wallet_prints": 64,
+      "auc": 0.40749416418104006
+     },
+     "test": {
+      "prints": 771872,
+      "wallet_prints": 250,
+      "auc": 0.49227353901709864,
+      "auc_unstratified": 0.547411035455184,
+      "auc_null_mean": 0.495891093504879,
+      "auc_null_p95": 0.5495839294347479,
+      "auc_null_max": 0.5664874251378844,
+      "auc_null_sd": 0.03261092796841462,
+      "auc_z_vs_null": -0.11093074356191669,
+      "auc_perm_p": 0.5544554455445545,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 0.14788864852802933,
+       "tp": 34,
+       "fp": 37926,
+       "fn": 216,
+       "tn": 733696,
+       "precision": 0.0008956796628029505,
+       "recall": 0.136,
+       "mcc": 0.007226898998755399,
+       "base_rate": 0.0003238878985116703,
+       "lift": 2.765400210748156
+      },
+      "wallet_mean_score": 0.023397582072639204,
+      "others_mean_score": -0.00043555203251782065
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": false,
+      "recall_ge_0.2": false,
+      "lift_ge_2.0": true,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "latency_taker_backtest_L_ge_2": {
+     "trades": 114317,
+     "windows": 1503,
+     "usd_traded": 831434.5448730759,
+     "pnl": 37878.99311977309,
+     "fees": 27576.274765940623,
+     "return_on_traded": 0.04555859911444451,
+     "win_rate": 0.5073611098961659,
+     "per_window_mean": 25.20225756471929,
+     "per_window_hac_t": 0.945647676223951,
+     "per_window_p": 0.17224020818099173,
+     "per_window_bootstrap_p": 0.16494501832722425,
+     "daily_sharpe_annual": 7.815036542867405
+    },
+    "wallet_maker_replay": {
+     "fills": 11537,
+     "usd": 239442.43550289347,
+     "pnl": 9182.73362410652,
+     "return": 0.0383504853883578
+    }
+   },
+   "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed": {
+    "match_spot_reactive": {
+     "lag_scan_auc_fit": {
+      "spot_return_1s@0": 0.5011391376229302,
+      "spot_return_1s@1": 0.5340500984966017,
+      "spot_return_1s@2": 0.4885348292714023,
+      "spot_return_1s@3": 0.5242312726536987,
+      "spot_return_1s@5": 0.4866968958499775,
+      "spot_return_2s@0": 0.5045911957965544,
+      "spot_return_2s@1": 0.4886657885236735,
+      "spot_return_2s@2": 0.4995315954786491,
+      "spot_return_2s@3": 0.5105969593894666,
+      "spot_return_2s@5": 0.4853855710620241,
+      "spot_return_3s@0": 0.4916934417130856,
+      "spot_return_3s@1": 0.5019664675023576,
+      "spot_return_3s@2": 0.4855993325928477,
+      "spot_return_3s@3": 0.501412835531116,
+      "spot_return_3s@5": 0.4724940531334253,
+      "spot_return_5s@0": 0.5013556707781405,
+      "spot_return_5s@1": 0.4859620689344559,
+      "spot_return_5s@2": 0.48602408403010816,
+      "spot_return_5s@3": 0.48445395881504744,
+      "spot_return_5s@5": 0.46048910855551944
+     },
+     "chosen_score": "spot_return_1s",
+     "chosen_latency_s": 1,
+     "theta": 1.2089031118575145e-07,
+     "fit": {
+      "prints": 765117,
+      "wallet_prints": 632,
+      "auc": 0.5340500984966017
+     },
+     "test": {
+      "prints": 1372771,
+      "wallet_prints": 11455,
+      "auc": 0.5070362152630697,
+      "auc_unstratified": 0.5021698791979141,
+      "auc_null_mean": 0.5007377895916961,
+      "auc_null_p95": 0.509899878178701,
+      "auc_null_max": 0.5135449470517633,
+      "auc_null_sd": 0.005644981715570188,
+      "auc_z_vs_null": 1.1157566115760977,
+      "auc_perm_p": 0.1188118811881188,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 1.2089031118575145e-07,
+       "tp": 3152,
+       "fp": 340123,
+       "fn": 8303,
+       "tn": 1021193,
+       "precision": 0.009182142597043186,
+       "recall": 0.27516368398079444,
+       "mcc": 0.005317673553659641,
+       "base_rate": 0.008344436180542859,
+       "lift": 1.100391014848151
+      },
+      "wallet_mean_score": -1.3894938204215158e-06,
+      "others_mean_score": -3.934923515374426e-06
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": false,
+      "recall_ge_0.2": true,
+      "lift_ge_2.0": false,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "match_latency_taker": {
+     "lag_scan_auc_fit": {
+      "fair_minus_price@-10": 0.4777568144580706,
+      "fair_minus_price@-5": 0.47606871555533486,
+      "fair_minus_price@-3": 0.4617695248498088,
+      "fair_minus_price@-2": 0.45769822749615213,
+      "fair_minus_price@-1": 0.4663869718484683,
+      "fair_minus_price@0": 0.42512784866689834,
+      "fair_minus_price@1": 0.4470234844347351,
+      "fair_minus_price@2": 0.4641030733330023,
+      "fair_minus_price@3": 0.39960776525495256,
+      "fair_minus_price@5": 0.3433791768035351,
+      "fair_minus_price@10": 0.36664018668387865,
+      "fair_minus_price@20": 0.39027357132217866
+     },
+     "chosen_score": "fair_minus_price",
+     "chosen_latency_s": 2,
+     "theta": 0.12726324180892712,
+     "fit": {
+      "prints": 362753,
+      "wallet_prints": 31,
+      "auc": 0.4641030733330023
+     },
+     "test": {
+      "prints": 771872,
+      "wallet_prints": 278,
+      "auc": 0.5015415404093383,
+      "auc_unstratified": 0.5578434141465123,
+      "auc_null_mean": 0.49257101575654977,
+      "auc_null_p95": 0.5617950645166586,
+      "auc_null_max": 0.5722982451979648,
+      "auc_null_sd": 0.03595770573442724,
+      "auc_z_vs_null": 0.24947433295778412,
+      "auc_perm_p": 0.36633663366336633,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 0.12726324180892712,
+       "tp": 46,
+       "fp": 48446,
+       "fn": 232,
+       "tn": 723148,
+       "precision": 0.000948610080013198,
+       "recall": 0.16546762589928057,
+       "mcc": 0.008029480109594773,
+       "base_rate": 0.0003601633431449774,
+       "lift": 2.6338329484890184
+      },
+      "wallet_mean_score": 0.022959006213911934,
+      "others_mean_score": -0.0036101764716874253
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": false,
+      "recall_ge_0.2": false,
+      "lift_ge_2.0": true,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "latency_taker_backtest_L_ge_2": {
+     "trades": 157540,
+     "windows": 1703,
+     "usd_traded": 1178114.6593649401,
+     "pnl": 35825.93629739534,
+     "fees": 36441.05603207593,
+     "return_on_traded": 0.030409549709454618,
+     "win_rate": 0.5353243620667767,
+     "per_window_mean": 21.036956134700727,
+     "per_window_hac_t": 0.8012121382871368,
+     "per_window_p": 0.21156033993486026,
+     "per_window_bootstrap_p": 0.19860046651116295,
+     "daily_sharpe_annual": 6.5854502895564195
+    },
+    "wallet_maker_replay": {
+     "fills": 11455,
+     "usd": 217580.51761403139,
+     "pnl": 10489.423897968623,
+     "return": 0.0482093893929232
+    }
+   },
+   "0x3725d52f3c252e8374999cc8617292ea2608ad88": {
+    "match_spot_reactive": {
+     "lag_scan_auc_fit": {
+      "spot_return_1s@0": 0.4644057148743416,
+      "spot_return_1s@1": 0.5238457482711977,
+      "spot_return_1s@2": 0.49962252336017915,
+      "spot_return_1s@3": 0.5386401895380011,
+      "spot_return_1s@5": 0.5241825631544849,
+      "spot_return_2s@0": 0.5001717959213547,
+      "spot_return_2s@1": 0.5007993423638577,
+      "spot_return_2s@2": 0.5099275678576947,
+      "spot_return_2s@3": 0.5453839418591098,
+      "spot_return_2s@5": 0.47856549389124875,
+      "spot_return_3s@0": 0.47888434983206696,
+      "spot_return_3s@1": 0.504007554954364,
+      "spot_return_3s@2": 0.5188897578456859,
+      "spot_return_3s@3": 0.5447469076734156,
+      "spot_return_3s@5": 0.4951768379791649,
+      "spot_return_5s@0": 0.5060640232910542,
+      "spot_return_5s@1": 0.5208100092979884,
+      "spot_return_5s@2": 0.5026125178572881,
+      "spot_return_5s@3": 0.5283110868345364,
+      "spot_return_5s@5": 0.4519452584325706
+     },
+     "chosen_score": "spot_return_2s",
+     "chosen_latency_s": 3,
+     "theta": 0.00033045777187422516,
+     "fit": {
+      "prints": 765117,
+      "wallet_prints": 644,
+      "auc": 0.5453839418591098
+     },
+     "test": {
+      "prints": 1372771,
+      "wallet_prints": 10847,
+      "auc": 0.5317148971601839,
+      "auc_unstratified": 0.5126091949246298,
+      "auc_null_mean": 0.49750331210127413,
+      "auc_null_p95": 0.5090320672001972,
+      "auc_null_max": 0.5124278443653906,
+      "auc_null_sd": 0.0071133548977260486,
+      "auc_z_vs_null": 4.8094865996136855,
+      "auc_perm_p": 0.009900990099009901,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 0.00033045777187422516,
+       "tp": 233,
+       "fp": 12616,
+       "fn": 10614,
+       "tn": 1349308,
+       "precision": 0.018133706903260955,
+       "recall": 0.02148059371254725,
+       "mcc": 0.011233427153434512,
+       "base_rate": 0.007901536381523211,
+       "lift": 2.2949596164189585
+      },
+      "wallet_mean_score": 2.1436418212469733e-06,
+      "others_mean_score": -7.128878455861513e-06
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": true,
+      "recall_ge_0.2": false,
+      "lift_ge_2.0": true,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "match_latency_taker": {
+     "lag_scan_auc_fit": {
+      "fair_minus_price@-10": 0.48365015166835185,
+      "fair_minus_price@-5": 0.4522143579373104,
+      "fair_minus_price@-3": 0.431840242669363,
+      "fair_minus_price@-2": 0.43236602628918097,
+      "fair_minus_price@-1": 0.4385743174924166,
+      "fair_minus_price@0": 0.44611729019211327,
+      "fair_minus_price@1": 0.46836198179979777,
+      "fair_minus_price@2": 0.4832659251769464,
+      "fair_minus_price@3": 0.47885743174924167,
+      "fair_minus_price@5": 0.4249241658240647,
+      "fair_minus_price@10": 0.39857431749241656,
+      "fair_minus_price@20": 0.456319514661274
+     },
+     "chosen_score": "fair_minus_price",
+     "chosen_latency_s": 2,
+     "theta": 0.15510624094687206,
+     "fit": {
+      "prints": 362753,
+      "wallet_prints": 52,
+      "auc": 0.4832659251769464
+     },
+     "test": {
+      "prints": 771872,
+      "wallet_prints": 270,
+      "auc": 0.49964212678936604,
+      "auc_unstratified": 0.5661009005122292,
+      "auc_null_mean": 0.4913725857759601,
+      "auc_null_p95": 0.5503234586836325,
+      "auc_null_max": 0.5819491782170719,
+      "auc_null_sd": 0.0345976762018793,
+      "auc_z_vs_null": 0.2390201285529328,
+      "auc_perm_p": 0.37623762376237624,
+      "score_finite_share": 1.0,
+      "null_finite_share_min": 1.0,
+      "decision": {
+       "theta": 0.15510624094687206,
+       "tp": 30,
+       "fp": 31591,
+       "fn": 240,
+       "tn": 740011,
+       "precision": 0.0009487365990955378,
+       "recall": 0.1111111111111111,
+       "mcc": 0.006619827292816678,
+       "base_rate": 0.00034979893039260396,
+       "lift": 2.7122341341372995
+      },
+      "wallet_mean_score": 0.024924912696958765,
+      "others_mean_score": -0.003610588913968469
+     },
+     "criterion_6": {
+      "perm_p_below_0.01": false,
+      "recall_ge_0.2": false,
+      "lift_ge_2.0": true,
+      "pass": false
+     },
+     "null": "within-block window rotation, stratified by price x time-in-window x side",
+     "n_perm": 100
+    },
+    "latency_taker_backtest_L_ge_2": {
+     "trades": 102881,
+     "windows": 1418,
+     "usd_traded": 740938.7662800347,
+     "pnl": 39956.86007777678,
+     "fees": 25116.951170759476,
+     "return_on_traded": 0.05392734446651325,
+     "win_rate": 0.4988773437272188,
+     "per_window_mean": 28.17832163453933,
+     "per_window_hac_t": 1.0339006433988234,
+     "per_window_p": 0.1506795157591359,
+     "per_window_bootstrap_p": 0.1409530156614462,
+     "daily_sharpe_annual": 8.848499189483721
+    },
+    "wallet_maker_replay": {
+     "fills": 10847,
+     "usd": 236031.0296679233,
+     "pnl": 9217.102815076687,
+     "return": 0.039050385993928044
+    }
+   }
+  }
+ },
+ "inferred": {},
+ "sources": [],
+ "coverage": {
+  "status": "complete",
+  "detail": ""
+ },
+ "limitations": [
+  "Parameters come from the standard FIT sample only; nothing measured on these blocks fed back.",
+  "Other wallets' prints are subsampled for the match statistic; wallet prints are kept in full.",
+  "Spot is binance per-second prices; markets settle on Chainlink."
+ ],
+ "unknowns": [],
+ "next_probes": [],
+ "generated_at": "2026-10-31T05:45:58+00:00"
+}

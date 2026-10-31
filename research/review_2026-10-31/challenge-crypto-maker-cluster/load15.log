@@ -1,0 +1,2 @@
+fit 15m windows 96 taker rows 81170 passive rows 189959 partial 0 spot 110858 secs 3.8
+test 15m windows 96 taker rows 117641 passive rows 261894 partial 0 spot 110853 secs 5.7

@@ -1,0 +1,346 @@
+{
+ "as_of": 1793318400,
+ "tokens": {
+  "USDC.e": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+  "pUSD": "0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb"
+ },
+ "note": "Collateral is the proxy wallet balance of USDC.e and pUSD at the as_of block and 15 and 30 days before (archive eth_call). Cash-inclusive ROC = 30-day PnL / (peak capital at risk + max sampled collateral): a lower bound, since idle cash counts as capital.",
+ "wallets": {
+  "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": {
+   "name": "RN1",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 1795812.055982
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95544194,
+     "USDC.e": 0.0,
+     "pUSD": 1996952.871963
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 2105457.316075
+    }
+   },
+   "max_collateral": 2105457.316075,
+   "peak_capital_at_risk": 1141785.2601200158,
+   "window_pnl": 907319.301465001,
+   "roc_positions_only": 0.7946496886547917,
+   "roc_cash_inclusive": 0.279412233664465
+  },
+  "0xed107a85a4585a381e48c7f7ca4144909e7dd2e5": {
+   "name": "elmcap2",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 426425.193626
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95541794,
+     "USDC.e": 0.0,
+     "pUSD": 454207.341762
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 648638.292785
+    }
+   },
+   "max_collateral": 648638.292785,
+   "peak_capital_at_risk": 5708767.7681067055,
+   "window_pnl": 242046.50689100008,
+   "roc_positions_only": 0.042399080979129415,
+   "roc_cash_inclusive": 0.03807315508442606
+  },
+  "0xc53375ff94e96100f2b30a4b5775db35218d69a9": {
+   "name": "dangerously-skip-permissions",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 94887.472339
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95544194,
+     "USDC.e": 0.0,
+     "pUSD": 36582.199679
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 32960.84278
+    }
+   },
+   "max_collateral": 94887.472339,
+   "peak_capital_at_risk": 4560.1031379999185,
+   "window_pnl": 116254.79215700002,
+   "roc_positions_only": 25.493895343777222,
+   "roc_cash_inclusive": 1.169005796263854
+  },
+  "0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705": {
+   "name": "justaluckydude",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 532394.344573
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95544194,
+     "USDC.e": 0.0,
+     "pUSD": 501227.315536
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 354178.204635
+    }
+   },
+   "max_collateral": 532394.344573,
+   "peak_capital_at_risk": 506910.1070389993,
+   "window_pnl": 138804.19092199998,
+   "roc_positions_only": 0.2738240745144997,
+   "roc_cash_inclusive": 0.13355488924030837
+  },
+  "0x3048d65321be3497164cdfc2996f94f98a2e7537": {
+   "name": "x-MoneyForWhiskas",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 83402.454273
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95544194,
+     "USDC.e": 0.0,
+     "pUSD": 64784.137411
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 81015.259146
+    }
+   },
+   "max_collateral": 83402.454273,
+   "peak_capital_at_risk": 5821.121733999866,
+   "window_pnl": 82114.786119,
+   "roc_positions_only": 14.10635095283886,
+   "roc_cash_inclusive": 0.92032610430855
+  },
+  "0xb55fa1296e6ec55d0ce53d93b9237389f11764d4": {
+   "name": "0xb55fa1296E6ec55D0cE53d93B9237389f11764d4-1777575277609",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 126319.715309
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95536994,
+     "USDC.e": 0.0,
+     "pUSD": 98070.791011
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 73534.98706
+    }
+   },
+   "max_collateral": 126319.715309,
+   "peak_capital_at_risk": 64872.75971099979,
+   "window_pnl": 56365.14533899998,
+   "roc_positions_only": 0.8688569068141977,
+   "roc_cash_inclusive": 0.2948083878986549
+  },
+  "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6": {
+   "name": "GoodFallen",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 28260.8343
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95544194,
+     "USDC.e": 0.0,
+     "pUSD": 12293.25058
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 11101.87737
+    }
+   },
+   "max_collateral": 28260.8343,
+   "peak_capital_at_risk": 3187.7819599999816,
+   "window_pnl": 63058.656772999995,
+   "roc_positions_only": 19.78135818705755,
+   "roc_cash_inclusive": 2.005132952485587
+  },
+  "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed": {
+   "name": "bosona",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 41321.365458
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95544194,
+     "USDC.e": 0.0,
+     "pUSD": 30332.252363
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 36598.387085
+    }
+   },
+   "max_collateral": 41321.365458,
+   "peak_capital_at_risk": 5306.254549962063,
+   "window_pnl": 88325.030004,
+   "roc_positions_only": 16.645456634686226,
+   "roc_cash_inclusive": 1.894264171941818
+  },
+  "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3": {
+   "name": "mo-money",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 40546.458976
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95544194,
+     "USDC.e": 0.0,
+     "pUSD": 28143.798317
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 35210.739633
+    }
+   },
+   "max_collateral": 40546.458976,
+   "peak_capital_at_risk": 5222.078775884307,
+   "window_pnl": 84638.51689300005,
+   "roc_positions_only": 16.207820778932497,
+   "roc_cash_inclusive": 1.8492729077741936
+  },
+  "0xdbdd45150249e229eb4ca8aa48a30dca21faa5de": {
+   "name": "0xdbdd45150249e229eB4cA8aa48A30Dca21Faa5de-1757094771846",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 185888.410469
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95544194,
+     "USDC.e": 0.0,
+     "pUSD": 244193.470318
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 184930.160336
+    }
+   },
+   "max_collateral": 244193.470318,
+   "peak_capital_at_risk": 33408.49387599997,
+   "window_pnl": 61711.50053900003,
+   "roc_positions_only": 1.8471799647134768,
+   "roc_cash_inclusive": 0.22230210336650724
+  },
+  "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2": {
+   "name": "TommyLeePeeca",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 52201.776716
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95541794,
+     "USDC.e": 0.0,
+     "pUSD": 21901.731396
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 44551.834677
+    }
+   },
+   "max_collateral": 52201.776716,
+   "peak_capital_at_risk": 9576.8123965667,
+   "window_pnl": 60278.852306999994,
+   "roc_positions_only": 6.294250091879219,
+   "roc_cash_inclusive": 0.9757240036214807
+  },
+  "0x3725d52f3c252e8374999cc8617292ea2608ad88": {
+   "name": "almach",
+   "samples_days_before_as_of": {
+    "0": {
+     "ts": 1793318400,
+     "block": 96408442,
+     "USDC.e": 0.0,
+     "pUSD": 40084.766383
+    },
+    "15": {
+     "ts": 1792022400,
+     "block": 95544194,
+     "USDC.e": 0.0,
+     "pUSD": 24416.986475
+    },
+    "30": {
+     "ts": 1790726400,
+     "block": 94680277,
+     "USDC.e": 0.0,
+     "pUSD": 34339.704385
+    }
+   },
+   "max_collateral": 40084.766383,
+   "peak_capital_at_risk": 5379.574020808298,
+   "window_pnl": 72204.00980299996,
+   "roc_positions_only": 13.42188238765996,
+   "roc_cash_inclusive": 1.5881459878597914
+  }
+ }
+}

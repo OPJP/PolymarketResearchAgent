@@ -1,0 +1,6 @@
+5m FIT best k=0.12,R=5 {'fills': 2160, 'usd': 17956.52151639, 'pnl': -781.2557213900001, 'ret': -0.0435081884137137, 'per_window_t': -2.609830484707586, 'p': 0.995216912204891}
+ FIT range of ret -0.08837959480535844 -0.0435081884137137
+5m TEST tape_lag=2,queue=0.0 {'fills': 1889, 'windows': 273, 'usd': 15723.7198, 'pnl': -1380.8794, 'ret': -0.0878, 'per_window_t': -4.5619, 'p': 1.0, 'boot_p': 1.0}
+5m TEST tape_lag=2,queue=1.0 {'fills': 2144, 'windows': 283, 'usd': 17469.5025, 'pnl': -1220.9527, 'ret': -0.0699, 'per_window_t': -4.1473, 'p': 1.0, 'boot_p': 1.0}
+5m TEST tape_lag=0,queue=0.0 {'fills': 1303, 'windows': 262, 'usd': 10945.2815, 'pnl': -1094.5148, 'ret': -0.1, 'per_window_t': -4.8774, 'p': 1.0, 'boot_p': 1.0}
+5m TEST tape_lag=0,queue=1.0 {'fills': 1499, 'windows': 270, 'usd': 12358.714, 'pnl': -926.7044, 'ret': -0.075, 'per_window_t': -4.0008, 'p': 1.0, 'boot_p': 1.0}

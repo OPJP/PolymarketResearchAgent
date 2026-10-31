@@ -1,0 +1,10 @@
+{
+ "role_agreement": [
+  200,
+  200
+ ],
+ "maker_pnl_30d": 12889.923257999999,
+ "taker_pnl_30d_after_fees": -61499.07142200001,
+ "maker_plus_rebate_30d": 21583.290958000005,
+ "maker_plus_rebate_hac_p": 0.07069414323493073
+}

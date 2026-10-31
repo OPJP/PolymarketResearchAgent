@@ -1,0 +1,120 @@
+{
+ "15m": {
+  "wallet_taker_orders": 1920,
+  "self_matched": 0,
+  "top_makers_vs_wallet_taker": [
+   [
+    "0xcfddfb6e1b321fcfdcb6f9aa09b11990142ce5da",
+    245,
+    0.128
+   ],
+   [
+    "0xb945945d5bcaf7b56834d4da8cdf8f8f94b2db68",
+    200,
+    0.104
+   ],
+   [
+    "0x81c935efa4b16376d93c9d0a7970644643de94cd",
+    196,
+    0.102
+   ],
+   [
+    "0x57b86844f7f6fb768ed08adfec9f7718a1d48274",
+    194,
+    0.101
+   ],
+   [
+    "0x62e38f7e5d4db593efdca8665639c22c613c8362",
+    193,
+    0.101
+   ]
+  ],
+  "wallet_maker_fills_takers_top": [
+   [
+    "0xb1d30490fa2ec8dc55591e8c71d3d64b6e0fc279",
+    74,
+    0.046
+   ],
+   [
+    "0xbdaacd345fec209cd09d933e62f92e8b530afd60",
+    58,
+    0.036
+   ],
+   [
+    "0x5e60d871c2d646de185e541290689b727ef0e468",
+    33,
+    0.021
+   ],
+   [
+    "0xd1ed12197b7dc22dede923727e9b714024dbd7cb",
+    32,
+    0.02
+   ],
+   [
+    "0x954b91dd68eca3aa4ea603ecea83c01e8539c0e0",
+    29,
+    0.018
+   ]
+  ],
+  "wallet_maker_fill_events": 1602
+ },
+ "5m": {
+  "wallet_taker_orders": 1521,
+  "self_matched": 0,
+  "top_makers_vs_wallet_taker": [
+   [
+    "0x41e2e1ccf1e4940029af02259a31c6b89b9fa354",
+    77,
+    0.051
+   ],
+   [
+    "0x5a06acbaee263540a16a0109d584f6672101ffa2",
+    71,
+    0.047
+   ],
+   [
+    "0x764fd57b0b885cbeada5a119cdf0a113ee4ec347",
+    66,
+    0.043
+   ],
+   [
+    "0x62e38f7e5d4db593efdca8665639c22c613c8362",
+    61,
+    0.04
+   ],
+   [
+    "0x81c935efa4b16376d93c9d0a7970644643de94cd",
+    56,
+    0.037
+   ]
+  ],
+  "wallet_maker_fills_takers_top": [
+   [
+    "0xc53375ff94e96100f2b30a4b5775db35218d69a9",
+    108,
+    0.041
+   ],
+   [
+    "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
+    54,
+    0.02
+   ],
+   [
+    "0x41e2e1ccf1e4940029af02259a31c6b89b9fa354",
+    42,
+    0.016
+   ],
+   [
+    "0xeebde7a0e019a63e6b476eb425505b7b3e6eba30",
+    39,
+    0.015
+   ],
+   [
+    "0x596b928ea8168b239c9d846282777f79030c21e5",
+    38,
+    0.014
+   ]
+  ],
+  "wallet_maker_fill_events": 2643
+ }
+}

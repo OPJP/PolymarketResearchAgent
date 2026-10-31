@@ -1,0 +1,210 @@
+{
+ "norm1e69": {
+  "rows": 500,
+  "trades": 466,
+  "span_h": 204.43,
+  "types": {
+   "REDEEM": 27,
+   "TRADE": 466,
+   "TAKER_REBATE": 6,
+   "MAKER_REBATE": 1
+  },
+  "sides": {
+   "BUY": 431,
+   "SELL": 35
+  },
+  "top_families_by_usd": [
+   [
+    "btc-updown-5m",
+    3882
+   ],
+   [
+    "lol-tsw-ly-2026-10",
+    292
+   ],
+   [
+    "lol-gen-ly-2026-10-25-game1",
+    280
+   ],
+   [
+    "btc-updown-15m",
+    277
+   ],
+   [
+    "lol-blg-mkoi-2026-10",
+    260
+   ],
+   [
+    "lol-tes-blg-2026-10-28-game1",
+    246
+   ]
+  ],
+  "median_price": 0.51
+ },
+ "0x50f7": {
+  "rows": 500,
+  "trades": 408,
+  "span_h": 3.7,
+  "types": {
+   "REDEEM": 91,
+   "TRADE": 408,
+   "MAKER_REBATE": 1
+  },
+  "sides": {
+   "BUY": 408
+  },
+  "top_families_by_usd": [
+   [
+    "btc-updown-5m",
+    60677
+   ],
+   [
+    "btc-updown-15m",
+    1860
+   ],
+   [
+    "eth-updown-15m",
+    1758
+   ],
+   [
+    "eth-updown-5m",
+    1507
+   ],
+   [
+    "sol-updown-15m",
+    1059
+   ],
+   [
+    "sol-updown-5m",
+    992
+   ]
+  ],
+  "median_price": 0.04
+ },
+ "johnbaster": {
+  "rows": 500,
+  "trades": 469,
+  "span_h": 337.11,
+  "types": {
+   "TRADE": 469,
+   "TAKER_REBATE": 7,
+   "REDEEM": 21,
+   "MAKER_REBATE": 3
+  },
+  "sides": {
+   "SELL": 146,
+   "BUY": 323
+  },
+  "top_families_by_usd": [
+   [
+    "lol-fur-mvk-2026-10-15-game1",
+    56922
+   ],
+   [
+    "lol-fur-mvk-2026-10-15-game2",
+    32917
+   ],
+   [
+    "lol-fur-c9-2026-10-16-game2",
+    12101
+   ],
+   [
+    "lol-mvk-kc-2026-10-16-game3",
+    11384
+   ],
+   [
+    "lol-fur-c9-2026-10-16-game3",
+    9540
+   ],
+   [
+    "lol-fur-c9-2026-10-16-game4",
+    8388
+   ]
+  ],
+  "median_price": 0.48
+ },
+ "LonnieHawkinss": {
+  "rows": 500,
+  "trades": 450,
+  "span_h": 56.0,
+  "types": {
+   "TRADE": 450,
+   "REDEEM": 46,
+   "TAKER_REBATE": 3,
+   "MAKER_REBATE": 1
+  },
+  "sides": {
+   "SELL": 216,
+   "BUY": 234
+  },
+  "top_families_by_usd": [
+   [
+    "bra-vas-fla-2026-10-29-fla",
+    20065
+   ],
+   [
+    "efl-bor-ast-2026-10-28-draw",
+    4855
+   ],
+   [
+    "mls-vwh-sdg-2026-10-28-sdg",
+    3241
+   ],
+   [
+    "mls-sea-hou-2026-10-28-sea",
+    2163
+   ],
+   [
+    "mls-sea-hou-2026-10-28-spread-home-2pt5",
+    2094
+   ],
+   [
+    "mls-chi-orl-2026-10-28-total-2pt5",
+    1627
+   ]
+  ],
+  "median_price": 0.64
+ },
+ "mo-money": {
+  "rows": 500,
+  "trades": 414,
+  "span_h": 3.78,
+  "types": {
+   "REDEEM": 75,
+   "TRADE": 414,
+   "MERGE": 9,
+   "MAKER_REBATE": 1,
+   "TAKER_REBATE": 1
+  },
+  "sides": {
+   "BUY": 414
+  },
+  "top_families_by_usd": [
+   [
+    "btc-updown-15m",
+    9122
+   ],
+   [
+    "btc-updown-5m",
+    7045
+   ],
+   [
+    "bitcoin-up-or-down-october-30-2026-9pm-e",
+    336
+   ],
+   [
+    "sol-updown-4h",
+    110
+   ],
+   [
+    "btc-updown-4h",
+    96
+   ],
+   [
+    "xrp-updown-5m",
+    47
+   ]
+  ],
+  "median_price": 0.5
+ }
+}

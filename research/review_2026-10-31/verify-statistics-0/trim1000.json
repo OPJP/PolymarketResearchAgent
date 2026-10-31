@@ -1,0 +1,5171 @@
+{
+ "0xf0318c32136c2db7fec88b84869aee6a1106c80c": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.258 > 0.01",
+   "deflated Sharpe 0.0449 < 0.95",
+   "positive months 0.556 < 0.8",
+   "annualized Sharpe 1.61 < 3.0 (returns not constant enough)",
+   "positive weeks 0.55 < 0.75"
+  ]
+ },
+ "0xcdcccd0f2d86e450d973da415ad2430e5cc7935a": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0173 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0x4f1d5ae26fc31472966e951af3183308736d8de2": {
+  "trimmed_days": 5,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0187 > 0.01",
+   "deflated Sharpe 0.114 < 0.95",
+   "last-30d PnL $-194,892 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.91 < 3.0 (returns not constant enough)",
+   "positive weeks 0.607 < 0.75"
+  ]
+ },
+ "0xb0e74df9430a089aa102e2207af5fde1967439d2": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (34d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0191 < 0.95"
+  ]
+ },
+ "0x7c37b52eb226bcb9411375ec48b0169663fb6aeb": {
+  "trimmed_days": 4,
+  "reasons": [
+   "insufficient pre-selection history (27d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00682 < 0.95",
+   "annualized Sharpe 1.73 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x111f73e91f85b6fe4de1ddec3de2fe32122e355b": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.144 > 0.01",
+   "deflated Sharpe 0.0225 < 0.95",
+   "last-30d PnL $-318 < $50k",
+   "median monthly PnL $-2 < $50k",
+   "positive months 0.375 < 0.8",
+   "annualized Sharpe 1.45 < 3.0 (returns not constant enough)",
+   "positive weeks 0.286 < 0.75"
+  ]
+ },
+ "0x2a69660046d7acc4ab204d7cc5ba78b0776cd2f7": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.178 > 0.01",
+   "deflated Sharpe 0.0708 < 0.95",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 2 < 3.0 (returns not constant enough)",
+   "positive weeks 0.417 < 0.75"
+  ]
+ },
+ "0xe9b710551dd82a44e79203c2394a2b10163ace7b": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (18d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00932 < 0.95",
+   "annualized Sharpe 1.77 < 3.0 (returns not constant enough)",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0x5268527977f700f9bf9b6d5cd843859e4e70135d": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.498 < 0.95"
+  ]
+ },
+ "0x511f9c771449162349795d17becf8b37031acbe1": {
+  "trimmed_days": 1,
+  "reasons": [
+   "deflated Sharpe 0.0676 < 0.95",
+   "annualized Sharpe 2.28 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x5a218c7ad04135830a45c41aaed7294df7809318": {
+  "trimmed_days": 317,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.505)",
+   "deflated Sharpe 0.297 < 0.95",
+   "last-30d PnL $-69,988 < $50k",
+   "annualized Sharpe 2.62 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x03805a13a0b3e058f55f6c6af95389d4f431073d": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0187 > 0.01",
+   "deflated Sharpe 0.0532 < 0.95",
+   "last-30d PnL $-350,196 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.71 < 3.0 (returns not constant enough)",
+   "positive weeks 0.727 < 0.75"
+  ]
+ },
+ "0x821dab0565ebf5b327f51db06223fdcfe01acf16": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (34d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.305 < 0.95"
+  ]
+ },
+ "0x7ad71d79a3bb90d0a87a06500fa0fe11663842aa": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.384 > 0.01",
+   "deflated Sharpe 0.0297 < 0.95",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 2.36 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x67542c3219b37fd1610aad290676ff91cdbfe3bc": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.351 > 0.01",
+   "deflated Sharpe 0.00566 < 0.95",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 0.862 < 3.0 (returns not constant enough)",
+   "positive weeks 0.474 < 0.75"
+  ]
+ },
+ "0x5fdd66ffd0325d4e8d1d86fbec50caa31770a747": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.627 > 0.01",
+   "deflated Sharpe 0.0196 < 0.95",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.111 < 0.8",
+   "annualized Sharpe 0.853 < 3.0 (returns not constant enough)",
+   "positive weeks 0.119 < 0.75"
+  ]
+ },
+ "0x1387d145aaf01f6e33b66525dda6e1f51f6955f8": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (22d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.166 < 0.95"
+  ]
+ },
+ "0x96489abcb9f583d6835c8ef95ffc923d05a86825": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.781 > 0.01",
+   "deflated Sharpe 8.38e-08 < 0.95",
+   "median monthly PnL $44,283 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.738 < 3.0 (returns not constant enough)",
+   "positive weeks 0.558 < 0.75"
+  ]
+ },
+ "0xb0c85813a7a4428f1139ff91d3118a92c391fe7f": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.98)",
+   "deflated Sharpe 0.0502 < 0.95",
+   "last-30d PnL $-214,573 < $50k",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 1.79 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x684baa57c338c2549aec0aa3f034f695d72a8409": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.345 > 0.01",
+   "deflated Sharpe 0.0151 < 0.95",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.98 < 3.0 (returns not constant enough)",
+   "positive weeks 0.6 < 0.75"
+  ]
+ },
+ "0x7c75be8139d0e333e7c8c2e17b53575ef0804d1d": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000251 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0x57a85952044f2c8e4d31b475aab6987d2f98ebc2": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000944 < 0.95",
+   "last-30d PnL $-221,833 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe -0.272 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x2e7bf3e7b8ba0351b737897197fd5cc34fbfbd8c": {
+  "trimmed_days": 12,
+  "reasons": [
+   "insufficient pre-selection history (7d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000142 < 0.95",
+   "annualized Sharpe 2.75 < 3.0 (returns not constant enough)",
+   "positive weeks 0.6 < 0.75"
+  ]
+ },
+ "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": {
+  "trimmed_days": 12,
+  "reasons": []
+ },
+ "0xa38a455bbdd4b68486548b7e19da99903f4f821d": {
+  "trimmed_days": 16,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.366 > 0.01",
+   "deflated Sharpe 0.00736 < 0.95",
+   "positive months 0.778 < 0.8",
+   "annualized Sharpe 0.917 < 3.0 (returns not constant enough)",
+   "positive weeks 0.643 < 0.75"
+  ]
+ },
+ "0xe6ca6ebbec97e8a46ff3dbdb2a99d46254fbbff4": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (6d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00495 < 0.95",
+   "annualized Sharpe 1.7 < 3.0 (returns not constant enough)",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0x076daa87c4fe1a85402a9b6b8e0a866224388d4c": {
+  "trimmed_days": 5,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0645 > 0.01",
+   "deflated Sharpe 0.0971 < 0.95",
+   "positive weeks 0.7 < 0.75"
+  ]
+ },
+ "0xa19cbababc312f9df185e49d7004c249ed1ade6b": {
+  "trimmed_days": 8,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0855 > 0.01",
+   "deflated Sharpe 0.15 < 0.95",
+   "positive weeks 0.714 < 0.75"
+  ]
+ },
+ "0x83720820a8aa6c3f20ad71850e7a1a17d16c5223": {
+  "trimmed_days": 414,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.214 > 0.01",
+   "deflated Sharpe 0.0103 < 0.95",
+   "median monthly PnL $-24,253 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 1.08 < 3.0 (returns not constant enough)",
+   "positive weeks 0.444 < 0.75"
+  ]
+ },
+ "0xe18ecc345e00ee7c4f2d1f676f3dd2acb112f826": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (1d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0452 < 0.95"
+  ]
+ },
+ "0x9b129ad05bc0a8df3c73dfcc66fe75252daec2d5": {
+  "trimmed_days": 38,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.013 > 0.01",
+   "deflated Sharpe 0.475 < 0.95",
+   "median monthly PnL $27,696 < $50k"
+  ]
+ },
+ "0xa2cced8bfae7d645f7f437fb76becf2fcbb70cbc": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.956 > 0.01",
+   "deflated Sharpe 3.62e-05 < 0.95",
+   "median monthly PnL $-102,029 < $50k",
+   "positive months 0.364 < 0.8",
+   "annualized Sharpe -0.778 < 3.0 (returns not constant enough)",
+   "positive weeks 0.451 < 0.75"
+  ]
+ },
+ "0x0d6a1ada6d7ff785ab4b7263d9ce8e2baa85aa98": {
+  "trimmed_days": 53,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0183 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x23d81ba9371e576015c1e562db09c689f56b0288": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.233 > 0.01",
+   "deflated Sharpe 0.0192 < 0.95",
+   "annualized Sharpe 1.68 < 3.0 (returns not constant enough)",
+   "positive weeks 0.654 < 0.75"
+  ]
+ },
+ "0xad5353afe30c2da57709e2704ef3ccdcf67eef24": {
+  "trimmed_days": 6,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.189)",
+   "median monthly PnL $13,330 < $50k",
+   "positive months 0.75 < 0.8",
+   "positive weeks 0.736 < 0.75"
+  ]
+ },
+ "0x60a92c8620846d81f5ea17b0564e0d4b7c545a71": {
+  "trimmed_days": 39,
+  "reasons": [
+   "median monthly PnL $39,829 < $50k"
+  ]
+ },
+ "0x9ba9dec33838f4ec9f032f7247d7481987e63ce9": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.827)",
+   "deflated Sharpe 0.248 < 0.95",
+   "last-30d PnL $7,682 < $50k",
+   "median monthly PnL $6,900 < $50k",
+   "positive weeks 0.571 < 0.75"
+  ]
+ },
+ "0xd218e474776403a330142299f7796e8ba32eb5c9": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.436 > 0.01",
+   "deflated Sharpe 0.00184 < 0.95",
+   "last-30d PnL $-96,508 < $50k",
+   "median monthly PnL $-35,109 < $50k",
+   "positive months 0.76 < 0.8",
+   "annualized Sharpe 0.0786 < 3.0 (returns not constant enough)",
+   "positive weeks 0.642 < 0.75"
+  ]
+ },
+ "0x70c14608f9c06ad9a5f48f1d6ddb6c0fc2d41be2": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0162 > 0.01",
+   "deflated Sharpe 0.288 < 0.95",
+   "last-30d PnL $1,262 < $50k",
+   "median monthly PnL $1,359 < $50k",
+   "annualized Sharpe 2.58 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xf68a281980f8c13828e84e147e3822381d6e5b1b": {
+  "trimmed_days": 14,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.104 > 0.01",
+   "deflated Sharpe 0.106 < 0.95",
+   "annualized Sharpe 1.42 < 3.0 (returns not constant enough)",
+   "positive weeks 0.644 < 0.75"
+  ]
+ },
+ "0x4868c31e81040e002b41984842b84bae8923a1c1": {
+  "trimmed_days": 24,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.1 > 0.01",
+   "deflated Sharpe 0.455 < 0.95",
+   "median monthly PnL $-1 < $50k",
+   "positive months 0.3 < 0.8",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0xdc41c39b95453c943174f369926018f6963bdd7e": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.857 > 0.01",
+   "deflated Sharpe 0.000129 < 0.95",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.286 < 0.8",
+   "annualized Sharpe -0.871 < 3.0 (returns not constant enough)",
+   "positive weeks 0.267 < 0.75"
+  ]
+ },
+ "0x6ac5bb06a9eb05641fd5e82640268b92f3ab4b6e": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.778 > 0.01",
+   "deflated Sharpe 0.000287 < 0.95",
+   "median monthly PnL $-150,551 < $50k",
+   "positive months 0.364 < 0.8",
+   "annualized Sharpe -0.328 < 3.0 (returns not constant enough)",
+   "positive weeks 0.583 < 0.75"
+  ]
+ },
+ "0x5e6e2c3f06686f2607b86c90e35f536e81a1be00": {
+  "trimmed_days": 28,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.242 > 0.01",
+   "deflated Sharpe 0.0531 < 0.95",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.64 < 3.0 (returns not constant enough)",
+   "positive weeks 0.535 < 0.75"
+  ]
+ },
+ "0x8c0b024c17831a0dde038547b7e791ae6a0d7aa5": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.056)",
+   "deflated Sharpe 0.707 < 0.95",
+   "positive weeks 0.706 < 0.75"
+  ]
+ },
+ "0x252d7bae5ec87553dcafb23e275c202ac0d3c456": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.563 > 0.01",
+   "deflated Sharpe 0.0237 < 0.95",
+   "median monthly PnL $29,716 < $50k",
+   "positive months 0.538 < 0.8",
+   "annualized Sharpe 1.11 < 3.0 (returns not constant enough)",
+   "positive weeks 0.61 < 0.75"
+  ]
+ },
+ "0x3eb31daa061a19855cbf0a4884c202fb86976a2a": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00782 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0x4a0eecbf4d18cb6b868f30a7b6e75b7905b9a4b1": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00273 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe 0.619 < 3.0 (returns not constant enough)",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0x4e72c22cd76f9973a48aedfd79feeaacc8b7ffb9": {
+  "trimmed_days": 38,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0157 > 0.01",
+   "deflated Sharpe 0.486 < 0.95",
+   "last-30d PnL $27,605 < $50k",
+   "median monthly PnL $15,123 < $50k"
+  ]
+ },
+ "0xc9bfc7986767173b4f1c3fc9b2c6b255fc7381c0": {
+  "trimmed_days": 81,
+  "reasons": [
+   "insufficient pre-selection history (42d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0995 < 0.95",
+   "positive months 0.5 < 0.8",
+   "positive weeks 0.2 < 0.75"
+  ]
+ },
+ "0x448861155279dbf833d041b963e3ac854599e319": {
+  "trimmed_days": 19,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.149 > 0.01",
+   "deflated Sharpe 0.0857 < 0.95",
+   "positive months 0.792 < 0.8",
+   "annualized Sharpe 1.04 < 3.0 (returns not constant enough)",
+   "positive weeks 0.692 < 0.75"
+  ]
+ },
+ "0xdaef2be2a19ad331737d06545f85615b094554e9": {
+  "trimmed_days": 61,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0107 > 0.01",
+   "deflated Sharpe 0.179 < 0.95",
+   "positive months 0.786 < 0.8",
+   "annualized Sharpe 1.94 < 3.0 (returns not constant enough)",
+   "positive weeks 0.629 < 0.75"
+  ]
+ },
+ "0x6575759174ad221bba9947bc3f18750ec769b198": {
+  "trimmed_days": 9,
+  "reasons": [
+   "insufficient pre-selection history (37d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0162 < 0.95",
+   "annualized Sharpe 1.66 < 3.0 (returns not constant enough)",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0xc9ae00eda811041a059f3eec9356b24067c1b9e0": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (13d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00316 < 0.95",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0x676c1bb692c76b57b06f1b93817515acfa5ce139": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (5d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.561 < 0.95"
+  ]
+ },
+ "0xfd2b117412a698f322b0cd18d6827dad262b8e50": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.482 > 0.01",
+   "deflated Sharpe 0.00137 < 0.95",
+   "last-30d PnL $13,263 < $50k",
+   "median monthly PnL $6,711 < $50k",
+   "positive months 0.625 < 0.8",
+   "annualized Sharpe 0.0459 < 3.0 (returns not constant enough)",
+   "positive weeks 0.51 < 0.75"
+  ]
+ },
+ "0xa2a78bb796f56b1b174b29eff72af4f0c558627b": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (30d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0123 < 0.95",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 2.79 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x2879ded7fe05df00eddbb2fba412a0d30964411a": {
+  "trimmed_days": 6,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00797 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x2dfa4e79eca44b7c774f40a45535adbc368a6f60": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (31d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0134 < 0.95",
+   "annualized Sharpe 1.96 < 3.0 (returns not constant enough)",
+   "positive weeks 0.25 < 0.75"
+  ]
+ },
+ "0x9b11866433281ade9f2811dbde8acdefc45f5375": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.084 > 0.01",
+   "deflated Sharpe 0.031 < 0.95",
+   "annualized Sharpe 2.47 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xf705fa045201391d9632b7f3cde06a5e24453ca7": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0237 > 0.01",
+   "deflated Sharpe 0.344 < 0.95",
+   "median monthly PnL $44,009 < $50k",
+   "positive months 0.692 < 0.8",
+   "annualized Sharpe 2.66 < 3.0 (returns not constant enough)",
+   "positive weeks 0.526 < 0.75"
+  ]
+ },
+ "0xebfdb8164f0e0748818d6c7a9ac85a323267fd63": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.802 > 0.01",
+   "deflated Sharpe 0.00868 < 0.95",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.333 < 0.8",
+   "annualized Sharpe 1.18 < 3.0 (returns not constant enough)",
+   "positive weeks 0.125 < 0.75"
+  ]
+ },
+ "0xc1b5f266564e6d4907cf84bdf5a8f91621ef5d85": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.317 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xb7271c112cbd83eb4c1ef1b554ff963604ae2a9d": {
+  "trimmed_days": 8,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.203 > 0.01",
+   "deflated Sharpe 0.0214 < 0.95",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 2.75 < 3.0 (returns not constant enough)",
+   "positive weeks 0.538 < 0.75"
+  ]
+ },
+ "0x27f738fe203827445690339104aae35b20bc44b0": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.32 > 0.01",
+   "deflated Sharpe 0.0234 < 0.95",
+   "positive months 0.714 < 0.8",
+   "annualized Sharpe 1.39 < 3.0 (returns not constant enough)",
+   "positive weeks 0.567 < 0.75"
+  ]
+ },
+ "0xbeb1c94b4260398f93f418e349a15a40b2ae4687": {
+  "trimmed_days": 4,
+  "reasons": [
+   "insufficient pre-selection history (14d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00087 < 0.95",
+   "annualized Sharpe -0.222 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x640b954ebc87c7b68749c763d8f611c3421554b5": {
+  "trimmed_days": 4,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 6.94e-05 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0x79ae097215202b5d01f98e4479fb219102469a4a": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.671 > 0.01",
+   "deflated Sharpe 0.00147 < 0.95",
+   "median monthly PnL $39,885 < $50k",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 0.118 < 3.0 (returns not constant enough)",
+   "positive weeks 0.579 < 0.75"
+  ]
+ },
+ "0xfea31bc088000ff909be1dfd8d0e3f2c7ef2d227": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0265 > 0.01",
+   "deflated Sharpe 0.0738 < 0.95",
+   "annualized Sharpe 2.08 < 3.0 (returns not constant enough)",
+   "positive weeks 0.742 < 0.75"
+  ]
+ },
+ "0x20d6436849f930584892730c7f96ebb2ac763856": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.299 > 0.01",
+   "deflated Sharpe 0.0234 < 0.95",
+   "median monthly PnL $12,473 < $50k",
+   "positive months 0.333 < 0.8",
+   "annualized Sharpe 1.39 < 3.0 (returns not constant enough)",
+   "positive weeks 0.55 < 0.75"
+  ]
+ },
+ "0xeed8c2be411025120fb511ea2332dd0a1f6135f0": {
+  "trimmed_days": 32,
+  "reasons": [
+   "insufficient pre-selection history (59d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.433 < 0.95"
+  ]
+ },
+ "0x0224bb9eb0a5c9fd261ac9123a72cbdd5748292a": {
+  "trimmed_days": 117,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.172 > 0.01",
+   "deflated Sharpe 0.0771 < 0.95",
+   "median monthly PnL $41,354 < $50k",
+   "positive months 0.545 < 0.8",
+   "annualized Sharpe 1.33 < 3.0 (returns not constant enough)",
+   "positive weeks 0.372 < 0.75"
+  ]
+ },
+ "0x4ebc2722adc772bde8680792d0a6fdf15499a33d": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.627)",
+   "deflated Sharpe 0.895 < 0.95"
+  ]
+ },
+ "0xe949065b6c64308369c26dc590121623a5a4dea6": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.563 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xa5c3cc9b627d1ca2bd69b1490635713c717f6eca": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000699 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0x8f6970acd7c9466fc1d09a7c17071705c8e52923": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000915 < 0.95",
+   "last-30d PnL $-332 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe -0.57 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xcb4c9a52c20d6b3efafdd27adfa8023e01a79e55": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000131 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x72487021e3339827c476592585c15ae7f0fa7e72": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.297 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xc7d02944a76b9f83b199e9090ecc92c82d241f8a": {
+  "trimmed_days": 1,
+  "reasons": [
+   "last-30d PnL $47,554 < $50k",
+   "median monthly PnL $48,076 < $50k"
+  ]
+ },
+ "0x629bc4a1e53e1d475beb7ea3d388791e96dd995a": {
+  "trimmed_days": 8,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0275 > 0.01",
+   "deflated Sharpe 0.336 < 0.95",
+   "median monthly PnL $22,380 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.45 < 3.0 (returns not constant enough)",
+   "positive weeks 0.661 < 0.75"
+  ]
+ },
+ "0xfd557e6db670c9704bc1d0d8e8b585c7d9c9f905": {
+  "trimmed_days": 8,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.0795)",
+   "deflated Sharpe 0.115 < 0.95",
+   "last-30d PnL $-16,394 < $50k",
+   "median monthly PnL $12,654 < $50k",
+   "annualized Sharpe 2.42 < 3.0 (returns not constant enough)",
+   "positive weeks 0.731 < 0.75"
+  ]
+ },
+ "0x2b5920274740ca61745eeb077587bf5bb4ff9db6": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.127 > 0.01",
+   "deflated Sharpe 0.236 < 0.95",
+   "median monthly PnL $19,069 < $50k",
+   "positive weeks 0.714 < 0.75"
+  ]
+ },
+ "0xdb7513a3c54d579d64ee64c948c85d2f27620252": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.501 > 0.01",
+   "deflated Sharpe 0.00153 < 0.95",
+   "last-30d PnL $0 < $50k",
+   "median monthly PnL $18,295 < $50k",
+   "positive months 0.538 < 0.8",
+   "annualized Sharpe 0.0371 < 3.0 (returns not constant enough)",
+   "positive weeks 0.386 < 0.75"
+  ]
+ },
+ "0x5bfe9469c7c4035325024c846bc530c9d29e3258": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (21d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.292 < 0.95"
+  ]
+ },
+ "0x10a6fadcbacd66330862206f6199b197e3ad4d8b": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.385 > 0.01",
+   "deflated Sharpe 0.00255 < 0.95",
+   "median monthly PnL $-32,372 < $50k",
+   "positive months 0.4 < 0.8",
+   "annualized Sharpe 0.477 < 3.0 (returns not constant enough)",
+   "positive weeks 0.542 < 0.75"
+  ]
+ },
+ "0x56ad6bd05999e0f33ea9c05a48ccb1364a46f13e": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.817 > 0.01",
+   "deflated Sharpe 0.000173 < 0.95",
+   "median monthly PnL $-5,886 < $50k",
+   "positive months 0.625 < 0.8",
+   "annualized Sharpe -0.469 < 3.0 (returns not constant enough)",
+   "positive weeks 0.657 < 0.75"
+  ]
+ },
+ "0xed107a85a4585a381e48c7f7ca4144909e7dd2e5": {
+  "trimmed_days": 2,
+  "reasons": []
+ },
+ "0xd3b034d7bfb2473fb252d0414646d9786bac329e": {
+  "trimmed_days": 12,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.172 > 0.01",
+   "deflated Sharpe 0.0916 < 0.95",
+   "positive months 0.778 < 0.8",
+   "annualized Sharpe 1.59 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x614dc8d3542c12103d2c6a3553fd761e391d1546": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.981)",
+   "deflated Sharpe 0.574 < 0.95",
+   "annualized Sharpe 2.13 < 3.0 (returns not constant enough)",
+   "positive weeks 0.739 < 0.75"
+  ]
+ },
+ "0x983eedfbd75803602e4a6e6ea9aab6dc6b9c6748": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (45d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000113 < 0.95",
+   "median monthly PnL $-1,969,822 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.809 < 3.0 (returns not constant enough)",
+   "positive weeks 0.6 < 0.75"
+  ]
+ },
+ "0xcfff4295288ee29f75a38a7028611b7c1e93673d": {
+  "trimmed_days": 7,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.177)",
+   "deflated Sharpe 0.0442 < 0.95",
+   "last-30d PnL $-40,933 < $50k",
+   "median monthly PnL $12,482 < $50k",
+   "annualized Sharpe 1.38 < 3.0 (returns not constant enough)",
+   "positive weeks 0.731 < 0.75"
+  ]
+ },
+ "0x1e52bbdf389526f57abc62641d518868f4c5eb43": {
+  "trimmed_days": 6,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.408 > 0.01",
+   "deflated Sharpe 0.0201 < 0.95",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.75 < 3.0 (returns not constant enough)",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0x227f7ba7fcc35b7f8fc08aa6b075f5220da2a574": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.731 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x8bac34bb7b51b4d63b128eb711d76706efdc35ca": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.281 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x95c6c9a6727ed203e97230dda61ab19a020e1508": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (15d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0617 < 0.95"
+  ]
+ },
+ "0x9d0dcd0c8aa0526303fd9e17fff4666ef52d2e6d": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.611 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x446884aa55e3dcf7123d9a3d6243c4e34b70b165": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0831 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x25d79dda4ca31627cf2a4ea87b6018e610976176": {
+  "trimmed_days": 2,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 8.07e-05 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x032eb1bc893940263ad0b01889f262fc232f2a9e": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.946 > 0.01",
+   "deflated Sharpe 3.35e-08 < 0.95",
+   "median monthly PnL $-113,073 < $50k",
+   "positive months 0.4 < 0.8",
+   "annualized Sharpe -2.35 < 3.0 (returns not constant enough)",
+   "positive weeks 0.458 < 0.75"
+  ]
+ },
+ "0xf3ce7f04dde4f8c5aed19a20e5ecd8520e5ca57a": {
+  "trimmed_days": 34,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.592 < 0.95"
+  ]
+ },
+ "0xe5e1072b676d83ba78d1a20460fd4d072b85badc": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000583 < 0.95",
+   "last-30d PnL $310 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x43372356634781eea88d61bbdd7824cdce958882": {
+  "trimmed_days": 109,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0122 > 0.01",
+   "deflated Sharpe 0.242 < 0.95",
+   "median monthly PnL $24,962 < $50k",
+   "annualized Sharpe 1.01 < 3.0 (returns not constant enough)",
+   "positive weeks 0.745 < 0.75"
+  ]
+ },
+ "0xb4f978be63cdf75554b0b46a4262a6db597cc9a7": {
+  "trimmed_days": 51,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.273 > 0.01",
+   "deflated Sharpe 0.00582 < 0.95",
+   "annualized Sharpe 0.929 < 3.0 (returns not constant enough)",
+   "positive weeks 0.467 < 0.75"
+  ]
+ },
+ "0x38891af2ad2f103ab8dc896c0243d2646deffe34": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000163 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0x1610db79f753a80207e1d66716be9e91e627ae49": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.197 > 0.01",
+   "deflated Sharpe 0.0345 < 0.95",
+   "annualized Sharpe 1.73 < 3.0 (returns not constant enough)",
+   "positive weeks 0.652 < 0.75"
+  ]
+ },
+ "0xa7d1ae08567d192db3c3cf1858c62c76dc8cb824": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.982 > 0.01",
+   "deflated Sharpe 2.82e-22 < 0.95",
+   "last-30d PnL $42,505 < $50k",
+   "median monthly PnL $-638 < $50k",
+   "positive months 0.143 < 0.8",
+   "annualized Sharpe -4.42 < 3.0 (returns not constant enough)",
+   "positive weeks 0.206 < 0.75"
+  ]
+ },
+ "0xed446954680979932092e970b443e6ae61e34f76": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0255 > 0.01",
+   "deflated Sharpe 0.874 < 0.95",
+   "median monthly PnL $14,432 < $50k"
+  ]
+ },
+ "0x45166d6dee918955495ef5e493742f47d6e404de": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 2.14e-13 < 0.95",
+   "last-30d PnL $-140,112 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe -4.72 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xc44f432b014f36679e13615f95996eac32bbd49f": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.419 > 0.01",
+   "deflated Sharpe 0.00471 < 0.95",
+   "median monthly PnL $-17,216 < $50k",
+   "positive months 0.333 < 0.8",
+   "annualized Sharpe 0.457 < 3.0 (returns not constant enough)",
+   "positive weeks 0.595 < 0.75"
+  ]
+ },
+ "0x6276ea490d6ca3a539f1d571a89d53d26e9f9db5": {
+  "trimmed_days": 2,
+  "reasons": [
+   "insufficient pre-selection history (16d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.39 < 0.95",
+   "last-30d PnL $23,711 < $50k",
+   "median monthly PnL $23,711 < $50k"
+  ]
+ },
+ "0xe7870d0e1bfc65a23e3d66caf00ca1b9129e5034": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (28d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00135 < 0.95",
+   "annualized Sharpe 0.0994 < 3.0 (returns not constant enough)",
+   "positive weeks 0.625 < 0.75"
+  ]
+ },
+ "0xae2a545c068389c5aab3466cecef33259e55384d": {
+  "trimmed_days": 4,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.112 > 0.01",
+   "deflated Sharpe 0.0513 < 0.95",
+   "last-30d PnL $5,733 < $50k",
+   "median monthly PnL $-27 < $50k",
+   "positive months 0.273 < 0.8",
+   "annualized Sharpe 1.35 < 3.0 (returns not constant enough)",
+   "positive weeks 0.458 < 0.75"
+  ]
+ },
+ "0xbcc321b6336117432f4e9d2d28b20d8b6795ac9c": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (3d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.25 < 0.95"
+  ]
+ },
+ "0xd3911bd5e070c9ad9a9519c966347802d8f3b109": {
+  "trimmed_days": 20,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.53 > 0.01",
+   "deflated Sharpe 0.04 < 0.95",
+   "median monthly PnL $-148 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 1.63 < 3.0 (returns not constant enough)",
+   "positive weeks 0.346 < 0.75"
+  ]
+ },
+ "0x9c56304c8840621ef4c1e707b4c7d708d09878d1": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.613 > 0.01",
+   "deflated Sharpe 0.00293 < 0.95",
+   "median monthly PnL $-4,751 < $50k",
+   "positive months 0.333 < 0.8",
+   "annualized Sharpe 1.82 < 3.0 (returns not constant enough)",
+   "positive weeks 0.286 < 0.75"
+  ]
+ },
+ "0xf3a6ac44c5c90ff2b4afa4459f71acc2e57971bd": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.807 > 0.01",
+   "deflated Sharpe 0.00279 < 0.95",
+   "median monthly PnL $-9,889 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 0.52 < 3.0 (returns not constant enough)",
+   "positive weeks 0.471 < 0.75"
+  ]
+ },
+ "0x44c1dfe43260c94ed4f1d00de2e1f80fb113ebc1": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.34)",
+   "deflated Sharpe 0.495 < 0.95",
+   "positive months 0.758 < 0.8",
+   "annualized Sharpe 1.82 < 3.0 (returns not constant enough)",
+   "positive weeks 0.724 < 0.75"
+  ]
+ },
+ "0xcdfb742c864b7011725b3b851291e326971497a0": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00385 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xfbedb045813457be883ad83dd1078e88a2a1a665": {
+  "trimmed_days": 11,
+  "reasons": [
+   "insufficient pre-selection history (40d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.151 < 0.95",
+   "last-30d PnL $9,920 < $50k",
+   "median monthly PnL $17,416 < $50k"
+  ]
+ },
+ "0x0259b2054f046fe0ee8f3e075fdb85fc3ba9769e": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (43d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00214 < 0.95",
+   "median monthly PnL $41,382 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 0.396 < 3.0 (returns not constant enough)",
+   "positive weeks 0.3 < 0.75"
+  ]
+ },
+ "0x709e8dcb133555794decc598e07f2c923b8366f5": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.631 > 0.01",
+   "deflated Sharpe 0.000408 < 0.95",
+   "median monthly PnL $8,975 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.328 < 3.0 (returns not constant enough)",
+   "positive weeks 0.517 < 0.75"
+  ]
+ },
+ "0x1d1ade627d0bb0205758580b20d808573e720df6": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.84 > 0.01",
+   "deflated Sharpe 6.93e-05 < 0.95",
+   "median monthly PnL $40,568 < $50k",
+   "positive months 0.364 < 0.8",
+   "annualized Sharpe -0.76 < 3.0 (returns not constant enough)",
+   "positive weeks 0.51 < 0.75"
+  ]
+ },
+ "0xc53375ff94e96100f2b30a4b5775db35218d69a9": {
+  "trimmed_days": 2,
+  "reasons": []
+ },
+ "0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705": {
+  "trimmed_days": 3,
+  "reasons": []
+ },
+ "0x731a241767938bb23d1b2fac4c9cd2f3cea9033f": {
+  "trimmed_days": 103,
+  "reasons": [
+   "deflated Sharpe 7.15e-08 < 0.95",
+   "median monthly PnL $14,534 < $50k",
+   "annualized Sharpe 1.72 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x2cff41636fe21fad120fed603d54d4fdd96259db": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.758 > 0.01",
+   "deflated Sharpe 0.000389 < 0.95",
+   "median monthly PnL $-117,106 < $50k",
+   "positive months 0.2 < 0.8",
+   "annualized Sharpe -0.513 < 3.0 (returns not constant enough)",
+   "positive weeks 0.476 < 0.75"
+  ]
+ },
+ "0xa96274cc1b321afc8cbdc1ba07f7e2d471e6f7c8": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (12d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0147 < 0.95",
+   "annualized Sharpe 2.75 < 3.0 (returns not constant enough)",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0x6bab66c4bb24c96ed14dcca0f0979b38a6830fe5": {
+  "trimmed_days": 12,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.0973)",
+   "deflated Sharpe 0.000272 < 0.95",
+   "median monthly PnL $17,597 < $50k",
+   "annualized Sharpe 1.96 < 3.0 (returns not constant enough)",
+   "positive weeks 0.615 < 0.75"
+  ]
+ },
+ "0x5815db9fdf0e0ffdc1d1f759916b221339570ae7": {
+  "trimmed_days": 3,
+  "reasons": [
+   "insufficient pre-selection history (16d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.003 < 0.95",
+   "annualized Sharpe 0.933 < 3.0 (returns not constant enough)",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0xa797d6bd8fe6e404bb4d8e4ab3d97c38336fdede": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.158)"
+  ]
+ },
+ "0xecb98ff2542d9c57ec36aa3ecad3734b9e295a12": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.062 > 0.01",
+   "deflated Sharpe 0.00984 < 0.95",
+   "last-30d PnL $912 < $50k",
+   "median monthly PnL $1,065 < $50k",
+   "positive months 0.619 < 0.8",
+   "annualized Sharpe 0.991 < 3.0 (returns not constant enough)",
+   "positive weeks 0.609 < 0.75"
+  ]
+ },
+ "0x7d2b8ec2211b5ec43ebc66559b999edf6b1d8e80": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 5e-05 < 0.95",
+   "last-30d PnL $281 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0xc04eba3d4fb1729de321db9c4e1c90f55790c1f9": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.473 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xa3eb7c5ff848d073ac9b6dd91c6a9eee6c3985e2": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $857 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x9b89ef1f344d3e17b37ccdff3bccf62d04f04244": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0805 > 0.01",
+   "deflated Sharpe 0.0169 < 0.95",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 1.86 < 3.0 (returns not constant enough)",
+   "positive weeks 0.421 < 0.75"
+  ]
+ },
+ "0xcf43b3b62f7881c831e2d2370b870f5e8a08b321": {
+  "trimmed_days": 95,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.118 > 0.01",
+   "deflated Sharpe 0.303 < 0.95",
+   "last-30d PnL $13,575 < $50k",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.167 < 0.8",
+   "annualized Sharpe 2.43 < 3.0 (returns not constant enough)",
+   "positive weeks 0.216 < 0.75"
+  ]
+ },
+ "0x5371f1b6954e31c502064614649cea3568cb76eb": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.522 > 0.01",
+   "deflated Sharpe 0.0119 < 0.95",
+   "last-30d PnL $34,908 < $50k",
+   "median monthly PnL $396 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 0.755 < 3.0 (returns not constant enough)",
+   "positive weeks 0.703 < 0.75"
+  ]
+ },
+ "0x1f85eb9c455c5bdef5d96c2739076678c7157b02": {
+  "trimmed_days": 40,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0385 > 0.01",
+   "deflated Sharpe 0.0177 < 0.95",
+   "last-30d PnL $10,385 < $50k",
+   "median monthly PnL $7,936 < $50k",
+   "annualized Sharpe 1.23 < 3.0 (returns not constant enough)",
+   "positive weeks 0.722 < 0.75"
+  ]
+ },
+ "0x26cf4a41eb49f0c560d32a2d2e4f45715e47c612": {
+  "trimmed_days": 4,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.109 > 0.01",
+   "deflated Sharpe 0.195 < 0.95",
+   "median monthly PnL $29,721 < $50k",
+   "positive months 0.727 < 0.8",
+   "annualized Sharpe 2.59 < 3.0 (returns not constant enough)",
+   "positive weeks 0.673 < 0.75"
+  ]
+ },
+ "0x3a8aa345d5db7ec5138298c8c4f4540259be7699": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.233 > 0.01",
+   "deflated Sharpe 0.0133 < 0.95",
+   "median monthly PnL $28,705 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 0.929 < 3.0 (returns not constant enough)",
+   "positive weeks 0.541 < 0.75"
+  ]
+ },
+ "0x0f7fb628af9ea8f0eb3d8ca70a4c57404f60b075": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (6d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 3.66e-05 < 0.95",
+   "last-30d PnL $5 < $50k",
+   "median monthly PnL $5 < $50k",
+   "positive weeks 0.2 < 0.75"
+  ]
+ },
+ "0x0130afd6f3efddf1c3e16e01217b172dd9befb49": {
+  "trimmed_days": 31,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0302 > 0.01",
+   "deflated Sharpe 0.347 < 0.95",
+   "last-30d PnL $23,659 < $50k",
+   "median monthly PnL $5,560 < $50k",
+   "positive months 0.778 < 0.8",
+   "annualized Sharpe 2.97 < 3.0 (returns not constant enough)",
+   "positive weeks 0.619 < 0.75"
+  ]
+ },
+ "0x4c8cdcdd4c92bf44e74a642254f7414de14de36f": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.132 > 0.01",
+   "deflated Sharpe 0.0317 < 0.95",
+   "median monthly PnL $43,972 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 2.19 < 3.0 (returns not constant enough)",
+   "positive weeks 0.615 < 0.75"
+  ]
+ },
+ "0xb2d2d1ad3bf842a778efb4169a0ae5d1b2353910": {
+  "trimmed_days": 34,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.748 > 0.01",
+   "deflated Sharpe 0.0103 < 0.95",
+   "median monthly PnL $10,384 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 0.98 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x54ce7dd357766fc3255645e55ef41edd51cc9f80": {
+  "trimmed_days": 50,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.141 > 0.01",
+   "deflated Sharpe 0.0319 < 0.95",
+   "median monthly PnL $30,627 < $50k",
+   "positive months 0.625 < 0.8",
+   "annualized Sharpe 1.76 < 3.0 (returns not constant enough)",
+   "positive weeks 0.405 < 0.75"
+  ]
+ },
+ "0x8f9d3aa5b72ba0134fa7975d9c88e9852e706aed": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (15d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $0 < $50k",
+   "median monthly PnL $0 < $50k",
+   "positive months 0 < 0.8",
+   "annualized Sharpe n/a < 3.0 (returns not constant enough)",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0x792f8e8bae0323abf8927c6820863fbe8a98328a": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.75 > 0.01",
+   "deflated Sharpe 0.00654 < 0.95",
+   "median monthly PnL $18,953 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 0.596 < 3.0 (returns not constant enough)",
+   "positive weeks 0.571 < 0.75"
+  ]
+ },
+ "0xc29198ad764bd6adaf7bb971a3757a689ece5d74": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0357 > 0.01",
+   "deflated Sharpe 0.269 < 0.95",
+   "positive months 0.625 < 0.8",
+   "annualized Sharpe 2.97 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x6d98d93b9fa0684f21fa1a2ab475c8ca8b97efe9": {
+  "trimmed_days": 11,
+  "reasons": [
+   "insufficient pre-selection history (3d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.122 < 0.95",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x6e553015227ef6f43683a866bec357d6608368d0": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (11d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0447 < 0.95"
+  ]
+ },
+ "0x17525891a4ed52520ad75dac8ed5f32a58be7993": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.547 > 0.01",
+   "deflated Sharpe 0.000903 < 0.95",
+   "last-30d PnL $24 < $50k",
+   "median monthly PnL $1 < $50k",
+   "positive months 0.684 < 0.8",
+   "annualized Sharpe -0.0559 < 3.0 (returns not constant enough)",
+   "positive weeks 0.548 < 0.75"
+  ]
+ },
+ "0x1f5f9fa318fbda8350ac143b4df657287df850fa": {
+  "trimmed_days": 16,
+  "reasons": [
+   "insufficient pre-selection history (3d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.017 < 0.95"
+  ]
+ },
+ "0xf20b60cc9b8e97cb7678e8ab67bcc3480839e27d": {
+  "trimmed_days": 7,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.391 > 0.01",
+   "deflated Sharpe 0.145 < 0.95",
+   "median monthly PnL $5,138 < $50k",
+   "positive weeks 0.682 < 0.75"
+  ]
+ },
+ "0xf5c5a704812f00a9e18d841ded2c2f915b0f717f": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000192 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x090af6fd2aeb04202abc97370aa86c1b81d90fa6": {
+  "trimmed_days": 17,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0177 > 0.01",
+   "deflated Sharpe 0.04 < 0.95",
+   "last-30d PnL $-33,967 < $50k",
+   "median monthly PnL $14,781 < $50k",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 1.28 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xde9f7f4e77a1595623ceb58e469f776257ccd43c": {
+  "trimmed_days": 18,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.913)",
+   "deflated Sharpe 0.744 < 0.95",
+   "positive weeks 0.722 < 0.75"
+  ]
+ },
+ "0x81d972dbea298a5064d4ba51031e0386182fe9c9": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00428 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0xc301c1e034e71e1a6ce9684f029c4674a00466aa": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00191 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x41e2e1ccf1e4940029af02259a31c6b89b9fa354": {
+  "trimmed_days": 5,
+  "reasons": [
+   "insufficient pre-selection history (48d < 60d): significance outside the ranking window cannot be established"
+  ]
+ },
+ "0x9fcd94b01baf1c6593fab52654425ba8f4b368a5": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x66e7ce01c6831b8a2503d09edd6167152ee68bcd": {
+  "trimmed_days": 10,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0472 > 0.01",
+   "deflated Sharpe 0.0878 < 0.95",
+   "last-30d PnL $49,455 < $50k",
+   "median monthly PnL $21,089 < $50k"
+  ]
+ },
+ "0xad494094e355999ad09bd07e51861c2a1541c53e": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.671 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x5c8311c96d2b6741ffa16aa69ddd1fc97901eceb": {
+  "trimmed_days": 13,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.835 > 0.01",
+   "deflated Sharpe 0.000247 < 0.95",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.0833 < 0.8",
+   "annualized Sharpe 0.889 < 3.0 (returns not constant enough)",
+   "positive weeks 0.0769 < 0.75"
+  ]
+ },
+ "0x0346afae2603313d2bbee96b628536c8cbe352a5": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.707 > 0.01",
+   "deflated Sharpe 0.000214 < 0.95",
+   "median monthly PnL $-643 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.51 < 3.0 (returns not constant enough)",
+   "positive weeks 0.407 < 0.75"
+  ]
+ },
+ "0xeae1e3f0da9c9adcdd69c021cd0385d9a6b4a67b": {
+  "trimmed_days": 2,
+  "reasons": [
+   "insufficient pre-selection history (51d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.567 < 0.95"
+  ]
+ },
+ "0x88b59d79b6e1659c95a0043028e5bb7a26e6205c": {
+  "trimmed_days": 76,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.398 > 0.01",
+   "deflated Sharpe 0.0162 < 0.95",
+   "median monthly PnL $3,190 < $50k",
+   "positive months 0.714 < 0.8",
+   "annualized Sharpe 0.581 < 3.0 (returns not constant enough)",
+   "positive weeks 0.697 < 0.75"
+  ]
+ },
+ "0xc8ab97a9089a9ff7e6ef0688e6e591a066946418": {
+  "trimmed_days": 7,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.017 > 0.01",
+   "deflated Sharpe 0.29 < 0.95",
+   "last-30d PnL $19,805 < $50k",
+   "median monthly PnL $26,837 < $50k",
+   "annualized Sharpe 1.92 < 3.0 (returns not constant enough)",
+   "positive weeks 0.689 < 0.75"
+  ]
+ },
+ "0xb4164e085a0503532989d487c4b4b19f4288dd7b": {
+  "trimmed_days": 30,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0298 < 0.95",
+   "last-30d PnL $9,783 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe 2.53 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xd32ce89f16509d3c8f8b5e9750305a5b2bc2a4c2": {
+  "trimmed_days": 83,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.025 > 0.01",
+   "deflated Sharpe 0.0355 < 0.95",
+   "last-30d PnL $-30,230 < $50k",
+   "median monthly PnL $10,659 < $50k",
+   "positive months 0.625 < 0.8",
+   "annualized Sharpe 1.27 < 3.0 (returns not constant enough)",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0xf880add3ab145ec40627abe09217bc7b51bd89c0": {
+  "trimmed_days": 5,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.427 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x44c58184f89a5c2f699dc8943009cb3d75a08d45": {
+  "trimmed_days": 10,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.249 > 0.01",
+   "deflated Sharpe 0.0325 < 0.95",
+   "median monthly PnL $-20,090 < $50k",
+   "positive months 0.7 < 0.8",
+   "annualized Sharpe 1.24 < 3.0 (returns not constant enough)",
+   "positive weeks 0.605 < 0.75"
+  ]
+ },
+ "0xfbe66593e49c4e7a7180a2582f041158bfb800f8": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.833 > 0.01",
+   "deflated Sharpe 0.000187 < 0.95",
+   "median monthly PnL $17,885 < $50k",
+   "positive months 0.571 < 0.8",
+   "annualized Sharpe -0.631 < 3.0 (returns not constant enough)",
+   "positive weeks 0.645 < 0.75"
+  ]
+ },
+ "0xce937f66d91dc6fd78e2b0e405f703a7d208ab2c": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00346 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe 2.03 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xee91afed9a882a0a8a15515495c08bf0c785d8db": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0xff562e84b52386897f2096712a36110d23dec789": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 8.1e-05 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x5f39816a09e0e460e775f4a386b46336847a24e4": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000268 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x3048d65321be3497164cdfc2996f94f98a2e7537": {
+  "trimmed_days": 6,
+  "reasons": []
+ },
+ "0xa4b7b1814b0da33f2b61be4939976898aa476008": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.152 > 0.01",
+   "deflated Sharpe 0.0318 < 0.95",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.67 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x8191c793fd7edbadf0fae651f55c1da3b638da72": {
+  "trimmed_days": 40,
+  "reasons": [
+   "insufficient pre-selection history (38d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0107 < 0.95",
+   "median monthly PnL $38,537 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 1.6 < 3.0 (returns not constant enough)",
+   "positive weeks 0.556 < 0.75"
+  ]
+ },
+ "0x660608edef98ee2b10af5efc2441364cb910c102": {
+  "trimmed_days": 6,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000328 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xd38b71f3e8ed1af71983e5c309eac3dfa9b35029": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0105 > 0.01",
+   "deflated Sharpe 0.352 < 0.95",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.571 < 0.8",
+   "annualized Sharpe 2.5 < 3.0 (returns not constant enough)",
+   "positive weeks 0.393 < 0.75"
+  ]
+ },
+ "0x89501c47a4e7077840866074af2ffe31ac894a5c": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0xb26fa000b3b281ba582bebc3457e12f0b8219536": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (33d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.91 < 0.95"
+  ]
+ },
+ "0xc29a3623faeb5e70366bd7d64ea6b6b10796969d": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 6.77e-12 < 0.95",
+   "last-30d PnL $-35,087 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe -6.33 < 3.0 (returns not constant enough)",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0xeea3f08e8a36081233e4c4b4142fd61a7b56a6a2": {
+  "trimmed_days": 6,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.112)"
+  ]
+ },
+ "0x819dfea4ffa9c4d3ef27f00e2dbac7e9e93507f1": {
+  "trimmed_days": 11,
+  "reasons": [
+   "insufficient pre-selection history (18d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0892 < 0.95"
+  ]
+ },
+ "0xc8b9a30184244d427169cf62485dde6041b2b836": {
+  "trimmed_days": 1,
+  "reasons": [
+   "median monthly PnL $38,614 < $50k"
+  ]
+ },
+ "0x8718865882e085b764825b637788043c16185040": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.969 > 0.01",
+   "deflated Sharpe 1.1e-05 < 0.95",
+   "median monthly PnL $-39,004 < $50k",
+   "positive months 0.286 < 0.8",
+   "annualized Sharpe -1.53 < 3.0 (returns not constant enough)",
+   "positive weeks 0.323 < 0.75"
+  ]
+ },
+ "0x58f5f813bb7d2a6078070573f4d1b7d319fbc6c9": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 4.2e-05 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x9495d622ab74a601ad1668d3dd4f7a2e68c3468f": {
+  "trimmed_days": 37,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.585)",
+   "deflated Sharpe 0.414 < 0.95",
+   "last-30d PnL $16,601 < $50k",
+   "median monthly PnL $5,909 < $50k",
+   "positive months 0.455 < 0.8",
+   "annualized Sharpe 2.09 < 3.0 (returns not constant enough)",
+   "positive weeks 0.351 < 0.75"
+  ]
+ },
+ "0xdc8f4237ded78506b43cb895f887897ef606d0e4": {
+  "trimmed_days": 7,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0245 > 0.01",
+   "deflated Sharpe 0.00135 < 0.95",
+   "median monthly PnL $4,893 < $50k",
+   "annualized Sharpe 2.58 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x84eef61c62c8d008b672ff8b5e15a955f0e4c788": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (10d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00199 < 0.95",
+   "annualized Sharpe 2.56 < 3.0 (returns not constant enough)",
+   "positive weeks 0.4 < 0.75"
+  ]
+ },
+ "0xc9f4bec86118be62d973fd53004efca8fed8c1e4": {
+  "trimmed_days": 60,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0195 > 0.01",
+   "deflated Sharpe 0.859 < 0.95",
+   "median monthly PnL $26,440 < $50k"
+  ]
+ },
+ "0x92839e2d4f467ae41dc141913585afad1d474277": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.153 > 0.01",
+   "deflated Sharpe 0.165 < 0.95",
+   "median monthly PnL $24,644 < $50k",
+   "positive months 0.75 < 0.8",
+   "positive weeks 0.647 < 0.75"
+  ]
+ },
+ "0x92b5f14c68ccae0cd7d0ba52b098ffaab990fec6": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.515 > 0.01",
+   "deflated Sharpe 0.0157 < 0.95",
+   "median monthly PnL $24 < $50k",
+   "positive months 0.429 < 0.8",
+   "annualized Sharpe 1.26 < 3.0 (returns not constant enough)",
+   "positive weeks 0.233 < 0.75"
+  ]
+ },
+ "0xda3a9b7afff7b44ad4fd75308723194e0a11381f": {
+  "trimmed_days": 7,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.338 < 0.95",
+   "positive weeks 0.641 < 0.75"
+  ]
+ },
+ "0xc95ed399d2fbaec9461f2abd70e0d96df1921288": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (12d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00931 < 0.95",
+   "annualized Sharpe 2.75 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x0b5e2874b65238b1f1d331e7c91aab4ae3af9367": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $42,138 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x55b9e6a1dcca2defb01636ba41e9f76a0883a814": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0402 > 0.01",
+   "deflated Sharpe 0.217 < 0.95"
+  ]
+ },
+ "0x0629ad7753ba6a7bf22dc816df228e92364c501d": {
+  "trimmed_days": 273,
+  "reasons": [
+   "insufficient pre-selection history (12d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.25 < 0.95",
+   "last-30d PnL $36,929 < $50k",
+   "median monthly PnL $36,929 < $50k"
+  ]
+ },
+ "0xec981ed70ae69c5cbcac08c1ba063e734f6bafcd": {
+  "trimmed_days": 36,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.081 > 0.01",
+   "deflated Sharpe 0.143 < 0.95",
+   "median monthly PnL $-11,518 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.27 < 3.0 (returns not constant enough)",
+   "positive weeks 0.527 < 0.75"
+  ]
+ },
+ "0xbfd40a4fcb43d80eb4fb425f75d4fa090c61526f": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $-18,290 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe -9.48 < 3.0 (returns not constant enough)",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x285faa3e3d1465cf3ff1bff1e1d14891f5b8495f": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00153 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe 0.677 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0xa2e3515dc3fbba389ca3bcd9d0a17677ab57fbb2": {
+  "trimmed_days": 9,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.67 > 0.01",
+   "deflated Sharpe 0.00336 < 0.95",
+   "median monthly PnL $5,177 < $50k",
+   "positive months 0.556 < 0.8",
+   "annualized Sharpe 0.796 < 3.0 (returns not constant enough)",
+   "positive weeks 0.22 < 0.75"
+  ]
+ },
+ "0x42c99f38d2b951b0dc8e8bd5371fa80c9dd19623": {
+  "trimmed_days": 55,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.958)",
+   "deflated Sharpe 0.575 < 0.95",
+   "positive weeks 0.71 < 0.75"
+  ]
+ },
+ "0x91feec8af2b517f024d91564ee108d707cc0c1c6": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.826 < 0.95"
+  ]
+ },
+ "0x443971236a701d5f50bf4e305f0cbd3bf77f238d": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00199 < 0.95",
+   "last-30d PnL $4,920 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0x65503c7f9e142ac88b1ce09df3363ff77f188451": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.482 < 0.95",
+   "median monthly PnL $46,710 < $50k",
+   "positive weeks 0.679 < 0.75"
+  ]
+ },
+ "0xb55fa1296e6ec55d0ce53d93b9237389f11764d4": {
+  "trimmed_days": 0,
+  "reasons": []
+ },
+ "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6": {
+  "trimmed_days": 3,
+  "reasons": []
+ },
+ "0x764b305694b026c1acce7bf862c3b5456a146bad": {
+  "trimmed_days": 10,
+  "reasons": [
+   "deflated Sharpe 0.0978 < 0.95",
+   "last-30d PnL $-33,398 < $50k",
+   "median monthly PnL $16,054 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.83 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xa164b901678d14b57b89a8d4e928956fe46a8b02": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00328 < 0.95",
+   "annualized Sharpe 1.16 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x2b18b0b279e0c1901870d63b863ed5f2bba41f02": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000149 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xc0e4f49b80a2162aa8c1c1ad1bd0867574e3dd38": {
+  "trimmed_days": 6,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.483)"
+  ]
+ },
+ "0x15508cacc0af5bdb52874a315b156a9d7a645481": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (24d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0101 < 0.95",
+   "annualized Sharpe 2.15 < 3.0 (returns not constant enough)",
+   "positive weeks 0.714 < 0.75"
+  ]
+ },
+ "0x88a6c8e00c4752a8c70d24025fa781fa046a7e77": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0009 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x934a375567da25fb5b8989b870d62087fd4ca684": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.957 > 0.01",
+   "deflated Sharpe 0.00189 < 0.95",
+   "median monthly PnL $4,571 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 0.952 < 3.0 (returns not constant enough)",
+   "positive weeks 0.6 < 0.75"
+  ]
+ },
+ "0xd71776a8d4fddeb3c150c4607b3f8bec31213b85": {
+  "trimmed_days": 39,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.129 > 0.01",
+   "deflated Sharpe 0.00598 < 0.95",
+   "last-30d PnL $-15,078 < $50k",
+   "median monthly PnL $2,087 < $50k",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 0.716 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xe16d3f2a5807999b358affd9445c3a09e45e5e30": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.736 > 0.01",
+   "deflated Sharpe 0.00016 < 0.95",
+   "last-30d PnL $20,435 < $50k",
+   "median monthly PnL $-17,293 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.702 < 3.0 (returns not constant enough)",
+   "positive weeks 0.407 < 0.75"
+  ]
+ },
+ "0xe40ecff63ec661d218a86c048186ac83389a9770": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.589 > 0.01",
+   "deflated Sharpe 0.000916 < 0.95",
+   "last-30d PnL $28,632 < $50k",
+   "median monthly PnL $-1,460 < $50k",
+   "positive months 0.4 < 0.8",
+   "annualized Sharpe -0.0986 < 3.0 (returns not constant enough)",
+   "positive weeks 0.409 < 0.75"
+  ]
+ },
+ "0xecb14ac6e9ca447ce2f2912e6217b43d7b655da3": {
+  "trimmed_days": 4,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.146 > 0.01",
+   "deflated Sharpe 0.0506 < 0.95",
+   "median monthly PnL $36,408 < $50k",
+   "positive months 0.773 < 0.8",
+   "annualized Sharpe 1 < 3.0 (returns not constant enough)",
+   "positive weeks 0.625 < 0.75"
+  ]
+ },
+ "0x1d4affdc390c00991acf70f6e010c9702b2d46f5": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.048 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x9a46375a768cd76c06b5eee2d1005eef16061d99": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.561 > 0.01",
+   "deflated Sharpe 1.29e-06 < 0.95",
+   "median monthly PnL $631 < $50k",
+   "annualized Sharpe 2.12 < 3.0 (returns not constant enough)",
+   "positive weeks 0.636 < 0.75"
+  ]
+ },
+ "0x1109da04152c38666464f5adb5d7c55618810b2c": {
+  "trimmed_days": 5,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.0871)",
+   "deflated Sharpe 0.746 < 0.95"
+  ]
+ },
+ "0x457f2814dac53a0a9951b5c2ea5a9db20896aa1a": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (43d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00261 < 0.95",
+   "median monthly PnL $-469 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 0.575 < 3.0 (returns not constant enough)",
+   "positive weeks 0.4 < 0.75"
+  ]
+ },
+ "0x9f15613ebf1f36d4bc679e1211d1fc567cf9bdb3": {
+  "trimmed_days": 7,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.126 > 0.01",
+   "deflated Sharpe 0.0281 < 0.95",
+   "positive months 0.148 < 0.8",
+   "annualized Sharpe 0.786 < 3.0 (returns not constant enough)",
+   "positive weeks 0.094 < 0.75"
+  ]
+ },
+ "0xf0ca28d5b0141f0a8e7b251dea80fd881cb166ed": {
+  "trimmed_days": 314,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.165 > 0.01",
+   "deflated Sharpe 0.0153 < 0.95",
+   "last-30d PnL $41,002 < $50k",
+   "median monthly PnL $6,804 < $50k",
+   "positive months 0.636 < 0.8",
+   "annualized Sharpe 1.2 < 3.0 (returns not constant enough)",
+   "positive weeks 0.46 < 0.75"
+  ]
+ },
+ "0x64ceab3becc143e1b97a8e16dc270c2297566015": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00264 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe 2.85 < 3.0 (returns not constant enough)",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x91c363acd95bb150d4fd28912737eaf6125b409f": {
+  "trimmed_days": 37,
+  "reasons": [
+   "insufficient pre-selection history (39d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0275 < 0.95",
+   "last-30d PnL $7,906 < $50k",
+   "median monthly PnL $8,528 < $50k",
+   "annualized Sharpe 2.75 < 3.0 (returns not constant enough)",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed": {
+  "trimmed_days": 1,
+  "reasons": []
+ },
+ "0x6b97ebe911d7f2e5e3e8c4a0faad4a5c7c0b8d30": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.173 > 0.01",
+   "deflated Sharpe 0.0437 < 0.95",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.99 < 3.0 (returns not constant enough)",
+   "positive weeks 0.652 < 0.75"
+  ]
+ },
+ "0x5146a5b21a07d9d28789d5e05680d264cd25c84b": {
+  "trimmed_days": 5,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00818 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x87da2f16cf98af9b3e2f6ba6d9c4c470815b53d1": {
+  "trimmed_days": 43,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.333 > 0.01",
+   "deflated Sharpe 0.0104 < 0.95",
+   "last-30d PnL $46,705 < $50k",
+   "median monthly PnL $33,870 < $50k",
+   "annualized Sharpe 0.745 < 3.0 (returns not constant enough)",
+   "positive weeks 0.622 < 0.75"
+  ]
+ },
+ "0x72638c8d939fd0205925025b1183d8db4a360851": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0275 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x0df2c9deeb278ade65454023eca05cdcaa025d51": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0261 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0xae9508c5623b068b7e81f050c359b87a079317b8": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (11d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00163 < 0.95",
+   "positive weeks 0.4 < 0.75"
+  ]
+ },
+ "0x77d9009e5e22d8b7187530c862dd058949b906ed": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.323 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xa8e32b4e1a98defbf1c562ae0ac1e12a105aade8": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000922 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0xd1acd3925d895de9aec98ff95f3a30c5279d08d5": {
+  "trimmed_days": 11,
+  "reasons": [
+   "deflated Sharpe 0.84 < 0.95",
+   "median monthly PnL $4,672 < $50k",
+   "annualized Sharpe 2.02 < 3.0 (returns not constant enough)",
+   "positive weeks 0.729 < 0.75"
+  ]
+ },
+ "0xd29312e2446a746bbd94408e1c475f1ec6d7d683": {
+  "trimmed_days": 13,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00271 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe 1.27 < 3.0 (returns not constant enough)",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0xe734e7bf7cfb9e464681f71822f6c2f6be514f0c": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.072 > 0.01",
+   "deflated Sharpe 0.0641 < 0.95",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 1.82 < 3.0 (returns not constant enough)",
+   "positive weeks 0.543 < 0.75"
+  ]
+ },
+ "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3": {
+  "trimmed_days": 128,
+  "reasons": []
+ },
+ "0xdbdd45150249e229eb4ca8aa48a30dca21faa5de": {
+  "trimmed_days": 6,
+  "reasons": []
+ },
+ "0xde7be6d489bce070a959e0cb813128ae659b5f4b": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.266 > 0.01",
+   "deflated Sharpe 0.00526 < 0.95",
+   "last-30d PnL $46,561 < $50k",
+   "median monthly PnL $-17,118 < $50k",
+   "positive months 0.375 < 0.8",
+   "annualized Sharpe 0.8 < 3.0 (returns not constant enough)",
+   "positive weeks 0.514 < 0.75"
+  ]
+ },
+ "0x16bb9951a36fce71e2ef57890b786145e0ba8492": {
+  "trimmed_days": 5,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.586 > 0.01",
+   "deflated Sharpe 0.000724 < 0.95",
+   "median monthly PnL $-24,299 < $50k",
+   "positive months 0.429 < 0.8",
+   "annualized Sharpe -0.18 < 3.0 (returns not constant enough)",
+   "positive weeks 0.433 < 0.75"
+  ]
+ },
+ "0x30c7ac0158499ddc6761047f7f69bcf7d036ac3b": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.019 > 0.01",
+   "deflated Sharpe 0.159 < 0.95",
+   "annualized Sharpe 2.78 < 3.0 (returns not constant enough)",
+   "positive weeks 0.655 < 0.75"
+  ]
+ },
+ "0xe4d7564e11f21aaa6fe68d02cde549994b7ace04": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.412 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0xe8d78397160e13edc306a63b1d88c9c1f3dd1252": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.567 > 0.01",
+   "deflated Sharpe 0.0101 < 0.95",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.455 < 0.8",
+   "annualized Sharpe 0.535 < 3.0 (returns not constant enough)",
+   "positive weeks 0.354 < 0.75"
+  ]
+ },
+ "0xd24b95551eb288ff82bb625dcd7f32f62abdef76": {
+  "trimmed_days": 7,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0257 > 0.01",
+   "deflated Sharpe 0.0223 < 0.95",
+   "median monthly PnL $22,596 < $50k",
+   "positive months 0.6 < 0.8",
+   "positive weeks 0.68 < 0.75"
+  ]
+ },
+ "0xb8d757413fe4d4ec4716390938f12100614f5ac7": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0992 > 0.01",
+   "deflated Sharpe 0.0193 < 0.95",
+   "median monthly PnL $8,837 < $50k",
+   "positive weeks 0.625 < 0.75"
+  ]
+ },
+ "0x01c78f8873c0c86d6b6b92ff627e3802237ee995": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.185)",
+   "deflated Sharpe 0.878 < 0.95",
+   "median monthly PnL $33,452 < $50k"
+  ]
+ },
+ "0xdbc0dc10ef6ef687c18ff739ef1dd344b6d6cc4f": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00104 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xdf804b17329a461425116c9e0f599e248b443259": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.035 > 0.01",
+   "deflated Sharpe 0.133 < 0.95",
+   "median monthly PnL $38,641 < $50k",
+   "annualized Sharpe 2.79 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xadaf1c42e0a88e2942e7adfe559e30c1796bf9f2": {
+  "trimmed_days": 4,
+  "reasons": [
+   "last-30d PnL $6,665 < $50k",
+   "median monthly PnL $2,214 < $50k",
+   "positive months 0.75 < 0.8",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0x8b4255313643e1f57f3bdf0a1376765f9820063e": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.924 > 0.01",
+   "deflated Sharpe 0.00308 < 0.95",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.167 < 0.8",
+   "annualized Sharpe 0.234 < 3.0 (returns not constant enough)",
+   "positive weeks 0.173 < 0.75"
+  ]
+ },
+ "0x21f333307ac6d2e65ac82f014b3dd2b64cbc35e3": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.376 > 0.01",
+   "deflated Sharpe 0.00395 < 0.95",
+   "last-30d PnL $43,584 < $50k",
+   "median monthly PnL $39,330 < $50k",
+   "positive months 0.625 < 0.8",
+   "annualized Sharpe 0.479 < 3.0 (returns not constant enough)",
+   "positive weeks 0.541 < 0.75"
+  ]
+ },
+ "0x21f4c1a1be34a39a7bc20985df4b7e5a39fb691d": {
+  "trimmed_days": 15,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.389)",
+   "median monthly PnL $24,814 < $50k",
+   "positive months 0.5 < 0.8",
+   "positive weeks 0.556 < 0.75"
+  ]
+ },
+ "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2": {
+  "trimmed_days": 1,
+  "reasons": []
+ },
+ "0xb6192410f9c651ee55eb0bc98d695d732cc86586": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.47 > 0.01",
+   "deflated Sharpe 0.00237 < 0.95",
+   "median monthly PnL $6 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 1.65 < 3.0 (returns not constant enough)",
+   "positive weeks 0.19 < 0.75"
+  ]
+ },
+ "0x09bed1976600971fd9f9db454a9c302c7a559c32": {
+  "trimmed_days": 26,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0227 > 0.01",
+   "deflated Sharpe 0.264 < 0.95",
+   "median monthly PnL $37,375 < $50k"
+  ]
+ },
+ "0xf4f381476cda20730dbfb9204d7dbdd1203da1a1": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe n/a < 3.0 (returns not constant enough)",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x5e0220909135c88382a2128e1e8ef1278567817e": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.816 > 0.01",
+   "deflated Sharpe 1.56e-08 < 0.95",
+   "last-30d PnL $0 < $50k",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.51 < 3.0 (returns not constant enough)",
+   "positive weeks 0.467 < 0.75"
+  ]
+ },
+ "0x576b0696fd5a9225d66fd9500fd98f5be10b0cab": {
+  "trimmed_days": 13,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.071)",
+   "last-30d PnL $47,604 < $50k",
+   "median monthly PnL $13,774 < $50k"
+  ]
+ },
+ "0x85b9e9226c56d4f2a3ff92c56b745f42498f906d": {
+  "trimmed_days": 37,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.0658)",
+   "deflated Sharpe 0.83 < 0.95",
+   "last-30d PnL $10,028 < $50k",
+   "median monthly PnL $7,148 < $50k"
+  ]
+ },
+ "0x167d74fc517d5f7ce4c594e77c6117bbc588e531": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00533 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0xed8c5d88b032d096e8b51518cda89ea7af58c7b5": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.435 > 0.01",
+   "deflated Sharpe 0.00243 < 0.95",
+   "last-30d PnL $175 < $50k",
+   "median monthly PnL $175 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 0.451 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x3b3d4f86900c50deb73f6786c82385f80e25b162": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.951 > 0.01",
+   "deflated Sharpe 0.0003 < 0.95",
+   "median monthly PnL $-4,741 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 1.12 < 3.0 (returns not constant enough)",
+   "positive weeks 0.412 < 0.75"
+  ]
+ },
+ "0x492bb408693470df7d031ef48f3a5466055b45ee": {
+  "trimmed_days": 10,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.0593)",
+   "deflated Sharpe 0.907 < 0.95",
+   "last-30d PnL $34,882 < $50k",
+   "median monthly PnL $26,125 < $50k"
+  ]
+ },
+ "0xe5714557d7e870942af0eaed188f1620fa33f17b": {
+  "trimmed_days": 2,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00227 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x0dc607c5b65025dcb443c10fdcbaed4256bb9889": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.964 > 0.01",
+   "deflated Sharpe 8.52e-07 < 0.95",
+   "median monthly PnL $-5,056 < $50k",
+   "positive months 0.13 < 0.8",
+   "annualized Sharpe -0.843 < 3.0 (returns not constant enough)",
+   "positive weeks 0.109 < 0.75"
+  ]
+ },
+ "0xc23dc0eca9e1c2e293de8911b9ac254f0bcd82c8": {
+  "trimmed_days": 46,
+  "reasons": [
+   "median monthly PnL $44,524 < $50k"
+  ]
+ },
+ "0xbd08bf78691d349ab2c3a9e0c68ba66e30e54875": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.907 > 0.01",
+   "deflated Sharpe 2.71e-05 < 0.95",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.222 < 0.8",
+   "annualized Sharpe 1.12 < 3.0 (returns not constant enough)",
+   "positive weeks 0.1 < 0.75"
+  ]
+ },
+ "0x3725d52f3c252e8374999cc8617292ea2608ad88": {
+  "trimmed_days": 0,
+  "reasons": []
+ },
+ "0x2e3ecedec4b004c61670f0dcda382ec0da1f0f92": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.184 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x94b9e9764fd9940d6a13d6f1110065923ed12592": {
+  "trimmed_days": 20,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.821 > 0.01",
+   "deflated Sharpe 8.46e-05 < 0.95",
+   "median monthly PnL $314 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.33 < 3.0 (returns not constant enough)",
+   "positive weeks 0.409 < 0.75"
+  ]
+ },
+ "0x60089ea3162461da70d4f9d813634d46cc20f931": {
+  "trimmed_days": 32,
+  "reasons": [
+   "insufficient pre-selection history (13d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0065 < 0.95",
+   "last-30d PnL $198 < $50k",
+   "median monthly PnL $198 < $50k",
+   "annualized Sharpe 1.21 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xd6966eb1ae7b52320ba7ab1016680198c9e08a49": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.876 > 0.01",
+   "deflated Sharpe 2.41e-05 < 0.95",
+   "median monthly PnL $-61,389 < $50k",
+   "positive months 0.545 < 0.8",
+   "annualized Sharpe -0.924 < 3.0 (returns not constant enough)",
+   "positive weeks 0.51 < 0.75"
+  ]
+ },
+ "0xf2e078fe373abe771dd4b5d33f79489fa7e277f0": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00326 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x56f609c609975454bf851f0d91079fbc4a5fe251": {
+  "trimmed_days": 84,
+  "reasons": [
+   "insufficient pre-selection history (34d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.657 < 0.95",
+   "median monthly PnL $31,804 < $50k"
+  ]
+ },
+ "0xb4f8df877a319789b857ec02b49338b7bcdf0213": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000574 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0xe29042f5d913dcc4015aab3455c13c58514ca33f": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.222 > 0.01",
+   "deflated Sharpe 0.417 < 0.95",
+   "median monthly PnL $4,110 < $50k",
+   "positive months 0.571 < 0.8",
+   "positive weeks 0.433 < 0.75"
+  ]
+ },
+ "0x06dc51826bc524d9a83770e7de9dd7e005b04524": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0452 > 0.01",
+   "deflated Sharpe 0.181 < 0.95",
+   "annualized Sharpe 2.55 < 3.0 (returns not constant enough)",
+   "positive weeks 0.742 < 0.75"
+  ]
+ },
+ "0x028602e5b0909dd7864f884f899ff287a72cf61d": {
+  "trimmed_days": 45,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.834 > 0.01",
+   "deflated Sharpe 0.000314 < 0.95",
+   "median monthly PnL $-32 < $50k",
+   "positive months 0.231 < 0.8",
+   "annualized Sharpe -0.262 < 3.0 (returns not constant enough)",
+   "positive weeks 0.22 < 0.75"
+  ]
+ },
+ "0xeebde7a0e019a63e6b476eb425505b7b3e6eba30": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.147)",
+   "deflated Sharpe 0.829 < 0.95",
+   "last-30d PnL $34,504 < $50k"
+  ]
+ },
+ "0xe390b3f7cdbd7d9821c080bbe460a2814770e80f": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (38d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000809 < 0.95",
+   "median monthly PnL $3,200 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.212 < 3.0 (returns not constant enough)",
+   "positive weeks 0.444 < 0.75"
+  ]
+ },
+ "0x12d6cccfc7470a3f4bafc53599a4779cbf2cf2a8": {
+  "trimmed_days": 8,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.112)",
+   "deflated Sharpe 0.589 < 0.95",
+   "annualized Sharpe 2.7 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xfc23869c29e0cda2b3d379c4aa665bbe5b3c2f5e": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.117 > 0.01",
+   "deflated Sharpe 0.417 < 0.95",
+   "last-30d PnL $36,688 < $50k",
+   "median monthly PnL $6,110 < $50k",
+   "positive months 0.75 < 0.8",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0x1abc2b469b5ded495d6c8b21fc79dcb8d8f345e7": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0195 > 0.01",
+   "deflated Sharpe 0.0348 < 0.95",
+   "last-30d PnL $-29,807 < $50k",
+   "median monthly PnL $9,178 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.45 < 3.0 (returns not constant enough)",
+   "positive weeks 0.739 < 0.75"
+  ]
+ },
+ "0x5ecde7348ea5100af4360dd7a6e0a3fb1d420787": {
+  "trimmed_days": 6,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0802 > 0.01",
+   "deflated Sharpe 0.0623 < 0.95",
+   "last-30d PnL $5,227 < $50k",
+   "median monthly PnL $6,096 < $50k",
+   "annualized Sharpe 1.2 < 3.0 (returns not constant enough)",
+   "positive weeks 0.629 < 0.75"
+  ]
+ },
+ "0xc785252b25901a591e9d962e09f4342468444ef2": {
+  "trimmed_days": 12,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.65 > 0.01",
+   "deflated Sharpe 0.00238 < 0.95",
+   "last-30d PnL $48,442 < $50k",
+   "median monthly PnL $28,607 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 0.424 < 3.0 (returns not constant enough)",
+   "positive weeks 0.533 < 0.75"
+  ]
+ },
+ "0xcd917f26d0ecfe2b9f203868c505a8731b1a3d2b": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000406 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0xf395a47ed88c8f18df328680ef0fbbf496e523dd": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (47d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0891 < 0.95",
+   "median monthly PnL $35,750 < $50k",
+   "positive weeks 0.545 < 0.75"
+  ]
+ },
+ "0xa975581a2876e6c25e47dee8e6a0f3bda0a378a3": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0132 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xa3566f3411369de654e2c83e9fa10392b83bcb94": {
+  "trimmed_days": 3,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00741 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe 2.37 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x52ecea7b3159f09db589e4f4ee64872fd0bba6f3": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.184 < 0.95",
+   "last-30d PnL $3,054 < $50k",
+   "median monthly PnL $33,624 < $50k",
+   "positive months 0.733 < 0.8",
+   "annualized Sharpe 1.81 < 3.0 (returns not constant enough)",
+   "positive weeks 0.612 < 0.75"
+  ]
+ },
+ "0x14494e6733e86a05888610dfabf3c98eeffea618": {
+  "trimmed_days": 6,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.663 > 0.01",
+   "deflated Sharpe 0.00574 < 0.95",
+   "median monthly PnL $184 < $50k",
+   "annualized Sharpe 1.58 < 3.0 (returns not constant enough)",
+   "positive weeks 0.44 < 0.75"
+  ]
+ },
+ "0x122b758a408246a180efeb5ba654e21b553fac59": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.116 > 0.01",
+   "deflated Sharpe 0.029 < 0.95",
+   "last-30d PnL $36,369 < $50k",
+   "median monthly PnL $41,820 < $50k",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 2.1 < 3.0 (returns not constant enough)",
+   "positive weeks 0.556 < 0.75"
+  ]
+ },
+ "0xb077e7482c6bea18f75e33bf823cbbe59cda8fe8": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.97 > 0.01",
+   "deflated Sharpe 1.31e-05 < 0.95",
+   "last-30d PnL $49,324 < $50k",
+   "median monthly PnL $-1,540 < $50k",
+   "positive months 0.235 < 0.8",
+   "annualized Sharpe -0.938 < 3.0 (returns not constant enough)",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0xcf0c70317fd5e4e4429758b3d80a7b7f3762f2bb": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00998 < 0.95",
+   "last-30d PnL $44,763 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xe234959595e01dacd391a9502a6ad0edf4e3304a": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0447 > 0.01",
+   "deflated Sharpe 0.0567 < 0.95",
+   "last-30d PnL $31,657 < $50k",
+   "median monthly PnL $37,079 < $50k",
+   "annualized Sharpe 2.5 < 3.0 (returns not constant enough)",
+   "positive weeks 0.7 < 0.75"
+  ]
+ },
+ "0x73d04955fb554aba05451f57598812b8f2e0239c": {
+  "trimmed_days": 2,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00104 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x4131b651705fc0bc806f56ae776135fa143e6efc": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $28,722 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x55d94368a50750f264cf42096e9034315d9c832c": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.13 > 0.01",
+   "deflated Sharpe 0.063 < 0.95",
+   "median monthly PnL $27,498 < $50k",
+   "positive months 0.714 < 0.8",
+   "annualized Sharpe 1.93 < 3.0 (returns not constant enough)",
+   "positive weeks 0.625 < 0.75"
+  ]
+ },
+ "0x7576e41bc6fce96d7bc4e9eb0c9d046d4c2654b6": {
+  "trimmed_days": 3,
+  "reasons": [
+   "insufficient pre-selection history (32d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 2.55e-05 < 0.95",
+   "median monthly PnL $38,472 < $50k"
+  ]
+ },
+ "0xd84403efd50b49a1d8a7181627e00307e6ea5908": {
+  "trimmed_days": 4,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.101)",
+   "last-30d PnL $48,518 < $50k",
+   "median monthly PnL $40,542 < $50k"
+  ]
+ },
+ "0x997cb45c25e94b4ee58c234ce1f211496a0d51f3": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.819 > 0.01",
+   "deflated Sharpe 0.00353 < 0.95",
+   "median monthly PnL $-618 < $50k",
+   "positive months 0.333 < 0.8",
+   "annualized Sharpe 0.495 < 3.0 (returns not constant enough)",
+   "positive weeks 0.471 < 0.75"
+  ]
+ },
+ "0x6485f47d0344c03eb4340f985159f6eb2dcba265": {
+  "trimmed_days": 4,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.11 > 0.01",
+   "deflated Sharpe 0.188 < 0.95",
+   "positive months 0.6 < 0.8"
+  ]
+ },
+ "0x07046535ff9a910d7343a2c319a3e62234621858": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.328 < 0.95",
+   "median monthly PnL $24,347 < $50k",
+   "annualized Sharpe 1.96 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x7c1b3a6db8a1d57de8ee5d7bca620dc0623185c8": {
+  "trimmed_days": 14,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.834 > 0.01",
+   "deflated Sharpe 0.00171 < 0.95",
+   "last-30d PnL $29,570 < $50k",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.235 < 0.8",
+   "annualized Sharpe 0.113 < 3.0 (returns not constant enough)",
+   "positive weeks 0.147 < 0.75"
+  ]
+ },
+ "0x3653235d75a0d5969c42f7514d4df8ea5f8cef74": {
+  "trimmed_days": 38,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.171 > 0.01",
+   "deflated Sharpe 0.0496 < 0.95",
+   "last-30d PnL $7,919 < $50k",
+   "median monthly PnL $5,926 < $50k",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 1.82 < 3.0 (returns not constant enough)",
+   "positive weeks 0.722 < 0.75"
+  ]
+ },
+ "0x74692bbae173bfe318cba2606e319a5685cca5f0": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (4d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 3.26e-05 < 0.95",
+   "annualized Sharpe -2.42 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x7d249aa60d2be7ed0b477df0e22f9caf9791a93f": {
+  "trimmed_days": 32,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.477 > 0.01",
+   "deflated Sharpe 0.00479 < 0.95",
+   "last-30d PnL $2,685 < $50k",
+   "median monthly PnL $584 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 0.199 < 3.0 (returns not constant enough)",
+   "positive weeks 0.636 < 0.75"
+  ]
+ },
+ "0x8e460e67eb35f8bc6cca413dfa6693c8a25c6c24": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00231 < 0.95",
+   "last-30d PnL $36,284 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0x3a59aa19f55d3b362421a48a2f7d28e8c8e20242": {
+  "trimmed_days": 22,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.754 > 0.01",
+   "deflated Sharpe 0.000473 < 0.95",
+   "median monthly PnL $389 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 0.93 < 3.0 (returns not constant enough)",
+   "positive weeks 0.423 < 0.75"
+  ]
+ },
+ "0x5188fa0e8a77e87bc6a58e6781fdfc4e165cc804": {
+  "trimmed_days": 30,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.173 < 0.95",
+   "last-30d PnL $46,200 < $50k",
+   "median monthly PnL $24,401 < $50k",
+   "annualized Sharpe 2.08 < 3.0 (returns not constant enough)",
+   "positive weeks 0.677 < 0.75"
+  ]
+ },
+ "0x4b59e178095b9bb5ba97598244f2ca8b02fc3aa6": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0522 > 0.01",
+   "deflated Sharpe 0.236 < 0.95",
+   "median monthly PnL $36,192 < $50k",
+   "positive months 0.778 < 0.8",
+   "annualized Sharpe 2.65 < 3.0 (returns not constant enough)",
+   "positive weeks 0.65 < 0.75"
+  ]
+ },
+ "0xc95efab38ca8904f6c8e37409e2c450848afcaf7": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (27d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0142 < 0.95",
+   "annualized Sharpe 2.96 < 3.0 (returns not constant enough)",
+   "positive weeks 0.625 < 0.75"
+  ]
+ },
+ "0xe312101a6ea5c00821b74e2855c2674147b2e0b2": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.158 > 0.01",
+   "deflated Sharpe 0.000843 < 0.95",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.333 < 0.8",
+   "annualized Sharpe 0.543 < 3.0 (returns not constant enough)",
+   "positive weeks 0.293 < 0.75"
+  ]
+ },
+ "0x7cd5b2a057968376826c74e8c378ee36c0472b75": {
+  "trimmed_days": 3,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0262 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xe963d57ab09233f3cb2bf1546660a1b4638e6753": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (49d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0253 < 0.95",
+   "last-30d PnL $42,171 < $50k",
+   "annualized Sharpe 2.71 < 3.0 (returns not constant enough)",
+   "positive weeks 0.636 < 0.75"
+  ]
+ },
+ "0x885ffdf360e5b0b6e6acb963fb3f8ba2344c8ed9": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0432 > 0.01",
+   "deflated Sharpe 0.103 < 0.95",
+   "median monthly PnL $34,163 < $50k",
+   "positive weeks 0.714 < 0.75"
+  ]
+ },
+ "0x9e747d6a48d2b99f4f7ac06755ef26177d95fd0f": {
+  "trimmed_days": 140,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.895 > 0.01",
+   "deflated Sharpe 9.48e-05 < 0.95",
+   "median monthly PnL $-261 < $50k",
+   "positive months 0.25 < 0.8",
+   "annualized Sharpe 1.53 < 3.0 (returns not constant enough)",
+   "positive weeks 0.176 < 0.75"
+  ]
+ },
+ "0x7eb0803aae3d8b3e2e7f186a0fbcdfedded73282": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00266 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xdd9d902e3cdaf7ee29eff1dd2902dcb40741b730": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.975 > 0.01",
+   "deflated Sharpe 1.24e-06 < 0.95",
+   "last-30d PnL $47,101 < $50k",
+   "median monthly PnL $-17,285 < $50k",
+   "positive months 0.286 < 0.8",
+   "annualized Sharpe -1.69 < 3.0 (returns not constant enough)",
+   "positive weeks 0.147 < 0.75"
+  ]
+ },
+ "0x71ca04d689bc38c5e4dcda8a4d743f279c5a3501": {
+  "trimmed_days": 5,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.057 > 0.01",
+   "deflated Sharpe 0.177 < 0.95",
+   "median monthly PnL $4,698 < $50k",
+   "positive months 0.679 < 0.8",
+   "annualized Sharpe 1.32 < 3.0 (returns not constant enough)",
+   "positive weeks 0.642 < 0.75"
+  ]
+ },
+ "0x6918ea182d963b1fb7888860b8a8b8bcfba5782b": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.317 > 0.01",
+   "deflated Sharpe 0.0139 < 0.95",
+   "median monthly PnL $25,015 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.14 < 3.0 (returns not constant enough)",
+   "positive weeks 0.64 < 0.75"
+  ]
+ },
+ "0x276b52f5a046147be3b0f4fea2829102df977d2b": {
+  "trimmed_days": 22,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000162 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x52d93dcf81444f793dda7fedc370f7a35101fb1a": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.395 > 0.01",
+   "deflated Sharpe 0.00626 < 0.95",
+   "median monthly PnL $8,149 < $50k",
+   "positive months 0.714 < 0.8",
+   "annualized Sharpe 0.674 < 3.0 (returns not constant enough)",
+   "positive weeks 0.424 < 0.75"
+  ]
+ },
+ "0xabea08725590a4c6ae7c8e63214c9628bbc772ae": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.23 > 0.01",
+   "deflated Sharpe 0.0691 < 0.95",
+   "median monthly PnL $2,263 < $50k",
+   "positive months 0.5 < 0.8",
+   "positive weeks 0.368 < 0.75"
+  ]
+ },
+ "0x8546a601f7c7cc3dae7141f20b0e09e42bbf35b8": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0372 > 0.01",
+   "deflated Sharpe 0.139 < 0.95",
+   "last-30d PnL $40,903 < $50k",
+   "median monthly PnL $40,903 < $50k"
+  ]
+ },
+ "0x89ad2f89b0291415f2f67ff0e8e50ee1af3ceab4": {
+  "trimmed_days": 251,
+  "reasons": [
+   "insufficient pre-selection history (5d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000122 < 0.95",
+   "annualized Sharpe 2.85 < 3.0 (returns not constant enough)",
+   "positive weeks 0.4 < 0.75"
+  ]
+ },
+ "0x7dcf235766e6b09c8869468a75d5495cf171a7bd": {
+  "trimmed_days": 8,
+  "reasons": [
+   "deflated Sharpe 0.057 < 0.95",
+   "last-30d PnL $-49,066 < $50k",
+   "median monthly PnL $14,045 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.38 < 3.0 (returns not constant enough)",
+   "positive weeks 0.731 < 0.75"
+  ]
+ },
+ "0xc660ae71765d0d9eaf5fa8328c1c959841d2bd28": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.516 > 0.01",
+   "deflated Sharpe 0.00135 < 0.95",
+   "median monthly PnL $29,927 < $50k",
+   "positive months 0.636 < 0.8",
+   "annualized Sharpe 0.0538 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x50b66dc5f047f99bcc8192479461853022ac9272": {
+  "trimmed_days": 32,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.191)",
+   "deflated Sharpe 0.528 < 0.95",
+   "last-30d PnL $-222 < $50k",
+   "median monthly PnL $1,269 < $50k",
+   "positive months 0.667 < 0.8"
+  ]
+ },
+ "0x216050de6080fac3926226b2b8ce3d5544784c78": {
+  "trimmed_days": 7,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.329 > 0.01",
+   "deflated Sharpe 0.00984 < 0.95",
+   "last-30d PnL $49,826 < $50k",
+   "median monthly PnL $3,101 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 2.3 < 3.0 (returns not constant enough)",
+   "positive weeks 0.444 < 0.75"
+  ]
+ },
+ "0x6302cdefa498e7174dd0fcd6b06652a38eae7917": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.418 > 0.01",
+   "deflated Sharpe 0.054 < 0.95",
+   "median monthly PnL $-1,852 < $50k",
+   "positive months 0.583 < 0.8",
+   "annualized Sharpe 1.56 < 3.0 (returns not constant enough)",
+   "positive weeks 0.545 < 0.75"
+  ]
+ },
+ "0x6adcccb0ea0b93a66e67f0d7b2b625b135a8beba": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.853 > 0.01",
+   "deflated Sharpe 3.75e-06 < 0.95",
+   "median monthly PnL $-0 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.893 < 3.0 (returns not constant enough)",
+   "positive weeks 0.472 < 0.75"
+  ]
+ },
+ "0x38d812aff0b79f3bf5da2a477f780bcc163eea7c": {
+  "trimmed_days": 13,
+  "reasons": [
+   "median monthly PnL $27,348 < $50k",
+   "positive months 0.37 < 0.8",
+   "positive weeks 0.359 < 0.75"
+  ]
+ },
+ "0x033cb53526acbf5a530464645fa3a1f5c590bafe": {
+  "trimmed_days": 13,
+  "reasons": [
+   "insufficient pre-selection history (31d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.403 < 0.95",
+   "median monthly PnL $31,637 < $50k"
+  ]
+ },
+ "0x98db8cca55c32b24cfb414b5b43d273f4e1fdd17": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.871 < 0.95",
+   "median monthly PnL $45,500 < $50k"
+  ]
+ },
+ "0x8a36da009d97915b11dc1bdea1f6e1361dc44836": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00503 < 0.95",
+   "last-30d PnL $23,790 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x852eaa709e9e502489b3c3f6c967493342a9ca77": {
+  "trimmed_days": 25,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.153 > 0.01",
+   "deflated Sharpe 0.0107 < 0.95",
+   "last-30d PnL $878 < $50k",
+   "median monthly PnL $492 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 0.712 < 3.0 (returns not constant enough)",
+   "positive weeks 0.512 < 0.75"
+  ]
+ },
+ "0x701187150980c2421bc3c87a74dbdef31d75c6da": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0922 > 0.01",
+   "deflated Sharpe 0.0229 < 0.95",
+   "median monthly PnL $10,775 < $50k",
+   "annualized Sharpe 0.82 < 3.0 (returns not constant enough)",
+   "positive weeks 0.626 < 0.75"
+  ]
+ },
+ "0x85e5669beee6b80d887493e724987dabc5f56056": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.286 > 0.01",
+   "deflated Sharpe 0.0149 < 0.95",
+   "median monthly PnL $18 < $50k",
+   "positive months 0.556 < 0.8",
+   "annualized Sharpe 0.941 < 3.0 (returns not constant enough)",
+   "positive weeks 0.41 < 0.75"
+  ]
+ },
+ "0x73e35ce0b7e36ef3ce29ebd12b30b28007383239": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0345 > 0.01",
+   "deflated Sharpe 0.00954 < 0.95",
+   "median monthly PnL $10,390 < $50k",
+   "annualized Sharpe 2.71 < 3.0 (returns not constant enough)",
+   "positive weeks 0.72 < 0.75"
+  ]
+ },
+ "0xe613b515bd46b1585a8b137a4d291d9b80bd540e": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.119 > 0.01",
+   "deflated Sharpe 0.0609 < 0.95",
+   "last-30d PnL $-36,441 < $50k",
+   "median monthly PnL $1,163 < $50k",
+   "positive months 0.565 < 0.8",
+   "annualized Sharpe 0.676 < 3.0 (returns not constant enough)",
+   "positive weeks 0.608 < 0.75"
+  ]
+ },
+ "0x30f67d821c57a54e25e5e521dbd3b5b18309004f": {
+  "trimmed_days": 10,
+  "reasons": [
+   "last-30d PnL $27,973 < $50k",
+   "median monthly PnL $6,922 < $50k"
+  ]
+ },
+ "0x918b42a06ff25eaaa4a79eca9da6a9de46f4ea63": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (20d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00165 < 0.95",
+   "last-30d PnL $30,350 < $50k",
+   "median monthly PnL $30,350 < $50k",
+   "annualized Sharpe 0.391 < 3.0 (returns not constant enough)",
+   "positive weeks 0.571 < 0.75"
+  ]
+ },
+ "0xe040ffe586e21cb49449e8daf19b1cdff87a824f": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.012 > 0.01",
+   "deflated Sharpe 0.0478 < 0.95",
+   "last-30d PnL $-18,298 < $50k",
+   "median monthly PnL $4,019 < $50k",
+   "annualized Sharpe 1.52 < 3.0 (returns not constant enough)",
+   "positive weeks 0.704 < 0.75"
+  ]
+ },
+ "0x3a090da22b2bcfee0f3125a26265efbcd356f9f7": {
+  "trimmed_days": 14,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.366 > 0.01",
+   "deflated Sharpe 0.00531 < 0.95",
+   "last-30d PnL $35,885 < $50k",
+   "median monthly PnL $22,044 < $50k",
+   "positive months 0.615 < 0.8",
+   "annualized Sharpe 0.466 < 3.0 (returns not constant enough)",
+   "positive weeks 0.534 < 0.75"
+  ]
+ },
+ "0x8e020dd0e073debf50450aa5808126b52e018e77": {
+  "trimmed_days": 5,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.132 < 0.95",
+   "last-30d PnL $1,034 < $50k",
+   "median monthly PnL $2,273 < $50k",
+   "annualized Sharpe 2.49 < 3.0 (returns not constant enough)",
+   "positive weeks 0.694 < 0.75"
+  ]
+ },
+ "0x86df6ce94c9263d09a6052b43d652adb7b51d902": {
+  "trimmed_days": 0,
+  "reasons": [
+   "last-30d PnL $42,726 < $50k",
+   "median monthly PnL $42,726 < $50k"
+  ]
+ },
+ "0xfb3fc3fcb11e7ca071650b2bc7e04317102f5447": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0474 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0xc03ce4d8af842ca6251ac57228b3ffb166ed50af": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0355 > 0.01",
+   "deflated Sharpe 0.181 < 0.95",
+   "last-30d PnL $8,364 < $50k",
+   "median monthly PnL $15,629 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 2.49 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xb643b1fdf38d7f8a886f0efb14099f27fc3f637f": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $-1,408 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "annualized Sharpe n/a < 3.0 (returns not constant enough)",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x2d2d2b32e5199edf833594a99b9c54e5668ab69d": {
+  "trimmed_days": 14,
+  "reasons": [
+   "insufficient pre-selection history (56d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.142 < 0.95",
+   "last-30d PnL $47,061 < $50k",
+   "median monthly PnL $25,089 < $50k"
+  ]
+ },
+ "0x36a4978843cb404ce522a6183ba779174ccfb736": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0273 < 0.95",
+   "last-30d PnL $27,956 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0xdcd669c506a938bae9269a84b8bd2bdb220484cd": {
+  "trimmed_days": 0,
+  "reasons": [
+   "deflated Sharpe 0.526 < 0.95",
+   "median monthly PnL $9,013 < $50k"
+  ]
+ },
+ "0xa20924e5daa77c491b0700f045eff43a61f7ffbe": {
+  "trimmed_days": 24,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0365 > 0.01",
+   "deflated Sharpe 0.33 < 0.95",
+   "median monthly PnL $25,885 < $50k",
+   "positive months 0.667 < 0.8",
+   "positive weeks 0.63 < 0.75"
+  ]
+ },
+ "0x39aaed185b92e99a78249610cc14a589b764583c": {
+  "trimmed_days": 16,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0147 > 0.01",
+   "deflated Sharpe 0.00249 < 0.95",
+   "median monthly PnL $5,805 < $50k",
+   "annualized Sharpe 0.242 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x502b532f55778c0985846dc53a9bc71eb4f33b15": {
+  "trimmed_days": 96,
+  "reasons": [
+   "deflated Sharpe 0.89 < 0.95",
+   "median monthly PnL $10,753 < $50k",
+   "positive weeks 0.692 < 0.75"
+  ]
+ },
+ "0x00110b8ef00db2a1a6bbe1198e52fc4eb5a84333": {
+  "trimmed_days": 14,
+  "reasons": [
+   "insufficient pre-selection history (45d < 60d): significance outside the ranking window cannot be established"
+  ]
+ },
+ "0xbc1dacd4b84582fc310e4213421bca24e82da53c": {
+  "trimmed_days": 3,
+  "reasons": [
+   "insufficient pre-selection history (26d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.121 < 0.95"
+  ]
+ },
+ "0x2b9dbf4b6e0e11309a9d6d2a09b72f65f652adc0": {
+  "trimmed_days": 15,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0697 > 0.01",
+   "deflated Sharpe 0.167 < 0.95",
+   "median monthly PnL $16,432 < $50k",
+   "positive months 0.636 < 0.8",
+   "annualized Sharpe 2.35 < 3.0 (returns not constant enough)",
+   "positive weeks 0.66 < 0.75"
+  ]
+ },
+ "0xca6465345246f543b7cb3152d5f5f54096f84f43": {
+  "trimmed_days": 4,
+  "reasons": [
+   "insufficient pre-selection history (55d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0011 < 0.95",
+   "last-30d PnL $49,392 < $50k",
+   "median monthly PnL $22,382 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.0173 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x1f4e655bb78bbd93038ceaf0040794cce3df49c8": {
+  "trimmed_days": 6,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.595 > 0.01",
+   "deflated Sharpe 0.00098 < 0.95",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.333 < 0.8",
+   "annualized Sharpe 1.63 < 3.0 (returns not constant enough)",
+   "positive weeks 0.115 < 0.75"
+  ]
+ },
+ "0x8ff04326388b1c024c45d7a7ffdd12cdedd0a0ed": {
+  "trimmed_days": 8,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.337)",
+   "deflated Sharpe 9.61e-07 < 0.95",
+   "median monthly PnL $1,472 < $50k",
+   "annualized Sharpe 1.1 < 3.0 (returns not constant enough)",
+   "positive weeks 0.717 < 0.75"
+  ]
+ },
+ "0x8b4bca1d794779e66e023d44391b2a86c5ab541b": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.549 > 0.01",
+   "deflated Sharpe 0.00124 < 0.95",
+   "last-30d PnL $35,255 < $50k",
+   "median monthly PnL $39,081 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 0.0199 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x6982049c65e98606f65a0ce71fdb9b61296da165": {
+  "trimmed_days": 7,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.307 > 0.01",
+   "deflated Sharpe 0.0183 < 0.95",
+   "last-30d PnL $45,642 < $50k",
+   "median monthly PnL $28,022 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.13 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xf2f6af4f27ec2dcf4072095ab804016e14cd5817": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.391)",
+   "deflated Sharpe 0.56 < 0.95",
+   "last-30d PnL $45,760 < $50k",
+   "median monthly PnL $32,365 < $50k",
+   "annualized Sharpe 2.19 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xa3282d3e882501229c75d0caf134e62e3afb4977": {
+  "trimmed_days": 2,
+  "reasons": [
+   "deflated Sharpe 0.31 < 0.95",
+   "last-30d PnL $-37,526 < $50k",
+   "median monthly PnL $25,201 < $50k",
+   "annualized Sharpe 2.94 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x24ded84d901a743cfee095f8082b0f9f647183cb": {
+  "trimmed_days": 91,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.387 > 0.01",
+   "deflated Sharpe 0.00962 < 0.95",
+   "last-30d PnL $39,308 < $50k",
+   "median monthly PnL $701 < $50k",
+   "positive months 0.722 < 0.8",
+   "annualized Sharpe 0.465 < 3.0 (returns not constant enough)",
+   "positive weeks 0.617 < 0.75"
+  ]
+ },
+ "0x56acab44cfca2e88bb9b3406890aea7bfa0cd77e": {
+  "trimmed_days": 127,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.344 > 0.01",
+   "deflated Sharpe 0.00325 < 0.95",
+   "median monthly PnL $20,861 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 0.49 < 3.0 (returns not constant enough)",
+   "positive weeks 0.444 < 0.75"
+  ]
+ },
+ "0xdf17f4a8dd01a4cfa6fc3da323a2baee5f8697d1": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.034 > 0.01",
+   "deflated Sharpe 0.452 < 0.95",
+   "last-30d PnL $44,932 < $50k",
+   "annualized Sharpe 2.17 < 3.0 (returns not constant enough)",
+   "positive weeks 0.582 < 0.75"
+  ]
+ },
+ "0x9ba7ae7ae11df2477c567d6a5aeb5b3bc9cf00ef": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.787 > 0.01",
+   "deflated Sharpe 9.13e-05 < 0.95",
+   "median monthly PnL $7,065 < $50k",
+   "annualized Sharpe -0.621 < 3.0 (returns not constant enough)",
+   "positive weeks 0.625 < 0.75"
+  ]
+ },
+ "0x0b0e1eb890038cc0f98d26d34842bbe4d1434826": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (24d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.5 < 0.95"
+  ]
+ },
+ "0x361b16e3ddfe1d415d41008daac2631d94ab74fe": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.571 > 0.01",
+   "deflated Sharpe 0.000885 < 0.95",
+   "last-30d PnL $22,752 < $50k",
+   "median monthly PnL $-8,579 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.0733 < 3.0 (returns not constant enough)",
+   "positive weeks 0.55 < 0.75"
+  ]
+ },
+ "0x50a832e2f544cd4a6842fac5fcc5a4425684143f": {
+  "trimmed_days": 160,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.213 > 0.01",
+   "deflated Sharpe 0.00303 < 0.95",
+   "last-30d PnL $225 < $50k",
+   "median monthly PnL $227 < $50k",
+   "positive months 0.696 < 0.8",
+   "annualized Sharpe 0.211 < 3.0 (returns not constant enough)",
+   "positive weeks 0.663 < 0.75"
+  ]
+ },
+ "0x086934317f099d0279493b3f73a954ee896114f1": {
+  "trimmed_days": 10,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.107 > 0.01",
+   "deflated Sharpe 0.0265 < 0.95",
+   "median monthly PnL $3,337 < $50k",
+   "annualized Sharpe 1.65 < 3.0 (returns not constant enough)",
+   "positive weeks 0.488 < 0.75"
+  ]
+ },
+ "0x5136541bced26e7c2bc20550cc26345f7d4a0e4f": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.714)",
+   "deflated Sharpe 0.442 < 0.95",
+   "last-30d PnL $4,333 < $50k",
+   "median monthly PnL $2,662 < $50k"
+  ]
+ },
+ "0x389d2790cd8ead87028f68eaa7cfadb6c53f5866": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.859 > 0.01",
+   "deflated Sharpe 0.00105 < 0.95",
+   "median monthly PnL $-224 < $50k",
+   "positive months 0.222 < 0.8",
+   "annualized Sharpe 0.183 < 3.0 (returns not constant enough)",
+   "positive weeks 0.205 < 0.75"
+  ]
+ },
+ "0x074a3a0ffc6e1077a9d7fcbd774029e0cc6ef0e0": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (7d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0445 < 0.95",
+   "last-30d PnL $41,469 < $50k",
+   "median monthly PnL $41,469 < $50k"
+  ]
+ },
+ "0xd38ad20037839959d89165cf448568d584b28d26": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.273 > 0.01",
+   "deflated Sharpe 0.00642 < 0.95",
+   "last-30d PnL $45,410 < $50k",
+   "median monthly PnL $8,501 < $50k",
+   "positive months 0.318 < 0.8",
+   "annualized Sharpe 0.425 < 3.0 (returns not constant enough)",
+   "positive weeks 0.253 < 0.75"
+  ]
+ },
+ "0xb10bf118b2a3c1cff0379a4134a82eb6d51e0b04": {
+  "trimmed_days": 14,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.494 > 0.01",
+   "deflated Sharpe 0.00295 < 0.95",
+   "last-30d PnL $46,514 < $50k",
+   "median monthly PnL $25,788 < $50k",
+   "positive months 0.444 < 0.8",
+   "annualized Sharpe 0.323 < 3.0 (returns not constant enough)",
+   "positive weeks 0.463 < 0.75"
+  ]
+ },
+ "0xeb1b3ef2729ab7be83e1337ec81f24467c7f87c0": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $45,245 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xc7f9247a693fde343ece04ec84647cd94c385b92": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x16a5aae21fad63f3ffb929e6cddb673c83500ea5": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000118 < 0.95",
+   "last-30d PnL $10 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0xb9587c373c773d023f47c2f85a30b3d5bddcf513": {
+  "trimmed_days": 2,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.366 < 0.95",
+   "last-30d PnL $16,818 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x495d6693c96ef98746d007caae82a2055dcc68d8": {
+  "trimmed_days": 72,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.601 > 0.01",
+   "deflated Sharpe 0.00416 < 0.95",
+   "last-30d PnL $35,439 < $50k",
+   "median monthly PnL $3,087 < $50k",
+   "positive months 0.625 < 0.8",
+   "annualized Sharpe 0.478 < 3.0 (returns not constant enough)",
+   "positive weeks 0.583 < 0.75"
+  ]
+ },
+ "0x08caa55639d19468f24d79a55d892591a0e97895": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.994 > 0.01",
+   "deflated Sharpe 8.61e-07 < 0.95",
+   "median monthly PnL $-7,625 < $50k",
+   "positive months 0.2 < 0.8",
+   "annualized Sharpe -2.81 < 3.0 (returns not constant enough)",
+   "positive weeks 0.381 < 0.75"
+  ]
+ },
+ "0xd1ed12197b7dc22dede923727e9b714024dbd7cb": {
+  "trimmed_days": 14,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.33)",
+   "deflated Sharpe 0.59 < 0.95",
+   "last-30d PnL $30,421 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 2.3 < 3.0 (returns not constant enough)",
+   "positive weeks 0.51 < 0.75"
+  ]
+ },
+ "0xf5848342fc388908f2d25a9012cc18a0ad193979": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (59d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.105 < 0.95",
+   "last-30d PnL $28,305 < $50k",
+   "median monthly PnL $17,587 < $50k"
+  ]
+ },
+ "0xb10047d6a254b2ebb306d7a7d13bf59171ab6461": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.316)",
+   "deflated Sharpe 0.114 < 0.95",
+   "last-30d PnL $44,648 < $50k",
+   "annualized Sharpe 1.21 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x11e5d9276b80c28d2167db68ae4cff6d8e09337e": {
+  "trimmed_days": 26,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.534 > 0.01",
+   "deflated Sharpe 0.0137 < 0.95",
+   "last-30d PnL $46,202 < $50k",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.222 < 0.8",
+   "annualized Sharpe 1.03 < 3.0 (returns not constant enough)",
+   "positive weeks 0.154 < 0.75"
+  ]
+ },
+ "0x951634357346bb291df117f9ac410100feea2104": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0287 < 0.95",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0xb35f674af4603c9602dfbf39564087e94897cf4c": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.051 > 0.01",
+   "deflated Sharpe 0.224 < 0.95"
+  ]
+ },
+ "0x98d04f9eb52d08ef9697f6eb8d7cfe8d46e5f14a": {
+  "trimmed_days": 9,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.156)",
+   "median monthly PnL $25,806 < $50k",
+   "positive months 0.645 < 0.8",
+   "annualized Sharpe 2.73 < 3.0 (returns not constant enough)",
+   "positive weeks 0.504 < 0.75"
+  ]
+ },
+ "0xc49fe658479db29e1a2fefebf0735f657dca9e05": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.13 > 0.01",
+   "deflated Sharpe 0.0399 < 0.95",
+   "median monthly PnL $28,037 < $50k",
+   "positive months 0.556 < 0.8",
+   "annualized Sharpe 1.39 < 3.0 (returns not constant enough)",
+   "positive weeks 0.537 < 0.75"
+  ]
+ },
+ "0x720bd69011aa5a9ef7846e88648218a7b33d37f6": {
+  "trimmed_days": 7,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.659 > 0.01",
+   "deflated Sharpe 0.000699 < 0.95",
+   "last-30d PnL $48,843 < $50k",
+   "median monthly PnL $1,465 < $50k",
+   "positive months 0.7 < 0.8",
+   "annualized Sharpe 1.22 < 3.0 (returns not constant enough)",
+   "positive weeks 0.565 < 0.75"
+  ]
+ },
+ "0x0c0e270cf879583d6a0142fc817e05b768d0434e": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.2)",
+   "deflated Sharpe 0.65 < 0.95",
+   "last-30d PnL $29,605 < $50k",
+   "positive months 0.623 < 0.8",
+   "annualized Sharpe 1.53 < 3.0 (returns not constant enough)",
+   "positive weeks 0.562 < 0.75"
+  ]
+ },
+ "0x1fda5dfc9a82a66e9e0822902430e4bdac93af6d": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.384 > 0.01",
+   "deflated Sharpe 4.21e-05 < 0.95",
+   "last-30d PnL $49,045 < $50k",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.286 < 0.8",
+   "annualized Sharpe 1.57 < 3.0 (returns not constant enough)",
+   "positive weeks 0.0625 < 0.75"
+  ]
+ },
+ "0x65f7226a82e093e5115e47ec2f4f7e733cd28b98": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.81 < 0.95",
+   "last-30d PnL $41,428 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x67b6ccabe5f6c01a7a9ecad5d420ea0cdc7f00bc": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.272 > 0.01",
+   "deflated Sharpe 0.0172 < 0.95",
+   "last-30d PnL $37,785 < $50k",
+   "median monthly PnL $8,577 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.08 < 3.0 (returns not constant enough)",
+   "positive weeks 0.55 < 0.75"
+  ]
+ },
+ "0x671a326088dea34b79c51947e4a92c83545a2f1e": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.326)",
+   "deflated Sharpe 0.132 < 0.95",
+   "last-30d PnL $-16,289 < $50k",
+   "median monthly PnL $4,517 < $50k",
+   "positive months 0.714 < 0.8",
+   "annualized Sharpe 2 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0xcb016f2b417f98c88fc91fffe7e69d4a6b1c7dfb": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.109 > 0.01",
+   "deflated Sharpe 0.0616 < 0.95",
+   "last-30d PnL $48,464 < $50k",
+   "median monthly PnL $30,702 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 2.29 < 3.0 (returns not constant enough)",
+   "positive weeks 0.739 < 0.75"
+  ]
+ },
+ "0xa43da0aab839cf651a70e0e310462bb53a3b00f4": {
+  "trimmed_days": 5,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.165 > 0.01",
+   "deflated Sharpe 0.06 < 0.95",
+   "last-30d PnL $44,735 < $50k",
+   "median monthly PnL $8,715 < $50k",
+   "positive months 0.571 < 0.8",
+   "annualized Sharpe 2.23 < 3.0 (returns not constant enough)",
+   "positive weeks 0.567 < 0.75"
+  ]
+ },
+ "0x9a3fa403a6666eef75f92f181fcf13f9c051914a": {
+  "trimmed_days": 632,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.525 > 0.01",
+   "deflated Sharpe 0.00299 < 0.95",
+   "last-30d PnL $40,618 < $50k",
+   "median monthly PnL $32,189 < $50k",
+   "positive months 0.545 < 0.8",
+   "annualized Sharpe 0.255 < 3.0 (returns not constant enough)",
+   "positive weeks 0.569 < 0.75"
+  ]
+ },
+ "0xdf0e455ca4896232ba935a8176e5e8cfbb38c02b": {
+  "trimmed_days": 6,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0185 > 0.01",
+   "deflated Sharpe 0.433 < 0.95",
+   "last-30d PnL $25,007 < $50k",
+   "median monthly PnL $12,440 < $50k"
+  ]
+ },
+ "0xf1f9a438f2697381b4ac8eb283d6f4dd772d1245": {
+  "trimmed_days": 61,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.0838)",
+   "deflated Sharpe 0.863 < 0.95",
+   "last-30d PnL $44,529 < $50k",
+   "median monthly PnL $9,758 < $50k",
+   "annualized Sharpe 2.69 < 3.0 (returns not constant enough)",
+   "positive weeks 0.646 < 0.75"
+  ]
+ },
+ "0x53757615de1c42b83f893b79d4241a009dc2aeea": {
+  "trimmed_days": 49,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.977 > 0.01",
+   "deflated Sharpe 5.49e-07 < 0.95",
+   "last-30d PnL $46,876 < $50k",
+   "median monthly PnL $-38,783 < $50k",
+   "positive months 0.125 < 0.8",
+   "annualized Sharpe -1.57 < 3.0 (returns not constant enough)",
+   "positive weeks 0.29 < 0.75"
+  ]
+ },
+ "0x40a75505ba4e7deb9bf55e839e5a34dd6c9becb7": {
+  "trimmed_days": 34,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.152 > 0.01",
+   "deflated Sharpe 0.00285 < 0.95",
+   "last-30d PnL $-10,412 < $50k",
+   "median monthly PnL $3,005 < $50k",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 0.323 < 3.0 (returns not constant enough)",
+   "positive weeks 0.703 < 0.75"
+  ]
+ },
+ "0xd60419ae698bd0ae7c0ef69470bfc1e0f9a9bc8a": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.692 > 0.01",
+   "deflated Sharpe 0.000182 < 0.95",
+   "last-30d PnL $43,615 < $50k",
+   "median monthly PnL $19,016 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe -0.598 < 3.0 (returns not constant enough)",
+   "positive weeks 0.619 < 0.75"
+  ]
+ },
+ "0xee65685de42f8de9a03b4c53ee77d56a20d2cfc9": {
+  "trimmed_days": 0,
+  "reasons": [
+   "last-30d PnL $48,148 < $50k"
+  ]
+ },
+ "0xbd16da22de5eb4b4cbe0598ef16eda597c454eb1": {
+  "trimmed_days": 3,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0279 < 0.95",
+   "last-30d PnL $39,019 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x19b3823092892c026517fd0ff58df4889abe0b9b": {
+  "trimmed_days": 107,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0777 > 0.01",
+   "deflated Sharpe 0.238 < 0.95",
+   "last-30d PnL $33,009 < $50k",
+   "median monthly PnL $-1 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 2 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x713d129636144ae32c089e9ef7a8f8d191ce3efc": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $30,860 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x84389cfc4a652ea14d8d8be969769b1f69de3680": {
+  "trimmed_days": 68,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.099 > 0.01",
+   "deflated Sharpe 0.1 < 0.95",
+   "last-30d PnL $31,166 < $50k",
+   "median monthly PnL $224 < $50k",
+   "positive months 0.444 < 0.8",
+   "annualized Sharpe 2.36 < 3.0 (returns not constant enough)",
+   "positive weeks 0.405 < 0.75"
+  ]
+ },
+ "0x31864feb9d25dee93728c6225ba891530967e9ca": {
+  "trimmed_days": 11,
+  "reasons": [
+   "last-30d PnL $44,287 < $50k"
+  ]
+ },
+ "0xafe4272b4fb0bcc1d734ee2cdec3e78cdc94f3f7": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.175 > 0.01",
+   "deflated Sharpe 0.0267 < 0.95",
+   "last-30d PnL $43,928 < $50k",
+   "median monthly PnL $-13,380 < $50k",
+   "positive months 0.429 < 0.8",
+   "annualized Sharpe 1.56 < 3.0 (returns not constant enough)",
+   "positive weeks 0.545 < 0.75"
+  ]
+ },
+ "0xc7285a98c485b4350ce50fa0b67f067693de3e5b": {
+  "trimmed_days": 169,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.961 > 0.01",
+   "deflated Sharpe 0.00238 < 0.95",
+   "last-30d PnL $32,641 < $50k",
+   "median monthly PnL $57 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 0.488 < 3.0 (returns not constant enough)",
+   "positive weeks 0.294 < 0.75"
+  ]
+ },
+ "0xfed13032babfdb49ad387b7136e6a6fbd746eedb": {
+  "trimmed_days": 6,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.876 > 0.01",
+   "deflated Sharpe 0.000436 < 0.95",
+   "last-30d PnL $43,142 < $50k",
+   "median monthly PnL $-26,056 < $50k",
+   "positive months 0.333 < 0.8",
+   "annualized Sharpe -0.658 < 3.0 (returns not constant enough)",
+   "positive weeks 0.346 < 0.75"
+  ]
+ },
+ "0xb9abbf527032ba370e3519de95ff907d0154f282": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.118 > 0.01",
+   "deflated Sharpe 0.0733 < 0.95",
+   "last-30d PnL $45,704 < $50k",
+   "median monthly PnL $19,408 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.56 < 3.0 (returns not constant enough)",
+   "positive weeks 0.491 < 0.75"
+  ]
+ },
+ "0x23cb737291afa36d7e8e1a23e3fd37b667da80d0": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.133 > 0.01",
+   "deflated Sharpe 0.207 < 0.95",
+   "last-30d PnL $48,124 < $50k",
+   "median monthly PnL $6,208 < $50k",
+   "positive months 0.333 < 0.8",
+   "annualized Sharpe 1.92 < 3.0 (returns not constant enough)",
+   "positive weeks 0.203 < 0.75"
+  ]
+ },
+ "0xf2b0ffe9bc0452d9697f182343c54da5f9c38d32": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (3d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0912 < 0.95",
+   "last-30d PnL $39,014 < $50k",
+   "median monthly PnL $39,014 < $50k",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0xc22b72b0fec23b797589ef6778bb6589e325deab": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $13,549 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0xc4a68d127318fd917a188c35e839a0707e374e4e": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0152 < 0.95",
+   "last-30d PnL $44,386 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0xa5e21a381ff2b2c444695f696d3e6a48700b84dc": {
+  "trimmed_days": 2,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000471 < 0.95",
+   "last-30d PnL $46,191 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x2f28c1d2d8c0aee287e9c05a0603274ff533ba03": {
+  "trimmed_days": 27,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.084 > 0.01",
+   "deflated Sharpe 0.0158 < 0.95",
+   "last-30d PnL $33,810 < $50k",
+   "median monthly PnL $4,877 < $50k",
+   "positive months 0.714 < 0.8",
+   "annualized Sharpe 1.21 < 3.0 (returns not constant enough)",
+   "positive weeks 0.7 < 0.75"
+  ]
+ },
+ "0xe337f5a28e9c530a676c959a1888ba5368664ad6": {
+  "trimmed_days": 6,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.189)",
+   "deflated Sharpe 0.898 < 0.95",
+   "last-30d PnL $36,812 < $50k",
+   "median monthly PnL $42,346 < $50k"
+  ]
+ },
+ "0x34148c199410703575334c47f66cc6acf8b101fc": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 1.67e-05 < 0.95",
+   "last-30d PnL $41,981 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.25 < 0.75"
+  ]
+ },
+ "0x5a56fe0468618bbd44e0f278c080db59b30610f5": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.252 > 0.01",
+   "deflated Sharpe 0.0134 < 0.95",
+   "last-30d PnL $29,753 < $50k",
+   "median monthly PnL $29,753 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.65 < 3.0 (returns not constant enough)",
+   "positive weeks 0.533 < 0.75"
+  ]
+ },
+ "0x8de0771af4eb2785fe64eab139399abd30bd7f22": {
+  "trimmed_days": 48,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.204)",
+   "deflated Sharpe 0.103 < 0.95",
+   "last-30d PnL $25,795 < $50k",
+   "median monthly PnL $14,524 < $50k"
+  ]
+ },
+ "0xd729f11adff3be01381ffe3b2215e02e90b009d7": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (10d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00237 < 0.95",
+   "last-30d PnL $45,005 < $50k",
+   "median monthly PnL $45,005 < $50k",
+   "annualized Sharpe 0.65 < 3.0 (returns not constant enough)",
+   "positive weeks 0.6 < 0.75"
+  ]
+ },
+ "0xb52e8b3afd9f0f0d502a5a76494b42816d67285c": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (48d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00103 < 0.95",
+   "last-30d PnL $5,312 < $50k",
+   "median monthly PnL $-6,249 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -0.069 < 3.0 (returns not constant enough)",
+   "positive weeks 0.636 < 0.75"
+  ]
+ },
+ "0xad3c38237bf611908a48415f875fc936ed36410b": {
+  "trimmed_days": 2,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0053 < 0.95",
+   "last-30d PnL $43,095 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0xe1f313a980c5cfd4444f66bcf40563eb900e5402": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (53d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.175 < 0.95",
+   "last-30d PnL $38,059 < $50k",
+   "median monthly PnL $30,405 < $50k",
+   "positive weeks 0.727 < 0.75"
+  ]
+ },
+ "0xdc8230705cdaad7de0a0b87be1d435ef91bdf956": {
+  "trimmed_days": 2,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000583 < 0.95",
+   "last-30d PnL $43,990 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0xe09f8833e854adcc4fad90f25f974faf3f41deff": {
+  "trimmed_days": 142,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.134 > 0.01",
+   "deflated Sharpe 1.26e-05 < 0.95",
+   "last-30d PnL $44,815 < $50k",
+   "median monthly PnL $254 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.8 < 3.0 (returns not constant enough)",
+   "positive weeks 0.417 < 0.75"
+  ]
+ },
+ "0x8f121cc492d8fef3e6ba3a51e33d6c4b5afaeeb9": {
+  "trimmed_days": 14,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.677 > 0.01",
+   "deflated Sharpe 0.000243 < 0.95",
+   "last-30d PnL $-903 < $50k",
+   "median monthly PnL $-508 < $50k",
+   "positive months 0.333 < 0.8",
+   "annualized Sharpe -0.704 < 3.0 (returns not constant enough)",
+   "positive weeks 0.312 < 0.75"
+  ]
+ },
+ "0x1d949489f736378cbde40db18c093c5cff459100": {
+  "trimmed_days": 25,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.291 > 0.01",
+   "deflated Sharpe 0.013 < 0.95",
+   "last-30d PnL $46,435 < $50k",
+   "median monthly PnL $-0 < $50k",
+   "positive months 0.385 < 0.8",
+   "annualized Sharpe 0.787 < 3.0 (returns not constant enough)",
+   "positive weeks 0.321 < 0.75"
+  ]
+ },
+ "0x722cd7724ad3287ada5c3ccf3dec2ec455e67bde": {
+  "trimmed_days": 4,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0318 < 0.95",
+   "last-30d PnL $19,177 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x53ecc53e7a69aad0e6dda60264cc2e363092df91": {
+  "trimmed_days": 223,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.545 > 0.01",
+   "deflated Sharpe 0.00342 < 0.95",
+   "last-30d PnL $42,056 < $50k",
+   "median monthly PnL $-2,952 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 0.11 < 3.0 (returns not constant enough)",
+   "positive weeks 0.641 < 0.75"
+  ]
+ },
+ "0x0a854897a06d4999e5b2dde5693609f1428ffe9d": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.337 > 0.01",
+   "deflated Sharpe 0.0014 < 0.95",
+   "median monthly PnL $-30,059 < $50k",
+   "positive months 0.438 < 0.8",
+   "annualized Sharpe 0.409 < 3.0 (returns not constant enough)",
+   "positive weeks 0.324 < 0.75"
+  ]
+ },
+ "0xe899b5ea69afb161da7a35597b6fe70398860899": {
+  "trimmed_days": 87,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0112 > 0.01",
+   "deflated Sharpe 0.502 < 0.95",
+   "last-30d PnL $31,939 < $50k",
+   "median monthly PnL $8,846 < $50k",
+   "positive months 0.647 < 0.8",
+   "annualized Sharpe 1.48 < 3.0 (returns not constant enough)",
+   "positive weeks 0.532 < 0.75"
+  ]
+ },
+ "0x7b6c6d1279098054b0c630a4b871002a7cd46305": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.757 > 0.01",
+   "deflated Sharpe 0.000323 < 0.95",
+   "last-30d PnL $45,016 < $50k",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.2 < 0.8",
+   "annualized Sharpe -0.292 < 3.0 (returns not constant enough)",
+   "positive weeks 0.0233 < 0.75"
+  ]
+ },
+ "0xbfb186d4bd1980da3d4058d5ede03a22e60642b9": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (12d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.017 < 0.95",
+   "last-30d PnL $42,535 < $50k",
+   "median monthly PnL $42,535 < $50k",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0x9e7296fc4776144f60db9a5943ff2051696599c4": {
+  "trimmed_days": 4,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0175 > 0.01",
+   "deflated Sharpe 0.317 < 0.95",
+   "last-30d PnL $47,249 < $50k",
+   "median monthly PnL $11,714 < $50k",
+   "positive weeks 0.731 < 0.75"
+  ]
+ },
+ "0xe8c4d68aff65b38cac46987b9b65e01eb47d395d": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.197 > 0.01",
+   "deflated Sharpe 0.0247 < 0.95",
+   "last-30d PnL $37,936 < $50k",
+   "median monthly PnL $37,936 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.61 < 3.0 (returns not constant enough)",
+   "positive weeks 0.522 < 0.75"
+  ]
+ },
+ "0x856ac2b10fb37c9b74e18f16da2acedfa60f4ea2": {
+  "trimmed_days": 13,
+  "reasons": [
+   "insufficient pre-selection history (57d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.337 < 0.95",
+   "last-30d PnL $1,842 < $50k",
+   "median monthly PnL $1,615 < $50k"
+  ]
+ },
+ "0xab19716584931d81cd9e7763402673a64baa4876": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.634 > 0.01",
+   "deflated Sharpe 0.000272 < 0.95",
+   "last-30d PnL $39,674 < $50k",
+   "median monthly PnL $39,803 < $50k",
+   "positive months 0.652 < 0.8",
+   "annualized Sharpe -0.157 < 3.0 (returns not constant enough)",
+   "positive weeks 0.71 < 0.75"
+  ]
+ },
+ "0xc46661a5c720740d7c70fbf2cfc10c5de8c4b5cf": {
+  "trimmed_days": 0,
+  "reasons": [
+   "no PnL history returned"
+  ]
+ },
+ "0x690248548fe49af19a6e1120d0595f3fdaebb4ca": {
+  "trimmed_days": 11,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.528 > 0.01",
+   "deflated Sharpe 0.00302 < 0.95",
+   "last-30d PnL $41,250 < $50k",
+   "median monthly PnL $-2,992 < $50k",
+   "positive months 0.278 < 0.8",
+   "annualized Sharpe 0.248 < 3.0 (returns not constant enough)",
+   "positive weeks 0.308 < 0.75"
+  ]
+ },
+ "0xca01b952835dcca6f8ccb1ce8a2028448eef20e4": {
+  "trimmed_days": 21,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.339 < 0.95",
+   "last-30d PnL $40,231 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0x30b6fe3508ac9c2ec69c7967452a26cea97f0bb7": {
+  "trimmed_days": 10,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.668 > 0.01",
+   "deflated Sharpe 0.000678 < 0.95",
+   "last-30d PnL $42,242 < $50k",
+   "median monthly PnL $1,939 < $50k",
+   "positive months 0.444 < 0.8",
+   "annualized Sharpe 0.652 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x38e59b36aae31b164200d0cad7c3fe5e0ee795e7": {
+  "trimmed_days": 4,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.466 > 0.01",
+   "deflated Sharpe 0.00328 < 0.95",
+   "last-30d PnL $42,693 < $50k",
+   "median monthly PnL $2,087 < $50k",
+   "positive months 0.633 < 0.8",
+   "annualized Sharpe 0.209 < 3.0 (returns not constant enough)",
+   "positive weeks 0.591 < 0.75"
+  ]
+ },
+ "0x901f92d8944092bd857b3748d173a8975ba274e9": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.308 < 0.95",
+   "last-30d PnL $39,559 < $50k",
+   "median monthly PnL $9,573 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 2.55 < 3.0 (returns not constant enough)",
+   "positive weeks 0.519 < 0.75"
+  ]
+ },
+ "0x44832d0d2ec11187c1e77d786feb15f6a50254c6": {
+  "trimmed_days": 11,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.0679)",
+   "last-30d PnL $35,413 < $50k",
+   "median monthly PnL $35,413 < $50k"
+  ]
+ },
+ "0xadc2d7aa903a20936a6c812f58b80340dfdb81b9": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.746 > 0.01",
+   "deflated Sharpe 0.0103 < 0.95",
+   "last-30d PnL $42,356 < $50k",
+   "median monthly PnL $10,341 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 2.12 < 3.0 (returns not constant enough)",
+   "positive weeks 0.429 < 0.75"
+  ]
+ },
+ "0x4df7da721042bf8b75bd1cb7acbeb7f83aaf522d": {
+  "trimmed_days": 10,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0445 > 0.01",
+   "deflated Sharpe 0.124 < 0.95",
+   "last-30d PnL $-686 < $50k",
+   "median monthly PnL $-1,017 < $50k",
+   "positive months 0.611 < 0.8",
+   "annualized Sharpe 1.25 < 3.0 (returns not constant enough)",
+   "positive weeks 0.679 < 0.75"
+  ]
+ },
+ "0x9153857e57e22ae7f68fed032a9d9f19595874e1": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 3.27e-05 < 0.95",
+   "last-30d PnL $132 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0 < 0.75"
+  ]
+ },
+ "0x3dca854f147d9b9ecc56d37800f36b347ce23c13": {
+  "trimmed_days": 5,
+  "reasons": [
+   "deflated Sharpe 0.869 < 0.95",
+   "last-30d PnL $42,909 < $50k",
+   "median monthly PnL $9,523 < $50k"
+  ]
+ },
+ "0xf975c19db5d1da14029109a4df52ee87d0a64354": {
+  "trimmed_days": 32,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.646 > 0.01",
+   "deflated Sharpe 0.00147 < 0.95",
+   "last-30d PnL $35,641 < $50k",
+   "median monthly PnL $-12,425 < $50k",
+   "positive months 0.364 < 0.8",
+   "annualized Sharpe 0.0863 < 3.0 (returns not constant enough)",
+   "positive weeks 0.531 < 0.75"
+  ]
+ },
+ "0x3f975d4186c87b3b4a39997cc37e71cc70ca4059": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.265 > 0.01",
+   "deflated Sharpe 0.0258 < 0.95",
+   "last-30d PnL $45,667 < $50k",
+   "median monthly PnL $5,352 < $50k",
+   "positive months 0.778 < 0.8",
+   "annualized Sharpe 1.29 < 3.0 (returns not constant enough)",
+   "positive weeks 0.575 < 0.75"
+  ]
+ },
+ "0xdc87b19600813a4cadc51bf2761aebf87d18ea3b": {
+  "trimmed_days": 37,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.963 > 0.01",
+   "deflated Sharpe 9.22e-06 < 0.95",
+   "last-30d PnL $38,816 < $50k",
+   "median monthly PnL $-10,457 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe -1.26 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0xf32253c325806f2a0ab8e3306292814ad694ebf9": {
+  "trimmed_days": 3,
+  "reasons": [
+   "insufficient pre-selection history (42d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0526 < 0.95",
+   "last-30d PnL $-1,308 < $50k",
+   "median monthly PnL $555 < $50k",
+   "positive months 0.5 < 0.8",
+   "annualized Sharpe 1.98 < 3.0 (returns not constant enough)",
+   "positive weeks 0.7 < 0.75"
+  ]
+ },
+ "0x40604cb1f958c03bea0b18aa43e4cb0d62f33ec3": {
+  "trimmed_days": 87,
+  "reasons": [
+   "deflated Sharpe 0.767 < 0.95",
+   "last-30d PnL $41,657 < $50k",
+   "median monthly PnL $48,824 < $50k"
+  ]
+ },
+ "0xf58461c50899fdc80c61f72c5cd4b11e1bfde875": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $13,653 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0xc576775ef9167ddc38ee6a4e537545ab73d0b9d2": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (15d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.0107 < 0.95",
+   "last-30d PnL $40,675 < $50k",
+   "median monthly PnL $40,675 < $50k",
+   "annualized Sharpe 2.33 < 3.0 (returns not constant enough)",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0x54b56146656e7eef9da02b3a030c18e06e924b31": {
+  "trimmed_days": 12,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.069 > 0.01",
+   "deflated Sharpe 0.0901 < 0.95",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 1.23 < 3.0 (returns not constant enough)",
+   "positive weeks 0.708 < 0.75"
+  ]
+ },
+ "0x141ef9052a46984e9d403100dc9c611d48388c87": {
+  "trimmed_days": 172,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0355 > 0.01",
+   "deflated Sharpe 0.153 < 0.95",
+   "last-30d PnL $249 < $50k",
+   "median monthly PnL $190 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.47 < 3.0 (returns not constant enough)",
+   "positive weeks 0.697 < 0.75"
+  ]
+ },
+ "0x71edffd0d70a1da823ff07a3c6fc81457294d338": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.0982 > 0.01",
+   "deflated Sharpe 0.0564 < 0.95",
+   "last-30d PnL $43,677 < $50k",
+   "median monthly PnL $-7,876 < $50k",
+   "positive months 0.75 < 0.8",
+   "annualized Sharpe 0.884 < 3.0 (returns not constant enough)",
+   "positive weeks 0.67 < 0.75"
+  ]
+ },
+ "0xfcf80bfd59001d39e8d16559739e686830e9d32c": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.199 < 0.95",
+   "last-30d PnL $33,091 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x122cb94c437ea5e6f088c6c0c143c592ab8efbed": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.123)",
+   "last-30d PnL $17,224 < $50k",
+   "median monthly PnL $24,603 < $50k"
+  ]
+ },
+ "0x796fc6fda8f8e03c03e2a2d012155989960300f6": {
+  "trimmed_days": 99,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.72 > 0.01",
+   "deflated Sharpe 0.00141 < 0.95",
+   "median monthly PnL $38,051 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 0.133 < 3.0 (returns not constant enough)",
+   "positive weeks 0.286 < 0.75"
+  ]
+ },
+ "0x0191d054a638baf04c1002fc1e11b0978dd0541d": {
+  "trimmed_days": 2,
+  "reasons": [
+   "insufficient pre-selection history (11d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00409 < 0.95",
+   "last-30d PnL $35,468 < $50k",
+   "median monthly PnL $35,468 < $50k",
+   "positive weeks 0.4 < 0.75"
+  ]
+ },
+ "0x698bbfabc657d1e08b608b8ce0a58ed808b74426": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.244 > 0.01",
+   "deflated Sharpe 0.0358 < 0.95",
+   "last-30d PnL $38,882 < $50k",
+   "median monthly PnL $27,374 < $50k",
+   "positive months 0.444 < 0.8",
+   "annualized Sharpe 1.02 < 3.0 (returns not constant enough)",
+   "positive weeks 0.468 < 0.75"
+  ]
+ },
+ "0x944e0472b99926f4f712fc97dc0a846a8c5d8c94": {
+  "trimmed_days": 15,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "deflated Sharpe 0.145 < 0.95",
+   "last-30d PnL $40,151 < $50k",
+   "median monthly PnL $11,465 < $50k",
+   "positive months 0.649 < 0.8",
+   "annualized Sharpe 1.06 < 3.0 (returns not constant enough)",
+   "positive weeks 0.509 < 0.75"
+  ]
+ },
+ "0x9f208e85f326f865077fffa68b32d8b0e2bc12c3": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.449)",
+   "deflated Sharpe 0.0642 < 0.95",
+   "last-30d PnL $-42,338 < $50k",
+   "median monthly PnL $16,681 < $50k",
+   "annualized Sharpe 1.76 < 3.0 (returns not constant enough)",
+   "positive weeks 0.69 < 0.75"
+  ]
+ },
+ "0x942e79166821f3f4e67872e44f1672fcccd2be27": {
+  "trimmed_days": 8,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.135)",
+   "deflated Sharpe 0.0589 < 0.95",
+   "last-30d PnL $-37,452 < $50k",
+   "median monthly PnL $12,950 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 1.58 < 3.0 (returns not constant enough)",
+   "positive weeks 0.731 < 0.75"
+  ]
+ },
+ "0xd8a30c07ac91942cc386e65c3d475a732ab387c2": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "last-30d PnL $38,682 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks n/a < 0.75"
+  ]
+ },
+ "0xd0394bd0de8d901c3fde039a86bf08e6aa4a2532": {
+  "trimmed_days": 9,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.316)",
+   "deflated Sharpe 0.824 < 0.95",
+   "median monthly PnL $17,128 < $50k",
+   "annualized Sharpe 2.62 < 3.0 (returns not constant enough)",
+   "positive weeks 0.729 < 0.75"
+  ]
+ },
+ "0x02b4401ae7ead14477e944f79e9db07ce9ab7092": {
+  "trimmed_days": 3,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.362 > 0.01",
+   "deflated Sharpe 0.00605 < 0.95",
+   "last-30d PnL $39,171 < $50k",
+   "median monthly PnL $1,778 < $50k",
+   "annualized Sharpe 0.743 < 3.0 (returns not constant enough)",
+   "positive weeks 0.706 < 0.75"
+  ]
+ },
+ "0x2832219259b034fdb2d12e9aa2029d4952a28aa9": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 6.73e-05 < 0.95",
+   "last-30d PnL $371 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.5 < 0.75"
+  ]
+ },
+ "0xc3973025163de81e367ad29c21e296e51684bb3b": {
+  "trimmed_days": 1,
+  "reasons": [
+   "deflated Sharpe 0.777 < 0.95",
+   "last-30d PnL $25,852 < $50k",
+   "median monthly PnL $22,151 < $50k"
+  ]
+ },
+ "0x78d85066cc09e837c19b31f29374c8760829ce05": {
+  "trimmed_days": 3,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.00183 < 0.95",
+   "last-30d PnL $34,648 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x764fd57b0b885cbeada5a119cdf0a113ee4ec347": {
+  "trimmed_days": 1,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.609 < 0.95",
+   "last-30d PnL $44,925 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8"
+  ]
+ },
+ "0x3e2f4c1fa1d09f259614cb77466a3eb7336baaf8": {
+  "trimmed_days": 2,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.859 > 0.01",
+   "deflated Sharpe 4.46e-06 < 0.95",
+   "last-30d PnL $31,077 < $50k",
+   "median monthly PnL $0 < $50k",
+   "positive months 0.125 < 0.8",
+   "annualized Sharpe -0.479 < 3.0 (returns not constant enough)",
+   "positive weeks 0.0874 < 0.75"
+  ]
+ },
+ "0x17d81f8299a2d694f98b813ebcf1ca42ac41b4a6": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (13d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.265 < 0.95",
+   "last-30d PnL $35,540 < $50k",
+   "median monthly PnL $35,540 < $50k"
+  ]
+ },
+ "0x6d57da09ef86a327524853b36fbd2e39cf0cbfc5": {
+  "trimmed_days": 18,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=0.75)",
+   "deflated Sharpe 0.625 < 0.95",
+   "last-30d PnL $46,074 < $50k",
+   "median monthly PnL $40,085 < $50k",
+   "annualized Sharpe 2.36 < 3.0 (returns not constant enough)"
+  ]
+ },
+ "0x12e321c11e950ce18a226f453750bb8964b67982": {
+  "trimmed_days": 4,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.524 > 0.01",
+   "deflated Sharpe 0.00457 < 0.95",
+   "last-30d PnL $16,188 < $50k",
+   "median monthly PnL $166 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.26 < 3.0 (returns not constant enough)",
+   "positive weeks 0.478 < 0.75"
+  ]
+ },
+ "0x5b13949f155cb6e1749a8f18e69849ef54540263": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (48d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.298 < 0.95",
+   "last-30d PnL $25,575 < $50k",
+   "median monthly PnL $22,014 < $50k"
+  ]
+ },
+ "0x012117729450d19b22018ad8c6e9357bcd34f722": {
+  "trimmed_days": 16,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.049 > 0.01",
+   "deflated Sharpe 0.271 < 0.95",
+   "last-30d PnL $22,602 < $50k",
+   "median monthly PnL $19,821 < $50k"
+  ]
+ },
+ "0x32bb3f0f842da76d3c3bba7d6d76376334733c1a": {
+  "trimmed_days": 0,
+  "reasons": [
+   "insufficient pre-selection history (0d < 60d): significance outside the ranking window cannot be established",
+   "deflated Sharpe 0.000298 < 0.95",
+   "last-30d PnL $21,590 < $50k",
+   "median monthly PnL $n/a < $50k",
+   "positive months n/a < 0.8",
+   "positive weeks 0.333 < 0.75"
+  ]
+ },
+ "0x4ac0cdd5cf34d8abe8c05d8e1489c22d16a88a21": {
+  "trimmed_days": 11,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.447 > 0.01",
+   "deflated Sharpe 0.00099 < 0.95",
+   "last-30d PnL $45,877 < $50k",
+   "median monthly PnL $1,215 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 0.713 < 3.0 (returns not constant enough)",
+   "positive weeks 0.381 < 0.75"
+  ]
+ },
+ "0x1dbf0ac12fc39564bf646b54b6f31de8942f1a6b": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.213 > 0.01",
+   "deflated Sharpe 0.05 < 0.95",
+   "last-30d PnL $36,363 < $50k",
+   "median monthly PnL $36,363 < $50k",
+   "positive months 0.667 < 0.8",
+   "annualized Sharpe 2.65 < 3.0 (returns not constant enough)",
+   "positive weeks 0.667 < 0.75"
+  ]
+ },
+ "0x04d5524a0a5af2eca6e39e03defc261d42fe66d8": {
+  "trimmed_days": 0,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.187 > 0.01",
+   "deflated Sharpe 0.014 < 0.95",
+   "last-30d PnL $38,747 < $50k",
+   "annualized Sharpe 1.51 < 3.0 (returns not constant enough)",
+   "positive weeks 0.533 < 0.75"
+  ]
+ },
+ "0x1ee9a5fc09665909c0cce297c581703bfbb9197f": {
+  "trimmed_days": 4,
+  "reasons": [
+   "last-30d PnL $38,798 < $50k",
+   "median monthly PnL $30,074 < $50k"
+  ]
+ },
+ "0x7e5972bfc25819775ee5a9d4f191919375487b8b": {
+  "trimmed_days": 1,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=1 > 0.01",
+   "deflated Sharpe 2.55e-10 < 0.95",
+   "last-30d PnL $49,369 < $50k",
+   "median monthly PnL $-77,302 < $50k",
+   "positive months 0.25 < 0.8",
+   "annualized Sharpe -4.72 < 3.0 (returns not constant enough)",
+   "positive weeks 0.421 < 0.75"
+  ]
+ },
+ "0x9c76cdb43fb46454da005fbc82047a64a18ec926": {
+  "trimmed_days": 17,
+  "reasons": [
+   "pre-selection profit not significant after Holm correction (p_holm=1)",
+   "pre-selection block-bootstrap p=0.138 > 0.01",
+   "deflated Sharpe 0.0343 < 0.95",
+   "last-30d PnL $26,143 < $50k",
+   "median monthly PnL $5,399 < $50k",
+   "positive months 0.6 < 0.8",
+   "annualized Sharpe 1.34 < 3.0 (returns not constant enough)",
+   "positive weeks 0.674 < 0.75"
+  ]
+ },
+ "0x83733b87090cf97aee473b1000beb9bfab7af0bc": {
+  "trimmed_days": 0,
+  "reasons": [
+   "deflated Sharpe 0.188 < 0.95",
+   "last-30d PnL $-31,718 < $50k",
+   "positive months 0.667 < 0.8"
+  ]
+ }
+}

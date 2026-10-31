@@ -1,0 +1,54 @@
+{
+ "fit": {
+  "mo_fills": 614,
+  "all_fills": 716251,
+  "L1": {
+   "auc": 0.5324,
+   "null_mean": 0.4996,
+   "null_max": 0.5424,
+   "perm_p": 0.0199
+  },
+  "L2": {
+   "auc": 0.5443,
+   "null_mean": 0.5014,
+   "null_max": 0.534,
+   "perm_p": 0.005
+  },
+  "L5": {
+   "auc": 0.4871,
+   "null_mean": 0.5008,
+   "null_max": 0.5611,
+   "perm_p": 0.8706
+  },
+  "mo_median_price": 0.55,
+  "others_median_price": 0.46,
+  "mo_median_rel": 147.5,
+  "others_median_rel": 138.0
+ },
+ "test": {
+  "mo_fills": 846,
+  "all_fills": 686313,
+  "L1": {
+   "auc": 0.5453,
+   "null_mean": 0.5011,
+   "null_max": 0.5701,
+   "perm_p": 0.0199
+  },
+  "L2": {
+   "auc": 0.5574,
+   "null_mean": 0.4992,
+   "null_max": 0.5587,
+   "perm_p": 0.01
+  },
+  "L5": {
+   "auc": 0.5553,
+   "null_mean": 0.4996,
+   "null_max": 0.5607,
+   "perm_p": 0.0149
+  },
+  "mo_median_price": 0.5300000028,
+  "others_median_price": 0.45,
+  "mo_median_rel": 147.0,
+  "others_median_rel": 134.0
+ }
+}

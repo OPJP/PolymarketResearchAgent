@@ -1,0 +1,4 @@
+iid N n=69     P(HAC p<1e-4)=3.61e-04 | given that: boot<.01 1.00, boot&DSR 0.017 (of 361) => per-wallet conj rate 6.0e-06; FWER(334): HAC-only 11.4%, HAC+boot 11.4%, full gate 0.20%
+AR1 0.3 n=69   P(HAC p<1e-4)=1.09e-03 | given that: boot<.01 1.00, boot&DSR 0.345 (of 600) => per-wallet conj rate 3.8e-04; FWER(334): HAC-only 30.5%, HAC+boot 30.5%, full gate 11.77%
+AR1 0.6 n=69   P(HAC p<1e-4)=5.26e-03 | given that: boot<.01 1.00, boot&DSR 0.952 (of 600) => per-wallet conj rate 5.0e-03; FWER(334): HAC-only 82.8%, HAC+boot 82.8%, full gate 81.29%
+carry n=69     P(HAC p<1e-4)=6.14e-03 | given that: boot<.01 1.00, boot&DSR 0.100 (of 600) => per-wallet conj rate 6.1e-04; FWER(334): HAC-only 87.2%, HAC+boot 87.2%, full gate 18.54%

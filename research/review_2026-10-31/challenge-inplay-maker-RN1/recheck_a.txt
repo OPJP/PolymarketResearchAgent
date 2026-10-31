@@ -1,0 +1,21 @@
+user-pnl source cached: True 2026-10-30T22:10:00+00:00 points 479
+days 477 first 2025-07-11 last 2026-10-30
+pre-selection n=447 my HAC t=8.76 (lags 5) one-sided p=0.00e+00; Holm x500 upper bound p<= 0.00e+00
+project hac_t_test pre: TestResult(name='hac_t', statistic=8.75881737269471, p_value=2.0675720132854115e-17, n=447, detail='lags=5')
+bootstrap pre: 0.00024993751562109475
+deflated SR (500 trials): 1.0
+annualized daily Sharpe (all 477 days) 9.59; pre 9.50
+positive weeks 0.941 (68 weeks)
+30-day blocks recent first (first 6): [907319, 627627, 1195282, 1722375, 1526921, 1108929] positive share all blocks 1.0 n blocks 15
+last 30d 907319.301465001 median of last 6 blocks 1152105.070633499
+wallet_income 259791
+maker_rebate 141031
+reward_income 41316
+fees_paid -155962
+trade_pnl 803491
+persistence: PersistenceReport(recent=TestResult(name='hac_t', statistic=3.038729912512079, p_value=0.002495721491498178, n=30, detail='lags=3'), earlier=TestResult(name='hac_t', statistic=8.75881737269471, p_value=2.0675720132854115e-17, n=447, detail='lags=5'), decline=TestResult(name='mean_decline', statistic=-0.21629354649497626, p_value=0.4143794695824057, n=477, detail='recent=30243.98 earlier=32541.81'), trend=TestResult(name='trend', statistic=3.639833582693689, p_value=0.9998635928490989, n=477, detail='slope_per_day=80.1'), cusum_break=TestResult(name='cusum', statistic=2.0388315058181936, p_value=0.0004902865030203432, n=477, detail='most_likely_break_index=168'), rolling_sharpe_min=4.78149468485061, rolling_sharpe_last=7.846388949735577, share_positive_windows=1.0)
+last 30 days my HAC t=3.04 p=0.0012
+trade_pnl last 30 days sum 803491, HAC t=2.73 p=0.0032
+economic minus wallet income last30 647529; Sharpe 8.40
+position-only (economic - wallet_income) last30 sum 647529 HAC TestResult(name='hac_t', statistic=2.2219440243871023, p_value=0.0171244691558788, n=30, detail='lags=3')
+position-only decline TestResult(name='mean_decline', statistic=-0.6651840479738508, p_value=0.2529663911005359, n=477, detail='recent=21584.29 earlier=28464.56') trend TestResult(name='trend', statistic=2.247481132496554, p_value=0.9876953524730233, n=477, detail='slope_per_day=49.01')

@@ -1,0 +1,9 @@
+GoodFallen      ledger peak $       3,188 (ROC 1978.1%) | max cash drawdown $       5,220 -> ROC 1208.0%
+almach          ledger peak $       5,380 (ROC 1342.2%) | max cash drawdown $       9,913 -> ROC  728.4%
+bosona          ledger peak $       5,306 (ROC 1664.5%) | max cash drawdown $       8,638 -> ROC 1022.6%
+Tommy           ledger peak $       9,577 (ROC  629.4%) | max cash drawdown $      13,219 -> ROC  456.0%
+RN1             ledger peak $   1,141,785 (ROC   79.5%) | max cash drawdown $   1,148,891 -> ROC   79.0%
+b55f            ledger peak $      64,873 (ROC   86.9%) | max cash drawdown $      70,990 -> ROC   79.4%
+justaluckydude  ledger peak $     506,910 (ROC   27.4%) | max cash drawdown $     511,031 -> ROC   27.2%
+dbdd            ledger peak $      33,408 (ROC  184.7%) | max cash drawdown $      32,184 -> ROC  191.7%
+elmcap2         ledger peak $   6,458,210 (ROC    3.7%) | max cash drawdown $   4,277,304 -> ROC    5.7%

@@ -1,0 +1,2 @@
+current truth 2400 got 1297 missing 1103; dense second kept 100/1203; coverage='complete'; requests 5
+fixed   truth 2400 got 2400 missing 0; dense second kept 1203/1203; coverage='complete'; requests 7

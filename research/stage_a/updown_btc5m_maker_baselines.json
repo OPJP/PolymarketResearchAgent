@@ -1,0 +1,286 @@
+{
+ "as_of": 1793318400,
+ "asset": "btc",
+ "duration": "5m",
+ "fill_model": "trade-through (ladder) / at-touch first-in-queue bound (DM grid)",
+ "fixed_price_ladder": {
+  "bid 0.05 Up": {
+   "fit": {
+    "fills": 1137,
+    "usd_bought": 1100.7582657,
+    "pnl": -709.6789827,
+    "return_on_bought": -0.6447182863066644,
+    "per_window_p": 0.9985724613001532
+   },
+   "test": {
+    "fills": 1223,
+    "usd_bought": 1172.55432805,
+    "pnl": -746.94017805,
+    "return_on_bought": -0.6370196759174377,
+    "per_window_p": 0.9996251065133029
+   }
+  },
+  "bid 0.05 Down": {
+   "fit": {
+    "fills": 1095,
+    "usd_bought": 1067.2328722,
+    "pnl": -516.9203722,
+    "return_on_bought": -0.48435574434136136,
+    "per_window_p": 0.983335321458515
+   },
+   "test": {
+    "fills": 1210,
+    "usd_bought": 1161.86931645,
+    "pnl": -937.7026664499999,
+    "return_on_bought": -0.80706380069927,
+    "per_window_p": 0.999999981163138
+   }
+  },
+  "bid 0.10 Up": {
+   "fit": {
+    "fills": 1931,
+    "usd_bought": 3753.4811501000004,
+    "pnl": -2148.3031391000004,
+    "return_on_bought": -0.5723495212018755,
+    "per_window_p": 0.9993218077372131
+   },
+   "test": {
+    "fills": 1932,
+    "usd_bought": 3737.4616100000003,
+    "pnl": -2622.661353,
+    "return_on_bought": -0.7017226199682624,
+    "per_window_p": 0.9999998257197091
+   }
+  },
+  "bid 0.10 Down": {
+   "fit": {
+    "fills": 1877,
+    "usd_bought": 3630.3372187000004,
+    "pnl": -1860.1582307,
+    "return_on_bought": -0.5123926838306526,
+    "per_window_p": 0.9988293518429613
+   },
+   "test": {
+    "fills": 1931,
+    "usd_bought": 3738.4796383000003,
+    "pnl": -2399.0988363,
+    "return_on_bought": -0.6417311496688913,
+    "per_window_p": 0.9999623362070507
+   }
+  },
+  "bid 0.15 Up": {
+   "fit": {
+    "fills": 2627,
+    "usd_bought": 7620.26201715,
+    "pnl": -4414.055293150001,
+    "return_on_bought": -0.579252430325338,
+    "per_window_p": 0.9999979310266782
+   },
+   "test": {
+    "fills": 2635,
+    "usd_bought": 7658.0112456,
+    "pnl": -4722.3450086,
+    "return_on_bought": -0.6166542274684278,
+    "per_window_p": 0.9999947227218338
+   }
+  },
+  "bid 0.15 Down": {
+   "fit": {
+    "fills": 2493,
+    "usd_bought": 7242.475653150001,
+    "pnl": -3718.30300015,
+    "return_on_bought": -0.5134022091648707,
+    "per_window_p": 0.9996452594966884
+   },
+   "test": {
+    "fills": 2502,
+    "usd_bought": 7296.540951749999,
+    "pnl": -4551.60511475,
+    "return_on_bought": -0.6238031342314806,
+    "per_window_p": 0.9999976023978254
+   }
+  },
+  "bid 0.20 Up": {
+   "fit": {
+    "fills": 3372,
+    "usd_bought": 13069.856281,
+    "pnl": -7392.850415000001,
+    "return_on_bought": -0.5656412936802668,
+    "per_window_p": 0.999999874725815
+   },
+   "test": {
+    "fills": 3358,
+    "usd_bought": 13018.4931498,
+    "pnl": -8032.420967800001,
+    "return_on_bought": -0.6170008214755177,
+    "per_window_p": 0.9999998907420611
+   }
+  },
+  "bid 0.20 Down": {
+   "fit": {
+    "fills": 3097,
+    "usd_bought": 12043.7171452,
+    "pnl": -5944.3900022,
+    "return_on_bought": -0.4935677192127619,
+    "per_window_p": 0.999870107145016
+   },
+   "test": {
+    "fills": 3112,
+    "usd_bought": 12116.425955800001,
+    "pnl": -6406.741711799999,
+    "return_on_bought": -0.5287649786472851,
+    "per_window_p": 0.9999882205883603
+   }
+  },
+  "bid 0.30 Up": {
+   "fit": {
+    "fills": 4848,
+    "usd_bought": 28115.5102776,
+    "pnl": -14976.219012600002,
+    "return_on_bought": -0.5326675157139779,
+    "per_window_p": 0.9999999998969576
+   },
+   "test": {
+    "fills": 4540,
+    "usd_bought": 26495.2413246,
+    "pnl": -16060.4893136,
+    "return_on_bought": -0.6061650511817886,
+    "per_window_p": 0.999999999976575
+   }
+  },
+  "bid 0.30 Down": {
+   "fit": {
+    "fills": 4246,
+    "usd_bought": 24669.470689499998,
+    "pnl": -11593.4360805,
+    "return_on_bought": -0.46995074302240636,
+    "per_window_p": 0.9999958957528099
+   },
+   "test": {
+    "fills": 4427,
+    "usd_bought": 25802.0477781,
+    "pnl": -12622.089453100001,
+    "return_on_bought": -0.4891894458010131,
+    "per_window_p": 0.9999974898154331
+   }
+  },
+  "bid 0.40 Up": {
+   "fit": {
+    "fills": 6544,
+    "usd_bought": 50639.8607632,
+    "pnl": -25254.5984502,
+    "return_on_bought": -0.4987098714250913,
+    "per_window_p": 0.999999999988565
+   },
+   "test": {
+    "fills": 6063,
+    "usd_bought": 46953.948996399995,
+    "pnl": -25943.6185424,
+    "return_on_bought": -0.5525332607144315,
+    "per_window_p": 0.9999999999982351
+   }
+  },
+  "bid 0.40 Down": {
+   "fit": {
+    "fills": 5683,
+    "usd_bought": 44061.964971600006,
+    "pnl": -20263.819914599997,
+    "return_on_bought": -0.4598936957909384,
+    "per_window_p": 0.9999999441586042
+   },
+   "test": {
+    "fills": 5831,
+    "usd_bought": 45249.790241999995,
+    "pnl": -20233.155738,
+    "return_on_bought": -0.44714363602110074,
+    "per_window_p": 0.9999996817095628
+   }
+  }
+ },
+ "directional_maker_at_touch_test": {
+  "delta=0.0,latency=0": {
+   "fills": 16975,
+   "usd_bought": 199454.871383402,
+   "pnl": -20384.249752402004,
+   "return_on_bought": -0.10219980896439672,
+   "per_window_p": 0.999999998418845
+  },
+  "delta=0.0,latency=2": {
+   "fills": 16909,
+   "usd_bought": 196255.07458759303,
+   "pnl": -22264.902533593006,
+   "return_on_bought": -0.11344879912216324,
+   "per_window_p": 0.999999999994659
+  },
+  "delta=0.0,latency=5": {
+   "fills": 16803,
+   "usd_bought": 191523.68160750502,
+   "pnl": -24309.464663505,
+   "return_on_bought": -0.12692667799339347,
+   "per_window_p": 0.9999999999999966
+  },
+  "delta=0.02,latency=0": {
+   "fills": 13131,
+   "usd_bought": 147348.618265366,
+   "pnl": -15957.252297366002,
+   "return_on_bought": -0.10829590725192922,
+   "per_window_p": 0.9999984109584321
+  },
+  "delta=0.02,latency=2": {
+   "fills": 13067,
+   "usd_bought": 143654.853748089,
+   "pnl": -17941.984386089003,
+   "return_on_bought": -0.12489647177220896,
+   "per_window_p": 0.9999999854552721
+  },
+  "delta=0.02,latency=5": {
+   "fills": 12967,
+   "usd_bought": 139516.658073949,
+   "pnl": -19812.600170949,
+   "return_on_bought": -0.1420088500145093,
+   "per_window_p": 0.9999999999554207
+  },
+  "delta=0.05,latency=0": {
+   "fills": 9266,
+   "usd_bought": 98329.37970329,
+   "pnl": -11122.368539290002,
+   "return_on_bought": -0.11311338048558704,
+   "per_window_p": 0.9997632656078128
+  },
+  "delta=0.05,latency=2": {
+   "fills": 9373,
+   "usd_bought": 97411.748765772,
+   "pnl": -12705.877394772004,
+   "return_on_bought": -0.1304347530534892,
+   "per_window_p": 0.999988414457852
+  },
+  "delta=0.05,latency=5": {
+   "fills": 9548,
+   "usd_bought": 96712.88289681,
+   "pnl": -14883.290085810002,
+   "return_on_bought": -0.15389149449396586,
+   "per_window_p": 0.9999998871761313
+  },
+  "delta=0.08,latency=0": {
+   "fills": 6323,
+   "usd_bought": 64825.598490391,
+   "pnl": -7659.595183391001,
+   "return_on_bought": -0.11815695283594445,
+   "per_window_p": 0.9971424021437522
+  },
+  "delta=0.08,latency=2": {
+   "fills": 6570,
+   "usd_bought": 65836.66505931,
+   "pnl": -9075.36133431,
+   "return_on_bought": -0.13784661367847714,
+   "per_window_p": 0.9997325396497653
+  },
+  "delta=0.08,latency=5": {
+   "fills": 6942,
+   "usd_bought": 68032.69769206,
+   "pnl": -10729.117724060001,
+   "return_on_bought": -0.15770531065258905,
+   "per_window_p": 0.9999862833206267
+  }
+ }
+}

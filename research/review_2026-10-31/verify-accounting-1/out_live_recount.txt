@@ -1,0 +1,21 @@
+1792651335 0x721208e819 true=523 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 393, 'SELL': 30}
+1792763280 0xc827d8ab1e true=513 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 222, 'SELL': 191}
+1792763933 0x0d70225ec4 true=510 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 230, 'SELL': 180}
+1792763949 0x0d70225ec4 true=517 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'SELL': 264, 'BUY': 153}
+1792763952 0x0d70225ec4 true=534 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'SELL': 243, 'BUY': 191}
+1792763954 0x0d70225ec4 true=517 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'SELL': 305, 'BUY': 112}
+1792794396 0x161a4c7f51 true=514 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 385, 'SELL': 29}
+1792796420 0x1feb105da5 true=569 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 452, 'SELL': 17}
+1792797365 0xcb42608f83 true=509 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 391, 'SELL': 18}
+1792848513 0x9278daf898 true=503 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 364, 'SELL': 39}
+1792897802 0xae411b51f6 true=545 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 417, 'SELL': 28}
+1792897829 0xae411b51f6 true=534 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'SELL': 55, 'BUY': 379}
+1792898876 0x825bb51500 true=579 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 461, 'SELL': 18}
+1792899753 0xa4e52dada0 true=587 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 460, 'SELL': 27}
+1792899756 0xa4e52dada0 true=556 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 445, 'SELL': 11}
+1792899786 0xa4e52dada0 true=530 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 397, 'SELL': 33}
+1792911638 0xacc8ec2ec2 true=508 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 388, 'SELL': 20}
+1792946237 0xb8dc298e91 true=528 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 405, 'SELL': 23}
+1792948697 0x888172bef7 true=658 pages=2 kept=100 kept_subset=True all_on_ts=True missing=0 sides={'BUY': 540, 'SELL': 18}
+TOTAL: 19 seconds, true rows 10234, kept 1900, dropped 8334 (81.4%)
+missing by side: Counter({'BUY': 6785, 'SELL': 1549})

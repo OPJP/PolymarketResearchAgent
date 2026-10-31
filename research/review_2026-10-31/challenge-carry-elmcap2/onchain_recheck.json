@@ -1,0 +1,38 @@
+{
+ "seed0": {
+  "sampled": 200,
+  "receipts_found": 200,
+  "confirmed": 200,
+  "confirmed_rate": 1.0,
+  "confirmed_rate_ci95": [
+   0.9811539940816791,
+   1.0
+  ],
+  "maker_fill_share": 0.98,
+  "maker_fill_share_ci95": [
+   0.9497121344948062,
+   0.9921956998236058
+  ],
+  "maker_usdc_share": 0.9287141482583444,
+  "taker_fee_rate_observed": 0.0028304735539433196,
+  "mismatches": []
+ },
+ "seed7": {
+  "sampled": 40,
+  "receipts_found": 40,
+  "confirmed": 40,
+  "confirmed_rate": 1.0,
+  "confirmed_rate_ci95": [
+   0.9123754607496077,
+   1.0
+  ],
+  "maker_fill_share": 0.925,
+  "maker_fill_share_ci95": [
+   0.8013546984090248,
+   0.9741644432281419
+  ],
+  "maker_usdc_share": 0.3040875234336817,
+  "taker_fee_rate_observed": 0.006761211472609038,
+  "mismatches": []
+ }
+}

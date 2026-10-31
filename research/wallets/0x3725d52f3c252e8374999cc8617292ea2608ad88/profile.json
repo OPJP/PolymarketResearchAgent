@@ -1,0 +1,299 @@
+{
+ "tool": "investigate_wallet",
+ "subject": {
+  "kind": "wallet",
+  "wallet": "0x3725d52f3c252e8374999cc8617292ea2608ad88",
+  "window_start": 1790726400,
+  "as_of": 1793318400,
+  "days": 30
+ },
+ "observed": {
+  "activity_rows": 139406,
+  "fills_in_window": 83167,
+  "markets_in_window": 13487,
+  "income_window": {
+   "wallet_income": 11305.044600000001,
+   "maker_rebate": 8938.862000000001,
+   "reward_income": 1.1773000000002867,
+   "fees_paid": -13064.264410000003
+  },
+  "pnl_series_window": 72204.00980299996
+ },
+ "derived": {
+  "capital": {
+   "window_days": 30,
+   "peak_capital": 5379.574020808298,
+   "p95_capital": 4709.182094636468,
+   "peak_capital_incl_complete_sets": 5379.574020808298,
+   "window_pnl": 72204.00980299996,
+   "monthly_roc": 13.42188238765996
+  },
+  "profile": {
+   "fills": 83167,
+   "buy_share": 1.0,
+   "usd_volume": 2524163.920632,
+   "usd_bought": 2524163.920632,
+   "usd_sold": 0.0,
+   "median_fill_usd": 7.4,
+   "families_by_usd": {
+    "crypto-updown:btc:5m": 1343826.772539,
+    "crypto-updown:btc:15m": 758536.745115,
+    "crypto-updown:hourly-or-daily": 201890.656099,
+    "crypto-updown:btc:4h": 85379.709557,
+    "crypto-updown:eth:5m": 75254.169436,
+    "crypto-updown:sol:5m": 19622.593231,
+    "crypto-updown:eth:15m": 13439.512837,
+    "crypto-updown:xrp:5m": 9361.706096,
+    "crypto-updown:sol:15m": 3833.696908,
+    "crypto-updown:doge:5m": 2915.649312
+   },
+   "markets": 13487,
+   "markets_resolved": 13487,
+   "share_two_sided_markets": 0.46140728108548973,
+   "median_pair_cost": 1.016613848412419,
+   "median_balance": 0.0,
+   "settled_pnl": 60593.05592499999,
+   "settled_locked_pnl": -22951.572676575288,
+   "settled_residual_pnl": 83544.6286015753,
+   "settled_realized_from_sells": 0.0,
+   "unmatched_sell_usdc": 0.0,
+   "residual_win_rate": 0.581912469552919,
+   "market_win_rate": 0.5638763253503374,
+   "price_quantiles": [
+    0.05,
+    0.24,
+    0.49,
+    0.72,
+    0.9
+   ],
+   "window_frac_quantiles": [
+    0.02,
+    0.21333333333333335,
+    0.5066666666666667,
+    0.7555555555555555,
+    0.9311111111111111
+   ],
+   "share_fills_after_game_start": null,
+   "hour_of_day_usd": {
+    "0": 93626.170302,
+    "1": 86714.944001,
+    "2": 80833.714293,
+    "3": 69187.698137,
+    "4": 83842.455513,
+    "5": 76654.175209,
+    "6": 75627.652927,
+    "7": 81361.589955,
+    "8": 75839.719363,
+    "9": 78237.143038,
+    "10": 86518.960321,
+    "11": 90793.815147,
+    "12": 121522.442987,
+    "13": 124084.685093,
+    "14": 111537.952875,
+    "15": 133140.492878,
+    "16": 105928.016986,
+    "17": 131137.639575,
+    "18": 116360.770226,
+    "19": 100783.983063,
+    "20": 163341.892308,
+    "21": 139701.771196,
+    "22": 171789.78629,
+    "23": 125596.448949
+   }
+  },
+  "price_calibration": [
+   {
+    "price_lo": 0.0,
+    "price_hi": 0.1,
+    "fills": 9510,
+    "shares": 528250.225691,
+    "avg_price": 0.044555079269788245,
+    "win_rate": 0.05286053561732676
+   },
+   {
+    "price_lo": 0.1,
+    "price_hi": 0.2,
+    "fills": 8266,
+    "shares": 384538.739958,
+    "avg_price": 0.14483818790010897,
+    "win_rate": 0.17658504139639242
+   },
+   {
+    "price_lo": 0.2,
+    "price_hi": 0.3,
+    "fills": 7684,
+    "shares": 348829.002265,
+    "avg_price": 0.24610323520587374,
+    "win_rate": 0.2802234678719196
+   },
+   {
+    "price_lo": 0.3,
+    "price_hi": 0.4,
+    "fills": 7823,
+    "shares": 397132.72699399997,
+    "avg_price": 0.34744330161658055,
+    "win_rate": 0.39811744561255646
+   },
+   {
+    "price_lo": 0.4,
+    "price_hi": 0.5,
+    "fills": 9071,
+    "shares": 526423.407917,
+    "avg_price": 0.4485347707678897,
+    "win_rate": 0.48212211902821794
+   },
+   {
+    "price_lo": 0.5,
+    "price_hi": 0.6,
+    "fills": 8573,
+    "shares": 541120.978525,
+    "avg_price": 0.5461794627709672,
+    "win_rate": 0.5387316366381306
+   },
+   {
+    "price_lo": 0.6,
+    "price_hi": 0.7,
+    "fills": 9416,
+    "shares": 565959.027322,
+    "avg_price": 0.6464562449039412,
+    "win_rate": 0.6416239447513876
+   },
+   {
+    "price_lo": 0.7,
+    "price_hi": 0.8,
+    "fills": 10372,
+    "shares": 609639.962536,
+    "avg_price": 0.7460763665393019,
+    "win_rate": 0.7501527505096822
+   },
+   {
+    "price_lo": 0.8,
+    "price_hi": 0.9,
+    "fills": 8118,
+    "shares": 568637.995381,
+    "avg_price": 0.8437288906085679,
+    "win_rate": 0.855496664353313
+   },
+   {
+    "price_lo": 0.9,
+    "price_hi": 1.0,
+    "fills": 4334,
+    "shares": 400528.31768,
+    "avg_price": 0.938491571300604,
+    "win_rate": 0.9508212404328994
+   }
+  ],
+  "onchain_verification": {
+   "sampled": 200,
+   "receipts_found": 200,
+   "confirmed": 200,
+   "confirmed_rate": 1.0,
+   "confirmed_rate_ci95": [
+    0.9811539940816791,
+    1.0
+   ],
+   "maker_fill_share": 0.92,
+   "maker_fill_share_ci95": [
+    0.8740095102048769,
+    0.9501598448237337
+   ],
+   "maker_usdc_share": 0.8794550829163238,
+   "taker_fee_rate_observed": 0.027892491944597822,
+   "mismatches": [],
+   "sources": [
+    {
+     "adapter": "polygon.rpc.receipts",
+     "url": "https://polygon.drpc.org",
+     "fetched_at": "2026-10-30T23:00:07+00:00",
+     "records": 4,
+     "body_sha256": "e0acb3dd4a59315f922b7469aa460d5d8d4fd0d0b70045e462a2a1a4ea7200be",
+     "cached": true
+    },
+    {
+     "adapter": "polygon.rpc.receipts",
+     "url": "https://polygon.drpc.org",
+     "fetched_at": "2026-10-30T23:00:08+00:00",
+     "records": 4,
+     "body_sha256": "1f6896a0b076b4d312eca3126f0047425148a1dd08f519d8f8b2fd3e3baf5e84",
+     "cached": true
+    },
+    {
+     "adapter": "polygon.rpc.receipts",
+     "url": "https://polygon.drpc.org",
+     "fetched_at": "2026-10-30T23:00:08+00:00",
+     "records": 4,
+     "body_sha256": "fbd8c5414694f39b128b622c4f87dcb060b5ecd9f4fbbab25e396d0d82e34e24",
+     "cached": true
+    },
+    {
+     "more": 47
+    }
+   ]
+  },
+  "ledger_anomalies": [],
+  "ledger_anomaly_count": 0
+ },
+ "inferred": {},
+ "sources": [
+  {
+   "adapter": "data-api.user-pnl",
+   "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x3725d52f3c252e8374999cc8617292ea2608ad88&interval=all&fidelity=1d",
+   "fetched_at": "2026-10-31T04:37:34+00:00",
+   "records": 163,
+   "body_sha256": "d991b96e6223d7fb8345c618162b44f1058862d5d455c1b3a6732940c53dc9de",
+   "cached": false
+  },
+  {
+   "adapter": "data-api.activity",
+   "url": "https://data-api.polymarket.com/activity?user=0x3725d52f3c252e8374999cc8617292ea2608ad88&limit=500&start=1790121600&end=1793318400&sortBy=TIMESTAMP&sortDirection=ASC",
+   "fetched_at": "2026-10-30T22:54:25+00:00",
+   "records": 500,
+   "body_sha256": "1efa15ebcae0aba29d190cab5f3b85c465e986afbae4208384ea1e0626782cec",
+   "cached": true
+  },
+  {
+   "adapter": "data-api.activity",
+   "url": "https://data-api.polymarket.com/activity?user=0x3725d52f3c252e8374999cc8617292ea2608ad88&limit=500&start=1790135180&end=1793318400&sortBy=TIMESTAMP&sortDirection=ASC",
+   "fetched_at": "2026-10-30T22:54:26+00:00",
+   "records": 500,
+   "body_sha256": "e65fc5528202766af05b1311990c23e29e5a58d9775c6a7b6da1473103bc2abc",
+   "cached": true
+  },
+  {
+   "adapter": "data-api.activity",
+   "url": "https://data-api.polymarket.com/activity?user=0x3725d52f3c252e8374999cc8617292ea2608ad88&limit=500&start=1790145997&end=1793318400&sortBy=TIMESTAMP&sortDirection=ASC",
+   "fetched_at": "2026-10-30T22:54:26+00:00",
+   "records": 500,
+   "body_sha256": "c857f75e6593785ce5bc71f7f90e1fd4741009a6ce6efa6df4623531f06e35d3",
+   "cached": true
+  },
+  {
+   "adapter": "data-api.activity",
+   "url": "https://data-api.polymarket.com/activity?user=0x3725d52f3c252e8374999cc8617292ea2608ad88&limit=500&start=1790155492&end=1793318400&sortBy=TIMESTAMP&sortDirection=ASC",
+   "fetched_at": "2026-10-30T22:54:27+00:00",
+   "records": 500,
+   "body_sha256": "b8b5a9b954ac9558bb6f12797733eb83c2133a056cee758a9916df59a20652f4",
+   "cached": true
+  },
+  {
+   "adapter": "data-api.activity",
+   "url": "https://data-api.polymarket.com/activity?user=0x3725d52f3c252e8374999cc8617292ea2608ad88&limit=500&start=1790164060&end=1793318400&sortBy=TIMESTAMP&sortDirection=ASC",
+   "fetched_at": "2026-10-30T22:54:27+00:00",
+   "records": 500,
+   "body_sha256": "dc6e06fe3ae495d961ce78345156a223e13ef49c4ce8dc3b8f1b26af291b37f9",
+   "cached": true
+  }
+ ],
+ "coverage": {
+  "status": "complete",
+  "detail": "139406 rows via 280 requests; 0 markets without Gamma metadata"
+ },
+ "limitations": [
+  "Capital at risk is the cost basis of open positions; collateral for resting (unfilled) orders is not visible on-chain and is not counted.",
+  "Positions opened before the warm-up period are invisible to the ledger; sells/redeems of them are logged as anomalies.",
+  "On-chain verification is a random sample; rates carry Wilson 95% intervals."
+ ],
+ "unknowns": [],
+ "next_probes": [],
+ "generated_at": "2026-10-31T04:38:07+00:00"
+}

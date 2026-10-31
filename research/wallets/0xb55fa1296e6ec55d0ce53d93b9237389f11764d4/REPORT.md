@@ -1,0 +1,55 @@
+# 0xb55fa1296E6ec55D0cE53d93B9237389f11764d4-1777575277609 (`0xb55fa1296e6ec55d0ce53d93b9237389f11764d4`)
+
+Leaderboard rank 209 (monthly PnL). Verdict: **REJECT**. Archetype: Rebate farmer (crypto Up/Down volume).
+
+Profile: https://polymarket.com/profile/0xb55fa1296e6ec55d0ce53d93b9237389f11764d4
+
+## Mechanism
+
+About 467k fills in 30 days across BTC/ETH/SOL 5m, 15m, hourly and 4h windows; 30% maker fills on-chain. Settled market PnL -$48,609 after fees (locked pair spread -$90,221, residual $41,612). Taker fees $157,292; the taker rebate runs at 44% of the previous day's fees (Diamond), and on 2026-10-25 it paid an extra $25,264, the one-time bonus for first reaching Obsidian.
+
+## Criteria
+
+| Criterion | Status | Evidence |
+| --- | --- | --- |
+| Profit significant, not luck | pass | pre-selection 152d: HAC t=4.8, Holm p=4.6e-03, bootstrap p=2.5e-04; deflated Sharpe 0.991 |
+| Net profit above $50k/month | fail | passes the A1 rule as written (last 30 days $56,365, median block $78,075), but $25,264 of the last 30 days is a one-time level-up bonus: recurring 30-day PnL $31,101 < $50k |
+| Constant returns (low std) | pass | annualized Sharpe 7.5; positive weeks 81%; positive months 100% |
+| High % profit | pass | 87%/month: 30-day PnL $56,365 on peak capital at risk $64,873; counting the on-chain collateral too ($126,320), at least 29%/month |
+| Trades verified on-chain | pass | 200/200 sampled fills confirmed in Polygon OrderFilled events; 30% maker fills (95% CI 24%-37%), 21% of USDC |
+| Reverse-engineered rule matches the wallet | fail | BTC 5m latency taker: stratified AUC 0.498 vs rotation null 0.505 (max 0.565), p=0.61; rule flags 24% of the wallet's decisions at 1.1x the base rate; BTC 5m directional maker: stratified AUC 0.481 vs rotation null 0.502 (max 0.559), p=0.80; rule flags 31% of the wallet's decisions at 1.1x the base rate; BTC 5m spot-reactive maker: stratified AUC 0.466 vs rotation null 0.501 (max 0.555), p=0.86; rule flags 11% of the wallet's decisions at 0.7x the base rate; BTC 15m directional maker (its largest family): stratified AUC 0.573 vs rotation null 0.496 (max 0.605), p=0.04; rule flags 12% of the wallet's decisions at 0.6x the base rate |
+| Rule profitable in held-out PIT backtest | fail | latency taker -0.6% (72,714 trades, p(profit)=0.55); 5m directional maker (strict) -13.5% (5,973 fills, p(profit)=1.00); 15m directional maker (strict) -18.8% (3,057 fills, p(profit)=0.99); reviewer tape-anchored two-sided maker -6% to -13%, late-favourite taker not significant once tail risk is tested; its own trading after fees -$48,609 in 30 days |
+| Replicable on a normal computer and connection | fail | observed taker-rebate tier Diamond (44% of fees); 30-day PnL at the 0% tier -$40,301, Gold -$11,988, Diamond $28,908, Obsidian $38,346; Diamond needs $4M of 30-day weighted volume, which a newcomer reaches in about 23 days at the same volume, and the pre-fee edge per dollar has fallen from 2.6% to 1.3% over six months |
+| Conditions still hold now | fail | last 30 days not significant (p=0.11); significant decline vs. earlier days (p=0.019). [recurring series (one-off bonus removed): last 30 days p=0.11; decline vs earlier p=0.019; last 15 vs prior 15 p=0.53; trend p=0.40] Also: pre-fee trading PnL declined significantly (p=6e-6). |
+
+## Key numbers
+
+- 30-day PnL: $56,365
+- Recurring 30-day PnL (bonus removed): $31,101
+- Trading PnL after fees: -$48,609
+- Taker rebate tier: Diamond (44%)
+- PnL at 0% rebate tier: -$40,301
+
+## Why this verdict
+
+- Its trading loses money; the profit is Polymarket's taker rebate.
+- Recurring monthly profit is below $50k once a one-time level-up bonus is removed.
+- On that recurring series the last 30 days are not significant and the decline is significant.
+- A replicator without the top tiers would lose money; no public-data rule matches its decisions.
+
+## Corrections after the adversarial review (2026-10-31)
+
+- The rebate tier is Diamond (44%), not Obsidian ('61% of fees' came from the one-off $25,264 level-up bonus on 2026-10-25).
+- The persistence pass depended on that bonus; without it the recent window is not significant and the decline is.
+- 'Taker fees' were listed as if separate from settled PnL; settled PnL is already after fees.
+
+## Evidence files
+
+- `research/wallets/0xb55fa1296e6ec55d0ce53d93b9237389f11764d4/profile.json`
+- `research/wallets/0xb55fa1296e6ec55d0ce53d93b9237389f11764d4/updown_study_btc_5m.json`
+- `research/wallets/0xb55fa1296e6ec55d0ce53d93b9237389f11764d4/updown_maker_study_btc_5m.json`
+- `research/wallets/0xb55fa1296e6ec55d0ce53d93b9237389f11764d4/updown_maker_study_btc_15m.json`
+- `research/stage_a/rebate_dependence.json`
+- `research/stage_a/persistence_a1_survivors.json`
+- `research/review_2026-10-31/challenge-rebate-farmer/SUMMARY_results.json`
+- `research/review_2026-10-31/challenge-rebate-farmer/role_decomposition.json`
