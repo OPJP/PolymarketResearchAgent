@@ -1,0 +1,155 @@
+{
+ "wallet_takes": {
+  "n": 39,
+  "delay_ms_p50": 1041.0,
+  "share_pull": 0.974,
+  "share_wave": 0.949,
+  "n_both": 36,
+  "both_pull_after_p": 35,
+  "slope_up_on_wp": -0.045,
+  "corr_up_wp": -0.123,
+  "corr_perm_p_one_sided": 0.8385,
+  "u_minus_p_ms_p25_p50_p75": [
+   14.0,
+   15.0,
+   17.0
+  ],
+  "u_minus_w_ms_p25_p50_p75": [
+   -90.0,
+   -26.0,
+   3.0
+  ],
+  "w_minus_p_ms_p25_p50_p75": [
+   13.0,
+   40.0,
+   106.5
+  ],
+  "iqr_u_minus_p": 3.0,
+  "iqr_u_minus_w": 93.0,
+  "share_u_0_30ms_after_w": 0.229,
+  "share_u_30_200ms_after_w": 0.057,
+  "share_u_before_w": 0.686,
+  "n_by_class": {
+   "pull_and_wave": 36,
+   "wave_no_pull": 1,
+   "pull_no_wave": 2,
+   "neither": 0
+  },
+  "wallet_hit_rate_by_class": {
+   "pull_and_wave": 0.0,
+   "wave_no_pull": 0.0,
+   "pull_no_wave": 0.0,
+   "neither": null
+  },
+  "wave_size_by_pull": {
+   "pulled_n100_mean": 4.54,
+   "not_pulled_n100_mean": 6.5,
+   "pulled_n300_mean": 11.51,
+   "not_pulled_n300_mean": 8.0,
+   "auc_n100": 0.291,
+   "auc_n300": 0.493
+  }
+ },
+ "pack_only": {
+  "n": 54,
+  "delay_ms_p50": 1073.0,
+  "share_pull": 0.481,
+  "share_wave": 0.778,
+  "n_both": 23,
+  "both_pull_after_p": 14,
+  "slope_up_on_wp": 1.403,
+  "corr_up_wp": 0.812,
+  "corr_perm_p_one_sided": 0.008,
+  "u_minus_p_ms_p25_p50_p75": [
+   29.2,
+   37.0,
+   984.8
+  ],
+  "u_minus_w_ms_p25_p50_p75": [
+   7.5,
+   15.0,
+   62.2
+  ],
+  "w_minus_p_ms_p25_p50_p75": [
+   14.2,
+   17.0,
+   248.2
+  ],
+  "iqr_u_minus_p": 955.5,
+  "iqr_u_minus_w": 54.8,
+  "share_u_0_30ms_after_w": 0.571,
+  "share_u_30_200ms_after_w": 0.071,
+  "share_u_before_w": 0.143,
+  "n_by_class": {
+   "pull_and_wave": 23,
+   "wave_no_pull": 19,
+   "pull_no_wave": 3,
+   "neither": 9
+  },
+  "wallet_hit_rate_by_class": {
+   "pull_and_wave": 0.391,
+   "wave_no_pull": 0.421,
+   "pull_no_wave": 0.333,
+   "neither": 0.222
+  },
+  "wave_size_by_pull": {
+   "pulled_n100_mean": 2.13,
+   "not_pulled_n100_mean": 0.82,
+   "pulled_n300_mean": 3.33,
+   "not_pulled_n300_mean": 2.49,
+   "auc_n100": 0.701,
+   "auc_n300": 0.649
+  }
+ },
+ "retail_control": {
+  "n": 401,
+  "delay_ms_p50": 1193.0,
+  "share_pull": 0.319,
+  "share_wave": 0.591,
+  "n_both": 117,
+  "both_pull_after_p": 93,
+  "slope_up_on_wp": 2.144,
+  "corr_up_wp": 0.371,
+  "corr_perm_p_one_sided": 0.012,
+  "u_minus_p_ms_p25_p50_p75": [
+   354.0,
+   942.0,
+   1628.0
+  ],
+  "u_minus_w_ms_p25_p50_p75": [
+   0.0,
+   124.0,
+   422.0
+  ],
+  "w_minus_p_ms_p25_p50_p75": [
+   101.0,
+   583.0,
+   1098.0
+  ],
+  "iqr_u_minus_p": 1274.0,
+  "iqr_u_minus_w": 422.0,
+  "share_u_0_30ms_after_w": 0.194,
+  "share_u_30_200ms_after_w": 0.172,
+  "share_u_before_w": 0.183,
+  "n_by_class": {
+   "pull_and_wave": 117,
+   "wave_no_pull": 120,
+   "pull_no_wave": 11,
+   "neither": 153
+  },
+  "wallet_hit_rate_by_class": {
+   "pull_and_wave": 0.342,
+   "wave_no_pull": 0.325,
+   "pull_no_wave": 0.273,
+   "neither": 0.268
+  },
+  "wave_size_by_pull": {
+   "pulled_n100_mean": 0.74,
+   "not_pulled_n100_mean": 0.18,
+   "pulled_n300_mean": 1.78,
+   "not_pulled_n300_mean": 0.66,
+   "auc_n100": 0.567,
+   "auc_n300": 0.598
+  }
+ }
+}

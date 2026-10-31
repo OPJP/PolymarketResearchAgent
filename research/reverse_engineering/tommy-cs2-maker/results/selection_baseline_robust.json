@@ -1,0 +1,13 @@
+{
+ "events": [
+  256,
+  128
+ ],
+ "v3_score_validate_auc": 0.9574,
+ "B0_activity_logit": 0.8928,
+ "B1_activity_poly2": 0.8989,
+ "B2_activity_poly2_plus_price": 0.8976,
+ "gain_vs_B0_activity_logit": 0.0646,
+ "gain_vs_B1_activity_poly2": 0.0585,
+ "gain_vs_B2_activity_poly2_plus_price": 0.0598
+}

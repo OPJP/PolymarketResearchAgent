@@ -1,0 +1,90 @@
+{
+ "n": 3623,
+ "by_owner": {
+  "bookmaker": {
+   "n_bursts": 1611,
+   "n_events": 28,
+   "present": 0.16,
+   "ci95": [
+    0.135,
+    0.185
+   ]
+  },
+  "other": {
+   "n_bursts": 2012,
+   "n_events": 49,
+   "present": 0.168,
+   "ci95": [
+    0.143,
+    0.195
+   ]
+  }
+ },
+ "by_platform": {
+  "hltv": {
+   "n_bursts": 29,
+   "n_events": 1,
+   "present": 0.103,
+   "ci95": [
+    0.103,
+    0.103
+   ]
+  },
+  "kick": {
+   "n_bursts": 2405,
+   "n_events": 53,
+   "present": 0.176,
+   "ci95": [
+    0.152,
+    0.202
+   ]
+  },
+  "twitch": {
+   "n_bursts": 1189,
+   "n_events": 23,
+   "present": 0.141,
+   "ci95": [
+    0.117,
+    0.165
+   ]
+  }
+ },
+ "by_league": {
+  "DraculaN": {
+   "mean": 0.161,
+   "size": 1158
+  },
+  "1win Private Club": {
+   "mean": 0.137,
+   "size": 622
+  },
+  "PGL": {
+   "mean": 0.136,
+   "size": 492
+  },
+  "Stake Ranked": {
+   "mean": 0.204,
+   "size": 455
+  },
+  "Stake Pulse": {
+   "mean": 0.165,
+   "size": 419
+  },
+  "Circuit X": {
+   "mean": 0.239,
+   "size": 197
+  },
+  "1win": {
+   "mean": 0.087,
+   "size": 115
+  },
+  "NODWIN Clutch Series": {
+   "mean": 0.204,
+   "size": 98
+  },
+  "CIS LAN Championship": {
+   "mean": 0.269,
+   "size": 67
+  }
+ }
+}

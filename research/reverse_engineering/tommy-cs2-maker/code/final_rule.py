@@ -369,6 +369,141 @@ def _live_diag(u, fills, iv) -> dict | None:
             "match_minus_sign_ms_p10_p50_p90": [int(np.percentile(cal, q)) for q in (10, 50, 90)] if len(cal) >= 3 else None}
 
 
+LIVE_VIEW_MS = 100.0   # frozen (iteration 6): the book is read 100 ms before the order's signing
+PAIR_CAP = 0.99        # frozen (iteration 6): own pair sum cap (own top bid token 0 + own top bid token 1), joint_quote.json
+
+
+def _live_price(u, fills, iv) -> dict | None:
+    """Iteration 6, frozen live price rule for the future-block lots (the historical lots have no books).
+
+    For every maker order of the wallet (calldata; one row per order) whose market's token-0 book was recorded
+    (tommy_cs2_near, else clob_wallets; read through iter_live with ALLOW_SEALED), on the CLOB server clock:
+      others' best bid on the order's token at sign_ms - LIVE_VIEW_MS, with the wallet's own levels removed by
+      fingerprint (whole-cent level changes whose size equals one of its maker order sizes in that market; own amount
+      capped by the level size);  rule J = that price;  rule JC = min(J, PAIR_CAP - its own top bid on the other
+      token) when it has one. Token 1 bids are the SELL side of the token-0 book at 1 - p.
+    Reports the share within one in-play tick (0.01; 0.001 near 0 / 1) for J, JC and the last trade price on the same
+    rows. Own levels are the wallet's own book (declared own state) and are used only to remove its orders."""
+    try:
+        import live
+    except Exception:  # noqa: BLE001
+        return None
+    if not len(fills):
+        return None
+    tok = {}
+    for r in u.itertuples():
+        t = json.loads(r.tokens) if isinstance(r.tokens, str) else r.tokens
+        if t and len(t) == 2:
+            tok[r.cid] = (str(t[0]), str(t[1]))
+    mo = fills[(fills["role"] == "maker") & fills["cid"].isin(tok)].copy()
+    if "salt" in mo:
+        mo = mo.drop_duplicates(["salt", "sign_ms"])
+    mo = mo[(mo["sign_ms"] > 1.7e12) & (mo["sign_ms"] < 1.8e12)]
+    if mo.empty:
+        return None
+    sizes = {c: set(np.round(g["shares"].astype(float).to_numpy(), 2)) | {100.0} for c, g in mo.groupby("cid")}
+    a2c = {v[0]: c for c, v in tok.items()}
+    q = {}
+    for r in mo.itertuples():
+        q.setdefault(tok[r.cid][0], []).append((float(r.sign_ms) - LIVE_VIEW_MS, int(r.oi), round(float(r.price), 3)))
+    for a in q:
+        q[a].sort()
+    lo, hi = min(a for a, b in iv), max(b for a, b in iv) + 5 * 3600
+    rows = []
+    seen_tok = set()
+    for feed in ("tommy_cs2_near", "clob_wallets"):
+        need = {a for a in q if a not in seen_tok}
+        if not need:
+            break
+        st = {}
+        qi = {a: 0 for a in need}
+        last_trade = {}
+        h = int(lo // 3600 * 3600)
+
+        def answer(a, upto):
+            b, o, ob, oo = st[a]
+            qa = q[a]
+            while qi[a] < len(qa) and qa[qi[a]][0] < upto:
+                t, oi, price = qa[qi[a]]
+                qi[a] += 1
+                if oi == 0:
+                    oth = [p for p, z in b.items() if z - ob.get(p, 0.0) > 0.5]
+                    J = max(oth) if oth else None
+                    own_other = [p for p, z in oo.items() if z > 0.5]
+                    other_top = (1 - min(own_other)) if own_other else None
+                else:
+                    oth = [p for p, z in o.items() if z - oo.get(p, 0.0) > 0.5]
+                    J = (1 - min(oth)) if oth else None
+                    own_other = [p for p, z in ob.items() if z > 0.5]
+                    other_top = max(own_other) if own_other else None
+                if J is None:
+                    continue
+                JC = min(J, PAIR_CAP - other_top) if other_top is not None else J
+                lt = last_trade.get(a)
+                lt = None if lt is None else (lt if oi == 0 else 1 - lt)
+                rows.append((round(J, 3), round(JC, 3), lt, price))
+
+        while h < hi:
+            try:
+                for r in live.iter_live(feed, h, min(h + 3600, hi), allow_sealed=ALLOW_SEALED):
+                    a = r.get("a")
+                    if a not in need or "s" not in r:
+                        continue
+                    s = float(r["s"])
+                    if a in st:
+                        answer(a, s)
+                    k = r.get("k")
+                    if k == "x":
+                        try:
+                            last_trade[a] = float(r.get("p"))  # token-0 book: token-0 price
+                        except Exception:  # noqa: BLE001
+                            pass
+                        continue
+                    own_sz = sizes.get(a2c.get(a), {100.0})
+                    if k in ("q", "f"):
+                        b = {float(p): float(z) for p, z in (r.get("b") or [])}
+                        o = {float(p): float(z) for p, z in (r.get("o") or [])}
+                        ob = {p: min(v, b.get(p, 0.0)) for p, v in (st[a][2].items() if a in st else [])}
+                        oo = {p: min(v, o.get(p, 0.0)) for p, v in (st[a][3].items() if a in st else [])}
+                        st[a] = (b, o, ob, oo)
+                        seen_tok.add(a)
+                    elif k == "pc" and a in st:
+                        b, o, ob, oo = st[a]
+                        for sd, p, z in r.get("c") or []:
+                            p, z = float(p), float(z)
+                            book, own = (b, ob) if sd == "BUY" else (o, oo)
+                            d = z - book.get(p, 0.0)
+                            whole = abs(p * 100 - round(p * 100)) < 1e-6
+                            if whole and round(abs(d), 2) in own_sz:
+                                own[p] = own.get(p, 0.0) + d if d > 0 else max(0.0, own.get(p, 0.0) + d)
+                            if z == 0:
+                                book.pop(p, None)
+                            else:
+                                book[p] = z
+                            if p in own:
+                                own[p] = min(own[p], book.get(p, 0.0))
+            except Exception:  # noqa: BLE001  (damaged hour member: keep what was read)
+                pass
+            h += 3600
+        for a in need:
+            if a in st:
+                answer(a, 1e18)
+    if not rows:
+        return {"n_orders": 0}
+    R = pd.DataFrame(rows, columns=["J", "JC", "lt", "p"])
+
+    def wt(pred):
+        ok = pred.notna()
+        x, pp = R.loc[ok, "p"].to_numpy(float), pred[ok].to_numpy(float)
+        tick = np.where((pp >= 0.04) & (pp <= 0.96), 0.01, 0.001)
+        return round(float((np.abs(x - pp) <= tick + 1e-9).mean()), 3) if ok.any() else None
+
+    return {"n_orders": int(len(R)), "price_within_tick_live_join": wt(R["J"]),
+            "price_within_tick_live_join_capped": wt(R["JC"]), "price_within_tick_live_last_trade": wt(R["lt"]),
+            "exact_live_join": round(float((np.abs(R["p"] - R["J"]) <= 0.0001).mean()), 3),
+            "view_ms": LIVE_VIEW_MS, "pair_cap": PAIR_CAP}
+
+
 def _live_trigger(u, fills, iv) -> dict | None:
     """RETRACTED in iteration 3 (kept for the record, not called): v2 taker presence on recorded books indexed by the
     laptop's receive time t, which runs 0.9-1.4 s behind the CLOB server; on the server clock the collapse follows the
@@ -591,15 +726,31 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
         rp = _replay(tapes.get(r.cid), r.gs_ts, pay[r.cid]) if r.event_slug in selected else 0.0
         f = fills[fills["cid"] == r.cid] if len(fills) else fills
         wp = float((f["fill"] * np.where(f["oi"] == 0, pay[r.cid], 1 - pay[r.cid]) - f["usdc"]).sum()) if len(f) else 0.0
-        pm.append((rp, wp))
+        dt = tapes.get(r.cid)
+        npr = int((dt["timestamp"].to_numpy(np.int64) >= r.gs_ts).sum()) if dt is not None and len(dt) else 0
+        pm.append((rp, wp, npr, r.cid in traded))
     if len(pm) >= 5:
-        x = pd.DataFrame(pm, columns=["r", "w"])
+        x = pd.DataFrame(pm, columns=["r", "w", "prints", "traded"])
         out["pnl_corr_pearson"] = round(float(np.corrcoef(x["r"], x["w"])[0, 1]), 3)
         out["pnl_corr_spearman"] = round(float(x["r"].rank().corr(x["w"].rank())), 3)
         out["pnl_markets"] = int(len(x))
+        # iteration 6 (X82): co-occurrence baseline for the outcome item = a "c x in-play public prints" pseudo-PnL
+        # (wallet txs excluded); its correlation with the wallet's PnL does not depend on c. Reported on the same
+        # markets and on the wallet's traded markets, with the rule's partial correlation given log prints.
+        out["pnl_baseline_prints_pearson"] = round(float(np.corrcoef(x["prints"], x["w"])[0, 1]), 3)
+        out["pnl_baseline_prints_spearman"] = round(float(x["prints"].rank().corr(x["w"].rank())), 3)
+        xt = x[x["traded"]]
+        if len(xt) >= 5:
+            out["pnl_baseline_prints_traded_pearson"] = round(float(np.corrcoef(xt["prints"], xt["w"])[0, 1]), 3)
+            out["pnl_baseline_prints_traded_spearman"] = round(float(xt["prints"].rank().corr(xt["w"].rank())), 3)
+        z = np.c_[np.ones(len(x)), np.log1p(x["prints"].to_numpy(float))]
+        ry = x["w"].to_numpy(float) - z @ np.linalg.lstsq(z, x["w"].to_numpy(float), rcond=None)[0]
+        rx = x["r"].to_numpy(float) - z @ np.linalg.lstsq(z, x["r"].to_numpy(float), rcond=None)[0]
+        out["pnl_corr_partial_given_prints"] = round(float(np.corrcoef(rx, ry)[0, 1]), 3) if rx.std() > 0 else None
     out["side_accuracy"] = None  # two-sided maker at market level; the taker side comes from an unobserved feed
     out["live_trigger"] = None  # v2 book trigger retracted (receive-clock artefact); see live_taker_diagnostic
     out["live_taker_diagnostic_server_clock"] = _live_diag(u, fills, iv)
+    out["live_price"] = _live_price(u, fills, iv)
     # one wallet: per-wallet metrics equal the pooled ones
     core = {k: v for k, v in out.items() if k not in ("rule_id", "constants")}
     out["per_wallet"] = {WALLET: core}

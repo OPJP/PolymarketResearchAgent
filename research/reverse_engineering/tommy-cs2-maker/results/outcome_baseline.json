@@ -1,0 +1,110 @@
+{
+ "BUILD": {
+  "markets": 113,
+  "pnl_sum": 5106.0,
+  "prints": {
+   "pearson": 0.413,
+   "spearman": 0.181,
+   "ci95_pearson": [
+    0.106,
+    0.646
+   ],
+   "ci95_spearman": [
+    -0.001,
+    0.353
+   ]
+  },
+  "usd": {
+   "pearson": 0.372,
+   "spearman": 0.131,
+   "partial_pearson_given_prints": 0.264,
+   "partial_spearman_given_prints": -0.076
+  },
+  "tv": {
+   "pearson": 0.403,
+   "spearman": 0.21,
+   "partial_pearson_given_prints": 0.316,
+   "partial_spearman_given_prints": 0.11
+  },
+  "disp": {
+   "pearson": -0.088,
+   "spearman": 0.004,
+   "partial_pearson_given_prints": -0.058,
+   "partial_spearman_given_prints": 0.008
+  },
+  "margin": {
+   "pearson": 0.852,
+   "spearman": 0.661,
+   "partial_pearson_given_prints": 0.84,
+   "partial_spearman_given_prints": 0.65
+  },
+  "maker_leg": {
+   "pearson": 0.393,
+   "spearman": 0.504,
+   "partial_pearson_given_prints": 0.39,
+   "partial_spearman_given_prints": 0.513,
+   "sum": -70.0
+  },
+  "taker_leg": {
+   "pearson": 0.154,
+   "spearman": -0.053,
+   "partial_pearson_given_prints": 0.138,
+   "partial_spearman_given_prints": -0.083,
+   "sum": 5175.0
+  }
+ },
+ "VALIDATE": {
+  "markets": 107,
+  "pnl_sum": 8020.0,
+  "prints": {
+   "pearson": 0.513,
+   "spearman": 0.369,
+   "ci95_pearson": [
+    0.32,
+    0.67
+   ],
+   "ci95_spearman": [
+    0.194,
+    0.525
+   ]
+  },
+  "usd": {
+   "pearson": 0.386,
+   "spearman": 0.333,
+   "partial_pearson_given_prints": 0.11,
+   "partial_spearman_given_prints": -0.001
+  },
+  "tv": {
+   "pearson": 0.484,
+   "spearman": 0.296,
+   "partial_pearson_given_prints": 0.284,
+   "partial_spearman_given_prints": -0.016
+  },
+  "disp": {
+   "pearson": 0.01,
+   "spearman": -0.008,
+   "partial_pearson_given_prints": -0.024,
+   "partial_spearman_given_prints": -0.041
+  },
+  "margin": {
+   "pearson": 0.824,
+   "spearman": 0.751,
+   "partial_pearson_given_prints": 0.785,
+   "partial_spearman_given_prints": 0.706
+  },
+  "maker_leg": {
+   "pearson": 0.38,
+   "spearman": 0.336,
+   "partial_pearson_given_prints": 0.39,
+   "partial_spearman_given_prints": 0.339,
+   "sum": 4082.0
+  },
+  "taker_leg": {
+   "pearson": 0.095,
+   "spearman": 0.13,
+   "partial_pearson_given_prints": 0.04,
+   "partial_spearman_given_prints": 0.108,
+   "sum": 3938.0
+  }
+ }
+}

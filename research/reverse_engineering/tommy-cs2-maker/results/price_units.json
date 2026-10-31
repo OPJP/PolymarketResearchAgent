@@ -1,0 +1,28 @@
+{
+ "unit_b_every_own_add": {
+  "n": 7137,
+  "join_within_1c": 0.38,
+  "ladder_within_1c": 0.396,
+  "join_exact": 0.182,
+  "ladder_exact": 0.206
+ },
+ "unit_c_top_changes": {
+  "n": 2360,
+  "join_within_1c": 0.628,
+  "join_exact": 0.38,
+  "dist_c": {
+   "-6": 0.031,
+   "-5": 0.031,
+   "-4": 0.061,
+   "-3": 0.049,
+   "-2": 0.059,
+   "-1": 0.113,
+   "0": 0.38,
+   "1": 0.135,
+   "2": 0.056,
+   "3": 0.026,
+   "4": 0.058
+  }
+ },
+ "unit_a_filled_orders": "live_price_branches.json: J 0.419, own top 0.453 (172 orders)"
+}

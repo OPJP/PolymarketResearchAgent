@@ -1,0 +1,64 @@
+{
+ "books": 54,
+ "markets_meta": 55,
+ "by_traded": {
+  "False": {
+   "spike": 7327,
+   "ctrl_lo": 9164,
+   "ctrl_hi": 10104
+  },
+  "True": {
+   "spike": 1078,
+   "ctrl_lo": 838,
+   "ctrl_hi": 713
+  }
+ },
+ "spike_by_size_top": {
+  "untraded:10.0": 4321,
+  "traded:10.0": 673,
+  "untraded:100.0": 656,
+  "untraded:20.0": 432,
+  "untraded:15.0": 362,
+  "untraded:5.0": 357,
+  "untraded:30.0": 324,
+  "traded:100.0": 221,
+  "traded:70.0": 45,
+  "traded:99.99": 36,
+  "untraded:23.25": 33,
+  "untraded:88.52": 32,
+  "traded:5.0": 31,
+  "untraded:50.0": 29,
+  "untraded:99.98": 29
+ },
+ "ctrl_same_sizes": {
+  "untraded:10.0": 11135,
+  "traded:10.0": 1103,
+  "untraded:100.0": 392,
+  "untraded:20.0": 902,
+  "untraded:15.0": 3411,
+  "untraded:5.0": 798,
+  "untraded:30.0": 55,
+  "traded:100.0": 105,
+  "traded:70.0": 0,
+  "traded:99.99": 0,
+  "untraded:23.25": 2,
+  "untraded:88.52": 0,
+  "traded:5.0": 87,
+  "untraded:50.0": 60,
+  "untraded:99.98": 2
+ },
+ "untraded_spike_by_market": {
+  "cs2-jjh-bmb-2026-10-31": 829,
+  "cs2-hachae-wc1-2026-10-31": 762,
+  "cs2-fokus-baks-2026-10-31-game2": 691,
+  "cs2-fokus-baks-2026-10-31": 528,
+  "cs2-omega1-priv-2026-10-31": 463,
+  "cs2-lowcor1-tdp-2026-10-31": 454,
+  "cs2-hachae-wc1-2026-10-31-game1": 341,
+  "cs2-jjh-bmb-2026-10-31-game2": 336,
+  "cs2-skr2-for10-2026-10-31": 326,
+  "cs2-jjh-bmb-2026-10-31-game1": 315,
+  "cs2-ep-dnk2-2026-10-31": 298,
+  "cs2-lowcor1-tdp-2026-10-31-game2": 251
+ }
+}

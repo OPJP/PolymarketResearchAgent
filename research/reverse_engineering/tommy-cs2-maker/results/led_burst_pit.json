@@ -1,0 +1,25 @@
+{
+ "reversal_only": {
+  "validate_auc": 0.649,
+  "coef": {
+   "rev": 0.808,
+   "same": -1.368
+  }
+ },
+ "pre_burst_public": {
+  "validate_auc": 0.698,
+  "coef": {
+   "rev": 1.218,
+   "same": -0.81,
+   "lgap": 0.188,
+   "gtime": 0.318,
+   "is_match": 0.061,
+   "plev": -0.468,
+   "pdev": -1.564
+  }
+ },
+ "n": [
+  1767,
+  1856
+ ]
+}

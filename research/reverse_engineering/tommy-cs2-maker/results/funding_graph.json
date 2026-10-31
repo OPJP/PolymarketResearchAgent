@@ -1,0 +1,90 @@
+{
+ "blocks": [
+  95371932,
+  96005476
+ ],
+ "addresses": {
+  "wallet": {
+   "external_counterparties": 1,
+   "polymarket_contract_flows": {
+    "in_usd": 1010130.0,
+    "out_usd": 1007910.0
+   },
+   "top": {
+    "0x4cd00e387622c35bddb9b4c962c136462338bc31": {
+     "in_n": 0,
+     "in_usd": 0.0,
+     "out_n": 2,
+     "out_usd": 2220.0
+    }
+   }
+  },
+  "cosub_51dbdd2b": {
+   "external_counterparties": 1,
+   "polymarket_contract_flows": {
+    "in_usd": 172958.0,
+    "out_usd": 175062.0
+   },
+   "top": {
+    "0x3a3bd7bb9528e159577f7c2e685cc81a765002e2": {
+     "in_n": 73,
+     "in_usd": 2104.2,
+     "out_n": 0,
+     "out_usd": 0.0
+    }
+   }
+  },
+  "wallet_owner": {
+   "external_counterparties": 5,
+   "polymarket_contract_flows": {
+    "in_usd": 0.0,
+    "out_usd": 0.0
+   },
+   "top": {
+    "0xf70da97812cb96acdf810712aa562db8dfa3dbef": {
+     "in_n": 1,
+     "in_usd": 2000.0,
+     "out_n": 0,
+     "out_usd": 0.0
+    },
+    "0x116342d6fb15dd1925a3ffb9baf5fbea17923829": {
+     "in_n": 0,
+     "in_usd": 0.0,
+     "out_n": 1,
+     "out_usd": 2000.0
+    },
+    "0xc590175e458b83680867afd273527ff58f74c02b": {
+     "in_n": 0,
+     "in_usd": 0.0,
+     "out_n": 1,
+     "out_usd": 1.0
+    },
+    "0x1163e5dd11102f4ea4569f6e9e6a18f6ec4b3829": {
+     "in_n": 0,
+     "in_usd": 0.0,
+     "out_n": 1,
+     "out_usd": 0.0
+    },
+    "0x11634c427877e1e42588311c30fcf2e9df353829": {
+     "in_n": 0,
+     "in_usd": 0.0,
+     "out_n": 1,
+     "out_usd": 0.0
+    }
+   }
+  },
+  "cosub_signer": {
+   "external_counterparties": 0,
+   "polymarket_contract_flows": {
+    "in_usd": 0.0,
+    "out_usd": 0.0
+   },
+   "top": {}
+  }
+ },
+ "overlap_wallet_cosub": [],
+ "direct_links": {
+  "wallet_side_has_cosub": false,
+  "cosub_side_has_wallet": false
+ }
+}
