@@ -1,0 +1,247 @@
+{
+ "markets": {
+  "dev16_22": 974,
+  "h1": 492,
+  "dev_T0": 122,
+  "h2": 459,
+  "sealed_T0": 117
+ },
+ "params": {
+  "dev16_22": {
+   "secondsDelay": {
+    "1": 974
+   },
+   "clearBookOnStart": {
+    "True": 974
+   },
+   "feeSchedule": {
+    "{\"exponent\": 1, \"rate\": 0.05, \"rebateRate\": 0.15, \"takerOnly\": true}": 974
+   },
+   "feeType": {
+    "sports_fees_v3": 974
+   },
+   "feesEnabled": {
+    "True": 974
+   },
+   "makerBaseFee": {
+    "1000": 974
+   },
+   "takerBaseFee": {
+    "1000": 974
+   },
+   "makerRebatesFeeShareBps": {
+    "None": 974
+   },
+   "rewardsMinSize": {
+    "50": 974
+   },
+   "rewardsMaxSpread": {
+    "4.5": 974
+   },
+   "orderMinSize": {
+    "5": 974
+   },
+   "negRisk": {
+    "False": 974
+   },
+   "rfqEnabled": {
+    "False": 974
+   },
+   "holdingRewardsEnabled": {
+    "False": 974
+   },
+   "enableOrderBook": {
+    "True": 974
+   }
+  },
+  "h1": {
+   "secondsDelay": {
+    "1": 492
+   },
+   "clearBookOnStart": {
+    "True": 492
+   },
+   "feeSchedule": {
+    "{\"exponent\": 1, \"rate\": 0.05, \"rebateRate\": 0.15, \"takerOnly\": true}": 492
+   },
+   "feeType": {
+    "sports_fees_v3": 492
+   },
+   "feesEnabled": {
+    "True": 492
+   },
+   "makerBaseFee": {
+    "1000": 492
+   },
+   "takerBaseFee": {
+    "1000": 492
+   },
+   "makerRebatesFeeShareBps": {
+    "None": 492
+   },
+   "rewardsMinSize": {
+    "50": 492
+   },
+   "rewardsMaxSpread": {
+    "4.5": 492
+   },
+   "orderMinSize": {
+    "5": 492
+   },
+   "negRisk": {
+    "False": 492
+   },
+   "rfqEnabled": {
+    "False": 492
+   },
+   "holdingRewardsEnabled": {
+    "False": 492
+   },
+   "enableOrderBook": {
+    "True": 492
+   }
+  },
+  "dev_T0": {
+   "secondsDelay": {
+    "1": 122
+   },
+   "clearBookOnStart": {
+    "True": 122
+   },
+   "feeSchedule": {
+    "{\"exponent\": 1, \"rate\": 0.05, \"rebateRate\": 0.15, \"takerOnly\": true}": 122
+   },
+   "feeType": {
+    "sports_fees_v3": 122
+   },
+   "feesEnabled": {
+    "True": 122
+   },
+   "makerBaseFee": {
+    "1000": 122
+   },
+   "takerBaseFee": {
+    "1000": 122
+   },
+   "makerRebatesFeeShareBps": {
+    "None": 122
+   },
+   "rewardsMinSize": {
+    "50": 122
+   },
+   "rewardsMaxSpread": {
+    "4.5": 122
+   },
+   "orderMinSize": {
+    "5": 122
+   },
+   "negRisk": {
+    "False": 122
+   },
+   "rfqEnabled": {
+    "False": 122
+   },
+   "holdingRewardsEnabled": {
+    "False": 122
+   },
+   "enableOrderBook": {
+    "True": 122
+   }
+  },
+  "h2": {
+   "secondsDelay": {
+    "1": 459
+   },
+   "clearBookOnStart": {
+    "True": 459
+   },
+   "feeSchedule": {
+    "{\"exponent\": 1, \"rate\": 0.05, \"rebateRate\": 0.15, \"takerOnly\": true}": 459
+   },
+   "feeType": {
+    "sports_fees_v3": 459
+   },
+   "feesEnabled": {
+    "True": 459
+   },
+   "makerBaseFee": {
+    "1000": 459
+   },
+   "takerBaseFee": {
+    "1000": 459
+   },
+   "makerRebatesFeeShareBps": {
+    "None": 459
+   },
+   "rewardsMinSize": {
+    "50": 459
+   },
+   "rewardsMaxSpread": {
+    "4.5": 459
+   },
+   "orderMinSize": {
+    "5": 459
+   },
+   "negRisk": {
+    "False": 459
+   },
+   "rfqEnabled": {
+    "False": 459
+   },
+   "holdingRewardsEnabled": {
+    "False": 459
+   },
+   "enableOrderBook": {
+    "True": 459
+   }
+  },
+  "sealed_T0": {
+   "secondsDelay": {
+    "1": 117
+   },
+   "clearBookOnStart": {
+    "True": 117
+   },
+   "feeSchedule": {
+    "{\"exponent\": 1, \"rate\": 0.05, \"rebateRate\": 0.15, \"takerOnly\": true}": 117
+   },
+   "feeType": {
+    "sports_fees_v3": 117
+   },
+   "feesEnabled": {
+    "True": 117
+   },
+   "makerBaseFee": {
+    "1000": 117
+   },
+   "takerBaseFee": {
+    "1000": 117
+   },
+   "makerRebatesFeeShareBps": {
+    "None": 117
+   },
+   "rewardsMinSize": {
+    "50": 117
+   },
+   "rewardsMaxSpread": {
+    "4.5": 117
+   },
+   "orderMinSize": {
+    "5": 117
+   },
+   "negRisk": {
+    "False": 117
+   },
+   "rfqEnabled": {
+    "False": 117
+   },
+   "holdingRewardsEnabled": {
+    "False": 117
+   },
+   "enableOrderBook": {
+    "True": 117
+   }
+  }
+ },
+ "note": "acceptingOrders (a state / closed-type field) was fetched by mistake in the first run and removed from this file; it is not a listing parameter and is not used."
+}

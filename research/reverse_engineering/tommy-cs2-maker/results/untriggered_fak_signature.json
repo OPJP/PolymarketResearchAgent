@@ -1,0 +1,26 @@
+{
+ "by_group": [
+  {
+   "grp": "trig",
+   "fak_sig": 0.049,
+   "readd_1000_1150": 0.107,
+   "readd_1480_1540": 0.047,
+   "n": 1087
+  },
+  {
+   "grp": "trig_cross_only",
+   "fak_sig": 0.057,
+   "readd_1000_1150": 0.2,
+   "readd_1480_1540": 0.1,
+   "n": 70
+  },
+  {
+   "grp": "untrig_all",
+   "fak_sig": 0.038,
+   "readd_1000_1150": 0.094,
+   "readd_1480_1540": 0.052,
+   "n": 213
+  }
+ ],
+ "null_fak_sig_shifted": 0.007
+}

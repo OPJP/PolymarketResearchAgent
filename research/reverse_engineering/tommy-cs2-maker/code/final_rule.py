@@ -371,6 +371,10 @@ def _live_diag(u, fills, iv) -> dict | None:
 
 LIVE_VIEW_MS = 100.0   # frozen (iteration 6): the book is read 100 ms before the order's signing
 PAIR_CAP = 0.99        # frozen (iteration 6): own pair sum cap (own top bid token 0 + own top bid token 1), joint_quote.json
+# iteration 7 re-freeze (before any 11-01 06-12 record exists): the size fingerprint behind "own levels removed" is
+# 76.5% precise on calldata-linked adds (single 100-share adds 51%); with a validated label the join scores 0.419, the
+# plain touch (full-book best bid) 0.471 on the same 172 BUILD-live orders. Primary live price = the touch.
+LIVE_PRICE_PRIMARY = "touch"
 
 
 def _live_price(u, fills, iv) -> dict | None:
@@ -436,12 +440,16 @@ def _live_price(u, fills, iv) -> dict | None:
                     J = (1 - min(oth)) if oth else None
                     own_other = [p for p, z in ob.items() if z > 0.5]
                     other_top = max(own_other) if own_other else None
-                if J is None:
+                # iteration 7 (re-frozen before any VALIDATE-live record exists): the touch = full-book best bid on the
+                # order's token (own levels included, no attribution needed); BUILD-live 0.471 vs join 0.424
+                TB = (max(b) if b else None) if oi == 0 else ((1 - min(o)) if o else None)
+                if J is None and TB is None:
                     continue
-                JC = min(J, PAIR_CAP - other_top) if other_top is not None else J
+                JC = None if J is None else (min(J, PAIR_CAP - other_top) if other_top is not None else J)
                 lt = last_trade.get(a)
                 lt = None if lt is None else (lt if oi == 0 else 1 - lt)
-                rows.append((round(J, 3), round(JC, 3), lt, price))
+                rows.append((None if J is None else round(J, 3), None if JC is None else round(JC, 3), lt, price,
+                             None if TB is None else round(TB, 3)))
 
         while h < hi:
             try:
@@ -490,7 +498,9 @@ def _live_price(u, fills, iv) -> dict | None:
                 answer(a, 1e18)
     if not rows:
         return {"n_orders": 0}
-    R = pd.DataFrame(rows, columns=["J", "JC", "lt", "p"])
+    R = pd.DataFrame(rows, columns=["J", "JC", "lt", "p", "TB"])
+    for c_ in ("J", "JC", "lt", "TB"):
+        R[c_] = pd.to_numeric(R[c_], errors="coerce")
 
     def wt(pred):
         ok = pred.notna()
@@ -500,8 +510,11 @@ def _live_price(u, fills, iv) -> dict | None:
 
     return {"n_orders": int(len(R)), "price_within_tick_live_join": wt(R["J"]),
             "price_within_tick_live_join_capped": wt(R["JC"]), "price_within_tick_live_last_trade": wt(R["lt"]),
-            "exact_live_join": round(float((np.abs(R["p"] - R["J"]) <= 0.0001).mean()), 3),
-            "view_ms": LIVE_VIEW_MS, "pair_cap": PAIR_CAP}
+            "price_within_tick_live_touch": wt(R["TB"]),
+            "exact_live_join": round(float((np.abs(R["p"] - R["J"].astype(float)) <= 0.0001)[R["J"].notna()].mean()), 3),
+            "n_orders_join": int(R["J"].notna().sum()),
+            "exact_live_touch": round(float((np.abs(R["p"] - R["TB"].astype(float)) <= 0.0001)[R["TB"].notna()].mean()), 3) if R["TB"].notna().any() else None,
+            "primary": LIVE_PRICE_PRIMARY, "view_ms": LIVE_VIEW_MS, "pair_cap": PAIR_CAP}
 
 
 def _live_trigger(u, fills, iv) -> dict | None:

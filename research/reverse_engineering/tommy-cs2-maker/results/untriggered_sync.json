@@ -1,0 +1,29 @@
+{
+ "trig": {
+  "n": 1087,
+  "sync_other_book_20ms": 0.037,
+  "null": 0.0013,
+  "p_greater": 0.0,
+  "mk10_sync_c": 0.081,
+  "mk10_nonsync_c": -0.036,
+  "n_sync": 40
+ },
+ "trig_cross_only": {
+  "n": 70,
+  "sync_other_book_20ms": 0.157,
+  "null": 0.0021,
+  "p_greater": 0.0,
+  "mk10_sync_c": -0.682,
+  "mk10_nonsync_c": -0.059,
+  "n_sync": 11
+ },
+ "untrig_all": {
+  "n": 213,
+  "sync_other_book_20ms": 0.047,
+  "null": 0.0016,
+  "p_greater": 0.0,
+  "mk10_sync_c": -0.8,
+  "mk10_nonsync_c": -0.591,
+  "n_sync": 10
+ }
+}

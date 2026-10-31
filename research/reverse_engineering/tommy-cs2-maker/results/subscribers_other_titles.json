@@ -1,0 +1,99 @@
+{
+ "val": {
+  "0x8a80528d_vs_0xddb6e624": {
+   "pairs_within_300ms": 159,
+   "null_shift30s": 1,
+   "median_offset_ms": 1.0,
+   "iqr_ms": 105.0
+  },
+  "0x8a80528d_vs_0xf1ee4842": {
+   "pairs_within_300ms": 13,
+   "null_shift30s": 2,
+   "median_offset_ms": 41.0,
+   "iqr_ms": 171.0
+  },
+  "0xddb6e624_vs_0xf1ee4842": {
+   "pairs_within_300ms": 16,
+   "null_shift30s": 2,
+   "median_offset_ms": -55.0,
+   "iqr_ms": 152.25
+  },
+  "takes": {
+   "0x8a80528d": 325,
+   "0xddb6e624": 510,
+   "0xf1ee4842": 253
+  }
+ },
+ "lol": {
+  "0x8a80528d_vs_0xddb6e624": {
+   "pairs_within_300ms": 51,
+   "null_shift30s": 0,
+   "median_offset_ms": 0.0,
+   "iqr_ms": 11.5
+  },
+  "0x8a80528d_vs_0xf1ee4842": {
+   "pairs_within_300ms": 7,
+   "null_shift30s": 0,
+   "median_offset_ms": -50.0,
+   "iqr_ms": 74.5
+  },
+  "0xddb6e624_vs_0xf1ee4842": {
+   "pairs_within_300ms": 16,
+   "null_shift30s": 3,
+   "median_offset_ms": -52.5,
+   "iqr_ms": 21.5
+  },
+  "takes": {
+   "0x8a80528d": 116,
+   "0xddb6e624": 432,
+   "0xf1ee4842": 339
+  }
+ },
+ "dota2": {
+  "0x8a80528d_vs_0xddb6e624": {
+   "pairs_within_300ms": 79,
+   "null_shift30s": 0,
+   "median_offset_ms": 0.0,
+   "iqr_ms": 10.0
+  },
+  "0x8a80528d_vs_0xf1ee4842": {
+   "pairs_within_300ms": 9,
+   "null_shift30s": 0,
+   "median_offset_ms": -69.0,
+   "iqr_ms": 27.0
+  },
+  "0xddb6e624_vs_0xf1ee4842": {
+   "pairs_within_300ms": 20,
+   "null_shift30s": 1,
+   "median_offset_ms": -56.0,
+   "iqr_ms": 104.75
+  },
+  "takes": {
+   "0x8a80528d": 253,
+   "0xddb6e624": 444,
+   "0xf1ee4842": 854
+  }
+ },
+ "wallet_dota_takes_vs_followers": {
+  "wallet_dota_takes": 67,
+  "wallet_dota_tokens": 13,
+  "0x8a80528d": {
+   "shared_tokens": 8,
+   "pairs_within_400ms": 0,
+   "median_offset_ms": null,
+   "null_shift30s": 0
+  },
+  "0xddb6e624": {
+   "shared_tokens": 7,
+   "pairs_within_400ms": 0,
+   "median_offset_ms": null,
+   "null_shift30s": 0
+  },
+  "0xf1ee4842": {
+   "shared_tokens": 6,
+   "pairs_within_400ms": 0,
+   "median_offset_ms": null,
+   "null_shift30s": 0
+  }
+ }
+}

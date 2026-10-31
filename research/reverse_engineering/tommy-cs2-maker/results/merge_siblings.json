@@ -1,0 +1,211 @@
+{
+ "wallet_passes": 739,
+ "wallets": {
+  "0xe8e1b119": {
+   "merges": 5091,
+   "passes": 1440,
+   "law_share_abs_r_le10": 0.192,
+   "phase_lock_share": 0.084,
+   "min_merge": 0.11
+  },
+  "0x758dac51": {
+   "merges": 102318,
+   "passes": 1162,
+   "law_share_abs_r_le10": 0.003,
+   "phase_lock_share": 0.097,
+   "min_merge": 0.0
+  },
+  "0x893575c7": {
+   "merges": 10352,
+   "passes": 1439,
+   "law_share_abs_r_le10": 0.019,
+   "phase_lock_share": 0.087,
+   "min_merge": 0.11
+  },
+  "0xed446954": {
+   "merges": 859,
+   "passes": 798,
+   "law_share_abs_r_le10": 0.034,
+   "phase_lock_share": 0.117,
+   "min_merge": 0.1
+  },
+  "0x51dbdd2b": {
+   "merges": 804,
+   "passes": 616,
+   "law_share_abs_r_le10": 0.047,
+   "phase_lock_share": 0.101,
+   "min_merge": 10.0
+  },
+  "0xaeb90af4": {
+   "merges": 7901,
+   "passes": 1370,
+   "law_share_abs_r_le10": 0.01,
+   "phase_lock_share": 0.086,
+   "min_merge": 10.0
+  },
+  "0x68915897": {
+   "merges": 57333,
+   "passes": 9710,
+   "law_share_abs_r_le10": 0.0,
+   "phase_lock_share": 0.102,
+   "min_merge": 0.0
+  },
+  "0x2005d16a": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0x904ed7c7": {
+   "merges": 2806,
+   "passes": 1074,
+   "law_share_abs_r_le10": 0.314,
+   "phase_lock_share": 0.092,
+   "min_merge": 0.11
+  },
+  "0x5d40576b": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0x945a4925": {
+   "merges": 1291,
+   "passes": 9,
+   "law_share_abs_r_le10": 0.0,
+   "phase_lock_share": 0.2,
+   "min_merge": 0.0
+  },
+  "0xf1f2b3c6": {
+   "merges": 9908,
+   "passes": 2007,
+   "law_share_abs_r_le10": 0.919,
+   "phase_lock_share": 0.089,
+   "min_merge": 20.0
+  },
+  "0xd9e0aaca": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0xe40ecff6": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0xc4fe8174": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0xddc38b82": {
+   "merges": 1,
+   "passes": 1
+  },
+  "0x299f1e05": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0xfe787d2d": {
+   "merges": 2036,
+   "passes": 1719,
+   "law_share_abs_r_le10": 0.279,
+   "phase_lock_share": 0.096,
+   "min_merge": 6.76
+  },
+  "0x52661b8e": {
+   "merges": 78,
+   "passes": 74,
+   "law_share_abs_r_le10": 0.959,
+   "phase_lock_share": 0.091,
+   "min_merge": 40.0
+  },
+  "0x45f82472": {
+   "merges": 1183,
+   "passes": 817,
+   "law_share_abs_r_le10": 0.018,
+   "phase_lock_share": 0.099,
+   "min_merge": 1.02
+  },
+  "0x5cb5352d": {
+   "merges": 3883,
+   "passes": 3380,
+   "law_share_abs_r_le10": 0.022,
+   "phase_lock_share": 0.106,
+   "min_merge": 1.0
+  },
+  "0x46093384": {
+   "merges": 86,
+   "passes": 77,
+   "law_share_abs_r_le10": 0.013,
+   "phase_lock_share": 0.078,
+   "min_merge": 1.76
+  },
+  "0x6d8c0f6b": {
+   "merges": 4051,
+   "passes": 3486,
+   "law_share_abs_r_le10": 0.02,
+   "phase_lock_share": 0.104,
+   "min_merge": 1.0
+  },
+  "0x2529c68d": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0x72aaaaf9": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0xfe8a28be": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0x1eea2ca2": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0xa24e51e9": {
+   "merges": 9846,
+   "passes": 5460,
+   "law_share_abs_r_le10": 0.021,
+   "phase_lock_share": 0.098,
+   "min_merge": 0.11
+  },
+  "0x56a936fd": {
+   "merges": 3213,
+   "passes": 2875,
+   "law_share_abs_r_le10": 0.03,
+   "phase_lock_share": 0.102,
+   "min_merge": 1.0
+  },
+  "0x1aa4881a": {
+   "merges": 3392,
+   "passes": 3028,
+   "law_share_abs_r_le10": 0.024,
+   "phase_lock_share": 0.1,
+   "min_merge": 1.0
+  },
+  "0x4ebc2722": {
+   "merges": 749,
+   "passes": 687,
+   "law_share_abs_r_le10": 0.031,
+   "phase_lock_share": 0.126,
+   "min_merge": 5.0
+  },
+  "0xf1ee4842": {
+   "merges": 584,
+   "passes": 240,
+   "law_share_abs_r_le10": 0.004,
+   "phase_lock_share": 0.086,
+   "min_merge": 1.55
+  },
+  "0x8a80528d": {
+   "merges": 0,
+   "passes": 0
+  },
+  "0xddb6e624": {
+   "merges": 54,
+   "passes": 54,
+   "law_share_abs_r_le10": 0.264,
+   "phase_lock_share": 0.074,
+   "min_merge": 100.0
+  },
+  "0x93078b5d": {
+   "merges": 7,
+   "passes": 4
+  }
+ }
+}

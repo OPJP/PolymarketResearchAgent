@@ -1,0 +1,132 @@
+{
+ "wallet_takes": {
+  "n": 39,
+  "delay_ms_p50": 1041.0,
+  "share_pull": 0.872,
+  "share_wave": 0.974,
+  "n_both": 33,
+  "both_pull_after_p": 32,
+  "slope_up_on_wp": 0.001,
+  "corr_up_wp": 0.01,
+  "corr_perm_p_one_sided": 0.3445,
+  "u_minus_p_ms_p25_p50_p75": [
+   14.0,
+   14.5,
+   16.2
+  ],
+  "u_minus_w_ms_p25_p50_p75": [
+   -92.5,
+   -25.5,
+   -0.5
+  ],
+  "w_minus_p_ms_p25_p50_p75": [
+   13.8,
+   44.5,
+   109.5
+  ],
+  "iqr_u_minus_p": 2.2,
+  "iqr_u_minus_w": 92.0,
+  "share_u_0_30ms_after_w": 0.25,
+  "share_u_30_200ms_after_w": 0.0,
+  "share_u_before_w": 0.75,
+  "n_by_class": {
+   "pull_and_wave": 33,
+   "wave_no_pull": 5,
+   "pull_no_wave": 1,
+   "neither": 0
+  },
+  "wallet_hit_rate_by_class": {
+   "pull_and_wave": 0.0,
+   "wave_no_pull": 0.0,
+   "pull_no_wave": 0.0,
+   "neither": null
+  },
+  "wave_size_by_pull": {
+   "pulled_n100_mean": 5.0,
+   "not_pulled_n100_mean": 4.33,
+   "pulled_n300_mean": 12.85,
+   "not_pulled_n300_mean": 6.33,
+   "auc_n100": 0.422,
+   "auc_n300": 0.568
+  }
+ },
+ "pack_only": {
+  "n": 54,
+  "delay_ms_p50": 1073.0,
+  "share_pull": 0.167,
+  "share_wave": 0.796,
+  "n_both": 7,
+  "both_pull_after_p": 4,
+  "n_by_class": {
+   "pull_and_wave": 7,
+   "wave_no_pull": 36,
+   "pull_no_wave": 2,
+   "neither": 9
+  },
+  "wallet_hit_rate_by_class": {
+   "pull_and_wave": 0.714,
+   "wave_no_pull": 0.361,
+   "pull_no_wave": 0.0,
+   "neither": 0.222
+  },
+  "wave_size_by_pull": {
+   "pulled_n100_mean": 0.5,
+   "not_pulled_n100_mean": 1.52,
+   "pulled_n300_mean": 0.5,
+   "not_pulled_n300_mean": 3.26,
+   "auc_n100": 0.365,
+   "auc_n300": 0.345
+  }
+ },
+ "retail_control": {
+  "n": 401,
+  "delay_ms_p50": 1193.0,
+  "share_pull": 0.1,
+  "share_wave": 0.599,
+  "n_both": 36,
+  "both_pull_after_p": 27,
+  "slope_up_on_wp": 6.464,
+  "corr_up_wp": 0.465,
+  "corr_perm_p_one_sided": 0.018,
+  "u_minus_p_ms_p25_p50_p75": [
+   584.5,
+   1239.0,
+   2435.5
+  ],
+  "u_minus_w_ms_p25_p50_p75": [
+   0.0,
+   147.0,
+   1345.0
+  ],
+  "w_minus_p_ms_p25_p50_p75": [
+   211.0,
+   876.0,
+   1121.0
+  ],
+  "iqr_u_minus_p": 1851.0,
+  "iqr_u_minus_w": 1345.0,
+  "share_u_0_30ms_after_w": 0.148,
+  "share_u_30_200ms_after_w": 0.222,
+  "share_u_before_w": 0.222,
+  "n_by_class": {
+   "pull_and_wave": 36,
+   "wave_no_pull": 204,
+   "pull_no_wave": 4,
+   "neither": 157
+  },
+  "wallet_hit_rate_by_class": {
+   "pull_and_wave": 0.528,
+   "wave_no_pull": 0.294,
+   "pull_no_wave": 0.5,
+   "neither": 0.268
+  },
+  "wave_size_by_pull": {
+   "pulled_n100_mean": 0.83,
+   "not_pulled_n100_mean": 0.31,
+   "pulled_n300_mean": 1.4,
+   "not_pulled_n300_mean": 0.95,
+   "auc_n100": 0.525,
+   "auc_n300": 0.524
+  }
+ }
+}

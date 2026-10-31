@@ -1,0 +1,44 @@
+{
+ "by_class": [
+  {
+   "cls": "absent_without_p4e",
+   "none": 0.674,
+   "other_team": 0.087,
+   "same_team": 0.239,
+   "n": 1403,
+   "move10_median_c": 6.0
+  },
+  {
+   "cls": "cosigned",
+   "none": 0.55,
+   "other_team": 0.311,
+   "same_team": 0.139,
+   "n": 180,
+   "move10_median_c": 6.95
+  },
+  {
+   "cls": "other",
+   "none": 0.515,
+   "other_team": 0.258,
+   "same_team": 0.227,
+   "n": 163,
+   "move10_median_c": 6.18
+  },
+  {
+   "cls": "p4e_alone",
+   "none": 0.577,
+   "other_team": 0.167,
+   "same_team": 0.255,
+   "n": 1625,
+   "move10_median_c": 6.11
+  },
+  {
+   "cls": "wallet_without_p4e",
+   "none": 0.537,
+   "other_team": 0.255,
+   "same_team": 0.207,
+   "n": 415,
+   "move10_median_c": 6.0
+  }
+ ]
+}

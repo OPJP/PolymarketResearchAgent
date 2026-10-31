@@ -1,8 +1,8 @@
 {
  "brief": "find-the-strategy (2026-10-31, calendar lots)",
  "stage": "reverse_engineering",
- "iterations": 6,
- "minutes": 435,
+ "iterations": 7,
+ "minutes": 501,
  "budget_minutes": 1200,
  "best_validate_score": 0.8721,
  "progress": 0.5953125,
@@ -13,6 +13,6 @@
  "wall_audits": [],
  "wall_refusals": 0,
  "claim_refusals": 0,
- "panels": 5,
+ "panels": 6,
  "note": null
 }

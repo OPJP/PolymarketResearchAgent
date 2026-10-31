@@ -1,0 +1,71 @@
+{
+ "pulls_kept": 1284,
+ "trig_bk300": {
+  "n": 1001,
+  "mk2_mean_c": -0.042,
+  "mk10_mean_c": 0.068,
+  "threat_share": 0.065,
+  "threat_by_cls": {
+   "other": 55,
+   "pack": 10
+  },
+  "lead_ms_p25_p50_p75": [
+   336.0,
+   1232.0,
+   2348.0
+  ],
+  "threat_null_mean": 0.036,
+  "threat_p_greater": 0.0
+ },
+ "untrig_bk300": {
+  "n": 283,
+  "mk2_mean_c": -0.189,
+  "mk10_mean_c": -0.486,
+  "threat_share": 0.067,
+  "threat_by_cls": {
+   "other": 12,
+   "pack": 7
+  },
+  "lead_ms_p25_p50_p75": [
+   352.0,
+   831.0,
+   1503.0
+  ],
+  "threat_null_mean": 0.04,
+  "threat_p_greater": 0.014
+ },
+ "untrig_ev300": {
+  "n": 213,
+  "mk2_mean_c": -0.261,
+  "mk10_mean_c": -0.631,
+  "threat_share": 0.075,
+  "threat_by_cls": {
+   "other": 10,
+   "pack": 6
+  },
+  "lead_ms_p25_p50_p75": [
+   439.0,
+   970.0,
+   1763.0
+  ],
+  "threat_null_mean": 0.04,
+  "threat_p_greater": 0.008
+ },
+ "untrig_ev1000": {
+  "n": 73,
+  "mk2_mean_c": -0.24,
+  "mk10_mean_c": -0.61,
+  "threat_share": 0.068,
+  "threat_by_cls": {
+   "pack": 3,
+   "other": 2
+  },
+  "lead_ms_p25_p50_p75": [
+   353.0,
+   831.0,
+   2163.0
+  ],
+  "threat_null_mean": 0.032,
+  "threat_p_greater": 0.088
+ }
+}

@@ -42,10 +42,10 @@ The premise is that every screened wallet runs a real strategy, so not finding i
 | [elmcap2-carry](reverse_engineering/elmcap2-carry/NOTES.md) | in progress | 1 (48 min) | 0.896 | 0 | 0 (0) | - | - | - | - | - |
 | [jld-inplay-taker](reverse_engineering/jld-inplay-taker/NOTES.md) | not started | 0 (0 min) | - | 0 | 0 (0) | - | - | - | - | - |
 | [rebate-farmer](reverse_engineering/rebate-farmer/NOTES.md) | not started | 0 (0 min) | - | 0 | 0 (0) | - | - | - | - | - |
-| [directional-maker](reverse_engineering/directional-maker/NOTES.md) | in progress | 9 (609 min) | 0.772 | 1 | 0 (0) | no | partial | fail | fail | fail |
+| [directional-maker](reverse_engineering/directional-maker/NOTES.md) | in progress | 10 (709 min) | 0.772 | 1 | 0 (0) | no | partial | fail | fail | fail |
 | [dbdd-inplay-taker](reverse_engineering/dbdd-inplay-taker/NOTES.md) | in progress | 1 (50 min) | 0.731 | 0 | 0 (0) | - | - | - | - | - |
 | [rn1-inplay-maker](reverse_engineering/rn1-inplay-maker/NOTES.md) | not started | 0 (0 min) | - | 0 | 0 (0) | - | - | - | - | - |
-| [tommy-cs2-maker](reverse_engineering/tommy-cs2-maker/NOTES.md) | in progress | 7 (536 min) | 0.872 | 0 | 0 (0) | - | - | - | - | - |
+| [tommy-cs2-maker](reverse_engineering/tommy-cs2-maker/NOTES.md) | in progress | 7 (502 min) | 0.872 | 0 | 0 (0) | - | - | - | - | - |
 
 ## Criteria across deep-dived wallets
 

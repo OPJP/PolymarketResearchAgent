@@ -1,5 +1,5 @@
 {
- "generated_at": 1793489856,
+ "generated_at": 1793490458,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -193,14 +193,14 @@
    ],
    "status": "in_progress",
    "wall_reason": null,
-   "iterations": 9,
-   "minutes": 609,
-   "hypotheses": 117,
+   "iterations": 10,
+   "minutes": 709,
+   "hypotheses": 125,
    "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state, clean tape (every print in a cluster transaction removed). From iteration 4 VALIDATE = 2026-10-27..30.",
    "best_validate_score": 0.7723,
    "best_rule": "R6 = R5 (BTC 5m) + R3-class BTC 15m presence + per-fill Chainlink posture side (match clock) + R4 price",
    "has_final_rule": true,
-   "strategy_statement": "[engine: VALIDATE-only] One engine runs three wallet processes (per-wallet sequential salt counters, reset by the daily ~01:00 UTC restart within ~20 s of each other; real ms timestamps until ~06-21, 0 since), each signing ~11-18 orders/s. [selection: hypothesis] It quotes nearly every crypto Up/Down window of the modules it runs: BTC 5m and 15m on weekdays, BTC 4h, hourly and daily, ETH, SOL, XRP and others around the clock; BTC 5m/15m are switched off for hours, mostly from Friday-Sunday US-Eastern evenings to the next morning (calendar gate window AUC 0.68); the 10-31 16:53 switch-off was made inside the running processes (counters continuous, signing rate unchanged) and two engines were restarted ad hoc 12-13 min later. R6's universe (BTC 5m + 15m) holds >= 80% of trades and dollars in only 34% of 6-h blocks; only the all-crypto universe does in every block type. [timing: VALIDATE-only] It re-prices its ladders on each Chainlink report within ~0-150 ms of the public RTDS relay's publish, plus re-posts 50-400 ms after Binance moves; filled orders are fresh 500-share posts at the touch matched ~0.7 s later; it stops ~30 s before the end. [side: VALIDATE-only] It buys the outcome whose Chainlink edge over the Polymarket mid is positive (digital of the report stamped T - 1.432 s, Gamma strike, 1.4 x 300-s vol): 0.79 per fill on the 10-31 match clock (0.85 where the reference and the market disagree on the favourite: an information part that needs no volatility; 0.76 where they agree and the choice is a volatility comparison), 0.78 per taker event against an own-history baseline of 0.86, 0.75 on the families nobody examined (36 fills), 0.60-0.65 on the historical block clock. A slow (~1-h) sigma fits the live fills better and the 15m quote level too (0.775 vs 0.724), but fails both pre-registered historical replications (5m and 15m VALIDATE, where 88% of fills are complement mints landing on the underdog) and does not help the 5m quote level, so it is not adopted. [price: exam-verified (block clock) / VALIDATE-only (match clock)] Fill price = last clean print minus a tick (0.83-0.86 match clock, 0.70 block clock); each ladder hangs off its own market's mid with a ~0.2 Chainlink skew, and its depth follows the digital's risk only partly (R^2 0.47). [size: VALIDATE-only] 500 x 2^k shares in the weekday session or high vol, 62/250 otherwise. [exit: VALIDATE-only] Holds to resolution; small complement merges. [economics: VALIDATE-only] Profit is concentrated in cheap underdog fills when the reference and the market agree (BUILD: 73% of PnL on 13% of dollars) and in fills on the reference's side when they disagree; it is a liquidity provider skewed by the settlement stream, paid by takers who buy favourites through complement mints.",
+   "strategy_statement": "[engine: VALIDATE-only] One engine family (timestamp-0 orders, per-wallet sequential salt counters reset by the daily ~01:00 UTC restart; 25-32 orders/s per wallet in July, 11-18 in October) runs three separately treasured wallets (weekly Monday sweeps). [selection: hypothesis] It quotes nearly every crypto Up/Down window of the modules it runs; BTC 5m/15m are switched off for hours, mostly Fri-Sun US-Eastern evenings, sometimes ad hoc (10-31 16:53); only the all-crypto universe meets the scope bar in every 6-h block. [timing: VALIDATE-only] It re-prices on each Chainlink report within ~0-150 ms of the RTDS relay's publish and after Binance moves; filled orders are fresh posts at the touch; its filled rungs agree with the report at the match, not at the taker's signing. [side: VALIDATE-only for the 500 ladder, hypothesis off-session] Its US-session 500-share rungs buy the outcome whose Chainlink edge over the Polymarket mid is positive (live 10-31 0.79 per fill, 0.965 where Chainlink and the market disagree; historical VALIDATE with a calibrated match clock 0.74 per fill and 0.93 in that region); its off-session 62/250 rungs (00-12 UTC) follow no public side rule (0.48-0.53), as an unskewed two-sided ladder would. Imbalance pairing bids (exactly |Up - Down| own shares) always sit on the under-held outcome. [price: exam-verified (block clock) / VALIDATE-only (match clock)] Fill price = last clean print minus a tick; pairing bids are priced at the market, not off its own cost. [size: VALIDATE-only] 500 x 2^k schedule rungs (100/12 only at 30-120 s left) plus imbalance-sized pairing bids. [exit: VALIDATE-only] Holds to resolution, completes pairs, merges ~65 s before the end. [economics: VALIDATE-only] BTC 5m earns 2-4% on volume; rebates and rewards are about a fifth of net PnL; the split between locked pairs and the directional residual changes sign between STUDY and VALIDATE, and the residual carries most of the window-to-window variance.",
    "exam_rounds": 1,
    "wall_audits": 0,
    "walls_rejected": 0,
@@ -370,17 +370,17 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 7,
-   "minutes": 536,
-   "hypotheses": 81,
+   "minutes": 502,
+   "hypotheses": 82,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.8721,
    "best_rule": "tommy-v3-grid-league-upstream",
    "has_final_rule": true,
-   "strategy_statement": "CS2 (and some Dota 2) in-play bot; from 10-16 a buy-only two-sided maker plus an informed taker, before that a round-trip taker in GRID tier-1/2 events that traded late. [VALIDATE-only] Selection: whole events (match + all maps) of non-GRID tier-3/4 leagues, never an event with a GRID series id (0/122), favouring popular events; event rule AUC 0.954 vs activity 0.892; the maker process runs in daily sessions (about 08:10-09:00 to 17:00-23:30 UTC) and skips events outside them. [VALIDATE-only] Maker: whole-cent BUY ladders (100 shares, or an event-wide size ramping from ~50 to 100) near the touch on both outcome tokens, re-quoted one side at a time with the pair sum capped near 0.99, never sells, merges pairs every 300 s (97% paired, pair cost 0.978). [hypothesis, BUILD-live] Protection: at its own takes it pulls the complement at +11-19 ms and re-posts it ~1.04 s later; between takes it pulls the bids of the team about to lose value on private events (untriggered pulls, -0.6c in 10 s, ~2.6x its take rate). [hypothesis] Taker: FAK BUYs on messages of a shared CS2 push feed that at least five other wallets receive at fixed lags (P4e 50 ms earlier); it takes the plant / turn kind (the first informed move against the previous burst) and skips the round-win kind the others take, at the stale ask plus a premium; ~16-20% of the informed bursts in its markets. [VALIDATE-only] Economics: the per-market PnL is the locked margin of pairs formed across the two legs (0.82 / 0.75); the maker leg alone reaches 0.38 / 0.34 and an activity-only baseline 0.51 / 0.37, so the outcome item needs the private taker leg.",
+   "strategy_statement": "CS2 (and some Dota 2) in-play bot; from 10-16 a buy-only two-sided maker plus an informed taker, before that a round-trip taker in GRID tier-1/2 events that traded late. [VALIDATE-only] Selection: whole events (match + all maps) of non-GRID tier-3/4 leagues, never an event with a GRID series id (0/122), favouring popular events; event rule AUC 0.954 vs activity 0.892; the maker process runs in daily sessions (about 08:10-09:00 to 17:00-23:30 UTC) and skips events outside them. [VALIDATE-only] Maker: whole-cent BUY ladders (100 shares, or an event-wide size ramping from ~50 to 100) near the touch on both outcome tokens, re-quoted one side at a time with the pair sum capped near 0.99, never sells, merges pairs every 300 s (97% paired, pair cost 0.978). [hypothesis, BUILD-live] Protection: at its own takes it pulls the complement at +11-19 ms and re-posts it ~1.04 s later; between takes it pulls the bids of the team about to lose value on private events (untriggered pulls, -0.6c in 10 s, ~2.6x its take rate). [hypothesis] Taker: FAK BUYs on in-round messages of a push feed that at least five other wallets also receive at fixed lags (P4e 50 ms earlier; a quarter of its takes are co-signed by them, the rest it takes alone); it takes the plant / turn kind (the first informed move against the previous burst) and avoids the round-win kind that the feed also delivers to the others, at the stale ask plus a premium; ~16-20% of the informed bursts in its markets. [VALIDATE-only] Economics: the per-market PnL is the locked margin of pairs formed across the two legs (0.82 / 0.75); the maker leg alone reaches 0.38 / 0.34 and an activity-only baseline 0.51 / 0.37, so the outcome item needs the private taker leg.",
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 5
+   "panels": 6
   }
  ],
  "wallets": [

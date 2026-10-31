@@ -1,4 +1,4 @@
-# tommy-cs2-maker: frozen rule v3 (`tommy-v3-grid-league-upstream`; unchanged in iterations 4-6, 2026-10-31)
+# tommy-cs2-maker: frozen rule v3 (`tommy-v3-grid-league-upstream`; selection unchanged in iterations 4-7, live price re-frozen in iteration 7, 2026-10-31)
 
 Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
 
@@ -12,12 +12,55 @@ Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
 - Nothing here is exam-verified. The rule does not meet the high-accuracy target: price and outcome fail, and presence
   stays below its baseline (selection carries the presence-or-selection condition).
 
+## What iteration 7 established (selection unchanged; the live price rule re-frozen to the touch)
+
+- **The taker input is (at least partly) a shared push feed.** 26% of its take clusters are co-signed at fixed lags by
+  at least one of six other wallets (null 0.3%); the other 74% it takes alone. Its takes are co-signed on the same token by P4e 0x4ebc2722
+  (-50 ms, 203 takes) and 0x2005d16a (-20 ms, 49). Their offsets have event components of 7-9 ms and no platform effect
+  (Kick - Twitch +2 ms [-7, +12]): one message fanned out, not separate stream readers (pre-registered verdict). Four
+  slower wallets (0xf1ee4842, 0x8a80528d, 0xddb6e624 at ~+200 ms after P4e, P93 at ~+400 ms) act at the same fixed lags
+  on P4e's round-win events and on the wallet's plant / turn events (each on 1-3% of P4e's takes). **The feed delivers
+  the round-win kind to them; the wallet's takes avoid it** (its own bursts load on plants, P4e-alone ones on round
+  wins), and it does not decline by edge: once its own followers are removed, the edge P4e left does not
+  predict its presence (p 0.17), while the event kind does (reversal +0.61, same-team follow-on -0.52). None of these
+  co-receivers co-signs its 67 Dota 2 takes (the three slower ones trade 6-8 of its 13 Dota tokens, never within
+  400 ms of it). P4e is a pure taker in its markets (0 maker rows), so the co-signers cannot be
+  reading a P4e book trace: the delivery is a push at fixed lags. At the pack's (round-win) events its ladder pulls
+  barely more than in a control (17% vs 10%), so the selectivity sits at its input (handler or subscription), not at
+  the take decision. The same subscriber order shows up in Dota 2 and LoL (0xf1ee4842 50-69 ms before the
+  0x8a80528d / 0xddb6e624 pair), so the source is multi-title. The fan-out already existed on 10-09..10-15 with the same
+  lags; the wallet joined it at its 10-16 switch.
+- **The private input also reaches the maker leg between takes** (BUILD-live). 15.5% of its calldata-validated pulls
+  have no public trigger anywhere in the event within 300 ms, no timer and no take. The others' mid of the pulled
+  token then falls 0.22 / 0.60 / 0.65c at 2 / 10 / 30 s (p < 0.0005 against 2,000 within-book shifts). Triggered pulls show
+  nothing. These pulls are not failed takes (FAK-return re-post 3.8%), and they come about 2.6 times as often as its
+  takes. Pre-registered for VALIDATE-live.
+- **The live "own level" label was 76% precise.** Calldata ground truth (873 linked adds) shows that single 100-share adds
+  are the wallet's only half the time; multi-level bursts (0.93) and odd sizes (0.98) are reliable.
+  - The iteration-6 wave-follower reading (it pulls 15 ms after the public cancel wave at the pack's events) is
+    withdrawn: with the validated label it pulls at 17% of those events, against 10% in a busy-phase control.
+  - The 1.5-s re-post is its own on odd sizes (11 vs 0.5 per control window).
+  - The live join price barely moves (0.424 -> 0.419). The plain touch scores 0.471, so `live_price` now reports the touch
+    as its primary prediction.
+- **The 300-s merge loop is the maker process's clock.** The law is 300.22 s + 7.28 s per merge (residual SD 1.33 s).
+  - It is absent in the taker regime; the first merge was 10-16 13:45 UTC.
+  - The process runs as daily sessions, starting 08:10-09:04 UTC and ending 16:40-23:30 UTC.
+  - Two other buy-only makers follow the same law without phase lock: the loop is a shared design, not a mark.
+- **Exam lots carry the same market parameters** (listing projection): 1-s delay, clear-book, the sports_fees_v3 fee
+  with a 0.15 rebate rate, and the same reward parameters.
+- **Selection forward check.** On the 10-31 12-18 development block, v3 caught 1 of 4 traded events: three were in
+  FiReSPORTS, a league it never saw. A switching rule to a league-free tier variant is pre-registered for the forward
+  development blocks.
+- **Price units.** Hole-filling a 4-level target ladder scores 0.48-0.50 on adds and 0.35 on filled orders. The retail
+  flow cannot place either source on the broadcast chain. No public bot (poly-maker family) matches the client.
+
 ## What iteration 6 established (no rule change; `evaluate()` now also reports the outcome baseline)
 
 Iteration 6 changed the unit to the informed EVENT (every 3c+ informed burst: it takes, it follows the public wave, or
 it is hit) and tested the mechanism of its reactions:
 
-- **It does not see the pack's events; it follows their public cancel wave.** At its own takes its pull comes 14-17 ms
+- **It does not see the pack's events; it follows their public cancel wave** (the wave-follower part was WITHDRAWN in
+  iteration 7: an artefact of the size label; see above). At its own takes its pull comes 14-17 ms
   after its signing and precedes every public cancel in 69% (event-locked). At the informed pack's takes without a
   wallet take (54 events, BUILD-live), it pulls in 48%, a median 15 ms AFTER the first public cancel (slope 1.40 on the
   wave's onset, corr 0.81, permutation p 0.008), and before it in only 14%. Its maker orders fill in the pack's
@@ -102,14 +145,14 @@ order-level fill engine, a census of informed bursts) and found:
 | --- | --- | --- | --- |
 | Selection | Unit = CS2 event (match plus all map-winner markets). `s_lg` = 0 if `eventMetadata.gridSeriesId` is set (GRID official data), else the league's traded rate among fitted non-GRID events, shrunk (k = 3) toward the tier rate. Score = logistic(log1p pre-game taker prints, USD and distinct wallets in [gs-1h, gs) over the event's markets; `s_lg`). Trade the event iff score >= thr (20th percentile of the fitted positives' scores). | VALIDATE-only | VALIDATE AUC 0.954 vs pre-game activity 0.892, gain +0.062 [0.019, 0.115], p 0.002 (event bootstrap). Recall 0.722 at lift 3.30. GRID events traded: 0 of 122. Per day +0.034 / +0.094. Part of the skips are downtime; the rule cannot see it. |
 | Timing (maker) | Quotes from game start to the end of each market, re-signing continuously in busy phases. At its own taker signal it cancels its complement ladder within 11-19 ms and re-quotes it about 1.04 s later, when its FAK returns. | VALIDATE-only (re-quote); live dev block (pull) | Own pull after 90-95% of live takes. Re-post hazard on the complement: 236x in [1.00, 1.14) s after its take. Its re-quote bursts co-occur symmetrically with other makers' changes (50 ms before 67%, after 69%, null 19%); no period. |
-| Timing (taker) | At in-round events of a private feed, typically the first informed move against the previous burst (plant / retake type). Not decoded: on those events it signs before every public Polymarket trace, but it acts on only about 16-20% of the informed 3c+ bursts in its markets. | hypothesis | Match / map books flat until it signs. Round-market takers precede it in 0.9% (controls 0.2-0.7%). Census: 80% of informed bursts wallet-absent; present 29-35% after a burst on the other team, 6-8% after one on the same team; point-in-time AUC 0.698 for which bursts it leads (pre-burst public features). Absent bursts follow round wins, its own follow bomb plants beyond wins (p 0.03). No delay-queue leak. |
+| Timing (taker) | At messages of a shared CS2 push feed (>= 6 subscribers at fixed lags; P4e signs 50 ms before it), of the plant / turn kind only: typically the first informed move against the previous burst. Not decoded: on those events it signs before every public Polymarket trace, it acts on only about 16-20% of the informed 3c+ bursts in its markets, and it skips the round-win kind the other subscribers take, without an edge-based decline. | hypothesis (fan-out structure: development data, iteration 7) | Match / map books flat until it signs. Round-market takers precede it in 0.9% (controls 0.2-0.7%). Census: 80% of informed bursts wallet-absent; present 29-35% after a burst on the other team, 6-8% after one on the same team; point-in-time AUC 0.698 for which bursts it leads (pre-burst public features). Absent bursts follow round wins, its own follow bomb plants beyond wins (p 0.03). No delay-queue leak. |
 | Side (maker) | BUY both outcome tokens. | VALIDATE-only | 97.4% of bought shares end in pairs. |
 | Side (taker) | The team that just gained in-round on plant-type events. | hypothesis | The team gains +2.6-2.9c in 10 s. T side only 54% (p 0.13). |
 | Price (maker) | BUY at the other makers' best bid (join), whole cents (the in-play tick), in ladders 1c apart; one token per re-quote burst, the two tops summing to at most ~0.99. After its own take: complement top = K - L (K 0.94). | VALIDATE-only (historical anchor); live development block (join rule) | Last-print anchor within one tick: 0.305 (`price_within_tick`, VALIDATE). Live, own levels removed: re-quote top within one tick of others' best 67.4% (exact 37%). Revealed best bid from the matched-order record: 0.25-0.28 against last print 0.22-0.25 on the same rows. K - L: 57% in the first 1.04 s after a take (n 247), 6-14% later. Probe presence AUC 0.67. |
-| Price (maker, live, frozen) | `live_price`: others' best bid at sign - 100 ms, own levels removed, min with 0.99 - own top on the other token (LIVE_VIEW_MS 100, PAIR_CAP 0.99). | hypothesis (BUILD-live only) | 10-31 block, 172 filled maker orders: 0.424 within one tick (exact 0.198) vs last trade 0.187. To be scored on VALIDATE-live (11-01 06-12 on) and by the future-block examiner. |
+| Price (maker, live, frozen) | `live_price` (re-frozen in iteration 7, before any VALIDATE-live record): primary = the touch, i.e. the full-book best bid on the order's token at sign - 100 ms (LIVE_PRICE_PRIMARY "touch"). Secondary = the join: others' best bid with the size-labelled own levels removed, min with 0.99 - own top on the other token (LIVE_VIEW_MS 100, PAIR_CAP 0.99). | hypothesis (BUILD-live only) | 10-31 block, 172 filled maker orders: touch 0.471, join 0.424 (0.419 with the calldata-validated label), last trade 0.187. The whole 12-18 block through `evaluate()` (328 orders, early books from the shared recorder): touch 0.280, join 0.256. To be scored on VALIDATE-live (11-01 06-12 on) and by the future-block examiner. |
 | Price (taker) | FAK at the stale ask + a premium that grows with the expected repricing (0-5c), kept below the post-event price; match-leg premium = map-leg premium x series sensitivity. | VALIDATE-only (premium-move relation); hypothesis as a rule | Controlled OLS: +0.87c of 10-s move per 1c of premium (p 7e-11, VALIDATE). Caps (1000 / 2000 shares) carry little of it. |
 | Size | Maker: 100 shares in CS2. In 36% of events an event-wide size starts at 50-96 (median 54) and steps up monotonically to 100. 10 shares in Dota 2. Taker: odd sizes about 0.3x of the pre-event depth up to its limit; 1000 / 2000 caps early and fading. | VALIDATE-only (maker 100 and the ramp's shape); hypothesis (ramp clock, taker) | CS2 100 shares: 92.1% (BUILD), 88.3% (VALIDATE). No global (a, b) schedule (0-4% of non-100 within one share). Start size vs pre-game USD: Spearman 0.55. |
-| Exit | Never sells. Pulls the complement at its takes and re-pairs it through bids posted 1.04 s later, which slower informed takers fill. Merges complete pairs and holds the residual. At the informed events it does not detect it follows the first public cancel by ~15 ms in about half of them (live, BUILD-live only) and is hit about as often either way. | VALIDATE-only (pairs); hypothesis (wave follower) | Pair cost 0.978, reproduced by the validated engine on its own orders (0.975). In bursts it misses, its complement is hit in 19-22% (-1.5 to -3.2c markouts). A public ladder 4c below the stale touch reaches 0.978 but loses $13.4k per split on its residual. |
+| Exit | Never sells. Pulls the complement at its takes and re-pairs it through bids posted 1.04 s later, which slower informed takers fill. Between takes it pulls the bids of the team about to lose value on private events (untriggered pulls: -0.6c others'-mid markout in 10 s). Merges complete pairs in a 300-s loop (minimum 100 shares) and holds the residual. (The iteration-6 public-wave follower is withdrawn: an artefact of the size label.) | VALIDATE-only (pairs, merge law); hypothesis (untriggered pulls, BUILD-live) | Pair cost 0.978, reproduced by the validated engine on its own orders (0.975). In bursts it misses, its complement is hit in 19-22% (-1.5 to -3.2c markouts). A public ladder 4c below the stale touch reaches 0.978 but loses $13.4k per split on its residual. |
 
 ## Target metrics on VALIDATE (`state.json` `target_metrics`)
 
@@ -142,8 +185,9 @@ order-level fill engine, a census of informed bursts) and found:
 2. **A faster input from 10-16** (VALIDATE-only). Before the switch its trades came after 30-40% of the move. After it,
    its takes come before any move.
 3. **Taker leg** (hypothesis on the input, live evidence on the timing).
-   - A private feed reaches it first on a subset of in-round events (plant-type), before every public Polymarket
-     trace, and reaches a few fast makers within about 10 ms.
+   - A shared CS2 push feed delivers in-round events to at least six wallets at fixed lags (P4e first, the wallet
+     50 ms later, the slowest ~400 ms later), before every public Polymarket trace. The wallet acts on its plant / turn
+     messages only; the other subscribers also take the round-win messages.
    - It buys the team that gained with FAK orders at the stale ask plus a premium that scales with the expected
      repricing.
    - The 1-s in-play delay holds the order while the fast makers cancel. It then matches against the makers who did
@@ -163,15 +207,17 @@ order-level fill engine, a census of informed bursts) and found:
 ## Can a normal user deploy it now
 
 - **Needs:**
-  - a real-time in-round feed for tier-3 non-GRID CS2 matches, as fast as the fastest makers (not GRID, not
-    Polymarket's sports socket, not bo3.gg);
+  - a subscription to the real-time in-round push feed that the informed wallets share for non-GRID CS2 matches (at
+    least six subscribers; not GRID, not Polymarket's sports socket, not bo3.gg; its vendor is not identified), with a
+    position in its fan-out at least as early as the wallet's;
   - a CLOB client that signs FAKs and cancels within milliseconds;
   - a live-book two-sided ladder with merging;
   - about $10k of capital.
 - **Conditions still hold** in the 10-31 development block: it is active in non-GRID events and still signs first.
 - **A replicator with public data and a home connection** sees the event only through the cancel wave or later.
-  - The wallet itself reacts to the pack's public cancel waves within ~15 ms (so it is co-located with the CLOB), and
-    even that barely protects its ladder; a home connection 100-300 ms behind would do worse.
+  - The wallet's own ladder is hit at about a third of the pack's events and barely pulls there (17% vs 10% in a
+    control, iteration 7); a home connection 100-300 ms behind the cancel wave would be hit more often. Its maker adds
+    land about 24 ms after signing and its take-time pulls 11-19 ms after its signing, so it is co-located with the CLOB.
   - Following the pack's prints lost out of sample.
   - A tape-based ladder 4c below the touch locks the same pair cost, but its unpaired residual makes it lose about 6%
     of the volume it buys.
@@ -180,7 +226,9 @@ order-level fill engine, a census of informed bursts) and found:
 ## Not explained yet
 
 - **The taker input.** It sits upstream of every public Polymarket feed on the events it acts on and covers only about
-  a fifth of the informed bursts (plant-type, not round wins).
+  a fifth of the informed bursts (plant-type, not round wins). Iteration 7: it is a shared push feed (>= 6 subscribers at
+  fixed lags); the wallet's filter on it (kind, not edge) and the feed's origin are not public. The same input reaches
+  its maker leg (untriggered pulls) about 2.6 times as often as it takes.
   - Whether it comes before the broadcast (server log / scout) or from the broadcast (CV) needs an event clock.
   - Chat clock (X38): pre-registered, recording from 11-01 06:00 UTC.
   - Twitch VOD chat (X53), bo3 demo ticks (X37) and HLTV page checks (X64) need the user.

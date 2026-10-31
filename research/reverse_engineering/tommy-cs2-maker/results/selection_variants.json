@@ -1,0 +1,13 @@
+{
+ "note": "iteration 7 (2026-10-31 ~23:20 UTC), pre-registered before any 11-01 record exists; fitted on BUILD (game start 10-16..10-21), scored without refit on forward development blocks from 11-01 06:00 (X98)",
+ "v3": "code/final_rule_v2_constants.json (exam set), unchanged",
+ "v3_tier": {
+  "features": ["tier_rate (0 for GRID events; non-GRID tier 3 0.875, tier 4 0.421, tier 5 0.031, unknown 0.05)", "log1p(pre-game taker prints in [gs-1h, gs))", "log1p(pre-game taker USD)", "log1p(pre-game distinct wallets)"],
+  "coef": [6.316, -2.355, -0.350, 3.863],
+  "intercept": -4.775,
+  "threshold": 0.3724,
+  "validate_16_22": {"auc": 0.926, "recall": 0.556, "lift": 3.23}
+ },
+ "tier_rule": {"rule": "non-GRID and league tier <= 4", "validate_16_22": {"auc_tier_rate_score": 0.895, "recall": 0.861, "lift": 2.45}, "forward_10_31_12_18": {"traded_selected": "3 of 4", "lift": 3.75}},
+ "switching_rule": "if v3's pooled forward recall < 0.5 and a variant reaches recall >= 0.5 at lift >= 3 with an AUC gain >= 0.05 over the activity baseline, the variant replaces v3 in final_rule.py before the exam"
+}

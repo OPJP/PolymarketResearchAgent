@@ -1,0 +1,209 @@
+{
+ "books": 7,
+ "adds": 78077,
+ "filled_orders": 1037,
+ "linked": 873,
+ "linked_by_owner": {
+  "other": 717,
+  "wallet": 156
+ },
+ "orders_by_owner": {
+  "wallet": 177,
+  "other": 860
+ },
+ "latency_ms_p10_p50_p90": {
+  "other": [
+   17.6,
+   30.0,
+   233.8
+  ],
+  "wallet": [
+   19.0,
+   23.5,
+   100.5
+  ]
+ },
+ "fingerprints_all_books": {
+  "F_any100": {
+   "n_label": 183,
+   "precision": 0.738,
+   "recall": 0.865
+  },
+  "F_mkt": {
+   "n_label": 204,
+   "precision": 0.765,
+   "recall": 1.0
+  },
+  "F_mkt_burst": {
+   "n_label": 43,
+   "precision": 0.93,
+   "recall": 0.256
+  },
+  "F_mkt_single": {
+   "n_label": 161,
+   "precision": 0.72,
+   "recall": 0.744
+  },
+  "F_mkt_100_single": {
+   "n_label": 89,
+   "precision": 0.506,
+   "recall": 0.288
+  },
+  "F_odd_size": {
+   "n_label": 102,
+   "precision": 0.98,
+   "recall": 0.641
+  },
+  "F_mkt_repost": {
+   "n_label": 7,
+   "precision": 0.857,
+   "recall": 0.038
+  }
+ },
+ "fingerprints_by_book": {
+  "cs2-shin-isg-2026-10-31": {
+   "F_any100": {
+    "n_label": 29,
+    "precision": 0.586,
+    "recall": 0.486
+   },
+   "F_mkt": {
+    "n_label": 47,
+    "precision": 0.745,
+    "recall": 1.0
+   },
+   "F_mkt_burst": {
+    "n_label": 7,
+    "precision": 1.0,
+    "recall": 0.2
+   },
+   "F_mkt_single": {
+    "n_label": 40,
+    "precision": 0.7,
+    "recall": 0.8
+   }
+  },
+  "cs2-wraith-ntr-2026-10-31": {
+   "F_any100": {
+    "n_label": 3,
+    "precision": 0.0,
+    "recall": null
+   },
+   "F_mkt": {
+    "n_label": 3,
+    "precision": 0.0,
+    "recall": null
+   },
+   "F_mkt_burst": {
+    "n_label": 1,
+    "precision": 0.0,
+    "recall": null
+   },
+   "F_mkt_single": {
+    "n_label": 2,
+    "precision": 0.0,
+    "recall": null
+   }
+  },
+  "cs2-bhe-bar2-2026-10-31": {
+   "F_any100": {
+    "n_label": 10,
+    "precision": 0.9,
+    "recall": 0.818
+   },
+   "F_mkt": {
+    "n_label": 12,
+    "precision": 0.917,
+    "recall": 1.0
+   },
+   "F_mkt_burst": {
+    "n_label": 5,
+    "precision": 1.0,
+    "recall": 0.455
+   },
+   "F_mkt_single": {
+    "n_label": 7,
+    "precision": 0.857,
+    "recall": 0.545
+   }
+  },
+  "cs2-shin-isg-2026-10-31-game1": {
+   "F_any100": {
+    "n_label": 79,
+    "precision": 0.759,
+    "recall": 0.984
+   },
+   "F_mkt": {
+    "n_label": 80,
+    "precision": 0.762,
+    "recall": 1.0
+   },
+   "F_mkt_burst": {
+    "n_label": 19,
+    "precision": 0.947,
+    "recall": 0.295
+   },
+   "F_mkt_single": {
+    "n_label": 61,
+    "precision": 0.705,
+    "recall": 0.705
+   }
+  },
+  "cs2-gls1-pcy-2026-10-31-game2": {
+   "F_any100": {
+    "n_label": 0,
+    "precision": null,
+    "recall": null
+   },
+   "F_mkt": {
+    "n_label": 0,
+    "precision": null,
+    "recall": null
+   },
+   "F_mkt_burst": {
+    "n_label": 0,
+    "precision": null,
+    "recall": null
+   },
+   "F_mkt_single": {
+    "n_label": 0,
+    "precision": null,
+    "recall": null
+   }
+  },
+  "cs2-gls1-pcy-2026-10-31": {
+   "F_any100": {
+    "n_label": 62,
+    "precision": 0.79,
+    "recall": 1.0
+   },
+   "F_mkt": {
+    "n_label": 62,
+    "precision": 0.79,
+    "recall": 1.0
+   },
+   "F_mkt_burst": {
+    "n_label": 11,
+    "precision": 0.909,
+    "recall": 0.204
+   },
+   "F_mkt_single": {
+    "n_label": 51,
+    "precision": 0.765,
+    "recall": 0.796
+   }
+  }
+ },
+ "other_owners_of_F_mkt": {
+  "0x893575c7": 13,
+  "0x68915897": 11,
+  "0x51dbdd2b": 8,
+  "0x5d40576b": 6,
+  "0x9f63eb94": 5,
+  "0x7e5972bf": 2,
+  "0x758dac51": 2,
+  "0x10251a36": 1
+ },
+ "other_owner_burst_share": 0.062,
+ "wallet_burst_share": 0.256
+}

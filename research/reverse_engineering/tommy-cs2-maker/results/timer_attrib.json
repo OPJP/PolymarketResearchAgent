@@ -1,0 +1,105 @@
+{
+ "pairs": 5426,
+ "all": {
+  "spike": 1879,
+  "ctrl_mean": 1773.5,
+  "excess": 105.5,
+  "ratio": 1.06
+ },
+ "by_size_class": {
+  "100": {
+   "spike": 227,
+   "ctrl_mean": 57.0,
+   "excess": 170.0,
+   "ratio": 3.98
+  },
+  "other_size": {
+   "spike": 1641,
+   "ctrl_mean": 1716.0,
+   "excess": -75.0,
+   "ratio": 0.96
+  },
+  "wallet_odd": {
+   "spike": 11,
+   "ctrl_mean": 0.5,
+   "excess": 10.5,
+   "ratio": 22.0
+  }
+ },
+ "by_owner_of_readd": {
+  "other": {
+   "spike": 20,
+   "ctrl_mean": 14.5,
+   "excess": 5.5,
+   "ratio": 1.38
+  },
+  "unlinked": {
+   "spike": 1859,
+   "ctrl_mean": 1759.0,
+   "excess": 100.0,
+   "ratio": 1.06
+  }
+ },
+ "by_owner_size100": {
+  "other": {
+   "spike": 1,
+   "ctrl_mean": 0.0,
+   "excess": 1.0,
+   "ratio": null
+  },
+  "unlinked": {
+   "spike": 226,
+   "ctrl_mean": 57.0,
+   "excess": 169.0,
+   "ratio": 3.96
+  }
+ },
+ "by_slug_size100": {
+  "cs2-bhe-bar2-2026-10-31": {
+   "spike": 28,
+   "ctrl_mean": 0.5,
+   "excess": 27.5,
+   "ratio": 56.0
+  },
+  "cs2-gls1-pcy-2026-10-31": {
+   "spike": 87,
+   "ctrl_mean": 5.0,
+   "excess": 82.0,
+   "ratio": 17.4
+  },
+  "cs2-gls1-pcy-2026-10-31-game2": {
+   "spike": 51,
+   "ctrl_mean": 43.5,
+   "excess": 7.5,
+   "ratio": 1.17
+  },
+  "cs2-shin-isg-2026-10-31": {
+   "spike": 47,
+   "ctrl_mean": 4.5,
+   "excess": 42.5,
+   "ratio": 10.44
+  },
+  "cs2-shin-isg-2026-10-31-game1": {
+   "spike": 3,
+   "ctrl_mean": 0.5,
+   "excess": 2.5,
+   "ratio": 6.0
+  },
+  "cs2-wraith-ntr-2026-10-31": {
+   "spike": 11,
+   "ctrl_mean": 3.0,
+   "excess": 8.0,
+   "ratio": 3.67
+  }
+ },
+ "other_owner_makers_in_spike": {
+  "0x192a2677": 3,
+  "0xd62e270b": 3,
+  "0x893575c7": 2,
+  "0x68915897": 2,
+  "0x5160f49c": 2,
+  "0xc6524f68": 2,
+  "0xac713388": 2,
+  "0x819e2e92": 1
+ }
+}
