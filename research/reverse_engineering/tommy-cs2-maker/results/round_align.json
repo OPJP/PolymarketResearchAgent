@@ -1,0 +1,14 @@
+{
+ "maps": 95,
+ "score_median": 5.0,
+ "ctrl_mean_median": 4.666666666666667,
+ "score_minus_ctrlmean_median": 0.0,
+ "maps_score_ge_ctrlmax_plus3": 0,
+ "rounds_in_good": 0,
+ "tight_in_good": 0,
+ "tight_team_eq_winner_good": 0.0,
+ "tight_team_eq_winner_all": 0.51,
+ "c_mode_good": [],
+ "placed_nonanchor_clusters_good": 0,
+ "anchor_W_share": null
+}

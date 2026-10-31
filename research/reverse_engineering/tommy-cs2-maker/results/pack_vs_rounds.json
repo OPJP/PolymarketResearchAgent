@@ -1,0 +1,15 @@
+{
+ "maps": 100,
+ "rounds_total": 2211,
+ "clusters_total": 3339,
+ "clusters_per_round_median": 1.31,
+ "P4e_clusters_per_round_median": 0.66,
+ "W_clusters_per_round_median": 0.26,
+ "nw_identity_mean": 0.875,
+ "nw_ctrl_mean": 0.857,
+ "nw4_identity_mean": 0.785,
+ "local_hits_per_cluster_median": 1.07,
+ "c_best_mode": [
+  15.0
+ ]
+}

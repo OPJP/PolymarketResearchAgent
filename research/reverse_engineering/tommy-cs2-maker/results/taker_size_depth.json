@@ -1,0 +1,32 @@
+{
+ "orders": 40,
+ "size_over_depth_now_q": [
+  0.161,
+  0.908,
+  1.22,
+  4.293,
+  7.403
+ ],
+ "size_over_depth_m1_5_q": [
+  0.062,
+  0.174,
+  0.263,
+  0.464,
+  2.229
+ ],
+ "size_eq_depth_now_within_1": 0.0,
+ "size_eq_depth_m1_5_within_1": 0.0,
+ "size_within_10pct_depth_now": 0.125,
+ "fill_over_size_q": [
+  0.137,
+  0.277,
+  0.964
+ ],
+ "fill_over_depth_now_q": [
+  0.53,
+  0.947,
+  1.0
+ ],
+ "C7_self_match_txs": 0,
+ "C7_wallet_taker_txs": 1698
+}

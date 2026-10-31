@@ -1,0 +1,42 @@
+{
+ "S_lg": {
+  "val_auc": 0.9016,
+  "thr_prec85": 0.7841,
+  "val_selected": 6,
+  "val_recall": 0.167,
+  "val_precision": 1.0,
+  "val_lift": 3.56,
+  "build_recall": 0.341,
+  "val_pr": {
+   "rec50": 0.692,
+   "rec60": 0.688,
+   "rec70": 0.703,
+   "rec80": 0.707
+  }
+ },
+ "B_act": {
+  "val_auc": 0.8967,
+  "thr_prec85": null,
+  "val_pr": {
+   "rec50": 1.0,
+   "rec60": 0.815,
+   "rec70": 0.703,
+   "rec80": 0.63
+  }
+ },
+ "S_lg_act": {
+  "val_auc": 0.9574,
+  "thr_prec85": 0.569,
+  "val_selected": 6,
+  "val_recall": 0.167,
+  "val_precision": 1.0,
+  "val_lift": 3.56,
+  "build_recall": 0.439,
+  "val_pr": {
+   "rec50": 1.0,
+   "rec60": 0.957,
+   "rec70": 0.929,
+   "rec80": 0.935
+  }
+ }
+}

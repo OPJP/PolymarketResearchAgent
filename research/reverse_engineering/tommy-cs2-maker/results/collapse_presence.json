@@ -1,0 +1,7 @@
+{
+ "bins": 145833,
+ "positives": 40,
+ "auc_S_col": 0.8457,
+ "auc_B_act_insample": 0.516,
+ "auc_B_act_plus_S_col_insample": 0.9273
+}

@@ -1,0 +1,48 @@
+{
+ "events": 797,
+ "acted_W": 28,
+ "acted_pack": 21,
+ "lag_W_q": [
+  0.318,
+  0.579,
+  0.772,
+  0.881,
+  0.96
+ ],
+ "lag_pack_q": [
+  0.368,
+  0.647,
+  1.061,
+  1.322,
+  1.455
+ ],
+ "acted_W_by_both": 5,
+ "features_acted_W_False": {
+  "ref_med": 1025.0,
+  "rem_frac_med": 0.339,
+  "ask_now_med": 0.49,
+  "jump_dist": {
+   "0.0": 0.368,
+   "-0.01": 0.151,
+   "-0.02": 0.103,
+   "0.01": 0.091,
+   "0.02": 0.08
+  },
+  "gap_prev_med": 27.0,
+  "pack_acted_share": 0.021
+ },
+ "features_acted_W_True": {
+  "ref_med": 1000.0,
+  "rem_frac_med": 0.21,
+  "ask_now_med": 0.52,
+  "jump_dist": {
+   "0.0": 0.607,
+   "0.01": 0.179,
+   "0.03": 0.107,
+   "0.02": 0.071,
+   "-0.02": 0.036
+  },
+  "gap_prev_med": 24.9,
+  "pack_acted_share": 0.179
+ }
+}

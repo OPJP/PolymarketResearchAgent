@@ -1,0 +1,164 @@
+{
+ "orders": 24180,
+ "bursts": 19622,
+ "bid_known_share": 0.884,
+ "ask_known_share": 0.798,
+ "bid": {
+  "offset_mode_build": 0.0,
+  "dist_build": {
+   "0.0": 0.244,
+   "-0.01": 0.082,
+   "0.01": 0.07,
+   "-0.02": 0.045,
+   "-0.05": 0.036,
+   "-0.03": 0.034
+  },
+  "BUILD": {
+   "coverage": 0.884,
+   "exact_given": 0.244,
+   "within1c_given": 0.403,
+   "exact_all": 0.216
+  },
+  "VALIDATE": {
+   "coverage": 0.884,
+   "exact_given": 0.234,
+   "within1c_given": 0.412,
+   "exact_all": 0.207
+  }
+ },
+ "ask_minus": {
+  "offset_mode_build": -0.01,
+  "dist_build": {
+   "-0.01": 0.134,
+   "-0.02": 0.092,
+   "-0.03": 0.053,
+   "0.0": 0.047,
+   "-0.04": 0.036,
+   "-0.05": 0.029
+  },
+  "BUILD": {
+   "coverage": 0.808,
+   "exact_given": 0.134,
+   "within1c_given": 0.277,
+   "exact_all": 0.108
+  },
+  "VALIDATE": {
+   "coverage": 0.791,
+   "exact_given": 0.13,
+   "within1c_given": 0.287,
+   "exact_all": 0.102
+  }
+ },
+ "last": {
+  "offset_mode_build": 0.0,
+  "dist_build": {
+   "0.0": 0.117,
+   "-0.01": 0.112,
+   "0.01": 0.079,
+   "-0.02": 0.077,
+   "-0.03": 0.056,
+   "-0.06": 0.052
+  },
+  "BUILD": {
+   "coverage": 0.997,
+   "exact_given": 0.117,
+   "within1c_given": 0.309,
+   "exact_all": 0.117
+  },
+  "VALIDATE": {
+   "coverage": 0.901,
+   "exact_given": 0.115,
+   "within1c_given": 0.305,
+   "exact_all": 0.104
+  }
+ },
+ "ownT": {
+  "offset_mode_build": 0.0,
+  "dist_build": {
+   "0.0": 0.189,
+   "0.01": 0.111,
+   "-0.01": 0.065,
+   "0.02": 0.062,
+   "-0.05": 0.054,
+   "0.03": 0.044
+  },
+  "BUILD": {
+   "coverage": 0.963,
+   "exact_given": 0.189,
+   "within1c_given": 0.365,
+   "exact_all": 0.182
+  },
+  "VALIDATE": {
+   "coverage": 0.972,
+   "exact_given": 0.187,
+   "within1c_given": 0.357,
+   "exact_all": 0.182
+  }
+ },
+ "ownC": {
+  "offset_mode_build": -0.01,
+  "dist_build": {
+   "-0.01": 0.087,
+   "-0.02": 0.078,
+   "-0.03": 0.061,
+   "0.0": 0.061,
+   "-0.05": 0.053,
+   "-0.04": 0.051
+  },
+  "BUILD": {
+   "coverage": 0.967,
+   "exact_given": 0.087,
+   "within1c_given": 0.226,
+   "exact_all": 0.085
+  },
+  "VALIDATE": {
+   "coverage": 0.977,
+   "exact_given": 0.093,
+   "within1c_given": 0.239,
+   "exact_all": 0.09
+  }
+ },
+ "mid": {
+  "offset_mode_build": -0.01,
+  "dist_build": {
+   "-0.01": 0.099,
+   "0.0": 0.083,
+   "-0.02": 0.056,
+   "-0.03": 0.033,
+   "0.01": 0.032,
+   "-0.04": 0.025
+  },
+  "BUILD": {
+   "coverage": 0.713,
+   "exact_given": 0.099,
+   "within1c_given": 0.237,
+   "exact_all": 0.071
+  },
+  "VALIDATE": {
+   "coverage": 0.699,
+   "exact_given": 0.112,
+   "within1c_given": 0.264,
+   "exact_all": 0.078
+  }
+ },
+ "top_minus_bid_dist": {
+  "0.0": 0.277,
+  "-0.01": 0.079,
+  "0.01": 0.077,
+  "-0.02": 0.043,
+  "-0.03": 0.031,
+  "0.02": 0.031,
+  "-0.05": 0.03,
+  "-0.04": 0.029
+ },
+ "top_minus_ask_dist": {
+  "-0.01": 0.155,
+  "-0.02": 0.098,
+  "-0.03": 0.057,
+  "0.0": 0.054,
+  "-0.04": 0.038,
+  "-0.06": 0.029,
+  "-0.05": 0.028,
+  "0.01": 0.024
+ }
+}

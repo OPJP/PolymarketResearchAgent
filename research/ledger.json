@@ -1,5 +1,5 @@
 {
- "generated_at": 1793459015,
+ "generated_at": 1793460248,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -106,15 +106,15 @@
     "0xc53375ff94e96100f2b30a4b5775db35218d69a9"
    ],
    "status": "in_progress",
-   "wall_reason": "",
-   "iterations": 5,
-   "minutes": 268.0,
-   "hypotheses": 52,
+   "wall_reason": null,
+   "iterations": 6,
+   "minutes": 330.0,
+   "hypotheses": 61,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9132,
-   "best_rule": "it5: block-second presence (model_it5_blk_full) + it5 side (Bybit book) + live-book price + B1 ladder check (code/final_rule.py)",
+   "best_rule": "it6: it5 rule + price.calldata_touch (code/final_rule.py)",
    "has_final_rule": true,
-   "strategy_statement": "One operator runs a TypeScript clob-client bot on (at least) four wallets [VALIDATE-only]. For every BTC 5-minute Up/Down window it pre-signs a full ladder of BUY limit orders on both outcomes at every cent, in bursts 90 s before the open and again at +42 s and +173 s, signing the wallets one after another [VALIDATE-only, decoded from calldata]. When BTC (on Binance, OKX, Bybit; or ETH and other coins that lead it) moves in the last second or two, it submits the pre-signed order at the current best ask of the outcome the move favours [VALIDATE-only], racing other latency takers; an unfilled remainder rests at that price [VALIDATE-only]. Sizes come from a fixed daily menu (mostly 30 shares, some 60/100) [VALIDATE-only]. It buys both outcomes in almost every window and holds everything to resolution, redeeming winners [VALIDATE-only]. It earns the latency edge after clear moves plus fee rebates on its large volume [VALIDATE-only]; its quiet-period volume roughly breaks even [VALIDATE-only]. Nothing is exam-verified yet.",
+   "strategy_statement": "One operator runs a TypeScript clob-client bot on four wallets [VALIDATE-only]. For every BTC 5-minute Up/Down window it pre-signs a ladder of BUY limit orders on both outcomes at every cent, in bursts 90 s before the open and at +42 s and +173 s, signing the wallets one after another [VALIDATE-only, calldata]. It submits a pre-signed order at the current touch of the outcome toward which the BTC/ETH perpetuals' top of book just ticked: live, a tick-level microprice move (queue/size change) of the ETH and BTC perps on Binance, OKX and Bybit in the 100-600 ms before the match gives its side in 86% of taker decisions, including the 37% with no trade move anywhere (84%) [VALIDATE-only: live development block, n = 204; historical replication pending]; after a clear trade move (> 0.05 bp) ~94% [VALIDATE-only]. The limit is the touch (95% within a tick from calldata) and an unfilled remainder rests there [VALIDATE-only]. Sizes come from a fixed daily menu (30/60/100) [VALIDATE-only]. It buys both outcomes in almost every window and holds to resolution [VALIDATE-only]. About 85% of its income is the 50% taker-fee rebate on its huge volume; trading after fees is near break-even (+$4.4k in the VALIDATE week, t = 0.5) [VALIDATE-only]. Nothing is exam-verified.",
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
@@ -370,8 +370,8 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 2,
-   "minutes": 170,
-   "hypotheses": 40,
+   "minutes": 151,
+   "hypotheses": 82,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.8721,
    "best_rule": "tommy-v2-grid-league-collapse",
@@ -380,7 +380,7 @@
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 0
+   "panels": 1
   }
  ],
  "wallets": [
