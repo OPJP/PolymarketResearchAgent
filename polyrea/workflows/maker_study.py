@@ -126,5 +126,5 @@ def run_maker_replicability_study(
     if out_dir is not None:
         d = out_dir / w
         d.mkdir(parents=True, exist_ok=True)
-        (d / "maker_replicability_study.json").write_text(json.dumps(ev.to_dict(), indent=1))
+        (d / "maker_replicability_study.json").write_text(json.dumps(ev.to_dict(), indent=1), encoding="utf-8")
     return ev

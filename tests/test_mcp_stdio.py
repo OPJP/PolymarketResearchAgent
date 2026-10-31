@@ -28,4 +28,4 @@ def test_stdio_handshake_and_call(tmp_path):
     assert {"investigate_wallet", "updown_study", "screen_leaderboard", "register_external_source"} <= names
     text = res.content[0].text
     assert json.loads(text)["recorded"]["verdict"] == "reject"
-    assert json.loads((tmp_path / "ledger.json").read_text())["wallets"][0]["wallet"] == "0xabc"
+    assert json.loads((tmp_path / "ledger.json").read_text(encoding="utf-8"))["wallets"][0]["wallet"] == "0xabc"

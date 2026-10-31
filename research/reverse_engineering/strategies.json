@@ -1,53 +1,127 @@
 {
- "note": "Args for deep_reverse_engineering.workflow.js. Every strategy has resume=true because its workspace already holds notes from a first run (2026-10-31); set resume=false and delete the workspace to start over. Run all eight in one call on a machine with enough cores, or split them.",
+ "note": "Args for deep_reverse_engineering.workflow.js. resume=true continues from the workspace notes of the first (cloud) run; prior_iters/prior_minutes count toward max_iters/max_minutes. 'order' sets the priority when fewer strategies run at once than there are strategies ('concurrency'). Set resume=false and delete the workspace to start a strategy over.",
  "strategies": [
   {
    "key": "btc5m-bot",
    "title": "BTC 5-minute Up/Down bot run across three wallets",
    "dossier": "Wallets: GoodFallen 0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6, x-MoneyForWhiskas 0x3048d65321be3497164cdfc2996f94f98a2e7537, dangerously-skip-permissions 0xc53375ff94e96100f2b30a4b5775db35218d69a9 (one operator: thousands of shared transactions, identical price/timing distributions). Known: only BTC 5-minute Up/Down markets; 250k-500k fills a month per wallet; buys both outcomes in most windows at a median pair cost of 1.00-1.01; 33-40% of fills are maker fills (on-chain); its taker buys roughly break even before rebates, its maker fills earn about +3%; about half its profit is the 50% (Obsidian) taker rebate. Best previous match: its passive fills come right after a spot move toward the bought side (signed 2-5 s spot return, strongest at 1 s on Binance), stratified AUC 0.60-0.63, recall 27-40%, lift 1.3-2.3; partly confounded with Polymarket tape momentum; a frozen executable version lost 5-9% on 2,011 unseen windows; the fair-value taker/maker rules did not match. Unknowns: how it prices and sizes its bids, when it cancels, what drives its taker buys (most of its fills), whether it runs inventory-balanced two-sided quoting around a faster fair value, and how the three wallets divide the work. Read: research/verdicts/<wallet>.json, research/wallets/<wallet>/*.json, research/stage_a/updown_btc5m_frozen_rule_extension_binance.json, research/review_2026-10-31/challenge-btc5m-cluster/ (scripts and results).",
-   "resume": true
+   "resume": true,
+   "wallets": [
+    "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
+    "0x3048d65321be3497164cdfc2996f94f98a2e7537",
+    "0xc53375ff94e96100f2b30a4b5775db35218d69a9"
+   ],
+   "prior_iters": 1,
+   "prior_minutes": 47,
+   "prior_scores": [
+    0.892
+   ]
   },
   {
    "key": "elmcap2-carry",
    "title": "Event carry on near-certain outcomes",
    "dossier": "Wallet: elmcap2 0xed107a85a4585a381e48c7f7ca4144909e7dd2e5. Known: maker bids at 0.92-0.99 on near-certain outcomes held to resolution (98% maker fills by count); about $5.7M peak capital at risk; the last month's profit is essentially the October 2026 FOMC book (+$258k on $4.39M bought within ~5 days of the statement); 'nothing happens by the deadline' NO positions at 0.99+; parks idle cash as complete sets in a no-trade market for holding yield. Previous reviewer rules: FOMC consensus carry AUC 0.785 (recall 26%, precision 49%), deadline-NO carry AUC 0.854 (recall 53%, precision 5.6%); neither profitable at p<0.05. It fails the 10%/month return-on-capital criterion regardless, but the goal here is to decipher its selection, entry timing, pricing and sizing as accurately as possible. Holdout = events resolving on or after 2026-10-23. Read: research/verdicts/0xed107a85a4585a381e48c7f7ca4144909e7dd2e5.json, research/wallets/0xed107a85a4585a381e48c7f7ca4144909e7dd2e5/, research/review_2026-10-31/challenge-carry-elmcap2/.",
-   "resume": true
+   "resume": true,
+   "wallets": [
+    "0xed107a85a4585a381e48c7f7ca4144909e7dd2e5"
+   ],
+   "prior_iters": 1,
+   "prior_minutes": 48,
+   "prior_scores": [
+    0.8962
+   ]
   },
   {
    "key": "jld-inplay-taker",
    "title": "In-play US sports taker reacting to game events",
    "dossier": "Wallet: justaluckydude 0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705. Known: 100% taker fills, nearly all after game start, US sports (college football, NFL, NBA, MLB, NHL) moneylines, spreads and totals; its fills spike 4x in the 5 s after ESPN scoring plays; within 10 s windows (5 s ESPN delay) 95% of its buys favour the scoring side vs 60% for other takers, but only ~11% of its buys fall in those windows; a reviewer rule reacting to any ESPN win-probability swing covered 36% of buys (AUC 0.648); no rule was significantly profitable with a realistic delay; profit concentrated in college football and MLB; profit decaying. Unknowns: what explains the other ~64% of its buys (pre-play anticipation? line moves on related markets? other data feeds such as faster score sources, injury news, drive/possession state, ESPN win probability levels), how it chooses line and price, sizing. Read: research/verdicts/0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705.json, research/wallets/0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705/, research/review_2026-10-31/challenge-inplay-taker-justaluckydude/.",
-   "resume": true
+   "resume": true,
+   "wallets": [
+    "0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705"
+   ],
+   "prior_iters": 0,
+   "prior_minutes": 0,
+   "prior_scores": []
   },
   {
    "key": "rebate-farmer",
    "title": "Crypto Up/Down volume trader whose profit is the taker rebate",
    "dossier": "Wallet: 0xb55fa1296e6ec55d0ce53d93b9237389f11764d4. Known: about 467k fills in 30 days across BTC/ETH/SOL 5m, 15m, hourly and 4h Up/Down windows (BTC 15m and hourly/daily are its largest families); 30% maker fills on-chain; trading loses about $48.6k a month after fees (pre-fee +$108k); profit is a Diamond-tier (44%) taker rebate plus a one-off $25k level-up bonus; no public rule matched its taker or maker decisions (latency taker, directional maker, spot-reactive maker, tape-anchored maker, late-favourite taker, hourly spot taker all failed). The goal is to decipher its actual trading logic (which windows, sides, prices, timing, sizes; how it manages volume for the rebate) as accurately as possible even though it is unprofitable before rebates. Read: research/verdicts/0xb55fa1296e6ec55d0ce53d93b9237389f11764d4.json, research/wallets/0xb55fa1296e6ec55d0ce53d93b9237389f11764d4/, research/review_2026-10-31/challenge-rebate-farmer/.",
-   "resume": true
+   "resume": true,
+   "wallets": [
+    "0xb55fa1296e6ec55d0ce53d93b9237389f11764d4"
+   ],
+   "prior_iters": 0,
+   "prior_minutes": 0,
+   "prior_scores": []
   },
   {
    "key": "directional-maker",
    "title": "Directional crypto Up/Down maker run across three wallets",
    "dossier": "Wallets: bosona 0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed, almach 0x3725d52f3c252e8374999cc8617292ea2608ad88, mo-money 0x32ed2e546b187ca15e2841edc82b22c713cf8ec3 (one operator: about 6,500-6,900 shared transactions per pair, ~80% of markets shared). Known: 89-94% maker fills; BTC 5m (~55%) and 15m (~28%) Up/Down plus hourly, 4h and some ETH/SOL; buys only one side in more than half of its windows; its profit is the directional residual (win rate ~57-58%), the locked pair spread is about zero or negative; little rebate dependence (Gold 18%); its own maker fills earn +3% to +6% in held-out windows while every public-data maker built from the same data (spot fair value, spot-reactive, tape-anchored, fixed ladders, buy-the-dip) loses or is insignificant; only weak associations (stratified AUC 0.53-0.59, recall 2-47%, lift 1.1-2.3). Unknowns: how it decides which side to bid, at what price and size, when it cancels, whether it uses a faster or different reference price (Binance aggTrades, Coinbase, Chainlink), queue priority, how the three wallets split the work. Read: research/verdicts/<wallet>.json, research/wallets/<wallet>/*.json, research/stage_a/updown_btc5m_frozen_rule_extension_binance.json, research/stage_a/updown_btc5m_maker_baselines.json, research/review_2026-10-31/challenge-crypto-maker-cluster/.",
-   "resume": true
+   "resume": true,
+   "wallets": [
+    "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3",
+    "0x3725d52f3c252e8374999cc8617292ea2608ad88",
+    "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed"
+   ],
+   "prior_iters": 1,
+   "prior_minutes": 60,
+   "prior_scores": [
+    0.7723
+   ]
   },
   {
    "key": "dbdd-inplay-taker",
    "title": "In-play multi-sport taker (soccer goals, quiet books)",
    "dossier": "Wallet: 0xdbdd45150249e229eb4ca8aa48a30dca21faa5de. Known: 100% taker fills, median fill about $11, nearly all after game start; trades soccer (where it makes its money: +$59.8k on $1.32M outside US leagues), tennis, US sports (where it loses), CS2 and Dota 2; in soccer totals 26% of its buys fall within 60 s after an ESPN goal wall clock (other takers 10%), 96% of those are Over; it trades disproportionately when the book has been quiet for 10 s or more; spreads lagging the moneyline match its US trades; bought shares win more often than their price at 0.65-0.85; no reviewer rule (seven tried) was profitable on fresh games. Unknowns: its selection of line and price after goals, what it does in tennis and esports, whether it reacts to faster score feeds or to cross-market moves, sizing. Read: research/verdicts/0xdbdd45150249e229eb4ca8aa48a30dca21faa5de.json, research/wallets/0xdbdd45150249e229eb4ca8aa48a30dca21faa5de/, research/review_2026-10-31/challenge-inplay-taker-0xdbdd/.",
-   "resume": true
+   "resume": true,
+   "wallets": [
+    "0xdbdd45150249e229eb4ca8aa48a30dca21faa5de"
+   ],
+   "prior_iters": 1,
+   "prior_minutes": 50,
+   "prior_scores": [
+    0.7311424948492298
+   ]
   },
   {
    "key": "rn1-inplay-maker",
    "title": "Large in-play two-sided market maker (soccer, tennis, CS2, US football)",
    "dossier": "Wallet: RN1 0x2005d16a84ceefa912d4e380cd32e7ff827875ea. Known: about 249k fills and $65M a month; 92% maker fills; resting bids on both sides of live markets, soccer ~45% of volume, tennis and esports ~40%; complete pairs bought at a median combined 0.982 lock +$964k a month while the unmatched residual loses $319k; around ESPN scoring plays only 1.4% of its passive fills land in the first 5 s (all makers 4.9%), and after soccer goals it is off the book before the first public price jump; best families WTA, CFB, UCL, CS2, La Liga, ATP; public-data makers lose 5-19% in its markets, including its best families. Unknowns: its quote placement (spread, levels, sizes), requote and cancel timing, inventory rules, which signals make it withdraw, and why its pair cost is below 1. On-chain order reconstruction (orderHash) should be very informative here. Read: research/verdicts/0x2005d16a84ceefa912d4e380cd32e7ff827875ea.json, research/wallets/0x2005d16a84ceefa912d4e380cd32e7ff827875ea/, research/review_2026-10-31/challenge-inplay-maker-RN1/.",
-   "resume": true
+   "resume": true,
+   "wallets": [
+    "0x2005d16a84ceefa912d4e380cd32e7ff827875ea"
+   ],
+   "prior_iters": 0,
+   "prior_minutes": 0,
+   "prior_scores": []
   },
   {
    "key": "tommy-cs2-maker",
    "title": "CS2 in-play market maker (switched from taker mid-October)",
    "dossier": "Wallet: TommyLeePeeca 0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2. Known: 98% CS2 (some Dota 2); until 15 October a taker (losing before rebates), from 16-17 October a two-sided maker: in 17-29 October it made $43.7k, every day positive, pair cost about 0.98; its maker fingerprint is keeping bids pegged while the price falls where other makers pull (AUC 0.54, lift 1.2); public-data makers lose 5-9% in the same matches. Development data for the maker regime is 16-23 October (the holdout starts 23 October); you may also study the earlier taker regime. Unknowns: its quote placement and sizing, requote/cancel timing around rounds, inventory balancing, which signals (round results, economy, map state from public CS2 data such as bo3.gg or HLTV if reachable) it uses. Read: research/verdicts/0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2.json, research/wallets/0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2/, research/review_2026-10-31/challenge-inplay-maker-TommyLee/.",
-   "resume": true
+   "resume": true,
+   "wallets": [
+    "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2"
+   ],
+   "prior_iters": 0,
+   "prior_minutes": 0,
+   "prior_scores": []
   }
- ]
+ ],
+ "order": [
+  "directional-maker",
+  "btc5m-bot",
+  "tommy-cs2-maker",
+  "rn1-inplay-maker",
+  "dbdd-inplay-taker",
+  "jld-inplay-taker",
+  "elmcap2-carry",
+  "rebate-farmer"
+ ],
+ "concurrency": 2,
+ "max_iters": 5,
+ "max_minutes": 300,
+ "branch": "deep-re-local"
 }

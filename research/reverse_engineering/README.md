@@ -5,15 +5,24 @@ that passed stage A1, grouped into 8 strategies where one operator runs
 several wallets). Each agent works in iterations of about 60 minutes,
 keeping a lab notebook so the next iteration continues where it stopped,
 until it reaches the high-accuracy target, a wall, or 5 iterations. An
-independent examiner then audits the frozen rule for look-ahead and scores
-it on the holdout (2026-10-23 onward), which the agent never sees.
+independent examiner then audits the frozen rule for look-ahead, scores it on
+the holdout (2026-10-23 onward, which the agent never sees) and judges
+criteria (6) match, (7) backtest, (8) replicable and (9) persists ("this
+strategy is statistically significant to continue working if I deployed it
+now"). Three skeptics (leakage, statistics, deployability lenses) then try to
+refute every criterion the examiner passed; a pass survives only if most of
+them cannot refute it. After every iteration and examination the workflow
+rebuilds the dashboard and commits the workspace to the research branch, so
+GitHub carries the progress.
 
 - `BRIEF.md`: the rules every agent follows (holdout, no future data, data
   sources, metrics, accuracy target, stopping rule, files to keep).
 - `deep_reverse_engineering.workflow.js`: the Claude Code workflow script.
 - `strategies.json`: its arguments (the 8 strategies and their dossiers).
 - `<strategy>/`: each agent's workspace (`NOTES.md`, `state.json`,
-  `FINAL_RULE.md`, `code/`, results; `EXAM.md` once examined).
+  `FINAL_RULE.md`, `code/`, results; `EXAM.md`, `results/exam.json`,
+  `results/refute_*.json` and `results/adjudication.json` once examined).
+- `tools/resources.py`: memory and disk gate the agents run before heavy jobs.
 
 ## Status when the cloud run was stopped (2026-10-31)
 
@@ -40,15 +49,18 @@ cd PolymarketResearchAgent
 ```
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
+```
+
+On Windows the interpreter is `.venv/Scripts/python.exe`; on Linux and macOS
+it is `.venv/bin/python`.
+
+```bash
+.venv/Scripts/python.exe -m pip install -e ".[test,research]"
 ```
 
 ```bash
-.venv/bin/pip install -e '.[test,research]'
-```
-
-```bash
-.venv/bin/python -m pytest -q
+.venv/Scripts/python.exe -m pytest -q
 ```
 
 The HTTP cache (`.cache/http.sqlite`, about 1.2 GB) and the agents' large
@@ -68,21 +80,28 @@ example:
 > with the args in research/reverse_engineering/strategies.json.
 
 To run only some strategies, pass a `strategies` list with just those
-entries. Options in the args: `max_iters` (default 5), `max_minutes` (default
-300 per strategy), and per strategy `resume` (true continues from the notebook
-in its workspace; set it to false and delete the workspace to start over).
+entries. Options in the args: `concurrency` (strategies worked on at once,
+default 2), `order` (priority), `max_iters` (default 5), `max_minutes`
+(default 300 per strategy), `branch` (where progress is pushed), and per
+strategy `resume` (true continues from the notebook in its workspace; set it
+to false and delete the workspace to start over) and `prior_iters` /
+`prior_minutes` / `prior_scores` (work from an earlier run that counts toward
+the budget and the diminishing-returns wall).
 
-Claude Code runs at most min(16, CPU cores - 2) agents of one workflow at a
-time. Each agent's Python processes are asked to stay under about 3 GB, so
-plan on roughly 3-4 GB of memory per concurrent agent.
+The local run (from 2026-10-31) is on a laptop with 12.9 GB of RAM shared
+with the desktop, so `concurrency` is 2 and every agent keeps its Python
+jobs under about 1 GB and waits for free memory before heavy jobs (see
+"Local run" in `BRIEF.md`). With more memory, raise `concurrency`.
 
 ## After a run
 
 Each examined strategy has `EXAM.md` and `results/exam.json` with the
-holdout metrics and the judgment on criteria (6) match, (7) backtest and (8)
-replicable. Update `research/verdicts/<wallet>.json` with them and rebuild the
-ledger, reports and dashboard:
+holdout metrics and the examiner's judgment on criteria (6)-(9), and
+`results/adjudication.json` with the criteria after the skeptics. The
+dashboard's "Deep reverse engineering" table shows both. Update
+`research/verdicts/<wallet>.json` with them and rebuild the ledger, reports
+and dashboard:
 
 ```bash
-.venv/bin/python -m polyrea.report
+.venv/Scripts/python.exe -m polyrea.report
 ```

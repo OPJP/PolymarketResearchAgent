@@ -1,5 +1,5 @@
 {
- "generated_at": 1793429264,
+ "generated_at": 1793435890,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -94,6 +94,140 @@
   {
    "label": "Conditions persist",
    "count": 0
+  }
+ ],
+ "deep_re": [
+  {
+   "key": "btc5m-bot",
+   "title": "BTC 5-minute Up/Down bot run across three wallets",
+   "wallets": [
+    "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
+    "0x3048d65321be3497164cdfc2996f94f98a2e7537",
+    "0xc53375ff94e96100f2b30a4b5775db35218d69a9"
+   ],
+   "status": "in_progress",
+   "wall_reason": null,
+   "iterations": 1,
+   "minutes": 47,
+   "hypotheses": 11,
+   "primary_metric": "presence_auc",
+   "best_validate_score": 0.892,
+   "best_rule": "H8-spot+tape",
+   "has_final_rule": true
+  },
+  {
+   "key": "elmcap2-carry",
+   "title": "Event carry on near-certain outcomes",
+   "wallets": [
+    "0xed107a85a4585a381e48c7f7ca4144909e7dd2e5"
+   ],
+   "status": "in_progress",
+   "wall_reason": null,
+   "iterations": 1,
+   "minutes": 48,
+   "hypotheses": 12,
+   "primary_metric": "presence_auc_V: ROC AUC on VALIDATE of the rule's point-in-time score (no own-state) for 'wallet has >=1 BUY fill in (market, 6h bin)', universe U = Gamma markets endDate in window, volumeNum>=20k, resolved before H, non-sports, non-Up/Down; cells endDate-14d .. min(closedTime, endDate+14d)",
+   "best_validate_score": 0.8962,
+   "best_rule": "L2_lgbm_price_time_lag3660",
+   "has_final_rule": true
+  },
+  {
+   "key": "jld-inplay-taker",
+   "title": "In-play US sports taker reacting to game events",
+   "wallets": [
+    "0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705"
+   ],
+   "status": "not_started",
+   "wall_reason": null,
+   "iterations": 0,
+   "minutes": 0,
+   "hypotheses": 0,
+   "primary_metric": null,
+   "best_validate_score": null,
+   "best_rule": null,
+   "has_final_rule": false
+  },
+  {
+   "key": "rebate-farmer",
+   "title": "Crypto Up/Down volume trader whose profit is the taker rebate",
+   "wallets": [
+    "0xb55fa1296e6ec55d0ce53d93b9237389f11764d4"
+   ],
+   "status": "not_started",
+   "wall_reason": null,
+   "iterations": 0,
+   "minutes": 0,
+   "hypotheses": 0,
+   "primary_metric": null,
+   "best_validate_score": null,
+   "best_rule": null,
+   "has_final_rule": false
+  },
+  {
+   "key": "directional-maker",
+   "title": "Directional crypto Up/Down maker run across three wallets",
+   "wallets": [
+    "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3",
+    "0x3725d52f3c252e8374999cc8617292ea2608ad88",
+    "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed"
+   ],
+   "status": "in_progress",
+   "wall_reason": null,
+   "iterations": 1,
+   "minutes": 60,
+   "hypotheses": 16,
+   "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state",
+   "best_validate_score": 0.7723,
+   "best_rule": "R1-presence-lgbm-all_reg",
+   "has_final_rule": true
+  },
+  {
+   "key": "dbdd-inplay-taker",
+   "title": "In-play multi-sport taker (soccer goals, quiet books)",
+   "wallets": [
+    "0xdbdd45150249e229eb4ca8aa48a30dca21faa5de"
+   ],
+   "status": "in_progress",
+   "wall_reason": null,
+   "iterations": 1,
+   "minutes": 50,
+   "hypotheses": 10,
+   "primary_metric": "sel_auc: within-market selection AUC on VALIDATE (wallet taker BUY prints vs other takers' BUY prints, in-play, same-market pairs only, no own-state features)",
+   "best_validate_score": 0.7311424948492298,
+   "best_rule": "R-LGB-PUB-1",
+   "has_final_rule": true
+  },
+  {
+   "key": "rn1-inplay-maker",
+   "title": "Large in-play two-sided market maker (soccer, tennis, CS2, US football)",
+   "wallets": [
+    "0x2005d16a84ceefa912d4e380cd32e7ff827875ea"
+   ],
+   "status": "not_started",
+   "wall_reason": null,
+   "iterations": 0,
+   "minutes": 0,
+   "hypotheses": 0,
+   "primary_metric": null,
+   "best_validate_score": null,
+   "best_rule": null,
+   "has_final_rule": false
+  },
+  {
+   "key": "tommy-cs2-maker",
+   "title": "CS2 in-play market maker (switched from taker mid-October)",
+   "wallets": [
+    "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2"
+   ],
+   "status": "not_started",
+   "wall_reason": null,
+   "iterations": 0,
+   "minutes": 0,
+   "hypotheses": 0,
+   "primary_metric": null,
+   "best_validate_score": null,
+   "best_rule": null,
+   "has_final_rule": false
   }
  ],
  "wallets": [

@@ -104,7 +104,8 @@ the research folder.
   `polyrea/analysis/ledger.py`, `polyrea/analysis/rebates.py`,
   `polyrea/pit.py` (point-in-time store and guarded view), `polyrea/stats/`.
 - Python packages: numpy, pandas, scipy, statsmodels, scikit-learn, lightgbm,
-  pyarrow (`pip install -e '.[test,research]'`). Interpreter: `.venv/bin/python`,
+  pyarrow (`pip install -e '.[test,research]'`). Interpreter:
+  `.venv/Scripts/python.exe` on Windows (`.venv/bin/python` on Linux/macOS),
   run from the repository root.
 
 ## How to work (suggested ladder; go beyond it)
@@ -146,6 +147,15 @@ the research folder.
   s and (for makers) `match_slack=2`, against the wallet's own return on the
   same markets.
 
+- **Co-occurrence baseline** (required with every presence or selection
+  metric): the same model or rule restricted to market activity alone (other
+  traders' prints and their timing in the previous seconds, time in the
+  window or game, price level; no reference feed, no event feed). A wallet
+  that races other traders on the same trigger is "predicted" by their
+  prints without its rule being decoded. Report the metric, the baseline and
+  the gain over it. The wallet's own prints, and prints in transactions where
+  it was the maker, are never part of any feature.
+
 **High accuracy target** (my definition; all point-in-time, on the holdout):
 selection AUC >= 0.80 with recall >= 50% at lift >= 3 (p < 0.01), or
 presence AUC >= 0.85 without own-state features; and, where the wallet
@@ -168,9 +178,41 @@ when the target is not met.
 
 ## Engineering rules (other agents may share the machine)
 
-- Keep every Python process under 3 GB RSS unless the machine has ample spare
-  memory; run one heavy process at a time; check free memory before a heavy
-  job and wait if less than 4 GB is available. Stream per market / per window; store intermediates as parquet.
+### Local run (2026-10-31 onward): a shared Windows laptop
+
+The run now happens on the user's own computer: Windows 11, 8 cores, 12.9 GB
+of RAM shared with the user's desktop and one or two other agents (often only
+1-3 GB available), about 15 GB of free disk, one home internet connection.
+
+- Shell: the Bash tool is Git Bash (`date -u +%s`, pipes, heredocs work);
+  paths with forward slashes from the repository root. Interpreter:
+  `.venv/Scripts/python.exe`. Never use `pkill -f`; stop your own background
+  job through the tool that started it or `taskkill //PID <pid> //F`.
+- **Memory**: before every heavy job (model training, a join over millions of
+  rows, a large parquet read) run
+  `.venv/Scripts/python.exe research/reverse_engineering/tools/resources.py --wait-mem 1200`
+  and keep each process under about 1 GB: stream per market / window / day,
+  read only the parquet columns you need, use float32 and categoricals, train
+  LightGBM on subsamples (negatives can be subsampled with weights) with
+  `max_bin` <= 63, and free frames you no longer need. If a job dies (MemoryError,
+  silent kill), shrink it; do not retry it unchanged.
+- **Disk**: keep `.cache/re/<your key>/` under 1.5 GB. Before a large fetch run
+  `resources.py --need-disk 5000`; if it reports low disk, do not download
+  more. Big archives (e.g. Binance aggTrades zips, 30-100 MB a day) are not
+  worth keeping in the shared HTTP cache: download them with `httpx` into
+  `.cache/re/<your key>/`, verify the `.CHECKSUM`, reduce them at once (e.g. to
+  per-100 ms or per-second parquet for the hours you need) and delete the zip.
+- **Network**: all agents share one connection and the per-host rate limits
+  of the polyrea `HttpClient`; drpc may throttle (back off on 429). Prefer
+  narrow fetches (the wallet's own markets and windows, matched controls)
+  over bulk downloads.
+- **Data from the earlier cloud run is gone**: `NOTES.md` refers to
+  intermediates in `.cache/re/<key>/` (and an HTTP cache) that were left on
+  the cloud machine. Re-fetch what you need, skipping what you no longer
+  need. Code written there may hold Linux paths
+  (`/home/user/PolymarketResearchAgent/...`); make them relative to the
+  repository root.
+- Stream per market / per window; store intermediates as parquet.
 - Write only inside `research/reverse_engineering/<your key>/` (code, small
   results, notes) and `.cache/re/<your key>/` (large data). Do not modify
   `polyrea/`, other folders or other agents' files; if you find a bug in
@@ -183,11 +225,20 @@ when the target is not met.
 
 - `NOTES.md`: lab notebook: data gathered, hypotheses, evidence, metrics,
   decisions, open questions, what to try next.
-- `state.json`: `{primary_metric, best: {rule_id, validate_metrics}, hypotheses:
-  [{id, family, description, validate_metrics, verdict}], data_sources: [...],
-  iterations: [{n, minutes, best_validate_score, families}]}`.
+- `state.json`: `{primary_metric, status: continue|target_reached|wall,
+  wall_reason, best: {rule_id, validate_metrics}, hypotheses: [{id, family,
+  description, validate_metrics, verdict}], data_sources: [...], iterations:
+  [{n, minutes, best_validate_score, families}]}`. Append one entry to
+  `iterations` per iteration (the cloud run's iteration 1 stays as n=1).
 - `FINAL_RULE.md` and `code/final_rule.py`: the best rule so far, frozen (all
-  parameters constants). `final_rule.py` must expose
+  parameters constants). `FINAL_RULE.md` also keeps two short sections the
+  user cares most about: **Why it works** (the economic mechanism: who loses
+  to this strategy and why, what it is paid for: information, speed,
+  liquidity provision, rebates, carry) and **Can a normal user deploy it
+  now** (what it depends on: latency, data feeds, rebate tier, capital,
+  market listings and Polymarket policy; whether those conditions still hold
+  in the latest data before H; what a replicator with a normal connection and
+  computer would earn). `final_rule.py` must expose
   `evaluate(start_ts, end_ts) -> dict` that loads the data it needs for that
   period, applies the frozen rule point-in-time, and returns the metrics above
   (selection, behaviour cloning, outcome), so the examiner can run it on the

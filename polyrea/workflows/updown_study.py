@@ -290,7 +290,7 @@ def run_updown_study(
         d = out_dir / w
         d.mkdir(parents=True, exist_ok=True)
         tag = "" if spot_source == "kraken" else f"_{spot_source}"
-        (d / f"updown_study_{asset}_{duration}{tag}.json").write_text(json.dumps(ev_out.to_dict(), indent=1))
+        (d / f"updown_study_{asset}_{duration}{tag}.json").write_text(json.dumps(ev_out.to_dict(), indent=1), encoding="utf-8")
     return ev_out
 
 
@@ -450,7 +450,7 @@ def run_updown_maker_study(
         d = out_dir / w
         d.mkdir(parents=True, exist_ok=True)
         tag = "" if spot_source == "kraken" else f"_{spot_source}"
-        (d / f"updown_maker_study_{asset}_{duration}{tag}.json").write_text(json.dumps(ev_out.to_dict(), indent=1))
+        (d / f"updown_maker_study_{asset}_{duration}{tag}.json").write_text(json.dumps(ev_out.to_dict(), indent=1), encoding="utf-8")
     return ev_out
 
 
@@ -594,5 +594,5 @@ def run_frozen_rule_extension(
     )
     if out_path is not None:
         out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_path.write_text(json.dumps(ev_out.to_dict(), indent=1))
+        out_path.write_text(json.dumps(ev_out.to_dict(), indent=1), encoding="utf-8")
     return ev_out

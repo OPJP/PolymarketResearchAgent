@@ -335,7 +335,7 @@ def run_sports_study(
     if out_dir is not None:
         d = out_dir / wallet.lower()
         d.mkdir(parents=True, exist_ok=True)
-        (d / f"sports_study_{role}.json").write_text(json.dumps(ev_out.to_dict(), indent=1))
+        (d / f"sports_study_{role}.json").write_text(json.dumps(ev_out.to_dict(), indent=1), encoding="utf-8")
     return ev_out
 
 
