@@ -1,0 +1,266 @@
+{
+ "primary_metric": "presence_auc",
+ "primary_metric_definition": "Pooled ROC AUC over all VALIDATE cells (window, outcome Up/Down, second 0..299 of the window); label = any of GF/XM/DS has an on-chain BUY OrderFilled (taker or maker role) on that outcome token with block timestamp in that second; score = frozen point-in-time model using only public data available before the second (Binance 1-s closes of second <= s-2, other traders' prints <= s-1, listing metadata), no own-state features.",
+ "split": {
+  "BUILD": [
+   1790899200,
+   1792108800
+  ],
+  "VALIDATE": [
+   1792108800,
+   1792713600
+  ],
+  "H": 1792713600,
+  "note": "BUILD may be extended back in time in later iterations"
+ },
+ "best": {
+  "rule_id": "H8-spot+tape",
+  "validate_metrics": {
+   "presence_auc": 0.892,
+   "validate_metrics_file": "results_validate_metrics.json",
+   "secondary": {
+    "windows": 2016,
+    "presence": {
+     "auc_any": 0.892,
+     "auc_taker": 0.8927,
+     "auc_maker": 0.8672,
+     "base_rate": 0.1074,
+     "recall": 0.5576,
+     "lift": 3.81,
+     "flag_share": 0.1464,
+     "p_value": 0.0,
+     "recall_lift_by_quantile": {
+      "q80": {
+       "recall": 0.681,
+       "lift": 3.41
+      },
+      "q85": {
+       "recall": 0.567,
+       "lift": 3.78
+      },
+      "q90": {
+       "recall": 0.429,
+       "lift": 4.29
+      },
+      "q95": {
+       "recall": 0.255,
+       "lift": 5.1
+      }
+     }
+    },
+    "side": {
+     "n_seconds": 90170,
+     "accuracy": 0.6634,
+     "baseline_favourite": 0.459,
+     "baseline_tape_flow5": 0.525,
+     "mcnemar_p_vs_favourite": 0.0,
+     "share_seconds_both_sides": 0.1805
+    },
+    "price": {
+     "T": {
+      "n": 147489,
+      "within_1tick_of_last_ask": 0.4924,
+      "exact_last_ask": 0.2574,
+      "within_1tick_of_last_bid": 0.4024,
+      "diff_quantiles": [
+       -0.05,
+       -0.011,
+       0.0,
+       0.015,
+       0.04
+      ]
+     },
+     "M": {
+      "n": 88036,
+      "within_1tick_of_last_ask": 0.4997,
+      "exact_last_ask": 0.1726,
+      "within_1tick_of_last_bid": 0.4415,
+      "diff_quantiles": [
+       -0.04,
+       -0.02,
+       -0.01,
+       0.01,
+       0.04
+      ]
+     }
+    },
+    "selection": {
+     "taker_prints": 2735396,
+     "cluster_share": 0.0539,
+     "auc_pooled": 0.6915,
+     "auc_within_window_weighted": 0.6794,
+     "recall": 0.6293,
+     "lift": 1.635,
+     "p_value": 0.0
+    },
+    "outcome": {
+     "per_window_pnl_corr_pearson": 0.3052,
+     "per_window_pnl_corr_spearman": 0.2555,
+     "rule_return_crude": -0.0188,
+     "rule_trades": 176970,
+     "wallet_return_before_rebates": 0.0017,
+     "wallet_return_taker": -0.0025,
+     "wallet_return_maker": 0.0168
+    }
+   },
+   "presence_auc_with_own_state": 0.9062
+  }
+ },
+ "hypotheses": [
+  {
+   "id": "H1",
+   "family": "execution/order-structure",
+   "description": "Fixed-size BUY limit orders priced at the current best ask; unfilled remainder rests at that price",
+   "validate_metrics": {
+    "MT_orders_limit_eq_taker_price": 0.934,
+    "order_kinds_T_MT_M": [
+     0.73,
+     0.13,
+     0.14
+    ]
+   },
+   "verdict": "supported"
+  },
+  {
+   "id": "H2",
+   "family": "maker/two-sided quoting",
+   "description": "Independent resting bids (inventory-balanced MM around a fair value)",
+   "validate_metrics": {
+    "maker_fill_events_from_remainders": 0.385,
+    "pure_resting_order_fill_span_median_s": 0
+   },
+   "verdict": "open: 62% of maker fill events come from pure resting orders whose placement time is unobserved"
+  },
+  {
+   "id": "H3",
+   "family": "spot-reactive taker (latency)",
+   "description": "Buys outcome o right after a Binance move toward o (1-3 s)",
+   "validate_metrics": {
+    "leadlag_peak_k": -3,
+    "corr_peak": 0.0995,
+    "univariate_auc_mxf3": 0.58,
+    "univariate_auc_r2": 0.5726
+   },
+   "verdict": "supported as the main timing signal; weak alone"
+  },
+  {
+   "id": "H4",
+   "family": "absolute fair-value edge",
+   "description": "Buy when Binance FV - ask > theta",
+   "validate_metrics": {
+    "taker_price_minus_FV_median": -0.002,
+    "gap_ask_univariate_auc_yT": 0.5134
+   },
+   "verdict": "rejected as trigger"
+  },
+  {
+   "id": "H5",
+   "family": "strike definition",
+   "description": "Strike = 60-s TWAP before the open (vs open price)",
+   "validate_metrics": {
+    "corr_limit_vs_FV_twap": 0.908,
+    "corr_limit_vs_FV_open": 0.691
+   },
+   "verdict": "TWAP strike supported"
+  },
+  {
+   "id": "H6",
+   "family": "multi-wallet coordination",
+   "description": "Three wallets are parallel instances on the same signal",
+   "validate_metrics": {
+    "GF_orders_with_DS_order_same_token_2s": 0.818,
+    "XM_with_DS": 0.828,
+    "shared_tx_share": 0.0074
+   },
+   "verdict": "supported"
+  },
+  {
+   "id": "H7",
+   "family": "behaviour cloning, spot-only PIT",
+   "description": "LightGBM on Binance-only PIT features, BUILD 14 days",
+   "validate_metrics": {
+    "y": 0.8051,
+    "yT": 0.815,
+    "yM": 0.779,
+    "yGF": 0.8127
+   },
+   "verdict": "presence AUC 0.805"
+  },
+  {
+   "id": "H8",
+   "family": "behaviour cloning, spot + others' tape PIT",
+   "description": "LightGBM on Binance + other traders' tape PIT features (cluster prints and prints against the cluster removed), BUILD = windows with tapes 10-09..16",
+   "validate_metrics": {
+    "spot14d:y_same_windows": 0.8051,
+    "spot_tape:y": 0.892,
+    "spot_tape:yT": 0.8927,
+    "spot_tape:yM": 0.8672,
+    "spot_tape(y-model):yGF": 0.8877,
+    "spot_tape(y-model):yXM": 0.9019,
+    "spot_tape(y-model):yDS": 0.8801,
+    "blend_rank_spot14d_spot_tape:y": 0.8697,
+    "ablation_no_short_activity": 0.8307,
+    "ablation_market_only_no_spot": 0.8782
+   },
+   "verdict": "best: presence AUC 0.892 (taker 0.893, maker 0.867); ~0.06 from 1-2 s race co-occurrence; side 66% < 80%; PnL corr 0.31 < 0.5"
+  },
+  {
+   "id": "H9",
+   "family": "information source / lead-lag",
+   "description": "Does the bot act before public signals?",
+   "validate_metrics": {
+    "binance_corr_k_minus3": 0.0995,
+    "binance_corr_k_plus1": 0.0239
+   },
+   "verdict": "acts after Binance moves (2-3 s before block ts); faster feeds (Binance futures, Coinbase) untested"
+  },
+  {
+   "id": "H10",
+   "family": "lost-race maker fills",
+   "description": "Pure resting orders are 'buy at the ask' orders that lost the race to a competing taker",
+   "validate_metrics": {
+    "M_orders_other_took_L_5s_before": 0.686,
+    "placebo": 0.074,
+    "MT": 0.765,
+    "T": 0.831
+   },
+   "verdict": "supported: one trigger and one order type for both roles"
+  },
+  {
+   "id": "H11",
+   "family": "own-state (inventory)",
+   "description": "Spot+tape model plus cluster window inventory up to s-1",
+   "validate_metrics": {
+    "presence_auc_with_own_state": 0.9062
+   },
+   "verdict": "small gain (+0.014); reported as secondary only"
+  }
+ ],
+ "data_sources": [
+  "Polygon V2 OrderFilled logs, topic2=cluster (own orders), 2026-10-02..H, 719,604 logs (.cache/re/btc5m-bot/chain/own)",
+  "Polygon V2 OrderFilled logs, topic3=cluster (makers hit by cluster taker orders), VALIDATE (.cache/re/btc5m-bot/chain/hit)",
+  "Gamma metadata 6,048 BTC 5m windows 2026-10-02..H",
+  "Binance BTCUSDT 1-s klines 2026-10-01..H-1 (data.binance.vision, checksummed)",
+  "data-api taker tapes: all 2,016 VALIDATE windows + BUILD windows 2026-10-09..16 (partial)"
+ ],
+ "iterations": [
+  {
+   "n": 1,
+   "minutes": 47,
+   "best_validate_score": 0.892,
+   "families": [
+    "execution/order-structure",
+    "maker quoting",
+    "spot-reactive taker",
+    "absolute FV edge",
+    "strike definition",
+    "multi-wallet",
+    "behaviour cloning spot-only",
+    "behaviour cloning spot+tape",
+    "lead-lag"
+   ]
+  }
+ ],
+ "frozen_rule": "code/final_rule.py uses model_spot_tape_*.txt (H8)",
+ "target_reached": false
+}

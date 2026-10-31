@@ -1,0 +1,13 @@
+{
+ "markets": 462,
+ "pearson_pnl": 0.1952,
+ "spearman_pnl": 0.1415,
+ "pearson_cost": 0.5039,
+ "spearman_cost": 0.1511,
+ "wallet_pnl": 51571.18,
+ "wallet_cost": 5793839.75,
+ "rule_pnl": 8884.59,
+ "rule_cost": 3133040.62,
+ "rule_ret": 0.00284,
+ "wallet_ret": 0.0089
+}

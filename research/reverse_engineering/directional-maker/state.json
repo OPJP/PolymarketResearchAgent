@@ -1,0 +1,269 @@
+{
+ "strategy": "directional-maker",
+ "wallets": {
+  "bosona": "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed",
+  "almach": "0x3725d52f3c252e8374999cc8617292ea2608ad88",
+  "momoney": "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3"
+ },
+ "frozen": {
+  "as_of": 1793318400,
+  "H": 1792713600
+ },
+ "split": {
+  "BUILD": [
+   1791504000,
+   1792108800
+  ],
+  "VALIDATE": [
+   1792108800,
+   1792713600
+  ],
+  "description_only": "history before BUILD"
+ },
+ "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state",
+ "best": {
+  "rule_id": "R1-presence-lgbm-all_reg",
+  "validate_metrics": {
+   "presence_auc": 0.7723,
+   "presence_auc_activity_only_baseline": 0.7323,
+   "presence_auc_with_own_inventory": 0.8229,
+   "presence_auc_within_active_windows": 0.7431,
+   "presence_auc_oracle_window_on_off_ceiling": 0.8656,
+   "side_accuracy_one_sided_fill_bins": 0.6752,
+   "side_baseline_favourite_last_print": 0.5151,
+   "side_baseline_binance_favourite": 0.5453,
+   "side_vs_favourite_sign_test_p": 5.1e-45,
+   "price_exact_0.001": 0.2096,
+   "price_within_0.01": 0.5289,
+   "pnl_corr_pearson": 0.4176,
+   "pnl_corr_spearman": 0.4922,
+   "pnl_windows": 1086,
+   "selection_pilot_auc_taker_prints": 0.7551,
+   "selection_pilot_recall_top15pct_build_threshold": 0.432,
+   "selection_pilot_lift": 3.78,
+   "cluster_btc5m_maker_return_validate": -0.0254,
+   "selection_pilot_auc_without_print_size": 0.7033,
+   "selection_pilot_stratified_auc": 0.7463
+  }
+ },
+ "hypotheses": [
+  {
+   "id": "H1",
+   "family": "information source / lead-lag",
+   "description": "fill prices track Binance 1-s fair value; scan of shift k in [-10,+6] s",
+   "validate_metrics": {
+    "build_best_shift_s": -1,
+    "build_corr_at_best": 0.7506,
+    "build_corr_at_+3s": 0.7106
+   },
+   "verdict": "no lead over public Binance 1-s data: prices best match spot ~1-2 s before the block timestamp (consistent with real-time public feed + block latency); no information wall"
+  },
+  {
+   "id": "H2",
+   "family": "book position (on-chain receipts)",
+   "description": "where is the cluster's bid when hit (600 sampled BUILD sweeps)",
+   "validate_metrics": {
+    "build_at_best_price": 0.905,
+    "build_median_makers_in_sweep": 1,
+    "build_counterparty_buys_complement": 0.855
+   },
+   "verdict": "confirmed: top-of-book maker, usually alone at the best level; 85% of its fills are mint matches against takers buying the other side"
+  },
+  {
+   "id": "H3",
+   "family": "side = buy the favourite",
+   "description": "side with last print > 0.5",
+   "validate_metrics": {
+    "side_acc": 0.515
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H4",
+   "family": "side = Binance favourite",
+   "description": "fair_up > 0.5",
+   "validate_metrics": {
+    "side_acc": 0.545
+   },
+   "verdict": "rejected (weak)"
+  },
+  {
+   "id": "H5",
+   "family": "side = fair-vs-market edge",
+   "description": "side where Binance fair - last print is larger",
+   "validate_metrics": {
+    "side_acc": 0.576,
+    "build_side_acc": 0.614
+   },
+   "verdict": "partial: best single explicit rule"
+  },
+  {
+   "id": "H6",
+   "family": "side = flow persistence",
+   "description": "side whose bids were hit more in the last 10/30 s",
+   "validate_metrics": {
+    "side_acc_10s": 0.489,
+    "side_acc_30s": 0.499
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H7",
+   "family": "side = spot momentum / contrarian",
+   "description": "sign of 10-s Binance return",
+   "validate_metrics": {
+    "momentum": 0.534,
+    "contrarian": 0.466
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H8",
+   "family": "behaviour cloning (LightGBM), no own-state",
+   "description": "presence per (window, side, 10-s bin) from time, Binance fair/returns/vol, taker tape state and flow",
+   "validate_metrics": {
+    "time_only": 0.5454,
+    "activity_only": 0.7195,
+    "activity_reg": 0.7323,
+    "spot": 0.6999,
+    "tape": 0.7555,
+    "all": 0.7682,
+    "all_reg": 0.7723
+   },
+   "verdict": "best so far (0.77); +0.04 over market activity alone; below the 0.85 target"
+  },
+  {
+   "id": "H9",
+   "family": "behaviour cloning with own inventory",
+   "description": "H8 + own shares bought on each side before the bin",
+   "validate_metrics": {
+    "all_plus_own": 0.8229
+   },
+   "verdict": "inventory matters (+0.05): consistent with inventory-skewed quoting; reported separately as required"
+  },
+  {
+   "id": "H10",
+   "family": "price rule",
+   "description": "fill price = last taker print on its side before the fill - 0.01 (0.01 grid)",
+   "validate_metrics": {
+    "within_0.01_bin_start_version": 0.286,
+    "exact_bin_start_version": 0.112
+   },
+   "verdict": "weak; fill-time version reported by final_rule"
+  },
+  {
+   "id": "H11",
+   "family": "multi-wallet coordination",
+   "description": "three wallets = three instances of one bot",
+   "validate_metrics": {
+    "build_same_dominant_side": [
+     0.831,
+     0.838,
+     0.813
+    ],
+    "build_upfrac_corr": [
+     0.711,
+     0.741,
+     0.715
+    ],
+    "size_signature": {
+     "almach": 500,
+     "bosona": 498,
+     "momoney": 502
+    }
+   },
+   "verdict": "confirmed descriptively: same side signal, own size signature, rarely filled in the same taker order (2.5%)"
+  },
+  {
+   "id": "H12",
+   "family": "regime",
+   "description": "edge and activity over time",
+   "validate_metrics": {
+    "build_usd_edge": 0.0411,
+    "validate_usd_edge": -0.0278,
+    "build_fills": 35631,
+    "validate_fills": 13925
+   },
+   "verdict": "VALIDATE is a different regime: activity fell ~60% and the BTC 5m maker edge turned negative"
+  },
+  {
+   "id": "H13",
+   "family": "window participation (operator on/off)",
+   "description": "which windows the cluster trades, from public pre-window features (vol, hour, pre-window prints, |60s return|, previous window activity of the market)",
+   "validate_metrics": {
+    "window_auc_public": 0.5387,
+    "window_auc_from_in_window_rule_mean": 0.6918,
+    "validate_active_share": 0.539,
+    "build_active_share": 0.835,
+    "max_off_run_windows": 171,
+    "oracle_on_off_presence_ceiling": 0.8656,
+    "oracle_hour_on_off": 0.8082
+   },
+   "verdict": "unpredictable from public data (AUC 0.54); it is the main gap to the presence target: with oracle on/off the presence AUC would be 0.866"
+  },
+  {
+   "id": "H14",
+   "family": "fair-value variants",
+   "description": "vol lookback 120-3600 s and vol scale 0.7-2.0; vol x1.4 (300-900 s) cuts MAD(price - fair) 0.068 -> 0.058",
+   "validate_metrics": {
+    "presence_auc_with_vol14_fair": 0.7727,
+    "side_edge_vol14": 0.594
+   },
+   "verdict": "the fills look like a fair value with ~1.4x the 1-s realized vol, but it does not improve presence or side"
+  },
+  {
+   "id": "H15",
+   "family": "book proxies from the taker tape",
+   "description": "last bid-hit / ask-lift price per side, ages, fair minus them",
+   "validate_metrics": {
+    "presence_auc": 0.7726,
+    "side_edge_lb": 0.591
+   },
+   "verdict": "no gain"
+  },
+  {
+   "id": "H16",
+   "family": "selection pilot (taker prints)",
+   "description": "which taker orders inside BTC 5m windows fill a cluster maker order (LightGBM, print-time features incl. the print's own size/price)",
+   "validate_metrics": {
+    "auc": 0.7551,
+    "recall_at_build_top15pct": 0.432,
+    "lift": 3.78,
+    "auc_without_print_size": 0.7033,
+    "recall_without_size": 0.305,
+    "lift_without_size": 3.15,
+    "stratified_auc_price_time_side": 0.7463
+   },
+   "verdict": "promising but not the brief's match_test (no rotation null, no stratification); print size is the top feature (book-depth mechanics)"
+  }
+ ],
+ "data_sources": [
+  "data-api activity of the 3 wallets 2026-10-08..H (.cache/re/directional-maker/activity_<name>.parquet)",
+  "on-chain OrderFilled logs (V2 exchanges, maker topic = cluster) 2026-10-09..H via polygon-bor-rpc.publicnode.com (chain_fills_*.parquet, 109,822 fills)",
+  "600 on-chain receipts of BUILD sweeps (sweeps_*.parquet)",
+  "Gamma metadata of all 4,032 BTC 5m windows 2026-10-09..H (windows_5m.parquet); eventMetadata used only as a diagnostic (chainlink_ref_*.parquet)",
+  "data-api taker tapes [start-900, end) of all 4,032 BTC 5m windows (taker_5m_<lo>_<hi>.parquet, ~6.0M rows)",
+  "Binance BTCUSDT 1-s klines 2026-10-08..H (spot_btc_1s.parquet)"
+ ],
+ "iterations": [
+  {
+   "n": 1,
+   "minutes": 60,
+   "best_validate_score": 0.7723,
+   "families": [
+    "information source / lead-lag",
+    "book position from receipts",
+    "explicit side rules",
+    "behaviour cloning LightGBM",
+    "own inventory",
+    "price rule",
+    "multi-wallet coordination",
+    "regime",
+    "window participation",
+    "fair-value variants",
+    "book proxies",
+    "selection pilot"
+   ]
+  }
+ ]
+}

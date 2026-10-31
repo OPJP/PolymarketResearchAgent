@@ -1,0 +1,380 @@
+{
+ "strategy": "dbdd-inplay-taker",
+ "wallet": "0xdbdd45150249e229eb4ca8aa48a30dca21faa5de",
+ "primary_metric": "sel_auc: within-market selection AUC on VALIDATE (wallet taker BUY prints vs other takers' BUY prints, in-play, same-market pairs only, no own-state features)",
+ "split": {
+  "H": 1792713600,
+  "BUILD": [
+   1790121600,
+   1791849600
+  ],
+  "VALIDATE": [
+   1791849600,
+   1792713600
+  ],
+  "unit": "gameStartTime (fallback first wallet fill)"
+ },
+ "preregistered": {
+  "flag_threshold": "top 15% of scores within each market's print population",
+  "p_value": "stratified rank-sum (within-market permutation null, normal approx.)",
+  "decision_lag_s": 2
+ },
+ "best": {
+  "rule_id": "R-LGB-PUB-1",
+  "validate_metrics": {
+   "auc": 0.7311424948492298,
+   "recall": 0.4037932930181418,
+   "lift": 2.640277396290836,
+   "precision": 0.03546281916134899,
+   "base_rate": 0.013431474742452642,
+   "perm_p_normal_approx": 0.0,
+   "n_wallet": 10914,
+   "n_prints": 812569,
+   "n_markets": 4759,
+   "side_baselines": {
+    "favourite": 0.4819,
+    "token_rose_60s": 0.497,
+    "follow_taker_flow_60s": 0.7237
+   }
+  }
+ },
+ "hypotheses": [
+  {
+   "id": "R1_quiet",
+   "family": "tape-microstructure (explicit)",
+   "description": "R1_quiet",
+   "validate_metrics": {
+    "auc": 0.523864887763438,
+    "recall": 0.17317207256734468,
+    "lift": 1.131634775818882,
+    "precision": 0.015199523909092372,
+    "base_rate": 0.013431474742452642,
+    "perm_p_normal_approx": 7.030144787540946e-06,
+    "n_wallet": 10914,
+    "n_prints": 812569,
+    "n_markets": 4759
+   },
+   "build_metrics": {
+    "auc": 0.5347216651013906,
+    "recall": 0.17382967778141514,
+    "lift": 1.144592334512065,
+    "precision": 0.013863092174457897,
+    "base_rate": 0.012111816370295434,
+    "perm_p_normal_approx": 4.277193302065751e-22,
+    "n_wallet": 21383,
+    "n_prints": 1765466,
+    "n_markets": 8455
+   },
+   "verdict": "weak"
+  },
+  {
+   "id": "R2_quiet_plus_flow60",
+   "family": "tape-microstructure (explicit)",
+   "description": "R2_quiet_plus_flow60",
+   "validate_metrics": {
+    "auc": 0.5465633416794449,
+    "recall": 0.18050210738501007,
+    "lift": 1.1846219824874022,
+    "precision": 0.01591122023713372,
+    "base_rate": 0.013431474742452642,
+    "perm_p_normal_approx": 1.1899416198357777e-17,
+    "n_wallet": 10914,
+    "n_prints": 812569,
+    "n_markets": 4759
+   },
+   "build_metrics": {
+    "auc": 0.5442871428788748,
+    "recall": 0.18327643455081138,
+    "lift": 1.2171635123672415,
+    "precision": 0.014742060954415848,
+    "base_rate": 0.012111816370295434,
+    "perm_p_normal_approx": 1.0005845792953542e-34,
+    "n_wallet": 21383,
+    "n_prints": 1765466,
+    "n_markets": 8455
+   },
+   "verdict": "weak"
+  },
+  {
+   "id": "R3_quiet_flow_contra900",
+   "family": "tape-microstructure (explicit)",
+   "description": "R3_quiet_flow_contra900",
+   "validate_metrics": {
+    "auc": 0.550423528831993,
+    "recall": 0.18728238959135055,
+    "lift": 1.2238715812539034,
+    "precision": 0.01643840023161738,
+    "base_rate": 0.013431474742452642,
+    "perm_p_normal_approx": 2.2361247368507208e-20,
+    "n_wallet": 10914,
+    "n_prints": 812569,
+    "n_markets": 4759
+   },
+   "build_metrics": {
+    "auc": 0.5486315644513408,
+    "recall": 0.18711125660571482,
+    "lift": 1.2327905723043175,
+    "precision": 0.014931333034781311,
+    "base_rate": 0.012111816370295434,
+    "perm_p_normal_approx": 1.8576785703974658e-41,
+    "n_wallet": 21383,
+    "n_prints": 1765466,
+    "n_markets": 8455
+   },
+   "verdict": "weak"
+  },
+  {
+   "id": "R4_flow60_sign",
+   "family": "tape-microstructure (explicit)",
+   "description": "R4_flow60_sign",
+   "validate_metrics": {
+    "auc": 0.5552446876463017,
+    "recall": 0.2287887117463808,
+    "lift": 1.515106638156223,
+    "precision": 0.020350116542517643,
+    "base_rate": 0.013431474742452642,
+    "perm_p_normal_approx": 4.437828209354613e-24,
+    "n_wallet": 10914,
+    "n_prints": 812569,
+    "n_markets": 4759
+   },
+   "build_metrics": {
+    "auc": 0.5505540116302811,
+    "recall": 0.22962166206799794,
+    "lift": 1.5314986994553859,
+    "precision": 0.01854923101914991,
+    "base_rate": 0.012111816370295434,
+    "perm_p_normal_approx": 1.2351725272064164e-44,
+    "n_wallet": 21383,
+    "n_prints": 1765466,
+    "n_markets": 8455
+   },
+   "verdict": "weak"
+  },
+  {
+   "id": "R5_mv10_pos",
+   "family": "tape-microstructure (explicit)",
+   "description": "R5_mv10_pos",
+   "validate_metrics": {
+    "auc": 0.5263004865511353,
+    "recall": 0.17766171889316473,
+    "lift": 1.2568334632802838,
+    "precision": 0.01688112691751841,
+    "base_rate": 0.013431474742452642,
+    "perm_p_normal_approx": 8.500705545389293e-07,
+    "n_wallet": 10914,
+    "n_prints": 812569,
+    "n_markets": 4759
+   },
+   "build_metrics": {
+    "auc": 0.5149135174994656,
+    "recall": 0.16957396062292476,
+    "lift": 1.2017287191220065,
+    "precision": 0.014555117572916082,
+    "base_rate": 0.012111816370295434,
+    "perm_p_normal_approx": 1.8914258308238784e-05,
+    "n_wallet": 21383,
+    "n_prints": 1765466,
+    "n_markets": 8455
+   },
+   "verdict": "weak"
+  },
+  {
+   "id": "R-LGB-PUB-1",
+   "family": "behaviour cloning: tape + sibling-market + metadata (LightGBM)",
+   "description": "LightGBM over point-in-time tape/sibling/metadata features, no own-state, no own size",
+   "validate_metrics": {
+    "auc": 0.7311424948492298,
+    "recall": 0.4037932930181418,
+    "lift": 2.640277396290836,
+    "precision": 0.03546281916134899,
+    "base_rate": 0.013431474742452642,
+    "perm_p_normal_approx": 0.0,
+    "n_wallet": 10914,
+    "n_prints": 812569,
+    "n_markets": 4759
+   },
+   "importance_gain_top": {
+    "n_before": 134349.0,
+    "price": 43287.0,
+    "usd300": 42870.0,
+    "dp_print": 40533.0,
+    "fam_c": 29654.0,
+    "minute": 26894.0,
+    "smt_c": 23568.0,
+    "log_quiet": 20558.0,
+    "mv900": 20309.0,
+    "mv300": 18936.0,
+    "usd10": 18100.0,
+    "last_pk": 18091.0,
+    "flow10": 17058.0,
+    "flow300": 16268.0,
+    "n300": 13617.0,
+    "usd60": 13424.0,
+    "mv60": 12878.0,
+    "mv30": 12008.0,
+    "mv10": 11368.0,
+    "flow60": 11181.0
+   },
+   "verdict": "best so far; far below target"
+  },
+  {
+   "id": "R-LGB-FP-1",
+   "family": "diagnostic fingerprint (own print size added)",
+   "description": "same + log USD of the print itself (not a strategy feature)",
+   "validate_metrics": {
+    "auc": 0.7904655310647831,
+    "recall": 0.4847901777533443,
+    "lift": 3.1701201489341653,
+    "precision": 0.04257938871094945,
+    "base_rate": 0.013431474742452642,
+    "perm_p_normal_approx": 0.0,
+    "n_wallet": 10914,
+    "n_prints": 812569,
+    "n_markets": 4759
+   },
+   "verdict": "diagnostic only"
+  },
+  {
+   "id": "R-CLUSTER-1",
+   "family": "co-trader cluster (public tape wallets)",
+   "description": "a BUILD-selected co-trader other than the printer bought the same token in [T-60,T-2]",
+   "validate_metrics": {
+    "auc": 0.623431784261123,
+    "recall": 0.27284290862836547,
+    "lift": 1.771555079904444,
+    "precision": 0.024328922495274102,
+    "base_rate": 0.013733088387286485,
+    "perm_p_normal_approx": 1.785672380713252e-46,
+    "n_wallet": 4717,
+    "n_prints": 343477,
+    "n_markets": 2194,
+    "wallet_share_leader60": 0.1846512613949544,
+    "others_share_leader60": 0.08136438776715078
+   },
+   "n_leaders": 21,
+   "verdict": "real signal (2x enrichment); add to model next iteration",
+   "note": "leaders selected on the first 800 BUILD markets and evaluated on the first 2,194 VALIDATE markets (full-data rerun exceeded 3 GB and was stopped)"
+  },
+  {
+   "id": "D-ESPN-GOAL",
+   "family": "soccer score feed (ESPN wall clock), descriptive lead-lag on BUILD",
+   "description": "timing of prints relative to the nearest ESPN goal wall clock",
+   "build_metrics": {
+    "wallet": {
+     "n": 1829,
+     "hist_nearest_goal": {
+      "-300..-120": 0.0558,
+      "-120..-60": 0.0317,
+      "-60..-30": 0.0262,
+      "-30..-10": 0.0312,
+      "-10..0": 0.0213,
+      "0..5": 0.0159,
+      "5..10": 0.0246,
+      "10..20": 0.0421,
+      "20..30": 0.035,
+      "30..45": 0.041,
+      "45..60": 0.0344,
+      "60..90": 0.0416,
+      "90..120": 0.0213,
+      "120..180": 0.0246,
+      "180..300": 0.0459
+     },
+     "share_within_60s_after": 0.1957353745215965,
+     "share_within_60s_before": 0.07927829414980864
+    },
+    "others": {
+     "n": 164257,
+     "hist_nearest_goal": {
+      "-300..-120": 0.0678,
+      "-120..-60": 0.0302,
+      "-60..-30": 0.0165,
+      "-30..-10": 0.0183,
+      "-10..0": 0.0228,
+      "0..5": 0.0129,
+      "5..10": 0.009,
+      "10..20": 0.0131,
+      "20..30": 0.011,
+      "30..45": 0.0185,
+      "45..60": 0.0182,
+      "60..90": 0.0295,
+      "90..120": 0.0253,
+      "120..180": 0.0374,
+      "180..300": 0.0547
+     },
+     "share_within_60s_after": 0.08447128585083132,
+     "share_within_60s_before": 0.05776313947046397
+    }
+   },
+   "verdict": "see NOTES"
+  },
+  {
+   "id": "D-MARKOUT",
+   "family": "informed-trading diagnostic (future prices; descriptive only)",
+   "description": "bought-token price change 5 s..10 min after the print and to resolution, wallet vs others (BUILD)",
+   "build_metrics": {
+    "wallet": {
+     "mo5": 0.0051,
+     "mo30": 0.0103,
+     "mo120": 0.0172,
+     "mo600": 0.0246,
+     "mo_res": 0.0181,
+     "n": 21383,
+     "quiet_med": 17.0,
+     "quiet_ge10": 0.6096431744844035,
+     "mv60_mean": 0.004544571753669207,
+     "mv10_mean": 0.0019199619768202948,
+     "sib_n10_mean": 0.9203105270542019,
+     "dp_print_mean": 0.011694867989197263,
+     "price_mean": 0.4932776245100453,
+     "usd_med": 10.999999999607837
+    },
+    "others": {
+     "mo5": 0.0003,
+     "mo30": 0.0013,
+     "mo120": 0.0024,
+     "mo600": 0.0015,
+     "mo_res": 0.0011,
+     "n": 1744083,
+     "quiet_med": 5.0,
+     "quiet_ge10": 0.3309584463583442,
+     "mv60_mean": 0.003021643940534741,
+     "mv10_mean": 0.0012608115527160846,
+     "sib_n10_mean": 1.0279218362887546,
+     "dp_print_mean": 0.01072843204910229,
+     "price_mean": 0.5360331558473304,
+     "usd_med": 11.260000000781805
+    }
+   },
+   "verdict": "wallet strongly informed on a minutes horizon"
+  }
+ ],
+ "data_sources": [
+  "data-api /activity full history 2025-11-12..2026-10-22 (509,053 rows)",
+  "gamma markets_by_condition for 14,020 markets traded since 2026-09-21",
+  "data-api /trades takerOnly full tapes for all 13,262 markets traded with game start in [2026-09-23, H) (3.25M taker rows)",
+  "ESPN soccer summaries keyEvents for 500 matched games (13,363 key events with wall clocks)"
+ ],
+ "iterations": [
+  {
+   "n": 1,
+   "minutes": 50,
+   "best_validate_score": 0.7311424948492298,
+   "families": [
+    "tape-microstructure explicit rules",
+    "LightGBM behaviour cloning (tape+sibling+metadata)",
+    "co-trader cluster",
+    "ESPN soccer goal lead-lag",
+    "markout/informedness diagnostic",
+    "presence model"
+   ]
+  }
+ ],
+ "open_questions": [
+  "trigger of the ~75% of soccer trades not within 60 s of a goal",
+  "tennis/esports information source",
+  "whether fair value is a sharp bookmaker line",
+  "sizing rule (depth at best ask?)",
+  "market selection among all live markets"
+ ]
+}

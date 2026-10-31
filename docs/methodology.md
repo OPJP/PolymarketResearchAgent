@@ -113,16 +113,27 @@ Hypothesis families for crypto Up/Down windows:
   bids are filled right after spot moved toward that side quotes on spot.
 
 The statistic is the **stratified AUC**: wallet decisions are compared with
-other traders' decisions only inside strata of price (50 quantile bins) x
-time in the window (6 bins) x side, so a wallet that simply prefers some
-prices, times or sides does not count as matching a spot hypothesis.
+other traders' decisions only inside strata, so a wallet with static
+preferences does not count as matching a spot hypothesis. Two stratifications
+are computed on the same null draws and a match must beat the null on both
+(p is the larger of the two):
+
+* global strata: price (50 quantile bins) x time in the window (40 bins,
+  7.5 s for 5-minute windows, plus before-start and after-end) x side, which
+  controls a preference for particular prices or seconds of the window;
+* within-window strata: window x price (10) x time (10) x side, which
+  controls a wallet that is simply more active in some windows.
 
 The **permutation null rotates spot paths between windows of the same
 2-hour block**: in each draw every block's windows take the spot path of the
 window k_b positions later (cyclically, k_b != 0, drawn independently per
-block). Every decision keeps its price, timing and side and is scored on a
-real spot path that was loaded, so the observed and rotated statistics are
-exchangeable when the wallet ignores spot. 200 draws; pass: p < 0.01.
+block; at least 4 windows per block are required). Every decision keeps its
+price, timing, side and window and is scored on another real spot path, so
+the statistics are exchangeable when the wallet's choices depend only on the
+stratum features. A wallet that reacts to something correlated with spot,
+such as the market's own tape, can still pass; `tape_momentum_sign` adds the
+recent tape move as an extra control stratum to separate the two. 200
+rotations; pass: p < 0.01.
 
 **Effect size**: the rule at the FIT threshold (max MCC) must also flag at
 least 20% of the wallet's TEST decisions (recall >= 0.2) at least twice as
@@ -271,4 +282,16 @@ results; both can only turn passes into failures.
 Effect on stage A1: 12 wallets pass (mo-money added, none lost). Failure
 counts: deflated Sharpe 463 (15 more: undefined DSR), Holm 305, positive
 weeks 317, positive months 312, bootstrap 247; the others are unchanged.
+
+A second audit of the round-2 code (2026-10-31) found that four
+time-in-window bins were too coarse (a wallet trading only in the first 15 s
+of a window looked spot-driven 7-15% of the time at a nominal 1%), that the
+pooled statistic was anti-conservative for wallets more active in some
+windows, that a tape-following maker passes the spot-return test without a
+tape control, and that the rotation is degenerate with fewer than 4 windows
+per block. The match test now uses 40 time bins, requires the within-window
+statistic too, offers the tape control, and refuses degenerate blocks; the
+synthetic size tests cover each case. The same audit fixed float noise in
+tape prices, the closing TWAP after the window end, and the persistence
+references (now exact; mo-money's persistence changed from fail to pass).
 

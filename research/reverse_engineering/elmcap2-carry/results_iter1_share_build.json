@@ -1,0 +1,12 @@
+{
+ "markets": 421,
+ "traded": 141,
+ "share_pooled_traded": 1.25,
+ "share_median_traded": 1.492,
+ "flow99_traded_total": 17647072,
+ "flow99_untraded_total": 2141210,
+ "untraded_with_flow": 173,
+ "untraded": 280,
+ "median_flow99_traded": 3110,
+ "median_flow99_untraded": 34
+}

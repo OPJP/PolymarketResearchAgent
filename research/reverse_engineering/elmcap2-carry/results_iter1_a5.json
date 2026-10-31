@@ -1,0 +1,10 @@
+{
+ "lag60_all": 0.8844,
+ "lag60_no_age": 0.8991,
+ "lag60_no_fam": 0.9023,
+ "lag60_price_time_only": 0.8982,
+ "lag3660_all": 0.8814,
+ "lag3660_no_age": 0.8988,
+ "lag3660_no_fam": 0.8931,
+ "lag3660_price_time_only": 0.8962
+}
