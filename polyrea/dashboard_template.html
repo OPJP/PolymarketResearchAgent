@@ -131,11 +131,11 @@ table.re .mark { display: inline-block; min-width: 1.3rem; text-align: center; }
   </section>
 
   <section aria-labelledby="re-h" id="re-section" hidden>
-    <div class="section-head"><h2 id="re-h">Deep reverse engineering</h2><span class="count">One expert agent per strategy, then an independent holdout examiner</span></div>
+    <div class="section-head"><h2 id="re-h">Deep reverse engineering</h2><span class="count">One expert agent per strategy until it is decoded; panels, audited walls, repeated exams on sealed data</span></div>
     <div class="tablebox">
       <table class="re">
         <thead><tr>
-          <th>Strategy</th><th>Status</th><th>Iterations</th><th>Best VALIDATE score</th><th>Holdout target</th>
+          <th>Strategy</th><th>Status</th><th>Iterations</th><th>Best VALIDATE score</th><th>Exams</th><th>Wall audits</th><th>Exam target</th>
           <th>Match</th><th>Backtest</th><th>Replicable</th><th>Persists</th>
         </tr></thead>
         <tbody id="re-rows"></tbody>
@@ -223,15 +223,18 @@ table.re .mark { display: inline-block; min-width: 1.3rem; text-align: center; }
   if (RE.length) {
     document.getElementById("re-section").hidden = false;
     const cell = (s) => s ? `<span class="mark ${esc(s)}" title="${esc(s)}">${markChar[s] || "·"}</span> ${esc(s)}` : `<span class="det">-</span>`;
-    const statusPill = { adjudicated: "pass", examined: "pass", target_reached: "pass", wall: "inconclusive", in_progress: "in_progress", not_started: "in_progress" };
+    const statusPill = { decoded: "pass", adjudicated: "pass", examined: "pass", target_reached: "pass", wall_accepted: "inconclusive", wall: "inconclusive",
+      budget_exhausted: "reject", not_decoded_exams_exhausted: "reject", agent_failed: "reject", agent_cap: "reject",
+      examining: "in_progress", in_progress: "in_progress", not_started: "in_progress" };
     document.getElementById("re-rows").innerHTML = RE.map((s) => {
       const ex = s.exam || {};
       const cr = Object.assign({}, ex.criteria || {}, (s.adjudication && s.adjudication.criteria) || {});
       const tm = ex.target_met == null ? "-" : (ex.target_met ? "met" : "not met");
-      const title = [s.primary_metric, s.best_rule && `best rule ${s.best_rule}`, s.wall_reason && `wall: ${s.wall_reason}`].filter(Boolean).join("; ");
+      const title = [s.strategy_statement, s.primary_metric, s.best_rule && `best rule ${s.best_rule}`, s.wall_reason && `wall: ${s.wall_reason}`].filter(Boolean).join("; ");
       return `<tr title="${esc(title)}"><td><b>${esc(s.key)}</b><br><span class="det">${esc(s.title || "")}</span></td>` +
         `<td><span class="pill ${statusPill[s.status] || "in_progress"}">${esc(s.status.replace(/_/g, " "))}</span></td>` +
         `<td class="num">${s.iterations} (${Math.round(s.minutes || 0)} min)</td><td class="num">${num(s.best_validate_score, 3)}</td>` +
+        `<td class="num">${s.exam_rounds || 0}</td><td class="num">${s.wall_audits || 0}${s.walls_rejected ? ` (${s.walls_rejected} rejected)` : ""}</td>` +
         `<td>${esc(tm)}</td><td>${cell(cr.match)}</td><td>${cell(cr.backtest)}</td><td>${cell(cr.replicable)}</td><td>${cell(cr.persists)}</td></tr>`;
     }).join("");
   }

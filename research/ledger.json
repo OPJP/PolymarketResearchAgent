@@ -1,5 +1,5 @@
 {
- "generated_at": 1793445174,
+ "generated_at": 1793449197,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -113,7 +113,12 @@
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9132,
    "best_rule": "H30+H36 crossasset-it4b with lagged side segments (code/final_rule.py, USE_ALTS=True, ALT_SET='four', models code/model_it4b_*.txt, side model_it4b_side_lag.txt)",
-   "has_final_rule": true
+   "has_final_rule": true,
+   "strategy_statement": null,
+   "exam_rounds": 0,
+   "wall_audits": 0,
+   "walls_rejected": 0,
+   "panels": 0
   },
   {
    "key": "elmcap2-carry",
@@ -129,7 +134,12 @@
    "primary_metric": "presence_auc_V: ROC AUC on VALIDATE of the rule's point-in-time score (no own-state) for 'wallet has >=1 BUY fill in (market, 6h bin)', universe U = Gamma markets endDate in window, volumeNum>=20k, resolved before H, non-sports, non-Up/Down; cells endDate-14d .. min(closedTime, endDate+14d)",
    "best_validate_score": 0.8962,
    "best_rule": "L2_lgbm_price_time_lag3660",
-   "has_final_rule": true
+   "has_final_rule": true,
+   "strategy_statement": null,
+   "exam_rounds": 0,
+   "wall_audits": 0,
+   "walls_rejected": 0,
+   "panels": 0
   },
   {
    "key": "jld-inplay-taker",
@@ -145,7 +155,12 @@
    "primary_metric": null,
    "best_validate_score": null,
    "best_rule": null,
-   "has_final_rule": false
+   "has_final_rule": false,
+   "strategy_statement": null,
+   "exam_rounds": 0,
+   "wall_audits": 0,
+   "walls_rejected": 0,
+   "panels": 0
   },
   {
    "key": "rebate-farmer",
@@ -161,7 +176,12 @@
    "primary_metric": null,
    "best_validate_score": null,
    "best_rule": null,
-   "has_final_rule": false
+   "has_final_rule": false,
+   "strategy_statement": null,
+   "exam_rounds": 0,
+   "wall_audits": 0,
+   "walls_rejected": 0,
+   "panels": 0
   },
   {
    "key": "directional-maker",
@@ -171,8 +191,8 @@
     "0x3725d52f3c252e8374999cc8617292ea2608ad88",
     "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed"
    ],
-   "status": "adjudicated",
-   "wall_reason": "diminishing returns (brief): best VALIDATE presence AUC on the clean metric 0.7592 (iteration 1, clean equivalent) -> 0.7634 (iteration 2) -> 0.7634 (iteration 3), +0.004 over the last two iterations, which tried 12 and 12 new families. Structural cap: which BTC 5m windows the cluster trades is an operator schedule with no public correlate (window AUC 0.47-0.58 from tape statistics, taker mix, competitor identity, spot regime, listing fields; oracle on/off ceiling 0.862). Not an information wall on quotes: no lead over Binance 1-s data, and it reprices faster than other makers.",
+   "status": "in_progress",
+   "wall_reason": null,
    "iterations": 3,
    "minutes": 152,
    "hypotheses": 39,
@@ -180,6 +200,11 @@
    "best_validate_score": 0.7723,
    "best_rule": "R2-presence-lgbm-clean-path-xwin",
    "has_final_rule": true,
+   "strategy_statement": null,
+   "exam_rounds": 1,
+   "wall_audits": 0,
+   "walls_rejected": 0,
+   "panels": 0,
    "exam": {
     "target_met": false,
     "leakage_passed": true,
@@ -274,6 +299,9 @@
     "why_it_works": null
    },
    "adjudication": {
+    "round": 1,
+    "sealed_from": 1792713600,
+    "holdout_end_ts": 1793404800,
     "examiner_criteria": {
      "match": "partial",
      "backtest": "fail",
@@ -305,7 +333,12 @@
    "primary_metric": "sel_auc: within-market selection AUC on VALIDATE (wallet taker BUY prints vs other takers' BUY prints, in-play, same-market pairs only, no own-state features)",
    "best_validate_score": 0.7311424948492298,
    "best_rule": "R-LGB-PUB-1",
-   "has_final_rule": true
+   "has_final_rule": true,
+   "strategy_statement": null,
+   "exam_rounds": 0,
+   "wall_audits": 0,
+   "walls_rejected": 0,
+   "panels": 0
   },
   {
    "key": "rn1-inplay-maker",
@@ -321,7 +354,12 @@
    "primary_metric": null,
    "best_validate_score": null,
    "best_rule": null,
-   "has_final_rule": false
+   "has_final_rule": false,
+   "strategy_statement": null,
+   "exam_rounds": 0,
+   "wall_audits": 0,
+   "walls_rejected": 0,
+   "panels": 0
   },
   {
    "key": "tommy-cs2-maker",
@@ -337,7 +375,12 @@
    "primary_metric": null,
    "best_validate_score": null,
    "best_rule": null,
-   "has_final_rule": false
+   "has_final_rule": false,
+   "strategy_statement": null,
+   "exam_rounds": 0,
+   "wall_audits": 0,
+   "walls_rejected": 0,
+   "panels": 0
   }
  ],
  "wallets": [

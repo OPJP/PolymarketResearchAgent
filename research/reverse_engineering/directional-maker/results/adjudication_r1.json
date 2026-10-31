@@ -1,0 +1,20 @@
+{
+ "round": 1,
+ "sealed_from": 1792713600,
+ "holdout_end_ts": 1793404800,
+ "examiner_criteria": {
+  "match": "partial",
+  "backtest": "fail",
+  "replicable": "fail",
+  "persists": "fail"
+ },
+ "criteria": {
+  "match": "partial",
+  "backtest": "fail",
+  "replicable": "fail",
+  "persists": "fail"
+ },
+ "target_met": false,
+ "deploy_now_supported": false,
+ "refutations": {}
+}

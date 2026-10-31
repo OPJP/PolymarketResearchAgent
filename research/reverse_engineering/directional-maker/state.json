@@ -839,6 +839,14 @@
    ]
   }
  ],
- "status": "wall",
- "wall_reason": "diminishing returns (brief): best VALIDATE presence AUC on the clean metric 0.7592 (iteration 1, clean equivalent) -> 0.7634 (iteration 2) -> 0.7634 (iteration 3), +0.004 over the last two iterations, which tried 12 and 12 new families. Structural cap: which BTC 5m windows the cluster trades is an operator schedule with no public correlate (window AUC 0.47-0.58 from tape statistics, taker mix, competitor identity, spot regime, listing fields; oracle on/off ceiling 0.862). Not an information wall on quotes: no lead over Binance 1-s data, and it reprices faster than other makers."
+ "status": "continue",
+ "wall_reason": null,
+ "previous_wall_claims": [
+  {
+   "iteration": 3,
+   "wall_reason": "diminishing returns (brief): best VALIDATE presence AUC on the clean metric 0.7592 (iteration 1, clean equivalent) -> 0.7634 (iteration 2) -> 0.7634 (iteration 3), +0.004 over the last two iterations, which tried 12 and 12 new families. Structural cap: which BTC 5m windows the cluster trades is an operator schedule with no public correlate (window AUC 0.47-0.58 from tape statistics, taker mix, competitor identity, spot regime, listing fields; oracle on/off ceiling 0.862). Not an information wall on quotes: no lead over Binance 1-s data, and it reprices faster than other makers.",
+   "outcome": "not accepted under the find-the-strategy brief (2026-10-31): no audit, catalog not worked through"
+  }
+ ],
+ "sealed_from": 1793404800
 }

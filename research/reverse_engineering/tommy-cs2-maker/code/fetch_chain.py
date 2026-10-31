@@ -64,8 +64,8 @@ def main(start_ts: int, end_ts: int, step: int = 4000) -> None:
     end_ts = min(end_ts, H)
     # anchor: block 96005486 is the first block with ts >= H (verified by a peer study); ~1.5 s blocks
     anchor = 96005486
-    guess_s = anchor - int((H - start_ts) / 1.5) - 60_000
-    guess_e = anchor - int((H - end_ts) / 1.5) + 60_000
+    guess_s = anchor - int((H - start_ts) / 1.5) - 160_000
+    guess_e = anchor - int((H - end_ts) / 1.5) + 160_000
     b0 = block_at(start_ts, max(guess_s, 1), guess_e) + 1
     b1 = block_at(end_ts, b0, min(guess_e, anchor))
     assert block_ts(b1) < H

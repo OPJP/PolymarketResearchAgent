@@ -1,4 +1,7 @@
 {
+ "round": 1,
+ "sealed_from": 1792713600,
+ "holdout_end_ts": 1793404800,
  "examiner_criteria": {
   "match": "partial",
   "backtest": "fail",

@@ -68,9 +68,20 @@ def test_deep_re_progress_from_workspaces(tmp_path, monkeypatch):
     assert by["s1"]["best_validate_score"] == 0.81 and by["s1"]["exam"]["criteria"]["match"] == "partial"
     assert by["s2"]["status"] == "wall" and by["s2"]["best_validate_score"] is None
     assert by["s3"]["status"] == "adjudicated" and by["s3"]["adjudication"]["criteria"]["backtest"] == "fail"
+    assert by["s3"]["exam_rounds"] == 1 and by["s3"]["wall_audits"] == 0
     assert by["s4"]["status"] == "not_started"
     report.write_summary_md(led)
     md = (research / "README.md").read_text(encoding="utf-8")
-    assert "| [s3](reverse_engineering/s3/NOTES.md) | adjudicated | 1 | 0.600 | yes | pass | fail |" in md
+    assert "| [s3](reverse_engineering/s3/NOTES.md) | adjudicated | 1 (60 min) | 0.600 | 1 | 0 (0) | yes | pass | fail |" in md
     html = report.render_dashboard(led, fragment=True)
     assert '"deep_re"' in html and 're-rows' in html
+
+    # An agent that keeps working after a failed exam is in progress again; the workflow's progress file sets the stage.
+    s1 = json.loads((re_dir / "s1" / "state.json").read_text(encoding="utf-8"))
+    (re_dir / "s1" / "state.json").write_text(json.dumps({**s1, "status": "continue", "strategy_statement": "quotes at fair minus 1c"}), encoding="utf-8")
+    (re_dir / "s3" / "results" / "progress.json").write_text(json.dumps({"stage": "decoded", "exam_rounds": 2, "panels": 4,
+        "wall_audits": [{"n": 1, "accepted": False}, {"n": 2, "accepted": False}]}), encoding="utf-8")
+    by = {s["key"]: s for s in report.build_ledger()["deep_re"]}
+    assert by["s1"]["status"] == "in_progress" and by["s1"]["strategy_statement"] == "quotes at fair minus 1c"
+    assert by["s3"]["status"] == "decoded" and by["s3"]["exam_rounds"] == 2
+    assert by["s3"]["wall_audits"] == 2 and by["s3"]["walls_rejected"] == 2 and by["s3"]["panels"] == 4

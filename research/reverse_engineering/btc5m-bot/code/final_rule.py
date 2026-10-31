@@ -67,6 +67,7 @@ from fut_cells import FUT_FEATS, fut_feats
 from venue_cells import VEN_FEATS, ven_feats
 from venue_cells2 import VEN2_FEATS, ven2_feats
 from alt_cells import alt_feats, ALTS, ALTS4, ALT_FEATS, ALT4_FEATS, BETA as ALT_BETA, lag_feats, LAG_FEATS
+from book_feats import BK as BOOK_FEATS, book_arrays, book_feats, stream_day
 
 # ----------------------------------------------------------------------------- frozen constants
 WALLETS = {"0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6": "GF", "0x3048d65321be3497164cdfc2996f94f98a2e7537": "XM", "0xc53375ff94e96100f2b30a4b5775db35218d69a9": "DS"}
@@ -95,6 +96,8 @@ MODEL_SIDE = f"{CODE}/{f'model_{_TAG}_side' if USE_VENUES else 'model_it3_side'}
 SIDE_LAG = USE_ALTS and ALT_SET == "four"  # iteration 4: side model with explicit [s-3, s-2) / [s-4, s-3) segments (chosen on VALIDATE: 75.5% vs 75.3%)
 if SIDE_LAG:
     MODEL_SIDE = f"{CODE}/model_{_TAG}_side_lag.txt"
+USE_BOOK = True     # iteration 5: Bybit BTCUSDT perpetual top-of-book features (public orderbook.200 archive) in the side model
+MODEL_SIDE_BOOK = f"{CODE}/model_it5_side_book.txt"  # side model it4b-lag features + BK_* (trained on BUILD only)
 MODEL_MKT = f"{CODE}/model_it2_market_only_y.txt"                  # co-occurrence baseline (market activity only)
 MODEL_NETFLOW = f"{CODE}/model_{_TAG}_netflow.txt"                # iteration 4: signed net share flow per second (outcome proxy)
 MODEL_SHARES = f"{CODE}/model_{_TAG}_shares.txt"                  # iteration 4: expected cluster shares per cell (primary outcome proxy)
@@ -286,6 +289,42 @@ def _agg(venue: str, days, end_ts: int):
     return Agg(pd.concat(parts, ignore_index=True).drop_duplicates())
 
 
+def _book_path(day0: int, end_ts: int, download: bool = True):
+    """Reduced 100-ms Bybit perpetual top-of-book parquet for one UTC day (streamed from the public orderbook.200 archive),
+    or None. Development runs (end_ts <= H) never load a day that extends past H."""
+    if end_ts <= H and day0 + 86400 > H:
+        return None
+    for base in (DEV_CACHE, EVAL_DIR):
+        p = f"{base}/bybit_ob/linear_{day0}.parquet"
+        if os.path.exists(p):
+            return p
+    if not download:
+        return None
+    p = f"{EVAL_DIR}/bybit_ob/linear_{day0}.parquet"
+    try:
+        ok = stream_day(day0, p, H if end_ts <= H else 0)
+    except Exception as e:  # network / archive errors: the side model then sees NaN book features
+        print(f"bybit book {_day_str(day0)} unavailable: {type(e).__name__}", flush=True)
+        return None
+    return p if ok else None
+
+
+def _add_book(X: pd.DataFrame, sec: np.ndarray, end_ts: int) -> pd.DataFrame:
+    """BK_* features for block seconds sec (point in time: book buckets with T < (s-1)*1000 ms)."""
+    day = (sec // 86400) * 86400
+    cols = {k: np.full(len(X), np.nan, np.float32) for k in BOOK_FEATS}
+    for d0 in np.unique(day):
+        d0 = int(d0); idx = np.where(day == d0)[0]
+        A = book_arrays(d0, {d0 - 86400: _book_path(d0 - 86400, end_ts, download=False), d0: _book_path(d0, end_ts)})
+        f = book_feats(sec[idx], A)
+        for k in BOOK_FEATS:
+            cols[k][idx] = f[k]
+        del A
+    for k in BOOK_FEATS:
+        X[k] = cols[k]
+    return X
+
+
 def add_reference_feats(cells: pd.DataFrame, spot_frame: pd.DataFrame, end_ts: int) -> pd.DataFrame:
     """Binance futures (+ OKX, Bybit) PIT features, computed per UTC day of the window start (as in training)."""
     day = (cells.start_ts.to_numpy(np.int64) // 86400) * 86400
@@ -463,6 +502,11 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
     if SIDE_LAG:
         X = lag_feats(X, ALT_BETA)
     ps = _predict(MODEL_SIDE, X, SIDE_FEATURES + (list(LAG_FEATS) if SIDE_LAG else []))
+    ps_it4 = ps
+    if USE_BOOK and SIDE_LAG and os.path.exists(MODEL_SIDE_BOOK):  # iteration 5: + Bybit perpetual top-of-book features
+        X = _add_book(X, up.start_ts.to_numpy(np.int64) + up.rel.to_numpy(np.int64), end_ts)
+        out["reference_feed_coverage"]["bybit_book"] = round(float(np.isfinite(X.BK_imb.to_numpy(float)).mean()), 4)
+        ps = _predict(MODEL_SIDE_BOOK, X, SIDE_FEATURES + list(LAG_FEATS) + list(BOOK_FEATS))
     del X
     sd = {}
     r3z = np.abs(up.r3.to_numpy()) < 0.01
@@ -476,7 +520,9 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
         ok0 = (up.p_mkt.to_numpy()[one] >= dn.p_mkt.to_numpy()[one]) == truth
         okf = (up.m_last.to_numpy()[one] >= 0.5) == truth
         conf = np.abs(ps[one] - 0.5); q50 = np.quantile(conf, 0.5) if len(conf) else 0
+        ok4 = (ps_it4[one] >= 0.5) == truth
         sd[lab] = {"n_seconds": int(one.sum()), "accuracy_side_model": round(float(ok1.mean()), 4),
+                   "accuracy_side_model_it4b_without_book": round(float(ok4.mean()), 4), "mcnemar_p_vs_it4b_without_book": _mcnemar(ok1, ok4),
                    "accuracy_presence_argmax": round(float(okp.mean()), 4),
                    "baseline_market_only_model": round(float(ok0.mean()), 4), "baseline_favourite": round(float(okf.mean()), 4),
                    "mcnemar_p_vs_market_only": _mcnemar(ok1, ok0), "mcnemar_p_vs_favourite": _mcnemar(ok1, okf),

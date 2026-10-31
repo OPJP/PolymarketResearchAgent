@@ -1,0 +1,66 @@
+{
+ "n_build": 317760,
+ "pos_build": 6217,
+ "n_val": 170520,
+ "pos_val": 6582,
+ "B0": {
+  "val_auc": 0.9417,
+  "val_auc_in_traded_markets": 0.8941,
+  "importance": {
+   "e_pre": 0.252,
+   "m_nw600": 0.147,
+   "m_dev": 0.137,
+   "m_n600": 0.096,
+   "m_dp300": 0.078,
+   "e_v600": 0.049,
+   "m_p": 0.034,
+   "e_cum": 0.032,
+   "elapsed": 0.031,
+   "e_n600": 0.03
+  }
+ },
+ "M2": {
+  "val_auc": 0.9489,
+  "val_auc_in_traded_markets": 0.8965,
+  "importance": {
+   "tier": 0.191,
+   "e_pre": 0.143,
+   "m_nw600": 0.137,
+   "m_dev": 0.127,
+   "m_dp300": 0.096,
+   "m_n600": 0.081,
+   "gs_hour": 0.056,
+   "elapsed": 0.021,
+   "m_cum": 0.017,
+   "m_p": 0.016
+  }
+ },
+ "M1": {
+  "val_auc": 0.952,
+  "val_auc_in_traded_markets": 0.8891,
+  "importance": {
+   "league_rate": 0.293,
+   "e_pre": 0.111,
+   "m_n600": 0.111,
+   "m_dev": 0.11,
+   "m_nw600": 0.094,
+   "m_dp300": 0.081,
+   "gs_hour": 0.028,
+   "m_tsl": 0.019,
+   "elapsed": 0.016,
+   "e_cum": 0.014
+  }
+ },
+ "META_only": {
+  "val_auc": 0.859,
+  "val_auc_in_traded_markets": 0.7554,
+  "importance": {
+   "league_rate": 0.439,
+   "elapsed": 0.271,
+   "gs_hour": 0.117,
+   "map_no": 0.065,
+   "tier": 0.055,
+   "is_match": 0.053
+  }
+ }
+}

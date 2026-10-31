@@ -48,12 +48,18 @@ def load_deep_re() -> list[dict[str, Any]]:
         state = load_json(d / "state.json") or {}
         exam = load_json(d / "results" / "exam.json")
         adj = load_json(d / "results" / "adjudication.json")
+        # Written by the workflow at every checkpoint: stage, exam rounds, wall audits, panels.
+        prog = load_json(d / "results" / "progress.json") or {}
         iters = state.get("iterations") or []
         scores = [it.get("best_validate_score") for it in iters if isinstance(it.get("best_validate_score"), (int, float))]
         best = state.get("best") or {}
-        if adj:
+        # A strategy whose agent is still working after an exam is in progress, not finished.
+        reopened = state.get("status") == "continue"
+        if prog.get("stage"):
+            status = {"reverse_engineering": "in_progress"}.get(prog["stage"], prog["stage"])
+        elif adj and not reopened:
             status = "adjudicated"
-        elif exam:
+        elif exam and not reopened:
             status = "examined"
         elif state.get("status") in ("target_reached", "wall"):
             status = state["status"]
@@ -61,6 +67,7 @@ def load_deep_re() -> list[dict[str, Any]]:
             status = "in_progress"
         else:
             status = "not_started"
+        audits = prog.get("wall_audits") or []
         row = {
             "key": s["key"],
             "title": s.get("title"),
@@ -74,6 +81,11 @@ def load_deep_re() -> list[dict[str, Any]]:
             "best_validate_score": max(scores) if scores else None,
             "best_rule": best.get("rule_id"),
             "has_final_rule": (d / "FINAL_RULE.md").exists(),
+            "strategy_statement": state.get("strategy_statement"),
+            "exam_rounds": prog.get("exam_rounds", len(list((d / "results").glob("adjudication_r*.json"))) or (1 if adj else 0)),
+            "wall_audits": len(audits),
+            "walls_rejected": sum(1 for a in audits if not a.get("accepted")),
+            "panels": prog.get("panels", len({p.name.split("_")[0] for p in (d / "panels").glob("iter*_*.md")})),
         }
         if exam:
             row["exam"] = {
@@ -261,16 +273,21 @@ def write_summary_md(ledger: dict[str, Any]) -> None:
     re_rows = ledger.get("deep_re") or []
     if re_rows:
         lines += ["", "## Deep reverse engineering (one expert agent per strategy)", "",
-                  "Iterations of about 60 minutes until the high-accuracy target, a wall or about 5 hours; then an independent examiner scores the frozen rule on the holdout (2026-10-23 onward) and skeptics try to refute any pass. Workspaces: `reverse_engineering/<strategy>/` (`NOTES.md`, `FINAL_RULE.md`, `EXAM.md`).", "",
-                  "| Strategy | Status | Iterations | Best VALIDATE score | Holdout target met | Match | Backtest | Replicable | Persists |",
-                  "| --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
+                  "The premise is that every screened wallet runs a real strategy, so not finding it counts as a failure. Each agent works in iterations of about 75 minutes, for up to about 20 hours per strategy. "
+                  "After every iteration, three fresh-eyes experts propose untried directions. A wall stands only after 10+ hours of work, with the direction catalog closed and three auditors unable to name an untried direction. "
+                  "When an agent claims the target, an independent examiner scores the frozen rule on sealed data, and skeptics try to refute any pass. "
+                  "A failed exam sends its diagnosis back to the agent, and the next exam uses newer data. "
+                  "Workspaces: `reverse_engineering/<strategy>/` (`NOTES.md`, `FINAL_RULE.md`, `EXAM*.md`, `panels/`).", "",
+                  "| Strategy | Status | Iterations | Best VALIDATE score | Exams | Wall audits (rejected) | Latest exam target met | Match | Backtest | Replicable | Persists |",
+                  "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
         for s in re_rows:
             ex = s.get("exam") or {}
             cr = dict(ex.get("criteria") or {})
             cr.update(((s.get("adjudication") or {}).get("criteria")) or {})
             score = "-" if s.get("best_validate_score") is None else f"{s['best_validate_score']:.3f}"
             tm = ex.get("target_met")
-            lines.append(f"| [{s['key']}](reverse_engineering/{s['key']}/NOTES.md) | {s['status'].replace('_', ' ')} | {s['iterations']} | {score} | "
+            lines.append(f"| [{s['key']}](reverse_engineering/{s['key']}/NOTES.md) | {s['status'].replace('_', ' ')} | {s['iterations']} ({round(s.get('minutes') or 0)} min) | {score} | "
+                         f"{s.get('exam_rounds', 0)} | {s.get('wall_audits', 0)} ({s.get('walls_rejected', 0)}) | "
                          f"{'-' if tm is None else ('yes' if tm else 'no')} | {cr.get('match', '-')} | {cr.get('backtest', '-')} | {cr.get('replicable', '-')} | {cr.get('persists', '-')} |")
     lines += ["", "## Criteria across deep-dived wallets", "", "Not sequential: every criterion was assessed for every wallet where possible.", "",
               "| Criterion | Pass | Partial | Fail | Not assessed |", "| --- | --- | --- | --- | --- |"]
