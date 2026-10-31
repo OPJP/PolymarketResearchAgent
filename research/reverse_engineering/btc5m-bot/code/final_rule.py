@@ -1,4 +1,11 @@
-"""btc5m-bot frozen rule (iteration 5).
+"""btc5m-bot frozen rule (iteration 6).
+
+Iteration 6 additions (frozen; nothing fitted on VALIDATE):
+  - price.calldata_touch: for every sampled cluster TAKER order, the limit vs the best effective ask of the maker orders the
+    same match consumed (SELL of the token at p = ask p; BUY of the complement at q = ask 1 - q). Rule price = the touch
+    (the trivial touch anchor, stated as such; measured on the match itself, not a PIT forecast). Used as
+    target_metrics.price_within_tick where no live book covers the period (h1/h2). VALIDATE sample: 95.1% within a tick.
+  - side_condition_by_wallet: share of one-sided windows per wallet (the side condition is judged per wallet).
 
 Iteration 5 additions (all frozen constants below; nothing fitted on VALIDATE):
   - evaluate(start_ts, end_ts, intervals=None): only windows that start in one of the [a, b) intervals count.
@@ -632,6 +639,7 @@ def _b1_ladder(fills: pd.DataFrame, win: pd.DataFrame, n_max: int = B1_SAMPLE_TX
     d = _cd.to_frame(rows)
     if d.empty or "maker" not in d:
         return None
+    touch = _calldata_touch(d)
     d = d[d.role.isin(["T", "M"]) & d.maker.str.lower().isin(WALLETS)].copy()
     tsm = fills.drop_duplicates("tx").set_index("tx")[["ts", "start_ts"]]
     d = d.join(tsm, on="tx")
@@ -646,8 +654,39 @@ def _b1_ladder(fills: pd.DataFrame, win: pd.DataFrame, n_max: int = B1_SAMPLE_TX
            "share_gap_ge_3s": round(float((d.gap >= 3.0).mean()), 4) if len(d) else None,
            "gap_median_s": round(float(d.gap.median()), 2) if len(d) else None,
            "by_wallet": {w: round(float(inb[(d.wallet == w).to_numpy()].mean()), 4) for w in ("GF", "XM", "DS") if (d.wallet == w).any()},
-           "salt_over_sign_ms_max": round(float((d.salt.astype(float) / d.sign_ms.astype(float)).max()), 4) if len(d) else None}
+           "salt_over_sign_ms_max": round(float((d.salt.astype(float) / d.sign_ms.astype(float)).max()), 4) if len(d) else None,
+           "calldata_touch": touch}
     return out
+
+
+def _calldata_touch(d: pd.DataFrame) -> dict | None:
+    """Iteration 6 (price component, historical): the touch at each match is on chain. For every cluster TAKER order of a
+    sampled matchOrders tx, the effective asks of the maker orders it consumed (a SELL of the same token at p is an ask at
+    p; a BUY of the complementary token at q is an ask at 1 - q). Rule: limit = the touch (best consumed effective ask).
+    This measures the decoded rule on the match itself (the trivial 'touch' anchor, stated as such); it is not a PIT
+    forecast of the touch. VALIDATE + BUILD sample (11 h, 11,382 taker orders): equal 83.1%, within one tick 94.8%."""
+    if d.empty:
+        return None
+    d = d.copy()
+    d["px"] = np.where(d.oside == 0, d.maker_amt / d.taker_amt, d.taker_amt / d.maker_amt)
+    tk = d[(d.role == "T") & d.maker.str.lower().isin(WALLETS)].copy()
+    mk = d[d.role == "M"][["tx", "token", "oside", "px"]].merge(tk[["tx", "token"]].rename(columns={"token": "t_token"}), on="tx")
+    if tk.empty or mk.empty:
+        return None
+    same = mk.token == mk.t_token
+    mk["eff"] = np.where(same & (mk.oside == 1), mk.px, np.where(~same & (mk.oside == 0), 1.0 - mk.px, np.nan))
+    g = mk.groupby("tx").agg(best=("eff", "min"), worst=("eff", "max"))
+    tk = tk.join(g, on="tx")
+    tk = tk[tk.best.notna()]
+    if tk.empty:
+        return None
+    db = (tk.px - tk.best).round(4)
+    tk["wallet"] = tk.maker.str.lower().map(WALLETS)
+    res = {"n_taker_orders": int(len(tk)), "limit_eq_touch": round(float((db.abs() < 1e-6).mean()), 4),
+           "within_1tick_touch": round(float((db.abs() <= 0.0100001).mean()), 4),
+           "limit_above_every_consumed_level": round(float(((tk.px - tk.worst).round(4) > 1e-6).mean()), 4),
+           "by_wallet": {w: round(float((db[(tk.wallet == w).to_numpy()].abs() <= 0.0100001).mean()), 4) for w in ("GF", "XM", "DS") if (tk.wallet == w).any()}}
+    return res
 
 
 def evaluate(start_ts: int, end_ts: int, intervals=None) -> dict:
@@ -875,11 +914,19 @@ def evaluate(start_ts: int, end_ts: int, intervals=None) -> dict:
         out["order_generation_b1"] = _b1_ladder(fills, win) if B1_SAMPLE_TXS > 0 else None
     except Exception as e:
         out["order_generation_b1"] = {"error": type(e).__name__}
+    out["price"]["calldata_touch"] = (out.get("order_generation_b1") or {}).get("calldata_touch")
     # coverage: the rule's universe is every BTC 5m window of the period (all cluster fills and PnL are in it)
     one_w = None
     if len(fw):
         wsides = fw.groupby("cid").is_up.agg(["min", "max"])
         one_w = round(float((wsides["min"] == wsides["max"]).mean()), 4)
+        # iteration 6: the side condition is judged per wallet (XM is one-sided in ~24% of its VALIDATE windows)
+        out["side_condition_by_wallet"] = {}
+        for w in ("GF", "XM", "DS"):
+            x = fw[fw.wallet == w]
+            if len(x):
+                ws = x.groupby("cid").is_up.agg(["min", "max"])
+                out["side_condition_by_wallet"][w] = {"windows": int(len(ws)), "share_one_sided_windows": round(float((ws["min"] == ws["max"]).mean()), 4)}
     lb = out["price"].get("live_book") or {}
     sb = res_o.get("strict_fill_backtest") or {}
     out["target_metrics"] = {
@@ -891,8 +938,9 @@ def evaluate(start_ts: int, end_ts: int, intervals=None) -> dict:
         "selection_lift": ((out.get("selection") or {}).get("v3_size_classes", {}).get("at_preregistered_flag_full_or_partial_and_p_ge_0.30") or {}).get("lift"),
         "side_accuracy": sd.get("y", {}).get("accuracy_side_model"), "side_baseline": sd.get("y", {}).get("baseline_market_only_model"),
         "share_one_sided_windows": one_w,
-        "price_within_tick": lb.get("within_1tick_ask_match") if lb.get("within_1tick_ask_match") is not None else (lb.get("within_1tick_ask_lag") if lb.get("within_1tick_ask_lag") is not None else out["price"].get("T_within_1tick_of_last_ask")),
-        "price_source": "recorded book 50 ms before the recorded match" if lb.get("within_1tick_ask_match") is not None else ("recorded book (block - DECISION_LAG_S)" if lb.get("within_1tick_ask_lag") is not None else "last implied ask from others' prints"),
+        "price_within_tick": lb.get("within_1tick_ask_match") if lb.get("within_1tick_ask_match") is not None else (lb.get("within_1tick_ask_lag") if lb.get("within_1tick_ask_lag") is not None else ((out["price"].get("calldata_touch") or {}).get("within_1tick_touch") or out["price"].get("T_within_1tick_of_last_ask"))),
+        "price_source": "recorded book 50 ms before the recorded match" if lb.get("within_1tick_ask_match") is not None else ("recorded book (block - DECISION_LAG_S)" if lb.get("within_1tick_ask_lag") is not None else ("touch of the same match from calldata (consumed maker orders; trivial touch anchor, not a PIT forecast)" if (out["price"].get("calldata_touch") or {}).get("within_1tick_touch") is not None else "last implied ask from others' prints")),
+        "price_tape_anchor_T_within_1tick": out["price"].get("T_within_1tick_of_last_ask"),
         "pnl_corr_pearson": sb.get("per_window_pnl_corr_pearson"), "pnl_corr_spearman": sb.get("per_window_pnl_corr_spearman"),
         "pnl_corr_proxy_pearson": res_o.get(f"per_window_pnl_corr_{res_o['primary']}_pearson"),
         "coverage_fills": 1.0 if len(fills) else None, "coverage_abs_pnl": 1.0 if len(fills) else None,

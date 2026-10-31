@@ -1,5 +1,5 @@
 {
- "generated_at": 1793460248,
+ "generated_at": 1793460458,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -108,8 +108,8 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 6,
-   "minutes": 330.0,
-   "hypotheses": 61,
+   "minutes": 347.0,
+   "hypotheses": 63,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9132,
    "best_rule": "it6: it5 rule + price.calldata_touch (code/final_rule.py)",
@@ -118,7 +118,7 @@
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 0
+   "panels": 1
   },
   {
    "key": "elmcap2-carry",

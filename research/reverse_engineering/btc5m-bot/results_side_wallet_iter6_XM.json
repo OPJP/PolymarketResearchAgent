@@ -1,0 +1,23 @@
+{
+ "wallet": "XM",
+ "build_rows": 45982,
+ "build_rows_post_switch": 0,
+ "validate_rows": 10749,
+ "share_pooled_one_sided": 0.6248,
+ "pooled_frozen": {
+  "all": 0.7261,
+  "pooled_one_sided": 0.8072,
+  "sibling_other_side": 0.5911,
+  "half1": 0.7316,
+  "half2": 0.7207,
+  "taker_seconds": 0.791
+ },
+ "wallet_all_build": {
+  "all": 0.7236,
+  "pooled_one_sided": 0.802,
+  "sibling_other_side": 0.5931,
+  "half1": 0.7331,
+  "half2": 0.7142,
+  "taker_seconds": 0.787
+ }
+}

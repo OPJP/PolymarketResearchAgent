@@ -1,0 +1,285 @@
+{
+ "n_cluster_taker_orders": 11382,
+ "maker_kinds": {
+  "buy_comp": 23328,
+  "sell_same": 1692
+ },
+ "all": {
+  "n": 11382,
+  "limit_eq_best": 0.8313,
+  "limit_within_tick_best": 0.9475,
+  "limit_eq_worst": 0.8863,
+  "single_level": 0.9272,
+  "limit_above_worst": 0.1137
+ },
+ "by_wallet": {
+  "DS": {
+   "n": 6167,
+   "limit_eq_best": 0.8769,
+   "limit_within_tick_best": 0.9612,
+   "limit_eq_worst": 0.9116,
+   "single_level": 0.9533,
+   "limit_above_worst": 0.0884
+  },
+  "GF": {
+   "n": 2847,
+   "limit_eq_best": 0.7267,
+   "limit_within_tick_best": 0.9248,
+   "limit_eq_worst": 0.8328,
+   "single_level": 0.8679,
+   "limit_above_worst": 0.1672
+  },
+  "XM": {
+   "n": 2368,
+   "limit_eq_best": 0.8383,
+   "limit_within_tick_best": 0.9388,
+   "limit_eq_worst": 0.8847,
+   "single_level": 0.9303,
+   "limit_above_worst": 0.1153
+  }
+ },
+ "d_best_counts": {
+  "0.0": 9462,
+  "0.01": 1301,
+  "0.02": 324,
+  "0.03": 137,
+  "0.04": 49,
+  "0.05": 33,
+  "0.06": 13,
+  "0.07": 13,
+  "0.08": 8,
+  "0.001": 6
+ },
+ "d_worst_counts": {
+  "0.0": 10088,
+  "0.01": 851,
+  "0.02": 233,
+  "0.03": 103,
+  "0.04": 38,
+  "0.05": 21,
+  "0.07": 8,
+  "0.06": 8,
+  "0.11": 3,
+  "0.002": 3
+ },
+ "by_hour": {
+  "1791522000": {
+   "n": 38,
+   "limit_eq_best": 0.8158,
+   "limit_within_tick_best": 0.9737,
+   "limit_eq_worst": 0.8947,
+   "single_level": 0.8947,
+   "limit_above_worst": 0.1053
+  },
+  "1791525600": {
+   "n": 1441,
+   "limit_eq_best": 0.7994,
+   "limit_within_tick_best": 0.9362,
+   "limit_eq_worst": 0.864,
+   "single_level": 0.9133,
+   "limit_above_worst": 0.136
+  },
+  "1791756000": {
+   "n": 14,
+   "limit_eq_best": 0.9286,
+   "limit_within_tick_best": 1.0,
+   "limit_eq_worst": 0.9286,
+   "single_level": 1.0,
+   "limit_above_worst": 0.0714
+  },
+  "1791759600": {
+   "n": 923,
+   "limit_eq_best": 0.7985,
+   "limit_within_tick_best": 0.9263,
+   "limit_eq_worst": 0.8722,
+   "single_level": 0.8971,
+   "limit_above_worst": 0.1278
+  },
+  "1791849600": {
+   "n": 40,
+   "limit_eq_best": 0.85,
+   "limit_within_tick_best": 0.975,
+   "limit_eq_worst": 0.925,
+   "single_level": 0.9,
+   "limit_above_worst": 0.075
+  },
+  "1791853200": {
+   "n": 1183,
+   "limit_eq_best": 0.8132,
+   "limit_within_tick_best": 0.94,
+   "limit_eq_worst": 0.8952,
+   "single_level": 0.8943,
+   "limit_above_worst": 0.1048
+  },
+  "1792040400": {
+   "n": 24,
+   "limit_eq_best": 0.9167,
+   "limit_within_tick_best": 1.0,
+   "limit_eq_worst": 0.9583,
+   "single_level": 0.9583,
+   "limit_above_worst": 0.0417
+  },
+  "1792044000": {
+   "n": 1413,
+   "limit_eq_best": 0.8634,
+   "limit_within_tick_best": 0.9597,
+   "limit_eq_worst": 0.9052,
+   "single_level": 0.9455,
+   "limit_above_worst": 0.0948
+  },
+  "1792162800": {
+   "n": 25,
+   "limit_eq_best": 0.96,
+   "limit_within_tick_best": 1.0,
+   "limit_eq_worst": 0.96,
+   "single_level": 1.0,
+   "limit_above_worst": 0.04
+  },
+  "1792166400": {
+   "n": 959,
+   "limit_eq_best": 0.8582,
+   "limit_within_tick_best": 0.9572,
+   "limit_eq_worst": 0.9072,
+   "single_level": 0.9416,
+   "limit_above_worst": 0.0928
+  },
+  "1792260000": {
+   "n": 4,
+   "limit_eq_best": 0.75,
+   "limit_within_tick_best": 1.0,
+   "limit_eq_worst": 1.0,
+   "single_level": 0.75,
+   "limit_above_worst": 0.0
+  },
+  "1792263600": {
+   "n": 338,
+   "limit_eq_best": 0.7929,
+   "limit_within_tick_best": 0.9083,
+   "limit_eq_worst": 0.8373,
+   "single_level": 0.9231,
+   "limit_above_worst": 0.1627
+  },
+  "1792278000": {
+   "n": 18,
+   "limit_eq_best": 0.8889,
+   "limit_within_tick_best": 1.0,
+   "limit_eq_worst": 0.8889,
+   "single_level": 1.0,
+   "limit_above_worst": 0.1111
+  },
+  "1792281600": {
+   "n": 379,
+   "limit_eq_best": 0.8259,
+   "limit_within_tick_best": 0.9472,
+   "limit_eq_worst": 0.876,
+   "single_level": 0.9314,
+   "limit_above_worst": 0.124
+  },
+  "1792432800": {
+   "n": 27,
+   "limit_eq_best": 0.8148,
+   "limit_within_tick_best": 0.963,
+   "limit_eq_worst": 0.9259,
+   "single_level": 0.8889,
+   "limit_above_worst": 0.0741
+  },
+  "1792436400": {
+   "n": 815,
+   "limit_eq_best": 0.8294,
+   "limit_within_tick_best": 0.9595,
+   "limit_eq_worst": 0.8798,
+   "single_level": 0.9362,
+   "limit_above_worst": 0.1202
+  },
+  "1792490400": {
+   "n": 30,
+   "limit_eq_best": 1.0,
+   "limit_within_tick_best": 1.0,
+   "limit_eq_worst": 1.0,
+   "single_level": 1.0,
+   "limit_above_worst": 0.0
+  },
+  "1792494000": {
+   "n": 899,
+   "limit_eq_best": 0.8476,
+   "limit_within_tick_best": 0.9555,
+   "limit_eq_worst": 0.9021,
+   "single_level": 0.9277,
+   "limit_above_worst": 0.0979
+  },
+  "1792584000": {
+   "n": 28,
+   "limit_eq_best": 0.8214,
+   "limit_within_tick_best": 1.0,
+   "limit_eq_worst": 0.8571,
+   "single_level": 0.9643,
+   "limit_above_worst": 0.1429
+  },
+  "1792587600": {
+   "n": 1539,
+   "limit_eq_best": 0.8441,
+   "limit_within_tick_best": 0.9558,
+   "limit_eq_worst": 0.8889,
+   "single_level": 0.9402,
+   "limit_above_worst": 0.1111
+  },
+  "1792677600": {
+   "n": 22,
+   "limit_eq_best": 0.8636,
+   "limit_within_tick_best": 0.9545,
+   "limit_eq_worst": 0.9091,
+   "single_level": 0.9545,
+   "limit_above_worst": 0.0909
+  },
+  "1792681200": {
+   "n": 1223,
+   "limit_eq_best": 0.8283,
+   "limit_within_tick_best": 0.9403,
+   "limit_eq_worst": 0.8741,
+   "single_level": 0.9387,
+   "limit_above_worst": 0.1259
+  }
+ },
+ "by_size": {
+  "30.0": {
+   "n": 5969,
+   "limit_eq_best": 0.8826,
+   "limit_within_tick_best": 0.9613,
+   "limit_eq_worst": 0.9074,
+   "single_level": 0.9633,
+   "limit_above_worst": 0.0926
+  },
+  "50.0": {
+   "n": 1037,
+   "limit_eq_best": 0.8033,
+   "limit_within_tick_best": 0.9402,
+   "limit_eq_worst": 0.8689,
+   "single_level": 0.9113,
+   "limit_above_worst": 0.1311
+  },
+  "60.0": {
+   "n": 3002,
+   "limit_eq_best": 0.8511,
+   "limit_within_tick_best": 0.955,
+   "limit_eq_worst": 0.9014,
+   "single_level": 0.9304,
+   "limit_above_worst": 0.0986
+  },
+  "100.0": {
+   "n": 1246,
+   "limit_eq_best": 0.5827,
+   "limit_within_tick_best": 0.8708,
+   "limit_eq_worst": 0.7697,
+   "single_level": 0.7753,
+   "limit_above_worst": 0.2303
+  },
+  "200.0": {
+   "n": 128,
+   "limit_eq_best": 0.625,
+   "limit_within_tick_best": 0.9297,
+   "limit_eq_worst": 0.8281,
+   "single_level": 0.7734,
+   "limit_above_worst": 0.1719
+  }
+ }
+}

@@ -725,3 +725,233 @@ Final numbers of iteration 5 (supersede the interim lines above where they diffe
   per-hour fit (agreement 100% in all 8; 80 distinct seconds per ~120 s, 1.49-1.51 s per block). The unit is a chain
   property; the cluster's fills only supply (block, timestamp) pairs.
 - Recorder check at the end: `rec_binance_fut.py` still writing (status file updated); the shared recorder still running.
+
+### Iteration 6 (2026-10-31 14:07 UTC start, local Windows laptop; development data: before H, and the 10-31 12:00-18:00 block)
+
+Split and primary metric unchanged (BUILD = 2026-10-09..16, VALIDATE = 2026-10-16..23; nothing sealed read). Calendar
+(tools/sealed.py): released lots none; development after H so far = 10-31 00:00-06:00 and 12:00-18:00 UTC. The shared
+recorder runs (pid 27184; clob_crypto 34 slow-consumer reconnects; its 12:00 files of clob_crypto and rtds are unreadable
+after ~12:18-12:24 through iter_live, zlib.error, so the live studies use 13:00 onward). Other agents' recorder feeds in
+.cache/live/dev/ (dm_*) were NOT read.
+
+Competing explanations at the start of iteration 6 (what separates them; verdict at the end of this iteration):
+- E1 cross-venue TRADE latency taker: buys o at the touch ~100-600 ms after a fast venue's trade price moves toward o.
+  Separates: a venue trade move in [m - 600, m - 100) ms before most matches, side agreement >= 90%, placebo far lower.
+- E2 cross-venue QUOTE latency taker (top-of-book / microprice on Binance, Bybit, OKX, Hyperliquid, Coinbase) before
+  trades print. Separates: quote moves before the matches that have no trade move.
+- E3 Polymarket book sniper / prey makers: lifts freshly posted or stale maker quotes. Separates: quote age at the match
+  (calldata signing ms of the consumed maker order), a new cheaper ask in the last 50-500 ms, maker identity.
+- E4 level (value) rule: fires when FV - ask > k p(1 - p); quiet orders are marginal cases (overshoot fades, drift).
+  Separates: side agreement with a value gap (FV move minus Polymarket move) in quiet matches; fade of older moves.
+- E5 rebate-volume farmer with a weak tilt: income = 50% of taker fees; quiet trading near the rebate-adjusted break-even.
+  Separates: TAKER_REBATE rows = 0.5 x fees; quiet edge ~ net fee; volume steady regardless of moves.
+- E6 crowd follower (copies the first taker within ms). Separates: bot match before vs after other trades within 20-50 ms.
+- E7 settlement-feed (Chainlink Data Streams) fair value. Separates: Chainlink RTDS move before the match, at any lag.
+- E8 an unrecorded feed (private, paid, or a venue not tested). Separates: residual after E1-E4 on all recorded feeds.
+
+Data added (iteration 6):
+- NEW RECORDER `code/rec_lab6.py` (live_lab; pid 15084; started 10-31 14:13:33 UTC, hard stop 11-02 18:00 UTC; writes ONLY
+  in development blocks, drops every message while the calendar block is sealed; ~12 MB/h gz): feed `btc5m_clob_raw` =
+  Polymarket CLOB market channel for the BTC 5m windows only, one connection per window, UNTHROTTLED (every Up-token
+  price change within 3 c of the touch with server ms and the post-change touch, every last trade with tx hash, book
+  snapshots at most every 2 s); feed `btc5m_venues` = sized top of book coalesced to 20 ms per symbol for Binance USD-M
+  bookTicker (every update incl. size-only), Binance spot bookTicker, Bybit linear orderbook.1, OKX bbo-tbt swaps,
+  Hyperliquid bbo, plus OKX swap / Hyperliquid / Coinbase (ticker) trades, BTC and ETH, with exchange ms; feed
+  `btc5m_rtds_stream` = RTDS kept open with an application PING every 5 s (it still only sends the initial 60-s snapshot:
+  4 messages in 40 s, no streaming updates, so the arrival time of Chainlink values remains unobservable this way).
+- `code/fetch_rest6.py`: time-bounded REST trades at exchange ms strictly inside the development block (asserts every
+  30 s step is development): Binance USD-M and spot BTCUSDT/ETHUSDT aggTrades, Coinbase BTC-USD/ETH-USD, OKX
+  BTC-USDT-SWAP/ETH-USDT-SWAP history-trades (type 2), 10-31 12:00-15:1x; `post/rest6_*.parquet`.
+- On-chain cluster fills 10-31 12:00-15:1x (`fetch_dev_post.py`) and the calldata of every live cluster taker tx
+  (`post/cd6_live.parquet`, decoded fields only).
+- data-api activity rows TAKER_REBATE / MAKER_REBATE / REFERRAL_REWARD for GF, XM, DS and W4, 2026-06-01..H
+  (`code/rebate6.py`, results_rebate_iter6.json). pmxt archive (X18): `curl https://archive.pmxt.dev/` and
+  `/docs/v2-data-overview` from this laptop at 14:15 UTC: connection timed out after 15 s (the panel saw refused
+  connections at 13:50-14:00); not used, keyed pmxt API not used.
+
+Findings (iteration 6; live numbers are development block 10-31 13:00-15:0x, a Saturday; historical numbers VALIDATE):
+1. ECONOMICS (X17, B6 corrected; `rebate6.py`): data-api /activity has a TAKER_REBATE type (polyrea's ACTIVITY_TYPES
+   omits it; passing types=("TAKER_REBATE",) to PolymarketData.activity works). Every wallet gets one row a day equal to
+   exactly 0.500 of its previous UTC day's BTC 5m taker fees (13 of 13 days 10-10..10-22 for GF, XM and DS: min = max =
+   0.500). History (all development, rows before H): taker rebates XM $201.1k since 06-20, DS $111.7k since 07-19, GF
+   $63.4k since 07-20, W4 0xd84403ef $36.5k since 07-24; maker rebates XM $29.8k, DS $13.5k, GF $7.3k, W4 $5.1k. Rows paid
+   10-17..10-22 (fees of 10-16..10-21): taker rebates DS $15.2k, GF $8.4k, XM $2.0k (W4 $3.7k); maker rebates $2.6k. VALIDATE
+   on-chain taker fees $61.6k -> rebate $30.8k against trading PnL after fees +$4.4k (t = 0.50). So ~85% of the cluster's
+   VALIDATE income is the taker rebate, a fixed function of fee volume; the B6 entry of iteration 5 ("the taker-fee rebate
+   is not an activity row") was wrong.
+2. PNL-CORRELATION CEILING (X17): per-window VALIDATE PnL (1,904 windows) of the operator's own wallets correlates DS-GF
+   0.198, DS-XM 0.002, GF-XM 0.145 (Spearman 0.278 / 0.023 / 0.167); each wallet against the rest of the cluster 0.10-0.24
+   (Spearman 0.13-0.34); net positions correlate 0.00-0.21. The same engine on the same triggers does not reproduce its
+   own sibling's per-window PnL beyond ~0.2-0.3: per-window PnL is an execution lottery on two-sided volume. An
+   executable replica that does not see the wallet's own fills is a fourth sibling; the 0.5 target is then out of reach
+   by construction (the frozen rule's 0.18 is at the sibling level).
+3. PRICE FROM CALLDATA (X25 = panel-mechanics proposal 3; `calldata_touch6.py`, results_calldata_touch_iter6.json): for
+   11,382 cluster taker orders of the 11 sampled development hours, the limit equals the best (lowest) effective ask of
+   the maker orders the same match consumed in 83.1% and is within one tick in **94.8%** (DS 96.1%, GF 92.5%, XM 93.9%;
+   makers are 93% complementary BUYs, i.e. mints); 92.7% consume a single level; in 11.4% the limit is above every
+   consumed level (more often for the large size: 100-share orders 23%, equal-to-touch 58%): the bot does sometimes post
+   its pre-signed order one or more cents above the touch. This is the trivial "touch" anchor measured on the match
+   itself (not a PIT forecast of the touch); it is now `price.calldata_touch` in `final_rule.evaluate` and becomes
+   `price_within_tick` wherever no live book covers the period (h1/h2).
+4. LIVE TRIGGER AT EXCHANGE MS (X20, `live6.py`, results_live6_iter6.json; 13:00-14:22, 633 taker matches, 486 events):
+   the side agrees with the move of a fast venue over the reaction window [m - 600, m - 100) ms (m = matching-engine ms):
+   Binance USD-M ETH 98.3% when it moved (> 0.1 bp; 19% of matches vs 6% at placebo times), Binance spot ETH 97.6%,
+   Binance spot BTC 93.3%, Binance USD-M BTC 91.7%, Coinbase BTC 78% (placebo agreement 32-56%). Over [m - 300, m):
+   97-98% for the Binance series. Composite of 7 trade feeds (Binance futures and spot BTC/ETH, Coinbase BTC/ETH, OKX
+   BTC swap) over the last 1 s: a move before 54.7% of matches, vote agreement 79.6%; the remaining 45% are QUIET on every
+   trade feed (iteration 5's 69% used only two feeds). Chainlink RTDS 1-s values under any assumed availability lag 0-3 s:
+   agreement 46-51% (placebo 49-55%): E7 rejected at every lag.
+5. QUOTES (X19/X24 recorder; 70 covered matches by 14:22, rerun at the end below): when a venue's microprice moved in
+   [m - 600, m - 100) ms the side agreed 93-100% (Bybit BTC, Binance futures ETH, Hyperliquid ETH, OKX ETH), but in the
+   quiet matches the quote feeds barely moved either (0-12%).
+6. PREY MAKERS (X23, `prey6.py`, results_prey_iter6.json; calldata of all 633 live taker txs): age of the best consumed
+   maker order (match ms minus its signing ms): median 2.0 s (quiet 1.65 s, moving 2.35 s), under 500 ms 23% (quiet 26%,
+   moving 21%); 88% are complementary BUYs. Fresh quotes are not specific to quiet matches: E3 as "lift a just-posted
+   quote" explains at most a quarter of them. One maker, 0xec10d230..., is 11% of the bot's quiet-match counterparties
+   against 3% in moving matches (a slow maker the bot picks off when nothing moves: open lead).
+7. VALUE vs FADE in quiet matches (X13/X21, `value6.py`, results_value_iter6.json): with the market's own implied
+   d = Phi^-1(mid) and delta = phi(d) / (sigma sqrt(tau)), the value gap delta x dS - dPM (BTC move minus the Polymarket
+   Up-mid move over 5-10 s, sigma fitted on the first half) predicts the quiet-match side at 61-67% on the second half
+   (BTC futures 10 s 67.3%, Binance spot 65.7%); fading the Polymarket mid move over 5-10 s gives 60-61%; BTC momentum over
+   3-10 s 47-49%. Older moves (1-3 s before, > 0.1 bp, then quiet) are faded: side agrees 23-46% (n = 44 for BTC futures).
+   Historically (VALIDATE quiet one-sided seconds, n = 18,907) the older ETH move agrees 53% (no fade), so the fade is
+   not replicated at block-second resolution; the side model reaches 64% there. Verdict: the quiet side carries a weak
+   value signal (E4 partially supported, far from 80%).
+8. FAN-OUT (X16, `fanout6.py`, results_fanout_iter6.json): 633 live taker matches form 486 fire events (same window and
+   outcome, < 300 ms apart): size 1: 367, 2: 99, 3+: 20; DS first in 80%; DS -> GF lag median 69 ms (p10 7, p90 246),
+   GF -> XM 15 ms; participation does not rise with the trigger strength on this Saturday (DS 79-86%, GF 31-40%, XM
+   3-12% in every bin of the largest Binance move): no per-wallet threshold structure visible live (n small above 1 bp).
+9. PER-WALLET SIDE (X14 partial): XM is one-sided in 24.3% of its VALIDATE windows, so the brief's side condition likely
+   applies to XM. On XM's one-sided seconds the pooled side model is 80.6% on the 6,716 seconds the pooled cluster was
+   one-sided, but 4,033 XM seconds have a sibling on the other outcome; presence-argmax over all 10,749 XM seconds 72.7%
+   (GF 75.2%, DS 72.4%): XM's own side decisions are not decoded where its siblings disagree.
+10. TIME STOP (X26 partial): VALIDATE block-second AUC by window time (it4b scores): 0.80 at 0-120 s, 0.85 at 120-180,
+    0.91 at 180-240, 0.96-0.98 at 240-270, 0.98-0.99 after; the 240 -> 270 s stop change costs nothing visible late in the
+    window; the presence deficit is early in the window.
+11. SUBMISSIONS (X15, `subs6.py`, results_subs_iter6.json; unthrottled book 14:13-14:22): 2,756 size increments of exactly
+    a bot size (30/50/60/100/200) at a price that was the bought outcome's ask within the previous 300 ms, ~25 times the
+    cluster's fills in the same minutes; 20% link to a cluster fill (same window, outcome, price, -2..+30 s), 81% of the
+    cluster's resting orders are preceded by such an insertion. Bot sizes are common among other inserters (and W4), and
+    unfilled orders never reach the chain, so the book cannot attribute unfilled submissions to the cluster: ruled out
+    as a decoder of the cluster's lost races (identity is not observable), kept as a description of the race crowd.
+12. QUIET MATCHES, PROFILE (live 13:00-14:22): rel median 202 s (moving 97 s); share quiet by window third 24% (0-100 s),
+    38% (100-200 s), 69% (200-300 s); 59% come within 2 s of a previous cluster match in the same window, itself quiet in
+    65-76% (quiet comes in bursts); sub-tick moves (any change, below 0.02 bp) of the fast venues over [m - 600, m - 100)
+    agree 62-68% in quiet matches (Binance USD-M ETH 68.0%, BTC 62.9%, OKX BTC 63.5%; placebo 41-51%); a delta-scaled
+    (fair-value unit) threshold is not better than a bp threshold; quiet late matches buy the LESS-held outcome only 43%
+    (no balancing) and the favourite 42%. Settlement-TWAP lock-in (last minute: observed partial Chainlink average minus
+    the current value, n = 83-85) agrees 51-57% (lag 1 s 56.6%; permutation 97.5% = 0.61): not significant.
+13. Historically (VALIDATE, block seconds): the late-window AUC is high (0.96-0.98 at rel 240-270 s); the deficit is early
+    in the window (0.80 at 0-120 s), where moving matches dominate live. Decision times are blurred by the block clock
+    (match-to-block 1.3-3.2 s), which is why the live reaction window [m - 600, m - 100) ms cannot be used directly.
+
+FINAL LIVE NUMBERS of iteration 6 (supersede findings 4-8 where they differ; 10-31 13:00-14:47 development block,
+782 cluster taker matches = DS 521 / GF 222 / XM 39, 606 fire events; quotes and raw book cover 14:13-14:47, 219 matches):
+- Trade feeds at exchange ms (8: Binance USD-M BTC/ETH, Binance spot BTC/ETH, Coinbase BTC/ETH, OKX swap BTC/ETH), move
+  over the reaction window [m - 600, m - 100) ms (> 0.1 bp), share of matches moved / side agreement (placebo moved /
+  agreement): Binance USD-M ETH 23.9% / 94.1% (5.4% / 52%), OKX ETH 21.2% / 94.0% (7.0% / 56%), Binance spot BTC 11.8% /
+  93.5%, Binance USD-M BTC 10.5% / 93.9%, OKX BTC 7.9% / 90.3%, Binance spot ETH 16.5% / 89.9%, Coinbase BTC 15.6% / 78.7%,
+  Coinbase ETH 15.2% / 79.8%. Largest move of the six Binance/OKX series: 50.1% of matches moved, 86.5% agreement.
+  Composite over the last 1 s: 63.4% moved, vote 80.6%; QUIET on all eight feeds: 36.6% of matches.
+- Quote feeds (microprice, [m - 600, m - 100)): ETH quotes moved before 25-36% of matches with 87-94% agreement (Binance
+  USD-M 92.4%, Hyperliquid 94.4%, OKX 90.0%, Bybit 89.0%), BTC quotes 7-12% with 86-95%; before the 67 covered QUIET
+  matches they moved in 0-12% (Bybit ETH 12%, 50% agreement): sized top of book on five venues does NOT explain the quiet
+  matches (E2 rejected for them at this n).
+- Unthrottled Polymarket book (end 20 ms before the match): over the last 300 ms the bought outcome's ask rose in 36%
+  (quiet 42%) and its bid rose in 37% (quiet 40%) vs 9% / 9% at placebo times; the FIRST touch change of the bought
+  outcome in the last second is: ask up 28% (placebo 16%), bid down 22% (12%), both 15% (13%), cheaper ask 5% (3%), bid up
+  3% (2%), none 27% (56%); the quiet matches show the same mix. Matches sit inside Polymarket book activity in both
+  directions (the crowd lifting o, or the other outcome being lifted), not after a specific maker event.
+- Prey makers (782 txs): best consumed quote age median 1.9 s quiet vs 2.5 s moving, < 500 ms 26% vs 21%; 0xec10d230
+  9% of quiet vs 5% of moving counterparties.
+- Value / fade in quiet matches (286; second-half test): value gap over 5 s 59-68% (Binance USD-M ETH 67.9%, BTC 66.4%,
+  Coinbase 66.4%), fade of the Polymarket mid over 3-10 s 60-61%, BTC momentum over 3-10 s 40-46% (i.e. mild fade).
+- Fan-out: 606 events, size 1 in 76%; DS first 80%; DS -> GF median 54 ms; participation flat in trigger strength.
+
+Status after iteration 6: target not reached (side, PnL correlation). Primary metric unchanged at 0.9132 (all seconds;
+block seconds 0.8747) for iterations 5 and 6, so iteration 7 must pivot paradigm (see Next). What is decoded now: the
+order factory, the price (touch, 95% from calldata), the exit, the economics (85% of income is the 50% taker rebate), and
+the trigger of the moving half of the matches (a fast-venue move in the 100-600 ms before the match, ETH first, ~94%).
+What is not: the trigger and side of the quiet third to half of the matches (late in the window, inside Polymarket book
+activity, no move on 8 trade and 5 quote feeds, side 60-68% from weak value / fade / sub-tick signals), XM's own side,
+and any executable PnL correlation above the sibling level (0.00-0.20).
+
+Live lab at the end of iteration 6: rec_lab6.py (feeds btc5m_clob_raw, btc5m_venues, btc5m_rtds_stream) ran 14:13-15:0x;
+it is replaced by the same code with a disk cap (REC6_SUFFIX=2 -> feeds btc5m_clob_raw2, btc5m_venues2,
+btc5m_rtds_stream2; near-touch window 2 c, venue quotes coalesced to 30 ms, cap 250 MB, development blocks only, hard
+stop 11-02 18:00 UTC). Read both feed names in iteration 7 (the old hour file may end in a truncated gzip member: use
+live_lab.recs, which keeps what was read).
+
+Polyrea bugs / gotchas (iteration 6): polyrea/adapters/polymarket.py ACTIVITY_TYPES omits TAKER_REBATE (and
+REFERRAL_REWARD, DEPOSIT, WITHDRAWAL, MIGRATION); activity(types=("TAKER_REBATE",)) works because the tuple is passed
+through, but any caller relying on the default list misses ~85% of this cluster's income. tools/live.py: the shared
+recorder's 10-31 12:00 files (clob_crypto, rtds) raise zlib.error after the 12:18 restart (iter_live does not catch it).
+The Bash tool blocks chained `sleep`; Git Bash `date` shows UTC with `-u`.
+
+## Next (iteration 7: pivot required)
+
+1. PARADIGM: a decision-level hazard model at matching-engine ms on the live unit (D1/D2): P(cluster match in the next
+   100 ms | fast-venue moves at lags 100-600 ms (ETH first), Polymarket touch and its last changes (unthrottled feed),
+   time left, value gap), trained on the development blocks 10-31 12-18 and 11-01 06-12, validated on 11-01 18-24 and
+   11-02 00-06; then a block-second version for h1/h2. This is the rule the future sealed blocks can be examined with
+   (shared recorder + Binance/OKX archives).
+2. X21: a calibrated LEVEL fair value (strike = Chainlink TWAP-60 before the open, vol fitted, ETH-led composite) fitted by
+   maximum likelihood of the side in quiet matches; test a hazard step in (FV - ask)/p(1-p).
+3. X14 / XM: per-wallet side and presence models (post-switch BUILD 10-13 14:10..10-16); XM's seconds where a sibling
+   bought the other outcome.
+4. X23 historical: full-market calldata for ~40 VALIDATE windows, quote functions of the top makers (0xec10d230 first).
+5. X22 with co-racers' signing ms; X5 (remove W4 from the market features); X26 change points; X27 collateral; A4b
+   Kalshi; C4b announcements; X7 funding/liquidations/options; X9; X10; X12.
+
+Addendum (X14, per-wallet side, `side_wallet6.py`, results_side_wallet_iter6_XM.json): rows = VALIDATE seconds where XM
+bought exactly one outcome (10,749; 62.5% of them pooled one-sided). Frozen pooled side model: 72.6% (80.7% where the
+pooled cluster was one-sided, 59.1% where a sibling bought the other outcome; XM taker seconds 79.1%; halves 73.2 / 72.1);
+an XM-only model trained on XM's BUILD seconds (45,982): 72.4%, no better. The seconds where siblings bought opposite
+outcomes are mostly a fill-timing artefact (a resting remainder of an earlier decision filling while a sibling takes the
+other side), so the side condition for XM should be read per decision (taker seconds 79.1%), not per fill-second.
+(The post-switch-only XM model found 0 BUILD rows after 10-13 14:10 in the side pipeline: to check in iteration 7.)
+Addendum (X21, calibrated LEVEL fair value, `levelfv6.py`, results_levelfv_iter6.json; 781 live matches, 689 placebo
+instants): FV_Up = P(settlement TWAP-60 > strike) with strike = Chainlink RTDS mean over [start - 60, start), S = Binance
+USD-M BTC x Chainlink basis, TWAP variance (tau - 40) s before the last minute and the partial-average formula inside it,
+sigma = k x realized 1-s vol (k = 1.3 chosen at placebo instants): calibration median |FV - mid| = 4.8 c (the panel's
+1.5 c bar is NOT met), and the side rule argmax(FV_o - ask_o) is at chance (50.5%; quiet 47.9%; last minute 42.1%). With a
+4.8-c calibration error a ~1-c edge cannot be seen: inconclusive, not a rejection of E4. The market prices off something
+this FV lacks (strike source, vol term structure, or the fast composite level).
+
+KEY FINDING OF ITERATION 6 (late; X24 strong form, `results_micro_iter6.json`): the QUIET matches are not trigger-less.
+(a) Anticipation: in quiet matches the fast venues move in the bot's direction AFTER the match: Binance USD-M BTC over
+    (m, m + 1 s] 92.3% (n = 13), (m + 1, m + 3 s] 78.1% (n = 32); OKX ETH 75.9% / 75.4%; Coinbase BTC 88.0% (n = 25); i.e. the
+    bot reacts to the very start of a move. Clock check: minimum (receive - stamp) is -1,224 ms for Polymarket server ms
+    and -1,107..-1,184 ms for Binance / Bybit / OKX / Coinbase exchange ms; with TCP RTTs of 79 ms (Polymarket CloudFront edge),
+    347 ms (Binance Tokyo), 68-77 ms (OKX, Bybit, Coinbase edges) the exchange clocks and Polymarket's server clock agree
+    within roughly +-100 ms, so neither the reaction window nor the 1-3 s anticipation is a clock artefact.
+(b) Microprice: the sized top of book recorded by rec_lab6.py shows it. Over [m - 600, m - 100) ms the microprice
+    ((bid x ask size + ask x bid size) / (bid size + ask size)) of the ETH perps moves by more than 0.002 bp before most
+    quiet matches, in the bot's direction: Binance USD-M ETH 85.3% (34 of 61 covered quiet matches), OKX ETH 82.8% (29/61),
+    Bybit ETH 80.6% (31/63), Bybit BTC 89.5% (19/63); placebo 35-56%. Vote of the ten quote series (Binance USD-M and spot,
+    Bybit, OKX, Hyperliquid; BTC and ETH): covers 90% of the 204 covered matches with 86.4% side agreement (quiet 79% covered
+    at 84.0%, moving 95% at 87.3%; placebo 46%); sum of microprice moves (ETH in BTC units) > 0.01 bp: 81% covered at 89.8%
+    (quiet 62% at 82.1%, moving 90% at 92.1%). The level of the touch imbalance is not informative in quiet matches
+    (44-56%); its CHANGE (queue depletion moving the microprice) is. This is the trigger the trade-only and price-only
+    studies could not see (rec_binance_fut.py dropped size-only updates; the panel's critique was right).
+(c) So the decoded trigger is: "a tick-level microprice move of the BTC/ETH perps (mostly ETH; Binance, OKX, Bybit) in the
+    100-600 ms before the match -> buy that direction at the touch", ~84-90% of live taker decisions, both regimes; n = 204
+    on a Saturday afternoon (34 minutes): to be replicated on the next development blocks (rec_lab6.py ...2 feeds).
+(d) Historical route (h1/h2 have no live quotes): Bybit publishes orderbook.200 archives for ETHUSDT as for BTCUSDT;
+    started fetching all 14 development days (bybit_ob.py with BYBIT_SYM=ETHUSDT -> bybit_ob/linear_ETHUSDT_<day0>.parquet;
+    bybit_ob.py's BTC price-range assert made symbol-aware) and wrote side_book_eth6.py (side model + ETH book features).
+(e) OUT-OF-SAMPLE REPLICATION (`micro_rep6.py`, frozen definitions, later interval 14:55-15:10 recorded by the capped v2
+    recorder btc5m_venues2, results_micro_rep_iter6_1793458500.json): 162 taker matches; the microprice vote covers 90.7%
+    with 83.0% side agreement (quiet 71% covered at 77.3%, n = 22 voted; moving 95% at 84.0%); placebo covers 81% at 55.3%.
+    Same code on the first interval 14:15-14:47 (results_micro_rep_iter6_1793456100.json): 163 matches, 92.0% at 86.7%
+    (quiet 87.1%), placebo 48.2%. The trigger replicates on unseen live data.
+(f) HISTORICAL ETH BOOK (`side_book_eth6.py`, results_side_book_eth_iter6.json): Bybit ETHUSDT linear orderbook.200 archive
+    for all 14 development days (bybit_ob.py with BYBIT_SYM=ETHUSDT, 100-ms buckets, ~11 MB/day; ~170-235 MB streamed per
+    day, nothing raw stored), the iteration-5 book features renamed BE_* added to the frozen side model's features:
+    VALIDATE one-sided seconds 77.17% vs 76.66% (it5 frozen and a same-rows control without ETH both 76.66%), McNemar
+    p = 1.3e-9; taker seconds 80.26% vs 79.36%; halves 76.5% / 77.8%; ETH book features 14% of the gain (BE_mid3,
+    BE_mid_d21, BE_imb_avg1 on top). With only 2 BUILD days of ETH book (first try) the gain over its control was +0.5
+    points as well. Historically the block clock blurs the decision by +-1 s, so the sub-second microprice tick that gives
+    86% live cannot be aligned; the 100-ms book at the block-second horizon adds +0.5 points. NOT yet wired into
+    final_rule.py (evaluate would need to stream the ETH archive for the exam days; book_feats.stream_day has a BTC URL and
+    a BTC price-range check): first step of iteration 7, together with the live microprice rule for the future blocks.

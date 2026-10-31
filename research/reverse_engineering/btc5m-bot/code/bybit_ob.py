@@ -9,13 +9,14 @@ import httpx, numpy as np, pandas as pd
 _ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".."))
 OUT = _ROOT + "/.cache/re/btc5m-bot/bybit_ob"
 H = 1792713600
-URL = "https://quote-saver.bycsi.com/orderbook/{m}/BTCUSDT/{d}_BTCUSDT_ob200.data.zip"
+SYM = os.environ.get("BYBIT_SYM", "BTCUSDT")  # iteration 6: ETHUSDT for the ETH perp microprice (the strongest live trigger)
+URL = "https://quote-saver.bycsi.com/orderbook/{m}/" + SYM + "/{d}_" + SYM + "_ob200.data.zip"
 
 
 def run(mkt, d, end_hours=24.0):
     day0 = calendar.timegm(time.strptime(d, "%Y-%m-%d")); assert day0 + 86400 <= H
     end_ms = int((day0 + end_hours * 3600) * 1000)
-    path = f"{OUT}/{mkt}_{day0}.parquet"
+    path = f"{OUT}/{mkt}_{day0}.parquet" if SYM == "BTCUSDT" else f"{OUT}/{mkt}_{SYM}_{day0}.parquet"
     if os.path.exists(path):
         return
     dec = zlib.decompressobj(-15)
@@ -72,7 +73,8 @@ def run(mkt, d, end_hours=24.0):
         rows.append((last_b,) + cur + (cnt,))
     df = pd.DataFrame(rows, columns=["b", "bid", "ask", "bq", "aq", "bq5", "aq5", "n"])
     df = df[(df.b >= day0 * 10) & (df.b < min(H, day0 + 86400) * 10)]
-    assert df.b.max() < H * 10 and df.bid.between(10_000, 1_000_000).all()
+    lo, hi = (10_000, 1_000_000) if SYM == "BTCUSDT" else (300, 50_000)  # price sanity range per symbol
+    assert df.b.max() < H * 10 and df.bid.between(lo, hi).all()
     os.makedirs(OUT, exist_ok=True)
     df.to_parquet(path, index=False)
     print(mkt, d, len(df), "buckets", round(nbytes / 1e6, 1), "MB read", round(time.time() - t0), "s", flush=True)
