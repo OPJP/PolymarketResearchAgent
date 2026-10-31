@@ -1,0 +1,28 @@
+{
+ "tag": "it4b",
+ "shares_side": {
+  "pnl_corr_pearson": 0.4187,
+  "pnl_corr_spearman": 0.4017,
+  "net_position_corr": 0.4227,
+  "rule_return": 0.0079
+ },
+ "shares_per_outcome": {
+  "pnl_corr_pearson": 0.4393,
+  "pnl_corr_spearman": 0.4137,
+  "net_position_corr": 0.4672,
+  "rule_return": -0.0146
+ },
+ "netflow": {
+  "pnl_corr_pearson": 0.4344,
+  "pnl_corr_spearman": 0.412,
+  "net_position_corr": 0.4581,
+  "rule_return": 0.0486
+ },
+ "mean_netflow_shares_side": {
+  "pnl_corr_pearson": 0.4369,
+  "pnl_corr_spearman": 0.4154,
+  "net_position_corr": 0.4522,
+  "rule_return": 0.0187
+ },
+ "window_total_shares_corr": 0.8747
+}

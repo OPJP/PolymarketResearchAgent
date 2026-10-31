@@ -38,7 +38,7 @@ Iterations of about 60 minutes until the high-accuracy target, a wall or about 5
 
 | Strategy | Status | Iterations | Best VALIDATE score | Holdout target met | Match | Backtest | Replicable | Persists |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [btc5m-bot](reverse_engineering/btc5m-bot/NOTES.md) | in progress | 3 | 0.909 | - | - | - | - | - |
+| [btc5m-bot](reverse_engineering/btc5m-bot/NOTES.md) | in progress | 4 | 0.913 | - | - | - | - | - |
 | [elmcap2-carry](reverse_engineering/elmcap2-carry/NOTES.md) | in progress | 1 | 0.896 | - | - | - | - | - |
 | [jld-inplay-taker](reverse_engineering/jld-inplay-taker/NOTES.md) | not started | 0 | - | - | - | - | - | - |
 | [rebate-farmer](reverse_engineering/rebate-farmer/NOTES.md) | not started | 0 | - | - | - | - | - | - |

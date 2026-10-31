@@ -1,0 +1,38 @@
+{
+ "taker_prints": 2735396,
+ "cluster_share": 0.0539,
+ "rule": {
+  "auc_pooled": 0.8688,
+  "auc_within_window": 0.8628,
+  "at_preregistered_flag": {
+   "recall": 0.6844,
+   "lift": 4.634,
+   "flag_share": 0.1477,
+   "p_value": 0.0
+  }
+ },
+ "co_occurrence_baseline": {
+  "auc_pooled": 0.852,
+  "auc_within_window": 0.8452,
+  "at_preregistered_flag": {
+   "recall": 0.6405,
+   "lift": 4.779,
+   "flag_share": 0.134,
+   "p_value": 0.0
+  }
+ },
+ "size_classes_only": {
+  "full_only": {
+   "recall": 0.5244,
+   "lift": 8.31,
+   "flag_share": 0.0631,
+   "p_value": 0.0
+  },
+  "full_or_partial": {
+   "recall": 0.7354,
+   "lift": 3.04,
+   "flag_share": 0.2419,
+   "p_value": 0.0
+  }
+ }
+}

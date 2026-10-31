@@ -1,0 +1,53 @@
+{
+ "n": 25196,
+ "flat_six_and_eth_perp": 4163,
+ "model_acc_flat": 0.6327,
+ "ethokx": {
+  "all": {
+   "n": 9956,
+   "venue_acc": 0.7716,
+   "model_acc": 0.801,
+   "disagree_n": 1191,
+   "venue_right_when_disagree": 0.377
+  },
+  "flat": {
+   "n": 401,
+   "venue_acc": 0.6584,
+   "model_acc": 0.6559,
+   "disagree_n": 165,
+   "venue_right_when_disagree": 0.503
+  }
+ },
+ "ethbnspot": {
+  "all": {
+   "n": 12725,
+   "venue_acc": 0.7752,
+   "model_acc": 0.8079,
+   "disagree_n": 1547,
+   "venue_right_when_disagree": 0.3652
+  },
+  "flat": {
+   "n": 259,
+   "venue_acc": 0.583,
+   "model_acc": 0.6564,
+   "disagree_n": 119,
+   "venue_right_when_disagree": 0.4202
+  }
+ },
+ "ethbybitspot": {
+  "all": {
+   "n": 14058,
+   "venue_acc": 0.7397,
+   "model_acc": 0.7991,
+   "disagree_n": 2406,
+   "venue_right_when_disagree": 0.3263
+  },
+  "flat": {
+   "n": 502,
+   "venue_acc": 0.5339,
+   "model_acc": 0.6355,
+   "disagree_n": 245,
+   "venue_right_when_disagree": 0.3959
+  }
+ }
+}

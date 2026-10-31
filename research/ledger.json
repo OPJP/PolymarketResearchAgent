@@ -1,5 +1,5 @@
 {
- "generated_at": 1793441469,
+ "generated_at": 1793444394,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -107,12 +107,12 @@
    ],
    "status": "in_progress",
    "wall_reason": "",
-   "iterations": 3,
-   "minutes": 142,
-   "hypotheses": 26,
+   "iterations": 4,
+   "minutes": 192.0,
+   "hypotheses": 37,
    "primary_metric": "presence_auc",
-   "best_validate_score": 0.9095,
-   "best_rule": "H23-multivenue-six-it3 (code/final_rule.py, models code/model_it3s_*.txt)",
+   "best_validate_score": 0.9132,
+   "best_rule": "H30+H36 crossasset-it4b with lagged side segments (code/final_rule.py, USE_ALTS=True, ALT_SET='four', models code/model_it4b_*.txt, side model_it4b_side_lag.txt)",
    "has_final_rule": true
   },
   {

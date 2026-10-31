@@ -14,76 +14,115 @@
   "note": "BUILD may be extended back in time in later iterations"
  },
  "best": {
-  "rule_id": "H23-multivenue-six-it3 (code/final_rule.py, models code/model_it3s_*.txt)",
+  "rule_id": "H30+H36 crossasset-it4b with lagged side segments (code/final_rule.py, USE_ALTS=True, ALT_SET='four', models code/model_it4b_*.txt, side model_it4b_side_lag.txt)",
   "validate_metrics": {
-   "presence_auc": 0.9095,
-   "presence_auc_taker": 0.9136,
-   "presence_auc_maker": 0.8821,
+   "presence_auc": 0.9132,
+   "presence_auc_taker": 0.9187,
+   "presence_auc_maker": 0.8832,
    "presence_by_wallet": {
-    "GF": 0.9083,
-    "XM": 0.9241,
-    "DS": 0.897
+    "GF": 0.9119,
+    "XM": 0.9242,
+    "DS": 0.901
    },
    "at_p0.30": {
-    "recall": 0.6084,
-    "lift": 4.293,
-    "flag_share": 0.1417,
+    "recall": 0.6401,
+    "lift": 4.303,
+    "flag_share": 0.1487,
     "p_value": 0.0
    },
    "co_occurrence_baseline_auc": 0.8889,
-   "gain_over_baseline": 0.0206,
-   "with_own_state_auc": 0.9206,
-   "iteration2_rule_auc": 0.8957,
-   "futures_only_rule_auc": 0.9038,
-   "three_venue_rule_auc": 0.9082,
-   "side_accuracy_any": 0.7317,
-   "side_accuracy_taker": 0.7521,
-   "side_accuracy_spot_3s_zero": 0.6889,
-   "side_accuracy_binance_flat": 0.6712,
-   "side_accuracy_moving": 0.7969,
+   "gain_over_baseline": 0.0243,
+   "with_own_state_auc": 0.9242,
+   "iteration3_rule_auc_same_rows": 0.9095,
+   "eth_only_rule_auc": 0.9127,
+   "side_accuracy_any": 0.7546,
+   "side_accuracy_taker": 0.7816,
+   "side_accuracy_without_lag_segments": 0.7526,
+   "side_lag_mcnemar": {
+    "lag_only_right": 2181,
+    "it4b_only_right": 2003,
+    "p": 0.006205126769330573
+   },
+   "side_accuracy_six_series_flat": 0.6762,
+   "side_accuracy_moving": 0.7797,
+   "side_share_six_series_flat": 0.2616,
+   "side_it3s_same_rows": 0.7317,
+   "side_eth_only": 0.75,
+   "side_mcnemar_vs_it3s": {
+    "it4_only_right": 5757,
+    "it3s_only_right": 3875,
+    "p": 2.1766416852288028e-82
+   },
    "side_market_only_baseline": 0.6323,
    "side_favourite_baseline": 0.459,
-   "side_futures_only_model": 0.7034,
    "outcome": {
-    "kind": "six",
-    "windows": 2016,
-    "soft": {
-     "pnl_corr_pearson": 0.4118,
-     "pnl_corr_spearman": 0.3967,
-     "net_position_corr": 0.4402,
-     "rule_return": -0.0196
+    "primary": "shares",
+    "shares": {
+     "pnl_corr_pearson": 0.4393,
+     "pnl_corr_spearman": 0.4137,
+     "net_position_corr": 0.4672,
+     "rule_return": -0.0146
+    },
+    "netflow": {
+     "pnl_corr_pearson": 0.4344,
+     "pnl_corr_spearman": 0.412,
+     "net_position_corr": 0.4581,
+     "rule_return": 0.0486
     },
     "soft_side": {
+     "pnl_corr_pearson": 0.4258,
+     "pnl_corr_spearman": 0.4087,
+     "net_position_corr": 0.4448,
+     "rule_return": -0.0004
+    },
+    "soft_side_it3s_same_pipeline": {
      "pnl_corr_pearson": 0.4359,
      "pnl_corr_spearman": 0.4179,
      "net_position_corr": 0.4513,
      "rule_return": -0.0045
     },
-    "soft_side_sharp": {
-     "pnl_corr_pearson": 0.412,
-     "pnl_corr_spearman": 0.381,
-     "net_position_corr": 0.4347,
-     "rule_return": 0.0175
-    },
-    "soft_side_sq": {
-     "pnl_corr_pearson": 0.4344,
-     "pnl_corr_spearman": 0.4106,
-     "net_position_corr": 0.4522,
-     "rule_return": 0.0091
-    },
+    "window_total_shares_corr": 0.8747,
     "wallet_return_before_rebates": 0.0017,
-    "diag_corr_wallet_pnl_vs_own_net_x_outcome": 0.8846
+    "net_position_diagnostic": {
+     "windows": 2016,
+     "corr_window_up_shares_model": 0.7757,
+     "corr_window_down_shares_model": 0.7714,
+     "corr_window_total_shares_model": 0.7854,
+     "net_share_of_gross_median": 0.1197,
+     "model_vol_x_model_side": 0.4444,
+     "oracle_vol_x_model_side": 0.5546,
+     "model_vol_x_oracle_side": 0.5478,
+     "model_vol_x_sharp_model_side": 0.4253,
+     "oracle_vol_x_sharp_model_side": 0.4707,
+     "netflow_model": 0.4583,
+     "share_of_abs_net_from_two_sided_seconds": 0.4047,
+     "share_of_gross_in_two_sided_seconds": 0.3387
+    },
+    "strict_fill_backtest": {
+     "windows": 2015,
+     "rule_fills": 60466,
+     "rule_windows_traded": 1979,
+     "rule_usd": 261550.5,
+     "rule_pnl_before_rebates": -4229.1,
+     "rule_return_before_rebates": -0.0162,
+     "rule_fee_usd": 8931.1,
+     "rule_return_with_50pct_fee_rebate": 0.0009,
+     "per_window_pnl_corr_pearson": 0.1755,
+     "per_window_pnl_corr_spearman": 0.1692,
+     "wallet_return_before_rebates": 0.0017,
+     "note": "observed-liquidity strict fills, latency >= 2 s after the information horizon, capture 1.0 (upper bound), 30-share orders, taker only"
+    }
    },
    "selection": {
     "taker_prints": 2735396,
     "cluster_share": 0.0539,
     "rule": {
-     "auc_pooled": 0.8662,
-     "auc_within_window": 0.86,
+     "auc_pooled": 0.8693,
+     "auc_within_window": 0.8635,
      "at_preregistered_flag": {
-      "recall": 0.6767,
-      "lift": 4.648,
-      "flag_share": 0.1456,
+      "recall": 0.6858,
+      "lift": 4.625,
+      "flag_share": 0.1483,
       "p_value": 0.0
      }
     },
@@ -802,6 +841,892 @@
     "n_one_sided_seconds": 90170
    },
    "verdict": "supported: 69.1% side on all one-sided seconds, 80.4% on the 46% with a >= 0.5 bp move; presence trigger recall 33% at lift 3.0"
+  },
+  {
+   "id": "H27",
+   "family": "Coinbase BTC-USD and Deribit BTC-PERPETUAL (time-bounded REST) for the no-move residual",
+   "description": "Coinbase Advanced Trade public market trades (start/end) and history.deribit.com trades for 12 sampled VALIDATE hours; agreement with the side in seconds where none of the six archived BTC series moved, and vs the it3s side model",
+   "validate_metrics": {
+    "hours": [
+     1792249200,
+     1792317600,
+     1792440000,
+     1792504800,
+     1792548000,
+     1792659600,
+     1792278000,
+     1792360800,
+     1792274400,
+     1792616400,
+     1792429200,
+     1792551600
+    ],
+    "n_one_sided": 6533,
+    "coinbase_book_fields_populated": 0.0,
+    "share_nomove": 0.2895,
+    "cb1000": {
+     "all": {
+      "n": 3826,
+      "agree": 0.6393,
+      "z": 17.23
+     },
+     "nomove": {
+      "n": 843,
+      "agree": 0.5113,
+      "z": 0.65
+     },
+     "nomove_big05": {
+      "n": 47,
+      "agree": 0.7447,
+      "z": 3.35
+     }
+    },
+    "cb2000": {
+     "all": {
+      "n": 4610,
+      "agree": 0.6937,
+      "z": 26.3
+     },
+     "nomove": {
+      "n": 975,
+      "agree": 0.5672,
+      "z": 4.2
+     },
+     "nomove_big05": {
+      "n": 88,
+      "agree": 0.7727,
+      "z": 5.12
+     }
+    },
+    "cb3000": {
+     "all": {
+      "n": 5007,
+      "agree": 0.6824,
+      "z": 25.82
+     },
+     "nomove": {
+      "n": 1103,
+      "agree": 0.5657,
+      "z": 4.37
+     },
+     "nomove_big05": {
+      "n": 146,
+      "agree": 0.6986,
+      "z": 4.8
+     }
+    },
+    "cb5000": {
+     "all": {
+      "n": 5459,
+      "agree": 0.6443,
+      "z": 21.32
+     },
+     "nomove": {
+      "n": 1283,
+      "agree": 0.5347,
+      "z": 2.48
+     },
+     "nomove_big05": {
+      "n": 293,
+      "agree": 0.57,
+      "z": 2.4
+     }
+    },
+    "cb_m1": {
+     "all": {
+      "n": 3707,
+      "agree": 0.5754,
+      "z": 9.18
+     },
+     "nomove": {
+      "n": 859,
+      "agree": 0.5588,
+      "z": 3.45
+     },
+     "nomove_big05": {
+      "n": 85,
+      "agree": 0.6353,
+      "z": 2.49
+     }
+    },
+    "dr1000": {
+     "all": {
+      "n": 2725,
+      "agree": 0.6705,
+      "z": 17.8
+     },
+     "nomove": {
+      "n": 362,
+      "agree": 0.6133,
+      "z": 4.31
+     },
+     "nomove_big05": {
+      "n": 33,
+      "agree": 0.6364,
+      "z": 1.57
+     }
+    },
+    "dr2000": {
+     "all": {
+      "n": 4092,
+      "agree": 0.728,
+      "z": 29.17
+     },
+     "nomove": {
+      "n": 667,
+      "agree": 0.6312,
+      "z": 6.78
+     },
+     "nomove_big05": {
+      "n": 76,
+      "agree": 0.6053,
+      "z": 1.84
+     }
+    },
+    "dr3000": {
+     "all": {
+      "n": 4732,
+      "agree": 0.7084,
+      "z": 28.67
+     },
+     "nomove": {
+      "n": 862,
+      "agree": 0.6195,
+      "z": 7.02
+     },
+     "nomove_big05": {
+      "n": 110,
+      "agree": 0.5909,
+      "z": 1.91
+     }
+    },
+    "dr5000": {
+     "all": {
+      "n": 5390,
+      "agree": 0.6622,
+      "z": 23.81
+     },
+     "nomove": {
+      "n": 1187,
+      "agree": 0.5586,
+      "z": 4.03
+     },
+     "nomove_big05": {
+      "n": 277,
+      "agree": 0.491,
+      "z": -0.3
+     }
+    },
+    "dr_m1": {
+     "all": {
+      "n": 2527,
+      "agree": 0.5607,
+      "z": 6.11
+     },
+     "nomove": {
+      "n": 438,
+      "agree": 0.5685,
+      "z": 2.87
+     },
+     "nomove_big05": {
+      "n": 125,
+      "agree": 0.584,
+      "z": 1.88
+     }
+    },
+    "cb3000_vs_model_nomove": {
+     "n": 273,
+     "model_acc": 0.6703,
+     "feed_acc": 0.6813,
+     "disagree_n": 113,
+     "feed_right_when_disagree": 0.5133
+    },
+    "dr3000_vs_model_nomove": {
+     "n": 340,
+     "model_acc": 0.6676,
+     "feed_acc": 0.6765,
+     "disagree_n": 133,
+     "feed_right_when_disagree": 0.5113
+    }
+   },
+   "verdict": "rejected: no-move agreement 56.6% (Coinbase) / 62.0% (Deribit), but right only 51.3% / 51.1% where they disagree with the model"
+  },
+  {
+   "id": "H28",
+   "family": "cross-asset lead: Binance ETHUSDT perpetual",
+   "description": "Does the ETH perp move explain the side when no BTC feed moved?",
+   "validate_metrics": {
+    "share_nomove": 0.2821,
+    "E3000": {
+     "all": {
+      "n": 73388,
+      "agree": 0.7152,
+      "z": 116.57
+     },
+     "nomove": {
+      "n": 16333,
+      "agree": 0.6324,
+      "z": 33.84
+     },
+     "nomove_eth_ge_1bp": {
+      "n": 2394,
+      "agree": 0.7907,
+      "z": 28.45
+     },
+     "nomove_eth_ge_2bp": {
+      "n": 220,
+      "agree": 0.8364,
+      "z": 9.98
+     }
+    },
+    "Erel3000": {
+     "all": {
+      "n": 82254,
+      "agree": 0.5993,
+      "z": 56.95
+     },
+     "nomove": {
+      "n": 20195,
+      "agree": 0.6048,
+      "z": 29.79
+     },
+     "nomove_eth_ge_1bp": {
+      "n": 2402,
+      "agree": 0.7889,
+      "z": 28.32
+     },
+     "nomove_eth_ge_2bp": {
+      "n": 219,
+      "agree": 0.8356,
+      "z": 9.93
+     }
+    },
+    "E3000_ge1bp_nomove_vs_model": {
+     "n": 2394,
+     "model_acc": 0.6575,
+     "eth_acc": 0.7907,
+     "disagree_n": 817,
+     "eth_right_when_disagree": 0.6952
+    },
+    "beta_eth_on_btcfut_3s": 1.214
+   },
+   "verdict": "supported: 63.2% in no-move seconds (n=16,333), 79.1% when |ETH| >= 1 bp; right 69.5% where it disagrees with the it3s model"
+  },
+  {
+   "id": "H29",
+   "family": "other alt perpetuals (SOL, XRP, DOGE)",
+   "description": "Agreement in seconds where neither the six BTC series nor ETH moved (3 sampled VALIDATE days)",
+   "validate_metrics": {
+    "n": 34700,
+    "nomove": 11653,
+    "nomove_and_no_eth": 8267,
+    "SOL2000": {
+     "all": {
+      "n": 20646,
+      "agree": 0.6947,
+      "z": 55.94
+     },
+     "nomove": {
+      "n": 5570,
+      "agree": 0.5865,
+      "z": 12.92
+     },
+     "nomove_no_eth": {
+      "n": 3729,
+      "agree": 0.546,
+      "z": 5.62
+     },
+     "nomove_no_eth_ge2bp": {
+      "n": 45,
+      "agree": 0.6222,
+      "z": 1.64
+     }
+    },
+    "SOL3000": {
+     "all": {
+      "n": 22851,
+      "agree": 0.6913,
+      "z": 57.82
+     },
+     "nomove": {
+      "n": 6131,
+      "agree": 0.597,
+      "z": 15.19
+     },
+     "nomove_no_eth": {
+      "n": 4034,
+      "agree": 0.5545,
+      "z": 6.93
+     },
+     "nomove_no_eth_ge2bp": {
+      "n": 72,
+      "agree": 0.7083,
+      "z": 3.54
+     }
+    },
+    "XRP2000": {
+     "all": {
+      "n": 20304,
+      "agree": 0.6931,
+      "z": 55.02
+     },
+     "nomove": {
+      "n": 5386,
+      "agree": 0.5845,
+      "z": 12.4
+     },
+     "nomove_no_eth": {
+      "n": 3576,
+      "agree": 0.5461,
+      "z": 5.52
+     },
+     "nomove_no_eth_ge2bp": {
+      "n": 136,
+      "agree": 0.6397,
+      "z": 3.26
+     }
+    },
+    "XRP3000": {
+     "all": {
+      "n": 22771,
+      "agree": 0.6875,
+      "z": 56.59
+     },
+     "nomove": {
+      "n": 6008,
+      "agree": 0.5897,
+      "z": 13.91
+     },
+     "nomove_no_eth": {
+      "n": 3996,
+      "agree": 0.5453,
+      "z": 5.73
+     },
+     "nomove_no_eth_ge2bp": {
+      "n": 193,
+      "agree": 0.6425,
+      "z": 3.96
+     }
+    },
+    "DOGE2000": {
+     "all": {
+      "n": 17318,
+      "agree": 0.6804,
+      "z": 47.48
+     },
+     "nomove": {
+      "n": 4595,
+      "agree": 0.5819,
+      "z": 11.11
+     },
+     "nomove_no_eth": {
+      "n": 3039,
+      "agree": 0.5475,
+      "z": 5.24
+     },
+     "nomove_no_eth_ge2bp": {
+      "n": 229,
+      "agree": 0.6987,
+      "z": 6.01
+     }
+    },
+    "DOGE3000": {
+     "all": {
+      "n": 20174,
+      "agree": 0.6704,
+      "z": 48.41
+     },
+     "nomove": {
+      "n": 5415,
+      "agree": 0.5741,
+      "z": 10.91
+     },
+     "nomove_no_eth": {
+      "n": 3628,
+      "agree": 0.5372,
+      "z": 4.48
+     },
+     "nomove_no_eth_ge2bp": {
+      "n": 342,
+      "agree": 0.6784,
+      "z": 6.6
+     }
+    },
+    "ETH3000_nomove_same_days": {
+     "n": 7354,
+     "agree": 0.6373,
+     "z": 23.56
+    }
+   },
+   "verdict": "supported (small): 53.7-55.5% (z 5-7), 64-71% at >= 2 bp"
+  },
+  {
+   "id": "H30",
+   "family": "cross-asset features in the frozen rule (behaviour cloning)",
+   "description": "it4 = + ETH perp PIT features; it4b = + SOL, XRP, DOGE and BTC-equivalent alt composites (BETA from BUILD)",
+   "validate_metrics": {
+    "it4": {
+     "presence": 0.9127,
+     "side": 0.75
+    },
+    "it4b": {
+     "presence": 0.9132,
+     "side": 0.7526
+    },
+    "top_side_features": [
+     [
+      "C6_pm2000",
+      0.214
+     ],
+     [
+      "C_pm2000",
+      0.069
+     ],
+     [
+      "C6_mx2000",
+      0.059
+     ],
+     [
+      "C_mx2000",
+      0.042
+     ],
+     [
+      "A_pmmean2000",
+      0.036
+     ],
+     [
+      "E_pm2000",
+      0.025
+     ],
+     [
+      "E_pm3000",
+      0.018
+     ],
+     [
+      "A_pmmean3000",
+      0.018
+     ]
+    ]
+   },
+   "verdict": "supported: presence 0.9095 -> 0.9132, side 73.2% -> 75.3% (McNemar p ~ 2e-82); best rule"
+  },
+  {
+   "id": "H31",
+   "family": "ETH lead-lag at 0.5-s resolution",
+   "description": "Lead-lag of 0.5-s returns ETH vs BTC perp; side agreement with the ETH move in half-second windows",
+   "validate_metrics": {
+    "windows_rel_block_second": {
+     "[s-6.0, s-4.0)": {
+      "eth_all": [
+       0.5348,
+       65606
+      ],
+      "eth_nomove": [
+       0.4839,
+       15865
+      ],
+      "btcfut_all": [
+       0.5238,
+       56833
+      ]
+     },
+     "[s-4.0, s-3.0)": {
+      "eth_all": [
+       0.6024,
+       56185
+      ],
+      "eth_nomove": [
+       0.5477,
+       12369
+      ],
+      "btcfut_all": [
+       0.5704,
+       49019
+      ]
+     },
+     "[s-3.0, s-2.5)": {
+      "eth_all": [
+       0.6525,
+       45912
+      ],
+      "eth_nomove": [
+       0.5822,
+       9698
+      ],
+      "btcfut_all": [
+       0.6182,
+       40092
+      ]
+     },
+     "[s-2.5, s-2.0)": {
+      "eth_all": [
+       0.6569,
+       46135
+      ],
+      "eth_nomove": [
+       0.5778,
+       9717
+      ],
+      "btcfut_all": [
+       0.6311,
+       40276
+      ]
+     },
+     "[s-2.0, s-1.5)": {
+      "eth_all": [
+       0.6336,
+       45147
+      ],
+      "eth_nomove": [
+       0.561,
+       9527
+      ],
+      "btcfut_all": [
+       0.6183,
+       39930
+      ]
+     },
+     "[s-1.5, s-1.0)": {
+      "eth_all": [
+       0.5816,
+       43950
+      ],
+      "eth_nomove": [
+       0.5276,
+       9479
+      ],
+      "btcfut_all": [
+       0.5884,
+       38996
+      ]
+     },
+     "[s-1.0, s-0.5)": {
+      "eth_all": [
+       0.557,
+       43593
+      ],
+      "eth_nomove": [
+       0.5381,
+       9934
+      ],
+      "btcfut_all": [
+       0.5684,
+       38478
+      ]
+     },
+     "[s-0.5, s+0.0)": {
+      "eth_all": [
+       0.5377,
+       43282
+      ],
+      "eth_nomove": [
+       0.528,
+       10042
+      ],
+      "btcfut_all": [
+       0.5505,
+       38073
+      ]
+     },
+     "[s+0.0, s+1.0)": {
+      "eth_all": [
+       0.5372,
+       54717
+      ],
+      "eth_nomove": [
+       0.5331,
+       13325
+      ],
+      "btcfut_all": [
+       0.5599,
+       47973
+      ]
+     },
+     "[s+1.0, s+3.0)": {
+      "eth_all": [
+       0.526,
+       64710
+      ],
+      "eth_nomove": [
+       0.5207,
+       16243
+      ],
+      "btcfut_all": [
+       0.5526,
+       56053
+      ]
+     }
+    },
+    "corr_eth_leads_btcfut_halfsec": {
+     "-4": 0.0262,
+     "-2": 0.0372,
+     "-1": 0.1198,
+     "0": 0.708,
+     "1": 0.2177,
+     "2": 0.0992,
+     "4": 0.0603
+    }
+   },
+   "verdict": "supported: ETH leads BTC (corr ETH->BTC 0.218 vs BTC->ETH 0.120); the bot's side peaks on the ETH move in [s-3, s-2), same lag as BTC venues"
+  },
+  {
+   "id": "H32",
+   "family": "side model capacity",
+   "description": "900 rounds, learning rate 0.03, 63 leaves vs 300 rounds / 31 leaves",
+   "validate_metrics": {
+    "big": 0.7528,
+    "standard": 0.7526
+   },
+   "verdict": "rejected: no gain (75.3% both)"
+  },
+  {
+   "id": "H33",
+   "family": "information-wall test with the cross-asset model",
+   "description": "Bot side vs our it4b PIT model at predicting future Binance futures moves, all seconds and seconds flat on six BTC series and ETH",
+   "validate_metrics": {
+    "all": {
+     "share": 1.0,
+     "f_m1_0": {
+      "bot": [
+       0.5797,
+       47719
+      ],
+      "our_PIT_model": [
+       0.5978,
+       47719
+      ]
+     },
+     "f_0_2": {
+      "bot": [
+       0.5705,
+       56257
+      ],
+      "our_PIT_model": [
+       0.5827,
+       56257
+      ]
+     },
+     "f_2_5": {
+      "bot": [
+       0.5457,
+       60730
+      ],
+      "our_PIT_model": [
+       0.5514,
+       60730
+      ]
+     },
+     "f_5_15": {
+      "bot": [
+       0.5185,
+       75785
+      ],
+      "our_PIT_model": [
+       0.524,
+       75785
+      ]
+     },
+     "logit_future_0_15_on_bot_side_and_our_score": {
+      "coef_bot": 0.0594,
+      "z_bot": 6.83,
+      "coef_ours": 0.3795,
+      "z_ours": 25.65,
+      "n": 80284
+     },
+     "bot_disagrees_with_model:bot_agrees_future_0_15": [
+      0.4827,
+      19703
+     ]
+    },
+    "flat_six_series_and_eth_PIT": {
+     "share": 0.1869,
+     "f_m1_0": {
+      "bot": [
+       0.5273,
+       7136
+      ],
+      "our_PIT_model": [
+       0.4964,
+       7136
+      ]
+     },
+     "f_0_2": {
+      "bot": [
+       0.5302,
+       8756
+      ],
+      "our_PIT_model": [
+       0.5126,
+       8756
+      ]
+     },
+     "f_2_5": {
+      "bot": [
+       0.524,
+       9574
+      ],
+      "our_PIT_model": [
+       0.5032,
+       9574
+      ]
+     },
+     "f_5_15": {
+      "bot": [
+       0.5142,
+       12331
+      ],
+      "our_PIT_model": [
+       0.5068,
+       12331
+      ]
+     },
+     "logit_future_0_15_on_bot_side_and_our_score": {
+      "coef_bot": 0.1045,
+      "z_bot": 5.68,
+      "coef_ours": 0.066,
+      "z_ours": 1.23,
+      "n": 13417
+     },
+     "bot_disagrees_with_model:bot_agrees_future_0_15": [
+      0.5293,
+      4871
+     ]
+    }
+   },
+   "verdict": "no wall: overall our model predicts the future better than the bot's side; in the 18.7% flat seconds a small residual remains (bot 53.0% vs ours 51.3% for the next 0-2 s; z 5.7 vs 1.2)"
+  },
+  {
+   "id": "H34",
+   "family": "outcome proxies: net-flow and volume regressions",
+   "description": "LightGBM regressions (BUILD) of the signed net share flow per second and of shares per cell; buy them at the last implied ask",
+   "validate_metrics": {
+    "netflow": {
+     "pnl_corr_pearson": 0.4344,
+     "pnl_corr_spearman": 0.412,
+     "net_position_corr": 0.4581,
+     "rule_return": 0.0486
+    },
+    "shares": {
+     "pnl_corr_pearson": 0.4393,
+     "pnl_corr_spearman": 0.4137,
+     "net_position_corr": 0.4672,
+     "rule_return": -0.0146
+    },
+    "diagnostic": {
+     "windows": 2016,
+     "corr_window_up_shares_model": 0.7757,
+     "corr_window_down_shares_model": 0.7714,
+     "corr_window_total_shares_model": 0.7854,
+     "net_share_of_gross_median": 0.1197,
+     "model_vol_x_model_side": 0.4444,
+     "oracle_vol_x_model_side": 0.5546,
+     "model_vol_x_oracle_side": 0.5478,
+     "model_vol_x_sharp_model_side": 0.4253,
+     "oracle_vol_x_sharp_model_side": 0.4707,
+     "netflow_model": 0.4583,
+     "share_of_abs_net_from_two_sided_seconds": 0.4047,
+     "share_of_gross_in_two_sided_seconds": 0.3387
+    }
+   },
+   "verdict": "PnL corr 0.434 / 0.439 (< 0.5); volume and side errors limit the net position about equally (oracle volume x model side 0.555)"
+  },
+  {
+   "id": "H37",
+   "family": "strict-fill backtest (observed liquidity, latency >= 2 s)",
+   "description": "30-share BUY limits at the last implied ask of the side-model outcome when p >= 0.30; fills only against other traders' taker BUY prints in [s+1, s+3] at price <= limit (capture 1.0)",
+   "validate_metrics": {
+    "windows": 2015,
+    "rule_fills": 60466,
+    "rule_windows_traded": 1979,
+    "rule_usd": 261550.5,
+    "rule_pnl_before_rebates": -4229.1,
+    "rule_return_before_rebates": -0.0162,
+    "rule_fee_usd": 8931.1,
+    "rule_return_with_50pct_fee_rebate": 0.0009,
+    "per_window_pnl_corr_pearson": 0.1755,
+    "per_window_pnl_corr_spearman": 0.1692,
+    "wallet_return_before_rebates": 0.0017,
+    "note": "observed-liquidity strict fills, latency >= 2 s after the information horizon, capture 1.0 (upper bound), 30-share orders, taker only"
+   },
+   "verdict": "rule loses 1.6% before rebates (+0.1% with a 50% fee rebate); per-window PnL corr 0.18 (wallet +0.17% before rebates)"
+  },
+  {
+   "id": "H35",
+   "family": "ETH on other venues (OKX swap, Binance spot, Bybit spot)",
+   "description": "Do other ETH venues add to the it4b side model (2 sampled VALIDATE days)?",
+   "validate_metrics": {
+    "n": 25196,
+    "flat_six_and_eth_perp": 4163,
+    "model_acc_flat": 0.6327,
+    "ethokx": {
+     "all": {
+      "n": 9956,
+      "venue_acc": 0.7716,
+      "model_acc": 0.801,
+      "disagree_n": 1191,
+      "venue_right_when_disagree": 0.377
+     },
+     "flat": {
+      "n": 401,
+      "venue_acc": 0.6584,
+      "model_acc": 0.6559,
+      "disagree_n": 165,
+      "venue_right_when_disagree": 0.503
+     }
+    },
+    "ethbnspot": {
+     "all": {
+      "n": 12725,
+      "venue_acc": 0.7752,
+      "model_acc": 0.8079,
+      "disagree_n": 1547,
+      "venue_right_when_disagree": 0.3652
+     },
+     "flat": {
+      "n": 259,
+      "venue_acc": 0.583,
+      "model_acc": 0.6564,
+      "disagree_n": 119,
+      "venue_right_when_disagree": 0.4202
+     }
+    },
+    "ethbybitspot": {
+     "all": {
+      "n": 14058,
+      "venue_acc": 0.7397,
+      "model_acc": 0.7991,
+      "disagree_n": 2406,
+      "venue_right_when_disagree": 0.3263
+     },
+     "flat": {
+      "n": 502,
+      "venue_acc": 0.5339,
+      "model_acc": 0.6355,
+      "disagree_n": 245,
+      "venue_right_when_disagree": 0.3959
+     }
+    }
+   },
+   "verdict": "rejected: right 33-50% where they disagree with the model"
+  },
+  {
+   "id": "H36",
+   "family": "decision-time alignment (explicit lagged segments)",
+   "description": "Side model + [s-3, s-2) and [s-4, s-3) segments for ten series and composites (derived from the PIT windows)",
+   "validate_metrics": {
+    "n": 90170,
+    "side_lag": 0.7546,
+    "side_it4b": 0.7526,
+    "taker_lag": 0.7816,
+    "taker_it4b": 0.7792,
+    "mcnemar": {
+     "lag_only_right": 2181,
+     "it4b_only_right": 2003,
+     "p": 0.006205126769330573
+    },
+    "lag_gain_share": 0.1058
+   },
+   "verdict": "rejected: no material gain: 0.7546 vs 0.7526"
   }
  ],
  "data_sources": [
@@ -817,7 +1742,10 @@
   "Iteration 3: OKX BTC-USDT-SWAP and BTC-USDT spot daily trade archives (static.okx.com, UTC+8 files) 2026-10-09..10-22 files; the 10-23 file extends past H and is never loaded (last 8 h of VALIDATE without OKX)",
   "Iteration 3: Bybit BTCUSDT linear perp and spot daily trade archives (public.bybit.com) 2026-10-09..10-22",
   "Iteration 3: Binance spot BTCUSDT aggTrades daily archives (checksummed) 2026-10-09..10-22",
-  "Iteration 3: Kraken XBTUSD REST trades (paged by time) for 6 sampled VALIDATE hours (.cache/re/btc5m-bot/venues/kraken)"
+  "Iteration 3: Kraken XBTUSD REST trades (paged by time) for 6 sampled VALIDATE hours (.cache/re/btc5m-bot/venues/kraken)",
+  "Iteration 4: Binance USD-M ETHUSDT, SOLUSDT, XRPUSDT, DOGEUSDT perpetual aggTrades daily archives (checksummed) 2026-10-09..10-22 (.cache/re/btc5m-bot/venues/{eth,sol,xrp,doge}fut)",
+  "Iteration 4: Coinbase BTC-USD trades (Advanced Trade public market-trades, time-bounded start/end) and Deribit BTC-PERPETUAL trades (history.deribit.com, time-bounded), 12 sampled VALIDATE hours",
+  "Iteration 4: OKX ETH-USDT-SWAP, Binance ETHUSDT spot aggTrades, Bybit ETHUSDT spot daily archives for 2026-10-19 and 10-21 (OKX files are UTC+8 days)"
  ],
  "iterations": [
   {
@@ -869,9 +1797,30 @@
     "Kraken (time-paged REST) for the no-trigger residual",
     "distilled explicit trigger rule"
    ]
+  },
+  {
+   "n": 4,
+   "minutes": 50.0,
+   "best_validate_score": 0.9132,
+   "co_occurrence_baseline": 0.8889,
+   "side_accuracy": 0.7546,
+   "pnl_corr": 0.4393,
+   "families": [
+    "Coinbase + Deribit BTC trades (time-bounded REST) for the no-move residual",
+    "cross-asset lead: ETH perpetual",
+    "other alt perpetuals (SOL, XRP, DOGE) and alt composites",
+    "cross-asset features in the frozen rule",
+    "ETH lead-lag at 0.5 s",
+    "side model capacity",
+    "information-wall test with the cross-asset model",
+    "outcome: net-flow and volume regressions",
+    "ETH on other venues",
+    "decision-time alignment (lagged segments)",
+    "strict-fill backtest"
+   ]
   }
  ],
- "frozen_rule": "code/final_rule.py (USE_VENUES=True, SIX_SERIES=True) uses model_it3s_all_{y,yT,yM}.txt, model_it3s_all_own_y.txt, model_it3s_side.txt, model_it2_market_only_y.txt (baseline), model_it2_spot_tape_y.txt (comparison)",
+ "frozen_rule": "code/final_rule.py (iteration 4: USE_VENUES=True, SIX_SERIES=True, USE_ALTS=True, ALT_SET='four'; models model_it4b_*.txt; side model_it4b_side_lag.txt; outcome primary = shares)",
  "target_reached": false,
  "status": "continue",
  "wall_reason": ""

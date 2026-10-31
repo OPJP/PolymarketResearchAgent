@@ -1,0 +1,15 @@
+{
+ "windows": 2016,
+ "corr_window_up_shares_model": 0.7757,
+ "corr_window_down_shares_model": 0.7714,
+ "corr_window_total_shares_model": 0.7854,
+ "net_share_of_gross_median": 0.1197,
+ "model_vol_x_model_side": 0.4444,
+ "oracle_vol_x_model_side": 0.5546,
+ "model_vol_x_oracle_side": 0.5478,
+ "model_vol_x_sharp_model_side": 0.4253,
+ "oracle_vol_x_sharp_model_side": 0.4707,
+ "netflow_model": 0.4583,
+ "share_of_abs_net_from_two_sided_seconds": 0.4047,
+ "share_of_gross_in_two_sided_seconds": 0.3387
+}

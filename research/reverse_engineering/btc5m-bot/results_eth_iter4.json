@@ -1,0 +1,169 @@
+{
+ "n_one_sided": 90170,
+ "share_nomove": 0.2821,
+ "nomove_n": 25437,
+ "beta_eth_on_btcfut_3s": 1.214,
+ "corr_eth_btcfut_3s": 0.784,
+ "E1000": {
+  "all": {
+   "n": 56177,
+   "agree": 0.6371,
+   "z": 64.97
+  },
+  "nomove": {
+   "n": 12302,
+   "agree": 0.5599,
+   "z": 13.29
+  },
+  "nomove_eth_ge_1bp": {
+   "n": 735,
+   "agree": 0.6844,
+   "z": 10.0
+  },
+  "nomove_eth_ge_2bp": {
+   "n": 38,
+   "agree": 0.5526,
+   "z": 0.65
+  }
+ },
+ "E2000": {
+  "all": {
+   "n": 67881,
+   "agree": 0.715,
+   "z": 112.05
+  },
+  "nomove": {
+   "n": 14977,
+   "agree": 0.6228,
+   "z": 30.06
+  },
+  "nomove_eth_ge_1bp": {
+   "n": 1682,
+   "agree": 0.7961,
+   "z": 24.29
+  },
+  "nomove_eth_ge_2bp": {
+   "n": 132,
+   "agree": 0.803,
+   "z": 6.96
+  }
+ },
+ "E3000": {
+  "all": {
+   "n": 73388,
+   "agree": 0.7152,
+   "z": 116.57
+  },
+  "nomove": {
+   "n": 16333,
+   "agree": 0.6324,
+   "z": 33.84
+  },
+  "nomove_eth_ge_1bp": {
+   "n": 2394,
+   "agree": 0.7907,
+   "z": 28.45
+  },
+  "nomove_eth_ge_2bp": {
+   "n": 220,
+   "agree": 0.8364,
+   "z": 9.98
+  }
+ },
+ "E5000": {
+  "all": {
+   "n": 79127,
+   "agree": 0.6716,
+   "z": 96.52
+  },
+  "nomove": {
+   "n": 18925,
+   "agree": 0.5818,
+   "z": 22.51
+  },
+  "nomove_eth_ge_1bp": {
+   "n": 4688,
+   "agree": 0.6376,
+   "z": 18.84
+  },
+  "nomove_eth_ge_2bp": {
+   "n": 885,
+   "agree": 0.591,
+   "z": 5.41
+  }
+ },
+ "E10000": {
+  "all": {
+   "n": 84620,
+   "agree": 0.6185,
+   "z": 68.94
+  },
+  "nomove": {
+   "n": 21955,
+   "agree": 0.534,
+   "z": 10.06
+  },
+  "nomove_eth_ge_1bp": {
+   "n": 9493,
+   "agree": 0.5347,
+   "z": 6.76
+  },
+  "nomove_eth_ge_2bp": {
+   "n": 3592,
+   "agree": 0.4883,
+   "z": -1.4
+  }
+ },
+ "E_m1": {
+  "all": {
+   "n": 54529,
+   "agree": 0.561,
+   "z": 28.51
+  },
+  "nomove": {
+   "n": 13026,
+   "agree": 0.5426,
+   "z": 9.73
+  },
+  "nomove_eth_ge_1bp": {
+   "n": 1744,
+   "agree": 0.5986,
+   "z": 8.24
+  },
+  "nomove_eth_ge_2bp": {
+   "n": 336,
+   "agree": 0.5744,
+   "z": 2.73
+  }
+ },
+ "Erel3000": {
+  "all": {
+   "n": 82254,
+   "agree": 0.5993,
+   "z": 56.95
+  },
+  "nomove": {
+   "n": 20195,
+   "agree": 0.6048,
+   "z": 29.79
+  },
+  "nomove_eth_ge_1bp": {
+   "n": 2402,
+   "agree": 0.7889,
+   "z": 28.32
+  },
+  "nomove_eth_ge_2bp": {
+   "n": 219,
+   "agree": 0.8356,
+   "z": 9.93
+  }
+ },
+ "model_acc_nomove": 0.6266,
+ "E3000_ge1bp_nomove_vs_model": {
+  "n": 2394,
+  "model_acc": 0.6575,
+  "eth_acc": 0.7907,
+  "disagree_n": 817,
+  "eth_right_when_disagree": 0.6952
+ }
+}

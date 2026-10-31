@@ -1,20 +1,25 @@
-"""btc5m-bot frozen rule (iteration 3).
+"""btc5m-bot frozen rule (iteration 4).
 
 Point-in-time behaviour-cloning rule for the three-wallet BTC 5-minute Up/Down bot
 (GF 0x0ca4e9d2..., XM 0x3048d653..., DS 0xc53375ff...). Every cell (window, outcome, second s of the window) is
 scored with frozen LightGBM models trained on BUILD only (windows 2026-10-09 .. 2026-10-16 00:00 UTC; model files
-model_it3*_*.txt next to this script). Inputs, all public and available before second s:
+model_it4*_*.txt next to this script). Inputs, all public and available before second s:
   - Binance BTCUSDT spot 1-s closes of seconds <= s-2 (cells.py),
   - Binance USD-M futures BTCUSDT aggTrades with T < (s-1)*1000 ms (fut_cells.py, new in iteration 3),
   - OKX BTC-USDT-SWAP and Bybit BTCUSDT perpetual trades with T < (s-1)*1000 ms (venue_cells.py, new in iteration 3,
-    used when USE_VENUES is True),
+    used when USE_VENUES is True), Binance spot aggTrades, Bybit spot, OKX spot (venue_cells2.py, SIX_SERIES),
+  - cross-asset: Binance USD-M ETHUSDT (and with ALT_SET "four" SOLUSDT, XRPUSDT, DOGEUSDT) perpetual aggTrades with
+    T < (s-1)*1000 ms (alt_cells.py, new in iteration 4, used when USE_ALTS is True),
   - other traders' data-api taker prints with block ts <= s-1 (cluster prints and prints that traded against a
     cluster maker order removed) (tape_feats.py),
   - listing metadata (window start/end, token ids).
 No own-state features in the primary score; nothing fitted on VALIDATE or the holdout.
 
 Outputs per cell: presence score p (any cluster BUY fill in that cell), flag p >= P_THRESH; per second: side = the
-dedicated side model's choice (Up if ps >= 0.5); print-level selection score = 1[size in ORDER_SIZES] + p.
+dedicated side model's choice (Up if ps >= 0.5); print-level selection score = 2*1[full size] + 1[partial size] + p
+(flag: full size OR (partial size AND p >= P_THRESH)); outcome proxy (primary, iteration 4): buy the predicted cluster
+shares of each outcome in every cell (model_*_shares) at the last implied ask; secondary: the predicted signed net
+share flow (model_*_netflow) and soft_side.
 
 evaluate(start_ts, end_ts) fetches what it needs for that period (Gamma metadata, Binance spot 1-s archive, Binance
 futures / OKX / Bybit daily trade archives, data-api taker tapes, on-chain OrderFilled logs of the cluster), applies
@@ -61,27 +66,38 @@ from ofi import Agg
 from fut_cells import FUT_FEATS, fut_feats
 from venue_cells import VEN_FEATS, ven_feats
 from venue_cells2 import VEN2_FEATS, ven2_feats
+from alt_cells import alt_feats, ALTS, ALTS4, ALT_FEATS, ALT4_FEATS, BETA as ALT_BETA, lag_feats, LAG_FEATS
 
 # ----------------------------------------------------------------------------- frozen constants
 WALLETS = {"0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6": "GF", "0x3048d65321be3497164cdfc2996f94f98a2e7537": "XM", "0xc53375ff94e96100f2b30a4b5775db35218d69a9": "DS"}
 H = 1792713600  # holdout start; development runs (end_ts <= H) never download an archive that extends past H
 USE_VENUES = True   # iteration 3: OKX + Bybit perpetual features in the primary score and the side model
 SIX_SERIES = True   # iteration 3: + Binance spot aggTrades, Bybit spot, OKX spot and the six-series composite (requires USE_VENUES)
+USE_ALTS = True     # iteration 4: cross-asset features (alt perpetuals), requires USE_VENUES and SIX_SERIES
+ALT_SET = "four"    # "eth" = ETHUSDT only (model_it4_*), "four" = ETH, SOL, XRP, DOGE + composites (model_it4b_*)
+_ALTS = ALTS4 if ALT_SET == "four" else ALTS
+_ALT_FEATS = list(ALT4_FEATS if ALT_SET == "four" else ALT_FEATS) if USE_ALTS else []
+ALT_SYMBOLS = {"ethfut": "ETHUSDT", "solfut": "SOLUSDT", "xrpfut": "XRPUSDT", "dogefut": "DOGEUSDT"}
 SPOT_FEATURES = list(cellsmod.FEATS)
 TAPE_FEATURES = list(tf.TAPE_FEATS)
-FEATURES = SPOT_FEATURES + TAPE_FEATURES + list(EXTRA) + list(FUT_FEATS) + (list(VEN_FEATS) if USE_VENUES else []) + (list(VEN2_FEATS) if USE_VENUES and SIX_SERIES else [])
+FEATURES = SPOT_FEATURES + TAPE_FEATURES + list(EXTRA) + list(FUT_FEATS) + (list(VEN_FEATS) if USE_VENUES else []) + (list(VEN2_FEATS) if USE_VENUES and SIX_SERIES else []) + _ALT_FEATS
 MARKET_FEATURES = ["rel", "tau"] + TAPE_FEATURES + list(EXTRA)    # co-occurrence baseline: market activity only (no reference feed)
 OWN_FEATURES = FEATURES + list(OWN)                               # secondary: + cluster inventory (own state)
 DSIDE = ["ask_o", "bid_o", "age_ask", "age_bid", "n1", "n2", "n5", "n30", "vol30", "dm5", "dm10", "dm30", "F_gap_ask", "F_gap_m", "gap_ask", "gap_m"]
 SIDE_FEATURES = FEATURES + ["D_" + k for k in DSIDE]             # side model: Up-cell features + Down-cell non-mirror features
-_TAG = ("it3s" if SIX_SERIES else "it3v") if USE_VENUES else None
+_TAG = ((("it4b" if ALT_SET == "four" else "it4") if USE_ALTS else "it3s") if SIX_SERIES else "it3v") if USE_VENUES else None
 _M = f"model_{_TAG}_all" if USE_VENUES else "model_it3_spot_tape_fut"
 MODEL_Y = f"{CODE}/{_M}_y.txt"          # label: any cluster BUY fill on (window, outcome, second)
 MODEL_T = f"{CODE}/{_M}_yT.txt"         # label: cluster taker fill
 MODEL_M = f"{CODE}/{_M}_yM.txt"         # label: cluster maker fill
 MODEL_OWN = f"{CODE}/{f'model_{_TAG}_all_own' if USE_VENUES else 'model_it3_spot_tape_fut_own'}_y.txt"  # + own state (secondary)
 MODEL_SIDE = f"{CODE}/{f'model_{_TAG}_side' if USE_VENUES else 'model_it3_side'}.txt"                  # side given a one-sided second
+SIDE_LAG = USE_ALTS and ALT_SET == "four"  # iteration 4: side model with explicit [s-3, s-2) / [s-4, s-3) segments (chosen on VALIDATE: 75.5% vs 75.3%)
+if SIDE_LAG:
+    MODEL_SIDE = f"{CODE}/model_{_TAG}_side_lag.txt"
 MODEL_MKT = f"{CODE}/model_it2_market_only_y.txt"                  # co-occurrence baseline (market activity only)
+MODEL_NETFLOW = f"{CODE}/model_{_TAG}_netflow.txt"                # iteration 4: signed net share flow per second (outcome proxy)
+MODEL_SHARES = f"{CODE}/model_{_TAG}_shares.txt"                  # iteration 4: expected cluster shares per cell (primary outcome proxy)
 MODEL_IT2 = f"{CODE}/model_it2_spot_tape_y.txt"                    # iteration-2 rule (spot + tape), for comparison
 IT2_FEATURES = SPOT_FEATURES + TAPE_FEATURES + list(EXTRA)
 ORDER_SIZES = (30.0, 50.0, 60.0)  # the bot's fixed order sizes (shares), decoded on BUILD (iteration 1)
@@ -100,6 +116,7 @@ BYBIT_URL = "https://public.bybit.com/trading/BTCUSDT/BTCUSDT{d}.csv.gz"
 BYBITSPOT_URL = "https://public.bybit.com/spot/BTCUSDT/BTCUSDT_{d}.csv.gz"
 OKXSPOT_URL = "https://static.okx.com/cdn/okex/traderecords/trades/daily/{c}/BTC-USDT-trades-{d}.zip"
 BNSPOT_URL = "https://data.binance.vision/data/spot/daily/aggTrades/BTCUSDT/BTCUSDT-aggTrades-{d}.zip"
+ALT_URL = "https://data.binance.vision/data/futures/um/daily/aggTrades/{s}/{s}-aggTrades-{d}.zip"
 
 
 # ----------------------------------------------------------------------------- data loading
@@ -209,7 +226,8 @@ def _archive(venue: str, day0: int, end_ts: int):
     cover_end = day0 + 86400 - (8 * 3600 if venue in ("okx", "okxspot") else 0)
     if end_ts <= H and cover_end > H:
         return None  # development run: never load data from the holdout period
-    sub = {"fut": "fut", "okx": "venues/okx", "bybit": "venues/bybit", "bnspot": "venues/bnspot", "bybitspot": "venues/bybitspot", "okxspot": "venues/okxspot"}[venue]
+    sub = {"fut": "fut", "okx": "venues/okx", "bybit": "venues/bybit", "bnspot": "venues/bnspot", "bybitspot": "venues/bybitspot", "okxspot": "venues/okxspot",
+           **{k: f"venues/{k}" for k in ALT_SYMBOLS}}[venue]
     for base in (DEV_CACHE, EVAL_DIR):
         p = f"{base}/{sub}/{day0}.parquet"
         if os.path.exists(p):
@@ -218,8 +236,8 @@ def _archive(venue: str, day0: int, end_ts: int):
     tmp = tempfile.mkdtemp(prefix="dl_", dir=EVAL_DIR)
     d = _day_str(day0)
     try:
-        if venue in ("fut", "bnspot"):
-            url = (FUT_URL if venue == "fut" else BNSPOT_URL).format(d=d)
+        if venue in ("fut", "bnspot") or venue in ALT_SYMBOLS:
+            url = ALT_URL.format(s=ALT_SYMBOLS[venue], d=d) if venue in ALT_SYMBOLS else (FUT_URL if venue == "fut" else BNSPOT_URL).format(d=d)
             raw = _download(url, tmp)
             chk = httpx.get(url + ".CHECKSUM", timeout=30).text.split()[0]
             assert hashlib.sha256(open(raw, "rb").read()).hexdigest() == chk, "checksum mismatch"
@@ -271,7 +289,7 @@ def _agg(venue: str, days, end_ts: int):
 def add_reference_feats(cells: pd.DataFrame, spot_frame: pd.DataFrame, end_ts: int) -> pd.DataFrame:
     """Binance futures (+ OKX, Bybit) PIT features, computed per UTC day of the window start (as in training)."""
     day = (cells.start_ts.to_numpy(np.int64) // 86400) * 86400
-    F_all = pd.DataFrame(index=cells.index, columns=[k for k in FEATURES if k in set(FUT_FEATS) | set(VEN_FEATS) | set(VEN2_FEATS)], dtype=np.float32)
+    F_all = pd.DataFrame(index=cells.index, columns=[k for k in FEATURES if k in set(FUT_FEATS) | set(VEN_FEATS) | set(VEN2_FEATS) | set(_ALT_FEATS)], dtype=np.float32)
     for d0 in np.unique(day):
         idx = np.where(day == d0)[0]
         c = cells.iloc[idx]
@@ -294,6 +312,12 @@ def add_reference_feats(cells: pd.DataFrame, spot_frame: pd.DataFrame, end_ts: i
                 V2 = ven2_feats(c, aggs, pm_other)
                 V2.index = cells.index[idx]
                 F_all.loc[V2.index, VEN2_FEATS] = V2[VEN2_FEATS].to_numpy()
+                if USE_ALTS:
+                    alt_aggs = {p: _agg(sub, days, end_ts) for p, sub in _ALTS}
+                    A = alt_feats(c, alt_aggs, {w: V2[f"C6_pm{w}"].to_numpy() for w in (1000, 2000, 3000)}, beta=ALT_BETA, alts=_ALTS)
+                    A.index = cells.index[idx]
+                    F_all.loc[A.index, _ALT_FEATS] = A[_ALT_FEATS].to_numpy()
+                    del alt_aggs
             del aggs
         del fa
     cells = pd.concat([cells.drop(columns=[k for k in F_all.columns if k in cells.columns]), F_all.astype(np.float32)], axis=1)
@@ -341,6 +365,57 @@ def _pairs(cells: pd.DataFrame):
     return up, dn
 
 
+def _strict_backtest(up: pd.DataFrame, dn: pd.DataFrame, ps: np.ndarray, win: pd.DataFrame, fills: pd.DataFrame) -> dict:
+    """Iteration 4: strict-fill backtest (observed liquidity, as polyrea.analysis.updown.backtest). At second s, if the
+    presence score of the side model's outcome o is >= P_THRESH, send a 30-share BUY limit at the last implied ask of o
+    (seen at s-1); fill only against OTHER traders' taker BUY prints on o with block ts in [s+1, s+3] (latency >= 2 s after
+    the information horizon) at price <= limit, at the print price, for min(print size, remaining shares) (capture 1.0:
+    an upper bound). One open order per (window, outcome). Taker fee FEE_RATE p (1-p)."""
+    rows = []
+    wi = win.set_index("cid")
+    sel = pd.DataFrame({"cid": up.cid.to_numpy(), "rel": up.rel.to_numpy(), "side_up": ps >= 0.5,
+                        "p": np.where(ps >= 0.5, up.p.to_numpy(), dn.p.to_numpy()), "lim": np.where(ps >= 0.5, up.ask_o.to_numpy(), dn.ask_o.to_numpy())})
+    sel = sel[(sel.p >= P_THRESH) & np.isfinite(sel.lim) & (sel.lim > 0.05) & (sel.lim < 0.95)]
+    for cid, g in sel.groupby("cid", sort=False):
+        tp = f"{tf.TAPE_DIR}/{cid}.parquet"
+        if not os.path.exists(tp) or cid not in wi.index:
+            continue
+        d = pd.read_parquet(tp)
+        if not len(d) or "side" not in d:
+            continue
+        st0 = int(wi.at[cid, "start_ts"]); pay_up = float(wi.at[cid, "up_payout"])
+        d = d[(d.side == "BUY") & ~d.proxyWallet.str.lower().isin(WALLETS)]
+        d = d.assign(rel=d.timestamp - st0, up=(d.outcome == "Up"))
+        for o in (True, False):
+            dd = d[d.up == o].sort_values("rel", kind="stable")
+            Rr = dd.rel.to_numpy(np.int64); Pp = dd.price.to_numpy(float); Zz = dd["size"].to_numpy(float)
+            gg = g[g.side_up == o].sort_values("rel")
+            pay = pay_up if o else 1 - pay_up
+            busy = -1
+            for s0, lim in zip(gg.rel.to_numpy(np.int64), gg.lim.to_numpy(float)):
+                if s0 <= busy:
+                    continue
+                busy = s0 + 3
+                left = ORDER_SHARES
+                for k in range(np.searchsorted(Rr, s0 + 1, "left"), np.searchsorted(Rr, s0 + 3, "right")):
+                    if Pp[k] <= lim + 1e-9:
+                        sh = min(left, Zz[k]); left -= sh
+                        rows.append((cid, Pp[k], sh, sh * (pay - Pp[k]) - FEE_RATE * Pp[k] * (1 - Pp[k]) * sh))
+                        if left <= 0:
+                            break
+    if not rows:
+        return {"rule_fills": 0}
+    T = pd.DataFrame(rows, columns=["cid", "price", "shares", "pnl"])
+    usd = float((T.price * T.shares).sum()); fee = float((FEE_RATE * T.price * (1 - T.price) * T.shares).sum())
+    fw = fills.assign(pay=np.where(fills.is_up, fills.up_payout, 1 - fills.up_payout))
+    fw["pnl"] = fw.shares * (fw.pay - fw.price) - fw.fee_usd
+    both = T.groupby("cid").pnl.sum().rename("rule").to_frame().join(fw.groupby("cid").pnl.sum().rename("wallet"), how="outer").reindex(win.cid).fillna(0.0)
+    return {"rule_fills": int(len(T)), "rule_usd": round(usd, 1), "rule_pnl_before_rebates": round(float(T.pnl.sum()), 1),
+            "rule_return_before_rebates": round(float(T.pnl.sum()) / usd, 4), "rule_return_with_50pct_fee_rebate": round((float(T.pnl.sum()) + 0.5 * fee) / usd, 4),
+            "per_window_pnl_corr_pearson": round(float(both.rule.corr(both.wallet)), 4), "per_window_pnl_corr_spearman": round(float(both.rule.corr(both.wallet, method="spearman")), 4),
+            "note": "strict fills on observed liquidity, latency >= 2 s after the information horizon, capture 1.0 (upper bound), taker only"}
+
+
 def evaluate(start_ts: int, end_ts: int) -> dict:
     t0 = time.time()
     win = load_windows(start_ts, end_ts)
@@ -360,9 +435,13 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
     pO = _predict(MODEL_OWN, cells, OWN_FEATURES)
     p2 = _predict(MODEL_IT2, cells, IT2_FEATURES)
     cells["p"] = p; cells["p_mkt"] = pK; cells["p_it2"] = p2
+    cells["sh"] = np.clip(_predict(MODEL_SHARES, cells, FEATURES), 0, None) if os.path.exists(MODEL_SHARES) else np.nan
     flag = p >= P_THRESH
     out = {"period": [int(start_ts), int(end_ts)], "windows": int(len(win)), "cells": int(len(cells)), "cluster_fills": int(len(fills)),
-           "use_venues": USE_VENUES, "six_series": SIX_SERIES, "reference_feed_coverage": {"futures": round(float(np.isfinite(cells.F_pm1000).mean()), 4)}}
+           "use_venues": USE_VENUES, "six_series": SIX_SERIES, "use_alts": USE_ALTS, "alt_set": ALT_SET, "models": _TAG,
+           "reference_feed_coverage": {"futures": round(float(np.isfinite(cells.F_pm1000).mean()), 4)}}
+    if USE_ALTS:
+        out["reference_feed_coverage"].update({sub: round(float(np.isfinite(cells[f"{p}_pm1000"]).mean()), 4) for p, sub in _ALTS})
     if USE_VENUES:
         out["reference_feed_coverage"].update({"okx": round(float(np.isfinite(cells.O_pm1000).mean()), 4), "bybit": round(float(np.isfinite(cells.B_pm1000).mean()), 4)})
         if SIX_SERIES:
@@ -380,9 +459,15 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
     # (b) side: seconds where the cluster bought exactly one outcome; rule = dedicated side model (ps >= 0.5 -> Up)
     up, dn = _pairs(cells)
     X = pd.concat([up[FEATURES].reset_index(drop=True), pd.DataFrame({"D_" + k: dn[k].to_numpy() for k in DSIDE})], axis=1)
-    ps = _predict(MODEL_SIDE, X, SIDE_FEATURES); del X
+    nf = _predict(MODEL_NETFLOW, X, SIDE_FEATURES) if os.path.exists(MODEL_NETFLOW) else None  # signed net share flow per second
+    if SIDE_LAG:
+        X = lag_feats(X, ALT_BETA)
+    ps = _predict(MODEL_SIDE, X, SIDE_FEATURES + (list(LAG_FEATS) if SIDE_LAG else []))
+    del X
     sd = {}
     r3z = np.abs(up.r3.to_numpy()) < 0.01
+    mx6 = np.nanmax(np.abs(np.stack([up[f"{q}_pm3000"].to_numpy(float) for q in "FOBSYK"], 1)), 1) if SIX_SERIES else np.full(len(up), np.nan)
+    flat6 = mx6 <= 0.1  # no move above 0.1 bp on any of the six BTC series over the last 3 s before the horizon
     for lab in ("y", "yT"):
         one = (up[lab].to_numpy() + dn[lab].to_numpy()) == 1
         truth = up[lab].to_numpy()[one] == 1
@@ -397,6 +482,9 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
                    "mcnemar_p_vs_market_only": _mcnemar(ok1, ok0), "mcnemar_p_vs_favourite": _mcnemar(ok1, okf),
                    "accuracy_spot_3s_move_zero": round(float(ok1[r3z[one]].mean()), 4), "share_spot_3s_move_zero": round(float(r3z[one].mean()), 4),
                    "accuracy_spot_moving": round(float(ok1[~r3z[one]].mean()), 4),
+                   "accuracy_six_series_flat": round(float(ok1[flat6[one]].mean()), 4) if flat6[one].any() else None,
+                   "share_six_series_flat": round(float(flat6[one].mean()), 4),
+                   "accuracy_six_series_moving": round(float(ok1[~flat6[one]].mean()), 4) if (~flat6[one]).any() else None,
                    "accuracy_top_half_confidence": round(float(ok1[conf >= q50].mean()), 4)}
     out["side"] = sd
     # (c) price: predicted taker price = last implied ask of the outcome from others' prints (<= s-1)
@@ -461,14 +549,22 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
     fw = fills.assign(pay=np.where(fills.is_up, fills.up_payout, 1 - fills.up_payout)) if len(fills) else fills
     fw["pnl"] = fw.shares * (fw.pay - fw.price) - fw.fee_usd
     wal_w = fw.groupby("cid").pnl.sum().rename("wallet")
-    for nm, wu, wd in [("soft", pu * okU, pdn * okD), ("hard", (pu >= P_THRESH) * okU, (pdn >= P_THRESH) * okD), ("soft_side", vol * ps * okU, vol * (1 - ps) * okD)]:
+    variants = [("soft", pu * okU, pdn * okD), ("hard", (pu >= P_THRESH) * okU, (pdn >= P_THRESH) * okD), ("soft_side", vol * ps * okU, vol * (1 - ps) * okD)]
+    if nf is not None:  # iteration 4: buy the predicted signed net flow (shares) of the cluster in every second
+        variants.append(("netflow", np.clip(nf, 0, None) / ORDER_SHARES * okU, np.clip(-nf, 0, None) / ORDER_SHARES * okD))
+    if np.isfinite(up.sh.to_numpy()).all():  # iteration 4 (primary): buy the predicted cluster shares of each outcome in every cell
+        variants.append(("shares", up.sh.to_numpy() / ORDER_SHARES * okU, dn.sh.to_numpy() / ORDER_SHARES * okD))
+    for nm, wu, wd in variants:
         g = pd.DataFrame({"cid": up.cid.to_numpy(), "pnl": ORDER_SHARES * (wu * uU + wd * uD), "usd": ORDER_SHARES * (wu * aU + wd * aD)}).groupby("cid").sum()
         both = g.join(wal_w, how="outer").reindex(win.cid).fillna(0.0)
         res_o[f"per_window_pnl_corr_{nm}_pearson"] = round(float(both.pnl.corr(both.wallet)), 4)
         res_o[f"per_window_pnl_corr_{nm}_spearman"] = round(float(both.pnl.corr(both.wallet, method="spearman")), 4)
         res_o[f"rule_return_{nm}"] = round(float(both.pnl.sum() / both.usd.sum()), 4) if both.usd.sum() > 0 else None
     res_o["wallet_return_before_rebates"] = round(float(fw.pnl.sum() / fw.usdc.sum()), 4) if len(fw) else None
-    res_o["note"] = "rule PnL is a proxy (buys at the last observed ask at s-1, no queue/fill check), not a strict-fill backtest; primary = soft_side (chosen on VALIDATE in iteration 3: 0.436 vs soft 0.412)"
+    res_o["note"] = ("rule PnL is a proxy (buys at the last observed ask at s-1, no queue/fill check), not a strict-fill backtest; "
+                     "primary = shares (iteration 4, chosen on VALIDATE: Pearson 0.439, net-position corr 0.467; netflow 0.434, soft_side 0.426, soft 0.418)")
+    res_o["primary"] = "shares" if np.isfinite(up.sh.to_numpy()).all() else "soft_side"
+    res_o["strict_fill_backtest"] = _strict_backtest(up, dn, ps, win, fills) if len(fills) else None
     out["outcome"] = res_o
     out["elapsed_s"] = round(time.time() - t0, 1)
     return out

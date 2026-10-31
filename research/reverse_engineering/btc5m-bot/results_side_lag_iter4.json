@@ -1,0 +1,13 @@
+{
+ "n": 90170,
+ "side_lag": 0.7546,
+ "side_it4b": 0.7526,
+ "taker_lag": 0.7816,
+ "taker_it4b": 0.7792,
+ "mcnemar": {
+  "lag_only_right": 2181,
+  "it4b_only_right": 2003,
+  "p": 0.006205126769330573
+ },
+ "lag_gain_share": 0.1058
+}
