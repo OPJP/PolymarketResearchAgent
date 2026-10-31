@@ -5,11 +5,22 @@ Kraken's public ``Trades`` endpoint accepts ``since`` (ns timestamp) and returns
 are reduced to one value per second (last trade in that second). A second's
 value is only *available* once that second has ended, so the series is built
 with ``availability_lag=1``.
+
+Binance's REST API is geo-blocked from the research host, but its public
+archive (data.binance.vision) publishes 1-second klines per UTC day, with a
+SHA-256 checksum file, the day after. A kline's close is the last trade of
+that second, the same quantity as the Kraken series. Binance leads Kraken by
+about a second in price discovery, so it is the better public proxy for the
+Chainlink feed that settles the Up/Down markets.
 """
 
 from __future__ import annotations
 
+import csv
+import hashlib
+import io
 import time
+import zipfile
 from typing import Any
 
 import numpy as np
@@ -20,6 +31,38 @@ from polyrea.pit import TimeSeries
 
 KRAKEN_TRADES = "https://api.kraken.com/0/public/Trades"
 KRAKEN_PAIRS = {"btc": "XBTUSD", "eth": "ETHUSD", "sol": "SOLUSD", "xrp": "XRPUSD", "doge": "XDGUSD"}
+BINANCE_ARCHIVE = "https://data.binance.vision/data/spot/daily/klines/{sym}/1s/{sym}-1s-{day}.zip"
+BINANCE_SYMBOLS = {"btc": "BTCUSDT", "eth": "ETHUSDT", "sol": "SOLUSDT", "xrp": "XRPUSDT", "doge": "DOGEUSDT"}
+
+
+def binance_seconds(asset: str, start: int, end: int, http: HttpClient | None = None) -> tuple[list[tuple[float, float]], list[Source]]:
+    """(second, close) of Binance 1-second klines in [start, end), from the daily archive.
+
+    Each day's zip is checked against its published SHA-256 before use.
+    """
+    http = http or shared_client()
+    sym = BINANCE_SYMBOLS[asset.lower()]
+    out: list[tuple[float, float]] = []
+    sources: list[Source] = []
+    for day0 in range(int(start) // 86400 * 86400, int(end), 86400):
+        day = time.strftime("%Y-%m-%d", time.gmtime(day0))
+        url = BINANCE_ARCHIVE.format(sym=sym, day=day)
+        body, src = http.get_bytes(url, adapter="binance.archive", max_age=None)
+        check, _ = http.get_bytes(url + ".CHECKSUM", adapter="binance.archive", max_age=None)
+        expected = check.decode().split()[0]
+        if hashlib.sha256(body).hexdigest() != expected:
+            raise RuntimeError(f"checksum mismatch for {url}")
+        sources.append(src)
+        with zipfile.ZipFile(io.BytesIO(body)) as z:
+            text = z.read(z.namelist()[0]).decode()
+        for row in csv.reader(io.StringIO(text)):
+            if not row or not row[0].isdigit():
+                continue
+            t_open = int(row[0])
+            sec = t_open // 1_000_000 if t_open > 10**14 else t_open // 1000  # archive switched ms -> us in 2025
+            if start <= sec < end:
+                out.append((float(sec), float(row[4])))
+    return out, sources
 
 
 def kraken_trades(asset: str, start: int, end: int, http: HttpClient | None = None) -> tuple[list[tuple[float, float]], list[Source]]:

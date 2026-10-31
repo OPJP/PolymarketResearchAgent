@@ -65,7 +65,10 @@ def _synthetic_market(seed, n_windows=120, informed="w_inf"):
     rng = np.random.default_rng(seed)
     rows = []
     for w in ws:
-        final = spot.price_at(np.array([w.end_ts + 1]))[0] >= spot.price_at(np.array([w.start_ts]))[0]
+        # settle like the real markets: closing 60 s TWAP vs. the 60 s TWAP before the start
+        twap_end = spot.mean_between(np.array([w.end_ts - 60]), np.array([w.end_ts]), np.array([w.end_ts + 1]))[0]
+        twap_start = spot.mean_between(np.array([w.start_ts - 60]), np.array([w.start_ts]), np.array([w.start_ts + 1]))[0]
+        final = twap_end >= twap_start
         for _ in range(40):
             ts = int(rng.integers(w.start_ts + 5, w.end_ts - 5))
             fu = fair_up_vectorized(spot, np.array([w.start_ts]), np.array([w.end_ts]), np.array([ts - 1]))[0]
@@ -79,16 +82,83 @@ def _synthetic_market(seed, n_windows=120, informed="w_inf"):
     return pd.DataFrame(rows).sort_values("ts").reset_index(drop=True), spot
 
 
+BLOCKS = [(T0 + 3600 + b * 7200, T0 + 3600 + (b + 1) * 7200) for b in range(5)]
+
+
 def test_match_test_detects_informed_wallet_and_rejects_random():
     prints, spot = _synthetic_market(3)
     half = prints["ts"].median()
     fit, test = prints[prints["ts"] < half], prints[prints["ts"] >= half]
-    res = match_test(fit, test, "w_inf", spot, lags=[0, 1, 2], n_perm=60)
-    assert res["test"]["auc"] > 0.85
+    res = match_test(fit, test, "w_inf", spot, BLOCKS, 300, lags=[0, 1, 2], n_perm=60)
+    assert res["test"]["auc"] > 0.8
     assert res["test"]["auc_perm_p"] < 0.05
-    assert res["test"]["decision"]["mcc"] > 0.5
-    rnd = match_test(fit, test, "r7", spot, lags=[0, 1, 2], n_perm=60)
+    assert res["test"]["decision"]["mcc"] > 0.4
+    assert res["test"]["null_finite_share_min"] == 1.0
+    rnd = match_test(fit, test, "r7", spot, BLOCKS, 300, lags=[0, 1, 2], n_perm=60)
     assert rnd["test"]["auc_perm_p"] > 0.05
+
+
+def _gapped(seed, n_blocks=8, gap=6 * 3600):
+    """Spot loaded only around sampled 2 h blocks, as in a real study."""
+    rng = np.random.default_rng(seed)
+    blocks, ev, px, level = [], [], [], 60000.0
+    for b in range(n_blocks):
+        a = T0 + 3600 + b * (7200 + gap)
+        blocks.append((a, a + 7200))
+        secs = np.arange(a - 1920, a + 7200 + 120)
+        path = level * np.exp(np.cumsum(rng.standard_normal(len(secs)) * 2e-4))
+        level = float(path[-1]) * float(np.exp(rng.normal(0, 0.01)))
+        ev.extend(secs.tolist())
+        px.extend(path.tolist())
+    spot = SpotIndex(TimeSeries.build("spot", zip(ev, px), availability_lag=1))
+    rows = []
+    for a, e in blocks:
+        for ws in range(a, e, 300):
+            for _ in range(60):
+                ts = int(rng.integers(ws + 3, ws + 297))
+                fu = fair_up_vectorized(spot, np.array([ws]), np.array([ws + 300]), np.array([ts - 1]))[0]
+                is_up = bool(rng.random() < 0.5)
+                price = float(np.clip((fu if is_up else 1 - fu) + rng.normal(0, 0.05), 0.02, 0.98))
+                rows.append({"condition_id": f"c{ws}", "ts": ts, "is_up": is_up, "price": price, "size": 10.0, "start_ts": ws, "end_ts": ws + 300,
+                             "twap": 60, "fee_rate": 0.07, "up_payout": 1.0})
+    df = pd.DataFrame(rows)
+    return df, spot, blocks
+
+
+@pytest.mark.parametrize("pref", ["expensive", "late"])
+def test_match_null_is_not_fooled_by_spot_blind_preferences(pref):
+    """A wallet that picks prints by price or timing alone, ignoring spot, must not
+    'match' a spot hypothesis (the earlier clock-shift null passed such a wallet)."""
+    df, spot, blocks = _gapped(11)
+    rng = np.random.default_rng(12)
+    wgt = df["price"].to_numpy() ** 3 if pref == "expensive" else ((df["ts"] - df["start_ts"]).to_numpy() / 300.0) ** 3
+    pick = rng.random(len(df)) < np.clip(0.06 * wgt / wgt.mean(), 0, 1)
+    df["wallet"] = np.where(pick, "blind", "other")
+    fit = df[df["start_ts"] < blocks[4][0]]
+    test = df[df["start_ts"] >= blocks[4][0]]
+    res = match_test(fit, test, "blind", spot, blocks[4:], 300, lags=[0, 2], n_perm=100)
+    assert res["test"]["null_finite_share_min"] == 1.0
+    assert res["test"]["auc_perm_p"] > 0.05
+    assert not res["criterion_6"]["pass"]
+
+
+def test_spot_return_score_detects_a_spot_reactive_maker():
+    from functools import partial
+
+    from polyrea.analysis.updown import score_spot_return
+
+    df, spot, blocks = _gapped(21)
+    r = score_spot_return(df, spot, latency=1, horizon=2)
+    rng = np.random.default_rng(22)
+    wgt = np.exp(4000 * np.nan_to_num(r))  # fills follow spot moves toward the bought side
+    pick = rng.random(len(df)) < np.clip(0.05 * wgt / wgt.mean(), 0, 1)
+    df["wallet"] = np.where(pick, "maker", "other")
+    fit = df[df["start_ts"] < blocks[4][0]]
+    test = df[df["start_ts"] >= blocks[4][0]]
+    fns = {"spot_return_2s": partial(score_spot_return, horizon=2), "fair_minus_price": score_prints}
+    res = match_test(fit, test, "maker", spot, blocks[4:], 300, score_fns=fns, lags=[0, 1, 2, 5], n_perm=100)
+    assert res["chosen_score"] == "spot_return_2s" and res["chosen_latency_s"] == 1
+    assert res["test"]["auc_perm_p"] < 0.02
 
 
 def test_backtest_profits_only_with_real_edge():
@@ -183,3 +253,25 @@ def test_vectorized_maker_backtest_equals_reference():
         b = _maker_backtest_reference(flow, ws, spot, delta, lat, queue_share=q)
         assert a["fills"] == b["fills"]
         assert a["pnl"] == pytest.approx(b["pnl"], rel=1e-9, abs=1e-9)
+
+
+def test_spot_reactive_maker_quotes_only_after_spot_moves_toward_the_side():
+    from polyrea.analysis.updown import spot_reactive_maker_backtest
+
+    w = Window("c0", "btc", "5m", T0 + 3600, T0 + 3900, "u", "d", up_payout=1.0)
+    secs = list(range(T0, T0 + 4 * 3600))
+    px = [60000.0 if t < w.start_ts + 10 else 60060.0 for t in secs]  # +10 bp jump at start+10
+    spot = SpotIndex(TimeSeries.build("spot", zip(secs, px), availability_lag=1))
+    flow = pd.DataFrame(
+        [
+            {"condition_id": "c0", "ts": w.start_ts + 1, "is_up": True, "side": "BUY", "price": 0.50, "size": 1.0},  # sets the anchor
+            {"condition_id": "c0", "ts": w.start_ts + 5, "is_up": True, "side": "SELL", "price": 0.49, "size": 50.0},  # before the move: no bid; anchor -> 0.49
+            {"condition_id": "c0", "ts": w.start_ts + 13, "is_up": True, "side": "SELL", "price": 0.45, "size": 50.0},  # after: fills
+        ]
+    )
+    # the jump is visible at start+11 (availability lag) and decided with latency 1 at tick start+12
+    res = spot_reactive_maker_backtest(flow, [w], spot, theta=5e-4, delta=0.03, latency=1, horizon=2, requote_s=1)
+    assert res["fills"] == 1  # only the post-move sell trades through the 0.46 bid
+    assert res["pnl"] == pytest.approx(20 * (1.0 - 0.46))
+    none = spot_reactive_maker_backtest(flow, [w], spot, theta=5e-3, delta=0.03, latency=1, horizon=2, requote_s=1)
+    assert none.get("fills", 0) == 0  # move below theta: never quotes

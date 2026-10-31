@@ -2,17 +2,20 @@
 
 Market mechanics (Gamma metadata, 2026): each market covers a window
 [eventStartTime, endDate] of 5m / 15m / 1h. It resolves Up iff the Chainlink
-TWAP over the last ``twapLookbackSeconds`` (60 s) of the window is >= the price
-at the window start. Takers pay ``rate * p * (1 - p)`` per share (feeSchedule,
-exponent 1); a share of fees is rebated to makers.
+TWAP over the last ``twapLookbackSeconds`` (60 s) of the window is >= the
+strike ``priceToBeat``, which is the same TWAP over the 60 s before the window
+starts (the previous window's final price; 555/555 consecutive pairs agree).
+Takers pay ``rate * p * (1 - p)`` per share (feeSchedule, exponent 1); a share
+of fees is rebated to makers. The price tick is 0.01 between 0.04 and 0.96 and
+0.001 outside (``quote_price``).
 
 Hypothesis family LA(theta, latency): *buy the side whose spot-implied fair
 value exceeds its ask by more than theta*, using spot information that is
 ``latency`` seconds old. The fair value uses only data available at the
 decision time:
 
-* strike S0 = spot available at window start (decisions before the window
-  starts get fair value 0.5);
+* strike S0 = mean spot over [start - 60 s, start) available at the decision
+  (decisions before the window starts get fair value 0.5);
 * S_t = latest spot available at t - latency;
 * sigma = realized 1-second volatility over the preceding 30 minutes;
 * inside the TWAP period the already-observed part of the average is used.
@@ -39,6 +42,10 @@ from polyrea.stats.significance import hac_t_test, permutation_pvalue, sharpe, s
 VOL_LOOKBACK = 1800
 TWAP_SECONDS = 60
 FEE_RATE_DEFAULT = 0.07
+# criterion (6) effect-size floor: the fitted rule must flag at least this share
+# of the wallet's TEST decisions, at this multiple of the base rate
+MATCH_MIN_RECALL = 0.2
+MATCH_MIN_LIFT = 2.0
 
 
 @dataclass(frozen=True)
@@ -147,7 +154,8 @@ class SpotIndex:
 def fair_up_vectorized(spot: SpotIndex, start: np.ndarray, end: np.ndarray, t_dec: np.ndarray, twap: int = TWAP_SECONDS) -> np.ndarray:
     """P(Up) at decision times ``t_dec`` using spot available at ``t_dec``."""
     start, end, t_dec = (np.asarray(x, dtype=np.int64) for x in (start, end, t_dec))
-    s0 = spot.price_at(start)
+    s0 = spot.mean_between(start - twap, start, t_dec)  # strike: TWAP before the window
+    s0 = np.where(np.isnan(s0), spot.price_at(start), s0)
     st = spot.price_at(t_dec)
     sig = spot.sigma_at(t_dec)
     twap_start = end - twap
@@ -185,6 +193,9 @@ def fair_up_pit(store: PITStore, spot_name: str, w: Window, t: int, latency: int
     st = view.latest(spot_name, at=t_dec)
     if s0 is None or st is None:
         return None
+    ev_k, v_k = view.history(spot_name, lookback=max(0, t - (w.start_ts - w.twap_seconds)) + 2)
+    k_sel = (ev_k >= w.start_ts - w.twap_seconds) & (ev_k < w.start_ts) & (ev_k + availability_lag <= t_dec)
+    strike = float(np.mean(v_k[k_sel].astype(float))) if k_sel.any() else float(s0[1])
     ev, vals = view.history(spot_name, lookback=VOL_LOOKBACK + latency + 5)
     av = ev + availability_lag
     vals = vals.astype(float)
@@ -201,7 +212,7 @@ def fair_up_pit(store: PITStore, spot_name: str, w: Window, t: int, latency: int
         if j >= 0:
             lr[0] = math.log(vals[0]) - math.log(float(v2[j]))
     sig = math.sqrt(max(float(np.mean(lr**2)), 1e-14))
-    S0, St = float(s0[1]), float(st[1])
+    S0, St = strike, float(st[1])
     twap_start = w.end_ts - w.twap_seconds
     if t_dec < twap_start:
         mean, sd_units = St, math.sqrt((twap_start - t_dec) + w.twap_seconds / 3.0)
@@ -297,6 +308,18 @@ def score_prints(prints: pd.DataFrame, spot: SpotIndex, latency: int, shift: int
     return fair_side - prints["price"].to_numpy()
 
 
+def score_spot_return(prints: pd.DataFrame, spot: SpotIndex, latency: int, shift: int | np.ndarray = 0, horizon: int = 2) -> np.ndarray:
+    """Signed spot log return over ``horizon`` s toward the bought side (hypothesis SR).
+
+    Uses spot available ``latency`` s before the print: a maker whose bids are
+    filled right after spot moved toward that side is quoting on spot.
+    """
+    t = prints["ts"].to_numpy() - latency + shift
+    with np.errstate(invalid="ignore", divide="ignore"):
+        r = np.log(spot.price_at(t) / spot.price_at(t - horizon))
+    return np.where(prints["is_up"].to_numpy(), r, -r)
+
+
 def auc(score: np.ndarray, y: np.ndarray) -> float:
     ok = np.isfinite(score)
     s, yy = score[ok], y[ok]
@@ -325,7 +348,10 @@ def decision_metrics(score: np.ndarray, y: np.ndarray, theta: float) -> dict[str
 
 
 def fit_theta(score: np.ndarray, y: np.ndarray, grid: np.ndarray | None = None) -> float:
-    grid = np.linspace(-0.05, 0.15, 41) if grid is None else grid
+    """Threshold with the best MCC; the default grid is quantiles of the score."""
+    if grid is None:
+        fin = score[np.isfinite(score)]
+        grid = np.unique(np.quantile(fin, np.linspace(0.5, 0.995, 60))) if len(fin) else np.array([0.0])
     best, best_mcc = 0.0, -2.0
     for th in grid:
         m = decision_metrics(score, y, float(th))["mcc"]
@@ -334,66 +360,155 @@ def fit_theta(score: np.ndarray, y: np.ndarray, grid: np.ndarray | None = None) 
     return best
 
 
+def window_positions(prints: pd.DataFrame, blocks: list[tuple[int, int]], duration_s: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Block id, window index inside the block and windows per block for each print's window."""
+    st = prints["start_ts"].to_numpy().astype(np.int64)
+    bid = np.full(len(st), -1)
+    widx = np.zeros(len(st), dtype=np.int64)
+    nwin = np.zeros(len(st), dtype=np.int64)
+    for b, (a, e) in enumerate(blocks):
+        m = (st >= a) & (st < e)
+        bid[m] = b
+        widx[m] = (st[m] - a) // duration_s
+        nwin[m] = (e - a) // duration_s
+    return bid, widx, nwin
+
+
+def rotation_shifts(bid: np.ndarray, widx: np.ndarray, nwin: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    """One draw of the rotation null: each block's windows take the spot path of
+    the window k_b places later (cyclically) in the same block, k_b != 0 drawn
+    independently per block. Price, timing and side of every print are kept;
+    only the link between the print and its own spot path is broken, and every
+    shifted decision still lands on loaded spot data."""
+    shift = np.zeros(len(bid), dtype=np.int64)
+    for b in np.unique(bid[bid >= 0]):
+        m = bid == b
+        n = int(nwin[m][0])
+        if n < 2:
+            continue
+        k = int(rng.integers(1, n))
+        shift[m] = ((widx[m] + k) % n - widx[m])
+    return shift
+
+
+def match_strata(prints: pd.DataFrame, n_price_bins: int = 50) -> np.ndarray:
+    """Strata of comparable decisions: price quantile x time in window x side.
+
+    A wallet may prefer some prices, times or sides for reasons unrelated to
+    the hypothesis; comparing it with other traders only inside a stratum
+    removes those static preferences from the match statistic.
+    """
+    price = prints["price"].to_numpy()
+    edges = np.unique(np.quantile(price, np.linspace(0, 1, n_price_bins + 1)[1:-1])) if len(price) else np.array([])
+    pbin = np.searchsorted(edges, price, side="right")
+    span = (prints["end_ts"] - prints["start_ts"]).to_numpy()
+    frac = (prints["ts"] - prints["start_ts"]).to_numpy() / np.maximum(span, 1)
+    tbin = np.digitize(frac, [0.0, 0.25, 0.5, 0.75, 1.0])
+    return (pbin * 10 + tbin) * 2 + prints["is_up"].to_numpy().astype(int)
+
+
+def stratified_auc(score: np.ndarray, y: np.ndarray, strata: np.ndarray) -> float:
+    """Pooled within-stratum AUC (Mann-Whitney U summed over strata / sum n1*n0)."""
+    ok = np.isfinite(score)
+    if not ok.any():
+        return float("nan")
+    df = pd.DataFrame({"s": score[ok], "y": y[ok].astype(int), "g": strata[ok]})
+    df["r"] = df.groupby("g")["s"].rank()
+    df["ry"] = df["r"] * df["y"]
+    agg = df.groupby("g").agg(n=("y", "size"), n1=("y", "sum"), rs=("ry", "sum"))
+    n0 = agg["n"] - agg["n1"]
+    u = agg["rs"] - agg["n1"] * (agg["n1"] + 1) / 2
+    den = agg["n1"] * n0
+    valid = den > 0
+    return float(u[valid].sum() / den[valid].sum()) if valid.any() else float("nan")
+
+
 def match_test(
     fit_prints: pd.DataFrame,
     test_prints: pd.DataFrame,
     wallet: str,
     spot: SpotIndex,
+    test_blocks: list[tuple[int, int]],
+    duration_s: int,
+    score_fns: dict[str, Any] | None = None,
     lags: list[int] | None = None,
     n_perm: int = 200,
     seed: int = 0,
+    n_price_bins: int = 50,
 ) -> dict[str, Any]:
-    """Walk-forward decision-level match test of hypothesis LA vs. the wallet.
+    """Walk-forward decision-level match test of a spot hypothesis vs. the wallet.
 
-    Fit period: choose the latency (lag scan by AUC) and theta (max MCC).
-    Test period (later, untouched): AUC and MCC of the fitted rule predicting
-    which taker prints the wallet took, with a permutation null that shifts the
-    spot clock by >= 1 hour (destroys alignment, keeps autocorrelation).
+    FIT chooses the score (one of ``score_fns``) and its latency by
+    stratified AUC, and the decision threshold theta by MCC. TEST (later,
+    untouched) measures the stratified AUC of the fitted score for which
+    prints are the wallet's, against a rotation null (:func:`rotation_shifts`):
+    every print keeps its price, time in window and side and is scored on
+    another real spot path of the same block. Under "the wallet ignores spot
+    beyond those static features" the observed and rotated statistics are
+    exchangeable. Effect size is the rule's recall and lift at theta.
     """
+    score_fns = score_fns or {"fair_minus_price": score_prints}
     lags = lags if lags is not None else [-10, -5, -3, -2, -1, 0, 1, 2, 3, 5, 10, 20]
-    y_fit = (fit_prints["wallet"] == wallet.lower()).to_numpy().astype(int)
-    lag_scan = {}
-    for L in lags:
-        lag_scan[L] = auc(score_prints(fit_prints, spot, L), y_fit)
-    best_lag = max((L for L in lags if L >= 0 and np.isfinite(lag_scan[L])), key=lambda L: lag_scan[L], default=0)
-    s_fit = score_prints(fit_prints, spot, best_lag)
+    w = wallet.lower()
+    y_fit = (fit_prints["wallet"] == w).to_numpy().astype(int)
+    g_fit = match_strata(fit_prints, n_price_bins)
+    lag_scan: dict[str, float] = {}
+    for name, fn in score_fns.items():
+        for L in lags:
+            lag_scan[f"{name}@{L}"] = stratified_auc(fn(fit_prints, spot, L), y_fit, g_fit)
+    eligible = [k for k in lag_scan if int(k.rsplit("@", 1)[1]) >= 0 and np.isfinite(lag_scan[k])]
+    best = max(eligible, key=lambda k: lag_scan[k]) if eligible else f"{next(iter(score_fns))}@0"
+    best_name, best_lag = best.rsplit("@", 1)[0], int(best.rsplit("@", 1)[1])
+    fn = score_fns[best_name]
+    s_fit = fn(fit_prints, spot, best_lag)
     theta = fit_theta(s_fit, y_fit)
-    y_te = (test_prints["wallet"] == wallet.lower()).to_numpy().astype(int)
-    s_te = score_prints(test_prints, spot, best_lag)
-    auc_te = auc(s_te, y_te)
+    y_te = (test_prints["wallet"] == w).to_numpy().astype(int)
+    g_te = match_strata(test_prints, n_price_bins)
+    s_te = fn(test_prints, spot, best_lag)
+    auc_te = stratified_auc(s_te, y_te, g_te)
     dm = decision_metrics(s_te, y_te, theta)
+    bid, widx, nwin = window_positions(test_prints, test_blocks, duration_s)
     rng = np.random.default_rng(seed)
-    null_auc, null_mcc = [], []
+    null_auc, null_finite = [], []
     for _ in range(n_perm):
-        sh = int(rng.integers(3600, 6 * 3600)) * int(rng.choice([-1, 1]))
-        sp = score_prints(test_prints, spot, best_lag, shift=sh)
-        null_auc.append(auc(sp, y_te))
-        null_mcc.append(decision_metrics(sp, y_te, theta)["mcc"])
+        sh = rotation_shifts(bid, widx, nwin, rng) * duration_s
+        sp = fn(test_prints, spot, best_lag, shift=sh)
+        null_finite.append(float(np.isfinite(sp).mean()) if len(sp) else float("nan"))
+        null_auc.append(stratified_auc(sp, y_te, g_te))
     null_auc = np.array([x for x in null_auc if np.isfinite(x)])
-    null_mcc = np.array([x for x in null_mcc if np.isfinite(x)])
     w_scores = s_te[(y_te == 1) & np.isfinite(s_te)]
     o_scores = s_te[(y_te == 0) & np.isfinite(s_te)]
-    mw = stats.mannwhitneyu(w_scores, o_scores, alternative="greater") if len(w_scores) and len(o_scores) else None
+    p = permutation_pvalue(auc_te, null_auc) if len(null_auc) else None
+    recall_ok = bool(np.isfinite(dm["recall"]) and dm["recall"] >= MATCH_MIN_RECALL)
+    lift_ok = bool(np.isfinite(dm["lift"]) and dm["lift"] >= MATCH_MIN_LIFT)
     return {
-        "lag_scan_auc_fit": {int(k): v for k, v in lag_scan.items()},
+        "lag_scan_auc_fit": lag_scan,
+        "chosen_score": best_name,
         "chosen_latency_s": int(best_lag),
         "theta": theta,
-        "fit": {"prints": int(len(fit_prints)), "wallet_prints": int(y_fit.sum()), "auc": lag_scan[best_lag]},
+        "fit": {"prints": int(len(fit_prints)), "wallet_prints": int(y_fit.sum()), "auc": lag_scan[best]},
         "test": {
             "prints": int(len(test_prints)),
             "wallet_prints": int(y_te.sum()),
             "auc": auc_te,
+            "auc_unstratified": auc(s_te, y_te),
             "auc_null_mean": float(null_auc.mean()) if len(null_auc) else None,
             "auc_null_p95": float(np.percentile(null_auc, 95)) if len(null_auc) else None,
-            "auc_perm_p": permutation_pvalue(auc_te, null_auc) if len(null_auc) else None,
+            "auc_null_max": float(null_auc.max()) if len(null_auc) else None,
+            "auc_perm_p": p,
+            "score_finite_share": float(np.isfinite(s_te).mean()) if len(s_te) else None,
+            "null_finite_share_min": float(np.nanmin(null_finite)) if null_finite else None,
             "decision": dm,
-            "mcc_null_p95": float(np.percentile(null_mcc, 95)) if len(null_mcc) else None,
-            "mcc_perm_p": permutation_pvalue(dm["mcc"], null_mcc) if len(null_mcc) else None,
-            "wallet_mean_edge": float(w_scores.mean()) if len(w_scores) else None,
-            "others_mean_edge": float(o_scores.mean()) if len(o_scores) else None,
-            "share_wallet_prints_with_positive_edge": float((w_scores > 0).mean()) if len(w_scores) else None,
-            "mannwhitney_p": float(mw.pvalue) if mw is not None else None,
+            "wallet_mean_score": float(w_scores.mean()) if len(w_scores) else None,
+            "others_mean_score": float(o_scores.mean()) if len(o_scores) else None,
         },
+        "criterion_6": {
+            "perm_p_below_0.01": bool(p is not None and p < 0.01),
+            f"recall_ge_{MATCH_MIN_RECALL}": recall_ok,
+            f"lift_ge_{MATCH_MIN_LIFT}": lift_ok,
+            "pass": bool(p is not None and p < 0.01 and recall_ok and lift_ok),
+        },
+        "null": "within-block window rotation, stratified by price x time-in-window x side",
         "n_perm": n_perm,
     }
 
@@ -534,6 +649,27 @@ def taker_flow(taker_tapes: dict[str, list[dict[str, Any]]], windows: list[Windo
     return pd.DataFrame(rows)
 
 
+def quote_price(x: np.ndarray | float, tick: float | None = None) -> np.ndarray:
+    """Highest valid bid at or below ``x``.
+
+    ``tick=None`` applies the exchange's dynamic tick: 0.01 between 0.04 and
+    0.96, 0.001 outside (mid-range tape prices sit on the cent grid 96% of the
+    time; Gamma's ``orderPriceMinTickSize`` is read after resolution, at an
+    extreme price, so it reports 0.001).
+    """
+    x = np.asarray(x, dtype=float)
+    if tick is not None:
+        return np.floor(x / tick + 1e-9) * tick
+    q01 = np.floor(x / 0.01 + 1e-9) * 0.01
+    q001 = np.floor(x / 0.001 + 1e-9) * 0.001
+    return np.where((q001 < 0.04) | (q001 > 0.96), q001, q01)
+
+
+def _valid_quote(q: np.ndarray, tick: float | None) -> np.ndarray:
+    lo = 0.001 if tick is None else tick
+    return (q >= lo - 1e-12) & (q <= 1 - lo + 1e-12)
+
+
 def maker_backtest(
     flow: pd.DataFrame,
     windows: list[Window],
@@ -542,7 +678,7 @@ def maker_backtest(
     latency: int,
     requote_s: int = 5,
     size_shares: float = 20.0,
-    tick: float = 0.01,
+    tick: float | None = None,
     min_secs_to_end: int = 0,
     queue_share: float = 1.0,
     rebate_share_of_fee_equiv: float = 0.0,
@@ -587,8 +723,8 @@ def maker_backtest(
         price, size = g["price"].to_numpy()[ok], g["size"].to_numpy()[ok]
         for side_up in (True, False):
             fair = fu if side_up else 1 - fu
-            q = np.floor((fair - delta) / tick + 1e-9) * tick
-            valid = np.isfinite(fu) & (q >= tick) & (q <= 1 - tick)
+            q = quote_price(fair - delta, tick)
+            valid = np.isfinite(fu) & _valid_quote(q, tick)
             qj = q[j]
             eps = -1e-9 if at_touch else 1e-9
             through = ((is_up == side_up) & sell & (price < qj - eps)) | ((is_up != side_up) & buy & (price > 1 - qj + eps))
@@ -603,6 +739,82 @@ def maker_backtest(
                 i = idx[k]
                 out.append({"condition_id": cid, "ts": int(t0), "is_up": side_up, "price": float(q[i]), "shares": float(filled[i]), "pnl": float(filled[i] * (payout - q[i]) + rebate[k]), "fair": float(fair[i]), "end_ts": w.end_ts})
     return _maker_summary(out)
+
+
+def spot_reactive_maker_backtest(
+    flow: pd.DataFrame,
+    windows: list[Window],
+    spot: SpotIndex,
+    theta: float,
+    delta: float,
+    latency: int,
+    horizon: int = 2,
+    requote_s: int = 1,
+    size_shares: float = 20.0,
+    tick: float | None = None,
+    min_secs_to_end: int = 0,
+    queue_share: float = 1.0,
+    at_touch: bool = False,
+) -> dict[str, Any]:
+    """PIT backtest of hypothesis SR as a strategy: quote only after spot moves.
+
+    Every ``requote_s`` seconds, with information ``latency`` seconds old, the
+    strategy reads the spot log return over the last ``horizon`` seconds. It
+    rests a bid on Up only if that return exceeds ``theta`` (on Down only if it
+    is below ``-theta``), at the side's last public tape price minus ``delta``
+    (implied from taker prints known by then). Fills follow the same
+    trade-through rule as :func:`maker_backtest` (``at_touch`` is the
+    first-in-queue bound). Windows without fills count as zero PnL.
+    """
+    by_cid = {w.condition_id: w for w in windows}
+    out = []
+    windows_seen = []
+    for cid, g in flow.groupby("condition_id"):
+        w = by_cid[cid]
+        if w.up_payout is None:
+            continue
+        windows_seen.append(cid)
+        g = g.sort_values("ts", kind="stable")
+        ticks = np.arange(w.start_ts, w.end_ts - min_secs_to_end, requote_s)
+        if len(ticks) == 0:
+            continue
+        ts = g["ts"].to_numpy().astype(np.int64)
+        is_up = g["is_up"].to_numpy()
+        price, size = g["price"].to_numpy(), g["size"].to_numpy()
+        side_s = g["side"].to_numpy()
+        implied_up = np.where(is_up, price, 1 - price)
+        k = np.searchsorted(ts, ticks - latency, side="right") - 1
+        anchor_up = np.where(k >= 0, implied_up[np.clip(k, 0, None)], np.nan)
+        t_dec = ticks - latency
+        with np.errstate(invalid="ignore", divide="ignore"):
+            r = np.log(spot.price_at(t_dec) / spot.price_at(t_dec - horizon))
+        j = (ts - w.start_ts - 1) // requote_s
+        ok = (ts > w.start_ts) & (j >= 0) & (j < len(ticks))
+        if not ok.any():
+            continue
+        j, iu, sell, buy = j[ok], is_up[ok], side_s[ok] == "SELL", side_s[ok] == "BUY"
+        pr, sz = price[ok], size[ok]
+        eps = -1e-9 if at_touch else 1e-9
+        for side_up in (True, False):
+            gate = (r > theta) if side_up else (r < -theta)
+            anchor = anchor_up if side_up else 1 - anchor_up
+            q = quote_price(anchor - delta, tick)
+            valid = gate & np.isfinite(r) & np.isfinite(anchor) & _valid_quote(q, tick)
+            qj = q[j]
+            through = ((iu == side_up) & sell & (pr < qj - eps)) | ((iu != side_up) & buy & (pr > 1 - qj + eps))
+            avail = np.bincount(j[through], weights=sz[through], minlength=len(ticks)) * queue_share
+            filled = np.where(valid, np.minimum(size_shares, avail), 0.0)
+            payout = w.up_payout if side_up else 1 - w.up_payout
+            for i in np.nonzero(filled > 0)[0]:
+                out.append({"condition_id": cid, "ts": int(ticks[i]), "is_up": side_up, "price": float(q[i]), "shares": float(filled[i]), "pnl": float(filled[i] * (payout - q[i])), "fair": float("nan"), "end_ts": w.end_ts})
+    res = _maker_summary(out)
+    if res.get("fills"):
+        f = pd.DataFrame(out)
+        per_window = f.groupby("condition_id")["pnl"].sum().reindex(windows_seen, fill_value=0.0)
+        t = hac_t_test(per_window.to_numpy())
+        res.update({"windows_total": len(windows_seen), "per_window_t_incl_zero": t.statistic, "per_window_p_incl_zero": t.p_value,
+                    "per_window_bootstrap_p_incl_zero": stationary_bootstrap_pvalue(per_window.to_numpy(), n_boot=2000).p_value})
+    return res
 
 
 def _maker_summary(out: list[dict[str, Any]]) -> dict[str, Any]:
@@ -637,7 +849,7 @@ def _maker_backtest_reference(
     latency: int,
     requote_s: int = 5,
     size_shares: float = 20.0,
-    tick: float = 0.01,
+    tick: float | None = None,
     min_secs_to_end: int = 0,
     queue_share: float = 1.0,
     rebate_share_of_fee_equiv: float = 0.0,
@@ -676,8 +888,8 @@ def _maker_backtest_reference(
                 continue
             seg = g.iloc[lo:hi]
             for is_up, fair in ((True, fu[i]), (False, 1 - fu[i])):
-                q = math.floor((fair - delta) / tick + 1e-9) * tick
-                if q < tick or q > 1 - tick:
+                q = float(quote_price(fair - delta, tick))
+                if not bool(_valid_quote(np.array([q]), tick)[0]):
                     continue
                 through_sell = seg[(seg["is_up"] == is_up) & (seg["side"] == "SELL") & (seg["price"] < q - 1e-9)]
                 through_mint = seg[(seg["is_up"] != is_up) & (seg["side"] == "BUY") & (seg["price"] > 1 - q + 1e-9)]

@@ -154,6 +154,10 @@ class HttpClient:
         url = self.build_url(base, params)
         return self._request("GET", url, None, adapter=adapter, max_age=max_age, allow_status=allow_status, cache_if=cache_if)
 
+    def get_bytes(self, url: str, *, adapter: str, max_age: float | None = None) -> tuple[bytes, Source]:
+        """GET a binary body (archives); cached like JSON responses."""
+        return self._request("GET", url, None, adapter=adapter, max_age=max_age, allow_status=(), raw=True)
+
     def post_json(
         self,
         url: str,
@@ -176,19 +180,21 @@ class HttpClient:
         allow_status: tuple[int, ...],
         max_retries: int | None = None,
         cache_if: Callable[[Any], bool] | None = None,
+        raw: bool = False,
     ) -> tuple[Any, Source]:
+        decode = (lambda b: b) if raw else (lambda b: json.loads(b) if b else None)
         payload = json.dumps(body, sort_keys=True) if body is not None else ""
         key = hashlib.sha256(f"{method} {url} {payload}".encode()).hexdigest()
         hit = self.cache.get(key, max_age)
-        if hit is not None and cache_if is not None and not cache_if(json.loads(hit[1])):
+        if hit is not None and cache_if is not None and not cache_if(decode(hit[1])):
             hit = None  # a previously cached error body is never served
         if hit is not None:
-            fetched_at, raw = hit
-            return json.loads(raw), Source(
+            fetched_at, body_bytes = hit
+            return decode(body_bytes), Source(
                 adapter=adapter,
                 url=url,
                 fetched_at=time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.gmtime(fetched_at)),
-                body_sha256=hashlib.sha256(raw).hexdigest(),
+                body_sha256=hashlib.sha256(body_bytes).hexdigest(),
                 cached=True,
             )
         if self.offline:
@@ -209,20 +215,20 @@ class HttpClient:
                 time.sleep(min(60.0, 1.5 * 2**attempt + random.random()))
                 continue
             if resp.status_code == 200 or resp.status_code in allow_status:
-                raw = resp.content
-                data = json.loads(raw) if raw else None
+                content = resp.content
+                data = decode(content)
                 if resp.status_code == 200 and cache_if is not None and not cache_if(data):
-                    last_exc = HttpError(200, url, raw[:300].decode(errors="replace"))
+                    last_exc = HttpError(200, url, content[:300].decode(errors="replace"))
                     if attempt < retries:
                         time.sleep(min(60.0, 2.0 * 2**attempt + random.random()))
                     continue
                 if resp.status_code == 200:
-                    self.cache.put(key, url, resp.status_code, raw)
+                    self.cache.put(key, url, resp.status_code, content)
                 return data, Source(
                     adapter=adapter,
                     url=url,
                     fetched_at=utc_now_iso(),
-                    body_sha256=hashlib.sha256(raw).hexdigest(),
+                    body_sha256=hashlib.sha256(content).hexdigest(),
                     cached=False,
                 )
             if resp.status_code in (429, 500, 502, 503, 504, 520, 522, 524):

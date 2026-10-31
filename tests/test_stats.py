@@ -5,6 +5,8 @@ from hypothesis import strategies as st
 
 from polyrea.stats import persistence as P
 from polyrea.stats import significance as S
+from polyrea.stats.significance import hac_t_test
+from scipy import stats
 
 
 def _ar1(n, phi, rng, mu=0.0):
@@ -138,3 +140,31 @@ def test_cusum_null_size():
     rng = np.random.default_rng(7)
     rej = np.mean([P.cusum_test(rng.standard_normal(200)).p_value < 0.05 for _ in range(300)])
     assert rej < 0.09
+
+
+def test_hac_exact_reference_controls_size_at_small_alpha():
+    from polyrea.stats.significance import hac_exact_pvalue, newey_west_lags
+
+    rng = np.random.default_rng(3)
+    n, reps = 40, 200_000
+    L = newey_west_lags(n)
+    x = rng.standard_normal((reps, n))
+    e = x - x.mean(axis=1, keepdims=True)
+    s = (e * e).sum(axis=1) / n
+    for k in range(1, L + 1):
+        s += 2 * (1 - k / (L + 1)) * (e[:, k:] * e[:, :-k]).sum(axis=1) / n
+    t = x.mean(axis=1) / np.sqrt(s / n)
+    alpha = 1e-3
+    lo, hi = 1.0, 10.0  # exact critical value by bisection
+    for _ in range(50):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if hac_exact_pvalue(mid, n, L) > alpha else (lo, mid)
+    exact_rate = float((t >= hi).mean())
+    t_rate = float((t >= stats.t.isf(alpha, n - 1)).mean())
+    assert 0.6 * alpha < exact_rate < 1.5 * alpha
+    assert t_rate > 2 * alpha  # the t(n-1) reference over-rejects here
+
+
+def test_hac_constant_series_is_not_significant():
+    assert hac_t_test([0.0] * 30).p_value == 1.0
+    assert hac_t_test([0.0] * 30, reference="exact").p_value == 1.0

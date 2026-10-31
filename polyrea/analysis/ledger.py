@@ -13,6 +13,11 @@ Positions use average cost. A position counts toward capital at risk from its
 first buy until it is sold, merged, redeemed, or its market resolves (when the
 resolution time is known), whichever is first. Capital at risk is the cost
 basis of open positions - the cash a replicator must have committed.
+
+Complete sets created by ``SPLIT`` pay exactly $1 per set whatever the outcome
+and can be merged back to cash at any time, so they carry no outcome risk and
+are tracked separately (``complete_set_events``); wallets park idle cash in
+them to earn holding yield.
 """
 
 from __future__ import annotations
@@ -54,23 +59,25 @@ class Ledger:
     wallet: str
     positions: dict[str, Position] = field(default_factory=dict)
     exposure_events: list[tuple[int, float]] = field(default_factory=list)  # (ts, delta cost basis)
+    complete_set_events: list[tuple[int, float]] = field(default_factory=list)  # (ts, delta USDC in complete sets)
     cash_events: list[tuple[int, float, str]] = field(default_factory=list)  # (ts, delta cash, kind)
     trades: list[dict[str, Any]] = field(default_factory=list)
     income: float = 0.0
     anomalies: list[str] = field(default_factory=list)
 
-    def exposure_series(self) -> pd.Series:
+    def exposure_series(self, include_complete_sets: bool = False) -> pd.Series:
         """Capital at risk (open cost basis) after every event, indexed by time."""
-        if not self.exposure_events:
+        events = self.exposure_events + (self.complete_set_events if include_complete_sets else [])
+        if not events:
             return pd.Series(dtype=float)
-        ev = sorted(self.exposure_events)
+        ev = sorted(events)
         ts = np.array([e[0] for e in ev])
         level = np.cumsum([e[1] for e in ev])
         s = pd.Series(level, index=pd.to_datetime(ts, unit="s", utc=True))
         return s.groupby(level=0).last().clip(lower=0.0)
 
-    def daily_peak_exposure(self) -> pd.Series:
-        s = self.exposure_series()
+    def daily_peak_exposure(self, include_complete_sets: bool = False) -> pd.Series:
+        s = self.exposure_series(include_complete_sets)
         if s.empty:
             return s
         return s.resample("D").max().ffill()
@@ -172,7 +179,7 @@ def build_ledger(
         elif typ == "SPLIT":
             # one share of each outcome per USDC; split cost evenly across known outcomes
             led.cash_events.append((ts, -usdc, "split"))
-            led.exposure_events.append((ts, usdc))
+            led.complete_set_events.append((ts, usdc))
             assets = sorted(by_condition_assets.get(cid, set()))
             key = f"split:{cid}"
             pos = _pos(led, key, cid, None)
@@ -184,7 +191,7 @@ def build_ledger(
         elif typ == "MERGE":
             led.cash_events.append((ts, usdc, "merge"))
             # release basis of one share of each outcome per merged pair
-            released = 0.0
+            released, released_sets = 0.0, 0.0
             for a in sorted(by_condition_assets.get(cid, set()) | {f"split:{cid}"}):
                 p = led.positions.get(a)
                 if not p or p.shares <= 1e-9:
@@ -193,19 +200,27 @@ def build_ledger(
                 basis = p.avg_cost * q
                 p.shares -= q
                 p.cost -= basis
-                released += basis if p.closed_at is None else 0.0
+                if p.closed_at is None:
+                    if a.startswith("split:"):
+                        released_sets += basis
+                    else:
+                        released += basis
                 if p.shares <= 1e-9 and p.closed_at is None:
                     p.closed_at, p.close_kind = ts, "merged"
             led.exposure_events.append((ts, -released))
+            led.complete_set_events.append((ts, -released_sets))
         elif typ == "REDEEM":
             led.cash_events.append((ts, usdc, "redeem"))
-            released = 0.0
+            released, released_sets = 0.0, 0.0
             for a in sorted(by_condition_assets.get(cid, set()) | {f"split:{cid}"}):
                 p = led.positions.get(a)
                 if not p or p.shares <= 1e-9:
                     continue
                 if p.closed_at is None:
-                    released += p.cost
+                    if a.startswith("split:"):
+                        released_sets += p.cost
+                    else:
+                        released += p.cost
                     p.closed_at, p.close_kind = ts, "redeemed"
                 p.shares = 0.0
                 p.cost = 0.0
@@ -213,6 +228,7 @@ def build_ledger(
             if pos_any is not None:
                 pos_any.redeemed_usdc += usdc
             led.exposure_events.append((ts, -released))
+            led.complete_set_events.append((ts, -released_sets))
         elif typ == "CONVERSION":
             led.cash_events.append((ts, 0.0, "conversion"))
     close_resolved(2**62)
@@ -239,13 +255,18 @@ def capital_and_roc(led: Ledger, daily_pnl: pd.Series, window_days: int = 30) ->
         return {"peak_capital": None, "monthly_roc": None}
     end = daily_pnl.index.max()
     start = end - pd.Timedelta(days=window_days)
-    win_peak = float(peak[(peak.index > start) & (peak.index <= end)].max()) if len(peak) else float("nan")
+    in_win = (peak.index > start) & (peak.index <= end)
+    win_peak = float(peak[in_win].max()) if in_win.any() else float("nan")
     pnl = float(daily_pnl[daily_pnl.index > start].sum())
-    p95 = float(np.nanpercentile(peak[(peak.index > start) & (peak.index <= end)], 95)) if len(peak) else float("nan")
+    p95 = float(np.nanpercentile(peak[in_win], 95)) if in_win.any() else float("nan")
+    with_sets = led.daily_peak_exposure(include_complete_sets=True)
+    in_win2 = (with_sets.index > start) & (with_sets.index <= end)
+    peak_sets = float(with_sets[in_win2].max()) if in_win2.any() else float("nan")
     return {
         "window_days": window_days,
         "peak_capital": win_peak,
         "p95_capital": p95,
+        "peak_capital_incl_complete_sets": peak_sets,
         "window_pnl": pnl,
         "monthly_roc": pnl / win_peak * (30 / window_days) if win_peak and win_peak > 0 else None,
     }

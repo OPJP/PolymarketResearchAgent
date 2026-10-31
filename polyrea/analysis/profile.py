@@ -72,24 +72,46 @@ def resolution_info(market: dict[str, Any]) -> dict[str, Any]:
 
 
 def per_market_decomposition(trades: pd.DataFrame, markets: dict[str, dict[str, Any]]) -> pd.DataFrame:
-    """One row per (condition) with pair / residual decomposition and settled PnL."""
+    """One row per (condition) with pair / residual decomposition and settled PnL.
+
+    BUY and SELL fills are kept apart. Per outcome, sells are matched against
+    the window's buys at the average buy price (``realized_pnl``); only the
+    shares still held go into the pair / residual split and are paid out at
+    resolution. Sells of shares not bought in the window (bought earlier or
+    obtained by a split) have no known basis: their proceeds are reported as
+    ``unmatched_sell_usdc`` and left out of ``pnl``. So for every resolved
+    market ``pnl = realized_pnl + locked_pnl + residual_pnl``.
+    """
     rows = []
     for cid, g in trades.groupby("condition_id"):
         m = markets.get(cid) or {}
         res = resolution_info(m)
-        by_out = g.groupby("outcome_index").agg(shares=("size", "sum"), cost=("usdc", "sum"))
-        q = {int(k): float(v) for k, v in by_out["shares"].items()}
-        c = {int(k): float(v) for k, v in by_out["cost"].items()}
-        q0, q1 = q.get(0, 0.0), q.get(1, 0.0)
-        a0 = c.get(0, 0.0) / q0 if q0 else np.nan
-        a1 = c.get(1, 0.0) / q1 if q1 else np.nan
+        side = g["side"].to_numpy()
+        buys, sells = g[side == "BUY"], g[side == "SELL"]
+        qb = {int(k): float(v) for k, v in buys.groupby("outcome_index")["size"].sum().items()}
+        cb = {int(k): float(v) for k, v in buys.groupby("outcome_index")["usdc"].sum().items()}
+        qs = {int(k): float(v) for k, v in sells.groupby("outcome_index")["size"].sum().items()}
+        ps = {int(k): float(v) for k, v in sells.groupby("outcome_index")["usdc"].sum().items()}
+        held, avg, realized, unmatched_usdc = {}, {}, 0.0, 0.0
+        for k in (0, 1):
+            b, s_ = qb.get(k, 0.0), qs.get(k, 0.0)
+            avg[k] = cb.get(k, 0.0) / b if b else np.nan
+            matched = min(b, s_)
+            sell_px = ps.get(k, 0.0) / s_ if s_ else 0.0
+            if matched > 0:
+                realized += matched * (sell_px - avg[k])
+            if s_ > matched:
+                unmatched_usdc += (s_ - matched) * sell_px
+            held[k] = b - matched
+        q0, q1 = held[0], held[1]
+        a0, a1 = avg[0], avg[1]
         pairs = min(q0, q1)
         tokens = json.loads(m.get("clobTokenIds") or "[]") if m else []
         pay = res["payout"]
         payout_total = None
         if res["resolved"] and len(tokens) == 2:
             payout_total = q0 * pay.get(str(tokens[0]), 0.0) + q1 * pay.get(str(tokens[1]), 0.0)
-        cost_total = float(g["usdc"].sum())
+        held_cost = (q0 * a0 if q0 > 0 else 0.0) + (q1 * a1 if q1 > 0 else 0.0)
         locked = pairs * (1.0 - a0 - a1) if pairs > 0 else 0.0
         resid_side = 0 if q0 > q1 else 1
         resid_q = abs(q0 - q1)
@@ -97,26 +119,33 @@ def per_market_decomposition(trades: pd.DataFrame, markets: dict[str, dict[str, 
         resid_pay = None
         if payout_total is not None and len(tokens) == 2:
             resid_pay = resid_q * pay.get(str(tokens[resid_side]), 0.0)
+        bought0, bought1 = qb.get(0, 0.0), qb.get(1, 0.0)
         rows.append(
             {
                 "condition_id": cid,
                 "family": market_family(g["slug"].iloc[0], m),
                 "slug": g["slug"].iloc[0],
                 "n_fills": len(g),
+                "n_sells": int(len(sells)),
                 "first_ts": int(g["ts"].min()),
                 "last_ts": int(g["ts"].max()),
+                "bought0": bought0,
+                "bought1": bought1,
                 "q0": q0,
                 "q1": q1,
                 "avg0": a0,
                 "avg1": a1,
                 "pairs": pairs,
                 "pair_cost": (a0 + a1) if pairs > 0 else np.nan,
-                "two_sided": q0 > 0 and q1 > 0,
+                "two_sided": bought0 > 0 and bought1 > 0,
                 "balance": pairs / max(q0, q1) if max(q0, q1) > 0 else np.nan,
-                "cost": cost_total,
+                "cost": float(buys["usdc"].sum()),
+                "sold_usdc": float(sells["usdc"].sum()),
+                "unmatched_sell_usdc": unmatched_usdc,
                 "resolved": payout_total is not None,
                 "payout": payout_total,
-                "pnl": (payout_total - cost_total) if payout_total is not None else np.nan,
+                "realized_pnl": realized,
+                "pnl": (payout_total - held_cost + realized) if payout_total is not None else np.nan,
                 "locked_pnl": locked,
                 "residual_pnl": (resid_pay - resid_cost) if resid_pay is not None else np.nan,
                 "residual_won": (resid_pay > 0) if resid_pay is not None and resid_q > 0 else None,
@@ -152,12 +181,16 @@ def summarize_profile(trades: pd.DataFrame, per_market: pd.DataFrame, timing: pd
     pnl = float(resolved["pnl"].sum()) if len(resolved) else 0.0
     locked = float(resolved["locked_pnl"].sum()) if len(resolved) else 0.0
     resid = float(resolved["residual_pnl"].sum()) if len(resolved) else 0.0
+    realized = float(resolved["realized_pnl"].sum()) if len(resolved) and "realized_pnl" in resolved else 0.0
+    is_buy = trades["side"] == "BUY"
     wf = timing["window_frac"].dropna()
     gs = timing["secs_from_game_start"].dropna()
     return {
         "fills": int(len(trades)),
         "buy_share": float((trades["side"] == "BUY").mean()),
         "usd_volume": float(trades["usdc"].sum()),
+        "usd_bought": float(trades.loc[is_buy, "usdc"].sum()),
+        "usd_sold": float(trades.loc[~is_buy, "usdc"].sum()),
         "median_fill_usd": float(trades["usdc"].median()),
         "families_by_usd": {k: float(v) for k, v in fam_usd.sort_values(ascending=False).head(10).items()},
         "markets": int(len(per_market)),
@@ -168,9 +201,11 @@ def summarize_profile(trades: pd.DataFrame, per_market: pd.DataFrame, timing: pd
         "settled_pnl": pnl,
         "settled_locked_pnl": locked,
         "settled_residual_pnl": resid,
+        "settled_realized_from_sells": realized,
+        "unmatched_sell_usdc": float(per_market["unmatched_sell_usdc"].sum()) if "unmatched_sell_usdc" in per_market else 0.0,
         "residual_win_rate": float(np.mean([x for x in resolved["residual_won"] if x is not None])) if len(resolved) and resolved["residual_won"].notna().any() else None,
         "market_win_rate": float((resolved["pnl"] > 0).mean()) if len(resolved) else None,
-        "price_quantiles": [float(x) for x in np.percentile(trades["price"], [5, 25, 50, 75, 95])],
+        "price_quantiles": [float(x) for x in np.percentile(trades.loc[is_buy, "price"] if is_buy.any() else trades["price"], [5, 25, 50, 75, 95])],
         "window_frac_quantiles": [float(x) for x in np.percentile(wf, [5, 25, 50, 75, 95])] if len(wf) else None,
         "share_fills_after_game_start": float((gs > 0).mean()) if len(gs) else None,
         "hour_of_day_usd": {int(h): float(v) for h, v in trades.groupby(pd.to_datetime(trades["ts"], unit="s").dt.hour)["usdc"].sum().items()},
@@ -178,13 +213,13 @@ def summarize_profile(trades: pd.DataFrame, per_market: pd.DataFrame, timing: pd
 
 
 def price_bucket_calibration(trades: pd.DataFrame, markets: dict[str, dict[str, Any]], bins: int = 10) -> list[dict[str, Any]]:
-    """Win rate of bought shares vs. price paid (edge = win_rate - price)."""
+    """Win rate of bought shares vs. price paid (edge = win_rate - price); BUY fills only."""
     payouts = {}
     for cid, m in markets.items():
         r = resolution_info(m)
         if r["resolved"]:
             payouts.update(r["payout"])
-    t = trades[trades["asset"].isin(payouts.keys())].copy()
+    t = trades[(trades["side"] == "BUY") & trades["asset"].isin(payouts.keys())].copy()
     if t.empty:
         return []
     t["won"] = t["asset"].map(payouts)

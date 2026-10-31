@@ -49,16 +49,77 @@ def hac_variance_of_mean(x: np.ndarray, lags: int | None = None) -> float:
     return max(s, 1e-300) / n
 
 
-def hac_t_test(x: np.ndarray | list[float], lags: int | None = None) -> TestResult:
-    """One-sided t-test of mean > 0 with Newey-West standard error."""
+def hac_t_test(x: np.ndarray | list[float], lags: int | None = None, reference: str = "t") -> TestResult:
+    """One-sided t-test of mean > 0 with Newey-West standard error.
+
+    ``reference="t"`` compares the statistic with t(n-1), which is too
+    thin-tailed for a HAC statistic in short samples: at the tiny alphas a
+    Holm correction over hundreds of wallets needs, it over-rejects several
+    fold. ``reference="exact"`` uses the statistic's exact null distribution
+    for iid Gaussian data with the same n and lag count
+    (:func:`hac_exact_pvalue`).
+    """
     a = _clean(x)
     n = len(a)
     if n < 5:
         return TestResult("hac_t", float("nan"), 1.0, n, "too few observations")
-    se = math.sqrt(hac_variance_of_mean(a, lags))
+    L = newey_west_lags(n) if lags is None else lags
+    se = math.sqrt(hac_variance_of_mean(a, L))
     t = float(a.mean() / se) if se > 0 else float("inf") * np.sign(a.mean())
-    p = float(stats.t.sf(t, df=n - 1))
-    return TestResult("hac_t", t, p, n, f"lags={newey_west_lags(n) if lags is None else lags}")
+    if a.std() == 0:  # constant series: no evidence either way
+        return TestResult("hac_t", float("nan"), 1.0, n, f"lags={L}; constant series")
+    p = hac_exact_pvalue(t, n, L) if reference == "exact" else float(stats.t.sf(t, df=n - 1))
+    return TestResult("hac_t", t, p, n, f"lags={L}; reference={reference}")
+
+
+_Q_CACHE: dict[tuple[int, int], np.ndarray] = {}
+
+
+def _hac_q_samples(n: int, lags: int, draws: int = 40_000, seed: int = 20261030) -> np.ndarray:
+    """Draws of Q = s / sigma^2 for iid N(0, sigma^2) data of length n.
+
+    With e = M eps (demeaned noise) the HAC variance estimate is
+    s = sigma^2 * eps' M W M eps / n, W the Bartlett-weighted Toeplitz matrix,
+    so Q is a weighted sum of chi-square(1) variables with weights equal to
+    the eigenvalues of M W M / n, independent of the sample mean.
+    """
+    key = (n, min(lags, n - 1))
+    if key in _Q_CACHE:
+        return _Q_CACHE[key]
+    L = key[1]
+    w = np.zeros(n)
+    w[0] = 1.0
+    for k in range(1, L + 1):
+        w[k] = 1.0 - k / (L + 1.0)
+    idx = np.abs(np.subtract.outer(np.arange(n), np.arange(n)))
+    W = w[idx]
+    M = np.eye(n) - 1.0 / n
+    lam = np.linalg.eigvalsh(M @ W @ M) / n
+    lam = lam[lam > 1e-12]
+    rng = np.random.default_rng(seed)
+    q = np.empty(draws)
+    chunk = max(1, min(draws, 4_000_000 // max(1, len(lam))))
+    for i in range(0, draws, chunk):
+        m = min(chunk, draws - i)
+        q[i : i + m] = (rng.chisquare(1.0, size=(m, len(lam))) * lam).sum(axis=1)
+    _Q_CACHE[key] = np.maximum(q, 1e-300)
+    return _Q_CACHE[key]
+
+
+def hac_exact_pvalue(t: float, n: int, lags: int) -> float:
+    """P(T >= t) for the HAC t statistic under iid Gaussian data.
+
+    T = Z / sqrt(Q) with Z ~ N(0, 1) independent of Q, so
+    P(T >= t) = E_Q[Phi(-t sqrt(Q))]: the normal tail is evaluated exactly
+    for every draw of Q (conditional Monte Carlo), which keeps the relative
+    error small even for p-values around 1e-6.
+    """
+    if not np.isfinite(t):
+        return 0.0 if t > 0 else 1.0
+    q = _hac_q_samples(n, lags)
+    logs = stats.norm.logsf(t * np.sqrt(q))
+    mx = float(np.max(logs))
+    return float(min(1.0, math.exp(mx) * np.mean(np.exp(logs - mx))))
 
 
 def stationary_bootstrap_pvalue(

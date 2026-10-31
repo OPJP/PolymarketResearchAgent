@@ -59,12 +59,22 @@ def wallet_pnl_metrics(points: list[dict[str, Any]], as_of: int, crit: Criteria 
     months = monthly_blocks(d)
     recent_months = months[: crit.months_for_median]
     weeks = weekly_sums(d)
+    # a week / 30-day block with no PnL on any day is dormancy, not a losing period:
+    # it is left out of the positive-share denominators (the $ criteria keep it)
+    active_months = [b > 1e-9 for b in monthly_blocks(d.abs())]
+    active_weeks = weekly_sums(d.abs()) > 1e-9
+    pos_months = [m > 0 for m, a in zip(months, active_months) if a]
+    pos_weeks = (weeks > 0)[active_weeks] if len(weeks) else weeks
     cum = d.cumsum().to_numpy()
     income = float(df["d_wallet_income"].iloc[1:].sum()) if "d_wallet_income" in df else float("nan")
     total = float(d.sum())
     t_full = S.hac_t_test(d.to_numpy())
-    t_pre = S.hac_t_test(pre.to_numpy())
+    # exact finite-sample reference: the Holm step needs p-values near 1e-4
+    t_pre = S.hac_t_test(pre.to_numpy(), reference="exact")
+    t_pre_t = S.hac_t_test(pre.to_numpy())
     boot_pre = S.stationary_bootstrap_pvalue(pre.to_numpy(), n_boot=4000) if len(pre) >= 5 else None
+    if boot_pre is not None and 0.004 <= boot_pre.p_value <= 0.025:  # near the bar: cut Monte Carlo noise
+        boot_pre = S.stationary_bootstrap_pvalue(pre.to_numpy(), n_boot=20000)
     return {
         "history_days": n,
         "first_day": str(d.index.min().date()) if n else None,
@@ -75,12 +85,14 @@ def wallet_pnl_metrics(points: list[dict[str, Any]], as_of: int, crit: Criteria 
         "last_30d_pnl": float(d.iloc[-30:].sum()) if n else 0.0,
         "monthly_pnl_recent_first": recent_months,
         "median_month_pnl": float(np.median(recent_months)) if recent_months else None,
-        "share_positive_months": float(np.mean([m > 0 for m in months])) if months else None,
+        "share_positive_months": float(np.mean(pos_months)) if pos_months else None,
+        "inactive_months": int(len(months) - sum(active_months)),
         "annual_sharpe": S.sharpe(d.to_numpy()),
         "annual_sharpe_pre": S.sharpe(pre.to_numpy()),
         "per_day_sharpe": float(d.mean() / d.std(ddof=1)) if n > 2 and d.std(ddof=1) > 0 else None,
         "share_positive_days": float((d > 0).mean()) if n else None,
-        "share_positive_weeks": float((weeks > 0).mean()) if len(weeks) else None,
+        "share_positive_weeks": float(pos_weeks.mean()) if len(pos_weeks) else None,
+        "inactive_weeks": int(len(weeks) - int(active_weeks.sum())) if len(weeks) else 0,
         "daily_mean": float(d.mean()) if n else None,
         "daily_std": float(d.std(ddof=1)) if n > 1 else None,
         "max_drawdown": S.max_drawdown(cum),
@@ -89,6 +101,7 @@ def wallet_pnl_metrics(points: list[dict[str, Any]], as_of: int, crit: Criteria 
         "pre_selection_days": len(pre),
         "hac_t_pre": t_pre.statistic,
         "p_pre": t_pre.p_value,
+        "p_pre_t_reference": t_pre_t.p_value,
         "p_boot_pre": boot_pre.p_value if boot_pre else None,
         "volume_30d": float(df["d_volume_usdc"].iloc[-30:].sum()) if "d_volume_usdc" in df else None,
         "trades_30d": float(df["d_trade_count"].iloc[-30:].sum()) if "d_trade_count" in df else None,
@@ -108,7 +121,8 @@ def apply_criteria(m: dict[str, Any], crit: Criteria = CRITERIA) -> list[str]:
             r.append(f"pre-selection profit not significant after Holm correction (p_holm={_fmt(m.get('p_holm_pre'))})")
         if m.get("p_boot_pre") is None or m["p_boot_pre"] > crit.max_bootstrap_p:
             r.append(f"pre-selection block-bootstrap p={_fmt(m.get('p_boot_pre'))} > {crit.max_bootstrap_p}")
-    if m.get("deflated_sharpe") is None or m["deflated_sharpe"] < crit.min_deflated_sharpe:
+    dsr = m.get("deflated_sharpe")
+    if dsr is None or not np.isfinite(dsr) or dsr < crit.min_deflated_sharpe:  # undefined DSR fails
         r.append(f"deflated Sharpe {_fmt(m.get('deflated_sharpe'))} < {crit.min_deflated_sharpe}")
     if m["last_30d_pnl"] < crit.min_last_month_pnl:
         r.append(f"last-30d PnL ${m['last_30d_pnl']:,.0f} < $50k")
@@ -136,19 +150,28 @@ def run_screen(
     workers: int = 6,
     pm: PolymarketData | None = None,
     crit: Criteria = CRITERIA,
+    as_of: int | None = None,
+    snapshot: Path | None = None,
+    pnl_max_age: float | None = 6 * 3600,
 ) -> dict[str, Any]:
+    """Screen the leaderboard. With ``snapshot`` (a saved leaderboard_snapshot.json),
+    ``as_of`` and ``pnl_max_age=None`` it re-runs a frozen screen from cache."""
     pm = pm or PolymarketData()
-    as_of = int(time.time()) // 86400 * 86400  # complete days only
-    board, lb_sources = pm.leaderboard(time_period=time_period, limit=limit)
+    as_of = as_of or int(time.time()) // 86400 * 86400  # complete days only
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "leaderboard_snapshot.json").write_text(
-        json.dumps({"fetched_at": int(time.time()), "time_period": time_period, "order_by": "PNL", "rows": board}, indent=1)
-    )
+    if snapshot is not None:
+        snap = json.loads(Path(snapshot).read_text())
+        board, lb_sources = snap["rows"][:limit], []
+    else:
+        board, lb_sources = pm.leaderboard(time_period=time_period, limit=limit)
+        (out_dir / "leaderboard_snapshot.json").write_text(
+            json.dumps({"fetched_at": int(time.time()), "time_period": time_period, "order_by": "PNL", "rows": board}, indent=1)
+        )
     results: dict[str, dict[str, Any]] = {}
 
     def work(row: dict[str, Any]) -> tuple[str, dict[str, Any]]:
         w = row["user_id"].lower()
-        body, src = pm.user_pnl(w)
+        body, src = pm.user_pnl(w, max_age=pnl_max_age)
         m = wallet_pnl_metrics(body.get("points") or [], as_of, crit)
         m["source"] = asdict(src)
         return w, m
@@ -181,7 +204,7 @@ def run_screen(
         w = rank_row["user_id"].lower()
         m = results[w]
         if m.get("history_days", 0) > 0:
-            body, _ = pm.user_pnl(w)  # cached
+            body, _ = pm.user_pnl(w, max_age=pnl_max_age)  # cached
             df = daily_frame(body.get("points") or [], as_of=as_of)
             d = df["d_economic_pnl"].iloc[1:].to_numpy()
             m["deflated_sharpe"] = S.deflated_sharpe_ratio(d, n_trials=len(board))

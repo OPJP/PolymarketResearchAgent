@@ -234,8 +234,9 @@ class PolymarketData:
                     if stall > 10:
                         truncated = True
                         break
-                    extra = self._offset_walk(url, {**params, "start": cursor, "end": cursor}, adapter, end, sources)
-                    pages.append(extra)
+                    extra, complete = self._offset_walk(url, {**params, "start": cursor, "end": cursor}, adapter, end, sources)
+                    truncated = truncated or not complete
+                    pages.append(extra if len(extra) >= len(page) else page)
                     cursor = cursor + 1
                     continue
                 pages.append(page)
@@ -257,7 +258,11 @@ class PolymarketData:
                 if len(page) == PAGE and page[0].get("timestamp") == page[-1].get("timestamp"):
                     # a full page on one timestamp: walk that second with offset
                     ts = page[0]["timestamp"]
-                    extra = self._offset_walk(url, {**base_params, "start": ts, "end": ts}, adapter, ts, sources)
+                    # the walk must carry ``limit``: without it the API pages by 100
+                    # and the walk would stop after its first page
+                    extra, complete = self._offset_walk(url, {**base_params, "limit": PAGE, "start": ts, "end": ts}, adapter, ts, sources)
+                    truncated = truncated or not complete
+                    extra = extra if len(extra) >= len(page) else page
                     pages.append(extra)
                     total += len(extra)
                     if start is not None and ts - 1 < start:
@@ -285,7 +290,12 @@ class PolymarketData:
         src.records = len(page)
         return page, src
 
-    def _offset_walk(self, url: str, params: dict[str, Any], adapter: str, end: int | None, sources: list[Source]) -> list[dict[str, Any]]:
+    def _offset_walk(self, url: str, params: dict[str, Any], adapter: str, end: int | None, sources: list[Source]) -> tuple[list[dict[str, Any]], bool]:
+        """All rows of one timestamp via offset paging; returns (rows, complete).
+
+        ``complete`` is False when the API's offset cap ended the walk while
+        pages were still full, so the caller can mark its coverage partial.
+        """
         rows: list[dict[str, Any]] = []
         offset = 0
         while offset <= 5000:
@@ -293,14 +303,14 @@ class PolymarketData:
                 page, src = self._page(url, {**params, "offset": offset}, adapter, end)
             except HttpError as exc:
                 if exc.status == 400:
-                    break
+                    return rows, False
                 raise
             sources.append(src)
             rows.extend(page)
-            if len(page) < PAGE:
-                break
-            offset += PAGE
-        return rows
+            if len(page) < params.get("limit", PAGE):
+                return rows, True
+            offset += len(page)
+        return rows, False
 
     # ---------------------------------------------------------------- gamma
     def markets_by_condition(self, condition_ids: list[str], chunk: int = 20) -> tuple[dict[str, dict[str, Any]], list[Source]]:

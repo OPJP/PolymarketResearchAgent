@@ -73,3 +73,13 @@ def test_stale_quote_pnl_bins():
     out = _stale_quote_pnl(annotate(p, ev, 0))
     assert out["wallet"]["0-5s"]["return"] == -1.0
     assert out["all_makers"]["30-60s"]["return"] == 1.0
+
+
+def test_negative_information_delay_is_rejected():
+    import pytest
+
+    ev = pd.DataFrame([{"ts": 1000, "home_pts": 2, "away_pts": 0}])
+    p = _prints([995])
+    with pytest.raises(ValueError):
+        annotate(p, ev, delay=-10)  # would credit a print with a play that has not happened
+    assert np.isnan(annotate(p, ev, delay=0)["since"].iloc[0])

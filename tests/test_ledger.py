@@ -79,3 +79,50 @@ def test_capital_and_roc():
     r = capital_and_roc(led, daily, window_days=30)
     assert r["peak_capital"] == pytest.approx(500.0)
     assert r["monthly_roc"] == pytest.approx(0.2)
+
+
+def test_complete_sets_are_not_capital_at_risk():
+    rows = [
+        {"timestamp": 0, "type": "SPLIT", "size": 4000, "usdcSize": 4000, "conditionId": "park", "asset": ""},
+        trade(1, "BUY", 100, 0.5),
+        {"timestamp": 2, "type": "MERGE", "size": 4000, "usdcSize": 4000, "conditionId": "park", "asset": ""},
+    ]
+    led = build_ledger("w", rows)
+    assert led.exposure_series().max() == pytest.approx(50.0)
+    assert led.exposure_series(include_complete_sets=True).max() == pytest.approx(4050.0)
+    assert led.exposure_series(include_complete_sets=True).iloc[-1] == pytest.approx(50.0)
+
+
+def _decomp(trades_rows, payout_yes):
+    from polyrea.analysis.profile import per_market_decomposition
+
+    led = build_ledger("w", trades_rows)
+    t = pd.DataFrame(led.trades)
+    t["slug"] = "m"
+    market = {"clobTokenIds": '["Y", "N"]', "outcomePrices": f'["{payout_yes}", "{1 - payout_yes}"]', "umaResolutionStatus": "resolved"}
+    return per_market_decomposition(t, {"c1": market}).iloc[0]
+
+
+def test_decomposition_treats_sells_as_sales_not_purchases():
+    rows = [trade(0, "BUY", 100, 0.40, asset="Y"), trade(1, "SELL", 100, 0.60, asset="Y")]
+    for payout in (0.0, 1.0):  # nothing is held, so the outcome must not matter
+        r = _decomp(rows, payout)
+        assert r["pnl"] == pytest.approx(20.0)
+        assert r["realized_pnl"] == pytest.approx(20.0)
+        assert r["q0"] == pytest.approx(0.0) and r["cost"] == pytest.approx(40.0) and r["sold_usdc"] == pytest.approx(60.0)
+
+
+def test_decomposition_two_sided_with_partial_exit_reconciles():
+    rows = [
+        trade(0, "BUY", 100, 0.45, asset="Y"),
+        trade(1, "BUY", 100, 0.50, asset="N", oi=1),
+        trade(2, "BUY", 50, 0.55, asset="Y"),
+        trade(3, "SELL", 30, 0.70, asset="Y"),
+    ]
+    r = _decomp(rows, 1.0)
+    avg_y = (100 * 0.45 + 50 * 0.55) / 150
+    assert r["realized_pnl"] == pytest.approx(30 * (0.70 - avg_y))
+    assert r["q0"] == pytest.approx(120) and r["pairs"] == pytest.approx(100)
+    cash = -(100 * 0.45 + 100 * 0.50 + 50 * 0.55) + 30 * 0.70 + 120 * 1.0  # every cash flow incl. payout
+    assert r["pnl"] == pytest.approx(cash)
+    assert r["pnl"] == pytest.approx(r["realized_pnl"] + r["locked_pnl"] + r["residual_pnl"])

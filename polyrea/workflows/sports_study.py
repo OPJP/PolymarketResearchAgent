@@ -75,7 +75,11 @@ def annotate(prints: pd.DataFrame, events: pd.DataFrame, delay: int, shift: int 
     """Per print: seconds since the latest scoring play known at the print, and whether it favoured the bought side.
 
     A play is known at wallclock + delay (+ shift for the permutation null).
+    ``delay`` is an information delay and can never be negative: a negative
+    value would let a decision see a play before it happened.
     """
+    if delay < 0:
+        raise ValueError(f"information delay must be >= 0, got {delay}")
     out = prints.copy()
     if events.empty or out.empty:
         out["since"], out["fav"] = np.nan, 0
@@ -204,10 +208,18 @@ def run_sports_study(
     n_perm: int = 200,
     out_dir: Path | None = None,
     role: str = "taker",
+    min_delay: int = 5,
 ) -> Evidence:
     """``role="taker"`` tests REACT on taker buys; ``role="maker"`` measures the
     wallet's passive fills around plays (quote pulling vs. being picked off) and
-    what stale quotes filled within D seconds of a play earn."""
+    what stale quotes filled within D seconds of a play earn.
+
+    ``min_delay`` is the smallest information delay FIT may choose. ESPN does
+    not publish when a play reached its API, so a replicator cannot act at the
+    play's wall clock; 5 s is the default floor and D=0 is reported only as an
+    upper bound."""
+    if min_delay < 0:
+        raise ValueError("min_delay must be >= 0")
     pm = PolymarketData()
     loaded = load_games(wallet, days, as_of, max_games, seed, pm)
     games, markets = loaded["games"], loaded["markets"]
@@ -232,7 +244,7 @@ def run_sports_study(
         return pd.concat(parts, ignore_index=True) if parts else pd.DataFrame()
 
     # ---- FIT: choose delay D and reaction window W maximizing wallet excess reactivity
-    grid_d = [-10, -5, 0, 5, 10, 20, 30, 60]
+    grid_d = [d for d in (0, 5, 10, 20, 30, 60) if d >= min_delay]
     grid_w = [10, 20, 30, 60, 120]
     scan = []
     for D in grid_d:
@@ -278,6 +290,7 @@ def run_sports_study(
     degraded = {}
     for extra in (5, 10, 20, 30, 60):
         degraded[str(D + extra)] = {k: v for k, v in _backtest(annotated(test_slugs, D + extra), W).items() if k in ("trades", "pnl", "return_on_traded", "per_game_p")}
+    zero_delay = {k: v for k, v in _backtest(annotated(test_slugs, 0), W).items() if k in ("trades", "pnl", "return_on_traded", "per_game_p")}
     replay = _replay(test_a)
     stale = _stale_quote_pnl(annotated(fit_slugs + test_slugs, 0)) if role == "maker" else None
     ev_out = Evidence(
@@ -294,6 +307,8 @@ def run_sports_study(
         derived={
             "fit_scan_top": scan_df.sort_values("excess", ascending=False).head(8).to_dict("records"),
             "chosen_delay_s": D,
+            "min_delay_s": min_delay,
+            "zero_delay_upper_bound_backtest": zero_delay,
             "chosen_window_s": W,
             "test_reaction": obs,
             "test_excess_reactive_share": obs_excess,

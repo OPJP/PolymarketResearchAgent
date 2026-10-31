@@ -82,3 +82,41 @@ def test_error_bodies_are_never_served_from_cache(tmp_path):
         client.get_json("https://api.kraken.com/0/public/Trades", {"pair": "XBTUSD"}, adapter="k", max_age=None, cache_if=ok)
     data, _ = client.get_json("https://api.kraken.com/0/public/Trades", {"pair": "XBTUSD"}, adapter="k", max_age=None)
     assert data["error"]  # without a validator the raw cached body is returned
+
+
+class _FakeTradesApi:
+    """data-api /trades stand-in: newest first, default page 100 when ``limit`` is absent."""
+
+    def __init__(self, rows):
+        self.rows = sorted(rows, key=lambda r: -r["timestamp"])
+
+    def get_json(self, url, params, adapter, max_age=None, **_):
+        from polyrea.evidence import Source
+
+        p = dict(params)
+        sel = [r for r in self.rows if (p.get("start") is None or r["timestamp"] >= p["start"]) and r["timestamp"] <= p["end"]]
+        off, lim = int(p.get("offset", 0)), int(p.get("limit", 100))
+        return sel[off : off + lim], Source(adapter=adapter, url=url, fetched_at="t")
+
+
+def test_descending_scan_keeps_every_row_of_a_dense_second():
+    from polyrea.adapters.polymarket import PolymarketData
+
+    rows = [_row(1000 + i // 3, f"a{i}") for i in range(600)]  # 3 per second
+    rows += [_row(1250, f"dense{i}") for i in range(1203)]  # one second with > 2 full pages
+    rows += [_row(1300 + i, f"b{i}") for i in range(400)]
+    pm = PolymarketData(http=_FakeTradesApi(rows))
+    got, _, cov = pm.market_trades("c", start=0, end=2000, taker_only=False)
+    assert len(got) == len(rows)
+    assert sum(r["transactionHash"].startswith("dense") for r in got) == 1203
+    assert [r["timestamp"] for r in got] == sorted(r["timestamp"] for r in got)
+    assert cov.status == "complete"
+
+
+def test_offset_walk_reports_truncation_at_the_offset_cap():
+    from polyrea.adapters.polymarket import PolymarketData
+
+    rows = [_row(1250, f"d{i}") for i in range(6000)]  # more than the API's offset cap allows
+    pm = PolymarketData(http=_FakeTradesApi(rows))
+    _, _, cov = pm.market_trades("c", start=0, end=2000, taker_only=False)
+    assert cov.status == "partial"
