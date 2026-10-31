@@ -1,0 +1,124 @@
+{
+ "classes": {
+  "5": {
+   "n": 44575,
+   "P(0-300 ms after a cluster event)": 0.1731,
+   "placebo": 0.037,
+   "preceding_wallet": {
+    "DS": 4551,
+    "XM": 1602,
+    "GF": 1562
+   },
+   "XM_preceded_share": 0.2076,
+   "cancel_life_med_in_0_300": 80.0
+  },
+  "10": {
+   "n": 28125,
+   "P(0-300 ms after a cluster event)": 0.1894,
+   "placebo": 0.0384,
+   "preceding_wallet": {
+    "DS": 3180,
+    "GF": 1143,
+    "XM": 1004
+   },
+   "XM_preceded_share": 0.1885,
+   "cancel_life_med_in_0_300": 90.0
+  },
+  "20": {
+   "n": 18334,
+   "P(0-300 ms after a cluster event)": 0.1863,
+   "placebo": 0.0395,
+   "preceding_wallet": {
+    "DS": 2053,
+    "GF": 697,
+    "XM": 665
+   },
+   "XM_preceded_share": 0.1947,
+   "cancel_life_med_in_0_300": 99.0
+  },
+  "24": {
+   "n": 12632,
+   "P(0-300 ms after a cluster event)": 0.2051,
+   "placebo": 0.0406,
+   "preceding_wallet": {
+    "DS": 1439,
+    "XM": 632,
+    "GF": 520
+   },
+   "XM_preceded_share": 0.2439,
+   "cancel_life_med_in_0_300": 242.0
+  },
+  "50": {
+   "n": 2636,
+   "P(0-300 ms after a cluster event)": 0.1935,
+   "placebo": 0.0395,
+   "preceding_wallet": {
+    "DS": 279,
+    "XM": 141,
+    "GF": 90
+   },
+   "XM_preceded_share": 0.2765,
+   "cancel_life_med_in_0_300": 295.0
+  },
+  "64": {
+   "n": 2384,
+   "P(0-300 ms after a cluster event)": 0.2022,
+   "placebo": 0.04,
+   "preceding_wallet": {
+    "DS": 283,
+    "GF": 125,
+    "XM": 74
+   },
+   "XM_preceded_share": 0.1535,
+   "cancel_life_med_in_0_300": 216.0
+  },
+  "30": {
+   "n": 38048,
+   "P(0-300 ms after a cluster event)": 0.1744,
+   "placebo": 0.0393,
+   "preceding_wallet": {
+    "DS": 3758,
+    "XM": 1478,
+    "GF": 1401
+   },
+   "XM_preceded_share": 0.2227,
+   "cancel_life_med_in_0_300": 50.0
+  },
+  "60": {
+   "n": 1237,
+   "P(0-300 ms after a cluster event)": 0.3411,
+   "placebo": 0.0406,
+   "preceding_wallet": {
+    "DS": 287,
+    "GF": 112,
+    "XM": 23
+   },
+   "XM_preceded_share": 0.0545,
+   "cancel_life_med_in_0_300": 527.0
+  },
+  "100": {
+   "n": 1412,
+   "P(0-300 ms after a cluster event)": 0.2989,
+   "placebo": 0.032,
+   "preceding_wallet": {
+    "DS": 231,
+    "GF": 106,
+    "XM": 85
+   },
+   "XM_preceded_share": 0.2014,
+   "cancel_life_med_in_0_300": 197.5
+  }
+ },
+ "XM_60": {
+  "crowd_XM_preceded_share": 0.2108,
+  "co_occurrences_0_300": 422,
+  "XM_preceded": 23,
+  "crowd_part_est": 109.1,
+  "XM_ghost_legs_lower_bound": 312.9,
+  "XM_visible_60_orders": 363,
+  "XM_visible_60_T_first": 0,
+  "XM_decisions_per_filled_60_order_lb": 1.862,
+  "XM_decisions_per_filled_60_order_ub_all_unknown60": 4.408
+ },
+ "note": "crowd classes follow DS:GF:XM visible events about 2.7:1:1; the 60-share class follows XM events far less often, as XM's own ghost legs would (one in-flight order per wallet)"
+}

@@ -1,0 +1,33 @@
+{
+ "decisions_with_size": 2155,
+ "P(large)": 0.0515,
+ "P(large | first decision of episode)": 0.0468,
+ "P(large | later in episode)": 0.0571,
+ "P(large | episode n=1 / 2 / 3+)": [
+  0.0489,
+  0.0421,
+  0.0598
+ ],
+ "P(large | window rank 1-5 / 6-20 / 21+)": [
+  0.0588,
+  0.0487,
+  0.0516
+ ],
+ "by_wallet P(large) first / later": {
+  "DS": [
+   0.0234,
+   0.0371,
+   1230
+  ],
+  "GF": [
+   0.0757,
+   0.0772,
+   509
+  ],
+  "XM": [
+   0.1544,
+   0.0607,
+   416
+  ]
+ }
+}

@@ -1,4 +1,12 @@
-"""btc5m-bot frozen rule (iteration 8).
+"""btc5m-bot frozen rule (iteration 8; iteration 10 adds pre-registered point-in-time clean live versions).
+
+Iteration 10 additions (live / future-block components only; the historical rule and every frozen live component are unchanged):
+  - Polymarket holds marketable orders on BTC 5m for a TAKER DELAY of 150 ms (measured: fresh-signed sign-to-match floor
+    186-190 ms vs 35-73 ms on markets without a delay), so the bot's order arrives at a = m - TAKER_DELAY_MS and its last input
+    is a - POST_LATENCY_MS = m - 180 ms. PRE-REGISTERED 10-31 ~21:40 UTC, first clean test 11-01 06-12 UTC:
+    side_live_decision_pit (vote over LIVE_VOTE_WIN_MS_PIT = [m - 650, m - 180)), price_live_book_pit (o's ask at
+    m - PRE_MATCH_MS_PIT = m - 180) and presence_live_decision.pit_label (the frozen hazard scored against a match in
+    [t + 180, t + 680)); target keys *_pit. They are reported next to the frozen versions and replace nothing.
 
 Iteration 8 additions (live / future-block components only; the historical rule is unchanged; nothing fitted on VALIDATE):
   - LIVE_VOTE_FEEDS read both the rec_exam7 feed names and their continuation by rec_exam8 (btc5m_xclob8 / btc5m_xven8,
@@ -135,6 +143,17 @@ USE_BOOK = True     # iteration 5: Bybit BTCUSDT perpetual top-of-book features 
 ALLOW_SEALED = False  # only the examiner's driver sets this to True (live recordings of sealed blocks)
 DECISION_LAG_S = 2.0  # iteration 5 (live lab): the bot's order matches ~2.0 s (median) before its block timestamp
 PRE_MATCH_MS = 50.0  # iteration 5 (live lab): rule price = recorded best ask 50 ms before the recorded match (the book record at the match already shows the post-trade book)
+# iteration 10 (X73, panel iter9 information P1): Polymarket's crypto TAKER DELAY. A marketable order on a BTC 5m market (CLOB
+# market record itode = true) is held D ms before it is matched or placed on the book. Measured on 10-31 (delay10.py / ctl10.py):
+# fresh-signed taker orders of other wallets reach the match >= 186-190 ms after signing on BTC 5m (q1 per hour 187-190 ms) vs
+# 35-73 ms on control markets without a delay (and ~1,035 ms on sports in-play markets). So the bot's decision (its last input)
+# is at a - delta = m - D - delta, not m - 50..150. PRE-REGISTERED 10-31 ~21:40 UTC, before any 11-01 data exists (first clean
+# test: 11-01 06-12 UTC development block), reported NEXT TO the frozen versions (which stay unchanged):
+TAKER_DELAY_MS = 150.0       # D (changelog: 150 ms since 2026-09-04 14:00 UTC)
+POST_LATENCY_MS = 30.0       # delta: signing / posting before the arrival (fresh-signed floor 186-190 ms = D + ~35 ms)
+PRE_MATCH_MS_PIT = TAKER_DELAY_MS + POST_LATENCY_MS            # price_live_book_pit: o's ask at a - delta = m - 180 ms
+LIVE_VOTE_WIN_MS_PIT = (500 + TAKER_DELAY_MS, TAKER_DELAY_MS + POST_LATENCY_MS)  # side_live_decision_pit: vote over [a - 500, a - delta)
+HAZ_LABEL_MS_PIT = (TAKER_DELAY_MS + POST_LATENCY_MS, TAKER_DELAY_MS + POST_LATENCY_MS + 500)  # presence_live_decision pit label
 LADDER_BATCHES = ((-89.5, 1.5), (42.4, 3.0), (173.3, 3.0))  # iteration 5 (B1): ladder signing times (rel to window start, s) and half-widths
 B1_SAMPLE_TXS = 1500  # calldata sample per evaluate() run (batched eth_getTransactionByHash)
 MODEL_DP_FULL = f"{CODE}/model_it5_dp_k1_full.txt"   # iteration 5 (D1): decision-aligned presence, it4b features, label = fill at s+1
@@ -198,6 +217,35 @@ def _decode(log):
             "side": w[0], "token": str(w[1]), "mamt": float(w[2]), "tamt": float(w[3]), "fee": float(w[4])}
 
 
+LOGS_CHUNK = 100  # iteration 10 (data loading only): drpc's free plan refuses eth_getLogs above ~100-199 blocks since 10-31
+
+
+def _get_logs_chunked(ex, a, b, topics):
+    """Iteration 10 robustness fix (data loading, not the rule): drpc's free plan now refuses eth_getLogs ranges above ~100-199
+    blocks (HTTP 400 'ranges over 10000 blocks are not supported on free plan', 10-31 21:50 UTC) and publicnode refuses archive
+    ranges. Try the whole range first (responses cached by earlier runs stay valid), else LOGS_CHUNK-block chunks (2 threads,
+    retries with back-off)."""
+    try:
+        return rpc.get_logs(ex, a, b, topics)
+    except Exception:
+        pass
+    from concurrent.futures import ThreadPoolExecutor
+    chunks = [(x, min(x + LOGS_CHUNK - 1, b)) for x in range(a, b + 1, LOGS_CHUNK)]
+
+    def one(c):
+        for k in range(5):
+            try:
+                return rpc.get_logs(ex, c[0], c[1], topics)
+            except Exception:
+                time.sleep(1 + 2 * k)
+        raise RuntimeError(f"eth_getLogs failed for blocks {c[0]}-{c[1]} on {ex}")
+    out = []
+    with ThreadPoolExecutor(2) as pool:
+        for r in pool.map(one, chunks):
+            out += r
+    return out
+
+
 def cluster_fills(start_ts: int, end_ts: int, windows: pd.DataFrame) -> pd.DataFrame:
     """Every OrderFilled of the cluster's own orders (maker and taker role) in [start_ts, end_ts)."""
     b0, b1 = _find_block(start_ts), _find_block(end_ts)
@@ -206,7 +254,7 @@ def cluster_fills(start_ts: int, end_ts: int, windows: pd.DataFrame) -> pd.DataF
     for a in range(b0, b1, 3000):
         b = min(a + 2999, b1 - 1)
         for ex in EXCHANGES:
-            rows += [_decode(l) for l in rpc.get_logs(ex, a, b, [rpc.TOPIC_V2, None, pads])]
+            rows += [_decode(l) for l in _get_logs_chunked(ex, a, b, [rpc.TOPIC_V2, None, pads])]
     df = pd.DataFrame(rows)
     if df.empty:
         return df
@@ -574,7 +622,7 @@ def _block_boot_gain(y, a, b, blocks, n_boot: int = 2000, seed: int = 3) -> dict
             "one_sided_p_gain_le_0": round(float((g <= 0).mean()), 5), "n_boot": int(len(g)), "blocks": int(len(ub))}
 
 
-def _live_touch(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: int) -> dict | None:
+def _live_touch(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: int, pre_ms: float | None = None) -> dict | None:
     """Iteration 5 (price component, decoded from calldata + live lab): the bot submits a PRE-SIGNED ladder order whose
     limit is the current best ask of the outcome it buys. Where the shared live recorder has the Polymarket book for
     the period (tools/live.py clob_crypto, through iter_live with ALLOW_SEALED), the rule's price for each cluster fill is
@@ -618,7 +666,8 @@ def _live_touch(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: i
         return a[i, 2] if is_up else 1.0 - a[i, 1]
 
     f["match_ms"] = f.tx.str.lower().map(mt)
-    f["ask_match"] = [touch(u, s - PRE_MATCH_MS, up) if np.isfinite(s) else np.nan for u, s, up in zip(f.up_token, f.match_ms.astype(float), f.is_up)]
+    pm_ = PRE_MATCH_MS if pre_ms is None else float(pre_ms)
+    f["ask_match"] = [touch(u, s - pm_, up) if np.isfinite(s) else np.nan for u, s, up in zip(f.up_token, f.match_ms.astype(float), f.is_up)]
     f["ask_lag"] = [touch(u, (t - DECISION_LAG_S) * 1000.0, up) for u, t, up in zip(f.up_token, f.ts.astype(float), f.is_up)]
     # the limit price of a taker order = its fill price when it does not sweep (it never sweeps: decoded on BUILD)
     out = {"n_taker_orders": int(len(f)), "share_with_book": round(float(np.isfinite(f.ask_lag).mean()), 4) if len(f) else None,
@@ -645,7 +694,7 @@ LIVE_TICK_BP = 0.002            # iteration 6 (frozen): a series votes when its 
 ETH_SCALE = 1.235               # iteration 6 (frozen): ETH moves in BTC units
 
 
-def _live_vote(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: int, feeds=LIVE_VOTE_FEEDS, venues=("bf", "bs", "ok")) -> dict | None:
+def _live_vote(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: int, feeds=LIVE_VOTE_FEEDS, venues=("bf", "bs", "ok"), win_ms=None) -> dict | None:
     """Iteration 7 (side and timing components, decision level; decoded live in iteration 6, replicated in iterations 6-7):
     the bot submits its pre-signed order for outcome o 100-600 ms after a tick-level MICROPRICE move of the BTC/ETH perps
     and spot toward o. For every cluster taker fill whose tx hash is in the exam-input recording (btc5m_xclob trade records,
@@ -709,8 +758,10 @@ def _live_vote(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: in
         mic = (x[:, 2] * x[:, 5] + x[:, 4] * x[:, 3]) / np.maximum(x[:, 3] + x[:, 5], 1e-12)
         sc = ETH_SCALE if key[1] == "ETH" else 1.0
 
+        W_ = LIVE_VOTE_WIN_MS if win_ms is None else win_ms
+
         def mv(tt):
-            i0 = np.searchsorted(T, tt - LIVE_VOTE_WIN_MS[0], "right") - 1; i1 = np.searchsorted(T, tt - LIVE_VOTE_WIN_MS[1], "right") - 1
+            i0 = np.searchsorted(T, tt - W_[0], "right") - 1; i1 = np.searchsorted(T, tt - W_[1], "right") - 1
             r = (mic[np.clip(i1, 0, len(mic) - 1)] / mic[np.clip(i0, 0, len(mic) - 1)] - 1) * 1e4 / sc
             r[(i0 < 0) | (tt < T[0] + 3000) | (tt > T[-1] - 500)] = np.nan
             return r
@@ -804,6 +855,7 @@ def _live_hazard_data(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals
     edge-rule values of the same grid points are left in _live_hazard_data.edge_V)."""
     import zlib
     _live_hazard_data.edge_V = None
+    _live_hazard_data.y_pit = None
     sys.path.insert(0, _ROOT + "/research/reverse_engineering/tools")
     try:
         import live as _live
@@ -868,7 +920,7 @@ def _live_hazard_data(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals
     cl["st"] = cl.token.astype(str).map(tok2st)
     cl_tx = set(fills.tx.str.lower())
     oth = tr[~tr.h.isin(cl_tx)]
-    Y, F, B, U, V = [], [], [], [], []
+    Y, F, B, U, V, Y2 = [], [], [], [], [], []
     for st, (upt, dnt) in sorted(toks.items()):
         if st < start_ts or st >= end_ts:
             continue
@@ -915,7 +967,8 @@ def _live_hazard_data(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals
                 continue
             rp = np.sign(np.round((ak[k] - ak5[k]) * 100))
             fu, ba_ = _haz_design(sg * comp[k], rp, age[k], act[k], ak[k])
-            Y.append(y[k]); F.append(fu); B.append(ba_); U.append(np.full(k.sum(), st))
+            y2 = (np.searchsorted(mm, g + HAZ_LABEL_MS_PIT[1], "left") - np.searchsorted(mm, g + HAZ_LABEL_MS_PIT[0], "left")) > 0
+            Y.append(y[k]); F.append(fu); B.append(ba_); U.append(np.full(k.sum(), st)); Y2.append(y2[k])
             from scipy.stats import norm as _norm
             mo = np.clip(midU[k] if is_up else 1 - midU[k], 0.01, 0.99)
             dl = _norm.pdf(_norm.ppf(mo)) / (EDGE_SIGMA_BP * np.sqrt(tau[k]))
@@ -924,6 +977,7 @@ def _live_hazard_data(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals
     if not Y:
         return None
     _live_hazard_data.edge_V = np.concatenate(V)
+    _live_hazard_data.y_pit = np.concatenate(Y2).astype(int)
     return np.concatenate(Y).astype(int), np.vstack(F), np.vstack(B), np.concatenate(U)
 
 
@@ -962,6 +1016,22 @@ def _live_hazard(fills: pd.DataFrame, start_ts: int, end_ts: int, intervals=None
             thr = np.quantile(sf, 1 - fl.mean()); ff = sf >= thr
             rule["full_hazard_same_volume_precision"] = round(float(y[ff].mean()), 4); rule["full_hazard_same_volume_recall"] = round(float(ff[y == 1].mean()), 4)
         out["edge_rule_V8"] = rule
+    # iteration 10, PRE-REGISTERED (X73): the same frozen scores against the point-in-time clean label (a match on o in
+    # [t + D + delta, t + D + delta + 500) ms, i.e. a decision at a - delta in [t, t + 500)); never refit.
+    y2 = getattr(_live_hazard_data, "y_pit", None)
+    if y2 is not None and len(y2) == len(y) and y2.min() != y2.max():
+        pit = {"positives": int(y2.sum()), "auc_full": round(float(_auc(y2, sf)), 4), "auc_pm_activity_baseline": round(float(_auc(y2, sb)), 4)}
+        g2 = []
+        rng2 = np.random.default_rng(4)
+        for _ in range(2000):
+            pick = np.concatenate([idx[u] for u in rng2.choice(uu, len(uu))])
+            if y2[pick].min() == y2[pick].max():
+                continue
+            g2.append(_auc(y2[pick], sf[pick]) - _auc(y2[pick], sb[pick]))
+        g2 = np.array(g2)
+        pit["gain"] = round(pit["auc_full"] - pit["auc_pm_activity_baseline"], 4)
+        pit["gain_ci95_window_bootstrap"] = [round(float(np.percentile(g2, 2.5)), 4), round(float(np.percentile(g2, 97.5)), 4)] if len(g2) else None
+        out["pit_label"] = pit
     return out
 
 
@@ -1097,7 +1167,9 @@ def _evaluate_live_only(start_ts: int, end_ts: int, intervals, err: str) -> dict
     for key, fn in (("side_live_decision", lambda: _live_vote(fills, win, start_ts, end_ts)),
                     ("side_live_decision_ext", lambda: _live_vote(fills, win, start_ts, end_ts, feeds=LIVE_VOTE_FEEDS_EXT, venues=LIVE_VOTE_VENUES_EXT)),
                     ("presence_live_decision", lambda: _live_hazard(fills, start_ts, end_ts, intervals)),
-                    ("price_live_book", lambda: _live_touch(fills, win, start_ts, end_ts))):
+                    ("price_live_book", lambda: _live_touch(fills, win, start_ts, end_ts)),
+                    ("side_live_decision_pit", lambda: _live_vote(fills, win, start_ts, end_ts, win_ms=LIVE_VOTE_WIN_MS_PIT)),
+                    ("price_live_book_pit", lambda: _live_touch(fills, win, start_ts, end_ts, pre_ms=PRE_MATCH_MS_PIT))):
         try:
             out[key] = fn()
         except Exception as e:
@@ -1113,6 +1185,13 @@ def _evaluate_live_only(start_ts: int, end_ts: int, intervals, err: str) -> dict
         "presence_live_decision_auc": pl.get("auc_full"), "presence_live_decision_baseline": pl.get("auc_pm_activity_baseline"),
         "price_within_tick": lb.get("within_1tick_ask_match") if isinstance(lb, dict) else None,
         "coverage_fills": 1.0 if len(fills) else None, "coverage_abs_pnl": 1.0 if len(fills) else None})
+    sp = out.get("side_live_decision_pit") or {}; lp = out.get("price_live_book_pit") or {}
+    out["target_metrics"].update({
+        "side_accuracy_live_decision_pit": sp.get("agree_on_voted") if isinstance(sp, dict) else None,
+        "side_accuracy_live_decision_pit_full_coverage": (sp.get("full_coverage") or {}).get("accuracy") if isinstance(sp, dict) else None,
+        "price_within_tick_live_pit": lp.get("within_1tick_ask_match") if isinstance(lp, dict) else None,
+        "presence_live_decision_auc_pit": ((pl.get("pit_label") or {}).get("auc_full")) if isinstance(pl, dict) else None,
+        "presence_live_decision_baseline_pit": ((pl.get("pit_label") or {}).get("auc_pm_activity_baseline")) if isinstance(pl, dict) else None})
     out["elapsed_s"] = round(time.time() - t0, 1)
     return out
 
@@ -1384,6 +1463,15 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
         out["presence_live_decision"] = _live_hazard(fills, start_ts, end_ts, intervals)
     except Exception as e:
         out["presence_live_decision"] = {"error": type(e).__name__}
+    # iteration 10 (X73, pre-registered): point-in-time clean live side and price under the 150-ms taker delay
+    try:
+        out["side_live_decision_pit"] = _live_vote(fills, win, start_ts, end_ts, win_ms=LIVE_VOTE_WIN_MS_PIT)
+    except Exception as e:
+        out["side_live_decision_pit"] = {"error": type(e).__name__}
+    try:
+        out["price"]["live_book_pit"] = _live_touch(fills, win, start_ts, end_ts, pre_ms=PRE_MATCH_MS_PIT)
+    except Exception as e:
+        out["price"]["live_book_pit"] = {"error": type(e).__name__}
     try:
         res_o["pnl_overlap_diagnostics"] = _pnl_overlap(fills, win)
     except Exception as e:
@@ -1422,6 +1510,11 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
         "pnl_corr_pearson": sb.get("per_window_pnl_corr_pearson"), "pnl_corr_spearman": sb.get("per_window_pnl_corr_spearman"),
         "pnl_corr_proxy_pearson": res_o.get(f"per_window_pnl_corr_{res_o['primary']}_pearson"),
         "coverage_fills": 1.0 if len(fills) else None, "coverage_abs_pnl": 1.0 if len(fills) else None,
+        "side_accuracy_live_decision_pit": (out.get("side_live_decision_pit") or {}).get("agree_on_voted"),
+        "side_accuracy_live_decision_pit_full_coverage": ((out.get("side_live_decision_pit") or {}).get("full_coverage") or {}).get("accuracy"),
+        "price_within_tick_live_pit": (out["price"].get("live_book_pit") or {}).get("within_1tick_ask_match"),
+        "presence_live_decision_auc_pit": (((out.get("presence_live_decision") or {}).get("pit_label")) or {}).get("auc_full"),
+        "presence_live_decision_baseline_pit": (((out.get("presence_live_decision") or {}).get("pit_label")) or {}).get("auc_pm_activity_baseline"),
     }
     out["elapsed_s"] = round(time.time() - t0, 1)
     return out

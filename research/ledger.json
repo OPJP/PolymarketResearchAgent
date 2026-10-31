@@ -1,5 +1,5 @@
 {
- "generated_at": 1793484292,
+ "generated_at": 1793484592,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -107,18 +107,18 @@
    ],
    "status": "in_progress",
    "wall_reason": null,
-   "iterations": 9,
-   "minutes": 565.9,
-   "hypotheses": 118,
+   "iterations": 10,
+   "minutes": 630.9,
+   "hypotheses": 128,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9132,
    "best_rule": "it9: unchanged frozen rule of iteration 8 (code/final_rule.py); iteration 9 added measurements, no new rule component",
    "has_final_rule": true,
-   "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs a ladder of BUY orders on both outcomes at every cent three times per window [VALIDATE-only] and submits one about 250-350 ms after a microprice tick of the Binance USD-M / OKX / Bybit BTC and ETH perps toward an outcome, at the touch it saw 50-150 ms earlier, deliberately 1+ c higher in 16% of orders [VALIDATE-only]. It is selective: about 1.45 decisions per filled order, and at the instants its decoded trigger flags most strongly it acts about one time in four while other fast takers take the liquidity [VALIDATE-only; what selects those instants is a hypothesis-level open question]. The side is the tick direction (85% per decision on live development data, 97% on strong ticks; the same for races it wins and races it loses) [VALIDATE-only]; a lost race rests at the old ask and fills as maker about half the time, which is where half of its 10-31 maker fills (and XM's 91% maker share) come from [VALIDATE-only]. The size is small unless the operator's own book is flat or long the outcome [VALIDATE-only, own state]; each wallet carries one order at a time, so a decision fans out across wallets [VALIDATE-only]. Positions are held to resolution; 87% of shares end in complete sets bought at 0.979 [VALIDATE-only]. Income = locked sets (~2.1 c per pair) and the 50% taker-fee rebate; the large-size overlay loses money [VALIDATE-only]. Nothing is exam-verified. The PnL condition is attainable in principle (true-rule test-retest ceiling 0.74-0.80 pooled) and is bound by decision overlap.",
+   "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs a ladder of BUY orders on both outcomes at every cent three times per window [VALIDATE-only] and submits one about 100-150 ms after a microprice tick of the Binance USD-M / OKX / Bybit BTC and ETH perps toward an outcome, at the ask it saw just before (deliberately 1+ c higher in 16% of orders) [VALIDATE-only]. Polymarket holds every marketable order 150 ms on these markets (measured floor 186-190 ms from signing vs 35-73 ms elsewhere), so the bot races the crowd in that delay queue [VALIDATE-only]. It is selective: it takes about one in three flagged episodes, mostly right at their onset and more often for stronger ticks; the skipped instants are genuine non-decisions, not hidden lost races [VALIDATE-only; what selects the onsets it takes is open]. The side is the tick direction (83% per decision, point-in-time clean; 95%+ on strong ticks) [VALIDATE-only]. A lost race rests at the old ask for ~0.1-1 s and fills as maker about half the time [VALIDATE-only]. The size is small unless the operator's own book is flat or long the outcome, so large orders pyramid the leg it already holds [VALIDATE-only, own state]. Positions are held to resolution; 87% of shares end in complete sets bought at 0.979 [VALIDATE-only]. Income = locked sets (~2.1 c per pair) and the 50% taker-fee rebate; the large-size lean is a coin with respect to the outcome and carries the per-window PnL variance [VALIDATE-only]. Because race outcomes seed the lean and the size rule amplifies it, even the true rule replayed correlates with the wallet's per-window PnL at only ~0.5 [VALIDATE-only]. The pre-signed ladder is the current version: until 08-18 the bot signed its orders fresh with one size per day, and it switched to pre-signed two-size ladders on 08-22, five days after Polymarket cut the taker delay from 250 to 50 ms [VALIDATE-only]. Nothing is exam-verified.",
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 4
+   "panels": 5
   },
   {
    "key": "elmcap2-carry",
