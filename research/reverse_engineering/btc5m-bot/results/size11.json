@@ -1,0 +1,217 @@
+{
+ "decisions": 2155,
+ "won": 1326,
+ "lost": 829,
+ "large_share": 0.0515,
+ "large_by_wallet": {
+  "DS": [
+   0.0276,
+   1230
+  ],
+  "GF": [
+   0.0766,
+   509
+  ],
+  "XM": [
+   0.0913,
+   416
+  ]
+ },
+ "size_values": {
+  "30": 1742,
+  "60": 302,
+  "100": 111
+ },
+ "pairs": 3863,
+ "P(large_j)": {
+  "same_outcome_after_large_i": {
+   "won": [
+    0.1915,
+    47
+   ],
+   "lost_any": [
+    0.2708,
+    48
+   ],
+   "lost_unfilled_by_j": [
+    0.125,
+    8
+   ],
+   "lost_filled_by_j": [
+    0.3,
+    40
+   ],
+   "lost_crowd_ahead": [
+    0.2778,
+    36
+   ],
+   "lost_no_crowd_ahead": [
+    0.25,
+    12
+   ]
+  },
+  "same_outcome_after_small_i": {
+   "won": [
+    0.0391,
+    1175
+   ],
+   "lost_any": [
+    0.036,
+    694
+   ],
+   "lost_unfilled_by_j": [
+    0.022,
+    182
+   ],
+   "lost_filled_by_j": [
+    0.041,
+    512
+   ],
+   "lost_crowd_ahead": [
+    0.0376,
+    372
+   ],
+   "lost_no_crowd_ahead": [
+    0.0342,
+    322
+   ]
+  },
+  "other_outcome_after_large_i": {
+   "won": [
+    0.0,
+    50
+   ],
+   "lost_any": [
+    0.0392,
+    51
+   ],
+   "lost_unfilled_by_j": [
+    0.0833,
+    12
+   ],
+   "lost_filled_by_j": [
+    0.0256,
+    39
+   ],
+   "lost_crowd_ahead": [
+    0.0263,
+    38
+   ],
+   "lost_no_crowd_ahead": [
+    0.0769,
+    13
+   ]
+  },
+  "other_outcome_after_small_i": {
+   "won": [
+    0.0286,
+    1120
+   ],
+   "lost_any": [
+    0.0221,
+    678
+   ],
+   "lost_unfilled_by_j": [
+    0.0085,
+    117
+   ],
+   "lost_filled_by_j": [
+    0.025,
+    561
+   ],
+   "lost_crowd_ahead": [
+    0.0134,
+    372
+   ],
+   "lost_no_crowd_ahead": [
+    0.0327,
+    306
+   ]
+  }
+ },
+ "P(large_j) same wallet": {
+  "same_outcome_same_wallet": {
+   "R=1": [
+    0.0296,
+    844
+   ],
+   "R=0": [
+    0.0638,
+    47
+   ],
+   "won": [
+    0.0267,
+    637
+   ],
+   "lost": [
+    0.0433,
+    254
+   ]
+  },
+  "other_outcome_same_wallet": {
+   "R=1": [
+    0.02,
+    849
+   ],
+   "R=0": [
+    0.0,
+    35
+   ],
+   "won": [
+    0.0224,
+    625
+   ],
+   "lost": [
+    0.0116,
+    259
+   ]
+  }
+ },
+ "logit_error": "LinAlgError('Singular matrix')",
+ "auc_large_by_operator_net_on_o (own state)": {
+  "realized": 0.6675,
+  "sent": 0.6801
+ },
+ "logit_large_on_realized_and_sent_minus_realized": [
+  0.1037,
+  0.0853
+ ],
+ "P(large) by sign of net_real / net_sent": {
+  "real-1_sent-1": [
+   0.0223,
+   987
+  ],
+  "real-1_sent0": [
+   0.2,
+   5
+  ],
+  "real-1_sent1": [
+   0.1765,
+   34
+  ],
+  "real0_sent-1": [
+   0.0,
+   2
+  ],
+  "real0_sent0": [
+   0.0526,
+   57
+  ],
+  "real0_sent1": [
+   0.1364,
+   22
+  ],
+  "real1_sent-1": [
+   0.0,
+   5
+  ],
+  "real1_sent0": [
+   0.0,
+   3
+  ],
+  "real1_sent1": [
+   0.0731,
+   1040
+  ]
+ }
+}

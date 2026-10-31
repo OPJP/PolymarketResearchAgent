@@ -1,4 +1,13 @@
-# btc5m-bot: frozen rule (iteration 10; the scored historical rule is unchanged since iteration 8; point-in-time clean live versions pre-registered)
+# btc5m-bot: frozen rule (iteration 11; the scored historical rule is unchanged since iteration 8; point-in-time clean live versions pre-registered in iteration 10)
+
+Iteration 11 in one paragraph (nothing in the scored rule changed): the panel's selection mechanisms were tested on one onset table and rejected: a self-kept
+vol scale (z-scored tick, tick counts, within-window percentile) is no better than the raw bp tick, a snapshot / confirmation gate does not select, Polymarket's
+other crypto books do not confirm, and the crowd re-timed on the server clock still follows Polymarket activity. Among Binance price-level ticks the take is
+indistinguishable from a coin given every public input (AUC <= 0.58 in both halves) and rises with the bot's own recent decisions (a self-exciting internal
+state). The size does not feed back from realized fills (it reads the intended position or a regime), and live the 100-share size follows the tick strength
+(AUC 0.72; not visible at the block clock even with millisecond trades), so the condition-5 ceiling for a replay that reproduces the decisions is the fixed-size
+0.70-0.77, and on a recorded book the race is nearly deterministic given the arrival. The bot reads Polymarket's book ~30 ms old and Binance ~100 ms old: it
+runs next to Polymarket's engine. Iteration 10's 'fresh-signed until 08-18' is retracted: August was pre-signed on other schedules.
 
 Target status on VALIDATE: scope met; presence met in the block-second unit (0.875; +0.054 over the stronger of my two
 market baselines, 0.821, 2-h block CI [0.051, 0.056]; per wallet +0.051 to +0.066); price within a tick met (95.1% of
@@ -67,12 +76,14 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    (+2.17 s) and a fourth wallet 0xd84403ef... (+3-4 s). Salt = round(Math.random() * Date.now()) (TypeScript clob-client),
    signatureType 3, builder = metadata = 0. Check in `evaluate`: 99.9% of 13,443 VALIDATE orders inside the predicted bursts.
    The schedule is identical on 10-31 (signing-time quantiles -89.6 / 42.3 / 43.5 / 173.2 / 174.7 s vs VALIDATE -89.7 /
-   40.8 / 42.9 / 172.7 / 174.6 s). Iteration 10 (calldata samples of August-September, hour 16-17 UTC): the ladder is a
-   later VERSION. From 08-01 to 08-18 the orders were signed fresh at decision time (2-16% inside the burst phases; one size
-   per day that changed almost daily: 90, 60, 50, 100, 20, 80, 30), on 08-19..21 28-36%, and from 08-22 (the switch falls
-   between 08-21 and 08-22 16:00 UTC, five days after Polymarket cut the taker delay from 250 to 50 ms) 100% pre-signed with a
-   two-size menu (30 / 90, 25 / 75), later 20 / 60 / 80 / 200 (09-01, 09-08), 60 / 100, 30 / 50 and 30 / 100 (October); the
-   maker share of the fills moved with these versions as much as with the delay changes (results/version10*.json).
+   40.8 / 42.9 / 172.7 / 174.6 s). Versions (iterations 10-11, calldata samples of August-September): the bot
+   PRE-SIGNED in August too, on other schedules: two bursts per window at ~0-30 / 150-180 s mod 300 (early August) and ~40-90 /
+   180-240 s (08-09..21), then the three-burst schedule from 08-22; operator orders on 08-05 and 08-12 were signed 3-121 s
+   before their block (DS taker median 48 / 111 s) against 2.8-3.5 s for the other wallets' taker orders in the same txs
+   (results/version11.json). Iteration 10's 'fresh-signed until 08-18' counted only the October burst phases and is
+   retracted. Size menus: one size per day in August (90, 60, 50, 100, 20, 80, 30), two sizes from 08-22 (30 / 90, 25 / 75,
+   20 / 60 / 80 / 200 on 09-01 / 09-08, 60 / 100, 30 / 50 and 30 / 100 in October); the maker share of the fills moved with
+   these versions as much as with the delay changes (results/version10*.json, refill11.json).
 2. **Selection - VALIDATE-only.** Every BTC 5-minute Up/Down window (94-99% traded), nothing else; inside a window only
    prices in the ladder range (~0.12-0.88). Whole-cluster outages (40 min to 5 h) are bot-side.
 3. **Timing / trigger - VALIDATE-only (live development blocks).** The decision is the SUBMISSION of a pre-signed order
@@ -120,9 +131,15 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    VALIDATE AUC (BUILD-fitted): GF 0.751, XM 0.666, DS 0.578 vs market controls 0.489 / 0.353 / 0.546 and a market-trend
    analog (BTC return since the open) 0.52. Large orders lose 1.1-1.9 c per share after fees. Report without own state:
    the size is not predictable (within-wallet 0.44-0.59, iteration 7). Iteration 9: the operator's book includes the fourth
-   wallet W4 (14% of the flow): with W4 in the net the AUC is GF 0.771, XM 0.703, DS 0.591. Live (10-31, 50 large orders;
-   hypothesis) the large size is also more likely on strong ticks (within-wallet AUC of the 500-ms tick 0.62-0.81), which the
-   block clock does not show (0.45-0.55); pre-registered test on 11-01 06-12.
+   wallet W4 (14% of the flow): with W4 in the net the AUC is GF 0.771, XM 0.703, DS 0.591. Live (10-31, 2,155 decisions, 111
+   large; iteration 11) the 100-share size follows the tick strength at the decision: univariate AUC 0.72 (DS 0.73, GF 0.68,
+   XM 0.75) for the six-series tick toward o over [a - 530, a - 30), above the operator's SENT net (0.68); P(large) 1-5% in
+   tick deciles 1-8, 10.7% at 0.67-1.88 bp, 17.1% above 1.88 bp (XM 36-38% in its top decile). The block clock does not show
+   it, even with millisecond Binance USD-M trades (max 300-ms move toward o in [bt - 3.0, bt - 0.2]: within-wallet 0.48-0.57;
+   results/sizems11.json), and the VALIDATE large share (16-44%) is far above 10-31's 5%: the tick link may be a regime of the
+   30 / 60 / 100 menu (pre-registered test on 11-01 06-12). No realized-fill feedback (iteration 11, size11): after a large
+   decision that won vs lost its race the next same-outcome decision is large 19% vs 27%; the size reads the intended
+   position or a regime (hypothesis, 111 large decisions).
 7. **Exit / inventory - VALIDATE-only.** 59% of taker orders leave a remainder; it rests as a GTC bid at the old ask for
    ~0.1-1 s and is cancelled (iteration 10, at server ms: never-filled remainders found in the book in 88%, life p25 94 ms,
    median 240 ms, p75 0.8 s, p90 3 s; the block-resolution "a few seconds" was an upper bound). Holds every position to resolution: no sells, merges, splits or conversions; REDEEM once per
@@ -158,6 +175,28 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    evidence adds nothing (per-step AUC 0.735 instantaneous vs 0.728 with accumulation). (d) Busy wallets do not suppress
    decisions. (e) Per Binance bookTicker event, price-level ticks (29-30%, 34-41% at 0.05-0.2 bp or with the Polymarket ask
    already moving) and multi-venue agreement (3x) mark the decisions; size-only queue depletion does not (= base rate).
+11. **Iteration 11 tests of the selection, the size channel and the race - VALIDATE-only (10-31 14:55-17:55).** (a) No
+   normalizer: on evt10's event unit (fit A, scored C) the z-scored tick, tick counts and within-window percentile add +0.015
+   (CI [-0.002, +0.032]) to the FULL model (0.681); |bp| 0.588 vs z 0.51-0.57; the decision rate is barely elastic to the
+   minute's price-level tick count (0.08-0.30) and over-dispersed (var / mean 13). (b) No snapshot / confirmation gate: P(take |
+   the onset still in place at +50..+200 ms) exceeds P(take | reverted) by 0.4-2.5 points; price-level ticks almost always
+   survive and are taken 29% either way. (c) No cross-market confirmation from the other crypto books (FULL 0.681 -> 0.674).
+   (d) The crowd re-timed on the server clock still follows Polymarket activity (venue 0.58-0.59 vs 0.65-0.66). (e) Among
+   price-level ticks no public feature separates taken from skipped in both halves (best 0.58); the take rises with the
+   operator's own recent decisions (own state; 0 recent: 0 / 19 and 2 / 16 taken), beyond public crowd activity (FULL + crowd
+   0.685, FULL + own 0.715 on C): the 'on' periods are a self-exciting internal state, and they are directional (30-s bursts
+   |share Up - 0.5| 0.224 vs 0.130 by chance). (f) View lag: limits match o's ask at a - 30 ms best (won races 30 ms, lost
+   races 180 ms): the bot reads Polymarket ~30 ms old. (g) Race determinism: an arrival 25 / 50 / 100 ms earlier would have
+   won 11 / 21 / 40% of the lost races and later arrivals <= 1%; won races keep their ask for 25-150 ms earlier arrivals in
+   87-97%: on a recorded book the outcome follows from the arrival time. (h) Remainder TTL per wallet (median DS 328, GF 240, XM
+   124 ms; Weibull shape 0.63-0.77) and refills that fall when the hold rises (09-04: 22.4% -> 17.5%) but not the reverse.
+   (i) The 250-ms delay regime as a natural experiment (pmxt archive with server ms, 08-06 16-17 UTC): the crowd's fresh-signed
+   floor is 248 ms (186-190 ms on 10-31), each wallet's gap between consecutive taker matches has q01 377-393 ms (152-254 ms on
+   10-31), and the cluster's reaction kernel peaks 400-475 ms before the match (250 ms on 10-31): the match lag is the bot's
+   reaction plus the hold, and one order per wallet is in flight until its response. Replicated on 08-05 16-17 UTC (crowd floor
+   303 ms, XM gap q01 325 ms, kernel peak 500 ms before the match). In August the limits also matched o's ask ~50 ms before the
+   arrival (30 ms on 10-31) and a one-series Binance vote agreed 72-76% (placebo 54-56%): same location next to Polymarket, a
+   slower venue reaction then (deciding tick 150-250 ms before the arrival vs ~100 ms on 10-31).
 
 ## VALIDATE metrics (2026-10-16..23; target thresholds in brackets)
 
@@ -232,6 +271,9 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 
 ## Can a normal user deploy it now
 
+- Location (iteration 11): the bot's limits match the Polymarket ask ~30 ms before its order arrives, while its reaction to
+  Binance comes ~100-150 ms after the Binance stamp: it runs next to Polymarket's matching engine and sees Asian venues late,
+  like any European host.
 - Dependencies: low-latency websockets with sized top of book from Binance USD-M (and spot), OKX and Bybit (BTC and ETH),
   a reaction time of ~250-350 ms from a perp tick to a Polymarket match (of which 150 ms are Polymarket's own taker delay,
   the same for everyone, and ~100-150 ms the bot's own processing and posting), a
@@ -254,8 +296,12 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   split-half correlations exactly), and the bot makes only ~1.45 decisions per filled order. Iteration 10: that ceiling held
   the sizes fixed; with the own-net size feedback re-simulated (large orders pyramid the leg the operator holds) the true
   rule's test-retest correlation is 0.47-0.58 pooled and 0.41-0.62 per wallet, so condition 5 is at the edge of what a
-  perfect decode can reach, and a replica that reproduces only part of the decisions cannot reach it. This is the quantified
-  account of condition 5: the race lottery under the 150-ms delay, amplified by the pyramiding size rule.
+  perfect decode can reach, and a replica that reproduces only part of the decisions cannot reach it. Iteration 11 revised this:
+  no realized-fill feedback is detected (after a won vs lost large race the next same-outcome decision is large 19% vs 27%;
+  the sent net predicts the size as well as the realized one), so the fixed-size ceiling 0.70-0.77 applies to a replay that
+  reproduces the decisions, and on a recorded book the race outcome follows from the arrival time (lost races flip in 4-7% at a
+  25-50 ms timing error). The binding terms are decision overlap (the onset selection, not decoded) and the large-size regime;
+  under the >= 2 s convention even the wallet's own decisions with true sizes reach 0.40.
 - The weekend regime: quiet one-sided seconds are 28% on weekend days vs 15% on weekdays (VALIDATE), and the live
   weak-vote share was 44-56% on Saturday; the first future-block exam (weekend sealed blocks) will be scored in that regime.
 - The live side: per decision strength it is stable (90-97% on strong votes) but the weak / no-vote decisions (31-45% of
@@ -273,9 +319,12 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   forecast of the touch; live, the recorded book 50 ms before the match gives 75% exact and 93% within a tick.
 - The size rule uses own state (the operator's net); without own state the size is not predictable.
 - A fourth wallet (0xd84403ef...) runs the same bot; its prints still count as "other traders" in the tape features.
-- Versions: the rule describes the pre-signed-ladder version that runs since 08-22 (VALIDATE, 10-31 and the exam lots are all
-  in it). Before 08-19 the bot signed its orders fresh with one size per day, so the ladder check and the size menu do not
-  apply to that history.
+- Versions: the rule describes the three-burst pre-signed-ladder version that runs since 08-22 (VALIDATE, 10-31 and the exam
+  lots are all in it). Before 08-22 the bot pre-signed on two-burst schedules at other phases with one size per day (iteration
+  11 correction), so the burst check and the size menu do not apply to that history.
 - The selection among trigger onsets (which ~1 in 3 the bot takes) is not decoded: every recorded input separates taken from
   skipped onsets at out-of-sample AUC 0.58-0.74 (grid points, events, crowd-flagged instants); busy wallets, accumulated
   evidence, queue depletion, the stale-quote edge, visible depth and competitor identities were ruled out as the selector.
+  Iteration 11 added a self-kept vol normalizer, a snapshot / confirmation gate, cross-market confirmation and the crowd's
+  server-clock timing to the ruled-out list; what remains is internal to the bot (its own recent activity) or unrecorded
+  (European venues, alt perps, the maker at the touch, the PRNG): recorders for the first two run from 11-01 05:59 UTC.

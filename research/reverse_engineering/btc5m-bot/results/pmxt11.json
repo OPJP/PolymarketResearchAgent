@@ -1,0 +1,35 @@
+{
+ "hour": "2026-08-01T12",
+ "btc5m_markets": 13,
+ "row_groups_read": 14,
+ "bytes_fetched_MB": 97.6,
+ "archive_trades_btc5m": 18943,
+ "cluster_fill_rows": 190,
+ "cluster_txs_with_ms": 174,
+ "taker_gap_ms": {
+  "XM": {
+   "n_matches": 56,
+   "min": 381,
+   "q01": 597.54,
+   "q05": 954.6,
+   "q25": 5660.5,
+   "share_lt_250": 0.0,
+   "share_lt_350": 0.0,
+   "hist_0_600_50ms": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0
+   ]
+  }
+ },
+ "cluster_any_wallet_gap_share_lt_100": 0.0
+}

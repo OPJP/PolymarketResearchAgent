@@ -1,0 +1,71 @@
+{
+ "decisions": 2155,
+ "won": 1326,
+ "lost": 829,
+ "won: P(ask <= L at match + delta) for earlier arrivals": {
+  "-1": 0.552,
+  "-5": 0.5611,
+  "-10": 0.5762,
+  "-25": 0.8673,
+  "-50": 0.948,
+  "-75": 0.9615,
+  "-100": 0.963,
+  "-150": 0.9721,
+  "-200": 0.9698,
+  "-300": 0.9163
+ },
+ "lost: P(ask <= L at a + 150 + delta) for earlier arrivals (would have won)": {
+  "-1": 0.0,
+  "-5": 0.006,
+  "-10": 0.0326,
+  "-25": 0.1122,
+  "-50": 0.2135,
+  "-75": 0.31,
+  "-100": 0.4005,
+  "-150": 0.5066,
+  "-200": 0.5682,
+  "-300": 0.6936
+ },
+ "lost: P(ask <= L at a + 150 + delta) for later arrivals": {
+  "1": 0.0,
+  "10": 0.0,
+  "25": 0.0012,
+  "50": 0.0024,
+  "75": 0.0048,
+  "100": 0.0072,
+  "150": 0.0097
+ },
+ "flip_rate_earlier_arrival_up_to_sigma": {
+  "10": {
+   "won_flip": 0.4369,
+   "lost_flip": 0.0129,
+   "pooled": 0.2738
+  },
+  "25": {
+   "won_flip": 0.3609,
+   "lost_flip": 0.0377,
+   "pooled": 0.2365
+  },
+  "50": {
+   "won_flip": 0.2991,
+   "lost_flip": 0.0729,
+   "pooled": 0.2121
+  },
+  "100": {
+   "won_flip": 0.2244,
+   "lost_flip": 0.1535,
+   "pooled": 0.1971
+  },
+  "150": {
+   "won_flip": 0.1998,
+   "lost_flip": 0.1977,
+   "pooled": 0.199
+  }
+ },
+ "P(won) operator near-tie (another operator arrival within 5 ms) vs clear": [
+  0.3719,
+  121,
+  0.6298,
+  2034
+ ]
+}

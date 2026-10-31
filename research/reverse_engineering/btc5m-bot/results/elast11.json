@@ -1,0 +1,60 @@
+{
+ "cells": 110,
+ "windows": 34,
+ "mean_dec_per_min": 17.7909,
+ "var_over_mean": 13.4138,
+ "poisson npr+rvm+rv30": {
+  "l_npr": [
+   0.0777,
+   0.1815
+  ],
+  "l_rvm": [
+   0.0406,
+   0.0475
+  ],
+  "l_rv30": [
+   -0.0285,
+   0.1769
+  ],
+  "inr": [
+   0.3809,
+   0.5417
+  ]
+ },
+ "poisson rvm+rv30": {
+  "l_rvm": [
+   0.0596,
+   0.0227
+  ],
+  "l_rv30": [
+   -0.0146,
+   0.1843
+  ],
+  "inr": [
+   0.3319,
+   0.525
+  ]
+ },
+ "poisson npr only": {
+  "l_npr": [
+   0.1764,
+   0.0876
+  ],
+  "inr": [
+   0.3762,
+   0.524
+  ]
+ },
+ "within_window_OLS log1p(dec) on log1p(PRICE events), log rv_min": {
+  "x": [
+   0.3009,
+   0.2125
+  ],
+  "v": [
+   -0.0496,
+   0.0535
+  ]
+ },
+ "corr(nd, npr)": 0.1625,
+ "corr(nd, nbig)": 0.1284
+}

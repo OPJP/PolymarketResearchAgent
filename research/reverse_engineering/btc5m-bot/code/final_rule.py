@@ -1,5 +1,8 @@
 """btc5m-bot frozen rule (iteration 8; iteration 10 adds pre-registered point-in-time clean live versions).
 
+Iteration 11: no change to the rule, its constants or its data loading (measurements only; see NOTES.md iteration 11 and
+FINAL_RULE.md item 11). evaluate(start_ts, end_ts, intervals=None) is unchanged.
+
 Iteration 10 additions (live / future-block components only; the historical rule and every frozen live component are unchanged):
   - Polymarket holds marketable orders on BTC 5m for a TAKER DELAY of 150 ms (measured: fresh-signed sign-to-match floor
     186-190 ms vs 35-73 ms on markets without a delay), so the bot's order arrives at a = m - TAKER_DELAY_MS and its last input
