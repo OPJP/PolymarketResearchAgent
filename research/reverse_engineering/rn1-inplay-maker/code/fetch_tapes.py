@@ -118,7 +118,7 @@ def main(p0, p1, n, seed):
               open(C / f"tape_sample_{p0}_{p1}.json", "w"))
     print("events in period", len(ev), "sampled", len(sample), flush=True)
     t0 = time.time()
-    with ThreadPoolExecutor(3) as ex:
+    with ThreadPoolExecutor(8) as ex:
         for i, (slug, msg) in enumerate(ex.map(do_event, sample)):
             if i % 10 == 0:
                 print(i, slug, msg, f"{time.time()-t0:.0f}s", flush=True)

@@ -104,8 +104,8 @@ the research folder.
   `polyrea/analysis/ledger.py`, `polyrea/analysis/rebates.py`,
   `polyrea/pit.py` (point-in-time store and guarded view), `polyrea/stats/`.
 - Python packages: numpy, pandas, scipy, statsmodels, scikit-learn, lightgbm,
-  pyarrow. Interpreter: `/home/user/PolymarketResearchAgent/.venv/bin/python`,
-  run from the repo root.
+  pyarrow (`pip install -e '.[test,research]'`). Interpreter: `.venv/bin/python`,
+  run from the repository root.
 
 ## How to work (suggested ladder; go beyond it)
 
@@ -166,11 +166,11 @@ when the target is not met.
 - Target: you meet the high-accuracy target on VALIDATE (the examiner then
   checks the holdout).
 
-## Engineering rules (shared machine: 4 cores, 15 GB, other agents running)
+## Engineering rules (other agents may share the machine)
 
-- Keep every Python process under 3 GB RSS; run one heavy process at a time;
-  check `free -m` before a heavy job and wait if less than 4000 MB is
-  available. Stream per market / per window; store intermediates as parquet.
+- Keep every Python process under 3 GB RSS unless the machine has ample spare
+  memory; run one heavy process at a time; check free memory before a heavy
+  job and wait if less than 4 GB is available. Stream per market / per window; store intermediates as parquet.
 - Write only inside `research/reverse_engineering/<your key>/` (code, small
   results, notes) and `.cache/re/<your key>/` (large data). Do not modify
   `polyrea/`, other folders or other agents' files; if you find a bug in
