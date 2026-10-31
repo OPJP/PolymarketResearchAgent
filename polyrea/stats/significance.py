@@ -66,7 +66,7 @@ def hac_t_test(x: np.ndarray | list[float], lags: int | None = None, reference: 
     L = newey_west_lags(n) if lags is None else lags
     se = math.sqrt(hac_variance_of_mean(a, L))
     t = float(a.mean() / se) if se > 0 else float("inf") * np.sign(a.mean())
-    if a.std() == 0:  # constant series: no evidence either way
+    if a.std() <= 1e-12 * max(1.0, abs(float(a.mean()))):  # constant series (up to float rounding): no evidence either way
         return TestResult("hac_t", float("nan"), 1.0, n, f"lags={L}; constant series")
     p = hac_exact_pvalue(t, n, L) if reference == "exact" else float(stats.t.sf(t, df=n - 1))
     return TestResult("hac_t", t, p, n, f"lags={L}; reference={reference}")
@@ -104,6 +104,41 @@ def _hac_q_samples(n: int, lags: int, draws: int = 40_000, seed: int = 20261030)
         q[i : i + m] = (rng.chisquare(1.0, size=(m, len(lam))) * lam).sum(axis=1)
     _Q_CACHE[key] = np.maximum(q, 1e-300)
     return _Q_CACHE[key]
+
+
+_QF_CACHE: dict[tuple, np.ndarray] = {}
+
+
+def quadratic_form_samples(key: tuple, weights: np.ndarray, draws: int = 40_000, seed: int = 20261031) -> np.ndarray:
+    """Draws of sum_i w_i chi2_1 (cached by ``key``); the building block of exact HAC references."""
+    if key in _QF_CACHE:
+        return _QF_CACHE[key]
+    lam = weights[weights > 1e-12]
+    rng = np.random.default_rng(seed + (hash(key) % 1000))
+    q = np.empty(draws)
+    chunk = max(1, min(draws, 4_000_000 // max(1, len(lam))))
+    for i in range(0, draws, chunk):
+        k = min(chunk, draws - i)
+        q[i : i + k] = (rng.chisquare(1.0, size=(k, len(lam))) * lam).sum(axis=1)
+    _QF_CACHE[key] = np.maximum(q, 1e-300)
+    return _QF_CACHE[key]
+
+
+def _bartlett_matrix(n: int, lags: int) -> np.ndarray:
+    w = np.zeros(n)
+    w[0] = 1.0
+    for k in range(1, min(lags, n - 1) + 1):
+        w[k] = 1.0 - k / (lags + 1.0)
+    return w[np.abs(np.subtract.outer(np.arange(n), np.arange(n)))]
+
+
+def tail_from_q(c: float, q: np.ndarray, upper: bool = True) -> float:
+    """P(Z / sqrt(Q) >= c) (upper) or <= c (lower) for Z ~ N(0,1) independent of Q, by conditional MC."""
+    if not np.isfinite(c):
+        return (0.0 if c > 0 else 1.0) if upper else (1.0 if c > 0 else 0.0)
+    logs = stats.norm.logsf(c * np.sqrt(q)) if upper else stats.norm.logcdf(c * np.sqrt(q))
+    mx = float(np.max(logs))
+    return float(min(1.0, math.exp(mx) * np.mean(np.exp(logs - mx))))
 
 
 def hac_exact_pvalue(t: float, n: int, lags: int) -> float:

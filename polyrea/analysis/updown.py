@@ -104,6 +104,16 @@ def taker_fee_per_share(price: np.ndarray | float, rate: float) -> np.ndarray | 
     return rate * np.asarray(price) * (1 - np.asarray(price))
 
 
+def snap_price(p: float) -> float:
+    """Remove data-api float noise: market-order rows carry usdc/size, e.g. 0.5099999753.
+
+    A price within 1e-5 of the 0.001 grid is put on it; genuine sweep averages
+    stay as they are.
+    """
+    r = round(p, 3)
+    return r if abs(p - r) < 1e-5 else p
+
+
 # ----------------------------------------------------------------------------- spot index
 class SpotIndex:
     """Vectorized point-in-time access to a per-second spot TimeSeries."""
@@ -115,7 +125,9 @@ class SpotIndex:
         self.px = series.values.astype(float)
         lr = np.diff(np.log(self.px), prepend=np.log(self.px[0])) if len(self.px) else np.array([])
         self.cum_r2 = np.cumsum(lr**2)
-        self.cum_px = np.cumsum(self.px)
+        # centred before summing: a raw cumsum of ~1e10 loses ~1e-7 per mean, which matters near a window's end
+        self.px_ref = float(self.px[0]) if len(self.px) else 0.0
+        self.cum_px = np.cumsum(self.px - self.px_ref)
 
     def _idx_available(self, t: np.ndarray) -> np.ndarray:
         """Index of the last record available at or before each t (-1 if none)."""
@@ -148,7 +160,7 @@ class SpotIndex:
         s_hi = np.where(hi >= 0, self.cum_px[np.clip(hi, 0, None)], 0.0)
         s_lo = np.where(lo >= 0, self.cum_px[np.clip(lo, 0, None)], 0.0)
         with np.errstate(invalid="ignore", divide="ignore"):
-            return np.where(n > 0, (s_hi - s_lo) / n, np.nan)
+            return np.where(n > 0, (s_hi - s_lo) / n + self.px_ref, np.nan)
 
 
 def fair_up_vectorized(spot: SpotIndex, start: np.ndarray, end: np.ndarray, t_dec: np.ndarray, twap: int = TWAP_SECONDS) -> np.ndarray:
@@ -164,7 +176,7 @@ def fair_up_vectorized(spot: SpotIndex, start: np.ndarray, end: np.ndarray, t_de
     var_before = (twap_start - t_dec).clip(min=0) + twap / 3.0
     # inside TWAP period: known part A over [twap_start, t), remaining r seconds
     r = (end - t_dec).clip(min=0).astype(float)
-    a_known = spot.mean_between(twap_start, t_dec, t_dec)
+    a_known = spot.mean_between(twap_start, np.minimum(t_dec, end), t_dec)  # the closing TWAP stops at the window end
     a_known = np.where(np.isnan(a_known), st, a_known)
     mean_in = ((twap - r) * a_known + r * st) / twap
     sd_in = (r / twap) * np.sqrt(np.maximum(r, 1e-9) / 3.0)
@@ -218,7 +230,7 @@ def fair_up_pit(store: PITStore, spot_name: str, w: Window, t: int, latency: int
         mean, sd_units = St, math.sqrt((twap_start - t_dec) + w.twap_seconds / 3.0)
     else:
         r = max(w.end_ts - t_dec, 0)
-        sel = (ev >= twap_start) & (ev < t_dec) & (av <= t_dec)
+        sel = (ev >= twap_start) & (ev < min(t_dec, w.end_ts)) & (av <= t_dec)
         a_known = float(np.mean(vals[sel])) if sel.any() else St
         mean = ((w.twap_seconds - r) * a_known + r * St) / w.twap_seconds
         sd_units = (r / w.twap_seconds) * math.sqrt(max(r, 1e-9) / 3.0)
@@ -278,7 +290,7 @@ def taker_buy_prints(tapes: dict[str, list[dict[str, Any]]], windows: list[Windo
                     "ts": int(r["timestamp"]),
                     "wallet": (r.get("proxyWallet") or "").lower(),
                     "is_up": is_up,
-                    "price": float(r["price"]),
+                    "price": snap_price(float(r["price"])),
                     "size": float(r["size"]),
                     "start_ts": w.start_ts,
                     "end_ts": w.end_ts,
@@ -623,7 +635,7 @@ def maker_buy_prints(full_tapes: dict[str, list[dict[str, Any]]], taker_tapes: d
                     "ts": int(r["timestamp"]),
                     "wallet": (r.get("proxyWallet") or "").lower(),
                     "is_up": asset == w.up_token,
-                    "price": float(r["price"]),
+                    "price": snap_price(float(r["price"])),
                     "size": float(r["size"]),
                     "start_ts": w.start_ts,
                     "end_ts": w.end_ts,
@@ -647,7 +659,7 @@ def taker_flow(taker_tapes: dict[str, list[dict[str, Any]]], windows: list[Windo
             asset = str(r.get("asset"))
             if asset not in (w.up_token, w.down_token):
                 continue
-            rows.append({"condition_id": cid, "ts": int(r["timestamp"]), "is_up": asset == w.up_token, "side": r.get("side"), "price": float(r["price"]), "size": float(r["size"])})
+            rows.append({"condition_id": cid, "ts": int(r["timestamp"]), "is_up": asset == w.up_token, "side": r.get("side"), "price": snap_price(float(r["price"])), "size": float(r["size"])})
     return pd.DataFrame(rows)
 
 

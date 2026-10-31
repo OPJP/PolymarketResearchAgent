@@ -21,6 +21,7 @@ import pandas as pd
 from polyrea.adapters.polymarket import PolymarketData
 from polyrea.analysis.profile import resolution_info
 from polyrea.analysis.tape_maker import tape_maker_backtest
+from polyrea.analysis.updown import snap_price
 from polyrea.evidence import Coverage, Evidence
 from polyrea.stats.significance import hac_t_test
 from polyrea.workflows.investigate import load_window
@@ -36,7 +37,7 @@ def _flow_and_passive(cid: str, m: dict[str, Any], wallet: str, start: int, end:
         k = (r.get("transactionHash"), (r.get("proxyWallet") or "").lower(), str(r.get("asset")), r.get("side"))
         keys[k] = keys.get(k, 0) + 1
         if str(r.get("asset")) in tokens:
-            rows.append({"condition_id": cid, "ts": int(r["timestamp"]), "outcome": tokens.index(str(r["asset"])), "side": r.get("side"), "price": float(r["price"]), "size": float(r["size"])})
+            rows.append({"condition_id": cid, "ts": int(r["timestamp"]), "outcome": tokens.index(str(r["asset"])), "side": r.get("side"), "price": snap_price(float(r["price"])), "size": float(r["size"])})
     passive = []
     for r in full:
         k = (r.get("transactionHash"), (r.get("proxyWallet") or "").lower(), str(r.get("asset")), r.get("side"))
@@ -44,7 +45,7 @@ def _flow_and_passive(cid: str, m: dict[str, Any], wallet: str, start: int, end:
             keys[k] -= 1
             continue
         if (r.get("proxyWallet") or "").lower() == wallet and r.get("side") == "BUY" and str(r.get("asset")) in tokens:
-            passive.append({"condition_id": cid, "ts": int(r["timestamp"]), "outcome": tokens.index(str(r["asset"])), "price": float(r["price"]), "size": float(r["size"])})
+            passive.append({"condition_id": cid, "ts": int(r["timestamp"]), "outcome": tokens.index(str(r["asset"])), "price": snap_price(float(r["price"])), "size": float(r["size"])})
     return pd.DataFrame(rows), pd.DataFrame(passive)
 
 

@@ -191,22 +191,32 @@ def build_ledger(
         elif typ == "MERGE":
             led.cash_events.append((ts, usdc, "merge"))
             # release basis of one share of each outcome per merged pair
+            # a merge of `size` sets consumes complete sets first, then one share of each bought leg per remaining set
             released, released_sets = 0.0, 0.0
-            for a in sorted(by_condition_assets.get(cid, set()) | {f"split:{cid}"}):
-                p = led.positions.get(a)
-                if not p or p.shares <= 1e-9:
-                    continue
-                q = min(size, p.shares)
-                basis = p.avg_cost * q
-                p.shares -= q
-                p.cost -= basis
-                if p.closed_at is None:
-                    if a.startswith("split:"):
-                        released_sets += basis
-                    else:
-                        released += basis
-                if p.shares <= 1e-9 and p.closed_at is None:
-                    p.closed_at, p.close_kind = ts, "merged"
+            remaining = size
+            ps = led.positions.get(f"split:{cid}")
+            if ps and ps.shares > 1e-9:
+                q = min(remaining, ps.shares)
+                basis = ps.avg_cost * q
+                ps.shares -= q
+                ps.cost -= basis
+                remaining -= q
+                if ps.closed_at is None:
+                    released_sets += basis
+                if ps.shares <= 1e-9 and ps.closed_at is None:
+                    ps.closed_at, ps.close_kind = ts, "merged"
+            if remaining > 1e-9:
+                for a in sorted(by_condition_assets.get(cid, set())):
+                    p = led.positions.get(a)
+                    if not p or p.shares <= 1e-9:
+                        continue
+                    q = min(remaining, p.shares)
+                    basis = p.avg_cost * q
+                    p.shares -= q
+                    p.cost -= basis
+                    released += basis if p.closed_at is None else 0.0
+                    if p.shares <= 1e-9 and p.closed_at is None:
+                        p.closed_at, p.close_kind = ts, "merged"
             led.exposure_events.append((ts, -released))
             led.complete_set_events.append((ts, -released_sets))
         elif typ == "REDEEM":

@@ -28,6 +28,7 @@ from scipy import stats
 from polyrea.adapters.espn import ESPN, LEAGUES, Game, team_matches
 from polyrea.adapters.polymarket import PolymarketData
 from polyrea.analysis.profile import resolution_info
+from polyrea.analysis.updown import snap_price
 from polyrea.evidence import Coverage, Evidence
 from polyrea.stats.significance import hac_t_test, permutation_pvalue, stationary_bootstrap_pvalue
 from polyrea.workflows.investigate import load_window
@@ -190,7 +191,7 @@ def game_prints(entry: dict[str, Any], markets: dict[str, dict[str, Any]], walle
                     "is_wallet": (r.get("proxyWallet") or "").lower() == wallet.lower(),
                     "outcome": outcome,
                     "side_kind": _outcome_side(outcome, game),
-                    "price": float(r["price"]),
+                    "price": snap_price(float(r["price"])),
                     "size": float(r["size"]),
                     "payout": res["payout"].get(str(r["asset"])) if res["resolved"] else np.nan,
                     "fee_rate": float((m.get("feeSchedule") or {}).get("rate", SPORTS_FEE_RATE)),

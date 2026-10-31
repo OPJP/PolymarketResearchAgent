@@ -146,3 +146,32 @@ def test_rebate_dependence_tier_and_level_up_bonus():
     assert r["level_up_bonus_total"] == pytest.approx(25_000.0)
     assert r["pnl_at_tier"]["None 0%"] == pytest.approx(30 * 110.0)
     assert r["economic_pnl_recurring"] == pytest.approx(30 * (110.0 + 440.0))
+
+
+def test_merge_takes_complete_sets_before_bought_legs():
+    rows = [
+        {"timestamp": 0, "type": "SPLIT", "size": 100, "usdcSize": 100, "conditionId": "c1", "asset": ""},
+        trade(1, "BUY", 50, 0.6, asset="Y"),
+        trade(2, "BUY", 50, 0.4, asset="N", oi=1),
+        {"timestamp": 3, "type": "MERGE", "size": 100, "usdcSize": 100, "conditionId": "c1", "asset": ""},
+    ]
+    led = build_ledger("w", rows)
+    assert led.positions["Y"].shares == pytest.approx(50) and led.positions["N"].shares == pytest.approx(50)
+    assert led.exposure_series().iloc[-1] == pytest.approx(50.0)  # the bought legs are still held
+    assert led.exposure_series(include_complete_sets=True).iloc[-1] == pytest.approx(50.0)
+
+
+def test_rebate_bonus_outside_the_window_is_ignored():
+    from polyrea.analysis.rebates import rebate_dependence
+
+    pts, cum = [], {"position_pnl": 0.0, "fees_paid": 0.0, "taker_rebate": 0.0, "maker_rebate": 0.0}
+    for d in range(80):
+        fee = 1000.0 if d % 4 == 0 else 0.0
+        cum["fees_paid"] -= fee
+        cum["position_pnl"] += 10.0
+        if d > 0:
+            cum["taker_rebate"] += 0.32 * (1000.0 if (d - 1) % 4 == 0 else 0.0) + (7500.0 if d == 37 else 0.0)
+        pts.append({"timestamp": d * DAY, **cum, "economic_pnl": cum["position_pnl"] + cum["taker_rebate"], "reward_income": 0.0, "yield_income": 0.0, "referral_income": 0.0})
+    r = rebate_dependence(pts, as_of=79 * DAY, days=30)
+    assert r["level_up_bonus_total"] == 0.0  # the bonus was paid 42 days before as_of
+    assert r["economic_pnl_recurring"] == pytest.approx(r["window"]["economic_pnl"])

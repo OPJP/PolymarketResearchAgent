@@ -2,8 +2,10 @@
 
 ``economic_pnl`` (cumulative) = position PnL (realized + unrealized market PnL)
 + wallet income (maker/taker rebates, liquidity rewards, yield, referrals).
-``trade_pnl`` excludes wallet income. Both are kept: a wallet whose profit is
-mostly incentives depends on Polymarket keeping those programs.
+``position_pnl`` is market PnL after fees and before incentives; ``trade_pnl``
+is ``position_pnl`` plus the fees paid (before fees and incentives). All are
+kept: a wallet whose profit is mostly incentives depends on Polymarket keeping
+those programs.
 """
 
 from __future__ import annotations
@@ -13,7 +15,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-FIELDS = ("economic_pnl", "trade_pnl", "wallet_income", "maker_rebate", "reward_income", "fees_paid", "volume_usdc", "trade_count")
+FIELDS = ("economic_pnl", "trade_pnl", "position_pnl", "wallet_income", "maker_rebate", "reward_income", "fees_paid", "volume_usdc", "trade_count")
 
 
 def daily_frame(points: list[dict[str, Any]], as_of: int | None = None) -> pd.DataFrame:

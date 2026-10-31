@@ -17,40 +17,58 @@ the same tools.
 - Per-wallet dossiers: `research/wallets/<wallet>/REPORT.md`
 - Methodology and pre-registered thresholds: [`docs/methodology.md`](docs/methodology.md)
 
-## Results (data as of 2026-10-30)
+## Results (data as of 2026-10-30; reviewed 2026-10-31)
 
-**No wallet in the top 500 passed every criterion.** Full detail in
-[`research/README.md`](research/README.md) and the dashboard.
+**No wallet in the top 500 passes every criterion.** Full detail in
+[`research/README.md`](research/README.md), the per-wallet `REPORT.md` files
+and the dashboard. The first round was audited by independent adversarial
+reviewers; six code defects were confirmed and fixed and every study was
+re-run (see "Changes after first run" in
+[`docs/methodology.md`](docs/methodology.md); reviewer outputs are in
+[`research/review_2026-10-31/`](research/review_2026-10-31/)).
 
-| Step | Wallets |
+| Step (each keeps only wallets that passed the steps above) | Wallets |
 | --- | --- |
 | Screened (top 500 by monthly PnL) | 500 |
-| Profit significant outside the ranking window, above $50k/month, constant returns | 11 |
-| At least 10% per month on peak capital at risk | 10 |
-| Fills verified on Polygon | 10 |
-| Reverse-engineered rule matches the wallet on held-out data | 0 |
+| Profit significant outside the ranking window, above $50k/month, constant returns | 12 |
+| At least 10% per month on capital at risk | 11 |
+| Fills verified on Polygon | 11 |
+| Reverse-engineered rule matches the wallet on held-out data | 0 (11 partial matches) |
 
-What the 11 survivors actually do:
+Per criterion, across the 12 wallets: no held-out backtest passes, no
+strategy is replicable from public data on a normal connection, and only
+half still meet the persistence tests. A1 re-run one day later admits no new
+wallet.
+
+What the 12 survivors actually do:
 
 - **BTC 5-minute Up/Down bots** (GoodFallen, x-MoneyForWhiskas,
-  dangerously-skip-permissions): one operator across three wallets that also
-  trade against each other. No public-data rule matches them; the market price
-  already beats a 1-second public spot model, so their edge is sub-second.
-  About half their profit is the 50% Obsidian fee rebate.
-- **Directional crypto makers** (bosona, almach, likely one operator): real,
-  persistent, rebate-independent profit, but every public-data maker version
-  loses 14-26% in the same windows, even with optimistic fills. Their edge is
-  queue priority and fast cancels.
-- **Rebate farmer** (0xb55f...): trading loses $49k a month; the whole profit
-  is the fee rebate. A newcomer at the 0% tier would lose ~$40k a month.
-- **In-play sports and esports makers** (RN1, TommyLeePeeca): they cancel
-  quotes within seconds of game events; a public-data maker in the same
-  markets loses 8-19%.
-- **In-play sports takers** (justaluckydude, 0xdbdd...): justaluckydude buys the
-  scoring side within 0-10 s of a play (95% direction agreement), but the
-  public-data rule is not significantly profitable, a 5-second delay removes the
-  edge, and its PnL has a significant downward trend.
-- **High-probability carry** (elmcap2): 3.7% per month on $6.5M of capital.
+  dangerously-skip-permissions; one operator): their passive bids get filled
+  right after Binance spot moves toward that side, and a public rule built on
+  that signature picks out their fills far better than chance (stratified
+  AUC 0.60-0.63, z 9-14). Traded as a strategy, the rule loses 5-9% on 2,011
+  unseen windows once fills are timed correctly; it only looks profitable if
+  an order is credited with trades that may have matched before it existed.
+  About half of their profit is the top taker-rebate tier.
+- **Directional crypto makers** (bosona, almach, mo-money; one operator):
+  real profit with little rebate dependence; no public-data maker built from
+  the same data is significantly profitable in the same windows (results
+  from -19% to +2%; fixed-price bids lose 45-81%). mo-money only entered after the dormant-weeks fix; its profit is
+  shrinking.
+- **Rebate farmer** (0xb55f...): trading loses $49k a month; the profit is a
+  Diamond-tier rebate plus a one-off $25k level-up bonus. Recurring month
+  $31k; a newcomer at the 0% tier loses about $40k.
+- **In-play makers** (RN1, TommyLeePeeca): off the book before game events
+  move the public price; a public-data maker loses 5-19% in the same
+  markets, including RN1's most profitable families. TommyLeePeeca switched
+  from taking to making on 16-17 October, so its profitable strategy has 13
+  days of history.
+- **In-play takers** (justaluckydude, 0xdbdd...): identifiable reactions to
+  scoring plays and soccer goals, but no public rule is significantly
+  profitable with a realistic information delay; justaluckydude's profit is
+  decaying.
+- **Event carry** (elmcap2): about 4% per month on $5.7M of capital, and its
+  month is one FOMC meeting.
 
 ## Install
 

@@ -1,45 +1,53 @@
 # TommyLeePeeca (`0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`)
 
-Leaderboard rank 258 (monthly PnL). Verdict: **REJECT**. Archetype: In-play two-sided market maker (CS2 esports).
+Leaderboard rank 258 (monthly PnL). Verdict: **REJECT**. Archetype: CS2 in-play market maker (switched from taker mid-October).
 
 Profile: https://polymarket.com/profile/0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2
 
 ## Mechanism
 
-87% of sampled fills are maker fills (on-chain, 95% CI 82-91%); 99% occur after match start; 98% of volume is CS2. It buys both outcomes in 92% of markets at a median pair cost of 1.00 (balance 0.84). Locked pair spread is -$50k over 30 days and the residual +$137k, so profit comes from leaning quotes toward the side that wins rounds, which needs live round-level information.
+Over the whole 30 days 87% of sampled fills are maker fills, but none before 16 October and nearly all after. Settled PnL $27,145 splits into realized losses on sells -$67,231, locked pair spread $55,481 and residual $38,896. Maker regime (17-29 October, 13 days): $43,699, every day positive, pair cost about 0.98. Taker regime (30 September - 15 October): -$6,146 after fees, positive only because of a $21,621 taker rebate.
 
 ## Criteria
 
 | Criterion | Status | Evidence |
 | --- | --- | --- |
-| Profit significant, not luck | pass | pre-selection 105d: HAC t=4.6, Holm p=3.1e-03, bootstrap p=2.5e-04; deflated Sharpe 1.000 |
+| Profit significant, not luck | pass | pre-selection 105d: HAC t=4.6, Holm p=2.1e-02, bootstrap p=2.5e-04; deflated Sharpe 1.000 |
 | Net profit above $50k/month | pass | last 30d $60,279; median month $58,068 |
-| Constant returns (low std) | pass | annualized Sharpe 12.3; positive weeks 84%; positive months 100% |
-| High % profit | pass | peak capital at risk $9.6k; 30-day PnL $60.3k; 629% per month |
-| Trades verified on-chain | pass | 200/200 sampled fills confirmed; 87% maker |
-| Reverse-engineered rule matches the wallet | fail | no public timestamped CS2 round feed exists to reconstruct its quote decisions; tape-only rule does not reproduce its fills |
-| Rule profitable in held-out PIT backtest | fail | public-data two-sided maker on 80 held-out matches: -8.3% (0 s) to -9.3% (30 s), all significant losses; wallet's own passive fills there +1.9% (p=0.056) |
-| Replicable on a normal computer and connection | fail | needs low-latency live game data to avoid adverse selection; at a 0% taker rebate tier its 30-day PnL would be ~$33k (< $50k) |
-| Conditions still hold now | pass | last 30 days significant (p=0.013); no decline (p=0.48) |
+| Constant returns (low std) | pass | annualized Sharpe 12.3; positive weeks 89%; positive months 100% |
+| High % profit | pass | 629%/month: 30-day PnL $60,279 on peak capital at risk $9,577; counting the on-chain collateral too ($52,202), at least 98%/month |
+| Trades verified on-chain | pass | 200/200 sampled fills confirmed in Polygon OrderFilled events; 87% maker fills (95% CI 82%-90%), 48% of USDC |
+| Reverse-engineered rule matches the wallet | partial | a reviewer tape-only fingerprint (it keeps bids pegged while the price falls, where other makers pull) matches its maker fills on 60 fresh markets: AUC 0.541, p=0.002, specific to this wallet, but lift 1.2; five other public rules do not match |
+| Rule profitable in held-out PIT backtest | fail | 30-day split: tape-only two-sided maker on 80 held-out markets -8.3% to -9.3% at 0-30 s (strict), -7.5% to -8.6% at 0-5 s with first-in-queue fills; the wallet's own passive fills there +1.9% (p=0.056); maker regime only (FIT/TEST inside 17-29 October): tape-only two-sided maker on 100 held-out markets -5.7% to -8.8% at 0-30 s (strict), -5.0% to -6.5% at 0-5 s with first-in-queue fills; the wallet's own passive fills there +0.1% (p=0.47); six reviewer rules (momentum taker, favourite / momentum-lean / post-drop / between-rounds / inventory-balancing makers) all lose held out |
+| Replicable on a normal computer and connection | fail | the symmetric public-data maker loses even at zero latency with first-in-queue fills; the edge needs game-state information faster than the public tape, and live CS2 round feeds (Polymarket's own score field, HLTV) have no history to test against. The old taker regime depended on the Obsidian rebate (observed taker-rebate tier Obsidian (50% of fees); 30-day PnL at the 0% tier $32,894, Gold $42,706, Diamond $56,879, Obsidian $60,150) |
+| Conditions still hold now | fail | the current maker strategy has 13 days of history, too short to establish that it persists (stage A1 needs 60 days before the ranking window); the whole-wallet tests pass only by mixing two strategies. last 30 days p=0.013; decline vs earlier p=0.48; last 15 vs prior 15 p=0.90; trend p=0.83 |
 
 ## Key numbers
 
 - 30-day PnL: $60,279
-- Monthly ROC: 629%
-- Maker fill share: 87%
-- Taker rebate rate observed: 50% (Obsidian)
-- PnL at 0% rebate tier: ~$32,900
-- Slow imitator, held out: -8.3% to -9.3%
+- Maker regime, 13 days: $43,699
+- Maker regime per 30 d at 0% rebate tier: $89,543
+- Taker regime after fees, 16 days: -$6,146
+- Settled PnL (sell-aware): $27,145
 
 ## Why this verdict
 
-- A public-data maker loses significantly in the same CS2 markets at every delay tested.
-- Its edge depends on live round-level information that has no free public feed.
-- It relies on the 50% Obsidian taker rebate to clear $50k per month.
+- The profitable strategy (CS2 market making) is only 13 days old: persistence cannot be established.
+- A public-data maker loses in the same matches, including inside the maker regime.
+- No public rule reproduces its quoting beyond a weak fingerprint.
+
+## Corrections after the adversarial review (2026-10-31)
+
+- The earlier mechanism ('leaning quotes toward the side that wins rounds', locked -$50k, residual +$137k) came from counting sells as purchases; sell-aware, locked spread is the largest positive part.
+- The earlier rebate-dependence reason belongs to the old taker regime; the maker regime does not depend on the rebate.
+- The 30-day FIT/TEST split fell on the regime change (FIT had almost no maker fills); the maker regime is now tested on its own.
 
 ## Evidence files
 
 - `research/wallets/0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2/profile.json`
 - `research/wallets/0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2/maker_replicability_study.json`
+- `research/wallets/0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2/maker_replicability_study_maker_regime.json`
 - `research/stage_a/rebate_dependence.json`
 - `research/stage_a/persistence_a1_survivors.json`
+- `research/review_2026-10-31/challenge-inplay-maker-TommyLee/phase_economics.json`
+- `research/review_2026-10-31/challenge-inplay-maker-TommyLee/confirm_fresh60.json`

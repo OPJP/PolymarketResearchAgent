@@ -52,17 +52,17 @@ def rebate_dependence(points: list[dict[str, Any]], as_of: int, days: int = 30) 
     reb = daily["taker_rebate"]
     # rebates are paid at midnight for the previous day's fees
     prev_fees = np.r_[np.nan, fees[:-1]]
+    in_window = np.arange(n) >= n - days
     ok = (prev_fees > 50) & np.isfinite(prev_fees)
-    ratio = reb[ok] / prev_fees[ok] if ok.any() else np.array([])
-    recent = ratio[-days:] if len(ratio) else ratio
+    recent_ok = ok & in_window
+    recent = reb[recent_ok] / prev_fees[recent_ok] if recent_ok.any() else np.array([])
     rate = float(np.median(recent)) if len(recent) else 0.0
     tier = min(TAKER_TIERS, key=lambda t: abs(t[2] - rate))
     # one-off payments: rebate far above the steady rate that matches a level-up bonus
     bonuses = []
-    idx = np.nonzero(ok)[0]
-    for i in idx[-days:] if len(idx) else []:
-        excess = reb[i] - rate * prev_fees[i]
-        if excess > max(500.0, 0.5 * rate * prev_fees[i]):
+    for i in np.nonzero(in_window & np.isfinite(prev_fees))[0]:
+        excess = reb[i] - rate * max(prev_fees[i], 0.0)
+        if excess > max(500.0, 0.5 * rate * max(prev_fees[i], 0.0)):
             match = min(TAKER_TIERS[1:], key=lambda t: abs(t[3] - excess))
             bonuses.append({"day_index_from_end": int(n - 1 - i), "rebate": float(reb[i]), "excess": float(excess),
                             "nearest_level_up_bonus": {"tier": match[0], "usd": match[3]}, "matches_bonus": bool(abs(match[3] - excess) <= 0.1 * match[3])})

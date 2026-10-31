@@ -292,3 +292,11 @@ def test_match_slack_never_credits_a_fill_before_the_order_existed():
     assert spot_reactive_maker_backtest(flow, [w], spot, **kw)["fills"] == 1
     # the print may have matched up to 2 s before its block time, i.e. before the bid existed
     assert spot_reactive_maker_backtest(flow, [w], spot, match_slack=2, **kw).get("fills", 0) == 0
+
+
+def test_tape_float_noise_is_snapped_to_the_grid():
+    from polyrea.analysis.updown import quote_price, snap_price
+
+    assert snap_price(0.5099999753) == 0.51  # usdc/size of a market buy
+    assert snap_price(0.5123456) == 0.5123456  # a genuine sweep average stays
+    assert float(quote_price(snap_price(0.5099999753) - 0.02)) == pytest.approx(0.49)

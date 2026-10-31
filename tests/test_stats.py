@@ -168,3 +168,13 @@ def test_hac_exact_reference_controls_size_at_small_alpha():
 def test_hac_constant_series_is_not_significant():
     assert hac_t_test([0.0] * 30).p_value == 1.0
     assert hac_t_test([0.0] * 30, reference="exact").p_value == 1.0
+
+
+def test_persistence_references_hold_size_and_float_constants_are_constant():
+    from polyrea.stats.persistence import mean_difference_test
+
+    rng = np.random.default_rng(9)
+    ps = np.array([mean_difference_test(rng.standard_normal(15), rng.standard_normal(15)).p_value for _ in range(3000)])
+    assert 0.035 < (ps < 0.05).mean() < 0.065  # the N(0,1) reference gave ~8%
+    for n in (60, 250):
+        assert hac_t_test(np.full(n, 0.1), reference="exact").p_value == 1.0

@@ -16,8 +16,8 @@
    "detail": "200/200 sampled fills confirmed in Polygon OrderFilled events; 89% maker fills (95% CI 84%-93%), 77% of USDC"
   },
   "match": {
-   "status": "fail",
-   "detail": "BTC 5m directional maker: stratified AUC 0.497 vs rotation null 0.504 (max 0.603), p=0.52; rule flags 36% of the wallet's decisions at 1.1x the base rate; BTC 5m spot-reactive maker: stratified AUC 0.564 vs rotation null 0.501 (max 0.574), p=0.045; rule flags 22% of the wallet's decisions at 3.4x the base rate; BTC 15m directional maker: stratified AUC 0.506 vs rotation null 0.490 (max 0.584), p=0.34; rule flags 33% of the wallet's decisions at 0.9x the base rate; BTC 15m spot-reactive maker: stratified AUC 0.471 vs rotation null 0.522 (max 0.617), p=0.91; rule flags 10% of the wallet's decisions at 2.4x the base rate; BTC 5m latency taker: stratified AUC 0.523 vs rotation null 0.540 (max 0.741), p=0.58; rule flags 0% of the wallet's decisions at 0.0x the base rate"
+   "status": "partial",
+   "detail": "BTC 5m directional maker: stratified AUC 0.497 vs rotation null 0.504 (max 0.603), p=0.52; rule flags 36% of the wallet's decisions at 1.1x the base rate; BTC 5m spot-reactive maker: stratified AUC 0.564 vs rotation null 0.501 (max 0.574), p=0.045; rule flags 22% of the wallet's decisions at 3.4x the base rate; BTC 15m directional maker: stratified AUC 0.506 vs rotation null 0.490 (max 0.584), p=0.34; rule flags 33% of the wallet's decisions at 0.9x the base rate; BTC 15m spot-reactive maker: stratified AUC 0.471 vs rotation null 0.522 (max 0.617), p=0.91; rule flags 10% of the wallet's decisions at 2.4x the base rate; BTC 5m latency taker: stratified AUC 0.523 vs rotation null 0.540 (max 0.741), p=0.58; rule flags 0% of the wallet's decisions at 0.0x the base rate; BTC 5m spot-reactive maker on Binance spot: stratified AUC 0.597 vs rotation null 0.496 (max 0.596), p=0.005; rule flags 3% of the wallet's decisions at 3.1x the base rate; the same, frozen, on 2,000+ unseen windows: stratified AUC 0.522 vs rotation null 0.504 (max 0.516), p=0.0099; rule flags 5% of the wallet's decisions at 2.0x the base rate"
   },
   "backtest": {
    "status": "fail",

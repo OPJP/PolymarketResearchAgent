@@ -17,7 +17,7 @@
   },
   "match": {
    "status": "partial",
-   "detail": "BTC 5m directional maker: stratified AUC 0.588 vs rotation null 0.503 (max 0.608), p=0.02; rule flags 43% of the wallet's decisions at 1.2x the base rate; BTC 5m spot-reactive maker: stratified AUC 0.545 vs rotation null 0.501 (max 0.559), p=0.03; rule flags 20% of the wallet's decisions at 1.7x the base rate; BTC 15m directional maker: stratified AUC 0.539 vs rotation null 0.489 (max 0.611), p=0.15; rule flags 32% of the wallet's decisions at 0.7x the base rate; BTC 15m spot-reactive maker: stratified AUC 0.586 vs rotation null 0.513 (max 0.640), p=0.13; rule flags 0% of the wallet's decisions at 0.0x the base rate; BTC 5m latency taker: stratified AUC 0.482 vs rotation null 0.516 (max 0.743), p=0.62; rule flags 20% of the wallet's decisions at 2.9x the base rate; reviewer spot-lead score (Kraken move toward the bought side over 3 s, 1 s old): BTC 5m AUC 0.551, p=0.002, but only 6% of its fills pass the gate and it misses p<0.01 on 15m and after correcting for the hypotheses tried"
+   "detail": "BTC 5m directional maker: stratified AUC 0.588 vs rotation null 0.503 (max 0.608), p=0.02; rule flags 43% of the wallet's decisions at 1.2x the base rate; BTC 5m spot-reactive maker: stratified AUC 0.545 vs rotation null 0.501 (max 0.559), p=0.03; rule flags 20% of the wallet's decisions at 1.7x the base rate; BTC 15m directional maker: stratified AUC 0.539 vs rotation null 0.489 (max 0.611), p=0.15; rule flags 32% of the wallet's decisions at 0.7x the base rate; BTC 15m spot-reactive maker: stratified AUC 0.586 vs rotation null 0.513 (max 0.640), p=0.13; rule flags 0% of the wallet's decisions at 0.0x the base rate; BTC 5m latency taker: stratified AUC 0.482 vs rotation null 0.516 (max 0.743), p=0.62; rule flags 20% of the wallet's decisions at 2.9x the base rate; the same, frozen, on 2,000+ unseen windows: stratified AUC 0.532 vs rotation null 0.498 (max 0.512), p=0.0099; rule flags 2% of the wallet's decisions at 2.3x the base rate; reviewer spot-lead score (Kraken move toward the bought side over 3 s, 1 s old): BTC 5m AUC 0.551, p=0.002, but only 6% of its fills pass the gate and it misses p<0.01 on 15m and after correcting for the hypotheses tried"
   },
   "backtest": {
    "status": "fail",
@@ -29,7 +29,7 @@
   },
   "persistence": {
    "status": "pass",
-   "detail": "last 30 days p=0.003; decline vs earlier p=0.30; last 15 vs prior 15 p=0.094; trend p=0.95"
+   "detail": "last 30 days p=0.0034; decline vs earlier p=0.30; last 15 vs prior 15 p=0.094; trend p=0.95"
   }
  },
  "key_numbers": {
