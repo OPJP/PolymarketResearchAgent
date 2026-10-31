@@ -1,5 +1,5 @@
 {
- "generated_at": 1793425665,
+ "generated_at": 1793429264,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -1429,7 +1429,7 @@
      },
      "persistence": {
       "status": "pass",
-      "detail": "last 30 days p=0.0025; decline vs earlier p=0.41; last 15 vs prior 15 p=0.62; trend p=1.00"
+      "detail": "last 30 days p=0.0077; decline vs earlier p=0.42; last 15 vs prior 15 p=0.60; trend p=1.00"
      }
     },
     "key_numbers": {
@@ -5758,7 +5758,7 @@
      },
      "persistence": {
       "status": "fail",
-      "detail": "last 30 days not significant (p=0.16). [last 30 days p=0.16; decline vs earlier p=0.79; last 15 vs prior 15 p=0.81; trend p=1.00] The last month is one lumpy event (the October FOMC)."
+      "detail": "last 30 days not significant (p=0.18). [last 30 days p=0.18; decline vs earlier p=0.76; last 15 vs prior 15 p=0.78; trend p=1.00] The last month is one lumpy event (the October FOMC)."
      }
     },
     "key_numbers": {
@@ -5766,7 +5766,7 @@
      "Peak capital at risk": "$5,708,768",
      "Monthly ROC": "4.2%",
      "Share of 30-day settled PnL from the October FOMC": "about 107%",
-     "Last-30-day significance": "p=0.16"
+     "Last-30-day significance": "p=0.18"
     },
     "reasons": [
      "Return on capital 4.2% per month on $5,708,768 peak capital at risk; the bar is 10% per month.",
@@ -8023,7 +8023,7 @@
      },
      "persistence": {
       "status": "pass",
-      "detail": "last 30 days p=1.7e-09; decline vs earlier p=1.00; last 15 vs prior 15 p=0.54; trend p=1.00"
+      "detail": "last 30 days p=1.0e-06; decline vs earlier p=1.00; last 15 vs prior 15 p=0.53; trend p=1.00"
      }
     },
     "key_numbers": {
@@ -8157,7 +8157,7 @@
      },
      "persistence": {
       "status": "fail",
-      "detail": "last 30 days not significant (p=0.13); significant negative trend (p=0.004). [last 30 days p=0.13; decline vs earlier p=0.15; last 15 vs prior 15 p=0.26; trend p=0.004]"
+      "detail": "last 30 days not significant (p=0.15); significant negative trend (p=0.0077). [last 30 days p=0.15; decline vs earlier p=0.17; last 15 vs prior 15 p=0.29; trend p=0.0077]"
      }
     },
     "key_numbers": {
@@ -11252,7 +11252,7 @@
      },
      "persistence": {
       "status": "fail",
-      "detail": "significant decline inside the last 30 days, last 15 vs prior 15 (p=5.4e-06). [last 30 days p=7.3e-05; decline vs earlier p=0.40; last 15 vs prior 15 p=5.4e-06; trend p=0.98]"
+      "detail": "significant decline inside the last 30 days, last 15 vs prior 15 (p=6.3e-04). [last 30 days p=7.4e-04; decline vs earlier p=0.41; last 15 vs prior 15 p=6.3e-04; trend p=0.97]"
      }
     },
     "key_numbers": {
@@ -13093,7 +13093,7 @@
      },
      "persistence": {
       "status": "fail",
-      "detail": "last 30 days not significant (p=0.089); significant decline vs. earlier days (p=0.0086). [recurring series (one-off bonus removed): last 30 days p=0.089; decline vs earlier p=0.0086; last 15 vs prior 15 p=0.53; trend p=0.39] Also: pre-fee trading PnL declined significantly (p=6e-6)."
+      "detail": "last 30 days not significant (p=0.11); significant decline vs. earlier days (p=0.019). [recurring series (one-off bonus removed): last 30 days p=0.11; decline vs earlier p=0.019; last 15 vs prior 15 p=0.53; trend p=0.40] Also: pre-fee trading PnL declined significantly (p=6e-6)."
      }
     },
     "key_numbers": {
@@ -13211,7 +13211,7 @@
      },
      "persistence": {
       "status": "pass",
-      "detail": "last 30 days p=9.5e-08; decline vs earlier p=0.98; last 15 vs prior 15 p=0.89; trend p=1.00"
+      "detail": "last 30 days p=1.2e-05; decline vs earlier p=0.96; last 15 vs prior 15 p=0.86; trend p=1.00"
      }
     },
     "key_numbers": {
@@ -14437,7 +14437,7 @@
      },
      "persistence": {
       "status": "pass",
-      "detail": "last 30 days p=3.9e-04; decline vs earlier p=0.40; last 15 vs prior 15 p=0.086; trend p=0.86"
+      "detail": "last 30 days p=0.0022; decline vs earlier p=0.41; last 15 vs prior 15 p=0.12; trend p=0.84"
      }
     },
     "key_numbers": {
@@ -15197,7 +15197,7 @@
     "stage": "C",
     "verdict": "reject",
     "archetype": "Directional maker on crypto Up/Down windows (three-wallet cluster: bosona, almach, mo-money)",
-    "headline": "Rests bids on the side of BTC Up/Down windows it expects to win and gets filled below fair value. Real profit that barely depends on rebates, though it is shrinking, run by what looks like one operator across three wallets. But no public-data rule reproduces which fills it gets, and every public-data maker built from the same data loses money or is insignificant in the same windows.",
+    "headline": "Rests bids on the side of BTC Up/Down windows it expects to win and gets filled below fair value. Real profit that barely depends on rebates, run by what looks like one operator across three wallets. But no public-data rule reproduces which fills it gets, and every public-data maker built from the same data loses money or is insignificant in the same windows.",
     "mechanism": "89% of sampled fills are maker fills on-chain. BTC 5m is 57% and BTC 15m 27% of its volume, the rest hourly, 4h and ETH/SOL windows. Its profit is the directional residual ($96,917, residual win rate 58%); the locked pair spread is -$24,845. Shared transactions in 30 days: 6,876 with bosona, 6,750 with almach; about 80% of its markets are shared with the other two.",
     "criteria": {
      "significance": {
@@ -15233,8 +15233,8 @@
       "detail": "every public-data maker version is adversely selected at the latencies a normal connection allows (>= 2 s), even with first-in-queue fills; the wallet's edge points to faster prices than public 1-second data and queue priority. Rebates are not the issue: observed taker-rebate tier Gold (18% of fees); 30-day PnL at the 0% tier $81,999, Gold $84,622, Diamond $88,411, Obsidian $89,285"
      },
      "persistence": {
-      "status": "fail",
-      "detail": "significant decline inside the last 30 days, last 15 vs prior 15 (p=0.046). [last 30 days p=0.002; decline vs earlier p=0.83; last 15 vs prior 15 p=0.046; trend p=1.00] Its 30-day blocks fell from $154k to $146k, $110k and $85k; A1 had rejected it only because of dormant weeks before it started trading (fixed)."
+      "status": "pass",
+      "detail": "last 30 days p=0.0066; decline vs earlier p=0.81; last 15 vs prior 15 p=0.076; trend p=1.00. Its 30-day blocks fell from $154k to $146k, $110k and $85k; A1 had rejected it only because of dormant weeks before it started trading (fixed)."
      }
     },
     "key_numbers": {
@@ -15387,7 +15387,7 @@
      },
      "persistence": {
       "status": "pass",
-      "detail": "last 30 days p=0.004; decline vs earlier p=0.12; last 15 vs prior 15 p=0.67; trend p=0.81. Its last three 30-day blocks were $62k, $24k and $22k after $184k, $237k and $143k; the tests do not call the decline significant, but two of the last three months were below $50k."
+      "detail": "last 30 days p=0.011; decline vs earlier p=0.15; last 15 vs prior 15 p=0.65; trend p=0.80. Its last three 30-day blocks were $62k, $24k and $22k after $184k, $237k and $143k; the tests do not call the decline significant, but two of the last three months were below $50k."
      }
     },
     "key_numbers": {
@@ -16404,7 +16404,7 @@
      },
      "persistence": {
       "status": "fail",
-      "detail": "the current maker strategy has 13 days of history, too short to establish that it persists (stage A1 needs 60 days before the ranking window); the whole-wallet tests pass only by mixing two strategies. last 30 days p=0.013; decline vs earlier p=0.48; last 15 vs prior 15 p=0.90; trend p=0.83"
+      "detail": "the current maker strategy has 13 days of history, too short to establish that it persists (stage A1 needs 60 days before the ranking window); the whole-wallet tests pass only by mixing two strategies. last 30 days p=0.025; decline vs earlier p=0.48; last 15 vs prior 15 p=0.87; trend p=0.81"
      }
     },
     "key_numbers": {
@@ -17486,7 +17486,7 @@
      },
      "persistence": {
       "status": "pass",
-      "detail": "last 30 days p=0.0034; decline vs earlier p=0.30; last 15 vs prior 15 p=0.094; trend p=0.95"
+      "detail": "last 30 days p=0.0095; decline vs earlier p=0.32; last 15 vs prior 15 p=0.13; trend p=0.94"
      }
     },
     "key_numbers": {

@@ -20,7 +20,7 @@ All sampled fills are taker fills. Within 10 s after a scoring play known 5 s af
 | Reverse-engineered rule matches the wallet | partial | direction after scoring plays 94.8% vs null 95th percentile 64% (perm p=0.005, 86 held-out games), but the wallet is not more reactive than other takers (11% vs 15% of fills in the window, p=0.73). Reviewer WP-REACT (any win-probability swing): AUC 0.648, p=0.005, 36% of buys - significant, but most decisions stay unexplained |
 | Rule profitable in held-out PIT backtest | fail | REACT(D=5 s, W=10 s) held out +1.1% (17,783 trades, p(profit)=0.40); zero-delay upper bound +4.4% (p=0.21); reviewer WP-REACT +3.2% (p=0.068); wallet's own fills on the same games +3.2% (p=0.25) |
 | Replicable on a normal computer and connection | fail | the edge sits in the first seconds after a play; with a 5 s information delay the rule earns +1.1% (p=0.40) and reviewer WP-REACT goes to about zero at +5-10 s |
-| Conditions still hold now | fail | last 30 days not significant (p=0.13); significant negative trend (p=0.004). [last 30 days p=0.13; decline vs earlier p=0.15; last 15 vs prior 15 p=0.26; trend p=0.004] |
+| Conditions still hold now | fail | last 30 days not significant (p=0.15); significant negative trend (p=0.0077). [last 30 days p=0.15; decline vs earlier p=0.17; last 15 vs prior 15 p=0.29; trend p=0.0077] |
 
 ## Key numbers
 

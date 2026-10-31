@@ -20,7 +20,7 @@ Profile: https://polymarket.com/profile/0xed107a85a4585a381e48c7f7ca4144909e7dd2
 | Reverse-engineered rule matches the wallet | partial | not run by the project (rejected at A2). Reviewer rules fitted on 2025 and tested on 2026: FOMC consensus carry AUC 0.785 vs null 0.49 (p=0.0002) but recall 26%; deadline-NO carry AUC 0.854 (p=0.0003) but precision 5.6%: each describes part of the book |
 | Rule profitable in held-out PIT backtest | fail | reviewer FOMC-carry maker proxy on 2026 meetings: mean +13% per meeting over 4 filled meetings, t-test p=0.053, sign test p=0.0625; deadline-NO lost on FIT (-0.10% per market, one total loss) and earned +0.52% per market on TEST with zero losers, which says nothing about tail risk |
 | Replicable on a normal computer and connection | fail | slow resting bids on public information, so technically replicable, but the carry is 0.3-6% per event: a replicator reusing the capital averages about 4% per month on peak capital, below 10% |
-| Conditions still hold now | fail | last 30 days not significant (p=0.16). [last 30 days p=0.16; decline vs earlier p=0.79; last 15 vs prior 15 p=0.81; trend p=1.00] The last month is one lumpy event (the October FOMC). |
+| Conditions still hold now | fail | last 30 days not significant (p=0.18). [last 30 days p=0.18; decline vs earlier p=0.76; last 15 vs prior 15 p=0.78; trend p=1.00] The last month is one lumpy event (the October FOMC). |
 
 ## Key numbers
 
@@ -28,7 +28,7 @@ Profile: https://polymarket.com/profile/0xed107a85a4585a381e48c7f7ca4144909e7dd2
 - Peak capital at risk: $5,708,768
 - Monthly ROC: 4.2%
 - Share of 30-day settled PnL from the October FOMC: about 107%
-- Last-30-day significance: p=0.16
+- Last-30-day significance: p=0.18
 
 ## Why this verdict
 

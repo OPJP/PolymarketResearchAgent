@@ -20,7 +20,7 @@ Profile: https://polymarket.com/profile/0x2005d16a84ceefa912d4e380cd32e7ff827875
 | Reverse-engineered rule matches the wallet | partial | no public rule predicts which fills are RN1's: reviewer own-tape calm AUC 0.531 (p=0.59), sibling-market jumps 0.563 (p=0.12), ESPN time-since-goal 0.547 (p=0.18). It is significantly absent after ESPN-timed soccer goals (6.0% vs 12.9% of touch fills, p=0.0005, 23 of 32 held-out games), but that describes when it is gone, not when it pulls out |
 | Rule profitable in held-out PIT backtest | fail | all families: tape-only two-sided maker on 70 held-out markets -7.8% to -18.9% at 0-30 s (strict), -5.1% to -8.7% at 0-5 s with first-in-queue fills; the wallet's own passive fills there +6.5% (p=0.30); only its profitable families (WTA, ATP, CS2, UCL, La Liga, Serie A, CFB): tape-only two-sided maker on 79 held-out markets -8.3% to -12.8% at 0-30 s (strict), -8.3% to -10.9% at 0-5 s with first-in-queue fills; the wallet's own passive fills there -0.9% (p=0.57); reviewer pause-after-goal maker -2.9% to -5.3% strict, about 0% at-touch (p 0.45-0.82) |
 | Replicable on a normal computer and connection | fail | nearly all its volume is in markets with a 1 s delay on incoming taker orders; RN1 cancels inside that delay, before the public price moves, while other makers' fills right after plays lose heavily: copying it needs a sub-second race or a private data feed |
-| Conditions still hold now | pass | last 30 days p=0.0025; decline vs earlier p=0.41; last 15 vs prior 15 p=0.62; trend p=1.00 |
+| Conditions still hold now | pass | last 30 days p=0.0077; decline vs earlier p=0.42; last 15 vs prior 15 p=0.60; trend p=1.00 |
 
 ## Key numbers
 

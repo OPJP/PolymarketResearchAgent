@@ -20,7 +20,7 @@ All sampled fills are taker fills; median fill about $11. US-league fills lose (
 | Reverse-engineered rule matches the wallet | partial | US leagues (ESPN REACT): direction 59% vs 55% for other takers (perm p=0.005), no excess reaction (p=0.30). Reviewer rules: soccer Over after an ESPN goal hit 38% vs 11% (p=0.001); spreads lagging the moneyline matched on 141 fresh games (p=0.001). Real but narrow signatures |
 | Rule profitable in held-out PIT backtest | fail | REACT(D=10 s, W=120 s) held out +4.6% (47,819 trades, p(profit)=0.25); reviewer rules: soccer goal-react -12.3% (p=0.82), spreads-lag -3.4% to -6.2% on fresh games, win-probability gap +10.1% (p=0.13, five games give all of it); wallet's own fills +8.2% (p=0.19) |
 | Replicable on a normal computer and connection | fail | speed is not the binding constraint, but no public rule reproduces its choice of line and price after a goal, so there is nothing to replicate |
-| Conditions still hold now | pass | last 30 days p=0.004; decline vs earlier p=0.12; last 15 vs prior 15 p=0.67; trend p=0.81. Its last three 30-day blocks were $62k, $24k and $22k after $184k, $237k and $143k; the tests do not call the decline significant, but two of the last three months were below $50k. |
+| Conditions still hold now | pass | last 30 days p=0.011; decline vs earlier p=0.15; last 15 vs prior 15 p=0.65; trend p=0.80. Its last three 30-day blocks were $62k, $24k and $22k after $184k, $237k and $143k; the tests do not call the decline significant, but two of the last three months were below $50k. |
 
 ## Key numbers
 
