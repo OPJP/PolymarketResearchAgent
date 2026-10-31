@@ -1,5 +1,5 @@
 {
- "generated_at": 1793444394,
+ "generated_at": 1793445174,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -171,7 +171,7 @@
     "0x3725d52f3c252e8374999cc8617292ea2608ad88",
     "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed"
    ],
-   "status": "wall",
+   "status": "adjudicated",
    "wall_reason": "diminishing returns (brief): best VALIDATE presence AUC on the clean metric 0.7592 (iteration 1, clean equivalent) -> 0.7634 (iteration 2) -> 0.7634 (iteration 3), +0.004 over the last two iterations, which tried 12 and 12 new families. Structural cap: which BTC 5m windows the cluster trades is an operator schedule with no public correlate (window AUC 0.47-0.58 from tape statistics, taker mix, competitor identity, spot regime, listing fields; oracle on/off ceiling 0.862). Not an information wall on quotes: no lead over Binance 1-s data, and it reprices faster than other makers.",
    "iterations": 3,
    "minutes": 152,
@@ -179,7 +179,117 @@
    "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state; from iteration 2 on the tape excludes every print in a cluster transaction (iteration-1 value 0.7723 was leaky; clean equivalent 0.7592)",
    "best_validate_score": 0.7723,
    "best_rule": "R2-presence-lgbm-clean-path-xwin",
-   "has_final_rule": true
+   "has_final_rule": true,
+   "exam": {
+    "target_met": false,
+    "leakage_passed": true,
+    "criteria": {
+     "match": "partial",
+     "backtest": "fail",
+     "replicable": "fail",
+     "persists": "fail"
+    },
+    "metrics": {
+     "selection_auc": 0.6814996455222433,
+     "selection_auc_strat_global": 0.6855405474698856,
+     "selection_auc_strat_window": 0.6427041186587269,
+     "selection_null_global_mean_sd": [
+      0.6241371573938861,
+      0.003941122093608689
+     ],
+     "selection_null_window_mean_sd": [
+      0.6314701364933245,
+      0.0043004727757695845
+     ],
+     "selection_p": 0.004975124378109453,
+     "selection_z_global": 15.580179608131719,
+     "selection_z_window": 2.612266778829225,
+     "recall": 0.3177434192954862,
+     "lift": 2.567155432227935,
+     "selection_activity_baseline_auc": 0.6558649795480437,
+     "selection_activity_baseline_strat_window": 0.6337048046047857,
+     "selection_activity_baseline_recall_lift": [
+      0.32637920289640027,
+      2.230031054906556
+     ],
+     "presence_auc": 0.6995702764604973,
+     "co_occurrence_baseline": 0.6808999771002039,
+     "presence_gain": 0.018670299360293408,
+     "presence_gain_ci95": [
+      0.01414621882779458,
+      0.02298418860308087
+     ],
+     "presence_auc_ci95": [
+      0.6928162132917873,
+      0.7068480239982509
+     ],
+     "presence_auc_with_own_inventory": 0.7723400247889921,
+     "presence_auc_within_active_windows": 0.7085142990669272,
+     "presence_auc_window_oracle_ceiling": 0.794101335184331,
+     "presence_auc_inputs_delayed_2s": 0.6965439122800098,
+     "presence_auc_forward_day": 0.6904482878045968,
+     "presence_baseline_forward_day": 0.630589727216355,
+     "side_accuracy": 0.6545031958163858,
+     "side_baseline": 0.599535153980244,
+     "side_baseline_name": "mkt_activity_model_higher_p",
+     "side_mcnemar_p": 2.358279593110254e-23,
+     "side_n": 8605,
+     "side_first_30s": 0.7346393588601959,
+     "price_within_tick": 0.688031122392672,
+     "price_exact": 0.3502648714269948,
+     "price_baseline_last_print_within_tick": 0.6093698267299416,
+     "pnl_correlation": 0.29461935227342423,
+     "pnl_correlation_spearman": 0.33401889746801544,
+     "pnl_correlation_strict_backtest_vs_wallet": 0.20329567181186456,
+     "rule_return_strict": -0.12805985781312557,
+     "rule_pnl_strict_usd": -12826.61607910104,
+     "rule_usd_bought": 100161.09886533365,
+     "rule_fills": 11428,
+     "rule_return_t": -7.081073724946064,
+     "rule_return_p": 0.999999999999054,
+     "rule_return_bootstrap_p": 1.0,
+     "rule_forward_day_return": -0.16939008157244342,
+     "rule_forward_day_p": 0.9997923912845695,
+     "rule_return_optimistic_slack0": -0.10643171372861264,
+     "rule_return_at_touch": -0.12577981054737025,
+     "wallet_return": 0.03953599702283506,
+     "wallet_pnl_usd": 28448.49073413695,
+     "wallet_usd": 719559.208730863,
+     "wallet_return_p": 0.005233037518671542,
+     "wallet_forward_day_return": 0.02945202750073831,
+     "cluster_total_pnl_holdout_8d": 61313.63415200001,
+     "cluster_total_pnl_holdout_p": 0.05949880147408335,
+     "wallet_30d_p": {
+      "momoney": 0.007011702992119372,
+      "almach": 0.009006671874682782,
+      "bosona": 0.0023540403196512013
+     },
+     "wallet_late15_decline_p": {
+      "momoney": 0.042689971670629184,
+      "almach": 0.08209066333434734,
+      "bosona": 0.11115604665049685
+     }
+    },
+    "rule_summary": null,
+    "why_it_works": null
+   },
+   "adjudication": {
+    "examiner_criteria": {
+     "match": "partial",
+     "backtest": "fail",
+     "replicable": "fail",
+     "persists": "fail"
+    },
+    "criteria": {
+     "match": "partial",
+     "backtest": "fail",
+     "replicable": "fail",
+     "persists": "fail"
+    },
+    "target_met": false,
+    "deploy_now_supported": false,
+    "refutations": {}
+   }
   },
   {
    "key": "dbdd-inplay-taker",

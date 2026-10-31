@@ -1,0 +1,32 @@
+{
+ "rel_0s": {
+  "n": 60,
+  "mismatch_trunc_T_minus_2": 60,
+  "mismatch_trunc_T": 0
+ },
+ "rel_1s": {
+  "n": 60,
+  "mismatch_trunc_T_minus_2": 60,
+  "mismatch_trunc_T": 0
+ },
+ "rel_2s": {
+  "n": 60,
+  "mismatch_trunc_T_minus_2": 0,
+  "mismatch_trunc_T": 0
+ },
+ "rel_3s": {
+  "n": 60,
+  "mismatch_trunc_T_minus_2": 0,
+  "mismatch_trunc_T": 0
+ },
+ "rel_4s": {
+  "n": 60,
+  "mismatch_trunc_T_minus_2": 0,
+  "mismatch_trunc_T": 0
+ },
+ "rel_5s": {
+  "n": 60,
+  "mismatch_trunc_T_minus_2": 0,
+  "mismatch_trunc_T": 0
+ }
+}

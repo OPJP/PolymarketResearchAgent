@@ -1,0 +1,15 @@
+{
+ "lightgbm": "4.7.0",
+ "n_build": 120960,
+ "build_start_max": 1792108500,
+ "all_path_xwin": {
+  "max_abs_diff": 0.0,
+  "corr": 1.0,
+  "n_trees_frozen": 300
+ },
+ "activity": {
+  "max_abs_diff": 0.0,
+  "corr": 1.0,
+  "n_trees_frozen": 300
+ }
+}

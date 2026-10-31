@@ -1,0 +1,17 @@
+{
+ "examiner_criteria": {
+  "match": "partial",
+  "backtest": "fail",
+  "replicable": "fail",
+  "persists": "fail"
+ },
+ "criteria": {
+  "match": "partial",
+  "backtest": "fail",
+  "replicable": "fail",
+  "persists": "fail"
+ },
+ "target_met": false,
+ "deploy_now_supported": false,
+ "refutations": {}
+}
