@@ -4,7 +4,7 @@
  "stage": "C",
  "verdict": "reject",
  "archetype": "Directional maker on crypto Up/Down windows (three-wallet cluster: bosona, almach, mo-money)",
- "headline": "Rests bids on the side of BTC Up/Down windows it expects to win and gets filled below fair value. Real profit that barely depends on rebates, though it is shrinking, run by what looks like one operator across three wallets. But no public-data rule reproduces which fills it gets, and every public-data maker built from the same data loses money or is insignificant in the same windows.",
+ "headline": "Rests bids on the side of BTC Up/Down windows it expects to win and gets filled below fair value. Real profit that barely depends on rebates, run by what looks like one operator across three wallets. But no public-data rule reproduces which fills it gets, and every public-data maker built from the same data loses money or is insignificant in the same windows.",
  "mechanism": "89% of sampled fills are maker fills on-chain. BTC 5m is 57% and BTC 15m 27% of its volume, the rest hourly, 4h and ETH/SOL windows. Its profit is the directional residual ($96,917, residual win rate 58%); the locked pair spread is -$24,845. Shared transactions in 30 days: 6,876 with bosona, 6,750 with almach; about 80% of its markets are shared with the other two.",
  "criteria": {
   "roc": {
@@ -28,8 +28,8 @@
    "detail": "every public-data maker version is adversely selected at the latencies a normal connection allows (>= 2 s), even with first-in-queue fills; the wallet's edge points to faster prices than public 1-second data and queue priority. Rebates are not the issue: observed taker-rebate tier Gold (18% of fees); 30-day PnL at the 0% tier $81,999, Gold $84,622, Diamond $88,411, Obsidian $89,285"
   },
   "persistence": {
-   "status": "fail",
-   "detail": "significant decline inside the last 30 days, last 15 vs prior 15 (p=0.046). [last 30 days p=0.002; decline vs earlier p=0.83; last 15 vs prior 15 p=0.046; trend p=1.00] Its 30-day blocks fell from $154k to $146k, $110k and $85k; A1 had rejected it only because of dormant weeks before it started trading (fixed)."
+   "status": "pass",
+   "detail": "last 30 days p=0.0066; decline vs earlier p=0.81; last 15 vs prior 15 p=0.076; trend p=1.00. Its 30-day blocks fell from $154k to $146k, $110k and $85k; A1 had rejected it only because of dormant weeks before it started trading (fixed)."
   }
  },
  "key_numbers": {

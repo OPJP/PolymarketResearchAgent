@@ -29,7 +29,7 @@
   },
   "persistence": {
    "status": "fail",
-   "detail": "the current maker strategy has 13 days of history, too short to establish that it persists (stage A1 needs 60 days before the ranking window); the whole-wallet tests pass only by mixing two strategies. last 30 days p=0.013; decline vs earlier p=0.48; last 15 vs prior 15 p=0.90; trend p=0.83"
+   "detail": "the current maker strategy has 13 days of history, too short to establish that it persists (stage A1 needs 60 days before the ranking window); the whole-wallet tests pass only by mixing two strategies. last 30 days p=0.025; decline vs earlier p=0.48; last 15 vs prior 15 p=0.87; trend p=0.81"
   }
  },
  "key_numbers": {

@@ -29,7 +29,7 @@
   },
   "persistence": {
    "status": "pass",
-   "detail": "last 30 days p=3.9e-04; decline vs earlier p=0.40; last 15 vs prior 15 p=0.086; trend p=0.86"
+   "detail": "last 30 days p=0.0022; decline vs earlier p=0.41; last 15 vs prior 15 p=0.12; trend p=0.84"
   }
  },
  "key_numbers": {

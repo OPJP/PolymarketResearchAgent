@@ -29,7 +29,7 @@
   },
   "persistence": {
    "status": "fail",
-   "detail": "significant decline inside the last 30 days, last 15 vs prior 15 (p=5.4e-06). [last 30 days p=7.3e-05; decline vs earlier p=0.40; last 15 vs prior 15 p=5.4e-06; trend p=0.98]"
+   "detail": "significant decline inside the last 30 days, last 15 vs prior 15 (p=6.3e-04). [last 30 days p=7.4e-04; decline vs earlier p=0.41; last 15 vs prior 15 p=6.3e-04; trend p=0.97]"
   }
  },
  "key_numbers": {

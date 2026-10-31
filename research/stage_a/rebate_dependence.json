@@ -34,8 +34,8 @@
    "name": "RN1",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x2005d16a84ceefa912d4e380cd32e7ff827875ea&interval=all&fidelity=1d",
-    "body_sha256": "a4ff3bf5d6b8cccb0532370dd0f27a50c9e8ae561d4765800b2b8b341845dda1",
-    "fetched_at": "2026-10-30T22:10:00+00:00"
+    "body_sha256": "fb971be091910b58daecd82ba88e0e307e1d808dd78747266cca581f90e18ea1",
+    "fetched_at": "2026-10-31T04:33:17+00:00"
    }
   },
   "elmcap2": {
@@ -51,7 +51,7 @@
     "referral_income": 0.0
    },
    "taker_fees_paid": 1284.53431,
-   "observed_taker_rebate_rate_median": 0.07999934143011003,
+   "observed_taker_rebate_rate_median": 0.0799991642485345,
    "observed_tier": "Silver",
    "one_off_payments": [],
    "level_up_bonus_total": 0.0,
@@ -70,8 +70,8 @@
    "name": "elmcap2",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xed107a85a4585a381e48c7f7ca4144909e7dd2e5&interval=all&fidelity=1d",
-    "body_sha256": "896abfcab56f00736586db68ca2ade9277ce24761f081cd92bcbf1725070668f",
-    "fetched_at": "2026-10-30T22:10:08+00:00"
+    "body_sha256": "b3360d3b67f107920f61dc759d1e76f7d802a52669f7aeefb01f8ab1e30a4968",
+    "fetched_at": "2026-10-31T04:33:03+00:00"
    }
   },
   "dangerously-skip-permissions": {
@@ -106,8 +106,8 @@
    "name": "dangerously-skip-permissions",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xc53375ff94e96100f2b30a4b5775db35218d69a9&interval=all&fidelity=1d",
-    "body_sha256": "494b2482d791bd73663668dacbd7ff96b12eed88783034dc1b037210d1b6227b",
-    "fetched_at": "2026-10-30T22:10:12+00:00"
+    "body_sha256": "c1e07477296e3bed51d87780a13e13c84ff42c4dbf36cf0dae7557d20612d1e2",
+    "fetched_at": "2026-10-31T04:36:30+00:00"
    }
   },
   "justaluckydude": {
@@ -142,8 +142,8 @@
    "name": "justaluckydude",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705&interval=all&fidelity=1d",
-    "body_sha256": "46bd74be942c51d6ce16cb48433eb4cb881cbf8f9f06e41cd729f6dfcdaaf461",
-    "fetched_at": "2026-10-30T22:10:12+00:00"
+    "body_sha256": "6fbb5036bb8e643145ef9197549d166d05bc3feb990be66463c0e96a9a8c813a",
+    "fetched_at": "2026-10-31T04:34:30+00:00"
    }
   },
   "x-MoneyForWhiskas": {
@@ -178,8 +178,8 @@
    "name": "x-MoneyForWhiskas",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x3048d65321be3497164cdfc2996f94f98a2e7537&interval=all&fidelity=1d",
-    "body_sha256": "c0fdbe1b92ce1359128689efca944dab5219ee04df9995bb078d8befb70366db",
-    "fetched_at": "2026-10-30T22:10:19+00:00"
+    "body_sha256": "5062cb8097b8cc9388377795fc6be3d742af9bf8350ec3da05d0e769d1f7759d",
+    "fetched_at": "2026-10-31T04:36:02+00:00"
    }
   },
   "0xb55fa1296E6ec55D0cE53d93B9237389f11764d4-1777575277609": {
@@ -225,8 +225,8 @@
    "name": "0xb55fa1296E6ec55D0cE53d93B9237389f11764d4-1777575277609",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xb55fa1296e6ec55d0ce53d93b9237389f11764d4&interval=all&fidelity=1d",
-    "body_sha256": "275e367963bee1e0cc2aca4089d001fb218c584e69e1da39ec8ff16d7a554fa7",
-    "fetched_at": "2026-10-30T22:10:22+00:00"
+    "body_sha256": "424868c80082c1f8e4b811bea4469e2ce00b7a53c32db841caf1e50174f2ac6a",
+    "fetched_at": "2026-10-31T04:38:22+00:00"
    }
   },
   "GoodFallen": {
@@ -261,8 +261,8 @@
    "name": "GoodFallen",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6&interval=all&fidelity=1d",
-    "body_sha256": "7f5f0e96aecd82b91b7ed9258b930243ec8e7c670d844c8ad14ad8862ac34e81",
-    "fetched_at": "2026-10-30T22:10:22+00:00"
+    "body_sha256": "6aa2ed8cdd559eb6c3704c0b5e2bd802e7548e965b73bb7ff65453f499000ebb",
+    "fetched_at": "2026-10-31T04:35:31+00:00"
    }
   },
   "bosona": {
@@ -278,7 +278,7 @@
     "referral_income": 0.0
    },
    "taker_fees_paid": 12306.284940000005,
-   "observed_taker_rebate_rate_median": 0.17999981058401987,
+   "observed_taker_rebate_rate_median": 0.1799997810055121,
    "observed_tier": "Gold",
    "one_off_payments": [],
    "level_up_bonus_total": 0.0,
@@ -297,8 +297,8 @@
    "name": "bosona",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed&interval=all&fidelity=1d",
-    "body_sha256": "75114cba75865894a67b7cf34615dc5b6cd5e132ceac06145e22a470a6ccb8b7",
-    "fetched_at": "2026-10-30T22:10:25+00:00"
+    "body_sha256": "c32f6478d796ea32d46685201aed05eb5b100ea9c96a732a4d083ebf31c8a501",
+    "fetched_at": "2026-10-31T04:36:57+00:00"
    }
   },
   "mo-money": {
@@ -333,8 +333,8 @@
    "name": "mo-money",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x32ed2e546b187ca15e2841edc82b22c713cf8ec3&interval=all&fidelity=1d",
-    "body_sha256": "655aba83c576b6149876bf6a647db493ea2cefbc0628eee0c660c8eb71fc43bf",
-    "fetched_at": "2026-10-30T22:10:26+00:00"
+    "body_sha256": "7577ebf955ff669c7f4751c47578a42390a13336aca304a487d1ed976a51afed",
+    "fetched_at": "2026-10-31T04:32:08+00:00"
    }
   },
   "0xdbdd45150249e229eB4cA8aa48A30Dca21Faa5de-1757094771846": {
@@ -369,8 +369,8 @@
    "name": "0xdbdd45150249e229eB4cA8aa48A30Dca21Faa5de-1757094771846",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xdbdd45150249e229eb4ca8aa48a30dca21faa5de&interval=all&fidelity=1d",
-    "body_sha256": "20daef85046f47acd7537146cbd85f4cf3d5fe3f6fa12bd95998884f8d4138dd",
-    "fetched_at": "2026-10-30T22:10:27+00:00"
+    "body_sha256": "c2e721fa7911b3b209f2436a533cd040e1deb3c8bb611c78073ae0ef442be181",
+    "fetched_at": "2026-10-31T04:34:54+00:00"
    }
   },
   "TommyLeePeeca": {
@@ -386,9 +386,20 @@
     "referral_income": 0.0
    },
    "taker_fees_paid": 54511.60107999999,
-   "observed_taker_rebate_rate_median": 0.4999999099312971,
+   "observed_taker_rebate_rate_median": 0.49999993825340383,
    "observed_tier": "Obsidian",
-   "one_off_payments": [],
+   "one_off_payments": [
+    {
+     "day_index_from_end": 13,
+     "rebate": 867.8433000000077,
+     "excess": 867.8433000000077,
+     "nearest_level_up_bonus": {
+      "tier": "Gold",
+      "usd": 250.0
+     },
+     "matches_bonus": false
+    }
+   ],
    "level_up_bonus_total": 0.0,
    "economic_pnl_recurring": 60278.852306999994,
    "pnl_at_tier": {
@@ -405,8 +416,8 @@
    "name": "TommyLeePeeca",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2&interval=all&fidelity=1d",
-    "body_sha256": "a5a4ea48bd6449a42f7b3008fe6e6acab8756053808d46d29b51392e6eff39d5",
-    "fetched_at": "2026-10-30T22:10:28+00:00"
+    "body_sha256": "c4b85bcacf3975e3c98056bfb791670b990030760c41a12b9363c3543c9ba5ea",
+    "fetched_at": "2026-10-31T04:32:57+00:00"
    }
   },
   "almach": {
@@ -441,8 +452,8 @@
    "name": "almach",
    "source": {
     "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x3725d52f3c252e8374999cc8617292ea2608ad88&interval=all&fidelity=1d",
-    "body_sha256": "9fcc2751167f20f34cb9de6f03caf42c969938956b3500f7d8eb14dc8b8b6988",
-    "fetched_at": "2026-10-30T22:10:30+00:00"
+    "body_sha256": "d991b96e6223d7fb8345c618162b44f1058862d5d455c1b3a6732940c53dc9de",
+    "fetched_at": "2026-10-31T04:37:34+00:00"
    }
   }
  }

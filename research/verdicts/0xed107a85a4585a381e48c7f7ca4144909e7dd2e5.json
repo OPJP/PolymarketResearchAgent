@@ -29,7 +29,7 @@
   },
   "persistence": {
    "status": "fail",
-   "detail": "last 30 days not significant (p=0.16). [last 30 days p=0.16; decline vs earlier p=0.79; last 15 vs prior 15 p=0.81; trend p=1.00] The last month is one lumpy event (the October FOMC)."
+   "detail": "last 30 days not significant (p=0.18). [last 30 days p=0.18; decline vs earlier p=0.76; last 15 vs prior 15 p=0.78; trend p=1.00] The last month is one lumpy event (the October FOMC)."
   }
  },
  "key_numbers": {
@@ -37,7 +37,7 @@
   "Peak capital at risk": "$5,708,768",
   "Monthly ROC": "4.2%",
   "Share of 30-day settled PnL from the October FOMC": "about 107%",
-  "Last-30-day significance": "p=0.16"
+  "Last-30-day significance": "p=0.18"
  },
  "reasons": [
   "Return on capital 4.2% per month on $5,708,768 peak capital at risk; the bar is 10% per month.",

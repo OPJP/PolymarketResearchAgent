@@ -29,7 +29,7 @@
   },
   "persistence": {
    "status": "pass",
-   "detail": "last 30 days p=0.004; decline vs earlier p=0.12; last 15 vs prior 15 p=0.67; trend p=0.81. Its last three 30-day blocks were $62k, $24k and $22k after $184k, $237k and $143k; the tests do not call the decline significant, but two of the last three months were below $50k."
+   "detail": "last 30 days p=0.011; decline vs earlier p=0.15; last 15 vs prior 15 p=0.65; trend p=0.80. Its last three 30-day blocks were $62k, $24k and $22k after $184k, $237k and $143k; the tests do not call the decline significant, but two of the last three months were below $50k."
   }
  },
  "key_numbers": {

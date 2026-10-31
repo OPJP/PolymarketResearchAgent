@@ -7,37 +7,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 3.038729912512079,
-     "p_value": 0.002495721491498178,
+     "p_value": 0.007675464993988588,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 8.75881737269471,
-     "p_value": 2.0675720132854115e-17,
+     "p_value": 8.911971465349826e-15,
      "n": 447,
-     "detail": "lags=5; reference=t"
+     "detail": "lags=5; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -0.21629354649497626,
-     "p_value": 0.4143794695824057,
+     "p_value": 0.42119498096344227,
      "n": 477,
-     "detail": "recent=30243.98 earlier=32541.81"
+     "detail": "recent=30243.98 earlier=32541.81; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.30151461551530984,
-     "p_value": 0.6184889466516982,
+     "p_value": 0.6049679393871673,
      "n": 30,
-     "detail": "recent=33206.36 earlier=27281.59"
+     "detail": "recent=33206.36 earlier=27281.59; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 3.639833582693689,
-     "p_value": 0.9998635928490989,
+     "p_value": 0.9996835030194986,
      "n": 477,
-     "detail": "slope_per_day=80.1"
+     "detail": "slope_per_day=80.1; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -54,37 +54,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 2.7251804330458156,
-     "p_value": 0.005389882095562285,
+     "p_value": 0.013198970914126631,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 8.567983141874878,
-     "p_value": 8.66932945737595e-17,
+     "p_value": 2.5916518045305308e-14,
      "n": 447,
-     "detail": "lags=5; reference=t"
+     "detail": "lags=5; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -0.4232551228419045,
-     "p_value": 0.3360545664610256,
+     "p_value": 0.34892730340048445,
      "n": 477,
-     "detail": "recent=26783.03 earlier=31219.46"
+     "detail": "recent=26783.03 earlier=31219.46; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.272569255982823,
-     "p_value": 0.6074078262441402,
+     "p_value": 0.5951172278342189,
      "n": 30,
-     "detail": "recent=29437.47 earlier=24128.59"
+     "detail": "recent=29437.47 earlier=24128.59; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 3.256041064037915,
-     "p_value": 0.9994351129474097,
+     "p_value": 0.9989663217406004,
      "n": 477,
-     "detail": "slope_per_day=71.31"
+     "detail": "slope_per_day=71.31; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -97,7 +97,53 @@
     "rolling_sharpe_last": 6.6313118932570605,
     "share_positive_windows": 1.0
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 2.221944024387091,
+     "p_value": 0.03073550893753019,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 8.012133871168297,
+     "p_value": 5.428599005522807e-13,
+     "n": 447,
+     "detail": "lags=5; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.6651840479738513,
+     "p_value": 0.271782826720678,
+     "n": 477,
+     "detail": "recent=21584.29 earlier=28464.56; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": 0.179867117087578,
+     "p_value": 0.5631474289465969,
+     "n": 30,
+     "detail": "recent=23322.04 earlier=19846.54; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 2.2474811324965525,
+     "p_value": 0.9847377620587451,
+     "n": 477,
+     "detail": "slope_per_day=49.01; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.6713664201895293,
+     "p_value": 0.007493012996608114,
+     "n": 477,
+     "detail": "most_likely_break_index=168"
+    },
+    "rolling_sharpe_min": 2.2083810926825795,
+    "rolling_sharpe_last": 4.684166456073732,
+    "share_positive_windows": 1.0
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   },
@@ -107,37 +153,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 1.0225200978569098,
-     "p_value": 0.1574946854192753,
+     "p_value": 0.17996739381176993,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 6.2211336236416495,
-     "p_value": 3.3617348632676865e-10,
+     "p_value": 1.2465486510064176e-09,
      "n": 1249,
-     "detail": "lags=7; reference=t"
+     "detail": "lags=7; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": 0.7936366553129809,
-     "p_value": 0.7862965066352792,
+     "p_value": 0.7637999501316285,
      "n": 1279,
-     "detail": "recent=8068.22 earlier=1801.79"
+     "detail": "recent=8068.22 earlier=1801.79; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.8672192690987869,
-     "p_value": 0.807089059812192,
+     "p_value": 0.7759117386282011,
      "n": 30,
-     "detail": "recent=14828.59 earlier=1307.84"
+     "detail": "recent=14828.59 earlier=1307.84; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 4.051883340929345,
-     "p_value": 0.9999745965009894,
+     "p_value": 0.9999520204294658,
      "n": 1279,
-     "detail": "slope_per_day=4.116"
+     "detail": "slope_per_day=4.116; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -154,37 +200,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 0.9668590188959761,
-     "p_value": 0.170804541380621,
+     "p_value": 0.19285901275664408,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 6.041428598450146,
-     "p_value": 1.0065612491892398e-09,
+     "p_value": 3.2844839995054492e-09,
      "n": 1249,
-     "detail": "lags=7; reference=t"
+     "detail": "lags=7; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": 0.7467834821231024,
-     "p_value": 0.7724028660858627,
+     "p_value": 0.7508073341323358,
      "n": 1279,
-     "detail": "recent=7655.86 earlier=1738.72"
+     "detail": "recent=7655.86 earlier=1738.72; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.8749663797510342,
-     "p_value": 0.8092039004561764,
+     "p_value": 0.7778904996814499,
      "n": 30,
-     "detail": "recent=14493.37 earlier=818.35"
+     "detail": "recent=14493.37 earlier=818.35; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 3.7614997255511544,
-     "p_value": 0.9999155511966353,
+     "p_value": 0.99986046151825,
      "n": 1279,
-     "detail": "slope_per_day=3.844"
+     "detail": "slope_per_day=3.844; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -197,7 +243,53 @@
     "rolling_sharpe_last": -3.941541816022389,
     "share_positive_windows": 0.8938547486033519
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 0.9608803714207801,
+     "p_value": 0.19428110316632824,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 6.026106771670061,
+     "p_value": 3.5641448405866395e-09,
+     "n": 1249,
+     "detail": "lags=7; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 0.7416352453904062,
+     "p_value": 0.7493538422734619,
+     "n": 1279,
+     "detail": "recent=7613.04 earlier=1733.21; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": 0.8762244326925759,
+     "p_value": 0.7782107819258944,
+     "n": 30,
+     "detail": "recent=14463.36 earlier=762.72; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 3.7341321864429178,
+     "p_value": 0.9998461447692336,
+     "n": 1279,
+     "detail": "slope_per_day=3.818; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.9788355752140139,
+     "p_value": 0.0007939950849562043,
+     "n": 1279,
+     "detail": "most_likely_break_index=775"
+    },
+    "rolling_sharpe_min": -4.0498051482713375,
+    "rolling_sharpe_last": -4.0498051482713375,
+    "share_positive_windows": 0.8938547486033519
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   },
@@ -207,37 +299,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 8.350189963889905,
-     "p_value": 1.6648144223119547e-09,
+     "p_value": 1.0427458419549195e-06,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 6.136663292385436,
-     "p_value": 1.9817429770293492e-08,
+     "p_value": 7.538596187280339e-07,
      "n": 74,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": 3.2507744729270844,
-     "p_value": 0.999424544424209,
+     "p_value": 0.9973579516884112,
      "n": 104,
-     "detail": "recent=3875.16 earlier=2024.27"
+     "detail": "recent=3875.16 earlier=2024.27; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.09616021919933929,
-     "p_value": 0.5383033375837757,
+     "p_value": 0.5338727736715966,
      "n": 30,
-     "detail": "recent=3919.50 earlier=3830.82"
+     "detail": "recent=3919.50 earlier=3830.82; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 6.07232944710377,
-     "p_value": 0.9999999993696602,
+     "p_value": 0.999995465484406,
      "n": 104,
-     "detail": "slope_per_day=38.97"
+     "detail": "slope_per_day=38.97; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -254,37 +346,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 9.829624657420723,
-     "p_value": 4.866212813616613e-11,
+     "p_value": 1.1525299462589024e-07,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 6.924417032981915,
-     "p_value": 7.190328204972122e-10,
+     "p_value": 8.179208946912261e-08,
      "n": 74,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": 4.141886151860035,
-     "p_value": 0.9999827769336461,
+     "p_value": 0.9996879817176862,
      "n": 104,
-     "detail": "recent=5975.68 earlier=2913.47"
+     "detail": "recent=5975.68 earlier=2913.47; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.3881561727474963,
-     "p_value": 0.6510497677759801,
+     "p_value": 0.6339856001135005,
      "n": 30,
-     "detail": "recent=6210.13 earlier=5741.23"
+     "detail": "recent=6210.13 earlier=5741.23; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 8.403091737736094,
-     "p_value": 1.0,
+     "p_value": 0.9999999833192728,
      "n": 104,
-     "detail": "slope_per_day=61.58"
+     "detail": "slope_per_day=61.58; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -297,7 +389,53 @@
     "rolling_sharpe_last": 36.52804883284205,
     "share_positive_windows": 1.0
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.3642812627286913,
+     "p_value": 0.004339606025004104,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 5.022573187552286,
+     "p_value": 1.6876186941596842e-05,
+     "n": 74,
+     "detail": "lags=3; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 0.8995288953492431,
+     "p_value": 0.7978229723742898,
+     "n": 104,
+     "detail": "recent=1465.33 earlier=1032.12; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.0879105135425318,
+     "p_value": 0.17213396569471523,
+     "n": 30,
+     "detail": "recent=1034.17 earlier=1896.49; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.629567294644384,
+     "p_value": 0.9279908324611865,
+     "n": 104,
+     "detail": "slope_per_day=10.07; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.208936450320548,
+     "p_value": 0.10752165963210202,
+     "n": 104,
+     "detail": "most_likely_break_index=33"
+    },
+    "rolling_sharpe_min": 11.306806125357266,
+    "rolling_sharpe_last": 12.869052436438844,
+    "share_positive_windows": 1.0
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   },
@@ -307,37 +445,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 1.1715506147980002,
-     "p_value": 0.12545669270269386,
+     "p_value": 0.14852626372825256,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 4.824736476390136,
-     "p_value": 1.6631509047785777e-06,
+     "p_value": 9.403976129441574e-06,
      "n": 156,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -1.022149544513703,
-     "p_value": 0.15335506346577504,
+     "p_value": 0.1747519104417786,
      "n": 186,
-     "detail": "recent=4626.81 earlier=9100.35"
+     "detail": "recent=4626.81 earlier=9100.35; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -0.6344988104766323,
-     "p_value": 0.26287767143272145,
+     "p_value": 0.28852437244003765,
      "n": 30,
-     "detail": "recent=2127.82 earlier=7125.79"
+     "detail": "recent=2127.82 earlier=7125.79; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": -2.6537230441834496,
-     "p_value": 0.003980456896555221,
+     "p_value": 0.007653880152559698,
      "n": 186,
-     "detail": "slope_per_day=-72.08"
+     "detail": "slope_per_day=-72.08; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -354,37 +492,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 1.3870916304030154,
-     "p_value": 0.08799162947132141,
+     "p_value": 0.11069322478370591,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 5.270277275266561,
-     "p_value": 2.2485410303762408e-07,
+     "p_value": 2.075255520603153e-06,
      "n": 156,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -1.094343767505573,
-     "p_value": 0.13690211822607334,
+     "p_value": 0.15872933450238774,
      "n": 186,
-     "detail": "recent=5465.27 earlier=10276.18"
+     "detail": "recent=5465.27 earlier=10276.18; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -0.6419091192897107,
-     "p_value": 0.260466096401622,
+     "p_value": 0.286330411054844,
      "n": 30,
-     "detail": "recent=2914.06 earlier=8016.49"
+     "detail": "recent=2914.06 earlier=8016.49; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": -2.5864990153011567,
-     "p_value": 0.004847822371665384,
+     "p_value": 0.008934227674679593,
      "n": 186,
-     "detail": "slope_per_day=-72.15"
+     "detail": "slope_per_day=-72.15; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -397,7 +535,53 @@
     "rolling_sharpe_last": 5.67803582875129,
     "share_positive_windows": 1.0
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 0.946799127448952,
+     "p_value": 0.19765912908623717,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 4.215886255018242,
+     "p_value": 6.851170511061417e-05,
+     "n": 156,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.9980239642220193,
+     "p_value": 0.18034830049260636,
+     "n": 186,
+     "detail": "recent=3773.69 earlier=8199.92; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -0.6126085606796945,
+     "p_value": 0.29505642653088937,
+     "n": 30,
+     "detail": "recent=1340.27 earlier=6207.12; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": -2.9057175520281335,
+     "p_value": 0.004210601421049786,
+     "n": 186,
+     "detail": "slope_per_day=-80.09; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.4562865718610627,
+     "p_value": 0.028770723467998707,
+     "n": 186,
+     "detail": "most_likely_break_index=55"
+    },
+    "rolling_sharpe_min": -0.8037551291440674,
+    "rolling_sharpe_last": 4.187826950361396,
+    "share_positive_windows": 0.9565217391304348
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   },
@@ -407,37 +591,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 4.367441833981605,
-     "p_value": 7.318462458504218e-05,
+     "p_value": 0.0007383159390899779,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 8.175987509915378,
-     "p_value": 2.773794246772426e-13,
+     "p_value": 7.794466111452857e-10,
      "n": 111,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -0.25203017165162617,
-     "p_value": 0.40050887138436114,
+     "p_value": 0.4073312810207764,
      "n": 141,
-     "detail": "recent=2737.16 earlier=2918.94"
+     "detail": "recent=2737.16 earlier=2918.94; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -4.398796574255729,
-     "p_value": 5.44263992250835e-06,
+     "p_value": 0.0006345454955949279,
      "n": 30,
-     "detail": "recent=1261.41 earlier=4212.91"
+     "detail": "recent=1261.41 earlier=4212.91; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 2.135629750144888,
-     "p_value": 0.9836451977373467,
+     "p_value": 0.9736903766374345,
      "n": 141,
-     "detail": "slope_per_day=16.01"
+     "detail": "slope_per_day=16.01; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -454,37 +638,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 3.922956281211877,
-     "p_value": 0.00024648073471538276,
+     "p_value": 0.001618192666981553,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 9.18991894428248,
-     "p_value": 1.402827502812439e-15,
+     "p_value": 3.418898454231557e-11,
      "n": 111,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -0.5572401022374079,
-     "p_value": 0.28868169690879497,
+     "p_value": 0.3026701996604155,
      "n": 141,
-     "detail": "recent=4015.45 earlier=4651.76"
+     "detail": "recent=4015.45 earlier=4651.76; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -5.606879074067053,
-     "p_value": 1.0300374298166354e-08,
+     "p_value": 6.547938866468185e-05,
      "n": 30,
-     "detail": "recent=1517.46 earlier=6513.44"
+     "detail": "recent=1517.46 earlier=6513.44; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 1.7540308407562022,
-     "p_value": 0.960287388631208,
+     "p_value": 0.9462939438175862,
      "n": 141,
-     "detail": "slope_per_day=21.47"
+     "detail": "slope_per_day=21.47; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -497,7 +681,53 @@
     "rolling_sharpe_last": 26.68740877275574,
     "share_positive_windows": 1.0
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 4.3751610697929495,
+     "p_value": 0.0007283483623054209,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 6.268646642358545,
+     "p_value": 2.501703243668192e-07,
+     "n": 111,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -1.0477902040421452,
+     "p_value": 0.16785365427726268,
+     "n": 141,
+     "detail": "recent=959.28 earlier=1272.33; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -0.5562000923564703,
+     "p_value": 0.3122298777377357,
+     "n": 30,
+     "detail": "recent=838.03 earlier=1080.52; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": -0.3398565003793066,
+     "p_value": 0.37455966933311746,
+     "n": 141,
+     "detail": "slope_per_day=-1.086; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.124422306320475,
+     "p_value": 0.1594521306131032,
+     "n": 141,
+     "detail": "most_likely_break_index=84"
+    },
+    "rolling_sharpe_min": 4.786537745637783,
+    "rolling_sharpe_last": 11.99081195401523,
+    "share_positive_windows": 1.0
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   },
@@ -507,37 +737,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 1.8936357632464724,
-     "p_value": 0.03414443990720714,
+     "p_value": 0.052034406938416516,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 4.839716105647943,
-     "p_value": 1.591057472474587e-06,
+     "p_value": 9.425650816311093e-06,
      "n": 152,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -1.3430150575818434,
-     "p_value": 0.08963354909241372,
+     "p_value": 0.11153655698688328,
      "n": 182,
-     "detail": "recent=1878.84 earlier=3533.20"
+     "detail": "recent=1878.84 earlier=3533.20; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.9010159098565756,
-     "p_value": 0.8162100696937793,
+     "p_value": 0.7844623530578545,
      "n": 30,
-     "detail": "recent=2781.86 earlier=975.81"
+     "detail": "recent=2781.86 earlier=975.81; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 0.0853819254278806,
-     "p_value": 0.5340211189479466,
+     "p_value": 0.5324960609629142,
      "n": 182,
-     "detail": "slope_per_day=1.02"
+     "detail": "slope_per_day=1.02; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -554,37 +784,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 4.603481694940975,
-     "p_value": 3.812905743161159e-05,
+     "p_value": 0.00048763362909892824,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 11.754902844227091,
-     "p_value": 2.3058408057919678e-23,
+     "p_value": 7.827643185994691e-18,
      "n": 152,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -4.381591514286757,
-     "p_value": 5.8907769499328684e-06,
+     "p_value": 0.0002704754371916865,
      "n": 182,
-     "detail": "recent=3609.95 earlier=8211.50"
+     "detail": "recent=3609.95 earlier=8211.50; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -0.7754016947597064,
-     "p_value": 0.2190511670021788,
+     "p_value": 0.2483759622851333,
      "n": 30,
-     "detail": "recent=3012.77 earlier=4207.13"
+     "detail": "recent=3012.77 earlier=4207.13; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": -3.0725645187928667,
-     "p_value": 0.0010611397483834203,
+     "p_value": 0.0028369584119581305,
      "n": 182,
-     "detail": "slope_per_day=-35.12"
+     "detail": "slope_per_day=-35.12; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -597,42 +827,88 @@
     "rolling_sharpe_last": 15.136984670608957,
     "share_positive_windows": 1.0
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": -1.8849261803901154,
+     "p_value": 0.947252004604039,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 1.0345877031110597,
+     "p_value": 0.1571437476225113,
+     "n": 152,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -2.138795688715299,
+     "p_value": 0.029905471255445147,
+     "n": 182,
+     "detail": "recent=-1633.13 earlier=619.82; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": 0.40026962482102746,
+     "p_value": 0.637980124471309,
+     "n": 30,
+     "detail": "recent=-1277.83 earlier=-1988.43; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": -1.9369440345475433,
+     "p_value": 0.03570166746452516,
+     "n": 182,
+     "detail": "slope_per_day=-20.12; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.2911658487477649,
+     "p_value": 0.0712816321796766,
+     "n": 182,
+     "detail": "most_likely_break_index=125"
+    },
+    "rolling_sharpe_min": -7.893924879002879,
+    "rolling_sharpe_last": -6.306243447287561,
+    "share_positive_windows": 0.6363636363636364
+   },
    "economic_recurring": {
     "recent": {
      "name": "hac_t",
      "statistic": 1.3781487546178675,
-     "p_value": 0.08934927071378616,
+     "p_value": 0.1120919714603503,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 4.839716105647943,
-     "p_value": 1.591057472474587e-06,
+     "p_value": 9.425650816311093e-06,
      "n": 152,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -2.3815662141314027,
-     "p_value": 0.008619595614740908,
+     "p_value": 0.019067499001228696,
      "n": 182,
-     "detail": "recent=1036.71 earlier=3533.20"
+     "detail": "recent=1036.71 earlier=3533.20; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.07761036963410181,
-     "p_value": 0.5309310032554962,
+     "p_value": 0.5273512993467314,
      "n": 30,
-     "detail": "recent=1097.61 earlier=975.81"
+     "detail": "recent=1097.61 earlier=975.81; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": -0.27720140822701766,
-     "p_value": 0.3908127291880358,
+     "p_value": 0.3956543993585513,
      "n": 182,
-     "detail": "slope_per_day=-3.28"
+     "detail": "slope_per_day=-3.28; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -664,37 +940,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 6.7858824892055924,
-     "p_value": 9.460816458591385e-08,
+     "p_value": 1.2105179716905052e-05,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 4.856372397825482,
-     "p_value": 3.308904853575336e-06,
+     "p_value": 2.668654862876892e-05,
      "n": 74,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": 1.9909771409275385,
-     "p_value": 0.9767582997982579,
+     "p_value": 0.9635117946848305,
      "n": 104,
-     "detail": "recent=2101.96 earlier=1289.63"
+     "detail": "recent=2101.96 earlier=1289.63; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 1.2341663053050846,
-     "p_value": 0.8914295298707073,
+     "p_value": 0.8572308230983638,
      "n": 30,
-     "detail": "recent=2481.52 earlier=1722.39"
+     "detail": "recent=2481.52 earlier=1722.39; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 4.9914645246051075,
-     "p_value": 0.9999997003840508,
+     "p_value": 0.999939978514782,
      "n": 104,
-     "detail": "slope_per_day=24.07"
+     "detail": "slope_per_day=24.07; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -711,37 +987,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 8.480336225979302,
-     "p_value": 1.2061224309674254e-09,
+     "p_value": 8.561293701249123e-07,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 5.333774261059394,
-     "p_value": 5.16749292372046e-07,
+     "p_value": 7.1202951463707576e-06,
      "n": 74,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": 3.0774036411067542,
-     "p_value": 0.9989559383152944,
+     "p_value": 0.9960867740606597,
      "n": 104,
-     "detail": "recent=3297.58 earlier=1736.78"
+     "detail": "recent=3297.58 earlier=1736.78; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.7620690516134537,
-     "p_value": 0.7769906036130746,
+     "p_value": 0.747971203864148,
      "n": 30,
-     "detail": "recent=3602.62 earlier=2992.54"
+     "detail": "recent=3602.62 earlier=2992.54; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 7.051240344172234,
-     "p_value": 0.9999999999991134,
+     "p_value": 0.9999995670675933,
      "n": 104,
-     "detail": "slope_per_day=37.84"
+     "detail": "slope_per_day=37.84; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -754,7 +1030,53 @@
     "rolling_sharpe_last": 28.900596607022134,
     "share_positive_windows": 1.0
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 2.179560124297085,
+     "p_value": 0.03294030754005209,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 4.136960919817976,
+     "p_value": 0.0001879318544229337,
+     "n": 74,
+     "detail": "lags=3; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.21586228405096486,
+     "p_value": 0.4200847266993314,
+     "n": 104,
+     "detail": "recent=690.53 earlier=769.84; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": 0.7720096834687209,
+     "p_value": 0.7506976897310368,
+     "n": 30,
+     "detail": "recent=939.96 earlier=441.09; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.3894944743584143,
+     "p_value": 0.8952802978170392,
+     "n": 104,
+     "detail": "slope_per_day=7.092; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.2649385289444905,
+     "p_value": 0.0815075613084901,
+     "n": 104,
+     "detail": "most_likely_break_index=34"
+    },
+    "rolling_sharpe_min": 5.142414944511262,
+    "rolling_sharpe_last": 5.142414944511262,
+    "share_positive_windows": 1.0
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   },
@@ -764,37 +1086,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 3.7477242251527736,
-     "p_value": 0.0003949991802848943,
+     "p_value": 0.0022059280812708553,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 10.560465464918213,
-     "p_value": 4.669532751713559e-19,
+     "p_value": 1.4023886796877582e-13,
      "n": 119,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -0.2465346239508932,
-     "p_value": 0.4026342026610564,
+     "p_value": 0.40936983642225855,
      "n": 149,
-     "detail": "recent=2944.17 earlier=3151.34"
+     "detail": "recent=2944.17 earlier=3151.34; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -1.3662134881353554,
-     "p_value": 0.08593598258373647,
+     "p_value": 0.11963420912783934,
      "n": 30,
-     "detail": "recent=1988.82 earlier=3899.52"
+     "detail": "recent=1988.82 earlier=3899.52; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 1.0588996658402914,
-     "p_value": 0.8551772617580684,
+     "p_value": 0.8394414901757641,
      "n": 149,
-     "detail": "slope_per_day=7.974"
+     "detail": "slope_per_day=7.974; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -811,37 +1133,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 3.6436229337032855,
-     "p_value": 0.0005214318299149736,
+     "p_value": 0.0026515152307280015,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 10.291255667911962,
-     "p_value": 2.0388345319771058e-18,
+     "p_value": 3.4557189301334684e-13,
      "n": 119,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -0.05037559130859004,
-     "p_value": 0.4799115434992431,
+     "p_value": 0.4813120004092904,
      "n": 149,
-     "detail": "recent=2979.90 earlier=3023.68"
+     "detail": "recent=2979.90 earlier=3023.68; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -1.505920011911725,
-     "p_value": 0.06604385431183361,
+     "p_value": 0.09846080076997106,
      "n": 30,
-     "detail": "recent=1910.78 earlier=4049.03"
+     "detail": "recent=1910.78 earlier=4049.03; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 1.2227857520687286,
-     "p_value": 0.8892946858619295,
+     "p_value": 0.8733175415927306,
      "n": 149,
-     "detail": "slope_per_day=9.278"
+     "detail": "slope_per_day=9.278; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -854,7 +1176,53 @@
     "rolling_sharpe_last": 15.19181572072783,
     "share_positive_windows": 1.0
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.400045542522505,
+     "p_value": 0.004074850514847055,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 9.469084506631017,
+     "p_value": 5.118685924199639e-12,
+     "n": 119,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.1799149003672922,
+     "p_value": 0.4335671091763074,
+     "n": 149,
+     "detail": "recent=2569.69 earlier=2715.13; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.1845617379502573,
+     "p_value": 0.15228044746102273,
+     "n": 30,
+     "detail": "recent=1749.19 earlier=3390.19; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 0.9985680901512188,
+     "p_value": 0.8255176909174403,
+     "n": 149,
+     "detail": "slope_per_day=7.171; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 0.9940132243554806,
+     "p_value": 0.27647258204566044,
+     "n": 149,
+     "detail": "most_likely_break_index=64"
+    },
+    "rolling_sharpe_min": 13.483395940244458,
+    "rolling_sharpe_last": 13.483395940244458,
+    "share_positive_windows": 1.0
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   },
@@ -864,37 +1232,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 3.128038481136084,
-     "p_value": 0.001992607323738596,
+     "p_value": 0.006567834455202794,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 5.726298039684521,
-     "p_value": 1.5535787890338962e-08,
+     "p_value": 1.3391826816330172e-07,
      "n": 237,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": 0.9436956009724955,
-     "p_value": 0.8273373886876885,
+     "p_value": 0.8054061602312029,
      "n": 267,
-     "detail": "recent=2821.28 earlier=1913.59"
+     "detail": "recent=2821.28 earlier=1913.59; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -1.682868858662456,
-     "p_value": 0.04620024064527577,
+     "p_value": 0.07611796402662971,
      "n": 30,
-     "detail": "recent=1582.58 earlier=4059.99"
+     "detail": "recent=1582.58 earlier=4059.99; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 6.560314760566975,
-     "p_value": 0.9999999999731528,
+     "p_value": 0.9999999788803973,
      "n": 267,
-     "detail": "slope_per_day=20.68"
+     "detail": "slope_per_day=20.68; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -911,37 +1279,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 3.0799169013307077,
-     "p_value": 0.0022502658078361183,
+     "p_value": 0.00714363926357822,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 5.728414168211448,
-     "p_value": 1.5366666212864148e-08,
+     "p_value": 1.3277898706907785e-07,
      "n": 237,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": 1.034029121494148,
-     "p_value": 0.8494387253386996,
+     "p_value": 0.8266789398759351,
      "n": 267,
-     "detail": "recent=2893.89 earlier=1865.61"
+     "detail": "recent=2893.89 earlier=1865.61; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -1.8569830601506303,
-     "p_value": 0.03165678209191049,
+     "p_value": 0.05845825716603142,
      "n": 30,
-     "detail": "recent=1509.56 earlier=4278.23"
+     "detail": "recent=1509.56 earlier=4278.23; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 6.532645210481674,
-     "p_value": 0.999999999967691,
+     "p_value": 0.999999976565839,
      "n": 267,
-     "detail": "slope_per_day=20.56"
+     "detail": "slope_per_day=20.56; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -954,7 +1322,53 @@
     "rolling_sharpe_last": 16.04355218970622,
     "share_positive_windows": 0.6176470588235294
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 2.7762822666155724,
+     "p_value": 0.012090479622842782,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 5.6222511580369225,
+     "p_value": 2.0355029256779323e-07,
+     "n": 237,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 0.7895344735936562,
+     "p_value": 0.7652263937877246,
+     "n": 267,
+     "detail": "recent=2408.16 earlier=1683.65; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.4791262746910658,
+     "p_value": 0.10226928262517788,
+     "n": 30,
+     "detail": "recent=1327.10 earlier=3489.23; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 6.082287494559019,
+     "p_value": 0.9999998753941091,
+     "n": 267,
+     "detail": "slope_per_day=17.94; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 3.0439016584325644,
+     "p_value": 1.7916792563040397e-08,
+     "n": 267,
+     "detail": "most_likely_break_index=132"
+    },
+    "rolling_sharpe_min": -3.4075158720271057,
+    "rolling_sharpe_last": 13.836610443165283,
+    "share_positive_windows": 0.5882352941176471
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   },
@@ -964,37 +1378,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 2.8506933543589734,
-     "p_value": 0.003976366486049838,
+     "p_value": 0.010635610655244081,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 5.088389445014694,
-     "p_value": 3.0841820387635304e-07,
+     "p_value": 1.3648531367560429e-06,
      "n": 321,
-     "detail": "lags=5; reference=t"
+     "detail": "lags=5; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -1.164882403284017,
-     "p_value": 0.12203329863251994,
+     "p_value": 0.1464380237215714,
      "n": 351,
-     "detail": "recent=2057.05 earlier=3167.12"
+     "detail": "recent=2057.05 earlier=3167.12; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.4391891413950821,
-     "p_value": 0.6697377537976692,
+     "p_value": 0.6506993488781625,
      "n": 30,
-     "detail": "recent=2378.44 earlier=1735.66"
+     "detail": "recent=2378.44 earlier=1735.66; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 0.8763821883166546,
-     "p_value": 0.8095888509708853,
+     "p_value": 0.8019451691305278,
      "n": 351,
-     "detail": "slope_per_day=3.798"
+     "detail": "slope_per_day=3.798; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -1011,37 +1425,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 3.9953794286510043,
-     "p_value": 0.00020255733031107674,
+     "p_value": 0.0014237159854721291,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 6.150820022572758,
-     "p_value": 1.1491372095554148e-09,
+     "p_value": 1.7047573119253042e-08,
      "n": 321,
-     "detail": "lags=5; reference=t"
+     "detail": "lags=5; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -1.0019732968225001,
-     "p_value": 0.1581782449742642,
+     "p_value": 0.181543156741728,
      "n": 351,
-     "detail": "recent=2936.42 earlier=3910.07"
+     "detail": "recent=2936.42 earlier=3910.07; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.3769975905186099,
-     "p_value": 0.646912302238512,
+     "p_value": 0.6302915790845881,
      "n": 30,
-     "detail": "recent=3220.64 earlier=2652.19"
+     "detail": "recent=3220.64 earlier=2652.19; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 1.7986143017199505,
-     "p_value": 0.9639601432728538,
+     "p_value": 0.9575039685337661,
      "n": 351,
-     "detail": "slope_per_day=8.113"
+     "detail": "slope_per_day=8.113; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -1054,7 +1468,53 @@
     "rolling_sharpe_last": 11.666930751021434,
     "share_positive_windows": 0.9782608695652174
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 2.5688374095508877,
+     "p_value": 0.017229859154512132,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 4.773800207856056,
+     "p_value": 4.6534274185850045e-06,
+     "n": 321,
+     "detail": "lags=5; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -1.1792363610137848,
+     "p_value": 0.14360346150820621,
+     "n": 351,
+     "detail": "recent=1856.26 earlier=2982.76; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": 0.43961915992371553,
+     "p_value": 0.6508388701775559,
+     "n": 30,
+     "detail": "recent=2178.07 earlier=1534.46; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 0.47794060799284194,
+     "p_value": 0.6786570786579912,
+     "n": 351,
+     "detail": "slope_per_day=2.073; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.2245281636579066,
+     "p_value": 0.09966755535462671,
+     "n": 351,
+     "detail": "most_likely_break_index=269"
+    },
+    "rolling_sharpe_min": -3.8907076986036913,
+    "rolling_sharpe_last": 6.393057290847704,
+    "share_positive_windows": 0.9130434782608695
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   },
@@ -1064,37 +1524,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 2.353689068723549,
-     "p_value": 0.012788795156750079,
+     "p_value": 0.024727901966952376,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 4.583718821306246,
-     "p_value": 6.379172670308626e-06,
+     "p_value": 4.301692571362889e-05,
      "n": 105,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -0.060432157576134814,
-     "p_value": 0.47590572370503265,
+     "p_value": 0.4775584787964135,
      "n": 135,
-     "detail": "recent=2009.30 earlier=2067.64"
+     "detail": "recent=2009.30 earlier=2067.64; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 1.3079974992384167,
-     "p_value": 0.9045629212518637,
+     "p_value": 0.870551768350291,
      "n": 30,
-     "detail": "recent=2986.92 earlier=1031.67"
+     "detail": "recent=2986.92 earlier=1031.67; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 0.9543818869849378,
-     "p_value": 0.8300548142936299,
+     "p_value": 0.8128057201414683,
      "n": 135,
-     "detail": "slope_per_day=8.631"
+     "detail": "slope_per_day=8.631; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -1111,37 +1571,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 2.780979625599965,
-     "p_value": 0.004711510924262393,
+     "p_value": 0.011993215490576789,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 4.3769474700141355,
-     "p_value": 1.4360810512868304e-05,
+     "p_value": 7.75065393042867e-05,
      "n": 105,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -0.3346391721247615,
-     "p_value": 0.368948645901511,
+     "p_value": 0.3778045688207602,
      "n": 135,
-     "detail": "recent=2723.38 earlier=3129.12"
+     "detail": "recent=2723.38 earlier=3129.12; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": 0.21149145283693363,
-     "p_value": 0.5837480994846536,
+     "p_value": 0.5741176047320812,
      "n": 30,
-     "detail": "recent=2919.29 earlier=2527.48"
+     "detail": "recent=2919.29 earlier=2527.48; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 0.6584632706668798,
-     "p_value": 0.744879754567652,
+     "p_value": 0.7309015457261255,
      "n": 135,
-     "detail": "slope_per_day=8.001"
+     "detail": "slope_per_day=8.001; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -1154,7 +1614,53 @@
     "rolling_sharpe_last": 14.114822710777503,
     "share_positive_windows": 1.0
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 1.238967965966286,
+     "p_value": 0.13574743268014508,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 4.263740964903481,
+     "p_value": 0.00010669981926440808,
+     "n": 105,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.6577781432998049,
+     "p_value": 0.2711038188015601,
+     "n": 135,
+     "detail": "recent=906.33 earlier=1436.06; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": 2.443962692651091,
+     "p_value": 0.9775130521355433,
+     "n": 30,
+     "detail": "recent=2222.38 earlier=-409.72; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 0.06996641235584918,
+     "p_value": 0.5261792684808722,
+     "n": 135,
+     "detail": "slope_per_day=0.5626; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 0.7760450345992106,
+     "p_value": 0.5835614580137891,
+     "n": 135,
+     "detail": "most_likely_break_index=35"
+    },
+    "rolling_sharpe_min": 3.0243796586737086,
+    "rolling_sharpe_last": 6.465366304388978,
+    "share_positive_windows": 1.0
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   },
@@ -1164,37 +1670,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 2.9145755009566785,
-     "p_value": 0.0033988366155968857,
+     "p_value": 0.009523130462802494,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 8.324250864880486,
-     "p_value": 5.294207779921264e-14,
+     "p_value": 9.956544221738908e-11,
      "n": 130,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -0.5148292352824041,
-     "p_value": 0.3033361770331059,
+     "p_value": 0.3166788204798165,
      "n": 160,
-     "detail": "recent=2406.80 earlier=2867.44"
+     "detail": "recent=2406.80 earlier=2867.44; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -1.3183121003480156,
-     "p_value": 0.09369959596634075,
+     "p_value": 0.1276655859023488,
      "n": 30,
-     "detail": "recent=1460.94 earlier=3352.66"
+     "detail": "recent=1460.94 earlier=3352.66; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 1.6357852635451522,
-     "p_value": 0.9490577313688566,
+     "p_value": 0.9358218964761672,
      "n": 160,
-     "detail": "slope_per_day=13.06"
+     "detail": "slope_per_day=13.06; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -1211,37 +1717,37 @@
     "recent": {
      "name": "hac_t",
      "statistic": 2.861825929056771,
-     "p_value": 0.0038694806864346624,
+     "p_value": 0.010433070180213638,
      "n": 30,
-     "detail": "lags=3; reference=t"
+     "detail": "lags=3; reference=exact"
     },
     "earlier": {
      "name": "hac_t",
      "statistic": 8.260726382429226,
-     "p_value": 7.500829962976226e-14,
+     "p_value": 1.2505112780768762e-10,
      "n": 130,
-     "detail": "lags=4; reference=t"
+     "detail": "lags=4; reference=exact"
     },
     "decline": {
      "name": "mean_decline",
      "statistic": -0.30130702867138287,
-     "p_value": 0.38159019086053,
+     "p_value": 0.3898176773891762,
      "n": 160,
-     "detail": "recent=2465.44 earlier=2743.64"
+     "detail": "recent=2465.44 earlier=2743.64; exact reference"
     },
     "late_decline": {
      "name": "mean_decline",
      "statistic": -1.4353712991591268,
-     "p_value": 0.0755906600491883,
+     "p_value": 0.10874261502725249,
      "n": 30,
-     "detail": "recent=1411.37 earlier=3519.51"
+     "detail": "recent=1411.37 earlier=3519.51; exact reference"
     },
     "trend": {
      "name": "trend",
      "statistic": 1.741918893248272,
-     "p_value": 0.9592386812657213,
+     "p_value": 0.9468485435442799,
      "n": 160,
-     "detail": "slope_per_day=13.69"
+     "detail": "slope_per_day=13.69; exact reference"
     },
     "cusum_break": {
      "name": "cusum",
@@ -1254,7 +1760,53 @@
     "rolling_sharpe_last": 12.852202846177141,
     "share_positive_windows": 1.0
    },
-   "position": null,
+   "position": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 2.541887112660292,
+     "p_value": 0.018034213221737923,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 7.522549430843613,
+     "p_value": 1.6927598723827282e-09,
+     "n": 130,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.508335548968954,
+     "p_value": 0.3188098420404451,
+     "n": 160,
+     "detail": "recent=2029.97 earlier=2468.87; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.1465163016813815,
+     "p_value": 0.159885830007498,
+     "n": 30,
+     "detail": "recent=1213.13 earlier=2846.80; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.525981260636261,
+     "p_value": 0.9225165526788137,
+     "n": 160,
+     "detail": "slope_per_day=11.67; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.3846564273694193,
+     "p_value": 0.043221822687197826,
+     "n": 160,
+     "detail": "most_likely_break_index=32"
+    },
+    "rolling_sharpe_min": 0.7513722947151729,
+    "rolling_sharpe_last": 10.819977279309647,
+    "share_positive_windows": 1.0
+   },
    "economic_recurring": null,
    "bonuses_removed": []
   }
