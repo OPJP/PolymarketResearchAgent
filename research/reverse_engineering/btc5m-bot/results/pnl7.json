@@ -1,0 +1,266 @@
+{
+ "n_fills": 235525,
+ "n_windows": 2016,
+ "orders": 175831,
+ "big_share_of_orders": {
+  "DS": 0.0145,
+  "GF": 0.0837,
+  "XM": 0.1027
+ },
+ "by_wallet": {
+  "DS": {
+   "orders": 110942,
+   "pnl_sum": 1356.3,
+   "pnl_sd_window": 109.83,
+   "corr_pnl_vs_net_x_outcome": [
+    0.8874,
+    0.8976
+   ],
+   "split_half": [
+    -0.0269,
+    0.0362
+   ],
+   "big_vs_total": [
+    0.3458,
+    0.354
+   ],
+   "small_vs_total": [
+    0.8269,
+    0.8444
+   ],
+   "big_share_var": 0.3359,
+   "oracle_30_shares": [
+    0.7749,
+    0.7846
+   ],
+   "oracle_size_class_30_100": [
+    0.8849,
+    0.8809
+   ],
+   "oracle_taker_orders_only_true_size": [
+    0.905,
+    0.8894
+   ]
+  },
+  "GF": {
+   "orders": 52850,
+   "pnl_sum": 1448.8,
+   "pnl_sd_window": 128.49,
+   "corr_pnl_vs_net_x_outcome": [
+    0.9213,
+    0.9343
+   ],
+   "split_half": [
+    0.1367,
+    0.1821
+   ],
+   "big_vs_total": [
+    0.8519,
+    0.7737
+   ],
+   "small_vs_total": [
+    0.1861,
+    0.3081
+   ],
+   "big_share_var": 1.1055,
+   "oracle_30_shares": [
+    0.4008,
+    0.482
+   ],
+   "oracle_size_class_30_100": [
+    0.9079,
+    0.9039
+   ],
+   "oracle_taker_orders_only_true_size": [
+    0.9278,
+    0.9046
+   ]
+  },
+  "XM": {
+   "orders": 12039,
+   "pnl_sum": 1583.5,
+   "pnl_sd_window": 52.59,
+   "corr_pnl_vs_net_x_outcome": [
+    0.9165,
+    0.9155
+   ],
+   "split_half": [
+    -0.0283,
+    -0.0244
+   ],
+   "big_vs_total": [
+    0.727,
+    0.593
+   ],
+   "small_vs_total": [
+    0.4237,
+    0.5048
+   ],
+   "big_share_var": 0.9101,
+   "oracle_30_shares": [
+    0.5407,
+    0.5866
+   ],
+   "oracle_size_class_30_100": [
+    0.8911,
+    0.8661
+   ],
+   "oracle_taker_orders_only_true_size": [
+    0.8505,
+    0.8235
+   ]
+  },
+  "pool": {
+   "orders": 175831,
+   "pnl_sum": 4388.5,
+   "pnl_sd_window": 197.23,
+   "corr_pnl_vs_net_x_outcome": [
+    0.8845,
+    0.9055
+   ],
+   "split_half": [
+    0.1618,
+    0.2514
+   ],
+   "big_vs_total": [
+    0.7007,
+    0.715
+   ],
+   "small_vs_total": [
+    0.3187,
+    0.4218
+   ],
+   "big_share_var": 1.1303,
+   "oracle_30_shares": [
+    0.4094,
+    0.4863
+   ],
+   "oracle_size_class_30_100": [
+    0.8779,
+    0.8694
+   ],
+   "oracle_taker_orders_only_true_size": [
+    0.9066,
+    0.8951
+   ]
+  },
+  "siblings": {
+   "DS-GF": {
+    "big": [
+     0.5527,
+     0.522
+    ],
+    "total": [
+     0.1978,
+     0.2767
+    ]
+   },
+   "DS-XM": {
+    "big": [
+     0.468,
+     0.4725
+    ],
+    "total": [
+     0.0017,
+     0.0213
+    ]
+   },
+   "GF-XM": {
+    "big": [
+     0.4907,
+     0.5027
+    ],
+    "total": [
+     0.1451,
+     0.1645
+    ]
+   }
+  }
+ },
+ "halves": {
+  "h1": {
+   "DS": {
+    "split_half": [
+     -0.0755,
+     0.007
+    ],
+    "oracle_30": [
+     0.7668,
+     0.7928
+    ]
+   },
+   "GF": {
+    "split_half": [
+     0.0198,
+     0.1128
+    ],
+    "oracle_30": [
+     0.341,
+     0.5066
+    ]
+   },
+   "XM": {
+    "split_half": [
+     -0.0288,
+     -0.0191
+    ],
+    "oracle_30": [
+     0.5654,
+     0.6331
+    ]
+   },
+   "pool": {
+    "split_half": [
+     0.021,
+     0.1227
+    ],
+    "oracle_30": [
+     0.4286,
+     0.5214
+    ]
+   }
+  },
+  "h2": {
+   "DS": {
+    "split_half": [
+     0.0236,
+     0.0631
+    ],
+    "oracle_30": [
+     0.7845,
+     0.7772
+    ]
+   },
+   "GF": {
+    "split_half": [
+     0.2363,
+     0.246
+    ],
+    "oracle_30": [
+     0.4416,
+     0.4651
+    ]
+   },
+   "XM": {
+    "split_half": [
+     -0.0276,
+     -0.0307
+    ],
+    "oracle_30": [
+     0.5213,
+     0.5434
+    ]
+   },
+   "pool": {
+    "split_half": [
+     0.2916,
+     0.3733
+    ],
+    "oracle_30": [
+     0.3947,
+     0.453
+    ]
+   }
+  }
+ }
+}

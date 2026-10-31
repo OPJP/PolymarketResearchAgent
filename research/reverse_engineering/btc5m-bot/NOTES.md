@@ -955,3 +955,235 @@ KEY FINDING OF ITERATION 6 (late; X24 strong form, `results_micro_iter6.json`): 
     86% live cannot be aligned; the 100-ms book at the block-second horizon adds +0.5 points. NOT yet wired into
     final_rule.py (evaluate would need to stream the ETH archive for the exam days; book_feats.stream_day has a BTC URL and
     a BTC price-range check): first step of iteration 7, together with the live microprice rule for the future blocks.
+
+### Iteration 7 (2026-10-31 15:57 UTC start, local Windows laptop; PIVOT: the target becomes order overlap, size and exam inputs)
+
+Split and primary metric unchanged (BUILD = 10-09..16, VALIDATE = 10-16..23). Calendar (tools/sealed.py): released lots
+none; development after H = 10-31 00-06 and 12-18 UTC; 10-31 18-24 and 11-01 00-06 are SEALED. The shared recorder runs
+(pid 27184). My rec_lab6 v2 (pid 14304, development blocks only) runs. Other agents' feeds (dm_*, dx_*) were NOT read.
+
+Pivot (iterations 5 and 6 both 0.9132 on the primary metric): from fill presence to (a) the PnL target as an
+order-overlap problem with the size decision as its own unit (X28/X29), (b) a decision-level hazard at matching-engine
+ms on the live unit (D2/X31), (c) recording the decoded rule's inputs through the sealed blocks (X34).
+
+Competing explanations at the start of iteration 7 (what separates them; verdict in the findings):
+- E1 rebate harvester with latency-arb timing: income = 50% taker rebate; trades are near break-even latency takes on
+  perp microprice ticks. Separates: hazard steps up with the tick toward o; trading PnL ~ 0 before rebates.
+- E2 bot-specific fair value (different vol or lag): buys o when ask_o < FV_bot,o - m. Signature: underdog tilt that grows
+  with |p - 0.5| and persists at static prices (vol/shape) or appears only after moves (lag).
+- E3 event-level sizing: the large size is chosen on strong events and shared across wallets. Separates: large-size
+  co-occurrence across wallets above a within-wallet permutation null; P(large | trigger strength) AUC >= 0.75.
+- E4 size is a per-wallet dice (dispatcher ratio): co-occurrence at the null; P(large | features) ~ 0.5.
+- E5 ladder/queue artefacts (burst blocking, copy budget) drive part of the timing and the tilt.
+- E6 remainder lifecycle: GTC remainder with a short TTL vs fill-and-kill vs resting until filled.
+- E7 the microprice tick is a correlate of an unrecorded faster input: side agreement rises monotonically through the
+  match; hazard flat in tick size.
+- E8 the PnL is replicable only through order overlap (split-half ~0), so a replica needs the same orders and sizes.
+
+Data added (iteration 7):
+- EXAM-INPUT RECORDER (X34; `code/rec_exam7.py`, pid 32576, started 10-31 16:03:48 UTC, hard stop 11-02 06:00 UTC, cap
+  300 MB over everything it writes; status `.cache/re/btc5m-bot/rec_exam7.status`): writes in EVERY calendar block through
+  tools/live.py Writer. Sealed blocks are filed into .cache/live/sealed/ by the Writer and are never read, listed or
+  counted by me; the status keeps only the compressed byte position of the process's own file handles (one rounded
+  total, ~7 MB/h) and record counts of development blocks. Feeds: `btc5m_xclob` (Polymarket BTC 5m: Up-token price changes
+  AT the touch with the post-change touch, every last trade with server ms and tx hash, 10-level snapshots every 10 s)
+  and `btc5m_xven` (Binance USD-M and spot bookTicker, OKX bbo-tbt; BTC and ETH; sized top of book coalesced to 30 ms).
+  The same subset is written in development and sealed blocks, so the frozen live rule is developed on exactly the
+  inputs the examiner gets. Sealed blocks covered: 10-31 18-24, 11-01 00-06, 11-01 12-18 (10-31 06-12 is lost).
+- All 2,016 VALIDATE taker tapes re-read from the shared HTTP cache (0.05 s per window; kept only in the session
+  scratchpad, 267 MB, deleted at the end, because .cache/re/btc5m-bot is at 1.4 GB of its 1.5 GB).
+- On-chain cluster fills 10-31 14:50-16:26 (`post/own_1793458200_1793462700.parquet`, `post/own_1793462640_1793464380.parquet`).
+
+Findings (iteration 7):
+1. PNL = ORDER OVERLAP (X28, `pnl7.py`, results/pnl7.json; VALIDATE 2,016 windows, 235,525 fills, 175,831 orders):
+   per-window PnL vs net x outcome r = 0.88-0.93. Split-half of a wallet's own orders (order-hash parity): DS -0.03,
+   GF 0.14, XM -0.03, pool 0.16 (both VALIDATE halves alike): no window-level direction, the PnL is a sum of order-level
+   bets. Big orders (>= 90 filled shares; DS 1.5%, GF 8.4%, XM 10.3% of orders) vs total: DS 0.35, GF 0.85, XM 0.73,
+   pool 0.70; across siblings 0.47-0.55 (totals 0.00-0.20). ORACLE replays of the wallet's own orders: at a fixed 30 shares
+   DS 0.77, GF 0.40, XM 0.54, pool 0.41 / 0.49 (Spearman); at the size class (30 / 100) DS 0.88, GF 0.91, XM 0.89, pool
+   0.88 / 0.87; taker orders only at true size 0.85-0.93. The panel's critique holds: siblings are not a ceiling; the size
+   carries the variance.
+2. STRICT-FILL ORACLE (X28 step 3, `strict7.py`, results/strict7.json; 142,638 taker orders): the wallet's OWN taker
+   decisions (window, outcome, block second s of the first fill, its highest fill price as the limit) through the frozen
+   strict-fill model (fills only against other traders' taker BUY prints on o at <= limit, at the print price):
+
+   | prints window | size | fill share | DS | GF | XM | pool (Pearson / Spearman) |
+   |---|---|---|---|---|---|---|
+   | [s+1, s+3] (latency >= 2 s, frozen) | true | 0.37 | 0.50 | 0.48 | 0.49 | 0.40 / 0.39 |
+   | [s+1, s+3] | 30 | 0.36 | 0.43 | 0.17 | 0.30 | 0.14 / 0.21 |
+   | [s-1, s+1] (same block window) | true | 0.70 | 0.75 | 0.72 | 0.75 | 0.68 / 0.66 |
+   | [s-1, s+1] | 30 | 0.70 | 0.62 | 0.26 | 0.43 | 0.26 / 0.31 |
+   | [s, s+5] | true | 0.74 | 0.75 | 0.75 | 0.76 | 0.70 / 0.69 |
+
+   So the frozen replica's 0.18 equals the ceiling of its own design (30 shares and >= 2 s latency: pool 0.14 / 0.21 with
+   PERFECT decisions). Under the >= 2 s strict-fill model no rule can reach 0.5 pooled even with the wallet's own
+   decisions and sizes (0.40). At the decoded latency (same block window) and the right size class the ceiling is
+   0.66-0.76; with 30-share orders it is 0.26-0.31 pooled. PRE-REGISTERED now, before any new replica is scored: the PnL
+   correlation is reported (a) under the brief's held-out-return convention (latency >= 2 s, prints in [s+1, s+3]) and
+   (b) at the decoded latency (decision at s from information <= s-1, fills against other takers' prints in [s, s+2]);
+   (b) counts toward the target only if the examiner accepts the decoded latency for the correlation condition.
+3. SIZE (X29, `size7.py`, results/size7.json; calldata sample, SIGNED sizes): menus per hour as in iteration 5; large share
+   DS 7.9%, GF 32.9%, XM 13.0%. Co-occurrence: 6,622 pairs of taker-first orders of two wallets on the same token within
+   1 s; both-large rate = 1.68 x independence against a within-(wallet, hour) permutation null of 0.75 (97.5% 0.84;
+   p = 0.0005, 2,000 draws); P(partner large | large) 0.379 vs 0.182 given small: the large size is partly an EVENT-level
+   decision (E3 supported, E4 rejected). But P(large | point-in-time features) is not predictable at the block clock:
+   logistic BUILD -> VALIDATE AUC 0.70, of which wallet identity alone gives 0.66; within wallet 0.44-0.59; single
+   features: signed BTC move over the 2-4 s before 0.563, |move| 0.538, |p - 0.5| 0.483, rel 0.520; large share 13% with
+   no BTC move vs 16-18% with one. Live (14:14-14:48, 173 taker matches with calldata, Saturday): only 3.5% large: too few.
+4. TRIGGER vs CORRELATE (X31, `lag7.py`, results/lag7_*.json). LAG PROFILE of the ten-series microprice vote in 100-ms bins
+   on 14:50-16:05 (695 taker matches, 610 covered): agreement 53-60% at m - 1.5..-0.8 s, 63% at m - 700, 69-70% at
+   m - 600..-400, PEAK 75.3% / 74.4% at [m - 400, m - 200), 69% at [m - 200, m - 100), 64% at [m - 100, m), then 59%
+   (m..m + 100), 52-56% after m + 100 ms and ~50% at m + 300..+1,000 (placebo 45-56% throughout). A trigger profile: the
+   side information sits 200-500 ms BEFORE the match and is gone 100 ms after it (E7's monotonic rise is rejected in
+   100-ms bins; the 1-3 s post-match continuation of iteration 6 was a coarser-window effect). HAZARD on a 100-ms grid of
+   all covered window time (D2; 39,428 points; label = cluster match on o in [t + 100, t + 600)): P(match) by the signed
+   ten-series move toward o over [t - 500, t): 2.3% (|move| < 0.02 bp), 2.2-2.5% for moves AGAINST o, 5.1% (0.02-0.1 bp
+   toward), 5.6% (0.1-0.5), 8.7% (> 0.5 bp); first interval 14:14-14:48 (19,000 points): 1.0%, 0.7-1.9% against, 3.1%,
+   4.7%, 9.4%. AUC of the signed move 0.643 / 0.728 vs market activity (other trades in the last 1 s) 0.692 / 0.607;
+   activity + move (half-split logistic) 0.717 vs 0.695 and 0.677 vs 0.600: the tick adds +0.02 / +0.08 AUC over activity
+   at the decision level. The hazard steps up with the tick toward o: the microprice tick is a trigger (the signature the
+   panel named for "trigger"), with a low base hazard (necessary, not sufficient).
+5. LIVE SIDE, THIRD OUT-OF-SAMPLE INTERVAL (frozen vote, `final_rule._live_vote`, 10-31 16:04-16:25, 273 taker matches,
+   all with match ms): the ten-series vote (v2 feed) covers 84.6% at 75.3% agreement (placebo 73% / 50%); the six-series
+   vote of the exam-input feeds (Binance USD-M + spot, OKX) covers 61.5% at 80.4% (DS 81.8%, GF 75.5%, XM 8/9; placebo 41% /
+   52.7%), identical on the v2 feed (60.4% / 80.6%): the exam recorder reproduces the lab recorder. Agreement of the
+   ten-series vote by interval: 86.4% (14:15-14:47), 83.0% (14:55-15:10), 75.3% (16:04-16:25): it decays; the 80% side bar
+   is not reliably met per decision.
+6. REMAINDERS (X35, `remainder7.py`, results/remainder7.json; calldata sample, 10,967 taker-first orders): 59.4% leave a
+   remainder (median 60% of the size; 30-share 49%, 100-share 84%, 200-share 91%); only 19% of remainders ever fill
+   again, and then within 0 s (median; p75 2 s, p90 3 s) of the taker fill; upper bound of the removal (the first other
+   taker's BUY print on o at <= limit - 1 c after the last fill, which a resting bid would have matched): median 5 s
+   (p25 2 s, p75 15 s, p90 42 s), <= 3 s in 42%, <= 10 s in 69% (485 of 3,298 censored). Decoded: GTC remainders that
+   rest at most a few seconds (refills <= 3 s) and are cancelled (TTL ~2-5 s), not left to rest, and not fill-and-kill
+   (19% get maker fills). Exit component: maker fills are echoes of decisions <= ~3 s old.
+7. UNDERDOG TILT (X30 steps 1-2, `tilt7.py`, results/tilt7.json; 142,638 cluster taker orders, 1.97 M other BUY prints):
+   at |p - 0.5| in [0.3, 0.4) the cluster buys the underdog in 58.3% of small orders and 68.7% of big ones, other takers
+   in 34.8%; near 0.5 (0.02-0.1) 49.2% vs 47.6%. At STATIC prices (Up price moved < 2 c over the previous 30 s) the tilt
+   stays (57.0%, n = 1,881; others 36.5%) and equals the one after moves (58.5%): not a lag or fade effect; a different
+   vol or shape of the bot's FV (wider vol, FV closer to 0.5 than the market) or a ladder/liquidity artefact. Late
+   (240-300 s) small orders near 0.5 lean to the favourite (44.5%). The revealed-preference fit (step 3) is not done.
+
+Code changes: `final_rule.py` gains `_live_vote` (decision-level side on the exam-input feeds; frozen window
+[m - 600, m - 100) ms, tick 0.002 bp, ETH scale 1.235; reported as `side_accuracy_live_decision`) and `_pnl_overlap`
+(diagnostics from the wallet's own fills: split-half, big orders, oracle 30-share and size-class ceilings; never counted
+toward the target). Everything else in the frozen rule is unchanged.
+
+Status after iteration 7: target not reached. Primary metric unchanged (0.9132 all seconds; block seconds 0.8747 vs
+0.8193). What changed: the PnL condition now has a quantitative account (an order-overlap problem; the >= 2 s strict-fill
+model caps even the wallet's own decisions at 0.40 pooled; the size class is required; the large size is event-level but
+not predictable at the block clock); the microprice trigger passed the trigger-vs-correlate test (lag peak 200-500 ms
+before the match, hazard stepping with the tick); remainders are decoded (cancelled within seconds); the decoded rule's
+inputs are now recorded in sealed blocks for a future-block exam.
+
+## Next (iteration 8)
+
+1. Executable size-aware replica at the decoded latency (pre-registered convention (b)): block-second presence + side
+   model + size class; score on VALIDATE against the oracle ceilings of finding 2 (0.66-0.70 pooled).
+2. Size decoder live: touch depth at the match (exam feed snapshots + touch changes) and microprice strength vs the
+   signed size on weekday blocks (11-02 00-06 and 12-18): needs >= 100 large orders.
+3. Hazard model (D2) on the exam-input feeds: a frozen decision-level presence rule for the future-block exam, with the
+   market-activity baseline at the same unit; per-wallet side (XM) per decision.
+4. X30 step 3 (revealed-preference FV with a free vol multiplier and lag) and X32 (burst-time dips per wallet).
+5. Open from before: A4b Kalshi, C4b, X5, X7, X9, X10 (authenticated GitHub search unavailable: no token), X12, X14,
+   X21-X23, X26, X27, X33.
+
+Addendum, iteration 7 (late findings; supersede the Next list above where they differ):
+8. EXECUTABLE REPLICA, first version (X28 step 4, `replica7.py`, results/replica7.json; frozen it4b cell scores, presence
+   per outcome >= 0.30 -> BUY at the last implied ask; one open order per window and outcome): convention (a) (prints
+   [s+1, s+3], busy 3 s) 30 shares pool 0.10 / 0.11, presence-weighted size (100 x p) 0.12 / 0.11; convention (b) (prints
+   [s, s+2], busy 2 s) 30 shares 0.16 / 0.14, presence-weighted 0.18 / 0.16 (DS 0.19, GF 0.12, XM -0.01; $1.04M bought,
+   +0.5% before rebates). Far below the oracle ceilings of finding 2 (0.26-0.31 at 30 shares, 0.66-0.70 at true size):
+   the block-second decisions do not overlap the wallet's orders enough, and the size class is missing.
+9. BLOCK-CLOCK LIMIT PER WALLET (X38, `clock7.py`, results/clock7.json): the same ten-series vote on the same live taker
+   matches at (i) the matching-engine ms, (ii) block ts - 2.0 s (the historical decision clock), (iii) (ii) with a
+   1.6-s window: 14:50-16:04 (695 matches) 79.3% (DS 80.3%, GF 78.0%, XM 72.4% of 29) -> 67.8% (DS 69.9%, GF 66.9%, XM
+   51.5%) -> 70.6%; 16:04-16:25 (273) 75.3% -> 50.2% -> 60.1%. Placing the decision on the block clock costs 11-25 points
+   for every wallet: the sub-second trigger cannot be aligned on h1/h2 (block median 2.17-2.25 s after the match). The
+   historical side model (76.7%) already beats the vote at the block clock; the h1/h2 side ceiling is set by the clock.
+10. XM SIDE IN DECISION UNITS (critique 5 of the panel, X14; `xm_unit7.py`, results/xm_unit7.json; frozen side model
+    psb at the block second of each taker order's first fill, available where the pooled cluster was one-sided):
+    XM per taker order 82.2% (coverage 55.7% of 8,761 orders); per XM one-sided window, first decision 85.8% (coverage
+    72% of 332 windows with a taker order); GF 82.5% / 95.1%; DS 78.6% per order. PRE-REGISTERED unit for the side
+    condition (iteration 7): per taker decision (order), and per one-sided window by its first taker decision; maker
+    remainders belong to the decision that created them. The uncovered seconds (siblings on the other outcome in the
+    same second) are the hard ones, so these are upper bounds until the side model is scored on every taker second.
+11. BURST DIPS (X32 step 1, `burst7.py`, results/burst7.json; VALIDATE taker first fills per block second, 3-s rolling,
+    relative to rel 150-168): around the +172.7 s burst all three wallets dip together (XM 0.74 at block rel 170-172,
+    GF 0.84 at 169-175, DS 0.84-0.90 at 172-178) and spike together at block rel 184-186 (XM 1.53, GF 1.43, DS 1.16),
+    then stay elevated (~1.1-1.3). The dip starts ~3 s BEFORE the burst (decisions ~2 s before the block) and is not
+    staggered in the signing order (XM -> DS -> GF): one process-level pause or ladder swap, not each wallet's signer;
+    the post-burst spike is a synchronized release ~10 s after signing. Weaker at +42 s (XM 0.85-0.87, spike 1.20 at
+    rel 54) and at the next window's burst (rel 207-218: 0.80-0.92). A deterministic schedule term worth a few percent
+    of decisions.
+12. TIER BONUSES (X33 step 1, `tier7.py`, results/tier7.json; TAKER_REBATE rows before H): one-off round rows on each
+    wallet's first days ($10 and $50: GF 07-20 / 07-26, DS 07-19 / 07-21, W4 07-24) and XM $1,500 on 07-15 (DS $170 on 08-11,
+    $2,080 on 09-24, W4 $1,070 on 10-10 are round too): the wallets went through the tier level-up bonuses. The
+    allocation test (10-13 shift vs tier crossings, 30-day volume vs $10M) is not done.
+13. REACTION KERNEL PER SERIES (X41, `kernel7.py`, results/kernel7_1793458200.json; 695 taker matches 14:50-16:04, 50-ms
+    bins over [m - 1000, m + 200), directional excess = moved share x (2 agree - 1) minus placebo): the earliest sharp
+    peak is Binance USD-M BTC at [m - 300, m - 250) (a tick in 14.9% of matches, 87.9% toward the bought side, excess
+    0.110, the largest), then Binance USD-M ETH at m - 300 (13.1%, 80.0%), OKX BTC m - 300 (5.7%, 94.3%), OKX ETH and Bybit
+    ETH m - 350, Bybit BTC m - 400; Hyperliquid peaks later (ETH m - 200, BTC m - 100): it follows Binance and is a
+    correlate. The primary quote stream is the Binance USD-M perps' bookTicker, with ~250-350 ms from the Binance event
+    time to the Polymarket match (clocks agree within ~100 ms, iteration 6).
+14. SIZE vs DEPTH (from finding 6): 84% of 100-share and 91% of 200-share taker orders leave a remainder (30-share 49%),
+    so the large size is NOT chosen when the touch is deep enough to fill it; a depth-capped size rule is rejected
+    historically.
+15. THE LIVE SIDE DECAY IS A REGIME MIX (`vote7.py`, results/vote7.json; three intervals 14:14-14:48, 14:50-16:04,
+    16:04-16:25): side agreement of the frozen ten-series vote by vote strength |vote| (net number of agreeing series) is
+    STABLE: |vote| = 1: 65% / 66% / 64%; 2: 62% / 74% / 71%; 3: 100% (n = 14) / 76% / 84%; 5: 92% / 90% / 94%; >= 6: 95% /
+    97% / 96%; by composite move > 0.5 bp 91% / 88% / 81%, < 0.01 bp 72% / 67% / 65%. What changed is the mix: weak votes
+    (|vote| <= 2) were 22.5%, 42% and 56% of the voted matches. The decoded side rule is stable per decision strength; the
+    80% bar holds in active markets and fails in quiet ones (the quiet decisions are the unexplained part of the side).
+16. SIDE IN DECISION UNITS, FULL COVERAGE (`final_rule.evaluate` now reports `side.decision_units`: the frozen side model
+    at the block second of EVERY taker order's first fill, plus the market-only baseline; three VALIDATE 2-h chunks
+    10-22 22-24, 10-17 12-14, 10-19 18-20): pool 75.3% / 71.9% / 75.8% (market-only 60.1% / 60.9% / 58.3%); GF 79.2% /
+    74.0% / 76.9%; DS 73.3% / 71.5% / 75.3%; XM 78.6% (103) / 65.9% (44) / 75.2% (105), i.e. ~75% over 252 orders; XM
+    one-sided windows by first decision 3/6, 5/8, 2/4 (10/18). Finding 10's 82-86% were upper bounds of the covered subset
+    (pooled one-sided seconds): with every decision scored, the side is ~72-79% per decision at the block clock, below the
+    80% bar for every wallet. The live per-decision rule reaches 90-97% on strong votes (finding 15) but the block clock
+    removes it (finding 9).
+Disk: .cache/re/btc5m-bot was at 1.5 GB after the evaluate runs; three superseded files deleted (val_side_moves_iter4,
+val_side_it4b, val_presence_book; 29 MB) -> 1.4 GB. The largest items are venues/ (523 MB), cells/ (360 MB) and bybit_ob/
+(289 MB); a successor that needs room should drop cells/ of BUILD days only after checking that no training script is
+needed again.
+17. BINANCE-FIRST SIDE RULE (`bnfirst7.py`, results/bnfirst7.json): side = sign of the Binance USD-M microprice composite
+    when it ticked, else the ten-series vote: 84.2% / 78.8% / 77.4% vs the vote 86.3% / 79.3% / 75.3% (chosen on the first
+    two intervals: the vote stays frozen). When Binance USD-M ticked (83% / 53% / 51% of matches) it agrees 86% / 83% / 81%.
+    In weak-vote matches no single recorded series is strongly predictive (Binance USD-M 62-77%, Bybit ETH 56-74%,
+    Hyperliquid 36-76%): the weak-vote decisions are not explained by any recorded series.
+18. PAY-UP ABOVE THE TOUCH (X42 first step, `payup7.py`, results/payup7.json; 11,382 taker orders of the calldata sample):
+    the limit is 0 c above the best consumed ask in 83.2%, +1 c 11.5%, +2 c 2.9%, +3 c 1.2%, >= +4 c 1.2%. Pay-up >= 1 c by
+    size: 30-share 11.6%, 50 19.7%, 60 14.9%, 100 41.7%, 200 37.5%; by wallet GF 27%, XM 16%, DS 12%; by window time 13-15%
+    before 180 s, 21% at 180-240 s, 35% at 240-300 s; by |BTC 1-s move| 15.6% (none) -> 21% (> 2 bp). The large size and
+    the higher ladder level go together (an "aggressive" decision: more size, a sweep of 2-5 levels), more often late in
+    the window; its trigger is not visible at the block clock (as for the size, finding 3).
+
+Iteration 7 end: recorders running (shared pid 27184; rec_lab6 v2 pid 14304; rec_exam7 pid 32576, ~6 MB written so far).
+19. ANNOUNCEMENTS (C4b, A8; fetched 10-31 17:02 UTC): status.polymarket.com/history lists no incident or maintenance in
+    10-01..10-23 (its October entries are 10-27 and 10-29, in the sealed period, not used); docs.polymarket.com/changelog
+    for 09-15..10-31 has nothing on fees, rebates, tiers, rewards, order types, rate limits, the matching engine or the
+    CLOB (entries: 09-15 PolyBolt websocket launched and RTDS marked LEGACY for crypto/TWAP reference prices; 09-28
+    resolution time estimates; 09-29 PolyBolt TWAP channels; 10-02 price.crypto defaults to Chainlink; 10-07 Data API v2;
+    10-21 PolyBolt forex). So the cluster's outages and config changes (10-13 14:10 XM share drop, 10-19 large size
+    50 -> 100) match no announcement (bot-side / operator decisions), and the RTDS legacy status explains why the kept-open
+    RTDS socket sends only its initial snapshot (X21: the streaming replacement, PolyBolt, needs CLOB credentials).
+Limitation of rec_exam7 (for a successor): its `p` records keep only price changes AT the post-change touch, so a touch
+removal (old best level emptied) shows up only with the next change at the new touch or the next trade; the shared
+recorder's clob_crypto keeps the throttled touch as before.
+20. KALSHI (A4b, endpoint verified 10-31 17:05 UTC): api.elections.kalshi.com/trade-api/v2 without a key lists series
+    KXBTC15M (BTC 15 min) and KXBTCD (hourly); /markets?series_ticker=KXBTC15M&min_close_ts&max_close_ts&status=settled
+    returns development-period markets; /markets/trades?ticker=... gives trades with microsecond created_time. The
+    lead-lag test against the bot's decisions is left for iteration 8 (A4b stays open).
+21. WEAK-VOTE DECISIONS (`weak7.py`, results/weak7.json): underdog share by vote strength, 14:50-16:04 / 16:04-16:25:
+    no vote 55% / 67%, |vote| 1-2 41% / 63%, 3-4 45% / 58%, >= 5 54% / 52%; weak votes come later in the window (mean rel
+    142-170 s vs 109-123 s for strong votes). No stable value (underdog) signature in the weak-vote decisions at this n.
+22. SIDE IN DECISION UNITS, SEVEN CHUNKS (supersedes the three-chunk numbers of finding 16; `du_summary7.py`,
+    results/side_decision_units7.json; seven VALIDATE 2-h chunks = 14 h, 13,189 taker orders, every order scored): pool
+    72.7% per order (market-only baseline 59.9%); GF 74.6% (3,712), XM 73.1% (769; baseline 63.9%), DS 71.8% (8,708); XM
+    one-sided windows by first decision 20/29 = 69.0%. The side condition fails for every wallet at the block clock.
+23. KALSHI BTC 15-MINUTE MARKET (A4b, `kalshi7.py`, results/kalshi7.json; 7 KXBTC15M markets, 253,071 trades with
+    microsecond times, 968 cluster taker matches 14:50-16:25): the Kalshi YES price moved (>= 0.5 c) over [m - 600, m - 100)
+    before 46.9% of matches and agreed with the bot's side in 74.0% (placebo 41.6% moved, 48.9% agree); over
+    [m - 2000, m - 100) 57.5% at 67.7% (placebo 49.4% / 49.8%). Kalshi moves with the same underlying ticks but less
+    sharply than the Binance USD-M microprice (87.9% at its peak): a co-follower, not the bot's input (A4b tried).

@@ -618,6 +618,126 @@ def _live_touch(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: i
     return out
 
 
+LIVE_VOTE_FEEDS = ("btc5m_xclob", "btc5m_xven")  # iteration 7: exam-input recorder (code/rec_exam7.py), written in EVERY block
+LIVE_VOTE_WIN_MS = (600, 100)   # iteration 6 (frozen): reaction window [m - 600, m - 100) ms before the matching-engine ms m
+LIVE_TICK_BP = 0.002            # iteration 6 (frozen): a series votes when its microprice moved by more than this (bp)
+ETH_SCALE = 1.235               # iteration 6 (frozen): ETH moves in BTC units
+
+
+def _live_vote(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: int, feeds=LIVE_VOTE_FEEDS, venues=("bf", "bs", "ok")) -> dict | None:
+    """Iteration 7 (side and timing components, decision level; decoded live in iteration 6, replicated in iterations 6-7):
+    the bot submits its pre-signed order for outcome o 100-600 ms after a tick-level MICROPRICE move of the BTC/ETH perps
+    and spot toward o. For every cluster taker fill whose tx hash is in the exam-input recording (btc5m_xclob trade records,
+    matching-engine ms), the rule's side = sign of the vote of the six sized top-of-book series of btc5m_xven (Binance
+    USD-M and spot bookTicker, OKX bbo-tbt; BTC and ETH) over [m - 600, m - 100) ms; abstains when no series moved.
+    Placebo = the same side labels at m +- U(5, 60) s. Returns None where the period has no exam-input recording."""
+    import zlib
+    sys.path.insert(0, _ROOT + "/research/reverse_engineering/tools")
+    try:
+        import live as _live
+    except Exception:
+        return None
+
+    def recs(feed, a, b):
+        hh = int(a // 3600) * 3600
+        while hh < b:
+            try:
+                for r in _live.iter_live(feed, max(a, hh), min(b, hh + 3600), allow_sealed=ALLOW_SEALED):
+                    yield r
+            except (zlib.error, EOFError, OSError):
+                pass
+            hh += 3600
+
+    if not len(fills):
+        return None
+    lo, hi = int(start_ts) - 60, int(end_ts) + 400
+    mt = {}
+    for r in recs(feeds[0], lo, hi):
+        if r.get("k") == "x" and r.get("h"):
+            h = r["h"].lower(); mt[h] = min(mt.get(h, 1e18), r["s"])
+    rows = {}
+    for r in recs(feeds[1], lo, hi):
+        v = r.get("v")
+        if v in venues and r.get("b") and r.get("a"):
+            rows.setdefault((v, r["y"]), []).append((r.get("E") or 0, r["t"], r["b"], r.get("B") or 0, r["a"], r.get("A") or 0))
+    if not mt or not rows:
+        return None
+    f = fills[fills.role == "T"].drop_duplicates(["tx", "wallet", "token"]).copy()
+    f["m"] = f.tx.str.lower().map(mt)
+    f = f[f.m.notna()].sort_values("m")
+    if not len(f):
+        return {"n_taker_matches": 0}
+    m = f.m.to_numpy(np.int64); up = f.is_up.to_numpy(bool)
+    rng = np.random.default_rng(11)
+    pl = m + (rng.choice([-1, 1], len(m)) * rng.uniform(5000, 60000, len(m))).astype(np.int64)
+    off = None
+    if ("bf", "BTC") in rows:
+        x = np.array(rows[("bf", "BTC")], float); off = float(np.median(x[:, 1] - x[:, 0]))
+    Q, Qp, cov = [], [], np.zeros(len(m), bool)
+    for key, lst in sorted(rows.items()):
+        x = np.array(lst, float)
+        T = x[:, 0] if key[0] != "bs" else x[:, 1] - (off or 0)
+        o = np.argsort(T, kind="stable"); x = x[o]; T = T[o].astype(np.int64)
+        mic = (x[:, 2] * x[:, 5] + x[:, 4] * x[:, 3]) / np.maximum(x[:, 3] + x[:, 5], 1e-12)
+        sc = ETH_SCALE if key[1] == "ETH" else 1.0
+
+        def mv(tt):
+            i0 = np.searchsorted(T, tt - LIVE_VOTE_WIN_MS[0], "right") - 1; i1 = np.searchsorted(T, tt - LIVE_VOTE_WIN_MS[1], "right") - 1
+            r = (mic[np.clip(i1, 0, len(mic) - 1)] / mic[np.clip(i0, 0, len(mic) - 1)] - 1) * 1e4 / sc
+            r[(i0 < 0) | (tt < T[0] + 3000) | (tt > T[-1] - 500)] = np.nan
+            return r
+        qa, qb = mv(m), mv(pl)
+        Q.append(qa); Qp.append(qb); cov |= np.isfinite(qa)
+    Q = np.vstack(Q); Qp = np.vstack(Qp)
+    vote = np.nansum(np.sign(Q) * (np.abs(Q) > LIVE_TICK_BP), axis=0); votep = np.nansum(np.sign(Qp) * (np.abs(Qp) > LIVE_TICK_BP), axis=0)
+    k = cov & (vote != 0); kp = cov & (votep != 0)
+    ok = (vote > 0) == up
+    out = {"n_taker_matches": int(len(m)), "series": [f"{a}_{b}" for a, b in sorted(rows)], "covered": int(cov.sum()),
+           "cover": round(float(k.sum() / max(cov.sum(), 1)), 4), "agree_on_voted": round(float(ok[k].mean()), 4) if k.any() else None,
+           "accuracy_all_covered_abstain_half": round(float((ok[k].sum() + 0.5 * (cov & ~k).sum()) / max(cov.sum(), 1)), 4) if cov.any() else None,
+           "placebo_cover": round(float(kp.sum() / max(cov.sum(), 1)), 4), "placebo_agree": round(float(((votep[kp] > 0) == up[kp]).mean()), 4) if kp.any() else None,
+           "by_wallet": {}}
+    wal = f.wallet.to_numpy()
+    for w in ("DS", "GF", "XM"):
+        s = k & (wal == w)
+        if s.any():
+            out["by_wallet"][w] = {"n_voted": int(s.sum()), "agree": round(float(ok[s].mean()), 4)}
+    return out
+
+
+def _pnl_overlap(fills: pd.DataFrame, win: pd.DataFrame) -> dict | None:
+    """Iteration 7 (X28, diagnostics only; uses the wallet's OWN fills, so it never counts toward the target): per-window
+    PnL is a sum of order-level bets (PnL ~ net x outcome); split-half reliability of a wallet's own orders, and the
+    oracle-decision ceilings of a replica that holds the wallet's exact orders at a fixed 30 shares or at its size class
+    (>= 90 filled shares -> 100, else 30)."""
+    if not len(fills):
+        return None
+    f = fills.assign(pay=np.where(fills.is_up, fills.up_payout, 1 - fills.up_payout))
+    f["pnl"] = f.shares * (f.pay - f.price) - f.fee_usd
+    f["usd"] = f.shares * f.price
+    o = f.groupby(["wallet", "oh"], sort=False).agg(cid=("cid", "first"), pay=("pay", "first"), shares=("shares", "sum"), usd=("usd", "sum"),
+                                                    fee=("fee_usd", "sum"), pnl=("pnl", "sum")).reset_index()
+    o["vwap"] = o.usd / o.shares; o["fps"] = o.fee / o.shares; o["big"] = o.shares >= 90
+    o["half"] = o.oh.str[-1].map(lambda c: int(c, 16) % 2)
+    cids = win.cid.to_numpy()
+
+    def pw(df, col):
+        return df.groupby("cid")[col].sum().reindex(cids).fillna(0.0).to_numpy()
+
+    def cc(a, b):
+        return [round(float(np.corrcoef(a, b)[0, 1]), 4), round(float(pd.Series(a).corr(pd.Series(b), method="spearman")), 4)] if np.std(a) > 0 and np.std(b) > 0 else None
+    out = {}
+    for w in ("DS", "GF", "XM", "pool"):
+        x = o if w == "pool" else o[o.wallet == w]
+        if not len(x):
+            continue
+        tot = pw(x, "pnl")
+        x = x.assign(p30=30 * (x.pay - x.vwap - x.fps), pcl=np.where(x.big, 100, 30) * (x.pay - x.vwap - x.fps))
+        out[w] = {"orders": int(len(x)), "big_share": round(float(x.big.mean()), 4), "split_half": cc(pw(x[x.half == 0], "pnl"), pw(x[x.half == 1], "pnl")),
+                  "big_orders_vs_total": cc(pw(x[x.big], "pnl"), tot), "oracle_30_shares": cc(pw(x, "p30"), tot), "oracle_size_class": cc(pw(x, "pcl"), tot)}
+    return out
+
+
 def _b1_ladder(fills: pd.DataFrame, win: pd.DataFrame, n_max: int = B1_SAMPLE_TXS) -> dict | None:
     """Iteration 5 (catalog B1, order generation decoded from V2 calldata): every cluster order is PRE-SIGNED in a burst
     (a ladder over the 1-cent price grid, both outcomes) at three fixed times per window, rel = -89.5 s, +42.4 s and
@@ -814,6 +934,33 @@ def evaluate(start_ts: int, end_ts: int, intervals=None) -> dict:
             if one_w.any():
                 tr_w = up[f"y{w}"].to_numpy()[one_w] == 1
                 sd["by_wallet"][w] = {"n_seconds": int(one_w.sum()), "accuracy_side_model": round(float(((ps[one_w] >= 0.5) == tr_w).mean()), 4)}
+    # iteration 7: side in the pre-registered DECISION units (per taker order at the block second of its first fill; per
+    # one-sided window by its first taker order), every taker order scored (no one-sided-second filter), with the
+    # market-only baseline (presence of the market-activity model, argmax over the two outcomes) on the same orders
+    try:
+        idx = pd.MultiIndex.from_arrays([up.cid.to_numpy(), up.rel.to_numpy().astype(np.int64)])
+        psmap = pd.Series(ps, index=idx); pkmap = pd.Series(up.p_mkt.to_numpy() - dn.p_mkt.to_numpy(), index=idx)
+        fo = fills.groupby(["wallet", "oh"], sort=False).agg(cid=("cid", "first"), rel=("rel", "first"), role0=("role", "first"), is_up=("is_up", "first")).reset_index()
+        fo = fo[(fo.role0 == "T") & (fo.rel >= 0) & (fo.rel < 300)].copy()
+        ii = pd.MultiIndex.from_arrays([fo.cid.to_numpy(), fo.rel.to_numpy().astype(np.int64)])
+        fo["ps"] = psmap.reindex(ii).to_numpy(); fo["pk"] = pkmap.reindex(ii).to_numpy()
+        fo = fo[np.isfinite(fo.ps.to_numpy(float))]
+        sdu = {}
+        for w in ("GF", "XM", "DS", "pool"):
+            x = fo if w == "pool" else fo[fo.wallet == w]
+            if not len(x):
+                continue
+            ws = (fills if w == "pool" else fills[fills.wallet == w]).groupby("cid").is_up.agg(["min", "max"])
+            one = set(ws.index[ws["min"] == ws["max"]])
+            xf = x[x.cid.isin(one)].drop_duplicates("cid")
+            sdu[w] = {"taker_orders": int(len(x)), "accuracy_per_order": round(float(((x.ps >= 0.5) == x.is_up).mean()), 4),
+                      "baseline_market_only_per_order": round(float(((x.pk >= 0) == x.is_up).mean()), 4),
+                      "one_sided_windows": int(len(one)), "n_windows_scored": int(len(xf)),
+                      "accuracy_per_one_sided_window_first_decision": round(float(((xf.ps >= 0.5) == xf.is_up).mean()), 4) if len(xf) else None,
+                      "baseline_market_only_per_window": round(float(((xf.pk >= 0) == xf.is_up).mean()), 4) if len(xf) else None}
+        sd["decision_units"] = sdu
+    except Exception as e:
+        sd["decision_units"] = {"error": repr(e)[:200]}
     out["side"] = sd
     # (c) price: predicted taker price = last implied ask of the outcome from others' prints (<= s-1)
     key = cells.set_index(["cid", "is_up", "rel"])[["ask_o"]]
@@ -915,6 +1062,15 @@ def evaluate(start_ts: int, end_ts: int, intervals=None) -> dict:
     except Exception as e:
         out["order_generation_b1"] = {"error": type(e).__name__}
     out["price"]["calldata_touch"] = (out.get("order_generation_b1") or {}).get("calldata_touch")
+    # iteration 7: decision-level side on the exam-input recording (future blocks), and the PnL overlap diagnostics
+    try:
+        out["side_live_decision"] = _live_vote(fills, win, start_ts, end_ts)
+    except Exception as e:
+        out["side_live_decision"] = {"error": type(e).__name__}
+    try:
+        res_o["pnl_overlap_diagnostics"] = _pnl_overlap(fills, win)
+    except Exception as e:
+        res_o["pnl_overlap_diagnostics"] = {"error": type(e).__name__}
     # coverage: the rule's universe is every BTC 5m window of the period (all cluster fills and PnL are in it)
     one_w = None
     if len(fw):
@@ -937,6 +1093,8 @@ def evaluate(start_ts: int, end_ts: int, intervals=None) -> dict:
         "selection_recall": ((out.get("selection") or {}).get("v3_size_classes", {}).get("at_preregistered_flag_full_or_partial_and_p_ge_0.30") or {}).get("recall"),
         "selection_lift": ((out.get("selection") or {}).get("v3_size_classes", {}).get("at_preregistered_flag_full_or_partial_and_p_ge_0.30") or {}).get("lift"),
         "side_accuracy": sd.get("y", {}).get("accuracy_side_model"), "side_baseline": sd.get("y", {}).get("baseline_market_only_model"),
+        "side_accuracy_live_decision": (out.get("side_live_decision") or {}).get("agree_on_voted"),
+        "side_accuracy_live_decision_abstain_half": (out.get("side_live_decision") or {}).get("accuracy_all_covered_abstain_half"),
         "share_one_sided_windows": one_w,
         "price_within_tick": lb.get("within_1tick_ask_match") if lb.get("within_1tick_ask_match") is not None else (lb.get("within_1tick_ask_lag") if lb.get("within_1tick_ask_lag") is not None else ((out["price"].get("calldata_touch") or {}).get("within_1tick_touch") or out["price"].get("T_within_1tick_of_last_ask"))),
         "price_source": "recorded book 50 ms before the recorded match" if lb.get("within_1tick_ask_match") is not None else ("recorded book (block - DECISION_LAG_S)" if lb.get("within_1tick_ask_lag") is not None else ("touch of the same match from calldata (consumed maker orders; trivial touch anchor, not a PIT forecast)" if (out["price"].get("calldata_touch") or {}).get("within_1tick_touch") is not None else "last implied ask from others' prints")),
