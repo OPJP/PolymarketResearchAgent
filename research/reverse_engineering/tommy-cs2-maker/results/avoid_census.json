@@ -1,0 +1,212 @@
+{
+ "wallet_fak_txs": 1679,
+ "other_far_fak_txs": 69419,
+ "n_makers": 24,
+ "low_ratio": [
+  {
+   "maker": "0xe40ecff63ec661d218a86c048186ac83389a9770",
+   "presence_other_far": 0.0121,
+   "presence_wallet_fak": 0.0006,
+   "ratio": 0.049,
+   "ratio_ci95": [
+    0.0,
+    0.155
+   ],
+   "sig_type": 3,
+   "top_sizes": [
+    50000.0,
+    100000.0,
+    25000.0,
+    150000.0
+   ],
+   "taker_orders": 51,
+   "markets": 24
+  },
+  {
+   "maker": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+   "presence_other_far": 0.0579,
+   "presence_wallet_fak": 0.006,
+   "ratio": 0.103,
+   "ratio_ci95": [
+    0.03,
+    0.202
+   ],
+   "sig_type": 1,
+   "top_sizes": [
+    718.0,
+    690.0,
+    693.0,
+    672.0
+   ],
+   "taker_orders": 866,
+   "markets": 79
+  },
+  {
+   "maker": "0x51dbdd2b19427dc8e88bb15a4046a38d8427f9b3",
+   "presence_other_far": 0.0738,
+   "presence_wallet_fak": 0.0119,
+   "ratio": 0.161,
+   "ratio_ci95": [
+    0.084,
+    0.25
+   ],
+   "sig_type": 1,
+   "top_sizes": [
+    100.0,
+    60.0,
+    300.0,
+    150.0
+   ],
+   "taker_orders": 5,
+   "markets": 136
+  },
+  {
+   "maker": "0xed446954680979932092e970b443e6ae61e34f76",
+   "presence_other_far": 0.0938,
+   "presence_wallet_fak": 0.025,
+   "ratio": 0.267,
+   "ratio_ci95": [
+    0.178,
+    0.357
+   ],
+   "sig_type": 3,
+   "top_sizes": [
+    2040.72,
+    4687.84,
+    1078.61,
+    1538.16
+   ],
+   "taker_orders": 74,
+   "markets": 146
+  }
+ ],
+ "ratio_quantiles": {
+  "0.1": 0.193,
+  "0.25": 0.457,
+  "0.5": 0.796,
+  "0.75": 2.03,
+  "0.9": 4.02
+ },
+ "top30_by_presence": [
+  {
+   "maker": "0x758dac51ba3cc9a246a79787da9df11c5f425d9e",
+   "presence_other_far": 0.1125,
+   "ratio": 0.746
+  },
+  {
+   "maker": "0xed446954680979932092e970b443e6ae61e34f76",
+   "presence_other_far": 0.0938,
+   "ratio": 0.267
+  },
+  {
+   "maker": "0x51dbdd2b19427dc8e88bb15a4046a38d8427f9b3",
+   "presence_other_far": 0.0738,
+   "ratio": 0.161
+  },
+  {
+   "maker": "0xe8e1b119302ae410e77b2af7d7456809007549dd",
+   "presence_other_far": 0.072,
+   "ratio": 0.786
+  },
+  {
+   "maker": "0x6891589732cf8beaaf424b117d5c5c20919f6bb9",
+   "presence_other_far": 0.0614,
+   "ratio": 0.805
+  },
+  {
+   "maker": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+   "presence_other_far": 0.0579,
+   "ratio": 0.103
+  },
+  {
+   "maker": "0x893575c7d99542163c6b6e8a0fe5af0b6d217daa",
+   "presence_other_far": 0.0572,
+   "ratio": 4.178
+  },
+  {
+   "maker": "0xaeb90af434ee5f40544c96086ffb65bb4d3a59f9",
+   "presence_other_far": 0.0557,
+   "ratio": 0.428
+  },
+  {
+   "maker": "0x945a49252f772a10c6ddd1d1e1e24ee20438a48c",
+   "presence_other_far": 0.0433,
+   "ratio": 1.844
+  },
+  {
+   "maker": "0x5d40576be2e9c61d283f4fd80d7a5ccf2331ba95",
+   "presence_other_far": 0.0412,
+   "ratio": 2.59
+  },
+  {
+   "maker": "0x904ed7c7820a434ea9b11e7333ed69190d850bec",
+   "presence_other_far": 0.0212,
+   "ratio": 5.217
+  },
+  {
+   "maker": "0xddc38b82423310f5bbf2e2dc58745661a624029c",
+   "presence_other_far": 0.0199,
+   "ratio": 0.48
+  },
+  {
+   "maker": "0xf1f2b3c6c5bea42a6664fe3a8395addc1ab28c8d",
+   "presence_other_far": 0.0191,
+   "ratio": 0.467
+  },
+  {
+   "maker": "0x299f1e05b122ddda46e4199093f05234f3732c50",
+   "presence_other_far": 0.0161,
+   "ratio": 4.45
+  },
+  {
+   "maker": "0x4609338471bd663f5be86a135cc677b1211f17a7",
+   "presence_other_far": 0.016,
+   "ratio": 1.418
+  },
+  {
+   "maker": "0xd9e0aaca471f489be338fd0f91a26e8669a805f2",
+   "presence_other_far": 0.0148,
+   "ratio": 0.484
+  },
+  {
+   "maker": "0xfe787d2da716d60e8acff57fb87eb13cd4d10319",
+   "presence_other_far": 0.013,
+   "ratio": 1.192
+  },
+  {
+   "maker": "0xe40ecff63ec661d218a86c048186ac83389a9770",
+   "presence_other_far": 0.0121,
+   "ratio": 0.049
+  },
+  {
+   "maker": "0x5cb5352d8dee083ffce1bc07f1e61ae56933f165",
+   "presence_other_far": 0.0106,
+   "ratio": 1.067
+  },
+  {
+   "maker": "0x45f82472a88f759f8a98174d3cdd3db4a9ee6d79",
+   "presence_other_far": 0.0104,
+   "ratio": 3.65
+  },
+  {
+   "maker": "0x6d8c0f6bfce11d44ed1dad940c7c32a646dd8f84",
+   "presence_other_far": 0.0104,
+   "ratio": 1.438
+  },
+  {
+   "maker": "0x72aaaaf9f6b0286e390de5b568af0f99a00c90e0",
+   "presence_other_far": 0.0103,
+   "ratio": 0.751
+  },
+  {
+   "maker": "0xc4fe817476491890086330a639ac417d51bf601f",
+   "presence_other_far": 0.0103,
+   "ratio": 3.417
+  },
+  {
+   "maker": "0xa24e51e917d3f844b972e9bccfa6bc2e04621be8",
+   "presence_other_far": 0.0102,
+   "ratio": 0.409
+  }
+ ]
+}

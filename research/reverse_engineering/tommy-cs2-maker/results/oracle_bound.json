@@ -1,0 +1,98 @@
+{
+ "base_public_D4_L5": {
+  "BUILD": {
+   "pnl": -10242.0,
+   "margin": 5060.0,
+   "resid": -15302.0,
+   "pair_cost_w": 0.9632,
+   "corr_pnl_vs_wallet": [
+    0.106,
+    0.106,
+    113
+   ]
+  },
+  "VALIDATE": {
+   "pnl": -9902.0,
+   "margin": 5615.0,
+   "resid": -15516.0,
+   "pair_cost_w": 0.9655,
+   "corr_pnl_vs_wallet": [
+    0.09,
+    0.006,
+    116
+   ]
+  }
+ },
+ "O1_oracle_pull": {
+  "BUILD": {
+   "pnl": -9840.0,
+   "margin": 4907.0,
+   "resid": -14748.0,
+   "pair_cost_w": 0.9638,
+   "corr_pnl_vs_wallet": [
+    0.101,
+    0.078,
+    113
+   ]
+  },
+  "VALIDATE": {
+   "pnl": -9775.0,
+   "margin": 5731.0,
+   "resid": -15506.0,
+   "pair_cost_w": 0.9646,
+   "corr_pnl_vs_wallet": [
+    0.093,
+    0.017,
+    116
+   ]
+  }
+ },
+ "O2_oracle_pull_repair": {
+  "BUILD": {
+   "pnl": -8729.0,
+   "margin": 5773.0,
+   "resid": -14502.0,
+   "pair_cost_w": 0.9561,
+   "corr_pnl_vs_wallet": [
+    0.176,
+    0.125,
+    113
+   ]
+  },
+  "VALIDATE": {
+   "pnl": -8413.0,
+   "margin": 7611.0,
+   "resid": -16024.0,
+   "pair_cost_w": 0.9516,
+   "corr_pnl_vs_wallet": [
+    0.262,
+    0.134,
+    116
+   ]
+  }
+ },
+ "O3_plus_wallet_take_fills": {
+  "BUILD": {
+   "pnl": -3432.0,
+   "margin": 10132.0,
+   "resid": -13563.0,
+   "pair_cost_w": 0.9484,
+   "corr_pnl_vs_wallet": [
+    0.555,
+    0.26,
+    113
+   ]
+  },
+  "VALIDATE": {
+   "pnl": -4462.0,
+   "margin": 10978.0,
+   "resid": -15440.0,
+   "pair_cost_w": 0.9506,
+   "corr_pnl_vs_wallet": [
+    0.237,
+    0.243,
+    116
+   ]
+  }
+ }
+}

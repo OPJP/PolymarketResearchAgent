@@ -1,0 +1,110 @@
+{
+ "pre_switch_10_12_to_10_15_tier3_StakePulse_PGL_NODWIN_sample": {
+  "txs": 1597,
+  "0x51dbdd2b": {
+   "filled_orders": 97,
+   "tx_presence": 0.0589,
+   "share_signed_after_taker": 0.237,
+   "late_offset_ms_p10_p50_p90": [
+    216.0,
+    727.0,
+    947.0
+   ],
+   "n_late": 23
+  },
+  "0xed446954": {
+   "filled_orders": 145,
+   "tx_presence": 0.0908,
+   "share_signed_after_taker": 0.124,
+   "late_offset_ms_p10_p50_p90": [
+    66.0,
+    472.0,
+    733.0
+   ],
+   "n_late": 18
+  },
+  "0x2005d16a": {
+   "filled_orders": 121,
+   "tx_presence": 0.0701,
+   "share_signed_after_taker": 0.099,
+   "late_offset_ms_p10_p50_p90": [
+    126.0,
+    674.0,
+    958.0
+   ],
+   "n_late": 12
+  },
+  "0xe40ecff6": {
+   "filled_orders": 13,
+   "tx_presence": 0.0081,
+   "share_signed_after_taker": 0.0,
+   "late_offset_ms_p10_p50_p90": null,
+   "n_late": 0
+  },
+  "all makers": {
+   "filled_orders": 3624,
+   "tx_presence": 1.0,
+   "share_signed_after_taker": 0.167,
+   "late_offset_ms_p10_p50_p90": [
+    162.0,
+    665.0,
+    998.0
+   ],
+   "n_late": 604
+  }
+ },
+ "maker_regime_16_22_public_txs": {
+  "txs": 79153,
+  "0x51dbdd2b": {
+   "filled_orders": 5424,
+   "tx_presence": 0.0673,
+   "share_signed_after_taker": 0.178,
+   "late_offset_ms_p10_p50_p90": [
+    136.0,
+    668.0,
+    984.0
+   ],
+   "n_late": 966
+  },
+  "0xed446954": {
+   "filled_orders": 6949,
+   "tx_presence": 0.0878,
+   "share_signed_after_taker": 0.18,
+   "late_offset_ms_p10_p50_p90": [
+    155.0,
+    591.0,
+    969.0
+   ],
+   "n_late": 1249
+  },
+  "0x2005d16a": {
+   "filled_orders": 4314,
+   "tx_presence": 0.0518,
+   "share_signed_after_taker": 0.1,
+   "late_offset_ms_p10_p50_p90": [
+    52.0,
+    608.0,
+    960.0
+   ],
+   "n_late": 430
+  },
+  "0xe40ecff6": {
+   "filled_orders": 1889,
+   "tx_presence": 0.0239,
+   "share_signed_after_taker": 0.001,
+   "late_offset_ms_p10_p50_p90": null,
+   "n_late": 2
+  },
+  "all makers": {
+   "filled_orders": 146892,
+   "tx_presence": 1.0,
+   "share_signed_after_taker": 0.165,
+   "late_offset_ms_p10_p50_p90": [
+    148.0,
+    618.0,
+    977.0
+   ],
+   "n_late": 24198
+  }
+ }
+}

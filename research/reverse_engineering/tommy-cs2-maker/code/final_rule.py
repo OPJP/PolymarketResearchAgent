@@ -1,4 +1,5 @@
-"""tommy-cs2-maker frozen rule v3 (`tommy-v3-grid-league-upstream`, iteration 3, 2026-10-31).
+"""tommy-cs2-maker frozen rule v3 (`tommy-v3-grid-league-upstream`, iteration 3, 2026-10-31; unchanged and re-checked in
+iterations 4 and 5: no candidate beat it on VALIDATE; see FINAL_RULE.md and NOTES.md iteration 5).
 
 Selection constants are unchanged from v2 (final_rule_v2_constants.json):
   "build": fitted on BUILD (gameStart 2026-10-16 .. 10-21), used for the VALIDATE numbers in state.json;

@@ -1,0 +1,70 @@
+{
+ "n": {
+  "VALIDATE": 12129,
+  "BUILD": 10597
+ },
+ "share_100": {
+  "BUILD": 0.921,
+  "VALIDATE": 0.883
+ },
+ "own_pairs": {
+  "a": 110.031,
+  "b": 0.08649098439300634,
+  "BUILD": {
+   "exact": 0.9207,
+   "within1": 0.9207,
+   "non100_exact": 0.0,
+   "non100_within1": 0.0,
+   "always100_exact": 0.9207
+  },
+  "VALIDATE": {
+   "exact": 0.8826,
+   "within1": 0.8873,
+   "non100_exact": 0.0,
+   "non100_within1": 0.04,
+   "always100_exact": 0.8826
+  }
+ },
+ "pub_usd": {
+  "a": 81.146,
+  "b": 0.02194379940567921,
+  "BUILD": {
+   "exact": 0.8874,
+   "within1": 0.8919,
+   "non100_exact": 0.0095,
+   "non100_within1": 0.0298,
+   "always100_exact": 0.9207
+  },
+  "VALIDATE": {
+   "exact": 0.8603,
+   "within1": 0.8657,
+   "non100_exact": 0.0,
+   "non100_within1": 0.04,
+   "always100_exact": 0.8826
+  }
+ },
+ "elapsed": {
+  "a": 391.016,
+  "b": 4.817059447830182,
+  "BUILD": {
+   "exact": 0.9208,
+   "within1": 0.9208,
+   "non100_exact": 0.0024,
+   "non100_within1": 0.0024,
+   "always100_exact": 0.9207
+  },
+  "VALIDATE": {
+   "exact": 0.8821,
+   "within1": 0.8868,
+   "non100_exact": 0.0,
+   "non100_within1": 0.04,
+   "always100_exact": 0.8826
+  }
+ },
+ "start_size_spearman_pre_usd": 0.549,
+ "start_below_100_share": 0.364,
+ "start_size_median_pre_usd_below_vs_at_100": [
+  1166.0,
+  8137.0
+ ]
+}

@@ -1,0 +1,11 @@
+{
+ "probes": 153,
+ "agreement": 0.9085,
+ "confusion": {
+  "probe0_live0": 95,
+  "probe0_live1": 6,
+  "probe1_live0": 8,
+  "probe1_live1": 44
+ },
+ "base_rate_probe": 0.34
+}

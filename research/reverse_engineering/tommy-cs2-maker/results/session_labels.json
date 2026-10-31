@@ -1,0 +1,222 @@
+{
+ "operating_windows": {
+  "10-16": {
+   "first": "13:38",
+   "last": "18:51",
+   "gaps_over_30min": []
+  },
+  "10-17": {
+   "first": "08:05",
+   "last": "20:17",
+   "gaps_over_30min": [
+    [
+     "16:43",
+     "17:22"
+    ]
+   ]
+  },
+  "10-18": {
+   "first": "14:00",
+   "last": "16:44",
+   "gaps_over_30min": []
+  },
+  "10-19": {
+   "first": "08:04",
+   "last": "21:56",
+   "gaps_over_30min": []
+  },
+  "10-20": {
+   "first": "09:01",
+   "last": "20:11",
+   "gaps_over_30min": []
+  },
+  "10-21": {
+   "first": "08:04",
+   "last": "23:25",
+   "gaps_over_30min": []
+  },
+  "10-22": {
+   "first": "08:10",
+   "last": "23:15",
+   "gaps_over_30min": [
+    [
+     "10:01",
+     "11:00"
+    ]
+   ]
+  }
+ },
+ "build_out_of_session_skips": 64,
+ "build_out_of_session_traded": 1,
+ "validate_out_of_session_skips": 5,
+ "build_events": 256,
+ "validate_events": 128,
+ "frozen_recipe_build_all": {
+  "val_all": {
+   "n": 128,
+   "traded": 36,
+   "auc": 0.9574,
+   "baseline": 0.8967,
+   "recall": 0.75,
+   "lift": 3.31,
+   "auc_within_nongrid": 0.9419,
+   "baseline_within_nongrid": 0.8992,
+   "gain": 0.0607,
+   "gain_ci95": [
+    0.0178,
+    0.1114
+   ],
+   "gain_p_le0": 0.002
+  }
+ },
+ "session_clean_build": {
+  "val_all": {
+   "n": 128,
+   "traded": 36,
+   "auc": 0.9586,
+   "baseline": 0.8964,
+   "recall": 0.778,
+   "lift": 3.319,
+   "auc_within_nongrid": 0.9424,
+   "baseline_within_nongrid": 0.8992,
+   "gain": 0.0622,
+   "gain_ci95": [
+    0.0192,
+    0.1131
+   ],
+   "gain_p_le0": 0.002
+  },
+  "val_in_session": {
+   "n": 123,
+   "traded": 36,
+   "auc": 0.9607,
+   "baseline": 0.9077,
+   "recall": 0.778,
+   "lift": 3.189,
+   "auc_within_nongrid": 0.9444,
+   "baseline_within_nongrid": 0.9192,
+   "gain": 0.053,
+   "gain_ci95": [
+    0.011,
+    0.1037
+   ],
+   "gain_p_le0": 0.0045
+  }
+ },
+ "frozen_league_rates": {
+  "Stake Pulse": 0.784,
+  "PGL": 0.727,
+  "NODWIN Clutch Series": 0.281,
+  "DraculaN": 0.385,
+  "Stake Ranked": 0.511
+ },
+ "frozen_per_day": {
+  "10-21": {
+   "n": 69,
+   "traded": 22,
+   "auc": 0.9662,
+   "baseline": 0.9323,
+   "recall": 0.773,
+   "lift": 2.962,
+   "auc_within_nongrid": 0.9451,
+   "baseline_within_nongrid": 0.9169,
+   "gain": 0.0339,
+   "gain_ci95": [
+    -0.0118,
+    0.0917
+   ],
+   "gain_p_le0": 0.0785
+  },
+  "10-22": {
+   "n": 59,
+   "traded": 14,
+   "auc": 0.9365,
+   "baseline": 0.8508,
+   "recall": 0.714,
+   "lift": 3.831,
+   "auc_within_nongrid": 0.9368,
+   "baseline_within_nongrid": 0.8723,
+   "gain": 0.0857,
+   "gain_ci95": [
+    -0.0021,
+    0.2004
+   ],
+   "gain_p_le0": 0.0325
+  }
+ },
+ "clean_league_rates": {
+  "Stake Pulse": 1.0,
+  "PGL": 0.857,
+  "NODWIN Clutch Series": 0.429,
+  "DraculaN": 0.395,
+  "Stake Ranked": 0.545
+ },
+ "clean_per_day": {
+  "10-21": {
+   "n": 69,
+   "traded": 22,
+   "auc": 0.9671,
+   "baseline": 0.9333,
+   "recall": 0.818,
+   "lift": 2.971,
+   "auc_within_nongrid": 0.9467,
+   "baseline_within_nongrid": 0.9185,
+   "gain": 0.0338,
+   "gain_ci95": [
+    -0.0118,
+    0.0905
+   ],
+   "gain_p_le0": 0.075
+  },
+  "10-22": {
+   "n": 59,
+   "traded": 14,
+   "auc": 0.9429,
+   "baseline": 0.8492,
+   "recall": 0.714,
+   "lift": 3.831,
+   "auc_within_nongrid": 0.9396,
+   "baseline_within_nongrid": 0.8695,
+   "gain": 0.0937,
+   "gain_ci95": [
+    0.0014,
+    0.21
+   ],
+   "gain_p_le0": 0.0245
+  }
+ },
+ "sensitivity_3h_session_one_day": {
+  "10-21": {
+   "n": 128,
+   "traded": 21,
+   "auc": 0.8923,
+   "baseline": 0.8166,
+   "recall": 0.762,
+   "lift": 3.251,
+   "auc_within_nongrid": 0.8497,
+   "baseline_within_nongrid": 0.7935,
+   "gain": 0.0757,
+   "gain_ci95": [
+    0.0132,
+    0.145
+   ],
+   "gain_p_le0": 0.0065
+  },
+  "10-22": {
+   "n": 128,
+   "traded": 28,
+   "auc": 0.9489,
+   "baseline": 0.9093,
+   "recall": 0.857,
+   "lift": 3.657,
+   "auc_within_nongrid": 0.9201,
+   "baseline_within_nongrid": 0.8906,
+   "gain": 0.0396,
+   "gain_ci95": [
+    0.0112,
+    0.0761
+   ],
+   "gain_p_le0": 0.002
+  }
+ }
+}

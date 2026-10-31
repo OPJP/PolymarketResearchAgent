@@ -1237,3 +1237,331 @@ paths, slow UI takers as a broadcast clock), and records the X items that need t
 - Recorders: shared recorder OK (18:48); own `tommy_cs2_near`, `tommy_dota_live`, `tommy_cs2_rounds` (idle in sealed
   blocks) and `tommy_chat` (idle in sealed blocks) are running, all with hard stop 11-03 00:00 UTC.
 - Time used: about 81 minutes (17:29-18:50 UTC).
+
+---
+
+# Iteration 5 (2026-10-31, started 19:21 UTC; 302 of 1200 budget minutes used before it)
+
+Read first: NOTES (iterations 1-4), state.json, FINAL_RULE.md, panels/iter4_{information,mechanics,assumptions}.md. No
+EXAM or wall-audit files. Calendar: no released lots; the current block 10-31 18-24 UTC is SEALED (no new development
+live data arrives during this iteration; the next development block is 11-01 06-12). Shared recorder status OK at 19:24
+(pid 27184). The 15 iteration-4 panel proposals and two panel critiques are catalog items X53-X69 (mapping in
+state.json). The primary metric was unchanged for two iterations, so this iteration pivots the unit of decision: from
+fill bins to (a) uncensored quote probes (fully consumed sweep levels), (b) a validated order-level fill engine, and (c) a
+survivorship-free census of informed bursts.
+
+## Competing explanations (iteration 5) and the observation that separates them
+1. **W1 one shared vendor feed, several subscribers.** The wallet is one of several fast makers / takers on a pushed
+   in-round source; its selection is the vendor's coverage. Separator: other makers avoid its FAKs (low presence ratio)
+   and some act inside its 11-14 ms pre-pull window; nothing leaks from the delay queue.
+2. **W2 delay-queue leak.** Pending (1-s delayed) taker orders become visible to some makers, so fast cancels are
+   reactions to pending orders, not to a shared source. Separator: cancels right after the ARRIVAL of any pending order,
+   uninformed retail included.
+3. **W3 partial detector.** Its input covers only some in-round event types (or is slower on others); at the rest it is
+   blind and its ladder is picked off. Separator: the share of informed 3c+ bursts it misses, its stale hits there, and
+   whether the missed and the led bursts load on different game-event types.
+4. **W4 the maker margin is a public ladder mechanic.** Deeper levels behind other makers' touch plus in-delay posts
+   produce the 0.978 pair cost without private input. Separator: a VALIDATED fill engine; a public ladder below the
+   stale touch reaching the wallet's pair cost and per-market PnL ranking.
+5. **W5 one private valuation drives both legs.** The maker top is the bot's model value minus a half-spread (the FAK
+   limit reveals the value). Separator: K - L predicts its next maker tops after takes beyond public anchors, and its
+   resting-ladder presence at swept levels is not predictable from public state.
+6. **W6 pair completion off its own cost.** It prices the complement at K minus its own unpaired cost. Separator: own
+   cost anchors within one tick.
+7. **W7 operator availability.** Part of the selection is when the bot is switched on. Separator: skips in hours with
+   no orders anywhere; per-day replication after label cleaning.
+
+## Actions (iteration 5)
+- **Recorders now record in every block (X68; information panel iter4 critique 1).** `tommy_cs2_rounds` and
+  `tommy_chat` idled in sealed blocks, so the examiner of a future-block exam would have had neither. New versions
+  `code/iter5/round_recorder_v2.py` and `code/iter5/chat_recorder_v2.py` (same feeds) choose markets / channels from
+  listing-time fields only (series, sportsMarketType, scheduled start, gridSeriesId, resolutionSource) in every block,
+  and file records through `code/iter5/unit_writer.UnitWriter`: a record goes to `.cache/live/sealed/` if its receive
+  time is in a sealed block OR its unit started in a sealed block, so development files never hold a sealed unit (this
+  is stricter than live.Writer, which files by receive time only). Status files count only dev-filed records. v1 workers
+  29380 / 28984 stopped (taskkill); v2 started 19:28 UTC (round worker pid 8668, chat worker pid 536; launchers 15676 /
+  17648); hard stop 11-03 00:00 UTC; caps 200 MB / 50 MB. `tommy_cs2_near` and `tommy_dota_live` already recorded in
+  every block (live.Writer). Nothing in `.cache/live/sealed/` was opened or listed.
+- **Data bug found (own data, iteration 2)**: `pack_orders.parquet` was built from `calldata_pub` only, which excludes
+  every transaction containing a wallet order. So the pack's 5,752 taker orders that hit the wallet's ladder (P4e is the
+  taker in 1,027 wallet txs, P93 in 722) were missing from every pack-based analysis (pack clusters, pack-vs-rounds, P4e
+  side shares). `code/iter5/census.py` rebuilds the informed BUY orders from both records (18,061 orders). Earlier
+  pack-based numbers are biased toward pack events that did not touch the wallet's ladder.
+- **X38 pre-registration (information panel iter4 critique 3), written before any chat data exists.** On development
+  blocks, cross-correlate chat-rate bursts (tmi-sent-ts) with the wallet's taker signings (server clock), with a +-600-s
+  time-shift null and an event block bootstrap. V1 (feed upstream of the broadcast) predicts the chat peak at the
+  broadcast delay + platform latency: 60-300 s (GOTV tv_delay 90 s default; rulebooks 105 s to 3 min; co-streams add
+  their own lag). V2 (feed built from the stream) predicts 0-20 s. A peak in [60, 300] s that beats the null at
+  p < 0.0025 accepts V1; a peak in [0, 20] s accepts V2; neither = inconclusive. The same rule applies to the Twitch VOD
+  replay (X53) if the user clears that access route.
+
+## Findings (iteration 5); numbers in results/*.json
+1. **The fill engine is valid; the replay gap is the quote rule (X57 step 1; `code/iter5/engine_check2.py`,
+   `engine_check.json`).** The X44 strict price-time-priority engine, re-run with the wallet's OWN maker orders as "ours"
+   (price, original size, post = sign + 24 ms, resting until its last real fill; the taker's volume re-allocated along
+   the merged queue):
+
+   | Split | Real maker shares | Assigned to the same tx | Phantom / real | Maker-only pair cost, real | Engine copy |
+   | --- | --- | --- | --- | --- | --- |
+   | BUILD | 794,778 | 88.3% | 6.4% | 0.9779 | 0.9752 |
+   | VALIDATE | 937,868 | 88.8% | 6.5% | 0.9781 | 0.9745 |
+
+   So the X44 replay's 1.005 came from what it quoted (one level at the 2-s-stale observed bid), not from the engine.
+   (Side note: the X44 L = 3 variant double-counted volume across levels; `margin_replay.py` allocates sequentially.)
+2. **Where the maker margin sits (X57 step 2, real wallet fills, 16-22 Oct).** Depth behind the transaction's best
+   bid-equivalent price: touch 60-62% of shares, 1c behind 22%, 2c+ 15-18%; 60-s markouts rise with depth (touch
+   +0.1 / +0.6c, 1c +0.7 / +1.2c, 2c+ +0.7 / +2.7c, BUILD / VALIDATE). Signed after the taker signed (in-delay): 15-16%
+   of shares; in-delay at the touch against non-pack takers settles +3.65c / +2.81c per share (the panel's +3.0 / +3.2c).
+   Pack takers: 16-18% of its maker shares, settlement -1.5c / -4.5c per share.
+3. **A public ladder below the stale touch reaches the wallet's pair cost but not its PnL ranking (X57 step 3;
+   `margin_replay.py`, `margin_replay.json`; top = others' bid observed >= 2 s earlier minus D, L levels 1c apart, 100
+   shares, K 0.97).**
+
+   | Variant | Pair cost B / V | Locked margin B / V | Residual B / V | corr(PnL, wallet PnL) BUILD P / S | VALIDATE P / S |
+   | --- | --- | --- | --- | --- | --- |
+   | D 0, L 1 (X44) | 1.010 / 1.008 | -$2.3k / -$1.9k | -$9.7k / -$9.1k | -0.31 / -0.13 | -0.06 / -0.04 |
+   | D 2c, L 3 | 0.998 / 0.997 | +$0.4k / +$0.6k | -$14.4k / -$14.0k | +0.01 / +0.10 | -0.08 / -0.11 |
+   | D 3c, L 5 | 0.990 / 0.993 | +$1.7k / +$1.5k | -$14.4k / -$14.3k | +0.15 / +0.22 | -0.10 / -0.08 |
+   | D 4c, L 5 | 0.972 / 0.978 | +$3.8k / +$3.4k | -$13.4k / -$13.4k | +0.19 / +0.19 | +0.02 / -0.02 |
+   | D 2c, L 5, IMAX 200 | 1.024 / 1.026 | -$4.2k / -$5.2k | -$8.2k / -$8.5k | -0.25 / -0.02 | -0.33 / -0.15 |
+
+   Its own locked margin vs the wallet's PnL: VALIDATE +0.19 / +0.09 at D 4c. The public ladder copies the volume
+   (paired-volume Spearman 0.79-0.92) and, 4c deep, the pair cost; but its unpaired residual loses $13-14k per split (it
+   accumulates the losing side as the price trends), which the wallet avoids with its taker legs, pulls and re-pairs.
+   Outcome stays unreachable from public data (best VALIDATE +0.02 / -0.02 against 0.5).
+4. **Uncensored quote probes: the resting ladder is barely predictable from public state (X56, the presence pivot;
+   `code/iter5/sweep_probes.py`, `sweep_probes.json`).** Probe = a fully consumed level of another taker's in-play
+   multi-level sweep; under price-time priority y = 1 iff the wallet had an order resting there. 13,400 BUILD / 15,941
+   VALIDATE probes (7,572 / 8,749 sweeps), base rate 0.25 / 0.30.
+
+   | Model (BUILD fit) | VALIDATE AUC, logistic | LightGBM |
+   | --- | --- | --- |
+   | Activity (prints 10 / 60 s, game time, price level) | 0.663 | 0.632 |
+   | + quote state (level vs others' 2-s-stale touch, others' pair sum) | 0.669 | 0.664 |
+   | + own inventory (own state) | 0.695 | 0.715 |
+
+   Gain of quote state over activity +0.032 [0.015, 0.047] (market bootstrap). The band rule P(y | level - stale touch)
+   is flat (0.18-0.30 at 0..-6c and above): its ladder's presence at a level does not follow the public touch seen 2 s
+   earlier. In the panel's terms ("AUC about 0.6"), its book presence depends on fast or private state (its own recent
+   fills, re-quotes within the last 2 s), not on a public quote rule. Examinable on h1/h2 (on-chain probes).
+5. **The wallet's input is not a superset of the pack's (X58, assumptions P1; `code/iter5/census.py`, `census.json`).**
+   Informed BUY bursts (pack + wallet signers, 1-s linkage, >= 3c move of the bought token at +10 s), in play:
+
+   | Split | Bursts | Wallet-led | Wallet-near (< 200 ms) | Wallet-late | Wallet-absent |
+   | --- | --- | --- | --- | --- | --- |
+   | BUILD | 1,845 | 8.9% | 6.6% | 4.2% | 80.2% |
+   | VALIDATE | 1,941 | 11.4% | 4.4% | 4.4% | 79.8% |
+
+   In wallet-absent bursts its complement bids (asks on the bought team) are hit in 19-22% of them: 24k / 30k stale
+   shares (signed before the burst) and 11k / 12k in-delay shares, markouts -1.0 / -1.9 / -3.2c (BUILD, +10 / 30 / 120 s)
+   and -1.5 / -1.7 / -1.6c (VALIDATE). In wallet-led bursts it is hit in 2-9%, almost only in-delay (its re-pair), and
+   never stale on BUILD (271 stale shares on VALIDATE).
+6. **The missed and the led bursts are different event types (X58 step 3; `census_event_types.py`,
+   `census_event_types.json`; X50 recipe, 91 bo3 maps).** Binomial GLM with map fixed effects of the per-map burst share
+   on team differences per 10 rounds: wallet-absent bursts (1,161 on 87 maps) follow round wins (dW +0.79, p 3e-9;
+   nothing beyond wins: dFK -0.08, dBP -0.22, n.s.); wallet-led / near bursts (196 on 64 maps) do not follow round wins
+   (dW +0.25, p 0.41) but follow bomb plants beyond wins (dBP +1.21, p 0.03; raw corr 0.34). This replicates the
+   iteration-4 plant association of its takes (p 0.06) with another unit, and shows the complement: the pack's
+   round-win-type events are the ones it misses.
+7. **Live: at pack-only events it often pulls, sometimes before the pack (X58 step 4; `pack_event_pulls.py`,
+   `pack_event_pulls.json`; server clock, 10-31 14:50-18:00).** Own-size cancels (100 / 68 / 58 / 54) on the consumed
+   side:
+
+   | Anchor | n | [-300, 0) ms before its signing | [0, 150) ms after | [150 ms, match) | Wallet maker hit in the tx |
+   | --- | --- | --- | --- | --- | --- |
+   | Wallet takes | 39 | 2.6% (null 4.7%) | 94.9% (null 3.8%) | 25.6% (15.0%) | 0% |
+   | Pack takes, no wallet take within 3 s | 54 | 20.4% (null 0.9%) | 25.9% (null 0.9%) | 27.8% (11.1%) | 37% |
+
+   So at about one pack-only event in five it pulls before the pack signs (it saw the event first; a zero-fill FAK of
+   its own is possible, X46), at another quarter within 150 ms after (the same event a little later, or the public
+   cancel wave), and at the rest it does nothing and is hit (37% of those pack txs fill its maker orders). With finding
+   5: its detector sees a subset of the in-round events, earlier than everyone on those, and leaves the ladder exposed
+   to the rest. (Some 100-share cancels may be other makers'; the null is 0.9%. CORRECTED in the late additions: the
+   time-shift null does not match the activity phase; against a busy-phase control the excess is 2.8x before / 5x after
+   the pack's signing, and no pre-pack pull shows the zero-fill FAK signature, so "it saw the event first" is not
+   supported.)
+8. **No leak from the delay queue (X60 step 3; `leak_control.py`, `leak_control.json`).** Non-own cancels on the
+   consumed side in the arrival window [match - 1,045, match - 985] ms: retail takers (n 508) 8.5% vs 5.0% null (1.7x),
+   no spike against the rest of their delay (1.1-1.8x in every 100-ms bin); pack 25.8% (4.8x), other large takers 35%
+   (6.4x), the wallet 56% (7.3x; its window contains its own signing and the wave). Elevated rates appear only for
+   informed orders, whose events are public through the wave; uninformed pending orders trigger nothing. Reading (c) of
+   the panel (a leak) is not supported; the shared-source reading stands.
+9. **Avoidance census (X60 step 1; `avoid_census.py`, `avoid_census.json`).** Presence in the wallet's 1,679 FAK txs
+   over presence in 69,419 other in-play FAK txs more than 3 s from its takes, 24 makers with >= 1% presence; median
+   ratio 0.80. r < 0.3: 0xe40ecff6 (0.05 [0, 0.16]; sigType 3; orders of 25k-150k shares), 0x2005d16a (the
+   rn1-inplay-maker wallet; 0.10 [0.03, 0.20]; also 866 taker orders), 0x51dbdd2b (0.16 [0.08, 0.25]), 0xed446954 (0.27
+   [0.18, 0.36]; the top in-delay poster). A low ratio needs only a reaction faster than ~1 s (its FAK matches 1.04 s
+   after signing, the public wave starts +17-124 ms), so it marks fast makers, not necessarily co-subscribers; the
+   sub-15-ms evidence (iteration 4) still names only 0x51dbdd2b.
+10. **Price: own-cost anchors fail; K - L holds only right after its takes (X67, assumptions P3 step 1;
+    `own_cost_anchor.py`, `own_cost_anchor.json`; 10,614 BUILD / 13,277 VALIDATE in-play CS2 maker orders).** Within
+    one in-play tick on VALIDATE: K - average cost of the other token 5.8%, K - last fill price on it 21.6%, K - LIFO
+    unpaired cost 13.8%, against the last print 33.8% on the same rows. K - (limit of its last take on the other token),
+    K = 0.94: 56.7% when signed 0-1.04 s after the take (n 247; last print 4.3%), 27.5% at 1.04-5 s, 14% at 5-120 s, 6%
+    later. The re-pair top is K - L, but only for ~2% of maker orders. Pair completion off its own cost (W6) is rejected;
+    the sum p + own cost on the other token has median 0.97-0.98 with IQR 0.91-1.02 (no per-pair cap).
+11. **Size: no global schedule (X59, mechanics P3; `size_schedule.py`, `size_schedule.json`).** One (a, b) on own
+    pairs, public in-play USD or elapsed time fits 0-4% of the non-100 CS2 maker sizes within one share (the fit
+    collapses to "always 100", 88.3% on VALIDATE). 28 events (36%) start below 100 (50-96, median 54) and step up
+    monotonically (median share of non-decreasing steps 1.0); a non-100 size repeats the previous order's size in 92%;
+    "previous size in the event" (own state) is within one share in 99.0% / 99.5%. Start size vs pre-game USD: Spearman
+    0.55 (median $1,166 for starts below 100 against $8,137 at 100). The ramp is event-specific and its step clock is not
+    decoded. The FINAL_RULE "54 / 58 / 68 near small inventories" is corrected: those were event sizes.
+12. **Taker caps are a weak sub-policy (X62, assumptions P5; `taker_size_class.py`, `taker_size_class.json`).**
+
+    | Class | Split | n | Fill median | Spearman(premium, 10-s move) | Markout 60 s | Settlement edge |
+    | --- | --- | --- | --- | --- | --- | --- |
+    | caps 1000 / 2000 | BUILD | 249 | 5.0% | 0.04 | +1.9c | +3.5% |
+    | odd sizes | BUILD | 477 | 10.6% | 0.15 | +3.4c | +15.5% |
+    | caps | VALIDATE | 140 | 5.8% | 0.13 | +0.3c | +2.6% |
+    | odd sizes | VALIDATE | 749 | 14.7% | 0.09 | +2.2c | +10.6% |
+
+    Daily cap share 6% (10-16), 52-64% (10-17/18), 31-32% (10-19/20), 13-20% (10-21/22), 0% on the 10-31 dev block: the
+    caps were a probing / early version; odd sizes carry the information. (The Spearman here uses p(s+10) - p(s-1) of the
+    public last print, lower than iteration 4's 0.26 with its own move definition.)
+13. **Session-clean selection labels (X61, assumptions P4; `session_labels.py`, `session_labels.json`).** Operating
+    windows from its orders in all markets: 10-16 13:38-18:51, 10-17 08:05-20:17 (gap 16:43-17:22), 10-18 14:00-16:44,
+    10-19 08:04-21:56, 10-20 09:01-20:11, 10-21 08:04-23:25, 10-22 08:10-23:15 (gap 10:01-11:00). 64 of 256 BUILD events
+    (5 of 128 VALIDATE) are skips while the bot had no order anywhere in [gs, gs + 1 h]. Refit on session-clean BUILD
+    (same recipe): VALIDATE AUC 0.9586 vs activity 0.8964, gain +0.062 [0.019, 0.113], p 0.002, recall 0.778 at lift
+    3.32 (the uncleaned recipe on the same features: 0.9574, recall 0.750, lift 3.31). League rates move (Stake Pulse
+    0.78 -> 1.00, PGL 0.73 -> 0.86, NODWIN 0.28 -> 0.43). Per-day gains stay +0.034 (10-21, p 0.075) / +0.094 (10-22). A
+    3-hour session on one VALIDATE day drops AUC to 0.89 (10-21) with lift ~3.25: downtime is the main exam risk for
+    selection, and the rule cannot see it. Not adopted into the frozen rule (the gain is within noise, and the frozen
+    pipeline computes its features from its own tapes); recorded as the candidate for the exam-constant refit.
+14. **Requote trigger: co-occurrence, not a band (X63, mechanics P4, first pass; `requote_trigger.py`,
+    `requote_trigger.json`; 5,373 own add bursts in 7 markets, server clock).** Within 50 ms before a burst: its own
+    cancel 37.9% (null 1.6%), a near-touch change by others 44.5% (10.1%), a trade 2.6% (0.2%), none of these 37.1%
+    (89%). But any non-own change in the 50 ms before vs after its bursts: 66.8% vs 69.1% (null 18.8%): symmetric, so the
+    requotes and others' changes co-occur in busy phases rather than one following the other. Inter-burst intervals p10 /
+    p50 / p90 = 22 / 501 / 8,077 ms, no period (2.5% in 1.00-1.15 s). The band hazard model with own-level tracking is
+    still to do (open).
+15. **No sibling client in the record (X66, mechanics P5, calldata part).** Among 114 makers with >= 200 orders in its
+    markets, 16 are buy-only, whole-cent and sigType 3 like the wallet, but with dominant sizes 5 / 20 / 25 / 300
+    (retail-like or other ladders); none has the 100-share ladder with event ramps. The merge-timer scan needs MERGE
+    activity of other makers (not fetched).
+16. **Ruled out with a measurement (X69, information panel iter4 critique 6).** Rerunning X51 on the taker-regime
+    `sign_ms` would time pre-signing, not decisions: in the taker regime its FAKs reached the chain a median 34 s after
+    signing (p95 291 s; 40 sampled txs with real block times, iteration 2) and each filled in one transaction, so its
+    orders were signed in advance and fired later. Block time - 2 s (X51) is the right decision proxy there.
+
+## Hypothesis ledger (iteration 5)
+- W1 shared vendor: consistent (no leak, four fast avoiders, 0x51dbdd2b inside the pre-pull window in iteration 4).
+- W2 delay-queue leak: not supported (finding 8).
+- W3 partial detector: **supported** (findings 5-7): it misses ~80% of the pack's 3c+ bursts, which follow round wins,
+  while its own follow bomb plants; at pack-only events it reacts in part, mostly after the pack (see the busy-phase
+  correction to finding 7 in the late additions).
+- W4 public ladder mechanics: the engine is valid and a 4c-deep public ladder reaches its pair cost, but the residual
+  breaks the PnL ranking (findings 1-3): the margin is reproducible, the outcome is not.
+- W5 one private valuation: partly (K - L right after takes; probe presence not predictable from public state).
+- W6 pair completion off own cost: rejected (finding 10).
+- W7 operator availability: real (64 BUILD skips out of session), small effect on VALIDATE metrics (finding 13).
+
+## What is unexplained (quantitative)
+- Taker input: upstream of every public trace on the events it acts on, but it acts on only ~20% of the informed 3c+
+  bursts in its markets (the plant-type ones); the pack's round-win-type bursts are invisible to it or ignored.
+- Maker quote: its resting presence at swept levels is predicted at AUC 0.66-0.67 from public state (0.72 with own
+  state); the top is K - L for ~1 s after its takes and otherwise not anchored to any public quantity within one tick
+  more than 34% of the time (last print).
+- Outcome: the residual. A public ladder can lock pairs at the same 0.978 but loses $13-14k per split on unpaired
+  inventory.
+
+## Next iteration (plan)
+1. 11-01 06-12 development block (the first with every recorder writing in all blocks): X38 under the pre-registered
+   rule, X47b round markets before its signings, X54 synchronous pulls (dense label, refractory test), X63 band hazard
+   with own-level tracking, census step 4 on more pack events, and the share of zero-fill FAKs at pack-only events.
+2. Outcome: add a wallet-like exit to the public ladder (re-pair the long side after large repricings, a merge timer, a
+   residual cap that pulls instead of shading) on the validated engine; score margin and residual separately.
+3. Ask the user: the Twitch VOD chat access route (X53; affiliate VODs of 10-21/22 expire about 11-04/05), a PandaScore
+   token (X55), HLTV page checks (X64), demo downloads (X37), Kick VOD (X4 / X22).
+4. X65: pre-switch calldata of 0x51dbdd2b / P4e maker orders for a latency change point; X66: merge timers of the four
+   fast avoiders.
+
+## Late additions (iteration 5)
+- **Census robustness** (`census.json`, keys `robustness_*`). Wallet-absent share among the informed 3c+ bursts: 78%
+  when the wallet signed an order in the same market within 60 s (it was quoting); 77% for moves >= 8c; 74-76% for
+  bursts of >= $100; 63-64% for bursts with >= 2 informed orders. At the event level (no wallet take in ANY market of
+  the event within [-1, +30] s): 69% on both splits. So it takes in at most about 30% of the informed bursts in its
+  markets.
+- **T side by burst class** (`code/iter5/census_t_side.py`, `census_t_side.json`, half-level clock, 101 maps).
+  Wallet-led / near bursts buy the T side 56.5% (n 154, p 0.13, map-bootstrap CI [0.49, 0.64]); wallet-absent bursts
+  47.2% (n 971, p 0.08, CI [0.43, 0.52]). The difference (about 9 points, z about 2.1 unclustered) leans the way a
+  plant-type trigger predicts, at weak power.
+- **Oracle bound on the outcome (X57 step 4, DIAGNOSTIC: uses the wallet's private take times;
+  `code/iter5/oracle_bound.py`, `oracle_bound.json`).** Base = the public 4c-deep 5-level ladder (this copy lets every
+  level fill in a transaction before the inventory cap, so it differs slightly from `margin_replay.py`).
+
+  | Variant | Pair cost B / V | Margin B / V | Residual B / V | corr(PnL, wallet) BUILD P / S | VALIDATE P / S |
+  | --- | --- | --- | --- | --- | --- |
+  | Public base | 0.963 / 0.966 | +$5.1k / +$5.6k | -$15.3k / -$15.5k | +0.11 / +0.11 | +0.09 / +0.01 |
+  | + oracle pulls at its takes | 0.964 / 0.965 | +$4.9k / +$5.7k | -$14.7k / -$15.5k | +0.10 / +0.08 | +0.09 / +0.02 |
+  | + oracle re-pair at K - L for 5 s | 0.956 / 0.952 | +$5.8k / +$7.6k | -$14.5k / -$16.0k | +0.18 / +0.13 | +0.26 / +0.13 |
+  | + a copy of its taker fills | 0.948 / 0.951 | +$10.1k / +$11.0k | -$13.6k / -$15.4k | +0.56 / +0.26 | +0.24 / +0.24 |
+
+  Even with every private take event of the wallet (pulls, re-pairs and its own take fills), a public-anchor ladder
+  reaches only 0.24-0.56 Pearson and 0.24-0.26 Spearman, because its residual (-$14-16k per split) is far larger than the
+  wallet's. The missing piece for the outcome is the wallet's maker quote presence itself (where its ladder is NOT when
+  a price trends), which the probes show is not a function of public state. Quantitative account for the outcome gap:
+  public ladder +0.01..+0.09; + the private take events +0.15..+0.24; the rest (to the wallet's own ranking) is its quote
+  presence.
+- **Price anchor from the matched-order record** (`code/iter5/revealed_bid_anchor.py`, `revealed_bid_anchor.json`; CS2
+  maker orders in play, the revealed best bid of the other makers in the latest public tx before signing). Within one
+  in-play tick on VALIDATE: revealed bid 0.251 (block clock) / 0.277 (match clock) against the last print 0.218 / 0.248
+  on the same rows; revealed ask - 1c 0.248 / 0.278; exact 0.09-0.11. A 3-point gain over the last print, far from 0.8.
+  Not adopted.
+- Time used this iteration so far: about 50 minutes at this point (19:21-20:11 UTC).
+- **The fast makers predate the switch (X65 partial; `cosub_history.json`; 1,600 sampled in-play taker txs of the 121
+  non-GRID Stake Pulse / PGL / NODWIN markets with game start 10-12..10-15, calldata decoded into
+  `.cache/re/tommy-cs2-maker/pre_switch/`).** Presence in other takers' txs before vs after 10-16: 0x51dbdd2b 5.9% vs
+  6.7%, 0xed446954 9.1% vs 8.8%, 0x2005d16a 7.0% vs 5.2%, 0xe40ecff6 0.8% vs 2.4%. Share of their filled orders signed
+  inside the taker's delay: 0x51dbdd2b 23.7% vs 17.8% (offsets p10 / p50 216 / 727 vs 136 / 668 ms), 0xed446954 12.4% vs
+  18.0%, all makers 16.7% vs 16.5%. On this proxy nothing changed at the switch: the fast makers were already in these
+  leagues, which fits "the wallet bought into an existing source" (information panel P5, second signature). An event-
+  latency change point still needs an event clock before 10-16.
+- **Which informed bursts it leads, by public state** (`census.json` `which_bursts_it_leads`). Univariate AUCs of led /
+  near vs absent: price level 0.44-0.47 (it leads more when the bought team is at 0.2-0.5: 19-22%, and rarely at 0.8-1.0:
+  3-8%), match vs map market 0.46 (match 19%, map 15%), game time 0.53-0.56 (more after 2 h), burst USD 0.59. No public
+  filter explains why it is absent from about 80% of the informed bursts; the absence is an event-type matter (round wins),
+  not a price or market filter.
+- **Band hazard with own-level tracking (X63 second pass; `code/iter5/band_hazard.py`, `band_hazard.json`; 10-31
+  14:50-18:00, server clock, 7 token-0 books, both of its ladders).** Own orders by fingerprint (adds of 100 / 68 / 58 /
+  54 at whole cents, own-size cancels, capped by the level size); others' best = best level net of own orders.
+  - Price at its 5,853 re-quote bursts (all of them, not only filled orders): new top minus others' best just before =
+    0c in 37.0%, +1c 11.9%, -1c 15.5%, -2c 7.4%, +2c 5.0%, +3c 5.7%, -3c 5.0%: **"join the other makers' best bid"
+    is within one tick in 67.4%** (filled orders gave 45.6% because fills select the improving orders). Live only; the
+    historical anchors stay at 25-34%.
+  - Hazard after a change of others' best (10,280 changes): an own add or cancel on that side within 100 ms in 22-37%
+    at gaps of -3c..+3c (null 2-5%), 7% when it sits 6c+ behind, 11% when it has no level there; within 500 ms 40-54%
+    (null 9-17%). It reacts to others' best within ~100 ms at any gap, with no threshold: a fast touch-follower, not a
+    band. Together with the symmetric co-occurrence (finding 14), the makers in these books re-quote on each other's
+    changes.
+- **Probe label validated against the live book (X56 step 2; `code/iter5/probe_validate_live.py`,
+  `probe_validate_live.json`).** 153 probes of the 10-31 block (other takers' multi-level sweeps in its CS2 markets). The
+  live own-level tracker needs two fixes to be comparable: (1) the fingerprint must use its actual order sizes in that
+  market (the event size schedule adds 57 / 59 / 60 ... to 100 / 68 / 58 / 54); (2) the book update of a match is stamped
+  about 20 ms BEFORE its trade message, so the state must be read before the match (m - 150 ms). Then the probe label
+  and the live own level agree in 90.8% (both absent 95, both present 44, live-only 6, probe-only 8), short of the
+  panel's 95% target but enough to use the probes as a label of the resting ladder. (The band-hazard pass above used
+  the 4-size fingerprint and covers the bulk of its levels.)
+- **Azuro (X41) is infeasible from this laptop.** The current toolkit (@azuro-org/toolkit 7.2.0, read from unpkg) uses
+  `https://api.onchainfeed.org/api/v1/public` + `/market-manager/{sports,games-by-filters,navigation,search}` and the
+  subgraphs on `thegraph.onchainfeed.org`. Every feed path answers nginx 404 on api.onchainfeed.org and on
+  preprod-api.azuro.org (GET .../market-manager/sports?environment=PolygonUSDT -> 404), the gateway docs path answers
+  404, and thegraph.onchainfeed.org fails DNS (getaddrinfo 11001); the earlier hosts failed the same way (iteration 4).
+  Used instead: Polymarket's books, the sports socket, bo3.gg and the SX Bet listing.
+- Time used this iteration: about 67 minutes of analysis plus write-up (19:21-20:30 UTC). Status: continue. Recorders
+  at the end: shared recorder OK (current block sealed); own `tommy_cs2_near` (pid 29844), `tommy_dota_live` (pid
+  14548), `tommy_cs2_rounds` v2 (worker 8668) and `tommy_chat` v2 (worker 536) running, hard stop 11-03 00:00 UTC.
+- **X38 analysis frozen in code before any data** (`code/iter5/chat_leadlag.py`): chat z-score per 1-s bin
+  (rolling 120-s median / MAD), event-triggered average around the wallet's takes at lags -60..+600 s, 5-s smoothing,
+  peak lag L* in [0, 600] s; null = takes shifted +-[600, 1800] s (2,000 draws); event block bootstrap of L*; decision
+  V1 if p < 0.0025 and L* in [60, 300] s, V2 if p < 0.0025 and L* in [0, 20] s, else inconclusive. Dry run on 10-31
+  12-18: no chat data yet (pairs = 0), as expected. Run it on 11-01 06-12 with that block's calldata.
+- **Correction to finding 7 (busy-phase control; `pack_event_pulls.json`, `pack_prepull_signature.json`).** The
+  time-shift null of finding 7 does not match the activity phase. Around 401 retail BUY takes (> 3 s from informed
+  takes) the same own-size pulls occur in 7.2% ([-300, 0) ms) and 5.2% ([0, 150) ms). Against that busy-phase control,
+  pack-only events show 2.8x (before the pack signs: 20.4%) and 5x (within 150 ms after: 25.9%). None of the 11 pre-pack
+  pulls carries the zero-fill FAK-return signature (0 of 11; they sit 173-299 ms before the pack's signing, several at
+  the window edge, with own re-adds inside 60-1,000 ms): they look like routine cancel-repost cycles. Revised reading: it
+  reacts to some pack-only events, mostly AFTER the pack signs (via the public wave or a slower path of its feed); it is
+  not first on them and makes no visible attempt to take; its ladder is hit in 37% of those transactions.
