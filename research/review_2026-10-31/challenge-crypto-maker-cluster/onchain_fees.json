@@ -1,0 +1,44 @@
+{
+ "bosona": {
+  "confirmed": 200,
+  "roles_usdc": {
+   "maker": 4549.805792000002,
+   "taker": 328.14949999999993
+  },
+  "role_counts": {
+   "maker": 189,
+   "taker": 12
+  },
+  "fees_by_role": {
+   "maker": 0.0,
+   "taker": 6.01165
+  },
+  "maker_fee_rate": 0.0,
+  "taker_fee_rate": 0.018319851165398703,
+  "maker_counterparty_is_twin": 0,
+  "secs": 0.0,
+  "cached_sources": 50,
+  "n_sources": 50
+ },
+ "almach": {
+  "confirmed": 200,
+  "roles_usdc": {
+   "maker": 4319.441741,
+   "taker": 592.0560999999999
+  },
+  "role_counts": {
+   "maker": 184,
+   "taker": 16
+  },
+  "fees_by_role": {
+   "maker": 0.0,
+   "taker": 16.51392
+  },
+  "maker_fee_rate": 0.0,
+  "taker_fee_rate": 0.027892491944597822,
+  "maker_counterparty_is_twin": 0,
+  "secs": 0.1,
+  "cached_sources": 50,
+  "n_sources": 50
+ }
+}

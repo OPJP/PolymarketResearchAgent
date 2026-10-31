@@ -1,0 +1,3 @@
+19 dense seconds: kept 1900 of 10234 rows (81% dropped)
+dropped rows by wallet: {'other': 8309, 'dangerously': 7, 'GoodFallen': 6, 'MoneyForWhiskas': 5, 'bosona': 3, 'almach': 2, 'b55f': 2}
+dropped BUY rows by wallet: {'other': 6760, 'dangerously': 7, 'GoodFallen': 6, 'MoneyForWhiskas': 5, 'bosona': 3, 'almach': 2, 'b55f': 2}

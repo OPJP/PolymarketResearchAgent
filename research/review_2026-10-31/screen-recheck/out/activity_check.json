@@ -1,0 +1,788 @@
+{
+ "0x111f73e91f85b6fe4de1ddec3de2fe32122e355b": {
+  "wallet": "0x111f73e91f85b6fe4de1ddec3de2fe32122e355b",
+  "rank": 6,
+  "name": "Papeasy",
+  "lb_pnl": 2298675.214077701,
+  "lb_volume": 179761.2964120002,
+  "series_econ_30d": -318.2050759999993,
+  "series_trade_30d_to_now": -692.70723,
+  "series_all_time": 7967.557646,
+  "activity_rows": 34429,
+  "activity_coverage": "complete",
+  "activity_by_type": {
+   "MAKER_REBATE:": [
+    18,
+    472.13
+   ],
+   "REDEEM:": [
+    16778,
+    2575583.45
+   ],
+   "TRADE:BUY": [
+    17633,
+    90959.62
+   ]
+  },
+  "window_cash_flow": 2485095.9594550156,
+  "trade_volume_usdc": 90959.62038799927,
+  "big_non_trade_rows": [],
+  "closed_positions_total": 3000,
+  "closed_positions_in_window": 7,
+  "realized_pnl_closed_in_window": 808.9235,
+  "closed_in_window_top": [
+   {
+    "title": "Bitcoin Up or Down - October 29, 9:30PM-9:35PM ET",
+    "realizedPnl": 142.8864,
+    "avgPrice": 0.3155,
+    "totalBought": 208.7521,
+    "ts": 1793324214
+   },
+   {
+    "title": "Bitcoin Up or Down - October 25, 10:45AM-10:50AM ET",
+    "realizedPnl": 134.4064,
+    "avgPrice": 0.3389,
+    "totalBought": 203.309,
+    "ts": 1792939962
+   },
+   {
+    "title": "Bitcoin Up or Down - October 24, 9:40AM-9:45AM ET",
+    "realizedPnl": 125.5234,
+    "avgPrice": 0.4567,
+    "totalBought": 231.078,
+    "ts": 1792849589
+   },
+   {
+    "title": "Bitcoin Up or Down - October 15, 2:15PM-2:20PM ET",
+    "realizedPnl": 108.744,
+    "avgPrice": 0.2266,
+    "totalBought": 5,
+    "ts": 1792088860
+   },
+   {
+    "title": "Bitcoin Up or Down - October 24, 1:15AM-1:20AM ET",
+    "realizedPnl": 104.1252,
+    "avgPrice": 0.243,
+    "totalBought": 137.5621,
+    "ts": 1792819376
+   },
+   {
+    "title": "Bitcoin Up or Down - October 30, 1:40PM-1:45PM ET",
+    "realizedPnl": 99.6212,
+    "avgPrice": 0.4542,
+    "totalBought": 182.5387,
+    "ts": 1793382448
+   }
+  ],
+  "open_positions": 456,
+  "open_value_now": 176.3714,
+  "open_cashPnl_now": -4950.7855
+ },
+ "0xdb7513a3c54d579d64ee64c948c85d2f27620252": {
+  "wallet": "0xdb7513a3c54d579d64ee64c948c85d2f27620252",
+  "rank": 83,
+  "name": "UnRektCapital",
+  "lb_pnl": 249999.9804,
+  "lb_volume": 0.0,
+  "series_econ_30d": 0.0,
+  "series_trade_30d_to_now": 0.0,
+  "series_all_time": 41934.941745,
+  "activity_rows": 1,
+  "activity_coverage": "complete",
+  "activity_by_type": {
+   "REDEEM:": [
+    1,
+    249999.98
+   ]
+  },
+  "window_cash_flow": 249999.9804,
+  "trade_volume_usdc": 0,
+  "big_non_trade_rows": [
+   {
+    "type": "REDEEM",
+    "usdc": 249999.9804,
+    "ts": 1791377345,
+    "title": "UFC 330: Islam Makhachev vs. Ian Machado Garry (Welterweight, Main Car"
+   }
+  ],
+  "closed_positions_total": 43,
+  "closed_positions_in_window": 1,
+  "realized_pnl_closed_in_window": 55413.8276,
+  "closed_in_window_top": [
+   {
+    "title": "UFC 330: Islam Makhachev vs. Ian Machado Garry (Welterweight",
+    "realizedPnl": 55413.8276,
+    "avgPrice": 0.75,
+    "totalBought": 221655.3104,
+    "ts": 1791377345
+   }
+  ],
+  "open_positions": 3,
+  "open_value_now": 0.0,
+  "open_cashPnl_now": -597683.6614
+ },
+ "0x60a92c8620846d81f5ea17b0564e0d4b7c545a71": {
+  "wallet": "0x60a92c8620846d81f5ea17b0564e0d4b7c545a71",
+  "rank": 36,
+  "name": "paddaa",
+  "lb_pnl": 542746.4919998334,
+  "lb_volume": 2311962.570608,
+  "series_econ_30d": 61253.51100399997,
+  "series_trade_30d_to_now": 67862.20181800003,
+  "series_all_time": 312382.717642,
+  "activity_rows": 2308,
+  "activity_coverage": "complete",
+  "activity_by_type": {
+   "CONVERSION:": [
+    22,
+    0.0
+   ],
+   "MAKER_REBATE:": [
+    17,
+    119.71
+   ],
+   "MERGE:": [
+    47,
+    71143.7
+   ],
+   "REDEEM:": [
+    215,
+    108437.13
+   ],
+   "REFERRAL_REWARD:": [
+    1,
+    58.87
+   ],
+   "REWARD:": [
+    36,
+    1057.62
+   ],
+   "TAKER_REBATE:": [
+    22,
+    287.33
+   ],
+   "TRADE:BUY": [
+    923,
+    718139.23
+   ],
+   "TRADE:SELL": [
+    994,
+    549325.89
+   ],
+   "YIELD:": [
+    31,
+    29.57
+   ]
+  },
+  "window_cash_flow": 12033.266608000067,
+  "trade_volume_usdc": 1267465.121284001,
+  "big_non_trade_rows": [],
+  "closed_positions_total": 2406,
+  "closed_positions_in_window": 397,
+  "realized_pnl_closed_in_window": 55843.0591,
+  "closed_in_window_top": [
+   {
+    "title": "Katie Zacharia out as Press Secretary by October 31?",
+    "realizedPnl": 6293.7614,
+    "avgPrice": 0.5643,
+    "totalBought": 15984.602,
+    "ts": 1792192602
+   },
+   {
+    "title": "Will Mar\u00eda Corina Machado enter Venezuela by October 31?",
+    "realizedPnl": -5999.9952,
+    "avgPrice": 0.8499,
+    "totalBought": 7059.0588,
+    "ts": 1792956050
+   },
+   {
+    "title": "Will the U.S. invade Iran before 2027?",
+    "realizedPnl": -5188.8055,
+    "avgPrice": 0.77,
+    "totalBought": 204176.3118,
+    "ts": 1793315433
+   },
+   {
+    "title": "Will Yulia Navalnaya win the Nobel Peace Prize in 2026?",
+    "realizedPnl": 5036.981,
+    "avgPrice": 0.743,
+    "totalBought": 19605.7087,
+    "ts": 1791564533
+   },
+   {
+    "title": "Miguel D\u00edaz-Canel out as leader of Cuba by December 31?",
+    "realizedPnl": 4535.7179,
+    "avgPrice": 0.6929,
+    "totalBought": 37144.1291,
+    "ts": 1791229039
+   },
+   {
+    "title": "Will Fl\u00e1vio Bolsonaro win Brazil, Gadi Eizenkot become Israe",
+    "realizedPnl": 4088.1166,
+    "avgPrice": 0.1899,
+    "totalBought": 9996.7454,
+    "ts": 1793034693
+   }
+  ],
+  "open_positions": 257,
+  "open_value_now": 184677.0726,
+  "open_cashPnl_now": 2283.8607
+ },
+ "0x8f9d3aa5b72ba0134fa7975d9c88e9852e706aed": {
+  "wallet": "0x8f9d3aa5b72ba0134fa7975d9c88e9852e706aed",
+  "rank": 146,
+  "name": "0x8f9d3aa5b72ba0134fa7975d9c88e9852e706aed",
+  "lb_pnl": 149603.63841299992,
+  "lb_volume": 0.0,
+  "series_econ_30d": 0.0,
+  "series_trade_30d_to_now": 0.0,
+  "series_all_time": 0.0,
+  "activity_rows": 159,
+  "activity_coverage": "complete",
+  "activity_by_type": {
+   "REDEEM:": [
+    159,
+    149959.62
+   ]
+  },
+  "window_cash_flow": 149959.62031599993,
+  "trade_volume_usdc": 0,
+  "big_non_trade_rows": [],
+  "closed_positions_total": 48,
+  "closed_positions_in_window": 26,
+  "realized_pnl_closed_in_window": 0.0,
+  "closed_in_window_top": [
+   {
+    "title": "Will \"Resident Evil Requiem\" win Ultimate Game of the Year a",
+    "realizedPnl": 0,
+    "avgPrice": 0.4449,
+    "totalBought": 0,
+    "ts": 1793200474
+   },
+   {
+    "title": "Will oil be at least $85 on November 2 and the Democrats win",
+    "realizedPnl": 0,
+    "avgPrice": 0.6189,
+    "totalBought": 0,
+    "ts": 1792808235
+   },
+   {
+    "title": "Callum Turner announced as next James Bond?",
+    "realizedPnl": 0,
+    "avgPrice": 0.2109,
+    "totalBought": 0,
+    "ts": 1793318232
+   },
+   {
+    "title": "US announces end of Iranian blockade by October 31, 2026?",
+    "realizedPnl": 0,
+    "avgPrice": 0.6593,
+    "totalBought": 0,
+    "ts": 1792043350
+   },
+   {
+    "title": "Will Renan Santos win the 2026 Brazilian presidential electi",
+    "realizedPnl": 0,
+    "avgPrice": 0.9541,
+    "totalBought": 0,
+    "ts": 1791203318
+   },
+   {
+    "title": "Will Bitcoin reach $85,000 in October?",
+    "realizedPnl": 0,
+    "avgPrice": 0.7822,
+    "totalBought": 0,
+    "ts": 1791791770
+   }
+  ],
+  "open_positions": 0,
+  "open_value_now": 0.0,
+  "open_cashPnl_now": 0.0
+ },
+ "0x0f7fb628af9ea8f0eb3d8ca70a4c57404f60b075": {
+  "wallet": "0x0f7fb628af9ea8f0eb3d8ca70a4c57404f60b075",
+  "rank": 141,
+  "name": "0x0f7fb628af9ea8f0eb3d8ca70a4c57404f60b075",
+  "lb_pnl": 155464.32300000006,
+  "lb_volume": 0.0,
+  "series_econ_30d": 4.721827,
+  "series_trade_30d_to_now": 4.721827,
+  "series_all_time": 4.721827,
+  "activity_rows": 1249,
+  "activity_coverage": "complete",
+  "activity_by_type": {
+   "REDEEM:": [
+    1249,
+    155464.32
+   ]
+  },
+  "window_cash_flow": 155464.3229999987,
+  "trade_volume_usdc": 0,
+  "big_non_trade_rows": [],
+  "closed_positions_total": 262,
+  "closed_positions_in_window": 4,
+  "realized_pnl_closed_in_window": 4.7216,
+  "closed_in_window_top": [
+   {
+    "title": "Bitcoin Up or Down - October 15, 2:50PM-2:55PM ET",
+    "realizedPnl": 1.8993,
+    "avgPrice": 0.9906,
+    "totalBought": 0,
+    "ts": 1792090781
+   },
+   {
+    "title": "Bitcoin Up or Down - October 15, 2:15PM-2:20PM ET",
+    "realizedPnl": 1.4121,
+    "avgPrice": 0.972,
+    "totalBought": 0,
+    "ts": 1792088699
+   },
+   {
+    "title": "Solana Up or Down - October 15, 3:40PM-3:45PM ET",
+    "realizedPnl": 0.9402,
+    "avgPrice": 0.9906,
+    "totalBought": 0,
+    "ts": 1792093801
+   },
+   {
+    "title": "Bitcoin Up or Down - October 15, 1:30PM-1:35PM ET",
+    "realizedPnl": 0.47,
+    "avgPrice": 0.9906,
+    "totalBought": 0,
+    "ts": 1792086005
+   }
+  ],
+  "open_positions": 0,
+  "open_value_now": 0.0,
+  "open_cashPnl_now": 0.0
+ },
+ "0xc46661a5c720740d7c70fbf2cfc10c5de8c4b5cf": {
+  "wallet": "0xc46661a5c720740d7c70fbf2cfc10c5de8c4b5cf",
+  "rank": 451,
+  "name": "cavvvy",
+  "lb_pnl": 42685.21595329797,
+  "lb_volume": 210199.239467,
+  "series_econ_30d": -128.599932,
+  "series_trade_30d_to_now": 42225.891168,
+  "series_all_time": 42168.509148,
+  "activity_rows": 349,
+  "activity_coverage": "complete",
+  "activity_by_type": {
+   "MAKER_REBATE:": [
+    1,
+    17.39
+   ],
+   "REDEEM:": [
+    11,
+    134999.59
+   ],
+   "TRADE:BUY": [
+    337,
+    94484.14
+   ]
+  },
+  "window_cash_flow": 40532.83504699995,
+  "trade_volume_usdc": 94484.14452700004,
+  "big_non_trade_rows": [],
+  "closed_positions_total": 11,
+  "closed_positions_in_window": 11,
+  "realized_pnl_closed_in_window": 70697.909,
+  "closed_in_window_top": [
+   {
+    "title": "Spread: Hawks (-4.5)",
+    "realizedPnl": 16000.5515,
+    "avgPrice": 0.4666,
+    "totalBought": 29999.9278,
+    "ts": 1793328324
+   },
+   {
+    "title": "Spread: Hawks (-3.5)",
+    "realizedPnl": 13249.9749,
+    "avgPrice": 0.47,
+    "totalBought": 24999.9526,
+    "ts": 1793328325
+   },
+   {
+    "title": "Spread: Hawks (-5.5)",
+    "realizedPnl": 10200,
+    "avgPrice": 0.49,
+    "totalBought": 20000,
+    "ts": 1793328330
+   },
+   {
+    "title": "Cavaliers vs. Hawks: O/U 217.5",
+    "realizedPnl": 7708.5263,
+    "avgPrice": 0.486,
+    "totalBought": 14999.9345,
+    "ts": 1793328027
+   },
+   {
+    "title": "Spread: Cavaliers (-7.5)",
+    "realizedPnl": 5249.9842,
+    "avgPrice": 0.4749,
+    "totalBought": 9999.9319,
+    "ts": 1793328325
+   },
+   {
+    "title": "Spread: Hawks (-6.5)",
+    "realizedPnl": 5199.998,
+    "avgPrice": 0.48,
+    "totalBought": 9999.9961,
+    "ts": 1793328330
+   }
+  ],
+  "open_positions": 7,
+  "open_value_now": 804.9995,
+  "open_cashPnl_now": -29302.0175
+ },
+ "0x70c14608f9c06ad9a5f48f1d6ddb6c0fc2d41be2": {
+  "wallet": "0x70c14608f9c06ad9a5f48f1d6ddb6c0fc2d41be2",
+  "rank": 39,
+  "name": "Ended.",
+  "lb_pnl": 512780.7295484481,
+  "lb_volume": 0.0,
+  "series_econ_30d": 1262.1061790000022,
+  "series_trade_30d_to_now": 0.002462999997078441,
+  "series_all_time": 56494.315551,
+  "activity_rows": 31,
+  "activity_coverage": "complete",
+  "activity_by_type": {
+   "MERGE:": [
+    1,
+    512780.76
+   ],
+   "SPLIT:": [
+    2,
+    2181.85
+   ],
+   "YIELD:": [
+    28,
+    1262.1
+   ]
+  },
+  "window_cash_flow": 511861.01379999996,
+  "trade_volume_usdc": 0,
+  "big_non_trade_rows": [
+   {
+    "type": "MERGE",
+    "usdc": 512780.76,
+    "ts": 1793032631,
+    "title": "Will Gavin Newsom win the 2028 Democratic presidential nomination?"
+   }
+  ],
+  "closed_positions_total": 196,
+  "closed_positions_in_window": 4,
+  "realized_pnl_closed_in_window": 91.7564,
+  "closed_in_window_top": [
+   {
+    "title": "Will Donald Trump win the Nobel Peace Prize in 2026?",
+    "realizedPnl": 78.8854,
+    "avgPrice": 0.918,
+    "totalBought": 5110,
+    "ts": 1791547660
+   },
+   {
+    "title": "Will Volodymyr Zelenskyy win the Nobel Peace Prize in 2026?",
+    "realizedPnl": 12.871,
+    "avgPrice": 0.9039,
+    "totalBought": 625.5072,
+    "ts": 1791547782
+   },
+   {
+    "title": "Will Gavin Newsom win the 2028 Democratic presidential nomin",
+    "realizedPnl": 0,
+    "avgPrice": 0.5,
+    "totalBought": 954577.89,
+    "ts": 1792848329
+   },
+   {
+    "title": "Will Gavin Newsom win the 2028 Democratic presidential nomin",
+    "realizedPnl": 0,
+    "avgPrice": 0.5,
+    "totalBought": 954577.89,
+    "ts": 1792848329
+   }
+  ],
+  "open_positions": 0,
+  "open_value_now": 0.0,
+  "open_cashPnl_now": 0.0
+ },
+ "0x9ba9dec33838f4ec9f032f7247d7481987e63ce9": {
+  "wallet": "0x9ba9dec33838f4ec9f032f7247d7481987e63ce9",
+  "rank": 37,
+  "name": "TeamA",
+  "lb_pnl": 542218.78406824,
+  "lb_volume": 499760.8899999999,
+  "series_econ_30d": 7681.821309000006,
+  "series_trade_30d_to_now": 13128.15566199999,
+  "series_all_time": 107140.092552,
+  "activity_rows": 36,
+  "activity_coverage": "complete",
+  "activity_by_type": {
+   "REDEEM:": [
+    1,
+    513862.95
+   ],
+   "TAKER_REBATE:": [
+    2,
+    60.0
+   ],
+   "TRADE:BUY": [
+    7,
+    344170.05
+   ],
+   "YIELD:": [
+    26,
+    747.35
+   ]
+  },
+  "window_cash_flow": 170440.25153999994,
+  "trade_volume_usdc": 344170.04526000004,
+  "big_non_trade_rows": [
+   {
+    "type": "REDEEM",
+    "usdc": 513862.95,
+    "ts": 1791104294,
+    "title": "Will the Iranian regime fall by June 30?"
+   }
+  ],
+  "closed_positions_total": 1,
+  "closed_positions_in_window": 1,
+  "realized_pnl_closed_in_window": 48655.1134,
+  "closed_in_window_top": [
+   {
+    "title": "Will the Iranian regime fall by June 30?",
+    "realizedPnl": 48655.1134,
+    "avgPrice": 0.9053,
+    "totalBought": 513862.95,
+    "ts": 1791104294
+   }
+  ],
+  "open_positions": 7,
+  "open_value_now": 683634.6043,
+  "open_cashPnl_now": 70226.2389
+ },
+ "0xb0e74df9430a089aa102e2207af5fde1967439d2": {
+  "wallet": "0xb0e74df9430a089aa102e2207af5fde1967439d2",
+  "rank": 4,
+  "name": "0xb0e74DF9430A089Aa102e2207Af5fde1967439D2-1789545517033",
+  "lb_pnl": 2618832.6921967636,
+  "lb_volume": 13209.119999999999,
+  "series_econ_30d": 76712.51430100002,
+  "series_trade_30d_to_now": 81031.11521000002,
+  "series_all_time": 131195.65859,
+  "activity_rows": 47577,
+  "activity_coverage": "complete",
+  "activity_by_type": {
+   "CONVERSION:": [
+    8508,
+    1928275.31
+   ],
+   "MERGE:": [
+    13113,
+    568757.01
+   ],
+   "REDEEM:": [
+    25947,
+    6140.86
+   ],
+   "TRADE:SELL": [
+    9,
+    5128.2
+   ]
+  },
+  "window_cash_flow": 2508301.3767590607,
+  "trade_volume_usdc": 5128.20342,
+  "big_non_trade_rows": [],
+  "closed_positions_total": 3000,
+  "closed_positions_in_window": 1971,
+  "realized_pnl_closed_in_window": 794499.1418999999,
+  "closed_in_window_top": [
+   {
+    "title": "Will Harry Kane win the 2026 Ballon d'Or?",
+    "realizedPnl": 96976.9956,
+    "avgPrice": 0.001,
+    "totalBought": 0,
+    "ts": 1793066307
+   },
+   {
+    "title": "Will Luiz In\u00e1cio Lula da Silva win the 2026 Brazilian presid",
+    "realizedPnl": 80358.5955,
+    "avgPrice": 0.0293,
+    "totalBought": 0,
+    "ts": 1792972302
+   },
+   {
+    "title": "Will Fl\u00e1vio Bolsonaro win the 2026 Brazilian presidential el",
+    "realizedPnl": 71831.8268,
+    "avgPrice": 0.9685,
+    "totalBought": 0,
+    "ts": 1792984658
+   },
+   {
+    "title": "Will Lionel Messi win the 2026 Ballon d'Or?",
+    "realizedPnl": 41139.7495,
+    "avgPrice": 0.0112,
+    "totalBought": 100688.0799,
+    "ts": 1793066004
+   },
+   {
+    "title": "Will Ousmane Demb\u00e9l\u00e9 win the 2026 Ballon d'Or?",
+    "realizedPnl": 33889.8142,
+    "avgPrice": 0.0112,
+    "totalBought": 154129.41,
+    "ts": 1793066004
+   },
+   {
+    "title": "Will Yashar win the most seats in the 2026 Israeli legislati",
+    "realizedPnl": 33415.0191,
+    "avgPrice": 0.9808,
+    "totalBought": 0,
+    "ts": 1793146532
+   }
+  ],
+  "open_positions": 1,
+  "open_value_now": 1.4729,
+  "open_cashPnl_now": -1.3897
+ },
+ "0x511f9c771449162349795d17becf8b37031acbe1": {
+  "wallet": "0x511f9c771449162349795d17becf8b37031acbe1",
+  "rank": 10,
+  "name": "Bigggggggg",
+  "lb_pnl": 1374048.305480322,
+  "lb_volume": 8521440.833839001,
+  "series_econ_30d": 100675.35820499994,
+  "series_trade_30d_to_now": 101619.85592200002,
+  "series_all_time": 661310.025663,
+  "activity_rows": 24010,
+  "activity_coverage": "complete",
+  "activity_by_type": {
+   "CONVERSION:": [
+    1978,
+    2826797.99
+   ],
+   "MAKER_REBATE:": [
+    32,
+    1811.68
+   ],
+   "MERGE:": [
+    247,
+    43765.07
+   ],
+   "REDEEM:": [
+    89,
+    2380.98
+   ],
+   "REWARD:": [
+    58,
+    7527.02
+   ],
+   "TAKER_REBATE:": [
+    31,
+    683.52
+   ],
+   "TRADE:BUY": [
+    7739,
+    3061126.77
+   ],
+   "TRADE:SELL": [
+    13833,
+    213018.6
+   ],
+   "YIELD:": [
+    3,
+    0.18
+   ]
+  },
+  "window_cash_flow": 34174.746172999956,
+  "trade_volume_usdc": 3274145.37509099,
+  "big_non_trade_rows": [
+   {
+    "type": "CONVERSION",
+    "usdc": 82595.219994,
+    "ts": 1793025224,
+    "title": "Ballon d'Or Winner 2026"
+   },
+   {
+    "type": "CONVERSION",
+    "usdc": 79482.08,
+    "ts": 1792988222,
+    "title": "Ballon d'Or Winner 2026"
+   },
+   {
+    "type": "CONVERSION",
+    "usdc": 64068.13,
+    "ts": 1792715724,
+    "title": "Ballon d'Or Winner 2026"
+   },
+   {
+    "type": "CONVERSION",
+    "usdc": 60000.0,
+    "ts": 1793131010,
+    "title": "Prime Minister of Israel after the next election?"
+   },
+   {
+    "type": "CONVERSION",
+    "usdc": 58630.0,
+    "ts": 1792648094,
+    "title": "Ballon d'Or Winner 2026"
+   },
+   {
+    "type": "CONVERSION",
+    "usdc": 53537.337,
+    "ts": 1792976826,
+    "title": "Ballon d'Or Winner 2026"
+   }
+  ],
+  "closed_positions_total": 3000,
+  "closed_positions_in_window": 635,
+  "realized_pnl_closed_in_window": 1519066.4961,
+  "closed_in_window_top": [
+   {
+    "title": "Will Harry Kane win the 2026 Ballon d'Or?",
+    "realizedPnl": 240308.7907,
+    "avgPrice": 0.2828,
+    "totalBought": 381598.033,
+    "ts": 1793066261
+   },
+   {
+    "title": "Will United Russia (ER) gain the most seats in the next Russ",
+    "realizedPnl": 132728.269,
+    "avgPrice": 0.11,
+    "totalBought": 210354.1534,
+    "ts": 1790798889
+   },
+   {
+    "title": "Will Aleksandar Vu\u010di\u0107 \u2013 United Serbia win the most seats in ",
+    "realizedPnl": 90270.0214,
+    "avgPrice": 0.3466,
+    "totalBought": 220836.7717,
+    "ts": 1793051420
+   },
+   {
+    "title": "Will Kylian Mbapp\u00e9 win the 2026 Ballon d'Or?",
+    "realizedPnl": 75376.6143,
+    "avgPrice": 0.761,
+    "totalBought": 388884.6849,
+    "ts": 1793065976
+   },
+   {
+    "title": "Will Fl\u00e1vio Bolsonaro win the 2026 Brazilian presidential el",
+    "realizedPnl": 65870.485,
+    "avgPrice": 0.2208,
+    "totalBought": 130915.0313,
+    "ts": 1792984634
+   },
+   {
+    "title": "Will Student List \u2013 Students Win win the most seats in the 2",
+    "realizedPnl": 60891.3619,
+    "avgPrice": 0.6686,
+    "totalBought": 153830.9354,
+    "ts": 1792991913
+   }
+  ],
+  "open_positions": 5000,
+  "open_value_now": 6811.3462,
+  "open_cashPnl_now": -557357.5656
+ }
+}

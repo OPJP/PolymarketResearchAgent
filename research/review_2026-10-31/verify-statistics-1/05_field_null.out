@@ -1,0 +1,9 @@
+/home/user/PolymarketResearchAgent/polyrea/stats/significance.py:125: RuntimeWarning: Precision loss occurred in moment calculation due to catastrophic cancellation. This occurs when the data are nearly identical. Results may be unreliable.
+  g3 = float(stats.skew(a))
+/home/user/PolymarketResearchAgent/polyrea/stats/significance.py:126: RuntimeWarning: Precision loss occurred in moment calculation due to catastrophic cancellation. This occurs when the data are nearly identical. Results may be unreliable.
+  g4 = float(stats.kurtosis(a, fisher=False))
+wallets=334 B=4000 block=10.0 flagged=14568
+real pre-series lag-1 autocorr: median 0.02, IQR [-0.06,0.11], share>0.3 0.06, share>0.6 0.01
+real pre-series skewness: median 0.32, share < -2 0.20, share > 2 0.29
+per-wallet HAC size at 1e-4: median 0.0e+00, mean 1.09e-02 (109.0x), max 3.5e-01
+expected # false rejections over 334 nulls / FWER: HAC-only 3.642 / 98.2%; full gate DSR(pre only) 2.202 / 90.9%; full gate DSR(pre+actual window) 0.577 / 44.8%

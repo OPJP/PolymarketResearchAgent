@@ -1,0 +1,170 @@
+{
+ "n_perm": 5,
+ "results": {
+  "GF": {
+   "fit_wallet_prints": 6015,
+   "test_wallet_prints": 5446,
+   "test_prints": 315962,
+   "auc_test_full": 0.7126518961836837,
+   "auc_test_static_only": 0.7123438513019782,
+   "auc_test_dynamic_only": 0.6090113160155766,
+   "auc_gain_full_minus_static": 0.0003080448817055492,
+   "auc_gain_bootstrap_ci95": [
+    -0.0007080639103040548,
+    0.0013019623726834404
+   ],
+   "auc_gain_bootstrap_p_le0": 0.3333333333333333,
+   "clock_shift_null_full": {
+    "mean": 0.7118375083172777,
+    "p95": 0.7120694997596481,
+    "max": 0.712111422148608,
+    "perm_p": 0.16666666666666666
+   },
+   "clock_shift_null_dynamic_only": {
+    "mean": 0.5019970082423595,
+    "p95": 0.5095808459123543,
+    "max": 0.5114846366135579,
+    "perm_p": 0.16666666666666666
+   },
+   "coefficients_standardized": {
+    "price": 1.869,
+    "price2": -0.718,
+    "price3": -2.113,
+    "rel": 0.459,
+    "rel2": -0.172,
+    "is_up": -0.034,
+    "dside_5": 0.04,
+    "dside_20": 0.029,
+    "dside_60": -0.057,
+    "fx_5": -0.003,
+    "fx_20": -0.023,
+    "fx_60": 0.103,
+    "sside_2": 0.017,
+    "sside_10": -0.05,
+    "sside_30": 0.019
+   },
+   "decision_at_fit_threshold": {
+    "theta": 0.017520096554334664,
+    "tp": 4176,
+    "fp": 142342,
+    "fn": 1270,
+    "tn": 168174,
+    "precision": 0.028501617548697088,
+    "recall": 0.766801322071245,
+    "mcc": 0.08048812418093268,
+    "base_rate": 0.017236249928788906,
+    "lift": 1.6535857664196527
+   }
+  },
+  "XM": {
+   "fit_wallet_prints": 1283,
+   "test_wallet_prints": 1133,
+   "test_prints": 315962,
+   "auc_test_full": 0.7642638458658417,
+   "auc_test_static_only": 0.7600618645983633,
+   "auc_test_dynamic_only": 0.6159969181157104,
+   "auc_gain_full_minus_static": 0.004201981267478394,
+   "auc_gain_bootstrap_ci95": [
+    0.0015688037537826965,
+    0.006658791372801952
+   ],
+   "auc_gain_bootstrap_p_le0": 0.0,
+   "clock_shift_null_full": {
+    "mean": 0.7601818664182616,
+    "p95": 0.7606774037804974,
+    "max": 0.7607043644368205,
+    "perm_p": 0.16666666666666666
+   },
+   "clock_shift_null_dynamic_only": {
+    "mean": 0.4992231199230116,
+    "p95": 0.5040112656513571,
+    "max": 0.5047669862851086,
+    "perm_p": 0.16666666666666666
+   },
+   "coefficients_standardized": {
+    "price": 2.544,
+    "price2": -0.751,
+    "price3": -2.67,
+    "rel": 0.331,
+    "rel2": 0.288,
+    "is_up": -0.062,
+    "dside_5": -0.027,
+    "dside_20": 0.02,
+    "dside_60": -0.089,
+    "fx_5": 0.141,
+    "fx_20": -0.13,
+    "fx_60": 0.026,
+    "sside_2": 0.098,
+    "sside_10": -0.053,
+    "sside_30": -0.058
+   },
+   "decision_at_fit_threshold": {
+    "theta": 0.006816653598487494,
+    "tp": 449,
+    "fp": 39596,
+    "fn": 684,
+    "tn": 275233,
+    "precision": 0.011212386065676115,
+    "recall": 0.39629302736098854,
+    "mcc": 0.048606393786460034,
+    "base_rate": 0.0035858742507010335,
+    "lift": 3.1268207644158488
+   }
+  },
+  "DS": {
+   "fit_wallet_prints": 12786,
+   "test_wallet_prints": 12867,
+   "test_prints": 315962,
+   "auc_test_full": 0.6911120791985101,
+   "auc_test_static_only": 0.6883830199314699,
+   "auc_test_dynamic_only": 0.615273004217097,
+   "auc_gain_full_minus_static": 0.002729059267040257,
+   "auc_gain_bootstrap_ci95": [
+    0.0012288205761640247,
+    0.0038859836160515526
+   ],
+   "auc_gain_bootstrap_p_le0": 0.0,
+   "clock_shift_null_full": {
+    "mean": 0.6882641242105535,
+    "p95": 0.6885060735033187,
+    "max": 0.6885128195333141,
+    "perm_p": 0.16666666666666666
+   },
+   "clock_shift_null_dynamic_only": {
+    "mean": 0.4995598869158805,
+    "p95": 0.5041209376943745,
+    "max": 0.5046624386682019,
+    "perm_p": 0.16666666666666666
+   },
+   "coefficients_standardized": {
+    "price": 1.514,
+    "price2": -0.619,
+    "price3": -1.807,
+    "rel": 0.572,
+    "rel2": -0.499,
+    "is_up": -0.016,
+    "dside_5": 0.024,
+    "dside_20": 0.036,
+    "dside_60": -0.042,
+    "fx_5": -0.012,
+    "fx_20": 0.044,
+    "fx_60": 0.093,
+    "sside_2": -0.032,
+    "sside_10": -0.019,
+    "sside_30": -0.028
+   },
+   "decision_at_fit_threshold": {
+    "theta": 0.039477075311623706,
+    "tp": 9578,
+    "fp": 140989,
+    "fn": 3289,
+    "tn": 162106,
+    "precision": 0.0636128766595602,
+    "recall": 0.7443848604958421,
+    "mcc": 0.11049667463896143,
+    "base_rate": 0.040723251530247306,
+    "lift": 1.5620775421705106
+   }
+  }
+ }
+}

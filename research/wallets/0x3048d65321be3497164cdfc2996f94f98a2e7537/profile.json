@@ -24,6 +24,7 @@
    "window_days": 30,
    "peak_capital": 5821.121733999866,
    "p95_capital": 4983.632062849903,
+   "peak_capital_incl_complete_sets": 5821.121733999866,
    "window_pnl": 82114.786119,
    "monthly_roc": 14.10635095283886
   },
@@ -31,6 +32,8 @@
    "fills": 291525,
    "buy_share": 1.0,
    "usd_volume": 3904338.644147,
+   "usd_bought": 3904338.644147,
+   "usd_sold": 0.0,
    "median_fill_usd": 7.64352,
    "families_by_usd": {
     "crypto-updown:btc:5m": 3904338.644147
@@ -40,9 +43,11 @@
    "share_two_sided_markets": 0.8837179154783511,
    "median_pair_cost": 1.0081927623412965,
    "median_balance": 0.6500726654029247,
-   "settled_pnl": 28595.136538999992,
+   "settled_pnl": 28595.136539,
    "settled_locked_pnl": -12265.259500630204,
    "settled_residual_pnl": 40860.3960396302,
+   "settled_realized_from_sells": 0.0,
+   "unmatched_sell_usdc": 0.0,
    "residual_win_rate": 0.5237599270928265,
    "market_win_rate": 0.515426497277677,
    "price_quantiles": [
@@ -193,7 +198,7 @@
      "fetched_at": "2026-10-30T22:47:35+00:00",
      "records": 4,
      "body_sha256": "30d832c51d16209baf10e560f09e92dd1a0d5ce65548bf5208cd7d010a5c2237",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -201,7 +206,7 @@
      "fetched_at": "2026-10-30T22:47:35+00:00",
      "records": 4,
      "body_sha256": "30c3dc1eba607b73b4668f08fabd9319dc4ff54434cbe5112a68c4960b03202d",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -209,7 +214,7 @@
      "fetched_at": "2026-10-30T22:47:35+00:00",
      "records": 4,
      "body_sha256": "7fc6fc388e70a93fd7a959b27b488281931e2acde580065db0375a8f5f208b76",
-     "cached": false
+     "cached": true
     },
     {
      "more": 47
@@ -224,10 +229,10 @@
   {
    "adapter": "data-api.user-pnl",
    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x3048d65321be3497164cdfc2996f94f98a2e7537&interval=all&fidelity=1d",
-   "fetched_at": "2026-10-30T22:10:19+00:00",
-   "records": 143,
-   "body_sha256": "c0fdbe1b92ce1359128689efca944dab5219ee04df9995bb078d8befb70366db",
-   "cached": true
+   "fetched_at": "2026-10-31T04:36:02+00:00",
+   "records": 144,
+   "body_sha256": "5062cb8097b8cc9388377795fc6be3d742af9bf8350ec3da05d0e769d1f7759d",
+   "cached": false
   },
   {
    "adapter": "data-api.activity",
@@ -281,5 +286,5 @@
  ],
  "unknowns": [],
  "next_probes": [],
- "generated_at": "2026-10-30T22:47:47+00:00"
+ "generated_at": "2026-10-31T04:36:22+00:00"
 }

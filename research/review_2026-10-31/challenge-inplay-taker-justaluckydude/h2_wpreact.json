@@ -1,0 +1,181 @@
+{
+ "fit_choice": {
+  "D": 0,
+  "Delta": 0.02,
+  "W": 30
+ },
+ "fit_scan_top": [
+  {
+   "D": 0,
+   "Delta": 0.02,
+   "W": 30,
+   "wallet_share_reactive": 0.53959012575687,
+   "wallet_agree": 0.9257660768234787,
+   "wallet_n_reactive": 2317,
+   "wallet_share_reactive_agree": 0.4995342338146251,
+   "others_share_reactive": 0.2702979249952408,
+   "others_agree": 0.5943304868386302,
+   "others_n_reactive": 22718,
+   "others_share_reactive_agree": 0.16064629735389302,
+   "excess": 0.33888793646073206
+  },
+  {
+   "D": 0,
+   "Delta": 0.02,
+   "W": 20,
+   "wallet_share_reactive": 0.48393106660456453,
+   "wallet_agree": 0.9278152069297402,
+   "wallet_n_reactive": 2078,
+   "wallet_share_reactive_agree": 0.44899860270144387,
+   "others_share_reactive": 0.20977298686464876,
+   "others_agree": 0.6107991605694515,
+   "others_n_reactive": 17631,
+   "others_share_reactive_agree": 0.12812916428707405,
+   "excess": 0.3208694384143698
+  },
+  {
+   "D": 5,
+   "Delta": 0.02,
+   "W": 30,
+   "wallet_share_reactive": 0.5123428039124359,
+   "wallet_agree": 0.9231818181818182,
+   "wallet_n_reactive": 2200,
+   "wallet_share_reactive_agree": 0.47298556124825336,
+   "others_share_reactive": 0.26414667808871123,
+   "others_agree": 0.5887122201702626,
+   "others_n_reactive": 22201,
+   "others_share_reactive_agree": 0.15550637730820482,
+   "excess": 0.31747918394004854
+  },
+  {
+   "D": 0,
+   "Delta": 0.02,
+   "W": 60,
+   "wallet_share_reactive": 0.6094550535631114,
+   "wallet_agree": 0.8910966755827283,
+   "wallet_n_reactive": 2617,
+   "wallet_share_reactive_agree": 0.5430833721471822,
+   "others_share_reactive": 0.3970350276032743,
+   "others_agree": 0.5724003596044351,
+   "others_n_reactive": 33370,
+   "others_share_reactive_agree": 0.22726299257567104,
+   "excess": 0.3158203795715111
+  },
+  {
+   "D": 5,
+   "Delta": 0.02,
+   "W": 20,
+   "wallet_share_reactive": 0.47321844434094085,
+   "wallet_agree": 0.9276574803149606,
+   "wallet_n_reactive": 2032,
+   "wallet_share_reactive_agree": 0.43898462971588265,
+   "others_share_reactive": 0.20752427184466019,
+   "others_agree": 0.6070978098841876,
+   "others_n_reactive": 17442,
+   "others_share_reactive_agree": 0.12598753093470397,
+   "excess": 0.31299709878117865
+  }
+ ],
+ "test": {
+  "wallet_share_reactive": 0.5771902307864665,
+  "wallet_agree": 0.8916925465838509,
+  "wallet_n_reactive": 2576,
+  "wallet_share_reactive_agree": 0.5146762267533049,
+  "others_share_reactive": 0.5012789083105788,
+  "others_agree": 0.5903620845040556,
+  "others_n_reactive": 75452,
+  "others_share_reactive_agree": 0.2959360612281506,
+  "excess": 0.21874016552515435
+ },
+ "test_auc": 0.6477865657198936,
+ "null": {
+  "excess_p95": -0.02813320843037173,
+  "agree_p95": 0.558895346324439,
+  "auc_p95": 0.5103529764086988,
+  "excess_perm_p": 0.004975124378109453,
+  "agree_perm_p": 0.004975124378109453,
+  "auc_perm_p": 0.004975124378109453
+ },
+ "backtest_test": {
+  "trades": 46841,
+  "games": 68,
+  "usd": 1657318.2477176143,
+  "pnl": 53397.46223685521,
+  "ret": 0.03221919647019626,
+  "t": 1.5061141454432185,
+  "p": 0.06836914147039946,
+  "boot_p": 0.08895552223888056
+ },
+ "backtest_test_excl_wallet": {
+  "trades": 44544,
+  "games": 68,
+  "usd": 1531418.036113727,
+  "pnl": 48277.31809004915,
+  "ret": 0.03152458502615151,
+  "t": 1.3910502136576468,
+  "p": 0.0844063076296981,
+  "boot_p": 0.10944527736131934
+ },
+ "latency": {
+  "5": {
+   "trades": 42564,
+   "games": 68,
+   "usd": 1488912.7544007339,
+   "pnl": 16336.72138915689,
+   "ret": 0.010972248938610367,
+   "t": 0.6652922694375668,
+   "p": 0.25407369169819904,
+   "boot_p": 0.26036981509245377
+  },
+  "10": {
+   "trades": 37493,
+   "games": 68,
+   "usd": 1286542.6736146077,
+   "pnl": -11804.300305663382,
+   "ret": -0.009175210856005728,
+   "t": -0.5190023874940844,
+   "p": 0.6972653844417787,
+   "boot_p": 0.7116441779110445
+  },
+  "20": {
+   "trades": 34089,
+   "games": 67,
+   "usd": 1169817.1074826359,
+   "pnl": -6181.561126201642,
+   "ret": -0.005284211597404252,
+   "t": -0.2360272354816357,
+   "p": 0.5929287694453222,
+   "boot_p": 0.5902048975512244
+  },
+  "30": {
+   "trades": 32459,
+   "games": 66,
+   "usd": 1133426.465118625,
+   "pnl": -12194.691434477254,
+   "ret": -0.010759137720682172,
+   "t": -0.5444187619822882,
+   "p": 0.7059918932429787,
+   "boot_p": 0.7316341829085458
+  },
+  "60": {
+   "trades": 29767,
+   "games": 66,
+   "usd": 1054141.1041976153,
+   "pnl": -14337.005318905978,
+   "ret": -0.013600651053085472,
+   "t": -0.6541643143500242,
+   "p": 0.7423430720542865,
+   "boot_p": 0.7471264367816092
+  }
+ },
+ "backtest_fit": {
+  "trades": 15647,
+  "games": 67,
+  "usd": 582446.315657688,
+  "pnl": 11175.993008078189,
+  "ret": 0.019188022496903354,
+  "t": 0.5588225827342593,
+  "p": 0.28908700207463506,
+  "boot_p": 0.271864067966017
+ }
+}

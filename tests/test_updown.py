@@ -275,3 +275,20 @@ def test_spot_reactive_maker_quotes_only_after_spot_moves_toward_the_side():
     assert res["pnl"] == pytest.approx(20 * (1.0 - 0.46))
     none = spot_reactive_maker_backtest(flow, [w], spot, theta=5e-3, delta=0.03, latency=1, horizon=2, requote_s=1)
     assert none.get("fills", 0) == 0  # move below theta: never quotes
+
+
+def test_match_slack_never_credits_a_fill_before_the_order_existed():
+    from polyrea.analysis.updown import spot_reactive_maker_backtest
+
+    w = Window("c0", "btc", "5m", T0 + 3600, T0 + 3900, "u", "d", up_payout=1.0)
+    secs = list(range(T0, T0 + 4 * 3600))
+    px = [60000.0 if t < w.start_ts + 10 else 60060.0 for t in secs]
+    spot = SpotIndex(TimeSeries.build("spot", zip(secs, px), availability_lag=1))
+    flow = pd.DataFrame([
+        {"condition_id": "c0", "ts": w.start_ts + 5, "is_up": True, "side": "SELL", "price": 0.49, "size": 50.0},
+        {"condition_id": "c0", "ts": w.start_ts + 13, "is_up": True, "side": "SELL", "price": 0.45, "size": 50.0},  # stamped 1 s after the order rests
+    ])
+    kw = dict(theta=5e-4, delta=0.03, latency=1, horizon=2, requote_s=1)
+    assert spot_reactive_maker_backtest(flow, [w], spot, **kw)["fills"] == 1
+    # the print may have matched up to 2 s before its block time, i.e. before the bid existed
+    assert spot_reactive_maker_backtest(flow, [w], spot, match_slack=2, **kw).get("fills", 0) == 0

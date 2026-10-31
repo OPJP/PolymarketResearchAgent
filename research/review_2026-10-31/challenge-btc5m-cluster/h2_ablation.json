@@ -1,0 +1,26 @@
+{
+ "GF": {
+  "static": 0.6518,
+  "spot_only": 0.6671,
+  "tape_only": 0.66,
+  "dev_only": 0.6896,
+  "all_but_dev": 0.6695,
+  "all": 0.6958
+ },
+ "XM": {
+  "static": 0.7091,
+  "spot_only": 0.7221,
+  "tape_only": 0.7171,
+  "dev_only": 0.7437,
+  "all_but_dev": 0.7326,
+  "all": 0.755
+ },
+ "DS": {
+  "static": 0.624,
+  "spot_only": 0.6431,
+  "tape_only": 0.6324,
+  "dev_only": 0.6652,
+  "all_but_dev": 0.6465,
+  "all": 0.6729
+ }
+}

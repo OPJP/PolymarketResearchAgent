@@ -24,6 +24,7 @@
    "window_days": 30,
    "peak_capital": 9576.8123965667,
    "p95_capital": 8865.232346972469,
+   "peak_capital_incl_complete_sets": 9576.8123965667,
    "window_pnl": 60278.852306999994,
    "monthly_roc": 6.294250091879219
   },
@@ -31,6 +32,8 @@
    "fills": 104950,
    "buy_share": 0.95054787994283,
    "usd_volume": 5188910.547639,
+   "usd_bought": 3947191.728189,
+   "usd_sold": 1241718.8194499998,
    "median_fill_usd": 15.408999999999999,
    "families_by_usd": {
     "esports:cs": 5070341.644628,
@@ -39,16 +42,18 @@
    "markets": 1084,
    "markets_resolved": 1084,
    "share_two_sided_markets": 0.9243542435424354,
-   "median_pair_cost": 0.998786744525507,
-   "median_balance": 0.8407760602586918,
-   "settled_pnl": 86591.01545950006,
-   "settled_locked_pnl": -50038.157270952936,
-   "settled_residual_pnl": 136629.17273045293,
-   "residual_win_rate": 0.5133887349953832,
-   "market_win_rate": 0.5959409594095941,
+   "median_pair_cost": 1.0025965756725665,
+   "median_balance": 0.5133507242954348,
+   "settled_pnl": 27145.307159499993,
+   "settled_locked_pnl": 55480.99115768038,
+   "settled_residual_pnl": 38895.724590942686,
+   "settled_realized_from_sells": -67231.40858912306,
+   "unmatched_sell_usdc": 8.87720000000011,
+   "residual_win_rate": 0.587464920486436,
+   "market_win_rate": 0.5544280442804428,
    "price_quantiles": [
-    0.13,
-    0.32,
+    0.139619238365,
+    0.320000011,
     0.49,
     0.67,
     0.86
@@ -92,82 +97,82 @@
    {
     "price_lo": 0.0,
     "price_hi": 0.1,
-    "fills": 2338,
-    "shares": 255432.25751099997,
-    "avg_price": 0.06625138933551906,
-    "win_rate": 0.05721986060186852
+    "fills": 1879,
+    "shares": 140765.997511,
+    "avg_price": 0.07323259553609428,
+    "win_rate": 0.06976974796227002
    },
    {
     "price_lo": 0.1,
     "price_hi": 0.2,
-    "fills": 8564,
-    "shares": 711097.598212,
-    "avg_price": 0.14892528544671443,
-    "win_rate": 0.13108106794534666
+    "fills": 8112,
+    "shares": 546284.9082119999,
+    "avg_price": 0.14812201100099656,
+    "win_rate": 0.14128875139462355
    },
    {
     "price_lo": 0.2,
     "price_hi": 0.3,
-    "fills": 11878,
-    "shares": 1042623.506065,
-    "avg_price": 0.24940677544556128,
-    "win_rate": 0.23558949296572518
+    "fills": 11357,
+    "shares": 833483.2560650001,
+    "avg_price": 0.24892937429943277,
+    "win_rate": 0.24968187019196778
    },
    {
     "price_lo": 0.3,
     "price_hi": 0.4,
-    "fills": 13964,
-    "shares": 1216594.259716,
-    "avg_price": 0.34697798521903983,
-    "win_rate": 0.33695000350379245
+    "fills": 13388,
+    "shares": 980087.189716,
+    "avg_price": 0.34672500746970847,
+    "win_rate": 0.33955645330945916
    },
    {
     "price_lo": 0.4,
     "price_hi": 0.5,
-    "fills": 16356,
-    "shares": 1460791.716697,
-    "avg_price": 0.44655063476389234,
-    "win_rate": 0.45775216832380144
+    "fills": 15793,
+    "shares": 1199788.606697,
+    "avg_price": 0.4467994258882516,
+    "win_rate": 0.46542149397866617
    },
    {
     "price_lo": 0.5,
     "price_hi": 0.6,
-    "fills": 15304,
-    "shares": 1375197.928977,
-    "avg_price": 0.5459408215085771,
-    "win_rate": 0.5683457659476099
+    "fills": 14751,
+    "shares": 1113144.7589770001,
+    "avg_price": 0.5457146482556767,
+    "win_rate": 0.5724944308767728
    },
    {
     "price_lo": 0.6,
     "price_hi": 0.7,
-    "fills": 13946,
-    "shares": 1266986.7501420001,
-    "avg_price": 0.6460623218898399,
-    "win_rate": 0.6670044744846664
+    "fills": 13323,
+    "shares": 984433.430142,
+    "avg_price": 0.6454676333865629,
+    "win_rate": 0.6713572306886889
    },
    {
     "price_lo": 0.7,
     "price_hi": 0.8,
-    "fills": 11392,
-    "shares": 1072154.1450279998,
-    "avg_price": 0.7451958825374766,
-    "win_rate": 0.7609762757398965
+    "fills": 10823,
+    "shares": 814488.4550279999,
+    "avg_price": 0.7447570693798317,
+    "win_rate": 0.7513765965921047
    },
    {
     "price_lo": 0.8,
     "price_hi": 0.9,
-    "fills": 8731,
-    "shares": 988278.5168260001,
-    "avg_price": 0.8463843535562547,
-    "win_rate": 0.8833338581644997
+    "fills": 8174,
+    "shares": 676139.256826,
+    "avg_price": 0.8450235231848059,
+    "win_rate": 0.8600094867123528
    },
    {
     "price_lo": 0.9,
     "price_hi": 1.0,
-    "fills": 2477,
-    "shares": 547917.391664,
-    "avg_price": 0.9374637713177653,
-    "win_rate": 0.9634548676905677
+    "fills": 2160,
+    "shares": 339095.611664,
+    "avg_price": 0.9375380500798912,
+    "win_rate": 0.961680973961187
    }
   ],
   "onchain_verification": {
@@ -194,7 +199,7 @@
      "fetched_at": "2026-10-30T22:56:15+00:00",
      "records": 4,
      "body_sha256": "19f094b1ee9ccd9673e94b39a76208da7cc1cb5308f3297f7484c011b3074a7b",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -202,7 +207,7 @@
      "fetched_at": "2026-10-30T22:56:15+00:00",
      "records": 4,
      "body_sha256": "d21d42fb3910ce46ac08ccbcc8a82d98e1df5905afe9ca7a9fde45690a6d444c",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -210,7 +215,7 @@
      "fetched_at": "2026-10-30T22:56:15+00:00",
      "records": 4,
      "body_sha256": "e04cde9298666f71138c51b2847665f17d5bfdecf778059716c24ff941d569d8",
-     "cached": false
+     "cached": true
     },
     {
      "more": 47
@@ -225,10 +230,10 @@
   {
    "adapter": "data-api.user-pnl",
    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2&interval=all&fidelity=1d",
-   "fetched_at": "2026-10-30T22:10:28+00:00",
-   "records": 137,
-   "body_sha256": "a5a4ea48bd6449a42f7b3008fe6e6acab8756053808d46d29b51392e6eff39d5",
-   "cached": true
+   "fetched_at": "2026-10-31T04:32:57+00:00",
+   "records": 138,
+   "body_sha256": "c4b85bcacf3975e3c98056bfb791670b990030760c41a12b9363c3543c9ba5ea",
+   "cached": false
   },
   {
    "adapter": "data-api.activity",
@@ -236,7 +241,7 @@
    "fetched_at": "2026-10-30T22:54:20+00:00",
    "records": 500,
    "body_sha256": "d1ca20bc2863de451e75dadce02e0d87bf93f9a69164bba26708b07db0669156",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -244,7 +249,7 @@
    "fetched_at": "2026-10-30T22:54:20+00:00",
    "records": 500,
    "body_sha256": "f5d07c8f22d08205413264079a1ed7d39c20aef077a90a5edbf9e7eb11f1a12f",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -252,7 +257,7 @@
    "fetched_at": "2026-10-30T22:54:21+00:00",
    "records": 500,
    "body_sha256": "2accb6ab8cecbdb6143be3266cd299e566b8212a9afd9569e37b33b515f82d24",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -260,7 +265,7 @@
    "fetched_at": "2026-10-30T22:54:21+00:00",
    "records": 500,
    "body_sha256": "bdc4ba3962f7fd5c6a99a7dbc29091f138b6ef51682ffe034f1079fb5601446a",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -268,7 +273,7 @@
    "fetched_at": "2026-10-30T22:54:22+00:00",
    "records": 500,
    "body_sha256": "d88a9e1df850d16825bab27f215333e2d57867ea4b14af4534ea7f366ef0e4d8",
-   "cached": false
+   "cached": true
   }
  ],
  "coverage": {
@@ -282,5 +287,5 @@
  ],
  "unknowns": [],
  "next_probes": [],
- "generated_at": "2026-10-30T22:56:27+00:00"
+ "generated_at": "2026-10-31T04:33:01+00:00"
 }

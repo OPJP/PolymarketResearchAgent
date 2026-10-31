@@ -24,6 +24,7 @@
    "window_days": 30,
    "peak_capital": 3187.7819599999816,
    "p95_capital": 2663.834134799973,
+   "peak_capital_incl_complete_sets": 3187.7819599999816,
    "window_pnl": 63058.656772999995,
    "monthly_roc": 19.78135818705755
   },
@@ -31,6 +32,8 @@
    "fills": 251974,
    "buy_share": 1.0,
    "usd_volume": 3257472.928259,
+   "usd_bought": 3257472.928259,
+   "usd_sold": 0.0,
    "median_fill_usd": 8.08929,
    "families_by_usd": {
     "crypto-updown:btc:5m": 3257472.928259
@@ -40,9 +43,11 @@
    "share_two_sided_markets": 0.9430751907919429,
    "median_pair_cost": 1.0125126999090226,
    "median_balance": 0.6514075654223391,
-   "settled_pnl": 20662.798773,
+   "settled_pnl": 20662.798773000002,
    "settled_locked_pnl": -34915.27061570725,
    "settled_residual_pnl": 55578.069388707256,
+   "settled_realized_from_sells": 0.0,
+   "unmatched_sell_usdc": 0.0,
    "residual_win_rate": 0.5297730976557603,
    "market_win_rate": 0.5135743775803828,
    "price_quantiles": [
@@ -170,21 +175,21 @@
    }
   ],
   "onchain_verification": {
-   "sampled": 150,
-   "receipts_found": 150,
-   "confirmed": 150,
+   "sampled": 200,
+   "receipts_found": 200,
+   "confirmed": 200,
    "confirmed_rate": 1.0,
    "confirmed_rate_ci95": [
-    0.9750288608542812,
+    0.9811539940816791,
     1.0
    ],
-   "maker_fill_share": 0.32666666666666666,
+   "maker_fill_share": 0.33,
    "maker_fill_share_ci95": [
-    0.2567570339087464,
-    0.40523296099510275
+    0.26857320614303315,
+    0.3978344358691961
    ],
-   "maker_usdc_share": 0.13583486063673667,
-   "taker_fee_rate_observed": 0.027028841471021192,
+   "maker_usdc_share": 0.15074224623731405,
+   "taker_fee_rate_observed": 0.026809187118206252,
    "mismatches": [],
    "sources": [
     {
@@ -193,7 +198,7 @@
      "fetched_at": "2026-10-30T22:29:34+00:00",
      "records": 4,
      "body_sha256": "4aafa0a8648a13624a5baacd1b6cc4e4730fdef6c925533b21dbb3f8f49c5e52",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -201,7 +206,7 @@
      "fetched_at": "2026-10-30T22:29:34+00:00",
      "records": 4,
      "body_sha256": "37f6e4d98586cd63905a5898198ce27b069aecdb6e62dc742b01c6bc6d8ccdf3",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -209,10 +214,10 @@
      "fetched_at": "2026-10-30T22:29:34+00:00",
      "records": 4,
      "body_sha256": "38ae800acdc1857cb564b928e1f22fd594b2c4785eba0209cab0d7535b689e5e",
-     "cached": false
+     "cached": true
     },
     {
-     "more": 35
+     "more": 47
     }
    ]
   },
@@ -224,10 +229,10 @@
   {
    "adapter": "data-api.user-pnl",
    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6&interval=all&fidelity=1d",
-   "fetched_at": "2026-10-30T22:10:22+00:00",
-   "records": 106,
-   "body_sha256": "7f5f0e96aecd82b91b7ed9258b930243ec8e7c670d844c8ad14ad8862ac34e81",
-   "cached": true
+   "fetched_at": "2026-10-31T04:35:31+00:00",
+   "records": 107,
+   "body_sha256": "6aa2ed8cdd559eb6c3704c0b5e2bd802e7548e965b73bb7ff65453f499000ebb",
+   "cached": false
   },
   {
    "adapter": "data-api.activity",
@@ -281,5 +286,5 @@
  ],
  "unknowns": [],
  "next_probes": [],
- "generated_at": "2026-10-30T22:29:43+00:00"
+ "generated_at": "2026-10-31T04:35:54+00:00"
 }

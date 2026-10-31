@@ -1,0 +1,354 @@
+{
+ "wallet": "0x70c14608f9c06ad9a5f48f1d6ddb6c0fc2d41be2",
+ "rank": 39,
+ "name": "Ended.",
+ "lb_pnl": 512780.7295484481,
+ "lb_volume": 0.0,
+ "series_econ_30d": 1262.1061790000022,
+ "series_trade_30d_to_now": 0.002462999997078441,
+ "series_all_time": 56494.315551,
+ "activity_rows": 31,
+ "activity_coverage": "complete",
+ "activity_by_type": {
+  "MERGE:": [
+   1,
+   512780.76
+  ],
+  "SPLIT:": [
+   2,
+   2181.85
+  ],
+  "YIELD:": [
+   28,
+   1262.1
+  ]
+ },
+ "window_cash_flow": 511861.01379999996,
+ "trade_volume_usdc": 0,
+ "big_non_trade_rows": [
+  {
+   "type": "MERGE",
+   "usdc": 512780.76,
+   "ts": 1793032631,
+   "title": "Will Gavin Newsom win the 2028 Democratic presidential nomination?"
+  }
+ ],
+ "closed_positions_total": 196,
+ "closed_positions_in_window": 4,
+ "realized_pnl_closed_in_window": 91.7564,
+ "closed_in_window_top": [
+  {
+   "title": "Will Donald Trump win the Nobel Peace Prize in 2026?",
+   "realizedPnl": 78.8854,
+   "avgPrice": 0.918,
+   "totalBought": 5110,
+   "ts": 1791547660
+  },
+  {
+   "title": "Will Volodymyr Zelenskyy win the Nobel Peace Prize in 2026?",
+   "realizedPnl": 12.871,
+   "avgPrice": 0.9039,
+   "totalBought": 625.5072,
+   "ts": 1791547782
+  },
+  {
+   "title": "Will Gavin Newsom win the 2028 Democratic presidential nomin",
+   "realizedPnl": 0,
+   "avgPrice": 0.5,
+   "totalBought": 954577.89,
+   "ts": 1792848329
+  },
+  {
+   "title": "Will Gavin Newsom win the 2028 Democratic presidential nomin",
+   "realizedPnl": 0,
+   "avgPrice": 0.5,
+   "totalBought": 954577.89,
+   "ts": 1792848329
+  }
+ ],
+ "open_positions": 0,
+ "open_value_now": 0.0,
+ "open_cashPnl_now": 0.0
+}
+--------------------------------------------------------------------------------
+{
+ "wallet": "0x9ba9dec33838f4ec9f032f7247d7481987e63ce9",
+ "rank": 37,
+ "name": "TeamA",
+ "lb_pnl": 542218.78406824,
+ "lb_volume": 499760.8899999999,
+ "series_econ_30d": 7681.821309000006,
+ "series_trade_30d_to_now": 13128.15566199999,
+ "series_all_time": 107140.092552,
+ "activity_rows": 36,
+ "activity_coverage": "complete",
+ "activity_by_type": {
+  "REDEEM:": [
+   1,
+   513862.95
+  ],
+  "TAKER_REBATE:": [
+   2,
+   60.0
+  ],
+  "TRADE:BUY": [
+   7,
+   344170.05
+  ],
+  "YIELD:": [
+   26,
+   747.35
+  ]
+ },
+ "window_cash_flow": 170440.25153999994,
+ "trade_volume_usdc": 344170.04526000004,
+ "big_non_trade_rows": [
+  {
+   "type": "REDEEM",
+   "usdc": 513862.95,
+   "ts": 1791104294,
+   "title": "Will the Iranian regime fall by June 30?"
+  }
+ ],
+ "closed_positions_total": 1,
+ "closed_positions_in_window": 1,
+ "realized_pnl_closed_in_window": 48655.1134,
+ "closed_in_window_top": [
+  {
+   "title": "Will the Iranian regime fall by June 30?",
+   "realizedPnl": 48655.1134,
+   "avgPrice": 0.9053,
+   "totalBought": 513862.95,
+   "ts": 1791104294
+  }
+ ],
+ "open_positions": 7,
+ "open_value_now": 683634.6043,
+ "open_cashPnl_now": 70226.2389
+}
+--------------------------------------------------------------------------------
+{
+ "wallet": "0xb0e74df9430a089aa102e2207af5fde1967439d2",
+ "rank": 4,
+ "name": "0xb0e74DF9430A089Aa102e2207Af5fde1967439D2-1789545517033",
+ "lb_pnl": 2618832.6921967636,
+ "lb_volume": 13209.119999999999,
+ "series_econ_30d": 76712.51430100002,
+ "series_trade_30d_to_now": 81031.11521000002,
+ "series_all_time": 131195.65859,
+ "activity_rows": 47577,
+ "activity_coverage": "complete",
+ "activity_by_type": {
+  "CONVERSION:": [
+   8508,
+   1928275.31
+  ],
+  "MERGE:": [
+   13113,
+   568757.01
+  ],
+  "REDEEM:": [
+   25947,
+   6140.86
+  ],
+  "TRADE:SELL": [
+   9,
+   5128.2
+  ]
+ },
+ "window_cash_flow": 2508301.3767590607,
+ "trade_volume_usdc": 5128.20342,
+ "big_non_trade_rows": [],
+ "closed_positions_total": 3000,
+ "closed_positions_in_window": 1971,
+ "realized_pnl_closed_in_window": 794499.1418999999,
+ "closed_in_window_top": [
+  {
+   "title": "Will Harry Kane win the 2026 Ballon d'Or?",
+   "realizedPnl": 96976.9956,
+   "avgPrice": 0.001,
+   "totalBought": 0,
+   "ts": 1793066307
+  },
+  {
+   "title": "Will Luiz In\u00e1cio Lula da Silva win the 2026 Brazilian presid",
+   "realizedPnl": 80358.5955,
+   "avgPrice": 0.0293,
+   "totalBought": 0,
+   "ts": 1792972302
+  },
+  {
+   "title": "Will Fl\u00e1vio Bolsonaro win the 2026 Brazilian presidential el",
+   "realizedPnl": 71831.8268,
+   "avgPrice": 0.9685,
+   "totalBought": 0,
+   "ts": 1792984658
+  },
+  {
+   "title": "Will Lionel Messi win the 2026 Ballon d'Or?",
+   "realizedPnl": 41139.7495,
+   "avgPrice": 0.0112,
+   "totalBought": 100688.0799,
+   "ts": 1793066004
+  },
+  {
+   "title": "Will Ousmane Demb\u00e9l\u00e9 win the 2026 Ballon d'Or?",
+   "realizedPnl": 33889.8142,
+   "avgPrice": 0.0112,
+   "totalBought": 154129.41,
+   "ts": 1793066004
+  },
+  {
+   "title": "Will Yashar win the most seats in the 2026 Israeli legislati",
+   "realizedPnl": 33415.0191,
+   "avgPrice": 0.9808,
+   "totalBought": 0,
+   "ts": 1793146532
+  }
+ ],
+ "open_positions": 1,
+ "open_value_now": 1.4729,
+ "open_cashPnl_now": -1.3897
+}
+--------------------------------------------------------------------------------
+{
+ "wallet": "0x511f9c771449162349795d17becf8b37031acbe1",
+ "rank": 10,
+ "name": "Bigggggggg",
+ "lb_pnl": 1374048.305480322,
+ "lb_volume": 8521440.833839001,
+ "series_econ_30d": 100675.35820499994,
+ "series_trade_30d_to_now": 101619.85592200002,
+ "series_all_time": 661310.025663,
+ "activity_rows": 24010,
+ "activity_coverage": "complete",
+ "activity_by_type": {
+  "CONVERSION:": [
+   1978,
+   2826797.99
+  ],
+  "MAKER_REBATE:": [
+   32,
+   1811.68
+  ],
+  "MERGE:": [
+   247,
+   43765.07
+  ],
+  "REDEEM:": [
+   89,
+   2380.98
+  ],
+  "REWARD:": [
+   58,
+   7527.02
+  ],
+  "TAKER_REBATE:": [
+   31,
+   683.52
+  ],
+  "TRADE:BUY": [
+   7739,
+   3061126.77
+  ],
+  "TRADE:SELL": [
+   13833,
+   213018.6
+  ],
+  "YIELD:": [
+   3,
+   0.18
+  ]
+ },
+ "window_cash_flow": 34174.746172999956,
+ "trade_volume_usdc": 3274145.37509099,
+ "big_non_trade_rows": [
+  {
+   "type": "CONVERSION",
+   "usdc": 82595.219994,
+   "ts": 1793025224,
+   "title": "Ballon d'Or Winner 2026"
+  },
+  {
+   "type": "CONVERSION",
+   "usdc": 79482.08,
+   "ts": 1792988222,
+   "title": "Ballon d'Or Winner 2026"
+  },
+  {
+   "type": "CONVERSION",
+   "usdc": 64068.13,
+   "ts": 1792715724,
+   "title": "Ballon d'Or Winner 2026"
+  },
+  {
+   "type": "CONVERSION",
+   "usdc": 60000.0,
+   "ts": 1793131010,
+   "title": "Prime Minister of Israel after the next election?"
+  },
+  {
+   "type": "CONVERSION",
+   "usdc": 58630.0,
+   "ts": 1792648094,
+   "title": "Ballon d'Or Winner 2026"
+  },
+  {
+   "type": "CONVERSION",
+   "usdc": 53537.337,
+   "ts": 1792976826,
+   "title": "Ballon d'Or Winner 2026"
+  }
+ ],
+ "closed_positions_total": 3000,
+ "closed_positions_in_window": 635,
+ "realized_pnl_closed_in_window": 1519066.4961,
+ "closed_in_window_top": [
+  {
+   "title": "Will Harry Kane win the 2026 Ballon d'Or?",
+   "realizedPnl": 240308.7907,
+   "avgPrice": 0.2828,
+   "totalBought": 381598.033,
+   "ts": 1793066261
+  },
+  {
+   "title": "Will United Russia (ER) gain the most seats in the next Russ",
+   "realizedPnl": 132728.269,
+   "avgPrice": 0.11,
+   "totalBought": 210354.1534,
+   "ts": 1790798889
+  },
+  {
+   "title": "Will Aleksandar Vu\u010di\u0107 \u2013 United Serbia win the most seats in ",
+   "realizedPnl": 90270.0214,
+   "avgPrice": 0.3466,
+   "totalBought": 220836.7717,
+   "ts": 1793051420
+  },
+  {
+   "title": "Will Kylian Mbapp\u00e9 win the 2026 Ballon d'Or?",
+   "realizedPnl": 75376.6143,
+   "avgPrice": 0.761,
+   "totalBought": 388884.6849,
+   "ts": 1793065976
+  },
+  {
+   "title": "Will Fl\u00e1vio Bolsonaro win the 2026 Brazilian presidential el",
+   "realizedPnl": 65870.485,
+   "avgPrice": 0.2208,
+   "totalBought": 130915.0313,
+   "ts": 1792984634
+  },
+  {
+   "title": "Will Student List \u2013 Students Win win the most seats in the 2",
+   "realizedPnl": 60891.3619,
+   "avgPrice": 0.6686,
+   "totalBought": 153830.9354,
+   "ts": 1792991913
+  }
+ ],
+ "open_positions": 5000,
+ "open_value_now": 6811.3462,
+ "open_cashPnl_now": -557357.5656
+}
+--------------------------------------------------------------------------------

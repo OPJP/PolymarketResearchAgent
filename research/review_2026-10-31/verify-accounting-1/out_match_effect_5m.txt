@@ -1,0 +1,20 @@
+0x0ca4e9d2 5m RECORDED lat 0 auc 0.4845 perm_p 0.9552 mcc 0.00675 replay {'fills': 5104, 'pnl': 863.8843430020117, 'return': 0.03188650507799094, 'per_window_p': 0.10365521521562926}
+    orig  lat 0 auc 0.4845 perm_p 0.9552 mcc 0.00675 replay {'fills': 5104, 'pnl': 863.88, 'ret': 0.03189, 'p': 0.1037} 53s
+    fixed lat 0 auc 0.4843 perm_p 0.9602 mcc 0.00677 replay {'fills': 5109, 'pnl': 884.52, 'ret': 0.03257, 'p': 0.0973} 53s
+0x3048d653 5m RECORDED lat 0 auc 0.4600 perm_p 0.8458 mcc 0.00363 replay {'fills': 1751, 'pnl': 67.86966598063597, 'return': 0.0055872253554363665, 'per_window_p': 0.4507546867641867}
+    orig  lat 0 auc 0.4600 perm_p 0.8458 mcc 0.00363 replay {'fills': 1751, 'pnl': 67.87, 'ret': 0.00559, 'p': 0.4508} 52s
+    fixed lat 0 auc 0.4591 perm_p 0.8557 mcc 0.00357 replay {'fills': 1754, 'pnl': 76.84, 'ret': 0.00631, 'p': 0.4441} 52s
+0x3725d52f 5m RECORDED lat 3 auc 0.4755 perm_p 0.7363 mcc -0.00158 replay {'fills': 769, 'pnl': 111.95991601571231, 'return': 0.013868945226959703, 'per_window_p': 0.38081374732052087}
+    orig  lat 3 auc 0.4755 perm_p 0.7363 mcc -0.00158 replay {'fills': 769, 'pnl': 111.96, 'ret': 0.01387, 'p': 0.3808} 51s
+    fixed lat 3 auc 0.4758 perm_p 0.7363 mcc -0.00152 replay {'fills': 770, 'pnl': -173.04, 'ret': -0.0207, 'p': 0.6473} 53s
+0xb55fa129 5m RECORDED lat 3 auc 0.4980 perm_p 0.9652 mcc -0.00336 replay {'fills': 1565, 'pnl': -101.50883299631454, 'return': -0.02044759249016416, 'per_window_p': 0.6398323064179716}
+    orig  lat 3 auc 0.4980 perm_p 0.9652 mcc -0.00336 replay {'fills': 1565, 'pnl': -101.51, 'ret': -0.02045, 'p': 0.6398} 51s
+    fixed lat 3 auc 0.4980 perm_p 0.9652 mcc -0.00337 replay {'fills': 1565, 'pnl': -101.51, 'ret': -0.02045, 'p': 0.6398} 52s
+0xc2ad03f7 5m RECORDED lat 20 auc 0.5024 perm_p 0.2985 mcc 0.00179 replay {'fills': 758, 'pnl': 274.6838119685147, 'return': 0.034922067114988055, 'per_window_p': 0.20273356745274976}
+    orig  lat 20 auc 0.5024 perm_p 0.2985 mcc 0.00179 replay {'fills': 758, 'pnl': 274.68, 'ret': 0.03492, 'p': 0.2027} 52s
+    fixed lat 20 auc 0.5019 perm_p 0.2985 mcc 0.00177 replay {'fills': 759, 'pnl': -10.32, 'ret': -0.00127, 'p': 0.5092} 52s
+0xc53375ff 5m RECORDED lat 0 auc 0.4769 perm_p 1.0000 mcc 0.00733 replay {'fills': 10233, 'pnl': 1598.068219029503, 'return': 0.03265058372600797, 'per_window_p': 0.0316467117101605}
+    orig  lat 0 auc 0.4769 perm_p 1.0000 mcc 0.00733 replay {'fills': 10233, 'pnl': 1598.07, 'ret': 0.03265, 'p': 0.0316} 52s
+    fixed lat 0 auc 0.4768 perm_p 1.0000 mcc 0.00734 replay {'fills': 10238, 'pnl': 1615.32, 'ret': 0.03297, 'p': 0.0298} 52s
+
+[exited with code 0]

@@ -1,0 +1,43 @@
+FIT selected k=0.01,X=3,theta=1.0 {'fills': 145, 'usd': 1069.68506717, 'pnl': 61.52881283, 'ret': 0.05752049338482681, 'per_window_t': 0.974139523062317, 'p': 0.16705167593250414}
+  fit k=0.0,X=2,theta=3.0 {'fills': 7, 'usd': 56.3667, 'pnl': 23.6333, 'ret': 0.4193, 'per_window_t': 2.5598, 'p': 0.0253}
+  fit k=0.0,X=2,theta=5.0 {'fills': 2, 'usd': 20.2, 'pnl': -0.2, 'ret': -0.0099, 'per_window_t': nan, 'p': 1.0}
+  fit k=0.01,X=3,theta=1.0 {'fills': 145, 'usd': 1069.6851, 'pnl': 61.5288, 'ret': 0.0575, 'per_window_t': 0.9741, 'p': 0.1671}
+  fit k=0.0,X=3,theta=1.0 {'fills': 325, 'usd': 2570.304, 'pnl': 92.7315, 'ret': 0.0361, 'per_window_t': 0.913, 'p': 0.182}
+  fit k=0.0,X=2,theta=2.0 {'fills': 41, 'usd': 307.5084, 'pnl': 32.7309, 'ret': 0.1064, 'per_window_t': 0.9619, 'p': 0.1723}
+  fit k=0.01,X=2,theta=2.0 {'fills': 17, 'usd': 112.102, 'pnl': 9.8123, 'ret': 0.0875, 'per_window_t': 0.8826, 'p': 0.1974}
+TEST tape_lag=2,queue=0.0,spot_latency=1 {'fills': 113, 'windows': 48, 'usd': 982.9935, 'pnl': 18.793, 'ret': 0.0191, 'per_window_t': 0.3363, 'p': 0.3691, 'boot_p': 0.3628, 'fill_win_rate': 0.5044}
+TEST tape_lag=2,queue=0.0,spot_latency=2 {'fills': 177, 'windows': 59, 'usd': 1515.3133, 'pnl': 36.9938, 'ret': 0.0244, 'per_window_t': 0.4629, 'p': 0.3226, 'boot_p': 0.3008, 'fill_win_rate': 0.5254}
+TEST tape_lag=2,queue=0.0,spot_latency=3 {'fills': 257, 'windows': 73, 'usd': 2262.5186, 'pnl': -95.4143, 'ret': -0.0422, 'per_window_t': -0.7234, 'p': 0.7641, 'boot_p': 0.7431, 'fill_win_rate': 0.5136}
+TEST tape_lag=2,queue=0.0,spot_latency=5 {'fills': 356, 'windows': 82, 'usd': 3090.9906, 'pnl': -538.779, 'ret': -0.1743, 'per_window_t': -4.4742, 'p': 1.0, 'boot_p': 1.0, 'fill_win_rate': 0.4607}
+TEST tape_lag=2,queue=0.5,spot_latency=1 {'fills': 203, 'windows': 68, 'usd': 1650.8812, 'pnl': 36.012, 'ret': 0.0218, 'per_window_t': 0.4369, 'p': 0.3318, 'boot_p': 0.3153, 'fill_win_rate': 0.5665}
+TEST tape_lag=2,queue=0.5,spot_latency=2 {'fills': 284, 'windows': 75, 'usd': 2326.1219, 'pnl': 100.1698, 'ret': 0.0431, 'per_window_t': 1.0051, 'p': 0.1591, 'boot_p': 0.1354, 'fill_win_rate': 0.5704}
+TEST tape_lag=2,queue=0.5,spot_latency=3 {'fills': 393, 'windows': 89, 'usd': 3451.1722, 'pnl': -14.4538, 'ret': -0.0042, 'per_window_t': -0.1074, 'p': 0.5426, 'boot_p': 0.5392, 'fill_win_rate': 0.5649}
+TEST tape_lag=2,queue=0.5,spot_latency=5 {'fills': 511, 'windows': 93, 'usd': 4482.7873, 'pnl': -499.549, 'ret': -0.1114, 'per_window_t': -4.0178, 'p': 0.9999, 'boot_p': 1.0, 'fill_win_rate': 0.5127}
+TEST tape_lag=2,queue=1.0,spot_latency=1 {'fills': 203, 'windows': 68, 'usd': 1808.1677, 'pnl': 62.4705, 'ret': 0.0345, 'per_window_t': 0.7353, 'p': 0.2324, 'boot_p': 0.2139, 'fill_win_rate': 0.5665}
+TEST tape_lag=2,queue=1.0,spot_latency=2 {'fills': 284, 'windows': 75, 'usd': 2525.1912, 'pnl': 115.6036, 'ret': 0.0458, 'per_window_t': 1.1554, 'p': 0.1258, 'boot_p': 0.1039, 'fill_win_rate': 0.5704}
+TEST tape_lag=2,queue=1.0,spot_latency=3 {'fills': 393, 'windows': 89, 'usd': 3676.9423, 'pnl': -0.1468, 'ret': -0.0, 'per_window_t': -0.0011, 'p': 0.5005, 'boot_p': 0.5037, 'fill_win_rate': 0.5649}
+TEST tape_lag=2,queue=1.0,spot_latency=5 {'fills': 511, 'windows': 93, 'usd': 4705.4849, 'pnl': -499.6185, 'ret': -0.1062, 'per_window_t': -4.0838, 'p': 1.0, 'boot_p': 1.0, 'fill_win_rate': 0.5127}
+TEST tape_lag=1,queue=0.0,spot_latency=1 {'fills': 169, 'windows': 60, 'usd': 1496.7994, 'pnl': -44.7564, 'ret': -0.0299, 'per_window_t': -0.681, 'p': 0.7507, 'boot_p': 0.7456, 'fill_win_rate': 0.497}
+TEST tape_lag=1,queue=0.0,spot_latency=2 {'fills': 235, 'windows': 69, 'usd': 2125.4507, 'pnl': 23.3958, 'ret': 0.011, 'per_window_t': 0.2851, 'p': 0.3882, 'boot_p': 0.3863, 'fill_win_rate': 0.5362}
+TEST tape_lag=1,queue=0.0,spot_latency=3 {'fills': 286, 'windows': 75, 'usd': 2663.4089, 'pnl': -103.3733, 'ret': -0.0388, 'per_window_t': -0.8383, 'p': 0.7977, 'boot_p': 0.7941, 'fill_win_rate': 0.5315}
+TEST tape_lag=1,queue=0.0,spot_latency=5 {'fills': 330, 'windows': 83, 'usd': 3034.6784, 'pnl': -464.5679, 'ret': -0.1531, 'per_window_t': -3.6765, 'p': 0.9998, 'boot_p': 1.0, 'fill_win_rate': 0.4697}
+TEST tape_lag=1,queue=0.5,spot_latency=1 {'fills': 307, 'windows': 84, 'usd': 2576.6987, 'pnl': -24.4032, 'ret': -0.0095, 'per_window_t': -0.245, 'p': 0.5965, 'boot_p': 0.5852, 'fill_win_rate': 0.5635}
+TEST tape_lag=1,queue=0.5,spot_latency=2 {'fills': 402, 'windows': 87, 'usd': 3434.2679, 'pnl': 82.9919, 'ret': 0.0242, 'per_window_t': 0.6775, 'p': 0.2499, 'boot_p': 0.2214, 'fill_win_rate': 0.5771}
+TEST tape_lag=1,queue=0.5,spot_latency=3 {'fills': 472, 'windows': 89, 'usd': 4177.6412, 'pnl': -13.7856, 'ret': -0.0033, 'per_window_t': -0.0968, 'p': 0.5385, 'boot_p': 0.5232, 'fill_win_rate': 0.572}
+TEST tape_lag=1,queue=0.5,spot_latency=5 {'fills': 523, 'windows': 93, 'usd': 4617.1638, 'pnl': -406.5089, 'ret': -0.088, 'per_window_t': -2.6104, 'p': 0.9947, 'boot_p': 0.996, 'fill_win_rate': 0.5315}
+TEST tape_lag=1,queue=1.0,spot_latency=1 {'fills': 307, 'windows': 84, 'usd': 2797.4251, 'pnl': 5.9424, 'ret': 0.0021, 'per_window_t': 0.0568, 'p': 0.4774, 'boot_p': 0.4673, 'fill_win_rate': 0.5635}
+TEST tape_lag=1,queue=1.0,spot_latency=2 {'fills': 402, 'windows': 87, 'usd': 3714.4346, 'pnl': 115.4084, 'ret': 0.0311, 'per_window_t': 0.8831, 'p': 0.1898, 'boot_p': 0.1534, 'fill_win_rate': 0.5771}
+TEST tape_lag=1,queue=1.0,spot_latency=3 {'fills': 472, 'windows': 89, 'usd': 4467.399, 'pnl': 2.8032, 'ret': 0.0006, 'per_window_t': 0.0194, 'p': 0.4923, 'boot_p': 0.4838, 'fill_win_rate': 0.572}
+TEST tape_lag=1,queue=1.0,spot_latency=5 {'fills': 523, 'windows': 93, 'usd': 4919.6481, 'pnl': -409.9037, 'ret': -0.0833, 'per_window_t': -2.645, 'p': 0.9952, 'boot_p': 0.9965, 'fill_win_rate': 0.5315}
+TEST tape_lag=0,queue=0.0,spot_latency=1 {'fills': 221, 'windows': 67, 'usd': 2014.7402, 'pnl': -102.6883, 'ret': -0.051, 'per_window_t': -0.9249, 'p': 0.8208, 'boot_p': 0.8321, 'fill_win_rate': 0.5204}
+TEST tape_lag=0,queue=0.0,spot_latency=2 {'fills': 271, 'windows': 68, 'usd': 2509.316, 'pnl': -15.749, 'ret': -0.0063, 'per_window_t': -0.1262, 'p': 0.55, 'boot_p': 0.5682, 'fill_win_rate': 0.5498}
+TEST tape_lag=0,queue=0.0,spot_latency=3 {'fills': 299, 'windows': 75, 'usd': 2771.3786, 'pnl': -196.2552, 'ret': -0.0708, 'per_window_t': -1.3559, 'p': 0.9104, 'boot_p': 0.9145, 'fill_win_rate': 0.5184}
+TEST tape_lag=0,queue=0.0,spot_latency=5 {'fills': 303, 'windows': 81, 'usd': 2877.616, 'pnl': -478.3926, 'ret': -0.1662, 'per_window_t': -3.0611, 'p': 0.9985, 'boot_p': 1.0, 'fill_win_rate': 0.4653}
+TEST tape_lag=0,queue=0.5,spot_latency=1 {'fills': 402, 'windows': 90, 'usd': 3486.565, 'pnl': 71.9804, 'ret': 0.0206, 'per_window_t': 0.4549, 'p': 0.3251, 'boot_p': 0.2954, 'fill_win_rate': 0.5871}
+TEST tape_lag=0,queue=0.5,spot_latency=2 {'fills': 482, 'windows': 89, 'usd': 4155.9882, 'pnl': 212.9665, 'ret': 0.0512, 'per_window_t': 1.007, 'p': 0.1583, 'boot_p': 0.1204, 'fill_win_rate': 0.6017}
+TEST tape_lag=0,queue=0.5,spot_latency=3 {'fills': 517, 'windows': 91, 'usd': 4558.7051, 'pnl': -29.4538, 'ret': -0.0065, 'per_window_t': -0.1579, 'p': 0.5626, 'boot_p': 0.5562, 'fill_win_rate': 0.5783}
+TEST tape_lag=0,queue=0.5,spot_latency=5 {'fills': 523, 'windows': 91, 'usd': 4690.8881, 'pnl': -402.8769, 'ret': -0.0859, 'per_window_t': -2.4037, 'p': 0.9909, 'boot_p': 0.9945, 'fill_win_rate': 0.5373}
+TEST tape_lag=0,queue=1.0,spot_latency=1 {'fills': 402, 'windows': 90, 'usd': 3769.816, 'pnl': 94.9707, 'ret': 0.0252, 'per_window_t': 0.5716, 'p': 0.2845, 'boot_p': 0.2559, 'fill_win_rate': 0.5871}
+TEST tape_lag=0,queue=1.0,spot_latency=2 {'fills': 482, 'windows': 89, 'usd': 4561.7661, 'pnl': 228.6862, 'ret': 0.0501, 'per_window_t': 1.029, 'p': 0.1531, 'boot_p': 0.1109, 'fill_win_rate': 0.6017}
+TEST tape_lag=0,queue=1.0,spot_latency=3 {'fills': 517, 'windows': 91, 'usd': 4943.832, 'pnl': -21.6074, 'ret': -0.0044, 'per_window_t': -0.1129, 'p': 0.5448, 'boot_p': 0.5342, 'fill_win_rate': 0.5783}
+TEST tape_lag=0,queue=1.0,spot_latency=5 {'fills': 523, 'windows': 91, 'usd': 5036.5261, 'pnl': -416.0295, 'ret': -0.0826, 'per_window_t': -2.462, 'p': 0.9921, 'boot_p': 0.995, 'fill_win_rate': 0.5373}

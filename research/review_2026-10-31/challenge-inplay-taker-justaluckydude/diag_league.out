@@ -1,0 +1,11 @@
+H2 WP-REACT D0 W30 cfb trades 3501 ret 0.0139 games 31 p 0.428
+H2 WP-REACT D0 W30 mlb trades 118 ret -0.1588 games 3 p None
+H2 WP-REACT D0 W30 nba trades 39311 ret 0.0413 games 23 p 0.044
+H2 WP-REACT D0 W30 nfl trades 3528 ret -0.0125 games 10 p 0.589
+H2 WP-REACT D0 W30 wnba trades 383 ret -0.2062 games 1 p None
+H3 WP-VALUE D5 th0.10 (ML only) cfb trades 1100 ret 0.0469 games 26 p 0.426
+H3 WP-VALUE D5 th0.10 (ML only) mlb trades 44 ret 0.1322 games 3 p None
+H3 WP-VALUE D5 th0.10 (ML only) nba trades 10031 ret -0.2978 games 21 p 0.925
+H3 WP-VALUE D5 th0.10 (ML only) nfl trades 1177 ret -0.5047 games 9 p 0.917
+H3 WP-VALUE D5 th0.10 (ML only) wnba trades 187 ret -1.0219 games 1 p None
+H2 reactive+agreeing wallet buys / ALL wallet buys on TEST games: 0.356  (team-side WP prints / all: 0.692 )

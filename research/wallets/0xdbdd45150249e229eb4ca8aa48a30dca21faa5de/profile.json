@@ -24,6 +24,7 @@
    "window_days": 30,
    "peak_capital": 33408.49387599997,
    "p95_capital": 29006.396138200063,
+   "peak_capital_incl_complete_sets": 33408.49387599997,
    "window_pnl": 61711.50053900003,
    "monthly_roc": 1.8471799647134768
   },
@@ -31,6 +32,8 @@
    "fills": 29543,
    "buy_share": 1.0,
    "usd_volume": 1712571.922553,
+   "usd_bought": 1712571.922553,
+   "usd_sold": 0.0,
    "median_fill_usd": 11.39062,
    "families_by_usd": {
     "other": 546776.702524,
@@ -49,9 +52,11 @@
    "share_two_sided_markets": 0.12937328871311227,
    "median_pair_cost": 0.9950704761904762,
    "median_balance": 0.0,
-   "settled_pnl": 56827.39752100001,
+   "settled_pnl": 56827.397521000006,
    "settled_locked_pnl": 4303.12340090148,
    "settled_residual_pnl": 52524.27412009852,
+   "settled_realized_from_sells": 0.0,
+   "unmatched_sell_usdc": 0.0,
    "residual_win_rate": 0.5036301108139091,
    "market_win_rate": 0.4992389649923896,
    "price_quantiles": [
@@ -68,7 +73,7 @@
     0.3125925925925926,
     0.50634375
    ],
-   "share_fills_after_game_start": 0.9952949937379413,
+   "share_fills_after_game_start": 0.9952946751971836,
    "hour_of_day_usd": {
     "0": 86899.007954,
     "1": 121875.729417,
@@ -202,7 +207,7 @@
      "fetched_at": "2026-10-30T22:54:11+00:00",
      "records": 4,
      "body_sha256": "121ff0f4b853a716b1b87c6481914deff7d3b84956bed96270883063daa9f351",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -210,7 +215,7 @@
      "fetched_at": "2026-10-30T22:54:11+00:00",
      "records": 4,
      "body_sha256": "931a04b273aca9c40289254a78f6ed81936ce387083c900819860e91b48f26d8",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -218,7 +223,7 @@
      "fetched_at": "2026-10-30T22:54:11+00:00",
      "records": 4,
      "body_sha256": "77446a426d2c830d00450700140eab84c026618cbcf68ff181e4c58d4c099582",
-     "cached": false
+     "cached": true
     },
     {
      "more": 47
@@ -233,10 +238,10 @@
   {
    "adapter": "data-api.user-pnl",
    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xdbdd45150249e229eb4ca8aa48a30dca21faa5de&interval=all&fidelity=1d",
-   "fetched_at": "2026-10-30T22:10:27+00:00",
-   "records": 353,
-   "body_sha256": "20daef85046f47acd7537146cbd85f4cf3d5fe3f6fa12bd95998884f8d4138dd",
-   "cached": true
+   "fetched_at": "2026-10-31T04:34:54+00:00",
+   "records": 354,
+   "body_sha256": "c2e721fa7911b3b209f2436a533cd040e1deb3c8bb611c78073ae0ef442be181",
+   "cached": false
   },
   {
    "adapter": "data-api.activity",
@@ -244,7 +249,7 @@
    "fetched_at": "2026-10-30T22:49:45+00:00",
    "records": 500,
    "body_sha256": "81d45b876664f1e8a901060f9c2760b4a734418d44bca12758042db56ffa6495",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -252,7 +257,7 @@
    "fetched_at": "2026-10-30T22:49:46+00:00",
    "records": 500,
    "body_sha256": "5379b98e7e2720d08e76e443a7c0c5d6e45ca99b4ba29ee7a6a555bb9ab6a218",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -260,7 +265,7 @@
    "fetched_at": "2026-10-30T22:49:46+00:00",
    "records": 500,
    "body_sha256": "5628b723f30c885607a8ce0d9137c5ac23ca01e612f8bac5b641bee6b0f6a121",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -268,7 +273,7 @@
    "fetched_at": "2026-10-30T22:49:47+00:00",
    "records": 500,
    "body_sha256": "e7b232226d0f77ba2e2e1484c083921be72733a312dd3fd8ecd30af4c025b951",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -276,12 +281,12 @@
    "fetched_at": "2026-10-30T22:49:47+00:00",
    "records": 500,
    "body_sha256": "a3d2992ea7abcf33f887ced387a4fbd8b2181f3f20ca06db73baafeeb8628a71",
-   "cached": false
+   "cached": true
   }
  ],
  "coverage": {
-  "status": "complete",
-  "detail": "49936 rows via 101 requests; 0 markets without Gamma metadata"
+  "status": "partial",
+  "detail": "49936 rows via 101 requests; 1 markets without Gamma metadata"
  },
  "limitations": [
   "Capital at risk is the cost basis of open positions; collateral for resting (unfilled) orders is not visible on-chain and is not counted.",
@@ -290,5 +295,5 @@
  ],
  "unknowns": [],
  "next_probes": [],
- "generated_at": "2026-10-30T22:54:24+00:00"
+ "generated_at": "2026-10-31T04:35:26+00:00"
 }

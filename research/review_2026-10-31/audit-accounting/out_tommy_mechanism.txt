@@ -1,0 +1,2 @@
+AS CODED : two-sided share 0.924 median pair cost 0.999 median balance 0.841 settled 86591 locked -50038 resid 136629
+CORRECTED: two-sided share 0.924 median pair cost (buys) 1.009 median balance (buys) 0.830 | resolved: realized-from-sells -67223 locked(net held) 55481 resid(net held) 38896 total 27154

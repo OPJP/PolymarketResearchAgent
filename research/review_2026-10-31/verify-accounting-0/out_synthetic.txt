@@ -1,0 +1,18 @@
+ledger trades frame:
+ side  outcome_index  price  size  usdc
+ BUY              0    0.4 100.0  40.0
+SELL              0    0.6 100.0  60.0
+CASE 1 buy 100 YES@0.40, sell 100 YES@0.60, market resolves NO
+  as coded: q0=200.0 q1=0.0 cost=100.0 payout=0.0 pnl=-100.0 residual_pnl=-100.0
+  truth   : net shares held 0, cash +20 -> pnl +20.0
+  ledger realized on the same events: 20.0
+CASE 2 same fills, market resolves YES
+  as coded: pnl=100.0 (truth +20.0)
+CASE 3 buy 100 YES@.45 + 100 NO@.50, sell 50 YES@.70, resolves NO
+  as coded: q0=150.0 q1=100.0 pairs=100.0 pair_cost=1.0333 locked=-3.33 resid=-26.67 pnl=-30.00
+  truth   : pnl +40.00 (cash -60, payout 100); held 50 YES + 100 NO
+  summarize_profile settled_pnl=-30.00 locked=-3.33 resid=-26.67 usd_volume=130.00
+  calibration buckets (SELL @0.70 counted as a bought share):
+    {'price_lo': 0.4, 'price_hi': 0.5, 'fills': 1, 'shares': 100.0, 'avg_price': 0.45, 'win_rate': 0.0}
+    {'price_lo': 0.5, 'price_hi': 0.6, 'fills': 1, 'shares': 100.0, 'avg_price': 0.5, 'win_rate': 1.0}
+    {'price_lo': 0.7, 'price_hi': 0.8, 'fills': 1, 'shares': 50.0, 'avg_price': 0.7, 'win_rate': 0.0}

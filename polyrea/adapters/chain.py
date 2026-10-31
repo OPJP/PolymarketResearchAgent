@@ -171,3 +171,28 @@ class PolygonChain:
                 sources.append(src)
                 return res["result"]
         return None
+
+
+# Collateral tokens a Polymarket proxy wallet can hold (6 decimals each)
+COLLATERAL_TOKENS = {
+    "USDC.e": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+    "pUSD": "0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb",
+}
+
+
+def erc20_balance(chain: PolygonChain, token: str, holder: str, block: int) -> tuple[float | None, Source | None]:
+    """balanceOf(holder) at ``block`` via eth_call on an archive node (6-decimal tokens)."""
+    data = "0x70a08231" + holder.lower().replace("0x", "").rjust(64, "0")
+    body = {"jsonrpc": "2.0", "id": 1, "method": "eth_call", "params": [{"to": token, "data": data}, hex(int(block))]}
+    for rpc in chain.rpcs:
+        try:
+            res, src = chain.http.post_json(rpc, body, adapter="polygon.rpc.eth_call", max_age=None, max_retries=2)
+        except HttpError:
+            continue
+        if isinstance(res, dict) and isinstance(res.get("result"), str) and res["result"].startswith("0x"):
+            return int(res["result"], 16) / 10**USDC_DECIMALS, src
+    return None, None
+
+
+def collateral_at(chain: PolygonChain, holder: str, block: int) -> dict[str, float | None]:
+    return {name: erc20_balance(chain, addr, holder, block)[0] for name, addr in COLLATERAL_TOKENS.items()}

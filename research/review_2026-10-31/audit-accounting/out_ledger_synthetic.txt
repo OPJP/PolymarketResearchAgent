@@ -1,0 +1,4 @@
+1 SPLIT 100 -> MERGE 100 -> SPLIT 100 -> MERGE 100 (expect 0)               coded open capital  100.00   raw cum   100.00
+2 SPLIT 100, sell both legs at 0.5 (expect 0)                               coded open capital  100.00   raw cum   100.00
+3 SPLIT 100, hold to resolution (t=10), never redeem (expect 0 after t=10)  coded open capital  100.00   raw cum   100.00
+4 SPLIT 100 + BUY 100 YES@0.6, MERGE 100 (expect 60 left: 100 YES)          coded open capital    0.00   raw cum     0.00

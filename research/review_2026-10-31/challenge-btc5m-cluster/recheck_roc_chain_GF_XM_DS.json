@@ -1,0 +1,89 @@
+{
+ "GF": {
+  "roc": {
+   "window_days": 30,
+   "peak_capital": 3187.7819599999816,
+   "p95_capital": 2663.834134799973,
+   "window_pnl": 63058.656772999995,
+   "monthly_roc": 19.78135818705755
+  },
+  "fills": 251974,
+  "onchain": {
+   "sampled": 150,
+   "receipts_found": 150,
+   "confirmed": 150,
+   "confirmed_rate": 1.0,
+   "confirmed_rate_ci95": [
+    0.9750288608542812,
+    1.0
+   ],
+   "maker_fill_share": 0.32666666666666666,
+   "maker_fill_share_ci95": [
+    0.2567570339087464,
+    0.40523296099510275
+   ],
+   "maker_usdc_share": 0.13583486063673667,
+   "taker_fee_rate_observed": 0.027028841471021192,
+   "mismatches": []
+  },
+  "secs": 6
+ },
+ "XM": {
+  "roc": {
+   "window_days": 30,
+   "peak_capital": 5821.121733999866,
+   "p95_capital": 4983.632062849903,
+   "window_pnl": 82114.786119,
+   "monthly_roc": 14.10635095283886
+  },
+  "fills": 291525,
+  "onchain": {
+   "sampled": 200,
+   "receipts_found": 200,
+   "confirmed": 200,
+   "confirmed_rate": 1.0,
+   "confirmed_rate_ci95": [
+    0.9811539940816791,
+    1.0
+   ],
+   "maker_fill_share": 0.4,
+   "maker_fill_share_ci95": [
+    0.3346046396837895,
+    0.46916456149987484
+   ],
+   "maker_usdc_share": 0.2360981407314503,
+   "taker_fee_rate_observed": 0.03270994210991836,
+   "mismatches": []
+  },
+  "secs": 8
+ },
+ "DS": {
+  "roc": {
+   "window_days": 30,
+   "peak_capital": 4560.1031379999185,
+   "p95_capital": 3932.258715499989,
+   "window_pnl": 116254.79215700002,
+   "monthly_roc": 25.493895343777222
+  },
+  "fills": 503851,
+  "onchain": {
+   "sampled": 200,
+   "receipts_found": 200,
+   "confirmed": 200,
+   "confirmed_rate": 1.0,
+   "confirmed_rate_ci95": [
+    0.9811539940816791,
+    1.0
+   ],
+   "maker_fill_share": 0.35,
+   "maker_fill_share_ci95": [
+    0.28728715939415395,
+    0.41836664238134236
+   ],
+   "maker_usdc_share": 0.20477564483460808,
+   "taker_fee_rate_observed": 0.03303664623807851,
+   "mismatches": []
+  },
+  "secs": 13
+ }
+}

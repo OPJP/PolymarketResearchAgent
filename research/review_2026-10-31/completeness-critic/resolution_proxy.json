@@ -1,0 +1,28 @@
+{
+ "windows": 575,
+ "chainlink_fields_reproduce_payout": 1.0,
+ "kraken_twap60": {
+  "resolution_agreement": 0.9757,
+  "mis_resolved": 14,
+  "corr_window_move_vs_chainlink": 0.9981,
+  "rmse_window_move_usd": 4.15,
+  "agreement_fit": 0.9722,
+  "agreement_test": 0.9791
+ },
+ "binance_twap60": {
+  "resolution_agreement": 0.9861,
+  "mis_resolved": 8,
+  "corr_window_move_vs_chainlink": 0.9985,
+  "rmse_window_move_usd": 3.78,
+  "agreement_fit": 0.9826,
+  "agreement_test": 0.9895
+ },
+ "kraken_last_trade": {
+  "resolution_agreement": 0.887,
+  "mis_resolved": 65,
+  "corr_window_move_vs_chainlink": 0.9511,
+  "rmse_window_move_usd": 21.69,
+  "agreement_fit": 0.875,
+  "agreement_test": 0.899
+ }
+}

@@ -1,0 +1,2 @@
+coded: q0=200.0 cost=100.0 avg0=0.5 pnl=-100.0 residual_pnl=-100.0  (truth: q0 held 0, pnl +20)
+calibration rows (SELL counted as a bought share at 0.6): [{'price_lo': 0.4, 'price_hi': 0.5, 'fills': 1, 'shares': 100.0, 'avg_price': 0.4, 'win_rate': 0.0}, {'price_lo': 0.6, 'price_hi': 0.7, 'fills': 1, 'shares': 100.0, 'avg_price': 0.6, 'win_rate': 0.0}]

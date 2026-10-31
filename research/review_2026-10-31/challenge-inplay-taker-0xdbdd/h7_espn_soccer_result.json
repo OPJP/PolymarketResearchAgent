@@ -1,0 +1,108 @@
+{
+ "matched_events": 131,
+ "goals_total": 451,
+ "fit_events": 59,
+ "test_events": 72,
+ "wallet_fit": 106,
+ "wallet_test": 103,
+ "match_fit": {
+  "D": 0,
+  "W": 300,
+  "fit": {
+   "fit_t": 0.6410979930808496,
+   "fit_ret": 0.13512236337673686,
+   "fit_trades": 1112.0,
+   "fit_match_diff": 0.046013651862559
+  },
+  "test_backtest": {
+   "trades": 1216,
+   "events": 60,
+   "usd": 27860.595495976657,
+   "pnl": -3435.6513627597283,
+   "ret": -0.12331579069283964,
+   "per_event_t": -0.9215246879536766,
+   "per_event_p": 0.8197352458119901,
+   "boot_p": 0.8350824587706147
+  },
+  "test_backtest_excl_wallet": {
+   "trades": 1177,
+   "events": 59,
+   "usd": 26918.024795976497,
+   "pnl": -4752.132153529835,
+   "ret": -0.17654089367805872,
+   "per_event_t": -1.332410619196423,
+   "per_event_p": 0.9060316316976763,
+   "boot_p": 0.9045477261369316
+  },
+  "test_match_label_perm": {
+   "wallet_hit_rate": 0.3786407766990291,
+   "others_hit_rate": 0.11114258734655336,
+   "diff": 0.26749818935247577,
+   "null_p95": 0.042025358233174714,
+   "perm_p": 0.000999000999000999,
+   "n_wallet": 103,
+   "n_others": 10590
+  },
+  "test_match_shift_null": {
+   "obs": 0.26749818935247577,
+   "null_p95": 0.04520031720711058,
+   "perm_p": 0.0033222591362126247
+  }
+ },
+ "profit_fit": {
+  "D": -10,
+  "W": 15,
+  "fit": {
+   "fit_t": 1.6413100745322409,
+   "fit_ret": 0.4619992536403447,
+   "fit_trades": 184.0,
+   "fit_match_diff": -0.0017273000954392027
+  },
+  "test_backtest": {
+   "trades": 167,
+   "events": 36,
+   "usd": 5744.727152988103,
+   "pnl": 1384.2007676004725,
+   "ret": 0.24095152489191496,
+   "per_event_t": 1.2094885851193113,
+   "per_event_p": 0.11729087698387976,
+   "boot_p": 0.11894052973513243
+  },
+  "test_backtest_excl_wallet": {
+   "trades": 166,
+   "events": 36,
+   "usd": 5719.727152988103,
+   "pnl": 910.3882676004723,
+   "ret": 0.15916638036219383,
+   "per_event_t": 0.870322486567069,
+   "per_event_p": 0.1950272041067472,
+   "boot_p": 0.18690654672663667
+  },
+  "test_match_label_perm": {
+   "wallet_hit_rate": 0.009708737864077669,
+   "others_hit_rate": 0.015675165250236073,
+   "diff": -0.005966427386158404,
+   "null_p95": 0.023443072325054774,
+   "perm_p": 0.8501498501498501,
+   "n_wallet": 103,
+   "n_others": 10590
+  },
+  "test_match_shift_null": {
+   "obs": -0.005966427386158404,
+   "null_p95": 0.01508319810775874,
+   "perm_p": 0.9966777408637874
+  }
+ },
+ "reaction_D0_W60": {
+  "wallet_share": 0.2583732057416268,
+  "others_share": 0.09764760385031142,
+  "wallet_over_share_in_window": 0.9629629629629629,
+  "others_over_share_in_window": 0.6441750131787032
+ },
+ "reaction_D30_W60": {
+  "wallet_share": 0.13875598086124402,
+  "others_share": 0.07546198589591806,
+  "wallet_over_share_in_window": 0.8275862068965517,
+  "others_over_share_in_window": 0.5811732605729877
+ }
+}

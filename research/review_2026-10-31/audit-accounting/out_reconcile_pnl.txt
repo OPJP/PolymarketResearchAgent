@@ -1,0 +1,4 @@
+Tommy           user-pnl 30d: economic $60,279 = trade $81,701 + income $33,089 + fees $-54,512; trade+fees $27,190 | per-market settled as coded $86,591, sign-correct $27,154
+elmcap2         user-pnl 30d: economic $242,047 = trade $229,676 + income $13,655 + fees $-1,285; trade+fees $228,391 | per-market settled as coded $214,187, sign-correct $217,372
+RN1             user-pnl 30d: economic $907,319 = trade $803,491 + income $259,791 + fees $-155,962; trade+fees $647,529 | per-market settled as coded $644,936, sign-correct $644,936
+justaluckydude  user-pnl 30d: economic $138,804 = trade $163,958 + income $25,593 + fees $-50,747; trade+fees $113,211 | per-market settled as coded $114,160, sign-correct $114,160

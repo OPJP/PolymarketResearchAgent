@@ -1,0 +1,6 @@
+GoodFallen rows 300529 trades 251974 markets 9920 cov Coverage(status='complete', detail='300529 rows via 603 requests') missing 0 5.8s
+almach rows 139406 trades 83167 markets 17981 cov Coverage(status='complete', detail='139406 rows via 280 requests') missing 0 4.0s
+bosona rows 141846 trades 85814 markets 18214 cov Coverage(status='complete', detail='141846 rows via 285 requests') missing 3 4.8s
+Tommy rows 119371 trades 104950 markets 1508 cov Coverage(status='complete', detail='119371 rows via 240 requests') missing 0 1.7s
+RN1 rows 344886 trades 248770 markets 32453 cov Coverage(status='complete', detail='344886 rows via 693 requests') missing 0 14.9s
+b55f rows 657411 trades 466950 markets 40226 cov Coverage(status='complete', detail='657411 rows via 1321 requests') missing 0 15.1s

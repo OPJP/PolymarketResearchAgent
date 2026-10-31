@@ -1,38 +1,64 @@
 {
-  "wallet": "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed",
-  "name": "bosona",
-  "stage": "C",
-  "verdict": "reject",
-  "archetype": "Directional maker on crypto Up/Down windows (two-wallet cluster with almach)",
-  "headline": "Rests bids on the side of BTC (and some ETH/SOL) Up/Down windows that it expects to win, and gets filled by takers below fair value. The profit is real, persistent and barely depends on rebates. But no public-data quoting rule matches its fills, and every public-data maker version, including an optimistic one, loses 14-26% in the same windows.",
-  "mechanism": "94% of sampled fills are maker fills (on-chain, 95% CI 90-97%). It trades 5m (55%), 15m (28%), hourly and 4h windows, buys both sides in only 45% of markets and earns on the directional residual (+$68.8k, residual win rate 58%). Shares it buys at 0.35 win 41% of the time, at 0.14 win 19%. It shares 6,524 transactions and two-thirds of its markets with almach; 25% of their (market, second) pairs coincide.",
-  "criteria": {
-    "roc": {"status": "pass", "detail": "peak capital at risk $5.3k; 30-day PnL $88.3k"},
-    "onchain": {"status": "pass", "detail": "200/200 sampled fills confirmed; 94% maker"},
-    "match": {"status": "fail", "detail": "spot-model directional maker: held-out AUC 0.502 (perm p=0.30) on BTC 5m, 0.464 (p=0.75) on BTC 15m; spot-latency taker: AUC 0.48 (p=0.44); fixed-level bids: not its pattern and lose 45-81%"},
-    "backtest": {"status": "fail", "detail": "public-data maker on held-out windows: -25.6% (5m), -23.9% (15m), -14% to -18% even with optimistic at-touch fills; bosona's own maker fills there +3.5% (5m, p=0.20), +9.7% (15m, p=0.30)"},
-    "replicable": {"status": "fail", "detail": "a slow maker is adversely selected in these markets at every latency tested (0-10 s); the wallet's edge appears to come from queue priority and fast cancels"},
-    "persistence": {"status": "pass", "detail": "last 30 days significant (p=4e-4), no decline (p=0.40); only 18% taker rebate, at 0% tier still ~$86k/month"}
+ "wallet": "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed",
+ "name": "bosona",
+ "stage": "C",
+ "verdict": "reject",
+ "archetype": "Directional maker on crypto Up/Down windows (three-wallet cluster: bosona, almach, mo-money)",
+ "headline": "Rests bids on the side of BTC Up/Down windows it expects to win and gets filled below fair value. Real profit that barely depends on rebates, run by what looks like one operator across three wallets. But no public-data rule reproduces which fills it gets, and every public-data maker built from the same data loses money or is insignificant in the same windows.",
+ "mechanism": "94% of sampled fills are maker fills on-chain. BTC 5m is 55% and BTC 15m 28% of its volume, the rest hourly, 4h and ETH/SOL windows. Its profit is the directional residual ($68,833, residual win rate 58%); the locked pair spread is $8,051. Shared transactions in 30 days: 6,524 with almach, 6,876 with mo-money; about 80% of its markets are shared with the other two.",
+ "criteria": {
+  "roc": {
+   "status": "pass",
+   "detail": "1665%/month: 30-day PnL $88,325 on peak capital at risk $5,306; counting the on-chain collateral too ($41,321), at least 189%/month"
   },
-  "key_numbers": {
-    "30-day PnL": "$88,325",
-    "Monthly ROC": "1,665% on $5.3k peak capital",
-    "Maker fill share": "94%",
-    "Directional residual win rate": "58%",
-    "Public-data maker, held out": "-25.6% (5m), -23.9% (15m)",
-    "Optimistic at-touch bound": "-14% to -18%"
+  "onchain": {
+   "status": "pass",
+   "detail": "200/200 sampled fills confirmed in Polygon OrderFilled events; 94% maker fills (95% CI 90%-97%), 93% of USDC"
   },
-  "reasons": [
-    "No public-data rule reproduces which passive fills it gets (held-out AUC at chance on 5m and 15m).",
-    "Every public-data maker version loses significantly in the same windows, even assuming first-in-queue fills.",
-    "Its own fills profit modestly where a slow imitator loses, which points to speed and queue position the replicator would not have."
-  ],
-  "evidence": [
-    "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/profile.json",
-    "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_maker_study_btc_5m.json",
-    "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_maker_study_btc_15m.json",
-    "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_study_btc_5m.json",
-    "research/stage_a/updown_btc5m_maker_at_touch_bound.json",
-    "research/stage_a/persistence_a1_survivors.json"
-  ]
+  "match": {
+   "status": "partial",
+   "detail": "BTC 5m directional maker: stratified AUC 0.553 vs rotation null 0.498 (max 0.550), p=0.005; rule flags 47% of the wallet's decisions at 1.4x the base rate; BTC 5m spot-reactive maker: stratified AUC 0.539 vs rotation null 0.503 (max 0.549), p=0.015; rule flags 2% of the wallet's decisions at 1.5x the base rate; BTC 15m directional maker: stratified AUC 0.553 vs rotation null 0.475 (max 0.563), p=0.025; rule flags 11% of the wallet's decisions at 0.7x the base rate; BTC 15m spot-reactive maker: stratified AUC 0.609 vs rotation null 0.518 (max 0.601), p=0.005; rule flags 23% of the wallet's decisions at 1.3x the base rate; BTC 5m latency taker: stratified AUC 0.580 vs rotation null 0.524 (max 0.721), p=0.19; rule flags 5% of the wallet's decisions at 1.1x the base rate"
+  },
+  "backtest": {
+   "status": "fail",
+   "detail": "public-data directional maker, BTC 5m strict -13.5% (5,973 fills, p(profit)=1.00); first-in-queue bound -12.8% (6,488 fills, p(profit)=1.00); BTC 15m strict -18.8% (3,057 fills, p(profit)=0.99); spot-reactive maker at 2 s, 5m strict -6.0% (266 fills, p(profit)=0.88); at-touch -4.1% (370 fills, p(profit)=0.88); 15m strict at 3 s +1.1% (179 fills, p(profit)=0.43); fixed-price resting bids (0.05-0.40, either side, no data) -81% to -45% on the same TEST windows; reviewer market-anchored, spot-gated and tape-dip makers: none significant, most lose; its own maker fills in the same windows -0.1% on 5m (p=0.51), +6.5% on 15m (p=0.34)"
+  },
+  "replicable": {
+   "status": "fail",
+   "detail": "every public-data maker version is adversely selected at the latencies a normal connection allows (>= 2 s), even with first-in-queue fills; the wallet's edge points to faster prices than public 1-second data and queue priority. Rebates are not the issue: observed taker-rebate tier Gold (18% of fees); 30-day PnL at the 0% tier $86,083, Gold $88,299, Diamond $91,498, Obsidian $92,237"
+  },
+  "persistence": {
+   "status": "pass",
+   "detail": "last 30 days p=3.9e-04; decline vs earlier p=0.40; last 15 vs prior 15 p=0.086; trend p=0.86"
+  }
+ },
+ "key_numbers": {
+  "30-day PnL": "$88,325",
+  "PnL at 0% rebate tier": "$86,083",
+  "Maker fill share": "94%",
+  "Public-data maker, held out (5m / 15m)": "-13.5% / -18.8%",
+  "Its own maker fills, held out (5m / 15m)": "-0.1% / +6.5%"
+ },
+ "reasons": [
+  "No public-data rule reproduces which passive fills it gets beyond a small association.",
+  "Every public-data maker version loses or is insignificant in the same held-out windows, including first-in-queue bounds.",
+  "Appears to be one operator across three wallets."
+ ],
+ "corrections": [
+  "Its own held-out maker-fill returns changed after the tape-pagination fix (the earlier figures missed fills in dense seconds).",
+  "The match test now uses the rotation null; results that were 'at chance' under the old null are reported with the corrected statistic.",
+  "'Two-thirds of its markets shared with almach' was the Jaccard overlap; 79% of bosona's markets are shared.",
+  "ROC 1,665% ignored resting-order collateral; the cash-inclusive figure is still far above 10%."
+ ],
+ "evidence": [
+  "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/profile.json",
+  "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_study_btc_5m.json",
+  "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_maker_study_btc_5m.json",
+  "research/wallets/0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed/updown_maker_study_btc_15m.json",
+  "research/stage_a/updown_btc5m_maker_baselines.json",
+  "research/stage_a/rebate_dependence.json",
+  "research/stage_a/persistence_a1_survivors.json",
+  "research/stage_a/collateral.json",
+  "research/review_2026-10-31/challenge-crypto-maker-cluster/SUMMARY_all_results.json"
+ ]
 }

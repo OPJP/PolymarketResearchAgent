@@ -301,7 +301,7 @@ def sr_score_fns() -> dict[str, Any]:
     return {f"spot_return_{h}s": partial(score_spot_return, horizon=h) for h in SR_HORIZONS}
 
 
-def fit_sr_maker(fit_flow: pd.DataFrame, fit_windows: list[Window], spot: SpotIndex, latencies: tuple[int, ...] = (2, 3), min_fills: int = 100) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def fit_sr_maker(fit_flow: pd.DataFrame, fit_windows: list[Window], spot: SpotIndex, latencies: tuple[int, ...] = (2, 3), min_fills: int = 100, match_slack: int = 0) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Choose (theta, delta, horizon, requote, latency) of the SR maker on FIT by per-window t (zero-fill windows included)."""
     import itertools
 
@@ -309,7 +309,7 @@ def fit_sr_maker(fit_flow: pd.DataFrame, fit_windows: list[Window], spot: SpotIn
 
     scan = []
     for theta, delta, h, R, L in itertools.product((0.0, 2e-5, 5e-5, 1e-4), (0.0, 0.01, 0.02, 0.04), (2, 3), (1, 2), latencies):
-        r = spot_reactive_maker_backtest(fit_flow, fit_windows, spot, theta, delta, L, horizon=h, requote_s=R)
+        r = spot_reactive_maker_backtest(fit_flow, fit_windows, spot, theta, delta, L, horizon=h, requote_s=R, match_slack=match_slack)
         if r.get("fills", 0) >= min_fills:
             scan.append({"theta": theta, "delta": delta, "horizon": h, "requote_s": R, "latency": L, **{k: r.get(k) for k in ("fills", "pnl", "return_on_bought", "per_window_t_incl_zero")}})
     if not scan:
@@ -451,4 +451,148 @@ def run_updown_maker_study(
         d.mkdir(parents=True, exist_ok=True)
         tag = "" if spot_source == "kraken" else f"_{spot_source}"
         (d / f"updown_maker_study_{asset}_{duration}{tag}.json").write_text(json.dumps(ev_out.to_dict(), indent=1))
+    return ev_out
+
+
+def all_blocks(period_start: int, period_end: int, block_s: int) -> list[tuple[int, int]]:
+    slots = range(period_start - period_start % block_s + (block_s if period_start % block_s else 0), period_end - block_s + 1, block_s)
+    return [(s, s + block_s) for s in slots]
+
+
+def run_frozen_rule_extension(
+    wallets: list[str],
+    asset: str = "btc",
+    duration: str = "5m",
+    as_of: int | None = None,
+    forward_days: int = 1,
+    spot_source: str = "binance",
+    seed: int = 7,
+    blocks_per_period: int = 12,
+    block_hours: int = 2,
+    others_sample: float = 0.25,
+    n_perm: int = 100,
+    out_path: Path | None = None,
+) -> Evidence:
+    """Out-of-sample extension of the FIT-chosen rules on every unseen block.
+
+    FIT is the standard FIT sample (seed ``seed``). Rules and parameters are
+    chosen there exactly as in the studies (match score, latency and theta per
+    wallet; the SR maker's parameters). They are then evaluated, frozen, on
+    (a) every 2-hour block of the TEST week that the standard TEST sample did
+    not use, and (b) ``forward_days`` days after ``as_of`` (data that did not
+    exist when the study was designed). Non-wallet passive and taker prints
+    are subsampled at ``others_sample`` for the match statistic (AUC is
+    unbiased under random subsampling of the other class); backtests use the
+    full tape.
+    """
+    from polyrea.analysis.updown import maker_buy_prints, spot_reactive_maker_backtest, taker_flow
+    from polyrea.pit import TimeSeries
+    from polyrea.workflows.investigate import default_as_of
+
+    pm = PolymarketData()
+    as_of = as_of or default_as_of()
+    bs = block_hours * 3600
+    dur = DURATION_S[duration]
+    ws = [w.lower() for w in wallets]
+    fit_blocks = sample_blocks(as_of - 14 * DAY, as_of - 7 * DAY, blocks_per_period, bs, seed)
+    used_test = set(sample_blocks(as_of - 7 * DAY, as_of, blocks_per_period, bs, seed + 1))
+    unseen = [b for b in all_blocks(as_of - 7 * DAY, as_of, bs) if b not in used_test]
+    forward = all_blocks(as_of, as_of + forward_days * DAY, bs)
+    fit = load_period(asset, duration, fit_blocks, pm, with_full_tape=True, spot_source=spot_source)
+    fit_m = maker_buy_prints(fit["full_tapes"], fit["tapes"], fit["windows"])
+    fit_flow = taker_flow(fit["tapes"], fit["windows"])
+    fit_p = fit["prints"]
+    fit_windows = fit["windows"]
+    fit_spot = fit["spot"]
+    _PERIOD_MEMO.clear()  # free the FIT tapes; only compact frames are kept
+
+    rng = np.random.default_rng(seed)
+    parts: dict[str, list[pd.DataFrame]] = {"m": [], "p": [], "p_full": [], "flow": []}
+    windows: list[Window] = []
+    spot_ev, spot_vals = [fit_spot.event_ts], [fit_spot.values]
+    origin: dict[str, str] = {}
+    for kind, blocks in (("unseen_test_week", unseen), ("forward", forward)):
+        for b in blocks:
+            per = _load_period(asset, duration, [b], pm, 6, True, spot_source)
+            m = maker_buy_prints(per["full_tapes"], per["tapes"], per["windows"])
+            p = per["prints"]
+            for key, df in (("m", m), ("p", p)):
+                if len(df):
+                    keep = df["wallet"].isin(ws).to_numpy() | (rng.random(len(df)) < others_sample)
+                    parts[key].append(df[keep])
+            parts["flow"].append(taker_flow(per["tapes"], per["windows"]))
+            if len(p):
+                parts["p_full"].append(p[["condition_id", "ts", "wallet", "is_up", "price", "size", "start_ts", "end_ts", "twap", "fee_rate", "up_payout"]])
+            windows.extend(per["windows"])
+            for w in per["windows"]:
+                origin[w.condition_id] = kind
+            spot_ev.append(per["spot"].event_ts)
+            spot_vals.append(per["spot"].values)
+    ev = np.concatenate(spot_ev)
+    vals = np.concatenate(spot_vals)
+    order = np.argsort(ev, kind="stable")
+    keep = np.r_[True, np.diff(ev[order]) > 0]
+    spot = SpotIndex(TimeSeries.build(f"spot.{spot_source}.{asset}", zip(ev[order][keep].tolist(), vals[order][keep].tolist()), availability_lag=1))
+    ext_m = pd.concat(parts["m"], ignore_index=True)
+    ext_p = pd.concat(parts["p"], ignore_index=True)
+    ext_flow = pd.concat(parts["flow"], ignore_index=True)
+    ext_p_full = pd.concat(parts["p_full"], ignore_index=True)
+    ext_blocks = unseen + forward
+
+    trim = lambda r: {k: v for k, v in r.items() if k != "daily_pnl"}  # noqa: E731
+    sr: dict[str, Any] = {}
+    # primary: parameters chosen and evaluated with match_slack=2 (block-time slack); slack 0 is the optimistic reference
+    for slack in (2, 0):
+        sr_best, sr_scan = fit_sr_maker(fit_flow, fit_windows, spot, match_slack=slack)
+        res: dict[str, Any] = {"fit_best": sr_best, "fit_configs": len(sr_scan), "fit_share_positive": float(np.mean([r["pnl"] > 0 for r in sr_scan])) if sr_scan else None}
+        if sr_best:
+            kw = {"theta": sr_best["theta"], "delta": sr_best["delta"], "horizon": sr_best["horizon"], "requote_s": sr_best["requote_s"], "match_slack": slack}
+            L = sr_best["latency"]
+            for kind in ("unseen_test_week", "forward"):
+                fl = ext_flow[ext_flow["condition_id"].map(origin) == kind]
+                wn = [w for w in windows if origin[w.condition_id] == kind]
+                res[kind] = {
+                    "windows": len(wn),
+                    "strict": trim(spot_reactive_maker_backtest(fl, wn, spot, latency=L, **kw)),
+                    "at_touch": trim(spot_reactive_maker_backtest(fl, wn, spot, latency=L, at_touch=True, **kw)),
+                    "at_touch_latency_plus_1": trim(spot_reactive_maker_backtest(fl, wn, spot, latency=L + 1, at_touch=True, **kw)),
+                }
+            res["all"] = {"strict": trim(spot_reactive_maker_backtest(ext_flow, windows, spot, latency=L, **kw)), "at_touch": trim(spot_reactive_maker_backtest(ext_flow, windows, spot, latency=L, at_touch=True, **kw))}
+        sr[f"match_slack_{slack}"] = res
+    per_wallet = {}
+    for w in ws:
+        mt_sr = match_test(fit_m, ext_m, w, spot, ext_blocks, dur, score_fns=sr_score_fns(), lags=[0, 1, 2, 3, 5], n_perm=n_perm, seed=seed)
+        mt_la = match_test(fit_p, ext_p, w, spot, ext_blocks, dur, n_perm=n_perm, seed=seed)
+        bt_la = {k: v for k, v in backtest(ext_p_full, spot, theta=mt_la["theta"], latency=max(2, mt_la["chosen_latency_s"])).items() if k != "daily_pnl"}
+        mine = ext_m[ext_m["wallet"] == w]
+        replay = {}
+        if len(mine):
+            payout = np.where(mine["is_up"], mine["up_payout"], 1 - mine["up_payout"])
+            pnl = mine["size"] * (payout - mine["price"])
+            replay = {"fills": int(len(mine)), "usd": float((mine["size"] * mine["price"]).sum()), "pnl": float(pnl.sum()), "return": float(pnl.sum() / (mine["size"] * mine["price"]).sum())}
+        per_wallet[w] = {"match_spot_reactive": mt_sr, "match_latency_taker": mt_la, "latency_taker_backtest_L_ge_2": bt_la, "wallet_maker_replay": replay}
+    ev_out = Evidence(
+        tool="frozen_rule_extension",
+        subject={"kind": "wallets", "wallets": ws, "asset": asset, "duration": duration, "as_of": as_of, "spot_source": spot_source, "forward_days": forward_days},
+        observed={
+            "fit_blocks": fit_blocks,
+            "unseen_test_week_blocks": len(unseen),
+            "forward_blocks": len(forward),
+            "windows": len(windows),
+            "passive_buys_kept": int(len(ext_m)),
+            "taker_buys_kept": int(len(ext_p)),
+            "taker_flow_rows": int(len(ext_flow)),
+            "others_sample": others_sample,
+        },
+        derived={"spot_reactive_maker": sr, "per_wallet": per_wallet},
+        coverage=Coverage("complete"),
+        limitations=[
+            "Parameters come from the standard FIT sample only; nothing measured on these blocks fed back.",
+            "Other wallets' prints are subsampled for the match statistic; wallet prints are kept in full.",
+            f"Spot is {spot_source} per-second prices; markets settle on Chainlink.",
+        ],
+    )
+    if out_path is not None:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(ev_out.to_dict(), indent=1))
     return ev_out

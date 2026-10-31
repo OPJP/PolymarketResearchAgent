@@ -1,0 +1,24 @@
+== elmcap2: 30d PnL $242,047
+   V0 as coded              peak $    6,458,210  ROC    3.75%
+   V1 aligned               peak $    6,458,210  ROC    3.75%  (peak day 2026-10-29)
+   V2 +intra-second         peak $    6,458,210  ROC    3.75%  (peak day 2026-10-29)
+   V3 +split fix            peak $    5,898,293  ROC    4.10%  (peak day 2026-10-29)
+   V4 excl. complete sets   peak $    5,708,768  ROC    4.24%  (peak day 2026-10-28)
+   raw ledger max over warm-up+window $6,458,210 at 2026-10-29 23:56:24+00:00
+   REDEEM/MERGE rows with no earlier fill in the loaded history: 11 (in 30d window: 8), usdc $1,330,833 (window $580,833)
+== justaluckydude: 30d PnL $138,804
+   V0 as coded              peak $      506,910  ROC   27.38%
+   V1 aligned               peak $      506,910  ROC   27.38%  (peak day 2026-10-04)
+   V2 +intra-second         peak $      506,910  ROC   27.38%  (peak day 2026-10-04)
+   V3 +split fix            peak $      506,910  ROC   27.38%  (peak day 2026-10-04)
+   V4 excl. complete sets   peak $      506,910  ROC   27.38%  (peak day 2026-10-04)
+   raw ledger max over warm-up+window $506,910 at 2026-10-04 20:12:29+00:00
+   REDEEM/MERGE rows with no earlier fill in the loaded history: 21 (in 30d window: 0), usdc $6,713 (window $0)
+== dbdd: 30d PnL $61,712
+   V0 as coded              peak $       33,408  ROC  184.72%
+   V1 aligned               peak $       33,408  ROC  184.72%  (peak day 2026-10-05)
+   V2 +intra-second         peak $       33,408  ROC  184.72%  (peak day 2026-10-05)
+   V3 +split fix            peak $       33,408  ROC  184.72%  (peak day 2026-10-05)
+   V4 excl. complete sets   peak $       33,408  ROC  184.72%  (peak day 2026-10-05)
+   raw ledger max over warm-up+window $33,408 at 2026-10-05 01:44:58+00:00
+   REDEEM/MERGE rows with no earlier fill in the loaded history: 539 (in 30d window: 483), usdc $41,299 (window $28,165)

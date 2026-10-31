@@ -7,16 +7,18 @@ both outcomes at fair - delta. A bid fills only on later taker prints that trade
 through it (taker SELL of that outcome below the bid, or taker BUY of the
 other outcome above 1 - bid). Positions settle at resolution; no fees are paid
 by makers and rebates are excluded. Uses only public tape data.
+``at_touch=True`` is the optimistic first-in-queue bound (a print at the bid
+also fills it). The tick follows the exchange's dynamic rule unless given.
 """
 
 from __future__ import annotations
 
-import math
 from typing import Any
 
 import numpy as np
 import pandas as pd
 
+from polyrea.analysis.updown import quote_price
 from polyrea.stats.significance import hac_t_test, stationary_bootstrap_pvalue
 
 
@@ -27,9 +29,10 @@ def tape_maker_backtest(
     latency: int,
     requote_s: int = 10,
     size_shares: float = 20.0,
-    tick: float = 0.01,
+    tick: float | None = None,
     active: dict[str, tuple[int, int]] | None = None,
     queue_share: float = 1.0,
+    at_touch: bool = False,
 ) -> dict[str, Any]:
     """``flow`` columns: condition_id, ts, outcome (0/1), side (BUY/SELL), price, size.
 
@@ -37,6 +40,8 @@ def tape_maker_backtest(
     ``active`` optionally limits quoting to [start, end) per market.
     """
     out = []
+    eps = -1e-9 if at_touch else 1e-9
+    lo_q = 0.001 if tick is None else tick
     for cid, g in flow.groupby("condition_id"):
         if cid not in payouts:
             continue
@@ -54,11 +59,11 @@ def tape_maker_backtest(
                 continue
             seg = g.iloc[lo:hi]
             for outcome, fair in ((0, fair0), (1, 1 - fair0)):
-                q = math.floor((fair - delta) / tick + 1e-9) * tick
-                if q < tick or q > 1 - tick:
+                q = float(quote_price(fair - delta, tick))
+                if q < lo_q - 1e-12 or q > 1 - lo_q + 1e-12:
                     continue
-                sell_through = seg[(seg["outcome"] == outcome) & (seg["side"] == "SELL") & (seg["price"] < q - 1e-9)]
-                mint_through = seg[(seg["outcome"] != outcome) & (seg["side"] == "BUY") & (seg["price"] > 1 - q + 1e-9)]
+                sell_through = seg[(seg["outcome"] == outcome) & (seg["side"] == "SELL") & (seg["price"] < q - eps)]
+                mint_through = seg[(seg["outcome"] != outcome) & (seg["side"] == "BUY") & (seg["price"] > 1 - q + eps)]
                 filled = min(size_shares, float(sell_through["size"].sum() + mint_through["size"].sum()) * queue_share)
                 if filled <= 0:
                     continue

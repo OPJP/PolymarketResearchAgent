@@ -1,0 +1,35 @@
+{
+ "chosen_delay_s": 0,
+ "chosen_window_s": 20,
+ "test_reaction": {
+  "window_s": 20,
+  "wallet_share_reactive": 0.2991161420375252,
+  "others_share_reactive": 0.30479404285453704,
+  "wallet_direction_agree": 0.9522821576763485,
+  "wallet_n_reactive": 1928,
+  "others_direction_agree": 0.6238706609605326,
+  "others_n_reactive": 56781
+ },
+ "test_excess_reactive_share": -0.0056779008170118606,
+ "excess_perm_p": 0.004975124378109453,
+ "direction_perm_p": 0.004975124378109453,
+ "backtest_test_games": {
+  "trades": 37260,
+  "games": 86,
+  "usd_traded": 1258082.7395602528,
+  "pnl": 48039.45609556032,
+  "return_on_traded": 0.038184655575476636,
+  "per_game_mean": 558.598326692562,
+  "per_game_t": 0.800212351068462,
+  "per_game_p": 0.21290931393379334,
+  "per_game_bootstrap_p": 0.18140929535232383
+ },
+ "wallet_replay_test_games": {
+  "trades": 6449,
+  "usd_traded": 929183.4209104643,
+  "pnl": 29335.127743704586,
+  "return_on_traded": 0.03157086866117396,
+  "per_game_p": 0.2476100414567952
+ }
+}
+{"5": {"trades": 29400, "pnl": 9551.066646293766, "return_on_traded": 0.00985334994984793, "per_game_p": 0.40779004032600824}, "10": {"trades": 25665, "pnl": 4901.28165175553, "return_on_traded": 0.005703952017159125, "per_game_p": 0.4517591643152467}, "20": {"trades": 25593, "pnl": 12476.482926169776, "return_on_traded": 0.014585076849262203, "per_game_p": 0.4039064837967806}, "30": {"trades": 23018, "pnl": 1029.5614681037205, "return_on_traded": 0.0013664899001534195, "per_game_p": 0.4861149054865713}, "60": {"trades": 19751, "pnl": 13366.06108869883, "return_on_traded": 0.020373281547844697, "per_game_p": 0.3110092168000296}}

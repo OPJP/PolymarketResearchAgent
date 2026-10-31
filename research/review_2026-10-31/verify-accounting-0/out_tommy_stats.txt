@@ -1,0 +1,10 @@
+share_two_sided_markets  recorded 0.9244 | as coded 0.9244 | buys-only 0.9244
+median_pair_cost         recorded 0.9988 | as coded 0.9988 | buys-only 1.0094
+median_balance           recorded 0.8408 | as coded 0.8408 | buys-only 0.8297
+residual_win_rate        recorded 0.5134 | as coded 0.5134 | buys-only 0.5494
+market_win_rate          recorded 0.5959 | as coded 0.5959 | buys-only 0.6006
+usd_volume               recorded 5188910.5476 | as coded 5188910.5476 | buys-only 3947191.7282
+buys-only settled_pnl (ignores sell proceeds; NOT a correct pnl): 56873
+resolved markets 1084; |coded-correct|>$1 in 511; sign flips 215
+market_win_rate coded 0.596 vs correct 0.554
+sum coded 86,591 correct 27,154

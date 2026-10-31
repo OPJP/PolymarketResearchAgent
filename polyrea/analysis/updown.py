@@ -495,6 +495,8 @@ def match_test(
             "auc_null_mean": float(null_auc.mean()) if len(null_auc) else None,
             "auc_null_p95": float(np.percentile(null_auc, 95)) if len(null_auc) else None,
             "auc_null_max": float(null_auc.max()) if len(null_auc) else None,
+            "auc_null_sd": float(null_auc.std(ddof=1)) if len(null_auc) > 1 else None,
+            "auc_z_vs_null": float((auc_te - null_auc.mean()) / null_auc.std(ddof=1)) if len(null_auc) > 1 and null_auc.std(ddof=1) > 0 else None,
             "auc_perm_p": p,
             "score_finite_share": float(np.isfinite(s_te).mean()) if len(s_te) else None,
             "null_finite_share_min": float(np.nanmin(null_finite)) if null_finite else None,
@@ -755,6 +757,7 @@ def spot_reactive_maker_backtest(
     min_secs_to_end: int = 0,
     queue_share: float = 1.0,
     at_touch: bool = False,
+    match_slack: int = 0,
 ) -> dict[str, Any]:
     """PIT backtest of hypothesis SR as a strategy: quote only after spot moves.
 
@@ -765,6 +768,13 @@ def spot_reactive_maker_backtest(
     (implied from taker prints known by then). Fills follow the same
     trade-through rule as :func:`maker_backtest` (``at_touch`` is the
     first-in-queue bound). Windows without fills count as zero PnL.
+
+    ``match_slack``: tape timestamps are block times, so a print stamped T was
+    matched somewhere in [T - slack, T]. With ``match_slack=2`` each print is
+    attributed to the order that was live at its earliest possible match
+    time, so an order can never be filled by a trade that may have happened
+    before it was placed (the conservative, correct choice for Polygon's ~2 s
+    blocks).
     """
     by_cid = {w.condition_id: w for w in windows}
     out = []
@@ -788,8 +798,9 @@ def spot_reactive_maker_backtest(
         t_dec = ticks - latency
         with np.errstate(invalid="ignore", divide="ignore"):
             r = np.log(spot.price_at(t_dec) / spot.price_at(t_dec - horizon))
-        j = (ts - w.start_ts - 1) // requote_s
-        ok = (ts > w.start_ts) & (j >= 0) & (j < len(ticks))
+        tm = ts - match_slack
+        j = (tm - w.start_ts - 1) // requote_s
+        ok = (tm > w.start_ts) & (j >= 0) & (j < len(ticks))
         if not ok.any():
             continue
         j, iu, sell, buy = j[ok], is_up[ok], side_s[ok] == "SELL", side_s[ok] == "BUY"
@@ -815,6 +826,33 @@ def spot_reactive_maker_backtest(
         res.update({"windows_total": len(windows_seen), "per_window_t_incl_zero": t.statistic, "per_window_p_incl_zero": t.p_value,
                     "per_window_bootstrap_p_incl_zero": stationary_bootstrap_pvalue(per_window.to_numpy(), n_boot=2000).p_value})
     return res
+
+
+def fixed_price_ladder_backtest(flow: pd.DataFrame, windows: list[Window], price: float, side_up: bool, requote_s: int = 5, size_shares: float = 20.0) -> dict[str, Any]:
+    """A resting bid at a fixed ``price`` on one side for the whole window (no data at all).
+
+    Tests the hypothesis "the wallet simply leaves deep bids for panic sellers";
+    same trade-through fills as :func:`maker_backtest`, one ``size_shares`` bid
+    per ``requote_s`` interval.
+    """
+    by_cid = {w.condition_id: w for w in windows}
+    out = []
+    for cid, g in flow.groupby("condition_id"):
+        w = by_cid.get(cid)
+        if w is None or w.up_payout is None:
+            continue
+        ts = g["ts"].to_numpy().astype(np.int64)
+        j = (ts - w.start_ts - 1) // requote_s
+        n_ticks = int(np.ceil((w.end_ts - w.start_ts) / requote_s))
+        ok = (ts > w.start_ts) & (j >= 0) & (j < n_ticks)
+        iu, sd, pr, sz = g["is_up"].to_numpy()[ok], g["side"].to_numpy()[ok], g["price"].to_numpy()[ok], g["size"].to_numpy()[ok]
+        through = ((iu == side_up) & (sd == "SELL") & (pr < price - 1e-9)) | ((iu != side_up) & (sd == "BUY") & (pr > 1 - price + 1e-9))
+        avail = np.bincount(j[ok][through], weights=sz[through], minlength=n_ticks)
+        filled = np.minimum(size_shares, avail)
+        payout = w.up_payout if side_up else 1 - w.up_payout
+        for i in np.nonzero(filled > 0)[0]:
+            out.append({"condition_id": cid, "ts": int(w.start_ts + i * requote_s), "is_up": side_up, "price": price, "shares": float(filled[i]), "pnl": float(filled[i] * (payout - price)), "fair": float("nan"), "end_ts": w.end_ts})
+    return _maker_summary(out)
 
 
 def _maker_summary(out: list[dict[str, Any]]) -> dict[str, Any]:

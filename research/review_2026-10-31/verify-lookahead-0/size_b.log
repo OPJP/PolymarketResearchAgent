@@ -1,0 +1,8 @@
+expensive1   seed 0 n_perm 100 lat   0 AUC 0.4893 null_mean 0.4084 null_p95 0.4208 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.364 MW p 1 (18s)
+expensive1   seed 1 n_perm 100 lat   0 AUC 0.4914 null_mean 0.4143 null_p95 0.4253 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.370 MW p 1 (15s)
+expensive1   seed 2 n_perm 100 lat   0 AUC 0.4900 null_mean 0.4144 null_p95 0.4229 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.372 MW p 1 (12s)
+expensive1   seed 3 n_perm 100 lat   0 AUC 0.4861 null_mean 0.4114 null_p95 0.4232 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.366 MW p 1 (12s)
+expensive1   seed 4 n_perm 100 lat   0 AUC 0.4892 null_mean 0.4135 null_p95 0.4235 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.369 MW p 1 (12s)
+cheap3       seed 0 n_perm 100 lat  20 AUC 0.6556 null_mean 0.7435 null_p95 0.7653 perm_p 1.0000 mcc_p 1.000 AUC(-price) 0.843 MW p 0 (15s)
+cheap3       seed 1 n_perm 100 lat  20 AUC 0.6565 null_mean 0.7444 null_p95 0.7623 perm_p 1.0000 mcc_p 1.000 AUC(-price) 0.844 MW p 0 (18s)
+cheap3       seed 2 n_perm 100 lat  20 AUC 0.6538 null_mean 0.7400 null_p95 0.7665 perm_p 1.0000 mcc_p 1.000 AUC(-price) 0.843 MW p 0 (18s)

@@ -24,6 +24,7 @@
    "window_days": 30,
    "peak_capital": 506910.1070389993,
    "p95_capital": 252201.24077969906,
+   "peak_capital_incl_complete_sets": 506910.1070389993,
    "window_pnl": 138804.19092199998,
    "monthly_roc": 0.2738240745144997
   },
@@ -31,6 +32,8 @@
    "fills": 35097,
    "buy_share": 1.0,
    "usd_volume": 5708127.215037,
+   "usd_bought": 5708127.215037,
+   "usd_sold": 0.0,
    "median_fill_usd": 52.3355,
    "families_by_usd": {
     "sports:nfl": 2402809.338003,
@@ -49,9 +52,11 @@
    "share_two_sided_markets": 0.4835443037974684,
    "median_pair_cost": 1.0330794023480445,
    "median_balance": 0.0,
-   "settled_pnl": 114159.6789055,
+   "settled_pnl": 114159.67890550004,
    "settled_locked_pnl": -79849.54894084821,
    "settled_residual_pnl": 194009.22784634822,
+   "settled_realized_from_sells": 0.0,
+   "unmatched_sell_usdc": 0.0,
    "residual_win_rate": 0.5214294337800314,
    "market_win_rate": 0.5136829415310428,
    "price_quantiles": [
@@ -202,7 +207,7 @@
      "fetched_at": "2026-10-30T22:34:13+00:00",
      "records": 4,
      "body_sha256": "6215986e7e91f5c4efaefcce8d24c11fd18c6c206a4d0eac92baa7cc8c853928",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -210,7 +215,7 @@
      "fetched_at": "2026-10-30T22:34:13+00:00",
      "records": 4,
      "body_sha256": "5faa7676588a3fe9f67c4af58a525fa1d3b30dbe6951c2335093ed5189a24b96",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -218,7 +223,7 @@
      "fetched_at": "2026-10-30T22:34:13+00:00",
      "records": 4,
      "body_sha256": "c1f9e1c2cb7acc02b85d2659801c114b91ed824e1c7cd85d2334717ddf1ace23",
-     "cached": false
+     "cached": true
     },
     {
      "more": 47
@@ -233,18 +238,18 @@
   {
    "adapter": "data-api.user-pnl",
    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705&interval=all&fidelity=1d",
-   "fetched_at": "2026-10-30T22:10:12+00:00",
-   "records": 188,
-   "body_sha256": "46bd74be942c51d6ce16cb48433eb4cb881cbf8f9f06e41cd729f6dfcdaaf461",
-   "cached": true
+   "fetched_at": "2026-10-31T04:34:30+00:00",
+   "records": 189,
+   "body_sha256": "6fbb5036bb8e643145ef9197549d166d05bc3feb990be66463c0e96a9a8c813a",
+   "cached": false
   },
   {
    "adapter": "data-api.activity",
    "url": "https://data-api.polymarket.com/activity?user=0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705&limit=500&start=1790121600&end=1793318400&sortBy=TIMESTAMP&sortDirection=ASC",
-   "fetched_at": "2026-10-30T22:30:53+00:00",
+   "fetched_at": "2026-10-30T22:30:52+00:00",
    "records": 500,
    "body_sha256": "0a6123831b70559d6ae10d5fe223a6d917d6ef94cb9e0fde5550d5d343741b59",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -252,7 +257,7 @@
    "fetched_at": "2026-10-30T22:30:53+00:00",
    "records": 500,
    "body_sha256": "44f42d30d7583797b112d61814caaf18e4feb1831607c46f3fe61e21442d0a4e",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -260,7 +265,7 @@
    "fetched_at": "2026-10-30T22:30:53+00:00",
    "records": 500,
    "body_sha256": "4d1dae601b149f60045749611cf1b1e8d686303243d0134e324d9d0e3964e555",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -268,7 +273,7 @@
    "fetched_at": "2026-10-30T22:30:54+00:00",
    "records": 500,
    "body_sha256": "b6399395063359ed87d722b2d6c57852f2978eec6a4b40c6843635ec4cbbfb43",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -276,7 +281,7 @@
    "fetched_at": "2026-10-30T22:30:54+00:00",
    "records": 500,
    "body_sha256": "19af8844dd63044bbdb490883d95dff312a2ff858b0e8527c780ab02dbdedd15",
-   "cached": false
+   "cached": true
   }
  ],
  "coverage": {
@@ -290,5 +295,5 @@
  ],
  "unknowns": [],
  "next_probes": [],
- "generated_at": "2026-10-30T22:34:25+00:00"
+ "generated_at": "2026-10-31T04:34:50+00:00"
 }

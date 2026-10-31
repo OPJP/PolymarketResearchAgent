@@ -1,0 +1,297 @@
+{
+ "mo_fit_taker": {
+  "fills": 64,
+  "windows": 41,
+  "usd": 3841.7,
+  "pnl": 371.2,
+  "ret": 0.0966,
+  "hac_p": 0.1362,
+  "median_price": 0.7,
+  "median_rel_s": 186.0
+ },
+ "mo_fit_maker": {
+  "fills": 618,
+  "windows": 141,
+  "usd": 24345.4,
+  "pnl": 2298.5,
+  "ret": 0.0944,
+  "hac_p": 0.0098,
+  "median_price": 0.555,
+  "median_rel_s": 149.0
+ },
+ "mo_test_taker": {
+  "fills": 23,
+  "windows": 16,
+  "usd": 1049.9,
+  "pnl": -432.6,
+  "ret": -0.412,
+  "hac_p": 0.9415,
+  "median_price": 0.63,
+  "median_rel_s": 201.0
+ },
+ "mo_test_maker": {
+  "fills": 846,
+  "windows": 118,
+  "usd": 8394.5,
+  "pnl": 266.9,
+  "ret": 0.0318,
+  "hac_p": 0.3162,
+  "median_price": 0.53,
+  "median_rel_s": 147.0
+ },
+ "top25_wallets_by_sampled_pnl": [
+  {
+   "wallet": "0x92b5f14c68ccae0cd7d0ba52b098ffaab990fec6",
+   "usd_fit": 17060.6,
+   "usd_test": 11391.0,
+   "pnl_fit": 12452.0,
+   "pnl_test": 10667.5,
+   "pnl_both": 23119.5,
+   "monthly_est": 346791.8,
+   "lb_rank": 195.0
+  },
+  {
+   "wallet": "0x21f4c1a1be34a39a7bc20985df4b7e5a39fb691d",
+   "usd_fit": 204588.7,
+   "usd_test": 226682.7,
+   "pnl_fit": 1993.3,
+   "pnl_test": 4528.0,
+   "pnl_both": 6521.3,
+   "monthly_est": 97819.8,
+   "lb_rank": 257.0
+  },
+  {
+   "wallet": "0x6de64d3ac2358383498c9e135df693f3bb12c060",
+   "usd_fit": 9202.8,
+   "usd_test": 1035.0,
+   "pnl_fit": 5543.0,
+   "pnl_test": 659.1,
+   "pnl_both": 6202.1,
+   "monthly_est": 93031.4,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x1d24f81d4cd23201dda9b7c9fe17403b82f7e6ff",
+   "usd_fit": 60859.9,
+   "usd_test": 0.0,
+   "pnl_fit": 6001.8,
+   "pnl_test": 0.0,
+   "pnl_both": 6001.8,
+   "monthly_est": 90027.5,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0xa0e72d5575095199ae08ce0dce447f21b7249461",
+   "usd_fit": 71908.8,
+   "usd_test": 39740.9,
+   "pnl_fit": 4486.2,
+   "pnl_test": 1272.5,
+   "pnl_both": 5758.7,
+   "monthly_est": 86381.2,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0xbd16da22de5eb4b4cbe0598ef16eda597c454eb1",
+   "usd_fit": 30577.8,
+   "usd_test": 10.0,
+   "pnl_fit": 5200.0,
+   "pnl_test": -10.7,
+   "pnl_both": 5189.3,
+   "monthly_est": 77839.2,
+   "lb_rank": 414.0
+  },
+  {
+   "wallet": "0x86b14772a4da70f3e6d5eee06933ebef143efc87",
+   "usd_fit": 58678.0,
+   "usd_test": 78084.0,
+   "pnl_fit": 2362.5,
+   "pnl_test": 2823.3,
+   "pnl_both": 5185.8,
+   "monthly_est": 77787.0,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x3708cef9f92678df15a0473e36c45d68a16cdaf9",
+   "usd_fit": 79452.4,
+   "usd_test": 41969.4,
+   "pnl_fit": 5212.5,
+   "pnl_test": -288.7,
+   "pnl_both": 4923.8,
+   "monthly_est": 73857.5,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x19b3823092892c026517fd0ff58df4889abe0b9b",
+   "usd_fit": 50534.3,
+   "usd_test": 204185.5,
+   "pnl_fit": 1133.0,
+   "pnl_test": 3584.5,
+   "pnl_both": 4717.5,
+   "monthly_est": 70762.6,
+   "lb_rank": 415.0
+  },
+  {
+   "wallet": "0x821b98e645fbf4109fc1c1c54ff1f1fa912338c1",
+   "usd_fit": 4404.6,
+   "usd_test": 0.0,
+   "pnl_fit": 4463.7,
+   "pnl_test": 0.0,
+   "pnl_both": 4463.7,
+   "monthly_est": 66956.2,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0xc4fd4e711cb3b5bccc6b744f916fb6fae7a90677",
+   "usd_fit": 9045.4,
+   "usd_test": 0.0,
+   "pnl_fit": 4408.5,
+   "pnl_test": 0.0,
+   "pnl_both": 4408.5,
+   "monthly_est": 66127.8,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x6979b1a23c14e5cf0c6d29310080841d19d4c2a3",
+   "usd_fit": 0.0,
+   "usd_test": 9418.8,
+   "pnl_fit": 0.0,
+   "pnl_test": 3788.3,
+   "pnl_both": 3788.3,
+   "monthly_est": 56824.5,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x6b9deede2ecf4e68ea8fdcb099007b8cbb7dbdc0",
+   "usd_fit": 6111.7,
+   "usd_test": 2280.0,
+   "pnl_fit": 3580.8,
+   "pnl_test": 174.2,
+   "pnl_both": 3755.0,
+   "monthly_est": 56324.9,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x855e484854d1411b959ddffdda11a698566c5189",
+   "usd_fit": 81704.4,
+   "usd_test": 44396.8,
+   "pnl_fit": 6411.0,
+   "pnl_test": -2775.7,
+   "pnl_both": 3635.2,
+   "monthly_est": 54528.7,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x57d9a9ea3da2d4f0637d7d9cd578553d02327686",
+   "usd_fit": 579.9,
+   "usd_test": 7929.0,
+   "pnl_fit": 311.6,
+   "pnl_test": 3126.5,
+   "pnl_both": 3438.1,
+   "monthly_est": 51571.8,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0xb129a54d3b23214728dcc544034fc83067cd890c",
+   "usd_fit": 74344.7,
+   "usd_test": 41705.7,
+   "pnl_fit": 1736.0,
+   "pnl_test": 1662.2,
+   "pnl_both": 3398.2,
+   "monthly_est": 50972.9,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed",
+   "usd_fit": 27140.8,
+   "usd_test": 8945.7,
+   "pnl_fit": 3182.6,
+   "pnl_test": 122.8,
+   "pnl_both": 3305.5,
+   "monthly_est": 49582.0,
+   "lb_rank": 230.0
+  },
+  {
+   "wallet": "0x568b079891fcc8bef2e557fa2a8a7ecca1700b3b",
+   "usd_fit": 66234.9,
+   "usd_test": 31725.2,
+   "pnl_fit": 3271.9,
+   "pnl_test": -288.0,
+   "pnl_both": 2984.0,
+   "monthly_est": 44759.9,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x3c58ef422754ff22c7e806336feba0064d8b776b",
+   "usd_fit": 20080.6,
+   "usd_test": 11804.1,
+   "pnl_fit": 3026.2,
+   "pnl_test": -97.9,
+   "pnl_both": 2928.3,
+   "monthly_est": 43924.9,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x5e4aa0f176014729f5168e821ce614484fbebe6b",
+   "usd_fit": 167318.7,
+   "usd_test": 178901.0,
+   "pnl_fit": 1056.6,
+   "pnl_test": 1825.2,
+   "pnl_both": 2881.9,
+   "monthly_est": 43227.8,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x129246beaac356e104c397f0985c11b7469be5a6",
+   "usd_fit": 8091.6,
+   "usd_test": 12096.2,
+   "pnl_fit": 652.0,
+   "pnl_test": 2212.3,
+   "pnl_both": 2864.3,
+   "monthly_est": 42964.5,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0xb6f6eb6296c5dc4a6978af057d25cd02ea2d868b",
+   "usd_fit": 10269.9,
+   "usd_test": 732.5,
+   "pnl_fit": 3530.3,
+   "pnl_test": -778.2,
+   "pnl_both": 2752.1,
+   "monthly_est": 41281.0,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0x84413583462b68f0a379f533bcbdcd089acfbc73",
+   "usd_fit": 17265.9,
+   "usd_test": 8348.3,
+   "pnl_fit": 3024.3,
+   "pnl_test": -431.8,
+   "pnl_both": 2592.5,
+   "monthly_est": 38886.9,
+   "lb_rank": null
+  },
+  {
+   "wallet": "0xb9587c373c773d023f47c2f85a30b3d5bddcf513",
+   "usd_fit": 80457.8,
+   "usd_test": 111820.6,
+   "pnl_fit": 970.6,
+   "pnl_test": 1598.8,
+   "pnl_both": 2569.4,
+   "monthly_est": 38541.5,
+   "lb_rank": 388.0
+  },
+  {
+   "wallet": "0xb0f85baa97990910a3e8ac2b4a58a322f01ecef5",
+   "usd_fit": 18688.4,
+   "usd_test": 21660.8,
+   "pnl_fit": 1291.9,
+   "pnl_test": 1274.7,
+   "pnl_both": 2566.6,
+   "monthly_est": 38499.1,
+   "lb_rank": null
+  }
+ ],
+ "n_wallets_monthly_est_over_50k": 16,
+ "n_over_50k_not_in_top500": 12,
+ "mo_money_rank": 242
+}

@@ -5,7 +5,8 @@
   "wallet": "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
   "asset": "btc",
   "duration": "5m",
-  "as_of": 1793318400
+  "as_of": 1793318400,
+  "spot_source": "kraken"
  },
  "observed": {
   "fit_blocks": [
@@ -115,137 +116,192 @@
   "test_wallet_taker_buys": 5446,
   "test_windows_with_wallet": 283,
   "wallet_share_of_taker_buys": 0.016187665153717425,
-  "spot_seconds": 221711
+  "spot_seconds": 215593
  },
  "derived": {
   "match_test": {
    "lag_scan_auc_fit": {
-    "-10": 0.5237744853201499,
-    "-5": 0.5194046834001415,
-    "-3": 0.5161519461553887,
-    "-2": 0.5135241560539595,
-    "-1": 0.510634898447397,
-    "0": 0.5084207650976855,
-    "1": 0.5033622047119697,
-    "2": 0.4975664976077896,
-    "3": 0.495976821602608,
-    "5": 0.5037874831167963,
-    "10": 0.5140982969416324,
-    "20": 0.5296120021806345
+    "fair_minus_price@-10": 0.5366091778724075,
+    "fair_minus_price@-5": 0.5373664570649054,
+    "fair_minus_price@-3": 0.533163381843713,
+    "fair_minus_price@-2": 0.5297565039916169,
+    "fair_minus_price@-1": 0.5271898370672528,
+    "fair_minus_price@0": 0.5221063149705135,
+    "fair_minus_price@1": 0.5129456965808933,
+    "fair_minus_price@2": 0.4995095255531652,
+    "fair_minus_price@3": 0.4952536516318927,
+    "fair_minus_price@5": 0.5005812249579543,
+    "fair_minus_price@10": 0.5027264686472358,
+    "fair_minus_price@20": 0.513583146444091
    },
-   "chosen_latency_s": 20,
-   "theta": 0.065,
+   "chosen_score": "fair_minus_price",
+   "chosen_latency_s": 0,
+   "theta": 0.10045835726425004,
    "fit": {
     "prints": 362753,
     "wallet_prints": 6015,
-    "auc": 0.5296120021806345
+    "auc": 0.5221063149705135
    },
    "test": {
     "prints": 336429,
     "wallet_prints": 5446,
-    "auc": 0.5560442713523106,
-    "auc_null_mean": 0.5726493199545213,
-    "auc_null_p95": 0.585380438719547,
-    "auc_perm_p": 0.9502487562189055,
+    "auc": 0.5262622043880956,
+    "auc_unstratified": 0.5102415565867751,
+    "auc_null_mean": 0.506458712833044,
+    "auc_null_p95": 0.5143733862077242,
+    "auc_null_max": 0.5188672022352973,
+    "auc_perm_p": 0.004975124378109453,
+    "score_finite_share": 1.0,
+    "null_finite_share_min": 1.0,
     "decision": {
-     "theta": 0.065,
-     "tp": 2029,
-     "fp": 83724,
-     "fn": 3417,
-     "tn": 247259,
-     "precision": 0.02366097979079449,
-     "recall": 0.37256702166727873,
-     "mcc": 0.03463644513275082,
+     "theta": 0.10045835726425004,
+     "tp": 968,
+     "fp": 39466,
+     "fn": 4478,
+     "tn": 291517,
+     "precision": 0.02394024830588119,
+     "recall": 0.17774513404333456,
+     "mcc": 0.0227054106593096,
      "base_rate": 0.016187665153717425,
-     "lift": 1.4616672365106869
+     "lift": 1.478919169537147
     },
-    "mcc_null_p95": 0.03932544464516643,
-    "mcc_perm_p": 0.34328358208955223,
-    "wallet_mean_edge": 0.00034338023085347274,
-    "others_mean_edge": -0.043926852122719434,
-    "share_wallet_prints_with_positive_edge": 0.4939405067939772,
-    "mannwhitney_p": 3.929722773499099e-46
+    "wallet_mean_score": 0.00071737929502657,
+    "others_mean_score": -0.010796973050444036
    },
+   "criterion_6": {
+    "perm_p_below_0.01": true,
+    "recall_ge_0.2": false,
+    "lift_ge_2.0": false,
+    "pass": false
+   },
+   "null": "within-block window rotation, stratified by price x time-in-window x side",
    "n_perm": 200
   },
   "pit_audit": {
    "probes": 30,
-   "max_abs_diff_vectorized_vs_pit": 1.8826819103701098e-08,
+   "max_abs_diff_vectorized_vs_pit": 5.461012531071674e-09,
    "max_abs_diff_full_vs_truncated_store": 0.0,
    "passed": true
   },
-  "backtest_test_period": {
-   "trades": 85753,
-   "windows": 288,
-   "usd_traded": 562852.4538658622,
-   "pnl": -12933.43755756379,
-   "fees": 20863.986046878577,
-   "return_on_traded": -0.022978379979926425,
-   "win_rate": 0.41802619150350423,
-   "per_window_mean": -44.90776929709649,
-   "per_window_hac_t": -0.44373924346986193,
-   "per_window_p": 0.6712172641349349,
-   "per_window_bootstrap_p": 0.688103965344885,
-   "daily_pnl": {
-    "2026-10-23": -8437.080675882891,
-    "2026-10-24": -2530.1910362202143,
-    "2026-10-25": -13005.659894262275,
-    "2026-10-27": 16579.834857854003,
-    "2026-10-28": -5540.340809052414
+  "calibration_test_period": {
+   "points": 2592,
+   "brier_market": 0.1270321033008138,
+   "brier_model": 0.13674431795195927,
+   "model_wrong_side_at_last_step": 0.03125,
+   "market_wrong_side_at_last_step": 0.017361111111111112,
+   "by_seconds_into_window": {
+    "30": {
+     "market": 0.21811093918416127,
+     "model": 0.22857959612899734
+    },
+    "60": {
+     "market": 0.20025989571782607,
+     "model": 0.2145770092541166
+    },
+    "90": {
+     "market": 0.18696722782784378,
+     "model": 0.19814808006754772
+    },
+    "120": {
+     "market": 0.1567234453269701,
+     "model": 0.16486885248459915
+    },
+    "150": {
+     "market": 0.13382232437167305,
+     "model": 0.14598380240175693
+    },
+    "180": {
+     "market": 0.11215512399024445,
+     "model": 0.12060210309453834
+    },
+    "210": {
+     "market": 0.07673559138723002,
+     "model": 0.0821673513013699
+    },
+    "240": {
+     "market": 0.043362901151055414,
+     "model": 0.05418855163511317
+    },
+    "270": {
+     "market": 0.015151480750319924,
+     "model": 0.02158351519959421
+    }
    },
-   "daily_sharpe_annual": -4.339035840023916
+   "latency_s": 1,
+   "step_s": 30
+  },
+  "backtest_test_period": {
+   "trades": 40434,
+   "windows": 282,
+   "usd_traded": 295677.1201608868,
+   "pnl": -3045.1338931209793,
+   "fees": 8797.507089445522,
+   "return_on_traded": -0.010298848593574068,
+   "win_rate": 0.5335114012959391,
+   "per_window_mean": -10.798347138726896,
+   "per_window_hac_t": -0.1360375568729035,
+   "per_window_p": 0.5540555020955737,
+   "per_window_bootstrap_p": 0.5694768410529824,
+   "daily_pnl": {
+    "2026-10-23": -608.1602916657272,
+    "2026-10-24": 6420.662255309727,
+    "2026-10-25": -8946.168447540575,
+    "2026-10-27": -1959.916980650206,
+    "2026-10-28": 2048.4495714258014
+   },
+   "daily_sharpe_annual": -2.0583905280184807
   },
   "backtest_excluding_wallet_prints": {
-   "trades": 83724,
-   "windows": 288,
-   "usd_traded": 543885.4910658614,
-   "pnl": -12870.009233622093,
-   "fees": 20184.857024253884,
-   "return_on_traded": -0.023663086155139977,
-   "win_rate": 0.41769385122545505,
-   "per_window_mean": -44.687532061187845,
-   "per_window_hac_t": -0.45762707936200386,
-   "per_window_p": 0.6762166838755602,
-   "per_window_bootstrap_p": 0.6934355214928357,
+   "trades": 39466,
+   "windows": 282,
+   "usd_traded": 285247.8148608833,
+   "pnl": -3136.9453948929986,
+   "fees": 8464.449992071786,
+   "return_on_traded": -0.010997263542309349,
+   "win_rate": 0.5343080119596615,
+   "per_window_mean": -11.123919840046097,
+   "per_window_hac_t": -0.1445326402294919,
+   "per_window_p": 0.5574082550062929,
+   "per_window_bootstrap_p": 0.5721426191269576,
    "daily_pnl": {
-    "2026-10-23": -8016.35789417859,
-    "2026-10-24": -2633.934444907398,
-    "2026-10-25": -12954.626985174213,
-    "2026-10-27": 15935.399380024406,
-    "2026-10-28": -5200.489289386303
+    "2026-10-23": -404.8018270154859,
+    "2026-10-24": 6263.793037479069,
+    "2026-10-25": -9038.399020152416,
+    "2026-10-27": -2101.040690779055,
+    "2026-10-28": 2143.503105574889
    },
-   "daily_sharpe_annual": -4.457340793171044
+   "daily_sharpe_annual": -2.117793953769391
   },
   "latency_degradation": {
-   "21": {
-    "trades": 86032,
-    "pnl": -15298.983785480152,
-    "return_on_traded": -0.027193564783962308,
-    "per_window_p": 0.7017917317066724
+   "1": {
+    "trades": 39790,
+    "pnl": -8663.638054803003,
+    "return_on_traded": -0.030031337481231185,
+    "per_window_p": 0.6532533388336785
    },
-   "22": {
-    "trades": 86326,
-    "pnl": -16064.608803855253,
-    "return_on_traded": -0.028512591248367004,
-    "per_window_p": 0.7117037849510712
+   "2": {
+    "trades": 39211,
+    "pnl": -14938.09344199491,
+    "return_on_traded": -0.053062915709926176,
+    "per_window_p": 0.7542880583262911
    },
-   "23": {
-    "trades": 86534,
-    "pnl": -18260.33838647893,
-    "return_on_traded": -0.03244814771822446,
-    "per_window_p": 0.7384020268651244
+   "3": {
+    "trades": 39487,
+    "pnl": -19893.46314016622,
+    "return_on_traded": -0.0709705127837291,
+    "per_window_p": 0.8262041000591662
    },
-   "25": {
-    "trades": 86746,
-    "pnl": -22203.321193250697,
-    "return_on_traded": -0.03963484435406974,
-    "per_window_p": 0.7848012708942056
+   "5": {
+    "trades": 42963,
+    "pnl": -25149.56017799605,
+    "return_on_traded": -0.08455349234171877,
+    "per_window_p": 0.8939820330718345
    },
-   "30": {
-    "trades": 87769,
-    "pnl": -23603.622560503944,
-    "return_on_traded": -0.042112996067804276,
-    "per_window_p": 0.8126475959407927
+   "10": {
+    "trades": 50071,
+    "pnl": -31321.145572854883,
+    "return_on_traded": -0.09309679605445374,
+    "per_window_p": 0.9537793162536761
    }
   },
   "wallet_replay_test_period": {
@@ -272,12 +328,12 @@
   "detail": "0 truncated tapes"
  },
  "limitations": [
-  "Spot is Kraken trades; markets resolve on Chainlink's aggregated TWAP, so S0 and the TWAP are proxies.",
+  "Spot is kraken per-second prices; markets resolve on Chainlink's aggregated feed, so the strike TWAP and the closing TWAP are proxies.",
   "Backtest fills assume the observed taker liquidity at each print was available to us; contested liquidity is reported via the excluding-wallet run and latency degradation, not modeled queue competition.",
-  "Polymarket tape timestamps are block times (~2 s), bounding the resolution of the latency estimate.",
-  "Only the wallet's taker buys are modeled; its maker fills are analysed separately in the profile."
+  "Polymarket tape timestamps are block times (~2 s), bounding the resolution of the latency estimate; a replicator needs >= 2 s.",
+  "Only the wallet's taker buys are modeled; its maker fills are analysed in the maker study."
  ],
  "unknowns": [],
  "next_probes": [],
- "generated_at": "2026-10-30T23:03:14+00:00"
+ "generated_at": "2026-10-31T04:23:12+00:00"
 }

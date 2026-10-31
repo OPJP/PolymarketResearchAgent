@@ -1,36 +1,60 @@
 {
-  "wallet": "0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705",
-  "name": "justaluckydude",
-  "stage": "C",
-  "verdict": "reject",
-  "archetype": "In-play sports taker reacting to scoring plays",
-  "headline": "Buys the side a scoring play just helped, within 0-10 seconds of the play, across NFL, college football, NBA, MLB and NHL moneylines, spreads and totals. The reaction is real and matches the wallet, but a public-data version is not significantly profitable, a 5-second delay removes most of the edge, and the wallet's own edge is decaying.",
-  "mechanism": "All 200 sampled fills are taker fills (on-chain) and 99.6% happen after game start. Against ESPN play-by-play wall-clock times, the wallet's fills spike from a baseline of ~300 per 5-second bin to 1,274 in the first 5 seconds after a scoring play and 797 in the next 5, with no rise before plays. Within 20 seconds after a play, 95% of its buys favour the scoring side (other takers: 62%). These reactive trades are about 30% of its fills; the rest are not explained by scoring plays.",
-  "criteria": {
-    "roc": {"status": "pass", "detail": "peak capital at risk $507k; 30-day PnL $139k; 27% per month"},
-    "onchain": {"status": "pass", "detail": "200/200 sampled fills confirmed; 0% maker (all taker)"},
-    "match": {"status": "fail", "detail": "partial: direction after scoring plays 95% vs 62% for other takers, permutation p=0.005 (86 held-out games), but this explains only ~30% of fills"},
-    "backtest": {"status": "fail", "detail": "REACT(D=0s, W=20s) on 86 held-out games: +3.8% on $1.26M traded, per-game p=0.21; wallet's own fills on the same games +3.2%, p=0.25"},
-    "replicable": {"status": "fail", "detail": "reacts 0-10 s after the play's wall clock, faster than public feeds or broadcast; +5 s delay: +1.0%, p=0.41"},
-    "persistence": {"status": "fail", "detail": "last 30 days not significant (p=0.13); daily mean fell from $9.1k to $4.6k; negative trend p=0.004"}
+ "wallet": "0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705",
+ "name": "justaluckydude",
+ "stage": "C",
+ "verdict": "reject",
+ "archetype": "In-play sports taker reacting to game events",
+ "headline": "Buys the side a scoring play (or another win-probability swing) just helped, within seconds, across college football, NFL, NBA, MLB and NHL. The reaction is real and identifiable, but every public-data version of it is not significantly profitable once a realistic information delay is applied, and the wallet's own profit is decaying.",
+ "mechanism": "All sampled fills are taker fills. Within 10 s after a scoring play known 5 s after its ESPN wall clock, 95% of its buys favour the scoring side (other takers 60%). A reviewer rule reacting to any play that moves ESPN's win probability explains more: 36% of all its buys. Its profit is concentrated in college football and MLB; NBA, which dominated the held-out games, lost money. Half of the taker fees it pays come back as an Obsidian rebate.",
+ "criteria": {
+  "roc": {
+   "status": "pass",
+   "detail": "27%/month: 30-day PnL $138,804 on peak capital at risk $506,910; counting the on-chain collateral too ($532,394), at least 13%/month"
   },
-  "key_numbers": {
-    "30-day PnL": "$138,804",
-    "Monthly ROC": "27%",
-    "Fills within 0-5 s of a scoring play": "4.2x baseline",
-    "Direction agreement after plays": "95% (others 62%)",
-    "Held-out rule return": "+3.8% (p=0.21)",
-    "Recent-window p": "0.13"
+  "onchain": {
+   "status": "pass",
+   "detail": "200/200 sampled fills confirmed in Polygon OrderFilled events; 0% maker fills (95% CI 0%-2%), 0% of USDC"
   },
-  "reasons": [
-    "The reverse-engineered reaction rule matches only the ~30% of fills that follow scoring plays.",
-    "The rule is not significantly profitable on 86 held-out games (p=0.21), even with zero added delay.",
-    "Speed is the edge: trades land within 0-10 s of the play; 5 s slower leaves +1.0% (p=0.41).",
-    "The wallet's own PnL has a significant negative trend (p=0.004) and its last 30 days are not significant."
-  ],
-  "evidence": [
-    "research/wallets/0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705/profile.json",
-    "research/wallets/0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705/sports_study.json",
-    "research/stage_a/persistence_a1_survivors.json"
-  ]
+  "match": {
+   "status": "partial",
+   "detail": "direction after scoring plays 94.8% vs null 95th percentile 64% (perm p=0.005, 86 held-out games), but the wallet is not more reactive than other takers (11% vs 15% of fills in the window, p=0.73). Reviewer WP-REACT (any win-probability swing): AUC 0.648, p=0.005, 36% of buys - significant, but most decisions stay unexplained"
+  },
+  "backtest": {
+   "status": "fail",
+   "detail": "REACT(D=5 s, W=10 s) held out +1.1% (17,783 trades, p(profit)=0.40); zero-delay upper bound +4.4% (p=0.21); reviewer WP-REACT +3.2% (p=0.068); wallet's own fills on the same games +3.2% (p=0.25)"
+  },
+  "replicable": {
+   "status": "fail",
+   "detail": "the edge sits in the first seconds after a play; with a 5 s information delay the rule earns +1.1% (p=0.40) and reviewer WP-REACT goes to about zero at +5-10 s"
+  },
+  "persistence": {
+   "status": "fail",
+   "detail": "last 30 days not significant (p=0.13); significant negative trend (p=0.004). [last 30 days p=0.13; decline vs earlier p=0.15; last 15 vs prior 15 p=0.26; trend p=0.004]"
+  }
+ },
+ "key_numbers": {
+  "30-day PnL": "$138,804",
+  "PnL at 0% rebate tier": "$113,211",
+  "Monthly ROC": "27%",
+  "Direction agreement after plays": "95% (others 60%)",
+  "Held-out rule return (5 s delay)": "+1.1% (p=0.40)"
+ },
+ "reasons": [
+  "The reaction signature is real but explains only part of its decisions; no rule meets the match bar.",
+  "No public-data version is significantly profitable on held-out games with a realistic information delay.",
+  "Its last 30 days are not significant and its daily PnL has a significant negative trend."
+ ],
+ "corrections": [
+  "The earlier headline rule (D=0 s, W=20 s, +3.8%) assumed ESPN data arrives with no delay at all; refitted with a minimum 5 s delay it chooses D=5 s, W=10 s and earns +1.1% (p=0.40).",
+  "The earlier 'reactive share' p-value did not mean it reacts more than other takers; it does not (its distinguishing feature is direction).",
+  "30-day PnL includes a 50% taker-fee rebate; at the 0% tier it is $113,211 (still above $50k)."
+ ],
+ "evidence": [
+  "research/wallets/0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705/profile.json",
+  "research/wallets/0xbca08c1bc204a34f2fddbe47b438b9bd42ac9705/sports_study_taker.json",
+  "research/stage_a/persistence_a1_survivors.json",
+  "research/stage_a/rebate_dependence.json",
+  "research/review_2026-10-31/challenge-inplay-taker-justaluckydude/h2_wpreact.json",
+  "research/review_2026-10-31/challenge-inplay-taker-justaluckydude/challenge_summary.json"
+ ]
 }

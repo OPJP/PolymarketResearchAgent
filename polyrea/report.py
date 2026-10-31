@@ -27,10 +27,10 @@ CRITERIA = [
     ("consistency", "Constant returns (low std)", "Annualized daily Sharpe >= 3, >= 75% positive weeks, >= 80% positive months"),
     ("roc", "High % profit", ">= 10% per month on peak capital at risk (reconstructed from fills)"),
     ("onchain", "Trades verified on-chain", "Random sample of API fills matched to Polygon OrderFilled events"),
-    ("match", "Reverse-engineered rule matches the wallet", "Held-out decision-level agreement beats a permutation null (p < 0.01)"),
+    ("match", "Reverse-engineered rule matches the wallet", "Held-out decisions: stratified AUC beats a within-block rotation null (p < 0.01) and the fitted rule flags >= 20% of the wallet's decisions at >= 2x the base rate; a significant but smaller association is a partial match"),
     ("backtest", "Rule profitable in held-out PIT backtest", "Walk-forward, no future data, fees included; p < 0.05"),
     ("replicable", "Replicable on a normal computer and connection", "No sub-second race, no private data feed, no self-trading or rebate tier the replicator lacks"),
-    ("persistence", "Conditions still hold now", "Recent window significant, no significant decay, policy dependence stable"),
+    ("persistence", "Conditions still hold now", "Last 30 days significant, no significant decline (vs. earlier days or inside the last 30), no negative trend, one-off bonuses removed, policy unchanged"),
 ]
 
 
@@ -155,6 +155,8 @@ def wallet_report_md(row: dict[str, Any]) -> str:
         lines += [f"- {k}: {val}" for k, val in v["key_numbers"].items()]
     if v.get("reasons"):
         lines += ["", "## Why this verdict", ""] + [f"- {r}" for r in v["reasons"]]
+    if v.get("corrections"):
+        lines += ["", "## Corrections after the adversarial review (2026-10-31)", ""] + [f"- {c}" for c in v["corrections"]]
     if v.get("evidence"):
         lines += ["", "## Evidence files", ""] + [f"- `{p}`" for p in v["evidence"]]
     return "\n".join(lines) + "\n"
@@ -196,12 +198,18 @@ def write_summary_md(ledger: dict[str, Any]) -> None:
         "| --- | --- |",
     ]
     lines += [f"| {f['label']} | {f['count']} |" for f in ledger["funnel"]]
-    lines += ["", "## Deep-dived wallets", "", "| Rank | Wallet | Archetype | Verdict | Failed criteria |", "| --- | --- | --- | --- | --- |"]
+    lines += ["", "## Deep-dived wallets", "", "| Rank | Wallet | Archetype | Verdict | Failed criteria | Partial |", "| --- | --- | --- | --- | --- | --- |"]
     labels = {k: l for k, l, _ in CRITERIA}
     for r in deep:
         crit = r["deep_dive"].get("criteria", {})
         failed = [labels[k] for k, _, _ in CRITERIA if (crit.get(k) or {}).get("status") == "fail"]
-        lines.append(f"| {r['rank']} | [{r['name']}](wallets/{r['wallet']}/REPORT.md) | {r.get('archetype') or ''} | {r['verdict']} | {'; '.join(failed) or '-'} |")
+        partial = [labels[k] for k, _, _ in CRITERIA if (crit.get(k) or {}).get("status") == "partial"]
+        lines.append(f"| {r['rank']} | [{r['name']}](wallets/{r['wallet']}/REPORT.md) | {r.get('archetype') or ''} | {r['verdict']} | {'; '.join(failed) or '-'} | {'; '.join(partial) or '-'} |")
+    lines += ["", "## Criteria across deep-dived wallets", "", "Not sequential: every criterion was assessed for every wallet where possible.", "",
+              "| Criterion | Pass | Partial | Fail | Not assessed |", "| --- | --- | --- | --- | --- |"]
+    for k, label, _ in CRITERIA:
+        st = [((r["deep_dive"].get("criteria", {}).get(k)) or {}).get("status", "untested") for r in deep]
+        lines.append(f"| {label} | {st.count('pass')} | {st.count('partial')} | {st.count('fail')} | {len(st) - st.count('pass') - st.count('partial') - st.count('fail')} |")
     a1 = [r for r in rows if not r.get("deep_dive") and r["verdict"] == "reject"]
     categories = [
         ("no PnL history", "No PnL history returned"),
@@ -223,7 +231,9 @@ def write_summary_md(ledger: dict[str, Any]) -> None:
             counter[label] += 1
     lines += ["", f"## Stage A1 rejections ({len(a1)} wallets)", "", "A wallet can fail several criteria.", "", "| Reason | Wallets |", "| --- | --- |"]
     lines += [f"| {k} | {v} |" for k, v in counter.most_common(12)]
-    lines += ["", "Full per-wallet detail: `ledger.json` and the dashboard (`../dashboard/index.html`)."]
+    lines += ["", "Full per-wallet detail: `ledger.json` and the dashboard (`../dashboard/index.html`).",
+              "", "The adversarial review of the first round (code audit, a challenge of every verdict, an independent re-check of stage A1, and a completeness critique) "
+              "is recorded in `review_2026-10-31/` with every reviewer's scripts and outputs; the defects it confirmed and how they were fixed are listed in `../docs/methodology.md`."]
     (RESEARCH / "README.md").write_text("\n".join(lines) + "\n")
 
 

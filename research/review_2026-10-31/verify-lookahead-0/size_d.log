@@ -1,0 +1,3 @@
+edge_only10  seed 0 n_perm 100 lat   2 AUC 0.9526 null_mean 0.6698 null_p95 0.7808 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.808 MW p 0 (17s)
+edge_only10  seed 1 n_perm 100 lat   2 AUC 0.9531 null_mean 0.6857 null_p95 0.7952 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.804 MW p 0 (15s)
+edge_only10  seed 2 n_perm 100 lat   2 AUC 0.9522 null_mean 0.6750 null_p95 0.7845 perm_p 0.0099 mcc_p 0.010 AUC(-price) 0.806 MW p 0 (12s)

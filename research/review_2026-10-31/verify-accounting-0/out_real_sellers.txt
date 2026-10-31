@@ -1,0 +1,32 @@
+== TommyLeePeeca (0x0063b23c) as_of=1793318400 fills=104950 sells=5190 (4.95%) bought $3,947,192 sold $1,241,719
+  recorded profile.json: settled_pnl 86,591 locked -50,038 resid 136,629
+  recomputed as coded  : settled_pnl 86,591 locked -50,038 resid 136,629
+  sign-correct (net held): pnl 27,154 = realized-from-sells -67,229 + locked 55,481 + resid 38,896 | resolved mkts 1084, with sells 529, net-short (sold pre-window shares) 1
+  user-pnl series: position_pnl 27,190 (economic 60,279, fees -54,512)
+  series pnl_series_window (economic) 60,279; income {'wallet_income': 33089.0156, 'maker_rebate': 5702.7959, 'reward_income': 1.421599999999998, 'fees_paid': -54511.60107999999}
+  calibration bucket: win_rate as coded (recorded) vs buys only
+    0.0-0.1: coded 0.057 (recorded 0.057) shares 255,432 | buys-only 0.070 shares 140,766
+    0.1-0.2: coded 0.131 (recorded 0.131) shares 711,098 | buys-only 0.141 shares 546,285
+    0.2-0.3: coded 0.236 (recorded 0.236) shares 1,042,624 | buys-only 0.250 shares 833,483
+    0.3-0.4: coded 0.337 (recorded 0.337) shares 1,216,594 | buys-only 0.340 shares 980,087
+    0.4-0.5: coded 0.458 (recorded 0.458) shares 1,460,792 | buys-only 0.465 shares 1,199,789
+    0.5-0.6: coded 0.568 (recorded 0.568) shares 1,375,198 | buys-only 0.572 shares 1,113,145
+    0.6-0.7: coded 0.667 (recorded 0.667) shares 1,266,987 | buys-only 0.671 shares 984,433
+    0.7-0.8: coded 0.761 (recorded 0.761) shares 1,072,154 | buys-only 0.751 shares 814,488
+    0.8-0.9: coded 0.883 (recorded 0.883) shares 988,279 | buys-only 0.860 shares 676,139
+    0.9-1.0: coded 0.963 (recorded 0.963) shares 547,917 | buys-only 0.962 shares 339,096
+== elmcap2 (0xed107a85) as_of=1793318400 fills=5045 sells=126 (2.50%) bought $7,224,516 sold $279,271
+  recorded profile.json: settled_pnl 214,187 locked -1,254 resid 215,442
+  recomputed as coded  : settled_pnl 214,187 locked -1,254 resid 215,442
+  sign-correct (net held): pnl 217,372 = realized-from-sells -1,497 + locked 30 + resid 218,838 | resolved mkts 56, with sells 2, net-short (sold pre-window shares) 0
+  series pnl_series_window (economic) 242,047; income {'wallet_income': 13655.171600000001, 'maker_rebate': 467.14500000000044, 'reward_income': 649.4204000000009, 'fees_paid': -1284.53431}
+  calibration bucket: win_rate as coded (recorded) vs buys only
+    0.1-0.2: coded 0.000 (recorded 0.000) shares 1,824 | buys-only nan shares 0
+    0.2-0.3: coded 0.000 (recorded 0.000) shares 5,551 | buys-only nan shares 0
+    0.3-0.4: coded 0.000 (recorded 0.000) shares 125 | buys-only nan shares 0
+    0.4-0.5: coded 0.191 (recorded 0.191) shares 35,978 | buys-only 0.191 shares 35,978
+    0.5-0.6: coded 0.804 (recorded 0.804) shares 65,299 | buys-only 0.804 shares 65,299
+    0.6-0.7: coded 0.333 (recorded 0.333) shares 44,995 | buys-only 0.333 shares 44,995
+    0.7-0.8: coded 0.388 (recorded 0.388) shares 16,217 | buys-only 0.388 shares 16,217
+    0.8-0.9: coded 0.516 (recorded 0.516) shares 87,899 | buys-only 0.516 shares 87,899
+    0.9-1.0: coded 1.000 (recorded 1.000) shares 5,103,940 | buys-only 1.000 shares 4,953,940

@@ -243,32 +243,102 @@ def investigate_wallet(wallet: str, days: int = 30, onchain_sample: int = 200) -
     return _inv(wallet, days=days, onchain_sample=onchain_sample, out_dir=RESEARCH_DIR / "wallets").to_dict()
 
 
-def updown_study(wallet: str, asset: str = "btc", duration: str = "5m", blocks_per_period: int = 12, n_perm: int = 200) -> dict[str, Any]:
-    """Walk-forward test of the spot-latency hypothesis on crypto Up/Down windows: decision match vs. permutation null, PIT backtest, latency decay."""
-    from polyrea.workflows.updown_study import run_updown_study
+def updown_study(
+    wallet: str,
+    asset: str = "btc",
+    duration: str = "5m",
+    blocks_per_period: int = 12,
+    n_perm: int = 200,
+    role: str = "taker",
+    spot_source: str = "kraken",
+    as_of: int | None = None,
+) -> dict[str, Any]:
+    """Walk-forward test of spot hypotheses on crypto Up/Down windows.
 
-    return run_updown_study(wallet, asset=asset, duration=duration, blocks_per_period=blocks_per_period, n_perm=n_perm, out_dir=RESEARCH_DIR / "wallets").to_dict()
+    ``role="taker"``: latency taker (LA) on taker buys. ``role="maker"``:
+    directional (DM) and spot-reactive (SR) makers on passive fills, with
+    executable backtests. Decision match = stratified AUC vs. a within-block
+    rotation null plus recall/lift of the fitted rule; PIT backtest; latency
+    decay. ``spot_source`` is "kraken" or "binance"."""
+    from polyrea.workflows.updown_study import run_updown_maker_study, run_updown_study
+
+    fn = run_updown_maker_study if role == "maker" else run_updown_study
+    return fn(wallet, asset=asset, duration=duration, blocks_per_period=blocks_per_period, n_perm=n_perm, out_dir=RESEARCH_DIR / "wallets", spot_source=spot_source, as_of=as_of).to_dict()
 
 
-def assess_persistence(wallet: str, recent_days: int = 30) -> dict[str, Any]:
-    """Is the edge still alive? Recent-window significance, decline vs. earlier, trend and CUSUM break tests on daily PnL."""
+def assess_persistence(wallet: str, recent_days: int = 30, as_of: int | None = None) -> dict[str, Any]:
+    """Is the edge still alive? Recent-window significance, decline vs. earlier, late-window decline, trend and CUSUM break tests on daily PnL.
+
+    Also reports the recurring series: economic PnL with one-off taker-rebate
+    level-up bonuses removed (a replicator would not receive them again).
+    """
     from polyrea.analysis.pnl import daily_frame
+    from polyrea.analysis.rebates import rebate_dependence
     from polyrea.stats.persistence import persistence_report
     from polyrea.workflows.investigate import default_as_of
 
-    body, src = _pm().user_pnl(wallet)
-    df = daily_frame(body.get("points") or [], as_of=default_as_of())
+    as_of = as_of or default_as_of()
+    body, src = _pm().user_pnl(wallet, max_age=None if as_of < time.time() - 86400 else 6 * 3600)
+    points = body.get("points") or []
+    df = daily_frame(points, as_of=as_of)
     out: dict[str, Any] = {}
     for col in ("d_economic_pnl", "d_trade_pnl", "d_position_pnl"):
         if col in df and len(df) > recent_days + 10:
             out[col] = asdict(persistence_report(df[col].iloc[1:].to_numpy(), recent_days=recent_days))
+    reb = rebate_dependence(points, as_of, days=recent_days)
+    bonuses = [b for b in reb.get("one_off_payments", []) if b["matches_bonus"]]
+    if bonuses and "d_economic_pnl" in df:
+        rec = df["d_economic_pnl"].iloc[1:].to_numpy().copy()
+        for b in bonuses:
+            rec[len(rec) - 1 - b["day_index_from_end"]] -= b["excess"]
+        out["d_economic_pnl_recurring"] = asdict(persistence_report(rec, recent_days=recent_days))
     return Evidence(
         tool="assess_persistence",
-        subject={"kind": "wallet", "wallet": wallet.lower(), "recent_days": recent_days},
+        subject={"kind": "wallet", "wallet": wallet.lower(), "recent_days": recent_days, "as_of": as_of},
+        observed={"one_off_bonuses_removed": bonuses},
         derived=out,
         sources=[src],
         coverage=Coverage("complete" if out else "empty"),
         limitations=["Persistence of the wallet's own PnL; strategy-level persistence comes from the walk-forward backtest."],
+    ).to_dict()
+
+
+def inspect_collateral(wallet: str, as_of: int | None = None, days: int = 30) -> dict[str, Any]:
+    """On-chain collateral (USDC.e + pUSD) of a wallet and its cash-inclusive return on capital (a lower bound next to the ledger's position-only ROC)."""
+    from polyrea.analysis.ledger import capital_and_roc
+    from polyrea.analysis.pnl import daily_frame
+    from polyrea.workflows.investigate import collateral_and_cash_roc, default_as_of, load_window
+
+    as_of = as_of or default_as_of()
+    win = load_window(wallet, days=days, as_of=as_of, pm=_pm())
+    body, src = _pm().user_pnl(wallet, max_age=None if as_of < time.time() - 86400 else 6 * 3600)
+    df = daily_frame(body.get("points") or [], as_of=as_of)
+    roc = capital_and_roc(win["ledger"], df["d_economic_pnl"].iloc[1:], window_days=days)
+    cash = collateral_and_cash_roc(wallet, as_of, roc["window_pnl"], roc["peak_capital"], pm=_pm())
+    return Evidence(
+        tool="inspect_collateral",
+        subject={"kind": "wallet", "wallet": wallet.lower(), "as_of": as_of, "days": days},
+        derived={"capital": roc, "collateral": cash},
+        sources=[src],
+        coverage=Coverage("complete" if cash["samples_days_before_as_of"] else "partial"),
+        limitations=["Balances are sampled at a few blocks; collateral between samples is not seen."],
+    ).to_dict()
+
+
+def assess_rebate_dependence(wallet: str, days: int = 30, as_of: int | None = None) -> dict[str, Any]:
+    """Window PnL at every Polymarket taker-rebate tier, the wallet's observed tier, and one-off level-up bonuses."""
+    from polyrea.analysis.rebates import rebate_dependence
+    from polyrea.workflows.investigate import default_as_of
+
+    as_of = as_of or default_as_of()
+    body, src = _pm().user_pnl(wallet, max_age=None if as_of < time.time() - 86400 else 6 * 3600)
+    return Evidence(
+        tool="assess_rebate_dependence",
+        subject={"kind": "wallet", "wallet": wallet.lower(), "days": days, "as_of": as_of},
+        derived=rebate_dependence(body.get("points") or [], as_of, days=days),
+        sources=[src],
+        coverage=Coverage("complete"),
+        limitations=["Tier table and level-up bonuses from docs.polymarket.com/programs/taker-rebates (2026); they can change without notice."],
     ).to_dict()
 
 
@@ -301,5 +371,7 @@ TOOLS = {
     "investigate_wallet": investigate_wallet,
     "updown_study": updown_study,
     "assess_persistence": assess_persistence,
+    "assess_rebate_dependence": assess_rebate_dependence,
+    "inspect_collateral": inspect_collateral,
     "record_verdict": record_verdict,
 }

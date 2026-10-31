@@ -1,0 +1,367 @@
+{
+ "0x60a92c8620846d81f5ea17b0564e0d4b7c545a71": {
+  "name": "paddaa",
+  "rank": 36,
+  "last_point_ts": 1793415333,
+  "frozen_1030": {
+   "last_30d": 61254,
+   "median_month": 39829,
+   "pre_days": 448,
+   "p_holm": 0.01739296258341377,
+   "p_boot": 0.000999750062484379,
+   "dsr": 0.9967625874516293,
+   "sharpe": 4.84,
+   "pos_weeks": 0.853,
+   "pos_months": 0.933,
+   "reasons": [
+    "median monthly PnL $39,829 < $50k"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 69705,
+   "median_month": 42091,
+   "pre_days": 449,
+   "p_holm": 0.019722910637419957,
+   "p_boot": 0.0007498125468632841,
+   "dsr": 0.9976239380691266,
+   "sharpe": 4.92,
+   "pos_weeks": 0.824,
+   "pos_months": 0.933,
+   "reasons": [
+    "median monthly PnL $42,091 < $50k"
+   ]
+  }
+ },
+ "0xa797d6bd8fe6e404bb4d8e4ab3d97c38336fdede": {
+  "name": "LonnieHawkinss",
+  "rank": 130,
+  "last_point_ts": 1793415333,
+  "frozen_1030": {
+   "last_30d": 155001,
+   "median_month": 123195,
+   "pre_days": 69,
+   "p_holm": 0.15781421514129962,
+   "p_boot": 0.0007498125468632841,
+   "dsr": 0.9991542680739983,
+   "sharpe": 9.11,
+   "pos_weeks": 1.0,
+   "pos_months": 1.0,
+   "reasons": [
+    "pre-selection profit not significant after Ho"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 156937,
+   "median_month": 119033,
+   "pre_days": 70,
+   "p_holm": 0.17905104454322868,
+   "p_boot": 0.0022494376405898524,
+   "dsr": 0.9991382223302784,
+   "sharpe": 9.05,
+   "pos_weeks": 1.0,
+   "pos_months": 1.0,
+   "reasons": [
+    "pre-selection profit not significant after Ho"
+   ]
+  }
+ },
+ "0x41e2e1ccf1e4940029af02259a31c6b89b9fa354": {
+  "name": "norm1e69",
+  "rank": 159,
+  "last_point_ts": 1793404800,
+  "frozen_1030": {
+   "last_30d": 79168,
+   "median_month": 78743,
+   "pre_days": 53,
+   "p_holm": 1.0,
+   "p_boot": 0.00024993751562109475,
+   "dsr": 0.9999999992270063,
+   "sharpe": 18.05,
+   "pos_weeks": 1.0,
+   "pos_months": 1.0,
+   "reasons": [
+    "insufficient pre-selection history (53d < 60d"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 76012,
+   "median_month": 78244,
+   "pre_days": 54,
+   "p_holm": 1.0,
+   "p_boot": 0.00024993751562109475,
+   "dsr": 0.9999999992576112,
+   "sharpe": 17.83,
+   "pos_weeks": 1.0,
+   "pos_months": 1.0,
+   "reasons": [
+    "insufficient pre-selection history (54d < 60d"
+   ]
+  }
+ },
+ "0xeea3f08e8a36081233e4c4b4142fd61a7b56a6a2": {
+  "name": "thestingsnake",
+  "rank": 185,
+  "last_point_ts": 1793415333,
+  "frozen_1030": {
+   "last_30d": 99860,
+   "median_month": 65979,
+   "pre_days": 123,
+   "p_holm": 0.1264526664066907,
+   "p_boot": 0.0004998750312421895,
+   "dsr": 0.9508170220359144,
+   "sharpe": 8.75,
+   "pos_weeks": 0.857,
+   "pos_months": 1.0,
+   "reasons": [
+    "pre-selection profit not significant after Ho"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 90896,
+   "median_month": 70847,
+   "pre_days": 124,
+   "p_holm": 0.08922677472657994,
+   "p_boot": 0.0004998750312421895,
+   "dsr": 0.9522363991926791,
+   "sharpe": 8.76,
+   "pos_weeks": 0.909,
+   "pos_months": 1.0,
+   "reasons": [
+    "pre-selection profit not significant after Ho"
+   ]
+  }
+ },
+ "0xc8b9a30184244d427169cf62485dde6041b2b836": {
+  "name": "0xc8b9a30184244d427169cf62485dde6041b2b836",
+  "rank": 187,
+  "last_point_ts": 1793408133,
+  "frozen_1030": {
+   "last_30d": 105770,
+   "median_month": 38614,
+   "pre_days": 361,
+   "p_holm": 0.007471856343734662,
+   "p_boot": 0.0012496875781054736,
+   "dsr": 0.9952669975356712,
+   "sharpe": 4.38,
+   "pos_weeks": 0.764,
+   "pos_months": 0.923,
+   "reasons": [
+    "median monthly PnL $38,614 < $50k"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 116102,
+   "median_month": 38853,
+   "pre_days": 362,
+   "p_holm": 0.008084053239222568,
+   "p_boot": 0.000999750062484379,
+   "dsr": 0.9966066361033145,
+   "sharpe": 4.46,
+   "pos_weeks": 0.786,
+   "pos_months": 1.0,
+   "reasons": [
+    "median monthly PnL $38,853 < $50k"
+   ]
+  }
+ },
+ "0xc0e4f49b80a2162aa8c1c1ad1bd0867574e3dd38": {
+  "name": "dabossrealman",
+  "rank": 214,
+  "last_point_ts": 1793415333,
+  "frozen_1030": {
+   "last_30d": 78394,
+   "median_month": 78394,
+   "pre_days": 67,
+   "p_holm": 0.5494556451741399,
+   "p_boot": 0.008247938015496127,
+   "dsr": 0.9999403169550948,
+   "sharpe": 10.48,
+   "pos_weeks": 1.0,
+   "pos_months": 1.0,
+   "reasons": [
+    "pre-selection profit not significant after Ho"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 74523,
+   "median_month": 74523,
+   "pre_days": 68,
+   "p_holm": 0.41852749063663885,
+   "p_boot": 0.007748062984253936,
+   "dsr": 0.9999424378572537,
+   "sharpe": 10.42,
+   "pos_weeks": 1.0,
+   "pos_months": 1.0,
+   "reasons": [
+    "pre-selection profit not significant after Ho"
+   ]
+  }
+ },
+ "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3": {
+  "name": "mo-money",
+  "rank": 242,
+  "last_point_ts": 1793415333,
+  "frozen_1030": {
+   "last_30d": 84639,
+   "median_month": 97178,
+   "pre_days": 237,
+   "p_holm": 7.64360764204677e-06,
+   "p_boot": 0.0004998750312421895,
+   "dsr": 1.0,
+   "sharpe": 12.53,
+   "pos_weeks": 0.553,
+   "pos_months": 0.625,
+   "reasons": [
+    "positive months 0.625 < 0.8",
+    "positive weeks 0.553 < 0.75"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 82924,
+   "median_month": 97585,
+   "pre_days": 238,
+   "p_holm": 6.342257590649219e-06,
+   "p_boot": 0.00024993751562109475,
+   "dsr": 1.0,
+   "sharpe": 12.58,
+   "pos_weeks": 0.5,
+   "pos_months": 0.625,
+   "reasons": [
+    "positive months 0.625 < 0.8",
+    "positive weeks 0.5 < 0.75"
+   ]
+  }
+ },
+ "0xc23dc0eca9e1c2e293de8911b9ac254f0bcd82c8": {
+  "name": "ZaiZoiBele",
+  "rank": 271,
+  "last_point_ts": 1793415333,
+  "frozen_1030": {
+   "last_30d": 58286,
+   "median_month": 44524,
+   "pre_days": 372,
+   "p_holm": 0.0016219677003814338,
+   "p_boot": 0.00024993751562109475,
+   "dsr": 0.9881490408880785,
+   "sharpe": 4.82,
+   "pos_weeks": 0.825,
+   "pos_months": 1.0,
+   "reasons": [
+    "median monthly PnL $44,524 < $50k"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 65049,
+   "median_month": 43125,
+   "pre_days": 373,
+   "p_holm": 0.0017952941633500807,
+   "p_boot": 0.0004998750312421895,
+   "dsr": 0.9903752207669209,
+   "sharpe": 4.88,
+   "pos_weeks": 0.789,
+   "pos_months": 1.0,
+   "reasons": [
+    "median monthly PnL $43,125 < $50k"
+   ]
+  }
+ },
+ "0x00110b8ef00db2a1a6bbe1198e52fc4eb5a84333": {
+  "name": "ARocky33",
+  "rank": 362,
+  "last_point_ts": 1793411733,
+  "frozen_1030": {
+   "last_30d": 51704,
+   "median_month": 58775,
+   "pre_days": 59,
+   "p_holm": 1.0,
+   "p_boot": 0.0012496875781054736,
+   "dsr": 0.9992558786961426,
+   "sharpe": 10.5,
+   "pos_weeks": 1.0,
+   "pos_months": 1.0,
+   "reasons": [
+    "insufficient pre-selection history (59d < 60d"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 51430,
+   "median_month": 51430,
+   "pre_days": 60,
+   "p_holm": 0.1334775140437821,
+   "p_boot": 0.0024993751562109472,
+   "dsr": 0.9992267425454645,
+   "sharpe": 10.41,
+   "pos_weeks": 1.0,
+   "pos_months": 1.0,
+   "reasons": [
+    "pre-selection profit not significant after Ho"
+   ]
+  }
+ },
+ "0xee65685de42f8de9a03b4c53ee77d56a20d2cfc9": {
+  "name": "0x50f7",
+  "rank": 413,
+  "last_point_ts": 1793415333,
+  "frozen_1030": {
+   "last_30d": 48148,
+   "median_month": 51430,
+   "pre_days": 177,
+   "p_holm": 4.732769468827017e-08,
+   "p_boot": 0.00024993751562109475,
+   "dsr": 0.999999999999651,
+   "sharpe": 13.13,
+   "pos_weeks": 0.897,
+   "pos_months": 1.0,
+   "reasons": [
+    "last-30d PnL $48,148 < $50k"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 48829,
+   "median_month": 53323,
+   "pre_days": 178,
+   "p_holm": 5.347176417196225e-08,
+   "p_boot": 0.00024993751562109475,
+   "dsr": 0.999999999999678,
+   "sharpe": 13.09,
+   "pos_weeks": 0.931,
+   "pos_months": 1.0,
+   "reasons": [
+    "last-30d PnL $48,829 < $50k"
+   ]
+  }
+ },
+ "0x31864feb9d25dee93728c6225ba891530967e9ca": {
+  "name": "johnbaster",
+  "rank": 418,
+  "last_point_ts": 1793404800,
+  "frozen_1030": {
+   "last_30d": 44287,
+   "median_month": 114250,
+   "pre_days": 258,
+   "p_holm": 2.666804073726339e-06,
+   "p_boot": 0.00024993751562109475,
+   "dsr": 0.9999999352026042,
+   "sharpe": 8.43,
+   "pos_weeks": 0.878,
+   "pos_months": 1.0,
+   "reasons": [
+    "last-30d PnL $44,287 < $50k"
+   ]
+  },
+  "asof_1031": {
+   "last_30d": 41384,
+   "median_month": 99735,
+   "pre_days": 259,
+   "p_holm": 2.417173440567876e-06,
+   "p_boot": 0.00024993751562109475,
+   "dsr": 0.9999999356576682,
+   "sharpe": 8.41,
+   "pos_weeks": 0.878,
+   "pos_months": 1.0,
+   "reasons": [
+    "last-30d PnL $41,384 < $50k"
+   ]
+  }
+ }
+}

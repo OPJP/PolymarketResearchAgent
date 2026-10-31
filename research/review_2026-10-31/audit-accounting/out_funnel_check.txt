@@ -1,0 +1,22 @@
+A1 passers 11 verdicts 11 same set: True
+derived a1_pass list matches: True
+ledger.json funnel: [('Screened (top 500 monthly PnL)', 500), ('Passed significance, $50k/month, consistency', 11), ('High % profit (ROC)', 10), ('Verified on-chain', 10), ('Strategy match', 0), ('Held-out backtest', 0), ('Replicable', 0), ('Conditions persist', 0)]
+README funnel == ledger.json funnel: True
+   roc 10
+   onchain 10
+   match 0
+   backtest 0
+   replicable 0
+   persistence 0
+  0x0063b23c A1 last_30d $60,279 vs profile window_pnl $60,279; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+  0x0ca4e9d2 A1 last_30d $63,059 vs profile window_pnl $63,059; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+  0x2005d16a A1 last_30d $907,319 vs profile window_pnl $907,319; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+  0x3048d653 A1 last_30d $82,115 vs profile window_pnl $82,115; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+  0x3725d52f A1 last_30d $72,204 vs profile window_pnl $72,204; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+  0xb55fa129 A1 last_30d $56,365 vs profile window_pnl $56,365; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+  0xbca08c1b A1 last_30d $138,804 vs profile window_pnl $138,804; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+  0xc2ad03f7 A1 last_30d $88,325 vs profile window_pnl $88,325; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+  0xc53375ff A1 last_30d $116,255 vs profile window_pnl $116,255; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+  0xdbdd4515 A1 last_30d $61,712 vs profile window_pnl $61,712; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+  0xed107a85 A1 last_30d $242,047 vs profile window_pnl $242,047; violations -; stage_a1 as_of 1793318400 profile as_of 1793318400
+lb_series_inconsistent among passers: [('0x2005d16a', False), ('0xed107a85', False), ('0xc53375ff', True), ('0xbca08c1b', False), ('0x3048d653', True), ('0xb55fa129', True), ('0x0ca4e9d2', True), ('0xc2ad03f7', False), ('0xdbdd4515', True), ('0x0063b23c', False), ('0x3725d52f', False)]

@@ -94,6 +94,7 @@ def run_maker_replicability_study(
     fit_scan = {d: tape_maker_backtest(fit_flow, payouts, d, latency=2, active=active) for d in grid}
     best = max(grid, key=lambda d: fit_scan[d].get("per_market_t") or -1e9)
     test_res = {str(L): tape_maker_backtest(test_flow, payouts, best, latency=L, active=active) for L in (0, 2, 5, 10, 30)}
+    test_touch = {str(L): tape_maker_backtest(test_flow, payouts, best, latency=L, active=active, at_touch=True) for L in (0, 2, 5)}
     mine = passive[passive["condition_id"].isin(test_c)]
     replay = {}
     if len(mine):
@@ -111,12 +112,13 @@ def run_maker_replicability_study(
             "fit_delta_scan": {str(k): {kk: vv for kk, vv in v.items() if kk in ("fills", "pnl", "return_on_bought", "per_market_t", "per_market_p")} for k, v in fit_scan.items()},
             "chosen_delta": best,
             "test_by_latency_s": test_res,
+            "test_at_touch_by_latency_s": test_touch,
             "wallet_passive_replay_test": replay,
         },
         coverage=Coverage("partial", f"{len(cids)} sampled markets"),
         limitations=[
             "Fair value is the last public print (no external event data); a real maker would also use game state.",
-            "Trade-through fills: conservative at the touch, optimistic about queue position below it.",
+            "Trade-through fills: conservative at the touch, optimistic about queue position below it; at-touch results are the first-in-queue bound.",
             "Maker rebates and liquidity rewards are excluded from backtest PnL.",
         ],
     )

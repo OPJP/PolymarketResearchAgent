@@ -1,0 +1,2 @@
+seed 0 {'sampled': 200, 'receipts_found': 200, 'confirmed': 200, 'maker_fill_share': 0.9234449760765551, 'maker_fill_share_ci95': [0.8792729790931321, 0.9523313689290592], 'maker_usdc_share': 0.9308750572940592, 'taker_fee_rate_observed': 0.023861158728228637} mismatches 0
+seed 7 {'sampled': 60, 'receipts_found': 60, 'confirmed': 60, 'maker_fill_share': 0.9016393442622951, 'maker_fill_share_ci95': [0.8015516580247642, 0.9541360486326903], 'maker_usdc_share': 0.9801474847273807, 'taker_fee_rate_observed': 0.02484387162265181} mismatches 0

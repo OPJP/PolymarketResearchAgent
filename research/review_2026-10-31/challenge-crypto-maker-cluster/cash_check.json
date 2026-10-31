@@ -1,0 +1,12 @@
+{
+ "emitters": {
+  "0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb": 15,
+  "0x2791bca1f2de4661ed88a30c99a7a9449aa84174": 6
+ },
+ "balances_usd_6dp": {
+  "bosona@0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb": 51255.049698,
+  "almach@0xc011a7e12a19f7b1f670d46f03b03f3342e82dfb": 47765.624573,
+  "bosona@0x2791bca1f2de4661ed88a30c99a7a9449aa84174": 0.0,
+  "almach@0x2791bca1f2de4661ed88a30c99a7a9449aa84174": 0.0
+ }
+}

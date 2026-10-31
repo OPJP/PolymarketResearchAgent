@@ -204,3 +204,27 @@ def investigate_wallet(
         if not per_market.empty:
             per_market.to_csv(d / "per_market.csv.gz", index=False)
     return ev
+
+
+def collateral_and_cash_roc(wallet: str, as_of: int, window_pnl: float, peak_capital: float, pm: PolymarketData | None = None, days_before: tuple[int, ...] = (0, 15, 30)) -> dict[str, Any]:
+    """Collateral (USDC.e + pUSD) held by the proxy wallet at the as_of block and earlier, and the cash-inclusive ROC.
+
+    The ledger's capital at risk sees only open positions; cash backing
+    resting orders is invisible to it. Counting the largest sampled balance as
+    capital too gives a lower bound on return on capital (idle cash counts).
+    Blocks come from the user-pnl series (``source_block`` at each midnight).
+    """
+    from polyrea.adapters.chain import COLLATERAL_TOKENS, PolygonChain, collateral_at
+
+    pm = pm or PolymarketData()
+    body, _ = pm.user_pnl(wallet, max_age=None if as_of < time.time() - 86400 else 6 * 3600)
+    blocks = {int(p["timestamp"]): p.get("source_block") for p in body.get("points") or []}
+    chain = PolygonChain()
+    samples = {}
+    for d in days_before:
+        b = blocks.get(as_of - d * DAY)
+        if b:
+            samples[str(d)] = {"block": int(b), **collateral_at(chain, wallet, int(b))}
+    cash = max((sum(v for k, v in s.items() if k in COLLATERAL_TOKENS and v) for s in samples.values()), default=0.0)
+    cap = (peak_capital or 0.0) + cash
+    return {"samples_days_before_as_of": samples, "max_collateral": cash, "roc_cash_inclusive": window_pnl / cap if cap > 0 else None}

@@ -82,14 +82,26 @@ Tools (REA tool shapes):
 | inspect | `inspect_wallet_pnl`, `inspect_market`, `inspect_research_ledger` |
 | trace | `trace_wallet_fills` (API fills joined to decoded on-chain `OrderFilled` events, with maker/taker role) |
 | compare | `updown_study` (hypothesis vs. the wallet's actual decisions on crypto Up/Down markets) |
-| workflow | `screen_leaderboard`, `investigate_wallet`, `assess_persistence` |
+| workflow | `screen_leaderboard`, `investigate_wallet`, `assess_persistence`, `assess_rebate_dependence` |
 | external data | `register_external_source`, `fetch_external_series`, `spot_seconds` |
 | ledger | `record_verdict` |
 
 Additional study workflows (Python API, used by the research run):
-`polyrea.workflows.updown_study.run_updown_maker_study` (directional maker) and
-`polyrea.workflows.sports_study.run_sports_study` (in-play reaction to ESPN
-play-by-play).
+
+- `polyrea.workflows.updown_study.run_updown_maker_study`: directional (DM) and
+  spot-reactive (SR) maker hypotheses on passive fills, with executable
+  backtests under strict and at-touch fills.
+- `polyrea.workflows.updown_study.run_frozen_rule_extension`: the FIT-chosen
+  rules evaluated, frozen, on every unseen block of the TEST week and on days
+  after `as_of`.
+- `polyrea.workflows.sports_study.run_sports_study`: in-play reaction to ESPN
+  play-by-play (information delay of at least 5 s).
+- `polyrea.workflows.maker_study.run_maker_replicability_study`: tape-only
+  two-sided maker in the wallet's own markets.
+
+Spot data: Kraken trades (`spot_source="kraken"`) or the Binance 1-second
+archive (`spot_source="binance"`, checksum-verified), both reduced to
+per-second prices available one second after the second ends.
 
 ## Use it from a terminal
 
@@ -122,13 +134,18 @@ pytest
 ```
 
 The suite covers statistical calibration (HAC t-test size under
-autocorrelation, bootstrap and deflated-Sharpe null behaviour, Holm/BH), the
-point-in-time layer (availability lags, masked fields, leak detection),
-cursor pagination merges, on-chain receipt decoding for both exchange versions,
-ledger accounting, the Up/Down fair-value audit, match-test power and
-specificity on synthetic informed and random wallets, trade-through fill rules,
-MCP tool contracts, and an end-to-end MCP stdio session. Tests that hit live
-endpoints are marked `live` and excluded by default.
+autocorrelation and at Holm-level alphas with the exact reference, bootstrap
+and deflated-Sharpe null behaviour, Holm/BH), the point-in-time layer
+(availability lags, masked fields, leak detection), cursor pagination
+(including one-second offset walks on dense tapes), on-chain receipt decoding
+for both exchange versions, ledger accounting (sells, complete sets, rebate
+tiers and level-up bonuses), the Up/Down fair-value audit, match-test power on
+synthetic informed wallets and specificity against random and spot-blind
+wallets that prefer certain prices or times (the rotation null must not be
+fooled), trade-through fill rules for every maker model, the sports
+information-delay guard, MCP tool contracts, and an end-to-end MCP stdio
+session. Tests that hit live endpoints are marked `live` and excluded by
+default.
 
 ## Layout
 

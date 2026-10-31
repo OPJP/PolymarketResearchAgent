@@ -1,0 +1,136 @@
+{
+ "n_fit": 80,
+ "n_test": 80,
+ "strict_fit_scan": {
+  "0.005": {
+   "fills": 2776,
+   "return_on_bought": -0.06381702087910258,
+   "per_market_t": -2.4854891477516405
+  },
+  "0.01": {
+   "fills": 2464,
+   "return_on_bought": -0.06891926888390648,
+   "per_market_t": -2.713189079936099
+  },
+  "0.02": {
+   "fills": 1501,
+   "return_on_bought": -0.09728988508173374,
+   "per_market_t": -3.057516864187702
+  },
+  "0.03": {
+   "fills": 1060,
+   "return_on_bought": -0.09047647054563367,
+   "per_market_t": -3.030424661893758
+  },
+  "0.05": {
+   "fills": 547,
+   "return_on_bought": -0.046962509536329834,
+   "per_market_t": -0.8898432330344261
+  }
+ },
+ "strict_chosen_delta": 0.05,
+ "strict_test": {
+  "0": {
+   "fills": 345,
+   "markets": 65,
+   "usd_bought": 2663.92415456,
+   "pnl": -135.28694656000005,
+   "return_on_bought": -0.050784834218504764,
+   "per_market_p": 0.859508871333943
+  },
+  "2": {
+   "fills": 364,
+   "markets": 66,
+   "usd_bought": 2782.29570582,
+   "pnl": -195.80587082000002,
+   "return_on_bought": -0.07037565072986805,
+   "per_market_p": 0.8709494922247769
+  },
+  "5": {
+   "fills": 408,
+   "markets": 66,
+   "usd_bought": 3109.4420086600003,
+   "pnl": -215.52077966000007,
+   "return_on_bought": -0.06931172186513225,
+   "per_market_p": 0.8850348868745433
+  },
+  "30": {
+   "fills": 679,
+   "markets": 67,
+   "usd_bought": 5187.144563310001,
+   "pnl": -648.9121933100001,
+   "return_on_bought": -0.12510007874080123,
+   "per_market_p": 0.9775679808647689
+  }
+ },
+ "at_touch_fit_scan": {
+  "0.005": {
+   "fills": 4895,
+   "return_on_bought": -0.022505635086908032,
+   "per_market_t": -0.9221373213533318
+  },
+  "0.01": {
+   "fills": 4155,
+   "return_on_bought": -0.03590850271838239,
+   "per_market_t": -1.4304061411287785
+  },
+  "0.02": {
+   "fills": 2093,
+   "return_on_bought": -0.05652786609970925,
+   "per_market_t": -1.9554202611170552
+  },
+  "0.03": {
+   "fills": 1342,
+   "return_on_bought": -0.08112054850114717,
+   "per_market_t": -2.620347827002776
+  },
+  "0.05": {
+   "fills": 669,
+   "return_on_bought": -0.05281083516482864,
+   "per_market_t": -1.3546129928958937
+  }
+ },
+ "at_touch_chosen_delta": 0.005,
+ "at_touch_test": {
+  "0": {
+   "fills": 3440,
+   "markets": 75,
+   "usd_bought": 28325.596587070002,
+   "pnl": -2350.4214640700006,
+   "return_on_bought": -0.08297870997509423,
+   "per_market_t": -3.846241852592133,
+   "per_market_p": 0.999873987175964,
+   "per_market_bootstrap_p": 1.0
+  },
+  "2": {
+   "fills": 3511,
+   "markets": 75,
+   "usd_bought": 28832.59043317,
+   "pnl": -2676.344530170001,
+   "return_on_bought": -0.09282358920796246,
+   "per_market_t": -4.4987036273310705,
+   "per_market_p": 0.9999875512200976,
+   "per_market_bootstrap_p": 1.0
+  },
+  "5": {
+   "fills": 3547,
+   "markets": 75,
+   "usd_bought": 29036.213015759997,
+   "pnl": -2817.650165760001,
+   "return_on_bought": -0.09703917533015287,
+   "per_market_t": -4.267880419397375,
+   "per_market_p": 0.9999711468451601,
+   "per_market_bootstrap_p": 1.0
+  },
+  "30": {
+   "fills": 3754,
+   "markets": 75,
+   "usd_bought": 30135.61196123,
+   "pnl": -3428.953586230001,
+   "return_on_bought": -0.11378410336054932,
+   "per_market_t": -5.592452507564952,
+   "per_market_p": 0.9999998216704553,
+   "per_market_bootstrap_p": 1.0
+  }
+ }
+}

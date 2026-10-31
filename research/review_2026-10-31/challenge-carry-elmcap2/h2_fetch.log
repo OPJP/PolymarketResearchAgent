@@ -1,0 +1,11 @@
+2026-07-31 FIT gamma rows 25685 deadline binary vol>=20k 356
+ wallet traded in 38
+2026-08-31 FIT gamma rows 36268 deadline binary vol>=20k 338
+ wallet traded in 25
+2026-09-30 TEST gamma rows 32018 deadline binary vol>=20k 366
+ wallet traded in 29
+  gamma truncated (same-second endDate) at 1792024199
+  gamma truncated (same-second endDate) at 1792082699
+  gamma truncated (same-second endDate) at 1792090799
+2026-10-15 TEST gamma rows 34739 deadline binary vol>=20k 33
+ wallet traded in 2

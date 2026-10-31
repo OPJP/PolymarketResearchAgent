@@ -1,0 +1,318 @@
+{
+ "wallet": "0x60a92c8620846d81f5ea17b0564e0d4b7c545a71",
+ "rank": 36,
+ "name": "paddaa",
+ "lb_pnl": 542746.4919998334,
+ "lb_volume": 2311962.570608,
+ "series_econ_30d": 61253.51100399997,
+ "series_trade_30d_to_now": 67862.20181800003,
+ "series_all_time": 312382.717642,
+ "activity_rows": 2308,
+ "activity_coverage": "complete",
+ "activity_by_type": {
+  "CONVERSION:": [
+   22,
+   0.0
+  ],
+  "MAKER_REBATE:": [
+   17,
+   119.71
+  ],
+  "MERGE:": [
+   47,
+   71143.7
+  ],
+  "REDEEM:": [
+   215,
+   108437.13
+  ],
+  "REFERRAL_REWARD:": [
+   1,
+   58.87
+  ],
+  "REWARD:": [
+   36,
+   1057.62
+  ],
+  "TAKER_REBATE:": [
+   22,
+   287.33
+  ],
+  "TRADE:BUY": [
+   923,
+   718139.23
+  ],
+  "TRADE:SELL": [
+   994,
+   549325.89
+  ],
+  "YIELD:": [
+   31,
+   29.57
+  ]
+ },
+ "window_cash_flow": 12033.266608000067,
+ "trade_volume_usdc": 1267465.121284001,
+ "big_non_trade_rows": [],
+ "closed_positions_total": 2406,
+ "closed_positions_in_window": 397,
+ "realized_pnl_closed_in_window": 55843.0591,
+ "closed_in_window_top": [
+  {
+   "title": "Katie Zacharia out as Press Secretary by October 31?",
+   "realizedPnl": 6293.7614,
+   "avgPrice": 0.5643,
+   "totalBought": 15984.602,
+   "ts": 1792192602
+  },
+  {
+   "title": "Will Mar\u00eda Corina Machado enter Venezuela by October 31?",
+   "realizedPnl": -5999.9952,
+   "avgPrice": 0.8499,
+   "totalBought": 7059.0588,
+   "ts": 1792956050
+  },
+  {
+   "title": "Will the U.S. invade Iran before 2027?",
+   "realizedPnl": -5188.8055,
+   "avgPrice": 0.77,
+   "totalBought": 204176.3118,
+   "ts": 1793315433
+  },
+  {
+   "title": "Will Yulia Navalnaya win the Nobel Peace Prize in 2026?",
+   "realizedPnl": 5036.981,
+   "avgPrice": 0.743,
+   "totalBought": 19605.7087,
+   "ts": 1791564533
+  },
+  {
+   "title": "Miguel D\u00edaz-Canel out as leader of Cuba by December 31?",
+   "realizedPnl": 4535.7179,
+   "avgPrice": 0.6929,
+   "totalBought": 37144.1291,
+   "ts": 1791229039
+  },
+  {
+   "title": "Will Fl\u00e1vio Bolsonaro win Brazil, Gadi Eizenkot become Israe",
+   "realizedPnl": 4088.1166,
+   "avgPrice": 0.1899,
+   "totalBought": 9996.7454,
+   "ts": 1793034693
+  }
+ ],
+ "open_positions": 257,
+ "open_value_now": 184677.0726,
+ "open_cashPnl_now": 2283.8607
+}
+--------------------------------------------------------------------------------
+{
+ "wallet": "0x8f9d3aa5b72ba0134fa7975d9c88e9852e706aed",
+ "rank": 146,
+ "name": "0x8f9d3aa5b72ba0134fa7975d9c88e9852e706aed",
+ "lb_pnl": 149603.63841299992,
+ "lb_volume": 0.0,
+ "series_econ_30d": 0.0,
+ "series_trade_30d_to_now": 0.0,
+ "series_all_time": 0.0,
+ "activity_rows": 159,
+ "activity_coverage": "complete",
+ "activity_by_type": {
+  "REDEEM:": [
+   159,
+   149959.62
+  ]
+ },
+ "window_cash_flow": 149959.62031599993,
+ "trade_volume_usdc": 0,
+ "big_non_trade_rows": [],
+ "closed_positions_total": 48,
+ "closed_positions_in_window": 26,
+ "realized_pnl_closed_in_window": 0.0,
+ "closed_in_window_top": [
+  {
+   "title": "Will \"Resident Evil Requiem\" win Ultimate Game of the Year a",
+   "realizedPnl": 0,
+   "avgPrice": 0.4449,
+   "totalBought": 0,
+   "ts": 1793200474
+  },
+  {
+   "title": "Will oil be at least $85 on November 2 and the Democrats win",
+   "realizedPnl": 0,
+   "avgPrice": 0.6189,
+   "totalBought": 0,
+   "ts": 1792808235
+  },
+  {
+   "title": "Callum Turner announced as next James Bond?",
+   "realizedPnl": 0,
+   "avgPrice": 0.2109,
+   "totalBought": 0,
+   "ts": 1793318232
+  },
+  {
+   "title": "US announces end of Iranian blockade by October 31, 2026?",
+   "realizedPnl": 0,
+   "avgPrice": 0.6593,
+   "totalBought": 0,
+   "ts": 1792043350
+  },
+  {
+   "title": "Will Renan Santos win the 2026 Brazilian presidential electi",
+   "realizedPnl": 0,
+   "avgPrice": 0.9541,
+   "totalBought": 0,
+   "ts": 1791203318
+  },
+  {
+   "title": "Will Bitcoin reach $85,000 in October?",
+   "realizedPnl": 0,
+   "avgPrice": 0.7822,
+   "totalBought": 0,
+   "ts": 1791791770
+  }
+ ],
+ "open_positions": 0,
+ "open_value_now": 0.0,
+ "open_cashPnl_now": 0.0
+}
+--------------------------------------------------------------------------------
+{
+ "wallet": "0x0f7fb628af9ea8f0eb3d8ca70a4c57404f60b075",
+ "rank": 141,
+ "name": "0x0f7fb628af9ea8f0eb3d8ca70a4c57404f60b075",
+ "lb_pnl": 155464.32300000006,
+ "lb_volume": 0.0,
+ "series_econ_30d": 4.721827,
+ "series_trade_30d_to_now": 4.721827,
+ "series_all_time": 4.721827,
+ "activity_rows": 1249,
+ "activity_coverage": "complete",
+ "activity_by_type": {
+  "REDEEM:": [
+   1249,
+   155464.32
+  ]
+ },
+ "window_cash_flow": 155464.3229999987,
+ "trade_volume_usdc": 0,
+ "big_non_trade_rows": [],
+ "closed_positions_total": 262,
+ "closed_positions_in_window": 4,
+ "realized_pnl_closed_in_window": 4.7216,
+ "closed_in_window_top": [
+  {
+   "title": "Bitcoin Up or Down - October 15, 2:50PM-2:55PM ET",
+   "realizedPnl": 1.8993,
+   "avgPrice": 0.9906,
+   "totalBought": 0,
+   "ts": 1792090781
+  },
+  {
+   "title": "Bitcoin Up or Down - October 15, 2:15PM-2:20PM ET",
+   "realizedPnl": 1.4121,
+   "avgPrice": 0.972,
+   "totalBought": 0,
+   "ts": 1792088699
+  },
+  {
+   "title": "Solana Up or Down - October 15, 3:40PM-3:45PM ET",
+   "realizedPnl": 0.9402,
+   "avgPrice": 0.9906,
+   "totalBought": 0,
+   "ts": 1792093801
+  },
+  {
+   "title": "Bitcoin Up or Down - October 15, 1:30PM-1:35PM ET",
+   "realizedPnl": 0.47,
+   "avgPrice": 0.9906,
+   "totalBought": 0,
+   "ts": 1792086005
+  }
+ ],
+ "open_positions": 0,
+ "open_value_now": 0.0,
+ "open_cashPnl_now": 0.0
+}
+--------------------------------------------------------------------------------
+{
+ "wallet": "0xc46661a5c720740d7c70fbf2cfc10c5de8c4b5cf",
+ "rank": 451,
+ "name": "cavvvy",
+ "lb_pnl": 42685.21595329797,
+ "lb_volume": 210199.239467,
+ "series_econ_30d": -128.599932,
+ "series_trade_30d_to_now": 42225.891168,
+ "series_all_time": 42168.509148,
+ "activity_rows": 349,
+ "activity_coverage": "complete",
+ "activity_by_type": {
+  "MAKER_REBATE:": [
+   1,
+   17.39
+  ],
+  "REDEEM:": [
+   11,
+   134999.59
+  ],
+  "TRADE:BUY": [
+   337,
+   94484.14
+  ]
+ },
+ "window_cash_flow": 40532.83504699995,
+ "trade_volume_usdc": 94484.14452700004,
+ "big_non_trade_rows": [],
+ "closed_positions_total": 11,
+ "closed_positions_in_window": 11,
+ "realized_pnl_closed_in_window": 70697.909,
+ "closed_in_window_top": [
+  {
+   "title": "Spread: Hawks (-4.5)",
+   "realizedPnl": 16000.5515,
+   "avgPrice": 0.4666,
+   "totalBought": 29999.9278,
+   "ts": 1793328324
+  },
+  {
+   "title": "Spread: Hawks (-3.5)",
+   "realizedPnl": 13249.9749,
+   "avgPrice": 0.47,
+   "totalBought": 24999.9526,
+   "ts": 1793328325
+  },
+  {
+   "title": "Spread: Hawks (-5.5)",
+   "realizedPnl": 10200,
+   "avgPrice": 0.49,
+   "totalBought": 20000,
+   "ts": 1793328330
+  },
+  {
+   "title": "Cavaliers vs. Hawks: O/U 217.5",
+   "realizedPnl": 7708.5263,
+   "avgPrice": 0.486,
+   "totalBought": 14999.9345,
+   "ts": 1793328027
+  },
+  {
+   "title": "Spread: Cavaliers (-7.5)",
+   "realizedPnl": 5249.9842,
+   "avgPrice": 0.4749,
+   "totalBought": 9999.9319,
+   "ts": 1793328325
+  },
+  {
+   "title": "Spread: Hawks (-6.5)",
+   "realizedPnl": 5199.998,
+   "avgPrice": 0.48,
+   "totalBought": 9999.9961,
+   "ts": 1793328330
+  }
+ ],
+ "open_positions": 7,
+ "open_value_now": 804.9995,
+ "open_cashPnl_now": -29302.0175
+}
+--------------------------------------------------------------------------------

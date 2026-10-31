@@ -45,28 +45,6 @@
     "excess": 0.1548358399209721
    },
    {
-    "delay": -5,
-    "window_s": 120,
-    "wallet_share_reactive": 0.564625850340136,
-    "others_share_reactive": 0.4133356878713591,
-    "wallet_direction_agree": 0.531951640759931,
-    "wallet_n_reactive": 579,
-    "others_direction_agree": 0.5872919818456883,
-    "others_n_reactive": 39660,
-    "excess": 0.1512901624687769
-   },
-   {
-    "delay": 0,
-    "window_s": 120,
-    "wallet_share_reactive": 0.5636540330417882,
-    "others_share_reactive": 0.41329413720031577,
-    "wallet_direction_agree": 0.5570934256055363,
-    "wallet_n_reactive": 578,
-    "others_direction_agree": 0.5982145108819005,
-    "others_n_reactive": 39653,
-    "excess": 0.1503598958414724
-   },
-   {
     "delay": 20,
     "window_s": 120,
     "wallet_share_reactive": 0.5286686103012633,
@@ -89,17 +67,6 @@
     "excess": 0.1452644772895298
    },
    {
-    "delay": -10,
-    "window_s": 120,
-    "wallet_share_reactive": 0.5597667638483965,
-    "others_share_reactive": 0.4149042257032451,
-    "wallet_direction_agree": 0.5095652173913043,
-    "wallet_n_reactive": 575,
-    "others_direction_agree": 0.5728172410328544,
-    "others_n_reactive": 39812,
-    "excess": 0.14486253814515143
-   },
-   {
     "delay": 60,
     "window_s": 120,
     "wallet_share_reactive": 0.4975704567541302,
@@ -109,9 +76,49 @@
     "others_direction_agree": 0.5258532894928274,
     "others_n_reactive": 34367,
     "excess": 0.1390920423277372
+   },
+   {
+    "delay": 10,
+    "window_s": 60,
+    "wallet_share_reactive": 0.43440233236151604,
+    "others_share_reactive": 0.3059272032243321,
+    "wallet_direction_agree": 0.6306306306306306,
+    "wallet_n_reactive": 444,
+    "others_direction_agree": 0.5664075816458717,
+    "others_n_reactive": 29334,
+    "excess": 0.12847512913718395
+   },
+   {
+    "delay": 60,
+    "window_s": 60,
+    "wallet_share_reactive": 0.3877551020408163,
+    "others_share_reactive": 0.26287032035567376,
+    "wallet_direction_agree": 0.47474747474747475,
+    "wallet_n_reactive": 396,
+    "others_direction_agree": 0.530537685648479,
+    "others_n_reactive": 25182,
+    "excess": 0.12488478168514255
+   },
+   {
+    "delay": 5,
+    "window_s": 60,
+    "wallet_share_reactive": 0.4421768707482993,
+    "others_share_reactive": 0.32229816761540697,
+    "wallet_direction_agree": 0.6504424778761062,
+    "wallet_n_reactive": 452,
+    "others_direction_agree": 0.6070538747775441,
+    "others_n_reactive": 30905,
+    "excess": 0.11987870313289234
    }
   ],
   "chosen_delay_s": 10,
+  "min_delay_s": 5,
+  "zero_delay_upper_bound_backtest": {
+   "trades": 53995,
+   "pnl": 98574.66564500489,
+   "return_on_traded": 0.056305239902287994,
+   "per_game_p": 0.18925376238094055
+  },
   "chosen_window_s": 120,
   "test_reaction": {
    "window_s": 120,
@@ -297,5 +304,5 @@
  ],
  "unknowns": [],
  "next_probes": [],
- "generated_at": "2026-10-30T23:06:36+00:00"
+ "generated_at": "2026-10-31T04:28:55+00:00"
 }

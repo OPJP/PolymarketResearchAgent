@@ -126,3 +126,23 @@ def test_decomposition_two_sided_with_partial_exit_reconciles():
     cash = -(100 * 0.45 + 100 * 0.50 + 50 * 0.55) + 30 * 0.70 + 120 * 1.0  # every cash flow incl. payout
     assert r["pnl"] == pytest.approx(cash)
     assert r["pnl"] == pytest.approx(r["realized_pnl"] + r["locked_pnl"] + r["residual_pnl"])
+
+
+def test_rebate_dependence_tier_and_level_up_bonus():
+    from polyrea.analysis.rebates import rebate_dependence
+
+    pts, cum = [], {"position_pnl": 0.0, "fees_paid": 0.0, "taker_rebate": 0.0, "maker_rebate": 0.0}
+    for d in range(40):
+        fee = 1000.0
+        cum["fees_paid"] -= fee
+        cum["position_pnl"] += 100.0  # after fees
+        if d > 0:
+            cum["taker_rebate"] += 0.44 * 1000.0 + (25_000.0 if d == 35 else 0.0)  # Diamond rate + Obsidian bonus once
+        cum["maker_rebate"] += 10.0
+        econ = cum["position_pnl"] + cum["taker_rebate"] + cum["maker_rebate"]
+        pts.append({"timestamp": d * DAY, **cum, "economic_pnl": econ, "reward_income": 0.0, "yield_income": 0.0, "referral_income": 0.0})
+    r = rebate_dependence(pts, as_of=39 * DAY, days=30)
+    assert r["observed_tier"] == "Diamond"
+    assert r["level_up_bonus_total"] == pytest.approx(25_000.0)
+    assert r["pnl_at_tier"]["None 0%"] == pytest.approx(30 * 110.0)
+    assert r["economic_pnl_recurring"] == pytest.approx(30 * (110.0 + 440.0))

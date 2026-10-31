@@ -1,0 +1,17 @@
+as_of 1793318400
+orig 45s windows fit/test 288/288 full rows fit 1274783 test 1272383 passive buys fit 764901 test 730959 affected cids fit 1 test 4 partial taker tapes 0/0
+fixed 40s windows fit/test 288/288 full rows fit 1275089 test 1274887 passive buys fit 765117 test 732148 affected cids fit 1 test 4 partial taker tapes 0/0
+fm total 764901 -> 765117 (+216, 0.028%)
+    GoodFallen 3454 -> 3454
+    x-MoneyForWhiskas 929 -> 929
+    almach 644 -> 644
+    0xb55f 1078 -> 1078
+    bosona 631 -> 632
+    dangerously-skip-permissions 6764 -> 6764
+tm total 730959 -> 732148 (+1189, 0.163%)
+    GoodFallen 5104 -> 5109
+    x-MoneyForWhiskas 1751 -> 1754
+    almach 769 -> 770
+    0xb55f 1565 -> 1565
+    bosona 758 -> 759
+    dangerously-skip-permissions 10233 -> 10238

@@ -113,6 +113,13 @@
    }
   ],
   "chosen_delay_s": 60,
+  "min_delay_s": 5,
+  "zero_delay_upper_bound_backtest": {
+   "trades": 12257,
+   "pnl": -6677.144864076398,
+   "return_on_traded": -0.020685429810395773,
+   "per_game_p": 0.7944559899661633
+  },
   "chosen_window_s": 120,
   "test_reaction": {
    "window_s": 120,
@@ -367,5 +374,5 @@
  ],
  "unknowns": [],
  "next_probes": [],
- "generated_at": "2026-10-30T23:07:20+00:00"
+ "generated_at": "2026-10-31T04:29:55+00:00"
 }

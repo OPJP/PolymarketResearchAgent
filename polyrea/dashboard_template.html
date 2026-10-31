@@ -70,6 +70,7 @@ section { display: grid; gap: 16px; }
 .checks .mark { font-family: var(--mono); font-weight: 600; text-align: center; border-radius: 3px; font-size: 0.75rem; line-height: 1.35rem; height: 1.35rem; }
 .mark.pass { color: var(--pass); background: var(--pass-bg); }
 .mark.fail { color: var(--fail); background: var(--fail-bg); }
+.mark.partial { color: var(--warn); background: var(--warn-bg); }
 .mark.untested, .mark.na { color: var(--na); background: var(--na-bg); }
 .checks .lbl { font-weight: 600; }
 .checks .det { color: var(--muted); }
@@ -101,6 +102,7 @@ tr.reasons ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
 .method { display: grid; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; }
 .method ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 0.9rem; }
 .method code { font-family: var(--mono); font-size: 0.85em; }
+.method .mark { display: inline-block; min-width: 1.4em; padding: 0 4px; border-radius: 3px; font-family: var(--mono); font-weight: 600; text-align: center; }
 @media (max-width: 560px) {
   .frow { grid-template-columns: minmax(0, 1fr) 3rem; }
   .frow .track { grid-column: 1 / -1; }
@@ -195,7 +197,7 @@ tr.reasons ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
   }
 
   const crit = L.criteria;
-  const markChar = { pass: "✓", fail: "✕", untested: "·", na: "–" };
+  const markChar = { pass: "✓", fail: "✕", partial: "◐", untested: "·", na: "–" };
   document.getElementById("dossier-count").textContent = `${deep.length} wallets passed the stage A screen`;
   document.getElementById("dossiers").innerHTML = deep.sort((a, b) => (a.rank || 0) - (b.rank || 0)).map((r) => {
     const v = r.deep_dive;
@@ -262,6 +264,7 @@ tr.reasons ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
   document.getElementById("method").innerHTML =
     `<p>A wallet passes only if every criterion holds. The first three are judged from the wallet's own daily PnL, before any reverse engineering; the rest come from the reverse-engineering studies.</p>` +
     `<ol>${crit.map((c) => `<li><b>${esc(c.label)}.</b> ${esc(c.rule)}</li>`).join("")}</ol>` +
+    `<p>Marks: <span class="mark pass">✓</span> pass, <span class="mark fail">✕</span> fail, <span class="mark partial">◐</span> partial (a significant association too small to call a match, or a criterion that passes as written but not on recurring profit), <span class="mark na">–</span> not assessed.</p>` +
     `<p>No future data: every strategy decision at time <code>t</code> reads only records whose publication time is at or before <code>t</code>. Resolution outcomes are used only to settle positions. Fair-value code is audited by recomputing samples on data physically truncated at <code>t</code>.</p>`;
 })();
 </script>

@@ -1,0 +1,42 @@
+baseline A1 passes: 11
+
+(a) exclude inactive weeks/blocks from the share denominators
+  tol week $0 / block $0: passes=12  new=['mo-money']  lost=[]
+    mo-money: pos weeks 0.955 (21/22), pos blocks 1.000 (5/5)
+  tol week $1 / block $1: passes=12  new=['mo-money']  lost=[]
+  tol week $10 / block $10: passes=12  new=['mo-money']  lost=[]
+  tol week $100 / block $100: passes=12  new=['mo-money']  lost=[]
+  tol week $1000 / block $5000: passes=12  new=['mo-money']  lost=[]
+
+(b) trim leading dormancy, full rescreen with Holm/bootstrap/DSR
+  thr $0: wallets trimmed=50  passes=11  new=[]  lost=[]
+  thr $100: wallets trimmed=200  passes=11  new=[]  lost=[]
+  thr $1,000: wallets trimmed=312  passes=12  new=[('mo-money', 128)]  lost=[]
+    mo-money history_days: 139
+    mo-money first_day: 2026-06-14
+    mo-money pre_selection_days: 109
+    mo-money p_pre: 1.3055511870967759e-24
+    mo-money p_holm_pre: 6.52775593548388e-22
+    mo-money p_boot_pre: 0.00024993751562109475
+    mo-money deflated_sharpe: 1.0
+    mo-money annual_sharpe: 22.382214783305077
+    mo-money last_30d_pnl: 84638.51689300005
+    mo-money median_month_pnl: 127684.193183
+    mo-money share_positive_weeks: 1.0
+    mo-money share_positive_months: 1.0
+    mo-money monthly_pnl_recent_first: [84638.51689300005, 109717.61548799998, 145650.770878, 154340.954372]
+    rank of mo-money p_pre among 500: 1  smallest p_pre wallets: [('mo-money', '1.31e-24'), ('bosona', '2.10e-19'), ('RN1', '8.57e-18')]
+    reasons: []
+    survivor TommyLeePeeca trimmed 1d, still passes=True
+    survivor GoodFallen trimmed 3d, still passes=True
+    survivor RN1 trimmed 12d, still passes=True
+    survivor x-MoneyForWhiskas trimmed 6d, still passes=True
+    survivor justaluckydude trimmed 3d, still passes=True
+    survivor bosona trimmed 1d, still passes=True
+    survivor dangerously-skip-permissions trimmed 2d, still passes=True
+    survivor 0xdbdd45150249e229eB4cA8aa48A30Dca21Faa5de-1757094771846 trimmed 6d, still passes=True
+    survivor elmcap2 trimmed 2d, still passes=True
+  thr $5,000: wallets trimmed=380  passes=12  new=[('mo-money', 129), ('CrouchPredictions', 101)]  lost=['GoodFallen']
+
+counterfactual: mo-money record starts 2026-06-12 (first nonzero day after Feb); reasons=[]; pos weeks 1.000 pos months 1.000 p_holm 3.92e-20 history 141d pre 111d
+  passes: 12  others changed: []

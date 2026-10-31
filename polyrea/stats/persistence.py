@@ -22,6 +22,7 @@ class PersistenceReport:
     recent: TestResult
     earlier: TestResult
     decline: TestResult  # H1: recent mean < earlier mean
+    late_decline: TestResult  # H1: last half of the recent window < its first half (regime change inside it)
     trend: TestResult  # H1: negative slope of daily PnL over time
     cusum_break: TestResult  # any mean shift
     rolling_sharpe_min: float
@@ -93,6 +94,7 @@ def persistence_report(daily_pnl: np.ndarray, recent_days: int = 30) -> Persiste
         recent=hac_t_test(recent),
         earlier=hac_t_test(earlier),
         decline=mean_difference_test(recent, earlier),
+        late_decline=mean_difference_test(recent[len(recent) // 2 :], recent[: len(recent) // 2]),
         trend=trend_test(a),
         cusum_break=cusum_test(a),
         rolling_sharpe_min=float(np.nanmin(rs)) if rs else float("nan"),

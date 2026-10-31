@@ -1,0 +1,53 @@
+set            fam         
+soccer_totals  other           189
+general        other            66
+               sports:itf       42
+               esports:cs       29
+               sports:nba       24
+               sports:cfb       24
+               esports:dota     18
+               sports:atp       12
+               sports:nfl        9
+soccer_totals  sports:mls        9
+general        esports:lol       9
+               sports:wta        8
+soccer_totals  sports:spl        8
+               sports:ukr        8
+               sports:uel        6
+               sports:ucl        5
+               sports:bun        4
+               sports:sea        4
+               sports:lal        3
+general        sports:lal        3
+               esports:val       3
+               sports:nhl        3
+               sports:mls        2
+               sports:ucl        2
+               sports:spl        2
+soccer_totals  sports:epl        2
+               sports:fl         2
+general        sports:uel        1
+               sports:ufc        1
+               sports:ukr        1
+dtype: int64
+0 1 complete 668
+25 5 complete 579
+50 8 complete 179
+75 10 complete 51
+100 14 complete 58
+125 17 complete 19
+150 20 complete 105
+175 23 complete 89
+200 27 complete 316
+225 30 complete 29
+250 34 complete 27
+275 38 complete 870
+300 43 complete 26
+325 46 complete 175
+350 51 complete 18
+375 58 complete 8
+400 58 complete 284
+425 67 complete 3
+450 67 complete 397
+475 72 complete 378
+done 77.10226607322693 104138

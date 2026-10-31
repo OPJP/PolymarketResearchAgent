@@ -24,6 +24,7 @@
    "window_days": 30,
    "peak_capital": 5306.254549962063,
    "p95_capital": 4592.978154711267,
+   "peak_capital_incl_complete_sets": 5306.254549962063,
    "window_pnl": 88325.030004,
    "monthly_roc": 16.645456634686226
   },
@@ -31,6 +32,8 @@
    "fills": 85814,
    "buy_share": 0.9999883468897849,
    "usd_volume": 2480113.215373,
+   "usd_bought": 2480113.028813,
+   "usd_sold": 0.18656,
    "median_fill_usd": 6.5687155,
    "families_by_usd": {
     "crypto-updown:btc:5m": 1352204.851437,
@@ -52,6 +55,8 @@
    "settled_pnl": 76883.8898505,
    "settled_locked_pnl": 8050.826668497524,
    "settled_residual_pnl": 68833.06318200247,
+   "settled_realized_from_sells": 0.0,
+   "unmatched_sell_usdc": 0.0,
    "residual_win_rate": 0.5845871839914458,
    "market_win_rate": 0.5707765864966676,
    "price_quantiles": [
@@ -59,7 +64,7 @@
     0.2,
     0.47,
     0.70000006,
-    0.8923494406649913
+    0.8923993607599942
    ],
    "window_frac_quantiles": [
     0.0175,
@@ -202,7 +207,7 @@
      "fetched_at": "2026-10-30T22:54:06+00:00",
      "records": 4,
      "body_sha256": "63dc74f87039b49dbb501e5d22b4b4d6186e7ff4bbacbdb7235f6eaaaab97c4c",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -210,7 +215,7 @@
      "fetched_at": "2026-10-30T22:54:06+00:00",
      "records": 4,
      "body_sha256": "9dbd3557679f7816831e105f7b308dda1960dd7a37df3ad28113444131aa5c77",
-     "cached": false
+     "cached": true
     },
     {
      "adapter": "polygon.rpc.receipts",
@@ -218,7 +223,7 @@
      "fetched_at": "2026-10-30T22:54:06+00:00",
      "records": 4,
      "body_sha256": "2c325a551346296b416351893a406a68acda91fe9e9eaecf72f996db9b7f1fa8",
-     "cached": false
+     "cached": true
     },
     {
      "more": 47
@@ -233,10 +238,10 @@
   {
    "adapter": "data-api.user-pnl",
    "url": "https://data-api.polymarket.com/v2/user-pnl?user=0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed&interval=all&fidelity=1d",
-   "fetched_at": "2026-10-30T22:10:25+00:00",
-   "records": 151,
-   "body_sha256": "75114cba75865894a67b7cf34615dc5b6cd5e132ceac06145e22a470a6ccb8b7",
-   "cached": true
+   "fetched_at": "2026-10-31T04:36:57+00:00",
+   "records": 152,
+   "body_sha256": "c32f6478d796ea32d46685201aed05eb5b100ea9c96a732a4d083ebf31c8a501",
+   "cached": false
   },
   {
    "adapter": "data-api.activity",
@@ -244,7 +249,7 @@
    "fetched_at": "2026-10-30T22:47:55+00:00",
    "records": 500,
    "body_sha256": "713060eb62a70c9ca838035928143f0520dcf19a1c2932a47105c63e8fb548ff",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -252,7 +257,7 @@
    "fetched_at": "2026-10-30T22:47:56+00:00",
    "records": 500,
    "body_sha256": "7154ccd1664323026853e9760906d34ca4806b9a4497230258abe55502487aaa",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -260,7 +265,7 @@
    "fetched_at": "2026-10-30T22:47:57+00:00",
    "records": 500,
    "body_sha256": "1527abe354c5772c68c5bbfcb1e15d176a3babe037d035ff66ab2b0684f84e11",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -268,7 +273,7 @@
    "fetched_at": "2026-10-30T22:47:57+00:00",
    "records": 500,
    "body_sha256": "1c423df40fc9744ec1ea7ff22cea5e49a22acf4aa3a5ea8dc149e682b1577072",
-   "cached": false
+   "cached": true
   },
   {
    "adapter": "data-api.activity",
@@ -276,7 +281,7 @@
    "fetched_at": "2026-10-30T22:47:58+00:00",
    "records": 500,
    "body_sha256": "935ba1d4aaeaba1457f576702ff45c96e119248e0aa094d7c53b7c0dd3beed01",
-   "cached": false
+   "cached": true
   }
  ],
  "coverage": {
@@ -290,5 +295,5 @@
  ],
  "unknowns": [],
  "next_probes": [],
- "generated_at": "2026-10-30T22:54:18+00:00"
+ "generated_at": "2026-10-31T04:37:29+00:00"
 }

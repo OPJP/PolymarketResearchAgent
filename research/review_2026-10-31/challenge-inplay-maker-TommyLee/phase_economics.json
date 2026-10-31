@@ -1,0 +1,36 @@
+{
+ "maker_phase_Oct17_29": {
+  "days": 13,
+  "economic": 43699.30875600001,
+  "taker_rebate": 4897.42509999999,
+  "maker_rebate": 5702.7959,
+  "fees": -10292.764089999982,
+  "gross_trade": 43391.851846000005,
+  "position_net_of_fees": 33099.08775600002,
+  "economic_at_0pct_taker_tier": 38801.88365600002,
+  "per30d_at_0pct_taker_tier": 89542.80843692312,
+  "positive_days": 1.0,
+  "hac_p_economic": 0.0002860278296046555,
+  "hac_p_at_0pct_tier": 0.000566318480733121,
+  "hac_p_position_net": 0.0010693949423013587,
+  "volume": 2436291.3404060006,
+  "trades": 91658.0
+ },
+ "taker_phase_Sep30_Oct15": {
+  "days": 16,
+  "economic": 15475.083163999981,
+  "taker_rebate": 21620.9513,
+  "maker_rebate": 0.0,
+  "fees": -44057.99403,
+  "gross_trade": 37912.125894,
+  "position_net_of_fees": -6145.868136000005,
+  "economic_at_0pct_taker_tier": -6145.868136000019,
+  "per30d_at_0pct_taker_tier": -11523.502755000036,
+  "positive_days": 0.5,
+  "hac_p_economic": 0.2214592274064381,
+  "hac_p_at_0pct_tier": 0.6838443167943824,
+  "hac_p_position_net": 0.6838443167943824,
+  "volume": 2716547.426747,
+  "trades": 12400.0
+ }
+}
