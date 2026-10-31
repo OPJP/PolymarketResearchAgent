@@ -12,80 +12,127 @@
  "split": {
   "BUILD": [
    1791504000,
-   1792108800
+   1793059200
+  ],
+  "STUDY": [
+   1792713600,
+   1793059200
   ],
   "VALIDATE": [
-   1792108800,
-   1792713600
+   1793059200,
+   1793404800
   ],
-  "description_only": "history before BUILD"
+  "note": "iteration 4 (after exam round 1 released lot h1+h2): BUILD = 2026-10-09..26 (old BUILD + old VALIDATE + the lot's first half); STUDY = lot first half 2026-10-23..26 (case-by-case study allowed, part of BUILD); VALIDATE = lot second half 2026-10-27..30 (aggregate metrics only). Iterations 1-3 used BUILD 10-09..16 / VALIDATE 10-16..23.",
+  "description_only": "history before 2026-10-09; development live-lab blocks after T0"
  },
- "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state; from iteration 2 on the tape excludes every print in a cluster transaction (iteration-1 value 0.7723 was leaky; clean equivalent 0.7592)",
+ "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state, clean tape (every print in a cluster transaction removed). From iteration 4 VALIDATE = 2026-10-27..30.",
  "best": {
-  "rule_id": "R2-presence-lgbm-clean-path-xwin",
+  "rule_id": "R3-presence-lgbm-refit-build4-clock",
   "validate_metrics": {
-   "presence_auc": 0.7634140839140156,
-   "presence_auc_activity_only_baseline": 0.734880150899294,
-   "presence_gain_over_baseline": 0.028533933014721513,
-   "presence_auc_with_own_inventory": 0.8216019471989515,
-   "presence_auc_within_active_windows": 0.7363327359202009,
-   "side_accuracy_one_sided_fill_bins": 0.678580814717477,
-   "side_baseline_favourite_last_print": 0.5151116951379764,
-   "side_baseline_binance_favourite": 0.545335085413929,
-   "side_activity_only_model": 0.621287779237845,
-   "side_vs_favourite_sign_test_p": 1.6989790232861708e-46,
-   "side_acc_0_30s": 0.769,
-   "side_acc_top25pct_confidence": 0.816,
-   "side_acc_with_own_inventory": 0.7054,
-   "price_exact": 0.31340605712645325,
-   "price_within_0.01": 0.5846131764030429,
-   "pnl_corr_pearson": 0.33443049847009526,
-   "pnl_corr_spearman": 0.3925945747036249,
-   "pnl_windows": 1086,
-   "selection_auc": 0.7697568927159787,
-   "selection_auc_strat_price_time_side": 0.7573639240400584,
-   "selection_auc_within_window": 0.6688861707820503,
-   "selection_recall_at_build_top15": 0.4893568496274897,
-   "selection_lift": 3.7981597360964328,
-   "selection_null10": {
-    "global_mean": 0.680117868351128,
-    "global_max": 0.6991012086358821,
-    "global_sd": 0.008837321641307008,
-    "window_mean": 0.6546817459821054,
-    "window_max": 0.6704839079581072,
-    "window_sd": 0.008128697598579218,
-    "n_perm": 99
+   "presence_auc": 0.7160041790926486,
+   "presence_auc_activity_baseline": 0.6844609547045405,
+   "presence_gain_over_baseline": 0.03154322438810808,
+   "presence_auc_with_own_inventory": 0.7468868026746049,
+   "presence_auc_within_active_windows": 0.708464717323148,
+   "active_window_share": 0.9453125,
+   "side": {
+    "n": 6339,
+    "acc": 0.6631960877109955,
+    "fav_last_print": 0.39990534784666354,
+    "binance_fav": 0.412210127780407,
+    "p_vs_fav": 4.5590096262313575e-194
    },
-   "selection_null99": {
-    "n_perm": 99,
-    "rows": 285240,
-    "pos": 13154,
-    "obs_strat_global": 0.7557845808916858,
-    "obs_strat_window": 0.6578899389224833,
-    "null_global_mean": 0.6789142125010942,
-    "null_global_max": 0.6980208080007196,
-    "null_global_sd": 0.008823932983077064,
-    "null_window_mean": 0.653360844152117,
-    "null_window_max": 0.6735239600109393,
-    "null_window_sd": 0.008324189050900347,
-    "p_global": 0.01,
-    "p_window": 0.35,
-    "p": 0.35,
-    "z_global": 8.71157663346005,
-    "z_window": 0.5440884082127325
+   "side_activity_baseline": 0.6125571856759742,
+   "price": {
+    "n_fills": 27988,
+    "exact": 0.35893954551950835,
+    "within_0.01": 0.7089824210375876
    },
-   "selection_activity_baseline": {
-    "auc": 0.7436880183799489,
-    "auc_strat_global": 0.7242605166692843,
-    "auc_strat_window": 0.6644063909487042,
-    "recall_at_theta": 0.4711114489889007,
-    "lift_at_theta": 3.225060265892689
+   "pnl": {
+    "windows": 1089,
+    "pearson": 0.32853833017215034,
+    "spearman": 0.32494323274850817,
+    "wallet_maker_return_on_usd": 0.04346810272595238
    },
-   "cluster_btc5m_maker_return_validate": -0.023314591774712595,
-   "presence_auc_oracle_window_on_off_ceiling": 0.8621,
-   "presence_auc_oracle_hour_on_off": 0.8019,
-   "window_side_forecast_at_60s": 0.641,
-   "iteration3_note": "R2 kept; no iteration-3 candidate beat it (best alternatives 0.7630-0.7633)"
+   "selection": {
+    "all": {
+     "auc": 0.685360863200653,
+     "auc_strat_global": 0.6918191953944328,
+     "auc_strat_window": 0.6392651163428634,
+     "recall_at_theta": 0.294729595349193,
+     "lift_at_theta": 2.8664820480031934,
+     "rotation_null": {
+      "global_mean": 0.6246745372034023,
+      "global_max": 0.6353708987118002,
+      "global_sd": 0.004721410343348291,
+      "window_mean": 0.629489090564122,
+      "window_max": 0.6369471742365536,
+      "window_sd": 0.0029964015113197297,
+      "n_perm": 99
+     },
+     "z_vs_null_global": 14.221313825354448,
+     "z_vs_null_window": 3.2625887224425227,
+     "p_global": 0.01,
+     "p_window": 0.01,
+     "perm_p": 0.01,
+     "criterion": {
+      "auc_ge_0.80": false,
+      "recall_ge_0.50": false,
+      "lift_ge_3": false,
+      "p_lt_0.01": false
+     }
+    },
+    "activity": {
+     "auc": 0.6507710833990348,
+     "auc_strat_global": 0.6564211046505642,
+     "auc_strat_window": 0.6304116747474608,
+     "recall_at_theta": 0.30895739310028303,
+     "lift_at_theta": 2.2244428501963345
+    },
+    "prints_sampled": 198378,
+    "wallet_prints": 26146
+   },
+   "per_wallet": {
+    "bosona": {
+     "fills": 9348,
+     "presence_auc": 0.7116577147656574,
+     "presence_auc_activity_baseline": 0.6859441407959069,
+     "side": 0.6551136363636364,
+     "price_within_0.01": 0.7103123662815576,
+     "pnl_pearson": 0.30211349376530494,
+     "pnl_spearman": 0.3229573461484481,
+     "pnl_windows": 1022
+    },
+    "almach": {
+     "fills": 9062,
+     "presence_auc": 0.7062262864618309,
+     "presence_auc_activity_baseline": 0.6772897738053784,
+     "side": 0.6658704090773365,
+     "price_within_0.01": 0.7064665636724785,
+     "pnl_pearson": 0.29017999691731083,
+     "pnl_spearman": 0.3202315723244693,
+     "pnl_windows": 1012
+    },
+    "momoney": {
+     "fills": 9578,
+     "presence_auc": 0.7053766935780587,
+     "presence_auc_activity_baseline": 0.676089915183549,
+     "side": 0.6540158870255958,
+     "price_within_0.01": 0.7100647316767592,
+     "pnl_pearson": 0.3161330375702228,
+     "pnl_spearman": 0.3340580627957764,
+     "pnl_windows": 1023
+    }
+   },
+   "frozen_R2_on_same_validate": {
+    "presence_auc": 0.7050662043698639,
+    "baseline": 0.6734301529067381,
+    "side": 0.6516800757217227,
+    "price_within_0.01": 0.7089824210375876,
+    "pnl_pearson": 0.26383697015215846,
+    "pnl_spearman": 0.30277161184986395,
+    "selection_auc": 0.685360863200653
+   }
   }
  },
  "hypotheses": [
@@ -766,6 +813,297 @@
     "open_n": 31
    },
    "verdict": "no sign of a Kraken reference; Binance correlates better"
+  },
+  {
+   "id": "H40",
+   "family": "B1 calldata fingerprint",
+   "description": "decode V2 matchOrders of every lot tx that filled the cluster",
+   "validate_metrics": {
+    "cluster_timestamp_zero_share": 1.0,
+    "salt_counter_monotone": 0.975,
+    "orders_per_s_median": 13
+   },
+   "verdict": "no signing time; salt is a per-wallet counter (restarts daily 01:00 UTC); signing rate follows Binance"
+  },
+  {
+   "id": "H41",
+   "family": "liquidity rewards (B7, X6)",
+   "description": "orders >= 50 shares near the mid for the reward pool",
+   "validate_metrics": {
+    "orders_ge_50_share": 0.879,
+    "reward_usd_9d": 0.81
+   },
+   "verdict": "ruled out"
+  },
+  {
+   "id": "H42",
+   "family": "size schedule (C5/C4)",
+   "description": "original order size vs clock",
+   "validate_metrics": {
+    "us_session_500_share_study_val": [
+     0.757,
+     0.704
+    ],
+    "night_62_share_study_val": [
+     0.653,
+     0.388
+    ]
+   },
+   "verdict": "decoded: 500 on weekdays 12-21 UTC, 62/250 otherwise (+ one-fifth level)"
+  },
+  {
+   "id": "H43",
+   "family": "requote latency (ms match clock)",
+   "description": "Binance move before fills, cluster vs other makers",
+   "validate_metrics": {
+    "adv5_250ms": [
+     0.041,
+     0.072,
+     0.014
+    ],
+    "adv5_1s": [
+     0.098,
+     0.125,
+     0.06
+    ],
+    "groups": "cluster, others, random"
+   },
+   "verdict": "cluster exposed to the last ~0.25-1.5 s only; others 3-5 s"
+  },
+  {
+   "id": "H44",
+   "family": "A3 futures reference",
+   "description": "Binance USD-M futures fair and lead features",
+   "validate_metrics": {
+    "price_corr_cluster_spot_fut": [
+     0.838,
+     0.846
+    ],
+    "presence_auc_with_without": [
+     0.7142,
+     0.7135
+    ]
+   },
+   "verdict": "explains quotes slightly better for all makers; no presence gain; not adopted"
+  },
+  {
+   "id": "H45",
+   "family": "E6 same-engine siblings",
+   "description": "timestamp-0 + counter-salt makers in public txs",
+   "validate_metrics": {
+    "sampled_txs": 7500,
+    "siblings_found": 0
+   },
+   "verdict": "ruled out for this fingerprint"
+  },
+  {
+   "id": "H46",
+   "family": "oracle-flow ceiling (diagnostic)",
+   "description": "presence with the bin's own future taker flow",
+   "validate_metrics": {
+    "oracle_flow_only": 0.682,
+    "r2_plus_oracle_flow": 0.7298,
+    "p_fill_given_hits": 0.117
+   },
+   "verdict": "taker flow is not the bottleneck; the quote state (top of book) is"
+  },
+  {
+   "id": "H47",
+   "family": "refit on BUILD4 + clock (R3)",
+   "description": "R2 features refit on 10-09..26, plus UTC hour, weekday, US session",
+   "validate_metrics": {
+    "refit": 0.7135,
+    "refit_clock": 0.7159,
+    "frozen_r2": 0.7051
+   },
+   "verdict": "adopted as R3 (small gain)"
+  },
+  {
+   "id": "H48",
+   "family": "price anchor by last-print direction",
+   "description": "last print if it hit a bid on s, else last print - 0.01; +/- Binance fair move since that print",
+   "validate_metrics": {
+    "within_tick": [
+     0.675,
+     0.709
+    ],
+    "exact": [
+     0.45,
+     0.359
+    ],
+    "note": "[direction rule, R2 anchor]"
+   },
+   "verdict": "rejected for within-tick (exact improves)"
+  },
+  {
+   "id": "H49",
+   "family": "side baselines",
+   "description": "own-inventory-only side and market-activity-only side",
+   "validate_metrics": {
+    "own_inventory_only": 0.575,
+    "own_inventory_with_r2_fallback": 0.594,
+    "activity_model": 0.613,
+    "R3": 0.663
+   },
+   "verdict": "R3 beats both baselines; far below 0.80"
+  },
+  {
+   "id": "H50",
+   "family": "cross-horizon side (E7)",
+   "description": "net direction in BTC 5m vs overlapping BTC 15m / 4h in the same 5-min slot (STUDY)",
+   "validate_metrics": {
+    "agree_15m": 0.697,
+    "n_15m": 66,
+    "agree_4h": 0.522
+   },
+   "verdict": "shared short-horizon view; no hedging"
+  },
+  {
+   "id": "H51",
+   "family": "weekend-night schedule",
+   "description": "BTC 5m off on weekend nights",
+   "validate_metrics": {
+    "off_nights": [
+     "10-17/18",
+     "10-18/19",
+     "10-23/24",
+     "10-24/25"
+    ],
+    "on_nights": [
+     "10-10/11",
+     "10-30/31"
+    ]
+   },
+   "verdict": "not a calendar rule; operator decision"
+  },
+  {
+   "id": "H52",
+   "family": "quote state vs fair edge (diagnostic)",
+   "description": "P(cluster fill | bid hits on s in the bin) by edge, fair and number of hits (VALIDATE aggregate)",
+   "validate_metrics": {
+    "by_edge_decile": [
+     0.139,
+     0.122,
+     0.131,
+     0.124,
+     0.099,
+     0.061,
+     0.102,
+     0.109,
+     0.118,
+     0.17
+    ],
+    "by_hits_1_2to3_4to9_10plus": [
+     0.039,
+     0.038,
+     0.067,
+     0.13
+    ],
+    "fair_lt_0.1_vs_gt_0.9": [
+     0.175,
+     0.063
+    ]
+   },
+   "verdict": "top-of-book presence is not explained by the fair edge; queue mechanics at a shared level (to be measured in the live lab)"
+  },
+  {
+   "id": "H53",
+   "family": "queue position (B2, calldata makerOrders order)",
+   "description": "position of the cluster's order among same-price makers in each match (STUDY)",
+   "validate_metrics": {
+    "time_priority_pairs": 16157,
+    "later_index_signed_later": 0.711,
+    "cluster_first_at_level_share": 0.314,
+    "matches_with_same_price_makers_ahead": 2220,
+    "multi_maker_matches": 3238
+   },
+   "verdict": "at the best price but usually behind part of the queue: fills need the queue ahead consumed (queue mechanics)"
+  },
+  {
+   "id": "H54",
+   "family": "queue-level features from the tape",
+   "description": "bid-level age, price and changes on s",
+   "validate_metrics": {
+    "R3_plus_level": 0.7158,
+    "R3": 0.7159,
+    "activity_plus_level": 0.6851
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H55",
+   "family": "PnL decomposition (D4)",
+   "description": "locked pairs vs directional residual per window",
+   "validate_metrics": {
+    "study_locked_dir_usd": [
+     321.6,
+     4464.2
+    ],
+    "validate_locked_dir_usd": [
+     38072.2,
+     -14409.5
+    ],
+    "validate_locked_return": 0.11,
+    "validate_dir_return": -0.073
+   },
+   "verdict": "busy regime: profit from two-sided round trips across outcomes; directional residual loses"
+  },
+  {
+   "id": "H56",
+   "family": "copy / follow (C2)",
+   "description": "wallets buying the same token within 30 s before / after cluster fills",
+   "validate_metrics": {
+    "top_after_before": [
+     0.73,
+     0.799
+    ]
+   },
+   "verdict": "co-activity of HFT takers, no lead-follow asymmetry (weak form)"
+  },
+  {
+   "id": "H57",
+   "family": "A4 cross-asset (ETH, SOL)",
+   "description": "Binance ETH/SOL 1-s returns and lead over BTC added to R3",
+   "validate_metrics": {
+    "R3_plus_eth_sol": 0.7149,
+    "R3": 0.7159
+   },
+   "verdict": "rejected (no gain)"
+  },
+  {
+   "id": "H58",
+   "family": "B4 merge mechanics",
+   "description": "MERGE of paired Up+Down shares before resolution (STUDY)",
+   "validate_metrics": {
+    "windows_with_pairs": 662,
+    "windows_merged": 87,
+    "merged_over_paired_median": 1.0,
+    "merge_rel_end_s_q10_q50_q90": [
+     -165,
+     -65,
+     -12
+    ]
+   },
+   "verdict": "merges its whole paired amount in 13% of paired windows about a minute before the end; otherwise holds to resolution"
+  },
+  {
+   "id": "H59",
+   "family": "book from all-match calldata (pilot)",
+   "description": "STUDY 10-26 13:00-13:30, every match: who is at the best filled bid, how old the other orders there are",
+   "validate_metrics": {
+    "events": 9778,
+    "cluster_at_top": 104,
+    "other_makers_at_top_median_n": [
+     0,
+     1
+    ],
+    "other_age_median_s": [
+     3.7,
+     0.8
+    ],
+    "cluster_top_share_when_fresh_lt_0.5s": 0.001
+   },
+   "verdict": "not the fastest maker: sub-second makers own freshly repriced levels; the cluster fills where its price stands alone or ahead of older orders"
   }
  ],
  "data_sources": [
@@ -778,7 +1116,11 @@
   "Binance BTCUSDT 1-s kline volume / trade count / taker-buy volume / high-low from the cached daily archives 2026-10-08..22 (spotflow_1s.parquet; iteration 3)",
   "frozen BUILD list of 72 HFT takers (code/hft_takers3.json; iteration 3)",
   "Gamma listing fields of the 4,032 BTC 5m windows from the HTTP cache (code/meta3.py; iteration 3)",
-  "Kraken XBT/USD trades for 2026-10-14 (polyrea kraken_trades, cached; iteration 3)"
+  "Kraken XBT/USD trades for 2026-10-14 (polyrea kraken_trades, cached; iteration 3)",
+  "V2 calldata (decoded orders) of the lot txs that filled the cluster, other-market STUDY txs and public samples (.cache/re/directional-maker/calldata/; iteration 4)",
+  "Binance spot aggTrades 2026-10-26 (ms) and Binance USD-M futures aggTrades 2026-10-08..30 reduced to 1-s (10-28 from Bybit perp; .cache/re/directional-maker/fut1s/; iteration 4)",
+  "released lot files of the examiner (.cache/re/directional-maker/exam/: windows, taker tapes, activity, spot, panels; iteration 4)",
+  "cluster activity of the 2026-10-31 12:00-18:00 development block and the live recorder's clob_crypto books (iteration 4)"
  ],
  "iterations": [
   {
@@ -837,6 +1179,37 @@
     "grid position of the touch",
     "reference feed Kraken vs Binance"
    ]
+  },
+  {
+   "n": 4,
+   "minutes": 75,
+   "best_validate_score": 0.716,
+   "validate_definition": "2026-10-27..30 (lot second half)",
+   "families": [
+    "B1 calldata fingerprint and counter",
+    "B7 rewards",
+    "C1 siblings",
+    "C5 clock schedule / size",
+    "A3 futures reference",
+    "ms requote latency",
+    "oracle-flow diagnostic",
+    "live lab pilot",
+    "refit on BUILD4",
+    "clock features",
+    "price anchor by print direction",
+    "side baselines",
+    "cross-horizon side",
+    "listing fields",
+    "self-matching",
+    "weekend schedule",
+    "live-lab reader and panel",
+    "queue-level tape features",
+    "PnL decomposition",
+    "copy/follow lead-lag",
+    "cross-asset ETH/SOL",
+    "merge mechanics",
+    "book from all-match calldata (pilot)"
+   ]
   }
  ],
  "status": "continue",
@@ -848,5 +1221,223 @@
    "outcome": "not accepted under the find-the-strategy brief (2026-10-31): no audit, catalog not worked through"
   }
  ],
- "sealed_from": 1793404800
+ "sealed_from": 1792713600,
+ "sealed_note": "lots h1 and h2 (2026-10-23..30) released after exam round 1; future 6-hour blocks from T0 = 1793404800 follow tools/sealed.py (sealed iff d + j odd); future sealed blocks examined up to 2026-10-31T00:00Z",
+ "live_lab": [],
+ "live_lab_note": "no own recorder. Shared recorder (pid 27184) running; development recordings exist from 2026-10-31 12:18 UTC. Its rtds feed had 330 messages and 0 written records at 12:50 UTC (no Chainlink recording).",
+ "target_metrics": {
+  "presence_auc": 0.716,
+  "presence_baseline": 0.6845,
+  "selection_auc": 0.6854,
+  "selection_recall": 0.2947,
+  "selection_lift": 2.8665,
+  "selection_baseline": 0.6508,
+  "side_accuracy": 0.6632,
+  "side_baseline": 0.6126,
+  "price_within_tick": 0.709,
+  "pnl_corr_pearson": 0.3285,
+  "pnl_corr_spearman": 0.3249,
+  "coverage_fills": 0.55,
+  "coverage_abs_pnl": null,
+  "_notes": "rule R3 on VALIDATE 2026-10-27..30 (code/final_rule.py, results/iter4_r3_validate_*.json). coverage_fills: BTC 5m maker fills are ~55% of the cluster's fills (dossier; scope below the 80% target), coverage_abs_pnl not measured. side_baseline = market-activity-only model; own-inventory side baseline 0.70 (BUILD4 refit)."
+ },
+ "strategy_statement": "Three wallets run by one engine (one order counter per wallet, restarted together daily at 01:00 UTC) quote BUY orders on both outcomes of BTC 5m Up/Down windows (and other crypto Up/Down markets) on the 0.01 grid, at or near the top of the book [exam-verified: top-of-book 0.01-grid maker]. Quotes follow a TWAP-60 fair value of Binance (best explained by the futures price at the match time) and are re-signed 10-23 times a second per wallet, more when Binance moves; moves older than about 1-1.5 s are already priced into its quotes, while the average other maker stays exposed for 3-5 s; it is not the fastest maker (sub-second makers own freshly repriced levels, and it is filled where its price stands alone or ahead of older orders) [VALIDATE-only/STUDY: requote window from calldata match clocks]. It bids the side its fair value says the market underprices, most clearly at the open, and keeps adding to the side it holds [exam-verified partially: side 0.65 vs 0.60]. Order size follows a clock schedule: 500 shares on weekdays from 12:00 to about 21:00 UTC, 62 or 250 at night and on weekends, with a one-fifth second level [STUDY + VALIDATE aggregate]. Which windows it trades is a switch inside the running engine (off overnight or on weekends on some days, back on at 12:00-15:30 UTC), invisible in public data [hypothesis: operator decision]. It holds to resolution. In busy periods most of its profit comes from buying both outcomes cheaply at different moments of a window (paired shares at an average Up + Down price of 0.89: +11% on paired dollars in VALIDATE) while the unpaired directional remainder loses; in quiet periods the directional part carried the profit. Plus a small rebate (8% of PnL); liquidity rewards are negligible ($0.81). Not decoded: when its bid is at the top of the book (the quote state), which caps the presence AUC near 0.73 even with oracle taker flow.",
+ "components": {
+  "selection": {
+   "confidence": 0.3,
+   "tag": "hypothesis",
+   "description": "BTC 5m enabled per period inside the running engine (not process restarts): on in weekday US hours; off overnight/weekends on some days (10-23 21:00 -> 10-24 15:25, 10-24 23:00 -> 10-25 13:33 UTC); 94.5% of VALIDATE windows active. No public correlate beyond the clock (+0.002 AUC)."
+  },
+  "timing": {
+   "confidence": 0.55,
+   "tag": "VALIDATE-only",
+   "description": "continuous requoting: 10-23 orders/s per wallet, rising with Binance activity (Spearman 0.67); exposed only to the last ~0.25-1.5 s of Binance moves (others 3-5 s); orders rest at the open and stop ~30 s before the end; fills follow a favourable 2-5 s move of the token. Not the fastest maker: at levels with a sub-0.5-s competing order it is almost never at the top (pilot)."
+  },
+  "side": {
+   "confidence": 0.45,
+   "tag": "exam-verified",
+   "description": "side with the higher predicted presence (fair value vs market edge, opening strike gap, momentum of the token's fair): VALIDATE 0.66 vs 0.61 market-activity baseline (0.70 with own inventory); exam round 1 0.655 vs 0.600."
+  },
+  "price": {
+   "confidence": 0.5,
+   "tag": "exam-verified",
+   "description": "0.01 grid at the best bid: last clean print on s minus 0.01 is within one tick for 71% of VALIDATE fills (exam 0.688); live pilot: fill price = best bid in 11 of 15; limit price corr 0.85 with a futures TWAP-60 fair at the match time. At the best price but usually behind part of the same-price queue (first in 31% of multi-maker matches)."
+  },
+  "size": {
+   "confidence": 0.6,
+   "tag": "VALIDATE-only",
+   "description": "clock schedule from calldata: 500 shares weekdays 12:00-~21:00 UTC, 62 (or 250) nights and weekends, second level one fifth (100/12/50); earlier ladders 500/1000 (10-09..16) and 500/250/125 (10-16..22); size does not depend on edge within a session."
+  },
+  "exit": {
+   "confidence": 0.5,
+   "tag": "hypothesis",
+   "description": "holds to resolution (REDEEM rows; occasional MERGE of pairs); in busy periods its paired Up+Down shares cost 0.89 on average (+11% on paired dollars in VALIDATE) and the unpaired remainder loses (-7.3%); adds to the side it holds. Merges the whole paired amount about 65 s before the end in 13% of paired windows (STUDY)."
+  }
+ },
+ "catalog": {
+  "A1": {
+   "status": "open",
+   "evidence": "settlement source: Gamma resolutionSource Chainlink TWAP-60 verified; priceToBeat(W) = finalPrice(W-1); Binance TWAP proxy matches 98.1% of outcomes (iteration 1). No 1-s Chainlink history (data.chain.link 429 per brief); the shared recorder's rtds feed wrote 0 records by 12:50 UTC 10-31."
+  },
+  "A1_B3b": {
+   "status": "open",
+   "evidence": "last-60-second lock-in: the cluster stops quoting ~30 s before the end (fills in last 30 s fall to a third, iteration 3); its response to the partly observed settlement not measured (needs Chainlink 1-s)."
+  },
+  "A2": {
+   "status": "open",
+   "evidence": "partial: Binance spot aggTrades ms (10-26) used as match clock and fair; Kraken 1-s (iteration 3) fits worse than Binance. Coinbase, OKX, composites not tested."
+  },
+  "A3": {
+   "status": "tried",
+   "evidence": "Binance USD-M futures aggTrades 10-08..30 (10-28 from Bybit perp): futures fair explains limit prices better than spot for the cluster (0.846 vs 0.838) and for other makers (0.846 vs 0.814); presence +0.0007, side +0.005 on VALIDATE (not adopted). Funding, liquidations, options not tested."
+  },
+  "A4": {
+   "status": "open",
+   "evidence": "partial: ETH/SOL 1-s returns and lead over BTC add nothing to presence (0.7149 vs 0.7159) or side; own BTC 5m and BTC 15m net direction agree 70% (E7 hedging rejected); prices of the overlapping 15m/1h/4h windows not used yet."
+  },
+  "A4b": {
+   "status": "open",
+   "evidence": "Kalshi crypto 15m/hourly and Polymarket perps not fetched."
+  },
+  "A5": {
+   "status": "not_applicable",
+   "evidence": "crypto Up/Down strategy: no sports or esports markets."
+  },
+  "A6": {
+   "status": "not_applicable",
+   "evidence": "no event markets traded; macro news reaches BTC 5m through spot prices already in the features."
+  },
+  "A7": {
+   "status": "open",
+   "evidence": "partial: tape-based last trade / spread / flow features in R2-R3; constant fee 0.07 and reward parameters for all windows (iteration 3); live books pilot on 15 fills (iteration 4). Up+Down ask/bid sums need books (live lab). Iteration 4: code4/live_panel.py builds per-bin book features from development recordings (11 windows, 23 positive bins on 10-31)."
+  },
+  "A8": {
+   "status": "open",
+   "evidence": "partial: the cluster's own engine restarts measured from the salt counter (daily 01:00 UTC + ad hoc) and they do not switch BTC 5m on/off; the 10-29 18:00-19:00 UTC pause seen. Matching-engine restarts, post-only periods and tick changes not obtained (recorder 'c' records not analysed yet). Iteration 4: the recorder's 'c' records on 2026-10-31 are tick-size changes 0.01 -> 0.001 (dynamic tick at extreme prices, 39 events in 12:07-13:30 UTC); no matching-engine restart events in any public feed found yet."
+  },
+  "B1": {
+   "status": "tried",
+   "evidence": "V2 matchOrders calldata of all 34,606 lot txs that filled the cluster in BTC 5m (+6,026 other-market, +10,500 public samples): cluster timestamp = 0 (no signing time), salt = per-wallet counter (restarts, 10-23 orders/s, rate follows Binance), original sizes (clock schedule), signature types; takers' and other makers' ms signing times used as the match clock."
+  },
+  "B2": {
+   "status": "tried",
+   "evidence": "orders consumed within 0-2 s (iterations 2-3); signing-rate from the salt counter; other makers' order ages at fill (median 4.7 s; older orders hit after 4x larger adverse moves). Iteration 4: queue position from makerOrders order (cluster first at its level in 31% of multi-maker matches). Pilot book from all 9,778 match txs of 10-26 13:00-13:30: cluster at the best filled bid in 1.1% of bid-hit events, at levels with fewer and older competing orders."
+  },
+  "B3": {
+   "status": "tried",
+   "evidence": "fair-value variants (vol scale, lookback; iterations 1-3), ms clock and futures reference (iteration 4: corr 0.85, MAD ~0.055); no quote function of fair alone reaches the touch-anchored price rule."
+  },
+  "B4": {
+   "status": "tried",
+   "evidence": "STUDY: MERGE of the full paired amount (merged/paired median 1.0) in 87 of 662 BTC 5m windows with paired shares, median 65 s before the end (10-90%: 165-12 s); the rest is held to resolution (2,052 REDEEM rows, $155k). negRisk False (no conversions). Paired round trips earn +11% on paired dollars in VALIDATE (D4)."
+  },
+  "B5": {
+   "status": "tried",
+   "evidence": "anti-balancing inventory (adds to the held side, iteration 1); overnight stops after losing evenings (iteration 2); size schedule by clock, not by edge or inventory (iteration 4)."
+  },
+  "B6": {
+   "status": "tried",
+   "evidence": "MAKER_REBATE $4,975 over 2026-10-22..30 = 8% of the lot PnL; Gold tier 18% (dossier); verdict PnL at 0% tier 97%."
+  },
+  "B7": {
+   "status": "ruled_out",
+   "evidence": "88% of STUDY orders >= 50 shares, but REWARD rows total $0.81 over 2026-10-22..30 for all three wallets: rewards are not a motive."
+  },
+  "B8": {
+   "status": "not_applicable",
+   "evidence": "Gamma listing of BTC 5m windows (2026-10-26 sample): holdingRewardsEnabled False."
+  },
+  "B9": {
+   "status": "open",
+   "evidence": "maker rebate pool share by market not computed."
+  },
+  "C1": {
+   "status": "tried",
+   "evidence": "same-engine fingerprint (timestamp 0 + counter salt) searched in 7,500 public BTC 5m txs (5,000 in off periods): no fourth wallet; mo-money's Safe owner EOA 0xd1f9bc03... signs for no other maker in the samples; almach/bosona owner keys need ERC-1271 recovery (not done)."
+  },
+  "C2": {
+   "status": "tried",
+   "evidence": "weak form: wallets buying the same token within 30 s after cluster fills equal those within 30 s before (0.73 vs 0.80 for the top HFT taker): co-activity, no asymmetry. Strong form (fixed size ratio) not tested."
+  },
+  "C3": {
+   "status": "tried",
+   "evidence": "dispersed takers (3,200-5,300, top-10 11-13%; iterations 2-3); iteration 4: takers' signing ms show other makers are picked off within 100-250 ms of Binance moves, the cluster much less."
+  },
+  "C4": {
+   "status": "tried",
+   "evidence": "versions: ladder 500/1000 (10-09..16) -> 500/250/125 (10-16..22) -> clock schedule 500 / 62 / 250 (lot); restarts daily 01:00 UTC and ad hoc; models refit on the lot regime (+0.008)."
+  },
+  "C4b": {
+   "status": "open",
+   "evidence": "change points not matched against Polymarket announcements."
+  },
+  "C5": {
+   "status": "tried",
+   "evidence": "clock schedule: size switch at 12:00 UTC weekdays (to ~21:00), daily 01:00 UTC restart, weekend/overnight BTC 5m off periods with manual-looking returns (13:33, 15:25 UTC); clock features +0.002 presence AUC."
+  },
+  "C6": {
+   "status": "not_applicable",
+   "evidence": "Gamma listing of BTC 5m windows (2026-10-26 sample): rfqEnabled False; no combos."
+  },
+  "C7": {
+   "status": "ruled_out",
+   "evidence": "calldata: 0 of 7,777 STUDY BTC 5m txs and 2 of 6,026 other-market txs match a cluster taker against a cluster maker; no circular volume. Referral income: no REFERRAL rows in activity types."
+  },
+  "C8": {
+   "status": "open",
+   "evidence": "partial: fingerprint = timestamp 0, metadata 0, builder 0, sequential salt counter, sizes 500/62/250 with a one-fifth level; public GitHub bot search not done."
+  },
+  "D1": {
+   "status": "tried",
+   "evidence": "per bin (primary), per print (selection), per order (orderHash, calldata); oracle-flow diagnostic shows the quote state is the missing unit."
+  },
+  "D2": {
+   "status": "open",
+   "evidence": "only LightGBM and explicit rules; hazard / HMM / sequence models not tried."
+  },
+  "D3": {
+   "status": "open",
+   "evidence": "examiner's strict replay of R2 (-12.8%); own replay with sub-second requote not built."
+  },
+  "D4": {
+   "status": "tried",
+   "evidence": "PnL by session (US +4.7-5.1%, night +0.4-3.3%), by size, by time; locked pairs vs directional: VALIDATE locked +$38.1k (+11.0%), directional -$14.4k; STUDY +$0.3k / +$4.5k."
+  },
+  "X1": {
+   "status": "tried",
+   "evidence": "source: exam round 1 diagnosis (calldata order reconstruction: original size, expiration, signer). Done as B1: original sizes and signers decoded; V2 has no expiration; cluster timestamp = 0."
+  },
+  "X2": {
+   "status": "open",
+   "evidence": "source: exam round 1 (live lab: book at its decision times). Pilot on 15 fills of 2026-10-31 12:18-13:00 UTC; needs more development blocks. Tolerant reader code4/livex.py recovers records lost by iter_live after the 12:18 UTC recorder restart."
+  },
+  "X3": {
+   "status": "open",
+   "evidence": "source: exam round 1 (settlement feed). No Chainlink 1-s history; recorder rtds writes 0 records."
+  },
+  "X4": {
+   "status": "tried",
+   "evidence": "source: exam round 1 (sibling wallets). Fingerprint search negative (see C1)."
+  },
+  "X5": {
+   "status": "tried",
+   "evidence": "source: exam round 1 (bot versions). Size schedule and restarts decoded (see C4, C5)."
+  },
+  "X6": {
+   "status": "ruled_out",
+   "evidence": "source: reviewer lead 2026-10-31 (liquidity-reward eligibility, rewardsMinSize 50 / maxSpread 4.5). REWARD income $0.81 in 9 days (see B7)."
+  },
+  "X7": {
+   "status": "open",
+   "evidence": "source: reviewer lead 2026-10-31 (operational events: matching-engine restarts with 2-min post-only, tick changes, pauses as the cause of 19-97% daily activity). Own restarts do not explain the on/off; exchange events not obtained."
+  },
+  "X8": {
+   "status": "tried",
+   "evidence": "source: reviewer lead 2026-10-31 (V2 signing times to measure requote speed vs Binance, settlement TWAP and books). Cluster leaves timestamp 0; measured with takers' signing ms: exposure window ~0.25-1.5 s vs 3-5 s for other makers."
+  },
+  "X9": {
+   "status": "open",
+   "evidence": "source: exam round 1 (selection of windows undecoded). Clock features tried (+0.002); runtime switch inside the engine; no public correlate yet."
+  }
+ }
 }

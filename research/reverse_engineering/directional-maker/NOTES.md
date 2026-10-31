@@ -425,3 +425,224 @@ about 30 s before the end, inside the closing TWAP-60.
   wall on quotes: no lead over Binance 1-s, and it cancels faster than other makers.
 - What a successor could still try (low expected value for the target): a longer BUILD (history before 2026-10-09;
   a walk-forward refit added only +0.004); full maker-row tapes for competitor identities at the top of the book; BTC 15m.
+
+### Iteration 4 (2026-10-31, local Windows laptop, started 12:21 UTC; 152 of 1,200 budget minutes used before it)
+
+Context: exam round 1 (lot h1 + h2 = 2026-10-23..30, 2,304 BTC 5m windows, 36,244 cluster maker fills) judged R2
+"match partial": presence 0.700 vs 0.681 activity-only, side 0.655 vs 0.600, price within a tick 0.688, selection
+AUC 0.681 (recall 32% at lift 2.6), PnL corr 0.29; the executable rule lost 12.8% under strict fills while the wallets'
+own BTC 5m maker fills earned +3.95% (p = 0.005). The lot is now released. Per the brief and the task:
+- **New split (pre-registered here, before any lot analysis):** STUDY = lot first half [2026-10-23, 2026-10-27)
+  (case-by-case study allowed); **VALIDATE = lot second half [2026-10-27 00:00, 2026-10-31 00:00) = [1793059200,
+  1793404800)** (aggregate metrics only; 1,152 windows); BUILD = everything before 2026-10-27 (10-09..10-26).
+  Development live-lab blocks after T0 (10-31 00-06, 12-18 UTC, ...) are extra description data.
+- Primary metric unchanged (presence AUC, no own-state, clean tape), now on the new VALIDATE.
+- state.json brought to the brief's current format (catalog with every item, target_metrics, component tags).
+- Live recorder: running (pid 27184, restarted 12:18 UTC); dev recordings exist only from 2026-10-31 12:18 UTC on
+  (no 00-06 UTC block recording), so the live lab gives about 1.5 h of books in this iteration.
+
+**Competing explanations (iteration 4) and the observation that separates them**
+1. E1 latency-advantaged top-of-book maker on a Binance (or Chainlink) fair value: profit = spread from dispersed
+   takers minus adverse selection, protected by cancelling faster than other makers. Test: B1 signing times cluster
+   within a few hundred ms after reference moves; short sign-to-fill lifetimes; many re-signed orders per window.
+2. E2 liquidity-rewards farmer (BTC 5m rewardsMinSize 50, rewardsMaxSpread 4.5 c): two-sided >= 50-share quotes near
+   the mid; the directional residual is a by-product. Test: original order sizes from calldata (>= 50?), distance of
+   the limit price from the mid at signing, REWARD rows vs its quoting.
+3. E3 informed on the settlement: a better estimate of the Chainlink TWAP-60 settlement (Data Streams, composite) than
+   the market's. Test: signing times after Chainlink/RTDS updates rather than Binance; side vs outcome beyond market.
+4. E4 operator/meta-controller schedule (risk stops, capital allocation across markets, competitor presence). Test:
+   on/off switches simultaneous in the 3 wallets, at window boundaries (opening orders signed or not), tied to own
+   PnL or to other markets.
+5. E5 pre-positioned ladder / queue priority: orders signed long before they fill (at the open or listing) and earn
+   from being first in the queue when big takers sweep. Test: sign-to-fill lifetimes of minutes; batch signing at
+   fixed times; limit prices fixed per window.
+6. E6 sibling wallets: the operator runs more wallets (same builder/metadata codes, signature format, salt pattern,
+   owner key) that trade the windows these three skip, so the "schedule" is a work split. Test: other makers in the
+   same transactions with the same fingerprint; complementary activity.
+7. E7 cross-market hedge/arbitrage with overlapping 15m/1h/4h windows. Test: 5m side vs its own 15m/1h inventory and
+   the 5m-vs-15m implied-probability gap.
+8. E8 predictable counterparty flow (copy traders, scheduled retail): it quotes ahead of large dispersed takers. Test:
+   quote signing before large prints; identity/lag structure of the takers that fill it.
+
+This iteration discriminates mainly with B1 (V2 calldata of every lot transaction that filled the cluster: signing
+ms, original size and limit price, signature format, builder/metadata, other makers in the same match).
+
+**Data added (iteration 4).** All from development periods (the released lot and the 2026-10-31 12:00-18:00 block):
+- B1 calldata (`code4/calldata.py`, `code4/fetch_calldata.py`, publicnode batched `eth_getTransactionByHash`, ~75
+  tx/s, decoded fields only, `.cache/re/directional-maker/calldata/`): every transaction that filled the cluster in
+  BTC 5m in the lot (STUDY 7,777 txs / 37,811 orders; VALIDATE 26,829 txs, aggregate use only), the cluster's
+  other-market fills in STUDY (6,026 txs), 7,500 sampled public BTC 5m txs from STUDY (5,000 in the cluster's BTC 5m
+  off periods) and 3,000 sampled public BTC 5m txs of 2026-10-26. Decoder verified on the reviewer's tx 0xc1d694...
+  (maker BUY 30 at 0.20, signed 1793446973.797).
+- Binance spot aggTrades 2026-10-26 (ms) and Binance USD-M futures aggTrades 2026-10-08..30 reduced to 1-s
+  (`code4/fut1s.py`, SHA-256 checked, zips never stored). The 2026-10-28 futures archive is not published (HTTP 404
+  NoSuchKey for the zip and its .CHECKSUM); that day is filled with Bybit BTCUSDT perp trades (public.bybit.com).
+- Cluster activity of the current development block (`code4/live_activity.py`, from 12:00 UTC) and the live
+  recorder's books (`code4/livex.py`).
+- tools/live.py note: `iter_live` raises `zlib.error` on an hourly file that is still being written (it only catches
+  EOFError/OSError), which ends the generator. `code4/livex.py` reads the same dev files and stops a file there.
+
+**B1 findings (calldata of the cluster's own orders)**
+1. **No signing time.** All 8,256 STUDY and all VALIDATE cluster orders carry `timestamp = 0`, `metadata = 0`,
+   `builder = 0`. Other makers set millisecond timestamps (0.66% of their orders have 0, all from one unrelated wallet,
+   0x56f609c6, with random uint32 salts). So B1's decision-time measurement is impossible for this cluster; the
+   taker's signing ms in the same match is used as the match clock instead.
+2. **The salt is a per-wallet order counter.** Salts are small integers that increase with time (97-98% monotone
+   between consecutive fills), restart near 0 in the same minute in all three wallets, and are shared by all markets
+   a wallet trades (other-market orders within 30 s of a BTC 5m fill have salts within 1% in 84% of cases).
+   Restarts: daily at 01:00-01:08 UTC (10-23, 24, 25, 26, 28, 30) plus ad-hoc ones (10-26 16:38-16:42 and
+   19:36-19:39; 10-28 13:00-13:03 and 19:55-20:01). One scheduled process (or three restarted together) signs every
+   order.
+3. **Signing rate = requote intensity.** About 10-23 orders/s per wallet (median 13). It rises with Binance activity:
+   Spearman 0.67 with the hourly number of Binance 1-s price changes; in 60-s buckets by |return| quintile 10.9 ->
+   14.3 -> 15.5 -> 19.2 -> 22.7 orders/s. An event-driven requote engine on top of a ~10/s base loop (E1 supported).
+4. **BTC 5m on/off is not a process stop.** During the BTC 5m off periods (10-24 02-15 UTC, 10-25 02-13 UTC) the
+   counter kept running at the same rate (11-12/s, vs 11.7-12.1/s in on hours of the same days) and the wallets kept
+   filling in other markets. The switch is made inside the running engine (a per-market enable), not by restarts.
+5. **Order sizes follow a clock schedule.** Weekdays: 500-share orders from 12:00 UTC (first 500-share order at
+   12:00:04-12:00:54 on 10-26..30) until about 21:00 UTC (on some days until midnight); nights and the weekend: 62
+   shares (10-23..28) or 250 (nights of 10-29/30). A second level of one fifth (100 / 12 / 50) is common. STUDY: in
+   the US session 75.7% of orders are 500; at night or on the weekend 65.3% are 62. VALIDATE (aggregate): 70.4% /
+   38.8% (+25.7% at 250). Returns follow the schedule: US session +4.7% (STUDY) / +5.1% (VALIDATE) on dollars bought,
+   night and weekend +0.4% / +3.3%. It sizes up when its edge is largest.
+6. **Rewards are not the motive (E2 ruled out).** 88% of STUDY orders have >= 50 shares (98.7% of dollars), but the
+   REWARD rows of all three wallets over 2026-10-22..30 total $0.81. MAKER_REBATE rows total $4,975 (8% of the lot
+   PnL).
+7. **Signatures.** almach and bosona: signatureType 3 (317-byte wrapped signature: 65-byte ECDSA, a domain separator,
+   a struct hash and the Order type string), signer = maker. mo-money: signatureType 2 (Gnosis Safe), signer = EOA
+   0xd1f9bc03d7395134647c6a7d3b468cfdd4b38292, which signs for no other maker in the sampled transactions.
+8. **No same-engine sibling (E6 ruled out for this fingerprint).** In 7,500 sampled public BTC 5m txs (5,000 in the
+   off periods, prints >= 20 shares) no maker other than the three has timestamp 0 with a counter salt (< 3e6).
+
+**Timing at millisecond resolution (10-26, STUDY): the requote window.** Match clock = the taker order's signing
+ms. Mean Binance move (USD) over the last L ms, signed so that < 0 is adverse to the maker's token: cluster +0.02
+(100 ms), -0.24 (250 ms), -0.35 (0.5-1 s), +0.14 (2 s), +0.79 (3 s); other makers (public sample) -0.29, -0.78,
+-0.9 to -1.0 (0.5-3 s); random times about 0. Share of fills after an adverse move > $5: in the last 250 ms cluster
+4.1% vs others 7.2% (random 1.4%); in the last 1 s 9.8% vs 12.5% (6.0%). Other makers' orders older than 5 s are hit
+after adverse moves about 4x larger than fresh ones (-2.2 to -2.4 vs -0.5 USD at 1 s). So the cluster is exposed only
+to moves of the last ~0.25-1.5 s. Older moves are already in its quote (it requotes within about a second; other
+makers take 3-5 s), and its fills follow a favourable 2-5 s move of its token.
+
+**B3/A3 reference.** Limit prices of filled orders vs the TWAP-60 fair at the match clock (10-26): cluster corr
+0.838 with spot at 0 s, peaking 0.25-0.5 s after the taker's signing (0.840) and falling to 0.744 at 3 s before; with
+a Binance USD-M futures fair 0.846 at 0 s (0.852 at +0.25 s). Other makers: spot 0.814, futures 0.846. The futures
+fair explains everyone's quotes better (perps lead spot); the cluster shows no lead of its own over other makers.
+Presence with futures features (fair, z, edge, 1-10 s returns, futures-minus-spot lead, basis, flow imbalance) on
+BUILD4 -> VALIDATE: 0.7142 vs 0.7135 without (side 0.662 vs 0.657). Not adopted (a second archive for +0.0007).
+
+**Why the presence AUC is capped (oracle diagnostic, VALIDATE aggregate).** Giving the model the future clean taker
+flow of the bin itself (bid hits and volume on s and on the other side in [t, t+10)) reaches only 0.682 alone and
+0.730 with R2's features (within active windows 0.674 / 0.723). In active windows 89.5% of bins have bid hits on s,
+but the cluster is filled in only 11.7% of them (0.8% without hits). The missing variable is not taker arrival. It is
+whether the cluster's bid is at the top of the book at that moment (its quote vs the competitors' quotes), which the
+historical tape does not show. Only books (the live lab) or a book rebuilt from every match's calldata can show it.
+
+**Live lab pilot (2026-10-31 12:18-13:00 UTC, development block).** 15 cluster BTC 5m maker fills with a recorded
+book: the fill price equals the best bid of its token 2 s before the block in 11 of 15 (one or two ticks below in 4),
+spread 0.01 in 11, depth at the fill price median 1,246 shares (it shares a deep level). Too few fills today
+(Saturday, low activity) for a model. The recorder now accumulates development blocks (12 h a day).
+
+**Refits and the clock (presence, BUILD4 = 2026-10-09..26 -> VALIDATE4 = 2026-10-27..30, aggregate).** Frozen R2
+0.7051 (baseline 0.6734). R2 features refit on BUILD4 0.7135 (refit baseline 0.6843; 10-16..26 only 0.7115; lot first
+half only 0.6867). Plus the clock (UTC hour, weekday, US-session flag): **0.7159** (within active windows 0.708, side
+0.663). Activity + clock 0.692; + own inventory 0.747. R3 = refit + clock (frozen in `code/final_rule.py`; R2 is
+archived as `code/final_rule_r2.py`).
+
+**More iteration-4 measurements**
+- **Price anchor by the last print's direction (STUDY case by case, VALIDATE aggregate).** Using the last clean
+  print itself when it hit a bid on s and print - 0.01 when it lifted an ask raises exact matches (VALIDATE 0.450 vs
+  0.359) but lowers within-one-tick (0.675 vs 0.709): after a bid hit the cluster is often filled two ticks lower (the
+  hit level was used up). Adding the Binance fair move since that print does not help (0.645-0.687). R2's anchor
+  stays. STUDY error of R2's anchor: after an ask lift 44% exact, 14% one tick low; after a bid hit 31% one tick high.
+- **Side baselines (the brief's two).** Own-inventory-only (side with more own shares bought so far): VALIDATE 0.575
+  where it holds inventory (83% of one-sided bins), 0.594 with R2 as fallback; market-activity-only model 0.613; R3
+  0.663 (R2 0.652). STUDY: 0.603 / 0.643 / R2 0.663.
+- **Cross-horizon side (E7).** In 5-min slots where it buys both BTC 5m and the overlapping BTC 15m window, the net
+  direction agrees in 70% of slots where both are one-sided (n = 66, corr of net Up share 0.30); with BTC 4h 52%. One
+  short-horizon directional view across markets, not hedging (E7 hedging rejected).
+- **Listings.** BTC 5m Gamma records (2026-10-26, three windows): rfqEnabled False, holdingRewardsEnabled False,
+  negRisk False, makerRebatesFeeShareBps 10000, feeSchedule rate 0.07 takerOnly rebateRate 0.2, rewards 50 / 4.5.
+  B8 and C6 are not applicable.
+- **Self-matching (C7).** No transaction in STUDY BTC 5m (7,777) has a cluster wallet as taker against a cluster
+  maker; 2 of 6,026 other-market transactions do. No circular volume.
+- **Weekend nights.** BTC 5m was off overnight on Sat/Sun 10-17/18 and Fri/Sat 10-23/24 (21:00-23:00 to 12:00-15:30
+  UTC), but fully on during 10-10/11 and on the night of Fri 10-30 -> Sat 10-31 (00-06 UTC development block: 102-400
+  BTC 5m trades an hour). So it is not a calendar rule; the switch stays an operator decision (hypothesis).
+- **Off switches vs own PnL.** The 10-23 20:39 stop followed a -5.8% 6-h (-6.6% 24-h) BTC 5m return; the 10-24 22:27
+  stop followed +6.8% (+9.8%). Not consistently loss-triggered (STUDY 6-h returns range -9% to +14%).
+- **Live lab tooling.** The shared recorder was restarted at 12:18 UTC inside an hourly file, leaving a truncated gzip
+  member at its start; `tools/live.py` `iter_live` loses every record after the truncation and stops with zlib.error
+  on files still being written. `code4/livex.py` decompresses each gzip member separately (same dev folder, same
+  filter) and recovers 2026-10-31 12:07-13:12 UTC (81k book updates, 22k full books, 19k trades). The recorder's rtds
+  feed wrote no records (330 messages, 0 written at 12:50 UTC). `code4/live_panel.py` builds per-bin book features
+  (best bid/ask of the side, spread, depth, updates, best-bid age) with the cluster's fills as labels: 11 windows, 660
+  bins, 23 positive bins so far. Positive bins sit on cheaper sides (best bid median 0.24 vs 0.61), deeper best levels
+  (678 vs 431 shares) and younger best levels (1.1 vs 2.3 s). Descriptive only.
+
+- **What the quote state does not depend on (VALIDATE aggregate, active windows, 56,561 bins with bid hits on s).**
+  P(cluster filled | bids on s hit in the bin) is nearly flat in our edge (fair - last print) deciles, 0.06-0.17
+  and U-shaped; it falls with the side's fair (0.175 below 0.1, 0.063 above 0.9) and rises with the number of hits in
+  the bin (1 hit 0.039, 2-3 0.038, 4-9 0.067, 10+ 0.130). Being at the front of the book is not "our fair is above the
+  market": it behaves like queue mechanics at a shared best level (the live pilot's fill levels held a median 1,246
+  shares), where it is filled when takers use up the orders ahead of it. Next step: measure its queue position from
+  book depth changes in the live lab (and whether its 10-23 re-signings per second keep or lose time priority).
+
+- **Queue position from the match calldata (STUDY, 3,238 cluster orders in multi-maker matches).** Within a match,
+  other makers at the same price appear in signing-time order (71% of 16,157 consecutive same-price pairs signed
+  later, 24% earlier: price-time priority with client-clock noise). The cluster is first at its price level in only
+  31% of these matches; in 2,220 other makers at its price were filled ahead of it. It sits at the best price (90% of
+  sweeps) but usually behind part of the queue, so it is filled when a taker uses up the orders ahead of it, which is
+  why fills need many or large bid hits. Bounds on its join time from neighbours' signing ms are too noisy (client
+  clocks) to time its quotes (median: joined within ~0.2-0.5 s of the match, wide tails).
+
+- **Queue-level features from the tape (rejected).** Age of the current bid level on s, its price and its number of
+  changes in 10/30 s (bid-hit prints of the clean tape): R3 + level 0.7158 vs R3 0.7159; activity + level 0.6851 vs
+  0.6843. The tape cannot see the queue.
+- **PnL decomposition (D4; STUDY case by case, VALIDATE aggregate).** Per window, locked pairs = min(Up, Down shares)
+  x (1 - average Up price - average Down price), directional = the rest. STUDY: total +$4.8k (+2.7%), locked +$0.3k
+  (+0.4% on locked dollars), directional +$4.5k (+4.6%). VALIDATE: total +$23.7k (+4.3%), locked **+$38.1k (+11.0%
+  on $347k locked)**, directional **-$14.4k (-7.3%)**. In the busy second half it earned by buying both outcomes
+  cheaply at different moments of the window (average Up + Down price 0.89 on the paired shares), and lost on the
+  unpaired residual. The dossier's "profit is the directional residual, the locked pair spread is about zero" held in
+  quiet periods (STUDY), not in the busy one: it is a two-sided liquidity provider whose round trips across the two
+  outcomes pay, with a losing directional remainder.
+- **Copy / follow (C2, STUDY).** For 3,448 cluster fill events, the wallets that BUY the same token within 30 s
+  after a fill are the same high-frequency takers that bought it within 30 s before (0xc53375ff 0.73 after vs 0.80
+  before; next four 0.50-0.59 vs 0.48-0.63): co-activity, no leader or follower asymmetry. The strong form (fixed size
+  ratio, same side) was not tested.
+
+- **Cross-asset (A4).** Binance ETH and SOL 1-s returns over 1-30 s (signed by side) and their 1-5 s lead over BTC:
+  R3 + ETH/SOL 0.7149 vs R3 0.7159 (side 0.663 both). No gain. Overlapping 15m/1h/4h window prices not tried yet.
+
+- **Operational events in the live feed (A8).** The recorder's 'c' records (39 on 2026-10-31 12:07-13:30 UTC) are tick-size changes 0.01 -> 0.001 (the dynamic tick at extreme prices). No matching-engine restart events in any public feed found yet.
+
+- **Merges (B4, STUDY).** It merges exactly its paired Up+Down amount (merged/paired median 1.0) in 87 of 662 BTC 5m windows with paired shares, a median 65 s before the end (10-90%: 165-12 s before); otherwise it holds to resolution (2,052 REDEEM rows, $155k).
+
+- **Book from every match's calldata (pilot, STUDY 2026-10-26 13:00-13:30 UTC, 6 windows, all 9,778 match txs).**
+  Each match's filled maker orders expressed as bids on a side (BUY s, or SELL of the other outcome at 1 - p). The
+  cluster is filled at the best filled bid in 104 of 9,778 bid-hit events (1.1%; 113 with it anywhere). Where it is,
+  fewer other makers share that price (median 0 vs 1) and they are older (median age at the match 3.7 s vs 0.8 s;
+  youngest 1.7 s vs 0.5 s). At levels where another maker's order is under 0.5 s old the cluster is at the top in
+  0.1% of 4,680 events. So it is not the fastest maker in the book: sub-second makers own the freshly repriced levels,
+  and the cluster is filled where its price stands alone or ahead of older orders (more often on cheap sides, p < 0.1:
+  3.2%). The rule's quote-state problem is "where does its price beat older competing orders", which needs the book.
+
+## Iteration-4 checkpoint
+- Primary metric (presence AUC, no own state, VALIDATE = 2026-10-27..30): **0.716** with rule R3 (frozen R2 on the
+  same days 0.705; activity-only baseline 0.685, gain +0.032 < 0.05). Side 0.663 (baselines 0.613 activity, 0.594
+  own inventory), price within one tick 0.709, PnL corr 0.329 / 0.325, selection 0.685 (recall 29%, lift 2.9).
+  Per wallet: presence 0.705-0.712, side 0.654-0.666, price 0.706-0.710, PnL Pearson 0.29-0.32. Target not met.
+- What is decoded now (component by component): engine and restarts, requote intensity and its sub-second exposure
+  window, the clock schedule of order sizes, the absence of rewards and same-engine siblings, the side's link to a
+  shared short-horizon view. What is not: the quote state (when its bid is at the top), which an oracle-flow test shows
+  is the binding gap (presence 0.73 even with the bin's own future taker flow), and the BTC 5m on/off decision.
+- Verdicts on the competing explanations: E1 (fast top-of-book maker) supported (signing rate follows Binance, sub-second exposure window, at the best price but often behind the queue); E2 (rewards) ruled out ($0.81); E3 (better settlement estimate) not supported (no lead over other makers; futures fair explains everyone; Chainlink not recorded); E4 (operator schedule) supported for sizes (clock) and for the BTC 5m switch (runtime, not restarts, not a calendar rule, not consistently after losses); E5 (pre-positioned ladder) rejected (requotes 10-23/s; orders consumed in seconds); E6 (same-engine siblings) ruled out in samples; E7 (cross-market hedge) rejected (5m and 15m directions agree 70%); E8 (copy/predictable flow) not supported in the weak test. Economics: in busy periods paired round trips across the two outcomes pay (+11% on paired dollars) and the directional remainder loses.
+- Status: continue. Paradigm for the next iterations: the quote itself, from books. (1) Live lab: with the
+  tolerant reader, build per-bin book features in every development block and fit presence = P(top of book) x taker
+  arrival. A rule with book inputs can be examined on the future sealed blocks, which the recorder also covers.
+  (2) Rebuild the historical book from the calldata of every BTC 5m match (each filled maker order gives price,
+  original size, signing ms and fills; an order filled at time f was resting from its signing until f), first for a
+  few STUDY hours, to measure the competitors' best bid when the cluster is and is not filled. (3) Recover the owner
+  EOAs of almach and bosona from their wrapped signatures (ERC-1271) and search for the same signer elsewhere.
+  (4) Coinbase / OKX ms trades and a composite (A2), cross-asset moves (A4), Kalshi (A4b), matching-engine events
+  (A8, X7), hazard / HMM models (D2), an own sub-second replay (D3).

@@ -1,0 +1,80 @@
+{
+ "period": [
+  1793059200,
+  1793404800
+ ],
+ "windows": 1152,
+ "bins": 69120,
+ "cluster_maker_fills": 27988,
+ "cluster_taker_fills": 621,
+ "tape_rows": 1815880,
+ "tape_rows_removed_cluster_tx": 26767,
+ "presence": {
+  "auc": 0.7050662043698639,
+  "auc_activity_baseline": 0.6734301529067381,
+  "auc_with_own_inventory": 0.7404099016578031,
+  "auc_within_active_windows": 0.6978409059887624,
+  "pos_rate": 0.0974392361111111,
+  "active_window_share": 0.9453125,
+  "gain_over_baseline": 0.03163605146312576
+ },
+ "side": {
+  "n": 6339,
+  "acc": 0.6516800757217227,
+  "fav_last_print": 0.39990534784666354,
+  "binance_fav": 0.412210127780407,
+  "p_vs_fav": 1.2565067678622649e-168
+ },
+ "side_activity_baseline": 0.5999368985644423,
+ "price": {
+  "n_fills": 27988,
+  "exact": 0.35893954551950835,
+  "within_0.01": 0.7089824210375876
+ },
+ "pnl": {
+  "windows": 1089,
+  "pearson": 0.26383697015215846,
+  "spearman": 0.30277161184986395,
+  "wallet_maker_return_on_usd": 0.04346810272595238
+ },
+ "selection": {
+  "all": {
+   "auc": 0.685360863200653,
+   "auc_strat_global": 0.6918191953944328,
+   "auc_strat_window": 0.6392651163428634,
+   "recall_at_theta": 0.294729595349193,
+   "lift_at_theta": 2.8664820480031934,
+   "rotation_null": {
+    "global_mean": 0.6246745372034023,
+    "global_max": 0.6353708987118002,
+    "global_sd": 0.004721410343348291,
+    "window_mean": 0.629489090564122,
+    "window_max": 0.6369471742365536,
+    "window_sd": 0.0029964015113197297,
+    "n_perm": 99
+   },
+   "z_vs_null_global": 14.221313825354448,
+   "z_vs_null_window": 3.2625887224425227,
+   "p_global": 0.01,
+   "p_window": 0.01,
+   "perm_p": 0.01,
+   "criterion": {
+    "auc_ge_0.80": false,
+    "recall_ge_0.50": false,
+    "lift_ge_3": false,
+    "p_lt_0.01": false
+   }
+  },
+  "activity": {
+   "auc": 0.6507710833990348,
+   "auc_strat_global": 0.6564211046505642,
+   "auc_strat_window": 0.6304116747474608,
+   "recall_at_theta": 0.30895739310028303,
+   "lift_at_theta": 2.2244428501963345
+  },
+  "prints_sampled": 198378,
+  "wallet_prints": 26146
+ },
+ "note": "selection population = in-window taker prints except the cluster's own taker prints; label = print's transaction holds a cluster maker fill; negatives subsampled 10% (weights 10), AUCs unbiased; rotation null: each day's windows take the spot path of the window k places later (bin-level spot columns and print fair recomputed)",
+ "runtime_s": 156
+}

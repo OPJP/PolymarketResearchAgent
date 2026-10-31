@@ -1,0 +1,44 @@
+{
+ "activity": {
+  "auc": 0.6843,
+  "within_active": 0.6767,
+  "side": 0.6127
+ },
+ "all_path_xwin": {
+  "auc": 0.7135,
+  "within_active": 0.706,
+  "side": 0.6572
+ },
+ "all_path_xwin+fut": {
+  "auc": 0.7142,
+  "within_active": 0.7067,
+  "side": 0.6624
+ },
+ "time+fut": {
+  "auc": 0.6709,
+  "within_active": 0.6667,
+  "side": 0.608
+ },
+ "all_path_xwin+fut+own": {
+  "auc": 0.7473,
+  "within_active": 0.7348,
+  "side": 0.7036
+ },
+ "importance_all+fut": {
+  "edge_s": 0.1392,
+  "hit_o10": 0.1233,
+  "last_s": 0.1051,
+  "sig": 0.0675,
+  "hit_s10": 0.0613,
+  "rel": 0.0332,
+  "strike_move_s": 0.0293,
+  "e_open_s": 0.0255,
+  "vol_s60": 0.0253,
+  "fair_fut_s": 0.0225,
+  "fair_s": 0.0212,
+  "edge_fut_s": 0.0203,
+  "n_in": 0.0195,
+  "hit_s60": 0.0163,
+  "vol_s30": 0.0163
+ }
+}

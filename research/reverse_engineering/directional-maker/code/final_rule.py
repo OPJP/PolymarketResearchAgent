@@ -1,31 +1,31 @@
-"""Frozen rule for the directional-maker cluster (bosona, almach, mo-money), BTC 5m Up/Down. Iteration 2 rule R2,
-kept unchanged in iteration 3 (no iteration-3 candidate beat it on VALIDATE; see NOTES.md). Code and models are
-byte-identical to the iteration-2 checkpoint.
+"""Frozen rule for the directional-maker cluster (bosona, almach, mo-money), BTC 5m Up/Down. Iteration 4 rule R3.
 
-Rule R2 (all parameters constant, LightGBM model files frozen next to this file, trained once on BUILD
-2026-10-09..16 (code/train2.py, code/sel2.py) and chosen on VALIDATE 2026-10-16..23):
+R3 = R2 (iteration 2; archived unchanged in final_rule_r2.py) with two changes, both chosen on the iteration-4
+VALIDATE (2026-10-27..30, the second half of the released lot):
+* the presence models are refitted on the expanded BUILD (2026-10-09..26: old BUILD + old VALIDATE + the lot's first
+  half) with the same LightGBM parameters (code4/train6.py, code4/train4.py);
+* the operator's clock schedule is an input: UTC hour, weekday and the US-session flag (weekday 12:00-21:00 UTC), the
+  boundary at which the cluster's order size switches (iteration-4 calldata finding).
+Everything else (tape hygiene, features, side, price, selection models and thresholds) is R2's.
 
-* Tape hygiene (the iteration-1 leak fix): every data-api taker print in a transaction where a cluster wallet
-  traded (maker or taker) is removed before any feature is computed.
+* Tape hygiene: every data-api taker print in a transaction where a cluster wallet traded (maker or taker) is removed
+  before any feature is computed.
 * Presence: P(cluster gets >= 1 maker BUY fill on side s in the 10-s bin [t, t+10)), t in [0, 300) s
-  = presence2_<MODEL>.txt on features published by t (features2.build_panel): time, side, clean-tape activity
-  (prints, hits on s / complement bids, volumes, price changes, distinct takers, big prints, previous window's
-  print count), Binance 1-s fair value of the TWAP-60 settlement (strike = TWAP of the 60 s before the start),
-  z, returns, realized vol, edge = fair - last clean print, window path features (edge at the first clean print,
-  running max / mean / share-positive of the edge, fair and z at 10 s), previous-window proxy outcome and strike
-  move. No own-state.
+  = presence3_rule.txt on features published by t (features2.build_panel + clock): time, side, clean-tape activity,
+  Binance 1-s fair value of the TWAP-60 settlement, z, returns, realized vol, edge = fair - last clean print, window
+  path features, previous-window proxy outcome and strike move, UTC hour, weekday, US-session flag. No own-state.
+  Baseline: presence3_activity.txt (market activity only, same BUILD). Own-inventory variant: presence3_own.txt.
 * Side (bins where it fills exactly one side): the side with the higher predicted presence.
 * Price: last clean taker print on s strictly before the fill second, minus 0.01, rounded to 0.01.
-* Selection: score each in-window taker print (except the cluster's own taker prints) with selection2_all.txt
-  (bin-level panel row of the side whose bid the print hits + print-level price, size, time, direction,
-  price minus last clean print, Binance fair - price); flag prints with score >= THETA_SEL (the BUILD top 15%).
+* Selection: R2's selection2_all.txt / THETA_SEL (unchanged).
 * Per-window rule PnL: sum over bins and sides of P(fill) * (payout_s - rule price).
 
-evaluate(start_ts, end_ts) loads [start_ts, end_ts) through the polyrea adapters (Gamma windows, data-api taker
-tapes [start-120, end) and the three wallets' activity, Binance 1-s archive), builds the features, applies the
-frozen models and returns presence / side / price / PnL / selection metrics with the market-activity-only
-baselines. Nothing is fitted here. local=True (development only) reads the day files cached by fetch_local.py
-when they exist.
+evaluate(start_ts, end_ts, intervals=None) loads [start_ts, end_ts) through the polyrea adapters (Gamma windows,
+data-api taker tapes [start-120, end) and the three wallets' activity, Binance 1-s archive), applies the frozen
+models and returns presence / side / price / PnL / selection metrics with the market-activity-only baselines, pooled
+and per wallet. With intervals (list of [a, b) pairs) only windows starting in them count. Nothing is fitted here.
+local=True (development only) reads cached day files when they exist. The rule reads no live recording;
+ALLOW_SEALED is kept for the examiner's driver.
 """
 from __future__ import annotations
 
@@ -44,9 +44,13 @@ sys.path.insert(0, str(HERE))
 from features2 import Spot, build_panel, clean_tape  # noqa: E402
 from train2 import SETS  # noqa: E402
 
-MODEL = "all_path_xwin"          # chosen on VALIDATE (iteration 2)
-BASELINE = "activity"            # market-activity-only (co-occurrence) baseline
-OWN_MODEL = "all_path_xwin+own"  # reported separately (own inventory)
+ALLOW_SEALED = False             # only the examiner's driver sets True (no live input is read by R3)
+MODEL = "rule"                   # presence3_rule.txt: R2 features + clock, refit on BUILD 2026-10-09..26 (iteration 4)
+BASELINE = "activity"            # presence3_activity.txt: market-activity-only (co-occurrence) baseline, same BUILD
+OWN_MODEL = "own"                # presence3_own.txt: reported separately (own inventory)
+CLOCK = ["hour_utc", "dow", "us_session"]
+FEATS = {"rule": SETS["all_path_xwin"] + CLOCK, "activity": SETS["activity"],
+         "own": SETS["all_path_xwin"] + CLOCK + ["inv_s", "inv_o"]}
 THETA_SEL = {"all": 0.01698130336758783, "activity": 0.01736697994132774}  # BUILD top-15% score thresholds (sel2.py fit)
 PRICE_OFFSET = 0.01
 PRE = 120
@@ -145,7 +149,32 @@ def _auc(y, s):
     return float(roc_auc_score(y[ok], np.asarray(s)[ok])) if 0 < y[ok].sum() < ok.sum() else float("nan")
 
 
-def evaluate(start_ts: int, end_ts: int, local: bool = False, n_perm: int = 99, cache_only: bool = False) -> dict:
+def _add_clock(panel: pd.DataFrame) -> pd.DataFrame:
+    t = pd.to_datetime(panel["start_ts"], unit="s")
+    panel["hour_utc"] = (t.dt.hour + t.dt.minute / 60).astype(np.float32).to_numpy()
+    panel["dow"] = t.dt.day_of_week.astype(np.int8).to_numpy()
+    panel["us_session"] = ((panel["dow"] < 5) & (panel["hour_utc"] >= 12) & (panel["hour_utc"] < 21)).astype(np.int8)
+    return panel
+
+
+def _wallet_labels(panel: pd.DataFrame, w: pd.DataFrame, mk: pd.DataFrame, wallet: str) -> np.ndarray:
+    """y for one wallet: >= 1 maker BUY fill of that wallet on the bin's side in [t, t+10)."""
+    side_of = {**{t: (c, 1, s) for t, c, s in zip(w["up_token"], w["cid"], w["start_ts"])},
+               **{t: (c, 0, s) for t, c, s in zip(w["down_token"], w["cid"], w["start_ts"])}}
+    m = mk[mk["wallet"] == wallet]
+    keys = set()
+    for tok, ts in zip(m["token_id"], m["ts"]):
+        v = side_of.get(tok)
+        if v is None:
+            continue
+        rel = int((ts - v[2]) // 10 * 10)
+        if 0 <= rel < 300:
+            keys.add((v[0], v[1], rel))
+    return np.array([(c, sd, r) in keys for c, sd, r in zip(panel["cid"], panel["side_up"], panel["rel"])], dtype=np.int8)
+
+
+def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_perm: int = 99,
+             cache_only: bool = False) -> dict:
     import lightgbm as lgb
     from scipy import stats
     if cache_only:
@@ -156,6 +185,11 @@ def evaluate(start_ts: int, end_ts: int, local: bool = False, n_perm: int = 99, 
     from train2 import side_metrics
     pm = PolymarketData()
     w = _windows(start_ts, end_ts)
+    if intervals:
+        keep = np.zeros(len(w), dtype=bool)
+        for a_, b_ in intervals:
+            keep |= (w["start_ts"].to_numpy() >= a_) & (w["start_ts"].to_numpy() < b_)
+        w = w[keep].reset_index(drop=True)
     tk = _tapes(w, pm, end_ts, local)
     spd = None
     if local and (CACHE / "spot_btc_1s.parquet").exists():
@@ -181,9 +215,10 @@ def evaluate(start_ts: int, end_ts: int, local: bool = False, n_perm: int = 99, 
     res = {"period": [start_ts, end_ts], "windows": int(panel["cid"].nunique()), "bins": int(len(panel)),
            "cluster_maker_fills": int(len(mk)), "cluster_taker_fills": int((buys["role"] == "taker").sum()),
            "tape_rows": int(len(tk)), "tape_rows_removed_cluster_tx": int(len(tk) - len(clean))}
+    panel = _add_clock(panel)
     for nm in (MODEL, BASELINE, OWN_MODEL):
-        m = lgb.Booster(model_file=str(HERE / f"presence2_{nm}.txt"))
-        panel["p_" + nm] = m.predict(panel[SETS[nm]])
+        m = lgb.Booster(model_file=str(HERE / f"presence3_{nm}.txt"))
+        panel["p_" + nm] = m.predict(panel[FEATS[nm]])
     act = panel.groupby("cid")["y"].transform("max") > 0
     res["presence"] = {"auc": _auc(panel["y"], panel["p_" + MODEL]), "auc_activity_baseline": _auc(panel["y"], panel["p_" + BASELINE]),
                        "auc_with_own_inventory": _auc(panel["y"], panel["p_" + OWN_MODEL]),
@@ -192,13 +227,21 @@ def evaluate(start_ts: int, end_ts: int, local: bool = False, n_perm: int = 99, 
     res["presence"]["gain_over_baseline"] = res["presence"]["auc"] - res["presence"]["auc_activity_baseline"]
     res["side"] = side_metrics(panel, "p_" + MODEL)
     res["side_activity_baseline"] = side_metrics(panel, "p_" + BASELINE)["acc"]
+    per_wallet = {}
+    for addr, name in CLUSTER.items():
+        yw = _wallet_labels(panel, w, mk, addr)
+        pw = panel.assign(y=yw)
+        per_wallet[name] = {"fills": int((mk["wallet"] == addr).sum()),
+                            "presence_auc": _auc(yw, panel["p_" + MODEL].to_numpy()),
+                            "presence_auc_activity_baseline": _auc(yw, panel["p_" + BASELINE].to_numpy()),
+                            "side": side_metrics(pw, "p_" + MODEL)["acc"] if yw.sum() else float("nan")}
     # price: last clean print on s strictly before the fill second - 0.01
     upset = set(w["up_token"])
     tok2cid = {**dict(zip(w["up_token"], w["cid"])), **dict(zip(w["down_token"], w["cid"]))}
     c2 = clean.merge(w[["cid", "up_token"]], on="cid")
     c2["up_px"] = np.where(c2["asset"] == c2["up_token"], c2["price"], 1 - c2["price"])
     by = {c: (g["ts"].to_numpy(), g["up_px"].to_numpy()) for c, g in c2.sort_values("ts", kind="stable").groupby("cid")}
-    pred, actual = [], []
+    pred, actual, pw_wal = [], [], []
     for r in mk.itertuples(index=False):
         cid = tok2cid.get(r.token_id)
         if cid not in by:
@@ -210,9 +253,14 @@ def evaluate(start_ts: int, end_ts: int, local: bool = False, n_perm: int = 99, 
         ls = px_[i] if r.token_id in upset else 1 - px_[i]
         pred.append(round(ls - PRICE_OFFSET, 2))
         actual.append(r.price)
+        pw_wal.append(r.wallet)
     e = np.abs(np.asarray(actual) - np.asarray(pred))
     res["price"] = {"n_fills": int(len(e)), "exact": float(np.mean(e < 0.0005)) if len(e) else float("nan"),
                     "within_0.01": float(np.mean(e <= 0.0105)) if len(e) else float("nan")}
+    pw_wal = np.asarray(pw_wal)
+    for addr, name in CLUSTER.items():
+        k = pw_wal == addr
+        per_wallet[name]["price_within_0.01"] = float(np.mean(e[k] <= 0.0105)) if k.any() else float("nan")
     # PnL per window: wallet maker fills vs the rule's expected PnL
     pay = dict(zip(w["cid"], w["up_payout"]))
     mk2 = mk.assign(c=[tok2cid.get(t) for t in mk["token_id"]], up=mk["token_id"].isin(upset))
@@ -222,6 +270,15 @@ def evaluate(start_ts: int, end_ts: int, local: bool = False, n_perm: int = 99, 
     pr["rule_pnl"] = pr["p_" + MODEL] * (pr["won_s"] - (pr["last_s"].fillna(0.5) - PRICE_OFFSET).round(2))
     j = pd.concat([wal.rename("wallet"), pr.groupby("cid")["rule_pnl"].sum().rename("rule")], axis=1).dropna()
     usd = float((mk2["price"] * mk2["shares"]).sum())
+    rule_w = pr.groupby("cid")["rule_pnl"].sum()
+    for addr, name in CLUSTER.items():
+        m2 = mk2[mk2["wallet"] == addr]
+        ww = ((m2["won"] - m2["price"]) * m2["shares"]).groupby(m2["c"]).sum()
+        jj = pd.concat([ww.rename("wallet"), rule_w.rename("rule")], axis=1).dropna()
+        per_wallet[name]["pnl_pearson"] = float(jj.corr().iloc[0, 1]) if len(jj) > 2 else float("nan")
+        per_wallet[name]["pnl_spearman"] = float(jj.corr(method="spearman").iloc[0, 1]) if len(jj) > 2 else float("nan")
+        per_wallet[name]["pnl_windows"] = int(len(jj))
+    res["per_wallet"] = per_wallet
     res["pnl"] = {"windows": int(len(j)), "pearson": float(j.corr().iloc[0, 1]) if len(j) > 2 else float("nan"),
                   "spearman": float(j.corr(method="spearman").iloc[0, 1]) if len(j) > 2 else float("nan"),
                   "wallet_maker_return_on_usd": float(((mk2["won"] - mk2["price"]) * mk2["shares"]).sum() / usd) if usd else float("nan")}
