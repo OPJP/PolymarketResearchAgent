@@ -14,143 +14,48 @@
   "note": "BUILD may be extended back in time in later iterations"
  },
  "best": {
-  "rule_id": "H30+H36 crossasset-it4b with lagged side segments (code/final_rule.py, USE_ALTS=True, ALT_SET='four', models code/model_it4b_*.txt, side model_it4b_side_lag.txt)",
+  "rule_id": "it5: block-second presence (model_it5_blk_full) + it5 side (Bybit book) + live-book price + B1 ladder check (code/final_rule.py)",
   "validate_metrics": {
-   "presence_auc": 0.9132,
-   "presence_auc_taker": 0.9187,
-   "presence_auc_maker": 0.8832,
-   "presence_by_wallet": {
-    "GF": 0.9119,
-    "XM": 0.9242,
-    "DS": 0.901
-   },
-   "at_p0.30": {
-    "recall": 0.6401,
-    "lift": 4.303,
-    "flag_share": 0.1487,
-    "p_value": 0.0
-   },
-   "co_occurrence_baseline_auc": 0.8889,
-   "gain_over_baseline": 0.0243,
-   "with_own_state_auc": 0.9242,
-   "iteration3_rule_auc_same_rows": 0.9095,
-   "eth_only_rule_auc": 0.9127,
-   "side_accuracy_any": 0.7546,
-   "side_accuracy_taker": 0.7816,
-   "side_accuracy_without_lag_segments": 0.7526,
-   "side_lag_mcnemar": {
-    "lag_only_right": 2181,
-    "it4b_only_right": 2003,
-    "p": 0.006205126769330573
-   },
-   "side_accuracy_six_series_flat": 0.6762,
-   "side_accuracy_moving": 0.7797,
-   "side_share_six_series_flat": 0.2616,
-   "side_it3s_same_rows": 0.7317,
-   "side_eth_only": 0.75,
-   "side_mcnemar_vs_it3s": {
-    "it4_only_right": 5757,
-    "it3s_only_right": 3875,
-    "p": 2.1766416852288028e-82
-   },
-   "side_market_only_baseline": 0.6323,
-   "side_favourite_baseline": 0.459,
-   "outcome": {
-    "primary": "shares",
-    "shares": {
-     "pnl_corr_pearson": 0.4393,
-     "pnl_corr_spearman": 0.4137,
-     "net_position_corr": 0.4672,
-     "rule_return": -0.0146
-    },
-    "netflow": {
-     "pnl_corr_pearson": 0.4344,
-     "pnl_corr_spearman": 0.412,
-     "net_position_corr": 0.4581,
-     "rule_return": 0.0486
-    },
-    "soft_side": {
-     "pnl_corr_pearson": 0.4258,
-     "pnl_corr_spearman": 0.4087,
-     "net_position_corr": 0.4448,
-     "rule_return": -0.0004
-    },
-    "soft_side_it3s_same_pipeline": {
-     "pnl_corr_pearson": 0.4359,
-     "pnl_corr_spearman": 0.4179,
-     "net_position_corr": 0.4513,
-     "rule_return": -0.0045
-    },
-    "window_total_shares_corr": 0.8747,
-    "wallet_return_before_rebates": 0.0017,
-    "net_position_diagnostic": {
-     "windows": 2016,
-     "corr_window_up_shares_model": 0.7757,
-     "corr_window_down_shares_model": 0.7714,
-     "corr_window_total_shares_model": 0.7854,
-     "net_share_of_gross_median": 0.1197,
-     "model_vol_x_model_side": 0.4444,
-     "oracle_vol_x_model_side": 0.5546,
-     "model_vol_x_oracle_side": 0.5478,
-     "model_vol_x_sharp_model_side": 0.4253,
-     "oracle_vol_x_sharp_model_side": 0.4707,
-     "netflow_model": 0.4583,
-     "share_of_abs_net_from_two_sided_seconds": 0.4047,
-     "share_of_gross_in_two_sided_seconds": 0.3387
-    },
-    "strict_fill_backtest": {
-     "windows": 2015,
-     "rule_fills": 60466,
-     "rule_windows_traded": 1979,
-     "rule_usd": 261550.5,
-     "rule_pnl_before_rebates": -4229.1,
-     "rule_return_before_rebates": -0.0162,
-     "rule_fee_usd": 8931.1,
-     "rule_return_with_50pct_fee_rebate": 0.0009,
-     "per_window_pnl_corr_pearson": 0.1755,
-     "per_window_pnl_corr_spearman": 0.1692,
-     "wallet_return_before_rebates": 0.0017,
-     "note": "observed-liquidity strict fills, latency >= 2 s after the information horizon, capture 1.0 (upper bound), 30-share orders, taker only"
-    }
-   },
-   "selection": {
-    "taker_prints": 2735396,
-    "cluster_share": 0.0539,
-    "rule": {
-     "auc_pooled": 0.8693,
-     "auc_within_window": 0.8635,
-     "at_preregistered_flag": {
-      "recall": 0.6858,
-      "lift": 4.625,
-      "flag_share": 0.1483,
-      "p_value": 0.0
-     }
-    },
-    "co_occurrence_baseline": {
-     "auc_pooled": 0.852,
-     "auc_within_window": 0.8452,
-     "at_preregistered_flag": {
-      "recall": 0.6405,
-      "lift": 4.779,
-      "flag_share": 0.134,
-      "p_value": 0.0
-     }
-    },
-    "size_classes_only": {
-     "full_only": {
-      "recall": 0.5244,
-      "lift": 8.31,
-      "flag_share": 0.0631,
-      "p_value": 0.0
+   "presence_auc": 0.8747,
+   "presence_baseline": 0.8193,
+   "selection_auc": 0.8693,
+   "selection_recall": 0.6858,
+   "selection_lift": 4.625,
+   "selection_baseline": 0.8461,
+   "side_accuracy": 0.7666,
+   "side_baseline": 0.6323,
+   "price_within_tick": 0.532,
+   "pnl_corr_pearson": 0.1755,
+   "pnl_corr_spearman": 0.1692,
+   "coverage_fills": 1.0,
+   "coverage_abs_pnl": 1.0,
+   "presence_gain_over_pure_baseline": 0.0554,
+   "presence_all_seconds": 0.9132,
+   "presence_all_seconds_pure": 0.8781,
+   "decision_aligned_presence": {
+    "base_rate": 0.10737,
+    "auc_full": 0.907,
+    "auc_pure": 0.8717,
+    "auc_old_mkt": 0.8818,
+    "gain_full_over_pure": 0.0353,
+    "gain_full_over_old_mkt": 0.0252,
+    "by_wallet": {
+     "GF": {
+      "full": 0.9038,
+      "pure": 0.859
      },
-     "full_or_partial": {
-      "recall": 0.7354,
-      "lift": 3.04,
-      "flag_share": 0.2419,
-      "p_value": 0.0
+     "XM": {
+      "full": 0.9131,
+      "pure": 0.8573
+     },
+     "DS": {
+      "full": 0.8954,
+      "pure": 0.8621
      }
     }
-   }
+   },
+   "b1_share_in_bursts": 0.999,
+   "price_live_within_tick_n277": 0.9321
   }
  },
  "hypotheses": [
@@ -1727,6 +1632,297 @@
     "lag_gain_share": 0.1058
    },
    "verdict": "rejected: no material gain: 0.7546 vs 0.7526"
+  },
+  {
+   "id": "H38",
+   "family": "order generation (B1 calldata)",
+   "description": "Orders are pre-signed in bursts (1-cent BUY ladder, both outcomes, copies, two sizes) at rel -89.5/+42/+173 s; submission is the decision",
+   "validate_metrics": {
+    "orders": 13443,
+    "share_in_bursts": 0.999,
+    "gap_median_s": 71.5,
+    "gap_99pct_s": 133
+   },
+   "verdict": "supported (deterministic, 100% of 1,514 orders in the end-to-end check)"
+  },
+  {
+   "id": "H39",
+   "family": "wallet coordination (C1)",
+   "description": "One process signs the wallets sequentially (XM, DS +1.06 s, GF +2.17 s); fourth wallet 0xd84403ef... with the same fingerprint",
+   "validate_metrics": {
+    "fourth_wallet_fills_in_sampled_hour": 344
+   },
+   "verdict": "supported"
+  },
+  {
+   "id": "H40",
+   "family": "baseline correction",
+   "description": "Pure market-activity baseline (no Binance FV gaps or spot-since-print)",
+   "validate_metrics": {
+    "pure_baseline": 0.8781,
+    "gain": 0.0351,
+    "selection_pure_baseline": 0.8461,
+    "selection_gain": 0.0232
+   },
+   "verdict": "measurement fixed; gain +0.035 < 0.05"
+  },
+  {
+   "id": "H41",
+   "family": "D1 decision-aligned presence",
+   "description": "Label = fill at block second s+k from cell-s features (k=1: horizon at the decision time)",
+   "validate_metrics": {
+    "base_rate": 0.10737,
+    "auc_full": 0.907,
+    "auc_pure": 0.8717,
+    "auc_old_mkt": 0.8818,
+    "gain_full_over_pure": 0.0353,
+    "gain_full_over_old_mkt": 0.0252,
+    "by_wallet": {
+     "GF": {
+      "full": 0.9038,
+      "pure": 0.859
+     },
+     "XM": {
+      "full": 0.9131,
+      "pure": 0.8573
+     },
+     "DS": {
+      "full": 0.8954,
+      "pure": 0.8621
+     }
+    }
+   },
+   "verdict": "rejected as a gain: +0.0353 (k=1) vs +0.0351 (k=0), +0.020 (k=2)"
+  },
+  {
+   "id": "H42",
+   "family": "perp order book (A3, Bybit orderbook.200)",
+   "description": "Bybit perp top-of-book features in the side model",
+   "validate_metrics": {
+    "side": 0.7666,
+    "without": 0.7546,
+    "mcnemar_p": 1e-32
+   },
+   "verdict": "supported (+1.2 points); in the frozen side model"
+  },
+  {
+   "id": "H43",
+   "family": "perp order book in presence (X6)",
+   "description": "Bybit perp book features in the presence model",
+   "validate_metrics": {
+    "auc_full_plus_book": 0.9134,
+    "auc_full": 0.9132,
+    "auc_pure_baseline": 0.8781
+   },
+   "verdict": "rejected (+0.0002)"
+  },
+  {
+   "id": "H44",
+   "family": "time stop vs price range (B3b)",
+   "description": "Activity taper at 240-270 s = price leaving the ladder range; true stop ~270-290 s",
+   "validate_metrics": {
+    "fill_rate_given_mid_240_270": 0.33,
+    "fill_rate_given_mid_0_15": 0.11,
+    "fill_rate_given_mid_285_300": 0.07
+   },
+   "verdict": "supported"
+  },
+  {
+   "id": "H45",
+   "family": "rewards / merges / holding (B4, B7, B8)",
+   "description": "Non-trade activity types",
+   "validate_metrics": {
+    "REWARD": 0,
+    "YIELD": 0,
+    "MERGE": 0,
+    "SPLIT": 0,
+    "CONVERSION": 0
+   },
+   "verdict": "ruled out"
+  },
+  {
+   "id": "H46",
+   "family": "live lab: limit vs recorded touch; match latency",
+   "description": "Taker limit vs the recorded best ask just before the match; match -> block",
+   "validate_metrics": {
+    "T_n": 277,
+    "T_limit_within_tick_share": 0.7962264150943397,
+    "T_limit_eq_ask_share": 0.4188679245283019,
+    "T_match_to_block_q": {
+     "0.05": 1.282,
+     "0.1": 1.547,
+     "0.25": 1.827,
+     "0.5": 2.214,
+     "0.75": 2.579,
+     "0.9": 2.999,
+     "0.95": 3.261
+    }
+   },
+   "verdict": "consistent with 'at the touch' (small n; T12 file unreadable after 12:24:51)"
+  },
+  {
+   "id": "H47",
+   "family": "live lab: trigger lead-lag (Chainlink RTDS, Binance futures, ETH, tape, book)",
+   "description": "Event study at the bot's match times vs placebo",
+   "validate_metrics": {
+    "bnf_[-2000,0)ms_bot": {
+     "agree": 0.6667,
+     "n_moved": 66,
+     "n": 265
+    },
+    "bnf_[-2000,0)ms_placebo": {
+     "agree": 0.5758,
+     "n_moved": 33,
+     "n": 265
+    },
+    "chainlink_[-3000,0)ms_bot": {
+     "agree": 0.5354,
+     "n_moved": 226,
+     "n": 265
+    },
+    "chainlink_[-3000,0)ms_placebo": {
+     "agree": 0.5044,
+     "n_moved": 226,
+     "n": 265
+    },
+    "bot_since_any_other_trade_s": {
+     "0.1": 0.008,
+     "0.25": 0.022,
+     "0.5": 0.09,
+     "0.75": 0.294,
+     "0.9": 0.714
+    },
+    "bot_since_any_other_trade_s_share_lt_0.5s": 0.8528301886792453,
+    "bot_since_any_other_trade_s_share_lt_2s": 0.9849056603773585,
+    "placebo_since_any_other_trade_s": {
+     "0.1": 0.032,
+     "0.25": 0.095,
+     "0.5": 0.272,
+     "0.75": 0.662,
+     "0.9": 1.568
+    },
+    "placebo_since_any_other_trade_s_share_lt_0.5s": 0.6641509433962264,
+    "placebo_since_any_other_trade_s_share_lt_2s": 0.9283018867924528,
+    "bot_since_other_trade_same_price_s": {
+     "0.1": 0.016,
+     "0.25": 0.068,
+     "0.5": 0.257,
+     "0.75": 1.627,
+     "0.9": 9.633
+    },
+    "bot_since_other_trade_same_price_s_share_lt_0.5s": 0.6086956521739131,
+    "bot_since_other_trade_same_price_s_share_lt_2s": 0.7628458498023716,
+    "ask_change_1s_bot": {
+     "down": 0.294,
+     "up": 0.596,
+     "n": 265
+    },
+    "ask_change_1s_placebo": {
+     "down": 0.211,
+     "up": 0.249,
+     "n": 261
+    }
+   },
+   "verdict": "suggestive, small n"
+  },
+  {
+   "id": "H48",
+   "family": "copy trading, strong form (C2)",
+   "description": "Does one wallet lead the cluster's taker orders with a fixed lag / size ratio?",
+   "validate_metrics": {
+    "orders": 21863,
+    "wallets": 246,
+    "top_same_second_share": 0.123,
+    "top_wallet": "0xd84403ef (sibling)"
+   },
+   "verdict": "rejected: co-racers (incl. the sibling), no leader"
+  },
+  {
+   "id": "H49",
+   "family": "live price rule (frozen code)",
+   "description": "Fill price = recorded best ask 50 ms before the recorded match",
+   "validate_metrics": {
+    "n": 95,
+    "within_tick": 0.9667,
+    "exact": 0.8667,
+    "fixed_lag_block_minus_2s": 0.6526
+   },
+   "verdict": "supported on the 10-31 13:00 development block (small n)"
+  },
+  {
+   "id": "H50",
+   "family": "operational outages (A8) and versions (C4)",
+   "description": "Whole-cluster gaps and config changes at restarts",
+   "validate_metrics": {
+    "empty_windows": 292,
+    "gaps_3_5h": 4,
+    "size_change_at_restart": "10-19 13:40: large 50 -> 100"
+   },
+   "verdict": "measured"
+  },
+  {
+   "id": "H51",
+   "family": "presence unit = Polygon block seconds (D1)",
+   "description": "1 second in 3 has no block (1.5-s blocks) and cannot hold a fill; chain clock fitted per hour; models retrained on BUILD block seconds",
+   "validate_metrics": {
+    "auc_full": 0.8747,
+    "auc_pure": 0.8193,
+    "gain": 0.0554,
+    "ci95": [
+     0.0524,
+     0.0582
+    ],
+    "halves_gain": [
+     0.0546,
+     0.055
+    ],
+    "positives_outside": 0
+   },
+   "verdict": "supported: presence condition (AUC >= 0.85, gain >= 0.05, CI > 0) holds on VALIDATE with my baseline"
+  },
+  {
+   "id": "H52",
+   "family": "live trigger at ms resolution (A1/A3/A7/X8/X11)",
+   "description": "Event study at 265 recorded matches (10-31 13:00-13:22)",
+   "validate_metrics": {
+    "bnf_trades_1s": [
+     0.857,
+     42
+    ],
+    "eth_trades_1s": [
+     0.866,
+     67
+    ],
+    "bnf_quotes_1s": [
+     0.842,
+     19
+    ],
+    "eth_quotes_1s": [
+     0.778,
+     27
+    ],
+    "chainlink_1s": [
+     0.505,
+     212
+    ],
+    "ask_rose_1s": [
+     0.596,
+     0.249
+    ],
+    "ask_rise_with_trade_vs_no_trade": [
+     101,
+     14
+    ],
+    "within_0.5s_after_other_trade": [
+     0.853,
+     0.664
+    ],
+    "btc15m_mid_1s": [
+     0.659,
+     88
+    ]
+   },
+   "verdict": "supported: futures/ETH moves in the last second drive the side when present; Chainlink 1-s price carries nothing; most orders sit in bursts of other takers lifting the same asks"
   }
  ],
  "data_sources": [
@@ -1745,7 +1941,13 @@
   "Iteration 3: Kraken XBTUSD REST trades (paged by time) for 6 sampled VALIDATE hours (.cache/re/btc5m-bot/venues/kraken)",
   "Iteration 4: Binance USD-M ETHUSDT, SOLUSDT, XRPUSDT, DOGEUSDT perpetual aggTrades daily archives (checksummed) 2026-10-09..10-22 (.cache/re/btc5m-bot/venues/{eth,sol,xrp,doge}fut)",
   "Iteration 4: Coinbase BTC-USD trades (Advanced Trade public market-trades, time-bounded start/end) and Deribit BTC-PERPETUAL trades (history.deribit.com, time-bounded), 12 sampled VALIDATE hours",
-  "Iteration 4: OKX ETH-USDT-SWAP, Binance ETHUSDT spot aggTrades, Bybit ETHUSDT spot daily archives for 2026-10-19 and 10-21 (OKX files are UTC+8 days)"
+  "Iteration 4: OKX ETH-USDT-SWAP, Binance ETHUSDT spot aggTrades, Bybit ETHUSDT spot daily archives for 2026-10-19 and 10-21 (OKX files are UTC+8 days)",
+  "Iteration 5: V2 matchOrders calldata (batched eth_getTransactionByHash) for 17,709 cluster txs in 11 sampled hours (decoded orders only: .cache/re/btc5m-bot/calldata_sample.parquet) + the development blocks after T0",
+  "Iteration 5: cluster OrderFilled logs for development blocks after T0 (10-31 00:00-06:00: 9,420 fills; 12:00-13:00) (.cache/re/btc5m-bot/post/)",
+  "Iteration 5: live lab (tools/live.py iter_live, dev blocks only): clob_crypto books/trades and RTDS Chainlink from 10-31 12:14 UTC",
+  "Iteration 5: Binance USD-M BTCUSDT / ETHUSDT aggTrades REST for the 10-31 12:00-13:00 development block",
+  "Iteration 5: data-api activity (types REWARD, MAKER_REBATE, MERGE, REDEEM, SPLIT, CONVERSION, YIELD), VALIDATE week",
+  "Iteration 5: Bybit BTCUSDT perp orderbook.200 daily archives (quote-saver.bycsi.com) 10-09..10-22, reduced to 100-ms buckets"
  ],
  "iterations": [
   {
@@ -1818,10 +2020,311 @@
     "decision-time alignment (lagged segments)",
     "strict-fill backtest"
    ]
+  },
+  {
+   "n": 5,
+   "minutes": 76.0,
+   "best_validate_score": 0.9132,
+   "pure_baseline": 0.8781,
+   "gain": 0.0351,
+   "block_seconds_presence": 0.8747,
+   "block_seconds_pure_baseline": 0.8193,
+   "block_seconds_gain": 0.0554,
+   "side_accuracy": 0.7666,
+   "price_live_within_tick": 0.9321,
+   "families": [
+    "presence unit = Polygon block seconds (chain clock)",
+    "B1 calldata order reconstruction (pre-signed ladder)",
+    "C2 copy trading strong form",
+    "A8 outages",
+    "live Binance futures quote recorder",
+    "C1 wallet coordination + fourth wallet",
+    "baseline correction (pure market)",
+    "D1 decision-aligned presence",
+    "A3 perp order book (Bybit) in side and presence",
+    "B3b time stop vs price range",
+    "B4/B7/B8 activity types",
+    "A7 live lab books + RTDS + Binance REST"
+   ]
   }
  ],
- "frozen_rule": "code/final_rule.py (iteration 4: USE_VENUES=True, SIX_SERIES=True, USE_ALTS=True, ALT_SET='four'; models model_it4b_*.txt; side model_it4b_side_lag.txt; outcome primary = shares)",
+ "frozen_rule": "code/final_rule.py (iteration 5: it4b presence models, side model_it5_side_book.txt, decision-aligned presence model_it5_dp_k1_*.txt with the pure baseline, live-book price when recordings exist, B1 ladder check)",
  "target_reached": false,
  "status": "continue",
- "wall_reason": ""
+ "wall_reason": "",
+ "brief_version": "2026-10-31",
+ "sealed_from": {
+  "H": 1792713600,
+  "T0": 1793404800,
+  "released_lots": [],
+  "future_sealed_examined_until": "2026-10-31T00:00:00Z",
+  "calendar": "research/reverse_engineering/tools/sealed.py (key btc5m-bot)",
+  "development_after_H_used": [
+   [
+    1793404800,
+    1793426400
+   ],
+   [
+    1793448000,
+    1793453894
+   ]
+  ]
+ },
+ "live_lab": [
+  {
+   "what": "Binance USD-M futures BTCUSDT + ETHUSDT bookTicker (price changes only) via tools/live.py Writer, feed btc5m_bnfut (code/rec_binance_fut.py; status file .cache/re/btc5m-bot/rec_binance_fut.status)",
+   "start": 1793452284,
+   "end": 1793488284
+  }
+ ],
+ "catalog": {
+  "A1": {
+   "status": "tried",
+   "evidence": "Strike = 60-s TWAP before the open (iteration 1: MT limit prices corr 0.91 with a TWAP-strike FV vs 0.69 open-price strike). Live RTDS Chainlink price + 60-s TWAP recorded from 10-31 12:14 UTC; lead-lag of the bot's match times vs Chainlink 1-s moves in results_live_trigger_iter5.json (small n). Historical Chainlink stream unavailable (data.chain.link 429 per brief)."
+  },
+  "A1_B3b": {
+   "status": "tried",
+   "evidence": "Timing: fill rate given a mid-range price RISES through 240-270 s (0.32-0.34 per cell) and stops at 270-290 s; the 240-270 s taper is the price leaving the ladder range (mid-range share 8%), not a stop at the TWAP minute. Side vs the partly observed settlement TWAP needs the live RTDS series (open: only ~1 h recorded)."
+  },
+  "A2": {
+   "status": "tried",
+   "evidence": "Binance spot 1 s + aggTrades ms, Bybit spot, OKX spot, Coinbase (Advanced Trade time-bounded), Kraken (time-paged): in the frozen rule (six-series composite) or rejected with agreement numbers (H15, H25, H27)."
+  },
+  "A3": {
+   "status": "tried",
+   "evidence": "Perp trades: Binance USD-M, OKX swap, Bybit perp, Deribit perp (H16, H20, H22, H27). Perp order book: Bybit orderbook.200 archive (iteration 5: side 75.46% -> 76.66%, McNemar p 1e-32) and Tardis first-of-month samples (book imbalance agrees 64-70%). Funding/liquidations and options not tested (see X7)."
+  },
+  "A4": {
+   "status": "tried",
+   "evidence": "ETH, SOL, XRP, DOGE perps (H28-H31): side +2.1 points, presence +0.004; ETH leads BTC at 0.5 s. Overlapping Polymarket 15m/1h/4h BTC windows: not tested (see X8)."
+  },
+  "A4b": {
+   "status": "open",
+   "evidence": "Kalshi BTC 15m/hourly and Polymarket Perps not fetched yet."
+  },
+  "A5": {
+   "status": "not_applicable",
+   "evidence": "Crypto Up/Down only (100% of fills on BTC 5m tokens); no sports/esports markets."
+  },
+  "A6": {
+   "status": "not_applicable",
+   "evidence": "Trades every BTC 5m window (94-99% of windows, all hours and weekdays); no event markets."
+  },
+  "A6b": {
+   "status": "not_applicable",
+   "evidence": "No FOMC/event markets traded."
+  },
+  "A7": {
+   "status": "tried",
+   "evidence": "Tape (data-api) in every model; live CLOB books (clob_crypto, development block 10-31 12:14-13:00) against the bot's match times: results_live_lab_iter5.json / results_live_trigger_iter5.json. prices-history endpoint not used (minute resolution)."
+  },
+  "A8": {
+   "status": "tried",
+   "evidence": "Whole-cluster outages measured: 292 of 4,032 windows without fills, mostly 3-5 h gaps (10-09 09:35, 10-11 12:35, 10-12 09:15, 10-21 07:15) and 40-75 min gaps; the 10-19 13:40 restart changed the large size 50 -> 100. Not yet matched to public Polymarket incidents (C4b); tick-size changes logged live from 10-31."
+  },
+  "B1": {
+   "status": "tried",
+   "evidence": "17,709 txs / 57,966 decoded orders (11 sampled hours) + live block: every cluster order PRE-SIGNED in 3 bursts per window (rel -89.5, +42.0, +172.7 s), 1-cent BUY ladder on both outcomes, copies per level, two sizes; signed 4-136 s before use; TS clob-client salt; one process signs XM -> DS -> GF (+1.06 s, +2.17 s). results_b1_iter5.json, results_b1_ladder_iter5.json."
+  },
+  "B2": {
+   "status": "tried",
+   "evidence": "Order kinds from calldata: pure taker 72%, take-then-rest 12%, pure resting 15%; resting remainders are ladder orders submitted at the ask that lost the race (iteration 1 lost-race test 69-83%); signing time is not placement time (pre-signed), so resting lifetime is bounded by first fill - match; cancellations not observable historically."
+  },
+  "B3": {
+   "status": "tried",
+   "evidence": "Limit prices are the touch (pre-signed ladder at the ask), not FV + spread: MT limits equal the taker fill price in 93%; live: limit vs recorded ask at the match (results_live_lab_iter5.json). FV-minus-ask at the bot's orders vs placebo in results_live_trigger_iter5.json."
+  },
+  "B4": {
+   "status": "ruled_out",
+   "evidence": "No MERGE/SPLIT/CONVERSION activity in the VALIDATE week for any wallet; REDEEM once per window; pairing rejected (H18)."
+  },
+  "B5": {
+   "status": "tried",
+   "evidence": "Own-state inventory adds +0.011 presence AUC; inventory balancing as the side rule rejected (H12)."
+  },
+  "B6": {
+   "status": "tried",
+   "evidence": "Edge decomposition (iteration 2): taker-quiet volume loses ~0.9 c/share before rebates; MAKER_REBATE rows daily, week totals GF $1,057 / XM $318 / DS $1,678; the taker-fee rebate is not an activity row."
+  },
+  "B7": {
+   "status": "ruled_out",
+   "evidence": "No REWARD activity rows for any wallet in the VALIDATE week."
+  },
+  "B8": {
+   "status": "ruled_out",
+   "evidence": "No YIELD (holding reward) rows; it holds to resolution only."
+  },
+  "B9": {
+   "status": "open",
+   "evidence": "Maker rebate pool share per market not computed (maker rebates ~$3.1k/week)."
+  },
+  "C1": {
+   "status": "tried",
+   "evidence": "Three wallets = one process (signing bursts staggered XM -> DS -> GF); owner() EOAs differ (no common key). NEW fourth wallet 0xd84403efd50b49a1d8a7181627e00307e6ea5908 with the same fingerprint and schedule (+3-4 s after GF), 344 fills in a sampled VALIDATE hour, all BTC 5m BUYs."
+  },
+  "C2": {
+   "status": "tried",
+   "evidence": "Strong form (c2_copy.py, 300 VALIDATE windows, 21,863 cluster taker orders, 246 wallets): no leader; top co-occurrence is the fourth sibling wallet (same outcome, same block second before 12.3% of orders, placebo 2.8%) and ~5 fast wallets (~10% same-second); <= 35% preceded at 2-10 s by any wallet (placebo 15-20%), no fixed lag or size ratio. Live: its match comes a median 80 ms after another trade; others' signed flow in the last 0.1-2 s agrees with its side only 53-62%."
+  },
+  "C3": {
+   "status": "tried",
+   "evidence": "VALIDATE hit logs: 92% of hit makers are complementary BUY orders; 2,523 makers, top-10 = 25% of shares (not concentrated)."
+  },
+  "C4": {
+   "status": "tried",
+   "evidence": "Size regimes by day decoded from calldata (60/100 -> 30/50 -> 50/30/200 -> 30/100); no formal change-point model over the whole history (see X9)."
+  },
+  "C4b": {
+   "status": "open",
+   "evidence": "Change points not yet matched to Polymarket announcements."
+  },
+  "C5": {
+   "status": "tried",
+   "evidence": "Hour-of-day: moving-regime share highest 12-16 UTC; weekends ~half the orders; scheduled ladder bursts at fixed window-relative times (machine, not human)."
+  },
+  "C6": {
+   "status": "not_applicable",
+   "evidence": "BTC 5m Up/Down binary markets; the bot only sends BUY limit orders through matchOrders (no combo/RFQ flow in its calldata)."
+  },
+  "C7": {
+   "status": "tried",
+   "evidence": "Cluster-vs-cluster fills 0.2%, shared txs 0.7%; fourth wallet trades against the cluster in 0.6% of its fills."
+  },
+  "C8": {
+   "status": "tried",
+   "evidence": "salt/timestamp uniform on [0,1] = round(Math.random()*Date.now()) (TypeScript clob-client); builder = metadata = 0; signatureType 3, 317-byte signatures; fixed sizes; pre-signed 1-cent ladders on a ~131.5-s schedule. Public GitHub bot search not done (see X10)."
+  },
+  "D1": {
+   "status": "tried",
+   "evidence": "Block seconds as the presence unit (1 s in 3 holds no Polygon block): 0.8747 vs pure baseline 0.8193 (+0.055, CI [0.052, 0.058]); decision-aligned label (s+1): no extra gain; per-order units from calldata."
+  },
+  "D2": {
+   "status": "open",
+   "evidence": "Hazard / HMM / symbolic models not tried; LightGBM only."
+  },
+  "D3": {
+   "status": "tried",
+   "evidence": "Strict-fill replay (latency >= 2 s, observed liquidity): -1.6% before rebates, per-window PnL corr 0.18."
+  },
+  "D4": {
+   "status": "tried",
+   "evidence": "PnL by regime and role (iteration 2); rebates."
+  },
+  "X1": {
+   "status": "tried",
+   "source": "dossier reviewer lead 2026-10-31: decode V2 calldata first",
+   "evidence": "Done (B1): pre-signed ladder decoded."
+  },
+  "X2": {
+   "status": "tried",
+   "source": "dossier reviewer lead 2026-10-31: last-60-second settlement-TWAP lock-in (fills taper 240-270 s)",
+   "evidence": "Taper explained by the ladder price range; activity given mid-range prices peaks at 240-270 s (A1_B3b)."
+  },
+  "X3": {
+   "status": "tried",
+   "source": "dossier reviewer lead 2026-10-31: fixed 30/50/60 sizes and salt pattern as a public bot template fingerprint",
+   "evidence": "Salt = TS clob-client generator; sizes per day/wallet; GitHub template search still open (X10)."
+  },
+  "X4": {
+   "status": "tried",
+   "source": "dossier reviewer lead 2026-10-31: presence AUC 0.913 vs activity baseline 0.889 is the real gap",
+   "evidence": "Baseline was contaminated with Binance FV gaps; pure baseline 0.878, gain +0.035 (still < 0.05)."
+  },
+  "X5": {
+   "status": "open",
+   "source": "iteration 5 (self): remove the fourth sibling wallet's prints from the market-activity features and add it to the cluster definition",
+   "evidence": "Needs BUILD tapes re-fetched."
+  },
+  "X6": {
+   "status": "tried",
+   "source": "iteration 5 (self): Bybit perp book features in the PRESENCE model (only in the side model so far)",
+   "evidence": "presence_book.py: 0.9134 vs 0.9132 without (all seconds; pure baseline 0.8781): no gain (book share of gain 2.6%); kept in the side model only."
+  },
+  "X7": {
+   "status": "open",
+   "source": "catalog A3 remainder: funding, liquidations, Deribit options",
+   "evidence": ""
+  },
+  "X8": {
+   "status": "tried",
+   "source": "catalog A4 remainder: overlapping Polymarket BTC 15m/1h/4h windows (recorded live in clob_crypto)",
+   "evidence": "Live (265 matches, 10-31 13:00-13:22): the BTC 15m Up mid moved toward the bought side in the last 1 s before 66% of the 88 matches where it moved (placebo 54%), over 3 s 47%: no more than the common BTC driver already gives (futures trades 86% when they moved); 1h/4h not tested."
+  },
+  "X9": {
+   "status": "open",
+   "source": "catalog C4: change-point detection over the full history (back to July, V1 exchange)",
+   "evidence": ""
+  },
+  "X10": {
+   "status": "open",
+   "source": "catalog C8: public GitHub Polymarket bots with pre-signed ladder / 131-s re-sign schedule",
+   "evidence": "One web search (2026-10-31): no public template with window-locked pre-signed 1-cent ladders found; the official TS SDK supports posting pre-signed orders (postOrder / postOrders, up to 15 per batch); a public TS Up/Down bot repo (github.com/lorine93s/dfdsf, clob-client-v2) does not describe pre-signing; code not reviewed yet."
+  },
+  "X11": {
+   "status": "tried",
+   "source": "iteration 5 (self, live lab): trigger of the quiet orders = venue QUOTE changes (Binance futures bookTicker, recorded from 10-31 13:11 by code/rec_binance_fut.py) at ms resolution vs the bot's recorded match times",
+   "evidence": "65 covered matches (13:11-13:22): BTC futures bookTicker mid moved in the last 1 s before 19 (agree 84%, placebo 50%), ETH 27 (78%, placebo 64%); most covered orders had NO futures quote change in the last second (Saturday). Keep recording; extend to OKX/Bybit quotes."
+  },
+  "X12": {
+   "status": "open",
+   "source": "iteration 5 (self): historical ms-resolution decision times of OTHER traders from their calldata signing times (non-ladder traders sign at submission: median sign-to-block 3.1 s) to rebuild the race order within blocks",
+   "evidence": ""
+  }
+ },
+ "components": {
+  "selection": {
+   "confidence": 0.85,
+   "tag": "VALIDATE-only",
+   "description": "Every BTC 5m Up/Down window (94-99% traded, all wallets in the same windows), nothing else; inside a window only prices in the ladder range ~0.12-0.88."
+  },
+  "timing": {
+   "confidence": 0.65,
+   "tag": "VALIDATE-only",
+   "description": "Orders are pre-signed in 3 bursts per window (rel -89.5/+42.0/+172.7 s, decoded exactly from calldata); the decision is the submission, within ~1 s of a move of a multi-venue/multi-asset BTC composite (live: BTC/ETH futures trade or quote moves in the last 1 s agree 78-87% when present) and inside bursts of other takers lifting the same asks; matches ~2.2 s before its block; activity given mid-range prices rises through the window and stops ~270-290 s. Presence on block seconds 0.875 vs pure market baseline 0.819 (+0.055, CI [0.052, 0.058])."
+  },
+  "side": {
+   "confidence": 0.55,
+   "tag": "VALIDATE-only",
+   "description": "Per second: the outcome toward which the composite (BTC venues, ETH/alt perps, Bybit perp book imbalance) just moved, 76.7% of one-sided seconds (taker 79.4%); both outcomes in 99.8% of windows (no window-level side)."
+  },
+  "price": {
+   "confidence": 0.85,
+   "tag": "VALIDATE-only",
+   "description": "Limit = the best ask of the chosen outcome at the decision instant, implemented by submitting the pre-signed 1-cent ladder order at that price; never sweeps; remainder rests at that price (its only maker activity). Live development block (frozen code, 95 taker orders): fill price = recorded ask 50 ms before the match in 86.7%, within one tick 96.7%; historically (no book) 53% within a tick of the last implied ask."
+  },
+  "size": {
+   "confidence": 0.7,
+   "tag": "VALIDATE-only",
+   "description": "Fixed (small, large) menu per day signed at every price (60/100, 30/50, 30/100); large share is a per-wallet setting (DS 5%, GF 30%, XM 32%), weakly higher after big moves."
+  },
+  "exit": {
+   "confidence": 0.9,
+   "tag": "VALIDATE-only",
+   "description": "Holds to resolution; no sells, merges, splits or conversions; one REDEEM per window; daily MAKER_REBATE (~$3.1k/week); no liquidity or holding rewards."
+  }
+ },
+ "strategy_statement": "One operator runs a TypeScript clob-client bot on (at least) four wallets [VALIDATE-only]. For every BTC 5-minute Up/Down window it pre-signs a full ladder of BUY limit orders on both outcomes at every cent, in bursts 90 s before the open and again at +42 s and +173 s, signing the wallets one after another [VALIDATE-only, decoded from calldata]. When BTC (on Binance, OKX, Bybit; or ETH and other coins that lead it) moves in the last second or two, it submits the pre-signed order at the current best ask of the outcome the move favours [VALIDATE-only], racing other latency takers; an unfilled remainder rests at that price [VALIDATE-only]. Sizes come from a fixed daily menu (mostly 30 shares, some 60/100) [VALIDATE-only]. It buys both outcomes in almost every window and holds everything to resolution, redeeming winners [VALIDATE-only]. It earns the latency edge after clear moves plus fee rebates on its large volume [VALIDATE-only]; its quiet-period volume roughly breaks even [VALIDATE-only]. Nothing is exam-verified yet.",
+ "target_metrics": {
+  "presence_auc": 0.8747,
+  "presence_baseline": 0.8193,
+  "selection_auc": 0.8693,
+  "selection_recall": 0.6858,
+  "selection_lift": 4.625,
+  "selection_baseline": 0.8461,
+  "side_accuracy": 0.7666,
+  "side_baseline": 0.6323,
+  "price_within_tick": 0.532,
+  "pnl_corr_pearson": 0.1755,
+  "pnl_corr_spearman": 0.1692,
+  "coverage_fills": 1.0,
+  "coverage_abs_pnl": 1.0
+ },
+ "target_metrics_notes": {
+  "presence_unit": "BLOCK SECONDS (iteration 5): seconds without a Polygon block (1 in 3) cannot hold a fill; chain clock fitted per hour; 100% of VALIDATE fills inside; models retrained on BUILD block seconds (model_it5_blk_*). Gain +0.0554, 2-h block bootstrap 95% CI [0.0524, 0.0582], p < 0.0005; halves +0.055 / +0.055; wallets GF 0.8745/0.8098, XM 0.8927/0.825, DS 0.8571/0.8047. All-seconds unit (pre-registered in iteration 1): 0.9132 vs pure 0.8781 (+0.035, CI [0.0337, 0.0364]).",
+  "presence_baseline": "PURE market-activity model (iteration 5); the iteration 2-4 baseline 0.8889 contained Binance fair-value gaps",
+  "side": "window-level one-sided share 0.2% pooled (DS 0.2%, GF 3.1%, XM 24.3%): the side condition does not apply pooled; per-second side reported",
+  "price_within_tick": "taker fills vs the last implied ask from others' prints (last 2 VALIDATE hours); no public book history before 10-31",
+  "pnl_corr": "executable strict-fill replay (latency >= 2 s, observed liquidity); the volume proxy gives 0.439 / 0.414",
+  "selection": "size classes + cell score; baseline = size classes + pure market cell score"
+ }
 }

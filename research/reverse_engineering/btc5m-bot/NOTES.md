@@ -496,3 +496,232 @@ val_side_moves_iter4.parquet (six-series and ETH moves per one-sided second).
    the two-sided seconds (34% of gross volume).
 3. Information residual: in flat seconds the bot still predicts the next 0-2 s BTC move at 53% (ours 51%); a full wall
    claim would need order-book data (none archived for 2026-10).
+
+### Iteration 5 (restart under the 2026-10-31 brief; 2026-10-31 12:22 UTC start, local Windows laptop)
+
+Interrupted first attempt (about 25 min, 11:00-11:25 UTC, before the restart): Tardis free first-of-month book samples
+(`d1001_*.py`, 2026-10-01 00:00-08:00, `results_book_test_iter5.json`) and the Bybit public orderbook.200 archive
+(quote-saver.bycsi.com, `bybit_ob.py`, `book_feats.py`, `side_book.py`, `results_side_book_iter5.json`): Bybit perp top-of-book
+features (imbalance averaged over the last second, mid changes) raise the side model on VALIDATE from 75.46% to **76.66%**
+(McNemar p = 1e-32; taker seconds 79.4%, no-move seconds 66.1%); wired into `final_rule.py` as `USE_BOOK` (side model
+`model_it5_side_book.txt`, BUILD-trained). In the Tardis sample the venue book imbalances agree with the side 64-70% overall
+and 51-62% in no-BTC-move seconds. Kept as the current side rule.
+
+Brief changes adopted now: decision-level decoding (component by component), B1 calldata first, catalog + X items in
+state.json, sealed calendar via tools/sealed.py (development after H: 10-31 00:00-06:00 and 12:00-18:00 UTC so far; the
+live recorder started 10-31 12:18 UTC), target conditions incl. gain >= 0.05 over the market-activity baseline.
+
+Competing explanations (iteration 5) and what separates them:
+- E1 cross-venue latency taker: fires BUY-at-ask after a fast composite (BTC venues + ETH/alts) moves. Predicts: decision
+  (submission) times follow venue moves by a short fixed latency; side = move sign; limit = current ask; edge grows with move.
+- E2 pre-signed order pool or ladder: orders are signed long before they reach the book (first calldata sample: cluster
+  taker orders signed 30-100 s before their block). Either a latency pool (signed in advance, submitted on a trigger:
+  the trigger is still E1) or a plan made at signing time (price/side decided at signing). Separates by: is the limit of a
+  taker order the touch at submission or a price fixed at signing; do sign times cluster (batches, window open, periodic).
+- E3 rebate / volume farmer: the objective is taker volume (50% rebate tier); side has a weak tilt; volume follows a target.
+  Separates by: steady volume per hour/day regardless of moves; edge per order near zero in quiet seconds.
+- E4 two-sided inventory maker / complete-set builder: buys both sides below a pair cost of 1 and merges. Separates by:
+  pair cost per window, MERGE/REDEEM activity, inventory-driven side.
+- E5 tape follower / copy trader: buys what other takers just bought. Separates by: order decision time vs the other
+  takers' prints (sign or submission time BEFORE the competitor print = racer, AFTER = follower).
+- E6 settlement-feed fair value (Chainlink Data Streams via RTDS): explains the multi-venue sensitivity (a median of venues).
+  Separates by: live lead-lag of its orders vs RTDS Chainlink updates vs Binance.
+- E7 Polymarket book-event sniper: in quiet seconds it lifts asks that appear below its value (no spot move needed).
+  Separates by: live books: does a new ask / removed bid on the bought token precede its quiet-second orders.
+- E8 scheduled loop: orders on a timer (fixed cadence, ms-phase). Separates by: inter-order intervals, sign-ms phase.
+
+B1 calldata decode (iteration 5; `code/calldata.py`, `code/b1_analysis.py`; results_b1_iter5.json, results_b1_ladder_iter5.json):
+- Data: batched eth_getTransactionByHash (25 calls per JSON-RPC POST, <= 3 POST/s, drpc then publicnode; raw inputs NOT
+  stored) for every cluster transaction in 11 sampled whole hours (7 VALIDATE days, 4 BUILD days): 17,709 txs, 57,966
+  decoded orders (taker order + maker orders of each matchOrders, selector 0x3c2b4399), of which 17,863 cluster orders
+  (13,443 distinct orders by (maker, salt)). Saved decoded only: .cache/re/btc5m-bot/calldata_sample.parquet.
+- Fingerprint (C8): every cluster order is a BUY, signatureType 3 (signer = maker = the wallet contract), 317-byte wrapped
+  signature, metadata = 0 and builder = 0 (5.8% of other orders carry a builder code). salt / timestamp is uniform on
+  [0, 1] (deciles 0.10, 0.25, 0.51, 0.75, 0.90; max 1.0, never above): salt = round(Math.random() * Date.now()), the
+  TypeScript @polymarket/clob-client generator.
+- ORDERS ARE PRE-SIGNED. Signing time (order `timestamp`) to block: taker orders median 72 s (1% 3.9 s, 99% 133 s; other
+  traders' taker orders median 3.1 s). So the signing time is NOT the decision time.
+- LADDER SCHEDULE: 99.9% of filled cluster orders were signed in one of THREE bursts per window, at rel = -89.5 s (+-0.2;
+  1-99%: -89.97..-89.03), +42.0 s (40.3..44.3) and +172.7 s (170.5..174.9) from the window open (spacing ~131.5 s; the
+  first burst is 90 s BEFORE the window opens, while the previous window runs). Orders are used 4-136 s after signing
+  (99.9% quantile 136.5 s), i.e. each burst serves the next ~131 s.
+- LADDER STRUCTURE: within a burst, the signing offset is a monotone function of price within each outcome (Spearman rho
+  median 1.0; ~1.66 ms per cent), i.e. a loop over the 1-cent price grid (filled prices 0.13..0.88 seen); several orders
+  share the same ms at the same price (copies; up to 10 filled copies of one level), and the large size (100) is signed
+  at the same ms as the small one (30) at the same price. Example DS burst (window 10-22 15:15): Down 0.24..0.77 in
+  0-93 ms, then Up 0.18..0.76 in 924-1021 ms. The bot pre-signs a full BUY ladder (both outcomes, every cent, a few
+  copies, two sizes) and at trigger time submits the pre-signed order whose price equals the current best ask.
+- ONE PROCESS, THREE KEYS (C1): per window the three wallets' bursts are staggered, XM first, DS +1.06 s, GF +2.17 s
+  (medians; 10-90%: GF-DS 0.16..1.90 s, XM-DS -2.02..-0.14 s): one process signs the three wallets' ladders one after
+  another. The wallet contracts are proxies with `owner()` = three different EOAs (GF 0x78a42b84..., XM 0x07c18787...,
+  DS 0xd2564062...; GF/DS owners have nonce 0, XM's owner has an EIP-7702-style 23-byte code); no common owner key.
+- SIZES (per order, calldata): 30 (52%), 60 (26%), 100 (11%), 50 (9%), 200 (1%). Each day runs a (small, large) pair:
+  10-09..11 (60, 100), 10-15 (30, 50), 10-16 (50, 30, 200), 10-17..18 (50, 30), 10-19..22 (30, 100); 10-31 00-06: 30 /
+  60 / 100. Large share by wallet DS 5%, GF 30%, XM 32% (10-19..22): mostly a per-wallet setting; weakly higher after
+  large moves either way (16-21% vs 8% without a move).
+- Side component, window level: the pooled cluster buys both outcomes in 99.8% of VALIDATE windows (one-sided 0.2%; DS
+  0.2%, GF 3.1%, XM 24.3%), so the brief's side condition (one-sided in >= 20% of windows) does not apply pooled; the
+  per-second side remains a decoded decision and is still reported.
+- Siblings (C1): in the same transactions, other orders with the cluster's schedule (signing time within the three
+  burst windows), signatureType 3, 317-byte signature and builder 0 and a gap > 4 s: 451 of 40,103 other orders (chance
+  rate of the burst windows ~2.5-4%); top maker 0xd84403ef... (77 orders), 0x9d57c42e... (32): candidate siblings, open.
+- FOURTH WALLET (C1, new): 0xd84403efd50b49a1d8a7181627e00307e6ea5908 runs the same bot: BUY only, signatureType 3,
+  317-byte signatures, salt/timestamp uniform on [0, 1], the same three-burst schedule (rel_sign quantiles 5% -89.2 s,
+  median 46.1 s, 75-95% 176.1-176.6 s: ~3-4 s after GF, i.e. fourth in the signing loop XM -> DS -> GF -> W4), sizes
+  30 / 100 / 50 / 60 / 200, gaps 10-125 s. In VALIDATE hour 10-21 13:00 it had 344 fills (60% taker), all BUY, all on
+  BTC 5m tokens (the three studied wallets ~2,000); its counterparty is a cluster wallet in 0.6% of its fills. Not in the
+  scored cluster (the target is defined on the three studied wallets); a sibling to add to the cluster definition and to
+  remove from the "other traders" tape features in a later iteration (its prints currently count as market activity).
+- TIME STOP vs PRICE RANGE (B3b, timing): the fill rate per cell GIVEN a mid-range price (last print 0.15-0.85) RISES
+  through the window (0.11 at 0-15 s, 0.14-0.16 at 60-150 s, 0.21-0.25 at 180-240 s, 0.32-0.34 at 240-270 s) and drops
+  only at 270-285 s (0.18) and 285-300 s (0.07). The 240-270 s taper of raw activity is the price leaving the ladder's
+  range (mid-range share falls from 99.7% to 8%), not a stop at the start of the 60-s settlement TWAP. The bot keeps
+  trading through the first half of the TWAP minute and stops ~270-290 s.
+- NON-TRADE ACTIVITY (B4, B6, B7, B8; data-api activity with a types filter, VALIDATE week 10-16..23): no REWARD, YIELD,
+  MERGE, SPLIT or CONVERSION rows for any wallet; REDEEM once per traded window (GF 2,218 rows / $877k, XM 1,814 / $221k,
+  DS 2,256 / $1.51M); MAKER_REBATE once a day (week totals GF $1,057, XM $318, DS $1,678). So: no liquidity rewards (B7
+  ruled out), no holding rewards (B8 ruled out), no complete-set merging (B4: it holds both sides to resolution and
+  redeems the winner), maker rebates ~$3.1k/week. The taker-fee rebate the dossier mentions (Obsidian tier) is not an
+  activity row; the on-chain taker fee is the full 0.07 p (1 - p).
+
+BASELINE BUG (found in iteration 5, my own code, not polyrea): the "market-only" co-occurrence baseline used since
+iteration 2 (`MKT` = rel, tau, TAPE_FEATS, EXTRA) contains reference-feed features: `sp_since` (Binance move since the last
+print) and `gap_m`, `gap_ask`, `gap_vw`, `dgap5`, `dgap10` (Binance fair value minus Polymarket prices). The brief's
+baseline is market activity only. PURE baseline (`decision_presence.py`, results_decision_presence_iter5.json; same BUILD,
+sampling and LightGBM parameters): presence 0.8781 (old 0.8889) -> gain of the it4b rule **+0.0351** (not +0.0243); by wallet
+GF 0.912 vs 0.869, XM 0.924 vs 0.877, DS 0.901 vs 0.868. Selection (size classes + cell score) 0.8693 vs pure baseline
+0.8461 (gain +0.023; old baseline 0.852); at the pre-registered flag recall 68.6% at lift 4.63 vs 61.7% at lift 5.07.
+
+D1 DECISION-ALIGNED PRESENCE (label = cluster fill at block second s + k from cell-s features, horizon s - 1):
+k = 0: 0.9132 vs pure 0.8781 (+0.0351); k = 1 (horizon at the decision time, block - 2 s): 0.9070 vs 0.8717 (+0.0353);
+k = 2: 0.8893 vs 0.8691 (+0.0202). Aligning the label to the decision time does not raise the gain: the market-activity
+co-occurrence is not an artefact of the block-time label. Remaining gap to the target's +0.05: ~0.015 AUC.
+
+LIVE LAB (iteration 5; `code/live_lab.py`, `code/live_trigger.py`, `code/fetch_dev_post.py`, `code/fetch_binance_rest.py`):
+- The shared recorder runs (pid 27184, started 10-31 12:18 UTC; clob_crypto had 18 "slow consumer" reconnects by 13:02,
+  so the book record has gaps). Data used: development block [12:00, 18:00) only, through `iter_live`.
+- TOOLS BUG (tools/live.py, not mine): `iter_live` raises `zlib.error: invalid block type` on
+  `.cache/live/dev/clob_crypto/20261031T12.jsonl.gz` after the record at 12:24:51 (the file holds a broken gzip member
+  boundary, probably from the recorder restart at 12:18); `iter_live` only catches EOFError/OSError, so the remaining
+  35 minutes of that hour are unreadable through the sanctioned reader. My wrapper catches zlib.error and keeps what was
+  read; I did not read the file any other way. The 13:00 file reads fine in near real time.
+- Cluster on-chain fills in the development blocks after T0: 10-31 00:00-06:00 9,420 fills (DS 4,303, XM 2,806, GF
+  2,311; sizes still 30/60/100); 12:00-13:00 2,420 fills (quieter Saturday midday).
+- First live numbers (12:14-12:25 readable span, 15 taker orders with a recorded match): the order MATCHES 2.0 s
+  (median; 5-95% 1.4-2.7 s) before its block timestamp (maker fills 2.3 s); the server clock runs 0.72 s ahead of the
+  laptop clock (recv - server = -0.72 s); taker limit vs the recorded best ask just before the match: equal 47%,
+  within one tick 87% (limit one cent below the ask in 5 of 15: the book moved inside the 200-ms recording granularity);
+  at SIGNING time the limit equalled the then-ask in only 7% (orders are pre-signed ladder levels, not priced at
+  signing). The bot's match follows another trader's trade on the same market within 0.5 s in 73% (placebo 53%) and a
+  trade at the same price within 0.5 s in 57%. Chainlink RTDS 1-s move over the 3 s before the match agrees with the
+  side 80% (n = 10 moved; placebo 33%). Too few orders to conclude; rerun on the 13:00 file below.
+- 13:00 file (13:00:01-13:06:11, first look; `recs` now reads hour by hour so the broken 12:00 file does not abort
+  later hours): 352 cluster fills in recorded development windows, 93% with a recorded match time (same tx hash).
+  Taker orders (n = 130): match -> block median 2.16 s (5-95% 1.27-3.23 s). PRICE: the bot's limit vs the recorded best
+  ask of the bought outcome at match - 50 ms: EQUAL 70.8%, within one tick 86.2%; at match - 100 ms 70.8% / 84.6%;
+  at the match itself only 40% / 81.5% because the record at the match already shows the post-trade book (limit one cent
+  below the "ask" in 35%); 500 ms before 32% / 65%; 1 s before 22% / 42% (the touch moves in the second before the bot's
+  order: it trades when the book is moving). Against block - 2.0 s (a fixed lag, no match record): 36% / 60%. At the
+  SIGNING time the limit equalled the then-ask in 0.8%. Decoded price rule: limit = the best ask at the decision
+  instant; frozen in `final_rule.py` as the recorded ask 50 ms before the recorded match (`PRE_MATCH_MS`), used for the
+  price metric wherever the live recorder covers the exam period (future blocks), else the tape anchor (53%).
+- Live trigger, first look on the 13:00 file (n = 130 taker orders; `results_live_trigger_iter5.json`, re-run at the end):
+  Binance USD-M BTC futures (REST aggTrades, exchange ms) moved > 0.05 bp in the 2 s before the match for only 20 of
+  130 orders (Saturday, ~5 trades/s); when it moved, it moved toward the bought side 70% (placebo 47%); ETH perp in the
+  last 1-2 s: 84-87% (n = 15-19; placebo 58-60%). Chainlink RTDS 1-s price over the last 1-3 s: 50-54% (n = 95; placebo
+  47-50%): the bot does NOT follow the settlement feed's 1-s price (E6 rejected at this n). Polymarket: its match comes
+  a median 80 ms after another trader's trade on the same market (87% within 0.5 s; placebo 72%, median 249 ms); the
+  ask of the bought outcome ROSE in the second before the match in 58.5% (fell 30.8%; placebo 22% / 25%); the signed
+  size of the other traders' trades in the last 100-2,000 ms agrees with its side only 53-62% (placebo ~50%). So most
+  live orders come inside bursts of other traders' trades while the bought outcome's price is moving its way, with no
+  BTC/ETH futures trade move in the previous 2 s: the missing trigger is faster than trades (quotes) or Polymarket-internal.
+- NEW RECORDER (live_lab): `code/rec_binance_fut.py`, Binance USD-M futures BTCUSDT + ETHUSDT bookTicker (only when the
+  best bid/ask PRICE changes) through tools/live.py's Writer, feed `btc5m_bnfut`, started 10-31 13:11:24 UTC (pid 7095 via
+  nohup; python pid 31524 in its status file `.cache/re/btc5m-bot/rec_binance_fut.status`), hard stop 10 h (23:11 UTC),
+  ~3 records/s (~1-2 MB/h gz). The combined-stream aggTrade channel delivered nothing (trades come from the REST/daily
+  archives instead). The exchange event time runs ~0.8 s ahead of the laptop clock (use E/T, not t). Purpose: test the
+  quiet-order trigger against futures QUOTE changes at ms resolution (no public bookTicker archive exists for 2026-10).
+- C2 COPY TRADING, strong form (`code/c2_copy.py`, results_c2_copy_iter5.json; 300 VALIDATE windows, 21,863 cluster taker
+  orders, 246 other wallets with >= 200 in-window BUY prints): no leader. The largest co-occurrence is the FOURTH WALLET
+  0xd84403ef... (same outcome in the same block second before 12.3% of cluster orders, placebo 2.8%; 2-10 s lead lift
+  2.4) followed by ~5 fast wallets at ~10% same-second co-occurrence (0x41e2e1cc..., 0x2ed94d1a..., 0xeebde7a0...,
+  0x19b38230...; 2-10 s lead lift 1.7-1.8). Any single wallet precedes the cluster at a 2-10 s lag in <= 35% of orders
+  (placebo 15-20%), spread over lags with no fixed delay: co-racers on common triggers, not a copied leader.
+
+Frozen rule (iteration 5, `code/final_rule.py`): `evaluate(start_ts, end_ts, intervals=None)`, `ALLOW_SEALED = False`;
+adds the pure market baseline (presence and selection), decision-aligned presence with a 2-hour block bootstrap of the
+gain, the live-book price rule (`PRE_MATCH_MS = 50`), the B1 ladder check (seeded 1,500-tx calldata sample) and the
+brief's `target_metrics` keys; side model `model_it5_side_book.txt`. End-to-end on the last 2 VALIDATE hours (69 s):
+presence 0.893 vs pure 0.857 (old 0.869), decision-aligned 0.888 vs 0.854, side 77.9%, selection 0.884 vs pure 0.870
+(recall 72.4% at lift 4.57), price (tape anchor) 53.2%, strict-fill PnL corr 0.38 / 0.32 (24 windows; VALIDATE week
+0.18 / 0.17), ladder check 100% of 1,514 orders (chance 5%). The frozen live price rule on the 10-31 13:00-13:06 dev
+block (95 taker orders): within one tick 96.7%, exact 86.7%. NOTE for successors: never run `evaluate` on a period
+after H that is not wholly development (its spot loader reaches 2 h before the start and the daily archives span the
+whole UTC day, which includes sealed blocks); test live-period code with the harness approach used here instead.
+
+Status after iteration 5: target not reached. Presence 0.9132 vs a PURE market baseline 0.8781 (gain +0.035 < 0.05);
+selection gain +0.023 (< 0.05); side 76.7% per second, but the bot is two-sided in 99.8% of windows (the side
+condition does not apply pooled); price within a tick: 53% historically (no book), 97% where the book is recorded;
+executable PnL correlation 0.18 (< 0.5). Status: continue.
+
+What is decoded now, mechanically: the order factory (pre-signed 1-cent BUY ladders on a ~131.5-s window-locked
+schedule, sizes, salts, signing order of the wallets, a fourth wallet), the price (touch at the decision instant), the
+exit (hold to resolution), the time stop and price range. What is not: the trigger of the ~70% of orders with no BTC/ETH
+trade move in the preceding 2 s (live) and therefore the presence gain over market activity and the PnL replication.
+
+## Next (iteration 6)
+
+1. Quiet-order trigger at ms resolution with the live lab (now three aligned clocks: Polymarket server ms for the bot's
+   matches, Binance exchange ms for quotes from `rec_binance_fut.py`, Chainlink RTDS): event study of the bot's matches
+   vs futures bookTicker mid/imbalance changes (X11), Polymarket maker reprices without trades (ask rises before 59% of
+   its orders vs 22% at random), and the 15m market (X8). Add OKX/Bybit quote websockets to the recorder if Binance
+   quotes do not explain it.
+2. X5: add the fourth wallet 0xd84403ef... to the cluster and drop its prints from the market-activity features (BUILD
+   tapes must be re-fetched: ~1 h through the cached data-api adapter); X12: other traders' calldata signing times as
+   ms decision times for the race order within a block.
+3. A price-aware executable replica for the PnL target: submit at the touch from the decoded trigger with the bot's
+   sizes and the live book (future blocks), and a tape-only version for h1/h2.
+4. Remaining catalog items: A4b (Kalshi), A8 (operational events), B9 (maker rebate pool share), C4b, D2 (hazard /
+   state-machine model of submissions), X7 (funding, liquidations, options), X9 (change points over the full history),
+   X10 (public GitHub template with pre-signed ladders).
+
+Addendum (A8 operational events / C4 versions, measured): 292 of the 4,032 BUILD+VALIDATE windows have no cluster
+fill at all, mostly in whole-cluster OUTAGES (all wallets at once): 10-09 09:35 (3.3 h), 10-11 12:35 (4.3 h), 10-12
+09:15 (5.1 h), 10-21 07:15 (4.5 h), and 40-75 min on 10-09, 10-15, 10-16 (x2), 10-19, 10-19, 10-20. Sizes before and
+after are unchanged except at the 10-19 13:40-14:55 restart, where the large size changed from 50 to 100 (a config
+change at a restart). The outages are bot-side (the markets kept trading); they are all negatives in the presence
+metric for both the rule and the baseline. Not yet matched to Polymarket announcements or API incidents (C4b).
+
+THE BLOCK CLOCK (iteration 5, `code/block_bins.py`, results_block_bins_iter5.json): the cluster's fill rate per cell has a
+strict period-3 pattern in the window second (e.g. rel 30..38: 0.227, 0.047, 0.212, 0.244, 0.046, 0.228, ...): Polygon
+produced a block every 1.5 s, so one second in three holds no block and can never hold a fill (VALIDATE fills by Unix
+second mod 3: 0.476 / 0.094 / 0.430; phase-locked on 6 of 7 days; BUILD uniform because the phase jumped). These
+structural zeros are free AUC for any model that can infer the block phase, and the market-activity baseline infers it
+from the timing of other traders' prints (n1, n2, age_last are its top features). Chain-clock fit per UTC hour,
+ts = floor(phi + 1.5 (block - b_ref)) from (block number, block timestamp) pairs (the cluster's fills used only as a
+source of chain timestamps): 154 of 166 VALIDATE hours locked (one phi explains >= 98% of pairs); in locked hours only
+block seconds are kept (66.5% of cells) and NO positive falls outside them (100% of fills are in predicted block seconds).
+Presence over block seconds with the iteration models (trained on all seconds): rule 0.8752 vs PURE baseline 0.8192,
+gain **+0.056**; decision-aligned (label s+1) 0.8628 vs 0.8062, +0.057. The gain over market activity is above the
+target's 0.05 once the impossible bins are removed: the block is the right presence unit (D1). Retrained on BUILD block
+seconds: `code/block_presence.py` (results_block_presence_iter5.json, with halves, wallets and a 2-hour block bootstrap).
+
+Final numbers of iteration 5 (supersede the interim lines above where they differ):
+- Block-second presence retrained on BUILD block seconds (`block_presence.py`, `model_it5_blk_*.txt`): VALIDATE 804,746
+  block-second cells: rule **0.8747** vs PURE baseline 0.8193, gain **+0.0554**, 2-hour block bootstrap (2,000 draws, 84
+  blocks) 95% CI [0.0524, 0.0582], one-sided p < 0.0005; halves 0.875/0.820 and 0.873/0.818; wallets GF 0.8745/0.8098,
+  XM 0.8927/0.825, DS 0.8571/0.8047; at p >= 0.30 recall 66.2% at lift 2.95. All-seconds gain +0.035 has CI
+  [0.0337, 0.0364]. The presence condition of the target holds on VALIDATE in the block-second unit with my baseline.
+- Live price, frozen code, 10-31 13:00-13:22 (277 taker orders): fill price within one tick of the recorded ask 50 ms
+  before the match 93.2% (exact 78.1%; DS 95.4%, GF 94.7%, XM 62.5% of few); fixed lag block - 2 s 56%.
+- Live trigger, 265 matches: BTC futures trades moved in the last 1 s before 16% of them (agree 85.7%, placebo 50%), ETH
+  perp trades 25% (86.6%); futures QUOTES (own recorder, 65 covered): BTC moved before 19 (84%), ETH 27 (78%); Chainlink
+  RTDS 1-s price 50.5% (n = 212): no information; the bought outcome's ask rose in the last 1 s before 59.6% (placebo
+  24.9%), lifted by other traders' trades in 101 cases vs 14 maker reprices; 85% of matches come within 0.5 s after
+  another trade (placebo 66%); BTC 15m market mid moved its way in the last 1 s in 66% (n = 88; placebo 54%).
+- Status: target not reached (price historically 53%, executable PnL correlation 0.18); continue.
+- Block clock verified against block HEADERS (`results_block_clock_headers_iter5.json`): in 8 random locked VALIDATE
+  hours, the timestamps of 80 consecutive blocks (eth_getBlockByNumber) give exactly the block seconds predicted by the
+  per-hour fit (agreement 100% in all 8; 80 distinct seconds per ~120 s, 1.49-1.51 s per block). The unit is a chain
+  property; the cluster's fills only supply (block, timestamp) pairs.
+- Recorder check at the end: `rec_binance_fut.py` still writing (status file updated); the shared recorder still running.

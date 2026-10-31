@@ -1,0 +1,72 @@
+{
+ "auc_full_plus_book": 0.9134,
+ "auc_full": 0.9132,
+ "auc_pure_baseline": 0.8781,
+ "gain_book_over_pure": 0.0353,
+ "gain_full_over_pure": 0.0351,
+ "by_wallet": {
+  "GF": {
+   "full_book": 0.9119,
+   "pure": 0.8687
+  },
+  "XM": {
+   "full_book": 0.9235,
+   "pure": 0.8774
+  },
+  "DS": {
+   "full_book": 0.9012,
+   "pure": 0.8675
+  }
+ },
+ "book_gain_share": 0.0264,
+ "top_gain": [
+  [
+   "m_last",
+   0.1189
+  ],
+  [
+   "n1",
+   0.1161
+  ],
+  [
+   "vwap10",
+   0.0984
+  ],
+  [
+   "n2",
+   0.0875
+  ],
+  [
+   "bid_o",
+   0.0662
+  ],
+  [
+   "ask_o",
+   0.0538
+  ],
+  [
+   "age_last",
+   0.0489
+  ],
+  [
+   "C_mx2000",
+   0.0289
+  ],
+  [
+   "sig",
+   0.0243
+  ],
+  [
+   "dm5",
+   0.0184
+  ],
+  [
+   "rel",
+   0.0182
+  ],
+  [
+   "C6_nup2000",
+   0.0169
+  ]
+ ]
+}

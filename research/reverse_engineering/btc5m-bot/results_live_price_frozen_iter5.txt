@@ -1,0 +1,20 @@
+859 fills in recorded windows
+{
+ "n_taker_orders": 277,
+ "share_with_book": 1.0,
+ "share_with_match_time": 0.9567,
+ "within_1tick_ask_match": 0.9321,
+ "exact_ask_match": 0.7811,
+ "within_1tick_ask_match_by_wallet": {
+  "DS": 0.954,
+  "GF": 0.9467,
+  "XM": 0.625
+ },
+ "within_1tick_ask_lag": 0.5632,
+ "exact_ask_lag": 0.3213,
+ "within_1tick_ask_lag_by_wallet": {
+  "DS": 0.5683,
+  "GF": 0.5897,
+  "XM": 0.375
+ }
+}

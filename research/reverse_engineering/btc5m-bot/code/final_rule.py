@@ -1,4 +1,19 @@
-"""btc5m-bot frozen rule (iteration 4).
+"""btc5m-bot frozen rule (iteration 5).
+
+Iteration 5 additions (all frozen constants below; nothing fitted on VALIDATE):
+  - evaluate(start_ts, end_ts, intervals=None): only windows that start in one of the [a, b) intervals count.
+  - Order generation (decoded from V2 calldata): orders are PRE-SIGNED ladders signed at rel -89.5 / +42.4 / +173.3 s;
+    `order_generation_b1` checks the share of a seeded calldata sample of the period's filled cluster orders signed in
+    those bursts (LADDER_BATCHES).
+  - Price: where the shared live recorder covers the period (tools/live.py iter_live with ALLOW_SEALED), the rule price
+    is the recorded best ask of the bought outcome PRE_MATCH_MS before the recorded match of the same tx (`price.live_book`).
+  - Presence baselines: a PURE market-activity baseline (model_it5_dp_k0_pure.txt; no reference feed) replaces the
+    iteration 2-4 baseline that contained Binance fair-value gaps; decision-aligned presence (label at block second s+1)
+    with its own pure baseline and a 2-hour block bootstrap of the gain.
+  - Side: model_it5_side_book.txt (it4b features + lagged segments + Bybit perp top-of-book, USE_BOOK).
+  - `target_metrics`: the brief's named keys.
+
+Previous header (iteration 4):
 
 Point-in-time behaviour-cloning rule for the three-wallet BTC 5-minute Up/Down bot
 (GF 0x0ca4e9d2..., XM 0x3048d653..., DS 0xc53375ff...). Every cell (window, outcome, second s of the window) is
@@ -97,6 +112,18 @@ SIDE_LAG = USE_ALTS and ALT_SET == "four"  # iteration 4: side model with explic
 if SIDE_LAG:
     MODEL_SIDE = f"{CODE}/model_{_TAG}_side_lag.txt"
 USE_BOOK = True     # iteration 5: Bybit BTCUSDT perpetual top-of-book features (public orderbook.200 archive) in the side model
+ALLOW_SEALED = False  # only the examiner's driver sets this to True (live recordings of sealed blocks)
+DECISION_LAG_S = 2.0  # iteration 5 (live lab): the bot's order matches ~2.0 s (median) before its block timestamp
+PRE_MATCH_MS = 50.0  # iteration 5 (live lab): rule price = recorded best ask 50 ms before the recorded match (the book record at the match already shows the post-trade book)
+LADDER_BATCHES = ((-89.5, 1.5), (42.4, 3.0), (173.3, 3.0))  # iteration 5 (B1): ladder signing times (rel to window start, s) and half-widths
+B1_SAMPLE_TXS = 1500  # calldata sample per evaluate() run (batched eth_getTransactionByHash)
+MODEL_DP_FULL = f"{CODE}/model_it5_dp_k1_full.txt"   # iteration 5 (D1): decision-aligned presence, it4b features, label = fill at s+1
+MODEL_DP_PURE = f"{CODE}/model_it5_dp_k1_pure.txt"   # its pure market-activity baseline (no reference feed)
+MODEL_DP0_PURE = f"{CODE}/model_it5_dp_k0_pure.txt"  # pure market-activity baseline for the block-second label
+MODEL_BLK_FULL = f"{CODE}/model_it5_blk_full.txt"  # iteration 5: presence on BLOCK seconds (it4b features), trained on BUILD block seconds
+MODEL_BLK_PURE = f"{CODE}/model_it5_blk_pure.txt"  # its pure market-activity baseline
+BLOCK_SEC = 1.5  # Polygon block interval (s); the chain clock is fitted per UTC hour from (block number, block timestamp) pairs
+BLOCK_LOCK_SHARE = 0.98  # an hour is "locked" when one phase explains >= this share of its pairs (else all its seconds are kept)
 MODEL_SIDE_BOOK = f"{CODE}/model_it5_side_book.txt"  # side model it4b-lag features + BK_* (trained on BUILD only)
 MODEL_MKT = f"{CODE}/model_it2_market_only_y.txt"                  # co-occurrence baseline (market activity only)
 MODEL_NETFLOW = f"{CODE}/model_{_TAG}_netflow.txt"                # iteration 4: signed net share flow per second (outcome proxy)
@@ -455,10 +482,184 @@ def _strict_backtest(up: pd.DataFrame, dn: pd.DataFrame, ps: np.ndarray, win: pd
             "note": "strict fills on observed liquidity, latency >= 2 s after the information horizon, capture 1.0 (upper bound), taker only"}
 
 
-def evaluate(start_ts: int, end_ts: int) -> dict:
+def _block_keep(t: np.ndarray, pairs: pd.DataFrame) -> np.ndarray:
+    """True for the seconds t that hold a Polygon block. The chain clock ts = floor(phi + 1.5 (block - b_ref)) is fitted per
+    UTC hour from (block number, block timestamp) pairs (here: the blocks of the period's cluster fills, used only as a
+    source of chain timestamps); seconds of hours that are not locked are all kept."""
+    t = np.asarray(t, np.int64); keep = np.ones(len(t), bool)
+    if pairs is None or pairs.empty:
+        return keep
+    b = pairs.drop_duplicates("block")[["block", "ts"]].sort_values("block")
+    hrs = t // 3600
+    for h, g in b.groupby(b.ts // 3600):
+        bl = g.block.to_numpy(np.int64); ts = g.ts.to_numpy(np.int64)
+        if len(bl) < 50:
+            continue
+        x = BLOCK_SEC * (bl - bl[0]); best, bphi = -1, None
+        for phi in np.arange(ts[0] - 1.5, ts[0] + 1.5, 0.01):
+            k = int((np.floor(phi + x) == ts).sum())
+            if k > best:
+                best, bphi = k, phi
+        if best / len(bl) < BLOCK_LOCK_SHARE:
+            continue
+        allb = np.arange(bl.min() - 5, bl.max() + 6)
+        secs = np.unique(np.floor(bphi + BLOCK_SEC * (allb - bl[0])).astype(np.int64))
+        idx = np.where(hrs == h)[0]
+        keep[idx] = np.isin(t[idx], secs)
+    return keep
+
+
+def _shift(y: np.ndarray, k: int) -> np.ndarray:
+    """Label of block second s + k on the row of second s (cells come in 300-row window-outcome blocks)."""
+    y = np.asarray(y)
+    if k == 0:
+        return y.copy()
+    out = np.zeros_like(y)
+    out[:-k] = y[k:]
+    return np.where((np.arange(len(y)) % 300) + k < 300, out, 0)
+
+
+def _predict_named(model_file: str, df: pd.DataFrame, chunk: int = 200_000) -> np.ndarray:
+    m = lgb.Booster(model_file=model_file)
+    cols = m.feature_name()
+    return np.concatenate([m.predict(df.iloc[i:i + chunk][cols].astype(np.float32)) for i in range(0, len(df), chunk)]) if len(df) else np.array([])
+
+
+def _block_boot_gain(y, a, b, blocks, n_boot: int = 2000, seed: int = 3) -> dict | None:
+    """95% block-bootstrap interval of AUC(a) - AUC(b) over 2-hour blocks (resampling whole blocks)."""
+    y = np.asarray(y).astype(float); a = np.asarray(a); b = np.asarray(b); blocks = np.asarray(blocks)
+    ub, inv = np.unique(blocks, return_inverse=True)
+    if len(ub) < 4 or y.sum() == 0:
+        return None
+
+    def prep(s):  # tie groups in score order, computed once
+        o = np.argsort(s, kind="mergesort"); ss = s[o]
+        grp = np.empty(len(s), np.int64); grp[o] = np.r_[0, np.cumsum(ss[1:] != ss[:-1])]
+        return grp, int(grp.max()) + 1
+
+    def wauc(grp, ng, w):  # weighted AUC (whole-block resampling = integer block weights), ties count 1/2
+        gp = np.bincount(grp, y * w, ng); gn = np.bincount(grp, (1 - y) * w, ng)
+        below = np.cumsum(gn) - gn
+        return float((gp * (below + 0.5 * gn)).sum() / (gp.sum() * gn.sum()))
+
+    ga, na = prep(a); gb, nb = prep(b)
+    rng = np.random.default_rng(seed); g = []
+    for _ in range(n_boot):
+        cnt = np.bincount(rng.integers(0, len(ub), len(ub)), minlength=len(ub)).astype(float)
+        w = cnt[inv]
+        if (y * w).sum() > 0 and ((1 - y) * w).sum() > 0:
+            g.append(wauc(ga, na, w) - wauc(gb, nb, w))
+    g = np.array(g)
+    return {"lo95": round(float(np.quantile(g, 0.025)), 4), "hi95": round(float(np.quantile(g, 0.975)), 4),
+            "one_sided_p_gain_le_0": round(float((g <= 0).mean()), 5), "n_boot": int(len(g)), "blocks": int(len(ub))}
+
+
+def _live_touch(fills: pd.DataFrame, win: pd.DataFrame, start_ts: int, end_ts: int) -> dict | None:
+    """Iteration 5 (price component, decoded from calldata + live lab): the bot submits a PRE-SIGNED ladder order whose
+    limit is the current best ask of the outcome it buys. Where the shared live recorder has the Polymarket book for
+    the period (tools/live.py clob_crypto, through iter_live with ALLOW_SEALED), the rule's price for each cluster fill is
+    the recorded best ask of the bought outcome at the decision time (a) = the recorded server time of the matched trade
+    (same tx hash) and (b) = block time - DECISION_LAG_S (frozen). Returns None without recordings."""
+    import zlib
+    sys.path.insert(0, _ROOT + "/research/reverse_engineering/tools")
+    try:
+        import live as _live
+    except Exception:
+        return None
+    up_tok = set(win.up_token); tok_up = {r.down_token: r.up_token for r in win.itertuples()}
+    books = {}; mt = {}
+    hh = int((start_ts - 120) // 3600) * 3600
+    while hh < end_ts + 60:  # hour by hour: a broken gzip member in one hourly file must not abort the others
+        try:
+            for r in _live.iter_live("clob_crypto", max(start_ts - 120, hh), min(end_ts + 60, hh + 3600), allow_sealed=ALLOW_SEALED):
+                k = r.get("k")
+                if k in ("q", "f") and r["a"] in up_tok:
+                    bb = max((p for p, z in r["b"]), default=np.nan); ba = min((p for p, z in r["o"]), default=np.nan)
+                    books.setdefault(r["a"], []).append((r["s"], bb, ba))
+                elif k == "x" and r.get("h"):
+                    h = r["h"].lower()
+                    mt[h] = min(mt.get(h, 1e18), r["s"])
+        except (zlib.error, EOFError, OSError):
+            pass
+        hh += 3600
+    if not books:
+        return None
+    books = {t: np.array(sorted(v), dtype=float) for t, v in books.items()}
+    f = fills[(fills.role == "T")].drop_duplicates(["tx", "wallet"]).copy()
+    f["up_token"] = np.where(f.is_up, f.token, f.token.map(tok_up))
+
+    def touch(u, s_ms, is_up):
+        a = books.get(u)
+        if a is None:
+            return np.nan
+        i = np.searchsorted(a[:, 0], s_ms, side="left") - 1
+        if i < 0 or s_ms - a[i, 0] > 30_000:
+            return np.nan
+        return a[i, 2] if is_up else 1.0 - a[i, 1]
+
+    f["match_ms"] = f.tx.str.lower().map(mt)
+    f["ask_match"] = [touch(u, s - PRE_MATCH_MS, up) if np.isfinite(s) else np.nan for u, s, up in zip(f.up_token, f.match_ms.astype(float), f.is_up)]
+    f["ask_lag"] = [touch(u, (t - DECISION_LAG_S) * 1000.0, up) for u, t, up in zip(f.up_token, f.ts.astype(float), f.is_up)]
+    # the limit price of a taker order = its fill price when it does not sweep (it never sweeps: decoded on BUILD)
+    out = {"n_taker_orders": int(len(f)), "share_with_book": round(float(np.isfinite(f.ask_lag).mean()), 4) if len(f) else None,
+           "share_with_match_time": round(float(np.isfinite(f.match_ms.astype(float)).mean()), 4) if len(f) else None}
+    for nm in ("ask_match", "ask_lag"):
+        g = f[np.isfinite(f[nm])]
+        out[f"within_1tick_{nm}"] = round(float((np.abs(g.price - g[nm]) <= 0.0101).mean()), 4) if len(g) else None
+        out[f"exact_{nm}"] = round(float((np.abs(g.price - g[nm]) <= 0.0001).mean()), 4) if len(g) else None
+        out[f"within_1tick_{nm}_by_wallet"] = {w: round(float((np.abs(x.price - x[nm]) <= 0.0101).mean()), 4) for w, x in g.groupby("wallet")} if len(g) else None
+    return out
+
+
+def _b1_ladder(fills: pd.DataFrame, win: pd.DataFrame, n_max: int = B1_SAMPLE_TXS) -> dict | None:
+    """Iteration 5 (catalog B1, order generation decoded from V2 calldata): every cluster order is PRE-SIGNED in a burst
+    (a ladder over the 1-cent price grid, both outcomes) at three fixed times per window, rel = -89.5 s, +42.4 s and
+    +173.3 s; an order is submitted 4-136 s after it was signed. Prediction checked here on a seeded sample of the
+    period's cluster transactions: the share of filled cluster orders whose signing timestamp (calldata) falls in a
+    predicted batch, and the share signed >= 3 s before their block."""
+    try:
+        import calldata as _cd
+    except Exception:
+        return None
+    if fills.empty:
+        return None
+    txs = fills.tx.drop_duplicates()
+    txs = txs.sample(min(n_max, len(txs)), random_state=11).tolist()
+    try:
+        rows = _cd.fetch_txs(txs, threads=2, log_every=10**9)
+    except Exception as e:
+        return {"error": type(e).__name__}
+    d = _cd.to_frame(rows)
+    if d.empty or "maker" not in d:
+        return None
+    d = d[d.role.isin(["T", "M"]) & d.maker.str.lower().isin(WALLETS)].copy()
+    tsm = fills.drop_duplicates("tx").set_index("tx")[["ts", "start_ts"]]
+    d = d.join(tsm, on="tx")
+    d["rel_sign"] = d.sign_ms / 1000.0 - d.start_ts
+    d["gap"] = d.ts - d.sign_ms / 1000.0
+    inb = np.zeros(len(d), bool)
+    for c, w in LADDER_BATCHES:
+        inb |= np.abs(d.rel_sign.to_numpy() - c) <= w
+    d["wallet"] = d.maker.str.lower().map(WALLETS)
+    out = {"orders": int(len(d)), "share_signed_in_predicted_batches": round(float(inb.mean()), 4) if len(d) else None,
+           "chance_share_of_batches": round(sum(2 * w for _, w in LADDER_BATCHES) / 300.0, 4),
+           "share_gap_ge_3s": round(float((d.gap >= 3.0).mean()), 4) if len(d) else None,
+           "gap_median_s": round(float(d.gap.median()), 2) if len(d) else None,
+           "by_wallet": {w: round(float(inb[(d.wallet == w).to_numpy()].mean()), 4) for w in ("GF", "XM", "DS") if (d.wallet == w).any()},
+           "salt_over_sign_ms_max": round(float((d.salt.astype(float) / d.sign_ms.astype(float)).max()), 4) if len(d) else None}
+    return out
+
+
+def evaluate(start_ts: int, end_ts: int, intervals=None) -> dict:
     t0 = time.time()
     win = load_windows(start_ts, end_ts)
     win = win[win.up_payout.notna()].sort_values("start_ts").reset_index(drop=True)
+    if intervals:  # only units (windows) that START in one of the [a, b) intervals count
+        st = win.start_ts.to_numpy()
+        keep = np.zeros(len(win), bool)
+        for a, b in intervals:
+            keep |= (st >= a) & (st < b)
+        win = win[keep].reset_index(drop=True)
     sp, spot_frame = load_spot(start_ts, end_ts)
     fills = cluster_fills(start_ts, end_ts, win)
     tf.TAPE_DIR = load_tapes(win, end_ts)
@@ -475,6 +676,38 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
     p2 = _predict(MODEL_IT2, cells, IT2_FEATURES)
     cells["p"] = p; cells["p_mkt"] = pK; cells["p_it2"] = p2
     cells["sh"] = np.clip(_predict(MODEL_SHARES, cells, FEATURES), 0, None) if os.path.exists(MODEL_SHARES) else np.nan
+    # iteration 5 (D1): decision-aligned presence. The bot's pre-signed order is SUBMITTED at the decision time, which the
+    # live lab puts ~2.0 s before its block; label y1 = cluster fill at block second s + 1 predicted from cell s (horizon
+    # s - 1 = decision time), against the PURE market-activity baseline (no reference feed at all; the older baseline
+    # contained Binance fair-value gaps and the spot move since the last print).
+    dp = None
+    if all(os.path.exists(f) for f in (MODEL_DP_FULL, MODEL_DP_PURE, MODEL_DP0_PURE)):
+        y1 = _shift(cells.y.to_numpy(), 1)
+        pf1 = _predict_named(MODEL_DP_FULL, cells); pb1 = _predict_named(MODEL_DP_PURE, cells); pb0 = _predict_named(MODEL_DP0_PURE, cells)
+        dp = {"label": "cluster BUY fill at block second s+1 (decision time = s-1 horizon)", "auc_full": _auc(y1, pf1),
+              "auc_pure_market_baseline": _auc(y1, pb1),
+              "auc_block_label_pure_market_baseline": _auc(cells.y, pb0),
+              "by_wallet": {w: {"full": _auc(_shift(cells[f"y{w}"].to_numpy(), 1), pf1), "pure": _auc(_shift(cells[f"y{w}"].to_numpy(), 1), pb1)} for w in ("GF", "XM", "DS")}}
+        dp["gain"] = round(dp["auc_full"] - dp["auc_pure_market_baseline"], 4) if dp["auc_full"] and dp["auc_pure_market_baseline"] else None
+        dp["gain_block_bootstrap_2h"] = _block_boot_gain(y1, pf1, pb1, (cells.start_ts.to_numpy() + cells.rel.to_numpy()) // 7200)
+        dp["at_threshold"] = _recall_lift(y1, pf1 >= P_THRESH)
+        cells["p_pure"] = pb0
+    blk = None
+    if all(os.path.exists(f) for f in (MODEL_BLK_FULL, MODEL_BLK_PURE)) and len(fills):
+        tsec = (cells.start_ts.to_numpy() + cells.rel.to_numpy()).astype(np.int64)
+        kb = _block_keep(tsec, fills[["block", "ts"]])
+        cb = cells[kb]
+        pfb = _predict_named(MODEL_BLK_FULL, cb); ppb = _predict_named(MODEL_BLK_PURE, cb)
+        yb = cb.y.to_numpy()
+        blk = {"unit": "block seconds (Polygon block clock fitted per hour; seconds without a block cannot hold a fill)",
+               "share_cells_kept": round(float(kb.mean()), 4), "positives_outside_block_seconds": int(((cells.y.to_numpy() == 1) & ~kb).sum()),
+               "auc_full": _auc(yb, pfb), "auc_pure_market_baseline": _auc(yb, ppb),
+               "by_wallet": {w: {"full": _auc(cb[f"y{w}"].to_numpy(), pfb), "pure": _auc(cb[f"y{w}"].to_numpy(), ppb)} for w in ("GF", "XM", "DS")},
+               "gain_block_bootstrap_2h": _block_boot_gain(yb, pfb, ppb, tsec[kb] // 7200)}
+        blk["gain"] = round(blk["auc_full"] - blk["auc_pure_market_baseline"], 4) if blk["auc_full"] and blk["auc_pure_market_baseline"] else None
+        half = tsec[kb] < (int(start_ts) + int(end_ts)) // 2
+        blk["halves"] = {nm: {"full": _auc(yb[m], pfb[m]), "pure": _auc(yb[m], ppb[m])} for nm, m in (("first", half), ("second", ~half)) if m.any()}
+        blk["at_threshold"] = _recall_lift(yb, pfb >= P_THRESH)
     flag = p >= P_THRESH
     out = {"period": [int(start_ts), int(end_ts)], "windows": int(len(win)), "cells": int(len(cells)), "cluster_fills": int(len(fills)),
            "use_venues": USE_VENUES, "six_series": SIX_SERIES, "use_alts": USE_ALTS, "alt_set": ALT_SET, "models": _TAG,
@@ -494,6 +727,9 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
         "auc_with_own_state": _auc(cells.y, pO), "auc_iteration2_rule_spot_tape": _auc(cells.y, p2),
         "base_rate": round(float(cells.y.mean()), 4), "at_threshold": _recall_lift(cells.y, flag),
         "baseline_at_threshold": _recall_lift(cells.y, pK >= P_THRESH),
+        "pure_market_baseline_auc_block_label": dp.get("auc_block_label_pure_market_baseline") if dp else None,
+        "decision_aligned": dp,
+        "block_seconds": blk,
     }
     # (b) side: seconds where the cluster bought exactly one outcome; rule = dedicated side model (ps >= 0.5 -> Up)
     up, dn = _pairs(cells)
@@ -532,6 +768,13 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
                    "share_six_series_flat": round(float(flat6[one].mean()), 4),
                    "accuracy_six_series_moving": round(float(ok1[~flat6[one]].mean()), 4) if (~flat6[one]).any() else None,
                    "accuracy_top_half_confidence": round(float(ok1[conf >= q50].mean()), 4)}
+    sd["by_wallet"] = {}
+    for w in ("GF", "XM", "DS"):
+        if f"y{w}" in up and f"y{w}" in dn:
+            one_w = (up[f"y{w}"].to_numpy() + dn[f"y{w}"].to_numpy()) == 1
+            if one_w.any():
+                tr_w = up[f"y{w}"].to_numpy()[one_w] == 1
+                sd["by_wallet"][w] = {"n_seconds": int(one_w.sum()), "accuracy_side_model": round(float(((ps[one_w] >= 0.5) == tr_w).mean()), 4)}
     out["side"] = sd
     # (c) price: predicted taker price = last implied ask of the outcome from others' prints (<= s-1)
     key = cells.set_index(["cid", "is_up", "rel"])[["ask_o"]]
@@ -554,7 +797,7 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
         tp["rel"] = tp.timestamp - tp.start_ts
         tp = tp[(tp.rel >= 0) & (tp.rel < 300)]
         tp["is_up"] = tp.outcome == "Up"
-        tp = tp.join(cells.set_index(["cid", "is_up", "rel"])[["p", "p_mkt"]], on=["cid", "is_up", "rel"])
+        tp = tp.join(cells.set_index(["cid", "is_up", "rel"])[["p", "p_mkt"] + (["p_pure"] if "p_pure" in cells else [])], on=["cid", "is_up", "rel"])
         lab = tp.proxyWallet.str.lower().isin(WALLETS).to_numpy()
         size_rule = np.isin(np.round(tp["size"].astype(float).to_numpy(), 2), ORDER_SIZES)
         score = size_rule.astype(float) + tp.p.to_numpy()
@@ -582,6 +825,7 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
         out["selection"]["v3_size_classes"] = {
             "auc_pooled": _auc(lab, score3), "auc_within_window": round(float(np.average(aw3, weights=ww3)), 4) if aw3 else None,
             "co_occurrence_baseline_auc": _auc(lab, 2.0 * full + 1.0 * part + tp.p_mkt.to_numpy()),
+            "pure_market_baseline_auc": _auc(lab, 2.0 * full + 1.0 * part + tp.p_pure.to_numpy()) if "p_pure" in tp else None,
             "at_preregistered_flag_full_or_partial_and_p_ge_0.30": _recall_lift(lab, flag3),
             "baseline_flag_full_or_partial_and_p_mkt_ge_0.30": _recall_lift(lab, full | (part & (tp.p_mkt.to_numpy() >= P_THRESH)))}
     # outcome: per-window PnL correlation; soft proxy = p x 30 shares at the last implied ask (primary), hard = flag -> 30 shares
@@ -611,7 +855,48 @@ def evaluate(start_ts: int, end_ts: int) -> dict:
                      "primary = shares (iteration 4, chosen on VALIDATE: Pearson 0.439, net-position corr 0.467; netflow 0.434, soft_side 0.426, soft 0.418)")
     res_o["primary"] = "shares" if np.isfinite(up.sh.to_numpy()).all() else "soft_side"
     res_o["strict_fill_backtest"] = _strict_backtest(up, dn, ps, win, fills) if len(fills) else None
+    # per-wallet PnL correlation of the primary proxy
+    prim = [v for v in variants if v[0] == res_o["primary"]]
+    if prim and len(fw):
+        nm, wu, wd = prim[0]
+        g = pd.DataFrame({"cid": up.cid.to_numpy(), "pnl": ORDER_SHARES * (wu * uU + wd * uD)}).groupby("cid").pnl.sum()
+        res_o["per_window_pnl_corr_primary_by_wallet"] = {}
+        for w in ("GF", "XM", "DS"):
+            ww = fw[fw.wallet == w].groupby("cid").pnl.sum()
+            bb = pd.DataFrame({"r": g}).join(ww.rename("w"), how="outer").reindex(win.cid).fillna(0.0)
+            res_o["per_window_pnl_corr_primary_by_wallet"][w] = {"pearson": round(float(bb.r.corr(bb.w)), 4), "spearman": round(float(bb.r.corr(bb.w, method="spearman")), 4)}
     out["outcome"] = res_o
+    # iteration 5: price against the recorded Polymarket book (where the live lab covers the period) and the B1 ladder check
+    try:
+        out["price"]["live_book"] = _live_touch(fills, win, start_ts, end_ts)
+    except Exception as e:
+        out["price"]["live_book"] = {"error": type(e).__name__}
+    try:
+        out["order_generation_b1"] = _b1_ladder(fills, win) if B1_SAMPLE_TXS > 0 else None
+    except Exception as e:
+        out["order_generation_b1"] = {"error": type(e).__name__}
+    # coverage: the rule's universe is every BTC 5m window of the period (all cluster fills and PnL are in it)
+    one_w = None
+    if len(fw):
+        wsides = fw.groupby("cid").is_up.agg(["min", "max"])
+        one_w = round(float((wsides["min"] == wsides["max"]).mean()), 4)
+    lb = out["price"].get("live_book") or {}
+    sb = res_o.get("strict_fill_backtest") or {}
+    out["target_metrics"] = {
+        "presence_auc": (blk or {}).get("auc_full") or out["presence"]["auc_any_no_own_state"], "presence_baseline": (blk or {}).get("auc_pure_market_baseline") or out["presence"]["pure_market_baseline_auc_block_label"] or out["presence"]["co_occurrence_baseline_auc"],
+        "presence_unit": "block seconds" if blk else "all seconds",
+        "selection_auc": (out.get("selection") or {}).get("v3_size_classes", {}).get("auc_pooled"),
+        "selection_baseline": (out.get("selection") or {}).get("v3_size_classes", {}).get("pure_market_baseline_auc") or (out.get("selection") or {}).get("v3_size_classes", {}).get("co_occurrence_baseline_auc"),
+        "selection_recall": ((out.get("selection") or {}).get("v3_size_classes", {}).get("at_preregistered_flag_full_or_partial_and_p_ge_0.30") or {}).get("recall"),
+        "selection_lift": ((out.get("selection") or {}).get("v3_size_classes", {}).get("at_preregistered_flag_full_or_partial_and_p_ge_0.30") or {}).get("lift"),
+        "side_accuracy": sd.get("y", {}).get("accuracy_side_model"), "side_baseline": sd.get("y", {}).get("baseline_market_only_model"),
+        "share_one_sided_windows": one_w,
+        "price_within_tick": lb.get("within_1tick_ask_match") if lb.get("within_1tick_ask_match") is not None else (lb.get("within_1tick_ask_lag") if lb.get("within_1tick_ask_lag") is not None else out["price"].get("T_within_1tick_of_last_ask")),
+        "price_source": "recorded book 50 ms before the recorded match" if lb.get("within_1tick_ask_match") is not None else ("recorded book (block - DECISION_LAG_S)" if lb.get("within_1tick_ask_lag") is not None else "last implied ask from others' prints"),
+        "pnl_corr_pearson": sb.get("per_window_pnl_corr_pearson"), "pnl_corr_spearman": sb.get("per_window_pnl_corr_spearman"),
+        "pnl_corr_proxy_pearson": res_o.get(f"per_window_pnl_corr_{res_o['primary']}_pearson"),
+        "coverage_fills": 1.0 if len(fills) else None, "coverage_abs_pnl": 1.0 if len(fills) else None,
+    }
     out["elapsed_s"] = round(time.time() - t0, 1)
     return out
 

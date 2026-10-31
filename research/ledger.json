@@ -1,5 +1,5 @@
 {
- "generated_at": 1793453772,
+ "generated_at": 1793453987,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -108,11 +108,11 @@
    "status": "in_progress",
    "wall_reason": "",
    "iterations": 5,
-   "minutes": 237.0,
-   "hypotheses": 47,
+   "minutes": 268.0,
+   "hypotheses": 52,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9132,
-   "best_rule": "it4b presence + it5 side (Bybit book) + B1 ladder check (code/final_rule.py, iteration 5)",
+   "best_rule": "it5: block-second presence (model_it5_blk_full) + it5 side (Bybit book) + live-book price + B1 ladder check (code/final_rule.py)",
    "has_final_rule": true,
    "strategy_statement": "One operator runs a TypeScript clob-client bot on (at least) four wallets [VALIDATE-only]. For every BTC 5-minute Up/Down window it pre-signs a full ladder of BUY limit orders on both outcomes at every cent, in bursts 90 s before the open and again at +42 s and +173 s, signing the wallets one after another [VALIDATE-only, decoded from calldata]. When BTC (on Binance, OKX, Bybit; or ETH and other coins that lead it) moves in the last second or two, it submits the pre-signed order at the current best ask of the outcome the move favours [VALIDATE-only], racing other latency takers; an unfilled remainder rests at that price [VALIDATE-only]. Sizes come from a fixed daily menu (mostly 30 shares, some 60/100) [VALIDATE-only]. It buys both outcomes in almost every window and holds everything to resolution, redeeming winners [VALIDATE-only]. It earns the latency edge after clear moves plus fee rebates on its large volume [VALIDATE-only]; its quiet-period volume roughly breaks even [VALIDATE-only]. Nothing is exam-verified yet.",
    "exam_rounds": 0,

@@ -1,0 +1,51 @@
+{
+ "build_block_second_share": 0.7307,
+ "build_positives_outside_block_seconds": 5,
+ "val_cells": 804746,
+ "auc_full": 0.8747,
+ "auc_pure_baseline": 0.8193,
+ "gain": 0.0554,
+ "by_wallet": {
+  "GF": {
+   "full": 0.8745,
+   "pure": 0.8098,
+   "gain": 0.0647
+  },
+  "XM": {
+   "full": 0.8927,
+   "pure": 0.825,
+   "gain": 0.0677
+  },
+  "DS": {
+   "full": 0.8571,
+   "pure": 0.8047,
+   "gain": 0.0524
+  }
+ },
+ "halves": {
+  "first": {
+   "full": 0.875,
+   "pure": 0.8204,
+   "gain": 0.0546
+  },
+  "second": {
+   "full": 0.8725,
+   "pure": 0.8175,
+   "gain": 0.055
+  }
+ },
+ "gain_block_bootstrap_2h": {
+  "lo95": 0.0524,
+  "hi95": 0.0582,
+  "one_sided_p_gain_le_0": 0.0,
+  "n_boot": 2000,
+  "blocks": 84
+ },
+ "at_p0.30": {
+  "recall": 0.6622,
+  "precision": 0.4765,
+  "lift": 2.953,
+  "flag_share": 0.2243,
+  "p_value": 0.0
+ }
+}
