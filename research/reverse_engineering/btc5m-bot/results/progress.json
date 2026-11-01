@@ -1,15 +1,29 @@
 {
  "brief": "find-the-strategy (2026-10-31, calendar lots)",
- "stage": "reverse_engineering",
+ "stage": "budget_exhausted",
  "iterations": 19,
  "minutes": 1207,
  "budget_minutes": 1200,
  "best_validate_score": 0.9132,
  "progress": 0.9343599999999999,
- "released": [],
+ "released": [
+  "h1"
+ ],
  "future_examined_until": 1793404800,
- "exam_rounds": 0,
- "exams": [],
+ "exam_rounds": 1,
+ "exams": [
+  {
+   "round": 1,
+   "lot": "h1",
+   "criteria": {
+    "match": "partial",
+    "backtest": "fail",
+    "replicable": "fail",
+    "persists": "fail"
+   },
+   "target_met": false
+  }
+ ],
  "wall_audits": [],
  "wall_refusals": 0,
  "claim_refusals": 0,

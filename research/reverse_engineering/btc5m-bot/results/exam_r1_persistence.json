@@ -1,0 +1,1251 @@
+{
+ "as_of": 1793491200,
+ "GF": {
+  "derived": {
+   "d_economic_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 6.426010334173903,
+     "p_value": 2.1794840962051845e-05,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 5.056952573363972,
+     "p_value": 1.3930572191551643e-05,
+     "n": 76,
+     "detail": "lags=3; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 1.785450200003024,
+     "p_value": 0.9471751319546009,
+     "n": 106,
+     "detail": "recent=2072.69 earlier=1329.69; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": 1.101093327254604,
+     "p_value": 0.8306776903434495,
+     "n": 30,
+     "detail": "recent=2421.46 earlier=1723.93; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 5.2297598899056785,
+     "p_value": 0.9999692406646216,
+     "n": 106,
+     "detail": "slope_per_day=23.61; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.8330867401984858,
+     "p_value": 0.002412077630841902,
+     "n": 106,
+     "detail": "most_likely_break_index=34"
+    },
+    "rolling_sharpe_min": 10.57369557889417,
+    "rolling_sharpe_last": 20.15023641079831,
+    "share_positive_windows": 1.0
+   },
+   "d_trade_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 8.496073980294963,
+     "p_value": 8.360051808380982e-07,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 5.5132208717678655,
+     "p_value": 3.777980605743653e-06,
+     "n": 76,
+     "detail": "lags=3; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 2.916327594422179,
+     "p_value": 0.9943738276925338,
+     "n": 106,
+     "detail": "recent=3237.60 earlier=1780.77; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": 0.2519475812012606,
+     "p_value": 0.5880576280484783,
+     "n": 30,
+     "detail": "recent=3343.08 earlier=3132.12; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 7.369215630563835,
+     "p_value": 0.9999998384019414,
+     "n": 106,
+     "detail": "slope_per_day=36.06; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.9098043915554546,
+     "p_value": 0.0013582496261694032,
+     "n": 106,
+     "detail": "most_likely_break_index=34"
+    },
+    "rolling_sharpe_min": 14.08753535255625,
+    "rolling_sharpe_last": 28.900596607022134,
+    "share_positive_windows": 1.0
+   },
+   "d_position_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 1.9821616537926225,
+     "p_value": 0.045257854653198475,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 4.3349366042342945,
+     "p_value": 0.00010457612087774441,
+     "n": 76,
+     "detail": "lags=3; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.38105832999223066,
+     "p_value": 0.36105361290069393,
+     "n": 106,
+     "detail": "recent=651.26 earlier=794.63; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": 1.0786617282198059,
+     "p_value": 0.8258737913718629,
+     "n": 30,
+     "detail": "recent=990.15 earlier=312.38; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.4598247766933043,
+     "p_value": 0.9064974942700764,
+     "n": 106,
+     "detail": "slope_per_day=7.082; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.2593563242763166,
+     "p_value": 0.08383680240134472,
+     "n": 106,
+     "detail": "most_likely_break_index=34"
+    },
+    "rolling_sharpe_min": 5.142414944511262,
+    "rolling_sharpe_last": 5.142414944511262,
+    "share_positive_windows": 1.0
+   }
+  },
+  "observed": {
+   "one_off_bonuses_removed": []
+  },
+  "coverage": {
+   "status": "complete",
+   "detail": ""
+  },
+  "daily_tail": {
+   "2026-10-11 00:00:00+00:00": {
+    "d_economic_pnl": 2568.8,
+    "d_trade_pnl": 1998.0,
+    "d_position_pnl": 821.4,
+    "d_wallet_income": 1747.4,
+    "d_maker_rebate": 89.2,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -1176.5,
+    "d_volume_usdc": 50583.4,
+    "d_trade_count": 3474.0
+   },
+   "2026-10-12 00:00:00+00:00": {
+    "d_economic_pnl": 331.2,
+    "d_trade_pnl": 620.7,
+    "d_position_pnl": -324.9,
+    "d_wallet_income": 656.1,
+    "d_maker_rebate": 70.8,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -945.5,
+    "d_volume_usdc": 40040.8,
+    "d_trade_count": 2708.0
+   },
+   "2026-10-13 00:00:00+00:00": {
+    "d_economic_pnl": -303.0,
+    "d_trade_pnl": 1676.0,
+    "d_position_pnl": -837.3,
+    "d_wallet_income": 534.3,
+    "d_maker_rebate": 57.1,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -2513.3,
+    "d_volume_usdc": 97409.8,
+    "d_trade_count": 5621.0
+   },
+   "2026-10-14 00:00:00+00:00": {
+    "d_economic_pnl": 2326.4,
+    "d_trade_pnl": 4779.1,
+    "d_position_pnl": 964.7,
+    "d_wallet_income": 1361.7,
+    "d_maker_rebate": 82.9,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3814.5,
+    "d_volume_usdc": 140962.4,
+    "d_trade_count": 9572.0
+   },
+   "2026-10-15 00:00:00+00:00": {
+    "d_economic_pnl": 2381.6,
+    "d_trade_pnl": 4820.5,
+    "d_position_pnl": 410.8,
+    "d_wallet_income": 1970.8,
+    "d_maker_rebate": 86.6,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -4409.7,
+    "d_volume_usdc": 162487.2,
+    "d_trade_count": 14374.0
+   },
+   "2026-10-16 00:00:00+00:00": {
+    "d_economic_pnl": 6554.5,
+    "d_trade_pnl": 7651.1,
+    "d_position_pnl": 4238.7,
+    "d_wallet_income": 2315.9,
+    "d_maker_rebate": 108.4,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3412.5,
+    "d_volume_usdc": 134458.2,
+    "d_trade_count": 11917.0
+   },
+   "2026-10-17 00:00:00+00:00": {
+    "d_economic_pnl": -907.7,
+    "d_trade_pnl": 1259.2,
+    "d_position_pnl": -2745.6,
+    "d_wallet_income": 1837.9,
+    "d_maker_rebate": 129.3,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -4004.8,
+    "d_volume_usdc": 163413.2,
+    "d_trade_count": 11486.0
+   },
+   "2026-10-18 00:00:00+00:00": {
+    "d_economic_pnl": 1425.5,
+    "d_trade_pnl": 838.5,
+    "d_position_pnl": -792.6,
+    "d_wallet_income": 2218.0,
+    "d_maker_rebate": 209.5,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -1631.1,
+    "d_volume_usdc": 74490.8,
+    "d_trade_count": 6355.0
+   },
+   "2026-10-19 00:00:00+00:00": {
+    "d_economic_pnl": 1500.4,
+    "d_trade_pnl": 2131.1,
+    "d_position_pnl": 570.5,
+    "d_wallet_income": 929.9,
+    "d_maker_rebate": 129.5,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -1560.6,
+    "d_volume_usdc": 71292.0,
+    "d_trade_count": 7308.0
+   },
+   "2026-10-20 00:00:00+00:00": {
+    "d_economic_pnl": 1921.8,
+    "d_trade_pnl": 3851.1,
+    "d_position_pnl": 1014.9,
+    "d_wallet_income": 906.9,
+    "d_maker_rebate": 121.7,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -2836.2,
+    "d_volume_usdc": 114186.6,
+    "d_trade_count": 9354.0
+   },
+   "2026-10-21 00:00:00+00:00": {
+    "d_economic_pnl": 3743.9,
+    "d_trade_pnl": 5617.2,
+    "d_position_pnl": 2185.6,
+    "d_wallet_income": 1558.3,
+    "d_maker_rebate": 142.3,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3431.6,
+    "d_volume_usdc": 135002.5,
+    "d_trade_count": 11356.0
+   },
+   "2026-10-22 00:00:00+00:00": {
+    "d_economic_pnl": 1484.1,
+    "d_trade_pnl": 2912.7,
+    "d_position_pnl": -390.5,
+    "d_wallet_income": 1874.6,
+    "d_maker_rebate": 157.5,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3303.2,
+    "d_volume_usdc": 134710.6,
+    "d_trade_count": 11238.0
+   },
+   "2026-10-23 00:00:00+00:00": {
+    "d_economic_pnl": 3027.8,
+    "d_trade_pnl": 5011.9,
+    "d_position_pnl": 1203.7,
+    "d_wallet_income": 1824.1,
+    "d_maker_rebate": 167.2,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3808.2,
+    "d_volume_usdc": 162647.8,
+    "d_trade_count": 14083.0
+   },
+   "2026-10-24 00:00:00+00:00": {
+    "d_economic_pnl": 623.4,
+    "d_trade_pnl": 1376.5,
+    "d_position_pnl": -1484.3,
+    "d_wallet_income": 2107.7,
+    "d_maker_rebate": 208.1,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -2860.8,
+    "d_volume_usdc": 116686.9,
+    "d_trade_count": 12248.0
+   },
+   "2026-10-25 00:00:00+00:00": {
+    "d_economic_pnl": -306.1,
+    "d_trade_pnl": -219.9,
+    "d_position_pnl": -1886.1,
+    "d_wallet_income": 1580.0,
+    "d_maker_rebate": 145.4,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -1666.2,
+    "d_volume_usdc": 83926.8,
+    "d_trade_count": 9252.0
+   },
+   "2026-10-26 00:00:00+00:00": {
+    "d_economic_pnl": 2133.5,
+    "d_trade_pnl": 2606.8,
+    "d_position_pnl": 1142.8,
+    "d_wallet_income": 990.7,
+    "d_maker_rebate": 166.6,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -1463.9,
+    "d_volume_usdc": 75720.1,
+    "d_trade_count": 8896.0
+   },
+   "2026-10-27 00:00:00+00:00": {
+    "d_economic_pnl": 3186.1,
+    "d_trade_pnl": 4843.5,
+    "d_position_pnl": 2292.4,
+    "d_wallet_income": 893.7,
+    "d_maker_rebate": 162.8,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -2551.1,
+    "d_volume_usdc": 113025.2,
+    "d_trade_count": 11782.0
+   },
+   "2026-10-28 00:00:00+00:00": {
+    "d_economic_pnl": 3143.2,
+    "d_trade_pnl": 3965.9,
+    "d_position_pnl": 1704.4,
+    "d_wallet_income": 1438.8,
+    "d_maker_rebate": 158.0,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -2261.4,
+    "d_volume_usdc": 98698.8,
+    "d_trade_count": 10788.0
+   },
+   "2026-10-29 00:00:00+00:00": {
+    "d_economic_pnl": 4761.5,
+    "d_trade_pnl": 5889.2,
+    "d_position_pnl": 3479.3,
+    "d_wallet_income": 1282.2,
+    "d_maker_rebate": 153.7,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -2410.0,
+    "d_volume_usdc": 107913.1,
+    "d_trade_count": 11705.0
+   },
+   "2026-10-30 00:00:00+00:00": {
+    "d_economic_pnl": 4930.9,
+    "d_trade_pnl": 6304.6,
+    "d_position_pnl": 3566.3,
+    "d_wallet_income": 1364.6,
+    "d_maker_rebate": 163.4,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -2738.3,
+    "d_volume_usdc": 120718.1,
+    "d_trade_count": 13232.0
+   },
+   "2026-10-31 00:00:00+00:00": {
+    "d_economic_pnl": 3615.1,
+    "d_trade_pnl": 3739.3,
+    "d_position_pnl": 2083.2,
+    "d_wallet_income": 1531.9,
+    "d_maker_rebate": 159.9,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -1656.1,
+    "d_volume_usdc": 82191.5,
+    "d_trade_count": 8172.0
+   },
+   "2026-11-01 00:00:00+00:00": {
+    "d_economic_pnl": 1130.8,
+    "d_trade_pnl": 1277.9,
+    "d_position_pnl": 162.7,
+    "d_wallet_income": 968.1,
+    "d_maker_rebate": 144.6,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -1115.2,
+    "d_volume_usdc": 67363.6,
+    "d_trade_count": 7394.0
+   }
+  },
+  "columns": [
+   "economic_pnl",
+   "d_economic_pnl",
+   "trade_pnl",
+   "d_trade_pnl",
+   "position_pnl",
+   "d_position_pnl",
+   "wallet_income",
+   "d_wallet_income",
+   "maker_rebate",
+   "d_maker_rebate",
+   "reward_income",
+   "d_reward_income",
+   "fees_paid",
+   "d_fees_paid",
+   "volume_usdc",
+   "d_volume_usdc",
+   "trade_count",
+   "d_trade_count"
+  ]
+ },
+ "XM": {
+  "derived": {
+   "d_economic_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.885329570832218,
+     "p_value": 0.0017295153140257185,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 8.346411282986656,
+     "p_value": 2.2483624016033154e-10,
+     "n": 113,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.7019956032680654,
+     "p_value": 0.25803686024066186,
+     "n": 143,
+     "detail": "recent=2442.30 earlier=2948.48; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -3.835813313132654,
+     "p_value": 0.0018265491875395796,
+     "n": 30,
+     "detail": "recent=1042.15 earlier=3842.44; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.8638771771133782,
+     "p_value": 0.9561833186195449,
+     "n": 143,
+     "detail": "slope_per_day=13.78; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.4356103122593828,
+     "p_value": 0.03242547115106555,
+     "n": 143,
+     "detail": "most_likely_break_index=67"
+    },
+    "rolling_sharpe_min": 22.31081707857803,
+    "rolling_sharpe_last": 22.31081707857803,
+    "share_positive_windows": 1.0
+   },
+   "d_trade_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.4757885945310893,
+     "p_value": 0.0035657555140001136,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 9.35601485142752,
+     "p_value": 6.783450492180118e-12,
+     "n": 113,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.9027311197294434,
+     "p_value": 0.2027240106488774,
+     "n": 143,
+     "detail": "recent=3628.20 earlier=4672.82; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -4.320084599107882,
+     "p_value": 0.0007359558147734078,
+     "n": 30,
+     "detail": "recent=1250.29 earlier=6006.11; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.4826629093318886,
+     "p_value": 0.9150268567421699,
+     "n": 143,
+     "detail": "slope_per_day=17.99; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.326454517910985,
+     "p_value": 0.05925873938998355,
+     "n": 143,
+     "detail": "most_likely_break_index=66"
+    },
+    "rolling_sharpe_min": 21.855365652702332,
+    "rolling_sharpe_last": 21.855365652702332,
+    "share_positive_windows": 1.0
+   },
+   "d_position_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.96930737663461,
+     "p_value": 0.0014908706036439192,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 6.375099552168665,
+     "p_value": 1.4526751829740637e-07,
+     "n": 113,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -1.4903231769687686,
+     "p_value": 0.088181193427746,
+     "n": 143,
+     "detail": "recent=840.32 earlier=1274.23; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -0.9891437784799239,
+     "p_value": 0.19424753773803535,
+     "n": 30,
+     "detail": "recent=630.27 earlier=1050.36; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": -0.6500670170038633,
+     "p_value": 0.2706692708226381,
+     "n": 143,
+     "detail": "slope_per_day=-1.974; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.204218449695516,
+     "p_value": 0.10999686360813743,
+     "n": 143,
+     "detail": "most_likely_break_index=84"
+    },
+    "rolling_sharpe_min": 4.786537745637783,
+    "rolling_sharpe_last": 14.719613662215387,
+    "share_positive_windows": 1.0
+   }
+  },
+  "observed": {
+   "one_off_bonuses_removed": []
+  },
+  "coverage": {
+   "status": "complete",
+   "detail": ""
+  },
+  "daily_tail": {
+   "2026-10-11 00:00:00+00:00": {
+    "d_economic_pnl": 7255.0,
+    "d_trade_pnl": 6424.7,
+    "d_position_pnl": 3202.7,
+    "d_wallet_income": 4052.3,
+    "d_maker_rebate": 267.9,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3222.0,
+    "d_volume_usdc": 143332.0,
+    "d_trade_count": 11215.0
+   },
+   "2026-10-12 00:00:00+00:00": {
+    "d_economic_pnl": 2322.8,
+    "d_trade_pnl": 2978.3,
+    "d_position_pnl": 500.4,
+    "d_wallet_income": 1822.4,
+    "d_maker_rebate": 215.4,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -2477.9,
+    "d_volume_usdc": 112315.3,
+    "d_trade_count": 9764.0
+   },
+   "2026-10-13 00:00:00+00:00": {
+    "d_economic_pnl": 2291.9,
+    "d_trade_pnl": 6988.6,
+    "d_position_pnl": 852.0,
+    "d_wallet_income": 1439.9,
+    "d_maker_rebate": 183.7,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -6136.6,
+    "d_volume_usdc": 245817.8,
+    "d_trade_count": 19468.0
+   },
+   "2026-10-14 00:00:00+00:00": {
+    "d_economic_pnl": 4193.6,
+    "d_trade_pnl": 6870.1,
+    "d_position_pnl": 827.1,
+    "d_wallet_income": 3366.5,
+    "d_maker_rebate": 272.0,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -6043.0,
+    "d_volume_usdc": 232764.2,
+    "d_trade_count": 19028.0
+   },
+   "2026-10-15 00:00:00+00:00": {
+    "d_economic_pnl": 3161.8,
+    "d_trade_pnl": 1561.5,
+    "d_position_pnl": -16.9,
+    "d_wallet_income": 3178.7,
+    "d_maker_rebate": 207.2,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -1578.4,
+    "d_volume_usdc": 59553.4,
+    "d_trade_count": 4947.0
+   },
+   "2026-10-16 00:00:00+00:00": {
+    "d_economic_pnl": 2565.8,
+    "d_trade_pnl": 2587.9,
+    "d_position_pnl": 1728.4,
+    "d_wallet_income": 837.4,
+    "d_maker_rebate": 48.3,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -859.5,
+    "d_volume_usdc": 36677.3,
+    "d_trade_count": 3084.0
+   },
+   "2026-10-17 00:00:00+00:00": {
+    "d_economic_pnl": 1052.7,
+    "d_trade_pnl": 1485.6,
+    "d_position_pnl": 577.7,
+    "d_wallet_income": 475.0,
+    "d_maker_rebate": 46.2,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -907.9,
+    "d_volume_usdc": 39071.2,
+    "d_trade_count": 2520.0
+   },
+   "2026-10-18 00:00:00+00:00": {
+    "d_economic_pnl": -71.7,
+    "d_trade_pnl": -178.3,
+    "d_position_pnl": -590.7,
+    "d_wallet_income": 519.0,
+    "d_maker_rebate": 61.9,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -412.3,
+    "d_volume_usdc": 19815.0,
+    "d_trade_count": 1640.0
+   },
+   "2026-10-19 00:00:00+00:00": {
+    "d_economic_pnl": 236.4,
+    "d_trade_pnl": 429.2,
+    "d_position_pnl": -0.6,
+    "d_wallet_income": 236.9,
+    "d_maker_rebate": 36.3,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -429.7,
+    "d_volume_usdc": 18940.8,
+    "d_trade_count": 1749.0
+   },
+   "2026-10-20 00:00:00+00:00": {
+    "d_economic_pnl": 570.4,
+    "d_trade_pnl": 1021.8,
+    "d_position_pnl": 324.2,
+    "d_wallet_income": 246.2,
+    "d_maker_rebate": 30.0,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -697.7,
+    "d_volume_usdc": 30091.4,
+    "d_trade_count": 2267.0
+   },
+   "2026-10-21 00:00:00+00:00": {
+    "d_economic_pnl": 1523.2,
+    "d_trade_pnl": 1876.7,
+    "d_position_pnl": 1131.7,
+    "d_wallet_income": 391.6,
+    "d_maker_rebate": 43.3,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -745.0,
+    "d_volume_usdc": 33168.9,
+    "d_trade_count": 2559.0
+   },
+   "2026-10-22 00:00:00+00:00": {
+    "d_economic_pnl": 1471.3,
+    "d_trade_pnl": 1860.2,
+    "d_position_pnl": 1048.4,
+    "d_wallet_income": 422.9,
+    "d_maker_rebate": 48.7,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -811.7,
+    "d_volume_usdc": 36325.3,
+    "d_trade_count": 2731.0
+   },
+   "2026-10-23 00:00:00+00:00": {
+    "d_economic_pnl": -561.6,
+    "d_trade_pnl": -223.4,
+    "d_position_pnl": -1019.0,
+    "d_wallet_income": 457.3,
+    "d_maker_rebate": 51.6,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -795.6,
+    "d_volume_usdc": 37454.4,
+    "d_trade_count": 2986.0
+   },
+   "2026-10-24 00:00:00+00:00": {
+    "d_economic_pnl": -184.1,
+    "d_trade_pnl": 13.2,
+    "d_position_pnl": -643.1,
+    "d_wallet_income": 459.0,
+    "d_maker_rebate": 63.3,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -656.3,
+    "d_volume_usdc": 31144.9,
+    "d_trade_count": 2906.0
+   },
+   "2026-10-25 00:00:00+00:00": {
+    "d_economic_pnl": 2202.7,
+    "d_trade_pnl": 2387.6,
+    "d_position_pnl": 1815.8,
+    "d_wallet_income": 386.9,
+    "d_maker_rebate": 56.8,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -571.8,
+    "d_volume_usdc": 31836.3,
+    "d_trade_count": 2977.0
+   },
+   "2026-10-26 00:00:00+00:00": {
+    "d_economic_pnl": 1278.0,
+    "d_trade_pnl": 1378.4,
+    "d_position_pnl": 915.4,
+    "d_wallet_income": 362.6,
+    "d_maker_rebate": 77.9,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -463.0,
+    "d_volume_usdc": 26000.9,
+    "d_trade_count": 2557.0
+   },
+   "2026-10-27 00:00:00+00:00": {
+    "d_economic_pnl": 2201.3,
+    "d_trade_pnl": 2680.3,
+    "d_position_pnl": 1903.9,
+    "d_wallet_income": 297.3,
+    "d_maker_rebate": 65.8,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -776.4,
+    "d_volume_usdc": 35426.4,
+    "d_trade_count": 3057.0
+   },
+   "2026-10-28 00:00:00+00:00": {
+    "d_economic_pnl": 880.0,
+    "d_trade_pnl": 1011.3,
+    "d_position_pnl": 440.2,
+    "d_wallet_income": 439.8,
+    "d_maker_rebate": 51.6,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -571.1,
+    "d_volume_usdc": 28722.9,
+    "d_trade_count": 2572.0
+   },
+   "2026-10-29 00:00:00+00:00": {
+    "d_economic_pnl": 2414.6,
+    "d_trade_pnl": 2771.4,
+    "d_position_pnl": 2067.9,
+    "d_wallet_income": 346.7,
+    "d_maker_rebate": 59.6,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -703.5,
+    "d_volume_usdc": 44328.0,
+    "d_trade_count": 4759.0
+   },
+   "2026-10-30 00:00:00+00:00": {
+    "d_economic_pnl": 3342.2,
+    "d_trade_pnl": 3660.0,
+    "d_position_pnl": 2870.2,
+    "d_wallet_income": 472.0,
+    "d_maker_rebate": 122.2,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -789.8,
+    "d_volume_usdc": 68479.6,
+    "d_trade_count": 7087.0
+   },
+   "2026-10-31 00:00:00+00:00": {
+    "d_economic_pnl": 599.6,
+    "d_trade_pnl": 461.4,
+    "d_position_pnl": -27.4,
+    "d_wallet_income": 627.0,
+    "d_maker_rebate": 231.8,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -488.8,
+    "d_volume_usdc": 65761.2,
+    "d_trade_count": 6120.0
+   },
+   "2026-11-01 00:00:00+00:00": {
+    "d_economic_pnl": -270.0,
+    "d_trade_pnl": -395.6,
+    "d_position_pnl": -782.9,
+    "d_wallet_income": 512.9,
+    "d_maker_rebate": 269.5,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -387.3,
+    "d_volume_usdc": 92096.0,
+    "d_trade_count": 10125.0
+   }
+  },
+  "columns": [
+   "economic_pnl",
+   "d_economic_pnl",
+   "trade_pnl",
+   "d_trade_pnl",
+   "position_pnl",
+   "d_position_pnl",
+   "wallet_income",
+   "d_wallet_income",
+   "maker_rebate",
+   "d_maker_rebate",
+   "reward_income",
+   "d_reward_income",
+   "fees_paid",
+   "d_fees_paid",
+   "volume_usdc",
+   "d_volume_usdc",
+   "trade_count",
+   "d_trade_count"
+  ]
+ },
+ "DS": {
+  "derived": {
+   "d_economic_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 8.268633220935026,
+     "p_value": 1.1804346463674173e-06,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 6.396428431993922,
+     "p_value": 2.8714938115789065e-07,
+     "n": 76,
+     "detail": "lags=3; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 3.1914611153763577,
+     "p_value": 0.9969509928133002,
+     "n": 106,
+     "detail": "recent=3901.41 earlier=2074.22; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -0.43673653998869444,
+     "p_value": 0.35009684069508956,
+     "n": 30,
+     "detail": "recent=3698.68 earlier=4104.13; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 6.400173513928146,
+     "p_value": 0.9999982449057064,
+     "n": 106,
+     "detail": "slope_per_day=38.63; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.856209292774972,
+     "p_value": 0.002033740241625547,
+     "n": 106,
+     "detail": "most_likely_break_index=33"
+    },
+    "rolling_sharpe_min": 15.146933869914774,
+    "rolling_sharpe_last": 29.900387294085967,
+    "share_positive_windows": 1.0
+   },
+   "d_trade_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 10.088533200546982,
+     "p_value": 7.881788155663109e-08,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 7.158018785094327,
+     "p_value": 2.9509230102616655e-08,
+     "n": 76,
+     "detail": "lags=3; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 4.159423468489217,
+     "p_value": 0.9996961620183324,
+     "n": 106,
+     "detail": "recent=5962.56 earlier=2961.70; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -0.5785753241459678,
+     "p_value": 0.3053601600614986,
+     "n": 30,
+     "detail": "recent=5600.93 earlier=6324.19; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 8.351676631239497,
+     "p_value": 0.99999998590776,
+     "n": 106,
+     "detail": "slope_per_day=58.93; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.8757677427845771,
+     "p_value": 0.0017575015192162246,
+     "n": 106,
+     "detail": "most_likely_break_index=33"
+    },
+    "rolling_sharpe_min": 19.019033809130786,
+    "rolling_sharpe_last": 36.52804883284205,
+    "share_positive_windows": 1.0
+   },
+   "d_position_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.273558703558297,
+     "p_value": 0.005089807741830763,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 5.285934168704633,
+     "p_value": 7.255316833994634e-06,
+     "n": 76,
+     "detail": "lags=3; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 0.7776325214041643,
+     "p_value": 0.7649459120471996,
+     "n": 106,
+     "detail": "recent=1436.80 earlier=1061.47; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.2413898926716034,
+     "p_value": 0.14142201786283412,
+     "n": 30,
+     "detail": "recent=946.90 earlier=1926.71; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.7441236181327358,
+     "p_value": 0.9408928220228244,
+     "n": 106,
+     "detail": "slope_per_day=10.09; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.2172476230801952,
+     "p_value": 0.10327353620383643,
+     "n": 106,
+     "detail": "most_likely_break_index=33"
+    },
+    "rolling_sharpe_min": 11.306806125357266,
+    "rolling_sharpe_last": 12.869052436438844,
+    "share_positive_windows": 1.0
+   }
+  },
+  "observed": {
+   "one_off_bonuses_removed": []
+  },
+  "coverage": {
+   "status": "complete",
+   "detail": ""
+  },
+  "daily_tail": {
+   "2026-10-11 00:00:00+00:00": {
+    "d_economic_pnl": 3057.6,
+    "d_trade_pnl": 2221.6,
+    "d_position_pnl": 427.4,
+    "d_wallet_income": 2630.1,
+    "d_maker_rebate": 135.8,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -1794.2,
+    "d_volume_usdc": 76746.1,
+    "d_trade_count": 5536.0
+   },
+   "2026-10-12 00:00:00+00:00": {
+    "d_economic_pnl": 840.3,
+    "d_trade_pnl": 1236.4,
+    "d_position_pnl": -160.6,
+    "d_wallet_income": 1000.8,
+    "d_maker_rebate": 105.4,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -1397.0,
+    "d_volume_usdc": 62687.2,
+    "d_trade_count": 4764.0
+   },
+   "2026-10-13 00:00:00+00:00": {
+    "d_economic_pnl": -485.5,
+    "d_trade_pnl": 2383.6,
+    "d_position_pnl": -1285.3,
+    "d_wallet_income": 799.8,
+    "d_maker_rebate": 94.2,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3668.9,
+    "d_volume_usdc": 145413.3,
+    "d_trade_count": 9729.0
+   },
+   "2026-10-14 00:00:00+00:00": {
+    "d_economic_pnl": 5926.6,
+    "d_trade_pnl": 9536.0,
+    "d_position_pnl": 3922.7,
+    "d_wallet_income": 2004.0,
+    "d_maker_rebate": 141.0,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -5613.3,
+    "d_volume_usdc": 209444.7,
+    "d_trade_count": 16494.0
+   },
+   "2026-10-15 00:00:00+00:00": {
+    "d_economic_pnl": 4627.8,
+    "d_trade_pnl": 8810.8,
+    "d_position_pnl": 1697.1,
+    "d_wallet_income": 2930.7,
+    "d_maker_rebate": 153.9,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -7113.7,
+    "d_volume_usdc": 264160.8,
+    "d_trade_count": 25598.0
+   },
+   "2026-10-16 00:00:00+00:00": {
+    "d_economic_pnl": 5781.4,
+    "d_trade_pnl": 8409.4,
+    "d_position_pnl": 2010.2,
+    "d_wallet_income": 3771.2,
+    "d_maker_rebate": 207.9,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -6399.1,
+    "d_volume_usdc": 247808.1,
+    "d_trade_count": 26370.0
+   },
+   "2026-10-17 00:00:00+00:00": {
+    "d_economic_pnl": 6163.4,
+    "d_trade_pnl": 9827.6,
+    "d_position_pnl": 2737.7,
+    "d_wallet_income": 3425.7,
+    "d_maker_rebate": 230.2,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -7089.9,
+    "d_volume_usdc": 277494.8,
+    "d_trade_count": 24960.0
+   },
+   "2026-10-18 00:00:00+00:00": {
+    "d_economic_pnl": 5738.7,
+    "d_trade_pnl": 4940.8,
+    "d_position_pnl": 1897.1,
+    "d_wallet_income": 3841.6,
+    "d_maker_rebate": 285.5,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3043.7,
+    "d_volume_usdc": 135085.3,
+    "d_trade_count": 13700.0
+   },
+   "2026-10-19 00:00:00+00:00": {
+    "d_economic_pnl": 1764.5,
+    "d_trade_pnl": 3348.7,
+    "d_position_pnl": 55.0,
+    "d_wallet_income": 1709.5,
+    "d_maker_rebate": 206.4,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3293.8,
+    "d_volume_usdc": 151392.3,
+    "d_trade_count": 17201.0
+   },
+   "2026-10-20 00:00:00+00:00": {
+    "d_economic_pnl": -380.0,
+    "d_trade_pnl": 3144.6,
+    "d_position_pnl": -2302.1,
+    "d_wallet_income": 1922.1,
+    "d_maker_rebate": 263.0,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -5446.7,
+    "d_volume_usdc": 215832.1,
+    "d_trade_count": 21160.0
+   },
+   "2026-10-21 00:00:00+00:00": {
+    "d_economic_pnl": 5954.6,
+    "d_trade_pnl": 9615.3,
+    "d_position_pnl": 2995.5,
+    "d_wallet_income": 2959.1,
+    "d_maker_rebate": 243.3,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -6619.8,
+    "d_volume_usdc": 250616.7,
+    "d_trade_count": 26147.0
+   },
+   "2026-10-22 00:00:00+00:00": {
+    "d_economic_pnl": 1946.3,
+    "d_trade_pnl": 3328.3,
+    "d_position_pnl": -1595.0,
+    "d_wallet_income": 3541.3,
+    "d_maker_rebate": 226.7,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -4923.3,
+    "d_volume_usdc": 197714.6,
+    "d_trade_count": 19989.0
+   },
+   "2026-10-23 00:00:00+00:00": {
+    "d_economic_pnl": 297.3,
+    "d_trade_pnl": 3383.1,
+    "d_position_pnl": -2383.5,
+    "d_wallet_income": 2680.8,
+    "d_maker_rebate": 223.2,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -5766.6,
+    "d_volume_usdc": 239678.7,
+    "d_trade_count": 24615.0
+   },
+   "2026-10-24 00:00:00+00:00": {
+    "d_economic_pnl": 2854.2,
+    "d_trade_pnl": 6053.2,
+    "d_position_pnl": -326.7,
+    "d_wallet_income": 3180.9,
+    "d_maker_rebate": 283.2,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -6380.0,
+    "d_volume_usdc": 246410.0,
+    "d_trade_count": 28293.0
+   },
+   "2026-10-25 00:00:00+00:00": {
+    "d_economic_pnl": 4157.2,
+    "d_trade_pnl": 4148.5,
+    "d_position_pnl": 732.9,
+    "d_wallet_income": 3424.3,
+    "d_maker_rebate": 237.7,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3415.6,
+    "d_volume_usdc": 162455.7,
+    "d_trade_count": 19382.0
+   },
+   "2026-10-26 00:00:00+00:00": {
+    "d_economic_pnl": 3747.8,
+    "d_trade_pnl": 4929.7,
+    "d_position_pnl": 1766.1,
+    "d_wallet_income": 1981.7,
+    "d_maker_rebate": 285.9,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3163.7,
+    "d_volume_usdc": 150658.0,
+    "d_trade_count": 18370.0
+   },
+   "2026-10-27 00:00:00+00:00": {
+    "d_economic_pnl": 6104.2,
+    "d_trade_pnl": 10044.4,
+    "d_position_pnl": 4249.2,
+    "d_wallet_income": 1855.1,
+    "d_maker_rebate": 275.0,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -5795.3,
+    "d_volume_usdc": 245995.8,
+    "d_trade_count": 28136.0
+   },
+   "2026-10-28 00:00:00+00:00": {
+    "d_economic_pnl": 4953.3,
+    "d_trade_pnl": 6832.3,
+    "d_position_pnl": 1741.2,
+    "d_wallet_income": 3212.2,
+    "d_maker_rebate": 308.1,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -5091.2,
+    "d_volume_usdc": 211304.9,
+    "d_trade_count": 24226.0
+   },
+   "2026-10-29 00:00:00+00:00": {
+    "d_economic_pnl": 4868.8,
+    "d_trade_pnl": 7399.3,
+    "d_position_pnl": 2052.7,
+    "d_wallet_income": 2816.1,
+    "d_maker_rebate": 275.9,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -5346.6,
+    "d_volume_usdc": 228638.0,
+    "d_trade_count": 26127.0
+   },
+   "2026-10-30 00:00:00+00:00": {
+    "d_economic_pnl": 4840.8,
+    "d_trade_pnl": 7746.7,
+    "d_position_pnl": 1882.3,
+    "d_wallet_income": 2958.6,
+    "d_maker_rebate": 291.9,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -5864.4,
+    "d_volume_usdc": 249174.4,
+    "d_trade_count": 29494.0
+   },
+   "2026-10-31 00:00:00+00:00": {
+    "d_economic_pnl": 5838.2,
+    "d_trade_pnl": 6057.4,
+    "d_position_pnl": 2597.4,
+    "d_wallet_income": 3240.9,
+    "d_maker_rebate": 301.2,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -3460.1,
+    "d_volume_usdc": 158434.2,
+    "d_trade_count": 17246.0
+   },
+   "2026-11-01 00:00:00+00:00": {
+    "d_economic_pnl": 2794.2,
+    "d_trade_pnl": 3041.5,
+    "d_position_pnl": 841.5,
+    "d_wallet_income": 1952.7,
+    "d_maker_rebate": 233.3,
+    "d_reward_income": 0.0,
+    "d_fees_paid": -2200.0,
+    "d_volume_usdc": 122646.1,
+    "d_trade_count": 15134.0
+   }
+  },
+  "columns": [
+   "economic_pnl",
+   "d_economic_pnl",
+   "trade_pnl",
+   "d_trade_pnl",
+   "position_pnl",
+   "d_position_pnl",
+   "wallet_income",
+   "d_wallet_income",
+   "maker_rebate",
+   "d_maker_rebate",
+   "reward_income",
+   "d_reward_income",
+   "fees_paid",
+   "d_fees_paid",
+   "volume_usdc",
+   "d_volume_usdc",
+   "trade_count",
+   "d_trade_count"
+  ]
+ }
+}

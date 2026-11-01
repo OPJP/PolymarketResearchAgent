@@ -1,0 +1,165 @@
+{
+ "pooled": {
+  "n": 14130,
+  "rule_touch_within_1tick": 0.9534,
+  "rule_touch_exact": 0.8472,
+  "anchor_touch_plus_1tick": 0.9753,
+  "anchor_touch_minus_1tick": 0.8472,
+  "anchor_last_implied_ask_s_minus_1": 0.5037,
+  "share_limit_above_touch_by_2c_or_more": 0.0465
+ },
+ "first_half": {
+  "n": 6895,
+  "rule_touch_within_1tick": 0.9537,
+  "rule_touch_exact": 0.8423,
+  "anchor_touch_plus_1tick": 0.9758,
+  "anchor_touch_minus_1tick": 0.8423,
+  "anchor_last_implied_ask_s_minus_1": 0.5072,
+  "share_limit_above_touch_by_2c_or_more": 0.0461
+ },
+ "second_half": {
+  "n": 7235,
+  "rule_touch_within_1tick": 0.9531,
+  "rule_touch_exact": 0.8518,
+  "anchor_touch_plus_1tick": 0.9748,
+  "anchor_touch_minus_1tick": 0.8518,
+  "anchor_last_implied_ask_s_minus_1": 0.5004,
+  "share_limit_above_touch_by_2c_or_more": 0.0469
+ },
+ "by_wallet": {
+  "GF": {
+   "all": {
+    "n": 3992,
+    "rule_touch_within_1tick": 0.9424,
+    "rule_touch_exact": 0.7295,
+    "anchor_touch_plus_1tick": 0.9699,
+    "anchor_touch_minus_1tick": 0.7295,
+    "anchor_last_implied_ask_s_minus_1": 0.4499,
+    "share_limit_above_touch_by_2c_or_more": 0.0576
+   },
+   "first_half": {
+    "n": 1910,
+    "rule_touch_within_1tick": 0.9455,
+    "rule_touch_exact": 0.7079,
+    "anchor_touch_plus_1tick": 0.9733,
+    "anchor_touch_minus_1tick": 0.7079,
+    "anchor_last_implied_ask_s_minus_1": 0.4487,
+    "share_limit_above_touch_by_2c_or_more": 0.0545
+   },
+   "second_half": {
+    "n": 2082,
+    "rule_touch_within_1tick": 0.9395,
+    "rule_touch_exact": 0.7493,
+    "anchor_touch_plus_1tick": 0.9669,
+    "anchor_touch_minus_1tick": 0.7493,
+    "anchor_last_implied_ask_s_minus_1": 0.451,
+    "share_limit_above_touch_by_2c_or_more": 0.0605
+   }
+  },
+  "XM": {
+   "all": {
+    "n": 890,
+    "rule_touch_within_1tick": 0.818,
+    "rule_touch_exact": 0.6202,
+    "anchor_touch_plus_1tick": 0.9056,
+    "anchor_touch_minus_1tick": 0.6202,
+    "anchor_last_implied_ask_s_minus_1": 0.1755,
+    "share_limit_above_touch_by_2c_or_more": 0.1809
+   },
+   "first_half": {
+    "n": 403,
+    "rule_touch_within_1tick": 0.804,
+    "rule_touch_exact": 0.603,
+    "anchor_touch_plus_1tick": 0.9107,
+    "anchor_touch_minus_1tick": 0.603,
+    "anchor_last_implied_ask_s_minus_1": 0.1514,
+    "share_limit_above_touch_by_2c_or_more": 0.1935
+   },
+   "second_half": {
+    "n": 487,
+    "rule_touch_within_1tick": 0.8296,
+    "rule_touch_exact": 0.6345,
+    "anchor_touch_plus_1tick": 0.9014,
+    "anchor_touch_minus_1tick": 0.6345,
+    "anchor_last_implied_ask_s_minus_1": 0.1955,
+    "share_limit_above_touch_by_2c_or_more": 0.1704
+   }
+  },
+  "DS": {
+   "all": {
+    "n": 9248,
+    "rule_touch_within_1tick": 0.9712,
+    "rule_touch_exact": 0.9199,
+    "anchor_touch_plus_1tick": 0.9843,
+    "anchor_touch_minus_1tick": 0.9199,
+    "anchor_last_implied_ask_s_minus_1": 0.5585,
+    "share_limit_above_touch_by_2c_or_more": 0.0288
+   },
+   "first_half": {
+    "n": 4582,
+    "rule_touch_within_1tick": 0.9703,
+    "rule_touch_exact": 0.9195,
+    "anchor_touch_plus_1tick": 0.9825,
+    "anchor_touch_minus_1tick": 0.9195,
+    "anchor_last_implied_ask_s_minus_1": 0.5629,
+    "share_limit_above_touch_by_2c_or_more": 0.0297
+   },
+   "second_half": {
+    "n": 4666,
+    "rule_touch_within_1tick": 0.9721,
+    "rule_touch_exact": 0.9203,
+    "anchor_touch_plus_1tick": 0.9861,
+    "anchor_touch_minus_1tick": 0.9203,
+    "anchor_last_implied_ask_s_minus_1": 0.5542,
+    "share_limit_above_touch_by_2c_or_more": 0.0279
+   }
+  }
+ },
+ "by_size": {
+  "30": {
+   "n": 12917,
+   "rule_touch_within_1tick": 0.9602,
+   "rule_touch_exact": 0.8645,
+   "anchor_touch_plus_1tick": 0.9789,
+   "anchor_touch_minus_1tick": 0.8645,
+   "anchor_last_implied_ask_s_minus_1": 0.5203,
+   "share_limit_above_touch_by_2c_or_more": 0.0397
+  },
+  "60": {
+   "n": 8,
+   "rule_touch_within_1tick": 1.0,
+   "rule_touch_exact": 1.0,
+   "anchor_touch_plus_1tick": 1.0,
+   "anchor_touch_minus_1tick": 1.0,
+   "anchor_last_implied_ask_s_minus_1": 0.75,
+   "share_limit_above_touch_by_2c_or_more": 0.0
+  },
+  "100": {
+   "n": 623,
+   "rule_touch_within_1tick": 0.8411,
+   "rule_touch_exact": 0.5538,
+   "anchor_touch_plus_1tick": 0.9181,
+   "anchor_touch_minus_1tick": 0.5538,
+   "anchor_last_implied_ask_s_minus_1": 0.26,
+   "share_limit_above_touch_by_2c_or_more": 0.1589
+  }
+ },
+ "maker_share_of_fills": {
+  "DS": {
+   "fills": 0.389,
+   "usdc": 0.225
+  },
+  "GF": {
+   "fills": 0.4271,
+   "usdc": 0.2612
+  },
+  "XM": {
+   "fills": 0.6189,
+   "usdc": 0.4686
+  },
+  "pool": {
+   "fills": 0.4214,
+   "usdc": 0.262
+  }
+ }
+}

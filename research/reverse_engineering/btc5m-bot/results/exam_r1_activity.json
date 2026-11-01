@@ -1,0 +1,212 @@
+{
+ "activity": {
+  "GF": {
+   "by_type": {
+    "MAKER_REBATE": {
+     "n": 8,
+     "usdc": 1317.78
+    },
+    "REDEEM": {
+     "n": 4247,
+     "usdc": 827136.31
+    },
+    "TAKER_REBATE": {
+     "n": 8,
+     "usdc": 9871.82
+    }
+   },
+   "by_type_day": {
+    "MAKER_REBATE|2026-10-23": 208.06,
+    "MAKER_REBATE|2026-10-24": 145.37,
+    "MAKER_REBATE|2026-10-25": 166.62,
+    "MAKER_REBATE|2026-10-26": 162.8,
+    "MAKER_REBATE|2026-10-27": 157.97,
+    "MAKER_REBATE|2026-10-28": 153.66,
+    "MAKER_REBATE|2026-10-29": 163.44,
+    "MAKER_REBATE|2026-10-30": 159.87,
+    "REDEEM|2026-10-23": 118325.03,
+    "REDEEM|2026-10-24": 83273.28,
+    "REDEEM|2026-10-25": 78398.68,
+    "REDEEM|2026-10-26": 118271.88,
+    "REDEEM|2026-10-27": 102126.66,
+    "REDEEM|2026-10-28": 113931.18,
+    "REDEEM|2026-10-29": 126889.94,
+    "REDEEM|2026-10-30": 85919.66,
+    "TAKER_REBATE|2026-10-23": 1899.68,
+    "TAKER_REBATE|2026-10-24": 1434.62,
+    "TAKER_REBATE|2026-10-25": 824.1,
+    "TAKER_REBATE|2026-10-26": 730.89,
+    "TAKER_REBATE|2026-10-27": 1280.82,
+    "TAKER_REBATE|2026-10-28": 1128.54,
+    "TAKER_REBATE|2026-10-29": 1201.13,
+    "TAKER_REBATE|2026-10-30": 1372.04
+   }
+  },
+  "XM": {
+   "by_type": {
+    "MAKER_REBATE": {
+     "n": 8,
+     "usdc": 728.98
+    },
+    "REDEEM": {
+     "n": 3488,
+     "usdc": 346011.48
+    },
+    "TAKER_REBATE": {
+     "n": 8,
+     "usdc": 2662.34
+    }
+   },
+   "by_type_day": {
+    "MAKER_REBATE|2026-10-23": 63.3,
+    "MAKER_REBATE|2026-10-24": 56.76,
+    "MAKER_REBATE|2026-10-25": 77.9,
+    "MAKER_REBATE|2026-10-26": 65.83,
+    "MAKER_REBATE|2026-10-27": 51.58,
+    "MAKER_REBATE|2026-10-28": 59.61,
+    "MAKER_REBATE|2026-10-29": 122.23,
+    "MAKER_REBATE|2026-10-30": 231.78,
+    "REDEEM|2026-10-23": 31241.9,
+    "REDEEM|2026-10-24": 34140.55,
+    "REDEEM|2026-10-25": 27379.21,
+    "REDEEM|2026-10-26": 38153.87,
+    "REDEEM|2026-10-27": 29656.53,
+    "REDEEM|2026-10-28": 47237.7,
+    "REDEEM|2026-10-29": 71999.68,
+    "REDEEM|2026-10-30": 66202.05,
+    "TAKER_REBATE|2026-10-23": 395.71,
+    "TAKER_REBATE|2026-10-24": 330.14,
+    "TAKER_REBATE|2026-10-25": 284.72,
+    "TAKER_REBATE|2026-10-26": 231.52,
+    "TAKER_REBATE|2026-10-27": 388.18,
+    "TAKER_REBATE|2026-10-28": 287.08,
+    "TAKER_REBATE|2026-10-29": 349.78,
+    "TAKER_REBATE|2026-10-30": 395.21
+   }
+  },
+  "DS": {
+   "by_type": {
+    "MAKER_REBATE": {
+     "n": 8,
+     "usdc": 2258.96
+    },
+    "REDEEM": {
+     "n": 4331,
+     "usdc": 1705566.35
+    },
+    "TAKER_REBATE": {
+     "n": 8,
+     "usdc": 20410.72
+    }
+   },
+   "by_type_day": {
+    "MAKER_REBATE|2026-10-23": 283.21,
+    "MAKER_REBATE|2026-10-24": 237.73,
+    "MAKER_REBATE|2026-10-25": 285.89,
+    "MAKER_REBATE|2026-10-26": 274.96,
+    "MAKER_REBATE|2026-10-27": 308.13,
+    "MAKER_REBATE|2026-10-28": 275.94,
+    "MAKER_REBATE|2026-10-29": 291.94,
+    "MAKER_REBATE|2026-10-30": 301.16,
+    "REDEEM|2026-10-23": 252708.45,
+    "REDEEM|2026-10-24": 166077.71,
+    "REDEEM|2026-10-25": 155778.76,
+    "REDEEM|2026-10-26": 256610.04,
+    "REDEEM|2026-10-27": 217002.63,
+    "REDEEM|2026-10-28": 236173.58,
+    "REDEEM|2026-10-29": 256768.86,
+    "REDEEM|2026-10-30": 164446.31,
+    "TAKER_REBATE|2026-10-23": 2897.7,
+    "TAKER_REBATE|2026-10-24": 3186.54,
+    "TAKER_REBATE|2026-10-25": 1695.84,
+    "TAKER_REBATE|2026-10-26": 1580.11,
+    "TAKER_REBATE|2026-10-27": 2904.06,
+    "TAKER_REBATE|2026-10-28": 2540.16,
+    "TAKER_REBATE|2026-10-29": 2666.62,
+    "TAKER_REBATE|2026-10-30": 2939.7
+   }
+  }
+ },
+ "sell_fills": {
+  "1792713600": {
+   "buy_rows": 9965,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1792735200": {
+   "buy_rows": 10897,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1792756800": {
+   "buy_rows": 13982,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1792778400": {
+   "buy_rows": 8607,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1792886400": {
+   "buy_rows": 7026,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1792908000": {
+   "buy_rows": 7846,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1792929600": {
+   "buy_rows": 7670,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1792951200": {
+   "buy_rows": 7283,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1793059200": {
+   "buy_rows": 10366,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1793080800": {
+   "buy_rows": 10253,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1793102400": {
+   "buy_rows": 9317,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1793124000": {
+   "buy_rows": 7524,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1793232000": {
+   "buy_rows": 11849,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1793253600": {
+   "buy_rows": 12551,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1793275200": {
+   "buy_rows": 13910,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  },
+  "1793296800": {
+   "buy_rows": 11618,
+   "sell_rows": 0,
+   "sell_by_wallet": {}
+  }
+ }
+}
