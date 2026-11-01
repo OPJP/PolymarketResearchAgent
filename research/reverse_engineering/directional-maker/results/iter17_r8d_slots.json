@@ -1,0 +1,19 @@
+{
+ "study": {
+  "n_S": 231,
+  "windows_S": 15,
+  "cheaper_S": 0.727,
+  "r8_S": 0.727,
+  "r8c_all": 0.5769,
+  "r8d_all": 0.5769
+ },
+ "validate": {
+  "n_S": 988,
+  "windows_S": 39,
+  "cheaper_S": 0.777,
+  "r8_S": 0.694,
+  "r8c_all": 0.7009,
+  "r8d_all": 0.7038
+ },
+ "adopt": false
+}

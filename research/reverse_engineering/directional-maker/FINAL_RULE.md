@@ -1,4 +1,21 @@
-# directional-maker: frozen rule R8 (iteration 12 = R7 + the window state-machine side; iterations 13-16: unchanged, reporting blocks added)
+# directional-maker: frozen rule R8c (iteration 17 = R8 + the NYSE-open window side; R8 = iteration 12, R7 + the window state-machine side; iterations 13-16: reporting blocks added)
+
+**Iteration 17 (one frozen decision changed: R8 -> R8c; tag VALIDATE-only).** The side of the BTC 5m window that starts at
+the NYSE open (09:30 America/New_York on weekdays; 13:30 UTC under US DST, 14:30 UTC from 11-02) is the cheaper token,
+whatever the Chainlink posture says (`code/side_sm.py` `nyse_open_window`; counted side `r8c_no_own_state`, R8's
+`no_own_state` still reported). It was found in the out-of-fold BUILD residual (E2: the 13:30 UTC weekday window held
+702 decisions in 10 windows, 4x the usual count, 0.90 of them against the posture, at a mean price 0.23) and passed its
+pre-registered test: in that window the cheaper token is right 0.99 on STUDY (2 windows) and 0.90 on VALIDATE (4
+windows), R8 0.40-0.44; per BTC 5m fill VALIDATE 0.6925 -> **0.7009** (STUDY 0.569 -> 0.577). The other iteration-17
+measurements did not change the rule: the presence residual out of fold (BUILD AUC 0.780 vs activity 0.741) is quiet
+small-edge cells; the fill-level side misses show no cross-market synchrony (E7 ratios 1.34-1.50, p 0.04-0.23, below the
+hits' 1.95-2.22); the 11-01 side drop is not the taker mix (taker commit-to-match classes reweighted: 0.844 predicted vs
+0.675 actual); the venue's 150-ms taker hold is visible in the floor of the takers' commit-to-match latency (p5 187-193
+ms). Details in NOTES.md (Iteration 17, Missing dimensions) and results/iter17_*.json.
+Version caveat (C4, measured on the whole activity history): the open window is busy in every month since May (30-73
+fills per window vs 14-31), but the cheap-token behaviour is new in October (cheap share May 0.06 ... Sep 0.64, Oct 1-8
+0.997); before October the cluster bought the favourite at the open. R8c therefore describes the October configuration
+(every October fold agrees) and is untested across the 11-02 DST change (NYSE open 14:30 UTC).
 
 **Iteration 16 (no frozen decision changed; R8 stays; two reported blocks added from `code/r10_mode.py`: `instance_mode`
 and `side_nowcast_match_clock`).** `instance_mode` tabulates, per 15-min slot, which wallets run the main BTC ladder
@@ -244,7 +261,7 @@ this universe fails the scope bar in most 6-hour blocks** (below).
 | Information | The ladders are re-priced on each Chainlink BTC/USD report (the settlement stream) within ~0-150 ms of the public RTDS relay's publish; between reports its 500s re-post 50-250 ms after Binance futures moves (June: signed 100-400 ms after Binance moves). No lead over public feeds. | VALIDATE-only | `code7/i2_publish.py`, `code8/june_lag.py` |
 | Selection | One engine over crypto Up/Down. BTC 5m and 15m are modules switched off for hours, mostly from Friday-Sunday US-Eastern evenings to the next morning (calendar gate window AUC 0.68 for BTC 5m, 0.63 for 15m, since 10-16). The 10-31 16:53:54 UTC switch-off happened inside the running processes (salt counters continuous, signing rate unchanged) and two engines were restarted ad hoc 12-13 min later. R6's universe holds >= 80% of trades and dollars in only 34% of 6-h development blocks (0% in weekend 00-06 UTC blocks); only the all-crypto universe does in every block type. BTC 15m presence (R3 class) 0.812 vs 0.778 activity on VALIDATE. | hypothesis (on/off); VALIDATE-only (15m presence) | `code9/scope.py`, `code9/m4_salt.py`, `code8/train15.py` |
 | Timing | Re-price passes on each Chainlink publish plus re-posts after Binance moves; filled orders are fresh 500-share posts at the touch (78%), matched ~0.7 s later; it stops ~30 s before the end; its filled rungs agree with the report in force at the match, not at the taker's signing (M5). July engine (pmxt): posts a median 69 ms after the market's previous trade, filled orders ~1.0 s old, 49% at the touch. | VALIDATE-only (live) | `code6/q1_confirmed.py`, `code7/i2_publish.py` |
-| Side | **Iteration 12 (R8).** Counted, public: decided window -> the cheap loser (= the cheaper-token baseline; a deep-bid module ramped from Monday 10-26: <= 0.10 orders 4% -> 24% of filled orders, 26% -> 71% of orders in decided windows, capture of the >= 0.90 taker-BUY opportunity 0.2-0.4% -> 2.3-5.5% at a flat opportunity), else the Chainlink posture (entry fills 0.66 / 0.70; best multiplier 1.0 on STUDY entries, 1.4 on VALIDATE entries): 0.569 STUDY / 0.693 VALIDATE per fill vs cheaper 0.484 / 0.679. Reported, own state: after entry fills come in same-side runs (previous fill's side 0.88 of schedule fills; own-history baseline 0.809 / 0.822 per fill, above the held-outcome composite 0.753 / 0.790); pairing bids on the under-held outcome 0.91-0.94. Live 10-31: the US-session 500 ladder follows the Chainlink edge over the mid 0.786 per fill (0.965 where reference and market disagree; historical VALIDATE region D 0.93). The favourite-share drift (the 'weekly k cycle') is the entry and deep-bid decisions: the whole history rejects weekday, volatility and step models (out-of-sample R^2 < 0), the market's other makers are flat (maker-row tapes), the ladder-center multiplier on the live Saturday block is 1.14 (5m) / 1.37 (15m) vs a fill-level best k of 1.4, and a band rule fails (0.682 vs 0.683). | VALIDATE-only (public part); own-state description (not decoded) | `code/side_sm.py`, `code12/typed_side.py`, `code12/persist_vs_policy.py`, `code8/fill_side.py` |
+| Side | **Iteration 17 (R8c, VALIDATE-only):** the BTC 5m window starting at the NYSE open (09:30 New York, weekdays) -> the cheaper token (open window: STUDY 0.99, VALIDATE 0.90 vs R8 0.40-0.44; all VALIDATE fills 0.6925 -> 0.7009). Hypothesis inside it: the clock is the exchange's (09:30 New York), not a fixed 13:30 UTC; development data cannot separate them (all under US DST). **Iteration 12 (R8).** Counted, public: decided window -> the cheap loser (= the cheaper-token baseline; a deep-bid module ramped from Monday 10-26: <= 0.10 orders 4% -> 24% of filled orders, 26% -> 71% of orders in decided windows, capture of the >= 0.90 taker-BUY opportunity 0.2-0.4% -> 2.3-5.5% at a flat opportunity), else the Chainlink posture (entry fills 0.66 / 0.70; best multiplier 1.0 on STUDY entries, 1.4 on VALIDATE entries): 0.569 STUDY / 0.693 VALIDATE per fill vs cheaper 0.484 / 0.679. Reported, own state: after entry fills come in same-side runs (previous fill's side 0.88 of schedule fills; own-history baseline 0.809 / 0.822 per fill, above the held-outcome composite 0.753 / 0.790); pairing bids on the under-held outcome 0.91-0.94. Live 10-31: the US-session 500 ladder follows the Chainlink edge over the mid 0.786 per fill (0.965 where reference and market disagree; historical VALIDATE region D 0.93). The favourite-share drift (the 'weekly k cycle') is the entry and deep-bid decisions: the whole history rejects weekday, volatility and step models (out-of-sample R^2 < 0), the market's other makers are flat (maker-row tapes), the ladder-center multiplier on the live Saturday block is 1.14 (5m) / 1.37 (15m) vs a fill-level best k of 1.4, and a band rule fails (0.682 vs 0.683). | VALIDATE-only (public part); own-state description (not decoded) | `code/side_sm.py`, `code12/typed_side.py`, `code12/persist_vs_policy.py`, `code8/fill_side.py` |
 | Price | Fill price = last clean trade before the fill minus 0.01. **In-block execution-order clock (R7, recording-free): 0.807 on all 27,988 VALIDATE BTC 5m maker fills (block clock 0.709; gain +0.098, 2-h block bootstrap [+0.084, +0.111]; per wallet 0.800 / 0.805 / 0.814; halves 0.806 / 0.807), 0.766 on BTC 15m (block 0.666), pooled 0.803 (block 0.705); STUDY 0.751 / 0.730.** Trivial anchor 'last print' with no offset on the same clock 0.773. Live match clock (R4): 0.83-0.86 (10-31 15:40-16:40: block 0.625, in-block 0.719, match 0.849, R7 combined 0.843): the in-block order recovers part of the match-clock gain on busy hours. Block clock exam 0.688. This IS the trivial anchor "last print" minus a tick on a fresh clock. The ladder hangs off each market's own mid with a ~0.2 Chainlink skew; its half-spread follows the digital's risk only partly (R^2 0.47 in 5m, 0.26 in 15m; top rung within a tick 26-30% vs 19% for a mid-minus-constant anchor). | exam-verified (block clock); VALIDATE-only (in-block clock, match clock) | `price_inblock`, `price_r7`, `price_match_clock`, `code11/inblock_*.py`, `code8/m1_invert.py` |
 | Size | **Iteration 15:** a configured size per family, identical in the three wallets (BTC hourly 38 / 300, BTC 4h 400, ETH 5m 50 / 150, ETH/SOL 15m 30, SOL 5m 50 / 100, XRP 5m 10 / 50, BNB 5m 10, DOGE 5m 10 / 40, dailies 50); not reward-driven. October BTC: schedule rungs 500 x 2^k with a one-fifth level (100 / 12 only at 30-120 s left); 500 in the weekday 12-21 UTC session or when the 300-s futures vol at the open is high, else 62 / 250; plus **imbalance pairing bids** of exactly the own abs(Up - Down) shares (calldata original size within 2% of the imbalance; 11-14% of lot fills; not remainders). July (pmxt pilot, same engine family): 500 / 300 / 50 + pairing sizes; June: 50 / 100 / 300. | VALIDATE-only | `code6/m5_size.py`, `code10/m1_pair_lot.py`, `code10/pmxt_pilot.py` |
 | Exit | Holds to resolution; after entry bids its own imbalance on the under-held outcome (non-schedule sizes), priced at the market, plus small complement taker buys; merges ~65 s before the end. Locked pairs +$38.1k and residual -$14.4k on VALIDATE (maker BUY fills). **Iteration 12: a strict-fill replay of the decoded machine with this pairing leg loses $106k to $236k on its locked pairs (at-touch fills: $87k to $236k) and lowers the oracle-side outcome ceiling from 0.47 / 0.53 to 0.25 / 0.30**: the cluster's pairs need queue-priority fills that do not trade through. | VALIDATE-only | `code12/replay_machine.py`, `code10/m1_pair_lot.py` |
@@ -258,7 +275,10 @@ this universe fails the scope bar in most 6-hour blocks** (below).
    previous-window proxy outcome and strike move, UTC hour, weekday, US-session flag). No own state. R5's Chainlink stack
    where the series exists (`code/r5.py`).
 3. Presence, BTC 15m: the same feature definitions on bins t in [0, 900) (`features15.py`) scored by `presence15_rule.txt`.
-4. Side: per fill on the match clock (where the shared recorder has the fill's transaction): Up iff fair_CL(Up) > Up mid
+4. Side (R8c, counted, public): the BTC 5m window that starts at the NYSE open (09:30 America/New_York, weekdays) ->
+   the cheaper token; else R8's public side (decided window |Up mid - 0.5| > 0.4 at b - 3 -> the cheaper token; else the
+   Chainlink posture, stamp b - 4, Gamma strike, 1.4 x 300-s Binance vol, Binance stand-in fallback), `code/side_sm.py`.
+   Also reported: per fill on the match clock (where the shared recorder has the fill's transaction): Up iff fair_CL(Up) > Up mid
    (`side_posture_match_clock`); per bin (historical, block clock): the side with the higher predicted presence.
 5. Price (R7): the last clean trade of the market before the fill, mapped to the fill's token, minus 0.01 (0.01 grid),
    with "before" on the live match clock where the shared recorder has the trade, else on the in-block execution order
@@ -354,6 +374,20 @@ Quantitative account of what is still unexplained:
 
 ## Why it works
 
+Iteration 17 adds one scheduled event to the economics. At the NYSE open the cluster's BTC 5m fills jump to about four
+times their usual count, and they land on the token that the opening move just made cheap (mean price 0.19-0.28). On
+BUILD those fills won 40% of the time at a mean price of 0.23 (+0.17 per share; four of ten windows paid off big, six
+lost). The orders are fresh: by the per-wallet salt counter every open-window filled order was created after the
+latest order that filled in the five minutes before the open, and they are main-ladder sizes (500 x 2^k, 92-100%), so
+the engine posts new bids on the cheap token at the open (measured). Hypothesis for who pays: the takers who dump the
+losing outcome during the opening move, the cluster being paid for absorbing that liquidity when the move overshoots.
+Other scheduled slots (06:15, 22:00 = CME reopen, 07:45-08:00 = Europe opens) show cheap-side fills that lose, and a
+pre-registered rule for them was not adopted (VALIDATE +0.003), so the open is not a general rule of the market
+calendar. The taker hold's length did not change the cluster's returns at the two hold changes (08-17, 09-04). The
+side residual elsewhere is idiosyncratic per market (no cross-market synchrony at fill level). The taker mix (automated
+takers committing within ~0.3 s of the match, against slower ones) does not explain why the reference stopped
+predicting small-edge fills on 11-01.
+
 Iteration 16 sharpens where the money is not. On the idle families a strict replay of the decoded opening bid, even with
 the cluster's own first-fill side, tracks per-market PnL at only 0.37-0.43 Pearson: the profit there comes from the later
 two-sided fills, taken at the best bid of thin books (0.72 within a tick), whose side the takers choose. On BTC the ladder's
@@ -401,6 +435,12 @@ takers then choose which posts fill.
 
 ## Can a normal user deploy it now
 
+Iteration 17: the venue holds every crypto taker order ~150 ms before matching (floor of the commit-to-match latency
+187-193 ms on 10-31 and 11-01). A maker that re-prices within that hold is protected from takers reacting to the same
+public move; one that re-prices in 0.3-2 s is not. The NYSE-open behaviour needs no speed (bids on the cheap token during
+the open window), but on development data it is ten windows with a high variance (four large wins, six losses). The clock
+change on 11-02 (the NYSE open moves to 14:30 UTC) is untested.
+
 Iteration 16: the engine's instances do not always run the same modules (on 11-01 one wallet ran the main ladder alone in
 7 of 10 slots), and the center's skew configuration changes between days with no public driver found, so a
 copy would trade a moving configuration. A replicator would need the futures re-peg (posts within ~0.5 s of a futures move)
@@ -426,6 +466,12 @@ Iteration 13: the configuration that earned 7-9% per dollar in September (module
 
 ## Open leads (not part of the frozen rule)
 
+- Iteration 17 open items: the E3 calendar screen on weekday live blocks (B1 signing times do not exist for this
+  cluster: timestamp 0), the BTC 15m NYSE-open window (VALIDATE cheaper 0.892, margin 0.296, 0.004 short of its
+  pre-registered bar), the DST question for R8c (NYSE open 14:30 UTC from 11-02), X213 (hold-aware strict replay),
+  X214 (record the Polymarket Perps index), X200-X203 (walking-bid state machine, step hazards, engine passes, chain
+  origins on the 11-01 full-depth recording), X207 (per-account MTM breaker), X208 (operator pushes), X209 (other
+  wallets at the restart seconds), E4-E6.
 - Iteration 16 open items (panels after iteration 15): X188 the resting state at each print (post and cancel hazards on
   public clocks, queue ahead) and print-level selection, the only unit whose oracle ceiling (0.81-0.83 at recall
   0.62-0.69) is above the selection bar; X190 whether the queue resets at every publish pass (makerOrders positions vs

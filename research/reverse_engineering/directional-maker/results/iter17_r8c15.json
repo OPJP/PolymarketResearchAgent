@@ -1,0 +1,24 @@
+{
+ "BUILD": {
+  "open_n": 232,
+  "open_windows": 6,
+  "open_cheaper": 0.974,
+  "other_cheaper": 0.411,
+  "open_px": 0.26
+ },
+ "STUDY": {
+  "open_n": 8,
+  "open_windows": 2,
+  "open_cheaper": 1.0,
+  "other_cheaper": 0.344,
+  "open_px": 0.285
+ },
+ "VALIDATE": {
+  "open_n": 111,
+  "open_windows": 4,
+  "open_cheaper": 0.892,
+  "other_cheaper": 0.596,
+  "open_px": 0.326
+ },
+ "adopt": false
+}

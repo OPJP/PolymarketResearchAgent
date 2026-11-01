@@ -1,4 +1,7 @@
 """Frozen rule for the directional-maker cluster (bosona, almach, mo-money).
+Iteration 17 rule R8c = R8 + the NYSE-open window side (code/side_sm.py, counted side 'r8c_no_own_state' inside
+'side_state_machine' and 'btc15m.side_state_machine'): the BTC 5m window that starts at 09:30 America/New_York on a
+weekday -> the cheaper token; everything else unchanged (pre-registered T5; VALIDATE per fill 0.6925 -> 0.7009).
 Iteration 16 (no frozen decision changed): evaluate() also reports 'instance_mode' (which wallets run the main BTC
 ladder per 15-min slot; split = one wallet >= 0.80 of the mid-band fills) and 'side_nowcast_match_clock' (per-fill
 side on the live match clock under the Chainlink report and under the nowcast report + futures move since its stamp,

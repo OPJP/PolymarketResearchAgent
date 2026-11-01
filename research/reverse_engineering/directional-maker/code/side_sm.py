@@ -13,6 +13,11 @@ own-history baseline 'own_history_prev_fill' (the outcome of the cluster's previ
 earlier second; the posture where there is none). Iteration-12 finding: the own-history baseline (0.822 per fill on
 VALIDATE) beats the own-state composite (0.790): after entry the fill side is mostly the persistence of same-side fill
 runs, so the counted R8 side is the PUBLIC part 'no_own_state' (decided window -> cheaper token, else the posture).
+Iteration 17 (R8c, pre-registered T5, adopted on VALIDATE 10-27..30: per fill 0.6925 -> 0.7009, STUDY 0.569 -> 0.577):
+the BTC 5m window that starts at the NYSE open (09:30 America/New_York on a weekday; 13:30 UTC under US DST, 14:30
+UTC otherwise) -> the cheaper token, whatever the posture says. Found from the out-of-fold BUILD residual (E2): in that
+window the cluster fills ~4x its usual count, at a mean price ~0.2-0.3, on the cheaper token (STUDY 0.99, VALIDATE 0.90,
+R8 0.40-0.44). The counted side is now 'r8c_no_own_state'; 'no_own_state' (R8) is still reported.
 """
 from __future__ import annotations
 
@@ -28,6 +33,36 @@ SIGMA_K = 1.4
 CL_STAMP_LAG = 4
 STD_SIZES = (500, 1000, 250, 125, 100, 62, 50, 12, 300, 40, 200, 2000, 25, 31, 20, 10, 5)
 IT12_MAX_TX = 3000
+NYSE_OPEN_TO_CHEAPER = True  # iteration 17 R8c
+
+
+def nyse_open_utc(day_ts: int):
+    """09:30 America/New_York of the UTC day starting at day_ts as a UTC timestamp (US DST from the 2nd Sunday of March
+    to the 1st Sunday of November); None on Saturdays and Sundays (NYSE holidays are not modelled)."""
+    from datetime import datetime, timezone
+    d = datetime.fromtimestamp(int(day_ts), tz=timezone.utc)
+    if d.weekday() >= 5:
+        return None
+
+    def nth_sunday(month, n):
+        first = datetime(d.year, month, 1, tzinfo=timezone.utc)
+        return first.timestamp() + (((6 - first.weekday()) % 7) + 7 * (n - 1)) * 86400
+    dst = nth_sunday(3, 2) <= day_ts < nth_sunday(11, 1)
+    return int(day_ts + (13 if dst else 14) * 3600 + 1800)
+
+
+def nyse_open_window(st, en) -> np.ndarray:
+    """True for BTC 5m windows (en - st == 300) that start exactly at the NYSE open."""
+    st = np.asarray(st, dtype=np.int64)
+    en = np.asarray(en, dtype=np.int64)
+    cache = {}
+    out = np.zeros(len(st), dtype=bool)
+    for i, (a, b) in enumerate(zip(st, en)):
+        day = int(a) // 86400 * 86400
+        if day not in cache:
+            cache[day] = nyse_open_utc(day)
+        out[i] = (int(b) - int(a) == 300) and cache[day] is not None and int(a) == cache[day]
+    return out
 
 
 def side_state_machine(mk: pd.DataFrame, buys: pd.DataFrame, w: pd.DataFrame, clean: pd.DataFrame, sp, txh: dict,
@@ -124,19 +159,21 @@ def side_state_machine(mk: pd.DataFrame, buys: pd.DataFrame, w: pd.DataFrame, cl
     comp = np.where(dec, cheap, np.where(net == 0, post, after))
     comp_ns = np.where(dec, cheap, np.where(net == 0, post, held))
     noown = np.where(dec, cheap, post)
-    rules = {"composite_own_state": comp, "composite_own_state_no_size": comp_ns, "no_own_state": noown, "posture": post,
+    op = nyse_open_window(D["st"].to_numpy(), D["en"].to_numpy()) if NYSE_OPEN_TO_CHEAPER else np.zeros(len(D), bool)
+    r8c = np.where(op, cheap, noown)
+    rules = {"r8c_no_own_state": r8c, "composite_own_state": comp, "composite_own_state_no_size": comp_ns, "no_own_state": noown, "posture": post,
              "cheaper": cheap, "favourite": ~cheap, "held_only": np.where(net != 0, held, post),
              "own_history_prev_fill": np.where(D["prev_up"].to_numpy() >= 0, D["prev_up"].to_numpy() == 1, post)}
 
     def acc(p, m=None):
         m = np.ones(len(y), dtype=bool) if m is None else m
         return float(np.mean((p == y)[m])) if m.any() else None
-    out = {"counted_side": "no_own_state", "n": int(len(D)), "chainlink_coverage": cl_cov, "calldata_tx": ntx, "calldata_joined": float(known.mean()),
+    out = {"counted_side": "r8c_no_own_state", "n_nyse_open_window": int(op.sum()), "n": int(len(D)), "chainlink_coverage": cl_cov, "calldata_tx": ntx, "calldata_joined": float(known.mean()),
            "share_decided": float(dec.mean()), "share_entry": float((~dec & (net == 0)).mean()),
            "share_after_nonschedule": float((~dec & (net != 0) & known & ~sched).mean())}
     for k, p in rules.items():
         out[k] = acc(p)
-    out["per_wallet"] = {nm: {k: acc(p, (D["wallet"].str.lower() == ad).to_numpy()) for k, p in rules.items() if k in ("composite_own_state", "no_own_state")}
+    out["per_wallet"] = {nm: {k: acc(p, (D["wallet"].str.lower() == ad).to_numpy()) for k, p in rules.items() if k in ("composite_own_state", "no_own_state", "r8c_no_own_state")}
                          for ad, nm in cluster.items() if (D["wallet"].str.lower() == ad).any()}
     midt = (int(D["ts"].min()) + int(D["ts"].max())) // 2
     h1 = (D["ts"] < midt).to_numpy()
@@ -160,7 +197,7 @@ def side_state_machine(mk: pd.DataFrame, buys: pd.DataFrame, w: pd.DataFrame, cl
         m_all[o_[bs]] = True
         m_long = np.zeros(len(y), dtype=bool)
         m_long[o_[bs & (gap >= 30)]] = True
-        keys = ("no_own_state", "posture", "cheaper", "composite_own_state", "own_history_prev_fill")
+        keys = ("r8c_no_own_state", "no_own_state", "posture", "cheaper", "composite_own_state", "own_history_prev_fill")
         out["per_burst_start"] = {"n": int(m_all.sum()), **{k: acc(rules[k], m_all) for k in keys},
                                   "gap_ge_30s": {"n": int(m_long.sum()), **{k: acc(rules[k], m_long) for k in keys}}}
     except Exception as ex:  # noqa: BLE001

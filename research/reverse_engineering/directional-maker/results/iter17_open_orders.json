@@ -1,0 +1,21 @@
+{
+ "study": {
+  "n": 107,
+  "salt_below_max_pre_open_fill_salt": 0.0,
+  "size_class": {
+   "500x2^k": 1.0
+  },
+  "mean_lim": 0.189,
+  "other_windows_size_500x2k": 0.38
+ },
+ "validate": {
+  "n": 513,
+  "salt_below_max_pre_open_fill_salt": 0.0,
+  "size_class": {
+   "500x2^k": 0.916,
+   "other": 0.084
+  },
+  "mean_lim": 0.282,
+  "other_windows_size_500x2k": 0.407
+ }
+}

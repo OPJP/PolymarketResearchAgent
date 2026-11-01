@@ -1,0 +1,29 @@
+{
+ "threshold_rv2h": 0.0034619418298367306,
+ "build_rv_coverage": 1.0,
+ "study": {
+  "n": 8256,
+  "rv_coverage": 1.0,
+  "share_hi": 0.438,
+  "r8c": 0.5769,
+  "g3": 0.546,
+  "in_hi_nondecided": {
+   "n": 2951,
+   "posture": 0.568,
+   "cheaper": 0.482
+  }
+ },
+ "validate": {
+  "n": 27988,
+  "rv_coverage": 1.0,
+  "share_hi": 0.533,
+  "r8c": 0.7009,
+  "g3": 0.6961,
+  "in_hi_nondecided": {
+   "n": 10024,
+   "posture": 0.653,
+   "cheaper": 0.64
+  }
+ },
+ "adopt": false
+}

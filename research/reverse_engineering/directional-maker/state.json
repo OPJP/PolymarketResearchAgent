@@ -27,7 +27,7 @@
  },
  "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state, clean tape (every print in a cluster transaction removed). From iteration 4 VALIDATE = 2026-10-27..30.",
  "best": {
-  "rule_id": "R8 = R7 + the window state-machine side (counted: the public part, decided -> cheaper else Chainlink posture; own-state composite reported) (iterations 14-16: unchanged; reported blocks quote_unit_side, quote_presence_event_time, r9_nonbtc_module, instance_mode and side_nowcast_match_clock added)",
+  "rule_id": "R8c = R8 + the NYSE-open window side (iteration 17; counted side r8c_no_own_state: NYSE-open BTC 5m window -> cheaper, decided -> cheaper, else the Chainlink posture) ; R8 = R7 + the window state-machine side",
   "validate_metrics": {
    "historical_union": {
     "presence_auc": 0.7883,
@@ -36,7 +36,7 @@
     "selection_recall": 0.2947,
     "selection_lift": 2.8665,
     "selection_baseline": 0.6508,
-    "side_accuracy": 0.6925,
+    "side_accuracy": 0.7009,
     "side_baseline": 0.6785,
     "price_within_tick": 0.8026,
     "pnl_corr_pearson": 0.2066,
@@ -4119,6 +4119,62 @@
     "below_mid_median": 0.065
    },
    "verdict": "a resting ladder 5-7 c below the market leaning to the underdog (description)"
+  },
+  {
+   "id": "H17-R8C",
+   "family": "side (scheduled event: NYSE open)",
+   "description": "BTC 5m window starting at 09:30 New York on weekdays -> cheaper token",
+   "validate_metrics": {
+    "open_window_cheaper": 0.899,
+    "open_window_r8": 0.442,
+    "all_fills_r8": 0.6925,
+    "all_fills_r8c": 0.7009
+   },
+   "verdict": "adopted (R8c), VALIDATE-only; October configuration"
+  },
+  {
+   "id": "H17-R8C15",
+   "family": "side (scheduled event: NYSE open)",
+   "description": "BTC 15m window starting at the NYSE open -> cheaper token",
+   "validate_metrics": {
+    "open_window_cheaper": 0.892,
+    "other_cheaper": 0.596
+   },
+   "verdict": "not adopted (margin 0.296 < 0.30)"
+  },
+  {
+   "id": "H17-TAKER-CLASS",
+   "family": "counterparty information class (X196)",
+   "description": "11-01 side drop = taker latency mix",
+   "validate_metrics": {
+    "reweighted": 0.844,
+    "actual": 0.675
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H17-E7",
+   "family": "residual synchrony (E7)",
+   "description": "side misses share a cross-market driver",
+   "validate_metrics": {
+    "miss_ratio_p900": 1.437,
+    "miss_p": 0.227,
+    "hit_ratio_p900": 2.215,
+    "hit_p": 0.013
+   },
+   "verdict": "no synchrony at the fill level (BUILD)"
+  },
+  {
+   "id": "H17-G3-VOLGATE",
+   "family": "side (volatility gate)",
+   "description": "non-decided fills -> cheaper when trailing 2-h RV > BUILD q75",
+   "validate_metrics": {
+    "study_r8c": 0.5769,
+    "study_g3": 0.546,
+    "validate_r8c": 0.7009,
+    "validate_g3": 0.6961
+   },
+   "verdict": "rejected"
   }
  ],
  "data_sources": [
@@ -4166,7 +4222,8 @@
   "iteration 13: tracer tables from dm_clob_raw 10-31 14-18 (exact-size deltas of the cluster non-schedule orders, schedule-size adds within 0.20 of the touch, raw trades) in it13/",
   "iteration 13: Binance spot BTCUSDT 1-s archives 07-30..08-21 and 09-10..10-22 (polyrea binance_seconds, checksum verified)",
   "iteration 14: Arbitrum One public RPC arb1.arbitrum.io/rpc (eth_getLogs on the GMX v2 EventEmitter: OraclePriceUpdate = Chainlink Data Streams values; publicnode needs an archive token, drpc free plan limits ranges)",
-  "iteration 14: stable-sample taker tapes re-read from the HTTP cache (code13/fetch_stable.py, 1,488 windows)"
+  "iteration 14: stable-sample taker tapes re-read from the HTTP cache (code13/fetch_stable.py, 1,488 windows)",
+  "iteration 17: V2 calldata of 1,171 more cluster fill transactions (taker orders: sign ms, signer) for 10-31 14:00-16:53 and 11-01 07:00-10:50 (calldata/it17_taker_*.parquet)"
  ],
  "iterations": [
   {
@@ -4571,6 +4628,39 @@
     "X185 extension: alt 5m/15m later fills vs the prices-history minute mid",
     "X187 step 3 light: 4h rung depth by time left and mid"
    ]
+  },
+  {
+   "n": 17,
+   "minutes": 48,
+   "best_validate_score": 0.716,
+   "validate_definition": "2026-10-27..30 (lot second half, aggregate)",
+   "paradigm": "the residual as the target: out-of-fold misses on BUILD (E2), their cross-market synchrony (E7), the taker (counterparty) dimension from calldata (commit-to-match latency, the 150-ms hold), and the scheduled market calendar found in the residual (NYSE open)",
+   "families": [
+    "E1 dimension inventory (state.json dimensions)",
+    "E2 presence out-of-fold residual shape (GroupKFold 2-h blocks)",
+    "E2 side residual shape on BUILD fill decisions",
+    "E7 residual_clustering of side misses vs hits (period 900 / 3600, BTC vs alt)",
+    "X196 taker information class reweighting (calldata commit-to-match latency)",
+    "X195 part: taker-hold floor",
+    "T5/X210 NYSE-open window -> cheaper (R8c, adopted)",
+    "legacy indicators ledger",
+    "T6/X212 R8c15 (15m open window; not adopted)",
+    "C4 whole-history check of the open-window behaviour (October configuration)",
+    "E7 on the live quote unit (exploratory) + futures-move link",
+    "T7/X206 reference-informativeness gate (rejected)",
+    "T8/X198 nowcast basis lag (no effect)",
+    "T9/X199 Chainlink endpoint parity (exact)",
+    "T10 salt-order dating of the NYSE-open orders",
+    "T11/X211 other scheduled slots (not adopted)",
+    "T12/X195 taker-hold natural experiments (no effect)",
+    "R8c replication by half and wallet",
+    "C7 cross-account matching (none)",
+    "T13 E3 screen of the reference-feed family on the live BUILD blocks (futures jumps survive; Chainlink changes do not)",
+    "T14 E5 daily news / sentiment vs selection (no association)",
+    "X214 step: dp_perps recorder started (Perps index, ~1 Hz)",
+    "T15/X208 configuration change points vs the weekly restart (not shown)",
+    "T16 volatility gate for the side (rejected)"
+   ]
   }
  ],
  "status": "continue",
@@ -4583,7 +4673,7 @@
   }
  ],
  "sealed_from": 1792713600,
- "sealed_note": "iteration 7 calendar (tools/sealed.py): released lots h1, h2; development = before 2026-10-31 06:00 and 10-31 12:00-18:00 UTC; sealed = 10-31 06-12, 18-24, 11-01 00-06, 12-18, ...; next development block 11-01 06-12 UTC. Nothing sealed was read.",
+ "sealed_note": "iteration 7 calendar (tools/sealed.py): released lots h1, h2; development = before 2026-10-31 06:00 and 10-31 12:00-18:00 UTC; sealed = 10-31 06-12, 18-24, 11-01 00-06, 12-18, ...; next development block 11-01 06-12 UTC. Nothing sealed was read. Iteration 17: development block 11-01 06-12 read to 10:50 UTC (calldata, recorder); nothing sealed read.",
  "live_lab": [
   {
    "what": "code5/rawrec.py: dm_clob_raw (unaggregated CLOB events, BTC 5m current+next, 15m current), dm_bnf/dm_bnfa, dm_bns, dm_cb, dm_okx, dm_byb, dm_hl, dm_rtds; hard stop 18:00 UTC; disk cap 280 MB",
@@ -4629,9 +4719,14 @@
    "what": "code13/rtdsfam.py: dv_rtds, RTDS streaming Chainlink + TWAP-60 updates for xrp/doge/bnb/hype with value stamp, publish ms and receive ms (same format as dy_rtds); disk cap 60 MB; detached",
    "start": 1793504640,
    "end": 1793664000
+  },
+  {
+   "what": "code17/perpsrec.py: dp_perps, Polymarket Perps index / mark / last for BTC, ETH, SOL (instruments 6/7/8) from the keyless REST tickers endpoint, ~1-s polling (index published every 200 ms), via tools/live.py Writer; disk cap 60 MB; pid 33364 (Start-Process); status .cache/re/directional-maker/perpsrec_status.json",
+   "start": 1793532520,
+   "end": 1793750400
   }
  ],
- "live_lab_note": "Shared recorder (pid 27184) running. Own rawrec (pid 14360) to 18:00 UTC; slim exam recorder examrec (pid 20820, launcher 9952) to 2026-11-02 00:00 UTC, status .cache/re/directional-maker/examrec_status.json. Read dm_/dx_ feeds with code5/rawread.iter_dm (gzip members one by one; development blocks only). | iteration 15: the laptop clock drifts ~0.19 s/h slow (0.898 s at 11-01 07:13 UTC; w32tm not synchronized since 02:29 UTC); records are filed by receive time, so a resync by the user is needed before 11-01 12:00 UTC; own readers in code/ now filter by server stamps. | iteration 16: dy_rtds clk offset 1.315 s (Binance minus laptop) at 11-01 09:26 UTC (w32tm: not synchronized, last sync 10-31 18:29 local); the user must resync Windows time; all own readers filter by server stamps.",
+ "live_lab_note": "Shared recorder (pid 27184) running. Own rawrec (pid 14360) to 18:00 UTC; slim exam recorder examrec (pid 20820, launcher 9952) to 2026-11-02 00:00 UTC, status .cache/re/directional-maker/examrec_status.json. Read dm_/dx_ feeds with code5/rawread.iter_dm (gzip members one by one; development blocks only). | iteration 15: the laptop clock drifts ~0.19 s/h slow (0.898 s at 11-01 07:13 UTC; w32tm not synchronized since 02:29 UTC); records are filed by receive time, so a resync by the user is needed before 11-01 12:00 UTC; own readers in code/ now filter by server stamps. | iteration 16: dy_rtds clk offset 1.315 s (Binance minus laptop) at 11-01 09:26 UTC (w32tm: not synchronized, last sync 10-31 18:29 local); the user must resync Windows time; all own readers filter by server stamps. Iteration 17 (11:00 UTC 11-01): shared recorder running (live.py status: clob_crypto, clob_wallets, rtds, sports connected); no new recorder started. Iteration 17: new recorder dp_perps (code17/perpsrec.py, pid 33364) from 11:28:40 UTC 11-01 to 11-03 00:00 UTC.",
  "target_metrics": {
   "presence_auc": 0.7883,
   "presence_baseline": 0.7796,
@@ -4639,31 +4734,31 @@
   "selection_recall": 0.2947,
   "selection_lift": 2.8665,
   "selection_baseline": 0.6508,
-  "side_accuracy": 0.6925,
+  "side_accuracy": 0.7009,
   "side_baseline": 0.6785,
   "price_within_tick": 0.8026,
   "pnl_corr_pearson": 0.2066,
   "pnl_corr_spearman": 0.2181,
   "coverage_fills": 0.868,
   "coverage_abs_pnl": 0.891,
-  "_notes": "rule R6 = R5 on BTC 5m (unchanged) + R3's model class refitted on BTC 15m, scored on the historical VALIDATE 2026-10-27..30 over the union universe (pooled bins; code8/union_val.py): presence 0.7883 vs activity 0.7796 (gain +0.009); BTC 5m alone 0.716 / 0.684 (the pre-registered primary metric, unchanged); BTC 15m alone 0.812 / 0.778. side = bin-level presence-score side pooled (5m 0.663, 15m 0.733). price = block clock pooled (5m 0.709, 15m 0.666). pnl = expectation proxy per window pooled (5m 0.329/0.325, 15m 0.180/0.345). selection = BTC 5m only (R2's print model; not extended). Live VALIDATE (10-31 15:00-16:30, pre-registered live split): per-fill side with the Chainlink posture rule 0.836-0.846 (n 1,341-1,406) vs market-only <= 0.61; match-clock price 0.83-0.86; see target_metrics_live. coverage = BTC 5m + 15m on VALIDATE (iteration 5 cash-flow PnL). Iteration 9: unchanged (R6 kept; the slow-sigma variant failed its pre-registered VALIDATE test). Iteration 10: unchanged (R6 kept; no decision changed; the side component fails its historical replication in the sigma-free region, A1). Iteration 11 (R7 = R6 + in-block price): price_within_tick = the in-block execution-order clock pooled BTC 5m + 15m on all 30984 VALIDATE maker fills (0.8026; block clock 0.7050; pooled per wallet {'almach': 0.8, 'bosona': 0.7966, 'momoney': 0.8111}, halves [0.8044, 0.8014]; 15m per wallet {'almach': 0.7516, 'bosona': 0.7634, 'momoney': 0.7838}; the rule is the trivial anchor 'last print' minus a tick on this clock, 'last print' alone 0.773 on 5m); pnl_corr = the strict-fill window replay of the frozen posture quote (BTC 5m, latency 2 s, slack 2, trade-through, last print - 0.01, session size; the target's definition), per wallet almach [0.2377, 0.2401], bosona [0.1666, 0.2262], mo-money [0.1608, 0.1787]; halves [0.1654, 0.2484] / [0.235, 0.2034]; oracle-side ceiling [0.473, 0.527]. Before: price 0.7048 (block clock), pnl 0.2601 / 0.3267 (expectation proxy, union). Iteration 12 (R8 = R7 + the window state-machine side, OWN STATE, exploratory: designed after the per-type VALIDATE aggregates were seen): side_accuracy = per BTC 5m maker fill on VALIDATE 0.7900 (2-h block bootstrap [0.7655, 0.8111]; per order 0.7251; halves [0.7823, 0.7952]; per wallet {'almach': 0.7949, 'bosona': 0.7831, 'momoney': 0.7921}): decided window -> cheaper token, no cluster position -> Chainlink posture, after entry -> the cluster's held outcome for schedule-size orders and the under-held outcome for non-schedule (pairing) orders; side_baseline = the stronger market-only baseline (cheaper token 0.6785); own-inventory-only baseline (cluster held outcome) 0.6110; the same rule without own state 0.6925. Before: 0.672 (bin-level presence-score side). BTC 15m not included in this side number. BUILD replication without sizes: 0.705 (no own state 0.608). BTC 15m without sizes 0.754 (no own state 0.821). CORRECTION (iteration 12, 03:00 UTC, code12/persist_vs_policy.py): the own-history baseline 'side of the cluster's previous fill in the window' scores 0.8224 per fill on VALIDATE (STUDY 0.8089), ABOVE the own-state composite (0.790); where the held outcome and the previous fill differ, schedule-size fills follow the previous fill 0.82 (held 0.18). The after-entry branch is the persistence of same-side fill runs, not a decoded quote rule, so side_accuracy reports the PUBLIC part of R8-side (decided window -> cheaper token, else the Chainlink posture; no own state): 0.6925 per fill vs the market-only cheaper-token baseline 0.6785 (gain +0.014; in decided windows the rule IS that baseline). Own-state numbers (reported, never counted): composite 0.790, own history 0.822, own inventory only 0.611. Per fill run (X129): public side 0.6107 per run on VALIDATE (entry run 0.7254, later switching runs 0.5410; 9.7 fills per run). Iteration 13: unchanged (R8 kept; no frozen decision changed). Reported beside it: the public side per burst start on the lot 0.539 STUDY / 0.637 VALIDATE (cheaper 0.434 / 0.602; previous-fill own-history 0.735 / 0.712; window first bursts 0.619 / 0.725); on the exact live clock (10-31 14-18) the Chainlink posture at the post time scores 0.807 on quote moves (73% of fills) and 0.507 on resting rungs (27%). Stable version 09-11..10-11 (pre-registered sample, frozen functions): presence 0.722 / 0.754 vs activity 0.703 / 0.732; public side 0.525 / 0.621 vs cheaper 0.709 / 0.582. Iteration 14: unchanged (R8 kept; no frozen decision changed). Pivot tests: uncensored quote unit side 0.83 on the exact publish clock (585 posts) / 0.75-0.76 point-in-time-safe fixed lag, event-time presence 0.805 vs 0.774 (fills) and 0.701 vs 0.672 (posts), quote-geometry selection 0.558 (model 0.742 / recall 0.42 at lift 3), batch-capped replay 0.213 / 0.214. Iteration 16: unchanged (R8 kept; no frozen decision changed). The primary unit (10-s fill presence) has an oracle ceiling of ~0.80 with the cluster's actual quote (X72), below the 0.85 bar; the print-level unit's oracle is 0.81-0.83 at recall 0.62-0.69 (mechanics panel)."
+  "_notes": "rule R6 = R5 on BTC 5m (unchanged) + R3's model class refitted on BTC 15m, scored on the historical VALIDATE 2026-10-27..30 over the union universe (pooled bins; code8/union_val.py): presence 0.7883 vs activity 0.7796 (gain +0.009); BTC 5m alone 0.716 / 0.684 (the pre-registered primary metric, unchanged); BTC 15m alone 0.812 / 0.778. side = bin-level presence-score side pooled (5m 0.663, 15m 0.733). price = block clock pooled (5m 0.709, 15m 0.666). pnl = expectation proxy per window pooled (5m 0.329/0.325, 15m 0.180/0.345). selection = BTC 5m only (R2's print model; not extended). Live VALIDATE (10-31 15:00-16:30, pre-registered live split): per-fill side with the Chainlink posture rule 0.836-0.846 (n 1,341-1,406) vs market-only <= 0.61; match-clock price 0.83-0.86; see target_metrics_live. coverage = BTC 5m + 15m on VALIDATE (iteration 5 cash-flow PnL). Iteration 9: unchanged (R6 kept; the slow-sigma variant failed its pre-registered VALIDATE test). Iteration 10: unchanged (R6 kept; no decision changed; the side component fails its historical replication in the sigma-free region, A1). Iteration 11 (R7 = R6 + in-block price): price_within_tick = the in-block execution-order clock pooled BTC 5m + 15m on all 30984 VALIDATE maker fills (0.8026; block clock 0.7050; pooled per wallet {'almach': 0.8, 'bosona': 0.7966, 'momoney': 0.8111}, halves [0.8044, 0.8014]; 15m per wallet {'almach': 0.7516, 'bosona': 0.7634, 'momoney': 0.7838}; the rule is the trivial anchor 'last print' minus a tick on this clock, 'last print' alone 0.773 on 5m); pnl_corr = the strict-fill window replay of the frozen posture quote (BTC 5m, latency 2 s, slack 2, trade-through, last print - 0.01, session size; the target's definition), per wallet almach [0.2377, 0.2401], bosona [0.1666, 0.2262], mo-money [0.1608, 0.1787]; halves [0.1654, 0.2484] / [0.235, 0.2034]; oracle-side ceiling [0.473, 0.527]. Before: price 0.7048 (block clock), pnl 0.2601 / 0.3267 (expectation proxy, union). Iteration 12 (R8 = R7 + the window state-machine side, OWN STATE, exploratory: designed after the per-type VALIDATE aggregates were seen): side_accuracy = per BTC 5m maker fill on VALIDATE 0.7900 (2-h block bootstrap [0.7655, 0.8111]; per order 0.7251; halves [0.7823, 0.7952]; per wallet {'almach': 0.7949, 'bosona': 0.7831, 'momoney': 0.7921}): decided window -> cheaper token, no cluster position -> Chainlink posture, after entry -> the cluster's held outcome for schedule-size orders and the under-held outcome for non-schedule (pairing) orders; side_baseline = the stronger market-only baseline (cheaper token 0.6785); own-inventory-only baseline (cluster held outcome) 0.6110; the same rule without own state 0.6925. Before: 0.672 (bin-level presence-score side). BTC 15m not included in this side number. BUILD replication without sizes: 0.705 (no own state 0.608). BTC 15m without sizes 0.754 (no own state 0.821). CORRECTION (iteration 12, 03:00 UTC, code12/persist_vs_policy.py): the own-history baseline 'side of the cluster's previous fill in the window' scores 0.8224 per fill on VALIDATE (STUDY 0.8089), ABOVE the own-state composite (0.790); where the held outcome and the previous fill differ, schedule-size fills follow the previous fill 0.82 (held 0.18). The after-entry branch is the persistence of same-side fill runs, not a decoded quote rule, so side_accuracy reports the PUBLIC part of R8-side (decided window -> cheaper token, else the Chainlink posture; no own state): 0.6925 per fill vs the market-only cheaper-token baseline 0.6785 (gain +0.014; in decided windows the rule IS that baseline). Own-state numbers (reported, never counted): composite 0.790, own history 0.822, own inventory only 0.611. Per fill run (X129): public side 0.6107 per run on VALIDATE (entry run 0.7254, later switching runs 0.5410; 9.7 fills per run). Iteration 13: unchanged (R8 kept; no frozen decision changed). Reported beside it: the public side per burst start on the lot 0.539 STUDY / 0.637 VALIDATE (cheaper 0.434 / 0.602; previous-fill own-history 0.735 / 0.712; window first bursts 0.619 / 0.725); on the exact live clock (10-31 14-18) the Chainlink posture at the post time scores 0.807 on quote moves (73% of fills) and 0.507 on resting rungs (27%). Stable version 09-11..10-11 (pre-registered sample, frozen functions): presence 0.722 / 0.754 vs activity 0.703 / 0.732; public side 0.525 / 0.621 vs cheaper 0.709 / 0.582. Iteration 14: unchanged (R8 kept; no frozen decision changed). Pivot tests: uncensored quote unit side 0.83 on the exact publish clock (585 posts) / 0.75-0.76 point-in-time-safe fixed lag, event-time presence 0.805 vs 0.774 (fills) and 0.701 vs 0.672 (posts), quote-geometry selection 0.558 (model 0.742 / recall 0.42 at lift 3), batch-capped replay 0.213 / 0.214. Iteration 16: unchanged (R8 kept; no frozen decision changed). The primary unit (10-s fill presence) has an oracle ceiling of ~0.80 with the cluster's actual quote (X72), below the 0.85 bar; the print-level unit's oracle is 0.81-0.83 at recall 0.62-0.69 (mechanics panel). Iteration 17: side = R8c (R8's public side with the BTC 5m window starting at the NYSE open -> the cheaper token; pre-registered T5, VALIDATE per fill 0.6925 -> 0.7009; cheaper-token baseline 0.6785). Everything else unchanged."
  },
- "strategy_statement": "[engine: VALIDATE-only] One engine runs three accounts with three owner keys; on 10-31 it posted each main-ladder decision in all three (29% triplet posts), on 11-01 (after the sealed stretch and the listing gap) bosona ran the main BTC ladder alone in 7 of 10 slots, mo-money joining only 08:30-09:15, while almach and mo-money kept the deep bids and the slow families (never seen in a STUDY/VALIDATE slot). It quotes every crypto Up/Down family at a configured size per family (BTC 5m/15m 500 x 2^k with 1/8, 1/2, 1/5 levels; other families 10-400). [selection: hypothesis] Modules are switched on and off by hand; in idle weekend blocks only the non-BTC families trade. [timing: VALIDATE-only] The BTC ladders are re-sided by each public Chainlink publish within ~300 ms and re-pegged within ~0.5 s of Binance futures moves (a quarter of the at-touch posts on the clean 11-01 block); it stops ~45 s + TWAP lookback before the end. [side: VALIDATE-only] BTC fills: decided window -> cheaper token, else the Chainlink posture (0.693 per fill VALIDATE); the ladder center moves ~0.3 of the way from the mid to the Chainlink fair on 10-31 (half-spread 0.075) and only ~0.13 of the way on 11-01 with a shrink toward 0.5 (same half-spread): the side configuration moves between blocks; a nowcast reference (report + futures move since its stamp) is never worse and helps in the clean regime; non-BTC opening fills follow a public posture on the per-symbol Chainlink vs priceToBeat (0.88-0.94), daily later fills a posture vs the prices-history minute mid (0.74-0.75), other later fills are two-sided (taker-chosen). [price: exam-verified block clock; VALIDATE-only in-block] last clean trade minus 0.01 on the fastest clock (0.807 VALIDATE; 0.95 match clock 11-01); on thin non-BTC books the best bid (0.72) beats it; the BTC 4h ladder (pure 400s) rests 5-7 c under the market, leaning to the underdog (0.67). [size: VALIDATE-only] the per-family configured table plus imbalance pairing sizes. [exit: VALIDATE-only] holds to resolution, pairs imbalances, merges near the end. Money: spread and queue priority on the BTC ladders (strict replays lose), and the later two-sided fills of the 4h/hourly/alt families (a strict replay of the decoded opening tracks per-market PnL at only 0.08-0.19 Pearson, 0.37-0.42 with an oracle side).",
+ "strategy_statement": "[engine: VALIDATE-only] One engine runs three accounts with three owner keys; on 10-31 it posted each main-ladder decision in all three (29% triplet posts), on 11-01 (after the sealed stretch and the listing gap) bosona ran the main BTC ladder alone in 7 of 10 slots, mo-money joining only 08:30-09:15, while almach and mo-money kept the deep bids and the slow families (never seen in a STUDY/VALIDATE slot). It quotes every crypto Up/Down family at a configured size per family (BTC 5m/15m 500 x 2^k with 1/8, 1/2, 1/5 levels; other families 10-400). [selection: hypothesis] Modules are switched on and off by hand; in idle weekend blocks only the non-BTC families trade. [timing: VALIDATE-only] The BTC ladders are re-sided by each public Chainlink publish within ~300 ms and re-pegged within ~0.5 s of Binance futures moves (a quarter of the at-touch posts on the clean 11-01 block); it stops ~45 s + TWAP lookback before the end. [side: VALIDATE-only] BTC fills: decided window -> cheaper token, else the Chainlink posture (0.693 per fill VALIDATE); the ladder center moves ~0.3 of the way from the mid to the Chainlink fair on 10-31 (half-spread 0.075) and only ~0.13 of the way on 11-01 with a shrink toward 0.5 (same half-spread): the side configuration moves between blocks; a nowcast reference (report + futures move since its stamp) is never worse and helps in the clean regime; non-BTC opening fills follow a public posture on the per-symbol Chainlink vs priceToBeat (0.88-0.94), daily later fills a posture vs the prices-history minute mid (0.74-0.75), other later fills are two-sided (taker-chosen). [price: exam-verified block clock; VALIDATE-only in-block] last clean trade minus 0.01 on the fastest clock (0.807 VALIDATE; 0.95 match clock 11-01); on thin non-BTC books the best bid (0.72) beats it; the BTC 4h ladder (pure 400s) rests 5-7 c under the market, leaning to the underdog (0.67). [size: VALIDATE-only] the per-family configured table plus imbalance pairing sizes. [exit: VALIDATE-only] holds to resolution, pairs imbalances, merges near the end. Money: spread and queue priority on the BTC ladders (strict replays lose), and the later two-sided fills of the 4h/hourly/alt families (a strict replay of the decoded opening tracks per-market PnL at only 0.08-0.19 Pearson, 0.37-0.42 with an oracle side). [side, iteration 17: VALIDATE-only] At the NYSE open (09:30 New York, weekdays) its BTC 5m fills jump ~4x and sit on the token that the opening move made cheap (0.90-0.99 cheaper on STUDY/VALIDATE): R8c counts that window as cheaper-token. [residual, iteration 17: measured] What stays unexplained is mostly quiet small-edge fills whose timing is the taker's arrival (presence) and small-edge sides that the reference stopped predicting on 11-01 inside every taker-latency class; the fill-level side residual has no cross-market synchrony, so no shared hidden feed is indicated at that level; on 11-01 the cluster's off-posture posts do coincide across the 5m and 15m windows, 40% of them after a futures move.",
  "components": {
   "selection": {
    "confidence": 0.45,
    "tag": "hypothesis",
-   "description": "Iteration 16: instance mode per 15-min slot (X177): on 11-01 the main BTC ladder ran in bosona alone in 7 of 10 slots (mo-money joined 08:30-09:15; almach and mo-money otherwise only deep bids and the slow families); never in a STUDY/VALIDATE slot, 0.9% of BUILD slots; reported as instance_mode. | Iteration 15: R8's universe fails scope in a half of 2 of 3 weekend mock lots (10-17/18 later 0.41 / 0.61; 10-24/25 0.39 / 0.32); only every crypto family holds; reported as r9_nonbtc_module. | Iteration 14: BTC 5m switch-offs follow drawdowns since the 01:00 restart (AUC 0.82-0.93 over 7 events) but at no fixed level ($1.1k-$14.6k), plus a scheduled-looking 18:15-18:30 ET weekend-evening component (own state, reported); R8's universe fails scope on the latest weekend analogs (BTC 5m + 15m 0.00-0.72), where small non-schedule orders run on BTC 4h/hourly/daily, ETH and XRP. Iteration 13: on the pre-registered stable sample (09-11..10-11) the BTC 5m module was active in 91% of sampled windows (64% on 10-12..22): the hours-long switch-offs are an October feature (assumptions panel F4, confirmed). one engine over crypto Up/Down; BTC 5m and 15m are modules switched off for hours, mostly Fri-Sun US-Eastern evenings (gate window AUC 0.68); the 10-31 16:53 switch-off happened inside the running processes (salt counters continuous, signing rate unchanged) and two engines were restarted ad hoc 12-13 min later; R6's universe (BTC 5m + 15m) covers >= 80% of trades and dollars in only 34% of 6-h blocks, the all-crypto universe in all. BTC 15m presence (R3 class) 0.812 vs 0.778 on VALIDATE. Iteration 11: unchanged. Iteration 12: unchanged."
+   "description": "Iteration 17: at the NYSE open the BTC 5m fill count jumps ~4x (70 decisions per window vs ~16 on BUILD weekdays). | Iteration 16: instance mode per 15-min slot (X177): on 11-01 the main BTC ladder ran in bosona alone in 7 of 10 slots (mo-money joined 08:30-09:15; almach and mo-money otherwise only deep bids and the slow families); never in a STUDY/VALIDATE slot, 0.9% of BUILD slots; reported as instance_mode. | Iteration 15: R8's universe fails scope in a half of 2 of 3 weekend mock lots (10-17/18 later 0.41 / 0.61; 10-24/25 0.39 / 0.32); only every crypto family holds; reported as r9_nonbtc_module. | Iteration 14: BTC 5m switch-offs follow drawdowns since the 01:00 restart (AUC 0.82-0.93 over 7 events) but at no fixed level ($1.1k-$14.6k), plus a scheduled-looking 18:15-18:30 ET weekend-evening component (own state, reported); R8's universe fails scope on the latest weekend analogs (BTC 5m + 15m 0.00-0.72), where small non-schedule orders run on BTC 4h/hourly/daily, ETH and XRP. Iteration 13: on the pre-registered stable sample (09-11..10-11) the BTC 5m module was active in 91% of sampled windows (64% on 10-12..22): the hours-long switch-offs are an October feature (assumptions panel F4, confirmed). one engine over crypto Up/Down; BTC 5m and 15m are modules switched off for hours, mostly Fri-Sun US-Eastern evenings (gate window AUC 0.68); the 10-31 16:53 switch-off happened inside the running processes (salt counters continuous, signing rate unchanged) and two engines were restarted ad hoc 12-13 min later; R6's universe (BTC 5m + 15m) covers >= 80% of trades and dollars in only 34% of 6-h blocks, the all-crypto universe in all. BTC 15m presence (R3 class) 0.812 vs 0.778 on VALIDATE. Iteration 11: unchanged. Iteration 12: unchanged."
   },
   "timing": {
    "confidence": 0.8,
    "tag": "VALIDATE-only",
-   "description": "Iteration 16: on the clean 11-01 block a quarter of the at-touch 500 posts are re-pegs within ~0.5 s of a futures move (on the outcome whose fair rose, 0.89-0.96; 1-8% of posts on 10-31). | Iteration 14: on the uncensored quote unit the engine re-posts at the touch on the outcome that ROSE after a futures move (0.72-0.82 of the 4-6% moving posts): it follows the moving mid; event-time (1-s) presence 0.805 vs activity 0.774 for fills and 0.701 vs 0.672 for at-touch posts (point-in-time safe; gains +0.03). Iteration 13: tracer re-sign prices follow the Chainlink report stamped ~1.25 s earlier (sharp peak; future stamps 0.14-0.18), i.e. the report just published on the public relay, no lead; filled orders are posts at or above the touch a median 0.86 s before the fill (73%); the last fill per window comes ~43 s + the settlement lookback before the end (45 / 71.5 / 101 s under spot / TWAP-30 / TWAP-60; 98.5 s in October), identified by the 08-07 and 08-14 listing switches with the market as control (it prints to 1-3 s). October: a re-price pass of the ladders within ~0-150 ms of each Chainlink report's publish on the public RTDS relay, plus re-posts 50-250 ms after Binance futures moves [live]; June (real signing ms): orders signed 100-400 ms after Binance moves, price current at signing [development, other version]; filled orders are fresh at-touch posts matched ~0.7 s later; withdraws in the last ~30 s. Hazard of the burst posts per 50 ms on public clocks: 0.83 held out with the true RTDS publish ms (Chainlink publish clock alone 0.79), 0.64 with a stamp-based proxy. Iteration 9: daily restart at ~01:00:10-01:00:22 UTC resets all three counters; signing ~11-18 orders/s per wallet. Iteration 10: the filled rungs agree with the report at the match, not at the taker's signing (M5); July engine: posts a median 69 ms after the previous trade, filled orders 1.0 s old."
+   "description": "Iteration 17: presence out of fold on BUILD 0.780 vs activity 0.741; 54% of filled cells are scored low, mostly quiet |edge| < 0.05 cells (the taker's arrival is the missing trigger); the venue's ~150-ms taker hold shows in the floor of the takers' commit-to-match latency (p5 187-193 ms). | Iteration 16: on the clean 11-01 block a quarter of the at-touch 500 posts are re-pegs within ~0.5 s of a futures move (on the outcome whose fair rose, 0.89-0.96; 1-8% of posts on 10-31). | Iteration 14: on the uncensored quote unit the engine re-posts at the touch on the outcome that ROSE after a futures move (0.72-0.82 of the 4-6% moving posts): it follows the moving mid; event-time (1-s) presence 0.805 vs activity 0.774 for fills and 0.701 vs 0.672 for at-touch posts (point-in-time safe; gains +0.03). Iteration 13: tracer re-sign prices follow the Chainlink report stamped ~1.25 s earlier (sharp peak; future stamps 0.14-0.18), i.e. the report just published on the public relay, no lead; filled orders are posts at or above the touch a median 0.86 s before the fill (73%); the last fill per window comes ~43 s + the settlement lookback before the end (45 / 71.5 / 101 s under spot / TWAP-30 / TWAP-60; 98.5 s in October), identified by the 08-07 and 08-14 listing switches with the market as control (it prints to 1-3 s). October: a re-price pass of the ladders within ~0-150 ms of each Chainlink report's publish on the public RTDS relay, plus re-posts 50-250 ms after Binance futures moves [live]; June (real signing ms): orders signed 100-400 ms after Binance moves, price current at signing [development, other version]; filled orders are fresh at-touch posts matched ~0.7 s later; withdraws in the last ~30 s. Hazard of the burst posts per 50 ms on public clocks: 0.83 held out with the true RTDS publish ms (Chainlink publish clock alone 0.79), 0.64 with a stamp-based proxy. Iteration 9: daily restart at ~01:00:10-01:00:22 UTC resets all three counters; signing ~11-18 orders/s per wallet. Iteration 10: the filled rungs agree with the report at the match, not at the taker's signing (M5); July engine: posts a median 69 ms after the previous trade, filled orders 1.0 s old."
   },
   "side": {
    "confidence": 0.6,
    "tag": "VALIDATE-only (public part: decided -> cheaper, entry/else -> Chainlink posture); own-state description (after entry = fill persistence, not decoded)",
-   "description": "Iteration 16 (long families): the daily later fills follow a Binance-digital posture against the prices-history minute mid at 0.74-0.75 (STUDY / VALIDATE; favourite 0.51-0.59); hourly and 4h at the favourite level. Alt opening with the per-symbol Chainlink vs priceToBeat: posture 0.916 / 0.941 / 0.882 (BUILD / STUDY / VALIDATE). | Iteration 16: inside one instance (bosona's own fills on the match clock) the large-edge side is the same on 10-31 and 11-01 (|F - mid| >= 0.1: 0.860 vs 0.864) while small-edge fills fell below chance (0.44-0.58) and their share doubled; a latency-corrected Chainlink nowcast (report + futures move since its stamp) fixes part of it (11-01 fills 0.56 -> 0.685; posts 0.55 -> 0.63; neutral on 10-31); the clean block's at-touch posts are futures re-pegs (0.89-0.96 on the outcome whose fair rose) plus still posts on the cheaper token (0.70); the ladder center shrinks toward 0.5 on 11-01 (cheapness +0.09) with the same half-spread (0.075). Non-BTC opening: per-symbol Chainlink vs priceToBeat (X182). | Iteration 15: outside BTC 5m/15m the cluster's opening fills (< 20 s) follow a Binance-digital posture (k 0.7 x sigma300) against the last public print at 0.866 VALIDATE / 0.924 STUDY (in-the-money rule 0.78-0.81; market favourite 0.54-0.62), later fills follow the market favourite (0.55-0.75); the pure BTC 500 ladder follows the Chainlink posture at 0.866 on the exact publish clock (10-31, 30 min, Chainlink noise regime) but 0.60 on 11-01 07:00-08:00 (clean stream: the report and the market disagree less; accuracy at |edge| >= 0.2 0.94 vs 0.78). | Iteration 14: the uncensored quote (every 500/1000 post at the touch, 10-31 14-18) follows the Chainlink posture taken at the post from the latest PUBLISHED report with k 1.0 x futures-mid sigma300: 0.831 on the 585 posts with exact publish ms (17:29-18:00), 0.75-0.76 with the point-in-time-safe fixed lag 1.432 s (a 1.0-s stamp lag gives 0.815 / 0.811 but is not strictly point in time); baselines always-Up 0.51, cheaper 0.44, mid-rose-1s 0.65; with the R8 form (L 1.25 s, k 1.4) 0.733 (500/1000 0.753; 62/250 0.509), not own inventory (0.41-0.57); fills are posture-enriched (0.82-0.86 per filled order) by the takers' choice; futures-move rules add <= +0.01 per fill; the class-(ii) volatility scale is not identifiable out of sample. Iteration 13 decomposition on the exact live clock (10-31 14-18): class (i) quote moves to the touch (73% of fills) follow the Chainlink posture at the post 0.81 (0.84 out of sample), class (ii) resting rungs swept by the market (27%) are at chance on the posture (0.51) and follow the book lean (0.72); switches are quote moves (71%). Per burst start on the lot the public side scores 0.539 / 0.637 (STUDY / VALIDATE). Stable version (09-11..25): public side 0.525 wi"
+   "description": "Iteration 17 (R8c, VALIDATE-only): the BTC 5m window starting at the NYSE open (09:30 New York, weekdays) -> the cheaper token (open window STUDY 0.99 / VALIDATE 0.90 vs R8 0.40-0.44; all VALIDATE BTC 5m fills 0.6925 -> 0.7009, cheaper baseline 0.6785); found in the out-of-fold BUILD residual. The 11-01 small-edge drop is not the taker mix (X196: reweighted 0.844 vs actual 0.675); fill-level side misses show no cross-market synchrony (E7). | Iteration 16 (long families): the daily later fills follow a Binance-digital posture against the prices-history minute mid at 0.74-0.75 (STUDY / VALIDATE; favourite 0.51-0.59); hourly and 4h at the favourite level. Alt opening with the per-symbol Chainlink vs priceToBeat: posture 0.916 / 0.941 / 0.882 (BUILD / STUDY / VALIDATE). | Iteration 16: inside one instance (bosona's own fills on the match clock) the large-edge side is the same on 10-31 and 11-01 (|F - mid| >= 0.1: 0.860 vs 0.864) while small-edge fills fell below chance (0.44-0.58) and their share doubled; a latency-corrected Chainlink nowcast (report + futures move since its stamp) fixes part of it (11-01 fills 0.56 -> 0.685; posts 0.55 -> 0.63; neutral on 10-31); the clean block's at-touch posts are futures re-pegs (0.89-0.96 on the outcome whose fair rose) plus still posts on the cheaper token (0.70); the ladder center shrinks toward 0.5 on 11-01 (cheapness +0.09) with the same half-spread (0.075). Non-BTC opening: per-symbol Chainlink vs priceToBeat (X182). | Iteration 15: outside BTC 5m/15m the cluster's opening fills (< 20 s) follow a Binance-digital posture (k 0.7 x sigma300) against the last public print at 0.866 VALIDATE / 0.924 STUDY (in-the-money rule 0.78-0.81; market favourite 0.54-0.62), later fills follow the market favourite (0.55-0.75); the pure BTC 500 ladder follows the Chainlink posture at 0.866 on the exact publish clock (10-31, 30 min, Chainlink noise regime) but 0.60 on 11-01 07:00-08:00 (clean stream: the report and the market disagree less; accuracy at |edge| >= 0.2 0.94 vs 0.78). | Iteration 14: the uncensored quote (every 500/1000 post at the touch, 10-31 14-18) follows the Chainlink posture taken at the post from the latest PUBLISHED report with k 1.0 x futures-mid sigma300: 0.831 on the 585 posts with exact publish ms (17:29-18:00), 0.75-0.76 with the point-in-time-safe fixed lag 1.432 s (a 1.0-s stamp lag gives 0.815 / 0.811 but is not strictly point in time); baselines always-Up 0.51, cheaper 0.44, mid-rose-1s 0.65; with the R8 form (L 1.25 s, k 1.4) 0.733 (500/1000 0.753; 62/250 0.509), not own inventory (0.41-0.57); fills are posture-enriched (0.82-0.86 per filled order) by the takers' choice; futures-move rules add <= +0.01 per fill; the class-(ii) volatility scale is not identifiable out of sample. Iteration 13 decomposition on the exact live clock (10-31 14-18): class (i) quote moves to the touch (73% of fills) follow the Chainlink posture at the post 0.81 (0.84 out of sample), class (ii) resting rungs swept by the market (27%) are at chance on the posture (0.51) and follow the book lean (0.72); switches are quote moves (71%). Per burst start on the lot the public side scores 0.539 / 0.637 (STUDY / VALIDATE). Stable version (09-11..25): public side 0.525 wi"
   },
   "price": {
    "confidence": 0.75,
@@ -5694,6 +5789,161 @@
    "source": "own (iteration 16, T6)",
    "title": "R8b: the dead zone (|F_cl - mid| < 0.05) to the cheaper token",
    "evidence": "code16/band_side.py (results/iter16_band_side.json), pre-registered 09:45 UTC: VALIDATE per fill 0.6862 vs R8 0.6925, STUDY 0.521 vs 0.569; in the dead zone (36-37% of fills) the posture beats the cheaper token (0.632 vs 0.614; 0.568 vs 0.437). Rejected; R8 stays."
+  },
+  "E1": {
+   "status": "tried",
+   "source": "brief 2026-11-01",
+   "evidence": "state.json dimensions written in iteration 17: 41 dimensions over every brief family (Polymarket internal, related markets, event state, information, own state, operator, infrastructure) plus the panel-named ones (taker hold, taker commit times, PolyBolt, legacy RTDS, Perps index, Data Streams). Several stay 'untested' or 'missing' (news, social, comments, funding, Perps index)."
+  },
+  "E2": {
+   "status": "tried",
+   "source": "brief 2026-11-01",
+   "evidence": "code17/e2_resid.py (results/iter17_e2_presence.json, iter17_e2_side.json): presence OOF on BUILD 10-09..22 (GroupKFold over 2-h blocks) rule 0.7801 vs activity 0.7407; 54% of filled cells below the 85th percentile, concentrated at |edge| < 0.05 (0.74) and in quiet cells (0.73 vs 0.25 when activity is high). Side: 58092 BUILD decisions, miss share 0.3772; the NYSE-open window 13:30 UTC is the outlier (0.90 misses, 4x activity) -> T5/R8c."
+  },
+  "E3": {
+   "status": "open",
+   "source": "brief 2026-11-01",
+   "evidence": "first screen pre-registered in NOTES.md (iteration 17): the scheduled market-structure calendar (NYSE open, CME reopen 22:00 UTC, Europe opens, US macro releases) against the side residual and the quote-unit posts; only the NYSE-open direction test was run (confirmed on VALIDATE). Correction: B1 signing times are infeasible for this cluster (its orders carry timestamp 0 in 100% of ~39k sampled orders); the decision series are the live-lab posts (weekday development blocks from 11-02) and the salt order. Direction tests run this iteration: NYSE open (adopted, R8c), the other scheduled slots (not adopted), the 15m open window (not adopted). First screen run (T13, code17/e3_feeds.py, BUILD live blocks 10-31 14-18 + 11-01 07:00-09:15): the 0.5-s futures jump links (p_link 0.013 / 0.008 at +-2 / +-60 s; signed p 6.6e-5, peak +0.15 s), the 2-s and 10-s jumps link signed; Chainlink report changes do not (p_link 0.14-0.27). Confirmation on the live VALIDATE blocks (days 2-3 after T0) pending; the calendar family is still to screen."
+  },
+  "E4": {
+   "status": "open",
+   "source": "brief 2026-11-01",
+   "evidence": "discrepancy/composite indicators not yet screened in the BH framework (the nowcast and the futures re-peg are the closest legacy ones)."
+  },
+  "E5": {
+   "status": "open",
+   "source": "brief 2026-11-01",
+   "evidence": "T14 (code17/e5_daily.py): daily GDELT 'bitcoin' volume and Fear & Greed (previous day) vs the cluster's BTC 5m module-on share over 83 days: rho 0.18 (p 0.15) and 0.21 (p 0.06); no association at the daily scale (low power). Intraday news (GDELT 15-min, RSS recorded live) and social not screened: stays open."
+  },
+  "E6": {
+   "status": "open",
+   "source": "brief 2026-11-01",
+   "evidence": "no latent fit yet; candidates: the per-block sigma multiplier k (C5) and the instance mode as hidden states."
+  },
+  "E7": {
+   "status": "tried",
+   "source": "brief 2026-11-01",
+   "evidence": "residual_clustering on BUILD fill-level side misses vs hits: misses ratio 1.44 (5m+15m, p 0.23), 1.50 (with 1h, p 0.18), BTC vs alt 1.34 (p 0.044); hits 2.22 / 1.95 / 2.04 (p 0.013-0.044). No miss synchrony beyond the hits: the side residual has no common second-scale driver. The live quote-unit version (posts on 11-01) is not run."
+  },
+  "X195": {
+   "status": "tried",
+   "source": "panel iter16 information P1",
+   "title": "Taker hold as the decision clock: hold-aware strict replay, leak test, 08-17 / 09-04 hold changes",
+   "evidence": "iteration 17: (i) floor of the takers' commit-to-match latency p5 193 / 187 ms on 10-31 / 11-01 (code17/taker_class.py): the ~150-ms hold is real; (ii) natural experiments (code17/hold_natexp.py): cluster BTC 5m return per $ 5.03% -> 4.62% at 08-17 (250 -> 50 ms), 2.82% -> 1.82% at 09-04 (50 -> 150 ms; 90% [-3.3, +1.0]): no visible effect of the hold length, opposite sign at 09-04. The hold-aware strict replay is split off as X213 (open)."
+  },
+  "X196": {
+   "status": "tried",
+   "source": "panel iter16 information P2",
+   "title": "Fill side by the taker's information class (commit-to-match latency)",
+   "evidence": "code17/taker_class.py (results/iter17_taker_class.json): pre-registered reweighting of 10-31 class x band accuracies by 11-01 shares gives 0.844 (report) vs actual 0.675 (bosona 0.880 vs 0.729): the counterparties do not explain the 11-01 drop; within every class the small-edge band fell (auto takers 0.96 -> 0.48)."
+  },
+  "X197": {
+   "status": "tried",
+   "source": "panel iter16 information P3",
+   "title": "E1 dimension inventory plus E7 residual synchrony",
+   "evidence": "E1 written (dimensions); E7 on BUILD side misses: no synchrony (see E7). Cluster times not looked up in archives (no excess to look up)."
+  },
+  "X198": {
+   "status": "tried",
+   "source": "panel iter16 information P4",
+   "title": "Re-align the nowcast to the settlement stream's lag; record the Polymarket Perps index",
+   "evidence": "part 1 (code17/nowcast_lag.py): basis lag L 0 / 0.5 / 0.75 s: 10-31 {\"0.0\": [0.7847, 4887], \"0.5\": [0.7831, 4887], \"0.75\": [0.7831, 4887]}, 11-01 all 0.6334 / 0.6343 / 0.6343: no effect; the nowcast predicts the next report no better than the last report (median abs error 1.77 vs 1.69 on 10-31). Part 2 (Perps index recording) split off as X214 (open)."
+  },
+  "X199": {
+   "status": "tried",
+   "source": "panel iter16 information P5",
+   "title": "Keep the exam's Chainlink input alive through the legacy-RTDS deprecation",
+   "evidence": "code17/cl_parity.py: 72 stamp pairs (BTC/ETH/SOL, 11-01 08-10): endpoint minus dy_rtds = 0.0 on every pair ({\"BTC\": {\"pairs\": 24, \"requested\": 24, \"max_abs_diff\": 0.0, \"max_rel_diff\": 0.0, \"missing_stream\": 0, \"missing_endpoint\": 0}, \"ETH\": {\"pairs\": 24, \"requested\": 24, \"max_abs_diff\": 0.0, \"max_rel_diff\": 0.0, \"missing_stream\": 0, \"missing_endp); cl_source's endpoint fallback is exact (bounded by MAX_CL_REQUESTS 3,000 per call). Not done: the hidden-stream end-to-end run; the clock-resync request is repeated in NOTES."
+  },
+  "X200": {
+   "status": "open",
+   "source": "panel iter16 mechanics P1",
+   "title": "Decode the walking bid as a state machine and predict the at-touch resting state",
+   "evidence": "not run (budget)."
+  },
+  "X201": {
+   "status": "open",
+   "source": "panel iter16 mechanics P2",
+   "title": "Identify the reference by the hazard of steps and resets",
+   "evidence": "not run (budget)."
+  },
+  "X202": {
+   "status": "open",
+   "source": "panel iter16 mechanics P3",
+   "title": "One engine pass for all markets: pass detection and trigger",
+   "evidence": "not run (budget)."
+  },
+  "X203": {
+   "status": "open",
+   "source": "panel iter16 mechanics P4",
+   "title": "The side is decided at the chain's origin, not at the fill",
+   "evidence": "not run (budget)."
+  },
+  "X204": {
+   "status": "open",
+   "source": "panel iter16 mechanics P5",
+   "title": "Do the engine instances share state? Cross-account crossing and joint caps",
+   "evidence": "iteration 17 part 2 (C7): in the cached 10-31 all-match calldata 253 transactions hold a cluster taker order and 1,739 a cluster maker order, none both: no cross-account matching. Part 1 (bid sums >= 0.99 against a shifted null on dm_clob_raw 11-01) not run."
+  },
+  "X205": {
+   "status": "tried",
+   "source": "panel iter16 assumptions P1",
+   "title": "Taker choice or engine-wide input: cross-market synchrony of out-of-fold misses (E2 + E7)",
+   "evidence": "BUILD part run (code17/e2_resid.py): presence OOF + side misses, residual_clustering with period 900 / 3600 and BTC vs alt: no miss synchrony beyond the hits; the live quote-unit part is not run."
+  },
+  "X206": {
+   "status": "tried",
+   "source": "panel iter16 assumptions P2",
+   "title": "The center's reference weight learned online from the reference's recent informativeness",
+   "evidence": "code17/inform_gate.py (pre-registered T7): Spearman(H_N, posture - cheaper margin per 2-h block) on BUILD N12 -0.186 (p 0.022), N36 -0.13 (p 0.111), N96 -0.083: reading (>= 0.30, p < 0.01) not met, negative sign; the gated rule was not scored. Rejected in this form (outcome informativeness; the mid-based I_mid variant not run)."
+  },
+  "X207": {
+   "status": "open",
+   "source": "panel iter16 assumptions P3",
+   "title": "A per-account rolling mark-to-market loss breaker",
+   "evidence": "not run (budget)."
+  },
+  "X208": {
+   "status": "tried",
+   "source": "panel iter16 assumptions P4",
+   "title": "Configuration as discrete operator pushes (change log of center and tilt)",
+   "evidence": "light form (code17/cfg_steps.py, pre-registered T15): change points of the per-2-h posture-minus-cheaper margin on BUILD at [1792022400, 1792058400] (a 10-h cheap-token episode 10-15 00:00-10:00, margin -0.437); none within +-4 h of the Monday 01:00 restarts (null q95 0.75): not shown. The (w, g) per-10-min latent with salt-reset alignment on the live blocks is not run."
+  },
+  "X209": {
+   "status": "open",
+   "source": "panel iter16 assumptions P5",
+   "title": "Wallets that go quiet at the cluster's restart and switch seconds",
+   "evidence": "not run (budget)."
+  },
+  "X210": {
+   "status": "tried",
+   "source": "own (iteration 17, from the E2 residual)",
+   "title": "R8c: the BTC 5m window starting at the NYSE open -> the cheaper token",
+   "evidence": "code17/nyse_open.py (results/iter17_nyse_open.json), pre-registered 10:57 UTC: open window cheaper STUDY 0.991 / VALIDATE 0.899 vs R8 0.402 / 0.442; per fill VALIDATE 0.6925 -> 0.7009, STUDY 0.5693 -> 0.5769. Adopted (code/side_sm.py counted side 'r8c_no_own_state'). Whole-history check (it12/hist_btc, activity): the 13:30 UTC weekday window is busy in every month (30-73 fills per window vs 14-31) but its cheap-side share is new in October (May 0.06, Jun 0.10, Jul 0.36, Aug 0.46, Sep 0.64, Oct 1-8 0.997): an October configuration (C4); NYSE holidays look like ordinary windows (14.8 per window). evaluate() smoke test on 10-27 13:25-13:45 (aggregate): counted side r8c_no_own_state, 91 of 225 fills in the window. Replication on VALIDATE (aggregate): halves 0.6797 -> 0.6876 and 0.7014 -> 0.71; per wallet +0.007 to +0.011. Salt order (T10): 0% of open-window filled orders were created before the latest pre-open filled order; sizes {\"500x2^k\": 1.0} / {\"500x2^k\": 0.916, \"other\": 0.084}: fresh main-ladder bids posted at the open."
+  },
+  "X211": {
+   "status": "tried",
+   "source": "own (iteration 17)",
+   "title": "Other scheduled slots with a high BUILD side residual -> cheaper (R8d)",
+   "evidence": "pre-registered T11 (results/iter17_r8d_slots.json): in the 10-slot set STUDY cheaper 0.727 = R8 0.727, VALIDATE 0.777 vs R8 0.694; VALIDATE per fill 0.7009 -> 0.7038: not adopted."
+  },
+  "X212": {
+   "status": "tried",
+   "source": "own (iteration 17, T6)",
+   "title": "R8c15: the BTC 15m window starting at the NYSE open -> the cheaper token",
+   "evidence": "pre-registered 11:09 UTC (results/iter17_r8c15.json): BUILD 0.974 (232 fills, 6 windows; other 0.411), STUDY 1.000 (8; other 0.344), VALIDATE aggregate 0.892 (111; other 0.596): VALIDATE margin 0.296 < 0.30 -> not adopted; R8c stays 5m-only."
+  },
+  "X213": {
+   "status": "open",
+   "source": "split from X195 (panel iter16 information P1)",
+   "title": "Hold-aware strict replay of the frozen quote (re-price 150 ms after each publish / futures move; held takers fill rungs at hold expiry)",
+   "evidence": "not run."
+  },
+  "X214": {
+   "status": "open",
+   "source": "split from X198 (panel iter16 information P4)",
+   "title": "Record the Polymarket Perps index and race it against dy_rtds and the futures",
+   "evidence": "recording started 11-01 11:28:40 UTC (dp_perps, code17/perpsrec.py, REST tickers ~1 Hz, to 11-03 00:00); the race (index changes vs publishes and futures; post side between publishes) is pending on the 11-01 18-24 and 11-02 development blocks."
   }
  },
  "live_split": {
@@ -5901,5 +6151,4549 @@
     "gain": 0.0454
    }
   }
- }
+ },
+ "dimensions": {
+  "pm_book_levels": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "shared recorder clob_crypto (top-10 books, server ms); own dm_clob_raw full depth (10-31 14-18, 11-01 06-12); dx_clob / dw_clob",
+   "resolution": "ms (server stamps)",
+   "publication_latency": "~0.1 s",
+   "best_indicator": "R7 price anchor (last clean print - 0.01) / touch; at-touch post side vs posture (quote unit)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "price component: R7 0.80 (VALIDATE block clock) to 0.93-0.95 (match clock); the quote center moves 0.13-0.30 of the way from the mid to the Chainlink fair (X180)"
+  },
+  "pm_tape_other_wallets": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "data-api /trades (taker-only and maker rows, every competitor wallet)",
+   "resolution": "block second",
+   "publication_latency": "~2 s (block)",
+   "best_indicator": "clean-tape activity features (co-occurrence baseline)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "co-occurrence: activity baseline 0.684 vs rule 0.716 on the primary unit; presence OOF on BUILD 0.741 vs 0.780"
+  },
+  "pm_queue_and_cancels": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "dm_clob_raw (exact-size adds/removes, 20-ms re-adds), dx_clob schedule-size deltas",
+   "resolution": "ms",
+   "publication_latency": "~0.1 s",
+   "best_indicator": "walking-bid chains (mechanics panel P1, not yet built)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "X200-X202 open"
+  },
+  "pm_listings_metadata": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "Gamma markets/events (listing fields, resolutionSource, cryptoMarketConfig, rewards)",
+   "resolution": "per market",
+   "publication_latency": "at listing",
+   "best_indicator": "public correlates of the BTC 5m on/off (legacy)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "legacy studies found no association, without min_detectable_share"
+  },
+  "pm_market_comments": {
+   "family": "polymarket_internal",
+   "status": "missing",
+   "source": "Gamma /comments (parent_entity_type + parent_entity_id)",
+   "resolution": "per post",
+   "publication_latency": "seconds",
+   "best_indicator": "comment-count burst before the window",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "never fetched; E5 open"
+  },
+  "pm_fees_rebates": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "Gamma feeSchedule; MAKER_REBATE activity rows",
+   "resolution": "per market / daily",
+   "publication_latency": "daily",
+   "best_indicator": "rebate share of PnL (Gold 18%)",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": "little rebate dependence (dossier)"
+  },
+  "pm_liquidity_rewards": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "Gamma rewardsMinSize / rewardsMaxSpread; REWARD rows",
+   "resolution": "per market / daily",
+   "publication_latency": "daily",
+   "best_indicator": "share of fills >= rewardsMinSize within rewardsMaxSpread (X6 / B7)",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": "legacy B7: size schedule above min size; rewards are not the profit source"
+  },
+  "pm_operational_events": {
+   "family": "polymarket_internal",
+   "status": "proxy",
+   "source": "changelog / status notes; the daily 01:00 restart seen in calldata salts; 10-29 pause; listing gap 11-01 05:00-06:59",
+   "resolution": "event",
+   "publication_latency": "minutes",
+   "best_indicator": "salt-counter resets and listing gaps vs activity",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": "explains activity gaps, not side"
+  },
+  "pm_taker_hold_itode": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "clob-markets/{cid} itode flag; changelog (150 ms crypto taker hold since 09-04 14:00 UTC)",
+   "resolution": "per market",
+   "publication_latency": "static",
+   "best_indicator": "taker commit-to-match latency L (calldata sign ms vs recorder match ms)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "iteration 17: floor of the commit-to-match latency p5 187-193 ms (consistent with the 150-ms hold); natural experiments at the 08-17 and 09-04 hold changes show no return change (-0.4 and -1.0 points per $, CIs include 0); no power statement, so untested"
+  },
+  "pm_taker_commit_times": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "V2 matchOrders calldata (taker order timestamp, signer)",
+   "resolution": "ms (client clock)",
+   "publication_latency": "at the match",
+   "best_indicator": "taker information class (auto <= 300 ms, mid, slow)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "iteration 17 X196: the taker-latency class mix does not explain the 11-01 side drop (reweighted 0.844 vs actual 0.675); this is one directional test, not a pre-registered no-effect screen with min_detectable_share, so the verdict stays untested"
+  },
+  "pm_prices_history": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "CLOB prices-history (fidelity 1 = previous minute's mid)",
+   "resolution": "1 min",
+   "publication_latency": "~30 s effective",
+   "best_indicator": "posture vs the minute mid for the long families",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": "daily later fills 0.74-0.75 (X185)"
+  },
+  "pm_polybolt_socket": {
+   "family": "polymarket_internal",
+   "status": "blocked",
+   "source": "PolyBolt websocket (needs CLOB credentials, which agents must not create)",
+   "resolution": "?",
+   "publication_latency": "?",
+   "best_indicator": "-",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "blocked by policy"
+  },
+  "pm_legacy_rtds": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "RTDS crypto_prices_chainlink (own dy_rtds / dv_rtds recorders); deprecation announced",
+   "resolution": "per publish (ms)",
+   "publication_latency": "1.2-1.8 s",
+   "best_indicator": "Chainlink report on the exact publish clock",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "the side posture's reference (live 0.83-0.85 on 10-31); iteration 17: the keyless endpoint equals the stream exactly on 72 stamp pairs (BTC/ETH/SOL), so the fallback keeps the input"
+  },
+  "binance_spot": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "Binance aggTrades archives (ms), 1-s klines, REST",
+   "resolution": "ms",
+   "publication_latency": "archive next morning; live ~0.05 s",
+   "best_indicator": "Binance digital fair (stand-in posture)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "pre-T0 posture stand-in; R5 stack gain +0.0075"
+  },
+  "binance_usdm_futures": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "archives (1-s), live dm_bnf / dx_bnf bookTicker + aggTrade",
+   "resolution": "ms",
+   "publication_latency": "~0.05 s",
+   "best_indicator": "futures mid jump k3 over 0.5 s (E3 survivor, BUILD live)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "11-01: a quarter of at-touch posts follow a futures move (0.89-0.96); nowcast +0.06-0.12 on the clean block (X179); iteration 17 E3 screen (BUILD live): 0.5-s jumps link (signed q 0.001, peak +0.15 s); confirmation pending"
+  },
+  "other_spot_venues": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "Coinbase, OKX, Bybit, Bitstamp (live 10-31), Kraken trades",
+   "resolution": "ms",
+   "publication_latency": "~0.05-0.2 s",
+   "best_indicator": "lead-lag of venue moves vs posts",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "legacy lead-lag found no venue ahead of Binance; no min_detectable_share"
+  },
+  "deribit_options": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "Deribit public API (front-expiry ATM IV, index)",
+   "resolution": "1 min / 100 ms",
+   "publication_latency": "~1 s",
+   "best_indicator": "IV vs realised vol as the sigma multiplier (X117a)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "legacy: no association with the per-block k; no power statement"
+  },
+  "funding_liquidations": {
+   "family": "related_markets",
+   "status": "missing",
+   "source": "Binance forceOrder stream / funding (not recorded)",
+   "resolution": "event",
+   "publication_latency": "~0.1 s",
+   "best_indicator": "liquidation bursts",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "recordable live"
+  },
+  "kalshi": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "Kalshi KXBTC15M public trades (10-31 12-18)",
+   "resolution": "trade",
+   "publication_latency": "~1 s",
+   "best_indicator": "Kalshi vs Polymarket mid divergence",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "legacy X? small sample"
+  },
+  "polymarket_perps_index": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "keyless REST api.perpetuals.polymarket.com/v1/info/tickers (HTTP 200 verified 11-01), recorded live as dp_perps from 11-01 11:28 UTC (~1 Hz)",
+   "resolution": "200 ms",
+   "publication_latency": "~0.2 s",
+   "best_indicator": "index change vs dy_rtds publish (X198)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "live-only; no development block recorded yet at the time of writing; verdict untested"
+  },
+  "hyperliquid": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "Hyperliquid info API; dm_hl (10-31)",
+   "resolution": "trade",
+   "publication_latency": "~0.1 s",
+   "best_indicator": "owner accounts (X118); HL BTC moves",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "accounts not registered"
+  },
+  "correlated_assets": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "ETH/SOL/XRP Binance, dv_rtds Chainlink",
+   "resolution": "1 s",
+   "publication_latency": "~1 s",
+   "best_indicator": "cross-asset jumps",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": ""
+  },
+  "us_equity_market_open": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "NYSE calendar (09:30 America/New_York, weekdays)",
+   "resolution": "event",
+   "publication_latency": "scheduled (known in advance)",
+   "best_indicator": "the BTC 5m window starting at the NYSE open",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "iteration 17 T5 (VALIDATE-only): in that window the fills are on the cheaper token (STUDY 0.99, VALIDATE 0.90; R8 0.40-0.44); R8c adopted (+0.0084 per fill); the cheap-side behaviour is an October configuration (May-Sep the open window bought the favourite); busy only on NYSE trading days (holidays ordinary)"
+  },
+  "chainlink_data_streams_low_latency": {
+   "family": "event_state",
+   "status": "proxy",
+   "source": "Chainlink Data Streams (credentials); proxy: GMX v2 OraclePriceUpdate on Arbitrum (X156)",
+   "resolution": "~0.5 s",
+   "publication_latency": "?",
+   "best_indicator": "on-chain Data Streams values vs public RTDS",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "blocked direct access; proxy probe only"
+  },
+  "chainlink_twap60_settlement": {
+   "family": "event_state",
+   "status": "have",
+   "source": "RTDS TWAP-60; priceToBeat = mean CL[st - 61, st - 2]",
+   "resolution": "1 s",
+   "publication_latency": "1.2-1.8 s",
+   "best_indicator": "TWAP lock-in in the last 60 s (B3b)",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": "settlement known; last-minute fills well explained (presence FN 0.26 at 240-300 s)"
+  },
+  "uma_proposals": {
+   "family": "event_state",
+   "status": "not_applicable",
+   "source": "crypto windows settle on Chainlink, not UMA",
+   "resolution": "-",
+   "publication_latency": "-",
+   "best_indicator": "-",
+   "min_detectable_share": null,
+   "verdict": "no_effect",
+   "note": "not applicable"
+  },
+  "news_wires_rss": {
+   "family": "information",
+   "status": "proxy",
+   "source": "Google News RSS, CoinDesk / Bloomberg RSS, GDELT DOC 2.0; GDELT DOC 2.0 timelinevol 'bitcoin' fetched daily 08-01..10-22 (HTTP 200)",
+   "resolution": "15 min (GDELT) / per item",
+   "publication_latency": "minutes",
+   "best_indicator": "headline bursts vs side residual hours",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "iteration 17 T14: daily rho with module-on share 0.18 (p 0.15); intraday not screened"
+  },
+  "social_media": {
+   "family": "information",
+   "status": "blocked",
+   "source": "X (blocked); Telegram previews, Reddit RSS, Bluesky author feeds (work)",
+   "resolution": "per post",
+   "publication_latency": "seconds",
+   "best_indicator": "post bursts",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "E5 open"
+  },
+  "official_calendars_macro": {
+   "family": "information",
+   "status": "have",
+   "source": "US macro release calendar (08:30 / 10:00 ET), FOMC",
+   "resolution": "event",
+   "publication_latency": "scheduled",
+   "best_indicator": "side residual around 12:30 / 14:00 UTC",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "BUILD residual: 12:30 weekday miss share 0.39 (not elevated); the NYSE open is the outlier; iteration 17 T11: other scheduled slots (06:15, 22:00, 07:45, 08:00, 16:00, 17:00, ...) do not carry a decisive side (not adopted)"
+  },
+  "fear_greed_search_trends": {
+   "family": "information",
+   "status": "have",
+   "source": "alternative.me Fear & Greed API (HTTP 200, daily, 200 days)",
+   "resolution": "daily",
+   "publication_latency": "daily",
+   "best_indicator": "daily activity / favourite share",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "iteration 17 T14: previous-day rho with module-on share 0.21 (p 0.059): no association at p 0.01 (low power)"
+  },
+  "own_inventory": {
+   "family": "own_state",
+   "status": "have",
+   "source": "activity (cluster net position per window)",
+   "resolution": "block second",
+   "publication_latency": "own",
+   "best_indicator": "held outcome after entry (reported, not counted)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "after entry the side is persistence (own-history 0.822 > composite 0.790)"
+  },
+  "own_pnl_drawdown": {
+   "family": "own_state",
+   "status": "proxy",
+   "source": "activity cash flows + marks at the clean mid",
+   "resolution": "10 s",
+   "publication_latency": "own",
+   "best_indicator": "per-account rolling MTM (X207)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "never tested in the strong form"
+  },
+  "own_positions_other_markets": {
+   "family": "own_state",
+   "status": "proxy",
+   "source": "activity across families",
+   "resolution": "block second",
+   "publication_latency": "own",
+   "best_indicator": "aggregate BTC exposure vs entry side (X133)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "X133 weak"
+  },
+  "operator_clock": {
+   "family": "operator",
+   "status": "have",
+   "source": "UTC hour, weekday, US session",
+   "resolution": "1 s",
+   "publication_latency": "0",
+   "best_indicator": "clock features in R3; US-session size switch",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "presence clock inputs; size schedule at 12:00/21:00 UTC weekday"
+  },
+  "operator_restarts_salts": {
+   "family": "operator",
+   "status": "have",
+   "source": "calldata salt counters; 01:00 daily restart",
+   "resolution": "event",
+   "publication_latency": "own",
+   "best_indicator": "salt-counter resets",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": ""
+  },
+  "bot_processing_loop": {
+   "family": "operator",
+   "status": "have",
+   "source": "dm_clob_raw pass detection (publish-anchored passes, 20-ms re-adds)",
+   "resolution": "ms",
+   "publication_latency": "own",
+   "best_indicator": "cross-market pass synchrony (X202)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "open"
+  },
+  "engine_instances": {
+   "family": "operator",
+   "status": "have",
+   "source": "per-account mid-band fill shares per 15-min slot (X177)",
+   "resolution": "15 min",
+   "publication_latency": "own",
+   "best_indicator": "instance_mode",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": "11-01: bosona runs the main ladder alone in 7 of 10 slots"
+  },
+  "human_reaction": {
+   "family": "operator",
+   "status": "have",
+   "source": "requote lags 50-250 ms",
+   "resolution": "ms",
+   "publication_latency": "-",
+   "best_indicator": "-",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": "bot speeds; no human-scale delays"
+  },
+  "latency_colocation": {
+   "family": "infrastructure",
+   "status": "proxy",
+   "source": "requote / cancel lags on the match clock",
+   "resolution": "ms",
+   "publication_latency": "-",
+   "best_indicator": "lag distribution",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": "reaction 0-250 ms, inside the 150-ms taker hold"
+  },
+  "engine_restarts_api_outages": {
+   "family": "infrastructure",
+   "status": "proxy",
+   "source": "status notes; post-only windows after restarts",
+   "resolution": "event",
+   "publication_latency": "minutes",
+   "best_indicator": "activity gaps",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": ""
+  },
+  "rate_limits": {
+   "family": "infrastructure",
+   "status": "missing",
+   "source": "CLOB API rate limits (not observable)",
+   "resolution": "-",
+   "publication_latency": "-",
+   "best_indicator": "-",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": ""
+  }
+ },
+ "indicators": [
+  {
+   "name": "H1",
+   "dimension": "binance_spot",
+   "definition": "fill prices track Binance 1-s fair value; scan of shift k in [-10,+6] s",
+   "event": "information source / lead-lag",
+   "period": "legacy",
+   "result": {
+    "build_best_shift_s": -1,
+    "build_corr_at_best": 0.7506,
+    "build_corr_at_+3s": 0.7106
+   },
+   "verdict": "no lead over public Binance 1-s data: prices best match spot ~1-2 s before the block timestamp (consistent with real-time public feed + block latency); no information wall"
+  },
+  {
+   "name": "H2",
+   "dimension": "pm_book_levels",
+   "definition": "where is the cluster's bid when hit (600 sampled BUILD sweeps)",
+   "event": "book position (on-chain receipts)",
+   "period": "legacy",
+   "result": {
+    "build_at_best_price": 0.905,
+    "build_median_makers_in_sweep": 1,
+    "build_counterparty_buys_complement": 0.855
+   },
+   "verdict": "confirmed: top-of-book maker, usually alone at the best level; 85% of its fills are mint matches against takers buying the other side"
+  },
+  {
+   "name": "H3",
+   "dimension": "pm_book_levels",
+   "definition": "side with last print > 0.5",
+   "event": "side = buy the favourite",
+   "period": "legacy",
+   "result": {
+    "side_acc": 0.515
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H4",
+   "dimension": "binance_spot",
+   "definition": "fair_up > 0.5",
+   "event": "side = Binance favourite",
+   "period": "legacy",
+   "result": {
+    "side_acc": 0.545
+   },
+   "verdict": "rejected (weak)"
+  },
+  {
+   "name": "H5",
+   "dimension": "binance_spot",
+   "definition": "side where Binance fair - last print is larger",
+   "event": "side = fair-vs-market edge",
+   "period": "legacy",
+   "result": {
+    "side_acc": 0.576,
+    "build_side_acc": 0.614
+   },
+   "verdict": "partial: best single explicit rule"
+  },
+  {
+   "name": "H6",
+   "dimension": "pm_book_levels",
+   "definition": "side whose bids were hit more in the last 10/30 s",
+   "event": "side = flow persistence",
+   "period": "legacy",
+   "result": {
+    "side_acc_10s": 0.489,
+    "side_acc_30s": 0.499
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H7",
+   "dimension": "binance_spot",
+   "definition": "sign of 10-s Binance return",
+   "event": "side = spot momentum / contrarian",
+   "period": "legacy",
+   "result": {
+    "momentum": 0.534,
+    "contrarian": 0.466
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H8",
+   "dimension": "binance_spot",
+   "definition": "presence per (window, side, 10-s bin) from time, Binance fair/returns/vol, taker tape state and flow",
+   "event": "behaviour cloning (LightGBM), no own-state",
+   "period": "legacy",
+   "result": {
+    "time_only": 0.5454,
+    "activity_only": 0.7195,
+    "activity_reg": 0.7323,
+    "spot": 0.6999,
+    "tape": 0.7555,
+    "all": 0.7682,
+    "all_reg": 0.7723
+   },
+   "verdict": "best so far (0.77); +0.04 over market activity alone; below the 0.85 target"
+  },
+  {
+   "name": "H9",
+   "dimension": "own_inventory",
+   "definition": "H8 + own shares bought on each side before the bin",
+   "event": "behaviour cloning with own inventory",
+   "period": "legacy",
+   "result": {
+    "all_plus_own": 0.8229
+   },
+   "verdict": "inventory matters (+0.05): consistent with inventory-skewed quoting; reported separately as required"
+  },
+  {
+   "name": "H10",
+   "dimension": "pm_book_levels",
+   "definition": "fill price = last taker print on its side before the fill - 0.01 (0.01 grid)",
+   "event": "price rule",
+   "period": "legacy",
+   "result": {
+    "within_0.01_bin_start_version": 0.286,
+    "exact_bin_start_version": 0.112
+   },
+   "verdict": "weak; fill-time version reported by final_rule"
+  },
+  {
+   "name": "H12",
+   "dimension": "deribit_options",
+   "definition": "edge and activity over time",
+   "event": "regime",
+   "period": "legacy",
+   "result": {
+    "build_usd_edge": 0.0411,
+    "validate_usd_edge": -0.0278,
+    "build_fills": 35631,
+    "validate_fills": 13925
+   },
+   "verdict": "VALIDATE is a different regime: activity fell ~60% and the BTC 5m maker edge turned negative"
+  },
+  {
+   "name": "H13",
+   "dimension": "deribit_options",
+   "definition": "which windows the cluster trades, from public pre-window features (vol, hour, pre-window prints, |60s return|, previous window activity of the market)",
+   "event": "window participation (operator on/off)",
+   "period": "legacy",
+   "result": {
+    "window_auc_public": 0.5387,
+    "window_auc_from_in_window_rule_mean": 0.6918,
+    "validate_active_share": 0.539,
+    "build_active_share": 0.835,
+    "max_off_run_windows": 171,
+    "oracle_on_off_presence_ceiling": 0.8656,
+    "oracle_hour_on_off": 0.8082
+   },
+   "verdict": "unpredictable from public data (AUC 0.54); it is the main gap to the presence target: with oracle on/off the presence AUC would be 0.866"
+  },
+  {
+   "name": "H14",
+   "dimension": "binance_spot",
+   "definition": "vol lookback 120-3600 s and vol scale 0.7-2.0; vol x1.4 (300-900 s) cuts MAD(price - fair) 0.068 -> 0.058",
+   "event": "fair-value variants",
+   "period": "legacy",
+   "result": {
+    "presence_auc_with_vol14_fair": 0.7727,
+    "side_edge_vol14": 0.594
+   },
+   "verdict": "the fills look like a fair value with ~1.4x the 1-s realized vol, but it does not improve presence or side"
+  },
+  {
+   "name": "H15",
+   "dimension": "binance_spot",
+   "definition": "last bid-hit / ask-lift price per side, ages, fair minus them",
+   "event": "book proxies from the taker tape",
+   "period": "legacy",
+   "result": {
+    "presence_auc": 0.7726,
+    "side_edge_lb": 0.591
+   },
+   "verdict": "no gain"
+  },
+  {
+   "name": "H16",
+   "dimension": "pm_book_levels",
+   "definition": "which taker orders inside BTC 5m windows fill a cluster maker order (LightGBM, print-time features incl. the print's own size/price)",
+   "event": "selection pilot (taker prints)",
+   "period": "legacy",
+   "result": {
+    "auc": 0.7551,
+    "recall_at_build_top15pct": 0.432,
+    "lift": 3.78,
+    "auc_without_print_size": 0.7033,
+    "recall_without_size": 0.305,
+    "lift_without_size": 3.15,
+    "stratified_auc_price_time_side": 0.7463
+   },
+   "verdict": "promising but not the brief's match_test (no rotation null, no stratification); print size is the top feature (book-depth mechanics)"
+  },
+  {
+   "name": "H17",
+   "dimension": "pm_book_levels",
+   "definition": "drop every taker print in a transaction where a cluster wallet traded before computing features (brief rule)",
+   "event": "correctness: own-print leak",
+   "period": "legacy",
+   "result": {
+    "iter1_features_leaky": 0.7723,
+    "iter1_features_clean": 0.7592,
+    "rows_removed_share": 0.005
+   },
+   "verdict": "fixed; all iteration-2 numbers use the clean tape"
+  },
+  {
+   "name": "H18",
+   "dimension": "binance_spot",
+   "definition": "edge at the first clean print, running max/mean/share-positive of the edge, fair and z at 10 s",
+   "event": "window path / side commitment from public path",
+   "period": "legacy",
+   "result": {
+    "presence_auc": 0.7598,
+    "delta": 0.0006,
+    "side_acc": 0.6662
+   },
+   "verdict": "small gain (side +0.014)"
+  },
+  {
+   "name": "H19",
+   "dimension": "binance_spot",
+   "definition": "previous window's Binance proxy outcome (momentum), strike move between windows, previous window's print count",
+   "event": "cross-window state",
+   "period": "legacy",
+   "result": {
+    "presence_auc": 0.7634,
+    "delta": 0.0036,
+    "side_acc": 0.6788,
+    "first_fill_side_eq_prev_outcome": [
+     0.616,
+     0.595
+    ]
+   },
+   "verdict": "small gain; adopted (R2)"
+  },
+  {
+   "name": "H20",
+   "dimension": "deribit_options",
+   "definition": "activity in other markets when BTC 5m is off; hour profile; public tape of on vs off windows",
+   "event": "operator on/off: downtime vs per-market schedule",
+   "period": "legacy",
+   "result": {
+    "other_markets_active_when_btc5m_off": [
+     0.892,
+     0.932
+    ],
+    "val_on_00_12utc": 0.39,
+    "val_on_12_20utc": 0.745,
+    "on_vs_off_median_prints": [
+     296,
+     277
+    ],
+    "on_vs_off_hits60": [
+     141,
+     141
+    ],
+    "window_on_off_auc_public": 0.576
+   },
+   "verdict": "not downtime: a schedule invisible in public data (caps the no-own-state presence AUC)"
+  },
+  {
+   "name": "H21",
+   "dimension": "pm_legacy_rtds",
+   "definition": "first fills <= 6 s after the start: side vs sign(Binance spot at start - TWAP strike)",
+   "event": "opening decision",
+   "period": "legacy",
+   "result": {
+    "build_share_windows": 0.214,
+    "build_acc": 0.664,
+    "build_acc_gap_gt3bp": 0.763,
+    "val_acc": 0.512,
+    "val_acc_gap_gt3bp": 0.792,
+    "n_gap_gt3bp": [
+     59,
+     24
+    ]
+   },
+   "verdict": "partial: strong only when the spot-strike gap is large; few windows"
+  },
+  {
+   "name": "H23",
+   "dimension": "binance_spot",
+   "definition": "price = last clean print - 0.01 vs last ask-lift - 0.01, last hit bid, floor(fair - m), LightGBM regression (+ own previous price)",
+   "event": "price anchoring",
+   "period": "legacy",
+   "result": {
+    "last_clean_minus_0.01_within": 0.5846131764030429,
+    "exact": 0.31340605712645325,
+    "ask_lift": 0.517,
+    "hit_bid": 0.507,
+    "fair_minus_m": 0.111,
+    "lgbm": 0.511,
+    "lgbm_own": 0.508
+   },
+   "verdict": "last clean print - 0.01 is best; the within-second print order matters (stable data-api order)"
+  },
+  {
+   "name": "H24",
+   "dimension": "pm_book_levels",
+   "definition": "which in-window taker prints fill the cluster: LightGBM (BUILD) on bin panel + print fields; strata price50 x time40 x side and window x price10 x time10 x side; rotation null",
+   "event": "selection (match_test-style)",
+   "period": "legacy",
+   "result": {
+    "auc": 0.7697568927159787,
+    "strat": 0.7573639240400584,
+    "within_window": 0.6688861707820503,
+    "recall": 0.4893568496274897,
+    "lift": 3.7981597360964328,
+    "activity_only": {
+     "auc": 0.7436880183799489,
+     "auc_strat_global": 0.7242605166692843,
+     "auc_strat_window": 0.6644063909487042,
+     "recall_at_theta": 0.4711114489889007,
+     "lift_at_theta": 3.225060265892689
+    },
+    "null10": {
+     "global_mean": 0.680117868351128,
+     "global_max": 0.6991012086358821,
+     "global_sd": 0.008837321641307008,
+     "window_mean": 0.6546817459821054,
+     "window_max": 0.6704839079581072,
+     "window_sd": 0.008128697598579218,
+     "n_perm": 99
+    },
+    "null99": {
+     "n_perm": 99,
+     "rows": 285240,
+     "pos": 13154,
+     "obs_strat_global": 0.7557845808916858,
+     "obs_strat_window": 0.6578899389224833,
+     "null_global_mean": 0.6789142125010942,
+     "null_global_max": 0.6980208080007196,
+     "null_global_sd": 0.008823932983077064,
+     "null_window_mean": 0.653360844152117,
+     "null_window_max": 0.6735239600109393,
+     "null_window_sd": 0.008324189050900347,
+     "p_global": 0.01,
+     "p_window": 0.35,
+     "p": 0.35,
+     "z_global": 8.71157663346005,
+     "z_window": 0.5440884082127325
+    }
+   },
+   "verdict": "significant vs rotation null; recall/lift at the bar but AUC < 0.80; mostly print size/price mechanics (activity-only 0.743)"
+  },
+  {
+   "name": "H26",
+   "dimension": "deribit_options",
+   "definition": "dominant side of one-sided active windows (>= 70% shares) from the mean R2 presence per side over the first T s",
+   "event": "window-level side forecast",
+   "period": "legacy",
+   "result": {
+    "n_windows": 817,
+    "T30": 0.621,
+    "T60": 0.641,
+    "T120": 0.657,
+    "favourite": [
+     0.512,
+     0.537
+    ],
+    "binance_favourite": [
+     0.53,
+     0.548
+    ],
+    "top_half_conf": [
+     0.665,
+     0.694,
+     0.716
+    ]
+   },
+   "verdict": "significant (p < 1e-4) but far from 0.80"
+  },
+  {
+   "name": "H27",
+   "dimension": "binance_spot",
+   "definition": "orders by orderHash: fills per order, sizes, how long an order keeps being filled, fair drift while it rests",
+   "event": "on-chain order structure (VALIDATE)",
+   "period": "legacy",
+   "result": {
+    "single_fill_share": 0.585,
+    "one_price_per_order": 1.0,
+    "size_modes": [
+     500,
+     125,
+     250,
+     5,
+     10
+    ],
+    "multi_fill_life_q50_q90_q99_s": [
+     0,
+     2,
+     8
+    ],
+    "orders_life_ge5s": 73,
+    "bid_below_fair_median": 0.019
+   },
+   "verdict": "orders are consumed within seconds; smaller 500/250/125 ladder in VALIDATE; requote rules not measurable from fills alone"
+  },
+  {
+   "name": "H28",
+   "dimension": "pm_book_levels",
+   "definition": "0.01 price grid and order-size ladder (500/250/125/498/502/1000/333) of the prints that fill the cluster vs other in-window taker prints",
+   "event": "print signature (selection)",
+   "period": "legacy",
+   "result": {
+    "on_grid_share_cluster_filled": 0.857,
+    "on_grid_share_others": 0.931,
+    "ladder_size_share_cluster_filled": 0.0044,
+    "ladder_size_lift": 2.09
+   },
+   "verdict": "rejected: other makers also print on the 0.01 grid; ladder sizes too rare to matter"
+  },
+  {
+   "name": "H29",
+   "dimension": "binance_spot",
+   "definition": "window-level LightGBM on BUILD windows from the previous hour's clean-tape taker mix (top-20 / HFT shares, big prints, buy share, distinct takers, sizes), 1-h/4-h vol and |1-h return|, hour; Gamma listing fields",
+   "event": "public correlates of the BTC 5m on/off (taker mix, competitor identity, spot regime, listing fields)",
+   "period": "legacy",
+   "result": {
+    "window_auc_taker_mix": 0.466,
+    "window_auc_spot_regime": 0.54,
+    "window_auc_mix_spot": 0.49,
+    "window_auc_mix_spot_hour": 0.509,
+    "vol1h_univariate_auc_build_vs_validate": [
+     0.394,
+     0.497
+    ],
+    "listing_fields_varying": "none (rewards 50 / 4.5 / 0.001 in 4,030 of 4,032 windows)",
+    "own_btc15m_active_slots_on_vs_off": [
+     0.534,
+     0.375
+    ]
+   },
+   "verdict": "rejected: no public correlate of the schedule; relationships flip between BUILD and VALIDATE"
+  },
+  {
+   "name": "H30",
+   "dimension": "deribit_options",
+   "definition": "bid hits on s by big (>= 20 sh) prints, by the 72 BUILD HFT takers vs others, largest print, time since the last >= 50-sh hit, direction of the last 20 prints, HFT share, distinct non-HFT takers (clean tape)",
+   "event": "counterparty type / order-size arrival",
+   "period": "legacy",
+   "result": {
+    "presence_r2_plus_n3": 0.763,
+    "presence_r2_same_run": 0.7634,
+    "activity_plus_n3": 0.7358,
+    "activity": 0.7349
+   },
+   "verdict": "rejected: no gain"
+  },
+  {
+   "name": "H31",
+   "dimension": "binance_spot",
+   "definition": "1-s kline taker-buy volume imbalance over 1-30 s and since the window start, normalised imbalance, volume, trades, 5-s range",
+   "event": "Binance order flow (taker-buy imbalance, volume, trade count, range)",
+   "period": "legacy",
+   "result": {
+    "presence_r2_plus_flow": 0.7619,
+    "spot_plus_flow": 0.7094,
+    "spot": 0.7102,
+    "side_by_ofi1_sign": 0.477,
+    "side_by_ofi5_sign": 0.503
+   },
+   "verdict": "rejected: quotes do not lean on Binance order flow"
+  },
+  {
+   "name": "H33",
+   "dimension": "deribit_options",
+   "definition": "R2 fitted on active BUILD windows only (P(fill | on)); R2 without the 30-min vol feature",
+   "event": "schedule deconfounding",
+   "period": "legacy",
+   "result": {
+    "on_only": 0.7605,
+    "on_only_within_active": 0.7365,
+    "no_sig": 0.7564,
+    "no_sig_on_only": 0.7547
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H34",
+   "dimension": "binance_spot",
+   "definition": "market (last clean print) and Binance fair of the filled side 5-60 s after cluster fills vs other makers' fills; by counterparty and taker order size",
+   "event": "post-fill convergence / adverse selection (mechanism, descriptive)",
+   "period": "legacy",
+   "result": {
+    "fair_minus_q_build_val": [
+     0.0285,
+     0.0287
+    ],
+    "others_fair_minus_q_build_val": [
+     -0.001,
+     -0.0027
+    ],
+    "market_move_60s_build_val": [
+     0.0116,
+     -0.0045
+    ],
+    "fair_move_60s_build_val": [
+     -0.0073,
+     -0.0164
+    ],
+    "others_fair_move_60s_build_val": [
+     -0.003,
+     -0.0027
+    ],
+    "payout_minus_q_build_val": [
+     0.0206,
+     -0.017
+    ],
+    "val_top10_takers_dF60": -0.0231,
+    "val_rest_dF60": -0.0153,
+    "val_old_vs_new_takers_dF60": [
+     -0.0184,
+     -0.0119
+    ],
+    "prefill_print_minus_q_build_val": [
+     0.0046,
+     0.0127
+    ],
+    "fair_minus_prefill_print_build_val": [
+     0.0239,
+     0.016
+    ],
+    "market_vs_prefill_60s_build_val": [
+     0.007,
+     -0.0172
+    ],
+    "share_fills_at_or_above_binance_fair_build": 0.398,
+    "fair_move_60s_after_fills_priced_above_fair_vs_10c_below_build": [
+     0.0592,
+     -0.0958
+    ],
+    "val_ret_by_rel_0_10_10_30_30_120_120_240": [
+     -0.0162,
+     0.0031,
+     -0.107,
+     -0.0184
+    ],
+    "build_ret_by_rel_0_10_10_30_30_120_120_240": [
+     0.0711,
+     -0.0429,
+     0.021,
+     0.0674
+    ],
+    "val_ret_fair_04_06_06_08": [
+     -0.1486,
+     -0.1004
+    ]
+   },
+   "verdict": "mechanism: buys ~2.9 c below Binance fair when the market trades below Binance; in BUILD the market rose 0.7 c above the pre-fill print within 60 s while Binance fell (market catching up with Binance)"
+  },
+  {
+   "name": "H35",
+   "dimension": "binance_spot",
+   "definition": "cluster share of bid hits on s vs the 3-s change of the Binance fair of s",
+   "event": "cancel latency / stale-quote pick-off (descriptive)",
+   "period": "legacy",
+   "result": {
+    "build_share_after_drop_gt6c_vs_stable": [
+     0.009,
+     0.0164
+    ],
+    "val_share_after_drop_gt6c_vs_stable": [
+     0.0069,
+     0.0097
+    ],
+    "others_hits_per_100s_after_drop_vs_stable_build": [
+     683,
+     228
+    ],
+    "cluster_fill_rate_ratio_build": 1.64,
+    "cluster_fills_per_100s_after_drop_vs_stable_build": [
+     6.23,
+     3.8
+    ],
+    "cluster_fills_per_100s_after_drop_vs_stable_val": [
+     4.37,
+     2.27
+    ]
+   },
+   "verdict": "reprices/cancels faster than the average competing maker after Binance moves (less so in VALIDATE)"
+  },
+  {
+   "name": "H37",
+   "dimension": "deribit_options",
+   "definition": "last fill per active window and fills per 30-s slot",
+   "event": "stop timing",
+   "period": "legacy",
+   "result": {
+    "last_fill_rel_median_build_val": [
+     202,
+     199.5
+    ],
+    "last_fill_rel_q90_build_val": [
+     268,
+     270
+    ],
+    "build_fills_last_30s_vs_earlier": [
+     1422,
+     "3,053-5,439"
+    ]
+   },
+   "verdict": "stops quoting about 30 s before the end (inside the closing TWAP-60)"
+  },
+  {
+   "name": "H38",
+   "dimension": "binance_spot",
+   "definition": "distance of the last clean print to the 0.01 grid, on-grid flag, fair minus the implied quote",
+   "event": "grid position of the touch",
+   "period": "legacy",
+   "result": {
+    "presence_r2_plus_grid": 0.7629,
+    "presence_r2": 0.7634,
+    "side": 0.6812,
+    "activity_plus_grid": 0.7348
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H39",
+   "dimension": "pm_legacy_rtds",
+   "definition": "TWAP-60 fair on Kraken XBT/USD 1-s last trades vs Binance, against the cluster's fill prices (one BUILD day, 2,214 fills) and the opening side",
+   "event": "reference feed: Kraken vs Binance",
+   "period": "legacy",
+   "result": {
+    "corr_binance_L0_L1_L2": [
+     0.8315,
+     0.8346,
+     0.8334
+    ],
+    "corr_kraken_L0_L1_L2": [
+     0.8146,
+     0.8073,
+     0.8026
+    ],
+    "mad_binance_best": 0.0586,
+    "mad_kraken_best": 0.0573,
+    "open_side_binance_kraken": [
+     0.677,
+     0.71
+    ],
+    "open_n": 31
+   },
+   "verdict": "no sign of a Kraken reference; Binance correlates better"
+  },
+  {
+   "name": "H40",
+   "dimension": "pm_book_levels",
+   "definition": "decode V2 matchOrders of every lot tx that filled the cluster",
+   "event": "B1 calldata fingerprint",
+   "period": "legacy",
+   "result": {
+    "cluster_timestamp_zero_share": 1.0,
+    "salt_counter_monotone": 0.975,
+    "orders_per_s_median": 13
+   },
+   "verdict": "no signing time; salt is a per-wallet counter (restarts daily 01:00 UTC); signing rate follows Binance"
+  },
+  {
+   "name": "H41",
+   "dimension": "pm_liquidity_rewards",
+   "definition": "orders >= 50 shares near the mid for the reward pool",
+   "event": "liquidity rewards (B7, X6)",
+   "period": "legacy",
+   "result": {
+    "orders_ge_50_share": 0.879,
+    "reward_usd_9d": 0.81
+   },
+   "verdict": "ruled out"
+  },
+  {
+   "name": "H42",
+   "dimension": "operator_clock",
+   "definition": "original order size vs clock",
+   "event": "size schedule (C5/C4)",
+   "period": "legacy",
+   "result": {
+    "us_session_500_share_study_val": [
+     0.757,
+     0.704
+    ],
+    "night_62_share_study_val": [
+     0.653,
+     0.388
+    ]
+   },
+   "verdict": "decoded: 500 on weekdays 12-21 UTC, 62/250 otherwise (+ one-fifth level)"
+  },
+  {
+   "name": "H43",
+   "dimension": "binance_spot",
+   "definition": "Binance move before fills, cluster vs other makers",
+   "event": "requote latency (ms match clock)",
+   "period": "legacy",
+   "result": {
+    "adv5_250ms": [
+     0.041,
+     0.072,
+     0.014
+    ],
+    "adv5_1s": [
+     0.098,
+     0.125,
+     0.06
+    ],
+    "groups": "cluster, others, random"
+   },
+   "verdict": "cluster exposed to the last ~0.25-1.5 s only; others 3-5 s"
+  },
+  {
+   "name": "H44",
+   "dimension": "binance_usdm_futures",
+   "definition": "Binance USD-M futures fair and lead features",
+   "event": "A3 futures reference",
+   "period": "legacy",
+   "result": {
+    "price_corr_cluster_spot_fut": [
+     0.838,
+     0.846
+    ],
+    "presence_auc_with_without": [
+     0.7142,
+     0.7135
+    ]
+   },
+   "verdict": "explains quotes slightly better for all makers; no presence gain; not adopted"
+  },
+  {
+   "name": "H46",
+   "dimension": "pm_book_levels",
+   "definition": "presence with the bin's own future taker flow",
+   "event": "oracle-flow ceiling (diagnostic)",
+   "period": "legacy",
+   "result": {
+    "oracle_flow_only": 0.682,
+    "r2_plus_oracle_flow": 0.7298,
+    "p_fill_given_hits": 0.117
+   },
+   "verdict": "taker flow is not the bottleneck; the quote state (top of book) is"
+  },
+  {
+   "name": "H47",
+   "dimension": "operator_clock",
+   "definition": "R2 features refit on 10-09..26, plus UTC hour, weekday, US session",
+   "event": "refit on BUILD4 + clock (R3)",
+   "period": "legacy",
+   "result": {
+    "refit": 0.7135,
+    "refit_clock": 0.7159,
+    "frozen_r2": 0.7051
+   },
+   "verdict": "adopted as R3 (small gain)"
+  },
+  {
+   "name": "H48",
+   "dimension": "binance_spot",
+   "definition": "last print if it hit a bid on s, else last print - 0.01; +/- Binance fair move since that print",
+   "event": "price anchor by last-print direction",
+   "period": "legacy",
+   "result": {
+    "within_tick": [
+     0.675,
+     0.709
+    ],
+    "exact": [
+     0.45,
+     0.359
+    ],
+    "note": "[direction rule, R2 anchor]"
+   },
+   "verdict": "rejected for within-tick (exact improves)"
+  },
+  {
+   "name": "H49",
+   "dimension": "deribit_options",
+   "definition": "own-inventory-only side and market-activity-only side",
+   "event": "side baselines",
+   "period": "legacy",
+   "result": {
+    "own_inventory_only": 0.575,
+    "own_inventory_with_r2_fallback": 0.594,
+    "activity_model": 0.613,
+    "R3": 0.663
+   },
+   "verdict": "R3 beats both baselines; far below 0.80"
+  },
+  {
+   "name": "H52",
+   "dimension": "binance_spot",
+   "definition": "P(cluster fill | bid hits on s in the bin) by edge, fair and number of hits (VALIDATE aggregate)",
+   "event": "quote state vs fair edge (diagnostic)",
+   "period": "legacy",
+   "result": {
+    "by_edge_decile": [
+     0.139,
+     0.122,
+     0.131,
+     0.124,
+     0.099,
+     0.061,
+     0.102,
+     0.109,
+     0.118,
+     0.17
+    ],
+    "by_hits_1_2to3_4to9_10plus": [
+     0.039,
+     0.038,
+     0.067,
+     0.13
+    ],
+    "fair_lt_0.1_vs_gt_0.9": [
+     0.175,
+     0.063
+    ]
+   },
+   "verdict": "top-of-book presence is not explained by the fair edge; queue mechanics at a shared level (to be measured in the live lab)"
+  },
+  {
+   "name": "H53",
+   "dimension": "pm_book_levels",
+   "definition": "position of the cluster's order among same-price makers in each match (STUDY)",
+   "event": "queue position (B2, calldata makerOrders order)",
+   "period": "legacy",
+   "result": {
+    "time_priority_pairs": 16157,
+    "later_index_signed_later": 0.711,
+    "cluster_first_at_level_share": 0.314,
+    "matches_with_same_price_makers_ahead": 2220,
+    "multi_maker_matches": 3238
+   },
+   "verdict": "at the best price but usually behind part of the queue: fills need the queue ahead consumed (queue mechanics)"
+  },
+  {
+   "name": "H54",
+   "dimension": "pm_book_levels",
+   "definition": "bid-level age, price and changes on s",
+   "event": "queue-level features from the tape",
+   "period": "legacy",
+   "result": {
+    "R3_plus_level": 0.7158,
+    "R3": 0.7159,
+    "activity_plus_level": 0.6851
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H57",
+   "dimension": "binance_spot",
+   "definition": "Binance ETH/SOL 1-s returns and lead over BTC added to R3",
+   "event": "A4 cross-asset (ETH, SOL)",
+   "period": "legacy",
+   "result": {
+    "R3_plus_eth_sol": 0.7149,
+    "R3": 0.7159
+   },
+   "verdict": "rejected (no gain)"
+  },
+  {
+   "name": "H58",
+   "dimension": "own_inventory",
+   "definition": "MERGE of paired Up+Down shares before resolution (STUDY)",
+   "event": "B4 merge mechanics",
+   "period": "legacy",
+   "result": {
+    "windows_with_pairs": 662,
+    "windows_merged": 87,
+    "merged_over_paired_median": 1.0,
+    "merge_rel_end_s_q10_q50_q90": [
+     -165,
+     -65,
+     -12
+    ]
+   },
+   "verdict": "merges its whole paired amount in 13% of paired windows about a minute before the end; otherwise holds to resolution"
+  },
+  {
+   "name": "H59",
+   "dimension": "pm_book_levels",
+   "definition": "STUDY 10-26 13:00-13:30, every match: who is at the best filled bid, how old the other orders there are",
+   "event": "book from all-match calldata (pilot)",
+   "period": "legacy",
+   "result": {
+    "events": 9778,
+    "cluster_at_top": 104,
+    "other_makers_at_top_median_n": [
+     0,
+     1
+    ],
+    "other_age_median_s": [
+     3.7,
+     0.8
+    ],
+    "cluster_top_share_when_fresh_lt_0.5s": 0.001
+   },
+   "verdict": "not the fastest maker: sub-second makers own freshly repriced levels; the cluster fills where its price stands alone or ahead of older orders"
+  },
+  {
+   "name": "H60",
+   "dimension": "pm_book_levels",
+   "definition": "fills and abs cash-flow PnL by market family",
+   "event": "Q1 coverage by family",
+   "period": "legacy",
+   "result": {
+    "validate_btc5m": [
+     0.7835,
+     0.6859
+    ],
+    "validate_btc5m_15m": [
+     0.8684,
+     0.8911
+    ],
+    "study_btc5m": [
+     0.5356,
+     0.5555
+    ]
+   },
+   "verdict": "BTC 5m-only rule cannot reach 80/80 on STUDY-like periods; BTC 5m+15m does on VALIDATE"
+  },
+  {
+   "name": "H61",
+   "dimension": "pm_book_levels",
+   "definition": "P(cluster | bid hit clears the level) vs held, STUDY",
+   "event": "P2a level clearing (tape)",
+   "period": "legacy",
+   "result": {
+    "p_cleared": 0.0063,
+    "p_held": 0.0085,
+    "mh_ratio": 0.634
+   },
+   "verdict": "strong back-of-queue form rejected"
+  },
+  {
+   "name": "H62",
+   "dimension": "pm_legacy_rtds",
+   "definition": "late net side in proxy-disagreement windows",
+   "event": "I5 settlement disagreement",
+   "period": "legacy",
+   "result": {
+    "cluster_follows_real": 0.6,
+    "market_follows_real": [
+     0.73,
+     0.85
+    ],
+    "near_strike": 0.51
+   },
+   "verdict": "not settlement-informed"
+  },
+  {
+   "name": "H63",
+   "dimension": "pm_book_levels",
+   "definition": "taker buys of the under-held side",
+   "event": "P4 flatten",
+   "period": "legacy",
+   "result": {
+    "share_under_held": [
+     0.72,
+     0.83
+    ],
+    "pair_cost_median": [
+     1.12,
+     1.06
+    ],
+    "taker_pnl_share": [
+     0.04,
+     0.02
+    ]
+   },
+   "verdict": "real but small"
+  },
+  {
+   "name": "H65",
+   "dimension": "deribit_options",
+   "definition": "exact-size adds before the cluster's matches",
+   "event": "live raw-book fingerprint",
+   "period": "legacy",
+   "result": {
+    "orders": 138,
+    "exact_size_add_within_1s": 0.464,
+    "null_20s_shift": 0.058,
+    "within_5s": 0.804,
+    "null_5s": 0.145,
+    "added_at_touch": 0.628,
+    "fingerprint_at_touch_auc_by_edge": 0.443,
+    "p_fill_given_fp_at_touch": 0.1325,
+    "p_fill_otherwise": 0.0966
+   },
+   "verdict": "its filled orders are observable just before the match; the 500/100 class is shared, so the quote state is not observable from size alone"
+  },
+  {
+   "name": "H66",
+   "dimension": "other_spot_venues",
+   "definition": "requote direction vs venue moves 50-250 ms earlier",
+   "event": "live reference feed",
+   "period": "legacy",
+   "result": {
+    "binance_futures": 0.97,
+    "bybit": [
+     0.6,
+     0.8
+    ],
+    "okx": [
+     0.62,
+     0.7
+    ],
+    "coinbase": [
+     0.41,
+     0.56
+    ],
+    "spot": [
+     0.51,
+     0.54
+    ],
+    "hyperliquid": [
+     0.43,
+     0.62
+    ],
+    "rerun_55min": {
+     "binance_futures_50_250ms": [
+      0.91,
+      255
+     ],
+     "0_100ms": [
+      0.757,
+      115
+     ],
+     "bybit": 0.7,
+     "okx": 0.66,
+     "coinbase": 0.52,
+     "spot": 0.55,
+     "hyperliquid": 0.48
+    }
+   },
+   "verdict": "Binance USD-M futures is the reference"
+  },
+  {
+   "name": "H67",
+   "dimension": "pm_legacy_rtds",
+   "definition": "near-touch quote vs TWAP-60 digital fair",
+   "event": "live quote level",
+   "period": "legacy",
+   "result": {
+    "near_touch_futures_mad": 0.031,
+    "burst_q_ols": "-0.055 + 0.246 fair + 0.688 mid",
+    "burst_resid_mad": 0.037,
+    "heldout_lgbm_within_tick": 0.208,
+    "anchor_bb_minus_7.5_ticks": 0.213,
+    "ladder_2plus_prices_1.5s": 0.654
+   },
+   "verdict": "ladder of rungs anchored mostly to the book mid; not a single tick-precise function of public inputs"
+  },
+  {
+   "name": "H68",
+   "dimension": "deribit_options",
+   "definition": "exact-500 adds on one side within 20 ms",
+   "event": "live three-wallet burst signature",
+   "period": "legacy",
+   "result": {
+    "burst_1": 0.495,
+    "burst_2": 0.224,
+    "burst_3": 0.274,
+    "burst_4plus": 0.006,
+    "same_price_in_triplets": 0.883,
+    "bursts_31min": 3460,
+    "direction_vs_futures_0_100ms": 0.895,
+    "direction_0_250ms": 0.855,
+    "repost_interval_median_ms": 982,
+    "at_touch_share": 0.039,
+    "p_fill_10s_at_touch": 0.289,
+    "p_fill_otherwise": 0.0995
+   },
+   "verdict": "attributes quote events to the cluster without the shared size class; supports one engine x three wallets"
+  },
+  {
+   "name": "H69",
+   "dimension": "binance_spot",
+   "definition": "implied vs realised vol in the fill-price fair",
+   "event": "X13 DVOL",
+   "period": "legacy",
+   "result": {
+    "realised_k": 1.4,
+    "validate_mad_realised": 0.0428,
+    "validate_mad_dvol": 0.0623,
+    "dvol_over_realised": 1.62
+   },
+   "verdict": "realised short-term vol (x1.2-1.4), not implied"
+  },
+  {
+   "name": "H70",
+   "dimension": "deribit_options",
+   "definition": "trailing market/own maker returns vs window activity",
+   "event": "X25 markout controller",
+   "period": "legacy",
+   "result": {
+    "auc_market_test": 0.474,
+    "auc_own_test": 0.475,
+    "auc_validate": [
+     0.48,
+     0.487
+    ]
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H72",
+   "dimension": "binance_spot",
+   "definition": "fill prices vs lock-in fair vs spot-only fair in the last 60 s",
+   "event": "A1_B3b last-60-s lock-in",
+   "period": "legacy",
+   "result": {
+    "mad_lockin": [
+     0.068,
+     0.087
+    ],
+    "mad_spot_only": [
+     0.141,
+     0.138
+    ],
+    "fills_on_lockin_favourite_when_disagree": [
+     0.641,
+     0.667
+    ]
+   },
+   "verdict": "prices the closing TWAP lock-in"
+  },
+  {
+   "name": "H6-1",
+   "dimension": "deribit_options",
+   "definition": "fills come from fresh joins at the touch after a trade sold the token",
+   "event": "J1 reactive touch-poster (Q1)",
+   "period": "legacy",
+   "result": {
+    "confirmed": 1316,
+    "at_touch": 0.78,
+    "lag_le_150ms": 0.59,
+    "null": "0.41-0.46",
+    "token_just_sold": 0.61
+   },
+   "verdict": "partly supported"
+  },
+  {
+   "name": "H6-2",
+   "dimension": "pm_legacy_rtds",
+   "definition": "ladder center skew follows Chainlink at its publication delay",
+   "event": "J4 center skew input race (M1/I2)",
+   "period": "legacy",
+   "result": {
+    "heldout_r2_chainlink_2s": 0.206,
+    "heldout_r2_best_exchange": -0.01
+   },
+   "verdict": "supported (live, one block)"
+  },
+  {
+   "name": "H6-3",
+   "dimension": "pm_legacy_rtds",
+   "definition": "print-level selection and 10-s presence with the Chainlink fair",
+   "event": "Chainlink fair in selection/presence (M2)",
+   "period": "legacy",
+   "result": {
+    "print_auc": 0.747,
+    "print_activity": 0.636,
+    "bin_auc": 0.641,
+    "bin_activity": 0.604
+   },
+   "verdict": "promising (live, not frozen)"
+  },
+  {
+   "name": "H6-4",
+   "dimension": "operator_clock",
+   "definition": "last clean print - 0.01 on the server match clock",
+   "event": "J7 match-clock price (I1)",
+   "period": "legacy",
+   "result": {
+    "within_tick_live_validate": 0.858,
+    "block_clock_analog": 0.592
+   },
+   "verdict": "supported; frozen as R4 price"
+  },
+  {
+   "name": "H6-5",
+   "dimension": "pm_book_levels",
+   "definition": "PnL from continuing taker sequences",
+   "event": "J5 taker sequences (Q4)",
+   "period": "legacy",
+   "result": {
+    "first_print_share": 0.73,
+    "base": 0.64,
+    "nonHFT_first_ret": 0.057
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H6-6",
+   "dimension": "binance_usdm_futures",
+   "definition": "off-session 500 class switched on by futures vol",
+   "event": "M5 size controller",
+   "period": "legacy",
+   "result": {
+    "auc_vol300": 0.945,
+    "recall": 0.878,
+    "precision": 0.707
+   },
+   "verdict": "supported (VALIDATE aggregate)"
+  },
+  {
+   "name": "R5-cl-stack",
+   "dimension": "pm_legacy_rtds",
+   "definition": "R3 stacked (logistic) with Chainlink features (fair, edge, gap to Binance fair, 10-s change, z) stamped t-3 s, fit on the STUDY sample",
+   "event": "A1/X43 historical Chainlink",
+   "period": "legacy",
+   "result": {
+    "auc_r3_sample": 0.692307332175489,
+    "auc_r5_sample": 0.6996689571849278,
+    "gain_ci": [
+     0.0016309302531522935,
+     0.01306895116059167
+    ]
+   },
+   "verdict": "adopted as R5 (small gain, VALIDATE sample only)"
+  },
+  {
+   "name": "K1-direct-feed",
+   "dimension": "pm_legacy_rtds",
+   "definition": "engine reads Chainlink 0.5-1 s before the public relay",
+   "event": "X44/X49",
+   "period": "legacy",
+   "result": {
+    "agree_post_publish": [
+     0.719,
+     733
+    ],
+    "agree_pre_publish": [
+     0.441,
+     528
+    ]
+   },
+   "verdict": "rejected (re-price pass at the relay publish, +-0.1 s)"
+  },
+  {
+   "name": "K3-inherited-skew",
+   "dimension": "pm_legacy_rtds",
+   "definition": "Chainlink skew inherited from other makers",
+   "event": "X47",
+   "period": "legacy",
+   "result": {
+    "other_small_after_before": [
+     0.515,
+     0.503
+    ]
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "I3-display-takers",
+   "dimension": "pm_legacy_rtds",
+   "definition": "takers trade on the displayed Chainlink price",
+   "event": "X45",
+   "period": "legacy",
+   "result": {
+    "corr_5m": 0.032,
+    "corr_15m": -0.013,
+    "futures_corr": [
+     0.088,
+     0.118
+    ]
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "X58-stoploss",
+   "dimension": "operator_clock",
+   "definition": "BTC 5m switched off after own losses (daily loss limit)",
+   "event": "on/off",
+   "period": "legacy",
+   "result": {
+    "build_auc_daycum": 0.8,
+    "events": 6
+   },
+   "verdict": "open (hypothesis)"
+  },
+  {
+   "name": "P1-join",
+   "dimension": "pm_book_levels",
+   "definition": "per-trade join decision at the sold token's touch within 150 ms",
+   "event": "X53",
+   "period": "legacy",
+   "result": {
+    "join_rate": 0.024,
+    "placebo_rate": 0.027,
+    "auc_activity": 0.56,
+    "auc_with_cl": 0.611,
+    "univariate_cl_edge": 0.678
+   },
+   "verdict": "weak (rejected as the main decision unit)"
+  },
+  {
+   "name": "M2-posture-side",
+   "dimension": "pm_legacy_rtds",
+   "definition": "on each Chainlink report the cluster moves the 500 bid of the side with positive Chainlink edge over the mid to the touch",
+   "event": "X50",
+   "period": "legacy",
+   "result": {
+    "side_acc_5m_live_valid": 0.793,
+    "n": 757,
+    "always_up": 0.538,
+    "side_acc_15m_live_valid": 0.758,
+    "baselines": {
+     "futures_edge": 0.573,
+     "cheaper_side": 0.542,
+     "always_up": 0.538,
+     "mid_move_2s": 0.502,
+     "token_just_sold": 0.489
+    }
+   },
+   "verdict": "supported (live pilot, beats every market-only baseline by >= 0.2)"
+  },
+  {
+   "name": "A4-quote-unit",
+   "dimension": "pm_book_levels",
+   "definition": "quote unit: cluster-class 500 at the touch now, public inputs",
+   "event": "X72",
+   "period": "legacy",
+   "result": {
+    "activity": 0.672,
+    "chainlink": 0.74,
+    "all": 0.748,
+    "gain_ci": [
+     0.042,
+     0.11
+    ]
+   },
+   "verdict": "gain > 0.05, AUC 0.75 < 0.85"
+  },
+  {
+   "name": "A4-selection-ceiling",
+   "dimension": "pm_book_levels",
+   "definition": "print selection with the observed quote as an oracle",
+   "event": "X72",
+   "period": "legacy",
+   "result": {
+    "activity": 0.611,
+    "public": 0.686,
+    "oracle": 0.814,
+    "public_oracle": 0.834,
+    "recall": 0.685,
+    "lift": 3.4
+   },
+   "verdict": "the quote is binding at the print level"
+  },
+  {
+   "name": "A5-june-trigger",
+   "dimension": "binance_spot",
+   "definition": "June signing ms vs Binance moves",
+   "event": "X73",
+   "period": "legacy",
+   "result": {
+    "peak_rel_move_futures": 4.8,
+    "peak_lag_ms": "150-400",
+    "last_50ms_rel": 1.0,
+    "price_corr_at_signing": 0.849
+   },
+   "verdict": "Binance-reactive re-signer, 100-400 ms"
+  },
+  {
+   "name": "posture-fill-side",
+   "dimension": "pm_legacy_rtds",
+   "definition": "fill side = sign of the Chainlink edge over the mid at the match ms",
+   "event": "X50",
+   "period": "legacy",
+   "result": {
+    "live_validate_5m": 0.841,
+    "live_validate_15m": 0.874,
+    "evaluate_path": 0.836,
+    "baselines_max": 0.608
+   },
+   "verdict": "adopted (side component of R6)"
+  },
+  {
+   "name": "M4-population-validate",
+   "dimension": "pm_book_levels",
+   "definition": "who pays the cluster on VALIDATE (taker order struct)",
+   "event": "X66",
+   "period": "legacy",
+   "result": {
+    "eoa": 0.172,
+    "magic": 0.0666,
+    "safe": 0.0548,
+    "type3": 0.0125,
+    "loose_3_10c": 0.053,
+    "loose_gt10c": 0.0697
+   },
+   "verdict": "front-end and loose-limit takers pay, type-3 flow breaks even; no single population >= 80% with CI > 0"
+  },
+  {
+   "name": "A3-creep-state",
+   "dimension": "pm_legacy_rtds",
+   "definition": "public run length of a favourable Chainlink edge as a state for the at-touch quote",
+   "event": "X71",
+   "period": "legacy",
+   "result": {
+    "quote_unit_auc_with": 0.7479,
+    "without": 0.7478
+   },
+   "verdict": "no gain; step at re-price, not creep"
+  },
+  {
+   "name": "A4b-kalshi-15m",
+   "dimension": "kalshi",
+   "definition": "Kalshi KXBTC15M as a leading book / side input for the 15m quotes",
+   "event": "X48",
+   "period": "legacy",
+   "result": {
+    "corr_lead_1s": 0.296,
+    "r2_binance": 0.094,
+    "r2_binance_kalshi": 0.134,
+    "side_cheap_vs_kalshi": 0.792,
+    "n_fills": 159
+   },
+   "verdict": "lead found (Kalshi leads PM 15m by ~1 s); side link to replicate with aligned strikes"
+  },
+  {
+   "name": "H-KALSHI-ALIGNED",
+   "dimension": "kalshi",
+   "definition": "PM cheap vs Kalshi (aligned) as 15m side",
+   "event": "X78",
+   "period": "legacy",
+   "result": {
+    "n": 446,
+    "kalshi": 0.345,
+    "slow_posture": 0.917
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H-STALE",
+   "dimension": "pm_legacy_rtds",
+   "definition": "paid fills are stale takers on the publish clock",
+   "event": "X81",
+   "period": "legacy",
+   "result": {
+    "lift_stale_up": 1.11,
+    "lift_stale_down": 0.73,
+    "base": 0.033
+   },
+   "verdict": "direction right, signature not met"
+  },
+  {
+   "name": "H-SALT-SWITCH",
+   "dimension": "operator_clock",
+   "definition": "switch-off kind from the salt counters",
+   "event": "X82",
+   "period": "legacy",
+   "result": {
+    "jump": 0,
+    "rate_before_after": "11.8-13.4 -> 12.3-15.5 /s",
+    "adhoc_restarts": 2
+   },
+   "verdict": "switch inside running processes; ad-hoc restarts after"
+  },
+  {
+   "name": "H-SCOPE",
+   "dimension": "deribit_options",
+   "definition": "R6 universe coverage per 6-h block",
+   "event": "X83",
+   "period": "legacy",
+   "result": {
+    "U1": 0.34,
+    "U2": 0.45,
+    "U3": 0.62,
+    "U4": 0.89,
+    "U5": 1.0,
+    "gate_auc_btc5m": 0.68
+   },
+   "verdict": "R6 fails scope in 2/3 of blocks; all-crypto universe needed"
+  },
+  {
+   "name": "H-INERTIA",
+   "dimension": "pm_book_levels",
+   "definition": "posture with inertia, taker-event unit",
+   "event": "X85",
+   "period": "legacy",
+   "result": {
+    "events": 1297,
+    "slow": 0.823,
+    "frozen": 0.78,
+    "prev_event": 0.865,
+    "switch_events_slow": 0.764
+   },
+   "verdict": "own-history baseline higher; hysteresis not better held out"
+  },
+  {
+   "name": "H-INERTIA-OWN",
+   "dimension": "operator_clock",
+   "definition": "posture switch + own-history inertia (|edge| <= theta keeps the previous side)",
+   "event": "X85",
+   "period": "legacy",
+   "result": {
+    "test_slow_theta0.05": 0.88,
+    "test_prev_baseline": 0.859,
+    "test_posture_only_slow": 0.83,
+    "test_frozen_theta0.2": 0.867
+   },
+   "verdict": "beats the own-history baseline by 0.02 with the slow sigma (in-sample choice of theta on the first half); own state; pre-registered"
+  },
+  {
+   "name": "H-R6-0006",
+   "dimension": "operator_clock",
+   "definition": "R6 on the unexamined development block 10-31 00-06 (block clock)",
+   "event": "evaluate",
+   "period": "legacy",
+   "result": {
+    "btc5m_presence": 0.679,
+    "btc5m_activity": 0.695,
+    "btc15m_presence": 0.853,
+    "btc15m_activity": 0.815,
+    "union_presence": 0.771,
+    "union_activity": 0.767,
+    "btc15m_side": 0.914,
+    "btc15m_pnl_corr": [
+     0.729,
+     0.68
+    ]
+   },
+   "verdict": "BTC 5m presence below activity on this block; BTC 15m holds"
+  },
+  {
+   "name": "H-HOURLY-SIDE",
+   "dimension": "binance_spot",
+   "definition": "posture side on BTC hourly (Binance strike), block clock",
+   "event": "X84",
+   "period": "legacy",
+   "result": {
+    "validate_frozen": 0.607,
+    "validate_slow": 0.634,
+    "study_slow": 0.682,
+    "build_slow": 0.657,
+    "regionD_validate": 0.988
+   },
+   "verdict": "slow sigma better in every split; the side rule describes 0.63-0.68 of hourly fills"
+  },
+  {
+   "name": "H-VOL15",
+   "dimension": "operator_clock",
+   "definition": "slow sigma for the BTC 15m posture, historical block clock (pre-registered v3600 k1)",
+   "event": "X74",
+   "period": "legacy",
+   "result": {
+    "build_gain": 0.006,
+    "study_gain": 0.097,
+    "validate_frozen": 0.799,
+    "validate_slow": 0.75,
+    "validate_gain": -0.049,
+    "validate_gain_ci95": [
+     -0.107,
+     0.007
+    ]
+   },
+   "verdict": "fails the pre-registered VALIDATE confirmation"
+  },
+  {
+   "name": "H-DVOL",
+   "dimension": "deribit_options",
+   "definition": "sigma = c x Deribit DVOL",
+   "event": "X75",
+   "period": "legacy",
+   "result": {
+    "best_c_study": 0.2,
+    "best_c_validate": 1.0,
+    "validate_5m_best": 0.584,
+    "validate_frozen_5m": 0.645
+   },
+   "verdict": "rejected (no constant scale)"
+  },
+  {
+   "name": "H-MINT-MIX",
+   "dimension": "pm_book_levels",
+   "definition": "historical fill side by taker type (mint vs direct sell)",
+   "event": "X74",
+   "period": "legacy",
+   "result": {
+    "validate_mint_share": 0.88,
+    "validate_mint_underdog": 0.694,
+    "validate_mint_frozen": 0.654,
+    "validate_mint_slow": 0.567,
+    "study_mint_share": 0.813,
+    "study_mint_underdog": 0.508
+   },
+   "verdict": "VALIDATE underdog-heaviness comes from mints (takers buying favourites); explains the large-sigma preference"
+  },
+  {
+   "name": "H10-A1-STABLE",
+   "dimension": "pm_legacy_rtds",
+   "definition": "the Chainlink-favourite posture is a stable rule (historical region D >= 0.80 with calibrated proxies)",
+   "event": "X97",
+   "period": "legacy",
+   "result": {
+    "live_truth_D": 0.9645390070921985,
+    "live_proxy_D": 0.9534883720930233,
+    "study_D": 0.6574074074074074,
+    "validate_D": 0.6797385620915033,
+    "dev1031_0006_D": 0.6788990825688074
+   },
+   "verdict": "all fills: rejected (0.66-0.68); by class: the 500 ladder replicates (VALIDATE 0.973), the 62/250 ladder does not follow Chainlink"
+  },
+  {
+   "name": "H10-M1-PAIRPRICE",
+   "dimension": "own_inventory",
+   "definition": "the pairing bid is priced off own held-side cost (1 - VWAP - m)",
+   "event": "X92",
+   "period": "legacy",
+   "result": {
+    "within_tick_best_study": 0.047,
+    "within_tick_best_validate": 0.048
+   },
+   "verdict": "rejected (priced at the market)"
+  },
+  {
+   "name": "H10-A4-LOCKED",
+   "dimension": "deribit_options",
+   "definition": "the profit is locked pairs + rebates, the residual ~0 or negative in every split",
+   "event": "X100",
+   "period": "legacy",
+   "result": {
+    "study_locked": -930.6197717083903,
+    "study_resid": 5684.28288170839,
+    "validate_locked": 33325.41721301286,
+    "validate_resid": -10287.721259012862
+   },
+   "verdict": "rejected (the split changes sign between STUDY and VALIDATE)"
+  },
+  {
+   "name": "H10-R7-SIDE",
+   "dimension": "pm_legacy_rtds",
+   "definition": "class-conditional public side rule (500 -> Chainlink posture; 62/250/100 -> best STUDY candidate)",
+   "event": "X97",
+   "period": "legacy",
+   "result": {
+    "r7_public": 0.6601146601146601,
+    "frozen_all": 0.7095277095277095,
+    "gain": -0.04941304941304936,
+    "ci": [
+     -0.08453260920073566,
+     -0.017045295412040237
+    ],
+    "region_D_500": [
+     73,
+     0.973,
+     26
+    ],
+    "region_D_62": [
+     48,
+     0.458,
+     25
+    ]
+   },
+   "verdict": "fails the pre-registered confirmation; the 500-class posture replicates (region D 0.97), the off-session classes have no decoded side"
+  },
+  {
+   "name": "H10-HVOL-500",
+   "dimension": "pm_legacy_rtds",
+   "definition": "slow sigma v3600 vs frozen 1.4 x v300 on the 500 ladder, real Chainlink, calibrated clock (pre-registered)",
+   "event": "X74/X97",
+   "period": "legacy",
+   "result": {
+    "study": {
+     "n": 403,
+     "frozen": 0.6129032258064516,
+     "slow_v3600": 0.6327543424317618,
+     "gain": 0.01985111662531014,
+     "ci_2h_blocks": [
+      -0.12165894980532464,
+      0.1510802933216128
+     ],
+     "region_A_frozen": 0.5884057971014492,
+     "region_A_slow": 0.6115942028985507,
+     "cheaper_side": 0.47146401985111663
+    },
+    "validate": {
+     "n": 1633,
+     "frozen": 0.7421922841396204,
+     "slow_v3600": 0.6172688303735456,
+     "gain": -0.12492345376607472,
+     "ci_2h_blocks": [
+      -0.2295276000614521,
+      -0.03361930852793991
+     ],
+     "region_A_frozen": 0.7314102564102564,
+     "region_A_slow": 0.6006410256410256,
+     "cheaper_side": 0.7066748315982854
+    }
+   },
+   "verdict": "fails (VALIDATE 0.617 vs 0.742, gain -0.125 [-0.230, -0.034]); the frozen sigma stays"
+  },
+  {
+   "name": "H10-M5-RACE",
+   "dimension": "deribit_options",
+   "definition": "off-posture fills are lost cancel races (posture at taker arrival)",
+   "event": "X96",
+   "period": "legacy",
+   "result": {
+    "match": 0.74,
+    "arrival_best": 0.718
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H10-M2-PHASE",
+   "dimension": "pm_legacy_rtds",
+   "definition": "per-phase fair (frozen / slow / TWAP lock-in) chosen on 12-15",
+   "event": "X93",
+   "period": "legacy",
+   "result": {
+    "test_15_18": 0.8351581508515815,
+    "frozen": 0.8132603406326034
+   },
+   "verdict": "not adopted (mostly the slow sigma; signature not met)"
+  },
+  {
+   "name": "H10-I95-TWAP",
+   "dimension": "pm_legacy_rtds",
+   "definition": "mo-money's 500 pass reads the TWAP-60 topic",
+   "event": "X91",
+   "period": "legacy",
+   "result": {
+    "n": 1265,
+    "twap_seconds": 14040,
+    "almach|500": {
+     "n": 411,
+     "add_cl": 0.771,
+     "add_tw": 0.572,
+     "match_cl": 0.825,
+     "match_tw": 0.582
+    },
+    "almach|other": {
+     "n": 40,
+     "add_cl": 0.525,
+     "add_tw": 0.3,
+     "match_cl": 0.575,
+     "match_tw": 0.35
+    },
+    "bosona|500": {
+     "n": 241,
+     "add_cl": 0.768,
+     "add_tw": 0.589,
+     "match_cl": 0.851,
+     "match_tw": 0.606
+    },
+    "bosona|other": {
+     "n": 95,
+     "add_cl": 0.547,
+     "add_tw": 0.526,
+     "match_cl": 0.632,
+     "match_tw": 0.516
+    },
+    "momoney|500": {
+     "n": 424,
+     "add_cl": 0.646,
+     "add_tw": 0.608,
+     "match_cl": 0.722,
+     "match_tw": 0.606
+    },
+    "momoney|other": {
+     "n": 54,
+     "add_cl": 0.759,
+     "add_tw": 0.537,
+     "match_cl": 0.759,
+     "match_tw": 0.574
+    }
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H10-OFFSESSION",
+   "dimension": "operator_clock",
+   "definition": "side of the off-session 62/250 rungs: public references vs own inventory",
+   "event": "X97",
+   "period": "legacy",
+   "result": {
+    "study": {
+     "62|pure_offsession": {
+      "n": 256,
+      "under_held_own_state": 0.41,
+      "cheaper": 0.5,
+      "chainlink": 0.434,
+      "binance": 0.402
+     },
+     "250|pure_offsession": {
+      "n": 49,
+      "under_held_own_state": 0.102,
+      "cheaper": 0.306,
+      "chainlink": 0.551,
+      "binance": 0.469
+     }
+    },
+    "validate": {
+     "62|pure_offsession": {
+      "n": 581,
+      "under_held_own_state": 0.491,
+      "cheaper": 0.565,
+      "chainlink": 0.582,
+      "binance": 0.592
+     },
+     "62|with_500": {
+      "n": 32,
+      "under_held_own_state": 0.969,
+      "cheaper": 0.625,
+      "chainlink": 0.594,
+      "binance": 0.594
+     },
+     "250|pure_offsession": {
+      "n": 586,
+      "under_held_own_state": 0.317,
+      "cheaper": 0.647,
+      "chainlink": 0.654,
+      "binance": 0.664
+     }
+    }
+   },
+   "verdict": "no public rule; 250s repeat the held side (own state), 62s with 500s pair, pure 62s undecoded"
+  },
+  {
+   "name": "H11-R7PRICE",
+   "dimension": "operator_clock",
+   "definition": "price rule on the in-block execution-order clock",
+   "event": "X101",
+   "period": "legacy",
+   "result": {
+    "study": {
+     "fills": 8256,
+     "inblock_anchor_share": 0.8542,
+     "cluster_tx_position_found": 1.0,
+     "block_clock_within_tick": 0.617,
+     "inblock_within_tick": 0.7512,
+     "inblock_first_row_within_tick": 0.7512,
+     "inblock_last_print_no_offset_within_tick": 0.6931,
+     "inblock_exact": 0.4351,
+     "gain": 0.1342,
+     "gain_ci95_2h_blocks": [
+      0.1107,
+      0.1576
+     ],
+     "n_2h_blocks": 34,
+     "per_wallet_inblock": {
+      "almach": 0.7486,
+      "bosona": 0.749,
+      "momoney": 0.7558
+     },
+     "per_wallet_block": {
+      "almach": 0.5952,
+      "bosona": 0.6327,
+      "momoney": 0.6208
+     }
+    },
+    "validate": {
+     "fills": 27988,
+     "inblock_anchor_share": 0.8156,
+     "cluster_tx_position_found": 0.9997,
+     "block_clock_within_tick": 0.7091,
+     "inblock_within_tick": 0.8065,
+     "inblock_first_row_within_tick": 0.8065,
+     "inblock_last_print_no_offset_within_tick": 0.7728,
+     "inblock_exact": 0.4535,
+     "gain": 0.0975,
+     "gain_ci95_2h_blocks": [
+      0.0836,
+      0.1114
+     ],
+     "n_2h_blocks": 48,
+     "per_wallet_inblock": {
+      "almach": 0.805,
+      "bosona": 0.8004,
+      "momoney": 0.8139
+     },
+     "per_wallet_block": {
+      "almach": 0.7066,
+      "bosona": 0.7104,
+      "momoney": 0.7101
+     },
+     "halves_inblock": [
+      0.8063,
+      0.8066
+     ]
+    },
+    "criterion": "adopt if VALIDATE inblock >= block + 0.03 and gain CI lower bound > 0 (pre-registered 00:43 UTC)",
+    "adopted": true
+   },
+   "verdict": "adopted (pre-registered): VALIDATE +0.098 [0.084, 0.111]"
+  },
+  {
+   "name": "H11-FASTREPLAY",
+   "dimension": "operator_clock",
+   "definition": "window replay on the execution-order clock (latency ~0)",
+   "event": "X106",
+   "period": "legacy",
+   "result": {
+    "oracle_d0.0": {
+     "corr": [
+      0.4888,
+      0.5284
+     ],
+     "windows": 1089,
+     "return": -0.0973,
+     "net_side_agree": 1.0
+    },
+    "oracle_d0.01": {
+     "corr": [
+      0.4633,
+      0.5175
+     ],
+     "windows": 1089,
+     "return": -0.0791,
+     "net_side_agree": 1.0
+    },
+    "posture_d0.0": {
+     "corr": [
+      0.2339,
+      0.2562
+     ],
+     "windows": 1089,
+     "return": -0.009,
+     "net_side_agree": 0.5859
+    },
+    "posture_d0.01": {
+     "corr": [
+      0.1827,
+      0.2406
+     ],
+     "windows": 1089,
+     "return": 0.0084,
+     "net_side_agree": 0.5776
+    },
+    "two_d0.0": {
+     "corr": [
+      0.2029,
+      0.2153
+     ],
+     "windows": 1089,
+     "return": -0.0237,
+     "net_side_agree": 0.4977
+    },
+    "two_d0.01": {
+     "corr": [
+      0.1491,
+      0.1171
+     ],
+     "windows": 1089,
+     "return": -0.0238,
+     "net_side_agree": 0.5023
+    }
+   },
+   "verdict": "posture 0.18-0.23 / 0.24-0.26; oracle side 0.46-0.49 / 0.52-0.53: side-bound"
+  },
+  {
+   "name": "H11-ENTRY-COMBO",
+   "dimension": "pm_legacy_rtds",
+   "definition": "entry side = real-Chainlink posture at the first fill, with the market-only taker-flow complement (net clean taker demand over the previous 30 s) as a second vote (exploratory, not pre-registered)",
+   "event": "X104/X106",
+   "period": "legacy",
+   "result": {
+    "combo": {
+     "first_fills": 1089,
+     "with_cl": 679,
+     "n": 679,
+     "posture_acc": 0.7437,
+     "flow_complement_acc": 0.592,
+     "agree_share": 0.5302,
+     "acc_when_agree": 0.8167,
+     "posture_acc_when_disagree": 0.6614
+    },
+    "flow_baseline": {
+     "windows": 1089,
+     "one_sided": 584,
+     "L10": {
+      "coverage": 0.9991,
+      "first_fill_complement": 0.5809,
+      "net_side_complement_one_sided": 0.5249
+     },
+     "L30": {
+      "coverage": 1.0,
+      "first_fill_complement": 0.607,
+      "net_side_complement_one_sided": 0.5771
+     },
+     "L60": {
+      "coverage": 1.0,
+      "first_fill_complement": 0.607,
+      "net_side_complement_one_sided": 0.5925
+     }
+    }
+   },
+   "verdict": "exploratory: 0.82 where both agree (53% of windows), posture alone 0.744, flow alone 0.592; pre-registered for 11-01 06-12"
+  },
+  {
+   "name": "H11-KSTEP",
+   "dimension": "operator_clock",
+   "definition": "the posture's sigma multiplier per day / 6-h block (version detection)",
+   "event": "X111/C4",
+   "period": "legacy",
+   "result": {
+    "10-23": {
+     "n": 1744,
+     "best_k": 0.5,
+     "acc_best": 0.628,
+     "acc_1.4": 0.518,
+     "acc_0.85": 0.604,
+     "fav_share": 0.606
+    },
+    "10-24": {
+     "n": 296,
+     "best_k": 0.85,
+     "acc_best": 0.73,
+     "acc_1.4": 0.618,
+     "acc_0.85": 0.73,
+     "fav_share": 0.557
+    },
+    "10-25": {
+     "n": 907,
+     "best_k": 0.5,
+     "acc_best": 0.616,
+     "acc_1.4": 0.54,
+     "acc_0.85": 0.596,
+     "fav_share": 0.526
+    },
+    "10-26": {
+     "n": 2463,
+     "best_k": 1.2,
+     "acc_best": 0.613,
+     "acc_1.4": 0.6,
+     "acc_0.85": 0.542,
+     "fav_share": 0.441
+    },
+    "10-27": {
+     "n": 3273,
+     "best_k": 2.0,
+     "acc_best": 0.69,
+     "acc_1.4": 0.653,
+     "acc_0.85": 0.475,
+     "fav_share": 0.353
+    },
+    "10-28": {
+     "n": 4232,
+     "best_k": 1.4,
+     "acc_best": 0.681,
+     "acc_1.4": 0.681,
+     "acc_0.85": 0.596,
+     "fav_share": 0.367
+    },
+    "10-29": {
+     "n": 6585,
+     "best_k": 2.0,
+     "acc_best": 0.715,
+     "acc_1.4": 0.683,
+     "acc_0.85": 0.464,
+     "fav_share": 0.288
+    },
+    "10-30": {
+     "n": 4435,
+     "best_k": 2.0,
+     "acc_best": 0.757,
+     "acc_1.4": 0.738,
+     "acc_0.85": 0.403,
+     "fav_share": 0.24
+    }
+   },
+   "verdict": "version-like step around 10-26 06-12 UTC (k ~0.5-1.0 -> ~1.4-2.5); descriptive, no rule chosen"
+  },
+  {
+   "name": "H11-TAKERS",
+   "dimension": "pm_book_levels",
+   "definition": "taker population change behind the favourite-share drift",
+   "event": "X111/X104",
+   "period": "legacy",
+   "result": {
+    "takers_in_both": 1253,
+    "fav_share_same_takers": {
+     "study": 0.517,
+     "validate": 0.3188
+    }
+   },
+   "verdict": "rejected: same takers, same market demand; the cluster's quote side moved"
+  },
+  {
+   "name": "H11-MARKETK",
+   "dimension": "deribit_options",
+   "definition": "market-implied sigma multiplier per 6-h block vs the cluster's best k",
+   "event": "X111/C4/X75",
+   "period": "legacy",
+   "result": {
+    "spearman": -0.281,
+    "blocks": 28
+   },
+   "verdict": "market stable (~1.15); the engine changed its volatility multiplier over the 10-24/25 weekend"
+  },
+  {
+   "name": "H11-WEEKLY-K",
+   "dimension": "binance_spot",
+   "definition": "weekly cycle of the posture's volatility multiplier (Binance stand-in, BUILD + lot)",
+   "event": "C4/C5/X75",
+   "period": "legacy",
+   "result": {
+    "10-09 Fri": 1.2,
+    "10-10 Sat": 0.7,
+    "10-11 Sun": 0.85,
+    "10-12 Mon": 1.7,
+    "10-13 Tue": 1.4,
+    "10-14 Wed": 1.0,
+    "10-15 Thu": 1.2,
+    "10-16 Fri": 1.4,
+    "10-17 Sat": 0.85,
+    "10-18 Sun": 0.85,
+    "10-19 Mon": 2.0,
+    "10-20 Tue": 2.5,
+    "10-21 Wed": 1.2,
+    "10-22 Thu": 1.0,
+    "10-23 Fri": 0.5,
+    "10-24 Sat": 0.7,
+    "10-25 Sun": 0.5,
+    "10-26 Mon": 1.7,
+    "10-27 Tue": 2.5,
+    "10-28 Wed": 1.4,
+    "10-29 Thu": 2.5,
+    "10-30 Fri": 2.5
+   },
+   "verdict": "Monday reset to k ~1.4-2.5, decay to 0.5-0.85 by the weekend in weeks 1-2, no decay in week 3; driver open (not PnL since Monday)"
+  },
+  {
+   "name": "H11-K-CLASS",
+   "dimension": "pm_legacy_rtds",
+   "definition": "the k cycle by rung class (real Chainlink)",
+   "event": "C4/X97",
+   "period": "legacy",
+   "result": {
+    "high_k_10-27..30|250": {
+     "n": 3443,
+     "best_k": 2.0,
+     "acc_best": 0.725,
+     "acc_k0.5": 0.359,
+     "acc_k1.4": 0.688,
+     "acc_k2.0": 0.725,
+     "regionD_n": 204,
+     "regionD_acc": 0.52
+    },
+    "high_k_10-27..30|500": {
+     "n": 8334,
+     "best_k": 2.0,
+     "acc_best": 0.72,
+     "acc_k0.5": 0.375,
+     "acc_k1.4": 0.709,
+     "acc_k2.0": 0.72,
+     "regionD_n": 337,
+     "regionD_acc": 0.816
+    },
+    "high_k_10-27..30|62": {
+     "n": 3550,
+     "best_k": 2.0,
+     "acc_best": 0.649,
+     "acc_k0.5": 0.435,
+     "acc_k1.4": 0.627,
+     "acc_k2.0": 0.649,
+     "regionD_n": 238,
+     "regionD_acc": 0.508
+    },
+    "high_k_10-27..30|other": {
+     "n": 4389,
+     "best_k": 2.0,
+     "acc_best": 0.714,
+     "acc_k0.5": 0.363,
+     "acc_k1.4": 0.705,
+     "acc_k2.0": 0.714,
+     "regionD_n": 163,
+     "regionD_acc": 0.571
+    },
+    "low_k_10-23..25|250": {
+     "n": 385,
+     "best_k": 1.0,
+     "acc_best": 0.712,
+     "acc_k0.5": 0.66,
+     "acc_k1.4": 0.67,
+     "acc_k2.0": 0.517,
+     "regionD_n": 26,
+     "regionD_acc": 0.923
+    },
+    "low_k_10-23..25|500": {
+     "n": 1034,
+     "best_k": 0.5,
+     "acc_best": 0.636,
+     "acc_k0.5": 0.636,
+     "acc_k1.4": 0.489,
+     "acc_k2.0": 0.459,
+     "regionD_n": 149,
+     "regionD_acc": 0.611
+    },
+    "low_k_10-23..25|62": {
+     "n": 1113,
+     "best_k": 0.85,
+     "acc_best": 0.625,
+     "acc_k0.5": 0.607,
+     "acc_k1.4": 0.586,
+     "acc_k2.0": 0.496,
+     "regionD_n": 162,
+     "regionD_acc": 0.642
+    },
+    "low_k_10-23..25|other": {
+     "n": 592,
+     "best_k": 0.5,
+     "acc_best": 0.61,
+     "acc_k0.5": 0.61,
+     "acc_k1.4": 0.458,
+     "acc_k2.0": 0.429,
+     "regionD_n": 34,
+     "regionD_acc": 0.529
+    },
+    "monday_10-26|500": {
+     "n": 1220,
+     "best_k": 1.4,
+     "acc_best": 0.629,
+     "acc_k0.5": 0.497,
+     "acc_k1.4": 0.629,
+     "acc_k2.0": 0.608,
+     "regionD_n": 98,
+     "regionD_acc": 0.755
+    },
+    "monday_10-26|62": {
+     "n": 911,
+     "best_k": 1.0,
+     "acc_best": 0.574,
+     "acc_k0.5": 0.52,
+     "acc_k1.4": 0.537,
+     "acc_k2.0": 0.524,
+     "regionD_n": 79,
+     "regionD_acc": 0.57
+    },
+    "monday_10-26|other": {
+     "n": 540,
+     "best_k": 2.0,
+     "acc_best": 0.631,
+     "acc_k0.5": 0.42,
+     "acc_k1.4": 0.622,
+     "acc_k2.0": 0.631,
+     "regionD_n": 26,
+     "regionD_acc": 0.5
+    }
+   },
+   "verdict": "all classes share the cycle (best k 2.0 on 10-27..30, 0.5-1.0 on 10-23..25); only the 500 ladder follows Chainlink in region D (0.82 vs 0.51-0.52)"
+  },
+  {
+   "name": "PR12-B",
+   "dimension": "pm_book_levels",
+   "definition": "band: posture outside |e| > h, taker-flow complement inside",
+   "event": "X125",
+   "period": "legacy",
+   "result": {
+    "chosen": "h0.02_flow",
+    "validate": 0.6823,
+    "posture": 0.6826,
+    "gain_ci": [
+     -0.0092,
+     0.0095
+    ]
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "PR12-F/R8-side",
+   "dimension": "own_inventory",
+   "definition": "window state-machine side (decided cheaper / entry posture / after-entry held or under-held by order size, cluster inventory)",
+   "event": "D2 state machine",
+   "period": "legacy",
+   "result": {
+    "fill": 0.79,
+    "order": 0.7251,
+    "n": 27988,
+    "branches": {
+     "decided": [
+      0.8118,
+      7635
+     ],
+     "entry": [
+      0.7039,
+      2459
+     ],
+     "sched_held": [
+      0.7711,
+      15056
+     ],
+     "nonsched_under": [
+      0.9063,
+      2838
+     ]
+    },
+    "per_wallet": {
+     "almach": 0.7949,
+     "bosona": 0.7831,
+     "momoney": 0.7921
+    },
+    "halves": [
+     0.7823,
+     0.7952
+    ],
+    "by_day": {
+     "2026-10-27": 0.755,
+     "2026-10-28": 0.804,
+     "2026-10-29": 0.798,
+     "2026-10-30": 0.791
+    },
+    "acc_ci95": [
+     0.7655,
+     0.8111
+    ],
+    "no_own_state": 0.6925,
+    "gain_over_no_own_ci95": [
+     0.0742,
+     0.1209
+    ]
+   },
+   "verdict": "adopted as R8's side (own state, exploratory); pre-registered H12-SIDE-SM for the next development blocks"
+  },
+  {
+   "name": "PR12-E",
+   "dimension": "own_inventory",
+   "definition": "maker-share accounting (competition vs own quote)",
+   "event": "X126/X115",
+   "period": "legacy",
+   "result": {
+    "build_study": {
+     "clu_fav": 0.5741000175476074,
+     "mkt_fav": 0.5012000203132629,
+     "oth_fav": 0.4993000030517578,
+     "clu_sh_fav": 0.022199999541044235,
+     "clu_sh_und": 0.014999999664723873,
+     "top10_sh_fav": 0.18539999425411224
+    },
+    "validate_aggregate": {
+     "clu_fav": 0.4505000114440918,
+     "mkt_fav": 0.5101000070571899,
+     "oth_fav": 0.5109999775886536,
+     "clu_sh_fav": 0.02239999920129776,
+     "clu_sh_und": 0.026100000366568565,
+     "top10_sh_fav": 0.18119999766349792
+    }
+   },
+   "verdict": "competition rejected; own quote (underdog-side share up)"
+  },
+  {
+   "name": "E9",
+   "dimension": "own_inventory",
+   "definition": "5m entry follows the cluster's 15m position / previous 5m net",
+   "event": "cross-market own state",
+   "period": "legacy",
+   "result": {
+    "entry_fills": 2459,
+    "posture": 0.7039,
+    "share_with_15m_position": 0.2257,
+    "follow_15m_position": 0.6144,
+    "posture_where_15m_position": 0.7351,
+    "agree_share": 0.6018,
+    "acc_where_agree": 0.7904,
+    "follow_15m_where_disagree": 0.3484,
+    "share_with_prev5_position": 0.9439,
+    "follow_prev5_net": 0.5019
+   },
+   "verdict": "rejected (15m position adds nothing beyond the posture; previous window 0.50)"
+  },
+  {
+   "name": "X117b",
+   "dimension": "pm_legacy_rtds",
+   "definition": "Chainlink-stream RV as sigma: live best k >= 2.5?",
+   "event": "X117",
+   "period": "legacy",
+   "result": {
+    "best_k": 1.0,
+    "boot": [
+     0.5,
+     1.0,
+     1.2
+    ]
+   },
+   "verdict": "rejected (best k 1.4)"
+  },
+  {
+   "name": "R8-side-BUILD",
+   "dimension": "binance_spot",
+   "definition": "no-size state machine on BUILD 10-09..22 (Binance stand-in posture)",
+   "event": "D2 state machine",
+   "period": "legacy",
+   "result": {
+    "n": 49569,
+    "composite_no_size": 0.7045,
+    "no_own_state": 0.6075,
+    "posture_bn": 0.6007,
+    "cheaper": 0.5352,
+    "after_entry_held": 0.7254,
+    "after_entry_posture": 0.5892
+   },
+   "verdict": "replicates: after-entry fills follow the cluster's held outcome 0.725 (posture 0.589)"
+  },
+  {
+   "name": "DEEP-STEP",
+   "dimension": "operator_clock",
+   "definition": "deep-bid (<= 0.10) order share by day and vs salt-counter restarts",
+   "event": "X120/X123",
+   "period": "legacy",
+   "result": {
+    "daily": {
+     "2026-10-23": [
+      1067,
+      0.0431
+     ],
+     "2026-10-24": [
+      272,
+      0.0515
+     ],
+     "2026-10-25": [
+      825,
+      0.0667
+     ],
+     "2026-10-26": [
+      1800,
+      0.1072
+     ],
+     "2026-10-27": [
+      2358,
+      0.159
+     ],
+     "2026-10-28": [
+      2758,
+      0.1791
+     ],
+     "2026-10-29": [
+      3767,
+      0.2214
+     ],
+     "2026-10-30": [
+      2602,
+      0.2406
+     ]
+    },
+    "decided_daily": {
+     "2026-10-23": [
+      110,
+      0.2636
+     ],
+     "2026-10-24": [
+      24,
+      0.25
+     ],
+     "2026-10-25": [
+      115,
+      0.3217
+     ],
+     "2026-10-26": [
+      296,
+      0.5068
+     ],
+     "2026-10-27": [
+      512,
+      0.5742
+     ],
+     "2026-10-28": [
+      621,
+      0.6184
+     ],
+     "2026-10-29": [
+      945,
+      0.7111
+     ],
+     "2026-10-30": [
+      768,
+      0.6641
+     ]
+    }
+   },
+   "verdict": "a ramp from Monday 10-26, no step at a restart"
+  },
+  {
+   "name": "X117a",
+   "dimension": "deribit_options",
+   "definition": "Deribit front-expiry ATM IV as the engine's sigma source",
+   "event": "X117",
+   "period": "legacy",
+   "result": {
+    "blocks": 80,
+    "trades": 148444,
+    "front_atm_trades": 14998,
+    "spearman_F_vs_log_iv": -0.206,
+    "spearman_F_vs_log_rv": -0.43,
+    "spearman_iv_vs_rv": 0.598,
+    "k_blocks": 28,
+    "sd_log_k": 0.518,
+    "sd_log_k_rv_over_iv": 0.641,
+    "spearman_k_vs_log_iv": 0.11,
+    "mean_iv_build_study": 28.73,
+    "mean_iv_validate_aggregate": 35.31
+   },
+   "verdict": "rejected (sd(log k x rv / iv) 0.64 > sd(log k) 0.52)"
+  },
+  {
+   "name": "PERSIST",
+   "dimension": "own_inventory",
+   "definition": "after-entry side: held outcome (policy) vs previous fill side (persistence)",
+   "event": "D1/own history",
+   "period": "legacy",
+   "result": {
+    "schedule": {
+     "n": 15056,
+     "held": 0.7711,
+     "previous_fill_side": 0.8842,
+     "share_differ": 0.175,
+     "where_differ_held": 0.1769,
+     "where_differ_previous": 0.8231,
+     "n_differ": 2635
+    },
+    "non_schedule": {
+     "n": 2838,
+     "held": 0.0937,
+     "previous_fill_side": 0.6505,
+     "share_differ": 0.5941,
+     "where_differ_held": 0.0314,
+     "where_differ_previous": 0.9686,
+     "n_differ": 1686
+    }
+   },
+   "verdict": "persistence wins (0.82 where they differ); the own-history baseline 0.822 beats the composite 0.790"
+  },
+  {
+   "name": "X129-RUNS",
+   "dimension": "operator_clock",
+   "definition": "public side per fill run (entry run vs later switching runs)",
+   "event": "D1 unit of decision",
+   "period": "legacy",
+   "result": {
+    "fills": 27988,
+    "runs": 2882,
+    "mean_fills_per_run": 9.711,
+    "public_per_fill": 0.6925,
+    "public_per_run": 0.6107,
+    "cheaper_per_run": 0.5666,
+    "posture_per_run": 0.6159,
+    "public_first_run_of_window": 0.7254,
+    "public_later_runs": 0.541,
+    "n_later_runs": 1793,
+    "note": "later runs always switch outcome (that is what starts a run), so 'same as previous run' scores 0 by construction"
+   },
+   "verdict": "per run 0.611 (entry run 0.725, later runs 0.541): the after-entry switches are taker-chosen"
+  },
+  {
+   "name": "H13-TRACER-LAW",
+   "dimension": "binance_spot",
+   "definition": "pairing-bid re-sign prices = fair cap / mid skew / complement lock / cost lock / touch peg",
+   "event": "B3 inverse-fit the quote (tracer orders)",
+   "period": "legacy",
+   "result": {
+    "test_within_tick_best": 0.27,
+    "a_fair_cap": 0.233,
+    "b_mid_skew": 0.205,
+    "c_complement_lock": 0.173,
+    "d_cost_lock": 0.169,
+    "e_touch_peg": 0.12,
+    "rho_within_order_peak_lag_ms": 1250,
+    "rho_peak": 0.55
+   },
+   "verdict": "no law decodes the level; reference = latest public report, no lead"
+  },
+  {
+   "name": "H13-STABLE",
+   "dimension": "operator_clock",
+   "definition": "frozen functions on the stable profitable version 09-11..10-11",
+   "event": "C4 bot versions",
+   "period": "legacy",
+   "result": {
+    "presence_study_stable": [
+     0.722,
+     0.703
+    ],
+    "presence_validate_stable": [
+     0.754,
+     0.732
+    ],
+    "side_public_study_stable": 0.525,
+    "cheaper_study_stable": 0.709,
+    "side_public_validate_stable": 0.621,
+    "cheaper_validate_stable": 0.582,
+    "return_per_dollar": [
+     0.093,
+     0.074,
+     0.006
+    ]
+   },
+   "verdict": "falsified: the stable version is less decodable; the posture side is an October configuration"
+  },
+  {
+   "name": "H13-WITHDRAW",
+   "dimension": "pm_legacy_rtds",
+   "definition": "withdrawal time vs settlement lookback (08-07 / 08-14 switches) with the market as control",
+   "event": "A1/B3b settlement source",
+   "period": "legacy",
+   "result": {
+    "cluster_median_s_left": [
+     45,
+     71.5,
+     101
+    ],
+    "market_median_s_left": [
+     1,
+     3,
+     3
+    ],
+    "october": 98.5
+   },
+   "verdict": "identified: ~43 s + twapLookbackSeconds, adopted within 1-3 days"
+  },
+  {
+   "name": "H13-ONLINE-CONFIG",
+   "dimension": "operator_clock",
+   "definition": "k and decided branch from the previous development-pattern block",
+   "event": "C4 bot versions (online)",
+   "period": "legacy",
+   "result": {
+    "gain_study": -0.007,
+    "gain_validate": -0.01,
+    "ci_validate": [
+     -0.051,
+     0.027
+    ]
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H13-TWAP60",
+   "dimension": "pm_legacy_rtds",
+   "definition": "TWAP-60 / EWMA posture vs the current report",
+   "event": "A1 slow settlement reference",
+   "period": "legacy",
+   "result": {
+    "lot_validate_current": 0.615,
+    "lot_validate_twap60": 0.707,
+    "disagree_twap_wins": 0.709,
+    "live_class_i_current": 0.807,
+    "live_class_i_twap60": 0.62
+   },
+   "verdict": "conflict between lot and live clock; not adopted"
+  },
+  {
+   "name": "H13-LEVEL-CROSS",
+   "dimension": "operator_clock",
+   "definition": "switch when F_CL(under) - h >= mid(under) - 0.01 (own state)",
+   "event": "D2 state machine",
+   "period": "legacy",
+   "result": {
+    "per_fill_after_entry": 0.695,
+    "held": 0.667,
+    "switch_first_fills": 0.267,
+    "posture_at_switch": 0.557
+   },
+   "verdict": "rejected on the block clock"
+  },
+  {
+   "name": "H13-PAIRING-EXIST",
+   "dimension": "own_inventory",
+   "definition": "pairing bid of exactly |imbalance| after each imbalance change",
+   "event": "B5 inventory",
+   "period": "legacy",
+   "result": {
+    "found_within_10s": 0.187,
+    "placebo": 0.001
+   },
+   "verdict": "not deterministic (19%)"
+  },
+  {
+   "name": "H13-STABLE-REFIT",
+   "dimension": "operator_clock",
+   "definition": "R3 class refitted on BUILD-stable 08-14..09-10",
+   "event": "C4 bot versions",
+   "period": "legacy",
+   "result": {
+    "study_stable": [
+     0.7211,
+     0.6952
+    ],
+    "validate_stable": [
+     0.7306,
+     0.7036
+    ],
+    "side_bin_level": [
+     0.6385,
+     0.5891
+    ]
+   },
+   "verdict": "gain +0.026-0.027 over activity: not more decodable than October"
+  },
+  {
+   "name": "H14-LAGGED-QUOTE",
+   "dimension": "pm_book_levels",
+   "definition": "one lagged-quote law: at-touch posts on the outcome that fell",
+   "event": "D1/D2 uncensored quote unit",
+   "period": "legacy",
+   "result": {
+    "posture": 0.733,
+    "fell_on_moving_W0.5": 0.18,
+    "rose_on_moving_W0.5": 0.82,
+    "rose_else_posture": 0.743,
+    "62_250_posture": 0.509
+   },
+   "verdict": "rejected: reversed on unfilled posts (fill selection)"
+  },
+  {
+   "name": "H14-EVENT-PRESENCE",
+   "dimension": "operator_clock",
+   "definition": "fill presence at 1-s on the match clock",
+   "event": "D1 unit (1-s event time)",
+   "period": "legacy",
+   "result": {
+    "rule": 0.805,
+    "activity": 0.774,
+    "gain": 0.031
+   },
+   "verdict": "gain unchanged (+0.03)"
+  },
+  {
+   "name": "H14-SEL-GEOMETRY",
+   "dimension": "pm_book_levels",
+   "definition": "fixed quote-geometry print score",
+   "event": "selection (print)",
+   "period": "legacy",
+   "result": {
+    "geo_auc": 0.558,
+    "act_post_auc": 0.742,
+    "act_auc": 0.683,
+    "act_post_recall_lift3": 0.42
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H14-TWO-REGIME",
+   "dimension": "binance_usdm_futures",
+   "definition": "futures-move two-regime rule per fill",
+   "event": "side",
+   "period": "legacy",
+   "result": {
+    "test": 0.825,
+    "posture": 0.815
+   },
+   "verdict": "+0.010, not adopted"
+  },
+  {
+   "name": "H14-BATCH1",
+   "dimension": "pm_book_levels",
+   "definition": "one taker batch per order",
+   "event": "D3 replay",
+   "period": "legacy",
+   "result": {
+    "corr": [
+     0.213,
+     0.214
+    ],
+    "return": -0.107,
+    "oracle": [
+     0.472,
+     0.53
+    ]
+   },
+   "verdict": "return +6 points; correlation unchanged"
+  },
+  {
+   "name": "H14-TRIP",
+   "dimension": "own_inventory",
+   "definition": "drawdown trip",
+   "event": "selection (own state)",
+   "period": "legacy",
+   "result": {
+    "auc_dd_day": [
+     0.875,
+     0.822,
+     0.927
+    ],
+    "levels_usd": [
+     1129,
+     14555
+    ]
+   },
+   "verdict": "associated, no fixed threshold"
+  },
+  {
+   "name": "H14-WHO-PAID",
+   "dimension": "pm_book_levels",
+   "definition": "taker populations Sept -> Oct",
+   "event": "D4/C3 economics",
+   "period": "legacy",
+   "result": {
+    "sep_return": 0.083,
+    "oct_return": 0.006,
+    "round_usd_sep": 0.092,
+    "round_usd_oct": -0.112,
+    "top20_share_drop": -0.63
+   },
+   "verdict": "no single population; side change against retail + exit of top counterparties"
+  },
+  {
+   "name": "H14-QUOTE-PRESENCE",
+   "dimension": "pm_book_levels",
+   "definition": "presence of an at-touch 500/1000 post per (window, outcome, 1 s)",
+   "event": "D1 unit (quote, event time)",
+   "period": "legacy",
+   "result": {
+    "rule": 0.7619,
+    "chainlink_only": 0.7673,
+    "activity": 0.672,
+    "gain": 0.0899,
+    "gain_ci": [
+     0.0577,
+     0.1171
+    ],
+    "evaluate_16-17": {
+     "rule": 0.8002,
+     "activity": 0.6985,
+     "gain": 0.1017,
+     "when": [
+      0.7129,
+      0.6483
+     ],
+     "which": [
+      0.8237,
+      0.6286
+     ]
+    },
+    "point_in_time_L1432": {
+     "rule": 0.701,
+     "chainlink_only": 0.7168,
+     "activity": 0.672,
+     "gain": 0.029
+    }
+   },
+   "verdict": "withdrawn at lag 1.0 s (look-ahead); point-in-time-safe gain +0.029 (Chainlink-only +0.045), same as fills"
+  },
+  {
+   "name": "H15-NB-ITM-OPEN",
+   "dimension": "binance_spot",
+   "definition": "opening fills (< 20 s) buy the outcome in the money under the family's Binance reference vs the strike",
+   "event": "side (non-BTC module)",
+   "period": "legacy",
+   "result": {
+    "BUILD": 0.814,
+    "STUDY": [
+     0.722,
+     0.897,
+     0.86,
+     0.837
+    ],
+    "VALIDATE": 0.778,
+    "market_favourite_VALIDATE": 0.485
+   },
+   "verdict": "real (+0.19-0.29 over the market favourite) but below 0.85 and only 13% of non-BTC fills; its fills lose money"
+  },
+  {
+   "name": "H15-NB-POSTURE-FP",
+   "dimension": "binance_spot",
+   "definition": "relative value vs a Binance-vol fair (k 1.0) with the fill price as the market price",
+   "event": "side (non-BTC module, description)",
+   "period": "legacy",
+   "result": {
+    "BUILD": 0.667,
+    "STUDY": 0.753,
+    "VALIDATE": 0.676
+   },
+   "verdict": "description only (uses the fill price); public version in T1d"
+  },
+  {
+   "name": "H15-TWAP-LAW",
+   "dimension": "pm_legacy_rtds",
+   "definition": "settlement-average variance law as k(tau)",
+   "event": "side (quote unit)",
+   "period": "legacy",
+   "result": {
+    "safe_lag_all": 0.779,
+    "k1_all": 0.779,
+    "last120_law": 0.749,
+    "exact_law": 0.835,
+    "exact_k1": 0.866
+   },
+   "verdict": "rejected"
+  },
+  {
+   "name": "H15-PUB-UNIT",
+   "dimension": "pm_legacy_rtds",
+   "definition": "500 posts in [P_i, P_i+300 ms) vs the report-i posture (no fitting)",
+   "event": "presence/side (quote unit, publish clock)",
+   "period": "legacy",
+   "result": {
+    "1031_level_auc": 0.794,
+    "1031_which": 0.866,
+    "placebo_before": [
+     0.625,
+     0.652
+    ],
+    "change_after_before": [
+     0.665,
+     0.429
+    ],
+    "1101_level_which": [
+     0.675,
+     0.717
+    ]
+   },
+   "verdict": "trigger signature confirmed on 30 min; fitted gain over activity not yet measured"
+  },
+  {
+   "name": "H15-NB-POSTURE-PUB-OPEN",
+   "dimension": "pm_book_levels",
+   "definition": "opening fills (< 20 s) of the non-BTC families: buy s iff Phi(ln(S/K) / (0.7 sigma300 sqrt(tau))) of s exceeds the price of s from the last clean taker print <= T-2 (k 0.7 of {0.7, 1.0, 1.4}, best on STUDY and VALIDATE)",
+   "event": "side (non-BTC module, public)",
+   "period": "legacy",
+   "result": {
+    "VALIDATE_open": 0.866,
+    "STUDY_open": 0.924,
+    "market_favourite_VALIDATE_open": 0.544,
+    "VALIDATE_later": 0.55,
+    "market_later": 0.572,
+    "BUILD_open": 0.882,
+    "BUILD_market_favourite_open": 0.623,
+    "per_wallet_VALIDATE": {
+     "almach": 0.856,
+     "bosona": 0.855,
+     "momoney": 0.888
+    },
+    "VALIDATE_halves": [
+     0.944,
+     0.798
+    ]
+   },
+   "verdict": "replicated on three folds (BUILD 0.882, STUDY 0.924, VALIDATE 0.866; market favourite 0.54-0.62): the opening quote of the alt families is decoded on public inputs (13% of non-BTC fills); reported in "
+  },
+  {
+   "name": "H15-NOISE-REGIME",
+   "dimension": "pm_legacy_rtds",
+   "definition": "the quote-unit posture accuracy depends on the Chainlink noise regime (CL/futures 1-s sd ratio 8.2 on 10-31 vs 0.92 on 11-01)",
+   "event": "side (quote unit, regime)",
+   "period": "legacy",
+   "result": {
+    "1031_edge_ge_0.2": 0.935,
+    "1031_share_edge_ge_0.1": 0.56,
+    "1101_edge_ge_0.2": 0.783,
+    "1101_share_edge_ge_0.1": 0.27,
+    "cl_sigma_posture_1031": 0.472
+   },
+   "verdict": "explains most of the X160 replication failure: the 10-31 quote-side level is regime-specific; the engine does not use the Chainlink stream's own volatility"
+  },
+  {
+   "name": "H15-NB-TWO-SIDED-LATER",
+   "dimension": "own_inventory",
+   "definition": "later non-BTC fills continue the opening side vs buy both outcomes",
+   "event": "side (non-BTC module, own state)",
+   "period": "legacy",
+   "result": {
+    "later_same_as_open_BUILD": 0.502,
+    "STUDY": 0.438,
+    "VALIDATE": 0.445,
+    "majority_eq_first_fill": [
+     0.907,
+     0.918,
+     0.917
+    ]
+   },
+   "verdict": "two-sided after the open (takers choose); the opening fill sets the market's net side"
+  },
+  {
+   "name": "H16-NOWCAST",
+   "dimension": "pm_legacy_rtds",
+   "definition": "latency-corrected Chainlink nowcast as the reference",
+   "event": "side (quote unit, fills)",
+   "period": "legacy",
+   "result": {
+    "posts_1101": [
+     0.546,
+     0.632
+    ],
+    "posts_1031": [
+     0.779,
+     0.785
+    ],
+    "fills_1101": [
+     0.56,
+     0.685
+    ],
+    "fills_1031": [
+     0.852,
+     0.848
+    ],
+    "cheaper_posts_1101": 0.668
+   },
+   "verdict": "better than the bare report in the clean regime (+0.06-0.12), neutral in the noise regime; below the cheaper token + 0.08 on 11-01; reported"
+  },
+  {
+   "name": "H16-CENTER",
+   "dimension": "pm_legacy_rtds",
+   "definition": "ladder center c = (b_up + 1 - b_dn)/2 per publish pass vs the fair",
+   "event": "price / side (ladder)",
+   "period": "legacy",
+   "result": {
+    "1031_slope_r2_k1": [
+     0.305,
+     0.519
+    ],
+    "1101_slope_r2_k1": [
+     0.092,
+     0.032
+    ],
+    "1101_best_k_r2": 0.159,
+    "half_spread_median": [
+     0.075,
+     0.075
+    ],
+    "cheapness_coef": [
+     -0.014,
+     0.09
+    ]
+   },
+   "verdict": "geometry unchanged, center shrinks toward 0.5 on 11-01 (flatter fair): the configuration moved; both readings collinear"
+  },
+  {
+   "name": "H16-ALT-CL",
+   "dimension": "pm_legacy_rtds",
+   "definition": "the opening bid reads the per-symbol Chainlink vs priceToBeat (vs the Binance stand-in)",
+   "event": "side (non-BTC opening)",
+   "period": "legacy",
+   "result": {
+    "BUILD": {
+     "n": 1754,
+     "disagree_n": 63,
+     "disagree_share": 0.036,
+     "post_binance_standin": 0.89,
+     "post_binance_standin_on_disagree": 0.841,
+     "itm_binance_standin": 0.832,
+     "itm_binance_standin_on_disagree": 0.381,
+     "post_chainlink_true": 0.916,
+     "post_chainlink_true_on_disagree": 0.984,
+     "itm_chainlink_true": 0.84,
+     "itm_chainlink_true_on_disagree": 0.619
+    },
+    "STUDY": {
+     "n": 741,
+     "disagree_n": 17,
+     "disagree_share": 0.023,
+     "post_binance_standin": 0.931,
+     "post_binance_standin_on_disagree": 0.647,
+     "itm_binance_standin": 0.849,
+     "itm_binance_standin_on_disagree": 0.118,
+     "post_chainlink_true": 0.941,
+     "post_chainlink_true_on_disagree": 0.765,
+     "itm_chainlink_true": 0.866,
+     "itm_chainlink_true_on_disagree": 0.882
+    },
+    "VALIDATE": {
+     "n": 323,
+     "disagree_n": 9,
+     "disagree_share": 0.028,
+     "post_binance_standin": 0.864,
+     "post_binance_standin_on_disagree": 0.889,
+     "itm_binance_standin": 0.796,
+     "itm_binance_standin_on_disagree": 0.0,
+     "post_chainlink_true": 0.882,
+     "post_chainlink_true_on_disagree": 0.889,
+     "itm_chainlink_true": 0.824,
+     "itm_chainlink_true_on_disagree": 1.0
+    }
+   },
+   "verdict": "see X182"
+  },
+  {
+   "name": "H16-FAIR-CAP",
+   "dimension": "pm_book_levels",
+   "definition": "top re-signed rung = min(touch, floor(F - h))",
+   "event": "price (main ladder)",
+   "period": "legacy",
+   "result": {
+    "1031": 0.265,
+    "1101": 0.158,
+    "join_touch": [
+     0.143,
+     0.102
+    ]
+   },
+   "verdict": "rejected (0.14-0.27 within a tick)"
+  },
+  {
+   "name": "E7_a_5m15m_p900_miss",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering on BUILD fill-level side decisions (one per tx x token), delta 2 s, 1,000 period-shift draws",
+   "event": "R8 public / iteration-15 rule side miss",
+   "period": "BUILD",
+   "result": {
+    "ratio": 1.437137330754352,
+    "p": 0.22677322677322678,
+    "n": 19848,
+    "n_markets": 2666,
+    "null": "period 900 s, wrapped"
+   },
+   "verdict": "no synchrony (pre-registered bar p <= 0.01, ratio >= 1.5, miss ratio >= hit ratio + 0.3 not met)"
+  },
+  {
+   "name": "E7_a_5m15m_p900_hit",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering on BUILD fill-level side decisions (one per tx x token), delta 2 s, 1,000 period-shift draws",
+   "event": "side hit (control)",
+   "period": "BUILD",
+   "result": {
+    "ratio": 2.215340638399238,
+    "p": 0.012987012987012988,
+    "n": 32471,
+    "n_markets": 3662,
+    "null": "period 900 s, wrapped"
+   },
+   "verdict": "no synchrony (pre-registered bar p <= 0.01, ratio >= 1.5, miss ratio >= hit ratio + 0.3 not met)"
+  },
+  {
+   "name": "E7_b_with_1h_p3600_miss",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering on BUILD fill-level side decisions (one per tx x token), delta 2 s, 1,000 period-shift draws",
+   "event": "R8 public / iteration-15 rule side miss",
+   "period": "BUILD",
+   "result": {
+    "ratio": 1.5007824726134584,
+    "p": 0.18281718281718282,
+    "n": 20738,
+    "n_markets": 2885,
+    "null": "period 3600 s, wrapped"
+   },
+   "verdict": "no synchrony (pre-registered bar p <= 0.01, ratio >= 1.5, miss ratio >= hit ratio + 0.3 not met)"
+  },
+  {
+   "name": "E7_b_with_1h_p3600_hit",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering on BUILD fill-level side decisions (one per tx x token), delta 2 s, 1,000 period-shift draws",
+   "event": "side hit (control)",
+   "period": "BUILD",
+   "result": {
+    "ratio": 1.9498502994011977,
+    "p": 0.013986013986013986,
+    "n": 34720,
+    "n_markets": 4025,
+    "null": "period 3600 s, wrapped"
+   },
+   "verdict": "no synchrony (pre-registered bar p <= 0.01, ratio >= 1.5, miss ratio >= hit ratio + 0.3 not met)"
+  },
+  {
+   "name": "E7_c_btc_vs_alt_p900_miss",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering on BUILD fill-level side decisions (one per tx x token), delta 2 s, 1,000 period-shift draws",
+   "event": "R8 public / iteration-15 rule side miss",
+   "period": "BUILD",
+   "result": {
+    "ratio": 1.342134213421342,
+    "p": 0.04395604395604396,
+    "n": 19848,
+    "n_markets": 2,
+    "null": "period 900 s, wrapped"
+   },
+   "verdict": "no synchrony (pre-registered bar p <= 0.01, ratio >= 1.5, miss ratio >= hit ratio + 0.3 not met)"
+  },
+  {
+   "name": "E7_c_btc_vs_alt_p900_hit",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering on BUILD fill-level side decisions (one per tx x token), delta 2 s, 1,000 period-shift draws",
+   "event": "side hit (control)",
+   "period": "BUILD",
+   "result": {
+    "ratio": 2.0431203449627597,
+    "p": 0.04395604395604396,
+    "n": 32471,
+    "n_markets": 2,
+    "null": "period 900 s, wrapped"
+   },
+   "verdict": "no synchrony (pre-registered bar p <= 0.01, ratio >= 1.5, miss ratio >= hit ratio + 0.3 not met)"
+  },
+  {
+   "name": "X196_taker_latency_class",
+   "dimension": "pm_taker_commit_times",
+   "definition": "L = recorder match ms - taker order sign ms (calldata); classes auto <= 300 ms, mid 0.3-2 s, slow > 2 s; side per class x |F1 - mid| band",
+   "event": "class x band reweighting 10-31 -> 11-01",
+   "period": "VALIDATE (live development blocks)",
+   "result": {
+    "all_p_report": {
+     "acc_1031": 0.859,
+     "acc_1101_actual": 0.675,
+     "acc_1101_reweighted": 0.844,
+     "n_1031": 1450,
+     "n_1101": 653
+    },
+    "all_p_nowcast": {
+     "acc_1031": 0.854,
+     "acc_1101_actual": 0.723,
+     "acc_1101_reweighted": 0.84,
+     "n_1031": 1450,
+     "n_1101": 653
+    },
+    "all_p_cheaper": {
+     "acc_1031": 0.49,
+     "acc_1101_actual": 0.761,
+     "acc_1101_reweighted": 0.503,
+     "n_1031": 1450,
+     "n_1101": 653
+    },
+    "bosona_p_report": {
+     "acc_1031": 0.856,
+     "acc_1101_actual": 0.729,
+     "acc_1101_reweighted": 0.88,
+     "n_1031": 410,
+     "n_1101": 536
+    },
+    "bosona_p_nowcast": {
+     "acc_1031": 0.851,
+     "acc_1101_actual": 0.726,
+     "acc_1101_reweighted": 0.87,
+     "n_1031": 410,
+     "n_1101": 536
+    },
+    "bosona_p_cheaper": {
+     "acc_1031": 0.559,
+     "acc_1101_actual": 0.757,
+     "acc_1101_reweighted": 0.524,
+     "n_1031": 410,
+     "n_1101": 536
+    }
+   },
+   "verdict": "rejected: the taker mix does not explain the 11-01 drop"
+  },
+  {
+   "name": "X195_taker_hold_floor",
+   "dimension": "pm_taker_hold_itode",
+   "definition": "quantiles of L over every matched taker of the cluster's BTC 5m/15m fills",
+   "event": "-",
+   "period": "live development blocks",
+   "result": {
+    "1031": {
+     "0.01": -763.5,
+     "0.05": 193.0,
+     "0.1": 202.0,
+     "0.25": 263.0,
+     "0.5": 639.5,
+     "0.75": 2430.8,
+     "0.9": 90537.9
+    },
+    "1101": {
+     "0.01": 10.5,
+     "0.05": 187.0,
+     "0.1": 192.0,
+     "0.25": 211.0,
+     "0.5": 376.0,
+     "0.75": 1686.5,
+     "0.9": 34476.4
+    }
+   },
+   "verdict": "floor 187-193 ms on both blocks: consistent with the 150-ms hold"
+  },
+  {
+   "name": "T5_nyse_open_window_cheaper",
+   "dimension": "us_equity_market_open",
+   "definition": "BTC 5m window starting at 09:30 America/New_York on weekdays -> the cheaper token",
+   "event": "scheduled NYSE open (first occurrence per day)",
+   "period": "VALIDATE",
+   "result": {
+    "study_open": {
+     "n": 107,
+     "windows": 2,
+     "r8": 0.402,
+     "cheaper": 0.991,
+     "posture": 0.402,
+     "mean_price": 0.189
+    },
+    "validate_open": {
+     "n": 513,
+     "windows": 4,
+     "r8": 0.442,
+     "cheaper": 0.899,
+     "posture": 0.442,
+     "mean_price": 0.282
+    },
+    "validate_r8_all": 0.6925,
+    "validate_r8c_all": 0.7009,
+    "study_r8_all": 0.5693,
+    "study_r8c_all": 0.5769
+   },
+   "verdict": "confirmed (pre-registered signature met); adopted as R8c"
+  },
+  {
+   "name": "E7_quote_unit_it14_qu_rebuilt_1793455200_1793469600_miss_d2.0",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering of the cluster's at-touch 500/1000 posts (it14_qu_rebuilt), BTC 5m + 15m windows, period 900; miss = post on the non-posture outcome (Chainlink k1.4 vs mid)",
+   "event": "posture miss",
+   "period": "live development blocks (exploratory, not pre-registered)",
+   "result": {
+    "near_pairs": 399,
+    "expected_near": 246.0,
+    "ratio": 1.6219512195121952,
+    "p": 0.00999000999000999,
+    "n": 1639,
+    "n_markets": 49
+   },
+   "verdict": "11-01: miss excess (3.52, p 0.007) above the hits (1.80, p 0.24); 10-31: shared pass (miss 1.62 vs hit 1.49)"
+  },
+  {
+   "name": "E7_quote_unit_it14_qu_rebuilt_1793455200_1793469600_miss_d0.3",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering of the cluster's at-touch 500/1000 posts (it14_qu_rebuilt), BTC 5m + 15m windows, period 900; miss = post on the non-posture outcome (Chainlink k1.4 vs mid)",
+   "event": "posture miss",
+   "period": "live development blocks (exploratory, not pre-registered)",
+   "result": {
+    "near_pairs": 133,
+    "expected_near": 51.5,
+    "ratio": 2.5825242718446604,
+    "p": 0.01098901098901099,
+    "n": 1639,
+    "n_markets": 49
+   },
+   "verdict": "finer delta (0.3 s), reported"
+  },
+  {
+   "name": "E7_quote_unit_it14_qu_rebuilt_1793455200_1793469600_hit_d2.0",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering of the cluster's at-touch 500/1000 posts (it14_qu_rebuilt), BTC 5m + 15m windows, period 900; miss = post on the non-posture outcome (Chainlink k1.4 vs mid)",
+   "event": "posture hit (control)",
+   "period": "live development blocks (exploratory, not pre-registered)",
+   "result": {
+    "near_pairs": 3101,
+    "expected_near": 2083.0,
+    "ratio": 1.4887181949111858,
+    "p": 0.000999000999000999,
+    "n": 4492,
+    "n_markets": 48
+   },
+   "verdict": "11-01: miss excess (3.52, p 0.007) above the hits (1.80, p 0.24); 10-31: shared pass (miss 1.62 vs hit 1.49)"
+  },
+  {
+   "name": "E7_quote_unit_it14_qu_rebuilt_1793455200_1793469600_hit_d0.3",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering of the cluster's at-touch 500/1000 posts (it14_qu_rebuilt), BTC 5m + 15m windows, period 900; miss = post on the non-posture outcome (Chainlink k1.4 vs mid)",
+   "event": "posture hit (control)",
+   "period": "live development blocks (exploratory, not pre-registered)",
+   "result": {
+    "near_pairs": 812,
+    "expected_near": 417.0,
+    "ratio": 1.947242206235012,
+    "p": 0.000999000999000999,
+    "n": 4492,
+    "n_markets": 48
+   },
+   "verdict": "finer delta (0.3 s), reported"
+  },
+  {
+   "name": "E7_quote_unit_it14_qu_rebuilt_1793516400_1793524500_miss_d2.0",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering of the cluster's at-touch 500/1000 posts (it14_qu_rebuilt), BTC 5m + 15m windows, period 900; miss = post on the non-posture outcome (Chainlink k1.4 vs mid)",
+   "event": "posture miss",
+   "period": "live development blocks (exploratory, not pre-registered)",
+   "result": {
+    "near_pairs": 146,
+    "expected_near": 41.5,
+    "ratio": 3.5180722891566263,
+    "p": 0.006993006993006993,
+    "n": 711,
+    "n_markets": 32
+   },
+   "verdict": "11-01: miss excess (3.52, p 0.007) above the hits (1.80, p 0.24); 10-31: shared pass (miss 1.62 vs hit 1.49)"
+  },
+  {
+   "name": "E7_quote_unit_it14_qu_rebuilt_1793516400_1793524500_miss_d0.3",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering of the cluster's at-touch 500/1000 posts (it14_qu_rebuilt), BTC 5m + 15m windows, period 900; miss = post on the non-posture outcome (Chainlink k1.4 vs mid)",
+   "event": "posture miss",
+   "period": "live development blocks (exploratory, not pre-registered)",
+   "result": {
+    "near_pairs": 42,
+    "expected_near": 23.75,
+    "ratio": 1.768421052631579,
+    "p": 0.06593406593406594,
+    "n": 711,
+    "n_markets": 32
+   },
+   "verdict": "finer delta (0.3 s), reported"
+  },
+  {
+   "name": "E7_quote_unit_it14_qu_rebuilt_1793516400_1793524500_hit_d2.0",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering of the cluster's at-touch 500/1000 posts (it14_qu_rebuilt), BTC 5m + 15m windows, period 900; miss = post on the non-posture outcome (Chainlink k1.4 vs mid)",
+   "event": "posture hit (control)",
+   "period": "live development blocks (exploratory, not pre-registered)",
+   "result": {
+    "near_pairs": 258,
+    "expected_near": 143.5,
+    "ratio": 1.7979094076655053,
+    "p": 0.24175824175824176,
+    "n": 1112,
+    "n_markets": 32
+   },
+   "verdict": "11-01: miss excess (3.52, p 0.007) above the hits (1.80, p 0.24); 10-31: shared pass (miss 1.62 vs hit 1.49)"
+  },
+  {
+   "name": "E7_quote_unit_it14_qu_rebuilt_1793516400_1793524500_hit_d0.3",
+   "dimension": "common driver (any)",
+   "definition": "residual_clustering of the cluster's at-touch 500/1000 posts (it14_qu_rebuilt), BTC 5m + 15m windows, period 900; miss = post on the non-posture outcome (Chainlink k1.4 vs mid)",
+   "event": "posture hit (control)",
+   "period": "live development blocks (exploratory, not pre-registered)",
+   "result": {
+    "near_pairs": 88,
+    "expected_near": 31.25,
+    "ratio": 2.816,
+    "p": 0.0969030969030969,
+    "n": 1112,
+    "n_markets": 32
+   },
+   "verdict": "finer delta (0.3 s), reported"
+  },
+  {
+   "name": "E7_quote_unit_futures_link",
+   "dimension": "binance_usdm_futures",
+   "definition": "share of quote-unit posts with a futures move >= $2 in (t - 500, t - 50] ms, by cross-market pairing and posture miss/hit",
+   "event": "futures move",
+   "period": "live development blocks (exploratory)",
+   "result": {
+    "it14_qu_rebuilt_1793516400_1793524500": {
+     "miss_xpair": {
+      "n": 230,
+      "futures_move_share": 0.396,
+      "on_rose_outcome_if_move": 0.934
+     },
+     "miss_alone": {
+      "n": 481,
+      "futures_move_share": 0.191,
+      "on_rose_outcome_if_move": 0.978
+     },
+     "hit_xpair": {
+      "n": 336,
+      "futures_move_share": 0.22,
+      "on_rose_outcome_if_move": 0.878
+     },
+     "hit_alone": {
+      "n": 776,
+      "futures_move_share": 0.088,
+      "on_rose_outcome_if_move": 0.706
+     }
+    },
+    "it14_qu_rebuilt_1793455200_1793469600": {
+     "miss_xpair": {
+      "n": 753,
+      "futures_move_share": 0.08,
+      "on_rose_outcome_if_move": 0.9
+     },
+     "miss_alone": {
+      "n": 886,
+      "futures_move_share": 0.052,
+      "on_rose_outcome_if_move": 0.957
+     },
+     "hit_xpair": {
+      "n": 2341,
+      "futures_move_share": 0.036,
+      "on_rose_outcome_if_move": 0.706
+     },
+     "hit_alone": {
+      "n": 2151,
+      "futures_move_share": 0.02,
+      "on_rose_outcome_if_move": 0.786
+     }
+    }
+   },
+   "verdict": "11-01 synchronized misses follow a futures move in 40% (isolated misses 19%), on the outcome whose fair rose 93%"
+  },
+  {
+   "name": "T7_reference_informativeness_H36",
+   "dimension": "pm_legacy_rtds",
+   "definition": "share of the last N resolved informative windows whose outcome followed the Binance fair (N 12/36/96)",
+   "event": "per 2-h block level",
+   "period": "BUILD",
+   "result": {
+    "BUILD_N12": {
+     "blocks": 151,
+     "spearman": -0.186,
+     "p": 0.021872036124172194,
+     "H_median": 0.5833333333333334
+    },
+    "BUILD_N36": {
+     "blocks": 151,
+     "spearman": -0.13,
+     "p": 0.11131563646033774,
+     "H_median": 0.6388888888888888
+    },
+    "BUILD_N96": {
+     "blocks": 149,
+     "spearman": -0.083,
+     "p": 0.3122559796260464,
+     "H_median": 0.6458333333333334
+    }
+   },
+   "verdict": "rejected (negative, not significant)"
+  },
+  {
+   "name": "T8_nowcast_basis_lag",
+   "dimension": "binance_usdm_futures",
+   "definition": "S_L = CL_i + F(t - 50 ms) - F(ts_i - L), L 0/0.5/0.75 s",
+   "event": "per post",
+   "period": "live development blocks",
+   "result": {
+    "cal_1031": {
+     "0.0": [
+      0.7847,
+      4887
+     ],
+     "0.5": [
+      0.7831,
+      4887
+     ],
+     "0.75": [
+      0.7831,
+      4887
+     ]
+    },
+    "all_1101": {
+     "L0.0": [
+      0.6334,
+      1214
+     ],
+     "L0.5": [
+      0.6343,
+      1214
+     ],
+     "L0.75": [
+      0.6343,
+      1214
+     ],
+     "L0.0_still": [
+      0.5968,
+      930
+     ],
+     "L0.5_still": [
+      0.5957,
+      930
+     ],
+     "L0.75_still": [
+      0.5957,
+      930
+     ]
+    },
+    "next_report_err_1031": {
+     "0.0": 1.774,
+     "0.5": 1.795,
+     "0.75": 1.813,
+     "no_move": 1.694
+    }
+   },
+   "verdict": "no effect of L"
+  },
+  {
+   "name": "T9_cl_endpoint_parity",
+   "dimension": "pm_legacy_rtds",
+   "definition": "endpoint openPrice/closePrice vs dy_rtds at the same stamp",
+   "event": "-",
+   "period": "live development blocks",
+   "result": {
+    "BTC": {
+     "pairs": 24,
+     "requested": 24,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0,
+     "missing_stream": 0,
+     "missing_endpoint": 0
+    },
+    "ETH": {
+     "pairs": 24,
+     "requested": 24,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0,
+     "missing_stream": 0,
+     "missing_endpoint": 0
+    },
+    "SOL": {
+     "pairs": 24,
+     "requested": 24,
+     "max_abs_diff": 0.0,
+     "max_rel_diff": 0.0,
+     "missing_stream": 0,
+     "missing_endpoint": 0
+    }
+   },
+   "verdict": "exact"
+  },
+  {
+   "name": "T11_scheduled_slots_cheaper",
+   "dimension": "official_calendars_macro",
+   "definition": "weekday BTC 5m windows in 10 high-residual slots -> cheaper",
+   "event": "scheduled slot",
+   "period": "VALIDATE",
+   "result": {
+    "study": {
+     "n_S": 231,
+     "windows_S": 15,
+     "cheaper_S": 0.727,
+     "r8_S": 0.727,
+     "r8c_all": 0.5769,
+     "r8d_all": 0.5769
+    },
+    "validate": {
+     "n_S": 988,
+     "windows_S": 39,
+     "cheaper_S": 0.777,
+     "r8_S": 0.694,
+     "r8c_all": 0.7009,
+     "r8d_all": 0.7038
+    }
+   },
+   "verdict": "not adopted"
+  },
+  {
+   "name": "T12_hold_natural_experiment",
+   "dimension": "pm_taker_hold_itode",
+   "definition": "cluster BTC 5m return per $ 7 days before vs after the hold changes",
+   "event": "08-17 11:00, 09-04 14:00 UTC",
+   "period": "BUILD (history)",
+   "result": {
+    "0817_250to50": {
+     "diff": -0.0041,
+     "ci90": [
+      -0.037,
+      0.0277
+     ]
+    },
+    "0904_50to150": {
+     "diff": -0.01,
+     "ci90": [
+      -0.0328,
+      0.0099
+     ]
+    }
+   },
+   "verdict": "no visible effect"
+  },
+  {
+   "name": "T13_fut_jump_h0.5_pm2s",
+   "dimension": "binance_usdm_futures",
+   "definition": "futures mid jump k3 over h (100-ms grid)",
+   "event": "fut_jump_h0.5",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 65,
+    "n_units": 75,
+    "n_events": 598,
+    "peak_lag_s": 0.05,
+    "peak_lift": 1.553147554459151,
+    "level_peak_in_flank": false,
+    "median_lift": 1.035682398021188,
+    "shape_peak_lag_s": 0.05,
+    "shape_width_s": 0.1999999999999993,
+    "shape_lift": 3.25174833298877,
+    "p_level": 0.006644518272425249,
+    "p_shape": 0.013289036544850499,
+    "p_link": 0.013289036544850499,
+    "q_bh": 0.0425249169435216,
+    "signed_p_link": 6.573424520563816e-05,
+    "signed_q_bh": 0.0010517479232902106,
+    "lag_range": "pm2s"
+   },
+   "verdict": "survivor (q <= 0.10)"
+  },
+  {
+   "name": "T13_fut_jump_h2.0_pm2s",
+   "dimension": "binance_usdm_futures",
+   "definition": "futures mid jump k3 over h (100-ms grid)",
+   "event": "fut_jump_h2.0",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 61,
+    "n_units": 75,
+    "n_events": 293,
+    "peak_lag_s": -0.15,
+    "peak_lift": 1.4094660268240282,
+    "level_peak_in_flank": false,
+    "median_lift": 1.0556112149082122,
+    "shape_peak_lag_s": 0.15000000000000002,
+    "shape_width_s": 0.3999999999999986,
+    "shape_lift": 3.641987910454729,
+    "p_level": 0.05647840531561462,
+    "p_shape": 0.019933554817275746,
+    "p_link": 0.05647840531561462,
+    "q_bh": 0.11295681063122924,
+    "signed_p_link": 0.0006238041125483726,
+    "signed_q_bh": 0.004990432900386981,
+    "lag_range": "pm2s"
+   },
+   "verdict": "survivor (q <= 0.10)"
+  },
+  {
+   "name": "T13_fut_jump_h10.0_pm2s",
+   "dimension": "binance_usdm_futures",
+   "definition": "futures mid jump k3 over h (100-ms grid)",
+   "event": "fut_jump_h10.0",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 69,
+    "n_units": 75,
+    "n_events": 109,
+    "peak_lag_s": 0.30000000000000004,
+    "peak_lift": 1.9361701547755417,
+    "level_peak_in_flank": false,
+    "median_lift": 1.303030269670318,
+    "shape_peak_lag_s": -0.35000000000000003,
+    "shape_width_s": 0.3999999999999986,
+    "shape_lift": 1.8502202577126037,
+    "p_level": 0.046511627906976744,
+    "p_shape": 0.3488372093023256,
+    "p_link": 0.3488372093023256,
+    "q_bh": 0.37209302325581395,
+    "signed_p_link": 0.019933554817275746,
+    "signed_q_bh": 0.05315614617940199,
+    "lag_range": "pm2s"
+   },
+   "verdict": "survivor (q <= 0.10)"
+  },
+  {
+   "name": "T13_cl_publish_change_pm2s",
+   "dimension": "pm_legacy_rtds",
+   "definition": "Chainlink BTC report change on the exact publish clock",
+   "event": "cl_publish_change",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 70,
+    "n_units": 75,
+    "n_events": 9828,
+    "peak_lag_s": -1.65,
+    "peak_lift": 1.0763583937082537,
+    "level_peak_in_flank": false,
+    "median_lift": 1.0054129113857606,
+    "shape_peak_lag_s": 0.15000000000000002,
+    "shape_width_s": 0.3999999999999986,
+    "shape_lift": 1.1765421662317006,
+    "p_level": 0.2691029900332226,
+    "p_shape": 0.23920265780730898,
+    "p_link": 0.2691029900332226,
+    "q_bh": 0.3075462743236829,
+    "signed_p_link": 0.07641196013289037,
+    "signed_q_bh": 0.135843484680694,
+    "lag_range": "pm2s"
+   },
+   "verdict": "not significant"
+  },
+  {
+   "name": "T13_fut_jump_h0.5_pm60s",
+   "dimension": "binance_usdm_futures",
+   "definition": "futures mid jump k3 over h (100-ms grid)",
+   "event": "fut_jump_h0.5",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 65,
+    "n_units": 75,
+    "n_events": 598,
+    "peak_lag_s": 0.0,
+    "peak_lift": 1.3841528145345927,
+    "level_peak_in_flank": false,
+    "median_lift": 0.9928914329332154,
+    "shape_peak_lag_s": 0.0,
+    "shape_width_s": 1.0,
+    "shape_lift": 3.0610184876085236,
+    "p_level": 0.00783937644120618,
+    "p_shape": 0.0063357188415404855,
+    "p_link": 0.00783937644120618,
+    "q_bh": 0.03135750576482472,
+    "signed_p_link": 0.00463798329603462,
+    "signed_q_bh": 0.024735910912184637,
+    "lag_range": "pm60s"
+   },
+   "verdict": "survivor (q <= 0.10)"
+  },
+  {
+   "name": "T13_fut_jump_h10.0_pm60s",
+   "dimension": "binance_usdm_futures",
+   "definition": "futures mid jump k3 over h (100-ms grid)",
+   "event": "fut_jump_h10.0",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 69,
+    "n_units": 75,
+    "n_events": 109,
+    "peak_lag_s": 6.5,
+    "peak_lift": 1.717783471297985,
+    "level_peak_in_flank": false,
+    "median_lift": 1.0443505883496933,
+    "shape_peak_lag_s": 6.5,
+    "shape_width_s": 2.0,
+    "shape_lift": 2.9454828596495153,
+    "p_level": 0.053156146179401995,
+    "p_shape": 0.036544850498338874,
+    "p_link": 0.053156146179401995,
+    "q_bh": 0.11295681063122924,
+    "signed_p_link": 0.18604651162790697,
+    "signed_q_bh": 0.22898032200357782,
+    "lag_range": "pm60s"
+   },
+   "verdict": "not significant"
+  },
+  {
+   "name": "T13_fut_jump_h2.0_pm60s",
+   "dimension": "binance_usdm_futures",
+   "definition": "futures mid jump k3 over h (100-ms grid)",
+   "event": "fut_jump_h2.0",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 61,
+    "n_units": 75,
+    "n_events": 293,
+    "peak_lag_s": 0.0,
+    "peak_lift": 1.428612415259979,
+    "level_peak_in_flank": false,
+    "median_lift": 0.9792253141086233,
+    "shape_peak_lag_s": 0.0,
+    "shape_width_s": 1.0,
+    "shape_lift": 3.2840310711760217,
+    "p_level": 0.14285714285714285,
+    "p_shape": 0.04318936877076412,
+    "p_link": 0.14285714285714285,
+    "q_bh": 0.19047619047619047,
+    "signed_p_link": 0.11960132890365449,
+    "signed_q_bh": 0.19047619047619047,
+    "lag_range": "pm60s"
+   },
+   "verdict": "not significant"
+  },
+  {
+   "name": "T13_cl_publish_change_pm60s",
+   "dimension": "pm_legacy_rtds",
+   "definition": "Chainlink BTC report change on the exact publish clock",
+   "event": "cl_publish_change",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 70,
+    "n_units": 75,
+    "n_events": 9828,
+    "peak_lag_s": -49.5,
+    "peak_lift": 1.0435512158583256,
+    "level_peak_in_flank": false,
+    "median_lift": 1.0124899677185863,
+    "shape_peak_lag_s": -49.5,
+    "shape_width_s": 2.0,
+    "shape_lift": 1.2412413000695175,
+    "p_level": 0.14285714285714285,
+    "p_shape": 0.06976744186046512,
+    "p_link": 0.14285714285714285,
+    "q_bh": 0.19047619047619047,
+    "signed_p_link": 0.4950166112956811,
+    "signed_q_bh": 0.4950166112956811,
+    "lag_range": "pm60s"
+   },
+   "verdict": "not significant"
+  },
+  {
+   "name": "T14_gdelt_prev~on_share",
+   "dimension": "news_wires_rss",
+   "definition": "daily Spearman with the cluster's BTC 5m module-on share / fill count (08-01..10-22)",
+   "event": "daily level (previous day = point in time)",
+   "period": "BUILD (history)",
+   "result": {
+    "rho": 0.181,
+    "p": 0.1459,
+    "n_days": 66
+   },
+   "verdict": "no association (low power)"
+  },
+  {
+   "name": "T14_gdelt_prev~fills",
+   "dimension": "news_wires_rss",
+   "definition": "daily Spearman with the cluster's BTC 5m module-on share / fill count (08-01..10-22)",
+   "event": "daily level (previous day = point in time)",
+   "period": "BUILD (history)",
+   "result": {
+    "rho": 0.143,
+    "p": 0.2523,
+    "n_days": 66
+   },
+   "verdict": "no association (low power)"
+  },
+  {
+   "name": "T14_gdelt_same~on_share",
+   "dimension": "news_wires_rss",
+   "definition": "daily Spearman with the cluster's BTC 5m module-on share / fill count (08-01..10-22)",
+   "event": "daily level (previous day = point in time)",
+   "period": "BUILD (history)",
+   "result": {
+    "rho": 0.178,
+    "p": 0.1503,
+    "n_days": 67
+   },
+   "verdict": "no association (low power)"
+  },
+  {
+   "name": "T14_gdelt_same~fills",
+   "dimension": "news_wires_rss",
+   "definition": "daily Spearman with the cluster's BTC 5m module-on share / fill count (08-01..10-22)",
+   "event": "daily level (previous day = point in time)",
+   "period": "BUILD (history)",
+   "result": {
+    "rho": 0.161,
+    "p": 0.1934,
+    "n_days": 67
+   },
+   "verdict": "no association (low power)"
+  },
+  {
+   "name": "T14_fng_prev~on_share",
+   "dimension": "fear_greed_search_trends",
+   "definition": "daily Spearman with the cluster's BTC 5m module-on share / fill count (08-01..10-22)",
+   "event": "daily level (previous day = point in time)",
+   "period": "BUILD (history)",
+   "result": {
+    "rho": 0.21,
+    "p": 0.0586,
+    "n_days": 82
+   },
+   "verdict": "no association (low power)"
+  },
+  {
+   "name": "T14_fng_prev~fills",
+   "dimension": "fear_greed_search_trends",
+   "definition": "daily Spearman with the cluster's BTC 5m module-on share / fill count (08-01..10-22)",
+   "event": "daily level (previous day = point in time)",
+   "period": "BUILD (history)",
+   "result": {
+    "rho": 0.08,
+    "p": 0.4727,
+    "n_days": 82
+   },
+   "verdict": "no association (low power)"
+  },
+  {
+   "name": "T14_fng_same~on_share",
+   "dimension": "fear_greed_search_trends",
+   "definition": "daily Spearman with the cluster's BTC 5m module-on share / fill count (08-01..10-22)",
+   "event": "daily level (previous day = point in time)",
+   "period": "BUILD (history)",
+   "result": {
+    "rho": 0.241,
+    "p": 0.0279,
+    "n_days": 83
+   },
+   "verdict": "no association (low power)"
+  },
+  {
+   "name": "T14_fng_same~fills",
+   "dimension": "fear_greed_search_trends",
+   "definition": "daily Spearman with the cluster's BTC 5m module-on share / fill count (08-01..10-22)",
+   "event": "daily level (previous day = point in time)",
+   "period": "BUILD (history)",
+   "result": {
+    "rho": 0.073,
+    "p": 0.5115,
+    "n_days": 83
+   },
+   "verdict": "no association (low power)"
+  },
+  {
+   "name": "T14_abs_dfng_prev~on_share",
+   "dimension": "fear_greed_search_trends",
+   "definition": "daily Spearman with the cluster's BTC 5m module-on share / fill count (08-01..10-22)",
+   "event": "daily level (previous day = point in time)",
+   "period": "BUILD (history)",
+   "result": {
+    "rho": -0.162,
+    "p": 0.1496,
+    "n_days": 81
+   },
+   "verdict": "no association (low power)"
+  },
+  {
+   "name": "T14_abs_dfng_prev~fills",
+   "dimension": "fear_greed_search_trends",
+   "definition": "daily Spearman with the cluster's BTC 5m module-on share / fill count (08-01..10-22)",
+   "event": "daily level (previous day = point in time)",
+   "period": "BUILD (history)",
+   "result": {
+    "rho": -0.162,
+    "p": 0.1479,
+    "n_days": 81
+   },
+   "verdict": "no association (low power)"
+  },
+  {
+   "name": "T15_cfg_change_points",
+   "dimension": "operator_restarts_salts",
+   "definition": "change points of the per-2-h posture - cheaper margin (BUILD) vs Monday 01:00 restarts",
+   "event": "weekly restart",
+   "period": "BUILD",
+   "result": {
+    "blocks": 152,
+    "change_points": 2,
+    "cp_times": [
+     1792022400,
+     1792058400
+    ],
+    "obs_near_monday": 0,
+    "null_q95": 0.75
+   },
+   "verdict": "not shown"
+  },
+  {
+   "name": "T15b_margin_vs_realised_vol",
+   "dimension": "binance_spot",
+   "definition": "Spearman of the per-2-h margin with |2-h return| and 2-h RV (previous and same block)",
+   "event": "level",
+   "period": "BUILD (descriptive, post hoc)",
+   "result": {
+    "prev_absret": [
+     -0.157,
+     0.0534,
+     152
+    ],
+    "prev_absret_vs_cheap": [
+     0.197,
+     0.0149
+    ],
+    "prev_rv": [
+     -0.243,
+     0.0025,
+     152
+    ],
+    "prev_rv_vs_cheap": [
+     0.233,
+     0.0038
+    ],
+    "same_absret": [
+     -0.223,
+     0.0058,
+     152
+    ],
+    "same_absret_vs_cheap": [
+     0.192,
+     0.018
+    ],
+    "same_rv": [
+     -0.333,
+     0.0,
+     152
+    ],
+    "same_rv_vs_cheap": [
+     0.264,
+     0.001
+    ]
+   },
+   "verdict": "margin falls with vol (same-block rho -0.33)"
+  },
+  {
+   "name": "T16_vol_gate_side",
+   "dimension": "binance_spot",
+   "definition": "trailing 2-h RV > BUILD q75 -> cheaper for non-decided fills",
+   "event": "level gate",
+   "period": "VALIDATE",
+   "result": {
+    "threshold_rv2h": 0.0034619418298367306,
+    "study": {
+     "n": 8256,
+     "rv_coverage": 1.0,
+     "share_hi": 0.438,
+     "r8c": 0.5769,
+     "g3": 0.546,
+     "in_hi_nondecided": {
+      "n": 2951,
+      "posture": 0.568,
+      "cheaper": 0.482
+     }
+    },
+    "validate": {
+     "n": 27988,
+     "rv_coverage": 1.0,
+     "share_hi": 0.533,
+     "r8c": 0.7009,
+     "g3": 0.6961,
+     "in_hi_nondecided": {
+      "n": 10024,
+      "posture": 0.653,
+      "cheaper": 0.64
+     }
+    }
+   },
+   "verdict": "rejected (VALIDATE -0.005)"
+  }
+ ]
 }
