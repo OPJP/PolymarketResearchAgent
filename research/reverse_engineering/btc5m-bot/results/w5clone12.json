@@ -1,0 +1,28 @@
+{
+ "orders": 64,
+ "roles": {
+  "M": 47,
+  "T": 17
+ },
+ "sig_type": {
+  "3": 64
+ },
+ "signer_is_maker": 1.0,
+ "share_txs_with_operator_order": 0.1406,
+ "share_sign_ms_equal_operator_sign_ms": 0.0156,
+ "sign_ms_gap_to_nearest_operator_order_ms_q": [
+  5,
+  249,
+  163276
+ ],
+ "match_gap_to_nearest_operator_match_same_token_ms_q": [
+  0.0,
+  34.0,
+  508.2
+ ],
+ "share_match_within_100ms_of_operator_same_token": 0.7556,
+ "first_last_sign_utc": [
+  1793458240,
+  1793468571
+ ]
+}

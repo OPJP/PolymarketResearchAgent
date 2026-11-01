@@ -1,4 +1,16 @@
-"""btc5m-bot frozen rule (iteration 8; iteration 10 adds pre-registered point-in-time clean live versions).
+"""btc5m-bot frozen rule (iteration 8; iteration 10 adds pre-registered point-in-time clean live versions; iteration 12
+adds the exposure-tracker replica for the PnL condition).
+
+Iteration 12 (PIVOT: condition 5 as an exposure-path target; NOTES.md iteration 12, pre-registered 00:20 and 00:36 UTC
+11-01, before scoring): the executable rule for the PnL condition is now an EXPOSURE TRACKER. Per window, target net
+N*(s) = sum_{t <= s} flow(t), flow = 0.5 x the frozen it4b per-second netflow model (MODEL_NETFLOW, BUILD-fitted) + 0.5 x
+the new nf12b net-flow model (MODEL_NF12B: cell features of both outcomes + slow spot-path features, BUILD-fitted, PIT);
+the rule's own realized net R (the rule's own state); every free second s, if |N* - R| >= TRK_LOT it BUYS the deficit
+(multiples of TRK_LOT) of Up (> 0) or Down (< 0) at the outcome's last implied ask + TRK_SLACK; strict fills only against
+other traders' taker BUY prints on that outcome (cluster takers and transactions holding a cluster maker fill excluded)
+with block ts in [s+1, s+3] (convention (a), latency >= 2 s; (b) = [s, s+2] reported apart), at the print price; the
+unfilled part stays in the deficit. target_metrics.pnl_corr_* now come from it (VALIDATE: 0.4758 / 0.4404 offline,
+track12_avg.json); the iteration-4 30-share replica is kept as pnl_corr_*_frozen30. Nothing else changed.
 
 Iteration 11: no change to the rule, its constants or its data loading (measurements only; see NOTES.md iteration 11 and
 FINAL_RULE.md item 11). evaluate(start_ts, end_ts, intervals=None) is unchanged.
@@ -189,6 +201,13 @@ BYBITSPOT_URL = "https://public.bybit.com/spot/BTCUSDT/BTCUSDT_{d}.csv.gz"
 OKXSPOT_URL = "https://static.okx.com/cdn/okex/traderecords/trades/daily/{c}/BTC-USDT-trades-{d}.zip"
 BNSPOT_URL = "https://data.binance.vision/data/spot/daily/aggTrades/BTCUSDT/BTCUSDT-aggTrades-{d}.zip"
 ALT_URL = "https://data.binance.vision/data/futures/um/daily/aggTrades/{s}/{s}-aggTrades-{d}.zip"
+# iteration 12: exposure tracker (pre-registered in NOTES.md iteration 12; frozen constants)
+MODEL_NF12B = f"{CODE}/model_it12_nf12b.txt"   # per-second cluster net-flow model with slow spot-path features (BUILD-fitted)
+TRK_LOT = 10.0          # shares; the tracker trades only when |target - realized| >= TRK_LOT, in multiples of TRK_LOT
+TRK_SLACK = 0.02        # limit = last implied ask + 2 c
+TRK_CAPTURE = 1.0       # share of an observed print the rule may take (frozen strict-fill convention, an upper bound)
+TRK_CONV = {"a": (1, 3, 4), "b": (0, 2, 3)}  # prints in [s+lo, s+hi]; next decision at s+step. (a) = latency >= 2 s (primary)
+TRK_W_IT4B, TRK_W_NF12B = 0.5, 0.5          # target flow weights (pre-registration 2: avg replaces it4b alone; it won on both)
 
 
 # ----------------------------------------------------------------------------- data loading
@@ -551,6 +570,121 @@ def _strict_backtest(up: pd.DataFrame, dn: pd.DataFrame, ps: np.ndarray, win: pd
             "rule_return_before_rebates": round(float(T.pnl.sum()) / usd, 4), "rule_return_with_50pct_fee_rebate": round((float(T.pnl.sum()) + 0.5 * fee) / usd, 4),
             "per_window_pnl_corr_pearson": round(float(both.rule.corr(both.wallet)), 4), "per_window_pnl_corr_spearman": round(float(both.rule.corr(both.wallet, method="spearman")), 4),
             "note": "strict fills on observed liquidity, latency >= 2 s after the information horizon, capture 1.0 (upper bound), taker only"}
+
+
+def _nf12b_flow(cells: pd.DataFrame, sp, up: pd.DataFrame) -> np.ndarray:
+    """Iteration 12: nf12b per-second net-flow prediction (Up +), aligned with the rows of `up`. PIT as cells.py (spot
+    closes <= s-2, other traders' prints <= s-1); slow features from the rule's own Binance 1-s spot index (forward-filled,
+    as in training); no own state."""
+    import nf12 as nf12mod
+    need = ["cid", "start_ts", "is_up"] + nf12mod.SPOT + nf12mod.TAPE
+    d = cells[[c for c in need if c in cells.columns]].copy()
+    for c in need:
+        if c not in d.columns:
+            d[c] = np.nan
+    px = pd.Series(np.asarray(sp.px, float)).ffill().bfill().to_numpy(float)
+    X = nf12mod.pair_frame(d, px, int(sp.s0), pd.Series(dtype=float))
+    m = lgb.Booster(model_file=MODEL_NF12B)
+    p = m.predict(X[m.feature_name()], num_threads=4)
+    s = pd.Series(p, index=pd.MultiIndex.from_arrays([X.cid.to_numpy(), X.rel.to_numpy().astype(np.int64)]))
+    return s.reindex(pd.MultiIndex.from_arrays([up.cid.to_numpy(), up.rel.to_numpy().astype(np.int64)])).fillna(0.0).to_numpy(float)
+
+
+def _strict_tracker(up: pd.DataFrame, dn: pd.DataFrame, flow: np.ndarray, win: pd.DataFrame, fills: pd.DataFrame, conv: str = "a") -> dict:
+    """Iteration 12: EXPOSURE TRACKER (pre-registered). Per window the target net N*(s) = cumsum(flow) (Up +); the rule's
+    own realized net R; at each free second s, deficit d = N* - R; if |d| >= TRK_LOT, BUY floor(|d| / TRK_LOT) x TRK_LOT
+    shares of Up (d > 0) or Down (d < 0) at limit = that outcome's last implied ask (cell ask_o, info <= s-1) + TRK_SLACK,
+    only when the ask is in (0.05, 0.95); strict fills only against OTHER traders' taker BUY prints on that outcome with
+    block ts in [s+lo, s+hi] at <= limit, at the print price, for min(TRK_CAPTURE x print, remaining), excluding prints of
+    cluster takers and prints in transactions that contain a cluster maker fill; taker fee FEE_RATE p (1 - p); one open
+    order per window, next decision at s + step; the unfilled part stays in the deficit; positions held to resolution."""
+    lo, hi, step = TRK_CONV[conv]
+    mk_tx = set(fills.loc[fills.role == "M", "tx"].astype(str).str.lower()) if len(fills) and "tx" in fills else set()
+    wl = set(WALLETS)
+    wi = win.set_index("cid")
+    df = pd.DataFrame({"cid": up.cid.to_numpy(), "rel": up.rel.to_numpy().astype(np.int64), "nf": np.nan_to_num(np.asarray(flow, float)),
+                       "au": up.ask_o.to_numpy(float), "ad": dn.ask_o.to_numpy(float)})
+    rows, fin = [], {}
+    for cid, g in df.groupby("cid", sort=False):
+        tp = f"{tf.TAPE_DIR}/{cid}.parquet"
+        if not os.path.exists(tp) or cid not in wi.index:
+            continue
+        d = pd.read_parquet(tp)
+        if not len(d) or "side" not in d:
+            continue
+        st0 = int(wi.at[cid, "start_ts"]); pay_up = float(wi.at[cid, "up_payout"])
+        d = d[(d.side == "BUY")]
+        keep = np.array([str(w).lower() not in wl for w in d.proxyWallet], bool)
+        if "transactionHash" in d:
+            keep &= np.array([str(h).lower() not in mk_tx for h in d.transactionHash], bool)
+        d = d[keep]
+        d = d.assign(rel=d.timestamp - st0, up=(d.outcome == "Up"))
+        P = {}
+        for o in (True, False):
+            dd = d[d.up == o].sort_values("rel", kind="stable")
+            P[o] = (dd.rel.to_numpy(np.int64), dd.price.to_numpy(float), dd["size"].to_numpy(float))
+        g = g.sort_values("rel")
+        tgt = np.cumsum(g.nf.to_numpy(float)); rel = g.rel.to_numpy(np.int64); au = g.au.to_numpy(float); ad = g.ad.to_numpy(float)
+        Rn, nxt = 0.0, 0
+        for i in range(len(rel)):
+            s = rel[i]
+            if s < nxt:
+                continue
+            dd_ = tgt[i] - Rn
+            if abs(dd_) < TRK_LOT:
+                continue
+            o = dd_ > 0
+            a = au[i] if o else ad[i]
+            if not (np.isfinite(a) and 0.05 < a < 0.95):
+                continue
+            lim = min(a + TRK_SLACK, 0.99)
+            left = np.floor(abs(dd_) / TRK_LOT) * TRK_LOT
+            Rr, Pp, Zz = P[o]
+            pay = pay_up if o else 1 - pay_up
+            for k in range(np.searchsorted(Rr, s + lo, "left"), np.searchsorted(Rr, s + hi, "right")):
+                if Pp[k] <= lim + 1e-9:
+                    sh = min(left, TRK_CAPTURE * Zz[k]); left -= sh
+                    if sh > 0:
+                        rows.append((cid, Pp[k], sh, sh * (pay - Pp[k]) - FEE_RATE * Pp[k] * (1 - Pp[k]) * sh))
+                        Rn += sh if o else -sh
+                    if left <= 1e-9:
+                        break
+            nxt = s + step
+        fin[cid] = (Rn, float(tgt[-1]) if len(tgt) else 0.0)
+    if not rows:
+        return {"rule_fills": 0}
+    T = pd.DataFrame(rows, columns=["cid", "price", "shares", "pnl"])
+    usd = float((T.price * T.shares).sum()); fee = float((FEE_RATE * T.price * (1 - T.price) * T.shares).sum())
+    fw = fills.assign(pay=np.where(fills.is_up, fills.up_payout, 1 - fills.up_payout))
+    fw["pnl"] = fw.shares * (fw.pay - fw.price) - fw.fee_usd
+    rp = T.groupby("cid").pnl.sum().reindex(win.cid).fillna(0.0)
+    wp = fw.groupby("cid").pnl.sum().reindex(win.cid).fillna(0.0)
+    rn = pd.Series({k: v[0] for k, v in fin.items()}).reindex(win.cid).fillna(0.0)
+    tg = pd.Series({k: v[1] for k, v in fin.items()}).reindex(win.cid).fillna(0.0)
+    wn = (fw.shares * np.where(fw.is_up, 1.0, -1.0)).groupby(fw.cid).sum().reindex(win.cid).fillna(0.0)
+    out = {"convention": conv, "rule_fills": int(len(T)), "rule_usd": round(usd, 1), "rule_pnl_before_rebates": round(float(T.pnl.sum()), 1),
+           "rule_return_before_rebates": round(float(T.pnl.sum()) / usd, 4), "rule_return_with_50pct_fee_rebate": round((float(T.pnl.sum()) + 0.5 * fee) / usd, 4),
+           "per_window_pnl_corr_pearson": round(float(rp.corr(wp)), 4), "per_window_pnl_corr_spearman": round(float(rp.corr(wp, method="spearman")), 4),
+           "corr_realized_net_target_net": round(float(rn.corr(tg)), 4), "corr_realized_net_wallet_net": round(float(rn.corr(wn)), 4), "by_wallet": {}}
+    for w in ("GF", "XM", "DS"):
+        ww = fw[fw.wallet == w].groupby("cid").pnl.sum().reindex(win.cid).fillna(0.0)
+        out["by_wallet"][w] = {"pearson": round(float(rp.corr(ww)), 4), "spearman": round(float(rp.corr(ww, method="spearman")), 4)}
+    st = win.set_index("cid").start_ts.reindex(win.cid).to_numpy()
+    half = st < (np.nanmin(st) + np.nanmax(st)) / 2
+    out["halves_pearson"] = [round(float(np.corrcoef(rp.to_numpy()[m], wp.to_numpy()[m])[0, 1]), 4) if m.sum() > 2 else None for m in (half, ~half)]
+    out["pnl_block_bootstrap_2h"] = None
+    try:
+        b = st // 7200; ub = np.unique(b); rng = np.random.default_rng(12); bi = {x: np.where(b == x)[0] for x in ub}
+        x, y = rp.to_numpy(), wp.to_numpy(); bs = []
+        for _ in range(1000):
+            ii = np.concatenate([bi[u] for u in rng.choice(ub, len(ub))])
+            bs.append(np.corrcoef(x[ii], y[ii])[0, 1])
+        out["pnl_block_bootstrap_2h"] = {"pearson_ci95": [round(float(np.nanquantile(bs, 0.025)), 4), round(float(np.nanquantile(bs, 0.975)), 4)]}
+    except Exception:
+        pass
+    out["note"] = ("exposure tracker (iteration 12, pre-registered): strict fills on observed liquidity, capture 1.0 (upper bound), taker only; "
+                   "(a) = latency >= 2 s after the information horizon")
+    return out
 
 
 def _block_keep(t: np.ndarray, pairs: pd.DataFrame) -> np.ndarray:
@@ -1431,6 +1565,17 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
                      "primary = shares (iteration 4, chosen on VALIDATE: Pearson 0.439, net-position corr 0.467; netflow 0.434, soft_side 0.426, soft 0.418)")
     res_o["primary"] = "shares" if np.isfinite(up.sh.to_numpy()).all() else "soft_side"
     res_o["strict_fill_backtest"] = _strict_backtest(up, dn, ps, win, fills) if len(fills) else None
+    # iteration 12 (pre-registered): exposure tracker on the target flow 0.5 x it4b netflow + 0.5 x nf12b (primary, (a))
+    try:
+        flow4 = np.nan_to_num(np.asarray(nf, float)) if nf is not None else np.zeros(len(up))
+        f12 = _nf12b_flow(cells, sp, up) if os.path.exists(MODEL_NF12B) else np.zeros(len(up))
+        flow = TRK_W_IT4B * flow4 + TRK_W_NF12B * f12
+        res_o["exposure_tracker"] = {"primary": "avg_a", "target_flow": f"{TRK_W_IT4B} x it4b netflow + {TRK_W_NF12B} x nf12b",
+                                     "avg_a": _strict_tracker(up, dn, flow, win, fills, "a") if len(fills) else None,
+                                     "avg_b": _strict_tracker(up, dn, flow, win, fills, "b") if len(fills) else None,
+                                     "it4b_only_a": _strict_tracker(up, dn, flow4, win, fills, "a") if len(fills) else None}
+    except Exception as e:
+        res_o["exposure_tracker"] = {"error": repr(e)[:300]}
     # per-wallet PnL correlation of the primary proxy
     prim = [v for v in variants if v[0] == res_o["primary"]]
     if prim and len(fw):
@@ -1492,7 +1637,8 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
                 ws = x.groupby("cid").is_up.agg(["min", "max"])
                 out["side_condition_by_wallet"][w] = {"windows": int(len(ws)), "share_one_sided_windows": round(float((ws["min"] == ws["max"]).mean()), 4)}
     lb = out["price"].get("live_book") or {}
-    sb = res_o.get("strict_fill_backtest") or {}
+    sb30 = res_o.get("strict_fill_backtest") or {}
+    sb = ((res_o.get("exposure_tracker") or {}).get("avg_a")) or sb30  # iteration 12: the exposure tracker is the PnL rule
     out["target_metrics"] = {
         "presence_auc": (blk or {}).get("auc_full") or out["presence"]["auc_any_no_own_state"], "presence_baseline": (blk or {}).get("auc_pure_market_baseline") or out["presence"]["pure_market_baseline_auc_block_label"] or out["presence"]["co_occurrence_baseline_auc"],
         "presence_unit": "block seconds" if blk else "all seconds",
@@ -1511,6 +1657,11 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
         "price_source": "recorded book 50 ms before the recorded match" if lb.get("within_1tick_ask_match") is not None else ("recorded book (block - DECISION_LAG_S)" if lb.get("within_1tick_ask_lag") is not None else ("touch of the same match from calldata (consumed maker orders; trivial touch anchor, not a PIT forecast)" if (out["price"].get("calldata_touch") or {}).get("within_1tick_touch") is not None else "last implied ask from others' prints")),
         "price_tape_anchor_T_within_1tick": out["price"].get("T_within_1tick_of_last_ask"),
         "pnl_corr_pearson": sb.get("per_window_pnl_corr_pearson"), "pnl_corr_spearman": sb.get("per_window_pnl_corr_spearman"),
+        "pnl_rule": "exposure tracker avg_a (iteration 12)" if sb is not sb30 else "30-share strict replica (iteration 4)",
+        "pnl_corr_by_wallet": sb.get("by_wallet"),
+        "pnl_corr_pearson_conv_b": (((res_o.get("exposure_tracker") or {}).get("avg_b")) or {}).get("per_window_pnl_corr_pearson"),
+        "pnl_corr_spearman_conv_b": (((res_o.get("exposure_tracker") or {}).get("avg_b")) or {}).get("per_window_pnl_corr_spearman"),
+        "pnl_corr_pearson_frozen30": sb30.get("per_window_pnl_corr_pearson"), "pnl_corr_spearman_frozen30": sb30.get("per_window_pnl_corr_spearman"),
         "pnl_corr_proxy_pearson": res_o.get(f"per_window_pnl_corr_{res_o['primary']}_pearson"),
         "coverage_fills": 1.0 if len(fills) else None, "coverage_abs_pnl": 1.0 if len(fills) else None,
         "side_accuracy_live_decision_pit": (out.get("side_live_decision_pit") or {}).get("agree_on_voted"),

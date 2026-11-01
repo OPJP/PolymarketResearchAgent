@@ -1,0 +1,43 @@
+{
+ "val_cells": 804746,
+ "auc_full_frozen": 0.8747,
+ "auc_full_plus_slow": 0.8747,
+ "auc_pure_baseline": 0.8193,
+ "gain_frozen_over_pure": 0.0554,
+ "gain_slow_over_pure": 0.0554,
+ "slow_minus_frozen_block_bootstrap_2h": {
+  "lo95": -0.0002,
+  "hi95": 0.0003,
+  "one_sided_p_gain_le_0": 0.321,
+  "n_boot": 1000,
+  "blocks": 84
+ },
+ "slow_importance_share": 0.06,
+ "slow_importance": {
+  "M1": 0.0019,
+  "M2": 0.0023,
+  "since_open": 0.0017,
+  "since_open_n": 0.001,
+  "lag1": 0.0012,
+  "lag2": 0.0012,
+  "r120": 0.001,
+  "r300": 0.0012,
+  "r900": 0.0018,
+  "prev_up_spot": 0.0,
+  "ask_sum": 0.0048,
+  "ask_other": 0.0418,
+  "fvc_gap": 0.0002
+ },
+ "halves": {
+  "first": {
+   "frozen": 0.875,
+   "slow": 0.8748,
+   "pure": 0.8204
+  },
+  "second": {
+   "frozen": 0.8725,
+   "slow": 0.8728,
+   "pure": 0.8175
+  }
+ }
+}

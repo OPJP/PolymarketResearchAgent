@@ -1,0 +1,37 @@
+{
+ "trk_a": {
+  "fills": 106641,
+  "usd": 436941.6,
+  "pnl_before_rebates": -18596.0,
+  "fee_usd": 13669.3,
+  "return_before_rebates": -0.0426,
+  "return_with_50pct_fee_rebate": -0.0269,
+  "corr_realized_net_target_net": 0.9945,
+  "corr_realized_net_wallet_net": 0.3438,
+  "pnl_corr_GF": {
+   "pearson": 0.2589,
+   "spearman": 0.2686
+  },
+  "pnl_corr_XM": {
+   "pearson": 0.0716,
+   "spearman": 0.0816
+  },
+  "pnl_corr_DS": {
+   "pearson": 0.3096,
+   "spearman": 0.2652
+  },
+  "pnl_corr_pool": {
+   "pearson": 0.3602,
+   "spearman": 0.3154
+  },
+  "pnl_corr_pool_pearson_block_ci95": [
+   0.2861,
+   0.4208
+  ],
+  "pnl_corr_pool_halves": [
+   0.3625,
+   0.3585
+  ],
+  "elapsed_s": 4.5
+ }
+}

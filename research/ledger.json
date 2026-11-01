@@ -1,5 +1,5 @@
 {
- "generated_at": 1793496291,
+ "generated_at": 1793496319,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -118,7 +118,7 @@
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 6
+   "panels": 7
   },
   {
    "key": "elmcap2-carry",

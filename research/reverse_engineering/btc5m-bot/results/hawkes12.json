@@ -1,0 +1,40 @@
+{
+ "fit_A_score_C": {
+  "hawkes_k_s": 60,
+  "full": {
+   "heldout_logloss": 0.181,
+   "heldout_auc": 0.6805
+  },
+  "hawkes": {
+   "heldout_logloss": 0.17577,
+   "heldout_auc": 0.7183
+  },
+  "slow": {
+   "heldout_logloss": 0.17791,
+   "heldout_auc": 0.7035
+  },
+  "both": {
+   "heldout_logloss": 0.17598,
+   "heldout_auc": 0.7173
+  }
+ },
+ "fit_C_score_A": {
+  "hawkes_k_s": 30,
+  "full": {
+   "heldout_logloss": 0.21846,
+   "heldout_auc": 0.691
+  },
+  "hawkes": {
+   "heldout_logloss": 0.21273,
+   "heldout_auc": 0.7179
+  },
+  "slow": {
+   "heldout_logloss": 0.21461,
+   "heldout_auc": 0.7083
+  },
+  "both": {
+   "heldout_logloss": 0.21277,
+   "heldout_auc": 0.7176
+  }
+ }
+}

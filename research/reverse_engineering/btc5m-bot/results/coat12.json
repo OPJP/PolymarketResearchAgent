@@ -1,0 +1,66 @@
+{
+ "fast_crowd_orders": 13644,
+ "fast_crowd_wallets": 1196,
+ "A": {
+  "events": 28070,
+  "co_take": {
+   "P(crowd | taken)": 0.4175,
+   "P(crowd | skipped)": 0.2044,
+   "P(taken | crowd)": 0.1186,
+   "P(taken | no crowd)": 0.046,
+   "raw_log_OR": 1.0265,
+   "price_events": {
+    "P(crowd | taken)": 0.5114,
+    "P(crowd | skipped)": 0.1902,
+    "n": 293
+   }
+  },
+  "conditional": {
+   "none": {
+    "crowd_log_OR": 1.0264,
+    "se": 0.051
+   },
+   "FULL": {
+    "crowd_log_OR": 0.8151,
+    "se": 0.0536,
+    "share_of_raw_log_OR_explained": 0.2059
+   },
+   "FULL+coinbase": {
+    "crowd_log_OR": 0.8069,
+    "se": 0.0541,
+    "share_of_raw_log_OR_explained": 0.2139
+   }
+  }
+ },
+ "C": {
+  "events": 30812,
+  "co_take": {
+   "P(crowd | taken)": 0.3909,
+   "P(crowd | skipped)": 0.1723,
+   "P(taken | crowd)": 0.1006,
+   "P(taken | no crowd)": 0.035,
+   "raw_log_OR": 1.1264,
+   "price_events": {
+    "P(crowd | taken)": 0.5192,
+    "P(crowd | skipped)": 0.2016,
+    "n": 181
+   }
+  },
+  "conditional": {
+   "none": {
+    "crowd_log_OR": 1.1262,
+    "se": 0.056
+   },
+   "FULL": {
+    "crowd_log_OR": 0.9679,
+    "se": 0.0583,
+    "share_of_raw_log_OR_explained": 0.1406
+   },
+   "FULL+coinbase": {
+    "crowd_log_OR": 0.9716,
+    "se": 0.0585,
+    "share_of_raw_log_OR_explained": 0.1373
+   }
+  }
+ }
+}

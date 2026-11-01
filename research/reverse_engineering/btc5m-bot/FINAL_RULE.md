@@ -1,4 +1,30 @@
-# btc5m-bot: frozen rule (iteration 11; the scored historical rule is unchanged since iteration 8; point-in-time clean live versions pre-registered in iteration 10)
+# btc5m-bot: frozen rule (iteration 12; presence / side / price unchanged since iteration 8; the PnL rule is the iteration-12 exposure tracker)
+
+Iteration 12 in one paragraph (PIVOT: condition 5 as an exposure-path target). Per VALIDATE window the cluster's PnL is its
+signed net exposure times the outcome (r = 0.884 pooled, 0.887-0.921 per wallet), so the PnL condition does not need the
+bot's decisions, only its NET PATH. The new executable rule (`_strict_tracker`, pre-registered before scoring) keeps a
+target net equal to the cumulative predicted cluster net flow (0.5 x the frozen it4b per-second netflow model + 0.5 x a new
+BUILD-fitted net-flow model with slow spot-path features, `model_it12_nf12b.txt`) and buys the deficit at the last implied
+ask + 2 c with strict fills (other traders' taker prints, latency >= 2 s), re-sending what does not fill. On VALIDATE its
+per-window PnL correlates with the cluster's at Pearson **0.476** / Spearman **0.440** (2-h block CI [0.423, 0.522]; halves
+0.460 / 0.487) against 0.18 / 0.17 for the iteration-4 30-share replica, with the realized net tracking its target at r =
+0.993; every execution variant lands at 0.43-0.48, so the remaining gap is the net PREDICTION (window-net r 0.48), not fills.
+Per wallet it reaches GF 0.34, DS 0.43 and XM 0.06: the three wallets' per-window PnLs are nearly independent of each other
+(DS-GF 0.20, DS-XM 0.00, GF-XM 0.15), so one pooled rule cannot carry every wallet. The net path is structured: within a
+window the cluster buys with the current minute's BTC move (t 5-11) and buys back against the earlier minutes' moves (t -3
+to -12), leans with the previous window's outcome (t 2-4); a strike-at-open fair value is not supported (the TWAP-minute
+coefficient flips sign between BUILD and VALIDATE). End-to-end `evaluate(1792627200, 1792638000)` (36 VALIDATE windows, 77 s)
+reproduces the offline tracker exactly. Selection: the recorded Coinbase ticker adds a small replicated gain to the onset
+selection (out-of-sample AUC +0.016 / +0.014 in both directions; strong Binance ticks are taken 43-48% when Coinbase has
+not traded, 22-25% when it already moved toward o). Timing correction: only ~9% of the live decisions are time-locked to a
+sharp venue move in the recorded feeds beyond a placebo (13.2% vs 4.7%); those are the strong-tick, large, early, more often
+won snipes, and ~90% of decisions have no sharp clock in any recorded feed. The take's window-level heterogeneity is an
+operator-level state with a 30-60-s time scale (an own-decision kernel with 30-60-s decay predicts held-out takes best, AUC
+0.718 vs 0.681; inside 2-minute segments the 30-s count is within a redraw null), not a sub-30-s self-excitation and not a
+race-success controller; slow public state adds nothing to
+presence at the block clock (0.8747 either way). The onsets the bot takes are also taken by the independent fast crowd far
+more often (0.39-0.42 vs 0.17-0.20 when it skips), and the recorded inputs explain only 14-21% of that shared selection: the
+take runs on an input that fast traders share and the recordings do not contain yet.
 
 Iteration 11 in one paragraph (nothing in the scored rule changed): the panel's selection mechanisms were tested on one onset table and rejected: a self-kept
 vol scale (z-scored tick, tick counts, within-window percentile) is no better than the raw bp tick, a snapshot / confirmation gate does not select, Polymarket's
@@ -14,7 +40,9 @@ market baselines, 0.821, 2-h block CI [0.051, 0.056]; per wallet +0.051 to +0.06
 VALIDATE taker orders against the touch of the same match, from calldata; the trivial touch anchor, stated as such); side
 76.7% per one-sided second (72.7% per taker order), below 80%, but no wallet is one-sided beyond its order-count null (XM
 24.3% vs 26.1% on VALIDATE, 3.5% vs 6.1% on 10-31), so the condition does not bind in substance (XM is above the literal
-20% bar on VALIDATE); executable PnL correlation 0.18 (< 0.5). Iteration 10 corrected the iteration-9 account of the PnL
+20% bar on VALIDATE); executable PnL correlation 0.476 / 0.440 with the iteration-12 exposure tracker (< 0.5; it was 0.18
+with the 30-share replica; per wallet GF 0.34, DS 0.43, XM 0.06). The account below (iterations 9-11) concerns replays of the
+DECISIONS; the tracker side-steps it by reproducing the net path instead. Iteration 10 corrected the iteration-9 account of the PnL
 condition: with sizes held fixed the true rule replayed under the race lottery would correlate 0.70-0.77 with itself, but
 the size depends on the operator's own net (large orders pyramid the leg it holds), and with that feedback re-simulated the
 true rule's test-retest correlation is only 0.47-0.58 pooled (0.41-0.62 per wallet). The per-window PnL is the large-order
@@ -198,6 +226,35 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    arrival (30 ms on 10-31) and a one-series Binance vote agreed 72-76% (placebo 54-56%): same location next to Polymarket, a
    slower venue reaction then (deciding tick 150-250 ms before the arrival vs ~100 ms on 10-31).
 
+12. **Iteration 12: the inventory (net exposure) path and the executable PnL rule - VALIDATE-only.** (a) Per window the PnL
+   is the net x outcome (r 0.884 pooled; 0.887-0.921 per wallet); the net's sign matches the outcome in 48.5% of VALIDATE
+   windows (54.5% on BUILD). (b) The net path, per window-minute (OLS, HC1 t-values, BUILD / VALIDATE): the current minute's BTC
+   move + (t 5.8-7.8 / 4.7-11.1), the earlier minutes' moves - (w0 in minute 1: -3.4 / -11.7; in minute 2: -4.8 / -6.4), the
+   previous window's outcome + (minute 0: 3.1 / 2.3; window total 3.5 / 3.8); pre-open M1 / M2 and the spot-vs-strike gap do
+   not replicate in sign (minute-0 M2 +3.4 / -2.9): the bot buys the move as it happens and pairs it back later, and nothing
+   points at a fair value with another strike. The net after 60 / 120 / 180 s correlates 0.46 / 0.66 / 0.81 with the final
+   net. (c) Public predictability of the net: the frozen it4b per-second netflow summed over the window r = 0.458 (Spearman
+   0.450), the new nf12b 0.424, their average 0.480; per-wallet models do not beat the pooled one (GF 0.30, DS 0.34, XM 0.05
+   for their own nets). (d) The executable rule: `_strict_tracker` (constants `TRK_*`, `MODEL_NF12B`, weights 0.5 / 0.5): target
+   net N*(s) = cumsum of the predicted flow; the rule's own realized net R; every free second, if |N* - R| >= 10 shares, BUY the
+   deficit (multiples of 10) of the outcome it points to at the last implied ask + 2 c (ask in (0.05, 0.95)); fills only against
+   other traders' taker BUY prints at <= limit with block ts in [s+1, s+3] (convention (a); (b) [s, s+2] reported apart), at the
+   print price, excluding cluster takers and transactions with a cluster maker fill; next decision at s + 4; unfilled shares
+   stay in the deficit. VALIDATE: 119k fills, $569k bought, -3.1% before rebates (-1.6% with the 50% fee rebate); realized net
+   vs target 0.993, vs the cluster's net 0.484; per-window PnL corr pooled 0.476 / 0.440, (b) 0.474 / 0.438. Variants (slack 0
+   to 5 c, lot 5 / 30, capture 0.5, cluster-maker txs kept) 0.432-0.442 with the it4b target alone. (e) The wallets' per-window
+   PnLs correlate only 0.00-0.20 with each other, so per-wallet replication of condition 5 needs per-wallet net predictors,
+   which reach 0.05-0.34. (f) Co-occurrence: a net-flow model on market activity alone (other traders' tape state, no spot or
+   venue input) drives the same tracker to 0.360 / 0.315; the decoded reference inputs add +0.116 / +0.125 (paired block CIs
+   exclude 0). About three quarters of the reproduced PnL co-moves with the crowd's own lean on the same BTC moves.
+   (g) Selection side notes (VALIDATE-only, 10-31 live block): the recorded Coinbase ticker adds +0.014 / +0.016 out-of-sample
+   AUC to the onset take model in both directions (strong Binance ticks are taken 43-48% when Coinbase has not traded, 22-25%
+   when it already moved toward o; weak ticks 3-4x more when Coinbase confirms); the take's window-level heterogeneity is an
+   operator-level state with a 30-60-s time scale (own-decision kernel with 30-60-s decay; the 30-s count is inside a 200-draw
+   redraw null at 2-minute FE; GF / XM follow the other wallets' recent decisions and are refractory to their own; the wallets
+   take the same onsets jointly far above independence), not a sub-30-s self-exciting kernel (iteration 11's finding 13
+   corrected); the fast crowd shares the selection and the recorded inputs explain 14-21% of that shared part.
+
 ## VALIDATE metrics (2026-10-16..23; target thresholds in brackets)
 
 | metric | VALIDATE | target |
@@ -216,7 +273,12 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
 | side, XM | 72.6% of its one-sided seconds; per taker order 73.1%; one-sided windows by first decision 20/29 = 69% | >= 80% (not met) |
 | side per taker order, every order scored (seven 2-h chunks, 13,189 orders) | pool 72.7% (market-only 59.9%); GF 74.6%, DS 71.8% | |
 | price within one tick (taker orders) | **95.1%** vs the touch of the same match (calldata); live book 93.2%; tape anchor 53% | >= 80% (met, trivial touch anchor) |
-| per-window PnL correlation, executable strict-fill rule (latency >= 2 s, 30 shares) | Pearson 0.18, Spearman 0.17 | >= 0.5 (not met) |
+| per-window PnL correlation, EXPOSURE TRACKER (iteration 12, strict fills, latency >= 2 s; `target_metrics.pnl_corr_*`) | **Pearson 0.476, Spearman 0.440** (2-h block CI [0.423, 0.522]; halves 0.460 / 0.487; GF 0.34 / 0.35, DS 0.43 / 0.39, XM 0.06 / 0.05); convention (b) 0.474 / 0.438 | >= 0.5 (not met) |
+| the same with the it4b netflow target alone (pre-registered first primary) | 0.441 / 0.419 (CI [0.387, 0.489]); variants 0.432-0.442 | |
+| co-occurrence baseline of the PnL rule: the same tracker on a market-activity-only net-flow model | 0.360 / 0.315 -> gain of the reference feeds **+0.116 / +0.125** (paired 2-h block CI [0.075, 0.159] / [0.087, 0.158]) | (reported; not a target condition) |
+| primary tracker per VALIDATE day (Pearson) | 0.370, 0.485, 0.511, 0.499, 0.542, 0.452, 0.512 | |
+| three-model target (pre-registration 3, not adopted: Pearson not higher) | 0.4756 / 0.4446 | |
+| per-window PnL correlation, iteration-4 strict-fill rule (latency >= 2 s, 30 shares; superseded) | Pearson 0.18, Spearman 0.17 | |
 | executable replica at the decoded latency, best size rule (presence-weighted) | pool 0.18 / 0.16; own-net size rules 0.13-0.16 | |
 | oracle: the wallet's own taker decisions through the frozen fill model (>= 2 s) | true size pool 0.40 / 0.39; 30 shares 0.14 / 0.21 | (ceiling of convention a) |
 | oracle: own decisions, fills in the same block window | true size pool 0.68 / 0.66; 30 shares 0.26 / 0.31 | (ceiling of convention b) |
@@ -261,7 +323,9 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 - **What loses:** the large-size overlay. The bot uses its large size when its own book is flat or long the outcome, so the
   large orders build the window's unpaired position; they lose 1.1-1.9 c per share after fees and carry most of the
   per-window PnL variance (per-window PnL vs the unpaired part r = 0.93; vs large-only PnL 0.77). The lean is a coin with
-  respect to the outcome (sign(netLarge) = outcome 48.8%): it adds variance, not edge.
+  respect to the outcome (sign(netLarge) = outcome 48.8%): it adds variance, not edge. Iteration 12: the net path follows
+  the current minute's BTC move and is bought back against the earlier minutes' moves, so the window lean ends independent
+  of the outcome; an executable copy of that lean from public data loses 3.1% before rebates (-1.6% with the 50% rebate).
 - **The race:** Polymarket holds every marketable order on these markets for 150 ms, so the bot and the crowd of fast takers
   queue in the same delay buffer after the same venue ticks; the bot wins ~70% of its DS / GF races and XM, whose leg comes
   last, wins none of its 60-share races on 10-31 (they all rest at the old ask and some fill as maker). The queue matters:
@@ -280,6 +344,10 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   pre-signed order ladder (any TypeScript clob-client user can do this), several wallets for parallel orders, ~$2.5M per
   week of order flow, and the 50% taker rebate (paid per wallet on its own fees). These conditions held through 10-22 and on
   10-31 (same signing schedule, same pay-up shares, sizes 30/60/100, TAKER_REBATE rows daily).
+- Iteration 12: the exposure tracker (the executable rule that reproduces the cluster's per-window PnL best, r 0.48) bought
+  $569k on VALIDATE with >= 2 s latency and lost 3.1% before rebates (-1.6% with a 50% fee rebate): copying the bot's net
+  exposure from public data at a normal latency does not make money; the bot's edge is in the pairs and the rebate, not in
+  the lean.
 - A replicator with a normal connection: with >= 2 s latency and strict fills the frozen rule bought $262k on VALIDATE and
   lost 1.6% before rebates (+0.1% with a 50% fee rebate); at the decoded latency the replica bought $0.75-1.25M at -0.3% to
   +0.5% before rebates for every size rule tried. Without the rebate a slow copy loses money; with it, it roughly breaks
@@ -287,7 +355,17 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 
 ## Known limitations
 
-- The PnL condition: under the >= 2 s strict-fill convention no rule can reach 0.5 pooled (the wallet's own decisions and
+- Iteration 12 supersedes the decision-replay account below for the pooled PnL condition: the exposure tracker reaches
+  0.476 / 0.440 under the >= 2 s convention (above the 0.40 'oracle' of the wallet's own decisions, because it re-sends
+  unfilled shares instead of dropping them). The binding term is now the public predictability of the window net (r 0.48).
+  Per wallet it is 0.06-0.43, and the wallets' leans are nearly independent of each other: condition 7 (per-wallet
+  replication) is not met for XM (and not for GF) by any rule found so far. The PnL rule uses capture 1.0 (upper bound);
+  capture 0.5 changes it by -0.003.
+- The frozen tape features exclude the three dossier wallets but not the operator's fourth / fifth fan-out wallets (W4
+  0xd844..., W5 0x03b4...), whose legs precede 7.4% of the cluster's taker seconds. Rebuilding VALIDATE without them leaves
+  every metric unchanged (presence 0.8747, gain +0.0557; tracker 0.4756 / 0.4394; iteration 12, w45chk12.json); the exclusion
+  is still not coded in `final_rule.py`.
+- The PnL condition (decision replays, iterations 7-11): under the >= 2 s strict-fill convention no rule can reach 0.5 pooled (the wallet's own decisions and
   sizes give 0.40). At the decoded latency the ceiling is 0.66-0.70 with the right size class, but the executable replica
   built from block-second decisions reaches 0.13-0.18 whatever its size rule (iteration 8): the gap is decision overlap.
   Live, at the decoded latency, the frozen hazard flagging as many 100-ms instants as the wallet's matches catches only

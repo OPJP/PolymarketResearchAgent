@@ -2298,3 +2298,286 @@ experiment of the 250-ms delay regime):
     hypothesis).
 Budget note: no new live development data exist until 11-01 06:00 UTC, and the decisive tests of X87 / X88 / X96 step 4 / X98 step 3
 need it; this iteration stopped at ~55 minutes of work to leave budget for the iterations that will have those blocks.
+
+### Iteration 12 (2026-11-01 00:12 UTC start, local Windows laptop; PIVOT: condition 5 as an exposure-path target; development data: before H, and 10-31 00-06 / 12-18)
+
+Split and primary metric unchanged (BUILD = 10-09..16, VALIDATE = 10-16..23). Calendar (`sealed.py btc5m-bot`, 00:12 UTC): released
+lots none; the current block 11-01 00-06 is sealed; no new live development data (next development block 11-01 06:00). Shared
+recorder running (`live.py status` 00:12 UTC: clob_crypto, clob_wallets, rtds, sports connected). Nothing sealed was read.
+
+Why this pivot: progress has been flat at 0.859 for three iterations. It decomposes exactly as the mean of five capped
+conditions (presence 1, side 0.7666 / 0.80, price 1, PnL min(0.1755, 0.1692) / 0.5 = 0.338, coverage 1): the PnL condition is
+the binding gap, and the frozen replica (30-share orders on flagged cells) is capped by its own design (iteration 7: the
+30-share oracle under convention (a) reaches only 0.14 / 0.21). The assumptions panel (iter11 P2) re-framed condition 5 as
+an exposure target: per window PnL ~ net x outcome (VALIDATE r = 0.884 pooled, 0.887-0.921 per wallet, net12.json), so a
+rule that reproduces the operator's SIGNED NET PATH reproduces the PnL without reproducing the decisions. New target: the
+window's signed net exposure (and its 30-s increments); new unit: the window / 30-s bin; new execution: a deficit-tracking
+replica that keeps re-sending the unfilled part (so its realized net follows the predicted net through strict-fill failures).
+
+Competing explanations of how the money is made (iteration 12; what separates them on the exposure target):
+- E1 rebate + paired-set harvester, lean = noise: window PnL mean ~0 from the lean; the net is unpredictable beyond race
+  luck. Separates: out-of-sample window-net r <= 0.25 with every public model.
+- E2 own fair value with a different strike / drift: the net follows a structural FV (strike = spot at open or open - 60 s,
+  momentum drift). Separates: pre-open M1 (+) / M2 (-) and lagged-minute coefficients replicate BUILD -> VALIDATE; one FV
+  variant reproduces them.
+- E3 stale-quote sniper: the net follows the current tick; sign agreement with the outcome rises with the move size.
+  Separates: the current-bin move carries the net, lagged moves add nothing.
+- E4 inventory-balanced maker around a faster FV: buys back after moves; the net mean-reverts inside the window.
+  Separates: negative lagged-minute coefficients; corr(net before 120 s, final net) well below 1 (measured 0.66).
+- E5 underdog / convexity accumulator: accumulates the underdog-since-open on ticks toward the strike. Separates: window
+  net sign = underdog side beyond the tick-direction null.
+- E6 liquidity-driven: the net is whichever side's asks were available (makers' quotes, ask-sum < 1). Separates: the net
+  is predicted by the touch / ask asymmetry from the tape, not by the BTC path.
+- E7 internal regime / races: the net is seeded by won races and amplified by the size regime. Separates: residual net
+  after every public model is uncorrelated with every public series and with the outcome.
+
+Pre-registration (00:20 UTC, before any replica below is scored): EXPOSURE TRACKER (primary 'trk_a'): per window, target
+net N*(s) = sum_{t <= s} nf(t), nf = the frozen it4b per-second netflow model (BUILD-fitted, PIT, Up positive); the
+replica's own realized net R (own state of the RULE, legitimate); at each free second s, deficit d = N*(s) - R; if
+|d| >= LOT = 10 shares, BUY floor(|d| / 10) x 10 shares of Up (d > 0) or Down (d < 0) at limit = that outcome's last
+implied ask (cell ask_o, info <= s - 1) + SLACK = 0.02, only when the ask is in (0.05, 0.95); strict fills only against
+OTHER traders' taker BUY prints on that outcome with block ts in [s + 1, s + 3] at <= limit, at the print price, for
+min(print, remaining) (capture 1.0, the frozen convention), excluding prints whose taker is a cluster wallet AND prints in
+transactions that contain a cluster maker fill; taker fee 0.07 p (1 - p); one open order per window, next decision at
+s + 4; the unfilled part stays in the deficit. Convention (b) ('trk_b'): prints [s, s + 2], next decision s + 3. Secondary
+(reported, not chosen): SLACK 0 / 0.01 / 0.05, LOT 5 / 30, capture 0.5, cluster-maker txs kept.
+
+Results so far (00:35 UTC):
+- trk_a (pre-registered primary, convention (a), strict fills, latency >= 2 s): per-window PnL r pooled Pearson 0.4409 /
+  Spearman 0.4187 (2-h block CI of Pearson [0.387, 0.489]; halves 0.438 / 0.443) against the frozen 30-share replica's
+  0.1755 / 0.1692; realized net tracks its target at r = 0.993 and the wallet's net at 0.460; GF 0.32, DS 0.40, XM 0.03.
+  Every secondary variant lands at 0.432-0.442 (slack 0 / 0.01 / 0.05, lot 5 / 30, capture 0.5, cluster-maker txs kept):
+  execution is no longer binding, the net PREDICTION is (window-net r 0.458 for the it4b netflow sum).
+- nf12 (new per-second net-flow model with slow path features, no venue / alt features): window-net r 0.4185 on VALIDATE;
+  the average of nf12 and the it4b netflow 0.4769 (corr between them 0.70); per-wallet nf12 models do not beat the pooled one.
+Pre-registration 2 (00:36 UTC, before it is scored): 'trk_a_avg' = trk_a with target flow 0.5 x (nf_it4b + nf12b), where
+nf12b is nf12 retrained with spot-only slow features (no Gamma priceToBeat, so the frozen rule can compute it from its own
+spot index). It replaces trk_a as the reported primary only if it beats trk_a on VALIDATE in BOTH pooled Pearson and
+Spearman; otherwise trk_a stays primary.
+Result of pre-registration 2 (00:40 UTC): trk_a_avg pooled Pearson 0.4758 / Spearman 0.4404 (CI [0.423, 0.522]; halves
+0.460 / 0.487; GF 0.344 / 0.353, DS 0.425 / 0.394, XM 0.055 / 0.055) beats trk_a on both: it is the primary. Convention (b)
+0.4738 / 0.4378. nf12b alone 0.4389 / 0.3917. Frozen into final_rule.py (`_nf12b_flow`, `_strict_tracker`, `TRK_*`,
+`MODEL_NF12B`); `smoke12.py` reproduces the offline numbers exactly through final_rule's functions on the whole VALIDATE week,
+and the end-to-end `evaluate(1792627200, 1792638000)` (36 windows, 77 s, RPC fills + tapes + cells + models) returns exactly
+the offline tracker on the same windows (2,361 fills, $12,526, Pearson 0.3706, Spearman 0.3712).
+Pre-registration 3 (00:52 UTC, before scoring): nf12c = the it4b side-frame features (incl. futures / OKX / Bybit / six-series /
+alt perps) + nf12b's spot-only slow features, BUILD-fitted like the it4b netflow (nonzero rows + 30% of zeros). 'trk_a_ens3'
+= trk_a with the target flow (nf_it4b + nf12b + nf12c) / 3. It replaces trk_a_avg as primary only if it beats it on BOTH
+pooled Pearson and Spearman on VALIDATE; this is the last candidate of this iteration (no further tuning on VALIDATE).
+
+Panel after iteration 11 (panels/iter11_*.md): 13 proposals, added as X100-X112 (information P1-P4 = X100-X103, mechanics
+P1-P5 = X104-X108, assumptions P1-P4 = X109-X112). This iteration's pivot is assumptions P2 (X110); X100 step 1, X106 step 1 and
+X109 step 1 were measured; X103 is closed on the mechanics panel's own measurement; the rest stay open (below).
+
+Findings (iteration 12):
+1. CONDITION 5 IS AN EXPOSURE CONDITION (net12.py, results/net12.json): per window, PnL vs net x (2 outcome - 1): VALIDATE pooled
+   r 0.884 (GF 0.921, XM 0.917, DS 0.887), BUILD 0.845; the net's sign matches the outcome in 48.5% of VALIDATE windows (54.5%
+   BUILD); mean |net| 329 shares against a gross of 2,600 per window. The net after 60 / 120 / 180 / 240 s correlates 0.46 /
+   0.66 / 0.81 / 0.93 with the final net. The frozen it4b per-second netflow model (BUILD-fitted, PIT, never used for the PnL
+   rule before) summed over the window predicts the VALIDATE window net at r 0.458 (Spearman 0.450), at a constant rate
+   through the window (0.47-0.49 for the net before 60 / 120 / 180 / 240 s); corr(PnL, predicted net x outcome) 0.404.
+2. THE EXECUTABLE EXPOSURE TRACKER REACHES 0.44-0.48 UNDER STRICT FILLS (track12.py, results/track12*.json; pre-registered rules
+   in this entry): with the it4b target 0.441 / 0.419 (pre-registered primary 1), with the average target 0.476 / 0.440
+   (primary, pre-registration 2), CI [0.423, 0.522], halves 0.460 / 0.487; convention (b) the same (0.474 / 0.438). The
+   realized net follows the target at r 0.993; execution variants (slack 0-5 c, lot 5 / 30, capture 0.5, cluster-maker txs kept)
+   move it by <= 0.01. The iteration-7 'oracle' ceiling (0.40 for the wallet's own decisions under (a)) is not a ceiling for an
+   exposure rule: the tracker re-sends unfilled shares at the new ask instead of dropping them. Economics: $569k bought on
+   VALIDATE, -3.1% before rebates, -1.6% with a 50% fee rebate: copying the net from public data at >= 2 s does not pay.
+3. PER WALLET IT IS 0.06-0.43, AND THE WALLETS' LEANS ARE NEARLY INDEPENDENT: tracker vs GF 0.344 / 0.353, DS 0.425 / 0.394, XM
+   0.055 / 0.055. Per-window PnL correlations between wallets on VALIDATE: DS-GF 0.198, DS-XM 0.002, GF-XM 0.145 (each vs pool
+   0.69 / 0.80 / 0.36). Per-wallet net-flow models predict their own wallet's net no better than the pooled model (GF 0.297,
+   DS 0.342, XM 0.045 vs pooled-model 0.301 / 0.355 / 0.086). One operator, three nearly independent leans: condition 7
+   (per-wallet replication of condition 5) is out of reach for XM with public inputs on VALIDATE (XM's BUILD-to-VALIDATE
+   activity fell 5x, mean gross 1,153 -> 213 shares per window).
+4. THE NET PATH: BUY THE MOVE, PAIR IT BACK LATER (fvnet12.py, results/fvnet12.json; window-minute OLS, HC1 t, BUILD / VALIDATE):
+   net bought in minute k rises with the minute-k BTC move (t 5.8 / 10.8 in minute 0, 6.9 / 11.1 in minute 1, 7.8 / 8.0 in
+   minute 2, 6.0 / 4.7 in minute 3, 3.7 / 4.7 in minute 4) and falls with the earlier minutes' moves (minute 1 on w0: -3.4 /
+   -11.7; minute 2 on w0, w1: -4.8 / -6.4, -4.2 / -4.7); the previous window's outcome adds + (minute 0: 3.1 / 2.3; window total
+   3.5 / 3.8); pre-open M1 / M2 and the open-vs-strike gap do NOT replicate in sign (minute-0 M2 +3.4 / -2.9, gap -4.9 / -1.0).
+   E3 (stale-quote sniping of the current move) + E4 (pairing back later) describe the inventory path; E2 (a fair value with
+   another strike or a momentum drift) is not supported; E5's underdog accumulation is not visible at the window-minute level
+   (the buy-back is against the earlier moves whatever the favourite). Window-total R2 0.03-0.06; BUILD-fit OLS on the whole
+   path scores VALIDATE at r 0.18 (the panel's 0.20): the linear structure is real but small; the LightGBM per-second models
+   carry 0.42-0.48.
+5. SLOW PATH FEATURES ADD A DIVERSE PREDICTOR (nf12.py, results/nf12.json / nf12b.json): nf12 (cell features of both outcomes +
+   M1 / M2 / since-open / lagged minutes / 2-, 5-, 15-min moves / exact-strike z from Gamma priceToBeat / previous outcome / ask
+   sum) 0.4185; nf12b (spot-only slow features, computable inside the frozen rule) 0.4237; slow features carry 12-16% of the
+   gain; the average with the it4b netflow 0.4797 (the two correlate 0.70). Top features: r2, n2, vwap10, n1, rn2, bid_o, the FV
+   gaps of both outcomes, D_dm5, age_last.
+6. PRE-REGISTRATION 3 NOT ADOPTED (nf12c.py, results/nf12c.json, track12_ens3.json): nf12c (the it4b side-frame inputs incl.
+   futures / OKX / Bybit / six-series / alt perps + nf12b's slow features) is the best single net predictor (window-net r 0.4703
+   vs 0.4583; slow features 5% of its gain; top inputs C6_pm2000, n2, vwap10, C_pm2000, D_ask_o); the three-model average 0.4841.
+   Its tracker: 0.4756 / 0.4446 (CI [0.424, 0.521]) against trk_a_avg's 0.4758 / 0.4404: Pearson is not higher, so by the
+   pre-registered rule trk_a_avg stays the primary (no further candidates were scored on VALIDATE).
+7. CO-OCCURRENCE CHECK OF THE PnL RULE (nf12.py NF12_VARIANT=mkt, trkgain12.py, results/nf12m.json, trkgain12.json): a
+   market-activity-only net-flow model (both outcomes' tape state, rel, tau; no spot or venue input) predicts the window net at
+   r 0.338, and the same tracker on it reaches 0.360 / 0.315. The reference feeds add +0.116 Pearson (paired 2-h block CI
+   [0.075, 0.159], 0 of 2,000 draws <= 0) and +0.125 Spearman ([0.087, 0.158]). So about three quarters of the reproduced PnL
+   co-moves with other traders' flows (the crowd leans with the same BTC moves), and the decoded venue inputs carry the rest.
+   Per VALIDATE day the primary tracker is 0.370 / 0.485 / 0.511 / 0.499 / 0.542 / 0.452 / 0.512 (market-only 0.26-0.50).
+8. THE CROSS-VENUE (COINBASE) GATE, STEP 1 (X100; cbx12.py, results/cbx12.json; 10-31 A / C clean onsets, Coinbase class over
+   [tau - 500, tau + 70) ms on exchange stamps): price-level Binance onsets are taken 0.48 / 0.43 when Coinbase did not trade
+   (n 23 / 7), 0.31 / 0.34 when it traded without moving toward o, 0.25 / 0.22 when it had already moved toward o (n 120 / 85);
+   at size-only onsets a Coinbase move toward o raises the take 3-4x (DEPLETE 0.239 vs 0.054-0.059 on A, 0.184 vs 0.044-0.046 on
+   C). Adding the class to the evt10-style FULL logistic: fit A score C 0.6805 -> 0.6963 (+0.016, window-block CI [0.006,
+   0.028]); fit C score A 0.6910 -> 0.7052 (+0.014, [0.004, 0.025]); price-level events 0.526 -> 0.565 and 0.530 -> 0.582. A
+   small replicated gain: strong Binance ticks are taken more when they are FRESH relative to Coinbase, weak ones when Coinbase
+   confirms. The panel's gate ratio (>= 1.8) holds at N vs M (1.9) but N is tiny; step 2 needs 11-01 06-12.
+9. NO SELF-EXCITATION WITHIN TWO MINUTES (X109 step 1; regime12.py, results/regime12.json; 200 redraws per half): the LPM
+   coefficient of log(1 + rec30) on the take, with segment FE: A L300 +0.019, L120 +0.0075 (null 0.0058 +- 0.0019, p 0.36), L60
+   -0.0205 (null -0.0115 +- 0.0026, p < 0.005), L30 -0.043; C L300 +0.016, L120 +0.0033 (null 0.0060 +- 0.0015, p 0.07, below
+   the null), L60 -0.0056 (null -0.0041 +- 0.0021, p 0.53), L30 -0.029. The assumptions panel's critique replicates with 200
+   draws: the pooled 'self-excitation' of iteration 11 (finding 13) is a between-segment effect; within 2 minutes the own-recent
+   effect is inside the mechanical null, and on A it is refractory at 1 minute. The latent is a slow 1-2-minute regime.
+10. WHERE THE STATE LIVES (X106 step 1; regime12.py): per wallet, P(w decides on o in [tau + 150, tau + 700)) on log(1 + w's own
+    decisions on the window in the last 30 s) and log(1 + the other wallets'), 120-s segment FE: A: DS own -0.001 / other
+    +0.006, GF -0.0005 / +0.011, XM -0.008 / +0.007; C: DS +0.004 / -0.008, GF -0.009 / +0.007, XM -0.009 / +0.003. GF and XM
+    take more after the OTHER wallets (mostly DS) were active and are refractory to their own recent orders in both halves; DS
+    is mixed (A other > own, C own > other). The regime is largely operator-level (shared), with each wallet a refractory slot;
+    not a per-wallet process.
+
+Panel proposals of iteration 11 (catalog X100-X112) and what happened to them:
+- X100 (information P1, Coinbase / London-arrival divergence gate): step 1 tried (finding 8: small replicated gain +0.014 /
+  +0.016); step 2 (pre-registered scoring of 11-01 06-12 with rec_eu11 Coinbase level2_50 / Bitstamp / Kraken) needs the next
+  development block. Open.
+- X101 (information P2, shared-actionability instrument with the fast crowd as a second label): steps 1-2 tried for the
+  recorded design (finding 14: it explains 14-21% of the shared selection); other inputs (11-01 feeds) and step 3 open. Open.
+- X102 (information P3, pre-signed peer census / clones): tried (finding 15: no independent clone; a fifth operator fan-out
+  wallet 0x03b4c58b... follows the exact burst schedule). Closed as tried.
+- X103 (information P4, own fill re-arms the take): tried on the mechanics panel's own measurement (re-fire within 1 s after a
+  won race 33.4% vs after an exogenous loss 33.3%) and finding 10 (a wallet's take does not rise with its own recent decisions);
+  the ms kink test not run. Closed as tried.
+- X104 (mechanics P1, archived live labs 07-01 / 08-01): not tested. Open.
+- X105 (mechanics P2, PRNG with the signing-loop layout): not tested (with X99). Open.
+- X106 (mechanics P3, where the state lives): step 1 tried (finding 10: operator-level, wallets as refractory slots; DS mixed).
+- X107 (mechanics P4, exit as slot discipline in the simulator): not tested. Open.
+- X108 (mechanics P5, requote-echo anchors as a historical clock): not tested (with X89). Open.
+- X109 (assumptions P1, the 1-2-minute regime): step 1 tried (finding 9: no self-excitation inside 2 minutes; the panel's
+  critique replicates with 200 draws); step 2 compact (finding 18: an own-decision kernel with 30-60-s decay beats a slow
+  proxy); step 5 measured (finding 11: nothing at the block clock); steps 3-4 open. Open.
+- X110 (assumptions P2, condition 5 as an exposure target): tried, the pivot (findings 1-7).
+- X111 (assumptions P3, locked vs unlocked decisions): steps 1-2 tried (finding 13: ~9% locked beyond placebo); step 3 needs
+  the 11-01 feeds. Open.
+- X112 (assumptions P4, competition-aware controller): tried (finding 12: no 2x after mostly won races with the count fixed;
+  inconsistent signs); exogenous-loss split not run (no effect to split). Closed as tried.
+Correction recorded in X85: the iteration-11 'self-exciting internal state' is a slow operator-level regime (findings 9-10).
+
+Recorders at 01:00 UTC: shared recorder (pid 27184), rec_lab6 v2 (14304), rec_exam7 (32576), rec_fam8 (20608), rec_exam8
+launcher (19600, starts 11-02 05:59), rec_pb10 launcher (15792, starts 11-01 06:00), rec_eu11 (14192, starts 11-01 05:59): all
+alive. No polyrea bug found this iteration. Cache: it12 adds ~40 MB (net-flow predictions); the rebuilt tapes (530 MB) live in the
+session scratchpad only.
+11. THE SLOW PUBLIC STATE ADDS NOTHING TO PRESENCE AT THE BLOCK CLOCK (X109 step 5; blkslow12.py, results/blkslow12.json;
+    measurement only): the block-second presence model retrained on the same BUILD block seconds with outcome-signed slow
+    spot-path features (M1, M2, since-open, lagged minutes, 2 / 5 / 15-min moves, previous-outcome proxy, ask sum, the other
+    outcome's ask, FV gap) scores VALIDATE block seconds 0.8747, identical to the frozen model (difference CI [-0.0002, +0.0003];
+    halves 0.8748 / 0.8728 vs 0.8750 / 0.8725); the slow terms take 6% of the gain, almost all of it the other outcome's ask (a
+    market feature). The panel's signature (block-second gain >= +0.065) is not met: the 1-2-minute regime is not visible in
+    slow public state at the block clock.
+12. NO RACE-SUCCESS CONTROLLER (X112 steps 1 / 3; ctrl12.py, results/ctrl12.json): the 2,155 live decisions labelled won / lost
+    (all 829 located lost races matched); per clean onset, the operator's decisions on the window in the previous 120 s and the
+    share that won. With the count held fixed (bins 1-3 / 3-8 / 8-20 / 20+), P(take) for the low / middle / high win-share
+    terciles: A n8-20 0.068 / 0.052 / 0.030, n20+ 0.062 / 0.081 / 0.082; C n8-20 0.035 / 0.052 / 0.050, n20+ 0.058 / 0.077 / 0.072
+    (inconsistent, high / low 0.45-1.6); LPM win-share coefficient with 120-s FE +0.013 (A) / +0.016 (C), with window FE -0.023 /
+    +0.021. The signature (>= 2x after mostly won races) is absent; together with the equal 1-s re-fire after won vs exogenously
+    lost races (mechanics panel), the regime is not a race-success controller.
+
+Status after iteration 12: target not reached. What changed in target_metrics: pnl_corr_pearson 0.1755 -> 0.4758 and
+pnl_corr_spearman 0.1692 -> 0.4404 (the exposure tracker, pre-registered, frozen in final_rule.py and verified end to end); every
+other key unchanged (presence 0.8747 vs 0.8211 on block seconds; side 0.7666; price 0.9512; coverage 1 / 1). Progress (the mean
+of the five capped conditions) 0.859 -> ~0.968. Still failing: side (76.7% < 80%), PnL (0.476 / 0.440 < 0.5), and per-wallet
+replication of the PnL condition (GF 0.34, DS 0.43, XM 0.06: the wallets' leans are nearly independent). The decoded account
+of the PnL now says what carries it: the window net is the sum of a buy-the-move / buy-back-later path that public data
+predicts at r ~0.48 (0.34 from market activity alone), and the rest is the per-wallet lean that no public input predicts on
+VALIDATE (XM ~0).
+
+## Next (iteration 13)
+
+1. On 11-01 06-12 (development, from 06:00 UTC): every pre-registered live test of iterations 9-11 (PIT vote / price / hazard
+   label, full-coverage side, edge_rule_V8, size-from-tick, PolyBolt X76), X100 step 2 (the Coinbase / Bitstamp / Kraken
+   freshness gate, pre-register the class rule of cbx12 first), X87 steps 1-4, X88, X96 step 4, X98 step 3, X111 (locked vs
+   unlocked decisions with the new feeds), and the exposure tracker on the live block (its decisions at the decision clock).
+2. Condition 5 above 0.5: the window-net prediction must reach ~0.55. Candidates: (a) the large-size regime (the lean is the
+   large orders; live the 100-share size follows the ms tick at AUC 0.72, invisible at the block clock) through ms aggTrades
+   aggregated per second as net-flow features; (b) per-outcome gross-flow targets (presence x expected shares) instead of the
+   signed net; (c) a decision-level replica on the recorded books of the live blocks (the race is deterministic there).
+   Pre-register every candidate; no more tuning on VALIDATE (three candidates were scored this iteration).
+3. Condition 7 (per wallet): why XM's lean is unpredictable on VALIDATE (its activity fell 5x after 10-14; X67 late fan-out
+   legs): a per-wallet share-of-decision model (which wallet carries the next leg) on top of the pooled net path.
+4. X109 steps 2-4 (Hawkes vs Cox/HMM held-out likelihood on the onset tables; public regressors of the decoded state), X106 steps
+   2-4, X101 (fast-crowd co-take instrument), X102 (clone census), X104 (07-01 / 08-01 archived labs), X105 / X99 (PRNG), X107,
+   X108 / X89.
+5. Still open from earlier: X5, X7, X9, X18, X26, X33, X36, X37, X44, X51, X53, X57, X59, X66, X70, X72, X76, X84, X87, X88, X89,
+   X90, X93, X98, X99.
+13. ONLY ~9% OF THE DECISIONS ARE TIME-LOCKED TO A VENUE TICK (X111 steps 1-2; lock12.py, results/lock12.json; 2,155 live
+    decisions of 10-31). Pre-registered at 01:05 UTC: locked = a microprice change toward o inside the kernel7 peak bin +-25 ms of
+    any of the seven series with excess >= 0.05 (Binance USD-M BTC / ETH, Binance spot ETH, Bybit ETH, Hyperliquid BTC / ETH, OKX
+    ETH); that flagged 98.5% vs a placebo of 97.6% (any change is too common), so the definition was amended once, before any
+    locked-vs-unlocked comparison was read, to a NET move >= 0.1 bp toward o over the widened bin: P(locked) 13.2% vs placebo
+    (m - 2 s / m - 4 s) 4.7%, an excess of 8.5% (DS 8.6, GF 9.3, XM 7.0%). Locked vs unlocked: six-series tick toward o 96% vs
+    71%, no tick 5% vs 61%, large 10.2% vs 4.4%, won 68.7% vs 60.5%, rel median 107 vs 151 s, |ask - 0.5| 0.21 vs 0.17,
+    since-open toward o 49% vs 47%. The timing component's 'about 100-150 ms after a microprice tick' describes a strong-tick
+    minority (the snipes that carry the large size); most decisions have no sharp clock in the recorded feeds, which is what
+    the flat onset kernel (iteration 11) and the 61% no-tick share say. Step 3 (clocks for the unlocked majority from the 11-01
+    feeds) is open.
+14. THE SELECTION SHARED WITH THE FAST CROWD IS MOSTLY OUTSIDE THE RECORDED INPUTS (X101 steps 1-2; coat12.py, results/coat12.json;
+    fast crowd = 13,644 non-operator taker BUYs from 1,196 wallets with sign-to-match 180-400 ms, matched in [tau + 150, tau + 700)
+    ms; diagnostic only, never a rule feature): P(fast-crowd take | cluster took the onset) 0.42 / 0.39 vs 0.20 / 0.17 when it
+    skipped (A / C; price-level onsets 0.51 / 0.52 vs 0.19 / 0.20); raw log OR 1.03 / 1.13. Conditional on the evt10-style FULL
+    design (class, |bp|, ask unchanged, |ask - 0.5|, venue agreement, spread, Polymarket activity) the crowd log OR is still 0.82
+    / 0.97 (FULL explains 21% / 14% of it) and the Coinbase class adds nothing (21% / 14%). The cluster and the fast crowd pick the
+    same onsets on something that is not in the recorded design: the information panel's reading (a shared input, not a private
+    coin) is supported. Caveat: the crowd window does not exclude orders signed after the cluster's match could be seen (the
+    panel's stricter version); the logit hit overflow warnings (coefficients stable, se ~0.05).
+15. NO INDEPENDENT CLONE OF THE LADDER BOT; A FIFTH OPERATOR WALLET (X102; census inline, results/clone12.json, w5clone12.json; 10-31
+    match-tx calldata, 152,576 orders): the operator's signature fields (sig_type 3, length 317, zero builder / metadata) are
+    shared by 84k other orders; its distinctive marks are pre-signing (97.5-99.3% > 5 s before the match), the burst phases
+    (99.6-100% within +-3 s of -89.5 / +42.4 / +173.3 s; W4 37%) and same-ms copies (60-81%). Of 551 non-operator wallets with >=
+    40 orders, 139 are mostly pre-signed, but only 0x03b4c58b1bb31007cb97e2c8f2216d33c805d29c follows the burst schedule (64 orders,
+    100% in-burst, median lag 42 s, all BUY, 47 maker-role): its signing ms sit 5 / 249 ms (q10 / q50) from an operator order's,
+    14% of its txs hold an operator order, and its matches fall 0 / 34 / 508 ms (q10 / q50 / q90) from an operator match on the
+    same token (76% within 100 ms). It is a fifth fan-out leg of the same operator (like W4), not an independent clone; the
+    clones' take behaviour (steps 2-3) has no subject. Its fills are not in the three-wallet target (fills of W4 / W5 are outside
+    the dossier's scope) but they belong in the operator net for size (X66).
+16. THE WALLETS TAKE THE SAME ONSETS JOINTLY (X106 step 2; joint12.py, results/joint12.json; public FULL score fitted on the
+    other half, four score bins): P(w and w' both decide on o) far exceeds P(w) P(w') in every bin (score fit A, scored C: DS-GF
+    0.0029 vs 0.0001 in the bottom bin, 0.025 vs 0.0044 in the top bin; DS-XM 0.0136 vs 0.0037, GF-XM 0.0097 vs 0.0020 at the
+    top; the reverse fit the same): one operator-level decision fans out to several wallets, so the take is decided once per
+    onset, not per wallet. Step 3 (rerouting while a wallet is busy) is not identifiable on the clean onset tables (by
+    construction no operator decision precedes a clean onset within 600 ms; the 0.5-2.7% 'busy' cases are definition
+    mismatches next to fan-outs) and needs the full onset set. X107 note: the assumptions panel measured that only 6.6% of 196
+    cancelled remainders have a same-wallet arrival within +-100 ms of the removal (cancel-then-send is not the TTL rule); the
+    simulator part of X107 is not built.
+Additional 'Next' item: run evaluate() on the 10-31 00-06 and 12-18 development blocks once the 10-31 Binance / OKX / Bybit
+daily archives are published (an out-of-time test of the exposure tracker a week after VALIDATE, on a weekend).
+17. LEAK CHECK: THE OPERATOR'S FOURTH / FIFTH WALLETS IN THE TAPE FEATURES DO NOT DRIVE ANY MODEL (w45chk12.py, results/w45chk12.json).
+    Every frozen tape feature excludes the three dossier wallets and transactions with their maker fills, but not W4 (0xd844...)
+    or W5 (0x03b4...): on VALIDATE W4 has 18,347 in-window taker prints (0.71% of non-cluster prints, in 1,796 of 2,016 windows),
+    45.8% of them followed by a cluster taker fill on the same outcome within 1-2 s, and 7.4% of the cluster's taker seconds are
+    preceded by a W4 print. Rebuilding the VALIDATE cells' tape features with W4 / W5 removed (and W4 / W5 dropped from the
+    tracker's fill liquidity): frozen block-second presence 0.8747 (unchanged) vs pure 0.8190 (gain +0.0557 vs +0.0554); the
+    it4b netflow predictions correlate 0.9994 with the originals; the exposure tracker 0.4756 / 0.4394 (vs 0.4758 / 0.4404; GF
+    0.347, DS 0.422, XM 0.055). The frozen metrics stand; the W4 / W5 exclusion should still be made explicit in the next
+    rebuild of the rule (it is not in final_rule.py's tape features).
+18. THE OWN-DECISION KERNEL HAS A 30-60-S DECAY (X109 step 2, compact; hawkes12.py, results/hawkes12.json; own state, a mechanism
+    measurement): added to the public FULL onset design (logistic, fit one half, score the other): a Hawkes-type kernel of the
+    operator's past decisions on the window, decay chosen on the fit half (60 s on A, 30 s on C): held-out log loss 0.17577 /
+    0.21273, AUC 0.718 / 0.718; a slow proxy that excludes the last 30 s (decisions 30-120 s and 120-300 s before the onset):
+    0.17791 / 0.21461, AUC 0.704 / 0.708; both together 0.17598 / 0.21277 (no gain over the kernel); FULL alone 0.1810 / 0.2185
+    (AUC 0.681 / 0.691). With finding 9 (no rec30 effect inside 2-minute segments beyond the redraw null) the latent's time scale
+    is ~0.5-1 minute: a kernel that decays over 30-60 s, which 2-minute fixed effects absorb; neither a sub-30-s self-excitation
+    nor a regime slower than 2 minutes. The state is operator-level (findings 10, 16). Still own state: not a public input.
+
+19. PER-WALLET PnL IS MOSTLY THE TAKER LEAN (walletpnl12.json, inline; VALIDATE): taker-role fills carry 70-79% of each wallet's
+    per-window PnL variance (corr with the total 0.85-0.93; GF / XM / DS taker PnL -$2,959 / -$528 / -$1,400 before rebates)
+    and maker-role fills 21-30% (+$4,408 / +$2,111 / +$2,756); the taker-role and maker-role nets of a window are uncorrelated
+    for XM and DS (0.02) and weakly for GF (0.22). Condition 7 therefore needs each wallet's own TAKER lean, i.e. which wallet
+    carries which fan-out leg (X67); the pooled tracker cannot supply it.
+
+Pre-registration for the next development block (written 01:23 UTC 11-01, before any 11-01 data exists; X100 step 2): on
+11-01 06-12 UTC, rebuild the evt10 clean Binance USD-M onsets and their take labels exactly as onset11 / evt10; add the cbx12
+Coinbase class (N / S / M over [tau - 500, tau + 70) ms from btc5m_venues2 'cbT', and the same class from rec_eu11's Coinbase
+ticker in btc5m_xeu as a replication) to the evt10-style FULL logistic fitted on 10-31 A + C pooled, frozen, and score the
+11-01 onsets. Success = AUC gain >= +0.01 with a window-block CI above 0 AND P(take | N) / P(take | M) >= 1.8 at price-level
+onsets. Same protocol for Bitstamp and Kraken classes (rec_eu11) as secondary. Also: run final_rule.evaluate on 10-31 00-06 and
+12-18 once the 10-31 daily archives are published (out-of-time test of the exposure tracker).
+Iteration 12 ended 01:24 UTC (about 72 minutes of work).

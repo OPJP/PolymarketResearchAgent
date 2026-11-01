@@ -14,7 +14,7 @@
   "note": "BUILD may be extended back in time in later iterations"
  },
  "best": {
-  "rule_id": "it9: unchanged frozen rule of iteration 8 (code/final_rule.py); iteration 9 added measurements, no new rule component",
+  "rule_id": "it12: presence / side / price rule unchanged since iteration 8 (code/final_rule.py); PnL rule = exposure tracker trk_a_avg (0.5 it4b netflow + 0.5 nf12b), convention (a)",
   "validate_metrics": {
    "presence_auc": 0.8747,
    "presence_baseline": 0.8193,
@@ -25,8 +25,8 @@
    "side_accuracy": 0.7666,
    "side_baseline": 0.6323,
    "price_within_tick": 0.9512,
-   "pnl_corr_pearson": 0.1755,
-   "pnl_corr_spearman": 0.1692,
+   "pnl_corr_pearson": 0.4758,
+   "pnl_corr_spearman": 0.4404,
    "coverage_fills": 1.0,
    "coverage_abs_pnl": 1.0,
    "presence_gain_over_pure_baseline": 0.0554,
@@ -443,7 +443,35 @@
      0.74,
      0.7644
     ]
-   }
+   },
+   "pnl_corr_by_wallet_tracker": {
+    "GF": {
+     "pearson": 0.3442,
+     "spearman": 0.3526
+    },
+    "XM": {
+     "pearson": 0.0552,
+     "spearman": 0.0547
+    },
+    "DS": {
+     "pearson": 0.4252,
+     "spearman": 0.3943
+    }
+   },
+   "pnl_corr_pool_block_ci95_tracker": [
+    0.4232,
+    0.5215
+   ],
+   "pnl_corr_pool_halves_tracker": [
+    0.4603,
+    0.4869
+   ],
+   "pnl_corr_frozen30_pearson_spearman": [
+    0.1755,
+    0.1692
+   ],
+   "tracker_return_before_rebates": -0.031,
+   "tracker_return_with_50pct_fee_rebate": -0.0163
   }
  },
  "hypotheses": [
@@ -6490,6 +6518,905 @@
     "all": 50
    },
    "verdict": "see NOTES"
+  },
+  {
+   "id": "H142",
+   "family": "exposure target identity (X110)",
+   "description": "per-window PnL vs net x outcome",
+   "validate_metrics": {
+    "BUILD": {
+     "windows": 2016,
+     "corr_pnl_net_x_outcome": 0.8447,
+     "share_net_sign_agrees_outcome": 0.5447,
+     "mean_abs_net": 306.5,
+     "mean_gross": 3122.9,
+     "pnl_sum": 22914.4
+    },
+    "VALIDATE": {
+     "windows": 2016,
+     "corr_pnl_net_x_outcome": 0.8845,
+     "share_net_sign_agrees_outcome": 0.4853,
+     "mean_abs_net": 328.5,
+     "mean_gross": 2600.4,
+     "pnl_sum": 4388.5
+    }
+   },
+   "verdict": "PnL is the net lean (r 0.884 on VALIDATE)"
+  },
+  {
+   "id": "H143",
+   "family": "exposure tracker, it4b netflow target (X110)",
+   "description": "strict-fill deficit tracker, convention (a), pre-registered primary 1",
+   "validate_metrics": {
+    "trk_a": {
+     "pearson": 0.4409,
+     "spearman": 0.4187
+    },
+    "trk_b": {
+     "pearson": 0.4413,
+     "spearman": 0.4181
+    },
+    "trk_a_s0": {
+     "pearson": 0.4323,
+     "spearman": 0.4114
+    },
+    "trk_a_s01": {
+     "pearson": 0.4385,
+     "spearman": 0.4184
+    },
+    "trk_a_s05": {
+     "pearson": 0.4418,
+     "spearman": 0.4189
+    },
+    "trk_a_lot5": {
+     "pearson": 0.4379,
+     "spearman": 0.4174
+    },
+    "trk_a_lot30": {
+     "pearson": 0.4349,
+     "spearman": 0.4158
+    },
+    "trk_a_cap05": {
+     "pearson": 0.4377,
+     "spearman": 0.4185
+    },
+    "trk_a_keepmk": {
+     "pearson": 0.4405,
+     "spearman": 0.4195
+    }
+   },
+   "verdict": "0.43-0.44 for every execution variant"
+  },
+  {
+   "id": "H144",
+   "family": "exposure tracker, average target (X110)",
+   "description": "0.5 it4b netflow + 0.5 nf12b",
+   "validate_metrics": {
+    "trk_a": {
+     "pearson": 0.4758,
+     "spearman": 0.4404
+    },
+    "trk_b": {
+     "pearson": 0.4738,
+     "spearman": 0.4378
+    }
+   },
+   "verdict": "primary (pre-registration 2)"
+  },
+  {
+   "id": "H145",
+   "family": "window-net predictability (X110)",
+   "description": "BUILD-fit per-second net-flow models summed over the window",
+   "validate_metrics": {
+    "nf12": {
+     "nf_it4b": 0.4583,
+     "nf12": 0.4185,
+     "avg": 0.4769,
+     "corr_nf4_nf12": 0.6956,
+     "GF": {
+      "pooled_nf12": 0.3013,
+      "own_nf12_GF": 0.2972,
+      "nf_it4b": 0.3449
+     },
+     "XM": {
+      "pooled_nf12": 0.0859,
+      "own_nf12_XM": 0.0454,
+      "nf_it4b": 0.0405
+     },
+     "DS": {
+      "pooled_nf12": 0.3549,
+      "own_nf12_DS": 0.3423,
+      "nf_it4b": 0.3965
+     }
+    },
+    "nf12b": {
+     "nf_it4b": 0.4583,
+     "nf12": 0.4237,
+     "avg": 0.4797,
+     "corr_nf4_nf12": 0.6954
+    },
+    "nf12c": {
+     "nf12c": 0.4703,
+     "nf_it4b": 0.4583,
+     "nf12b": 0.4237,
+     "avg_it4b_nf12b": 0.4797,
+     "avg3": 0.4841,
+     "avg_nf12c_nf12b": 0.4761
+    }
+   },
+   "verdict": "r 0.42-0.48; per-wallet models no better"
+  },
+  {
+   "id": "H146",
+   "family": "structural net path / fair value (X110 step 4)",
+   "description": "window-minute OLS of the net on minute moves, M1, M2, previous outcome, gap",
+   "validate_metrics": {
+    "BUILD": {
+     "minute0": {
+      "M1": 4.7,
+      "M2": 3.4,
+      "prev_up": 3.1,
+      "gap_open": -4.9,
+      "w0": 5.8
+     },
+     "minute1": {
+      "M1": 0.1,
+      "M2": -2.0,
+      "prev_up": 0.7,
+      "gap_open": 0.8,
+      "w0": -3.4,
+      "w1": 6.9
+     },
+     "minute2": {
+      "M1": -2.3,
+      "M2": -0.5,
+      "prev_up": 1.2,
+      "gap_open": -0.0,
+      "w0": -4.8,
+      "w1": -4.2,
+      "w2": 7.8
+     },
+     "minute3": {
+      "M1": -1.8,
+      "M2": -1.9,
+      "prev_up": 0.7,
+      "gap_open": 3.3,
+      "w0": -0.3,
+      "w1": -0.5,
+      "w2": -3.6,
+      "w3": 6.0
+     },
+     "minute4": {
+      "M1": 0.1,
+      "M2": -0.8,
+      "prev_up": 0.2,
+      "gap_open": -0.3,
+      "w0": 2.2,
+      "w1": -2.7,
+      "w2": -1.4,
+      "w3": 0.3,
+      "w4": 3.7
+     },
+     "window_total": {
+      "M1": 0.4,
+      "M2": -0.4,
+      "prev_up": 3.5,
+      "gap_open": -0.8,
+      "w0": -1.0,
+      "w1": 2.5,
+      "w2": 4.0,
+      "w3": 3.6,
+      "w4": 2.6
+     }
+    },
+    "VALIDATE": {
+     "minute0": {
+      "M1": 2.8,
+      "M2": -2.9,
+      "prev_up": 2.3,
+      "gap_open": -1.0,
+      "w0": 10.8
+     },
+     "minute1": {
+      "M1": 2.2,
+      "M2": -0.5,
+      "prev_up": 1.2,
+      "gap_open": -1.6,
+      "w0": -11.7,
+      "w1": 11.1
+     },
+     "minute2": {
+      "M1": -1.4,
+      "M2": -1.5,
+      "prev_up": 2.3,
+      "gap_open": 0.6,
+      "w0": -6.4,
+      "w1": -4.7,
+      "w2": 8.0
+     },
+     "minute3": {
+      "M1": 0.0,
+      "M2": -3.0,
+      "prev_up": 1.1,
+      "gap_open": 3.7,
+      "w0": -1.5,
+      "w1": -1.1,
+      "w2": -2.5,
+      "w3": 4.7
+     },
+     "minute4": {
+      "M1": -0.5,
+      "M2": -0.9,
+      "prev_up": 0.2,
+      "gap_open": 1.7,
+      "w0": 0.3,
+      "w1": -0.7,
+      "w2": -0.9,
+      "w3": -1.3,
+      "w4": 4.7
+     },
+     "window_total": {
+      "M1": 2.2,
+      "M2": -5.0,
+      "prev_up": 3.8,
+      "gap_open": 1.5,
+      "w0": -1.6,
+      "w1": 3.4,
+      "w2": 4.8,
+      "w3": 0.7,
+      "w4": 0.5
+     }
+    }
+   },
+   "verdict": "buy with the current move, buy back against earlier moves; no other-strike FV"
+  },
+  {
+   "id": "H147",
+   "family": "Coinbase divergence gate (X100 step 1)",
+   "description": "Coinbase class at Binance onsets, fit A score C and reverse",
+   "validate_metrics": {
+    "fit_A_score_C": {
+     "auc_full": 0.6805,
+     "auc_full_plus_coinbase": 0.6963,
+     "gain": 0.0158,
+     "gain_ci95_window_blocks": [
+      0.0056,
+      0.0275
+     ],
+     "price_events_auc_full": 0.5258,
+     "price_events_auc_plus_coinbase": 0.5651
+    },
+    "fit_C_score_A": {
+     "auc_full": 0.691,
+     "auc_full_plus_coinbase": 0.7052,
+     "gain": 0.0142,
+     "gain_ci95_window_blocks": [
+      0.0042,
+      0.0248
+     ],
+     "price_events_auc_full": 0.5297,
+     "price_events_auc_plus_coinbase": 0.582
+    }
+   },
+   "verdict": "small replicated gain (+0.014 / +0.016)"
+  },
+  {
+   "id": "H148",
+   "family": "regime vs self-excitation (X109 step 1)",
+   "description": "segment-FE scan with a 200-draw redraw null",
+   "validate_metrics": {
+    "A": {
+     "L300": {
+      "coef_obs": 0.0189
+     },
+     "L120": {
+      "coef_obs": 0.0075,
+      "null_mean": 0.0058,
+      "null_sd": 0.0019,
+      "null_q025": 0.0021,
+      "null_q975": 0.0095,
+      "p_two_sided": 0.36,
+      "draws": 200
+     },
+     "L60": {
+      "coef_obs": -0.0205,
+      "null_mean": -0.0115,
+      "null_sd": 0.0026,
+      "null_q025": -0.017,
+      "null_q975": -0.0065,
+      "p_two_sided": 0.0,
+      "draws": 200
+     },
+     "L30": {
+      "coef_obs": -0.0426
+     }
+    },
+    "C": {
+     "L300": {
+      "coef_obs": 0.0159
+     },
+     "L120": {
+      "coef_obs": 0.0033,
+      "null_mean": 0.006,
+      "null_sd": 0.0015,
+      "null_q025": 0.0032,
+      "null_q975": 0.009,
+      "p_two_sided": 0.07,
+      "draws": 200
+     },
+     "L60": {
+      "coef_obs": -0.0056,
+      "null_mean": -0.0041,
+      "null_sd": 0.0021,
+      "null_q025": -0.008,
+      "null_q975": -0.0005,
+      "p_two_sided": 0.53,
+      "draws": 200
+     },
+     "L30": {
+      "coef_obs": -0.029
+     }
+    }
+   },
+   "verdict": "own-recent effect inside the null at 2-min FE; refractory at 60 s"
+  },
+  {
+   "id": "H149",
+   "family": "where the state lives (X106 step 1)",
+   "description": "per-wallet own vs other recent decisions, 120-s FE",
+   "validate_metrics": {
+    "A": {
+     "DS": {
+      "take_rate": 0.0504,
+      "beta_own_120s_fe": -0.001,
+      "beta_other_120s_fe": 0.0057,
+      "beta_own_window_fe": 0.0043,
+      "beta_other_window_fe": 0.0127
+     },
+     "GF": {
+      "take_rate": 0.0232,
+      "beta_own_120s_fe": -0.0005,
+      "beta_other_120s_fe": 0.0105,
+      "beta_own_window_fe": 0.0081,
+      "beta_other_window_fe": 0.0106
+     },
+     "XM": {
+      "take_rate": 0.0139,
+      "beta_own_120s_fe": -0.0078,
+      "beta_other_120s_fe": 0.0065,
+      "beta_own_window_fe": -0.002,
+      "beta_other_window_fe": 0.0069
+     }
+    },
+    "C": {
+     "DS": {
+      "take_rate": 0.0392,
+      "beta_own_120s_fe": 0.0044,
+      "beta_other_120s_fe": -0.0076,
+      "beta_own_window_fe": 0.0162,
+      "beta_other_window_fe": -0.0056
+     },
+     "GF": {
+      "take_rate": 0.0112,
+      "beta_own_120s_fe": -0.0094,
+      "beta_other_120s_fe": 0.007,
+      "beta_own_window_fe": -0.0041,
+      "beta_other_window_fe": 0.008
+     },
+     "XM": {
+      "take_rate": 0.0103,
+      "beta_own_120s_fe": -0.0086,
+      "beta_other_120s_fe": 0.0031,
+      "beta_own_window_fe": -0.0002,
+      "beta_other_window_fe": 0.004
+     }
+    }
+   },
+   "verdict": "operator-level state; wallets as refractory slots"
+  },
+  {
+   "id": "H150",
+   "family": "fast-crowd co-take instrument (X101 steps 1-2)",
+   "description": "co-take table and the crowd odds ratio conditional on the recorded onset design",
+   "validate_metrics": {
+    "A": {
+     "events": 28070,
+     "co_take": {
+      "P(crowd | taken)": 0.4175,
+      "P(crowd | skipped)": 0.2044,
+      "P(taken | crowd)": 0.1186,
+      "P(taken | no crowd)": 0.046,
+      "raw_log_OR": 1.0265,
+      "price_events": {
+       "P(crowd | taken)": 0.5114,
+       "P(crowd | skipped)": 0.1902,
+       "n": 293
+      }
+     },
+     "conditional": {
+      "none": {
+       "crowd_log_OR": 1.0264,
+       "se": 0.051
+      },
+      "FULL": {
+       "crowd_log_OR": 0.8151,
+       "se": 0.0536,
+       "share_of_raw_log_OR_explained": 0.2059
+      },
+      "FULL+coinbase": {
+       "crowd_log_OR": 0.8069,
+       "se": 0.0541,
+       "share_of_raw_log_OR_explained": 0.2139
+      }
+     }
+    },
+    "C": {
+     "events": 30812,
+     "co_take": {
+      "P(crowd | taken)": 0.3909,
+      "P(crowd | skipped)": 0.1723,
+      "P(taken | crowd)": 0.1006,
+      "P(taken | no crowd)": 0.035,
+      "raw_log_OR": 1.1264,
+      "price_events": {
+       "P(crowd | taken)": 0.5192,
+       "P(crowd | skipped)": 0.2016,
+       "n": 181
+      }
+     },
+     "conditional": {
+      "none": {
+       "crowd_log_OR": 1.1262,
+       "se": 0.056
+      },
+      "FULL": {
+       "crowd_log_OR": 0.9679,
+       "se": 0.0583,
+       "share_of_raw_log_OR_explained": 0.1406
+      },
+      "FULL+coinbase": {
+       "crowd_log_OR": 0.9716,
+       "se": 0.0585,
+       "share_of_raw_log_OR_explained": 0.1373
+      }
+     }
+    }
+   },
+   "verdict": "recorded inputs explain 14-21% of the shared selection"
+  },
+  {
+   "id": "H151",
+   "family": "locked vs unlocked decisions (X111 steps 1-2)",
+   "description": "net microprice move toward o in the kernel7 peak bin +-25 ms, placebo shifts -2 / -4 s",
+   "validate_metrics": {
+    "series": [
+     "bf_BTC",
+     "bf_ETH",
+     "bs_ETH",
+     "by_ETH",
+     "hl_BTC",
+     "hl_ETH",
+     "ok_ETH"
+    ],
+    "decisions": 2155,
+    "P_locked": 0.1318,
+    "P_locked_placebo": 0.0471,
+    "locked_fraction_excess": 0.0847,
+    "by_class": {
+     "locked": {
+      "n": 284,
+      "tick_toward_o_share": 0.9613,
+      "no_tick_share(|tick|<0.05bp)": 0.0528,
+      "large_share": 0.1021,
+      "won_share": 0.6866,
+      "wallet_share": {
+       "DS": 0.57,
+       "GF": 0.271,
+       "XM": 0.158
+      },
+      "rel_median": 106.8,
+      "abs_ask_minus_half_median": 0.21,
+      "dask_up_share": 0.4542,
+      "since_start_toward_o_share": 0.4894
+     },
+     "unlocked": {
+      "n": 1871,
+      "tick_toward_o_share": 0.7092,
+      "no_tick_share(|tick|<0.05bp)": 0.605,
+      "large_share": 0.0438,
+      "won_share": 0.6045,
+      "wallet_share": {
+       "DS": 0.571,
+       "GF": 0.231,
+       "XM": 0.198
+      },
+      "rel_median": 150.7,
+      "abs_ask_minus_half_median": 0.17,
+      "dask_up_share": 0.4099,
+      "since_start_toward_o_share": 0.4746
+     }
+    },
+    "by_wallet_locked_excess": {
+     "DS": 0.0862,
+     "GF": 0.0933,
+     "XM": 0.0697
+    }
+   },
+   "verdict": "~9% locked beyond placebo; the rest unclocked"
+  },
+  {
+   "id": "H152",
+   "family": "competition-aware controller (X112)",
+   "description": "P(take) vs the operator's recent win share with the count fixed",
+   "validate_metrics": {
+    "A": {
+     "onsets_with_recent_decisions": 27099,
+     "take_rate": 0.0638,
+     "by_count_bin": {
+      "n1-3": {
+       "events": 549,
+       "mean_win_share": 0.576,
+       "take_low_ws": 0.0667,
+       "take_mid_ws": 0.0944,
+       "take_high_ws": null
+      },
+      "n3-8": {
+       "events": 3660,
+       "mean_win_share": 0.789,
+       "take_low_ws": 0.0559,
+       "take_mid_ws": 0.0447,
+       "take_high_ws": null
+      },
+      "n8-20": {
+       "events": 8572,
+       "mean_win_share": 0.754,
+       "take_low_ws": 0.068,
+       "take_mid_ws": 0.0517,
+       "take_high_ws": 0.0304
+      },
+      "n20-1000000": {
+       "events": 14318,
+       "mean_win_share": 0.616,
+       "take_low_ws": 0.0623,
+       "take_mid_ws": 0.0813,
+       "take_high_ws": 0.0815
+      }
+     },
+     "lpm_win_share_coef_120s_fe": 0.0134,
+     "lpm_win_share_coef_window_fe": -0.0229
+    },
+    "C": {
+     "onsets_with_recent_decisions": 28156,
+     "take_rate": 0.0504,
+     "by_count_bin": {
+      "n1-3": {
+       "events": 2670,
+       "mean_win_share": 0.537,
+       "take_low_ws": 0.0263,
+       "take_mid_ws": null,
+       "take_high_ws": 0.0432
+      },
+      "n3-8": {
+       "events": 5283,
+       "mean_win_share": 0.696,
+       "take_low_ws": 0.0402,
+       "take_mid_ws": 0.0232,
+       "take_high_ws": 0.0429
+      },
+      "n8-20": {
+       "events": 10421,
+       "mean_win_share": 0.585,
+       "take_low_ws": 0.0346,
+       "take_mid_ws": 0.052,
+       "take_high_ws": 0.0499
+      },
+      "n20-1000000": {
+       "events": 9782,
+       "mean_win_share": 0.592,
+       "take_low_ws": 0.0576,
+       "take_mid_ws": 0.077,
+       "take_high_ws": 0.0722
+      }
+     },
+     "lpm_win_share_coef_120s_fe": 0.0156,
+     "lpm_win_share_coef_window_fe": 0.0211
+    }
+   },
+   "verdict": "rejected (no 2x, inconsistent signs)"
+  },
+  {
+   "id": "H153",
+   "family": "PnL co-occurrence baseline (X110)",
+   "description": "the same exposure tracker on a market-activity-only net-flow model (nf12m)",
+   "validate_metrics": {
+    "tracker_avg": {
+     "pearson": 0.4758,
+     "spearman": 0.4404
+    },
+    "tracker_market_only": {
+     "pearson": 0.3602,
+     "spearman": 0.3154
+    },
+    "gain_pearson_ci95": [
+     0.0751,
+     0.1587
+    ],
+    "gain_pearson_p_le_0": 0.0,
+    "gain_spearman_ci95_300draws": [
+     0.0868,
+     0.158
+    ],
+    "gain_pearson": 0.1156,
+    "gain_spearman": 0.125,
+    "per_day_pearson_avg": {
+     "0": 0.3699,
+     "1": 0.4849,
+     "2": 0.5111,
+     "3": 0.4987,
+     "4": 0.5421,
+     "5": 0.4516,
+     "6": 0.5117
+    },
+    "per_day_pearson_market_only": {
+     "0": 0.2614,
+     "1": 0.4987,
+     "2": 0.2967,
+     "3": 0.3944,
+     "4": 0.2824,
+     "5": 0.3613,
+     "6": 0.4353
+    }
+   },
+   "verdict": "reference feeds add +0.116 / +0.125 (CI excludes 0)"
+  },
+  {
+   "id": "H154",
+   "family": "slow public state at the block clock (X109 step 5)",
+   "description": "block-second presence retrained with outcome-signed slow spot-path features",
+   "validate_metrics": {
+    "auc_full_frozen": 0.8747,
+    "auc_full_plus_slow": 0.8747,
+    "auc_pure_baseline": 0.8193,
+    "slow_minus_frozen_block_bootstrap_2h": {
+     "lo95": -0.0002,
+     "hi95": 0.0003,
+     "one_sided_p_gain_le_0": 0.321,
+     "n_boot": 1000,
+     "blocks": 84
+    },
+    "halves": {
+     "first": {
+      "frozen": 0.875,
+      "slow": 0.8748,
+      "pure": 0.8204
+     },
+     "second": {
+      "frozen": 0.8725,
+      "slow": 0.8728,
+      "pure": 0.8175
+     }
+    }
+   },
+   "verdict": "measurement only; see NOTES"
+  },
+  {
+   "id": "H155",
+   "family": "exposure tracker, three-model target (X110)",
+   "description": "(it4b netflow + nf12b + nf12c) / 3, pre-registration 3",
+   "validate_metrics": {
+    "trk_a": {
+     "pearson": 0.4756,
+     "spearman": 0.4446
+    },
+    "trk_b": {
+     "pearson": 0.4751,
+     "spearman": 0.4445
+    }
+   },
+   "verdict": "not adopted (did not beat avg on both)"
+  },
+  {
+   "id": "H156",
+   "family": "leak check: operator's fourth / fifth wallets in the tape features",
+   "description": "VALIDATE cells rebuilt with W4 / W5 prints removed; frozen presence, netflow and the tracker re-scored",
+   "validate_metrics": {
+    "presence_block_seconds_rebuilt": {
+     "auc_full": 0.8747,
+     "auc_pure": 0.819,
+     "gain": 0.0557
+    },
+    "tracker_avg_rebuilt": {
+     "pearson": 0.4756,
+     "spearman": 0.4394,
+     "GF": 0.3469,
+     "XM": 0.0554,
+     "DS": 0.4217
+    },
+    "corr_nf_old_vs_rebuilt": 0.9994,
+    "elapsed_s": 143
+   },
+   "verdict": "no effect (presence gain +0.0557 vs +0.0554; tracker 0.4756 / 0.4394 vs 0.4758 / 0.4404)"
+  },
+  {
+   "id": "H157",
+   "family": "clone census (X102)",
+   "description": "burst-phase / pre-signing fingerprint of every wallet in the 10-31 calldata",
+   "validate_metrics": {
+    "operator": [
+     {
+      "mk": "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
+      "orders": 894,
+      "op": true,
+      "presigned_share": 0.9787,
+      "lag_med_s": 74.088,
+      "inburst_share": 0.9955,
+      "same_ms_share": 0.604,
+      "size_top": "{0.0: 894}",
+      "buy_share": 1.0
+     },
+     {
+      "mk": "0x3048d65321be3497164cdfc2996f94f98a2e7537",
+      "orders": 1196,
+      "op": true,
+      "presigned_share": 0.9933,
+      "lag_med_s": 74.314,
+      "inburst_share": 1.0,
+      "same_ms_share": 0.8077,
+      "size_top": "{0.0: 1196}",
+      "buy_share": 1.0
+     },
+     {
+      "mk": "0xc53375ff94e96100f2b30a4b5775db35218d69a9",
+      "orders": 2118,
+      "op": true,
+      "presigned_share": 0.9745,
+      "lag_med_s": 66.715,
+      "inburst_share": 1.0,
+      "same_ms_share": 0.7087,
+      "size_top": "{0.0: 2118}",
+      "buy_share": 1.0
+     },
+     {
+      "mk": "0xd84403efd50b49a1d8a7181627e00307e6ea5908",
+      "orders": 455,
+      "op": true,
+      "presigned_share": 0.989,
+      "lag_med_s": 66.432,
+      "inburst_share": 0.3736,
+      "same_ms_share": 0.6308,
+      "size_top": "{0.0: 455}",
+      "buy_share": 1.0
+     }
+    ],
+    "fifth_wallet": {
+     "orders": 64,
+     "roles": {
+      "M": 47,
+      "T": 17
+     },
+     "sig_type": {
+      "3": 64
+     },
+     "signer_is_maker": 1.0,
+     "share_txs_with_operator_order": 0.1406,
+     "share_sign_ms_equal_operator_sign_ms": 0.0156,
+     "sign_ms_gap_to_nearest_operator_order_ms_q": [
+      5,
+      249,
+      163276
+     ],
+     "match_gap_to_nearest_operator_match_same_token_ms_q": [
+      0.0,
+      34.0,
+      508.2
+     ],
+     "share_match_within_100ms_of_operator_same_token": 0.7556,
+     "first_last_sign_utc": [
+      1793458240,
+      1793468571
+     ]
+    }
+   },
+   "verdict": "no independent clone; a fifth operator fan-out wallet 0x03b4c58b..."
+  },
+  {
+   "id": "H158",
+   "family": "Hawkes kernel vs slow regime (X109 step 2)",
+   "description": "own-decision kernels added to the public onset design, held-out log loss / AUC",
+   "validate_metrics": {
+    "fit_A_score_C": {
+     "hawkes_k_s": 60,
+     "full": {
+      "heldout_logloss": 0.181,
+      "heldout_auc": 0.6805
+     },
+     "hawkes": {
+      "heldout_logloss": 0.17577,
+      "heldout_auc": 0.7183
+     },
+     "slow": {
+      "heldout_logloss": 0.17791,
+      "heldout_auc": 0.7035
+     },
+     "both": {
+      "heldout_logloss": 0.17598,
+      "heldout_auc": 0.7173
+     }
+    },
+    "fit_C_score_A": {
+     "hawkes_k_s": 30,
+     "full": {
+      "heldout_logloss": 0.21846,
+      "heldout_auc": 0.691
+     },
+     "hawkes": {
+      "heldout_logloss": 0.21273,
+      "heldout_auc": 0.7179
+     },
+     "slow": {
+      "heldout_logloss": 0.21461,
+      "heldout_auc": 0.7083
+     },
+     "both": {
+      "heldout_logloss": 0.21277,
+      "heldout_auc": 0.7176
+     }
+    }
+   },
+   "verdict": "kernel with 30-60-s decay beats the slow proxy; latent time scale ~0.5-1 min"
+  },
+  {
+   "id": "H159",
+   "family": "per-wallet PnL by role (condition 7 account)",
+   "description": "per-window PnL variance shares of taker vs maker fills per wallet on VALIDATE",
+   "validate_metrics": {
+    "GF": {
+     "T": {
+      "share_of_fills": 0.611,
+      "pnl_sum": -2959.2,
+      "var_share": 0.782,
+      "corr_with_total": 0.928
+     },
+     "M": {
+      "share_of_fills": 0.389,
+      "pnl_sum": 4408.0,
+      "var_share": 0.218,
+      "corr_with_total": 0.571
+     },
+     "corr_net_T_net_M": 0.217
+    },
+    "XM": {
+     "T": {
+      "share_of_fills": 0.559,
+      "pnl_sum": -527.6,
+      "var_share": 0.699,
+      "corr_with_total": 0.846
+     },
+     "M": {
+      "share_of_fills": 0.441,
+      "pnl_sum": 2111.0,
+      "var_share": 0.301,
+      "corr_with_total": 0.565
+     },
+     "corr_net_T_net_M": 0.018
+    },
+    "DS": {
+     "T": {
+      "share_of_fills": 0.641,
+      "pnl_sum": -1400.0,
+      "var_share": 0.794,
+      "corr_with_total": 0.896
+     },
+     "M": {
+      "share_of_fills": 0.359,
+      "pnl_sum": 2756.2,
+      "var_share": 0.206,
+      "corr_with_total": 0.463
+     },
+     "corr_net_T_net_M": 0.015
+    }
+   },
+   "verdict": "taker lean carries 70-79%; per-wallet replication needs the wallet's own taker leg"
   }
  ],
  "data_sources": [
@@ -6535,7 +7462,11 @@
   "Iteration 11: it11/onset_{A,C}.parquet (evt10 clean events with normalizer, survival, confirmation and own-state columns, 10-31 14:55-17:55)",
   "Iteration 11: operator OrderFilled logs per order hash, hour 16-17 UTC on 16 days around 08-17 / 09-04 (counts only, results/refill11.json)",
   "Iteration 11: V2 calldata of 60 sampled operator txs on 08-05 / 08-12 / 08-15 (decoded in memory, results/version11.json)",
-  "Iteration 11: recorder rec_eu11 (btc5m_xeu, btc5m_xsnap) from 11-01 05:59 UTC"
+  "Iteration 11: recorder rec_eu11 (btc5m_xeu, btc5m_xsnap) from 11-01 05:59 UTC",
+  "Iteration 12: data-api taker tapes of the 2,016 VALIDATE and 2,016 BUILD windows rebuilt from the shared HTTP cache into the session scratchpad (tapes12.py; not kept)",
+  "Iteration 12: it12/nf12_val.parquet, nf12b_val.parquet, nf12c_val.parquet (VALIDATE predictions of the BUILD-fitted net-flow models), it12_win_net.parquet",
+  "Iteration 12: btc5m_venues2 Coinbase 'cbT' ticker at the 10-31 onsets (cbx12.py)",
+  "Iteration 12: fingerprint census of the 10-31 match-tx calldata (it9/cd9 + it10/cdall10): burst phase, pre-signing lag, same-ms copies per wallet"
  ],
  "iterations": [
   {
@@ -6831,6 +7762,36 @@
     "price-level events: taken vs skipped scan",
     "large size from public features (F6)",
     "recorder: European venues, alt perps, snapshot streams (X87 / X88 / X96)"
+   ]
+  },
+  {
+   "n": 12,
+   "minutes": 72.0,
+   "best_validate_score": 0.9132,
+   "block_seconds_presence": 0.8747,
+   "block_seconds_stronger_baseline": 0.8211,
+   "pnl_corr": 0.4758,
+   "pnl_corr_spearman": 0.4404,
+   "paradigm": "PIVOT: condition 5 as an exposure-path target (window net exposure and its per-second increments as the unit; an executable deficit-tracking replica instead of decision replays)",
+   "families": [
+    "exposure target identity PnL ~ net x outcome (X110)",
+    "BUILD-fit per-second net-flow models with slow path features: nf12 / nf12b / nf12c (X110)",
+    "executable strict-fill exposure tracker, pre-registered, two conventions and execution variants (X110)",
+    "structural net path / fair-value variants per window-minute (X110 step 4)",
+    "per-wallet PnL independence and per-wallet net models",
+    "Coinbase divergence gate at onsets (X100 step 1)",
+    "regime vs self-excitation with a 200-draw redraw null (X109 step 1)",
+    "operator-level vs per-wallet state (X106 step 1)",
+    "end-to-end evaluate of the new PnL rule on a VALIDATE slice",
+    "market-only co-occurrence tracker and paired gain (X110)",
+    "slow public state at the block clock (X109 step 5)",
+    "race-success controller (X112)",
+    "locked vs unlocked decisions (X111 steps 1-2)",
+    "fast-crowd co-take instrument (X101 steps 1-2)",
+    "clone census of the ladder fingerprint (X102)",
+    "joint take across wallets (X106 step 2)",
+    "leak check: W4 / W5 prints removed from the tape features",
+    "Hawkes kernel vs slow regime (X109 step 2)"
    ]
   }
  ],
@@ -7455,7 +8416,7 @@
   "X85": {
    "status": "tried",
    "source": "panel iteration 9, assumptions P4 (a window-level take rate: collateral, set state, schedule)",
-   "evidence": "Overdispersion replicated (flag10: chi2 / df 2.01 on A, 1.97 on C against the constant-hazard null). Collateral path from USDC Transfer logs not built. | Iteration 11: collateral ruled out (X27); the minute-level decision count is over-dispersed (var/mean 13.4, elast11) and barely elastic to activity (0.08-0.30); P(take) rises with the operator's own recent decisions beyond public crowd activity (regime11: FULL 0.681, + crowd 0.685, + own rec30 0.715 on C; within crowd terciles rec30 still raises P), so the window-level rate is a self-exciting internal state whose cause stays under X72."
+   "evidence": "Overdispersion replicated (flag10: chi2 / df 2.01 on A, 1.97 on C against the constant-hazard null). Collateral path from USDC Transfer logs not built. | Iteration 11: collateral ruled out (X27); the minute-level decision count is over-dispersed (var/mean 13.4, elast11) and barely elastic to activity (0.08-0.30); P(take) rises with the operator's own recent decisions beyond public crowd activity (regime11: FULL 0.681, + crowd 0.685, + own rec30 0.715 on C; within crowd terciles rec30 still raises P), so the window-level rate is a self-exciting internal state whose cause stays under X72. | Iteration 12 correction (regime12.py, X109 / X106): the own-recent effect is absorbed by 2-minute segment FE (inside a 200-draw redraw null) and reverses at 60 s; a wallet's take follows the OTHER wallets' recent decisions, not its own: the window-level rate is a slow operator-level regime, not a self-exciting kernel."
   },
   "X86": {
    "status": "tried",
@@ -7526,6 +8487,71 @@
    "status": "open",
    "source": "panel iteration 10, assumptions P4 (recover the bot's Math.random state from the order salts: Bun / JSC xorshift128+, V8 variants)",
    "evidence": "Not tested in iteration 11 (the panel's V8 single-call test was negative; the JSC and multi-call variants need a z3 search over copy offsets)."
+  },
+  "X100": {
+   "status": "open",
+   "source": "panel iteration 11, information P1 (cross-venue divergence gate: take Binance-led moves the US / EU venues have not reflected; London-arrival order)",
+   "evidence": "Step 1 tried on 10-31 A / C with the recorded Coinbase ticker (cbx12.py, results/cbx12.json; class over [tau - 500, tau + 70) ms pre-registered: N no trade, M mid moved >= 0.1 bp toward o, S otherwise). Price-level events: P(take) N / S / M = {\"A\": {\"N\": [0.4783, 23], \"S\": [0.3133, 150], \"M\": [0.25, 120]}, \"C\": {\"N\": [0.4286, 7], \"S\": [0.3371, 89], \"M\": [0.2235, 85]}} (N is only 23 / 7 events); size-only events: M raises the take 3-4x (DEPLETE A 0.239 vs 0.054-0.059, C 0.184 vs 0.044-0.046): confirmation for weak ticks, a freshness gate for strong ones. Out-of-sample AUC of the evt10-style FULL logistic + Coinbase class: fit A score C 0.6805 -> 0.6963 (gain 0.0158, window-block CI [0.0056, 0.0275]); fit C score A 0.691 -> 0.7052 (gain 0.0142, CI [0.0042, 0.0248]). A small replicated gain, far from deciding the take. Step 2 (pre-registered scoring of 11-01 06-12 with rec_eu11 Coinbase level2_50, Bitstamp, Kraken and the London-arrival clock) needs the next development block. Open."
+  },
+  "X101": {
+   "status": "open",
+   "source": "panel iteration 11, information P2 (shared-actionability instrument: the independent fast crowd as a second label; conditional-independence test of every candidate input)",
+   "evidence": "Steps 1-2 tried for the recorded onset design (coat12.py, results/coat12.json; fast crowd = non-operator taker BUYs of o with sign-to-match 180-400 ms matched in [tau + 150, tau + 700) ms; 13644 orders, 1196 wallets; diagnostic only). Co-take: A {\"P(crowd | taken)\": 0.4175, \"P(crowd | skipped)\": 0.2044, \"P(taken | crowd)\": 0.1186, \"P(taken | no crowd)\": 0.046, \"raw_log_OR\": 1.0265, \"price_events\": {\"P(crowd | taken)\": 0.5114, \"P(crowd | skipped)\": 0.1902, \"n\": 293}}; C {\"P(crowd | taken)\": 0.3909, \"P(crowd | skipped)\": 0.1723, \"P(taken | crowd)\": 0.1006, \"P(taken | no crowd)\": 0.035, \"raw_log_OR\": 1.1264, \"price_events\": {\"P(crowd | taken)\": 0.5192, \"P(crowd | skipped)\": 0.2016, \"n\": 181}}. Conditional on the evt10-style FULL design the crowd log OR falls only from 1.0264 to 0.8151 (A) and from 1.1262 to 0.9679 (C): the recorded inputs explain 14-21% of the shared selection, Coinbase adds nothing to that. Most of what the cluster and the fast crowd share is outside the recorded design. Caveat: the crowd window does not exclude orders signed after the cluster's match became visible. Open: the other candidate inputs (11-01 feeds: Bitstamp, Kraken, depth5, PolyBolt touch, alt perps) and step 3 (the selector fitted on the crowd's takes, transferred)."
+  },
+  "X102": {
+   "status": "tried",
+   "source": "panel iteration 11, information P3 (pre-signed peer census: clones of the same TypeScript ladder bot and siblings on other burst schedules)",
+   "evidence": "Census of the 10-31 match-tx calldata (it9/cd9 + it10/cdall10, 152,576 orders; clone12.py inline, results/clone12.json): the operator's orders have sig_type 3, sig length 317, zero builder and metadata (shared by 84k other orders: not distinctive); its distinctive marks are pre-signing (97.5-99.3% signed > 5 s before the match, median 66-74 s), the burst phases (99.6-100% within +-3 s of -89.5 / +42.4 / +173.3 s; W4 37%) and same-ms copies (60-81%). Among 551 non-operator wallets with >= 40 orders, 20+ are mostly pre-signed but only ONE follows the burst schedule: 0x03b4c58b1bb31007cb97e2c8f2216d33c805d29c (64 orders, 100% in-burst, median lag 42 s, 60% same-ms copies, all BUY, 47 maker-role); its signing ms sit [5, 249, 163276] ms (q10 / q50 / q90) from an operator order's, 0.1406 of its txs hold an operator order, and its matches fall [0.0, 34.0, 508.2] ms from an operator match on the same token (0.7556 within 100 ms): a fifth fan-out wallet of the same operator (a sibling, like W4), not an independent clone. No independent clone of the ladder bot exists on 10-31, so steps 2-3 (clones' take behaviour, shared software state) have no subject; common-funding checks of the fifth wallet not run."
+  },
+  "X103": {
+   "status": "tried",
+   "source": "panel iteration 11, information P4 (the bot's private channel: does its own fill re-arm the take? won vs exogenously lost races)",
+   "evidence": "The core signature was measured on development data by the iteration-11 mechanics panel (panels/iter11_mechanics.md): after a WON race the operator decides again on the same outcome within 1 s 33.4% of the time, after a race LOST to a queued crowd order (exogenous) 33.3%: fills do not re-arm presence. Iteration 12 regime12.py (per-wallet decomposition, 120-s segment FE): a wallet's take does not rise with its OWN recent decisions (beta_own <= 0) but with the OTHER wallets' (beta_other > 0), an operator-level state, not a per-wallet fill channel. The ms-scale kink test at m + 5-50 ms was not run; with equal 1-s re-fire rates it cannot carry a large effect. Tried: no fill re-arming."
+  },
+  "X104": {
+   "status": "open",
+   "source": "panel iteration 11, mechanics P1 (two archived live labs: 07-01 and 08-01 from pmxt plus the Tardis free days; decode the selection by bot version)",
+   "evidence": "Not tested in iteration 12 (the pmxt range reader of iteration 11 is the route; ~100-115 MB of range requests per hour). Open."
+  },
+  "X105": {
+   "status": "open",
+   "source": "panel iteration 11, mechanics P2 (recover the PRNG with the measured signing-loop layout fixing the generation offsets)",
+   "evidence": "Not tested in iteration 12 (with X99). Open."
+  },
+  "X106": {
+   "status": "tried",
+   "source": "panel iteration 11, mechanics P3 (where the persistent state lives: per-wallet executor processes or one operator-level strategy state)",
+   "evidence": "regime12.py (results/regime12.json; onset tables of 10-31, decisions from large_dec): linear probability model of 'wallet w decides on o in [tau + 150, tau + 700) ms' on log(1 + w's own decisions on the window in the last 30 s) and log(1 + the other wallets'), |bp| and class, with 120-s segment FE (and window FE): {\"A\": {\"DS\": {\"take_rate\": 0.0504, \"beta_own_120s_fe\": -0.001, \"beta_other_120s_fe\": 0.0057, \"beta_own_window_fe\": 0.0043, \"beta_other_window_fe\": 0.0127}, \"GF\": {\"take_rate\": 0.0232, \"beta_own_120s_fe\": -0.0005, \"beta_other_120s_fe\": 0.0105, \"beta_own_window_fe\": 0.0081, \"beta_other_window_fe\": 0.0106}, \"XM\": {\"take_rate\": 0.0139, \"beta_own_120s_fe\": -0.0078, \"beta_other_120s_fe\": 0.0065, \"beta_own_window_fe\": -0.002, \"beta_other_window_fe\": 0.0069}}, \"C\": {\"DS\": {\"take_rate\": 0.0392, \"beta_own_120s_fe\": 0.0044, \"beta_other_120s_fe\": -0.0076, \"beta_own_window_fe\": 0.0162, \"beta_other_window_fe\": -0.0056}, \"GF\": {\"take_rate\": 0.0112, \"beta_own_120s_fe\": -0.0094, \"beta_other_120s_fe\": 0.007, \"beta_own_window_fe\": -0.0041, \"beta_other_window_fe\": 0.008}, \"XM\": {\"take_rate\": 0.0103, \"beta_own_120s_fe\": -0.0086, \"beta_other_120s_fe\": 0.0031, \"beta_own_window_fe\": -0.0002, \"beta_other_window_fe\": 0.004}}}. Own-recent beta is ~0 or negative (refractory slot), other-wallet beta positive: the persistent state is operator-level and the wallets are slots. Steps 2-4 (joint-take excess, rerouting while a wallet is busy, archive days) not run. | Step 2 (joint12.py, results/joint12.json): P(both wallets decide on o) far exceeds the product of the single rates in every public-score bin (fit A scored C, DS-GF [[0, 0.0029, 0.0001], [1, 0.0057, 0.0004], [2, 0.0113, 0.0014], [3, 0.0253, 0.0044]]; GF-XM [[0, 0.001, 0.0], [1, 0.0026, 0.0001], [2, 0.0041, 0.0003], [3, 0.0097, 0.002]]): one operator-level decision fans out to several wallets. Step 3 (rerouting) is not identifiable on clean onsets (no operator decision within 600 ms by construction)."
+  },
+  "X107": {
+   "status": "open",
+   "source": "panel iteration 11, mechanics P4 (the exit as a slot discipline: cancel then send, sub-5-share remainders dropped, in the recorded-book simulator)",
+   "evidence": "Not tested in iteration 12. Open. | Iteration 12 note: the iteration-11 assumptions panel measured that only 6.6% of 196 cancelled remainders have a same-wallet arrival within +-100 ms of the removal (17 vs 4 expected at +100-250 ms): cancel-then-send is not the TTL rule; the simulator part is not built."
+  },
+  "X108": {
+   "status": "open",
+   "source": "panel iteration 11, mechanics P5 (requote-echo anchors: fill-reactive makers re-sign 0-20 ms after the match, a ~10-ms historical clock)",
+   "evidence": "Not tested in iteration 12 (with X89). Open."
+  },
+  "X109": {
+   "status": "open",
+   "source": "panel iteration 11, assumptions P1 (decode the 1-2-minute regime the investigation called self-excitation)",
+   "evidence": "Step 1 tried (regime12.py, 200 redraws of each onset inside its (window, L-segment), clean filter enforced, rec30 and label recomputed from the actual decisions): A: L300 {'coef_obs': 0.0189}, L120 {'coef_obs': 0.0075, 'null_mean': 0.0058, 'null_sd': 0.0019, 'null_q025': 0.0021, 'null_q975': 0.0095, 'p_two_sided': 0.36, 'draws': 200}, L60 {'coef_obs': -0.0205, 'null_mean': -0.0115, 'null_sd': 0.0026, 'null_q025': -0.017, 'null_q975': -0.0065, 'p_two_sided': 0.0, 'draws': 200}; C: L300 {'coef_obs': 0.0159}, L120 {'coef_obs': 0.0033, 'null_mean': 0.006, 'null_sd': 0.0015, 'null_q025': 0.0032, 'null_q975': 0.009, 'p_two_sided': 0.07, 'draws': 200}, L60 {'coef_obs': -0.0056, 'null_mean': -0.0041, 'null_sd': 0.0021, 'null_q025': -0.008, 'null_q975': -0.0005, 'p_two_sided': 0.53, 'draws': 200}. Within 2-minute segments the own-recent coefficient sits inside the mechanical null; at 60 s it falls below it (refractory). Finding 13 of iteration 11 ('self-exciting internal state') is corrected: the latent is a slow 1-2-minute operator-level regime (X106). Step 5 (blkslow12.py, measurement only): the block-second presence model retrained on BUILD with outcome-signed slow spot-path features scores VALIDATE block seconds 0.8747 vs the frozen 0.8747 (pure baseline 0.8193; slow minus frozen {\"lo95\": -0.0002, \"hi95\": 0.0003, \"one_sided_p_gain_le_0\": 0.321, \"n_boot\": 1000, \"blocks\": 84}; slow features 0.06 of the gain). Steps 2-4 (Hawkes vs Cox/HMM held-out likelihood, public regressors of the decoded state, refractory curve inside the 'on' state) open. | Step 2 (compact; hawkes12.py): Hawkes-type own-decision kernel (decay 60 / 30 s chosen on the fit half) vs a slow proxy excluding the last 30 s, added to FULL, fit one half scored the other: {\"fit_A_score_C\": {\"hawkes_k_s\": 60, \"full\": {\"heldout_logloss\": 0.181, \"heldout_auc\": 0.6805}, \"hawkes\": {\"heldout_logloss\": 0.17577, \"heldout_auc\": 0.7183}, \"slow\": {\"heldout_logloss\": 0.17791, \"heldout_auc\": 0.7035}, \"both\": {\"heldout_logloss\": 0.17598, \"heldout_auc\": 0.7173}}, \"fit_C_score_A\": {\"hawkes_k_s\": 30, \"full\": {\"heldout_logloss\": 0.21846, \"heldout_auc\": 0.691}, \"hawkes\": {\"heldout_logloss\": 0.21273, \"heldout_auc\": 0.7179}, \"slow\": {\"heldout_logloss\": 0.21461, \"heldout_auc\": 0.7083}, \"both\": {\"heldout_logloss\": 0.21277, \"heldout_auc\": 0.7176}}}. The kernel wins and the slow terms add nothing to it; with step 1 the latent's time scale is ~30-60 s (operator-level), absorbed by 2-minute FE. Steps 3-4 (public regressors of the decoded state, refractory curve inside the 'on' state) open."
+  },
+  "X110": {
+   "status": "tried",
+   "source": "panel iteration 11, assumptions P2 (condition 5 as an exposure-path target; fit the bot's fair value on the window net)",
+   "evidence": "The pivot of iteration 12. (1) PnL ~ net x outcome per VALIDATE window r 0.884 (net12.json). (2) Window-net predictability (BUILD-fit, VALIDATE-scored): it4b netflow sum 0.458, nf12 (with Gamma priceToBeat) 0.4185, nf12b (spot-only slow features) 0.4237, average 0.4797, nf12c 0.4703, three-model average 0.4841; per-wallet models do not beat the pooled one. (3) Executable strict-fill EXPOSURE TRACKER (pre-registered): it4b target {'pearson': 0.4409, 'spearman': 0.4187}, average target {'pearson': 0.4758, 'spearman': 0.4404} (CI [0.4232, 0.5215]), three-model target {'pearson': 0.4756, 'spearman': 0.4446}; primary trk_a_avg (0.5 it4b netflow + 0.5 nf12b). (4) FV decoding (fvnet12.json): current-minute move +, earlier minutes -, previous window's outcome +; M1 / M2 and the spot-vs-strike gap do not replicate in sign BUILD vs VALIDATE: no strike-at-open or drifted FV. Tried."
+  },
+  "X111": {
+   "status": "open",
+   "source": "panel iteration 11, assumptions P3 (split decisions into time-locked and unlocked; judge new feeds by time-locking, not AUC lift)",
+   "evidence": "Steps 1-2 tried (lock12.py, results/lock12.json; 2,155 live decisions of 10-31; locked = a net microprice move >= 0.1 bp toward o inside the kernel7 peak bin +-25 ms of any of the seven series with excess >= 0.05; definition amended once, before any comparison was read, from 'any change' which flagged 98.5% vs 97.6% placebo): P(locked) 0.1318 vs placebo 0.0471 -> locked excess 0.0847 (by wallet {\"DS\": 0.0862, \"GF\": 0.0933, \"XM\": 0.0697}). Locked vs unlocked: {\"locked\": {\"n\": 284, \"tick_toward_o_share\": 0.9613, \"no_tick_share(|tick|<0.05bp)\": 0.0528, \"large_share\": 0.1021, \"won_share\": 0.6866, \"wallet_share\": {\"DS\": 0.57, \"GF\": 0.271, \"XM\": 0.158}, \"rel_median\": 106.8, \"abs_ask_minus_half_median\": 0.21, \"dask_up_share\": 0.4542, \"since_start_toward_o_share\": 0.4894}, \"unlocked\": {\"n\": 1871, \"tick_toward_o_share\": 0.7092, \"no_tick_share(|tick|<0.05bp)\": 0.605, \"large_share\": 0.0438, \"won_share\": 0.6045, \"wallet_share\": {\"DS\": 0.571, \"GF\": 0.231, \"XM\": 0.198}, \"rel_median\": 150.7, \"abs_ask_minus_half_median\": 0.17, \"dask_up_share\": 0.4099, \"since_start_toward_o_share\": 0.4746}}. The time-locked minority is the strong-tick, large, early, more-winning snipe; ~90% of decisions have no sharp clock in the recorded feeds (61% without a six-series tick) and do not differ on the underdog-since-open share. Step 3 (clocks for the unlocked decisions from the 11-01 feeds, composite crossing time) open."
+  },
+  "X112": {
+   "status": "tried",
+   "source": "panel iteration 11, assumptions P4 (a competition-aware controller: the regime is the bot's recent race success)",
+   "evidence": "ctrl12.py (results/ctrl12.json): decisions of large_dec labelled won / lost (all 829 located lost races of ins9b_M matched); for every clean onset of 10-31 A / C the operator's decisions on the window in [tau - 120 s, tau) and the share that won. P(take) by win-share tercile with the count held fixed: A {\"n1-3\": {\"events\": 549, \"mean_win_share\": 0.576, \"take_low_ws\": 0.0667, \"take_mid_ws\": 0.0944, \"take_high_ws\": null}, \"n3-8\": {\"events\": 3660, \"mean_win_share\": 0.789, \"take_low_ws\": 0.0559, \"take_mid_ws\": 0.0447, \"take_high_ws\": null}, \"n8-20\": {\"events\": 8572, \"mean_win_share\": 0.754, \"take_low_ws\": 0.068, \"take_mid_ws\": 0.0517, \"take_high_ws\": 0.0304}, \"n20-1000000\": {\"events\": 14318, \"mean_win_share\": 0.616, \"take_low_ws\": 0.0623, \"take_mid_ws\": 0.0813, \"take_high_ws\": 0.0815}}; C {\"n1-3\": {\"events\": 2670, \"mean_win_share\": 0.537, \"take_low_ws\": 0.0263, \"take_mid_ws\": null, \"take_high_ws\": 0.0432}, \"n3-8\": {\"events\": 5283, \"mean_win_share\": 0.696, \"take_low_ws\": 0.0402, \"take_mid_ws\": 0.0232, \"take_high_ws\": 0.0429}, \"n8-20\": {\"events\": 10421, \"mean_win_share\": 0.585, \"take_low_ws\": 0.0346, \"take_mid_ws\": 0.052, \"take_high_ws\": 0.0499}, \"n20-1000000\": {\"events\": 9782, \"mean_win_share\": 0.592, \"take_low_ws\": 0.0576, \"take_mid_ws\": 0.077, \"take_high_ws\": 0.0722}}. LPM win-share coefficient with 120-s FE A 0.0134, C 0.0156; window FE A -0.0229, C 0.0211. The signature (take after mostly won races >= 2x after mostly lost, count fixed) is absent: high / low ratios 0.45-1.6 with inconsistent signs; with the mechanics panel's equal 1-s re-fire after won vs exogenously lost races (33.4% vs 33.3%), the race-success controller is rejected. The exogenous-loss split (crowd queued ahead) and the crowd-count 'off'-state proxy were not run (no effect to split)."
   }
  },
  "components": {
@@ -7537,7 +8563,7 @@
   "timing": {
    "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Decision = submission of a pre-signed ladder order about 100-150 ms after a Binance USD-M / OKX / Bybit microprice tick toward the outcome; under Polymarket's 150-ms taker delay the order ARRIVES ~150 ms before its match. The bot reads Polymarket's book ~30 ms old and Binance ~100+ ms old (limits match o's ask at a - 30 ms best): it runs near Polymarket's engine. Selective: it reacts mostly at the onset of a flagged episode (23-26%), price-level Binance ticks with other venues agreeing are taken 29-41%; the decision rate is barely elastic to the minute's tick count (0.08-0.30) and over-dispersed (var/mean 13); no self-kept vol scale, survival / confirmation gate, cross-market confirmation or crowd timing selects the onsets; among price-level ticks the take is indistinguishable from a coin given every public input (AUC <= 0.58 in both halves) and rises with the bot's own recent decisions (a self-exciting internal state, own state). Historically presence on block seconds 0.875 vs 0.821 (+0.054)."
+   "description": "Decision = submission of a pre-signed ladder order; a time-locked MINORITY (~9% beyond a placebo: 13.2% vs 4.7%) comes 100-150 ms after a sharp venue microprice move toward the outcome (strong ticks, large size, early, more often won); ~90% have no sharp clock in any recorded feed (61% without a six-series tick). Under Polymarket's 150-ms taker delay the order ARRIVES ~150 ms before its match; the bot reads Polymarket's book ~30 ms old and Binance ~100+ ms old (near the engine). Selective: it reacts mostly at the onset of a flagged episode; no self-kept vol scale, snapshot gate, cross-market confirmation or crowd timing selects the onsets; the recorded Coinbase ticker adds a small replicated out-of-sample gain (+0.014 / +0.016 AUC; strong Binance ticks are taken more when Coinbase has not yet moved). Iteration 12: the take rate's window-level heterogeneity is an OPERATOR-level state with a 30-60-s time scale (a kernel of the operator's own decisions with 30-60-s decay predicts held-out takes best; inside 2-minute segments the 30-s count is within a redraw null; GF / XM follow the other wallets' recent decisions and are refractory to their own); not a race-success controller. Historically presence on block seconds 0.875 vs 0.821 (+0.054)."
   },
   "side": {
    "confidence": 0.6,
@@ -7552,15 +8578,15 @@
   "size": {
    "confidence": 0.7,
    "tag": "VALIDATE-only",
-   "description": "Fixed (small, large) menu per day; large orders pyramid the leg the operator holds. Iteration 11: the size reads the operator's INTENDED (sent) position or a slow regime, not realized fills (after a won vs lost large race the next same-outcome decision is large 19% vs 27%; sent net AUC 0.680 vs realized 0.668), so the fixed-size replay ceiling 0.70-0.77 applies rather than lean10's 0.47-0.58 (tentative: 111 large decisions). The per-window PnL is the large-order lean (corr 0.77), a coin with respect to the outcome. Under the latency >= 2 s strict-fill convention even the wallet's own decisions with true sizes reach only 0.40."
+   "description": "Fixed (small, large) menu per day; large orders pyramid the leg the operator holds. Iteration 11: the size reads the operator's INTENDED (sent) position or a slow regime, not realized fills (after a won vs lost large race the next same-outcome decision is large 19% vs 27%; sent net AUC 0.680 vs realized 0.668), so the fixed-size replay ceiling 0.70-0.77 applies rather than lean10's 0.47-0.58 (tentative: 111 large decisions). The per-window PnL is the large-order lean (corr 0.77), a coin with respect to the outcome. Under the latency >= 2 s strict-fill convention a replay of the wallet's own decisions with true sizes reaches only 0.40, but the iteration-12 exposure tracker, which reproduces the net path instead of the decisions, reaches 0.476 / 0.440."
   },
   "exit": {
    "confidence": 0.9,
    "tag": "VALIDATE-only",
-   "description": "Remainders and lost races rest as GTC bids at the old ask; cancelled never-filled remainders live DS median 328 ms, GF 240, XM 124 (Weibull shape 0.63-0.77, no sharp timer; some cancels are sent during the hold); refills fall when the hold rises (09-04: 22.4% -> 17.5%), not when it falls (08-17); every position is held to resolution; 87% of shares end paired at 0.979; REDEEM per window; TAKER_REBATE = 0.5 x the previous day's taker fees; one order in flight per wallet, decisions fan out across wallets."
+   "description": "Remainders and lost races rest as GTC bids at the old ask (cancelled never-filled remainders live DS median 328 ms, GF 240, XM 124); every position is held to resolution; 87% of shares end paired at 0.979; TAKER_REBATE = 0.5 x the previous day's taker fees. Iteration 12, the INVENTORY PATH: per window PnL = net x outcome (r 0.884); the net follows the current minute's BTC move (+), is bought back against the earlier minutes' moves (-) and leans with the previous window's outcome (+); public models predict the window net at r 0.46-0.48 (market activity alone 0.34), and an executable exposure tracker that buys the predicted net deficit with strict fills (latency >= 2 s) reproduces the per-window PnL at Pearson 0.476 / Spearman 0.440 (GF 0.34, DS 0.43, XM 0.06; market-only tracker 0.36 / 0.32); the wallets' per-window PnLs are nearly independent of each other (0.00-0.20)."
   }
  },
- "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts each window (three bursts at -89.5 / +42 / +173 s since 08-22; other two-burst schedules in early August, never fresh-signed at decision time) [VALIDATE-only]. It submits one about 100-150 ms after a microprice tick of the Binance USD-M / OKX / Bybit BTC and ETH perps toward an outcome, at the ask it saw ~30 ms before arriving (1+ c higher in 16% of orders) [VALIDATE-only]; it runs near Polymarket's engine and sees Binance ~100 ms late [VALIDATE-only, location hypothesis]. Polymarket holds every marketable order 150 ms, so the bot races the crowd in that delay queue; given the arrival time the race outcome is nearly deterministic on the recorded book [VALIDATE-only]. It takes about one in three flagged episodes, mostly at their onset; which ones is not decoded: no public input recorded separates taken from skipped price-level ticks, and the take rate rises with the bot's own recent activity, a self-exciting internal state [VALIDATE-only; open]. The side is the tick direction (83% per decision, point-in-time clean) [VALIDATE-only]. Lost races rest at the old ask for ~0.1-1 s and fill as maker about half the time [VALIDATE-only]. The size is small unless the operator's intended position is flat or long the outcome, so large orders pyramid the leg it holds; realized fills do not feed back [VALIDATE-only, own state, tentative]. Positions are held to resolution; 87% of shares end in complete sets bought at 0.979 [VALIDATE-only]. Income = locked sets (~2.1 c per pair) and the 50% taker-fee rebate; the large-size lean is a coin with respect to the outcome and carries the per-window PnL variance [VALIDATE-only]. Nothing is exam-verified.",
+ "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts each window (three bursts at -89.5 / +42 / +173 s since 08-22; other two-burst schedules in early August) [VALIDATE-only]. It submits one at the ask it saw ~30 ms before arriving; a minority of submissions (~9% beyond a placebo: the strong-tick snipes that carry the large size) come 100-150 ms after a sharp microprice move of the Binance USD-M / OKX / Bybit / Hyperliquid BTC and ETH perps toward the outcome, and most have no sharp clock in any recorded feed [VALIDATE-only]; it runs near Polymarket's engine [VALIDATE-only, location hypothesis]. Polymarket holds every marketable order 150 ms, so the bot races the crowd in that delay queue [VALIDATE-only]. It takes about one in three flagged episodes; which ones is not decoded: no recorded public input separates taken from skipped strong ticks beyond small gains (Coinbase freshness +0.015 AUC), the take rate follows an operator-level state with a 30-60-s time scale shared by the wallets, and the independent fast crowd takes the same onsets on an input the recorded feeds explain only 14-21% of [VALIDATE-only; open]. The side is the tick direction (83% per decision live, 77% at the block clock) [VALIDATE-only]. Lost races rest at the old ask for ~0.1-1 s and fill as maker about half the time [VALIDATE-only]. The size is small unless the operator's intended position is flat or long the outcome [VALIDATE-only, own state, tentative]. Inside a window the net exposure follows the current minute's move and is bought back against earlier moves; it is predictable from public data at r ~0.48, and an executable exposure tracker built on that prediction reproduces the cluster's per-window PnL at r 0.4758 / 0.4404 under strict fills with >= 2 s latency (per wallet 0.06-0.43) [VALIDATE-only]. Positions are held to resolution; 87% of shares end in complete sets bought at 0.979 [VALIDATE-only]. Income = locked sets (~2.1 c per pair) and the 50% taker-fee rebate; the lean is a coin with respect to the outcome and carries the per-window PnL variance [VALIDATE-only]. Nothing is exam-verified.",
  "target_metrics": {
   "presence_auc": 0.8747,
   "presence_baseline": 0.8211,
@@ -7571,8 +8597,8 @@
   "side_accuracy": 0.7666,
   "side_baseline": 0.6323,
   "price_within_tick": 0.9512,
-  "pnl_corr_pearson": 0.1755,
-  "pnl_corr_spearman": 0.1692,
+  "pnl_corr_pearson": 0.4758,
+  "pnl_corr_spearman": 0.4404,
   "coverage_fills": 1.0,
   "coverage_abs_pnl": 1.0
  },
@@ -7588,7 +8614,9 @@
   "iteration8": "VALIDATE target_metrics unchanged (historical rule unchanged). Live development (not VALIDATE, not counted): exam-feed side vote 85.4% on 68% of decisions (16:33-17:55); pre-registered full-coverage side 70.6% / 78.2% in sample; decision-level presence (frozen exam-feed hazard) 0.656 vs a Polymarket-activity baseline 0.598 out of sample (gain +0.058, CI [0.041, 0.076]). Executable PnL: no size rule lifts the replica (0.13-0.18).",
   "iteration9": "Historical rule unchanged; presence_baseline now the stronger baseline. Side: no wallet is one-sided beyond its order-count null (XM 24.3% vs 26.1%), so the side condition does not bind in substance; side_accuracy keeps the per-one-sided-second value. PnL: the true-rule test-retest ceiling is 0.74 [0.71, 0.76] pooled at q = 0.61 (DS 0.62, GF 0.73, XM 0.59): attainable in principle; the replica's 0.18 is a decision-overlap gap.",
   "iteration10": "Historical rule unchanged (target_metrics as in iteration 9). New pre-registered live keys (first clean test 11-01 06-12): side_accuracy_live_decision_pit (16:04-17:55 in sample: 83.3% on 67.6%), price_within_tick_live_pit (90.7%), presence_live_decision_auc_pit. Condition 5 account: the true rule's test-retest with the own-net size feedback is 0.47-0.58 pooled (lean10), so pnl_corr >= 0.5 is at the edge even for a perfect decode.",
-  "iteration11": "Historical rule unchanged (target_metrics as in iterations 9-10). Condition 5 account revised: no realized-fill size feedback detected (size11), so the replay ceiling with the decisions reproduced is the fixed-size 0.70-0.77 at the block clock, and on recorded books the race is nearly deterministic given the arrival (race11); under the latency >= 2 s convention the wallet's own decisions with true sizes reach 0.40 (strict7). The binding terms are decision overlap (the onset selection, not decoded) and the large-size regime."
+  "iteration11": "Historical rule unchanged (target_metrics as in iterations 9-10). Condition 5 account revised: no realized-fill size feedback detected (size11), so the replay ceiling with the decisions reproduced is the fixed-size 0.70-0.77 at the block clock, and on recorded books the race is nearly deterministic given the arrival (race11); under the latency >= 2 s convention the wallet's own decisions with true sizes reach 0.40 (strict7). The binding terms are decision overlap (the onset selection, not decoded) and the large-size regime.",
+  "iteration12": "pnl_corr_* now come from the iteration-12 exposure tracker (trk_a_avg (0.5 it4b netflow + 0.5 nf12b); pre-registered; strict fills on other traders' taker prints, latency >= 2 s, capture 1.0, cluster takers and cluster-maker transactions excluded): pooled Pearson / Spearman 0.4758 / 0.4404 (2-h block CI [0.4232, 0.5215]; halves [0.4603, 0.4869]); per wallet GF {'pearson': 0.3442, 'spearman': 0.3526}, DS {'pearson': 0.4252, 'spearman': 0.3943}, XM {'pearson': 0.0552, 'spearman': 0.0547} (condition 7 not met). Co-occurrence check: the same tracker on a market-activity-only net-flow model reaches {'pearson': 0.3602, 'spearman': 0.3154}; gain of the reference feeds Pearson 0.1156 (paired 2-h block CI [0.0751, 0.1587]), Spearman 0.125 (CI [0.0868, 0.158]). The iteration-4 30-share replica (0.1755 / 0.1692) is kept as pnl_corr_*_frozen30. End-to-end evaluate on 36 VALIDATE windows reproduces the offline tracker exactly. Other keys unchanged.",
+  "iteration12_leak_check": "W4 (0xd844...) and W5 (0x03b4...), the operator's fourth / fifth fan-out wallets, are not excluded from the frozen tape features; rebuilding the VALIDATE features without them leaves every metric unchanged (w45chk12.json: {\"presence_block_seconds_rebuilt\": {\"auc_full\": 0.8747, \"auc_pure\": 0.819, \"gain\": 0.0557}, \"tracker_avg_rebuilt\": {\"pearson\": 0.4756, \"spearman\": 0.4394, \"GF\": 0.3469, \"XM\": 0.0554, \"DS\": 0.4217}, \"corr_nf_old_vs_rebuilt\": 0.9994, \"elapsed_s\": 143})."
  },
  "catalog_open_after_iteration8": [
   "X5",
@@ -7676,5 +8704,40 @@
   "X93",
   "X98",
   "X99"
+ ],
+ "catalog_open_after_iteration12": [
+  "X5",
+  "X7",
+  "X9",
+  "X18",
+  "X26",
+  "X33",
+  "X36",
+  "X37",
+  "X44",
+  "X51",
+  "X53",
+  "X57",
+  "X59",
+  "X66",
+  "X70",
+  "X72",
+  "X76",
+  "X84",
+  "X87",
+  "X88",
+  "X89",
+  "X90",
+  "X93",
+  "X98",
+  "X99",
+  "X100",
+  "X101",
+  "X104",
+  "X105",
+  "X107",
+  "X108",
+  "X109",
+  "X111"
  ]
 }

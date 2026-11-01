@@ -1,0 +1,72 @@
+{
+ "trk_a": {
+  "fills": 119461,
+  "usd": 568566.7,
+  "pnl_before_rebates": -17629.5,
+  "fee_usd": 16715.8,
+  "return_before_rebates": -0.031,
+  "return_with_50pct_fee_rebate": -0.0163,
+  "corr_realized_net_target_net": 0.9932,
+  "corr_realized_net_wallet_net": 0.4843,
+  "pnl_corr_GF": {
+   "pearson": 0.3442,
+   "spearman": 0.3526
+  },
+  "pnl_corr_XM": {
+   "pearson": 0.0552,
+   "spearman": 0.0547
+  },
+  "pnl_corr_DS": {
+   "pearson": 0.4252,
+   "spearman": 0.3943
+  },
+  "pnl_corr_pool": {
+   "pearson": 0.4758,
+   "spearman": 0.4404
+  },
+  "pnl_corr_pool_pearson_block_ci95": [
+   0.4232,
+   0.5215
+  ],
+  "pnl_corr_pool_halves": [
+   0.4603,
+   0.4869
+  ],
+  "elapsed_s": 4.5
+ },
+ "trk_b": {
+  "fills": 147960,
+  "usd": 631791.7,
+  "pnl_before_rebates": -1860.7,
+  "fee_usd": 19301.3,
+  "return_before_rebates": -0.0029,
+  "return_with_50pct_fee_rebate": 0.0123,
+  "corr_realized_net_target_net": 0.9953,
+  "corr_realized_net_wallet_net": 0.483,
+  "pnl_corr_GF": {
+   "pearson": 0.3426,
+   "spearman": 0.3541
+  },
+  "pnl_corr_XM": {
+   "pearson": 0.0531,
+   "spearman": 0.0536
+  },
+  "pnl_corr_DS": {
+   "pearson": 0.4246,
+   "spearman": 0.393
+  },
+  "pnl_corr_pool": {
+   "pearson": 0.4738,
+   "spearman": 0.4378
+  },
+  "pnl_corr_pool_pearson_block_ci95": [
+   0.4205,
+   0.5208
+  ],
+  "pnl_corr_pool_halves": [
+   0.4575,
+   0.4857
+  ],
+  "elapsed_s": 2.9
+ }
+}

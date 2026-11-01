@@ -1,0 +1,37 @@
+{
+ "convention": "a",
+ "rule_fills": 2361,
+ "rule_usd": 12526.1,
+ "rule_pnl_before_rebates": -733.1,
+ "rule_return_before_rebates": -0.0585,
+ "rule_return_with_50pct_fee_rebate": -0.0441,
+ "per_window_pnl_corr_pearson": 0.3706,
+ "per_window_pnl_corr_spearman": 0.3712,
+ "corr_realized_net_target_net": 0.997,
+ "corr_realized_net_wallet_net": 0.4321,
+ "by_wallet": {
+  "GF": {
+   "pearson": 0.2411,
+   "spearman": 0.1982
+  },
+  "XM": {
+   "pearson": 0.0164,
+   "spearman": 0.0553
+  },
+  "DS": {
+   "pearson": 0.4398,
+   "spearman": 0.4826
+  }
+ },
+ "halves_pearson": [
+  0.3059,
+  0.3766
+ ],
+ "pnl_block_bootstrap_2h": {
+  "pearson_ci95": [
+   0.1045,
+   0.6867
+  ]
+ },
+ "note": "exposure tracker (iteration 12, pre-registered): strict fills on observed liquidity, capture 1.0 (upper bound), taker only; (a) = latency >= 2 s after the information horizon"
+}

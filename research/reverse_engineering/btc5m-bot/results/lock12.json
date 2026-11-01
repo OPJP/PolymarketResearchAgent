@@ -1,0 +1,54 @@
+{
+ "series": [
+  "bf_BTC",
+  "bf_ETH",
+  "bs_ETH",
+  "by_ETH",
+  "hl_BTC",
+  "hl_ETH",
+  "ok_ETH"
+ ],
+ "decisions": 2155,
+ "P_locked": 0.1318,
+ "P_locked_placebo": 0.0471,
+ "locked_fraction_excess": 0.0847,
+ "by_class": {
+  "locked": {
+   "n": 284,
+   "tick_toward_o_share": 0.9613,
+   "no_tick_share(|tick|<0.05bp)": 0.0528,
+   "large_share": 0.1021,
+   "won_share": 0.6866,
+   "wallet_share": {
+    "DS": 0.57,
+    "GF": 0.271,
+    "XM": 0.158
+   },
+   "rel_median": 106.8,
+   "abs_ask_minus_half_median": 0.21,
+   "dask_up_share": 0.4542,
+   "since_start_toward_o_share": 0.4894
+  },
+  "unlocked": {
+   "n": 1871,
+   "tick_toward_o_share": 0.7092,
+   "no_tick_share(|tick|<0.05bp)": 0.605,
+   "large_share": 0.0438,
+   "won_share": 0.6045,
+   "wallet_share": {
+    "DS": 0.571,
+    "GF": 0.231,
+    "XM": 0.198
+   },
+   "rel_median": 150.7,
+   "abs_ask_minus_half_median": 0.17,
+   "dask_up_share": 0.4099,
+   "since_start_toward_o_share": 0.4746
+  }
+ },
+ "by_wallet_locked_excess": {
+  "DS": 0.0862,
+  "GF": 0.0933,
+  "XM": 0.0697
+ }
+}

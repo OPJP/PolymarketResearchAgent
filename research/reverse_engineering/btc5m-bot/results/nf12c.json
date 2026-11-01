@@ -1,0 +1,34 @@
+{
+ "validate_window_net_corr": {
+  "nf12c": 0.4703,
+  "nf_it4b": 0.4583,
+  "nf12b": 0.4237,
+  "avg_it4b_nf12b": 0.4797,
+  "avg3": 0.4841,
+  "avg_nf12c_nf12b": 0.4761
+ },
+ "importance_gain_top20": {
+  "C6_pm2000": 0.0435,
+  "n2": 0.0333,
+  "vwap10": 0.0276,
+  "C_pm2000": 0.023,
+  "D_ask_o": 0.0211,
+  "n1": 0.0205,
+  "dgap5": 0.0162,
+  "dm5": 0.0161,
+  "sig": 0.0151,
+  "ask_diff": 0.0148,
+  "C6_since_mean": 0.0145,
+  "D_dm5": 0.0143,
+  "bid_o": 0.0143,
+  "C_mx2000": 0.0142,
+  "tau": 0.0142,
+  "age_last": 0.0137,
+  "dm10": 0.0129,
+  "m_last": 0.0121,
+  "A_pmmean2000": 0.0118,
+  "ask_o": 0.0112
+ },
+ "importance_slow_share": 0.0537,
+ "elapsed_s": 205
+}

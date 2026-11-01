@@ -1,0 +1,47 @@
+{
+ "GF": {
+  "T": {
+   "share_of_fills": 0.611,
+   "pnl_sum": -2959.2,
+   "var_share": 0.782,
+   "corr_with_total": 0.928
+  },
+  "M": {
+   "share_of_fills": 0.389,
+   "pnl_sum": 4408.0,
+   "var_share": 0.218,
+   "corr_with_total": 0.571
+  },
+  "corr_net_T_net_M": 0.217
+ },
+ "XM": {
+  "T": {
+   "share_of_fills": 0.559,
+   "pnl_sum": -527.6,
+   "var_share": 0.699,
+   "corr_with_total": 0.846
+  },
+  "M": {
+   "share_of_fills": 0.441,
+   "pnl_sum": 2111.0,
+   "var_share": 0.301,
+   "corr_with_total": 0.565
+  },
+  "corr_net_T_net_M": 0.018
+ },
+ "DS": {
+  "T": {
+   "share_of_fills": 0.641,
+   "pnl_sum": -1400.0,
+   "var_share": 0.794,
+   "corr_with_total": 0.896
+  },
+  "M": {
+   "share_of_fills": 0.359,
+   "pnl_sum": 2756.2,
+   "var_share": 0.206,
+   "corr_with_total": 0.463
+  },
+  "corr_net_T_net_M": 0.015
+ }
+}

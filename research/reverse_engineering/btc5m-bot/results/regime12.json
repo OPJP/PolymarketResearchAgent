@@ -1,0 +1,106 @@
+{
+ "A": {
+  "n": 27211,
+  "label_agreement_with_table": 0.9701,
+  "clean_recomputed": 0.9603,
+  "L300": {
+   "coef_obs": 0.0189
+  },
+  "L120": {
+   "coef_obs": 0.0075,
+   "null_mean": 0.0058,
+   "null_sd": 0.0019,
+   "null_q025": 0.0021,
+   "null_q975": 0.0095,
+   "p_two_sided": 0.36,
+   "draws": 200
+  },
+  "L60": {
+   "coef_obs": -0.0205,
+   "null_mean": -0.0115,
+   "null_sd": 0.0026,
+   "null_q025": -0.017,
+   "null_q975": -0.0065,
+   "p_two_sided": 0.0,
+   "draws": 200
+  },
+  "L30": {
+   "coef_obs": -0.0426
+  },
+  "per_wallet_own_vs_other": {
+   "DS": {
+    "take_rate": 0.0504,
+    "beta_own_120s_fe": -0.001,
+    "beta_other_120s_fe": 0.0057,
+    "beta_own_window_fe": 0.0043,
+    "beta_other_window_fe": 0.0127
+   },
+   "GF": {
+    "take_rate": 0.0232,
+    "beta_own_120s_fe": -0.0005,
+    "beta_other_120s_fe": 0.0105,
+    "beta_own_window_fe": 0.0081,
+    "beta_other_window_fe": 0.0106
+   },
+   "XM": {
+    "take_rate": 0.0139,
+    "beta_own_120s_fe": -0.0078,
+    "beta_other_120s_fe": 0.0065,
+    "beta_own_window_fe": -0.002,
+    "beta_other_window_fe": 0.0069
+   }
+  }
+ },
+ "C": {
+  "n": 30812,
+  "label_agreement_with_table": 0.9774,
+  "clean_recomputed": 0.972,
+  "L300": {
+   "coef_obs": 0.0159
+  },
+  "L120": {
+   "coef_obs": 0.0033,
+   "null_mean": 0.006,
+   "null_sd": 0.0015,
+   "null_q025": 0.0032,
+   "null_q975": 0.009,
+   "p_two_sided": 0.07,
+   "draws": 200
+  },
+  "L60": {
+   "coef_obs": -0.0056,
+   "null_mean": -0.0041,
+   "null_sd": 0.0021,
+   "null_q025": -0.008,
+   "null_q975": -0.0005,
+   "p_two_sided": 0.53,
+   "draws": 200
+  },
+  "L30": {
+   "coef_obs": -0.029
+  },
+  "per_wallet_own_vs_other": {
+   "DS": {
+    "take_rate": 0.0392,
+    "beta_own_120s_fe": 0.0044,
+    "beta_other_120s_fe": -0.0076,
+    "beta_own_window_fe": 0.0162,
+    "beta_other_window_fe": -0.0056
+   },
+   "GF": {
+    "take_rate": 0.0112,
+    "beta_own_120s_fe": -0.0094,
+    "beta_other_120s_fe": 0.007,
+    "beta_own_window_fe": -0.0041,
+    "beta_other_window_fe": 0.008
+   },
+   "XM": {
+    "take_rate": 0.0103,
+    "beta_own_120s_fe": -0.0086,
+    "beta_other_120s_fe": 0.0031,
+    "beta_own_window_fe": -0.0002,
+    "beta_other_window_fe": 0.004
+   }
+  }
+ }
+}
