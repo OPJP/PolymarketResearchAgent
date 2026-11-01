@@ -59,7 +59,9 @@ def gamma_event(slug):
 
 def main(start, end):
     assert not sealed.is_sealed(start, KEY) and not sealed.is_sealed(end - 1, KEY), 'not a development block'
-    R = [r for r in live.iter_live('tommy_tp_odds', start, end) if r.get('k') == 'B' and r.get('ev')]
+    # iteration 11: v1 (feed tommy_tp_odds) stopped 11-01 05:30 UTC before any development block; v2 writes the same B
+    # records (plus U / P kinds and coverage fields) to tommy_tp_odds2. Data plumbing only; the tests are unchanged.
+    R = [r for fd in ('tommy_tp_odds', 'tommy_tp_odds2') for r in live.iter_live(fd, start, end) if r.get('k') == 'B' and r.get('ev')]
     res = {'block': [start, end], 'records': len(R), 'matches': {}}
     if not R:
         (RES / f'tp_odds_analysis_{int(start)}.json').write_text(json.dumps(res, indent=1))

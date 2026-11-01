@@ -1,4 +1,11 @@
-"""Iteration-10 note (2026-11-01; no functional change, v5 stays frozen): (1) exit band decoded: the wallet never bids
+"""Iteration-11 note (2026-11-01; no functional change, v5 stays frozen): no candidate beat v5 on VALIDATE. Measured
+bounds (NOTES iteration 11): no point-in-time own-state price anchor beats the last print (0.280 vs 0.305), SX Bet
+on chain is too sparse to anchor (11 CS2 markets / 63 fills in 16-22 Oct), a fresh public touch scores below the touch,
+even a rule knowing the wallet's own value caps at about 0.71-0.75 within one tick per order, and the outcome item
+breaks at any public lag of the take (its own take empties the stale remainder). The forward build drifted in taker
+size (caps gone, median 129) and merge timing (more CS2 events use the known maker size ramp); re-fit before a future exam.
+
+Iteration-10 note (2026-11-01; no functional change, v5 stays frozen): (1) exit band decoded: the wallet never bids
 below 0.05 or above 0.95 (0 of 25,878 orders outside, 10% of public makers' bids are); (2) pre-registered treatment of the
 exam lots' only non-GRID tier-1/2 stratum (PGL Masters, h1 18 / h2 21 events, never in development): unchanged v5, i.e.
 gp72 decides each event by group-P prints in earlier PGL Masters events (counted by the examiner with ALLOW_SEALED);

@@ -1,0 +1,170 @@
+{
+ "adds": 1404,
+ "assets": 6,
+ "events": 6,
+ "split_ms": 1793460693760.0,
+ "by_D": {
+  "first_half": {
+   "n": 702,
+   "touch": 0.256,
+   "FT0.25": {
+    "within_tick": 0.245,
+    "coverage": 0.536,
+    "within_tick_on_covered": 0.266,
+    "touch_on_covered": 0.287
+   },
+   "FT0.5": {
+    "within_tick": 0.266,
+    "coverage": 0.694,
+    "within_tick_on_covered": 0.277,
+    "touch_on_covered": 0.263
+   },
+   "FT1": {
+    "within_tick": 0.268,
+    "coverage": 0.776,
+    "within_tick_on_covered": 0.268,
+    "touch_on_covered": 0.253
+   },
+   "FT2": {
+    "within_tick": 0.266,
+    "coverage": 0.801,
+    "within_tick_on_covered": 0.265,
+    "touch_on_covered": 0.253
+   },
+   "FT5": {
+    "within_tick": 0.259,
+    "coverage": 0.86,
+    "within_tick_on_covered": 0.243,
+    "touch_on_covered": 0.24
+   },
+   "FT15": {
+    "within_tick": 0.249,
+    "coverage": 0.93,
+    "within_tick_on_covered": 0.248,
+    "touch_on_covered": 0.256
+   },
+   "FT60": {
+    "within_tick": 0.241,
+    "coverage": 0.994,
+    "within_tick_on_covered": 0.241,
+    "touch_on_covered": 0.256
+   },
+   "new_top_touch": 0.314
+  },
+  "second_half": {
+   "n": 702,
+   "touch": 0.148,
+   "FT0.25": {
+    "within_tick": 0.249,
+    "coverage": 0.425,
+    "within_tick_on_covered": 0.423,
+    "touch_on_covered": 0.185
+   },
+   "FT0.5": {
+    "within_tick": 0.326,
+    "coverage": 0.57,
+    "within_tick_on_covered": 0.468,
+    "touch_on_covered": 0.155
+   },
+   "FT1": {
+    "within_tick": 0.348,
+    "coverage": 0.67,
+    "within_tick_on_covered": 0.451,
+    "touch_on_covered": 0.153
+   },
+   "FT2": {
+    "within_tick": 0.366,
+    "coverage": 0.762,
+    "within_tick_on_covered": 0.439,
+    "touch_on_covered": 0.153
+   },
+   "FT5": {
+    "within_tick": 0.376,
+    "coverage": 0.86,
+    "within_tick_on_covered": 0.414,
+    "touch_on_covered": 0.149
+   },
+   "FT15": {
+    "within_tick": 0.37,
+    "coverage": 0.929,
+    "within_tick_on_covered": 0.39,
+    "touch_on_covered": 0.15
+   },
+   "FT60": {
+    "within_tick": 0.348,
+    "coverage": 0.966,
+    "within_tick_on_covered": 0.357,
+    "touch_on_covered": 0.15
+   },
+   "new_top_touch": 0.593
+  },
+  "all": {
+   "n": 1404,
+   "touch": 0.202,
+   "FT0.25": {
+    "within_tick": 0.247,
+    "coverage": 0.48,
+    "within_tick_on_covered": 0.335,
+    "touch_on_covered": 0.242
+   },
+   "FT0.5": {
+    "within_tick": 0.296,
+    "coverage": 0.632,
+    "within_tick_on_covered": 0.363,
+    "touch_on_covered": 0.214
+   },
+   "FT1": {
+    "within_tick": 0.308,
+    "coverage": 0.723,
+    "within_tick_on_covered": 0.353,
+    "touch_on_covered": 0.207
+   },
+   "FT2": {
+    "within_tick": 0.316,
+    "coverage": 0.781,
+    "within_tick_on_covered": 0.35,
+    "touch_on_covered": 0.204
+   },
+   "FT5": {
+    "within_tick": 0.318,
+    "coverage": 0.86,
+    "within_tick_on_covered": 0.329,
+    "touch_on_covered": 0.195
+   },
+   "FT15": {
+    "within_tick": 0.31,
+    "coverage": 0.929,
+    "within_tick_on_covered": 0.319,
+    "touch_on_covered": 0.203
+   },
+   "FT60": {
+    "within_tick": 0.294,
+    "coverage": 0.98,
+    "within_tick_on_covered": 0.298,
+    "touch_on_covered": 0.204
+   },
+   "new_top_touch": 0.394
+  }
+ },
+ "fitted": {
+  "D": 1,
+  "k": 0.01,
+  "fit_score": 0.296,
+  "touch_k": 0.0,
+  "touch_fit_score": 0.256,
+  "second_half": {
+   "FT_fitted": 0.292,
+   "touch_fitted_k": 0.148,
+   "touch_raw": 0.148,
+   "gain_ci95": [
+    0.032,
+    0.223
+   ],
+   "new_top": {
+    "n": 113,
+    "FT": 0.504,
+    "touch": 0.593
+   }
+  }
+ }
+}

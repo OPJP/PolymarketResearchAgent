@@ -1,0 +1,138 @@
+{
+ "BUILD": {
+  "orders": 10759,
+  "last_print": [
+   0.309,
+   10727
+  ],
+  "own_prev_fill_selected": [
+   0.5,
+   10533
+  ],
+  "own_pit_first_fill": [
+   0.267,
+   10280
+  ],
+  "own_pit_last_fill": [
+   0.252,
+   10261
+  ],
+  "own_prev_no_same_block": [
+   0.384,
+   10469
+  ],
+  "oracle_union_pit_and_last": 0.42,
+  "oracle_union_fill_selected_and_last (iteration 10, 0.599)": 0.607,
+  "persistence_by_gap": {
+   "0-2s": {
+    "fill_selected": [
+     0.746,
+     2607
+    ],
+    "pit": [
+     null,
+     0
+    ]
+   },
+   "2-10s": {
+    "fill_selected": [
+     0.604,
+     1378
+    ],
+    "pit": [
+     0.435,
+     767
+    ]
+   },
+   "10-60s": {
+    "fill_selected": [
+     0.51,
+     3260
+    ],
+    "pit": [
+     0.353,
+     3723
+    ]
+   },
+   "60-infs": {
+    "fill_selected": [
+     0.251,
+     3288
+    ],
+    "pit": [
+     0.189,
+     5790
+    ]
+   }
+  },
+  "share_same_block_as_predecessor": 0.178
+ },
+ "VALIDATE": {
+  "orders": 13421,
+  "last_print": [
+   0.305,
+   12099
+  ],
+  "own_prev_fill_selected": [
+   0.5,
+   13189
+  ],
+  "own_pit_first_fill": [
+   0.28,
+   12956
+  ],
+  "own_pit_last_fill": [
+   0.263,
+   12949
+  ],
+  "own_prev_no_same_block": [
+   0.376,
+   13105
+  ],
+  "oracle_union_pit_and_last": 0.418,
+  "oracle_union_fill_selected_and_last (iteration 10, 0.599)": 0.598,
+  "persistence_by_gap": {
+   "0-2s": {
+    "fill_selected": [
+     0.716,
+     3435
+    ],
+    "pit": [
+     1.0,
+     2
+    ]
+   },
+   "2-10s": {
+    "fill_selected": [
+     0.591,
+     2005
+    ],
+    "pit": [
+     0.448,
+     1129
+    ]
+   },
+   "10-60s": {
+    "fill_selected": [
+     0.516,
+     4063
+    ],
+    "pit": [
+     0.365,
+     4858
+    ]
+   },
+   "60-infs": {
+    "fill_selected": [
+     0.233,
+     3686
+    ],
+    "pit": [
+     0.193,
+     6967
+    ]
+   }
+  },
+  "share_same_block_as_predecessor": 0.203
+ }
+}

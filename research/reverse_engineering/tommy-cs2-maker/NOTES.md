@@ -3286,3 +3286,295 @@ whatever (c) / (d) give.
 - Iteration 10 ended at about 04:40 UTC (about 55 wall-clock minutes; budget used about 697 of 1200 minutes). The
   remaining time was left unused on purpose: the decisive new data (X133 odds, X118 Valve state) arrive only with the
   development block 11-01 06-12.
+
+# Iteration 11 (2026-11-01, started 05:23 UTC; 697 of 1200 budget minutes used before it)
+
+Read first: NOTES (iterations 1-10), state.json, FINAL_RULE.md, panels/iter10_{information,mechanics,assumptions}.md. No
+EXAM or wall-audit files. Calendar: no released lots; the iteration starts in the SEALED block 11-01 00-06 and runs into
+the development block 11-01 06-12 (no wallet activity is expected there before its usual 08:10-09:04 UTC session start).
+Shared recorder status OK at 05:24 UTC (pid 27184, current block sealed). The 14 iteration-10 panel proposals become
+X144-X157: information P1-P5 = X144-X148, mechanics P1-P4 = X149-X152, assumptions P1-P5 = X153-X157.
+
+**Pivot (required: iterations 9 and 10 each moved the primary metric by < 0.01).** New data source and new units:
+(1) the first SECOND-VENUE data of the study: every SX Bet fill on the SX Rollup chain in 16-22 Oct (28,734 fill txs on
+4,622 markets of games that started before H), decoded key-free from calldata (X145); (2) the uncensored own-add unit with the wallet's own value
+KNOWN (an oracle ceiling of the per-order price item, X150) and a freshness-filtered public touch (X153) on the raw
+BUILD-live book; (3) a decode-independent latency bound of the outcome item: the wallet's OWN decisions delayed by L in
+the validated engine (X155 + X149 step 1); (4) the X133 recorder upgraded to record the pre-game Thunderpick line and
+the per-match object's cadence (X144 steps 1-2, X148 step 1).
+
+## Competing explanations (iteration 11) and the observation that separates them
+1. **E1 own model on Feed P's raw events (leading):** its level is its own valuation; no public, second-venue or shared
+   series reproduces it. Separator: SX, a fresh public touch and co-receivers' increments all fail to match it.
+2. **E4 an in-play odds product (Thunderpick or the vendor upstream of it and of Feed P):** its level = p_odds - margin.
+   Separator: quiet-class and pre-game levels track p_TP (X144, live only); a second bookmaker-like venue (SX) sits at
+   its level (X145, historical).
+3. **E10 V is shared with the fast Feed-P makers (assumptions P1 / P2):** the full touch fails only because it mixes
+   stale levels. Separator: a freshness-filtered touch beats the touch by >= 0.10 (X153); synchronous increments
+   correlate >= 0.8 (X154).
+4. **E11 a second venue leads or prices its book (SX Bet / Azuro):** Separator: dense SX in-play fills whose implied
+   probability sits at the wallet's level or ahead of Polymarket (X145).
+5. **E12 the per-order price item is structurally capped by slot choice (mechanics P2):** Separator: with its own value
+   V known exactly, the best rule still scores < 0.8 within one tick (X150).
+6. **E13 the outcome item is latency-bound (assumptions P3, mechanics P1):** Separator: the per-market correlation of its
+   own decisions delayed by L collapses below 0.5 at small L (X155 / X149).
+7. **E14 (unlikely) an external pre-game prior (ratings / bookmaker line):** Separator: its pre-game levels depart from
+   Polymarket's own price before any game state exists (X144 step 2, Polymarket half).
+8. **E15 (exam readiness) the forward bot is a different build (assumptions P4):** Separator: the frozen fingerprints on
+   the 10-31 development blocks (X156).
+
+## Findings (iteration 11); numbers in results/*.json, code in code/iter11/
+1. **Second venue: SX Bet is sparse and follows Polymarket (X145, information P2; `sx_fetch.py`, `sx_analysis.py`,
+   `sx_secondvenue.json`, data in `.cache/re/tommy-cs2-maker/sx/`).** Verified key-free: the SX Rollup Blockscout API
+   (`explorerl2.sx.technology/api`), the exchange proxy `0x890482680C3a0116aBB003B17e7D694D13a6c1eB` (EIP-1967; its
+   implementation `0x4336940c...` was initialized 10-13 and is unverified, so the verified FillOrder ABIs' `OrderFill`
+   topic is no longer emitted), its per-fill-tx summary log (topic0 `0x9267299c...`: market hash, taker, amount), the fill
+   calldata (selector `0x468e5f52`; per maker order: maker, fill, totalBetSize, percentageOdds in 1e20 units,
+   isMakerBettingOutcomeOne; decoder validated on a sample, the two sides of one market price outcome one at 44.1% and
+   1 - 55.9%), and `api.sx.bet/markets/find` (key-free, finished markets with teams, league, game time, outcome).
+   16-22 Oct (blocks 10,543,166-10,686,804, all before H; markets of games starting before H only): 28,734 fill txs on
+   4,622 markets, of which only 20 esports markets (74 fill txs) and 11 CS2 markets (63 fill txs, 59 in play, $7.7k). 6 of the wallet's 80 traded events have an
+   SX market, with 0-22 in-play fill txs per ~3-h match (about one per hour; the panel's bar is one per minute). On the
+   138 matched in-play maker fills (4 events) the SX maker's implied probability sits +4.2c above Polymarket's last print
+   (SD 3.6c, within 1c 2.9%) and +4.8c above the wallet's latest bid on the token (SD 7.1c, within 1c 17%). **Signature if
+   false holds:** SX in-play fills are sparse and track Polymarket's print with a margin; no historical external price
+   for h1 / h2 comes from SX (X73's chain half closes too). Azuro stays X41 (infeasible).
+2. **A fresh public touch is not the wallet's value (X153, assumptions P1; `fresh_touch_v2.py`, `fresh_touch_v2.json`).**
+   On the raw BUILD-live book (snapshots + changes, validated own label): the touch (own size removed) is within one tick
+   of 41.9% of its filled orders (n 172) and 45.2% of its validated adds (n 1,973). The fresh touch FT_D (best level with
+   a non-own change in [t - D, t - 20 ms], fallback the touch) scores 0.36-0.41 on fills and 0.43-0.44 on adds for D =
+   0.25-60 s, below the touch at every D (also on the covered rows only). With D and an offset fitted on the first half,
+   the second half gives fills 0.391 vs 0.402 (event-bootstrap gain [-0.019, 0.000]) and adds 0.390 vs 0.411
+   ([-0.025, -0.016]); new-top adds 0.424 vs 0.486. **Signature if false holds** (FT <= touch + 0.03 for every D): the
+   wallet's level is not the fast receivers' freshly re-priced levels. Warning: version 1 (`fresh_touch.py`, from
+   `level_events_dev` without snapshots) showed a +0.04..+0.14 'gain' because its touch missed levels resting before the
+   window (0.20 vs 0.45): an artefact, not evidence. Identity form not run (717 calldata-linked non-own adds in 3 h).
+3. **The per-order price item is capped even with the wallet's own value known (X150, mechanics P2; `slot_ceiling.py`,
+   `slot_ceiling.json`; oracle ceiling, BUILD-live).** V = its own top on the token after the burst: its 2,698 validated
+   adds sit at slot 0 (43.6%), -1 (18.9%), -2 (12.5%), -3 (9.8%), -4 (13.2%), -5 (1.9%). "Price = V" is within one tick of
+   62.5% of adds; a LightGBM slot classifier on its own ladder and the others' book (held slots below its top, number of
+   own levels, age of its top, others' best and size, gap, spread, freshness; leave-one-event-out) reaches 0.75. On its
+   137 filled orders "price = V" scores 0.708 (the classifier 0.584 on that small n). With V = its top BEFORE the
+   decision, adds 0.48 (constant +1c) / 0.66 and fills 0.55 / 0.59. Version 2 (`slot_ceiling_v2.py`, `slot_ceiling_v2.json`) adds
+   own-event state (slot and age of its last own add and of its last own decrease on the token): adds 0.753, V-before 0.68,
+   fills 0.58: the ceiling does not move with richer own state. **Signature if true holds:** even an oracle that knows
+   its value reaches about 0.71-0.75 per order, below the 0.80 bar; the per-order price item is structurally capped for
+   this multi-slot ladder, and the unit a value decode could pass is its top level (V itself). Wall-account number.
+   Context (mechanics panel iter-10, critique 2): at FILL time 93% of its fill rows lie within 1c of its highest order
+   hit in the same transaction (sweeps hit its top first), so the gap between 0.71-0.75 (signing time, V known) and
+   0.93 (fill time) is its slot choice at signing; an examiner scoring signing-time prices faces the lower number.
+4. **No own-state price anchor survives the point-in-time rule (X152, mechanics P4; `pit_anchors.py`,
+   `pit_anchors.json`).** Within one tick, BUILD / VALIDATE: last print 0.309 / 0.305; the iteration-10 own previous
+   level (fill-selected) 0.500 / 0.500; the POINT-IN-TIME own level (its order on the token whose first fill was on chain
+   latest before signing) 0.267 / 0.280 (last-fill version 0.252 / 0.263); the fill-selected predecessor with same-block
+   co-fills excluded 0.384 / 0.376; oracle union PIT own + last print 0.420 / 0.418 (fill-selected union 0.607 / 0.598).
+   Persistence by gap (VALIDATE, fill-selected vs PIT): 2-10 s 0.591 vs 0.448, 10-60 s 0.516 vs 0.365, > 60 s 0.233 vs
+   0.193 (no PIT row within 2 s: no fill is on chain that fast). The 0.500 / 0.599 / 0.716 citations are replaced in
+   state.json and FINAL_RULE.md; they stay as fill-selected footnotes. The best examinable historical anchor is the last
+   print.
+5. **Synchronous re-pricings of the fast makers do not share the wallet's increment (X154 steps 3-4, historical;
+   `shared_increment.py`, `shared_increment.json`).** 1,290 of its 24,180 filled maker orders have a filled BUY order of
+   one of the six fast makers (0xed446954, 0x51dbdd2b, 0xaeb90af4, 0xe8e1b119, 0x2005d16a, 0x893575c7) on the same token
+   within +-60 ms. corr(dV_wallet, dV_peer) 0.280 (sign agreement 0.689, within 1c 0.324, n 1,226) against a shift null
+   (the peer's filled order 2-30 s earlier) of 0.276 (p95 0.289; p 0.36); quiet class 0.308 vs 0.319 (p 0.96); per
+   maker 0.25-0.40. Pre-registered verdict: **own model** (corr <= 0.3 and not above the shifted control). The panel's
+   0.56-0.58 (n 42-53, -1..-3 s control) does not replicate at n 1,226. Caveat: dV between filled orders spans their
+   gaps (censoring); the uncensored cross-book step 2 waits for VALIDATE-live.
+6. **Outcome latency bound: the maker leg's timing is not binding; the stale remainder's survival is (X155, assumptions
+   P3; X149 step 1, mechanics P1; `latency_bound.py`, `latency_bound.json`).** Validated engine, its own maker orders
+   delayed by L (resting [sign + 24 ms + L, last fill + L]); taker leg real, or re-matched at its match time + L between
+   a lower bound T_lo (only liquidity <= its limit that public BUY takers actually consumed after m + L) and an upper
+   bound T_hi (its fill minus what followers consumed in (m, m + L], no maker cancels). Per-market Pearson / Spearman vs
+   its PnL:
+
+   | L (ms) | VALIDATE A_L + real taker | A_L + T_hi | A_L + T_lo | BUILD A_L + real | A_L + T_hi | A_L + T_lo |
+   | --- | --- | --- | --- | --- | --- | --- |
+   | 0 | 0.888 / 0.818 | same | same | 0.905 / 0.732 | same | same |
+   | 50 | 0.873 / 0.795 | 0.871 / 0.793 | 0.452 / 0.371 | 0.888 / 0.72 | 0.881 / 0.717 | 0.326 / 0.439 |
+   | 100 | 0.856 / 0.776 | 0.854 / 0.777 | 0.448 / 0.375 | 0.888 / 0.711 | 0.866 / 0.691 | 0.32 / 0.438 |
+   | 250 | 0.849 / 0.767 | 0.847 / 0.771 | 0.466 / 0.381 | 0.867 / 0.668 | 0.858 / 0.657 | 0.302 / 0.417 |
+   | 500 | 0.808 / 0.725 | 0.806 / 0.707 | 0.484 / 0.397 | 0.814 / 0.635 | 0.811 / 0.635 | 0.25 / 0.414 |
+   | 1000 | 0.806 / 0.704 | 0.804 / 0.671 | 0.502 / 0.405 | 0.775 / 0.552 | 0.709 / 0.524 | 0.269 / 0.349 |
+   | 2000 | 0.697 / 0.624 | 0.709 / 0.635 | 0.431 / 0.404 | 0.715 / 0.518 | 0.686 / 0.505 | 0.233 / 0.357 |
+
+   Pair cost of A_L stays 0.973-0.978 at every L. Delaying its maker decisions by up to 2 s keeps the outcome above 0.5
+   with the real taker leg; the taker leg is what matters, and its value at public lag lies between T_lo (fails at every
+   L >= 50 ms: the taker leg's PnL falls from $4.1k to $1.0k at 50 ms and $0.5k at 2 s, VALIDATE) and T_hi (passes up to 2 s). The bound therefore
+   hinges on whether the slow makers' stale orders survive after its match, which only the recorded books show
+   (finding 7). The maker value V is still needed in every passing cell (A is its own orders).
+   (Correction made during the write-up: the first run took the followers from public txs in the OPPOSITE direction
+   (sellers of the token); the corrected run above uses buyers of the same token at asks <= its limit. The superseded
+   numbers are kept only in `.cache/re/tommy-cs2-maker/latency_bound_buggy_followers.json`; conclusions unchanged.)
+   **At the brief's executable latency (>= 2 s) even an oracle that copies every one of its decisions fails on the
+   observed record:** A_2000 + T_lo_2000 = 0.431 / 0.404 (VALIDATE), 0.233 / 0.357 (BUILD). The outcome item is
+   unreachable by definition for this wallet, whatever the decode (the assumptions panel's critique 4, now measured).
+7. **The stale remainder on the recorded book: the wallet's own take consumes it (X149 step 2, mechanics P1;
+   `remainder_survival.py`, `remainder_survival.json`; BUILD-live, 39 in-play FAK BUYs, fill median 50 shares).** Depth
+   available to a BUY at <= its limit (own levels removed), relative to its value at signing: 0.34 at +140 ms, 0.24 at
+   +340-540 ms, 0.17 at +740 ms, 0.145 from +840 ms to +990 ms (median; flat over the last ~200 ms before its match at
+   sign + 1,040 ms). That remainder still covers its fill before the match (mean 0.94 of its shares). After its match the
+   depth left at <= its limit is a median 0 (mean 22-30% of its fill at +0-50 ms, 19% at +100 ms, 13-16% at +200-1,000 ms;
+   12.8-23% of takes keep >= 50% of its fill). (A first version that added its own fill back after the match gave 1.0
+   by construction and was discarded: the consumed makers' counterfactual cancels are not observable.) Reading, with
+   finding 6: the slow makers' stale orders do not decay in the last ~200 ms before the match, so a copy that did not
+   compete with the wallet would probably find them for a further 100-300 ms (the T_hi world); but on the observed book,
+   which an examiner replays, the wallet has already taken them, and a delayed public copy finds only the residual (the
+   T_lo world: outcome Spearman 0.37-0.41 on VALIDATE). The panel's 'signature if true' (>= 50% of its refill kept at
+   +300 ms) holds only in the counterfactual book; on the observed book it fails (15%).
+8. **Pre-game it bids just under Polymarket's own price (X144 step 2, Polymarket half; `pregame_levels.py`,
+   `pregame_levels.json`).** Its filled maker orders signed before the scheduled start (BUILD 145 orders / 22 markets,
+   VALIDATE 143 / 21) are within one tick of the last public print 0.493 / 0.389 (in play 10-60 min: 0.363 / 0.371),
+   offsets p10 / p50 / p90 -5 / -1 / +1c and -7 / -2 / +1c (in play -8 / -1 / +4c), last print a median 12-15 s old. Before
+   any game state its level sits 1-2c below Polymarket's own price with a narrower spread than in play: no large
+   private prior is visible (E14 unlikely). Censored (filled orders only); the Thunderpick half needs the new U records.
+9. **Build fingerprints on the 10-31 development blocks (X156 step 3; `fingerprints_dev.py`, `fingerprints_dev.json`).**
+   519 wallet orders signed 10-31 00:00-18:00 (calldata of its dev-block markets): band [0.05, 0.95] holds (0 outside),
+   whole cents 100%, Dota maker size 10 shares 100% (84). CS2 maker 100-share share 0.571 (354; 88-92% before), but the
+   rest are the known event-wide size ramps (54-87 shares in 3 of its 4 CS2 events of the block, vs 36% of events on
+   16-22 Oct; the 4th event is 100% at 100): the same size mechanism with more ramping events. Changed against 16-22
+   Oct: CS2 taker size median 129 with no 1000 / 2000 caps (470 and 14.4% before); merge loop: single-merge
+   passes keep the 300.22-s base (residual 0.2 s) but only 50% of 18 pass pairs fit the 7.28-s-per-merge law within
+   10 s (99.2% before; median residual +9.7 s, one skipped pass), so the per-merge increment drifted. The +51-ms P4e lag
+   is not checkable there (no P4e take in its dev-block calldata). Consequence: the taker size and the merge-law
+   constants need a BUILD-live re-fit before a future-block exam; the maker size mechanism, price band and Dota size are
+   stable.
+10. **X144 recorder upgraded (steps 1-2) and X148 step 1.** `code/iter11/tp_odds_recorder_v2.py`, feed `tommy_tp_odds2`
+    (worker pid 27892, launcher 24512, started 1793510977 = 05:29 UTC, hard stop 11-03 00:00 UTC, 150 MB): B = live
+    index every 3 s (as v1), U = upcoming index (start < now + 90 min) every 30 s for the PRE-GAME line, P = per-match
+    object of matched development-unit in-play matches round-robin every 2 s (cadence check), plus bo3's coverage fields
+    (lc / lcs / lca) in every record; < 0.9 request/s to one host. v1 (pid 31860) was stopped at 05:30 UTC, before any
+    development block, and `tp_odds_analysis.py` now reads both feeds (plumbing only, tests unchanged). Probe (structure
+    only, no odds values read): both bo3 endpoints answer `cache-control: public, max-age=15` (Cloudflare DYNAMIC), so a
+    15-s origin refresh is possible and the cadence test (1) decides it; 29 of 100 upcoming CS2 matches carry
+    bet_updates (2 of the 6 starting within 6 h), so a pre-game line exists for some matches.
+    **Pre-registration (X144 tests 1-5):** frozen in `code/iter11/tp_valuation_tests.py` at ~06:15 UTC, before any
+    development record of `tommy_tp_odds2` existed (dry run on 06:00-06:08: 0 records): cadence B vs P (P used if its
+    median gap is >= 30% shorter), pre-game and in-play forms prop / lay with a fitted delta and a margin linear in
+    |p - 0.5| (first half fit, second half scored) against the last print, event-time test of its fill-price changes
+    within 6 s of a p_TP change against 2,000 circular shifts, and a -10..+10 s cross-correlation; verdict rules in
+    the docstring (E4 supported / closed for Thunderpick / undecided; a refresh slower than 30 s rules out timing).
+11. **Class-wise knockout of its own maker record (X151, mechanics P3; `class_knockout.py`, `class_knockout.json`).**
+    Validated engine, its own maker orders (timing, lifetimes and sizes kept) with one ledger class re-priced at the
+    last public print at signing (rounded to the cent), plus its real taker leg; per-market Pearson / Spearman vs its
+    PnL (Spearman loss vs no knockout with a 500-draw market bootstrap; pair cost of the maker replay):
+
+    | Knockout | VALIDATE | Spearman loss [95%] | pair cost | BUILD |
+    | --- | --- | --- | --- | --- |
+    | none | 0.866 / 0.804 | 0.0 [0.0, 0.0] | 0.9735 | 0.885 / 0.681 |
+    | quiet | 0.767 / 0.654 | 0.15 [0.058, 0.245] | 0.9969 | 0.836 / 0.604 |
+    | follow | 0.772 / 0.615 | 0.189 [0.095, 0.291] | 0.9889 | 0.791 / 0.53 |
+    | msg | 0.814 / 0.7 | 0.104 [0.034, 0.183] | 0.9778 | 0.859 / 0.637 |
+    | repair | 0.849 / 0.769 | 0.035 [-0.002, 0.08] | 0.9776 | 0.886 / 0.699 |
+    | endgame | 0.849 / 0.784 | 0.02 [-0.012, 0.054] | 1.0028 | 0.88 / 0.649 |
+    | quiet+follow | 0.585 / 0.446 | 0.358 [0.204, 0.511] | 1.0039 | 0.75 / 0.506 |
+    | all | 0.442 / 0.339 | 0.465 [0.283, 0.629] | 1.0148 | 0.688 / 0.419 |
+
+    Reading: with its real taker leg kept, no single class carries the outcome. Re-pricing the quiet class at the
+    public anchor costs 0.150 Spearman [0.058, 0.245], follow 0.189 [0.095, 0.291], msg 0.104 [0.034, 0.183], repair
+    0.035 [-0.002, 0.080], endgame 0.020; every single replacement keeps >= 0.6 / 0.6, and only quiet + follow
+    together (92% of its orders) push Spearman below 0.5 (0.446), all classes 0.339. Neither panel signature holds
+    cleanly: the outcome is diffuse over the whole ladder (quiet, follow and msg each cost 0.10-0.19), with the
+    repair and endgame classes negligible, so the outcome needs the price level everywhere, not a small message
+    class. Side fact: stopping its loser bids at 0.15 RAISES the replayed maker PnL (VALIDATE +4.6k to +9.2k, BUILD
+    -1.1k to +3.4k): its bidding of a collapsing team down to the 0.05 band costs it money in the replay (no early
+    stop, finding 8 of iteration 10).
+12. **No development exchange drought broke its process (X157 steps 1-2, CS2 proxy; `disruption_scan.py`,
+    `disruption_scan.json`).** Across the windowed taker tapes of 1,020 CS2 match / map markets (traded and untraded) in
+    16-22 Oct, 96 of 5,535 'busy' minutes (>= 8 markets in play by schedule; median 1.19 prints per market-minute) have no
+    print, in 9 droughts of >= 3 minutes. Eight fall outside its sessions (evenings after 19:00 UTC, where the schedule
+    proxy over-counts finished matches); the only one inside a session (10-17 10:30, 4 min, 9 markets, ~43 prints
+    expected) did not interrupt it: 92 / 9 / 87 maker orders signed in the 30 min before / during / 30 min after, and 11
+    / 1 / 4 merges. With iteration 7's merge-loop account (6 breaks, all overnight), no development analogue shows an
+    intraday session break. **Pre-registration (before any exam):** evaluate() and the universe stay unchanged for h1;
+    if the examiner knows the 10-29 pause from public announcements, selection on 10-29 events starting after the pause
+    start is to be reported both with and without them (descriptive), and no exclusion counts toward the target.
+
+13. **Invisible messages exist on the live book, but they carry no shared increment (X154 step 2, live and uncensored;
+    `crossbook_sync.py`, `crossbook_sync_near.py`, `crossbook_sync*.json`; BUILD-live, the two events with >= 2 recorded
+    books).** Of 2,136 validated own adds with no trade on any book of the event in the 300 ms before, 30.7% have a non-own
+    level change on a DIFFERENT book of the same event within +-40 ms, against 11.7% at +-1-5 s shifts and 19.6% at
+    +-0.2-1 s shifts (excess 19 / 11 points); quiet adds (no trade in 5 s) 30.1% vs 11.4% / 19.7%. So other makers re-price
+    another market of the event at the same moment beyond near-time clustering on about a tenth of its quiet re-pricings:
+    the event stream reaches other makers too, invisible to the taker clock (the panel's critique 1 holds in part). With
+    finding 5 (their increments are not its own), the reading is one event stream, priced by each receiver's own model.
+14. **The echo-protected public maker is not an admissible executable rule (X146, information P3: ruled out by
+    measurement).** The brief's executable conditions are strict fills, latency >= 2 s and match_slack 2. The protection
+    must act before the delayed informed takes execute at about +1.04 s after a message; on the BUILD-live book the depth
+    at the wallet's take limit is down to 0.34 of its signing value at +140 ms and 0.145 by +840 ms (finding 7), so the
+    adverse flow completes inside the 1-s delay. A >= 2-s-latency maker cannot pull in time, and finding 6 shows that even
+    an oracle copy of every wallet decision at 2 s fails Spearman on the observed record. A sub-second echo study remains
+    possible as description, not as an examinable rule.
+15. **Per-title price implication (X156 steps 1-2, historical part; `price_by_title.json`).** Last-print anchor within one
+    tick: CS2 0.305 (VALIDATE) / 0.309 (BUILD); Dota 0.431 (VALIDATE, iteration 9). At the 10-31 mix (54% Dota by trades)
+    the examinable anchor rises only to about 0.37; the forward exams cannot reach 0.80 on price with public anchors.
+
+16. **Synchrony checks against its own unlabelled adds, and same-book level agreement (X154 add-on;
+    `crossbook_sync_strict.py`, `sameprice_sync.py`, `sameprice_sync_strict.py`, `*_strict.json`).** Its coherent
+    cross-market re-pricing could fake finding 13 if its own 100-share or ramp-size adds were counted as non-own. Dropping
+    every non-own add of a size it uses in that book leaves the cross-book synchrony unchanged (30.5% vs 19.0% at
+    +-0.2-1 s; quiet 30.0% vs 19.1%). On the SAME book, a synchronous (+-40 ms) non-own add of another size follows
+    52.9% of its untriggered adds vs 29.5% at shifted times; given one, it lies within 1c of the wallet's price 56.3% of
+    the time vs 48.9% shifted (median gap 1.0c vs 1.4c). Other makers move on the same moments and land NEAR its level,
+    not at it: partial agreement of similar models on one event stream, matching finding 5 (no shared increment).
+
+## Hypothesis ledger (iteration 11)
+- E1 own model on Feed P's raw events: **supported further** (findings 1, 2, 5: no second venue, no fresh public level
+  and no co-receiver increment reproduces its level).
+- E4 in-play odds product: **open** (live only; recorder upgraded for the pre-game line and the cadence check). Its
+  bookmaker-like second venue (SX) does not sit at the wallet's level (finding 1).
+- E10 V shared with the fast Feed-P makers: **rejected** on the right objects (fresh touch, finding 2; synchronous
+  increments at the shift null, finding 5); the event stream itself does reach other makers (cross-book synchrony,
+  finding 13).
+- E11 a second venue leads: **rejected for SX** (sparse, Polymarket-following); Azuro not reachable (X41).
+- E12 the per-order price item is capped by slot choice: **supported** (finding 3: 0.71-0.75 with V known).
+- E13 the outcome item is latency-bound: **refined** (findings 6-7): the maker leg's timing is not binding (>= 0.62 at
+  2 s with the real taker leg); the taker leg is, because on the observed book its own take consumes the stale
+  remainder (residual median 0). Any examinable public-lag copy is in the T_lo world (Spearman <= 0.41 VALIDATE, <= 0.44 BUILD).
+- E14 external pre-game prior: **unlikely** (finding 8: pre-game bids 1-2c under Polymarket's price).
+- E15 forward build change: **partly supported** (finding 9: taker size and merge timing drifted; maker size
+  mechanism, band, cents and Dota size stable).
+
+## What is unexplained (quantitative)
+- Price (the binding item). Historical, examinable: the last print 0.305 (VALIDATE); no point-in-time own-state anchor
+  beats it (0.28; union 0.42). Live: the touch 0.42 (fills) / 0.45 (adds); a fresh touch is lower at every D. Second
+  venue: SX quotes +4c above Polymarket with SD 3.6c from its print and 7.1c from the wallet. Even with its own value V
+  known, slot choice caps a per-order rule at about 0.71-0.75 (0.80 needed): the per-order item is structurally out of
+  reach for this ladder; the passable unit would be its top level, which is V itself (0.63-0.71 'price = V').
+- Outcome. With its own maker orders (any delay up to 2 s) and its real taker leg: >= 0.70 / 0.62 VALIDATE. With the take
+  at any public lag on the observed book: <= 0.50 / 0.41 (T_lo), because its own take empties the stale remainder at
+  <= its limit (median residual 0 after the match). A rule needs both V (maker) and the +50-ms take; neither is public.
+- Selection passes on VALIDATE (unchanged).
+
+## Next iteration (plan; pivot rule: the primary metric did not move in iterations 9-11, so iteration 12 must pivot again)
+1. Development blocks with traded matches (11-01 06-12 from ~08:10 UTC, 11-01 18-24 is sealed, 11-02 00-06 holds IEM):
+   X133 / X144 tests on `tommy_tp_odds2` (cadence B vs P, pre-game U line vs its first quotes, quiet-class event-time
+   test, shared-vendor cross-correlation; the analysis is frozen in `code/iter11/tp_valuation_tests.py`), X118 on
+   `tommy_dota_rt`, X154 step 2 replicated on VALIDATE-live, X156 per-title scoring, X98 pool.
+2. Re-fit the taker size and merge-law constants on BUILD-live before any future-block exam (finding 9).
+3. Close the remaining offline items: X157 (exchange-wide disruption list from public tapes), X132 (with X118).
+4. Ask the user (unchanged plus X147): demos (X122 / X37), Dota replays (X129 step 2), PandaScore token (X55), HLTV page
+   checks (X64), the Internet Archive route (X147), stream / chat routes (X4 / X22 / X53), direct bookmaker probes
+   (X48 b), z3 for X96.
+
+## Iteration 11 closing state
+- Recorders: shared recorder OK at 05:24 UTC (pid 27184); own recorder `tommy_tp_odds` v1 STOPPED 05:30 UTC (it never
+  recorded a development block), replaced by `tommy_tp_odds2` (worker 27892); the other own recorders untouched.
+- Sealed-data handling: the iteration started in the sealed block 11-01 00-06. Nothing in `.cache/live/sealed/` was
+  opened; no live recording of a sealed block was read (the BUILD-live tables are 10-31 12-18). SX logs were pulled for
+  blocks 10,543,166-10,686,804 (block times asserted < H); markets/find was called only for hashes from those fills. The
+  bo3 probes printed structure only (keys, presence flags, counts, headers), never odds values.
+  Disclosure: the first SX market mapping also covered bets placed before H on games starting at or after H (sealed
+  units by the unit rule); its first totals (29,603 fill txs / 4,949 markets / 23 esports markets) counted them. Those
+  rows (1,172 fill summaries, 327 markets, 14 decoded maker orders, two of them LoL / Valorant games on 10-24 whose
+  team names were printed in a listing check, no outcome or price read) were deleted, `sx_fetch.py` now keeps only
+  games before H, and every reported number was recomputed on games before H (the CS2 numbers are unchanged). The recorder status
+  counters (records, polls) were read, not record contents.
+- Rule: v5 unchanged (no candidate beat it on VALIDATE); FINAL_RULE.md's own-state citations are replaced by the
+  point-in-time numbers (finding 4).
+- Catalog: 189 items; open 28 (live-dependent: X38, X42, X47, X54, X77, X86, X87, X88, X91, X98, X101, X106, X115, X118,
+  X132, X133, X144, X148, X156; user-dependent: X4, X22, X37, X48, X53, X64, X96 (z3), X122, X147). Closed this
+  iteration: X145, X149-X155, X157 (tried), X146 (ruled out), X73 (tried, via X145), X70 (tried; steps 3-4 bounded by
+  X155 / X146).
+- Iteration 11 ended at about 06:30 UTC (about 68 wall-clock minutes; budget used about 765 of 1200 minutes). The
+  development block 11-01 06-12 is in progress; the wallet's session usually starts 08:10-09:04 UTC, so the live
+  tests (X133 / X144 / X118 / X154 replication / X156) run in the next iterations.

@@ -1,0 +1,116 @@
+{
+ "markets": 1020,
+ "busy_minutes": 5535,
+ "median_prints_per_market_minute": 1.19,
+ "zero_print_busy_minutes": 96,
+ "droughts_ge_3min": [
+  {
+   "start_utc": "2026-10-16 20:17:00",
+   "minutes": 3,
+   "markets_in_play_median": 9,
+   "expected_prints": 32.1,
+   "wallet_maker_orders_during": 0,
+   "wallet_maker_orders_30min_before": 0,
+   "wallet_maker_orders_30min_after": 0,
+   "merges_during": 0,
+   "merges_30min_before": 0,
+   "merges_30min_after": 0
+  },
+  {
+   "start_utc": "2026-10-16 21:33:00",
+   "minutes": 4,
+   "markets_in_play_median": 12,
+   "expected_prints": 57.1,
+   "wallet_maker_orders_during": 0,
+   "wallet_maker_orders_30min_before": 0,
+   "wallet_maker_orders_30min_after": 0,
+   "merges_during": 0,
+   "merges_30min_before": 0,
+   "merges_30min_after": 0
+  },
+  {
+   "start_utc": "2026-10-16 21:38:00",
+   "minutes": 10,
+   "markets_in_play_median": 12,
+   "expected_prints": 142.9,
+   "wallet_maker_orders_during": 0,
+   "wallet_maker_orders_30min_before": 0,
+   "wallet_maker_orders_30min_after": 0,
+   "merges_during": 0,
+   "merges_30min_before": 0,
+   "merges_30min_after": 0
+  },
+  {
+   "start_utc": "2026-10-16 21:53:00",
+   "minutes": 3,
+   "markets_in_play_median": 9,
+   "expected_prints": 32.1,
+   "wallet_maker_orders_during": 0,
+   "wallet_maker_orders_30min_before": 0,
+   "wallet_maker_orders_30min_after": 0,
+   "merges_during": 0,
+   "merges_30min_before": 0,
+   "merges_30min_after": 0
+  },
+  {
+   "start_utc": "2026-10-16 22:17:00",
+   "minutes": 3,
+   "markets_in_play_median": 9,
+   "expected_prints": 32.1,
+   "wallet_maker_orders_during": 0,
+   "wallet_maker_orders_30min_before": 0,
+   "wallet_maker_orders_30min_after": 0,
+   "merges_during": 0,
+   "merges_30min_before": 0,
+   "merges_30min_after": 0
+  },
+  {
+   "start_utc": "2026-10-17 10:30:00",
+   "minutes": 4,
+   "markets_in_play_median": 9,
+   "expected_prints": 42.9,
+   "wallet_maker_orders_during": 9,
+   "wallet_maker_orders_30min_before": 92,
+   "wallet_maker_orders_30min_after": 87,
+   "merges_during": 1,
+   "merges_30min_before": 11,
+   "merges_30min_after": 4
+  },
+  {
+   "start_utc": "2026-10-18 19:01:00",
+   "minutes": 4,
+   "markets_in_play_median": 12,
+   "expected_prints": 57.1,
+   "wallet_maker_orders_during": 0,
+   "wallet_maker_orders_30min_before": 0,
+   "wallet_maker_orders_30min_after": 0,
+   "merges_during": 0,
+   "merges_30min_before": 0,
+   "merges_30min_after": 0
+  },
+  {
+   "start_utc": "2026-10-18 19:08:00",
+   "minutes": 7,
+   "markets_in_play_median": 12,
+   "expected_prints": 100.0,
+   "wallet_maker_orders_during": 0,
+   "wallet_maker_orders_30min_before": 0,
+   "wallet_maker_orders_30min_after": 0,
+   "merges_during": 0,
+   "merges_30min_before": 0,
+   "merges_30min_after": 0
+  },
+  {
+   "start_utc": "2026-10-18 19:44:00",
+   "minutes": 4,
+   "markets_in_play_median": 9,
+   "expected_prints": 46.4,
+   "wallet_maker_orders_during": 0,
+   "wallet_maker_orders_30min_before": 0,
+   "wallet_maker_orders_30min_after": 0,
+   "merges_during": 0,
+   "merges_30min_before": 0,
+   "merges_30min_after": 0
+  }
+ ]
+}

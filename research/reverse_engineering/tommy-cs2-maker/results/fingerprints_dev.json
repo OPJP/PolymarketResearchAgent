@@ -1,0 +1,69 @@
+{
+ "orders": 519,
+ "maker": 438,
+ "taker": 81,
+ "band_outside_0.05_0.95": 0,
+ "whole_cent_share_maker": 1.0,
+ "maker_size": {
+  "cs2": {
+   "n": 354,
+   "share_100": 0.571,
+   "share_10": 0.0,
+   "median": 100.0
+  },
+  "dota2": {
+   "n": 84,
+   "share_100": 0.0,
+   "share_10": 1.0,
+   "median": 10.0
+  }
+ },
+ "taker_size": {
+  "cs2": {
+   "n": 81,
+   "median": 129.0,
+   "share_cap_1000_2000": 0.0
+  },
+  "dota2": {
+   "n": 0,
+   "median": null,
+   "share_cap_1000_2000": null
+  }
+ },
+ "p4e_takes": 0,
+ "wallet_maker_within_150ms_of_p4e": {
+  "n": 0,
+  "median_ms": null,
+  "p25_p75": null
+ },
+ "merge_loop": {
+  "merges": 35,
+  "passes": 19,
+  "residual_s_median": 9.72,
+  "share_abs_residual_le_10s": 0.5,
+  "residuals_s": [
+   0.2,
+   0.2,
+   7.5,
+   11.9,
+   0.2,
+   0.2,
+   0.7,
+   18.5,
+   22.2,
+   15.5,
+   14.5,
+   15.5,
+   331.5,
+   10.2,
+   27.9,
+   7.2,
+   9.2,
+   7.5
+  ],
+  "window_utc": [
+   "2026-10-31 13:12:45",
+   "2026-10-31 14:55:18"
+  ]
+ }
+}

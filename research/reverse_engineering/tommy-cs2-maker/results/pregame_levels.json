@@ -1,0 +1,70 @@
+{
+ "BUILD_pre": {
+  "orders": 145,
+  "markets": 22,
+  "with_print": 140,
+  "within_tick_last": 0.493,
+  "within_tick_med5": 0.464,
+  "offset_c_p10_p50_p90": [
+   -5.1,
+   -1.0,
+   1.0
+  ],
+  "last_print_age_s_p50": 14.9,
+  "by_type": {
+   "moneyline": 0.5,
+   "child_moneyline": 0.484
+  }
+ },
+ "BUILD_inplay_10_60min": {
+  "orders": 3815,
+  "markets": 103,
+  "with_print": 3812,
+  "within_tick_last": 0.363,
+  "within_tick_med5": 0.292,
+  "offset_c_p10_p50_p90": [
+   -8.0,
+   -1.0,
+   4.0
+  ],
+  "last_print_age_s_p50": 8.7,
+  "by_type": {
+   "moneyline": 0.429,
+   "child_moneyline": 0.323
+  }
+ },
+ "VALIDATE_pre": {
+  "orders": 143,
+  "markets": 21,
+  "with_print": 131,
+  "within_tick_last": 0.389,
+  "within_tick_med5": 0.328,
+  "offset_c_p10_p50_p90": [
+   -7.0,
+   -2.0,
+   1.0
+  ],
+  "last_print_age_s_p50": 12.1,
+  "by_type": {
+   "moneyline": 0.466,
+   "child_moneyline": 0.329
+  }
+ },
+ "VALIDATE_inplay_10_60min": {
+  "orders": 3657,
+  "markets": 97,
+  "with_print": 3652,
+  "within_tick_last": 0.371,
+  "within_tick_med5": 0.3,
+  "offset_c_p10_p50_p90": [
+   -8.0,
+   -1.0,
+   4.0
+  ],
+  "last_print_age_s_p50": 8.5,
+  "by_type": {
+   "child_moneyline": 0.304,
+   "moneyline": 0.475
+  }
+ }
+}

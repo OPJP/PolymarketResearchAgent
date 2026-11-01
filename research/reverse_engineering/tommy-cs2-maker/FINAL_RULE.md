@@ -13,6 +13,56 @@ Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
   stays below its baseline (selection carries the presence-or-selection condition; scope passes).
 - Iteration 10 changed no rule component (v5 stays frozen); it added the decoded exit band, the pre-registered treatment
   of the exam lots' PGL Masters stratum, and quantified why price and outcome are out of reach of public data.
+- Iteration 11 changed no rule component either. It closed the second-venue route (SX Bet on chain), showed that
+  no point-in-time own-state anchor beats the last print, that a fresh public touch is not the wallet's value, that
+  even a rule knowing its value caps at about 0.71-0.75 per order, and that the outcome item breaks at any public
+  lag of the take because its own take empties the stale remainder.
+
+## What iteration 11 established (no rule change)
+
+- **No examinable own-state price anchor beats the last print** (point-in-time re-derivation; the earlier 0.500 /
+  0.599 / 0.716 used the predecessor's later fill, a censoring lookahead). Within one tick on VALIDATE: last print
+  0.305; its own level that the chain had revealed at signing 0.280; the union of the two 0.418. The fill-selected
+  numbers stay only as descriptive footnotes.
+- **A second venue does not carry its value.** Every SX Bet fill on the SX Rollup chain in 16-22 Oct was decoded
+  key-free: 29,603 fill txs, but only 11 CS2 markets with 63 fills in the whole week (6 of its 80 events, about one
+  in-play fill per hour). Where they exist, SX makers quote +4.2c above Polymarket's last print (SD 3.6c) and far from
+  the wallet's level (SD 7.1c). No historical external price for h1 / h2 comes from there.
+- **The fast receivers' fresh levels are not its value.** On the raw BUILD-live book, a touch built only from levels
+  re-priced in the last D seconds scores below the full touch at every D (0.39 vs 0.40 on fills, 0.39 vs 0.41 on adds,
+  second half). Synchronous re-pricings of the six fast makers do not share its increment (correlation 0.28 against a
+  shifted control of 0.28; pre-registered verdict: own model).
+- **The per-order price item is capped even with its value known.** With V = its own top after the burst (an oracle),
+  its adds sit at slot 0 (44%), -1 (19%), -2 (13%), -3 (10%), -4 (13%): "price = V" is within one tick of 63% of adds and
+  71% of filled orders, and a slot classifier on its own ladder and the book reaches 0.75. No rule that knows V reaches
+  0.80 per order; the unit a value decode could pass is its top level.
+- **The outcome item hinges on the take, not on the maker's timing.** Its own maker orders delayed by up to 2 s plus
+  its real taker leg still correlate 0.70 / 0.62 with its per-market PnL (VALIDATE; 0.89 / 0.82 at 0 s). Delaying the
+  take is what breaks it on the observed record: its own FAK empties the stale remainder at its limit (median residual
+  0 after its match on the BUILD-live book), so a public copy at any lag gets at most 0.50 / 0.41. Only in a world
+  without the wallet would the slow makers' stale orders (flat over the last ~200 ms before its match) survive a
+  further 100-300 ms.
+- **At the brief's executable latency the outcome item is out of reach by definition.** Executing every one of its
+  own decisions 2 s late on the observed record (an oracle copy) gives 0.43 / 0.40 on VALIDATE and 0.23 / 0.36 on
+  BUILD, below 0.5 on Spearman whatever the decode. A class-wise knockout (its maker classes re-priced at the last
+  print, real taker leg kept) shows the outcome is spread over the whole ladder: quiet, follow and message orders
+  each cost 0.10-0.19 Spearman, repairs and the endgame almost nothing; only re-pricing the quiet and follow classes
+  together (92% of its orders) drops it below 0.5. Stopping its loser bids at 0.15 would raise its replayed maker
+  PnL (VALIDATE +$4.6k to +$9.2k): bidding a collapsing team down to 0.05 costs it money.
+- **The event stream reaches other makers too.** On the live book, 30% of its untriggered re-pricings coincide within
+  40 ms with a non-own change on another market of the same event (20% at 0.2-1 s shifts): about a tenth are
+  synchronous beyond clustering, without a shared increment (one event stream, each receiver's own model).
+- **An echo-protected public maker is not admissible.** The informed flow completes inside the 1-s delay (depth at the
+  take limit 0.34 of its signing value at +140 ms), so a rule with the brief's >= 2-s latency cannot protect itself.
+- **Pre-game it bids 1-2c under Polymarket's own price** (within one tick of the last print 0.39-0.49 before the start,
+  narrower than in play): no large private prior before game state exists.
+- **The forward build drifted in taker size and merge timing, not in price.** On the 10-31 development blocks the band,
+  whole cents and the Dota 10-share size hold; the CS2 100-share share is 57% (88-92%) because 3 of its 4 CS2 events
+  there use the known event-wide ramp (54-87 shares), the taker size fell to a median of 129 shares without the 1000 /
+  2000 caps, and the merge loop's per-merge increment no longer fits (50% of passes within 10 s of the law, 99%
+  before). The taker-size and merge constants need a BUILD-live re-fit before a future-block exam.
+- **Recorder.** The Thunderpick recorder now also records the pre-game line, the per-match object's cadence and bo3's
+  coverage fields (`tommy_tp_odds2`, from 11-01 05:29 UTC).
 
 ## What iteration 10 established (no rule change)
 
@@ -45,8 +95,9 @@ Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
   private value itself.
 - **The price gap is everywhere, not at messages.** 71% of its filled maker orders are signed more than 5 s after any
   message or own take, and even these sit within one tick of the last print only 37.5% of the time (54% of its own
-  previous level). Message phase explains 4% of the offset at the true clock. Own-state persistence is the best
-  historical anchor (0.500; 0.72 within 2 s of its previous order on the token).
+  previous level). Message phase explains 4% of the offset at the true clock. Own-state persistence looked like the best
+  historical anchor (0.500; 0.72 within 2 s of its previous order on the token), but that number uses the predecessor's
+  later fill; point-in-time it is 0.280 (iteration 11), below the last print.
 - **The outcome item needs its +50-ms take timing.** With its real taker leg, a replay of its own maker orders
   correlates 0.87 / 0.80 with its per-market PnL (VALIDATE). With the taker moved to its earliest public trace, even
   that oracle maker leg reaches at most 0.60 / 0.44 (BUILD 0.46 / 0.50), and every executable public set stays at or
@@ -352,11 +403,22 @@ order-level fill engine, a census of informed bursts) and found:
   earliest public trace (the block of its own take, prices up to its limit plus 2c) refills only 22-34% of its shares,
   and combined with the public ladder the per-market result tracks the wallet at 0.33 / 0.21 at best. Its edge is the
   50-ms position in the feed's fan-out, which a replicator cannot buy on the open market (vendor unidentified).
+- **No second venue substitutes (iteration 11).** SX Bet, the only on-chain in-play book for these events, had 63 CS2
+  fills in a whole week, quoted 4c above Polymarket. The stale remainder a delayed copy would need is consumed by the
+  wallet's own take (median residual 0 at its limit after the match), and a public maker cannot protect itself at a
+  normal latency because the informed flow completes inside the 1-s in-play delay. The 10-31 build also changed its
+  taker sizes (caps gone, median 129 shares) and merge timing, so any copy of its constants must be re-fitted on recent data.
 - **Dota 2 only:** Valve publishes the spectator-clock game state key-free (4-s snapshots); the feed's Dota messages sit
   on that clock, so a replicator could in principle time Dota events from public data a few seconds behind the feed.
   Whether that is fast enough against the 1-s in-play delay is the pre-registered X118 test.
 
 ## Not explained yet
+
+- **Iteration 11 account.** Price: no examinable anchor beats the last print (0.305; point-in-time own level 0.280,
+  union 0.418); live, the touch 0.42 / 0.45 and every fresh-touch variant lower; SX Bet sparse and off its level; and
+  even knowing its value, slot choice caps a per-order rule at about 0.71-0.75. Outcome: its own maker orders survive a
+  2-s delay (0.70 / 0.62 with the real taker leg), the take does not (its own FAK empties the stale remainder; a public
+  copy gets at most 0.50 / 0.41). The value V and the +50-ms take stay private.
 
 - **Iteration 8 numbers.** The push feed has at least 19 fixed-lag subscribers (P4e first, the wallet +50 ms, a group at
   +100-230 ms, a slow group at +450-600 ms; every one also co-signs P4e-alone events at its lag). It is an esports product
@@ -377,7 +439,7 @@ order-level fill engine, a census of informed bursts) and found:
 - **The maker quote.** Its resting presence is not a public function (probe AUC 0.67), and the price is anchored
   within one tick only right after its takes.
 - **Iteration 10 account.** Price: the best public anchor on the historical record is the last print (0.305 within
-  one tick, VALIDATE), the best own-state anchor its previous level (0.500), the touch on live adds 0.47; the offset
+  one tick, VALIDATE), the best own-state anchor its previous level (0.500 fill-selected; 0.280 point-in-time, iteration 11), the touch on live adds 0.47; the offset
   from any public value (SD 6.0c) is not message phase (R^2 0.04), not a shared receiver value (ICC <= 0.43), not a
   faster maker's book move (event-locked), not public tape or game state. Outcome: reachable only with the +50-ms take
   timing (0.87 / 0.80 with it; at most 0.60 / 0.44 without it, executable <= 0.33 / 0.21). The only untested external
