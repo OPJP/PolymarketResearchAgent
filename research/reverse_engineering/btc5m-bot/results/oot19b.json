@@ -1,0 +1,11 @@
+{
+ "prereg": "20b",
+ "first_legs": 770,
+ "isolated_trade_jumps": 366,
+ "excess_early_0_230": 6.0,
+ "excess_reaction_230_320": 37.0,
+ "E": 0.162,
+ "peak_lag_ms": 250,
+ "prediction_E_le_0.65": true,
+ "trade_msgs": 159347
+}

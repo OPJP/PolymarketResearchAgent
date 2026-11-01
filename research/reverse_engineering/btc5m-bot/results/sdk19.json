@@ -1,0 +1,36 @@
+{
+ "prereg": "21",
+ "pushes": 60,
+ "push_span": [
+  "2026-10-08 05:27:06",
+  "2026-10-21 16:34:05"
+ ],
+ "fill_span": [
+  "2026-10-09 00:00:05",
+  "2026-10-22 23:59:12"
+ ],
+ "gaps_10_20min": 2,
+ "gaps_ge_20min": 12,
+ "fresh_10_20min": {
+  "boundaries_in_span": 2,
+  "within_0_10min_after_push": 0,
+  "null_mean": 0.0,
+  "p_one_sided": 1.0,
+  "control_shift_plus_60min": 0,
+  "examples": []
+ },
+ "panel_ge_20min": {
+  "boundaries_in_span": 24,
+  "within_0_10min_after_push": 4,
+  "null_mean": 0.485,
+  "p_one_sided": 0.0002,
+  "control_shift_plus_60min": 0,
+  "examples": [
+   "2026-10-19 13:37:08",
+   "2026-10-15 07:51:32",
+   "2026-10-19 14:57:45",
+   "2026-10-21 11:46:48"
+  ]
+ },
+ "confirms_at_0.01": false
+}

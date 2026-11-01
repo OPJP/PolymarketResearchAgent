@@ -1,0 +1,204 @@
+{
+ "prereg": "17",
+ "in_time_orders_fit_score": [
+  44214,
+  73577
+ ],
+ "oot_orders_all": 1000,
+ "oot_orders_scored": 999,
+ "oot_trade_msgs": 157703,
+ "variants": {
+  "c260": {
+   "in_time_per_order": 0.6035,
+   "in_time_first_legs": 0.594,
+   "in_time_placebo_m-3s_m+3s": [
+    0.504,
+    0.4782
+   ],
+   "in_time_by_wallet": {
+    "DS": 0.5905,
+    "GF": 0.6216,
+    "XM": 0.6458
+   },
+   "in_time_by_day": {
+    "2026-10-20": 0.6242,
+    "2026-10-21": 0.5992,
+    "2026-10-22": 0.585
+   },
+   "in_time_by_session": {
+    "closed": [
+     0.6203,
+     1907
+    ],
+    "open_us": [
+     0.6167,
+     23125
+    ],
+    "open_other": [
+     0.5965,
+     48545
+    ]
+   },
+   "oot_per_order": 0.6176,
+   "oot_first_legs": 0.6039,
+   "oot_placebo_m-3s_m+3s": [
+    0.5005,
+    0.5526
+   ],
+   "oot_by_wallet": {
+    "DS": [
+     0.5884,
+     673
+    ],
+    "GF": [
+     0.6561,
+     253
+    ],
+    "XM": [
+     0.7534,
+     73
+    ]
+   },
+   "oot_halves": [
+    0.6175,
+    0.6177
+   ],
+   "oot_session": [
+    "closed"
+   ],
+   "passes_bars_0.80": false,
+   "feature_gain": {
+    "rel": 9156.4,
+    "r_100": 8107.8,
+    "v_100": 36734.3,
+    "r_250": 3318.3,
+    "v_250": 15502.9,
+    "r_500": 3123.6,
+    "v_500": 4408.8,
+    "r_1000": 4214.7,
+    "v_1000": 5366.9,
+    "r_2000": 7864.5,
+    "v_2000": 5160.9,
+    "n_250": 5928.0
+   }
+  },
+  "c230": {
+   "in_time_per_order": 0.6137,
+   "in_time_first_legs": 0.6063,
+   "in_time_placebo_m-3s_m+3s": [
+    0.5035,
+    0.4767
+   ],
+   "in_time_by_wallet": {
+    "DS": 0.6029,
+    "GF": 0.6302,
+    "XM": 0.6425
+   },
+   "in_time_by_day": {
+    "2026-10-20": 0.6381,
+    "2026-10-21": 0.6059,
+    "2026-10-22": 0.5943
+   },
+   "in_time_by_session": {
+    "closed": [
+     0.6282,
+     1907
+    ],
+    "open_us": [
+     0.625,
+     23125
+    ],
+    "open_other": [
+     0.6078,
+     48545
+    ]
+   },
+   "oot_per_order": 0.6647,
+   "oot_first_legs": 0.6597,
+   "oot_placebo_m-3s_m+3s": [
+    0.4855,
+    0.5716
+   ],
+   "oot_by_wallet": {
+    "DS": [
+     0.6568,
+     673
+    ],
+    "GF": [
+     0.6561,
+     253
+    ],
+    "XM": [
+     0.7671,
+     73
+    ]
+   },
+   "oot_halves": [
+    0.7009,
+    0.6328
+   ],
+   "oot_session": [
+    "closed"
+   ]
+  },
+  "c300": {
+   "in_time_per_order": 0.5701,
+   "in_time_first_legs": 0.5604,
+   "in_time_placebo_m-3s_m+3s": [
+    0.5052,
+    0.4905
+   ],
+   "in_time_by_wallet": {
+    "DS": 0.5562,
+    "GF": 0.5876,
+    "XM": 0.6249
+   },
+   "in_time_by_day": {
+    "2026-10-20": 0.5752,
+    "2026-10-21": 0.5706,
+    "2026-10-22": 0.5641
+   },
+   "in_time_by_session": {
+    "closed": [
+     0.5459,
+     1907
+    ],
+    "open_us": [
+     0.5809,
+     23125
+    ],
+    "open_other": [
+     0.5658,
+     48545
+    ]
+   },
+   "oot_per_order": 0.5766,
+   "oot_first_legs": 0.5675,
+   "oot_placebo_m-3s_m+3s": [
+    0.5055,
+    0.5576
+   ],
+   "oot_by_wallet": {
+    "DS": [
+     0.5676,
+     673
+    ],
+    "GF": [
+     0.5573,
+     253
+    ],
+    "XM": [
+     0.726,
+     73
+    ]
+   },
+   "oot_halves": [
+    0.5791,
+    0.5744
+   ],
+   "oot_session": [
+    "closed"
+   ]
+  }
+ }
+}

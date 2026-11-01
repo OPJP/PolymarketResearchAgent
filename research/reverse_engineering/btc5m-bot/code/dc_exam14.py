@@ -25,6 +25,18 @@ TRANSIT_MS = 131
 REL_LAG_MS = 180
 
 
+def globex_open_ms(ms) -> np.ndarray:
+    """Iteration 19 (reporting only; the rule is unchanged): True where CME Globex is open at UTC ms, from the public CME calendar on
+    Chicago local time (CDT = UTC-5 from 2026-03-08 08:00 UTC to 2026-11-01 07:00 UTC, CST = UTC-6 otherwise): closed on Saturday,
+    Friday from 16:00, Sunday before 17:00 and the Mon-Thu daily break 16:00-17:00 local. Holidays are not modelled."""
+    ms = np.asarray(ms, np.int64)
+    off = np.where((ms >= 1772956800000) & (ms < 1793516400000), -5, -6).astype(np.int64)
+    t = pd.to_datetime(ms + off * 3600000, unit="ms")
+    wd, h = t.day_of_week.to_numpy(), t.hour.to_numpy()
+    closed = (wd == 5) | ((wd == 4) & (h >= 16)) | ((wd == 6) & (h < 17)) | ((wd <= 3) & (h == 16))
+    return ~closed
+
+
 def _atl(T, X, tt):
     i = np.searchsorted(T, tt, "left") - 1
     o = X[np.clip(i, 0, len(X) - 1)].astype(float)
@@ -93,7 +105,7 @@ def decision_clock_side(fills: pd.DataFrame, start_ts: int, end_ts: int, allow_s
         gs["m0"] = gs.m.where(new).ffill().astype(np.int64)
         m0 = np.empty(len(g), np.int64); m0[gs["index"].to_numpy()] = gs.m0.to_numpy()
         first = np.zeros(len(g), bool); first[gs["index"].to_numpy()] = new.to_numpy()
-        P = {"cid": f.cid.to_numpy(), "wallet": f.wallet.to_numpy(), "up": upv, "st": st, "first": first,
+        P = {"cid": f.cid.to_numpy(), "wallet": f.wallet.to_numpy(), "up": upv, "st": st, "first": first, "m": m,
              "p": mdl.predict(features(m, st, Tb, mic, mid, Tt, pt)[FN]), "pdc": mdl.predict(features(m0, st, Tb, mic, mid, Tt, pt)[FN])}
         for nm, sh in (("plm", -3000), ("plp", 3000)):
             Xp = features(m + sh, st, Tb, mic, mid, Tt, pt); Xp["rel"] = Xp.rel + sh / 1000.0
@@ -130,6 +142,13 @@ def decision_clock_side(fills: pd.DataFrame, start_ts: int, end_ts: int, allow_s
                                    round(float(ok[(st >= mid_st) & (wal == w)].mean()), 4) if ((st >= mid_st) & (wal == w)).any() else None] for w in ("DS", "GF", "XM")}
     out["placebo_m_minus_plus_3s"] = [round(float(((Dd.plm.to_numpy() > 0.5) == up).mean()), 4), round(float(((Dd.plp.to_numpy() > 0.5) == up).mean()), 4)]
     out["old_anchor_it13"] = round(float(((Dd.po.to_numpy() > 0.5) == up).mean()), 4) if np.isfinite(Dd.po.to_numpy()).any() else None
+    try:  # iteration 19 (reporting only): accuracy by CME Globex session (X191; VALIDATE 10-20..22 closed 0.861 vs open 0.836)
+        gx = globex_open_ms(Dd.m.to_numpy(np.int64))
+        out["by_globex_session"] = {nm: [round(float(ok[mk].mean()), 4), int(mk.sum())] if mk.any() else [None, 0] for nm, mk in (("open", gx), ("closed", ~gx))}
+        out["by_globex_session_by_wallet"] = {w: {nm: round(float(ok[mk & (wal == w)].mean()), 4) if (mk & (wal == w)).any() else None for nm, mk in (("open", gx), ("closed", ~gx))}
+                                              for w in ("DS", "GF", "XM")}
+    except Exception as e:  # pragma: no cover
+        out["by_globex_session_error"] = repr(e)[:200]
     f = Dd.rename(columns={"wallet": "w"})
     gw = pd.DataFrame({"cid": f.cid.to_numpy(), "w": wal, "up": up.astype(int), "p": p, "st": st})
     one = {}

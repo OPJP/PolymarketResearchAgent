@@ -1,0 +1,19 @@
+{
+ "prereg": "20",
+ "binance": "live",
+ "blocks": [
+  "C:/Users/REMOTE~1/AppData/Local/Temp/claude/C--Dev-trading-research-PolymarketResearchAgent/97f207f2-bd1a-4cdb-a63d-2290c58d22c3/scratchpad"
+ ],
+ "cells": {
+  "closed": {
+   "events": 366,
+   "E": 0.162
+  }
+ },
+ "open_minus_closed": [
+  -0.162,
+  -0.405,
+  0.0
+ ],
+ "neighbours_minus_break_22": null
+}

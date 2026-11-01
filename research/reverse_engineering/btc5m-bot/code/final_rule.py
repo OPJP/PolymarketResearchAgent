@@ -1,6 +1,11 @@
 """btc5m-bot frozen rule (iteration 8; iteration 10 adds pre-registered point-in-time clean live versions; iteration 12
 adds the exposure-tracker replica for the PnL condition; iteration 14 re-anchors the decision clock).
 
+Iteration 19: NO CHANGE to the rule, its constants, its models or its data loading. Reporting only: the decision-clock side output
+('side_decision_clock', from dc_exam14.decision_clock_side) also carries 'by_globex_session' (and per wallet), the per-order accuracy
+when CME Globex is open / closed by the public CME calendar (dc_exam14.globex_open_ms, DST-aware). On VALIDATE 10-20..22 the frozen
+side reads 0.836 open / 0.861 closed; NOTES.md iteration 19 explains why (a Globex-hours input that is not on disk).
+
 Iteration 17: NO CHANGE to the rule, its constants, its models or its data loading (no candidate adopted: pre-registrations 12,
 13 and 14 failed on VALIDATE; pre-registration 11 is an out-of-time development check of the frozen side route on the live 11-01
 feed: 0.718 with a block-median laptop clock, 0.752 with a local clock, below 0.80). Version parameters the examiner should know

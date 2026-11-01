@@ -10112,6 +10112,118 @@
     ]
    },
    "verdict": "lost races (or post-only at the ask) of the same decision stream"
+  },
+  {
+   "id": "H234",
+   "family": "Globex-hours input (X191)",
+   "description": "operator acts on a TradFi (CME Globex) input that leads every 24/7 venue in open hours",
+   "validate_metrics": {
+    "E_open_closed": [
+     0.96,
+     0.388
+    ],
+    "break_vs_neighbours": [
+     0.211,
+     0.75
+    ],
+    "reaction_peak_ms_all_sessions": 260,
+    "mixture_share_open": [
+     0.115,
+     0.163
+    ]
+   },
+   "verdict": "supported on the capture days (calendar-locked; DST test pre-registered; CME data needed)"
+  },
+  {
+   "id": "H235",
+   "family": "Globex-hours input (X191)",
+   "description": "shorter latency chain on weekdays",
+   "validate_metrics": {
+    "reaction_peak_ms": {
+     "closed": 260,
+     "open_us": 260,
+     "open_other": 260
+    }
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H236",
+   "family": "Globex-hours input (X191)",
+   "description": "weekday momentum (event clustering) without a new input",
+   "validate_metrics": {
+    "isolated_E_open_closed": [
+     0.96,
+     0.388
+    ],
+    "operator_minus_crowd_session_effect": 0.365
+   },
+   "verdict": "rejected for the operator"
+  },
+  {
+   "id": "H237",
+   "family": "Globex-hours input (X191)",
+   "description": "capture book clock artefact under weekday load",
+   "validate_metrics": {
+    "trade_T_E_open_closed": [
+     0.994,
+     0.536
+    ]
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H238",
+   "family": "session-aware side (X193)",
+   "description": "dc14 with a Globex indicator / split fits",
+   "validate_metrics": {
+    "forward": [
+     0.8369,
+     0.8359,
+     0.836
+    ],
+    "reverse": [
+     0.8507,
+     0.8515,
+     0.8467
+    ]
+   },
+   "verdict": "not adopted"
+  },
+  {
+   "id": "H239",
+   "family": "clock-free side (X195)",
+   "description": "exchange-stamped spot trades only",
+   "validate_metrics": {
+    "in_time": 0.6035,
+    "out_of_time": 0.6176
+   },
+   "verdict": "fails 0.80; transfers"
+  },
+  {
+   "id": "H240",
+   "family": "sibling size state (X199 / X200)",
+   "description": "W4-only, fill >= 31, E x k",
+   "validate_metrics": {
+    "in_time_pnl_proxy_spearman": [
+     0.444,
+     0.577
+    ],
+    "oot_covered_agreement": 0.564,
+    "oot_class_ratio": 1.33
+   },
+   "verdict": "version-bound (out-of-time gate fails); not adopted"
+  },
+  {
+   "id": "H241",
+   "family": "size coin (X198)",
+   "description": "class exchangeable within the register strata",
+   "validate_metrics": {
+    "Q1_excess": 0.0102,
+    "Q2_excess": 0.012,
+    "p": 0.0005
+   },
+   "verdict": "rejected at 0.01 (small residual dependence)"
   }
  ],
  "data_sources": [
@@ -10706,6 +10818,52 @@
     "replica P(large) AUC and PnL proxy under the hybrid/public state vs own-memory and the true-state ceiling",
     "catalog additions X178-X190 (panel iter17); dimensions own_decision_memory -> proxy, operator_sibling_wallets -> drives"
    ]
+  },
+  {
+   "n": 19,
+   "minutes": 95,
+   "best_validate_score": 0.9132,
+   "block_seconds_presence": 0.8701,
+   "block_seconds_stronger_baseline": 0.8464,
+   "side_accuracy": 0.8369,
+   "pnl_corr": 0.5065,
+   "pnl_corr_spearman": 0.4674,
+   "paradigm": "Decision clock split by the public CME Globex calendar and read as an event-aligned PSTH around Binance jumps: a calendar-locked leading input (TradFi, missing / paid) in Globex-open hours; reaction to Binance unchanged",
+   "families": [
+    "Globex session split of per-venue knee profiles (X191 step 1, pre-registration 16)",
+    "event-aligned PSTH around isolated Binance jumps with crowd control and session boundaries (16b / 16c)",
+    "clock-free trade-jump instrument (16d)",
+    "US-DST natural experiment pre-registered (20)",
+    "session-aware side routes (X193, pre-registration 18)",
+    "clock-free out-of-time side (X195, pre-registration 17)",
+    "sibling size route corrected in time and out-of-time gate (X199 / X200 / X192)",
+    "size-class exchangeability (X198 step 1, pre-registration 19)",
+    "SDK-push restarts on fresh events (X197, pre-registration 21)",
+    "presence margin by Globex session (pre-registration 22)",
+    "exam route reports side by Globex session (dc_exam14)",
+    "E-statistic robustness and placebo (16e)",
+    "economics by Globex session (D4)",
+    "Polymarket book as a partial public trace of the input (pre-registration 23)",
+    "who else: per-wallet session lead (pre-registration 24)",
+    "out-of-time closed-session clock-free E (20b)",
+    "per-day E vs side (diagnostic)",
+    "pre-registration 20 runner dst20.py (self-tested)"
+   ],
+   "globex": {
+    "E_open_closed": [
+     0.96,
+     0.388
+    ],
+    "break_vs_neighbours": [
+     0.211,
+     0.753
+    ],
+    "mixture_share_open": [
+     0.115,
+     0.163
+    ]
+   },
+   "pres19": "forward: pooled pf 0.8701 vs MSB 0.8466 (gain CI {'lo95': 0.0172, 'hi95': 0.031, 'one_sided_p_gain_le_0': 0.0, 'n_boot': 2000, 'blocks': 36}); open 0.8703 vs 0.8465 (cells 328150, gain CI {'lo95': 0.0172, 'hi95': 0.0317, 'one_sided_p_gain_le_0': 0.0, 'n_boot': 2000, 'blocks': 36}); closed 0.8503 vs 0.8451 (cells 13810, gain CI None) | reverse: pooled pf 0.8722 vs MSB 0.8476 (gain CI {'lo95': 0.0212, 'hi95': 0.0279, 'one_sided_p_gain_le_0': 0.0, 'n_boot': 2000, 'blocks': 36}); open 0.8729 vs 0.847 (cells 116456, gain CI {'lo95': 0.0209, 'hi95': 0.0311, 'one_sided_p_gain_le_0': 0.0, 'n_boot': 2000, 'blocks': 13}); closed 0.8672 vs 0.8472 (cells 224668, gain CI {'lo95': 0.0174, 'hi95': 0.0225, 'one_sided_p_gain_le_0': 0.0, 'n_boot': 2000, 'blocks': 24})"
   }
  ],
  "frozen_rule": "code/final_rule.py (iteration 14: + dc_exam14 decision-clock side = target_metrics.side_accuracy; + dc_hazard14: decision-clock presence (reported) and the hazard imbalance in the PnL tracker target mix14 (pre-registration 7); block-second presence and price unchanged)",
@@ -11734,17 +11892,17 @@
   "E1": {
    "status": "tried",
    "source": "brief 2026-11-01",
-   "evidence": "Dimension inventory in state.json `dimensions` (31 dimensions over every family of the brief: Polymarket internal, related markets, event state, information, own state, operator, infrastructure), each with status, source, resolution, publication latency, best indicator and verdict. Missing / untested ones: news, social, calendars (E5), comments, funding / liquidations, Deribit options IV (X168), engine restarts / rate limits."
+   "evidence": "Dimension inventory in state.json `dimensions` (31 dimensions over every family of the brief: Polymarket internal, related markets, event state, information, own state, operator, infrastructure), each with status, source, resolution, publication latency, best indicator and verdict. Missing / untested ones: news, social, calendars (E5), comments, funding / liquidations, Deribit options IV (X168), engine restarts / rate limits. Iteration 19: 32nd dimension `tradfi_globex_feed` (CME Globex products: BTC / MBT futures or ES / NQ; missing, paid; verdict drives, inferred from the calendar-locked lead; X191)."
   },
   "E2": {
    "status": "tried",
    "source": "brief 2026-11-01",
-   "evidence": "NOTES.md 'Missing dimensions' (iteration 17; e2_17.py, results/e2_17.json): side misses of dc14 on 10-20..22 rise through the window 0.119 -> 0.310 (minute 0 -> 4) and with weak knee moves (0.45 at |p - 0.5| < 0.1, 0.04 above 0.4), flat by hour (0.127-0.197) and price level (0.157-0.170), cluster by window (variance 0.0044 vs 0.0026, p < 0.005); timing residual = the take coin among top-hazard instants and the operator's local decision density; size residual = WHICH decisions are large (their side follows dc14 at 0.878, seeds 0.918; seed17.py); lead: none (knee 230-265 ms after Binance on every feed, knee17 / psth16); who else: W4 / W5, the fast crowd (explained 53% by the knee design), 0xeebde7a0. Points to own state (decision memory, pairing late in the window), the operator's configuration schedule and a private class coin."
+   "evidence": "NOTES.md 'Missing dimensions' (iteration 17; e2_17.py, results/e2_17.json): side misses of dc14 on 10-20..22 rise through the window 0.119 -> 0.310 (minute 0 -> 4) and with weak knee moves (0.45 at |p - 0.5| < 0.1, 0.04 above 0.4), flat by hour (0.127-0.197) and price level (0.157-0.170), cluster by window (variance 0.0044 vs 0.0026, p < 0.005); timing residual = the take coin among top-hazard instants and the operator's local decision density; size residual = WHICH decisions are large (their side follows dc14 at 0.878, seeds 0.918; seed17.py); lead: none (knee 230-265 ms after Binance on every feed, knee17 / psth16); who else: W4 / W5, the fast crowd (explained 53% by the knee design), 0xeebde7a0. Points to own state (decision memory, pairing late in the window), the operator's configuration schedule and a private class coin. Iteration 19: the timing / side residual has a CME-calendar shape: in Globex-open hours ~12-16% of first legs are triggered before any 24/7 venue on disk moves (mixture pi 0.115-0.163), side at the knee 0.798 vs 0.837 closed, hazard spot-only margin over market activity +0.044 open vs +0.141 closed; the earlier 'flat by UTC hour' pooled weekdays and weekends (NOTES iteration 19)."
   },
   "E3": {
    "status": "open",
    "source": "brief 2026-11-01",
-   "evidence": "Legacy feed / event studies entered in state.json `indicators` (period 'legacy'); a pre-registered per-family BH screen with tools/indicators.py (screen, event_study with the swap null on B1 decision times, incremental_auc over the dc14 side and the market baseline) has not been run under the new tool. | Iteration 17: first pre-registered screen (e3_17.py, results/e3_17.json; one family: Binance spot microprice jumps at 50 / 100 / 250 ms, strike crossings, other traders' Polymarket taker bursts; screen 10-19 with BH, confirm 10-20; swap null): survivors ['spot_jump_250ms_3sig', 'spot_jump_100ms_3sig', 'spot_jump_50ms_3sig', 'spot_jump_100ms_4sig', 'pm_other_taker_burst_1s_3sig']; confirmations {\"spot_jump_250ms_3sig\": [0.125, 8.429837959863956e-14], \"spot_jump_100ms_3sig\": [0.025, 4.6297286273824726e-15], \"spot_jump_50ms_3sig\": [0.025, 5.6183297846016225e-14], \"spot_jump_100ms_4sig\": [0.225, 5.936022536586196e-15], \"pm_other_taker_burst_1s_3sig\": [-0.575, 1.5765692599369934e-10]}. Other dimension families (USD-M, other venues, the Polymarket book, Chainlink) not yet screened with the tool."
+   "evidence": "Legacy feed / event studies entered in state.json `indicators` (period 'legacy'); a pre-registered per-family BH screen with tools/indicators.py (screen, event_study with the swap null on B1 decision times, incremental_auc over the dc14 side and the market baseline) has not been run under the new tool. | Iteration 17: first pre-registered screen (e3_17.py, results/e3_17.json; one family: Binance spot microprice jumps at 50 / 100 / 250 ms, strike crossings, other traders' Polymarket taker bursts; screen 10-19 with BH, confirm 10-20; swap null): survivors ['spot_jump_250ms_3sig', 'spot_jump_100ms_3sig', 'spot_jump_50ms_3sig', 'spot_jump_100ms_4sig', 'pm_other_taker_burst_1s_3sig']; confirmations {\"spot_jump_250ms_3sig\": [0.125, 8.429837959863956e-14], \"spot_jump_100ms_3sig\": [0.025, 4.6297286273824726e-15], \"spot_jump_50ms_3sig\": [0.025, 5.6183297846016225e-14], \"spot_jump_100ms_4sig\": [0.225, 5.936022536586196e-15], \"pm_other_taker_burst_1s_3sig\": [-0.575, 1.5765692599369934e-10]}. Other dimension families (USD-M, other venues, the Polymarket book, Chainlink) not yet screened with the tool. Iteration 19: session-gated event studies of Binance spot jumps (microprice and trade-price, isolated, gate = CME Globex session) pre-registered (16 / 16b / 16c / 16d) and run on the capture days; the gate is the dimension (X191)."
   },
   "E4": {
    "status": "tried",
@@ -11759,7 +11917,7 @@
   "E6": {
    "status": "open",
    "source": "brief 2026-11-01",
-   "evidence": "Partly: the size class as the operator's decision-memory state machine (S, E; smach17) is a latent state whose true version names the class at AUC 0.75-0.79 and carries window-net r 0.58-0.73 with the dc14 side; a replica's own version agrees with it on 0.55 of legs. No hidden-state model has been fitted to the decisions of the five operator wallets and matched to an external series."
+   "evidence": "Partly: the size class as the operator's decision-memory state machine (S, E; smach17) is a latent state whose true version names the class at AUC 0.75-0.79 and carries window-net r 0.58-0.73 with the dc14 side; a replica's own version agrees with it on 0.55 of legs. No hidden-state model has been fitted to the decisions of the five operator wallets and matched to an external series. Iteration 19: the Globex-led share inferred as a two-class mixture of open-hour first legs (pi 0.115-0.163) and read as pre-reaction mass in the Binance-jump PSTH (E 0.96 open vs 0.39 closed); its event study against every available 24/7 series finds none that leads it (X191 step 1). No latent model fitted to CME data (not available)."
   },
   "E7": {
    "status": "tried",
@@ -11900,6 +12058,61 @@
    "status": "open",
    "source": "panel iter17 assumptions P5",
    "evidence": "Make the presence unit an ORDER (taker submission at m-150 + maker postings from the book), not a fill second, before the next claim: on the 10-31 dev blocks split the frozen block-second presence gain by the role of each positive second (maker-only vs taker); the order-level knee hazard vs a book-aware baseline at the e cut (decision-clock gain +0.058 [0.050,0.065] already). = D1 / X146 / X72; the strongest route to flip condition 2."
+  },
+  "X191": {
+   "status": "open",
+   "source": "panel iter18 assumptions P1",
+   "evidence": "A Globex-hours input. Step 1 TRIED (pre-registrations 16 / 16b / 16c / 16d; knee19.py, knee19b.py, knee19c.py, knee19d.py; results/knee19*.json): every 24/7 venue on disk (spot book, spot trades on T, USD-M BTC / ETH, OKX, Coinbase, Deribit) keeps rising past its knee when CME Globex is open (spot book G = acc(160) - acc(260) -0.010 closed vs +0.041 open) and none saturates, so no on-disk venue is the input; the reaction peak to Binance jumps stays at +260 ms in every session (H2 'shorter latency' rejected); same-side decisions BEFORE the reaction band (E = early [0,230) / reaction [230,320) excess, isolated jumps) 0.960 open vs 0.388 closed (hourly Mann-Whitney p 1e-15; block bootstrap +0.571 [0.473, 0.668]), the Mon-Thu 21-22 UTC break 0.211 vs neighbours 0.73-0.78 (4 of 4 days; +0.538 [0.307, 0.851]), Sunday 22-24 UTC 0.549 vs weekend 0.413; the operator's session effect exceeds the crowd's by +0.365 [0.263, 0.473]; the clock-free trade version (16d) +0.458 [0.331, 0.576] and break +0.405 [0.086, 0.805]. Step 2 (US-DST natural experiment) PRE-REGISTERED as pre-registration 20 (NOTES.md) for the development blocks 11-01 18-24 .. 11-03 18-24; its data do not exist yet. Step 3 (CME millisecond data) needs a paid source (Databento CME MDP3) and the user's approval. Stays open for steps 2-3. Also: at the BLOCK clock the presence margin over the capture-aware baseline is not larger when Globex is closed (pre-registration 22, pres19: weekend +0.020 [0.017, 0.023] vs open +0.026), so the input explains the decision-clock residual, not condition 2's block-second gap; the Polymarket book's extra side information over dc14 exists only in open hours (pre-registration 23: +0.025 / +0.023 open vs -0.004 / -0.025 in the break hours); out of time on the Sunday 11-01 06:00-09:30 record the clock-free E is at the closed level (0.16; pre-registration 20b). Robustness (pre-registration 16e): E open / closed 0.965 / 0.397 (|z|>3), 0.985 / 0.377 (|z|>4), 0.979 / 0.414 (4-s isolation); placebo shifts of -3 / +3 s give ~0 / small excess; per 1,000 jumps the reaction is the same (80 vs 87) and only the early mass doubles (77 vs 35). Shape: a ramp at 160-220 ms (a ~40-80 ms latency advantage) plus a flat floor over -200..140 ms (moves originating on the hidden venue). Runner for step 2: code/dst20.py (self-tested on the 11-01 06-12 record with the live source; the aggTrades path untested). Per day (knee19f): open-hour E 0.88 / 1.06 / 0.87 / 1.10 on 10-19..22; 10-22 has the largest open-vs-closed side gap (inconclusive over three days)."
+  },
+  "X192": {
+   "status": "tried",
+   "source": "panel iter18 assumptions P2",
+   "evidence": "W4-only coverage-aware size state: covered agreement 0.841 / 0.823 in time (>= 0.80 bar met; chk15 re-run), coverage 0.651 / 0.588. Executable tracker run and the size_route switch NOT done because the out-of-time gate fails (X200: covered agreement 0.564 < 0.75, P(large|with)/P(large|against) 1.33 < 2): the route is version-bound and stays out of the frozen rule; the two-part X170 question (a: is W4 the operator, b: is W5 another trader) is stated for the examiner in FINAL_RULE."
+  },
+  "X193": {
+   "status": "tried",
+   "source": "panel iter18 assumptions P3",
+   "evidence": "PRE-REGISTRATION 18 FAILED (sess19.py, results/sess19.json): dc14_spot + a Globex indicator 0.8359 / 0.8515 and split fits 0.8360 / 0.8467 vs base 0.8369 / 0.8507 (forward / reverse); not improved on both splits; nothing adopted. Base dc14 closed 0.861 vs open 0.836 (forward). The hazard part not refitted (without the input, the panel's own 'if false')."
+  },
+  "X194": {
+   "status": "open",
+   "source": "panel iter18 assumptions P4",
+   "evidence": "Configuration tracker from W4's / the wallet's own trailing large share: not run. The W4 variant carries the X170 caveat and the sibling view of the register failed out of time (X200); the own-share variant is own state."
+  },
+  "X195": {
+   "status": "tried",
+   "source": "panel iter18 information P2",
+   "evidence": "PRE-REGISTRATION 17 FAILED (oot19.py, results/oot19.json): a clock-free side from exchange-stamped spot trades only (returns + signed aggressive quantity, X = m - 260) reads 0.6035 in time (10-20..22) and 0.6176 out of time (11-01 06:00-09:30, 999 orders, server-ms matches; placebo 0.50 / 0.55); bar 0.80 not met. It transfers without loss, so the book route's out-of-time drop (0.72-0.75) is the book feed's clock, not a regime change; the side information at the knee is in the book, not in prints. USD-M variant not run."
+  },
+  "X196": {
+   "status": "open",
+   "source": "panel iter18 information P1",
+   "evidence": "W4 / W5 calldata (original sizes) not fetched: the sibling route fails its out-of-time gate at the print level (X200), so exact W4 classes cannot put it into the frozen rule; in time the menu-aware W4 >= 31 state already reaches covered agreement 0.84. Kept open as a diagnostic of whether W4 is the operator (X170)."
+  },
+  "X197": {
+   "status": "open",
+   "source": "panel iter18 information P3",
+   "evidence": "PRE-REGISTRATION 21 (sdk19.py, results/sdk19.json): only 2 fresh whole-cluster gaps of 10-20 min exist before H in the fill record (10-09..22); neither follows a ts-sdk push within 10 min (p 1.0, no power). On the panel's own 24 boundaries 4 fall within 10 min after a push vs a whole-day-shift null mean 0.49 (p 0.0002). Needs fresh events (post-T0 development blocks, older pushes) and the sharper off-schedule-signing detector."
+  },
+  "X198": {
+   "status": "open",
+   "source": "panel iter18 mechanics P3",
+   "evidence": "Step 1 TRIED (pre-registration 19; exch19.py, results/exch19.json): within-stratum permutation (wallet x hour x slot x S-relation x E tercile, 2,000 draws): lag-1 same-class rate +0.010 (same wallet) / +0.012 (pooled) above the null, fewer large runs (7,039 vs 7,378), all p < 0.0005: not exchangeable, but the dependence is small (lag-1 correlation ~0.03-0.05, largest at gaps < 2 s, copies of one decision). Step 2 (JavaScriptCore WeakRandom solver on the 130 same-ms copy groups) not run."
+  },
+  "X199": {
+   "status": "tried",
+   "source": "panel iter18 mechanics P1",
+   "evidence": "Reproduced (chk15 re-run): W4 only, fill >= 31, E x k (k = 6.0 / 5.0): PnL-proxy Spearman 0.444 / 0.577, gain over sib18 +0.106 [0.067, 0.149] / +0.066 [0.020, 0.109]. Steps 2-3 (W4 calldata, executable tracker) not run: the pre-registered out-of-time gate of X200 fails, so the route stays out of the frozen rule."
+  },
+  "X200": {
+   "status": "tried",
+   "source": "panel iter18 mechanics P2",
+   "evidence": "Step 3 (out-of-time gate) TRIED (chk13 re-run on the 11-01 06:00-09:30 record, 999 orders, 62 large): covered agreement 0.564 (W4 >= 31) / 0.412 (>= 60), P(large | with) / P(large | against) 0.073 / 0.055 = 1.33; bars 0.75 and 2 not met -> version-bound, out of the frozen rule whatever X170 rules. The operator's own S still separates out of time (0.115 / 0.033 / 0.049). The executable copy tracker (step 1) not run; the panel's copy proxy reads Spearman 0.547 / 0.576."
+  },
+  "X201": {
+   "status": "open",
+   "source": "panel iter18 mechanics P4",
+   "evidence": "XM 60-share post-only vs always-late natural counterfactual (BUILD 10-09..13 vs post-T0): not run this iteration."
   }
  },
  "components": {
@@ -11909,14 +12122,14 @@
    "description": "Every BTC 5m Up/Down window (94-99% traded), nothing else; prices in the ladder range ~0.12-0.88; whole-cluster outages are bot-side."
   },
   "timing": {
-   "confidence": 0.8,
+   "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Decision = submission of a pre-signed ladder order ~150 ms before its match, on the Binance spot book read ~80-110 ms after the stamp (knee at 230-260 ms before the match on exchange time). At that clock the take is largely decoded: a 50-ms hazard reaches AUC 0.8885 vs 0.7591 for Polymarket activity (per wallet DS 0.8812, GF 0.9028, XM 0.9191); top inputs the 100 / 250-ms spot microprice return toward o and |p - 0.5|. Only ~8% of decisions follow a price-level tick (placebo 1.2%); the rest follow sub-tick queue-imbalance moves. Follower legs 180-220 ms later are re-decisions on fresher spot (86% at their own anchor vs 79%). An operator-level 30-60-s activity state remains (iteration 12). Block-second presence 0.870 vs a capture-aware market baseline 0.846 (+0.024): at the block clock the crowd's co-arrivals reveal most of the operator's takes. The fast crowd's co-takes in the same 50-ms knee band are explained 53% by the knee-clock design (iteration 12: 14-21%). Own-state kernels of past decisions add only +0.01 AUC at the knee clock (iteration 12: +0.037). Iteration 15: the Polymarket book carries the same timing information: a market-only baseline with the capture's book depth and its 100-ms changes at the bot's view reaches 0.8730 against the decoded hazard's 0.8808 (book only 0.8706; on own-print-clean bins 0.910 vs 0.912); the makers cancel o's asks on the same Binance move ~before the operator's order arrives, and the operator takes what is left. Take rate by top deciles: both channels 6.2%, book only 1.9%, spot only 1.5%, neither 0.2%. Book cut scan: the makers' matching cancels arrive within ~50 ms of the bot's own view; with the book cut at e (PIT for every label) the hazard's gain over the book-aware baseline is +0.058 [0.050, 0.065], at e + 50 +0.008. Iteration 17: the knee transfers out of time (live, 11-01): first legs' spot tick lock peaks 255 ms before the match (DS 255, GF 285; capture 265 / 285)."
+   "description": "Decision = submission of a pre-signed ladder order ~150 ms before its match, on the Binance spot book read ~80-110 ms after the stamp (knee at 230-260 ms before the match on exchange time). At that clock the take is largely decoded: a 50-ms hazard reaches AUC 0.8885 vs 0.7591 for Polymarket activity (per wallet DS 0.8812, GF 0.9028, XM 0.9191); top inputs the 100 / 250-ms spot microprice return toward o and |p - 0.5|. Only ~8% of decisions follow a price-level tick (placebo 1.2%); the rest follow sub-tick queue-imbalance moves. Follower legs 180-220 ms later are re-decisions on fresher spot (86% at their own anchor vs 79%). An operator-level 30-60-s activity state remains (iteration 12). Block-second presence 0.870 vs a capture-aware market baseline 0.846 (+0.024): at the block clock the crowd's co-arrivals reveal most of the operator's takes. The fast crowd's co-takes in the same 50-ms knee band are explained 53% by the knee-clock design (iteration 12: 14-21%). Own-state kernels of past decisions add only +0.01 AUC at the knee clock (iteration 12: +0.037). Iteration 15: the Polymarket book carries the same timing information: a market-only baseline with the capture's book depth and its 100-ms changes at the bot's view reaches 0.8730 against the decoded hazard's 0.8808 (book only 0.8706; on own-print-clean bins 0.910 vs 0.912); the makers cancel o's asks on the same Binance move ~before the operator's order arrives, and the operator takes what is left. Take rate by top deciles: both channels 6.2%, book only 1.9%, spot only 1.5%, neither 0.2%. Book cut scan: the makers' matching cancels arrive within ~50 ms of the bot's own view; with the book cut at e (PIT for every label) the hazard's gain over the book-aware baseline is +0.058 [0.050, 0.065], at e + 50 +0.008. Iteration 17: the knee transfers out of time (live, 11-01): first legs' spot tick lock peaks 255 ms before the match (DS 255, GF 285; capture 265 / 285). ITERATION 19: the knee depends on the CME Globex session: when Globex is closed (weekend, Mon-Thu 21-22 UTC under CDT) the operator's trigger is on Binance (the knee-clock hazard's spot-only AUC 0.887 vs market activity 0.746); when it is open, ~12-16% of first legs are triggered before any 24/7 venue on disk moves (same-side pre-reaction mass E 0.96 vs 0.39; break hour 0.21 vs 0.73-0.78), the reaction to Binance jumps staying at 260 ms (spot-only hazard 0.79-0.81 vs 0.74-0.76). That input (tradfi_globex_feed, CME futures most likely) is missing / paid."
   },
   "side": {
    "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Per decision: the direction of the Binance SPOT top-of-book microprice (mostly sub-tick queue-imbalance moves) over the ~250 ms ending ~230-260 ms before the match on Binance's own clock (the bot reads Binance ~80-110 ms after the stamp and arrives 150 ms before its match). Pre-registered (pre-registration 5), fitted on 10-17..19 and scored once on 10-20..22: 0.8369 per taker order (DS 0.8306, GF 0.8547, XM 0.8132), 0.8236 per decision, 88 / 87 / 84 / 78 / 69% by window minute; market-only 0.568, own-inventory 0.539, placebo 0.50, old anchor 0.742; the information arrives in a 60-ms band and nothing is added after it; no knee for the non-co-arriving crowd. Exam route dc_exam14 (capture day files). Late decisions (after 180 s) mix weaker tick-following and own-state pairing. Iteration 15: the Polymarket book of both outcomes at m0 - 210 gives the side at 0.712 alone and is right on 62% of the orders dc14 gets wrong; dc14 + book 0.838 vs dc14 0.8135 per order on 10-21..22 (designed and scored once, not pre-registered). Iteration 17 OUT OF TIME (11-01 06:00-09:30, new regime, live laptop feed, pre-registration 11): 0.7177 per taker order with a block-median clock (fails 0.80), 0.7518 with a local clock offset (post hoc), 0.80 if the cut moves 25 ms later (diagnostic, not adopted): the information is present but the score depends on the clock mapping at the 25-ms scale; the capture collector's clock is stable (hourly transit 125-140 ms), the laptop's drifts ~175 ms per hour."
+   "description": "Per decision: the direction of the Binance SPOT top-of-book microprice (mostly sub-tick queue-imbalance moves) over the ~250 ms ending ~230-260 ms before the match on Binance's own clock (the bot reads Binance ~80-110 ms after the stamp and arrives 150 ms before its match). Pre-registered (pre-registration 5), fitted on 10-17..19 and scored once on 10-20..22: 0.8369 per taker order (DS 0.8306, GF 0.8547, XM 0.8132), 0.8236 per decision, 88 / 87 / 84 / 78 / 69% by window minute; market-only 0.568, own-inventory 0.539, placebo 0.50, old anchor 0.742; the information arrives in a 60-ms band and nothing is added after it; no knee for the non-co-arriving crowd. Exam route dc_exam14 (capture day files). Late decisions (after 180 s) mix weaker tick-following and own-state pairing. Iteration 15: the Polymarket book of both outcomes at m0 - 210 gives the side at 0.712 alone and is right on 62% of the orders dc14 gets wrong; dc14 + book 0.838 vs dc14 0.8135 per order on 10-21..22 (designed and scored once, not pre-registered). Iteration 17 OUT OF TIME (11-01 06:00-09:30, new regime, live laptop feed, pre-registration 11): 0.7177 per taker order with a block-median clock (fails 0.80), 0.7518 with a local clock offset (post hoc), 0.80 if the cut moves 25 ms later (diagnostic, not adopted): the information is present but the score depends on the clock mapping at the 25-ms scale; the capture collector's clock is stable (hourly transit 125-140 ms), the laptop's drifts ~175 ms per hour. ITERATION 19: dc14 0.861 when Globex is closed vs 0.836 open (forward); univariate knee 0.837 vs 0.798; session-aware fits add nothing (pre-registration 18); a clock-free trade-only side reads 0.60 in time and 0.62 out of time (pre-registration 17)."
   },
   "price": {
    "confidence": 0.9,
@@ -11926,7 +12139,7 @@
   "size": {
    "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Original size is a large(>=90)/small class; the side of every large order is public (dc14 0.878). WHICH decisions are large follows the operator's shared decision memory S (side of the last large order) + commitment E. Iteration 18 (sib18, pre-registration 15): the siblings' public large prints (W4/W5 taker BUY filled>=60, lagged ~2 s, shared txs excluded) carry PART of the within-window state S but do NOT fully synchronise it: S_pub agrees with the operator's true S on 0.495/0.4319 (public only), S_hyb 0.6096/0.6102 (own memory 0.5564/0.5606), below the 0.75 bar, coverage 0.58/0.497. On the PnL proxy (window signed-net x payout vs window PnL, Spearman) the public state beats own-memory and the menu on BOTH splits: sib 0.336/0.5108, hyb 0.3139/0.486 vs own 0.2678/0.4459 vs menu 0.2244/0.4053, but reaches only ~60% of the true-state ceiling 0.5659/0.7055 (class-oracle 0.5161/0.6779). Paired 2-h block bootstrap of the PnL-proxy Spearman gain vs the menu (no-sibling) baseline: sib 0.1108 [0.07, 0.1518] (forward) / 0.1092 [0.0216, 0.2038] (reverse), hyb 0.0891 [0.0647, 0.1151] / 0.0808 [0.0183, 0.1339] -- the lower CI bound is > 0 on both splits, so the sibling size signal is a significant, reproducible gain over the baseline that already contains W4/W5 prints as market activity. So the size STATE is PARTLY a public lagged dimension (not a fully private coin); the undecoded residual is the within-window commitment E and which of the shared-S decisions are drawn large. Ceiling/attainability result (E[size] proxy, not the strict-fill tracker), pending the X170 ruling on W4/W5."
+   "description": "Original size is a large(>=90)/small class; the side of every large order is public (dc14 0.878). WHICH decisions are large follows the operator's shared decision memory S (side of the last large order) + commitment E. Iteration 18 (sib18, pre-registration 15): the siblings' public large prints (W4/W5 taker BUY filled>=60, lagged ~2 s, shared txs excluded) carry PART of the within-window state S but do NOT fully synchronise it: S_pub agrees with the operator's true S on 0.495/0.4319 (public only), S_hyb 0.6096/0.6102 (own memory 0.5564/0.5606), below the 0.75 bar, coverage 0.58/0.497. On the PnL proxy (window signed-net x payout vs window PnL, Spearman) the public state beats own-memory and the menu on BOTH splits: sib 0.336/0.5108, hyb 0.3139/0.486 vs own 0.2678/0.4459 vs menu 0.2244/0.4053, but reaches only ~60% of the true-state ceiling 0.5659/0.7055 (class-oracle 0.5161/0.6779). Paired 2-h block bootstrap of the PnL-proxy Spearman gain vs the menu (no-sibling) baseline: sib 0.1108 [0.07, 0.1518] (forward) / 0.1092 [0.0216, 0.2038] (reverse), hyb 0.0891 [0.0647, 0.1151] / 0.0808 [0.0183, 0.1339] -- the lower CI bound is > 0 on both splits, so the sibling size signal is a significant, reproducible gain over the baseline that already contains W4/W5 prints as market activity. So the size STATE is PARTLY a public lagged dimension (not a fully private coin); the undecoded residual is the within-window commitment E and which of the shared-S decisions are drawn large. Ceiling/attainability result (E[size] proxy, not the strict-fill tracker), pending the X170 ruling on W4/W5. ITERATION 19: inside the register (wallet, hour, slot, S-relation, E) the class is nearly a coin (lag-1 same-class excess +0.010-0.012, p < 0.0005); the siblings' view of the register fails out of time (covered agreement 0.56, class ratio 1.33)."
   },
   "exit": {
    "confidence": 0.9,
@@ -11934,7 +12147,7 @@
    "description": "Remainders and lost races rest as GTC bids at the old ask (cancelled never-filled remainders live DS median 328 ms, GF 240, XM 124); every position is held to resolution; 87% of shares end paired at 0.979; TAKER_REBATE = 0.5 x the previous day's taker fees. Iteration 12, the INVENTORY PATH: per window PnL = net x outcome (r 0.884); the net follows the current minute's BTC move (+), is bought back against the earlier minutes' moves (-) and leans with the previous window's outcome (+); public models predict the window net at r 0.46-0.48 (market activity alone 0.34), and an executable exposure tracker that buys the predicted net deficit with strict fills (latency >= 2 s) reproduces the per-window PnL at Pearson 0.476 / Spearman 0.440 (GF 0.34, DS 0.43, XM 0.06; market-only tracker 0.36 / 0.32); the wallets' per-window PnLs are nearly independent of each other (0.00-0.20). Iteration 13: the inventory path is two operator-level streams, a large-size lean (cross-wallet r 0.35-0.47) and a small-size taker counter-flow that buys back the REALIZED large inventory (within-wallet corr(L, S) -0.26..-0.60; dose-dependent pairing, t -26.5); public data predicts L at r 0.32 and the counter-flow residual at ~0.3, and a two-stream target adds nothing to the window-net prediction (0.4195 vs 0.4237). Per-wallet PnL is bounded by dispatch: XM <= 0.30-0.41 under every pooled-stream oracle. Iteration 14: a millisecond nowcast (nfms14) and a decision-hazard nowcast do not lift the tracker (pre-registrations 6 / 7); XM's PnL is a random thinning of the operator's decisions (oracle 0.3925, redraw ceiling 0.4304 < 0.47). Iteration 15: the depth-weighted hazard nowcast (pre-registration 8) does not lift the tracker (mix15 0.4772 / 0.4556 vs mix14 0.4792 / 0.4594 on 576 windows of 10-21..22). Iteration 17: a two-phase target does not lift the tracker (pre-registration 13: 0.5064 / 0.4675 vs 0.5065 / 0.4674). In the new regime XM's PnL is its maker stream (86% of its shares are maker fills), which the taker-only tracker does not trade."
   }
  },
- "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts 13-120 s ahead (1.66 ms per cent whatever the number of sizes per cent, so the signing is parallel or the timestamps are scheduled; the salts are not V8 Math.random output of nearby calls) [VALIDATE-only]. It sits next to Polymarket's engine and reads the Binance SPOT book ~80-110 ms after Binance stamps it; when the spot microprice shifts toward an outcome over the last ~100-250 ms it submits a pre-signed order at the ask it saw ~30-70 ms before arriving [VALIDATE-only]; the side is 0.8369 per taker order on the pre-registered split [VALIDATE-only]. Each decision goes to the first free wallet in a fixed priority list DS > GF > W4 > XM (> W5; W4 / W5 are the operator's other wallets), a wallet staying busy ~300 ms after its submission whether its order fills or not; GF- and XM-led legs are often a later slot behind lost legs nobody sees (tick lock shifted by the slot gaps; DS remainders exactly one cent below GF's limit; 37% of XM-led first legs follow a W4 / W5 leg within 300 ms) [VALIDATE-only]. The size is a large / small class with per-wallet base rates (DS ~4%, GF / XM ~32-34%), repeated on the side of the operator's realized large lean and priced one cent above the ask when large; DS's large class is predictable from public data (AUC ~0.8), GF's and XM's mostly from the operator's own realized lean [VALIDATE-only]. Polymarket holds every marketable order 150 ms; the makers cancel most of the depth the bot saw, and the order fills min(size, depth left ~35 ms before the match) (r 0.895) [VALIDATE-only]. Lost races rest at the old ask and sometimes fill as maker [VALIDATE-only]. Positions are held to resolution; most shares end paired; about half the profit is the taker-fee rebate [VALIDATE-only]. The window PnL is the size of the large lean: public data predicts it at r ~0.5 (exposure tracker 0.5065 / 0.4674 on 10-20..22), because the size realizations are coins conditioned on the operator's own realized lean, which a replica's own state cannot reproduce; which wallet carries a decision follows the dispatcher, and with the operator's occupancy or its local decision density known XM's PnL ceiling is 0.51-0.62 (0.43-0.46 under a lottery), but the public hazard does not reproduce that density (0.48) [VALIDATE-only]. Nothing is exam-verified yet. ITERATION 17 [VALIDATE-only unless noted]: out of time, in the 11-01 regime, the knee (255 ms) and the taker routing transfer, the frozen side route scores 0.72-0.75 on a live laptop feed whose clock drifts (not 0.80; the score moves ~5 points per 25 ms of clock mapping) [out-of-time development check], the large-class rate and list are configuration (GF 0.08 vs 0.27), and XM's fills became 92% maker fills from 60-share orders (a component last seen on 10-09..13 and absent from the whole VALIDATE week) that are the same decisions (dc14 side 0.80) priced at the ask of the bot's view and resting after the ask moved (lost races of the late slot, or post-only orders) [development block 11-01]. The size class is drawn per decision on the side the dc14 rule predicts (0.88) and kept by the operator's decision memory (side of its last large order); which decisions are large is a coin that a replica's own memory does not reproduce (pre-registration 12 failed). || iteration18 (size): the undecoded size STATE 'which side is the current large lean' is PARTLY recoverable from the sibling wallets' (W4/W5) public large prints (PnL-proxy Spearman sib 0.336/0.5108 vs own-memory 0.2678/0.4459 vs menu 0.2244/0.4053, both splits), but under the within-window PIT definition it stays below the 0.75 agreement bar (hyb 0.6096/0.6102) and ~60% of the true-state ceiling 0.5659/0.7055; the within-window coin and commitment E remain undecoded (pending X170).",
+ "strategy_statement": "ITERATION 19 [VALIDATE-only]: the operator's decision clock depends on the CME Globex calendar. When Globex is closed (weekends, the Mon-Thu 21-22 UTC break under CDT) it trades on the Binance spot book alone (knee 260 ms, side at the knee 0.84, hazard margin over market activity +0.14 AUC); when Globex is open about 12-16% of its first legs are triggered by an input that leads Binance spot, Binance USD-M, OKX, Coinbase and Deribit (a TradFi feed, most likely CME BTC or equity-index futures, not on disk), while its reaction to Binance stays at 260 ms. One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts 13-120 s ahead (1.66 ms per cent whatever the number of sizes per cent, so the signing is parallel or the timestamps are scheduled; the salts are not V8 Math.random output of nearby calls) [VALIDATE-only]. It sits next to Polymarket's engine and reads the Binance SPOT book ~80-110 ms after Binance stamps it; when the spot microprice shifts toward an outcome over the last ~100-250 ms it submits a pre-signed order at the ask it saw ~30-70 ms before arriving [VALIDATE-only]; the side is 0.8369 per taker order on the pre-registered split [VALIDATE-only]. Each decision goes to the first free wallet in a fixed priority list DS > GF > W4 > XM (> W5; W4 / W5 are the operator's other wallets), a wallet staying busy ~300 ms after its submission whether its order fills or not; GF- and XM-led legs are often a later slot behind lost legs nobody sees (tick lock shifted by the slot gaps; DS remainders exactly one cent below GF's limit; 37% of XM-led first legs follow a W4 / W5 leg within 300 ms) [VALIDATE-only]. The size is a large / small class with per-wallet base rates (DS ~4%, GF / XM ~32-34%), repeated on the side of the operator's realized large lean and priced one cent above the ask when large; DS's large class is predictable from public data (AUC ~0.8), GF's and XM's mostly from the operator's own realized lean [VALIDATE-only]. Polymarket holds every marketable order 150 ms; the makers cancel most of the depth the bot saw, and the order fills min(size, depth left ~35 ms before the match) (r 0.895) [VALIDATE-only]. Lost races rest at the old ask and sometimes fill as maker [VALIDATE-only]. Positions are held to resolution; most shares end paired; about half the profit is the taker-fee rebate [VALIDATE-only]. The window PnL is the size of the large lean: public data predicts it at r ~0.5 (exposure tracker 0.5065 / 0.4674 on 10-20..22), because the size realizations are coins conditioned on the operator's own realized lean, which a replica's own state cannot reproduce; which wallet carries a decision follows the dispatcher, and with the operator's occupancy or its local decision density known XM's PnL ceiling is 0.51-0.62 (0.43-0.46 under a lottery), but the public hazard does not reproduce that density (0.48) [VALIDATE-only]. Nothing is exam-verified yet. ITERATION 17 [VALIDATE-only unless noted]: out of time, in the 11-01 regime, the knee (255 ms) and the taker routing transfer, the frozen side route scores 0.72-0.75 on a live laptop feed whose clock drifts (not 0.80; the score moves ~5 points per 25 ms of clock mapping) [out-of-time development check], the large-class rate and list are configuration (GF 0.08 vs 0.27), and XM's fills became 92% maker fills from 60-share orders (a component last seen on 10-09..13 and absent from the whole VALIDATE week) that are the same decisions (dc14 side 0.80) priced at the ask of the bot's view and resting after the ask moved (lost races of the late slot, or post-only orders) [development block 11-01]. The size class is drawn per decision on the side the dc14 rule predicts (0.88) and kept by the operator's decision memory (side of its last large order); which decisions are large is a coin that a replica's own memory does not reproduce (pre-registration 12 failed). || iteration18 (size): the undecoded size STATE 'which side is the current large lean' is PARTLY recoverable from the sibling wallets' (W4/W5) public large prints (PnL-proxy Spearman sib 0.336/0.5108 vs own-memory 0.2678/0.4459 vs menu 0.2244/0.4053, both splits), but under the within-window PIT definition it stays below the 0.75 agreement bar (hyb 0.6096/0.6102) and ~60% of the true-state ceiling 0.5659/0.7055; the within-window coin and commitment E remain undecoded (pending X170).",
  "target_metrics": {
   "presence_auc": 0.8701,
   "presence_baseline": 0.8464,
@@ -12425,7 +12638,8 @@
    "resolution": "ms",
    "publication_latency": "next-day archive",
    "best_indicator": "ETH 0.5-s lead",
-   "verdict": "no_effect"
+   "verdict": "no_effect",
+   "notes": "Iteration 19: TradFi assets on the CME Globex calendar are now a separate dimension (tradfi_globex_feed, missing / paid); the 24/7 crypto perps here lag the operator's open-hour input."
   },
   "settlement_oracle_chainlink": {
    "family": "event_state",
@@ -12506,7 +12720,8 @@
    "resolution": "hour",
    "publication_latency": "n/a",
    "best_indicator": "side miss rate by hour (flat)",
-   "verdict": "no_effect"
+   "verdict": "no_effect",
+   "notes": "Iteration 19: the side / timing knee depends on the CME Globex session (not on the weekday: the 21-22 UTC break hour looks like the weekend)."
   },
   "bot_loop_cadence": {
    "family": "operator",
@@ -12561,6 +12776,17 @@
    "publication_latency": "n/a",
    "best_indicator": "signing / posting throughput (flat 1.6-1.7 ms per cent)",
    "verdict": "untested"
+  },
+  "tradfi_globex_feed": {
+   "family": "related_markets",
+   "status": "missing",
+   "source": "CME Globex (BTC / MBT futures; alternatives ES / NQ equity-index futures); millisecond data paid (Databento CME MDP3); no free sub-second source found",
+   "resolution": "ms (needed)",
+   "publication_latency": "~35-40 ms Aurora -> London (the operator's host) vs ~105 ms Tokyo -> London for Binance",
+   "best_indicator": "session-gated PSTH of operator first legs around isolated Binance spot jumps: E = early [0,230) / reaction [230,320) same-side excess (knee19c / knee19d)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "notes": "Inferred, not observed: open-hour E 0.96 vs closed 0.39, Globex break hour 0.21 vs neighbours 0.73-0.78 on 4 of 4 days, Sunday reopening 0.55; reaction to Binance unchanged at 260 ms; every 24/7 venue on disk lags it; ~12-16% of open-hour first legs. Pre-registration 20 (US-DST shift) will separate a TradFi calendar from an operator UTC schedule."
   }
  },
  "indicators": [
@@ -13072,6 +13298,596 @@
     }
    },
    "verdict": "drives (size STATE recoverable from public sibling prints); PnL proxy/ceiling only; pending X170"
+  },
+  {
+   "dimension": "tradfi_globex_feed / binance_spot_book",
+   "definition": "knee profile acc(sign of venue change over [m0-c-250, m0-c)) for c = 400..100 ms, operator first legs, split by CME Globex session",
+   "event": "session gate (public CME calendar, CDT)",
+   "period": "capture days 10-17..22 (VALIDATE)",
+   "result": {
+    "spot_book": {
+     "closed": -0.0101,
+     "open": 0.0409
+    },
+    "spot_trade": {
+     "closed": 0.0035,
+     "open": 0.0203
+    },
+    "usdm_btc": {
+     "closed": -0.0013,
+     "open": 0.0197
+    },
+    "usdm_eth": {
+     "closed": 0.0134,
+     "open": 0.0378
+    },
+    "okx_btc": {
+     "closed": 0.0046,
+     "open": 0.0174
+    },
+    "bybit_btc": {
+     "closed": 0.136,
+     "open": 0.1231
+    },
+    "coinbase": {
+     "closed": 0.021,
+     "open": 0.0525
+    },
+    "deribit": {
+     "closed": 0.0507,
+     "open": 0.0801
+    }
+   },
+   "verdict": "every 24/7 venue rises past its knee in open hours only; none saturates"
+  },
+  {
+   "dimension": "tradfi_globex_feed",
+   "definition": "PSTH E statistic around isolated Binance spot microprice jumps (|100-ms z| > 3, no |z| > 2 in the 2 s before)",
+   "event": "jump, gated by Globex session / break hour / Sunday reopening",
+   "period": "capture days 10-17..22",
+   "result": {
+    "operator": {
+     "E_open": 0.96,
+     "E_closed": 0.388,
+     "hours_open_closed": [
+      85,
+      49
+     ],
+     "hourly_median_open_closed": [
+      0.95,
+      0.375
+     ],
+     "T1_mannwhitney_p": 1.1146356568166689e-15
+    },
+    "crowd": {
+     "E_open": 0.444,
+     "E_closed": 0.237,
+     "hours_open_closed": [
+      90,
+      49
+     ],
+     "hourly_median_open_closed": [
+      0.468,
+      0.257
+     ],
+     "T1_mannwhitney_p": 4.3258870330428737e-10
+    },
+    "T1_operator_open_minus_closed": [
+     0.571,
+     0.473,
+     0.668,
+     0.0
+    ],
+    "T3_operator_minus_crowd_session_effect": [
+     0.365,
+     0.263,
+     0.473,
+     0.0
+    ],
+    "T2_operator_neighbours_minus_break": [
+     0.538,
+     0.307,
+     0.851,
+     0.0
+    ]
+   },
+   "verdict": "drives (calendar-locked lead; p < 0.0005)"
+  },
+  {
+   "dimension": "tradfi_globex_feed / binance_spot_trades",
+   "definition": "the same E on exchange-stamped last-trade-price jumps (clock-free)",
+   "event": "jump on T, gated by session",
+   "period": "capture days 10-17..22",
+   "result": {
+    "E_open": 0.994,
+    "E_closed": 0.536,
+    "open_minus_closed": [
+     0.458,
+     0.331,
+     0.576,
+     0.0
+    ],
+    "neighbours_minus_break": [
+     0.405,
+     0.086,
+     0.805,
+     0.009
+    ]
+   },
+   "verdict": "confirms (instrument for pre-registration 20)"
+  },
+  {
+   "dimension": "tradfi_globex_feed",
+   "definition": "session-aware dc14_spot (indicator / split fits), pre-registration 18",
+   "event": "n/a",
+   "period": "VALIDATE 10-20..22 and reverse",
+   "result": {
+    "forward": {
+     "base": 0.8369,
+     "ind": 0.8359,
+     "split": 0.836
+    },
+    "reverse": {
+     "base": 0.8507,
+     "ind": 0.8515,
+     "split": 0.8467
+    }
+   },
+   "verdict": "not adopted"
+  },
+  {
+   "dimension": "binance_spot_trades",
+   "definition": "clock-free trade-only side (returns + signed aggressive qty, X = m - 260), pre-registration 17",
+   "event": "n/a",
+   "period": "in time 10-20..22; out of time 11-01 06:00-09:30",
+   "result": {
+    "c260": {
+     "in_time_per_order": 0.6035,
+     "oot_per_order": 0.6176,
+     "in_time_placebo_m-3s_m+3s": [
+      0.504,
+      0.4782
+     ],
+     "oot_placebo_m-3s_m+3s": [
+      0.5005,
+      0.5526
+     ]
+    }
+   },
+   "verdict": "fails 0.80; transfers"
+  },
+  {
+   "dimension": "own_decision_memory",
+   "definition": "exchangeability of the size class within strata (pre-registration 19)",
+   "event": "n/a",
+   "period": "VALIDATE 10-20..22",
+   "result": {
+    "Q1_same_wallet_lag1_same_class": {
+     "observed": 0.81888,
+     "null_mean": 0.80866,
+     "null_q99": 0.8107,
+     "excess": 0.01022,
+     "p_one_sided": 0.0004997501249375312
+    },
+    "Q2_pooled_lag1_same_class": {
+     "observed": 0.79012,
+     "null_mean": 0.77809,
+     "null_q99": 0.77996,
+     "excess": 0.01203,
+     "p_one_sided": 0.0004997501249375312
+    },
+    "Q5_large_runs": {
+     "observed": 7039.0,
+     "null_mean": 7377.562,
+     "null_q99": 7306.99,
+     "excess": -338.562,
+     "p_one_sided": 0.0004997501249375312
+    }
+   },
+   "verdict": "not exchangeable; small dependence"
+  },
+  {
+   "dimension": "pm_operational_events / engine_restarts_outages",
+   "definition": "whole-cluster gap boundaries within 10 min after Polymarket/ts-sdk main pushes (pre-registration 21)",
+   "event": "push",
+   "period": "development before H",
+   "result": {
+    "fresh_10_20min": {
+     "boundaries_in_span": 2,
+     "within_0_10min_after_push": 0,
+     "null_mean": 0.0,
+     "p_one_sided": 1.0,
+     "control_shift_plus_60min": 0,
+     "examples": []
+    },
+    "panel_ge_20min": {
+     "boundaries_in_span": 24,
+     "within_0_10min_after_push": 4,
+     "null_mean": 0.485,
+     "p_one_sided": 0.0002,
+     "control_shift_plus_60min": 0,
+     "examples": [
+      "2026-10-19 13:37:08",
+      "2026-10-15 07:51:32",
+      "2026-10-19 14:57:45",
+      "2026-10-21 11:46:48"
+     ]
+    }
+   },
+   "verdict": "untested on fresh events (no power)"
+  },
+  {
+   "dimension": "tradfi_globex_feed",
+   "definition": "block-second presence: frozen full model vs capture-aware market baseline MSB, by Globex session (pre-registration 22)",
+   "event": "session gate",
+   "period": "10-20..22 (forward) and 10-17..19 (reverse)",
+   "result": {
+    "prereg": "22",
+    "splits": {
+     "forward": {
+      "cells": 341960,
+      "pooled": {
+       "pf": 0.8701,
+       "MSB": 0.8466,
+       "boot": {
+        "lo95": 0.0172,
+        "hi95": 0.031,
+        "one_sided_p_gain_le_0": 0.0,
+        "n_boot": 2000,
+        "blocks": 36
+       }
+      },
+      "open": {
+       "cells": 328150,
+       "pf": 0.8703,
+       "MSB": 0.8465,
+       "boot": {
+        "lo95": 0.0172,
+        "hi95": 0.0317,
+        "one_sided_p_gain_le_0": 0.0,
+        "n_boot": 2000,
+        "blocks": 36
+       },
+       "by_wallet": {
+        "DS": {
+         "pf": 0.8506,
+         "MSB": 0.8277
+        },
+        "GF": {
+         "pf": 0.8628,
+         "MSB": 0.841
+        },
+        "XM": {
+         "pf": 0.8819,
+         "MSB": 0.8816
+        }
+       }
+      },
+      "closed": {
+       "cells": 13810,
+       "pf": 0.8503,
+       "MSB": 0.8451,
+       "boot": null,
+       "by_wallet": {
+        "DS": {
+         "pf": 0.8292,
+         "MSB": 0.8237
+        },
+        "GF": {
+         "pf": 0.8697,
+         "MSB": 0.858
+        },
+        "XM": {
+         "pf": 0.8964,
+         "MSB": 0.902
+        }
+       }
+      }
+     },
+     "reverse": {
+      "cells": 341124,
+      "pooled": {
+       "pf": 0.8722,
+       "MSB": 0.8476,
+       "boot": {
+        "lo95": 0.0212,
+        "hi95": 0.0279,
+        "one_sided_p_gain_le_0": 0.0,
+        "n_boot": 2000,
+        "blocks": 36
+       }
+      },
+      "open": {
+       "cells": 116456,
+       "pf": 0.8729,
+       "MSB": 0.847,
+       "boot": {
+        "lo95": 0.0209,
+        "hi95": 0.0311,
+        "one_sided_p_gain_le_0": 0.0,
+        "n_boot": 2000,
+        "blocks": 13
+       },
+       "by_wallet": {
+        "DS": {
+         "pf": 0.855,
+         "MSB": 0.8294
+        },
+        "GF": {
+         "pf": 0.8759,
+         "MSB": 0.8528
+        },
+        "XM": {
+         "pf": 0.8934,
+         "MSB": 0.8841
+        }
+       }
+      },
+      "closed": {
+       "cells": 224668,
+       "pf": 0.8672,
+       "MSB": 0.8472,
+       "boot": {
+        "lo95": 0.0174,
+        "hi95": 0.0225,
+        "one_sided_p_gain_le_0": 0.0,
+        "n_boot": 2000,
+        "blocks": 24
+       },
+       "by_wallet": {
+        "DS": {
+         "pf": 0.8521,
+         "MSB": 0.8321
+        },
+        "GF": {
+         "pf": 0.8772,
+         "MSB": 0.8586
+        },
+        "XM": {
+         "pf": 0.9082,
+         "MSB": 0.8959
+        }
+       }
+      }
+     }
+    }
+   },
+   "verdict": "see NOTES finding 12"
+  },
+  {
+   "dimension": "pm_book_l2 / tradfi_globex_feed",
+   "definition": "Polymarket book of both outcomes at m0 - 210 ms on top of dc14 (sidebook15), split by Globex session (pre-registration 23)",
+   "event": "session gate",
+   "period": "10-21..22 (forward) and 10-20 (reverse)",
+   "result": {
+    "forward": {
+     "all": 0.0245,
+     "open": 0.0253,
+     "closed": -0.0038
+    },
+    "reverse": {
+     "all": 0.022,
+     "open": 0.023,
+     "closed": -0.025
+    }
+   },
+   "verdict": "book's extra side information only in Globex-open hours (partial public proxy)"
+  },
+  {
+   "dimension": "tradfi_globex_feed",
+   "definition": "clock-free E out of time, 11-01 06:00-09:30 (Sunday, closed) (pre-registration 20b)",
+   "event": "isolated trade jump on T",
+   "period": "development block 11-01 06-12",
+   "result": {
+    "prereg": "20b",
+    "first_legs": 770,
+    "isolated_trade_jumps": 366,
+    "excess_early_0_230": 6.0,
+    "excess_reaction_230_320": 37.0,
+    "E": 0.162,
+    "peak_lag_ms": 250,
+    "prediction_E_le_0.65": true,
+    "trade_msgs": 159347
+   },
+   "verdict": "closed-level E as predicted (small sample)"
+  },
+  {
+   "dimension": "tradfi_globex_feed / pm_tape_other_wallets",
+   "definition": "who else: per-wallet E open vs closed for non-operator takers (pre-registration 24)",
+   "event": "isolated Binance jump",
+   "period": "capture days 10-17..22",
+   "result": {
+    "wallets": 15139,
+    "eligible": 67,
+    "crowd_total": {
+     "E_open": 0.446,
+     "E_closed": 0.252
+    },
+    "eligible_with_E_open_ge_0.8_and_E_closed_le_0.5": 1,
+    "eligible_dE_quantiles": {
+     "0.1": -0.067,
+     "0.5": 0.042,
+     "0.9": 0.352
+    }
+   },
+   "verdict": "evidence only (never a rule input)"
+  },
+  {
+   "dimension": "tradfi_globex_feed",
+   "definition": "E statistic sensitivity (|z| 3 / 4, isolation 2 / 4 s) and +/-3 s placebo (pre-registration 16e)",
+   "event": "isolated Binance spot microprice jump, session gate",
+   "period": "capture days 10-17..22",
+   "result": {
+    "prereg": "16e",
+    "a_base": {
+     "events_open_closed": [
+      23665,
+      9621
+     ],
+     "excess_early_peak_open": [
+      1825.0,
+      1892.0
+     ],
+     "excess_early_peak_closed": [
+      332.0,
+      837.0
+     ],
+     "E_open": 0.965,
+     "E_closed": 0.397,
+     "per_1000_events_early_peak_open": [
+      77.12,
+      79.95
+     ],
+     "per_1000_events_early_peak_closed": [
+      34.51,
+      87.0
+     ]
+    },
+    "b_z4": {
+     "events_open_closed": [
+      18330,
+      7892
+     ],
+     "excess_early_peak_open": [
+      1438.0,
+      1460.0
+     ],
+     "excess_early_peak_closed": [
+      273.0,
+      725.0
+     ],
+     "E_open": 0.985,
+     "E_closed": 0.377,
+     "per_1000_events_early_peak_open": [
+      78.45,
+      79.65
+     ],
+     "per_1000_events_early_peak_closed": [
+      34.59,
+      91.87
+     ]
+    },
+    "c_iso4s": {
+     "events_open_closed": [
+      16732,
+      6995
+     ],
+     "excess_early_peak_open": [
+      1323.0,
+      1351.0
+     ],
+     "excess_early_peak_closed": [
+      248.0,
+      599.0
+     ],
+     "E_open": 0.979,
+     "E_closed": 0.414,
+     "per_1000_events_early_peak_open": [
+      79.07,
+      80.74
+     ],
+     "per_1000_events_early_peak_closed": [
+      35.45,
+      85.63
+     ]
+    },
+    "d_placebo_minus3s": {
+     "events_open_closed": [
+      23665,
+      9621
+     ],
+     "excess_early_peak_open": [
+      -99.0,
+      -54.0
+     ],
+     "excess_early_peak_closed": [
+      -26.0,
+      10.0
+     ],
+     "E_open": null,
+     "E_closed": -2.6,
+     "per_1000_events_early_peak_open": [
+      -4.18,
+      -2.28
+     ],
+     "per_1000_events_early_peak_closed": [
+      -2.7,
+      1.04
+     ]
+    },
+    "d_placebo_plus3s": {
+     "events_open_closed": [
+      23665,
+      9621
+     ],
+     "excess_early_peak_open": [
+      309.0,
+      119.0
+     ],
+     "excess_early_peak_closed": [
+      54.0,
+      33.0
+     ],
+     "E_open": 2.597,
+     "E_closed": 1.636,
+     "per_1000_events_early_peak_open": [
+      13.06,
+      5.03
+     ],
+     "per_1000_events_early_peak_closed": [
+      5.61,
+      3.43
+     ]
+    }
+   },
+   "verdict": "robust; placebo flat"
+  },
+  {
+   "dimension": "tradfi_globex_feed / fees_rebates_rewards",
+   "definition": "operator PnL per share and volume by Globex session (D4)",
+   "event": "n/a",
+   "period": "development 10-09..22",
+   "result": {
+    "closed_M": {
+     "shares": 588792,
+     "pnl_per_share_c": 0.29,
+     "fee_per_share_c": 0.0
+    },
+    "closed_T": {
+     "shares": 1660392,
+     "pnl_per_share_c": 0.442,
+     "fee_per_share_c": 1.442
+    },
+    "open_M": {
+     "shares": 1548248,
+     "pnl_per_share_c": 1.246,
+     "fee_per_share_c": 0.0
+    },
+    "open_T": {
+     "shares": 7740780,
+     "pnl_per_share_c": -0.013,
+     "fee_per_share_c": 1.5
+    },
+    "windows_open": {
+     "n": 2520,
+     "mean_pnl": 7.25,
+     "mean_pnl_with_half_taker_fee_rebate_approx": 30.28,
+     "mean_shares": 3686.1,
+     "pnl_per_share_c": 0.197
+    },
+    "windows_closed": {
+     "n": 1220,
+     "mean_pnl": 7.41,
+     "mean_pnl_with_half_taker_fee_rebate_approx": 17.22,
+     "mean_shares": 1843.6,
+     "pnl_per_share_c": 0.402
+    },
+    "days": [
+     "2026-10-09 00:00:00",
+     "2026-10-22 23:55:00"
+    ]
+   },
+   "verdict": "open windows: 2x volume, same trading PnL per window, more rebate; maker remainders +1.25 c vs +0.29 c"
   }
  ],
  "catalog_open_after_iteration17": [
@@ -13193,5 +14009,77 @@
   "X188",
   "X189",
   "X190"
+ ],
+ "catalog_open_after_iteration19": [
+  "E3",
+  "E5",
+  "E6",
+  "X5",
+  "X7",
+  "X18",
+  "X26",
+  "X33",
+  "X36",
+  "X37",
+  "X44",
+  "X51",
+  "X53",
+  "X57",
+  "X66",
+  "X70",
+  "X72",
+  "X87",
+  "X88",
+  "X90",
+  "X100",
+  "X104",
+  "X107",
+  "X113",
+  "X115",
+  "X122",
+  "X123",
+  "X124",
+  "X127",
+  "X128",
+  "X130",
+  "X133",
+  "X139",
+  "X141",
+  "X146",
+  "X148",
+  "X149",
+  "X150",
+  "X151",
+  "X153",
+  "X154",
+  "X155",
+  "X158",
+  "X159",
+  "X160",
+  "X161",
+  "X164",
+  "X167",
+  "X170",
+  "X174",
+  "X175",
+  "X177",
+  "X178",
+  "X179",
+  "X180",
+  "X181",
+  "X183",
+  "X184",
+  "X185",
+  "X186",
+  "X187",
+  "X188",
+  "X189",
+  "X190",
+  "X191",
+  "X194",
+  "X196",
+  "X197",
+  "X198",
+  "X201"
  ]
 }

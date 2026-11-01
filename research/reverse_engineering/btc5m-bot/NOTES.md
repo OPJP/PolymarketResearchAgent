@@ -3898,6 +3898,12 @@ Information dimensions (news, social, calendars; E5) have no plausible path into
 window; their only possible role is the configuration schedule (size phases and XM's maker component switch on whole UTC hours or
 days), which E5 should screen against announcements and scheduled releases (open).
 
+Update (iteration 19; details in that iteration's findings 1-5): the TIMING and SIDE residuals have a CME-calendar shape that the
+pooled 'flat by UTC hour' reading above hid. When CME Globex is closed (weekend, Mon-Thu 21-22 UTC under CDT) the operator's knee
+saturates at 260 ms on Binance; when Globex is open about 12-16% of its first legs are triggered before every 24/7 venue on disk
+moves (pre-reaction same-side mass E 0.96 vs 0.39; break hour 0.21 vs 0.73-0.78; reaction to Binance unchanged at 260 ms). New
+dimension `tradfi_globex_feed` (missing, paid: CME BTC / MBT or ES / NQ at ms); the DST natural experiment is pre-registration 20.
+
 Findings (iteration 17, continued):
 8. XM'S 60-SHARE 'MAKER' ORDERS ARE LOST RACES OF THE LATE SLOT, NOT QUOTES (X177 steps 1-2; post60_17.py, post60b_17.py, results/post60_17.json,
    post60b_17.json): every one of the 274 XM 60-share maker-first orders of 11-01 06:00-09:30 is found POSTED in the unthrottled near-touch
@@ -4150,3 +4156,258 @@ recorders were not touched; no recorder started or stopped this iteration. No po
 (the cached operator frame + sibling-print state; rebuild sib18_prep.py ~10 s once the heavy jobs are off the laptop). polyrea PERF
 NOTE (not a bug): pandas Series.isin(python_set) rebuilds the hashtable each call; use set-membership on the small subset instead
 (cost me one wasted run before the fix).
+
+### Iteration 19 (2026-11-01 12:43 UTC start, local Windows laptop; development data: before H, and 10-31 00-06 / 12-18, 11-01 06-12)
+
+Split and primary metric unchanged (BUILD 10-09..16, VALIDATE 10-16..23; the capture-day work fits on 10-17..19 and scores 10-20..22,
+plus the reverse split). Calendar (`sealed.py btc5m-bot`, 12:48 UTC): released none; future examined until 10-31 00:00; current block
+11-01 12-18 sealed (nothing from it touched). Shared recorder running (`live.py status`: wallet feed not stopped, current block sealed,
+hard stop 1793881098). Budget before this iteration: 1158 of 1200 minutes. No recorder started or stopped. No network fetch this
+iteration (every input was already on disk); no download.
+
+PIVOT (required: < 0.01 progress over iterations 17-18). NEW DIMENSION and a new unit of analysis: the operator's decision clock split
+by the public CME Globex calendar, read as an event-aligned PSTH around Binance spot jumps (assumptions panel iter18 P1 = X191). The
+question is no longer "which venue adds to the knee" (iterations 4-17, all on pooled days) but "does the knee itself depend on whether
+a TradFi venue is open".
+
+Competing explanations (written at the start of the iteration; what separates them):
+- H1 A GLOBEX-HOURS LEADING INPUT (missing dimension, `tradfi_globex_feed`: CME BTC / MBT futures or CME equity-index futures; paid /
+  not on disk): when Globex is open the operator also acts on moves that every 24/7 venue prints later. Separates: (i) the reaction
+  peak to Binance jumps stays at its closed-hour lag (~260 ms) in open hours, (ii) open hours add same-side decisions BEFORE the
+  reaction band, also for isolated jumps, (iii) the extra mass vanishes in the Mon-Thu Globex break (21-22 UTC under CDT) and appears at
+  the Sunday 22:00 UTC open, (iv) after the US DST change it follows the calendar to 22-23 UTC.
+- H2 A SHORTER LATENCY CHAIN ON WEEKDAYS (own infrastructure): the whole knee moves ~100 ms later on weekdays. Separates: the reaction
+  peak itself shifts to ~160 ms in open hours; the break hour looks like its neighbours.
+- H3 WEEKDAY MOMENTUM (no new input): Binance jumps are more often continuations on weekdays, so earlier decisions on the same side
+  precede them. Separates: the open-hour excess disappears for isolated jumps and the crowd shows the same excess.
+- H4 AN OPERATOR UTC SCHEDULE (configuration): the operator switches a feature off on weekends and at 21:00-22:00 UTC. Separates: only
+  the DST shift (H1 moves the low hour to 22-23 UTC from 11-02; H4 keeps it at 21-22).
+- H5 A CLOCK ARTEFACT of the capture's book mapping (receive - 131 ms) under weekday load. Separates: the effect persists on
+  exchange-stamped trades (T) and on USD-M trades; the crowd's peak would move with it.
+- H6 (size, carried over) a private per-decision size coin inside the register vs H7 the siblings' public view of the register.
+  Separates: exchangeability of the class within strata; the sibling state's out-of-time gate.
+At least H1 rests on a missing dimension. This iteration discriminates H1-H5 on disk and pre-registers the DST test (H1 vs H4), and
+closes the sibling route's out-of-time gate (H7) and the exchangeability test (H6).
+
+PRE-REGISTRATION 16 (code/knee19.py docstring, before the run): session-split per-venue knee profiles (knee14's definition) and an
+event-aligned PSTH around Binance spot microprice jumps, operator first legs of 10-17..22, Globex calendar on CDT.
+PRE-REGISTRATION 16b (code/knee19b.py, after 16's first result, before its run): isolated jumps (no |z| > 2 move in the 2 s before),
+the crowd through the same PSTH, and the session boundaries (break hour vs 20-21 / 22-23 UTC; Sunday 18-22 vs 22-24 UTC); statistic E =
+same-minus-opposite first legs in [0, 230) ms after the jump over the same excess in the reaction band [230, 320) ms.
+PRE-REGISTRATION 16c (code/knee19c.py): T1 open > closed (hourly Mann-Whitney; 30-min block bootstrap), T2 break < neighbours (per
+day and bootstrap), T3 operator's session effect > the crowd's.
+PRE-REGISTRATION 16d (code/knee19d.py): the same statistic on exchange-stamped spot TRADES only (no receive clock), as the instrument for
+the DST test.
+
+Findings (iteration 19):
+1. THE OPERATOR'S KNEE DEPENDS ON THE CME GLOBEX SESSION; NO 24/7 VENUE ON DISK IS THE INPUT (pre-registration 16; knee19.py,
+   results/knee19.json; 92,073 first legs; closed 19,646 / open 72,427). G = acc(c = 160) - acc(c = 260), sign of the venue's change over
+   [m0 - c - 250, m0 - c):
+   | venue (own clock) | closed: acc 260 / 160 / G | open: acc 260 / 160 / G |
+   |---|---|---|
+   | spot book (receive - 131) | 0.837 / 0.827 / -0.010 | 0.798 / 0.839 / +0.041 |
+   | spot trades (T) | 0.565 / 0.568 / +0.004 | 0.563 / 0.583 / +0.020 |
+   | USD-M BTC trades (T) | 0.592 / 0.590 / -0.001 | 0.581 / 0.601 / +0.020 |
+   | USD-M ETH trades (T) | 0.631 / 0.644 / +0.013 | 0.607 / 0.645 / +0.038 |
+   | OKX swap trades (T) | 0.535 / 0.540 / +0.005 | 0.550 / 0.567 / +0.017 |
+   | Coinbase (12 cached hours) | 0.531 / 0.552 / +0.021 | 0.542 / 0.594 / +0.053 |
+   | Deribit perp (12 cached hours) | 0.538 / 0.589 / +0.051 | 0.545 / 0.625 / +0.080 |
+   Spot book G per wallet closed / open: DS -0.011 / +0.046, GF -0.011 / +0.024, XM +0.001 / +0.039; per day: 10-17 -0.011, 10-18
+   closed -0.011 and its open 22-24 h +0.013, 10-19 +0.043, 10-20 +0.064, 10-21 +0.040, 10-22 +0.017; the three break hours of 10-20..22
+   -0.003 / -0.022 / -0.005. Every 24/7 venue keeps rising past its knee in open hours and none saturates there (the panel's step 1
+   adoption condition is not met by any venue). Bybit's 100-ms bins read +0.12-0.14 in both sessions (the bin-end clock, uninformative).
+   The crowd (975,955 non-operator taker BUYs) peaks at c = 250-260 in every session (G -0.011 closed, -0.015 / -0.013 open).
+2. THE REACTION TO BINANCE DOES NOT CHANGE; OPEN HOURS ADD DECISIONS THAT PRECEDE IT (H2 rejected; pre-registration 16, PSTH; 57,811
+   spot microprice jumps): the operator's same-side excess peaks at +260 ms after the jump in closed, open-US and open-other hours alike
+   (half-max 250-300 / 170-340 / 230-310 ms). Same-side minus opposite-side first legs per 1,000 jumps in [0, 230) ms: closed 31.3,
+   open-US 81.0, open-other 76.5; in the reaction band [230, 320): 81.6 / 64.8 / 81.1.
+3. THE EXTRA MASS FOLLOWS THE CME CALENDAR, NOT THE WEEKDAY, AND SURVIVES ISOLATED JUMPS (H3 rejected for the operator; pre-registrations
+   16b / 16c; knee19b.py, knee19c.py, results/knee19b.json, knee19c.json; 31,435 isolated jumps). E (isolated jumps):
+   | cell | operator E | crowd E |
+   |---|---|---|
+   | weekend (closed) | 0.413 | 0.234 |
+   | Mon-Thu 21-22 UTC (Globex break) | **0.211** | 0.279 |
+   | Mon-Thu 20-21 UTC | 0.776 | 0.517 |
+   | Mon-Thu 22-23 UTC | 0.730 | 0.435 |
+   | Sunday 10-18 22-24 UTC (Globex reopened) | 0.549 | 0.541 |
+   | other open hours | **0.996** | 0.438 |
+   T1: operator E open 0.960 vs closed 0.388, hourly Mann-Whitney p = 1.1e-15 (85 / 49 hours; medians 0.95 / 0.375), block bootstrap of
+   the difference +0.571 [0.473, 0.668] (p < 0.0005); crowd +0.206 [0.154, 0.260]. T3: the operator's session effect exceeds the
+   crowd's by +0.365 [0.263, 0.473]. T2: neighbours minus break +0.538 [0.307, 0.851] (p < 0.0005); per day break / neighbours 0.11 / 0.49
+   (10-19), 0.21 / 0.80 (10-20), 0.33 / 0.90 (10-21), 0.23 / 0.91 (10-22): lower on 4 of 4 days; crowd +0.189 [-0.038, 0.381] (p 0.041).
+   Per wallet E open / closed: DS 1.10 / 0.41, GF 0.68 / 0.35, XM 0.62 / 0.28. The reaction peak stays at 260-270 ms in every cell.
+4. THE CLOCK-FREE INSTRUMENT SEES IT TOO (H5 rejected; pre-registration 16d; knee19d.py, results/knee19d.json; 33,474 isolated
+   last-trade-price jumps on T, server-ms matches): E open 0.994 vs closed 0.536, difference +0.458 [0.331, 0.576] (p < 0.001);
+   neighbours minus break +0.405 [0.086, 0.805] (p 0.009); break 0.328, weekend 0.565, 20-21 h 0.793, 22-23 h 0.698, other open 1.034;
+   reaction peak 250-270 ms in every cell. So the DST test (pre-registration 20) can run on data.binance.vision aggTrades with no
+   laptop clock.
+5. SIZE OF THE MISSING INPUT (sess19.py, results/sess19.json; first legs): univariate knee accuracy at c = 260 is 0.837 closed against
+   0.798 open; under a two-class mixture (Binance-led decisions at the closed-hour accuracy, the rest at a_g = 0.5-0.6) the share of
+   open-hour first legs triggered by the hidden input is pi = 0.115-0.163, i.e. about 9-13% of all first legs (open hours carry 79% of
+   them). By UTC hour on open weekdays G is positive in every hour (0.008-0.069; highest 06 UTC 0.069, 07-08 0.053-0.054, 12 0.053, 14
+   0.055; lowest 23 UTC 0.008 and 20 UTC 0.019); in closed hours -0.037..+0.023. The frozen knee-clock hazard (hazard14_scored, 10-20..22,
+   weighted AUC) by session: closed 0.933 full / 0.887 spot-only / 0.746 Polymarket-only; open-US 0.879 / 0.789 / 0.744; open-other
+   0.889 / 0.808 / 0.764: the spot-only margin over market activity is +0.141 closed against +0.044 open.
+6. PRE-REGISTRATION 18 FAILED: SESSION-AWARE SIDE ROUTES ADD NOTHING WITHOUT THE INPUT (X193; sess19.py; dcfit14's frame, PARAMS and
+   SPOT columns). Forward (fit 10-17..19, score 10-20..22): base 0.8369 (open 0.8363 / closed 0.8610), + Globex indicator 0.8359, split
+   fits 0.8360. Reverse: base 0.8507 (0.8429 / 0.8578), indicator 0.8515, split 0.8467. Neither variant improves on both splits; nothing
+   adopted. The frozen dc14 side is 2.5 points better when Globex is closed (0.861 vs 0.836).
+7. PRE-REGISTRATION 17 FAILED: A CLOCK-FREE TRADE-ONLY SIDE IS WEAK BUT TRANSFERS (X195 = information P2; oot19.py, results/oot19.json;
+   model_it19_tradeside.txt). Exchange-stamped spot trades only (returns and signed aggressive quantity over 100-2000 ms at X = m - 260),
+   fit 10-17..19: in time 0.6035 per order (first legs 0.594; placebo -/+3 s 0.504 / 0.478; DS 0.59 / GF 0.62 / XM 0.65), out of time
+   (11-01 06:00-09:30, 999 orders, server-ms matches) 0.6176 (first legs 0.604; placebo 0.50 / 0.55; DS 0.588, GF 0.656, XM 0.753;
+   halves 0.618 / 0.618). c = 230: 0.614 / 0.665; c = 300: 0.570 / 0.577. The side information at the knee is in the BOOK (microprice),
+   not in prints (top gain: signed aggressive quantity over 100 / 250 ms). Out of time the exchange-stamped part loses nothing (0.618 vs
+   0.604 in time), so the book route's out-of-time drop (0.72-0.75) sits in the book feed's clock (H7 of iteration 18), not in a regime
+   change of what the operator reacts to.
+8. THE SIBLING SIZE ROUTE IS VERSION-BOUND (X200 step 3 = mechanics P2 gate; X199 = mechanics P1; X192 = assumptions P2; the panel's
+   chk13 / chk15 re-run unchanged from it19/p18m_rerun/). In time the corrected state reproduces: W4 only, fill >= 31, E x k (k = 6.0 /
+   5.0 on the fit days): covered agreement 0.841 / 0.823, coverage 0.651 / 0.588, PnL-proxy Spearman 0.444 / 0.577, gain over sib18
+   +0.106 [0.067, 0.149] / +0.066 [0.020, 0.109] (the assumptions panel's >= 0.80 covered-agreement bar holds in time). Out of time
+   (11-01 06:00-09:30, 999 orders, 62 large) the pre-registered gate fails: covered agreement 0.564 (W4 >= 31; 0.412 at >= 60), P(large |
+   with) / P(large | against) = 0.073 / 0.055 = 1.33 (bars 0.75 and 2), while the operator's own S still separates (0.115 / 0.033 /
+   0.049 with / against / none). The route stays out of the frozen rule whatever X170 rules; the executable tracker run (P1 step 3) and
+   the W4 calldata fetch (X196) were therefore not run.
+9. THE SIZE CLASS IS NEARLY, NOT EXACTLY, A COIN INSIDE THE REGISTER (pre-registration 19, X198 step 1; exch19.py, results/exch19.json;
+   73,577 orders, 1,436 strata wallet x hour x slot x S-relation x E tercile, 2,000 within-stratum permutations): lag-1 same-class
+   rate, same wallet and window 0.8189 vs null 0.8087 (+0.010, p < 0.0005); pooled operator sequence 0.7901 vs 0.7781 (+0.012); gaps
+   < 2 s +0.012, >= 2 s +0.008 (both p < 0.0005); large runs 7,039 vs 7,378 (clustering, p < 0.0005). Not exchangeable at 0.01, but the
+   dependence beyond the register is small (a lag-1 correlation of about 0.03-0.05), largest at short gaps (copies of one decision).
+   Condition 5's size term stays bounded by the expectation ceiling of iteration 18 (true-state PnL-proxy Spearman 0.566 / 0.706). The
+   JavaScriptCore WeakRandom solver (step 2) was not run.
+10. RESTARTS AND THE PUBLIC SDK PIPELINE: NOT CONFIRMED ON FRESH EVENTS (pre-registration 21, X197 = information P3 step 1; sdk19.py,
+   results/sdk19.json): the cluster fill record before H (10-09..22) has only 2 fresh whole-cluster gaps of 10-20 minutes, neither within
+   10 minutes after a ts-sdk push (p 1.0: no power). On the panel's own 24 boundaries of gaps >= 20 minutes, 4 fall within 10 minutes
+   after a push against a whole-day-shift null mean of 0.49 (p 0.0002; adds 10-15 07:51:32 to the panel's three); +60-minute shifted
+   control 0. Open (needs the post-T0 development blocks or older pushes).
+11. EXAM ROUTE REPORTING (no rule change): dc_exam14.decision_clock_side() now also returns `by_globex_session` (and per wallet), with a
+   DST-aware CME calendar (`globex_open_ms`: CDT until 11-01 07:00 UTC, CST after). Smoke test on 10-20 20:30-21:30 (the break hour
+   inside): 922 of 924 orders matched, 0.8471 per order (as before), open 0.824 (545) / closed 0.881 (377), 56 s.
+
+
+PRE-REGISTRATION 20 (the US-DST natural experiment, X191 step 2; written 11-01 ~14:05 UTC, BEFORE any of its data exist). US DST ended on
+11-01 07:00 UTC, so from then on CME Globex opens Sunday 23:00 UTC, breaks Mon-Thu 22:00-23:00 UTC and closes Friday 22:00 UTC.
+- Units: operator first legs (DS / GF / XM taker BUY orders; 300-ms rule per (window, outcome)) in the development blocks 11-01 18-24,
+  11-02 00-06, 11-02 12-18, 11-03 06-12, 11-03 18-24 (sealed.intervals; every window asserted not sealed).
+- Match ms m: the live lab's Polymarket trade records with tx hash (clob_crypto / btc5m_clob_raw2 'x' records, server ms), the
+  operator's taker txs from on-chain V2 OrderFilled (post17.py steps 1, 2 and 4 per block).
+- Binance: data.binance.vision spot aggTrades BTCUSDT for 11-01..11-03 (T-stamped; published the next morning; .CHECKSUM verified;
+  reduced at once and the zip deleted). No receive clock enters.
+- Statistic: knee19d's E (isolated last-trade-price jumps; early [0, 230) over reaction [230, 320)), per cell of the CST calendar:
+  closed = 11-01 18:00-23:00; sunday_open = 11-01 23:00-24:00; open = 11-02 and 11-03 outside 22-23 UTC; break = 11-03 22:00-23:00;
+  old-break hour = 21:00-22:00 UTC on 11-02 / 11-03 (now open). 30-min block bootstrap, 2,000 draws.
+- Predictions (H1): E(closed) <= 0.65 (capture closed 0.54); E(open) >= 0.85 (capture open 0.99) with open - closed > 0 at the
+  bootstrap's 2.5% bound; E(old-break hour 21-22 UTC) at the open level; E(11-03 22-23 UTC) below its neighbours; reaction peak
+  250-270 ms in every cell. H4 (an operator UTC schedule) predicts the low hour stays at 21-22 UTC and 22-23 UTC reads open.
+- Whatever the result nothing is refitted. If H1 holds, `tradfi_globex_feed` is confirmed as a calendar-locked input and step 3 (CME
+  millisecond data, paid: Databento CME MDP3 BTC / MBT and ES / NQ for a few weekday hours of 10-19..22) is the decisive data request,
+  which needs the user's approval.
+
+Missing-dimensions update (E1 / E2): new dimension `tradfi_globex_feed` (family related markets; status missing, paid; verdict drives,
+inferred from the calendar-locked lead). The timing and side residuals now have a shape: in Globex-open hours about 12-16% of first
+legs are triggered before any 24/7 venue on disk moves (finding 5), the side at the knee is 3.9 points lower than when Globex is closed
+(0.798 vs 0.837), and the knee-clock hazard's margin over market activity is a third of its closed-hour value (+0.044 vs +0.141). The
+earlier entry "flat by UTC hour (no session pattern)" (side misses by hour) pooled weekdays and weekends; split by the CME calendar the
+pattern is clear. The size residual: nearly a coin inside the register (finding 9); the siblings' view of the register does not survive
+the regime change (finding 8).
+
+More findings (iteration 19, after the first block):
+12. PRE-REGISTRATION 22 FAILED: AT THE BLOCK CLOCK THE PRESENCE MARGIN IS NOT CONCENTRATED IN CLOSED HOURS (pres19.py, results/pres19.json;
+   pres14's pipeline unchanged, both directions). Forward (MSB fit 10-17..19, scored 10-20..22): pooled frozen 0.8701 vs MSB 0.8466,
+   +0.0235 [0.017, 0.031]; open 0.8703 vs 0.8465 (+0.024 [0.017, 0.032]); closed (the three break hours, 13,810 cells) 0.8503 vs 0.8451
+   (+0.005, too few blocks for the bootstrap). Reverse (MSB fit 10-20..22, scored 10-17..19): pooled 0.8722 vs 0.8476, +0.025 [0.021,
+   0.028]; open (116,456 cells) 0.8729 vs 0.8470 (+0.026 [0.021, 0.031]); closed (224,668 cells, the weekend) 0.8672 vs 0.8472 (+0.020
+   [0.017, 0.023]). So the Globex input explains part of the DECISION-clock timing residual (finding 5: hazard margin +0.14 closed vs
+   +0.04 open), but not the BLOCK-second presence gap of condition 2: where the operator's trigger is entirely on Binance (the weekend)
+   the frozen block-second rule still gains only +0.020 over market activity. At the block clock the binding term is the co-arrival
+   structure (the crowd's prints in the same seconds), as iteration 14 found; CME data would not by itself flip condition 2 at this unit.
+13. THE POLYMARKET BOOK'S EXTRA SIDE INFORMATION EXISTS ONLY WHEN GLOBEX IS OPEN (pre-registration 23; sidebook19.py, results/sidebook19.json;
+   sidebook15 unchanged plus the session split and the reverse split). DC14 + book minus DC14: forward open +0.025 (45,262 orders) vs
+   closed -0.004 (1,307, the break hours); reverse open +0.023 (26,408) vs closed -0.025 (600). Book-only accuracy open 0.713 / 0.715 vs
+   closed 0.674 / 0.677. Reading: in open hours other participants move Polymarket's book with the same hidden input before the operator
+   decides, so iteration 15's 'dc14 + book' gain (+0.025) is the public trace of the Globex input (a partial proxy, at m0 - 210 ms, inside
+   the operator's own view window); the closed samples are small (break hours only), so this is suggestive, consistent on both splits.
+14. OUT OF TIME, CLOSED SESSION, CLOCK-FREE (pre-registration 20b; oot19b.py, results/oot19b.json; 11-01 06:00-09:30, Sunday, 770 first
+   legs, 366 isolated trade jumps from the live lab's T-stamped trades, server-ms matches): E = 0.162 (excess 6 early / 37 reaction),
+   reaction peak at 250 ms; the closed-session prediction (E <= 0.65) holds (small sample). The clock-free knee reproduces out of time.
+15. WHO ELSE: A FEW OTHER FAST TAKERS SHOW A WEAKER GLOBEX-HOURS LEAD; NONE MATCHES THE OPERATOR (pre-registration 24; who19.py,
+   results/who19.json; 15,139 non-operator taker wallets on the VALIDATE tapes of 10-17..22, timed by the capture's server ms, operator
+   wallets and every tx with an operator fill excluded). Crowd total E open 0.446 vs closed 0.252. Of the 67 wallets with a reaction
+   excess >= 15 in both sessions, the open-minus-closed difference dE has quantiles 10% -0.067 / 50% +0.042 / 90% +0.352; the largest are
+   0xb55fa129... (E 0.79 / 0.31, dE 0.48), 0x3c58ef42... (0.94 / 0.49), 0x21f4c1a1... (0.77 / 0.32), 0xeb942f0f... (0.49 / 0.05), 0x764fd57b...
+   (0.61 / 0.18); only 1 has E_open >= 0.8 with E_closed <= 0.5. The operator's dE (+0.57) is larger than every eligible wallet's. So
+   the Globex-hours input is not private to the operator: a minority of fast takers react to something that leads Binance in open
+   hours, more weakly (consistent with a paid but public TradFi feed such as CME futures). Evidence only; no wallet's prints enter any
+   rule (brief, 'Who else').
+
+Panel proposals of iteration 18 (catalog X191-X201) and what happened to them:
+- X191 (assumptions P1, Globex-hours input): step 1 TRIED (findings 1-5; no on-disk venue saturates, so none is adopted); step 2
+  PRE-REGISTERED (pre-registration 20; its data start with the 11-01 18-24 development block); step 3 needs paid CME data and the
+  user's approval. OPEN.
+- X192 (assumptions P2, W4-only coverage-aware state): TRIED in time (covered agreement 0.84 / 0.82 >= 0.80); the tracker execution
+  and the switch were stopped by the out-of-time gate (finding 8). The two-part X170 question is in FINAL_RULE.
+- X193 (assumptions P3, session-aware frozen routes): TRIED, pre-registration 18 failed (finding 6).
+- X194 (assumptions P4, configuration tracker): OPEN (W4 variant carries the X170 caveat and the sibling view failed out of time).
+- X195 (information P2, clock-free out-of-time side): TRIED, pre-registration 17 failed the bar but transfers (finding 7).
+- X196 (information P1, W4 / W5 calldata): OPEN, deprioritized (the route cannot enter the frozen rule after finding 8).
+- X197 (information P3, SDK-pipeline restarts): step 1 TRIED on fresh events without power (finding 10). OPEN.
+- X198 (mechanics P3, size coin + JSC solver): step 1 TRIED (finding 9); step 2 OPEN.
+- X199 (mechanics P1, rescale E / W4 only): TRIED (reproduced in time; tracker run stopped by the gate, finding 8).
+- X200 (mechanics P2, copy baseline + out-of-time gate): gate TRIED and failed (finding 8); the executable copy tracker not run.
+- X201 (mechanics P4, XM 60-share natural counterfactual): OPEN.
+
+## Next (iteration 20)
+
+Status after iteration 19: target not reached; target_metrics UNCHANGED (presence 0.8701 vs 0.8464 at the block clock; side 0.8369;
+price 0.9512; PnL 0.5065 / 0.4674; coverage 1 / 1). The budget (1200 minutes) is spent with this iteration; if it is extended, in order:
+1. RUN PRE-REGISTRATION 20 (the US-DST natural experiment) as soon as data.binance.vision publishes the 11-02 / 11-03 / 11-04 spot
+   aggTrades: post17.py per development block (11-01 18-24, 11-02 00-06, 11-02 12-18, 11-03 06-12, 11-03 18-24) for the operator's taker
+   txs and the live lab's server-ms matches, then knee19d's statistic on T-stamped trades; nothing refitted.
+2. ASK THE USER for a CME millisecond source (Databento CME MDP3: BTC / MBT and ES / NQ, a few weekday hours of 10-19..22 where the
+   capture gives the operator's server-ms matches). Then: the operator's knee on CME's clock (expected ~190-220 ms = ~40 ms to London +
+   150 ms hold), which product's moves precede the open-hour pre-Binance decisions, the side and the knee-clock hazard on CME in open
+   hours (expected back to the closed-hour levels 0.85 / 0.89), and whether the 10-22 side anomaly (iteration-18 assumptions panel)
+   disappears on CME. This is the one input that could lift condition 2 at the decision clock, because makers who read Binance react
+   after the operator.
+3. Until then: report every presence / timing / side metric by Globex session (the exam route does this for the side now).
+4. Still open: E3, E5, E6, X5, X7, X18, X26, X33, X36, X37, X44, X51, X53, X57, X66, X70, X72, X87, X88, X90, X100, X104, X107, X113,
+   X115, X122, X123, X124, X127, X128, X130, X133, X139, X141, X146, X148, X149, X150, X151, X153, X154, X155, X158, X159, X160, X161,
+   X164, X167, X170, X174, X175, X177, X178-X181, X183-X190, X191, X194, X196, X197, X198, X201 (70 items; the exact list is
+   state.json catalog_open_after_iteration19).
+
+Recorders at the end of iteration 19: the shared recorder runs; no recorder started or stopped; rec_bn15 v2 ended at its 11-01 12:00
+hard stop (before this iteration). No polyrea bug found. Engineering note (not a polyrea bug): blkaug9.py / block_presence.py /
+decision_presence.py rewrite sys.argv at import (insert "four"); a script that imports them must read its own arguments first (cost
+one failed pres19 run). New scratch: it19/ (logs, the panel-script re-runs in it19/p18m_rerun/, state_backup_before19.json).
+New code: knee19.py, knee19b.py, knee19c.py, knee19d.py, sess19.py, oot19.py (+ model_it19_tradeside.txt), exch19.py, sdk19.py,
+pres19.py, sidebook19.py, oot19b.py, who19.py; dc_exam14.py gained `globex_open_ms` and the `by_globex_session` report. New results: knee19*.json,
+sess19.json, oot19.json, oot19b.json, exch19.json, sdk19.json, pres19.json, sidebook19.json, who19.json.
+
+Late findings (iteration 19, written after the 'Next' list above; they do not change it):
+16. THE E STATISTIC IS ROBUST AND ITS PLACEBO IS FLAT (pre-registration 16e; knee19e.py, results/knee19e.json). Per 1,000 isolated
+   jumps, same-minus-opposite first legs early [0, 230) / reaction [230, 320): open 77.1 / 80.0, closed 34.5 / 87.0 (baseline |z| > 3,
+   isolation 2 s: E 0.965 / 0.397); |z| > 4: E 0.985 / 0.377; isolation 4 s: E 0.979 / 0.414. Placebo (first legs shifted -3 s): -4.2 /
+   -2.3 open and -2.7 / +1.0 closed per 1,000 jumps; shifted +3 s: 13.1 / 5.0 and 5.6 / 3.4 (a little momentum, an order of magnitude
+   below the real early excess). The reaction to Binance is the same in both sessions (80 vs 87 per 1,000 jumps); only the early mass
+   doubles.
+17. ECONOMICS BY SESSION (D4; inline, results/econ19_session.json; on-chain fills of 10-09..22): Globex-open windows carry twice the
+   volume (3,686 vs 1,844 shares per window, 2,520 vs 1,220 windows); trading PnL after fees per window is the same ($7.25 vs $7.41), so
+   per share it halves (0.197 vs 0.402 c), and with the 50% taker-fee rebate the open-hour window earns more ($30.3 vs $17.2). Taker
+   fills: -0.013 c per share after fees open vs +0.442 c closed; maker fills (lost races resting at the old ask): +1.246 c open vs +0.290
+   c closed. Reading (not a test): the extra open-hour decisions add volume and rebate, and the remainders that rest after a race are
+   much better placed in Globex hours, as expected if the move they race continues on Binance after a TradFi lead. Weekday activity is a
+   confounder here.
+18. SHAPE OF THE LEAD (knee19.json PSTH, open minus closed, per 1,000 jumps per 20-ms bin): a flat floor of +1.6..+3.2 over lags -200..0
+   ms and +2.0..+3.8 over 0..140 ms, then a ramp of +5.3..+6.4 at 160-220 ms just before the reaction onset (240 ms), and about zero
+   inside the reaction peak. Two components: a fixed latency advantage of a few tens of ms (the ramp: a source that sees the same move
+   ~40-80 ms before Binance reaches London; CME Aurora -> London ~35-40 ms vs Tokyo -> London ~105 ms predicts ~65 ms), and moves that
+   originate on the hidden venue and reach Binance hundreds of ms later (the floor). Both are what CME price discovery in Globex hours
+   would look like; neither identifies the product.
+19. PER DAY (diagnostic, knee19f.py, results/knee19f.json; open-hour E per capture day vs the frozen dc14 side in open / closed hours of
+   the scored days): E 0.879 (10-19), 1.055 (10-20), 0.867 (10-21), 1.097 (10-22); dc14 open / closed 0.857 / 0.845 (10-20), 0.837 / 0.859
+   (10-21), 0.814 / 0.876 (10-22). The iteration-18 '10-22 anomaly' day has the highest pre-Binance share and the largest open-vs-closed
+   side gap (6.2 points), but 10-20 is high on E with the best side: three days, inconclusive.
+20. PRE-REGISTRATION 20 RUNNER (code/dst20.py): builds E per CST-calendar cell from post17-style block records (RE16_SCRATCH=<BLOCK_DIR>
+   python post17.py A B, one directory per development block) and either data.binance.vision aggTrades (checksum verified) or the live
+   lab's btc5m_bnspot2; self-tested on the 11-01 06-12 record with the live source (770 first legs, 366 isolated jumps, closed E 0.162 =
+   oot19b; results/dst20_selftest_11-01_06-12.json). The aggTrades path is untested (no download this iteration).

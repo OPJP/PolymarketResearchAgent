@@ -1,0 +1,113 @@
+{
+ "prereg": "23",
+ "forward": {
+  "n_score": 46569,
+  "n_open_closed": [
+   45262,
+   1307
+  ],
+  "all": {
+   "DC14": {
+    "acc": 0.8135,
+    "acc_on_dc14_wrong": 0.0
+   },
+   "BOOK": {
+    "acc": 0.7121,
+    "acc_on_dc14_wrong": 0.6229
+   },
+   "DC14+BOOK": {
+    "acc": 0.838,
+    "acc_on_dc14_wrong": 0.3566
+   },
+   "dc14_wrong_share": 0.1865,
+   "gain_dc14book_over_dc14": 0.0245
+  },
+  "open": {
+   "DC14": {
+    "acc": 0.8123,
+    "acc_on_dc14_wrong": 0.0
+   },
+   "BOOK": {
+    "acc": 0.7132,
+    "acc_on_dc14_wrong": 0.6232
+   },
+   "DC14+BOOK": {
+    "acc": 0.8376,
+    "acc_on_dc14_wrong": 0.3584
+   },
+   "dc14_wrong_share": 0.1877,
+   "gain_dc14book_over_dc14": 0.0253
+  },
+  "closed": {
+   "DC14": {
+    "acc": 0.8569,
+    "acc_on_dc14_wrong": 0.0
+   },
+   "BOOK": {
+    "acc": 0.6741,
+    "acc_on_dc14_wrong": 0.6096
+   },
+   "DC14+BOOK": {
+    "acc": 0.8531,
+    "acc_on_dc14_wrong": 0.2781
+   },
+   "dc14_wrong_share": 0.1431,
+   "gain_dc14book_over_dc14": -0.0038
+  }
+ },
+ "reverse": {
+  "n_score": 27008,
+  "n_open_closed": [
+   26408,
+   600
+  ],
+  "all": {
+   "DC14": {
+    "acc": 0.841,
+    "acc_on_dc14_wrong": 0.0
+   },
+   "BOOK": {
+    "acc": 0.7137,
+    "acc_on_dc14_wrong": 0.5848
+   },
+   "DC14+BOOK": {
+    "acc": 0.863,
+    "acc_on_dc14_wrong": 0.3712
+   },
+   "dc14_wrong_share": 0.159,
+   "gain_dc14book_over_dc14": 0.022
+  },
+  "open": {
+   "DC14": {
+    "acc": 0.841,
+    "acc_on_dc14_wrong": 0.0
+   },
+   "BOOK": {
+    "acc": 0.7145,
+    "acc_on_dc14_wrong": 0.5869
+   },
+   "DC14+BOOK": {
+    "acc": 0.864,
+    "acc_on_dc14_wrong": 0.374
+   },
+   "dc14_wrong_share": 0.159,
+   "gain_dc14book_over_dc14": 0.023
+  },
+  "closed": {
+   "DC14": {
+    "acc": 0.8433,
+    "acc_on_dc14_wrong": 0.0
+   },
+   "BOOK": {
+    "acc": 0.6767,
+    "acc_on_dc14_wrong": 0.4894
+   },
+   "DC14+BOOK": {
+    "acc": 0.8183,
+    "acc_on_dc14_wrong": 0.2447
+   },
+   "dc14_wrong_share": 0.1567,
+   "gain_dc14book_over_dc14": -0.025
+  }
+ }
+}

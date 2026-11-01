@@ -1,0 +1,186 @@
+{
+ "prereg": "24",
+ "wallets": 15139,
+ "eligible": 67,
+ "crowd_total": {
+  "E_open": 0.446,
+  "E_closed": 0.252
+ },
+ "operator_reference": {
+  "E_open": 0.96,
+  "E_closed": 0.388
+ },
+ "top_by_dE": [
+  {
+   "wallet": "0xb55fa1296e6ec55d0ce53d93b9237389f11764d4",
+   "early_open": 49.0,
+   "peak_open": 62.0,
+   "early_closed": 8.0,
+   "peak_closed": 26.0,
+   "takes": 4528.0,
+   "E_open": 0.79,
+   "E_closed": 0.308,
+   "dE": 0.483
+  },
+  {
+   "wallet": "0x3c58ef422754ff22c7e806336feba0064d8b776b",
+   "early_open": 64.0,
+   "peak_open": 68.0,
+   "early_closed": 16.0,
+   "peak_closed": 33.0,
+   "takes": 5665.0,
+   "E_open": 0.941,
+   "E_closed": 0.485,
+   "dE": 0.456
+  },
+  {
+   "wallet": "0x21f4c1a1be34a39a7bc20985df4b7e5a39fb691d",
+   "early_open": 125.0,
+   "peak_open": 162.0,
+   "early_closed": 20.0,
+   "peak_closed": 62.0,
+   "takes": 10512.0,
+   "E_open": 0.772,
+   "E_closed": 0.323,
+   "dE": 0.449
+  },
+  {
+   "wallet": "0xeb942f0fc3f100cd729d7937afc6c48773cf205e",
+   "early_open": 34.0,
+   "peak_open": 70.0,
+   "early_closed": 1.0,
+   "peak_closed": 22.0,
+   "takes": 2025.0,
+   "E_open": 0.486,
+   "E_closed": 0.045,
+   "dE": 0.44
+  },
+  {
+   "wallet": "0x764fd57b0b885cbeada5a119cdf0a113ee4ec347",
+   "early_open": 86.0,
+   "peak_open": 140.0,
+   "early_closed": 17.0,
+   "peak_closed": 94.0,
+   "takes": 7941.0,
+   "E_open": 0.614,
+   "E_closed": 0.181,
+   "dE": 0.433
+  },
+  {
+   "wallet": "0x4f9aa20fdbdf84f9344e938b297e80c379616b21",
+   "early_open": 23.0,
+   "peak_open": 40.0,
+   "early_closed": 4.0,
+   "peak_closed": 22.0,
+   "takes": 2726.0,
+   "E_open": 0.575,
+   "E_closed": 0.182,
+   "dE": 0.393
+  },
+  {
+   "wallet": "0xebeef4734e16f7143cacb672543af77621a25ce5",
+   "early_open": 25.0,
+   "peak_open": 49.0,
+   "early_closed": 3.0,
+   "peak_closed": 23.0,
+   "takes": 1071.0,
+   "E_open": 0.51,
+   "E_closed": 0.13,
+   "dE": 0.38
+  },
+  {
+   "wallet": "0xa0e72d5575095199ae08ce0dce447f21b7249461",
+   "early_open": 73.0,
+   "peak_open": 73.0,
+   "early_closed": 14.0,
+   "peak_closed": 21.0,
+   "takes": 7560.0,
+   "E_open": 1.0,
+   "E_closed": 0.667,
+   "dE": 0.333
+  },
+  {
+   "wallet": "0x281eaa8bdc277a0ab3c3627897b2c64422c19ed9",
+   "early_open": 17.0,
+   "peak_open": 41.0,
+   "early_closed": 3.0,
+   "peak_closed": 33.0,
+   "takes": 959.0,
+   "E_open": 0.415,
+   "E_closed": 0.091,
+   "dE": 0.324
+  },
+  {
+   "wallet": "0x84413583462b68f0a379f533bcbdcd089acfbc73",
+   "early_open": 61.0,
+   "peak_open": 77.0,
+   "early_closed": 14.0,
+   "peak_closed": 29.0,
+   "takes": 5383.0,
+   "E_open": 0.792,
+   "E_closed": 0.483,
+   "dE": 0.309
+  },
+  {
+   "wallet": "0xb9587c373c773d023f47c2f85a30b3d5bddcf513",
+   "early_open": 116.0,
+   "peak_open": 110.0,
+   "early_closed": 35.0,
+   "peak_closed": 44.0,
+   "takes": 14096.0,
+   "E_open": 1.055,
+   "E_closed": 0.795,
+   "dE": 0.259
+  },
+  {
+   "wallet": "0x11c337887831ea234b17c56b5c3a412755752555",
+   "early_open": 4.0,
+   "peak_open": 78.0,
+   "early_closed": -4.0,
+   "peak_closed": 21.0,
+   "takes": 1132.0,
+   "E_open": 0.051,
+   "E_closed": -0.19,
+   "dE": 0.242
+  },
+  {
+   "wallet": "0xa948ef66b7fdc109111dec1dc150c6b071e693c6",
+   "early_open": 17.0,
+   "peak_open": 52.0,
+   "early_closed": 3.0,
+   "peak_closed": 33.0,
+   "takes": 1021.0,
+   "E_open": 0.327,
+   "E_closed": 0.091,
+   "dE": 0.236
+  },
+  {
+   "wallet": "0x0c7c5204404e9d5402d258fedac59c7212bae4cb",
+   "early_open": 34.0,
+   "peak_open": 130.0,
+   "early_closed": 2.0,
+   "peak_closed": 62.0,
+   "takes": 15217.0,
+   "E_open": 0.262,
+   "E_closed": 0.032,
+   "dE": 0.229
+  },
+  {
+   "wallet": "0x22b3fe25e68ae4325f07e8ab2bf2f74495bca018",
+   "early_open": 23.0,
+   "peak_open": 45.0,
+   "early_closed": 7.0,
+   "peak_closed": 24.0,
+   "takes": 2382.0,
+   "E_open": 0.511,
+   "E_closed": 0.292,
+   "dE": 0.219
+  }
+ ],
+ "eligible_with_E_open_ge_0.8_and_E_closed_le_0.5": 1,
+ "eligible_dE_quantiles": {
+  "0.1": -0.067,
+  "0.5": 0.042,
+  "0.9": 0.352
+ }
+}

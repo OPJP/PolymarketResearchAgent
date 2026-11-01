@@ -1,0 +1,62 @@
+{
+ "2026-10-17": {
+  "E_open": null,
+  "E_closed": 0.365,
+  "excess_open_early_peak": [
+   0.0,
+   0.0
+  ],
+  "dc14_acc_open": null,
+  "dc14_acc_closed": 0.472
+ },
+ "2026-10-18": {
+  "E_open": 0.574,
+  "E_closed": 0.475,
+  "excess_open_early_peak": [
+   31.0,
+   54.0
+  ],
+  "dc14_acc_open": 0.4922,
+  "dc14_acc_closed": 0.4991
+ },
+ "2026-10-19": {
+  "E_open": 0.879,
+  "E_closed": 0.111,
+  "excess_open_early_peak": [
+   415.0,
+   472.0
+  ],
+  "dc14_acc_open": 0.4967,
+  "dc14_acc_closed": 0.5415
+ },
+ "2026-10-20": {
+  "E_open": 1.055,
+  "E_closed": 0.208,
+  "excess_open_early_peak": [
+   654.0,
+   620.0
+  ],
+  "dc14_acc_open": 0.8573,
+  "dc14_acc_closed": 0.845
+ },
+ "2026-10-21": {
+  "E_open": 0.867,
+  "E_closed": 0.333,
+  "excess_open_early_peak": [
+   353.0,
+   407.0
+  ],
+  "dc14_acc_open": 0.8365,
+  "dc14_acc_closed": 0.8591
+ },
+ "2026-10-22": {
+  "E_open": 1.097,
+  "E_closed": 0.222,
+  "excess_open_early_peak": [
+   372.0,
+   339.0
+  ],
+  "dc14_acc_open": 0.8136,
+  "dc14_acc_closed": 0.8759
+ }
+}

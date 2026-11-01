@@ -1,4 +1,33 @@
-# btc5m-bot: frozen rule (iteration 18: UNCHANGED executable rule from iteration 14; this iteration PARTIALLY decodes the SIZE STATE as a public lagged dimension carried by the sibling wallets)
+# btc5m-bot: frozen rule (iteration 19: UNCHANGED executable rule from iteration 14; this iteration finds that the operator's decision clock follows the CME Globex calendar, i.e. a TradFi input that is not on disk)
+
+Iteration 19 in one paragraph (PIVOT to a new dimension; no executable candidate adopted; target_metrics UNCHANGED; the only code
+change is reporting: dc_exam14 now returns the side accuracy by CME Globex session). Split by the public CME Globex calendar, the
+operator's knee is not a constant of the bot. When Globex is closed (weekends, and the Mon-Thu 21:00-22:00 UTC maintenance break under
+CDT) the operator trades on the Binance spot book alone: its side at the knee saturates at c = 260 ms (0.837, then falls), and its
+knee-clock hazard beats market activity by +0.14 AUC (0.887 vs 0.746). When Globex is open, about 12-16% of its first legs are
+triggered by an input that moves BEFORE every 24/7 venue on disk (Binance spot book and trades, Binance USD-M BTC and ETH, OKX, Coinbase,
+Deribit): the event-aligned PSTH around isolated Binance jumps shows the reaction peak at +260 ms in every session (so the latency
+chain is unchanged), but open hours add same-side decisions before the reaction band (E = 0.96 vs 0.39; hourly Mann-Whitney p = 1e-15),
+the break hour reads like the weekend on 4 of 4 weekdays (0.21 vs 0.73-0.78 in the neighbouring hours), the Sunday 22:00 UTC reopening
+lifts it (0.55 vs 0.41), the open-minus-closed difference is +0.57 for the operator against +0.21 for the crowd (operator minus crowd +0.37 [0.26, 0.47]), it holds for DS, GF and XM, and it survives an exchange-clock-only instrument
+(spot trades on T: 0.99 vs 0.54). That input is a TradFi feed on the Globex calendar (most likely CME BTC / MBT futures, or ES / NQ),
+seen from London ~35-40 ms after Chicago against ~105 ms for Binance; millisecond CME data are paid and need the user's approval
+(Databento CME MDP3). Its consequence for the target: at the DECISION clock the timing margin over market activity is three times larger when Globex is closed (+0.14 vs +0.04 AUC), but the BLOCK-second presence margin of condition 2 is not (weekend +0.020 [0.017, 0.023] vs open +0.026; pre-registration 22), so at the block clock the binding term remains the crowd's co-arrivals, not this input; and the Polymarket book's extra side information over dc14 (+0.023-0.025) appears only in open hours (pre-registration 23), a public trace of the same input in other participants' quotes. A US-DST natural experiment that separates a TradFi
+calendar from an operator UTC schedule is pre-registered for the next development blocks (pre-registration 20: the low hour must move
+from 21-22 to 22-23 UTC from 11-02). Also this iteration: a clock-free trade-only side transfers out of time but is weak (0.60 / 0.62;
+pre-registration 17); session-aware side fits add nothing (pre-registration 18); the siblings' corrected size state reproduces in time
+(PnL-proxy Spearman 0.444 / 0.577) but fails its out-of-time gate (covered agreement 0.56, class ratio 1.33), so it stays out of the
+frozen rule; inside the register the size class is nearly a coin (lag-1 excess +0.01, pre-registration 19). TAGS: timing / side =
+VALIDATE-only, with the Globex-hours trigger a hypothesis about its source (the calendar lock itself is VALIDATE-only); nothing is
+exam-verified.
+
+For the examiner (iteration 19): (1) the h1 lot mixes the sessions by the public calendar (10-23 Fri closes 21:00 UTC; 10-25 Sun is
+closed until 22:00 UTC; 10-27 / 10-29 break 21-22 UTC): about 28% of its hours are Globex-closed, where the frozen side is ~2.5 points
+better and the timing margin ~3 times larger; `by_globex_session` in the side output reports the split. (2) X170 as two questions:
+(a) W4 shares the operator's private size register (covered agreement 0.84 in time, its large orders change the studied wallets' next
+size like their own): is it the operator (own state)? (b) W5 runs a different menu (105 / 210) and carries no register information
+(0.53-0.62): is it another trader? The frozen rule uses neither as a size input.
+
 
 Iteration 18 in one paragraph (PIVOT; no executable candidate adopted; code/final_rule.py and target_metrics are UNCHANGED). New DATA
 SOURCE: the sibling wallets W4 / W5. The one undecoded quantity that bounds conditions 5 and 7 is WHICH decisions are large; iteration
@@ -519,6 +548,12 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 
 ## Why it works
 
+- **Iteration 19:** part of the operator's speed edge is an input from the TradFi side: when CME Globex is open, about 12-16% of its
+  first legs anticipate a Binance move that every 24/7 crypto venue prints later, consistent with reading CME futures (BTC / MBT, or
+  ES / NQ) from London ~35-40 ms after Chicago while Binance arrives ~105 ms after Tokyo. The makers it lifts lose for the same
+  reason as before (stale quotes inside the 150-ms hold); in Globex hours they are stale with respect to an earlier venue than
+  Binance. When Globex is closed the operator reacts to Binance only. [VALIDATE-only; the source product is a hypothesis]
+
 - **Iteration 17:** XM's new-regime 'maker' fills are not a separate market-making strategy: they are the operator's late-slot
   decisions, priced at the ask of its view, that arrive after the makers have pulled and rest one tick below the moved ask; they fill
   a median 9 s later, when the price comes back. The edge is the same Binance-knee latency race; what changes between regimes is how
@@ -570,6 +605,11 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 
 ## Can a normal user deploy it now
 
+- **Iteration 19:** a replicator would also need a low-latency CME market-data feed (a paid exchange licence) at a host near
+  London to reproduce the Globex-hours part of the trigger; without it the Binance-only rule is the closed-session rule, about 2.5
+  points weaker on the side and with a third of the timing margin in Globex hours. Nothing in the latest development data changes
+  this (all post-T0 development blocks so far are Globex-closed: 10-31 Saturday, 11-01 06-12 Sunday).
+
 - **Iteration 17:** the conditions still hold on the latest development block (11-01 06:00-09:30: same knee, same menu, same taker
   routing, TAKER_REBATE economics unchanged), but the operator's configuration moved (lower large share, XM resting 60-share orders).
   The side signal needs a clock aligned to Binance within ~25 ms: on a laptop whose clock drifts ~175 ms per hour, the same frozen
@@ -608,6 +648,10 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   speed against stale makers inside Polymarket's 150-ms taker delay, which a home connection does not have.
 
 ## Known limitations
+
+- **Iteration 19:** (a) the Globex-hours input is inferred from a calendar lock, not observed; the DST test (pre-registration 20)
+  and CME data are needed to name it. (b) The frozen side, hazard and presence models pool the sessions; session-aware refits add
+  nothing without the input (pre-registration 18). (c) The siblings' size state is version-bound (fails out of time) and is not used.
 
 - **Iteration 17:** (a) out of time on a live laptop feed the side route is 0.72-0.75 (below 0.80); the exam route reads the public
   capture, whose clock is stable, but an exam lot in the new regime may also differ by configuration (class rate, XM's role). (b) The
