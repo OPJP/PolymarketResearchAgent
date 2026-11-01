@@ -1,0 +1,122 @@
+{
+ "oracle_d0.0": {
+  "study": {
+   "corr": [
+    0.5448,
+    0.6457
+   ],
+   "windows": 583,
+   "return": 0.0759,
+   "net_side_agree": 1.0
+  },
+  "validate": {
+   "corr": [
+    0.4888,
+    0.5284
+   ],
+   "windows": 1089,
+   "return": -0.0973,
+   "net_side_agree": 1.0
+  }
+ },
+ "oracle_d0.01": {
+  "study": {
+   "corr": [
+    0.5015,
+    0.6418
+   ],
+   "windows": 583,
+   "return": 0.0947,
+   "net_side_agree": 1.0
+  },
+  "validate": {
+   "corr": [
+    0.4633,
+    0.5175
+   ],
+   "windows": 1089,
+   "return": -0.0791,
+   "net_side_agree": 1.0
+  }
+ },
+ "posture_d0.0": {
+  "study": {
+   "corr": [
+    0.0976,
+    0.1828
+   ],
+   "windows": 583,
+   "return": -0.0188,
+   "net_side_agree": 0.47
+  },
+  "validate": {
+   "corr": [
+    0.2339,
+    0.2562
+   ],
+   "windows": 1089,
+   "return": -0.009,
+   "net_side_agree": 0.5859
+  }
+ },
+ "posture_d0.01": {
+  "study": {
+   "corr": [
+    0.0929,
+    0.1909
+   ],
+   "windows": 583,
+   "return": -0.0262,
+   "net_side_agree": 0.5043
+  },
+  "validate": {
+   "corr": [
+    0.1827,
+    0.2406
+   ],
+   "windows": 1089,
+   "return": 0.0084,
+   "net_side_agree": 0.5776
+  }
+ },
+ "two_d0.0": {
+  "study": {
+   "corr": [
+    0.4786,
+    0.3215
+   ],
+   "windows": 583,
+   "return": -0.0257,
+   "net_side_agree": 0.5763
+  },
+  "validate": {
+   "corr": [
+    0.2029,
+    0.2153
+   ],
+   "windows": 1089,
+   "return": -0.0237,
+   "net_side_agree": 0.4977
+  }
+ },
+ "two_d0.01": {
+  "study": {
+   "corr": [
+    0.3191,
+    0.2223
+   ],
+   "windows": 583,
+   "return": -0.0224,
+   "net_side_agree": 0.5472
+  },
+  "validate": {
+   "corr": [
+    0.1491,
+    0.1171
+   ],
+   "windows": 1089,
+   "return": -0.0238,
+   "net_side_agree": 0.5023
+  }
+ }
+}

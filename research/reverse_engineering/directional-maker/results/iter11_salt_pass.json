@@ -1,0 +1,100 @@
+{
+ "study": {
+  "orders": 3965,
+  "pairs": 233,
+  "all": {
+   "pairs": 233,
+   "other_outcome_share": 0.103,
+   "null_mean": 0.4683,
+   "null_q025_q975": [
+    0.4119,
+    0.5194
+   ]
+  },
+  "session_12_24": {
+   "pairs": 171,
+   "other_outcome_share": 0.1111,
+   "null_mean": 0.4688,
+   "null_q025_q975": [
+    0.3918,
+    0.5263
+   ]
+  },
+  "off_00_12": {
+   "pairs": 62,
+   "other_outcome_share": 0.0806,
+   "null_mean": 0.4669,
+   "null_q025_q975": [
+    0.3706,
+    0.5806
+   ]
+  },
+  "500": {
+   "pairs": 51,
+   "other_outcome_share": 0.098,
+   "null_mean": 0.3747,
+   "null_q025_q975": [
+    0.2549,
+    0.4902
+   ]
+  },
+  "62/250": {
+   "pairs": 119,
+   "other_outcome_share": 0.084,
+   "null_mean": 0.4992,
+   "null_q025_q975": [
+    0.4202,
+    0.5882
+   ]
+  }
+ },
+ "validate": {
+  "orders": 11508,
+  "pairs": 880,
+  "all": {
+   "pairs": 880,
+   "other_outcome_share": 0.1034,
+   "null_mean": 0.4811,
+   "null_q025_q975": [
+    0.4466,
+    0.5114
+   ]
+  },
+  "session_12_24": {
+   "pairs": 480,
+   "other_outcome_share": 0.0958,
+   "null_mean": 0.4722,
+   "null_q025_q975": [
+    0.427,
+    0.5146
+   ]
+  },
+  "off_00_12": {
+   "pairs": 400,
+   "other_outcome_share": 0.1125,
+   "null_mean": 0.4918,
+   "null_q025_q975": [
+    0.4474,
+    0.54
+   ]
+  },
+  "500": {
+   "pairs": 276,
+   "other_outcome_share": 0.0942,
+   "null_mean": 0.4391,
+   "null_q025_q975": [
+    0.3841,
+    0.4928
+   ]
+  },
+  "62/250": {
+   "pairs": 358,
+   "other_outcome_share": 0.1229,
+   "null_mean": 0.5052,
+   "null_q025_q975": [
+    0.4609,
+    0.5559
+   ]
+  }
+ }
+}

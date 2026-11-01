@@ -1,0 +1,22 @@
+{
+ "study": {
+  "first_fills": 583,
+  "with_cl": 373,
+  "n": 373,
+  "posture_acc": 0.6113,
+  "flow_complement_acc": 0.5925,
+  "agree_share": 0.5362,
+  "acc_when_agree": 0.69,
+  "posture_acc_when_disagree": 0.5202
+ },
+ "validate": {
+  "first_fills": 1089,
+  "with_cl": 679,
+  "n": 679,
+  "posture_acc": 0.7437,
+  "flow_complement_acc": 0.592,
+  "agree_share": 0.5302,
+  "acc_when_agree": 0.8167,
+  "posture_acc_when_disagree": 0.6614
+ }
+}

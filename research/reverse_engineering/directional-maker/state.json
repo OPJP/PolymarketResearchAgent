@@ -27,7 +27,7 @@
  },
  "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state, clean tape (every print in a cluster transaction removed). From iteration 4 VALIDATE = 2026-10-27..30.",
  "best": {
-  "rule_id": "R6 = R5 (BTC 5m) + R3-class BTC 15m presence + per-fill Chainlink posture side (match clock) + R4 price",
+  "rule_id": "R7 = R6 + in-block execution-order price clock (recording-free R4)",
   "validate_metrics": {
    "historical_union": {
     "presence_auc": 0.7883,
@@ -38,12 +38,12 @@
     "selection_baseline": 0.6508,
     "side_accuracy": 0.672,
     "side_baseline": 0.6129,
-    "price_within_tick": 0.7048,
-    "pnl_corr_pearson": 0.2601,
-    "pnl_corr_spearman": 0.3267,
+    "price_within_tick": 0.8026,
+    "pnl_corr_pearson": 0.2066,
+    "pnl_corr_spearman": 0.2181,
     "coverage_fills": 0.868,
     "coverage_abs_pnl": 0.891,
-    "_notes": "rule R6 = R5 on BTC 5m (unchanged) + R3's model class refitted on BTC 15m, scored on the historical VALIDATE 2026-10-27..30 over the union universe (pooled bins; code8/union_val.py): presence 0.7883 vs activity 0.7796 (gain +0.009); BTC 5m alone 0.716 / 0.684 (the pre-registered primary metric, unchanged); BTC 15m alone 0.812 / 0.778. side = bin-level presence-score side pooled (5m 0.663, 15m 0.733). price = block clock pooled (5m 0.709, 15m 0.666). pnl = expectation proxy per window pooled (5m 0.329/0.325, 15m 0.180/0.345). selection = BTC 5m only (R2's print model; not extended). Live VALIDATE (10-31 15:00-16:30, pre-registered live split): per-fill side with the Chainlink posture rule 0.836-0.846 (n 1,341-1,406) vs market-only <= 0.61; match-clock price 0.83-0.86; see target_metrics_live. coverage = BTC 5m + 15m on VALIDATE (iteration 5 cash-flow PnL)."
+    "_notes": "rule R6 = R5 on BTC 5m (unchanged) + R3's model class refitted on BTC 15m, scored on the historical VALIDATE 2026-10-27..30 over the union universe (pooled bins; code8/union_val.py): presence 0.7883 vs activity 0.7796 (gain +0.009); BTC 5m alone 0.716 / 0.684 (the pre-registered primary metric, unchanged); BTC 15m alone 0.812 / 0.778. side = bin-level presence-score side pooled (5m 0.663, 15m 0.733). price = block clock pooled (5m 0.709, 15m 0.666). pnl = expectation proxy per window pooled (5m 0.329/0.325, 15m 0.180/0.345). selection = BTC 5m only (R2's print model; not extended). Live VALIDATE (10-31 15:00-16:30, pre-registered live split): per-fill side with the Chainlink posture rule 0.836-0.846 (n 1,341-1,406) vs market-only <= 0.61; match-clock price 0.83-0.86; see target_metrics_live. coverage = BTC 5m + 15m on VALIDATE (iteration 5 cash-flow PnL). Iteration 9: unchanged (R6 kept; the slow-sigma variant failed its pre-registered VALIDATE test). Iteration 10: unchanged (R6 kept; no decision changed; the side component fails its historical replication in the sigma-free region, A1). Iteration 11 (R7 = R6 + in-block price): price_within_tick = the in-block execution-order clock pooled BTC 5m + 15m on all 30984 VALIDATE maker fills (0.8026; block clock 0.7050; pooled per wallet {'almach': 0.8, 'bosona': 0.7966, 'momoney': 0.8111}, halves [0.8044, 0.8014]; 15m per wallet {'almach': 0.7516, 'bosona': 0.7634, 'momoney': 0.7838}; the rule is the trivial anchor 'last print' minus a tick on this clock, 'last print' alone 0.773 on 5m); pnl_corr = the strict-fill window replay of the frozen posture quote (BTC 5m, latency 2 s, slack 2, trade-through, last print - 0.01, session size; the target's definition), per wallet almach [0.2377, 0.2401], bosona [0.1666, 0.2262], mo-money [0.1608, 0.1787]; halves [0.1654, 0.2484] / [0.235, 0.2034]; oracle-side ceiling [0.473, 0.527]. Before: price 0.7048 (block clock), pnl 0.2601 / 0.3267 (expectation proxy, union)."
    },
    "live": {
     "side_accuracy_posture_per_fill_iter8": 0.836,
@@ -70,6 +70,132 @@
      "auc": 0.834,
      "recall": 0.685,
      "lift": 3.4
+    }
+   },
+   "iter11_replay": {
+    "frozen_posture_strict": {
+     "study": {
+      "pooled": [
+       0.0329,
+       0.0695
+      ],
+      "windows": 583,
+      "replay_return": -0.1515,
+      "almach": [
+       0.0306,
+       0.0861
+      ],
+      "bosona": [
+       0.0956,
+       0.0644
+      ],
+      "momoney": [
+       -0.0337,
+       0.0277
+      ]
+     },
+     "validate": {
+      "pooled": [
+       0.2066,
+       0.2181
+      ],
+      "windows": 1089,
+      "replay_return": -0.1655,
+      "almach": [
+       0.2377,
+       0.2401
+      ],
+      "bosona": [
+       0.1666,
+       0.2262
+      ],
+      "momoney": [
+       0.1608,
+       0.1787
+      ]
+     },
+     "validate_h1": {
+      "pooled": [
+       0.1654,
+       0.2484
+      ],
+      "windows": 548,
+      "replay_return": -0.1921,
+      "almach": [
+       0.2274,
+       0.2925
+      ],
+      "bosona": [
+       0.0935,
+       0.2502
+      ],
+      "momoney": [
+       0.1269,
+       0.2289
+      ]
+     },
+     "validate_h2": {
+      "pooled": [
+       0.235,
+       0.2034
+      ],
+      "windows": 541,
+      "replay_return": -0.1376,
+      "almach": [
+       0.2474,
+       0.2064
+      ],
+      "bosona": [
+       0.2131,
+       0.2172
+      ],
+      "momoney": [
+       0.1845,
+       0.1522
+      ]
+     }
+    },
+    "oracle_side": {
+     "d0.0_q500": {
+      "study": [
+       0.48,
+       0.622
+      ],
+      "validate": [
+       0.465,
+       0.52
+      ]
+     },
+     "d0.0_qsess": {
+      "study": [
+       0.505,
+       0.638
+      ],
+      "validate": [
+       0.472,
+       0.527
+      ]
+     },
+     "d0.01_q500": {
+      "study": [
+       0.481,
+       0.623
+      ],
+      "validate": [
+       0.462,
+       0.517
+      ]
+     },
+     "d0.01_qsess": {
+      "study": [
+       0.505,
+       0.637
+      ],
+      "validate": [
+       0.473,
+       0.527
+      ]
+     }
     }
    }
   }
@@ -2082,6 +2208,648 @@
     }
    },
    "verdict": "no public rule; 250s repeat the held side (own state), 62s with 500s pair, pure 62s undecoded"
+  },
+  {
+   "id": "H11-REPLAY",
+   "family": "X106/D3/X64",
+   "description": "strict-fill window replay of a one-sided posture ladder (and other side rules) reproduces the cluster's per-window PnL",
+   "validate_metrics": {
+    "frozen_posture": {
+     "pooled": [
+      0.2066,
+      0.2181
+     ],
+     "windows": 1089,
+     "replay_return": -0.1655,
+     "almach": [
+      0.2377,
+      0.2401
+     ],
+     "bosona": [
+      0.1666,
+      0.2262
+     ],
+     "momoney": [
+      0.1608,
+      0.1787
+     ]
+    },
+    "study_choice_favourite_validate": [
+     -0.10300121031898947,
+     -0.08232501033783772
+    ],
+    "oracle_side": [
+     0.473,
+     0.527
+    ],
+    "by_side_validate": {
+     "posture": {
+      "corr_has": [
+       0.2188279613666212,
+       0.2229186695587238
+      ],
+      "corr_all": [
+       0.21830514327018558,
+       0.21944426469609302
+      ],
+      "net_side_acc": 0.672945205479452,
+      "ret": -0.1563727010209861
+     },
+     "two": {
+      "corr_has": [
+       0.11170810836991377,
+       0.131908484091923
+      ],
+      "corr_all": [
+       0.1100494348206258,
+       0.1297546428204701
+      ],
+      "net_side_acc": 0.6815068493150684,
+      "ret": -0.11854860582016512
+     },
+     "cheaper": {
+      "corr_has": [
+       0.153106008501551,
+       0.13766680599118455
+      ],
+      "corr_all": [
+       0.15258767377173116,
+       0.13612835938883786
+      ],
+      "net_side_acc": 0.6866438356164384,
+      "ret": -0.21408000667407323
+     },
+     "fav": {
+      "corr_has": [
+       -0.10300121031898947,
+       -0.08232501033783772
+      ],
+      "corr_all": [
+       -0.10310754636647752,
+       -0.082649214728001
+      ],
+      "net_side_acc": 0.3544520547945205,
+      "ret": -0.08024915525961535
+     },
+     "pickoff": {
+      "corr_has": [
+       0.16976152592243626,
+       0.17224830614064598
+      ],
+      "corr_all": [
+       0.16777886085483495,
+       0.169427142184675
+      ],
+      "net_side_acc": 0.6986301369863014,
+      "ret": -0.1345231546989926
+     }
+    }
+   },
+   "verdict": "rejected as a route to the outcome bar: <= 0.25 for every public side rule, ceiling 0.47 / 0.53 with an oracle side"
+  },
+  {
+   "id": "H11-R7PRICE",
+   "family": "X101",
+   "description": "price rule on the in-block execution-order clock",
+   "validate_metrics": {
+    "study": {
+     "fills": 8256,
+     "inblock_anchor_share": 0.8542,
+     "cluster_tx_position_found": 1.0,
+     "block_clock_within_tick": 0.617,
+     "inblock_within_tick": 0.7512,
+     "inblock_first_row_within_tick": 0.7512,
+     "inblock_last_print_no_offset_within_tick": 0.6931,
+     "inblock_exact": 0.4351,
+     "gain": 0.1342,
+     "gain_ci95_2h_blocks": [
+      0.1107,
+      0.1576
+     ],
+     "n_2h_blocks": 34,
+     "per_wallet_inblock": {
+      "almach": 0.7486,
+      "bosona": 0.749,
+      "momoney": 0.7558
+     },
+     "per_wallet_block": {
+      "almach": 0.5952,
+      "bosona": 0.6327,
+      "momoney": 0.6208
+     }
+    },
+    "validate": {
+     "fills": 27988,
+     "inblock_anchor_share": 0.8156,
+     "cluster_tx_position_found": 0.9997,
+     "block_clock_within_tick": 0.7091,
+     "inblock_within_tick": 0.8065,
+     "inblock_first_row_within_tick": 0.8065,
+     "inblock_last_print_no_offset_within_tick": 0.7728,
+     "inblock_exact": 0.4535,
+     "gain": 0.0975,
+     "gain_ci95_2h_blocks": [
+      0.0836,
+      0.1114
+     ],
+     "n_2h_blocks": 48,
+     "per_wallet_inblock": {
+      "almach": 0.805,
+      "bosona": 0.8004,
+      "momoney": 0.8139
+     },
+     "per_wallet_block": {
+      "almach": 0.7066,
+      "bosona": 0.7104,
+      "momoney": 0.7101
+     },
+     "halves_inblock": [
+      0.8063,
+      0.8066
+     ]
+    },
+    "criterion": "adopt if VALIDATE inblock >= block + 0.03 and gain CI lower bound > 0 (pre-registered 00:43 UTC)",
+    "adopted": true
+   },
+   "verdict": "adopted (pre-registered): VALIDATE +0.098 [0.084, 0.111]"
+  },
+  {
+   "id": "H11-FASTREPLAY",
+   "family": "X106",
+   "description": "window replay on the execution-order clock (latency ~0)",
+   "validate_metrics": {
+    "oracle_d0.0": {
+     "corr": [
+      0.4888,
+      0.5284
+     ],
+     "windows": 1089,
+     "return": -0.0973,
+     "net_side_agree": 1.0
+    },
+    "oracle_d0.01": {
+     "corr": [
+      0.4633,
+      0.5175
+     ],
+     "windows": 1089,
+     "return": -0.0791,
+     "net_side_agree": 1.0
+    },
+    "posture_d0.0": {
+     "corr": [
+      0.2339,
+      0.2562
+     ],
+     "windows": 1089,
+     "return": -0.009,
+     "net_side_agree": 0.5859
+    },
+    "posture_d0.01": {
+     "corr": [
+      0.1827,
+      0.2406
+     ],
+     "windows": 1089,
+     "return": 0.0084,
+     "net_side_agree": 0.5776
+    },
+    "two_d0.0": {
+     "corr": [
+      0.2029,
+      0.2153
+     ],
+     "windows": 1089,
+     "return": -0.0237,
+     "net_side_agree": 0.4977
+    },
+    "two_d0.01": {
+     "corr": [
+      0.1491,
+      0.1171
+     ],
+     "windows": 1089,
+     "return": -0.0238,
+     "net_side_agree": 0.5023
+    }
+   },
+   "verdict": "posture 0.18-0.23 / 0.24-0.26; oracle side 0.46-0.49 / 0.52-0.53: side-bound"
+  },
+  {
+   "id": "H11-SIDE-INBLOCK",
+   "family": "X101/side",
+   "description": "per-fill posture with the in-block mid instead of b - 3 (pre-registered 01:06 UTC)",
+   "validate_metrics": {
+    "n_fills_with_cl": 16387,
+    "n_fills": 27988,
+    "posture_mid_b3": 0.6913,
+    "posture_mid_inblock": 0.698,
+    "gain": 0.0067,
+    "gain_ci95_2h_blocks": [
+     -0.0078,
+     0.0206
+    ],
+    "regionD_mid_b3": {
+     "n_D": 759,
+     "acc_D": 0.6245059288537549
+    },
+    "regionD_mid_inblock": {
+     "n_D": 1048,
+     "acc_D": 0.5830152671755725
+    },
+    "per_wallet_inblock": {
+     "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed": 0.7037,
+     "0x3725d52f3c252e8374999cc8617292ea2608ad88": 0.7025,
+     "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3": 0.6879
+    },
+    "halves_inblock": [
+     0.6675,
+     0.7188
+    ],
+    "adopt": false
+   },
+   "verdict": "not adopted (gain +0.007 [-0.008, +0.021])"
+  },
+  {
+   "id": "H11-ENTRY-COMBO",
+   "family": "X104/X106",
+   "description": "entry side = real-Chainlink posture at the first fill, with the market-only taker-flow complement (net clean taker demand over the previous 30 s) as a second vote (exploratory, not pre-registered)",
+   "validate_metrics": {
+    "combo": {
+     "first_fills": 1089,
+     "with_cl": 679,
+     "n": 679,
+     "posture_acc": 0.7437,
+     "flow_complement_acc": 0.592,
+     "agree_share": 0.5302,
+     "acc_when_agree": 0.8167,
+     "posture_acc_when_disagree": 0.6614
+    },
+    "flow_baseline": {
+     "windows": 1089,
+     "one_sided": 584,
+     "L10": {
+      "coverage": 0.9991,
+      "first_fill_complement": 0.5809,
+      "net_side_complement_one_sided": 0.5249
+     },
+     "L30": {
+      "coverage": 1.0,
+      "first_fill_complement": 0.607,
+      "net_side_complement_one_sided": 0.5771
+     },
+     "L60": {
+      "coverage": 1.0,
+      "first_fill_complement": 0.607,
+      "net_side_complement_one_sided": 0.5925
+     }
+    }
+   },
+   "verdict": "exploratory: 0.82 where both agree (53% of windows), posture alone 0.744, flow alone 0.592; pre-registered for 11-01 06-12"
+  },
+  {
+   "id": "H11-WINSIDE",
+   "family": "X109",
+   "description": "window net side from fill-free public rules",
+   "validate_metrics": {
+    "windows": 1089,
+    "one_sided": 584,
+    "posture_majority_vs_net_side": 0.6267,
+    "entry_posture_vs_net_side": 0.5736,
+    "first_fill_side_vs_net_side": 0.8065,
+    "net_side_won": 0.3253,
+    "posture_majority_won": 0.2792,
+    "always_up": 0.4418,
+    "by_session": {
+     "off": {
+      "n": 334,
+      "posture_majority": 0.6617,
+      "net_side_won": 0.3174
+     },
+     "us": {
+      "n": 250,
+      "posture_majority": 0.58,
+      "net_side_won": 0.336
+     }
+    },
+    "by_day": {
+     "2026-10-27": {
+      "n": 144,
+      "posture_majority": 0.618,
+      "net_side_won": 0.382,
+      "posture_won": 0.306
+     },
+     "2026-10-28": {
+      "n": 156,
+      "posture_majority": 0.609,
+      "net_side_won": 0.391,
+      "posture_won": 0.282
+     },
+     "2026-10-29": {
+      "n": 131,
+      "posture_majority": 0.687,
+      "net_side_won": 0.183,
+      "posture_won": 0.206
+     },
+     "2026-10-30": {
+      "n": 153,
+      "posture_majority": 0.601,
+      "net_side_won": 0.327,
+      "posture_won": 0.229
+     }
+    }
+   },
+   "verdict": "not met (best 0.63)"
+  },
+  {
+   "id": "H11-FILLTYPE",
+   "family": "X104/X111",
+   "description": "fill matching type and the favourite-share drift",
+   "validate_metrics": {
+    "fills": 27915,
+    "type_share": {
+     "mint": 0.8804,
+     "direct": 0.1196
+    },
+    "fav_share_by_type": {
+     "direct": 0.418,
+     "mint": 0.2961
+    },
+    "won_by_type": {
+     "direct": 0.4539,
+     "mint": 0.3633
+    },
+    "return_by_type": {
+     "direct": 0.1193,
+     "mint": 0.0345
+    },
+    "by_day": {
+     "2026-10-27": {
+      "mint_share": 0.871,
+      "fav_share": 0.359,
+      "won": 0.399
+     },
+     "2026-10-28": {
+      "mint_share": 0.859,
+      "fav_share": 0.37,
+      "won": 0.419
+     },
+     "2026-10-29": {
+      "mint_share": 0.882,
+      "fav_share": 0.287,
+      "won": 0.373
+     },
+     "2026-10-30": {
+      "mint_share": 0.906,
+      "fav_share": 0.252,
+      "won": 0.315
+     }
+    }
+   },
+   "verdict": "descriptive: mints 88%, favourite share drifts 0.59 -> 0.25"
+  },
+  {
+   "id": "H11-KSTEP",
+   "family": "X111/C4",
+   "description": "the posture's sigma multiplier per day / 6-h block (version detection)",
+   "validate_metrics": {
+    "10-23": {
+     "n": 1744,
+     "best_k": 0.5,
+     "acc_best": 0.628,
+     "acc_1.4": 0.518,
+     "acc_0.85": 0.604,
+     "fav_share": 0.606
+    },
+    "10-24": {
+     "n": 296,
+     "best_k": 0.85,
+     "acc_best": 0.73,
+     "acc_1.4": 0.618,
+     "acc_0.85": 0.73,
+     "fav_share": 0.557
+    },
+    "10-25": {
+     "n": 907,
+     "best_k": 0.5,
+     "acc_best": 0.616,
+     "acc_1.4": 0.54,
+     "acc_0.85": 0.596,
+     "fav_share": 0.526
+    },
+    "10-26": {
+     "n": 2463,
+     "best_k": 1.2,
+     "acc_best": 0.613,
+     "acc_1.4": 0.6,
+     "acc_0.85": 0.542,
+     "fav_share": 0.441
+    },
+    "10-27": {
+     "n": 3273,
+     "best_k": 2.0,
+     "acc_best": 0.69,
+     "acc_1.4": 0.653,
+     "acc_0.85": 0.475,
+     "fav_share": 0.353
+    },
+    "10-28": {
+     "n": 4232,
+     "best_k": 1.4,
+     "acc_best": 0.681,
+     "acc_1.4": 0.681,
+     "acc_0.85": 0.596,
+     "fav_share": 0.367
+    },
+    "10-29": {
+     "n": 6585,
+     "best_k": 2.0,
+     "acc_best": 0.715,
+     "acc_1.4": 0.683,
+     "acc_0.85": 0.464,
+     "fav_share": 0.288
+    },
+    "10-30": {
+     "n": 4435,
+     "best_k": 2.0,
+     "acc_best": 0.757,
+     "acc_1.4": 0.738,
+     "acc_0.85": 0.403,
+     "fav_share": 0.24
+    }
+   },
+   "verdict": "version-like step around 10-26 06-12 UTC (k ~0.5-1.0 -> ~1.4-2.5); descriptive, no rule chosen"
+  },
+  {
+   "id": "H11-TAKERS",
+   "family": "X111/X104",
+   "description": "taker population change behind the favourite-share drift",
+   "validate_metrics": {
+    "takers_in_both": 1253,
+    "fav_share_same_takers": {
+     "study": 0.517,
+     "validate": 0.3188
+    }
+   },
+   "verdict": "rejected: same takers, same market demand; the cluster's quote side moved"
+  },
+  {
+   "id": "H11-MARKETK",
+   "family": "X111/C4/X75",
+   "description": "market-implied sigma multiplier per 6-h block vs the cluster's best k",
+   "validate_metrics": {
+    "spearman": -0.281,
+    "blocks": 28
+   },
+   "verdict": "market stable (~1.15); the engine changed its volatility multiplier over the 10-24/25 weekend"
+  },
+  {
+   "id": "H11-WEEKLY-K",
+   "family": "C4/C5/X75",
+   "description": "weekly cycle of the posture's volatility multiplier (Binance stand-in, BUILD + lot)",
+   "validate_metrics": {
+    "10-09 Fri": 1.2,
+    "10-10 Sat": 0.7,
+    "10-11 Sun": 0.85,
+    "10-12 Mon": 1.7,
+    "10-13 Tue": 1.4,
+    "10-14 Wed": 1.0,
+    "10-15 Thu": 1.2,
+    "10-16 Fri": 1.4,
+    "10-17 Sat": 0.85,
+    "10-18 Sun": 0.85,
+    "10-19 Mon": 2.0,
+    "10-20 Tue": 2.5,
+    "10-21 Wed": 1.2,
+    "10-22 Thu": 1.0,
+    "10-23 Fri": 0.5,
+    "10-24 Sat": 0.7,
+    "10-25 Sun": 0.5,
+    "10-26 Mon": 1.7,
+    "10-27 Tue": 2.5,
+    "10-28 Wed": 1.4,
+    "10-29 Thu": 2.5,
+    "10-30 Fri": 2.5
+   },
+   "verdict": "Monday reset to k ~1.4-2.5, decay to 0.5-0.85 by the weekend in weeks 1-2, no decay in week 3; driver open (not PnL since Monday)"
+  },
+  {
+   "id": "H11-K-CLASS",
+   "family": "C4/X97",
+   "description": "the k cycle by rung class (real Chainlink)",
+   "validate_metrics": {
+    "high_k_10-27..30|250": {
+     "n": 3443,
+     "best_k": 2.0,
+     "acc_best": 0.725,
+     "acc_k0.5": 0.359,
+     "acc_k1.4": 0.688,
+     "acc_k2.0": 0.725,
+     "regionD_n": 204,
+     "regionD_acc": 0.52
+    },
+    "high_k_10-27..30|500": {
+     "n": 8334,
+     "best_k": 2.0,
+     "acc_best": 0.72,
+     "acc_k0.5": 0.375,
+     "acc_k1.4": 0.709,
+     "acc_k2.0": 0.72,
+     "regionD_n": 337,
+     "regionD_acc": 0.816
+    },
+    "high_k_10-27..30|62": {
+     "n": 3550,
+     "best_k": 2.0,
+     "acc_best": 0.649,
+     "acc_k0.5": 0.435,
+     "acc_k1.4": 0.627,
+     "acc_k2.0": 0.649,
+     "regionD_n": 238,
+     "regionD_acc": 0.508
+    },
+    "high_k_10-27..30|other": {
+     "n": 4389,
+     "best_k": 2.0,
+     "acc_best": 0.714,
+     "acc_k0.5": 0.363,
+     "acc_k1.4": 0.705,
+     "acc_k2.0": 0.714,
+     "regionD_n": 163,
+     "regionD_acc": 0.571
+    },
+    "low_k_10-23..25|250": {
+     "n": 385,
+     "best_k": 1.0,
+     "acc_best": 0.712,
+     "acc_k0.5": 0.66,
+     "acc_k1.4": 0.67,
+     "acc_k2.0": 0.517,
+     "regionD_n": 26,
+     "regionD_acc": 0.923
+    },
+    "low_k_10-23..25|500": {
+     "n": 1034,
+     "best_k": 0.5,
+     "acc_best": 0.636,
+     "acc_k0.5": 0.636,
+     "acc_k1.4": 0.489,
+     "acc_k2.0": 0.459,
+     "regionD_n": 149,
+     "regionD_acc": 0.611
+    },
+    "low_k_10-23..25|62": {
+     "n": 1113,
+     "best_k": 0.85,
+     "acc_best": 0.625,
+     "acc_k0.5": 0.607,
+     "acc_k1.4": 0.586,
+     "acc_k2.0": 0.496,
+     "regionD_n": 162,
+     "regionD_acc": 0.642
+    },
+    "low_k_10-23..25|other": {
+     "n": 592,
+     "best_k": 0.5,
+     "acc_best": 0.61,
+     "acc_k0.5": 0.61,
+     "acc_k1.4": 0.458,
+     "acc_k2.0": 0.429,
+     "regionD_n": 34,
+     "regionD_acc": 0.529
+    },
+    "monday_10-26|500": {
+     "n": 1220,
+     "best_k": 1.4,
+     "acc_best": 0.629,
+     "acc_k0.5": 0.497,
+     "acc_k1.4": 0.629,
+     "acc_k2.0": 0.608,
+     "regionD_n": 98,
+     "regionD_acc": 0.755
+    },
+    "monday_10-26|62": {
+     "n": 911,
+     "best_k": 1.0,
+     "acc_best": 0.574,
+     "acc_k0.5": 0.52,
+     "acc_k1.4": 0.537,
+     "acc_k2.0": 0.524,
+     "regionD_n": 79,
+     "regionD_acc": 0.57
+    },
+    "monday_10-26|other": {
+     "n": 540,
+     "best_k": 2.0,
+     "acc_best": 0.631,
+     "acc_k0.5": 0.42,
+     "acc_k1.4": 0.622,
+     "acc_k2.0": 0.631,
+     "regionD_n": 26,
+     "regionD_acc": 0.5
+    }
+   },
+   "verdict": "all classes share the cycle (best k 2.0 on 10-27..30, 0.5-1.0 on 10-23..25); only the 500 ladder follows Chainlink in region D (0.82 vs 0.51-0.52)"
   }
  ],
  "data_sources": [
@@ -2117,7 +2885,8 @@
   "iteration 10: pmxt archive r2v2.pmxt.dev hourly parquet of the unaggregated CLOB market channel (verified 07-20T13 200, 08-09T13 200, 10-20T13 404; range reads; 07-22T13 pilot reduced to .cache/re/directional-maker/pmxt/)",
   "iteration 10: polymarket.com/api/crypto/crypto-price historical Chainlink seconds for the lot fills (pre-registered match clock), BUILD fill seconds, switch-noise runs (detached fetch to 11-01 10:00 UTC)",
   "iteration 10: own exam recorder dx_clob as the quote-unit label source for BTC 5m/15m (recall 1.00 vs the raw recorder)",
-  "iteration 10: crypto-price endpoint variants: fiveminute and fifteen return the Chainlink value; fifteenminute returns a cents-rounded price ~$128 higher (likely Binance-based)"
+  "iteration 10: crypto-price endpoint variants: fiveminute and fifteen return the Chainlink value; fifteenminute returns a cents-rounded price ~$128 higher (likely Binance-based)",
+  "iteration 11: Polygon eth_getBlockByNumber(block, false) transaction order for every block with a lot BTC 5m / 15m cluster fill (14,301 + 1,932 blocks, publicnode/drpc, 0 failures): the in-block execution-order clock"
  ],
  "iterations": [
   {
@@ -2368,6 +3137,28 @@
     "X89 I9-3 switch-noise pre-registration"
    ],
    "ended_utc": "2026-10-31 23:46"
+  },
+  {
+   "n": 11,
+   "minutes": 63.6,
+   "best_validate_score": 0.716,
+   "validate_definition": "2026-10-27..30 (lot second half, aggregate)",
+   "paradigm": "the window as the unit of decision with an executable state machine (strict-fill replay of the quote), plus a new data source for the price clock (the on-chain execution order inside each block)",
+   "families": [
+    "X106/D3/X64 strict-fill window replay (240 configs, oracle-side ceiling)",
+    "X109 window net side",
+    "X110 pick-off side in the replay",
+    "X101 R7-price in-block execution-order clock (5m all fills, 15m all fills)",
+    "X104/X111 fill matching type and the favourite-share drift by day and 6-h block",
+    "evaluate() R7 smoke test on 10-31 15:40-16:40",
+    "X111 taker population and market demand by day",
+    "C4 sigma-multiplier step by day / 6-h block",
+    "C4/C5 weekly cycle of the sigma multiplier over BUILD + lot (Binance stand-in)",
+    "k vs PnL since Monday",
+    "k cycle by rung class",
+    "running vol estimators since the restarts (exploratory)"
+   ],
+   "ended_utc": "2026-11-01 01:23"
   }
  ],
  "status": "continue",
@@ -2433,19 +3224,19 @@
   "selection_baseline": 0.6508,
   "side_accuracy": 0.672,
   "side_baseline": 0.6129,
-  "price_within_tick": 0.7048,
-  "pnl_corr_pearson": 0.2601,
-  "pnl_corr_spearman": 0.3267,
+  "price_within_tick": 0.8026,
+  "pnl_corr_pearson": 0.2066,
+  "pnl_corr_spearman": 0.2181,
   "coverage_fills": 0.868,
   "coverage_abs_pnl": 0.891,
-  "_notes": "rule R6 = R5 on BTC 5m (unchanged) + R3's model class refitted on BTC 15m, scored on the historical VALIDATE 2026-10-27..30 over the union universe (pooled bins; code8/union_val.py): presence 0.7883 vs activity 0.7796 (gain +0.009); BTC 5m alone 0.716 / 0.684 (the pre-registered primary metric, unchanged); BTC 15m alone 0.812 / 0.778. side = bin-level presence-score side pooled (5m 0.663, 15m 0.733). price = block clock pooled (5m 0.709, 15m 0.666). pnl = expectation proxy per window pooled (5m 0.329/0.325, 15m 0.180/0.345). selection = BTC 5m only (R2's print model; not extended). Live VALIDATE (10-31 15:00-16:30, pre-registered live split): per-fill side with the Chainlink posture rule 0.836-0.846 (n 1,341-1,406) vs market-only <= 0.61; match-clock price 0.83-0.86; see target_metrics_live. coverage = BTC 5m + 15m on VALIDATE (iteration 5 cash-flow PnL). Iteration 9: unchanged (R6 kept; the slow-sigma variant failed its pre-registered VALIDATE test). Iteration 10: unchanged (R6 kept; no decision changed; the side component fails its historical replication in the sigma-free region, A1)."
+  "_notes": "rule R6 = R5 on BTC 5m (unchanged) + R3's model class refitted on BTC 15m, scored on the historical VALIDATE 2026-10-27..30 over the union universe (pooled bins; code8/union_val.py): presence 0.7883 vs activity 0.7796 (gain +0.009); BTC 5m alone 0.716 / 0.684 (the pre-registered primary metric, unchanged); BTC 15m alone 0.812 / 0.778. side = bin-level presence-score side pooled (5m 0.663, 15m 0.733). price = block clock pooled (5m 0.709, 15m 0.666). pnl = expectation proxy per window pooled (5m 0.329/0.325, 15m 0.180/0.345). selection = BTC 5m only (R2's print model; not extended). Live VALIDATE (10-31 15:00-16:30, pre-registered live split): per-fill side with the Chainlink posture rule 0.836-0.846 (n 1,341-1,406) vs market-only <= 0.61; match-clock price 0.83-0.86; see target_metrics_live. coverage = BTC 5m + 15m on VALIDATE (iteration 5 cash-flow PnL). Iteration 9: unchanged (R6 kept; the slow-sigma variant failed its pre-registered VALIDATE test). Iteration 10: unchanged (R6 kept; no decision changed; the side component fails its historical replication in the sigma-free region, A1). Iteration 11 (R7 = R6 + in-block price): price_within_tick = the in-block execution-order clock pooled BTC 5m + 15m on all 30984 VALIDATE maker fills (0.8026; block clock 0.7050; pooled per wallet {'almach': 0.8, 'bosona': 0.7966, 'momoney': 0.8111}, halves [0.8044, 0.8014]; 15m per wallet {'almach': 0.7516, 'bosona': 0.7634, 'momoney': 0.7838}; the rule is the trivial anchor 'last print' minus a tick on this clock, 'last print' alone 0.773 on 5m); pnl_corr = the strict-fill window replay of the frozen posture quote (BTC 5m, latency 2 s, slack 2, trade-through, last print - 0.01, session size; the target's definition), per wallet almach [0.2377, 0.2401], bosona [0.1666, 0.2262], mo-money [0.1608, 0.1787]; halves [0.1654, 0.2484] / [0.235, 0.2034]; oracle-side ceiling [0.473, 0.527]. Before: price 0.7048 (block clock), pnl 0.2601 / 0.3267 (expectation proxy, union)."
  },
- "strategy_statement": "[engine: VALIDATE-only] One engine family (timestamp-0 orders, per-wallet sequential salt counters reset by the daily ~01:00 UTC restart; 25-32 orders/s per wallet in July, 11-18 in October) runs three separately treasured wallets (weekly Monday sweeps). [selection: hypothesis] It quotes nearly every crypto Up/Down window of the modules it runs; BTC 5m/15m are switched off for hours, mostly Fri-Sun US-Eastern evenings, sometimes ad hoc (10-31 16:53); only the all-crypto universe meets the scope bar in every 6-h block. [timing: VALIDATE-only] It re-prices on each Chainlink report within ~0-150 ms of the RTDS relay's publish and after Binance moves; filled orders are fresh posts at the touch; its filled rungs agree with the report at the match, not at the taker's signing. [side: VALIDATE-only for the 500 ladder, hypothesis off-session] Its US-session 500-share rungs buy the outcome whose Chainlink edge over the Polymarket mid is positive (live 10-31 0.79 per fill, 0.965 where Chainlink and the market disagree; historical VALIDATE with a calibrated match clock 0.74 per fill and 0.93 in that region); its off-session 62/250 ladder (00-12 UTC) enters a window on the same posture side (first fills 0.66-0.72) and then keeps adding to the outcome it already holds (250s 0.68-0.90, own state), so over all its fills no public side rule fits (0.48-0.53). Imbalance pairing bids (exactly |Up - Down| own shares) always sit on the under-held outcome. [price: exam-verified (block clock) / VALIDATE-only (match clock)] Fill price = last clean print minus a tick; pairing bids are priced at the market, not off its own cost. [size: VALIDATE-only] 500 x 2^k schedule rungs (100/12 only at 30-120 s left) plus imbalance-sized pairing bids. [exit: VALIDATE-only] Holds to resolution, completes pairs, merges ~65 s before the end. [economics: VALIDATE-only] BTC 5m earns 2-4% on volume; rebates and rewards are about a fifth of net PnL; the split between locked pairs and the directional residual changes sign between STUDY and VALIDATE, and the residual carries most of the window-to-window variance.",
+ "strategy_statement": "[engine: VALIDATE-only] One engine family (timestamp-0 orders, per-wallet salt counters reset by the daily ~01:00 UTC restart) runs three wallets. [selection: hypothesis] It quotes nearly every crypto Up/Down window of the modules it runs; BTC 5m/15m are switched off for hours, mostly Fri-Sun US-Eastern evenings. [timing: VALIDATE-only] It re-prices on each Chainlink report within ~0-150 ms of the RTDS relay and after Binance moves; its filled orders are fresh posts at the touch. [side: VALIDATE-only for the US-session 500 ladder, hypothesis elsewhere; the engine's volatility multiplier changed over the 10-24/25 weekend (k ~0.5-0.9 -> ~1.7-2.0 x v300; the market prices ~1.15)] Its 500-share rungs buy the outcome whose Chainlink edge over the Polymarket mid is positive (live 0.79 per fill, 0.93-0.97 where the reference and the market disagree, historically too); the off-session 62/250 ladder follows no public reference; per window the first fill sets the terminal net side (0.81-0.90), and the net side moved from the favourite (won 62%, 10-23..26) to the underdog (won 33%, 10-27..30) while 81-88% of its fills are complementary mints, i.e. the fill side follows what the takers buy. [price: exam-verified (block clock) / VALIDATE-only (in-block and match clock)] Fill price = the last clean trade before the fill minus a tick: 0.80 within a tick on the in-block execution order (recording-free), 0.83-0.86 on the live match clock. [size: VALIDATE-only] 500 x 2^k schedule rungs in the US session, 62/250 outside, plus imbalance-sized pairing bids. [exit: VALIDATE-only] Holds to resolution, completes pairs, merges ~65 s before the end. [economics: VALIDATE-only] It earns as a fast two-sided-at-the-touch maker with a Chainlink skew: a strict-fill replay of its decoded quote loses 15-17% and tracks its window PnL at only 0.21 / 0.22 (oracle side 0.47 / 0.53), because its profit comes from touch fills of quotes refreshed within ~0.1-1 s, which a 2-s-latency replay on block-stamped prints cannot obtain.",
  "components": {
   "selection": {
    "confidence": 0.4,
    "tag": "hypothesis",
-   "description": "one engine over crypto Up/Down; BTC 5m and 15m are modules switched off for hours, mostly Fri-Sun US-Eastern evenings (gate window AUC 0.68); the 10-31 16:53 switch-off happened inside the running processes (salt counters continuous, signing rate unchanged) and two engines were restarted ad hoc 12-13 min later; R6's universe (BTC 5m + 15m) covers >= 80% of trades and dollars in only 34% of 6-h blocks, the all-crypto universe in all. BTC 15m presence (R3 class) 0.812 vs 0.778 on VALIDATE."
+   "description": "one engine over crypto Up/Down; BTC 5m and 15m are modules switched off for hours, mostly Fri-Sun US-Eastern evenings (gate window AUC 0.68); the 10-31 16:53 switch-off happened inside the running processes (salt counters continuous, signing rate unchanged) and two engines were restarted ad hoc 12-13 min later; R6's universe (BTC 5m + 15m) covers >= 80% of trades and dollars in only 34% of 6-h blocks, the all-crypto universe in all. BTC 15m presence (R3 class) 0.812 vs 0.778 on VALIDATE. Iteration 11: unchanged."
   },
   "timing": {
    "confidence": 0.8,
@@ -2455,12 +3246,12 @@
   "side": {
    "confidence": 0.6,
    "tag": "VALIDATE-only (500 ladder: live 10-31 and historical VALIDATE region D); hypothesis (off-session 62/250 ladder)",
-   "description": "two side rules by ladder: the US-session 500 x 2^k rungs (74% of VALIDATE fills in 12-18 UTC, 78% of the 10-31 block) buy the outcome whose Chainlink edge over the Polymarket mid is positive (digital of the report stamped T - 1.432 s, Gamma strike, 1.4 x 300-s vol): live 10-31 0.786 per fill, 0.965 where Chainlink and the market disagree on the favourite; historical VALIDATE (calibrated match clock, real Chainlink) 500s 0.742 per fill and 0.93 in that region (30 windows, CI [0.84, 1.00]), STUDY 0.613 / 0.759, the fresh 10-31 00-06 block 1.000 in that region (10 windows). The off-session 62/250 rungs (00-12 UTC) follow no public candidate (region D 0.46-0.53; cheaper / favourite / Binance / Chainlink 0.48-0.51 on STUDY); where they coexist with 500s in a window they sit on the other outcome (71% of 163 VALIDATE pairs), i.e. the far-side rungs of the same ladder; in pure off-session windows their side is undecoded (hypothesis: an unskewed two-sided ladder whose fill side the takers choose). Imbalance pairing bids sit on the under-held outcome 100% (own state). Mo-money's 500s are off the posture at the add (0.646; not TWAP-60). Off-posture fills are not lost cancel races. A class-conditional public rule failed its pre-registered VALIDATE test (0.660 vs 0.710). Off-session windows without 500s: the 250 rungs keep buying the already-held outcome (0.90 STUDY / 0.68 VALIDATE, own state), 62s next to a 500 ladder sit on the under-held outcome (0.97), pure off-session 62s follow nothing measured (0.41-0.59). Entry side (first fill of a window, no inventory yet): Chainlink posture 0.66 STUDY / 0.72 VALIDATE for the off-session 62/250 ladder and 0.68 / 0.75 for the 500 ladder (Binance 0.62-0.69, cheaper 0.50-0.68): one posture decides the entry; the off-session ladder then follows its own inventory. Fresh block 10-31 00-06 (frozen posture, block clock): 500-class 0.79 per fill, 62/250 0.44."
+   "description": "two side rules by ladder: the US-session 500 x 2^k rungs (74% of VALIDATE fills in 12-18 UTC, 78% of the 10-31 block) buy the outcome whose Chainlink edge over the Polymarket mid is positive (digital of the report stamped T - 1.432 s, Gamma strike, 1.4 x 300-s vol): live 10-31 0.786 per fill, 0.965 where Chainlink and the market disagree on the favourite; historical VALIDATE (calibrated match clock, real Chainlink) 500s 0.742 per fill and 0.93 in that region (30 windows, CI [0.84, 1.00]), STUDY 0.613 / 0.759, the fresh 10-31 00-06 block 1.000 in that region (10 windows). The off-session 62/250 rungs (00-12 UTC) follow no public candidate (region D 0.46-0.53; cheaper / favourite / Binance / Chainlink 0.48-0.51 on STUDY); where they coexist with 500s in a window they sit on the other outcome (71% of 163 VALIDATE pairs), i.e. the far-side rungs of the same ladder; in pure off-session windows their side is undecoded (hypothesis: an unskewed two-sided ladder whose fill side the takers choose). Imbalance pairing bids sit on the under-held outcome 100% (own state). Mo-money's 500s are off the posture at the add (0.646; not TWAP-60). Off-posture fills are not lost cancel races. A class-conditional public rule failed its pre-registered VALIDATE test (0.660 vs 0.710). Off-session windows without 500s: the 250 rungs keep buying the already-held outcome (0.90 STUDY / 0.68 VALIDATE, own state), 62s next to a 500 ladder sit on the under-held outcome (0.97), pure off-session 62s follow nothing measured (0.41-0.59). Entry side (first fill of a window, no inventory yet): Chainlink posture 0.66 STUDY / 0.72 VALIDATE for the off-session 62/250 ladder and 0.68 / 0.75 for the 500 ladder (Binance 0.62-0.69, cheaper 0.50-0.68): one posture decides the entry; the off-session ladder then follows its own inventory. Fresh block 10-31 00-06 (frozen posture, block clock): 500-class 0.79 per fill, 62/250 0.44. Iteration 11 (window unit): first fill side = terminal net side 0.90 STUDY / 0.81 VALIDATE; the net side won 0.62 / 0.33 (favourite share of fills by day 0.59 -> 0.25 across 10-23..30); fill-free posture majority 0.43 / 0.63, entry posture 0.57 / 0.57: no public window rule reaches 0.80; the fill side follows the takers' demand (81-88% complement mints). Iteration 11 (late): the posture's best sigma multiplier steps from ~0.5-1.0 (10-23..26 06 UTC) to ~1.4-2.5 (from 10-26 12 UTC): the frozen k = 1.4 fits the VALIDATE days (0.65-0.74) but not STUDY (0.52-0.62); the same takers' fills moved from favourite to underdog while the market's demand did not: a quote-side (engine) change. Iteration 11 (late): the multiplier follows a weekly cycle: reset high on Monday morning UTC after the 01:00 restart and weekly sweep, decaying to 0.5-0.85 by Fri-Sun in weeks 1-2 (10-09..25), staying >= 1.4 in week 3 and on Saturday 10-31. All rung classes share the k cycle (10-27..30 best k 2.0: 500s 0.720, 250s 0.725, 62s 0.649 per fill); only the 500 ladder follows Chainlink where it disagrees with the market (region D 0.82 vs 0.51-0.52 for 62/250)."
   },
   "price": {
-   "confidence": 0.65,
-   "tag": "exam-verified (block clock); VALIDATE-only (match clock)",
-   "description": "fill price = last clean print minus 0.01 (match clock 0.83-0.86, block clock 0.70, exam 0.688); the ladder hangs off each market's own mid with a ~0.2 Chainlink skew; its half-spread follows the digital's risk only partly (R^2 0.47 in 5m, 0.26 in 15m; top rung within a tick 26-30% vs 19% anchor)."
+   "confidence": 0.75,
+   "tag": "exam-verified (block clock); VALIDATE-only (in-block clock, match clock)",
+   "description": "fill price = last clean trade of the market before the fill minus 0.01 (the trivial anchor 'last print' minus a tick). Historical VALIDATE: block clock 0.705 pooled 5m+15m; in-block execution order (R7, recording-free) 0.803 pooled (5m 0.806, all 27988 fills; 15m 0.766), trivial 'last print' with no offset 0.773; live match clock 0.83-0.86 (10-31 15:40-16:40: block 0.625 / in-block 0.719 / match 0.849). The ladder hangs off each market's own mid with a ~0.2 Chainlink skew (live)."
   },
   "size": {
    "confidence": 0.7,
@@ -2470,7 +3261,7 @@
   "exit": {
    "confidence": 0.6,
    "tag": "VALIDATE-only",
-   "description": "holds to resolution; completes pairs with maker pairing bids (11-14% of lot fills, priced at the market, not off its own cost: pair cost median 0.81-0.91, < 1 in 61-72%) and small complement taker buys; merges ~65 s before the end. Window PnL split: locked pairs -$0.9k / +$33.3k vs residual +$5.7k / -$10.3k (STUDY / VALIDATE aggregate): neither part is reliably the profit."
+   "description": "holds to resolution; completes pairs with maker pairing bids (11-14% of lot fills, priced at the market, not off its own cost: pair cost median 0.81-0.91, < 1 in 61-72%) and small complement taker buys; merges ~65 s before the end. Window PnL split: locked pairs -$0.9k / +$33.3k vs residual +$5.7k / -$10.3k (STUDY / VALIDATE aggregate): neither part is reliably the profit. Iteration 11: a strict-fill window replay of the decoded quote reaches per-window PnL corr [0.2066, 0.2181] on VALIDATE; even an oracle window side reaches only [0.473, 0.527]: the window PnL is made of touch fills of fresh quotes."
   }
  },
  "catalog": {
@@ -2564,7 +3355,7 @@
   },
   "C4": {
    "status": "tried",
-   "evidence": "versions: ladder 500/1000 (10-09..16) -> 500/250/125 (10-16..22) -> clock schedule 500 / 62 / 250 (lot); restarts daily 01:00 UTC and ad hoc; models refit on the lot regime (+0.008)."
+   "evidence": "versions: ladder 500/1000 (10-09..16) -> 500/250/125 (10-16..22) -> clock schedule 500 / 62 / 250 (lot); restarts daily 01:00 UTC and ad hoc; models refit on the lot regime (+0.008). | iteration 11: a version-like step of the posture's effective sigma multiplier between Friday 10-23 18:00 and Monday 10-26 12:00 UTC (best k 0.5-1.2 before, 1.4-2.5 after, per 6-h block; Friday 10-23 12-18 81% 500s best k 0.5, Monday 10-26 12-18 77% 500s best k 1.7), while the market-implied multiplier stays ~1.15 in every block (Spearman with the cluster's k -0.281 over 28 blocks): a weekend configuration change of the engine (code11/k_by_day.py, code11/market_k.py). Decode the post-step version separately. | iteration 11 (late, Binance stand-in over BUILD + lot): best k per day {'10-09 Fri': 1.2, '10-10 Sat': 0.7, '10-11 Sun': 0.85, '10-12 Mon': 1.7, '10-13 Tue': 1.4, '10-14 Wed': 1.0, '10-15 Thu': 1.2, '10-16 Fri': 1.4, '10-17 Sat': 0.85, '10-18 Sun': 0.85, '10-19 Mon': 2.0, '10-20 Tue': 2.5, '10-21 Wed': 1.2, '10-22 Thu': 1.0, '10-23 Fri': 0.5, '10-24 Sat': 0.7, '10-25 Sun': 0.5, '10-26 Mon': 1.7, '10-27 Tue': 2.5, '10-28 Wed': 1.4, '10-29 Thu': 2.5, '10-30 Fri': 2.5}: a WEEKLY cycle, k jumps on Monday morning UTC after the 01:00 restart with the weekly sweep (Sun 0.5-1.0 -> Mon 1.4-2.5 in all three weeks) and decays to 0.5-0.85 by Fri-Sun in weeks 1-2; in week 3 (10-26..30, and the live Saturday 10-31) it stays >= 1.4. Not the PnL since Monday (Spearman +0.31). Driver open."
   },
   "C4b": {
    "status": "tried",
@@ -2572,7 +3363,7 @@
   },
   "C5": {
    "status": "tried",
-   "evidence": "clock schedule: size switch at 12:00 UTC weekdays (to ~21:00), daily 01:00 UTC restart, weekend/overnight BTC 5m off periods with manual-looking returns (13:33, 15:25 UTC); clock features +0.002 presence AUC."
+   "evidence": "clock schedule: size switch at 12:00 UTC weekdays (to ~21:00), daily 01:00 UTC restart, weekend/overnight BTC 5m off periods with manual-looking returns (13:33, 15:25 UTC); clock features +0.002 presence AUC. | iteration 11: the side parameter follows a weekly cycle reset at the Monday 01:00 UTC restart (C4 entry); whether a person or a state re-initialised at the restart drives it is open."
   },
   "C6": {
    "status": "not_applicable",
@@ -2595,8 +3386,8 @@
    "evidence": "only LightGBM and explicit rules; hazard / HMM / sequence models not tried. | iteration 8: structural inversion (X63) and quote-unit LightGBM; no hazard/HMM yet. | iteration 8 (code8/d2_hazard.py): discrete-time hazard of the burst posts per 50-ms bin on public clocks: with the true RTDS publish ms (17:29-18:00, 15m) held-out AUC 0.826 (Chainlink publish clock alone 0.793, futures 0.773, trades 0.753, time 0.743); with the stamp + 1.09 s proxy (14:06-16:30) 0.639. Rate 0.024-0.028 per bin in 0-150 ms after a publish vs 0.006-0.010 later."
   },
   "D3": {
-   "status": "open",
-   "evidence": "examiner's strict replay of R2 (-12.8%); own sub-second replay not built. Iteration 5 live: a rung-price model of public inputs is within a tick for 21% of held-out bursts, so a replay needs the rung structure first; live presence with the observed cluster quote on 6 windows (360 bins) is too small to read (results/iter5_live_presence.json). | iteration 8: strict-fill replay still open (X64)."
+   "status": "tried",
+   "evidence": "examiner's strict replay of R2 (-12.8%); own sub-second replay not built. Iteration 5 live: a rung-price model of public inputs is within a tick for 21% of held-out bursts, so a replay needs the rung structure first; live presence with the observed cluster quote on 6 windows (360 bins) is too small to read (results/iter5_live_presence.json). | iteration 8: strict-fill replay still open (X64). | iteration 11: strict-fill window replay built (code11/replay.py): frozen posture VALIDATE per-window PnL corr [0.2066, 0.2181], oracle side ceiling [0.473, 0.527] (X106)."
   },
   "D4": {
    "status": "tried",
@@ -2855,8 +3646,8 @@
    "evidence": "source: panel iter7 mechanics M1 (invert the engine's internal price from simultaneous 5m and 15m quotes). Iteration 8 code8/m1_invert.py on 10-31 14:06-16:30 (2,266 s with top rungs on both outcomes of both markets): |S_hat_5m - S_hat_15m| median 2.8 tick-equivalents, within one tick-equivalent 20% (signature needed >= 70%); the disagreement is the markets' own mids (slope 0.83, R^2 0.79); each S_hat tracks its own mid-implied S (resid sd $4.7/$5.2) better than futures ($7.8/$11.9) or Chainlink ($9.8/$13.9) or any EMA; best blend beta ~0.2 toward Chainlink, median error still 2.3-2.5 tick-equivalents. Rejected: no common model price; mid-anchored ladders."
   },
   "X64": {
-   "status": "open",
-   "evidence": "source: panel iter7 mechanics M2 (strict-fill replay of the decoded generator against the recorded takers, back-of-queue fills, realized per-window PnL). Not done; the generator's level is not decodable to a tick (X63), the replay needs the full-depth recorder of 11-01 06-12 (code8/delayed_rawrec.py)."
+   "status": "tried",
+   "evidence": "source: panel iter7 mechanics M2 (strict-fill replay of the decoded generator against the recorded takers, back-of-queue fills, realized per-window PnL). Not done; the generator's level is not decodable to a tick (X63), the replay needs the full-depth recorder of 11-01 06-12 (code8/delayed_rawrec.py). | iteration 11: done as X106: a strict-fill replay of the decoded generator (posture side, last print - 0.01, schedule size, stop 30 s before the end) against the public taker tape: VALIDATE [0.2066, 0.2181], oracle-side ceiling [0.473, 0.527]; the generator's touch fills (fresh posts) cannot be credited by trade-through fills on block-stamped prints."
   },
   "X65": {
    "status": "tried",
@@ -2900,7 +3691,7 @@
   },
   "X75": {
    "status": "open",
-   "evidence": "source: panel iter8 information I8-2 (name the vol source; natural experiment through a vol regime change, 11-02 12-18). Iteration 9: the interval-censored sigma_e path of 10-31 12-18 is not identified (logistic slope 2.25, 95% intervals span a factor ~16; corr(log sigma_e, log v3600) 0.43, 1.4xv300 -0.06); the June signed-ms limit prices do not separate the estimators (MAD 0.053-0.063 for all, code9/june_vol.py). The regime-change test needs the 11-02 12-18 development block with the match clock; DVOL is available historically (no recorder needed). | candidate (d) Deribit DVOL x c (code9/dvol_sigma.py): best c 0.2-0.3 on STUDY and live, 0.5-1.0 on VALIDATE (still below the frozen sigma): no constant scale; rejected. Realised vol medians: VALIDATE 4.5e-5/s, STUDY 3.5e-5, live 2.3e-5; DVOL 6.7-7.2e-5."
+   "evidence": "source: panel iter8 information I8-2 (name the vol source; natural experiment through a vol regime change, 11-02 12-18). Iteration 9: the interval-censored sigma_e path of 10-31 12-18 is not identified (logistic slope 2.25, 95% intervals span a factor ~16; corr(log sigma_e, log v3600) 0.43, 1.4xv300 -0.06); the June signed-ms limit prices do not separate the estimators (MAD 0.053-0.063 for all, code9/june_vol.py). The regime-change test needs the 11-02 12-18 development block with the match clock; DVOL is available historically (no recorder needed). | candidate (d) Deribit DVOL x c (code9/dvol_sigma.py): best c 0.2-0.3 on STUDY and live, 0.5-1.0 on VALIDATE (still below the frozen sigma): no constant scale; rejected. Realised vol medians: VALIDATE 4.5e-5/s, STUDY 3.5e-5, live 2.3e-5; DVOL 6.7-7.2e-5. | iteration 11: the engine's effective sigma relative to v300 stepped from ~0.5-0.9 to ~1.7-2.0 over the 10-24/25 weekend while the market's implied multiplier stayed ~1.15; neither a constant sigma, realised vol nor DVOL x c fits both halves."
   },
   "X76": {
    "status": "open",
@@ -3001,6 +3792,58 @@
   "X100": {
    "status": "tried",
    "evidence": "source: panel iter9 assumptions A4 (locate the profit decision: locked pairs vs residual vs rebates). Iteration 10 (code10/m1_pair_lot.py window split, per wallet x window, BTC 5m): STUDY locked -930.620 USD, residual 5684.283; VALIDATE aggregate locked 33325.417, residual -10287.721; var(residual)/var(total) 0.687 / 0.576. Neither part is positive in every split (A4's and E2's signatures both fail); the residual carries most of the cross-window variance. Rebates: the assumptions panel F3 puts maker+taker rebates and rewards at $23.0k of $111.7k net (10-08..30), BUILD maker rebates $14.5k vs BTC 5m PnL $35k."
+  },
+  "X101": {
+   "status": "open",
+   "evidence": "source: panel iter10 information I10-1 (recording-free evaluation path and recorder continuity). R7-price done: the in-block execution order (eth_getBlockByNumber) as a recording-free match clock for the price rule; all 27988 VALIDATE BTC 5m maker fills 0.806 vs block clock 0.709 (gain +0.098, 2-h block bootstrap [0.0836, 0.1114]), per wallet {'almach': 0.805, 'bosona': 0.8004, 'momoney': 0.8139}, halves [0.8063, 0.8066]; BTC 15m 0.766 vs 0.666; pooled 0.803; adopted (pre-registered 00:43 UTC); in evaluate() as price_inblock / price_r7 (match clock where recorded, else in-block; smoke test 10-31 15:40-16:40: block 0.625, in-block 0.719, match 0.849, R7 0.843). Open: the recorder successors before 11-03 00:00 and the side/selection parts of the recording-free path."
+  },
+  "X102": {
+   "status": "open",
+   "evidence": "source: panel iter10 information I10-2 (print-level selection with the endpoint Chainlink posture, size mode, calendar gate). Not run: needs ~26-52k crypto-price requests (every 1-2 s of [S-65, E] of consecutive window pairs), ~5-10 h at the polite rate after the running X90 queue (done 9.5k of 46.6k at 01:03 UTC). Planned for the next iteration."
+  },
+  "X103": {
+   "status": "open",
+   "evidence": "source: panel iter10 information I10-3 (off-session ladder re-post race; pmxt replication). Needs the 11-01 06-12 development block (full-depth recorder scheduled 05:55-12:00)."
+  },
+  "X104": {
+   "status": "open",
+   "evidence": "source: panel iter10 information I10-4 (taker populations of the off-session ladder). Partial: fill matching type on the lot (code11/fill_type.py): complement mints are 0.8126 (STUDY) / 0.8804 (VALIDATE) of the maker fills; the bought token is the favourite in {'direct': 0.6298, 'mint': 0.4869} / {'direct': 0.418, 'mint': 0.2961}; the taker classification by signature type / round USD / repeat address is not done. Market-only taker-flow baseline for the entry (code11/entry_flow.py): the cluster's first fill is on the outcome the clean-tape takers were NOT net-buying in the previous 10-60 s 0.60-0.66 (STUDY) / 0.58-0.61 (VALIDATE); net side in one-sided windows 0.57-0.62 / 0.52-0.59: stable across the halves (unlike the favourite), below the real-Chainlink posture at the entry (0.66 / 0.72, iteration 10). | iteration 11 (late): takers dispersed (top-10 12.6%, top-50 28.9% of VALIDATE fills); all signature types moved with the drift (code11/takers_drift.py)."
+  },
+  "X105": {
+   "status": "open",
+   "evidence": "source: panel iter10 information I10-5 (Chainlink noise-regime onset). Not run (endpoint runs on 10-30 12-24)."
+  },
+  "X106": {
+   "status": "tried",
+   "evidence": "source: panel iter10 mechanics P1 (window terminal net position and the strict-fill replay as a state machine). Strict-fill window replay (code11/replay.py, replay_score.py, replay_keys.py, replay_oracle.py, replay_frozen.py): 240 configurations x 2,291 lot BTC 5m windows. Frozen posture at the rule's price (last print - 0.01), session size, latency 2 s, slack 2: per-window PnL corr STUDY [0.0329, 0.0695] / VALIDATE [0.2066, 0.2181] (return -0.1655); STUDY-chosen favourite rule 0.286 / 0.174 on STUDY reverses to -0.103 / -0.082 on VALIDATE; ORACLE side (the cluster's own terminal net side) STUDY [0.505, 0.637] / VALIDATE [0.473, 0.527]: the outcome bar sits at the ceiling of a perfect window side under strict fills. Fast clock (execution order, latency ~0, code11/replay_fast.py): posture [0.1827, 0.2406] (return 0.0084), two-sided [0.2029, 0.2153], oracle side [0.4888, 0.5284]: speed removes the adverse selection (return -16% -> ~0%) but not the side gap."
+  },
+  "X107": {
+   "status": "open",
+   "evidence": "source: panel iter10 mechanics P2 (size configuration as a controller state; reset clock and driver). Not run."
+  },
+  "X108": {
+   "status": "tried",
+   "evidence": "source: panel iter10 mechanics P3 (same-pass salt adjacency on the whole lot from calldata). code11/salt_pass.py on the lot calldata (b1_cluster_orders_*): pairs of filled maker BUY orders of one wallet in one market with 0 < delta salt <= 40 (~3 s of signing): on the other outcome 0.103 (STUDY, 233 pairs) / 0.1034 (VALIDATE, 880) vs a within-(wallet, market) permutation null 0.4683 / 0.4811; off-session 0.1125 vs 0.4918, 62/250 0.1229 vs 0.5052, 500 0.0942 vs 0.4391. The 62/250 ladder looks exactly like the one-sided 500 ladder on this statistic, but because filled rungs live ~0.5-1.5 s the test is confounded with one-sided taker bursts and cannot separate one-sided passes from taker-chosen sides by itself."
+  },
+  "X109": {
+   "status": "tried",
+   "evidence": "source: panel iter10 mechanics P4 (re-scope the side to the window entry / net side). code11/window_side.py: one-sided windows (>= 70% of shares) STUDY 406 / VALIDATE 584; time-weighted posture majority vs net side 0.4335 / 0.6267; posture at the first quoting second 0.5739 / 0.5736; first fill side = net side 0.9015 / 0.8065; the net side won 0.6158 / 0.3253; strict replays' net side 0.38-0.63 / 0.32-0.71. No public window rule reaches 0.80."
+  },
+  "X110": {
+   "status": "tried",
+   "evidence": "source: panel iter10 assumptions P1 (off-session fill side = Binance pick-off). Pick-off side (the outcome the last Binance second moved against) in the window replay: net side 0.44-0.53 (STUDY) / 0.68-0.70 (VALIDATE), PnL corr 0.10-0.20 / 0.10-0.19, no better than the posture or a two-sided ladder; the mechanics panel's match-clock test found no ms peak (0.43-0.58, 10-26) and the information panel no trigger spike."
+  },
+  "X111": {
+   "status": "open",
+   "evidence": "source: panel iter10 assumptions P2 (the 10-27 regime break). Partial (code11/fill_type.py, iter11_fav_by_block.json, replay by day): the favourite share of the maker fills falls by day 0.59, 0.56, 0.53, 0.45 (10-23..26), 0.36, 0.37, 0.29, 0.25 (10-27..30); per 6-h block 0.37-0.76 (STUDY) and 0.20-0.59 (VALIDATE; 10-28 18-24 0.59): a noisy drift with steps near 10-26 12:00 and 10-27 12:00, not one break; realised vol rose (v300 at fills 2.5-4.1e-5 STUDY days, 2.9-6.0e-5 VALIDATE) and DVOL stayed 37-40. The counterparty and engine-fingerprint steps are not done. | iteration 11 (late): takers are dispersed (VALIDATE 4,396 takers, top-10 12.6%); the SAME takers' fills moved from the favourite 0.517 to 0.3188; the market's clean taker demand is 0.46-0.51 favourite on every day: the change is the cluster's quote side, not a taker population (P2 (a) rejected). The posture's best sigma multiplier per day {'10-23': 0.5, '10-24': 0.85, '10-25': 0.5, '10-26': 1.2, '10-27': 2.0, '10-28': 1.4, '10-29': 2.0, '10-30': 2.0} (k x v300; 6-h blocks 0.5-1.2 up to 10-26 06:00, 1.4-2.5 from 10-26 12:00): a version-like step in the engine's volatility input/multiplier around 10-26 06-12 UTC (P2 (b)); its driver is open (code11/k_by_day.py)."
+  },
+  "X112": {
+   "status": "open",
+   "evidence": "source: panel iter10 assumptions P3 (an exam unit the whole next lot supports). Partial: the price part of a recording-free unit exists (R7-price in-block); print-level selection on shared-only inputs is not scored yet (needs X102's Chainlink seconds or the 11-01 blocks)."
+  },
+  "X113": {
+   "status": "open",
+   "evidence": "source: panel iter10 assumptions P4 (size configuration epochs). Not run."
   }
  },
  "live_split": {

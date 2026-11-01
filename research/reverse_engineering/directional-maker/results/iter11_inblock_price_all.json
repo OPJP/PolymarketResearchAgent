@@ -1,0 +1,60 @@
+{
+ "study": {
+  "fills": 8256,
+  "inblock_anchor_share": 0.8542,
+  "cluster_tx_position_found": 1.0,
+  "block_clock_within_tick": 0.617,
+  "inblock_within_tick": 0.7512,
+  "inblock_first_row_within_tick": 0.7512,
+  "inblock_last_print_no_offset_within_tick": 0.6931,
+  "inblock_exact": 0.4351,
+  "gain": 0.1342,
+  "gain_ci95_2h_blocks": [
+   0.1107,
+   0.1576
+  ],
+  "n_2h_blocks": 34,
+  "per_wallet_inblock": {
+   "almach": 0.7486,
+   "bosona": 0.749,
+   "momoney": 0.7558
+  },
+  "per_wallet_block": {
+   "almach": 0.5952,
+   "bosona": 0.6327,
+   "momoney": 0.6208
+  }
+ },
+ "validate": {
+  "fills": 27988,
+  "inblock_anchor_share": 0.8156,
+  "cluster_tx_position_found": 0.9997,
+  "block_clock_within_tick": 0.7091,
+  "inblock_within_tick": 0.8065,
+  "inblock_first_row_within_tick": 0.8065,
+  "inblock_last_print_no_offset_within_tick": 0.7728,
+  "inblock_exact": 0.4535,
+  "gain": 0.0975,
+  "gain_ci95_2h_blocks": [
+   0.0836,
+   0.1114
+  ],
+  "n_2h_blocks": 48,
+  "per_wallet_inblock": {
+   "almach": 0.805,
+   "bosona": 0.8004,
+   "momoney": 0.8139
+  },
+  "per_wallet_block": {
+   "almach": 0.7066,
+   "bosona": 0.7104,
+   "momoney": 0.7101
+  },
+  "halves_inblock": [
+   0.8063,
+   0.8066
+  ]
+ },
+ "criterion": "adopt if VALIDATE inblock >= block + 0.03 and gain CI lower bound > 0 (pre-registered 00:43 UTC)",
+ "adopted": true
+}

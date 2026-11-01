@@ -1,0 +1,112 @@
+{
+ "high_k_10-27..30|250": {
+  "n": 3443,
+  "best_k": 2.0,
+  "acc_best": 0.725,
+  "acc_k0.5": 0.359,
+  "acc_k1.4": 0.688,
+  "acc_k2.0": 0.725,
+  "regionD_n": 204,
+  "regionD_acc": 0.52
+ },
+ "high_k_10-27..30|500": {
+  "n": 8334,
+  "best_k": 2.0,
+  "acc_best": 0.72,
+  "acc_k0.5": 0.375,
+  "acc_k1.4": 0.709,
+  "acc_k2.0": 0.72,
+  "regionD_n": 337,
+  "regionD_acc": 0.816
+ },
+ "high_k_10-27..30|62": {
+  "n": 3550,
+  "best_k": 2.0,
+  "acc_best": 0.649,
+  "acc_k0.5": 0.435,
+  "acc_k1.4": 0.627,
+  "acc_k2.0": 0.649,
+  "regionD_n": 238,
+  "regionD_acc": 0.508
+ },
+ "high_k_10-27..30|other": {
+  "n": 4389,
+  "best_k": 2.0,
+  "acc_best": 0.714,
+  "acc_k0.5": 0.363,
+  "acc_k1.4": 0.705,
+  "acc_k2.0": 0.714,
+  "regionD_n": 163,
+  "regionD_acc": 0.571
+ },
+ "low_k_10-23..25|250": {
+  "n": 385,
+  "best_k": 1.0,
+  "acc_best": 0.712,
+  "acc_k0.5": 0.66,
+  "acc_k1.4": 0.67,
+  "acc_k2.0": 0.517,
+  "regionD_n": 26,
+  "regionD_acc": 0.923
+ },
+ "low_k_10-23..25|500": {
+  "n": 1034,
+  "best_k": 0.5,
+  "acc_best": 0.636,
+  "acc_k0.5": 0.636,
+  "acc_k1.4": 0.489,
+  "acc_k2.0": 0.459,
+  "regionD_n": 149,
+  "regionD_acc": 0.611
+ },
+ "low_k_10-23..25|62": {
+  "n": 1113,
+  "best_k": 0.85,
+  "acc_best": 0.625,
+  "acc_k0.5": 0.607,
+  "acc_k1.4": 0.586,
+  "acc_k2.0": 0.496,
+  "regionD_n": 162,
+  "regionD_acc": 0.642
+ },
+ "low_k_10-23..25|other": {
+  "n": 592,
+  "best_k": 0.5,
+  "acc_best": 0.61,
+  "acc_k0.5": 0.61,
+  "acc_k1.4": 0.458,
+  "acc_k2.0": 0.429,
+  "regionD_n": 34,
+  "regionD_acc": 0.529
+ },
+ "monday_10-26|500": {
+  "n": 1220,
+  "best_k": 1.4,
+  "acc_best": 0.629,
+  "acc_k0.5": 0.497,
+  "acc_k1.4": 0.629,
+  "acc_k2.0": 0.608,
+  "regionD_n": 98,
+  "regionD_acc": 0.755
+ },
+ "monday_10-26|62": {
+  "n": 911,
+  "best_k": 1.0,
+  "acc_best": 0.574,
+  "acc_k0.5": 0.52,
+  "acc_k1.4": 0.537,
+  "acc_k2.0": 0.524,
+  "regionD_n": 79,
+  "regionD_acc": 0.57
+ },
+ "monday_10-26|other": {
+  "n": 540,
+  "best_k": 2.0,
+  "acc_best": 0.631,
+  "acc_k0.5": 0.42,
+  "acc_k1.4": 0.622,
+  "acc_k2.0": 0.631,
+  "regionD_n": 26,
+  "regionD_acc": 0.5
+ }
+}

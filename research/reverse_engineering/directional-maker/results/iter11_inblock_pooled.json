@@ -1,0 +1,22 @@
+{
+ "btc15m_validate_per_wallet": {
+  "almach": 0.7516,
+  "bosona": 0.7634,
+  "momoney": 0.7838
+ },
+ "btc15m_validate_halves": [
+  0.7838,
+  0.7568
+ ],
+ "pooled_validate": 0.8026,
+ "pooled_validate_per_wallet": {
+  "almach": 0.8,
+  "bosona": 0.7966,
+  "momoney": 0.8111
+ },
+ "pooled_validate_halves": [
+  0.8044,
+  0.8014
+ ],
+ "pooled_n": 30984
+}

@@ -1,0 +1,84 @@
+{
+ "study": {
+  "fills": 8246,
+  "type_share": {
+   "mint": 0.8126,
+   "direct": 0.1874
+  },
+  "fav_share_by_type": {
+   "direct": 0.6298,
+   "mint": 0.4869
+  },
+  "won_by_type": {
+   "direct": 0.4887,
+   "mint": 0.504
+  },
+  "return_by_type": {
+   "direct": 0.0209,
+   "mint": 0.0281
+  },
+  "by_day": {
+   "2026-10-23": {
+    "mint_share": 0.685,
+    "fav_share": 0.591,
+    "won": 0.463
+   },
+   "2026-10-24": {
+    "mint_share": 0.86,
+    "fav_share": 0.557,
+    "won": 0.571
+   },
+   "2026-10-25": {
+    "mint_share": 0.868,
+    "fav_share": 0.531,
+    "won": 0.502
+   },
+   "2026-10-26": {
+    "mint_share": 0.877,
+    "fav_share": 0.449,
+    "won": 0.519
+   }
+  }
+ },
+ "validate": {
+  "fills": 27915,
+  "type_share": {
+   "mint": 0.8804,
+   "direct": 0.1196
+  },
+  "fav_share_by_type": {
+   "direct": 0.418,
+   "mint": 0.2961
+  },
+  "won_by_type": {
+   "direct": 0.4539,
+   "mint": 0.3633
+  },
+  "return_by_type": {
+   "direct": 0.1193,
+   "mint": 0.0345
+  },
+  "by_day": {
+   "2026-10-27": {
+    "mint_share": 0.871,
+    "fav_share": 0.359,
+    "won": 0.399
+   },
+   "2026-10-28": {
+    "mint_share": 0.859,
+    "fav_share": 0.37,
+    "won": 0.419
+   },
+   "2026-10-29": {
+    "mint_share": 0.882,
+    "fav_share": 0.287,
+    "won": 0.373
+   },
+   "2026-10-30": {
+    "mint_share": 0.906,
+    "fav_share": 0.252,
+    "won": 0.315
+   }
+  }
+ }
+}

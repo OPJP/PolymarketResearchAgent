@@ -1,0 +1,482 @@
+{
+ "L0_touch0_d0.0_posture": {
+  "study": {
+   "corr": [
+    0.04,
+    0.114
+   ],
+   "net_side": 0.414
+  },
+  "validate": {
+   "corr": [
+    0.231,
+    0.235
+   ],
+   "net_side": 0.668
+  }
+ },
+ "L0_touch0_d0.0_two": {
+  "study": {
+   "corr": [
+    0.234,
+    0.171
+   ],
+   "net_side": 0.458
+  },
+  "validate": {
+   "corr": [
+    0.195,
+    0.177
+   ],
+   "net_side": 0.707
+  }
+ },
+ "L0_touch0_d0.0_cheaper": {
+  "study": {
+   "corr": [
+    -0.19,
+    -0.139
+   ],
+   "net_side": 0.387
+  },
+  "validate": {
+   "corr": [
+    0.167,
+    0.146
+   ],
+   "net_side": 0.688
+  }
+ },
+ "L0_touch0_d0.0_fav": {
+  "study": {
+   "corr": [
+    0.278,
+    0.192
+   ],
+   "net_side": 0.626
+  },
+  "validate": {
+   "corr": [
+    -0.087,
+    -0.06
+   ],
+   "net_side": 0.324
+  }
+ },
+ "L0_touch0_d0.0_pickoff": {
+  "study": {
+   "corr": [
+    0.196,
+    0.146
+   ],
+   "net_side": 0.525
+  },
+  "validate": {
+   "corr": [
+    0.102,
+    0.096
+   ],
+   "net_side": 0.692
+  }
+ },
+ "L0_touch0_d0.01_posture": {
+  "study": {
+   "corr": [
+    0.044,
+    0.102
+   ],
+   "net_side": 0.438
+  },
+  "validate": {
+   "corr": [
+    0.219,
+    0.219
+   ],
+   "net_side": 0.668
+  }
+ },
+ "L0_touch0_d0.01_two": {
+  "study": {
+   "corr": [
+    0.218,
+    0.149
+   ],
+   "net_side": 0.448
+  },
+  "validate": {
+   "corr": [
+    0.17,
+    0.162
+   ],
+   "net_side": 0.697
+  }
+ },
+ "L0_touch0_d0.01_cheaper": {
+  "study": {
+   "corr": [
+    -0.192,
+    -0.148
+   ],
+   "net_side": 0.377
+  },
+  "validate": {
+   "corr": [
+    0.169,
+    0.14
+   ],
+   "net_side": 0.693
+  }
+ },
+ "L0_touch0_d0.01_fav": {
+  "study": {
+   "corr": [
+    0.292,
+    0.193
+   ],
+   "net_side": 0.606
+  },
+  "validate": {
+   "corr": [
+    -0.086,
+    -0.051
+   ],
+   "net_side": 0.36
+  }
+ },
+ "L0_touch0_d0.01_pickoff": {
+  "study": {
+   "corr": [
+    0.193,
+    0.12
+   ],
+   "net_side": 0.498
+  },
+  "validate": {
+   "corr": [
+    0.1,
+    0.093
+   ],
+   "net_side": 0.687
+  }
+ },
+ "L0_touch1_d0.01_posture": {
+  "study": {
+   "corr": [
+    0.04,
+    0.117
+   ],
+   "net_side": 0.416
+  },
+  "validate": {
+   "corr": [
+    0.233,
+    0.238
+   ],
+   "net_side": 0.668
+  }
+ },
+ "L0_touch1_d0.01_two": {
+  "study": {
+   "corr": [
+    0.233,
+    0.181
+   ],
+   "net_side": 0.463
+  },
+  "validate": {
+   "corr": [
+    0.205,
+    0.187
+   ],
+   "net_side": 0.714
+  }
+ },
+ "L0_touch1_d0.01_cheaper": {
+  "study": {
+   "corr": [
+    -0.19,
+    -0.137
+   ],
+   "net_side": 0.384
+  },
+  "validate": {
+   "corr": [
+    0.167,
+    0.148
+   ],
+   "net_side": 0.688
+  }
+ },
+ "L0_touch1_d0.01_fav": {
+  "study": {
+   "corr": [
+    0.28,
+    0.195
+   ],
+   "net_side": 0.626
+  },
+  "validate": {
+   "corr": [
+    -0.086,
+    -0.059
+   ],
+   "net_side": 0.33
+  }
+ },
+ "L0_touch1_d0.01_pickoff": {
+  "study": {
+   "corr": [
+    0.192,
+    0.154
+   ],
+   "net_side": 0.517
+  },
+  "validate": {
+   "corr": [
+    0.11,
+    0.106
+   ],
+   "net_side": 0.693
+  }
+ },
+ "L2_touch0_d0.0_posture": {
+  "study": {
+   "corr": [
+    0.013,
+    0.089
+   ],
+   "net_side": 0.426
+  },
+  "validate": {
+   "corr": [
+    0.246,
+    0.237
+   ],
+   "net_side": 0.668
+  }
+ },
+ "L2_touch0_d0.0_two": {
+  "study": {
+   "corr": [
+    0.133,
+    0.129
+   ],
+   "net_side": 0.421
+  },
+  "validate": {
+   "corr": [
+    0.181,
+    0.163
+   ],
+   "net_side": 0.683
+  }
+ },
+ "L2_touch0_d0.0_cheaper": {
+  "study": {
+   "corr": [
+    -0.206,
+    -0.144
+   ],
+   "net_side": 0.379
+  },
+  "validate": {
+   "corr": [
+    0.171,
+    0.149
+   ],
+   "net_side": 0.693
+  }
+ },
+ "L2_touch0_d0.0_fav": {
+  "study": {
+   "corr": [
+    0.26,
+    0.18
+   ],
+   "net_side": 0.631
+  },
+  "validate": {
+   "corr": [
+    -0.088,
+    -0.064
+   ],
+   "net_side": 0.351
+  }
+ },
+ "L2_touch0_d0.0_pickoff": {
+  "study": {
+   "corr": [
+    0.101,
+    0.102
+   ],
+   "net_side": 0.436
+  },
+  "validate": {
+   "corr": [
+    0.179,
+    0.167
+   ],
+   "net_side": 0.683
+  }
+ },
+ "L2_touch0_d0.01_posture": {
+  "study": {
+   "corr": [
+    0.03,
+    0.086
+   ],
+   "net_side": 0.414
+  },
+  "validate": {
+   "corr": [
+    0.234,
+    0.225
+   ],
+   "net_side": 0.675
+  }
+ },
+ "L2_touch0_d0.01_two": {
+  "study": {
+   "corr": [
+    0.119,
+    0.104
+   ],
+   "net_side": 0.424
+  },
+  "validate": {
+   "corr": [
+    0.166,
+    0.152
+   ],
+   "net_side": 0.695
+  }
+ },
+ "L2_touch0_d0.01_cheaper": {
+  "study": {
+   "corr": [
+    -0.2,
+    -0.15
+   ],
+   "net_side": 0.377
+  },
+  "validate": {
+   "corr": [
+    0.163,
+    0.136
+   ],
+   "net_side": 0.697
+  }
+ },
+ "L2_touch0_d0.01_fav": {
+  "study": {
+   "corr": [
+    0.252,
+    0.179
+   ],
+   "net_side": 0.601
+  },
+  "validate": {
+   "corr": [
+    -0.082,
+    -0.056
+   ],
+   "net_side": 0.378
+  }
+ },
+ "L2_touch0_d0.01_pickoff": {
+  "study": {
+   "corr": [
+    0.11,
+    0.096
+   ],
+   "net_side": 0.443
+  },
+  "validate": {
+   "corr": [
+    0.146,
+    0.132
+   ],
+   "net_side": 0.682
+  }
+ },
+ "L2_touch1_d0.01_posture": {
+  "study": {
+   "corr": [
+    0.013,
+    0.091
+   ],
+   "net_side": 0.431
+  },
+  "validate": {
+   "corr": [
+    0.247,
+    0.239
+   ],
+   "net_side": 0.668
+  }
+ },
+ "L2_touch1_d0.01_two": {
+  "study": {
+   "corr": [
+    0.131,
+    0.133
+   ],
+   "net_side": 0.419
+  },
+  "validate": {
+   "corr": [
+    0.191,
+    0.174
+   ],
+   "net_side": 0.687
+  }
+ },
+ "L2_touch1_d0.01_cheaper": {
+  "study": {
+   "corr": [
+    -0.207,
+    -0.142
+   ],
+   "net_side": 0.379
+  },
+  "validate": {
+   "corr": [
+    0.171,
+    0.15
+   ],
+   "net_side": 0.693
+  }
+ },
+ "L2_touch1_d0.01_fav": {
+  "study": {
+   "corr": [
+    0.261,
+    0.184
+   ],
+   "net_side": 0.628
+  },
+  "validate": {
+   "corr": [
+    -0.086,
+    -0.063
+   ],
+   "net_side": 0.351
+  }
+ },
+ "L2_touch1_d0.01_pickoff": {
+  "study": {
+   "corr": [
+    0.098,
+    0.103
+   ],
+   "net_side": 0.436
+  },
+  "validate": {
+   "corr": [
+    0.189,
+    0.174
+   ],
+   "net_side": 0.685
+  }
+ }
+}

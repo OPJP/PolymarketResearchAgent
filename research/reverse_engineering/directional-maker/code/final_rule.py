@@ -1,4 +1,15 @@
-"""Frozen rule for the directional-maker cluster (bosona, almach, mo-money). Iteration 8 rule R6 = R5 below on BTC 5m
+"""Frozen rule for the directional-maker cluster (bosona, almach, mo-money).
+
+Iteration 11 rule R7 = R6 (below, unchanged) + a recording-free clock for the price rule (pre-registered 2026-11-01 00:43 UTC,
+adopted on VALIDATE: all 27,988 BTC 5m maker fills 0.807 vs block clock 0.709; BTC 15m 0.766 vs 0.666): the anchor "last
+clean trade of the market before the fill" is taken on the shared recorder's match ms where the trade is recorded (R4),
+otherwise on the on-chain execution order inside the fill's block (code/inblock_price.py: eth_getTransactionByHash for the
+fill's block, eth_getBlockByNumber(block, false) for the order; the last clean transaction earlier in the block, else the
+last clean print before the block second), minus 0.01. evaluate() reports it as 'price_inblock', 'price_r7' and
+'union_btc5m_15m.price_within_0.01_r7' next to the block clock ('price'). It needs Polygon RPC (publicnode / drpc); on RPC
+failure it reports an error and the block clock stays.
+
+Iteration 8 rule R6 = R5 below on BTC 5m
 (unchanged) + BTC 15m in the universe + the fill side per fill on the match clock:
 * universe (pre-registered 2026-10-31, iteration 8): BTC 5m and BTC 15m Up/Down windows; metrics per family and pooled
   over the union ('btc15m', 'union_btc5m_15m', 'scope'); a block with BTC 5m off is scored on BTC 15m;
@@ -498,6 +509,11 @@ def _evaluate_btc15m(start_ts, end_ts, intervals, pm, sp, ct, local):
         pw_wal.append(r.wallet)
     e = np.abs(np.asarray(actual) - np.asarray(pred))
     out["price"] = {"n_fills": int(len(e)), "within_0.01": float(np.mean(e <= 0.0105)) if len(e) else float("nan")}
+    try:  # R7 price (iteration 11): in-block execution-order anchor
+        import inblock_price
+        out["price_inblock"] = inblock_price.price_inblock(mk, w, clean, _cluster_tx_hashes(start_ts, end_ts, pm, local), CLUSTER)
+    except Exception as ex:  # noqa: BLE001
+        out["price_inblock"] = {"error": repr(ex)[:300]}
     pay = dict(zip(w["cid"], w["up_payout"]))
     mk2 = mk.assign(c=[tok2cid.get(t) for t in mk["token_id"]], up=mk["token_id"].isin(upset))
     mk2["won"] = [(pay.get(c) if u else 1 - pay.get(c)) if pay.get(c) is not None else np.nan for c, u in zip(mk2["c"], mk2["up"])]
@@ -888,6 +904,30 @@ def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_
             per_wallet[name]["price_combined_within_0.01"] = v.get("combined_within_0.01")
     except Exception as ex:  # the live part must never break the tape evaluation
         res["price_match_clock"] = {"error": repr(ex)[:300]}
+    # R7 price (iteration 11): the same rule on a recording-free match clock, the on-chain execution order inside the
+    # fill's block (code/inblock_price.py); reported beside the block clock ('price') and the live match clock
+    try:
+        import inblock_price
+        _txh7 = _cluster_tx_hashes(start_ts, end_ts, pm, local)
+        res["price_inblock"], _pin = inblock_price.price_inblock(mk, w, clean, _txh7, CLUSTER, return_preds=True)
+        for name, v in res["price_inblock"].get("per_wallet", {}).items():
+            per_wallet[name]["price_inblock_within_0.01"] = v.get("within_0.01_inblock")
+        # R7 price = the live match clock where the shared recorder has the fill's trade, else the in-block clock
+        mk_h7 = mk.assign(tx=mk["tx"].map(_txh7).fillna("").astype(str))
+        r7 = price_match_clock(mk_h7, w, start_ts, end_ts, _pin)
+        if "combined_within_0.01" in r7:
+            res["price_r7"] = {"within_0.01": r7["combined_within_0.01"], "n": r7.get("combined_n"),
+                               "match_clock_share": r7.get("coverage_in_x"), "clock": "match clock where recorded, else in-block",
+                               "per_wallet": {k: v.get("combined_within_0.01") for k, v in r7.get("per_wallet", {}).items()}}
+        else:
+            res["price_r7"] = {"within_0.01": res["price_inblock"].get("within_0.01_inblock"), "n": res["price_inblock"].get("n_fills"),
+                               "match_clock_share": 0.0, "clock": "in-block (no live trade records for this period)",
+                               "per_wallet": {k: v.get("within_0.01_inblock") for k, v in res["price_inblock"].get("per_wallet", {}).items()}}
+        for name, v in res["price_r7"]["per_wallet"].items():
+            per_wallet[name]["price_r7_within_0.01"] = v
+    except Exception as ex:  # the RPC part must never break the tape evaluation
+        res["price_inblock"] = res.get("price_inblock") or {"error": repr(ex)[:300]}
+        res["price_r7"] = {"error": repr(ex)[:300]}
     # PnL per window: wallet maker fills vs the rule's expected PnL
     pay = dict(zip(w["cid"], w["up_payout"]))
     mk2 = mk.assign(c=[tok2cid.get(t) for t in mk["token_id"]], up=mk["token_id"].isin(upset))
@@ -996,6 +1036,19 @@ def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_
             if n5 + n15:
                 res["union_btc5m_15m"]["price_within_0.01_block_clock"] = (
                     (res["price"]["within_0.01"] * n5 if n5 else 0.0) + (r15["price"]["within_0.01"] * n15 if n15 else 0.0)) / (n5 + n15)
+            # R7 price (iteration 11): pooled in-block clock
+            p5, p15 = res.get("price_inblock", {}), r15.get("price_inblock", {})
+            m5, m15 = int(p5.get("n_fills", 0) or 0), int(p15.get("n_fills", 0) or 0)
+            if m5 + m15:
+                res["union_btc5m_15m"]["price_within_0.01_inblock"] = (
+                    (p5.get("within_0.01_inblock", 0.0) * m5 if m5 else 0.0) + (p15.get("within_0.01_inblock", 0.0) * m15 if m15 else 0.0)) / (m5 + m15)
+                res["union_btc5m_15m"]["price_inblock_fills"] = m5 + m15
+            q5 = res.get("price_r7", {})
+            n7 = int(q5.get("n") or 0)
+            if n7 + m15 and q5.get("within_0.01") is not None:
+                res["union_btc5m_15m"]["price_within_0.01_r7"] = (
+                    q5["within_0.01"] * n7 + (p15.get("within_0.01_inblock", 0.0) * m15 if m15 else 0.0)) / (n7 + m15)
+                res["union_btc5m_15m"]["price_r7_note"] = "BTC 5m: match clock where recorded else in-block; BTC 15m: in-block"
             for name in CLUSTER.values():
                 if name in res.get("per_wallet", {}) and name in r15.get("per_wallet", {}):
                     res["per_wallet"][name]["btc15m"] = r15["per_wallet"][name]

@@ -1,0 +1,40 @@
+{
+ "study": {
+  "windows": 583,
+  "one_sided": 406,
+  "L10": {
+   "coverage": 1.0,
+   "first_fill_complement": 0.6003,
+   "net_side_complement_one_sided": 0.569
+  },
+  "L30": {
+   "coverage": 1.0,
+   "first_fill_complement": 0.6158,
+   "net_side_complement_one_sided": 0.6084
+  },
+  "L60": {
+   "coverage": 1.0,
+   "first_fill_complement": 0.6587,
+   "net_side_complement_one_sided": 0.6158
+  }
+ },
+ "validate": {
+  "windows": 1089,
+  "one_sided": 584,
+  "L10": {
+   "coverage": 0.9991,
+   "first_fill_complement": 0.5809,
+   "net_side_complement_one_sided": 0.5249
+  },
+  "L30": {
+   "coverage": 1.0,
+   "first_fill_complement": 0.607,
+   "net_side_complement_one_sided": 0.5771
+  },
+  "L60": {
+   "coverage": 1.0,
+   "first_fill_complement": 0.607,
+   "net_side_complement_one_sided": 0.5925
+  }
+ }
+}
