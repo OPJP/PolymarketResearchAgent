@@ -1,0 +1,194 @@
+{
+ "fit": [
+  "10-20"
+ ],
+ "score": [
+  "10-21",
+  "10-22"
+ ],
+ "R": 200,
+ "large_size_mean_fit": 102.0,
+ "fit_auc_dec": 0.8427,
+ "fit_auc_wal": 0.9028,
+ "fit_table_P_large_slot_rel": {
+  "0|0": [
+   0.068,
+   1366
+  ],
+  "0|1": [
+   0.118,
+   8752
+  ],
+  "0|2": [
+   0.027,
+   9806
+  ],
+  "1|0": [
+   0.223,
+   175
+  ],
+  "1|1": [
+   0.221,
+   1627
+  ],
+  "1|2": [
+   0.033,
+   1882
+  ],
+  "2|0": [
+   0.691,
+   188
+  ],
+  "2|1": [
+   0.856,
+   1482
+  ],
+  "2|2": [
+   0.143,
+   1730
+  ]
+ },
+ "step1_auc_Srel_true_side": {
+  "DS|slot0": 0.6924,
+  "DS|slot1": 0.7043,
+  "DS|slot2": 0.8419,
+  "GF|slot0": 0.716,
+  "GF|slot1": 0.72,
+  "GF|slot2": 0.847,
+  "XM|slot0": 0.7965,
+  "XM|slot1": 0.8057,
+  "XM|slot2": 0.8801
+ },
+ "ladder": {
+  "sh|menu": {
+   "rN": 0.2895,
+   "pnl_P": 0.1951,
+   "pnl_S": 0.2244,
+   "n": 494
+  },
+  "sh|class_oracle": {
+   "rN": 0.5561,
+   "pnl_P": 0.5049,
+   "pnl_S": 0.5161,
+   "n": 494
+  },
+  "sh|smach_own_dec": {
+   "rN": 0.3042,
+   "pnl_P": 0.2282,
+   "pnl_S": 0.2641,
+   "n": 494
+  },
+  "sh|smach_own_argmax_dec": {
+   "rN": 0.285,
+   "pnl_P": 0.2034,
+   "pnl_S": 0.2417,
+   "n": 494
+  },
+  "sh|smach_true_state_dec": {
+   "rN": 0.5828,
+   "pnl_P": 0.5424,
+   "pnl_S": 0.5519,
+   "n": 494
+  },
+  "sh|smach_own_wal": {
+   "rN": 0.3015,
+   "pnl_P": 0.2321,
+   "pnl_S": 0.2648,
+   "n": 494
+  },
+  "sh|smach_own_argmax_wal": {
+   "rN": 0.2314,
+   "pnl_P": 0.1675,
+   "pnl_S": 0.2161,
+   "n": 494
+  },
+  "sh|smach_true_state_wal": {
+   "rN": 0.588,
+   "pnl_P": 0.5525,
+   "pnl_S": 0.5659,
+   "n": 494
+  },
+  "sg|menu": {
+   "rN": 0.3295,
+   "pnl_P": 0.1649,
+   "pnl_S": 0.2085,
+   "n": 494
+  },
+  "sg|class_oracle": {
+   "rN": 0.8014,
+   "pnl_P": 0.7017,
+   "pnl_S": 0.7455,
+   "n": 494
+  },
+  "sg|smach_own_dec": {
+   "rN": 0.3492,
+   "pnl_P": 0.1939,
+   "pnl_S": 0.2527,
+   "n": 494
+  },
+  "sg|smach_own_argmax_dec": {
+   "rN": 0.3359,
+   "pnl_P": 0.1771,
+   "pnl_S": 0.2496,
+   "n": 494
+  },
+  "sg|smach_true_state_dec": {
+   "rN": 0.579,
+   "pnl_P": 0.4388,
+   "pnl_S": 0.4751,
+   "n": 494
+  },
+  "sg|smach_own_wal": {
+   "rN": 0.3504,
+   "pnl_P": 0.1978,
+   "pnl_S": 0.2548,
+   "n": 494
+  },
+  "sg|smach_own_argmax_wal": {
+   "rN": 0.2797,
+   "pnl_P": 0.1334,
+   "pnl_S": 0.2197,
+   "n": 494
+  },
+  "sg|smach_true_state_wal": {
+   "rN": 0.5933,
+   "pnl_P": 0.4562,
+   "pnl_S": 0.4936,
+   "n": 494
+  }
+ },
+ "S_own_agreement_with_operator_S": {
+  "dec": 0.5464,
+  "wal": 0.5548
+ },
+ "auc_large_class": {
+  "dec": {
+   "pooled_own": 0.6934,
+   "pooled_true_state": 0.7458,
+   "DS_own": 0.6606,
+   "DS_true_state": 0.7131,
+   "GF_own": 0.6681,
+   "GF_true_state": 0.747,
+   "XM_own": 0.5432,
+   "XM_true_state": 0.6904
+  },
+  "wal": {
+   "pooled_own": 0.7932,
+   "pooled_true_state": 0.8183,
+   "DS_own": 0.6041,
+   "DS_true_state": 0.6621,
+   "GF_own": 0.6995,
+   "GF_true_state": 0.7593,
+   "XM_own": 0.5997,
+   "XM_true_state": 0.7138
+  }
+ },
+ "claim_window_net_r_ge_menu_plus_0.05": {
+  "dec": false,
+  "wal": false
+ },
+ "claim_S_agreement_ge_0.75": {
+  "dec": false,
+  "wal": false
+ }
+}

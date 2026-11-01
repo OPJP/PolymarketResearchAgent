@@ -1,0 +1,84 @@
+{
+ "source": "GDELT DOC 2.0 timelinevolraw, 24-h windows, 15-min bins",
+ "ranks": {
+  "polymarket": {
+   "10-13 14:10 XM share drop": {
+    "error": "HttpError('HTTP -1 for https://api.gdeltproject.org/api/v2/doc/doc?query=polymarket&mode=timelinevolraw&format=json&startdatetime=20261013021000&enddatetime=20261014021000: retries exhausted: HTTP 429"
+   },
+   "10-19 01:00 size phase on": {
+    "bins": 66,
+    "rank": 0.0
+   },
+   "10-19 13:00 size phase off": {
+    "bins": 85,
+    "rank": 0.0
+   },
+   "10-20 19:00 size phase": {
+    "bins": 79,
+    "rank": 0.0
+   },
+   "10-21 16:00 dispatch phase on": {
+    "bins": 84,
+    "rank": 0.9167
+   },
+   "10-22 13:00 dispatch phase off": {
+    "error": "HttpError('HTTP -1 for https://api.gdeltproject.org/api/v2/doc/doc?query=polymarket&mode=timelinevolraw&format=json&startdatetime=20261021230000&enddatetime=20261022230000: retries exhausted: HTTP 429"
+   },
+   "outage 10-09 09:35": {
+    "bins": 0,
+    "rank": null
+   },
+   "outage 10-11 12:35": {
+    "error": "HttpError('HTTP -1 for https://api.gdeltproject.org/api/v2/doc/doc?query=polymarket&mode=timelinevolraw&format=json&startdatetime=20261011003500&enddatetime=20261012003500: retries exhausted: HTTP 429"
+   },
+   "outage 10-12 09:15": {
+    "bins": 0,
+    "rank": null
+   },
+   "outage 10-21 07:15": {
+    "error": "HttpError('HTTP -1 for https://api.gdeltproject.org/api/v2/doc/doc?query=polymarket&mode=timelinevolraw&format=json&startdatetime=20261020191500&enddatetime=20261021191500: retries exhausted: HTTP 429"
+   }
+  },
+  "bitcoin": {
+   "10-13 14:10 XM share drop": {
+    "bins": 0,
+    "rank": null
+   },
+   "10-19 01:00 size phase on": {
+    "error": "HttpError('HTTP -1 for https://api.gdeltproject.org/api/v2/doc/doc?query=bitcoin&mode=timelinevolraw&format=json&startdatetime=20261018130000&enddatetime=20261019130000: retries exhausted: HTTP 429 fo"
+   },
+   "10-19 13:00 size phase off": {
+    "bins": 85,
+    "rank": 0.0
+   },
+   "10-20 19:00 size phase": {
+    "error": "HttpError('HTTP -1 for https://api.gdeltproject.org/api/v2/doc/doc?query=bitcoin&mode=timelinevolraw&format=json&startdatetime=20261020070000&enddatetime=20261021070000: retries exhausted: HTTP 429 fo"
+   },
+   "10-21 16:00 dispatch phase on": {
+    "error": "HttpError('HTTP -1 for https://api.gdeltproject.org/api/v2/doc/doc?query=bitcoin&mode=timelinevolraw&format=json&startdatetime=20261021040000&enddatetime=20261022040000: retries exhausted: HTTP 429 fo"
+   },
+   "10-22 13:00 dispatch phase off": {
+    "error": "HttpError('HTTP -1 for https://api.gdeltproject.org/api/v2/doc/doc?query=bitcoin&mode=timelinevolraw&format=json&startdatetime=20261021230000&enddatetime=20261022230000: retries exhausted: HTTP 429 fo"
+   },
+   "outage 10-09 09:35": {
+    "bins": 0,
+    "rank": null
+   },
+   "outage 10-11 12:35": {
+    "bins": 0,
+    "rank": null
+   },
+   "outage 10-12 09:15": {
+    "bins": 0,
+    "rank": null
+   },
+   "outage 10-21 07:15": {
+    "error": "HttpError('HTTP -1 for https://api.gdeltproject.org/api/v2/doc/doc?query=bitcoin&mode=timelinevolraw&format=json&startdatetime=20261020191500&enddatetime=20261021191500: retries exhausted: HTTP 429 fo"
+   }
+  }
+ },
+ "polymarket_mean_rank": 0.2292,
+ "polymarket_p_upper": 0.9706,
+ "bitcoin_mean_rank": 0.0,
+ "bitcoin_p_upper": 1.0
+}

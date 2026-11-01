@@ -3721,3 +3721,296 @@ Addendum (08:35 UTC):
 
 Iteration 16 ended about 08:50 UTC 11-01 (about 71 minutes). The shared recorder, rec_bn15 v2 and rec_eu11 are alive; no recorder was
 started this iteration.
+
+### Iteration 17 (2026-11-01 09:30 UTC start, local Windows laptop; development data: before H, and 10-31 00-06 / 12-18, 11-01 06-12)
+
+Split and primary metric unchanged (BUILD = 10-09..16, VALIDATE = 10-16..23). Calendar (`sealed.py btc5m-bot`, 09:31 UTC): released lots
+none; future examined until 10-31 00:00; the current block 11-01 06-12 is development. Shared recorder running (pid 27184, updated
+09:31). Budget: 1046 of 1200 minutes used before this iteration. The brief changed on 11-01 (hidden dimensions and indicators): E1-E7
+are added to the catalog; the `dimensions` (E1) and `indicators` ledgers are added to state.json; a "Missing dimensions" section
+follows below. Panel after iteration 16 (panels/iter16_*.md): 13 proposals, added as X164-X176: information P1-P5 = X164-X168,
+mechanics P1-P4 = X169-X172, assumptions P1-P4 = X173-X176. Overlaps: X164 (out-of-time decision record), X165 (XM regime change)
+and X175 (configuration drift) share one new-regime decision record; X169 (decision-memory state machine) and X176 (lean's free
+draws) share one replica; X173 (size-keyed routing) restates the size unit for X169.
+
+PIVOT (required: < 0.01 on the primary metric over iterations 15-16). New DATA and new UNIT: (1) the first OUT-OF-TIME complete
+decision record, in the new routing regime (11-01 06-12 development block: on-chain fills of all five operator wallets, calldata of
+every operator taker tx, server-ms matches from the live lab's trade records, the full-rate Binance spot feed rec_bn15 v2), on which
+the frozen exam routes are scored once; (2) the size class as a DECISION-level variable drawn before routing (assumptions panel), with
+the bot's own DECISION MEMORY (side of its last large order, commitment since) as the state of a hysteresis state machine (D2 state
+machine; mechanics panel), run on the replica's own sent orders.
+
+Competing explanations (iteration 17; what separates them):
+- H1 LATENCY-ARB TAKER ON A FASTER VIEW: the bot reads Binance spot top-of-book (sub-tick queue imbalance) ~100 ms after the exchange
+  stamp, decides at the knee 230-260 ms before its match, and takes the Polymarket ask before the makers re-quote; profit = rebate +
+  maker remainders, takers about break even. Separates: frozen dc14 side holds out of time (>= 0.80) in the new regime.
+- H2 VERSION-BOUND CONFIGURATION: the side and timing transfer, but the size menu, routing lists and per-wallet roles are scheduled
+  configuration (whole UTC hours, window-index arms) that changed after VALIDATE (XM ~10k fills a day on 10-31). Separates: per-wallet
+  large shares and carrier tables move between regimes while the decision-level quantities (pooled large share, side) do not.
+- H3 SIZE = DECISION MEMORY STATE MACHINE (mechanics panel): the large class follows the side of the bot's last large order S and the
+  commitment E since; seed / early flips / width are the only coins. Separates: a replica that runs S on its OWN sent orders agrees with
+  the operator's S (>= 0.75) and lifts window-net r over the menu by >= 0.05.
+- H4 SIZE = PRIVATE CONVICTION COIN: the class is drawn per decision from an input the public record lacks (an internal fair value or
+  a random draw), so no replica memory synchronizes with it. Separates: S_own agreement near the base rate implied by side accuracy
+  alone, and no lift.
+- H5 TWO-STREAM MARKET MAKER IN DISGUISE: the money is the maker remainder stream and the pair margin (assumptions panel: makers +$8
+  per window, takers -$4), and the taker decisions are the cost of keeping the remainders resting where the flow arrives. Separates: in
+  the new regime XM's role (maker share) changes and its PnL comes from the maker stream.
+- H6 SETTLEMENT-WINDOW EDGE (unlikely): the edge is in the last-60-s TWAP lock-in, not in the knee. Separates: side accuracy and take
+  rate by window minute; lock-in studies (iteration 13: B3b) showed no late-band change, kept as a control.
+- H7 SHARED SIGNAL VENDOR (unlikely): the five wallets and the fast crowd subscribe to one private feed. Separates: crowd co-takes
+  explained by the knee-clock design (53%, iteration 14) vs a residual fixed-lag cluster; 0xeebde7a0 another software stack (panel).
+This iteration discriminates H1 vs H2 on the out-of-time record, H3 vs H4 on the replica, and characterizes H5 in the new regime.
+
+PRE-REGISTRATION 11 (written 09:37 UTC 11-01, before any score of the new-regime record): OUT-OF-TIME SCORE OF THE FROZEN SIDE ROUTE on
+the 11-01 06:00-09:30 development windows (code/oot17.py). Orders: operator taker BUY orders of DS / GF / XM (one per (tx, wallet,
+token)), match ms m = the minimum server ms 's' of the live lab's trade records ('x', clob_crypto or btc5m_clob_raw2) with the order's
+tx hash. Binance: rec_bn15 v2 feed btc5m_bnspot2 (every bookTicker and trade message, laptop receive clock). Clock substitution
+(physics, fixed now): the capture's book cut X + 131 ms (its median spot-trade transit) becomes X + tau_lap, tau_lap = the median of
+(receive ms - T) of the block's trade messages, implemented by shifting the book receive times by (131 - tau_lap); trades by T.
+Model, features, anchor C_EX_MS = 260 and the 0.5 threshold are dc_exam14's, unchanged. Reported once: accuracy per order (pooled,
+per wallet), per decision (first-leg anchor), placebo m -/+ 3 s, coverage; bar 0.80 per order pooled (target condition 3); per wallet
+reported. W4 / W5 orders are scored as a separate line (not in the target). Whatever the result, nothing is refitted on it.
+
+PRE-REGISTRATION 12 (written 09:37 UTC 11-01, before smach17 runs): THE DECISION-MEMORY STATE MACHINE AS A REPLICA SIZE INPUT
+(X169 steps 1, 2 and 4; X173 step 3; code/smach17.py). Record: operator taker orders of 10-20..22 (dcfit14 frame, exact calldata
+classes, large = original size >= 90; 10-20's 19-h size phase kept as is). Frozen definitions: slot class from the gap g to the
+previous operator taker order on the same (window, outcome): fast follower g < 150 ms, sequential 150-400 ms, first otherwise;
+S = outcome of the most recent large order of any of the three wallets matched strictly before m; E = large shares sent on S since S
+was last set; rel = none / with / against. Transition model: logistic regression on one-hot (slot x rel), log1p(E) x against,
+window-time bins (0-30, 30-60, 60-120, 120-300 s), FIT on 10-20 with the TRUE state, two versions: decision-level (no wallet) and
+per-wallet (wallet one-hots, as lean16; reported only, since the true carrier leaks the class). Replica on 10-21..22 (timing and slot
+class from the true record, an oracle for those parts only): side = dc14 (p_dc14_spot_own), S_own / E_own from the replica's OWN
+drawn classes on its OWN sides, 300 redraws, expected window net; the deterministic argmax version alongside. Claim tested: window-net
+r with the dc14 side >= menu + 0.05 on 10-21..22 AND on the reverse split (fit 10-21..22, score 10-20), and S_own agreement with the
+operator's S >= 0.75 of legs. Reported: AUC of the replica's P(large) for the large class (pooled, per wallet), the oracle-state
+version (the same model with the operator's TRUE S / E), the menu and lean16's 0.356 / 0.314 for reference.
+
+PRE-REGISTRATION 13 (written 09:53 UTC 11-01, before phase17 runs): TWO-PHASE HAZARD TARGET IN THE TRACKER (mechanics panel P3 = X171
+step 2; assumptions P4 = X176 step 2 in its phase form; code/phase17.py). Target flow mix17 = 0.5 x avg + 0.5 x nfhaz2 with nfhaz2(s) =
+c_e h(s) 1(s < 60) + c_l h(s) 1(s >= 60), h = the frozen knee-clock hazard imbalance of hazflow14 (it14/hazflow14.parquet, unchanged),
+(c_e, c_l) = no-intercept OLS on 10-17..19 of the operator's per-second signed flow on the two phase terms (nfhaz14's fit split at the
+panel's fixed 60-s boundary). Tracker trk_a unchanged; scored once on the 864 windows of 10-20..22 in the same run as mix14; ADOPTED
+only if it beats mix14 on BOTH pooled Pearson and Spearman. Secondary, reported only: three phases (0-60, 60-180, 180-300 s).
+
+Data added (iteration 17): the FIRST OUT-OF-TIME decision record, in the new regime (code/post17.py, 93 s): 30 BTC 5m windows of 11-01
+06:00-09:30 UTC (development block; every window starts in it; Gamma listed 30 of the 42 starts at fetch time), on-chain V2
+OrderFilled of all FIVE operator wallets (3,230 BUY fills: DS 673 T / 771 M, GF 254 / 312, XM 73 / 804, W4 136 / 193, W5 8 / 6),
+calldata of every operator taker tx (1,144) and of every maker-only tx (1,864, code/mk17.py), server-ms match times from the live lab's
+trade records by tx hash (1,143 of 1,144; clob_crypto and btc5m_clob_raw2), the full-rate Binance spot feed of rec_bn15 v2 (481,575
+bookTicker and 157,703 trade messages, 53 book msg/s), PolyBolt (btc5m_pb) and the unthrottled CLOB channel (btc5m_clob_raw2), all
+through iter_live (development blocks only); in the session scratchpad it17/ (the strategy cache is at its cap). Also read: the
+cached on-chain fills of 10-31 00-06 / 12-18 (post/own_*.parquet) and the capture day files' trade rows (transit check).
+
+Findings (iteration 17):
+1. PRE-REGISTRATION 11 FAILED: THE FROZEN SIDE ROUTE IS 0.718 OUT OF TIME (oot17.py, results/oot17_side.json; 999 DS / GF / XM taker
+   orders, coverage 0.999): per order 0.7177 (DS 0.712, GF 0.751, XM 0.658), per decision 0.704, placebo m -/+ 3 s 0.487 / 0.507,
+   halves 0.583 / 0.836, by window minute 0.77 / 0.79 / 0.67 / 0.64 / 0.63. The cause of the halves: the LAPTOP's receive clock drifts
+   against Binance T from -637 ms (06:30) to -1161 ms (09:30), so one block-median offset misplaces the book cut by up to about 250 ms
+   (too early in the first half, too late, a leak direction, in the second). PRE-REGISTRATION 11b (post hoc, written after seeing 11;
+   physics only: trailing 60-s median offset; oot17b.py, results/oot17b_side_localclock.json): 0.7518 (DS 0.746, GF 0.775, XM 0.726),
+   halves 0.712 / 0.787, by minute 0.82 / 0.77 / 0.73 / 0.68 / 0.67, placebo 0.51 / 0.52; W4 / W5 (not in the target) 0.799. Both are
+   below the 0.80 bar. Diagnostic only (not a claim, not adopted): shifting the local cut by +25 / +50 / +100 ms gives 0.804 / 0.804 /
+   0.791, by -25 / -50 / -100 ms 0.676 / 0.671 / 0.653: the side information is present, but the score moves by about 5 points per
+   25 ms of clock mapping. The capture's own collector clock is stable (transit17.py, results/transit17.json: hourly median spot-trade
+   transit 125-140 ms, day medians 131-134 on 10-17..22), so the exam route on capture days keeps its fitted mapping within about 9 ms;
+   a live route needs a local clock offset. A Sunday sample of 30 windows is small.
+2. THE DECISION CLOCK DID NOT MOVE (knee17.py, results/knee17.json; 770 first legs, local clock): signed spot microprice ticks toward o
+   peak at m0 - Te = 255 ms (DS 255, GF 285; XM n = 42, noisy), the 50-ms band [250, 300) carrying the most (0.244 against 0.05-0.14
+   elsewhere); capture days DS 265, GF 285 (iteration 16 finding 2). Timing and the slot shift transfer to the new regime.
+3. THE NEW REGIME IS A MAKER COMPONENT ON XM, NOT A NEW TAKER ROUTING (census17.py, results/census17.json; 11-01 06:00-09:30 against the
+   complete calldata of 10-20..22):
+   - taker order shares of DS / GF / XM 0.674 / 0.253 / 0.073 (capture 0.630 / 0.309 / 0.061); menu 30 / 100 for every wallet (W5 105 /
+     210); small first legs DS 0.76 / GF 0.15 / XM 0.03 / W4 0.06 (capture DS 0.78 / GF 0.19 / XM 0.03); 1.44 legs per event (1.28);
+     the visible five-wallet priority rule DS > GF > W4 > XM > W5 names 0.707 of all legs;
+   - the LARGE class fell: P(large) DS 0.036 (capture 0.043), GF 0.083 (0.268), XM 0.233 (0.347), W4 0.206; pooled first-leg large share
+     0.053 (0.083), n = 42 large first legs; large first legs DS 0.24 / GF 0.24 / XM 0.29 / W4 0.24 (capture DS 0.28 / GF 0.53 / XM 0.19);
+   - XM's fills are 92% maker (capture 43%), 86% of its shares, and 99% of its maker fills come from maker-FIRST orders (never a taker
+     fill): 60-share BUY orders (274 of XM's 337 maker orders; mkx17.py, results/mkx17.json), signed in the same pre-signed ladder
+     bursts as everything else (rel -89.6 / +40.5..42 / +172 s), limits spread 0.12-0.77 (median 0.38), both outcomes (Up 0.515), 3-18
+     per window in every window, first fill at rel 22-207 s (median 114), sign-to-first-fill 17-126 s (median 83), filled fraction
+     median 0.23. The same 60-share maker-first orders were 21-42% of XM's maker-first orders on 10-09..13 (BUILD), about 0 on 10-14..22
+     (the whole VALIDATE week and the capture days), and dominant again on 10-31 00-06 / 12-18 (XM 2,483 / 2,158 maker against 323 / 135
+     taker fills).
+   - Reading: the size-class RATE, the large list and XM's maker component are version parameters (configuration); the taker routing's
+     small list, the menu, the knee and the price-size coupling are invariant from 10-20..22 to 11-01. Neither E3 (per-wallet size rates)
+     nor the assumptions panel's invariance prediction (pooled first-leg large share stays 0.08-0.10) holds; the class rate is scheduled
+     configuration. Block PnL (30 windows, before rebates, noisy): XM maker -$185 / taker +$118, DS -$241 / +$9, GF +$26 / +$158.
+4. PRE-REGISTRATION 12 FAILED: A REPLICA CANNOT SYNCHRONIZE THE OPERATOR'S DECISION MEMORY (smach17.py, results/smach17_10-21_10-22.json,
+   smach17_10-20.json; 73,577 orders with exact classes; fit 10-20 -> score 10-21..22 / reverse):
+   - step 1 (state definitions, true side): the S-relation's AUC for the large class by wallet x slot: fast followers DS 0.842, GF 0.847,
+     XM 0.880; sequential 0.70 / 0.72 / 0.81; first legs 0.69 / 0.72 / 0.80 (reverse split within 0.02);
+   - replica with its OWN memory (dc14 side, 200 redraws): S_own agrees with the operator's S on 0.546 / 0.558 of legs (bar 0.75); AUC of
+     its P(large) 0.693 / 0.754 pooled (DS 0.66 / 0.69, GF 0.67 / 0.71, XM 0.54 / 0.58); window-net r 0.304 vs menu 0.290 (+0.015) /
+     0.478 vs 0.435 (+0.043); argmax 0.285 / 0.399; per-wallet version 0.302 / 0.469;
+   - the same transition model with the operator's TRUE S / E (oracle state, dc14 side): 0.583 / 0.731, ABOVE the class oracle with the
+     dc14 side (0.556 / 0.709): the operator's memory carries side information that the dc14 side lacks.
+   The state machine describes the operator's size controller (H3 as a description), but its realization cannot be reproduced from a
+   replica's own decisions (H4: the class selection is a private coin).
+5. THE FREE DRAWS ARE WHICH DECISIONS ARE LARGE, NOT THEIR SIDE (seed17.py, results/seed17.json; 759 windows of 10-20..22): the seed (first
+   large order) comes at median 9.3 s (q10 2.4, q90 37.9) and its side equals the dc14 side of the same order 0.918 (0.41 bits); every
+   large order 0.878, flips 0.896; 2.0 flips per window (34% none); final S = seed 0.589; final large-net sign = seed 0.661, = final S
+   0.875. A replica knows the side of a large decision as well as that of any decision; it does not know which of its decisions the
+   operator made large. Class-keyed dispatch (X173 step 2; fit 10-20, scored on 10-21..22): small list DS > GF > XM, large list GF > DS >
+   XM (both 300-ms slots): carrier accuracy 0.7505 against 0.7353 size-blind; large class 0.656 against 0.540, small 0.765 both; XM inside
+   the large class precision 0.55, recall 0.11. Size-keyed routing is real but names only two thirds of large carriers on visible
+   occupancy.
+6. PRE-REGISTRATION 13 FAILED: TWO PHASES ADD NOTHING TO THE TRACKER (phase17.py, results/phase17.json; the harness reproduces mix14
+   exactly): per-second OLS on 10-17..19 gives c_e 5.31 (< 60 s) and c_l 6.26 (>= 60 s) against the uniform 5.93; tracker trk_a on 864
+   windows of 10-20..22: mix17 0.5064 / 0.4675 against mix14 0.5065 / 0.4674 (three phases 0.5051 / 0.4657); halves' Spearman 0.413 /
+   0.514. Not adopted. The mechanics panel's two-phase effect is on the LARGE net, which a linear per-second target on the total flow
+   cannot separate.
+7. POLYBOLT AGAINST THE CLOB CHANNEL (X166; pbview17.py, results/pbview17.json; 1,143 orders of the new record; a_seen = L - 0 / 1 c by
+   size): P(o's ask == a_seen) peaks on the CLOB channel's own server stamps at Lam = 30 ms before the arrival (0.736 all, DS 0.911), on
+   the laptop-received CLOB at Lam 10 (0.658 / 0.834) and on laptop-received PolyBolt at Lam 0 (0.697 / 0.884). Among the 52 orders whose
+   CLOB channel showed an ask value in [A - 120, A - 10] that PolyBolt never displayed within [A - 400, A + 100], a_seen equals such a
+   CLOB-only transient in 4 (7.7%; a uniform CLOB-reader expectation 12.8%); a pure PolyBolt reader cannot produce those. Inconclusive
+   at n = 52, leaning to the CLOB market channel; the server-stamp profile (0.911 at the known 30-ms view lag) fits the CLOB channel.
+
+## Missing dimensions (E1 / E2 / E7; brief of 2026-11-01)
+
+Dimension inventory: state.json `dimensions` (31 dimensions, every family of the brief). Earlier feed and event studies are entered
+in state.json `indicators` (period 'legacy'), with this iteration's rows.
+
+Residual of the best rule, by component (what is unexplained, its shape, the dimensions it points to):
+- SIDE (dc14, 0.837 per taker order on 10-20..22; e2_17.py, results/e2_17.json; aggregates of the scored days, the fit days carry no
+  stored out-of-fold prediction): misses rise through the window, 0.119 / 0.127 / 0.158 / 0.220 / 0.310 by minute 0-4, and with weak
+  knee moves, 0.45 / 0.35 / 0.26 / 0.17 / 0.04 by model confidence |p - 0.5| in 0.1 bins; flat by price level (0.157-0.170) and UTC
+  hour (0.127-0.197, no session pattern); first legs 0.170, followers 0.142; large orders 0.124, small 0.169; GF 0.145, DS 0.169, XM
+  0.187. Misses cluster by window (variance of window miss rates 0.0044 against 0.0026 under within-day shuffles, p < 0.005). Up / Down
+  track synchrony of misses within 2 s (residual_clustering, period 300 s, the only cross-'market' pair a one-market bot has): ratio
+  0.95, p 1.0, none. Points to: OWN STATE late in the window (pairing buys of the complement, iteration 13 B3b: late decisions mix
+  weaker tick-following and own-state pairing) and, for weak-signal decisions, a trigger input other than the spot microprice (no
+  venue tested adds to it: A2 / A3 / X100 / X87).
+- TIMING (the take coin): the knee-clock hazard reaches 0.889 at the decision clock, but among the top-decile instants the take is a
+  coin (P(take) about 6%), and the public hazard does not reproduce the operator's local decision density (thin16). Lead: none; the
+  operator acts 230-260 ms after the Binance spot move on every feed recorded (psth16, knee17), never before. Who else: W4 / W5 (the
+  operator's own slots), the fast crowd's co-takes (explained 53% by the knee-clock design), 0xeebde7a0 (another software stack).
+  Points to: the operator's own in-flight state (dispatcher occupancy, lost legs) and a private coin.
+- SIZE (the binding term of condition 5): which decisions are large. Their side is public (0.878, seed 0.918); the class rate is
+  configuration that changes by hour and regime (10-19 01-13 h, 10-20 19 h, the 11-01 regime with GF 0.08); within a regime the
+  operator's own decision memory S / E names the class at AUC 0.75-0.79 (true state) and a replica's own memory at 0.69-0.75. Points to:
+  OWN STATE (decision memory) and the OPERATOR's configuration schedule; the remaining coin carries no public information found.
+- SELECTION: none (every window; outages are bot-side, A8).
+- XM IN THE NEW REGIME: a resting 60-share maker component the frozen rule does not model (finding 3); points to a quote-placement
+  input (posting time and price relative to the book) still undecoded (new X177).
+Information dimensions (news, social, calendars; E5) have no plausible path into decisions that follow a 255-ms Binance knee in every
+window; their only possible role is the configuration schedule (size phases and XM's maker component switch on whole UTC hours or
+days), which E5 should screen against announcements and scheduled releases (open).
+
+Findings (iteration 17, continued):
+8. XM'S 60-SHARE 'MAKER' ORDERS ARE LOST RACES OF THE LATE SLOT, NOT QUOTES (X177 steps 1-2; post60_17.py, post60b_17.py, results/post60_17.json,
+   post60b_17.json): every one of the 274 XM 60-share maker-first orders of 11-01 06:00-09:30 is found POSTED in the unthrottled near-touch
+   channel (272) or the top-10 snapshots (2) as a +60 size change at its level. At posting its limit L is the bought outcome's best bid in
+   69% (1-2 c below it 31%) and one tick below the best ask in 57% (2-3 c in 40%); posted at rel 7.6 / 75.5 / 196.7 s (q10 / median /
+   q90), first filled a median 9.1 s later (q10 3.0, q90 51.9). The bought outcome's ask was EQUAL to L 100 ms before the posting in 62.8%
+   (150-180 ms 54-58%) and below L in 10-20%: the order was priced at the ask of its view and arrived after the makers had pulled, the
+   lost-race signature, stronger than in the DS 30-share control (known lost-race remainders: 46-47% at 100-180 ms) and GF / XM 30-share
+   (43-46%). The 60-share class never takes in this block (0 of XM's 73 taker fills are 60 shares), so it is either always late
+   (XM is the slot after W4) or sent post-only at the ask (a post-only order at a still-marketable ask is rejected and leaves no trace,
+   so only lost races would ever be seen): the record cannot separate the two. This confirms, with the book posting and the
+   ask-by-lag test, the iteration-10 live observation that XM's 60-share races on 10-31 all rested at the old ask.
+9. ...AND THEY CARRY THE SAME DECISION SIDE (side60_17.py, results/side60_17.json; not pre-registered, a consistency check): the frozen
+   dc_exam14 model scored at the taker-equivalent match m_eq = posting + 150 ms on the live feed (local clock): XM 60-share 0.799 (placebo
+   -/+ 3 s 0.547 / 0.507; n 274), GF 30-share maker-first 0.729, DS 30-share 0.631. The new regime's XM 'maker component' is the same
+   Binance-knee decision stream, routed to a late slot whose orders rest and fill on the way back.
+
+Panel proposals of iteration 16 (catalog X164-X176) and what happened to them:
+- X164 (out-of-time record, new regime): record built; side scored once (pre-registration 11, failed at 0.718; 11b local clock 0.752);
+  knee unchanged; hazard / size / live-only feeds still open.
+- X165 (XM regime change): tried (finding 3): the change is a configuration of the class rate and of XM's role; E3 and E6 both fail.
+- X166 (PolyBolt): tried (finding 7), inconclusive, leaning to the CLOB channel.
+- X167 (Binance clock audit): step 1 in part (capture collector stable to ~+-9 ms per hour); the condition-2 re-score is open.
+- X168 (implied vol for the size class): tried in lite form with DVOL (finding 10): no effect; the option-trade IV variant not fetched.
+- X169 (decision-memory state machine): tried, pre-registration 12 failed (finding 4).
+- X170 (W4 / W5 ruling): open, needs the examiner; FINAL_RULE states the question.
+- X171 (early-window side, two-phase target): tried (step 1: early side not weaker; step 2 = pre-registration 13 failed).
+- X172 (fast follower as a second trigger): tried (finding 11): partly a second trigger, the sharp signature not met.
+- X173 (size-keyed routing): tried (steps 1-3; finding 5 and census17): class-keyed lists real (+0.12 inside the large class), the
+  invariance prediction fails out of time (the class rate is configuration).
+- X174 (three-stream replica): stream (iii) tried (pre-registration 14 failed, finding 12); stream (ii) open.
+- X175 (configuration drift): new-regime part done (finding 3); the hourly change-point scan is open.
+- X176 (lean's free draws): tried (step 1: seed side 0.918; step 2 in phase form failed).
+New: X177 (XM's 60-share resting orders): steps 1-3 done (findings 3, 8, 9); open for the post-only vs late-slot question and their
+PnL. Also closed this iteration: X142 (scored), X162 (versions: new-regime part), X9 (XM role history), X76 (= X166).
+
+## Next (iteration 18)
+
+1. Exam readiness before anything else (the budget is nearly spent and the examiner's next lot is h1): (a) the frozen rule's
+   components that are version parameters must be written as such (done in FINAL_RULE this iteration: the class rate, the large list,
+   XM's role); (b) X167 / X164: a per-hour transit guard for the capture exam route, adopted only after a non-inferiority run on
+   10-20..22 (the capture's own clock is stable, so the gain is insurance); (c) X150 pseudo-lot run of evaluate().
+2. Condition 5: the binding term is WHICH decisions are large (finding 5); a replica's own memory does not synchronize (finding 4), no
+   valuation edge picks them (finding 10), and a replica's resting remainders are adversely selected (finding 12). Remaining routes:
+   X174 stream (ii) (the pair margin from a small two-sided stream at the decoded decisions), the fast follower's public part as a
+   width input (finding 11: the gap-band move toward o, 54.5% vs 43.9%), and E6 (a fitted latent state over the five wallets' decisions
+   matched to an external series). XM's new-regime PnL is its lost-race resting stream (finding 8): condition 7 for XM needs the
+   operator's own lost legs, which a public replica only approximates.
+3. The new regime on the next development blocks (11-01 18-24, 11-02 00-06 / 12-18): the out-of-time side with the local clock as
+   pre-registered from the start (11b's definition), the hazard at the e cut on the live books, and XM's resting stream's PnL.
+4. Still open: E3 (other dimension families with the tool), E5 (social / calendars; GDELT rate-limited), E6, X5, X7, X18, X26, X33, X36, X37, X44, X51, X53, X57, X66, X70, X72, X87, X88, X90, X100, X104, X107, X113,
+   X115, X122, X123, X124, X127, X128, X130, X133, X139, X141, X146, X148, X149, X150, X151, X153, X154, X155, X158, X159, X160, X161,
+   X164, X167, X170, X172, X174, X175, X177.
+
+Recorders at the end of iteration 17: the shared recorder runs (pid 27184); rec_bn15 v2 (my own, hard stop 11-01 12:00 UTC), rec_pb10,
+rec_lab6 v2, rec_exam7 / rec_exam8 launcher, rec_fam8 and rec_eu11 were not touched; no recorder was started this iteration. No polyrea
+bug found. Cache: nothing added to .cache/re/btc5m-bot (at its cap); the new-regime record lives in the session scratchpad it17/
+(rebuild: post17.py ~2 min, mk17.py ~1 min).
+
+Status after iteration 17: target not reached; target_metrics unchanged (presence 0.8701 vs 0.8464 at the block clock; side 0.8369;
+price 0.9512; PnL 0.5065 / 0.4674; coverage 1 / 1). Out of time (11-01, live feed) the side route reads 0.72-0.75, below the bar.
+
+10. NO VALUATION INPUT PICKS WHICH DECISIONS ARE LARGE (X168 in lite form; iv17.py, results/iv17.json; complete classes of 10-20..22): the
+    digital fair value of o under Deribit DVOL (and under 300-s realized vol) minus the last non-operator Polymarket trade on o at m - 230,
+    its absolute value, log(IV / RV) and |fv - 0.5| add nothing to the large-class AUC: public base (slot, window time) 0.673 -> 0.671
+    (fit 10-20, scored 10-21..22) and 0.720 -> 0.720 (reverse); decision-memory base 0.816 -> 0.813 / 0.839 -> 0.837 (that base, with the
+    operator's TRUE S / E, names the class at 0.80 / 0.84 / 0.87 for DS / GF / XM). P(large) is flat across |edge_IV| quintiles (GF 0.27 /
+    0.28 / 0.29 / 0.27 / 0.23) and slightly lower when the edge favours o (GF 0.257 vs 0.279, XM 0.320 vs 0.370). Short-dated option-trade
+    IV was not fetched (DVOL is the 30-day index).
+
+11. THE FAST FOLLOWER IS PARTLY A SECOND TRIGGER (X172; fol17.py, results/fol17.json; capture day 10-21, 2,716 fast followers, gap q10 /
+    median / q90 6 / 35 / 116 ms): the spot PSTH aligned at the follower's own match peaks at 295 ms (half-max 210-370, height 0.072)
+    against 285 ms (150-360, 0.065) aligned at the leader's match; the spot move in the gap band (m_L - 260, m_F - 260], information the
+    follower could see and the leader could not, is toward o in 54.5% of followers against 43.9% for singles given the same gaps
+    (against o 18.2% vs 22.8%), rising with the gap (0.31 / 0.44 / 0.57 / 0.73 / 0.77 for gaps <= 10 / 30 / 60 / 100 / 150 ms). The
+    panel's sharp signature (half-max <= 60 ms, >= 60% after the leader's event) is not met: the width is partly public (a continued
+    move re-fires the decision), partly a coin of one decision.
+
+13. THE NEW CONFIGURATION IS STABLE OVER THE THREE POST-T0 DEVELOPMENT BLOCKS (census31_17.py, results/census31_17.json; cached on-chain
+    fills of the three studied wallets and the calldata of 1,500 sampled taker txs per block): taker order shares DS / GF / XM 0.626 /
+    0.285 / 0.089 (10-31 00-06) and 0.681 / 0.261 / 0.057 (10-31 12-18), against 0.674 / 0.253 / 0.073 (11-01 06-09:30) and 0.630 / 0.309 /
+    0.061 (10-20..22); menu 30 / 100 throughout; P(large) DS 0.042 / 0.023 / 0.036, GF 0.105 / 0.079 / 0.083, XM 0.187 / 0.302 / 0.233,
+    pooled 0.073 / 0.053 / 0.062 (capture days DS 0.043, GF 0.268, XM 0.347, pooled 0.131); XM maker fills 2,483 / 2,158 / 804 against
+    taker 323 / 135 / 73. Every block after T0 shows the same version: GF's large share cut to about a third, XM resting 60-share orders,
+    the taker routing unchanged. The h1 / h2 lots (10-23..30) lie between 10-22 and 10-31; when the switch happened is unknown (sealed).
+
+14. E3, FIRST PRE-REGISTERED SCREEN WITH tools/indicators.py (e3_17.py, results/e3_17.json; family and settings fixed in its docstring
+    before the run: decisions = first legs at m0 - 180 ms, units = windows, swap null, max lag 2 s, 50-ms bins, 300 draws; screen
+    10-19 with BH, confirm 10-20): Binance spot microprice jumps (3 sigma over 50 / 100 / 250 ms, 4 sigma over 100 ms) are survivors
+    (q 4e-14 .. 4e-13, signed q 1e-18 .. 3e-16) and confirmed on 10-20 (p_link 5e-15 .. 8e-14, signed shape z 15.8-16.1), the timing
+    shape peaking at +25 ms after the event on the decision clock (the knee); other traders' Polymarket taker BUY bursts are a survivor
+    (q 2e-11) and confirmed (p 2e-10) but at a NEGATIVE lag (-0.53 / -0.58 s: the operator decides before the crowd's burst, which is
+    downstream of the same move, not an input); spot crossings of the strike are not (q 0.43, signed q 0.066). The decoded input passes the
+    brief's screen; the market-activity indicator lags the decisions.
+15. E5, FIRST NEWS SCREEN OF THE CONFIGURATION SCHEDULE (e5b_17.py, results/e5_17.json; GDELT DOC 2.0 timelinevolraw, 24-h windows at 15-min
+    bins around 10 dated changes and outages; a first 14-day query returned daily bins only and was discarded): GDELT answered HTTP 429
+    for many requests even after retries; 'polymarket' 4 events usable, mean within-day rank of the news-volume share
+    0.2292 (uniform 0.5; one-sided p 0.9706); 'bitcoin' 1 usable, mean rank
+    0.0 (p 1.0). No news peak at the operator's configuration changes in what came back;
+    the screen is weak (sparse 15-min volume, rate limits) and E5 stays open (social / calendar sources, live recording).
+
+PRE-REGISTRATION 14 (written 10:15 UTC 11-01, before rest17 runs): A RESTING-REMAINDER STREAM IN THE TRACKER (assumptions panel P2 stream
+(iii) = X174; finding 8). Tracker trk_a with the mix14 target, unchanged, plus: the unfilled part of each tracker order rests as a BUY
+bid on o at its limit L for TTL = 30 s after its taker window, and fills strictly against later taker BUY prints of OTHER traders on the
+complement at price >= 1 - L + 0.02 (match_slack 2 c; a mint against the resting bid), capturing 0.5 of each such print (other bids at L
+compete; no queue data offline); resting fills add to the tracker's realized net. Scored once on the 864 windows of 10-20..22 in the same
+run as mix14; ADOPTED only if pooled Pearson AND Spearman both beat mix14 (0.5065 / 0.4674). Reported: per wallet (XM in particular),
+halves, TTL 10 / 60 s variants (reported only).
+
+12. PRE-REGISTRATION 14 FAILED: A RESTING-REMAINDER STREAM IS ADVERSELY SELECTED AND DECORRELATES THE TRACKER (X174 stream (iii); rest17.py,
+    results/rest17.json; the re-implementation reproduces trk_a / mix14 exactly at TTL 0): with the unfilled part resting 30 s at its limit
+    and filling against complement taker BUYs at >= 1 - L + 2 c (capture 0.5), the tracker gets 35,503 resting fills (201,837 shares) that
+    lose $13,654 (-6.8 c a share) and the pooled r falls to 0.4365 / 0.4226 (mix14 0.5065 / 0.4674; XM -0.004 / 0.021); TTL 10 s 0.4956 /
+    0.4508, TTL 60 s 0.3285 / 0.4078. The operator's remainders earn because they rest at the PRE-move ask of a fresh Binance move; a
+    replica's remainders, 1-3 s late at ask + 2 c, are the stale quotes that faster traders pick off. Not adopted. Stream (ii) (the pair
+    margin from a small two-sided stream at the decoded decisions) is still untested.

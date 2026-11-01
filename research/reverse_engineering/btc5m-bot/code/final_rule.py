@@ -1,6 +1,14 @@
 """btc5m-bot frozen rule (iteration 8; iteration 10 adds pre-registered point-in-time clean live versions; iteration 12
 adds the exposure-tracker replica for the PnL condition; iteration 14 re-anchors the decision clock).
 
+Iteration 17: NO CHANGE to the rule, its constants, its models or its data loading (no candidate adopted: pre-registrations 12,
+13 and 14 failed on VALIDATE; pre-registration 11 is an out-of-time development check of the frozen side route on the live 11-01
+feed: 0.718 with a block-median laptop clock, 0.752 with a local clock, below 0.80). Version parameters the examiner should know
+(measured on the 11-01 development block and replicated on 10-31 00-06 / 12-18, NOTES.md iteration 17): the large-class rate and the large carrier list are configuration
+(GF P(large) 0.08 on 11-01 vs 0.27 on 10-20..22), and XM's fills there are 92% maker fills of 60-share lost-race / post-only
+orders; the knee (255 ms), the taker small list, the menu (30 / 100) and the price-size coupling are unchanged. The capture's
+collector clock is stable (hourly transit 125-140 ms on 10-17..22), so the exam route's TRANSIT_MS = 131 stays as frozen.
+
 Iteration 14 (PRE-REGISTRATION 5, NOTES.md iteration 14): 'side_decision_clock' now comes from code/dc_exam14.py: the decision
 anchor is X = m - 260 ms on EXCHANGE time (150-ms taker delay + 105-ms Binance-to-London + 5 ms), the capture's Binance spot book
 cut at X + 131 ms (collector receive clock) and its spot trades at X; frozen model_it14_dcside_spot.txt (fitted on 10-17..19;

@@ -1,0 +1,121 @@
+{
+ "XM60": {
+  "orders": 274,
+  "posting_found": 274,
+  "by_source": {
+   "raw2": 272,
+   "clob_crypto": 2
+  },
+  "post_rel_q": [
+   7.6,
+   43.8,
+   75.5,
+   146.7,
+   196.7
+  ],
+  "post_after_sign_s_q": [
+   5.4,
+   49.1,
+   108.7
+  ],
+  "L_minus_bid_c_top": {
+   "0.0": 188,
+   "-1.0": 45,
+   "-2.0": 40,
+   "-10.0": 1
+  },
+  "ask_minus_L_c_top": {
+   "1.0": 156,
+   "2.0": 64,
+   "3.0": 44,
+   "4.0": 6,
+   "5.0": 2,
+   "6.0": 1,
+   "11.0": 1
+  },
+  "share_at_or_above_bid": 0.6861,
+  "share_1c_below_ask": 0.5693,
+  "post_to_fill_s_q": [
+   3.0,
+   9.1,
+   51.9
+  ]
+ },
+ "DS30": {
+  "orders": 360,
+  "posting_found": 360,
+  "by_source": {
+   "raw2": 360
+  },
+  "post_rel_q": [
+   10.2,
+   43.8,
+   81.6,
+   176.5,
+   222.6
+  ],
+  "post_after_sign_s_q": [
+   2.7,
+   43.7,
+   105.0
+  ],
+  "L_minus_bid_c_top": {
+   "0.0": 229,
+   "-2.0": 70,
+   "-1.0": 61
+  },
+  "ask_minus_L_c_top": {
+   "1.0": 195,
+   "2.0": 82,
+   "3.0": 74,
+   "4.0": 8,
+   "5.0": 1
+  },
+  "share_at_or_above_bid": 0.6361,
+  "share_1c_below_ask": 0.5417,
+  "post_to_fill_s_q": [
+   2.2,
+   12.7,
+   83.2
+  ]
+ },
+ "GF30": {
+  "orders": 133,
+  "posting_found": 133,
+  "by_source": {
+   "raw2": 133
+  },
+  "post_rel_q": [
+   7.6,
+   44.6,
+   74.8,
+   176.5,
+   224.5
+  ],
+  "post_after_sign_s_q": [
+   2.4,
+   50.2,
+   104.2
+  ],
+  "L_minus_bid_c_top": {
+   "-0.0": 99,
+   "-1.0": 19,
+   "-2.0": 15
+  },
+  "ask_minus_L_c_top": {
+   "1.0": 80,
+   "2.0": 24,
+   "3.0": 23,
+   "4.0": 3,
+   "5.0": 2,
+   "7.0": 1
+  },
+  "share_at_or_above_bid": 0.7444,
+  "share_1c_below_ask": 0.6015,
+  "post_to_fill_s_q": [
+   1.9,
+   6.1,
+   74.4
+  ]
+ }
+}

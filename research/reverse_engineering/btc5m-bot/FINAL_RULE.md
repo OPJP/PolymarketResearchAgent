@@ -1,4 +1,37 @@
-# btc5m-bot: frozen rule (iteration 16: UNCHANGED from iteration 14; side = decision clock on Binance's own clock, dc_exam14; presence / price unchanged since iteration 8; the PnL rule is the exposure tracker with the mix14 target, pre-registration 7)
+# btc5m-bot: frozen rule (iteration 17: UNCHANGED from iteration 14; side = decision clock on Binance's own clock, dc_exam14; presence / price unchanged since iteration 8; the PnL rule is the exposure tracker with the mix14 target, pre-registration 7)
+
+Iteration 17 in one paragraph (no candidate adopted; the scored rule, code/final_rule.py and target_metrics are unchanged). The
+pivot was new DATA and a new UNIT: the first OUT-OF-TIME complete decision record, in the new routing regime (30 windows of the
+11-01 06:00-09:30 development block: on-chain fills of all five operator wallets, the calldata of every operator taker tx and of
+every maker-only tx, server-ms matches from the live lab, the full-rate live Binance spot feed), and the size class as a
+DECISION-level variable kept by the bot's own decision memory. (1) SIDE out of time [development check, not a target metric]: the
+frozen dc_exam14 model scores 0.718 per taker order on the live laptop feed with one block-median clock offset (pre-registration 11,
+FAILED; the laptop clock drifts by ~175 ms per hour against Binance) and 0.752 with a local offset (post hoc); moving the cut 25 ms
+later gives 0.804 (diagnostic only). The decision knee itself did not move (255 ms before the match; capture 265). The capture
+collector's own clock is stable (hourly transit 125-140 ms), so the exam route on capture days keeps its fitted mapping within
+~9 ms. (2) VERSION PARAMETERS [measured on 11-01 against 10-20..22, replicated on 10-31 00-06 / 12-18 from sampled calldata: GF
+P(large) 0.105 / 0.079, pooled 0.073 / 0.053]: the taker routing's small list (DS > GF > W4 > XM), the menu
+(30 / 100), the knee and the price-size coupling are invariant; the large-class RATE (GF 0.08 vs 0.27; pooled first-leg 0.053 vs
+0.083), the large list (GF 0.24 vs 0.53 of large first legs) and XM's role are configuration. In the new regime 92% of XM's fills
+are maker fills of 60-share orders that never take; they are the SAME decisions (frozen dc14 side 0.80 at posting + 150 ms) priced
+at the ask of the bot's view and resting after the ask moved (ask == limit 100 ms before posting in 63%): lost races of the late
+slot, or post-only orders at the ask. That component existed on 10-09..13 (BUILD) and was absent from the whole VALIDATE week.
+(3) SIZE [VALIDATE-only]: the side of every large order is public (dc14 0.878, the window's first large order 0.918); WHICH decisions
+are large is the coin. The operator's decision memory (S = side of its last large order, E = commitment) names the class (S-relation
+AUC 0.84-0.88 for fast followers; the true-state controller gives window-net r 0.58 / 0.73 with the dc14 side, above the class
+oracle), but a replica that runs the same controller on its own sent orders agrees with the operator's S on only 0.55 of legs and
+adds +0.015 / +0.043 over the menu (pre-registration 12 FAILED). Class-keyed carrier lists (small DS > GF > XM, large GF > DS > XM)
+name 0.656 of large carriers on visible occupancy (size-blind 0.540). (4) PnL: a two-phase hazard target (coefficients split at
+60 s) does not lift the tracker (0.5064 / 0.4675 vs 0.5065 / 0.4674; pre-registration 13 FAILED), and a resting-remainder stream
+makes it worse (0.4365 / 0.4226; its resting fills lose 6.8 c a share; pre-registration 14 FAILED); a DVOL / RV digital edge does
+not pick which decisions are large (AUC unchanged); the fast follower is partly a second trigger (the spot move in its gap band is
+toward o in 54.5% vs 43.9%). (5) The bot's Polymarket view:
+inconclusive between PolyBolt and the CLOB channel, leaning to the CLOB channel (its server-stamp profile peaks at the known 30-ms
+view lag, DS 0.911; 4 of 52 limits equal CLOB-only transients). Component tags after iteration 17: selection VALIDATE-only (0.85);
+timing VALIDATE-only, knee confirmed on one out-of-time development block (0.8); side VALIDATE-only, out-of-time check below the bar
+(0.75); price VALIDATE-only (0.9); size VALIDATE-only, class selection undecoded (0.75); exit / inventory VALIDATE-only (0.9). No
+component is exam-verified.
+
 
 Iteration 16 in one paragraph (no candidate adopted; the scored rule, code/final_rule.py and target_metrics are unchanged). The pivot
 was the COMPLETE decision record: the calldata of every operator taker order of 10-20..22 (72,602 txs newly fetched; before, 5% of
@@ -461,6 +494,11 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 
 ## Why it works
 
+- **Iteration 17:** XM's new-regime 'maker' fills are not a separate market-making strategy: they are the operator's late-slot
+  decisions, priced at the ask of its view, that arrive after the makers have pulled and rest one tick below the moved ask; they fill
+  a median 9 s later, when the price comes back. The edge is the same Binance-knee latency race; what changes between regimes is how
+  the operator routes and sizes it (configuration). [development block 11-01]
+
 - **Iteration 15, who loses and why the fills are small:** the operator and Polymarket's makers react to the same Binance move. Most
   makers pull their stale asks within the 150-ms taker delay (the depth at the bot's limit falls ~95% before its order executes,
   almost none of it traded), so the operator is paid by the SLOWEST makers, whose asks are still there when the hold ends; the
@@ -507,6 +545,12 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 
 ## Can a normal user deploy it now
 
+- **Iteration 17:** the conditions still hold on the latest development block (11-01 06:00-09:30: same knee, same menu, same taker
+  routing, TAKER_REBATE economics unchanged), but the operator's configuration moved (lower large share, XM resting 60-share orders).
+  The side signal needs a clock aligned to Binance within ~25 ms: on a laptop whose clock drifts ~175 ms per hour, the same frozen
+  model scores 0.72-0.75 instead of 0.84; a replicator must discipline its clock (or calibrate it per minute from the trade stream)
+  before the signal is usable at all.
+
 - **Iteration 15:** what a copy would receive is the makers' leftovers after the 150-ms hold, and that leftover is decided after the
   decision (r 0.29 from public data at the decision). A replicator that fires on the same Binance move from a normal connection
   arrives after the faster makers have cancelled and after the operator; it would fill even less. Nothing changed in the
@@ -539,6 +583,12 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   speed against stale makers inside Polymarket's 150-ms taker delay, which a home connection does not have.
 
 ## Known limitations
+
+- **Iteration 17:** (a) out of time on a live laptop feed the side route is 0.72-0.75 (below 0.80); the exam route reads the public
+  capture, whose clock is stable, but an exam lot in the new regime may also differ by configuration (class rate, XM's role). (b) The
+  frozen tracker trades no resting stream, while XM's PnL in the new regime is its lost-race resting stream (condition 7 for XM).
+  (c) W4 / W5: the examiner's ruling is needed on whether they count as 'the wallet' (own state) or as other traders; the frozen tape
+  features count their prints as market activity, while the dispatch findings treat their legs as the operator's own slots.
 
 - **Iteration 15:** (a) condition 2 is not met by any pre-registered unit so far: at the block clock +0.024 over a capture-aware
   baseline; at the decision clock +0.008 [0.002, 0.013] over a BOOK-aware market baseline whose book ends at e + 50 ms, but +0.058

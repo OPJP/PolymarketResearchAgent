@@ -1,0 +1,87 @@
+{
+ "orders_all": 1144,
+ "orders_with_m": 1143,
+ "book_msgs": 481575,
+ "trade_msgs": 157703,
+ "tau_lap_ms": -969.0,
+ "tau_lap_by_30min": {
+  "06:30": -637.0,
+  "07:00": -712.0,
+  "07:30": -828.0,
+  "08:00": -919.0,
+  "08:30": -984.0,
+  "09:00": -1112.0,
+  "09:30": -1161.0
+ },
+ "first_v2_ms": 1793516390040,
+ "book_rate_per_s": 53.4,
+ "orders_scored": 1143,
+ "coverage_of_taker_orders": 0.9991,
+ "preregistered": {
+  "n": 999,
+  "acc_per_order": 0.7177,
+  "acc_per_decision": 0.7037,
+  "acc_first_legs": 0.7143,
+  "placebo_m_minus_3s": 0.4865,
+  "placebo_m_plus_3s": 0.5065,
+  "by_wallet": {
+   "DS": [
+    0.7117,
+    673
+   ],
+   "GF": [
+    0.751,
+    253
+   ],
+   "XM": [
+    0.6575,
+    73
+   ]
+  },
+  "halves": [
+   0.5833,
+   0.8362
+  ],
+  "by_minute": {
+   "0": 0.7674,
+   "1": 0.7915,
+   "2": 0.6667,
+   "3": 0.6412,
+   "4": 0.6344
+  },
+  "passes_bar_0.80": false
+ },
+ "siblings_W4_W5": {
+  "n": 144,
+  "acc_per_order": 0.6528,
+  "acc_per_decision": 0.6458,
+  "acc_first_legs": 0.6397,
+  "placebo_m_minus_3s": 0.5,
+  "placebo_m_plus_3s": 0.4792,
+  "by_wallet": {
+   "W4": [
+    0.6397,
+    136
+   ],
+   "W5": [
+    0.875,
+    8
+   ]
+  },
+  "halves": [
+   0.5294,
+   0.8305
+  ],
+  "by_minute": {
+   "0": 0.7561,
+   "1": 0.6129,
+   "2": 0.6552,
+   "3": 0.5455,
+   "4": 0.619
+  }
+ },
+ "tau_per_window_range": [
+  -1145.0,
+  -660.0
+ ]
+}

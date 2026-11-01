@@ -1,0 +1,20 @@
+{
+ "XM60": {
+  "n": 274,
+  "acc": 0.7993,
+  "placebo_minus_3s": 0.5474,
+  "placebo_plus_3s": 0.5073
+ },
+ "DS30": {
+  "n": 360,
+  "acc": 0.6306,
+  "placebo_minus_3s": 0.4778,
+  "placebo_plus_3s": 0.4972
+ },
+ "GF30": {
+  "n": 133,
+  "acc": 0.7293,
+  "placebo_minus_3s": 0.4662,
+  "placebo_plus_3s": 0.5639
+ }
+}

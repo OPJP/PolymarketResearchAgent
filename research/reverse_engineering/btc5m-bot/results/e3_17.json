@@ -1,0 +1,136 @@
+{
+ "preregistered": "Iteration 17, E3 (pre-registered here, before running; brief 2026-11-01 step 4): an indicator screen with tools/indicators.py on the\noperator's decision instants. Units: BTC 5m windows [start, start + 300). Decisions: first legs of DS / GF / XM at m0 - 180 ms (the\nbot's posting instant; signing times are pre-sign times for this bot, so they are not decisions). Family (pre-registered): Binance\nspot microprice on a 50-ms grid of the capture (Te = receive - 131 ms) -> jumps of 3 sigma over 1, 2 and 5 steps (50 / 100 / 250 ms)\nand of 4 sigma over 2 steps; spot crossings of the window's strike (priceToBeat); bursts of other traders' Polymarket taker BUY prints\n(server ms; operator txs excluded) over 1 s, 3 sigma. Signed tests use the event sign vs the decision side (Up +1). Screen on 10-19\n(BH over the family on p_link), confirm the survivors once on 10-20. max_lag 2 s, bin 50 ms, n_null 300, swap null.",
+ "screen_10-19": [
+  {
+   "name": "spot_jump_250ms_3sig",
+   "n_events": 5570,
+   "peak_lag_s": 0.275,
+   "peak_lift": 2.0414420502631754,
+   "shape_peak_lag_s": 0.025,
+   "shape_lift": 3.073255838461343,
+   "p_link": 1.8881863319397995e-14,
+   "q_bh": 4.1540099302675586e-14,
+   "signed_p_link": 1.0264511306063422e-19,
+   "signed_q_bh": 1.1290962436669764e-18
+  },
+  {
+   "name": "spot_jump_100ms_3sig",
+   "n_events": 8246,
+   "peak_lag_s": 0.025,
+   "peak_lift": 2.7860694019839443,
+   "shape_peak_lag_s": 0.025,
+   "shape_lift": 3.0085754653236845,
+   "p_link": 7.735752566063735e-14,
+   "q_bh": 1.298088263463787e-13,
+   "signed_p_link": 8.042192109977852e-18,
+   "signed_q_bh": 4.4232056604878186e-17
+  },
+  {
+   "name": "spot_jump_50ms_3sig",
+   "n_events": 11004,
+   "peak_lag_s": -0.025,
+   "peak_lift": 2.280296396809487,
+   "shape_peak_lag_s": 0.07500000000000001,
+   "shape_lift": 2.884634984826685,
+   "p_link": 8.260561676587736e-14,
+   "q_bh": 1.298088263463787e-13,
+   "signed_p_link": 3.7356970282322886e-17,
+   "signed_q_bh": 1.3697555770185057e-16
+  },
+  {
+   "name": "spot_jump_100ms_4sig",
+   "n_events": 6601,
+   "peak_lag_s": 0.025,
+   "peak_lift": 2.3328716803076683,
+   "shape_peak_lag_s": 0.025,
+   "shape_lift": 3.005917153503624,
+   "p_link": 2.7855648620917346e-13,
+   "q_bh": 3.830151685376135e-13,
+   "signed_p_link": 1.0262868245468069e-16,
+   "signed_q_bh": 2.8222887675037187e-16
+  },
+  {
+   "name": "pm_other_taker_burst_1s_3sig",
+   "n_events": 1925,
+   "peak_lag_s": -0.525,
+   "peak_lift": 2.1778059915772436,
+   "shape_peak_lag_s": -0.525,
+   "shape_lift": 1.8337403290019698,
+   "p_link": 1.8598670670933566e-11,
+   "q_bh": 2.2731708597807693e-11,
+   "signed_p_link": null,
+   "signed_q_bh": null
+  },
+  {
+   "name": "spot_strike_crossing",
+   "n_events": 136,
+   "peak_lag_s": 0.45,
+   "peak_lift": 4.537688693261823,
+   "shape_peak_lag_s": 0.325,
+   "shape_lift": 3.149999815205536,
+   "p_link": 0.42524916943521596,
+   "q_bh": 0.425249169435216,
+   "signed_p_link": 0.059800664451827246,
+   "signed_q_bh": 0.06578073089700998
+  }
+ ],
+ "survivors": [
+  "spot_jump_250ms_3sig",
+  "spot_jump_100ms_3sig",
+  "spot_jump_50ms_3sig",
+  "spot_jump_100ms_4sig",
+  "pm_other_taker_burst_1s_3sig"
+ ],
+ "confirm_10-20": {
+  "spot_jump_250ms_3sig": {
+   "n_events": 7720,
+   "peak_lag_s": 0.12500000000000003,
+   "peak_lift": 1.7252097588931579,
+   "shape_peak_lag_s": 0.025,
+   "shape_lift": 2.7118348337086773,
+   "p_link": 8.429837959863956e-14,
+   "signed_p_link": 1.1669520079316601e-18,
+   "signed_shape_z": 15.771757124063551
+  },
+  "spot_jump_100ms_3sig": {
+   "n_events": 12328,
+   "peak_lag_s": 0.025,
+   "peak_lift": 2.4120151251122746,
+   "shape_peak_lag_s": 0.025,
+   "shape_lift": 2.6290322266748736,
+   "p_link": 4.6297286273824726e-15,
+   "signed_p_link": 2.0895249831500239e-19,
+   "signed_shape_z": 16.133316504578573
+  },
+  "spot_jump_50ms_3sig": {
+   "n_events": 16481,
+   "peak_lag_s": 0.025,
+   "peak_lift": 2.328386384041388,
+   "shape_peak_lag_s": 0.025,
+   "shape_lift": 2.547809043994682,
+   "p_link": 5.6183297846016225e-14,
+   "signed_p_link": 3.1274564349072092e-18,
+   "signed_shape_z": 16.142146251262645
+  },
+  "spot_jump_100ms_4sig": {
+   "n_events": 9403,
+   "peak_lag_s": 0.225,
+   "peak_lift": 1.7388536248671407,
+   "shape_peak_lag_s": 0.025,
+   "shape_lift": 2.7027941818202152,
+   "p_link": 5.936022536586196e-15,
+   "signed_p_link": 5.666839993495187e-19,
+   "signed_shape_z": 15.888488840976796
+  },
+  "pm_other_taker_burst_1s_3sig": {
+   "n_events": 2231,
+   "peak_lag_s": -0.5750000000000001,
+   "peak_lift": 2.0041422329935767,
+   "shape_peak_lag_s": -0.5750000000000001,
+   "shape_lift": 1.705422078791297,
+   "p_link": 1.5765692599369934e-10,
+   "signed_p_link": null,
+   "signed_shape_z": null
+  }
+ }
+}

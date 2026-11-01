@@ -1,0 +1,121 @@
+{
+ "c_mix14_refit": 5.9348,
+ "coef_mix17": [
+  5.3145,
+  6.2641
+ ],
+ "coef_mix17b": [
+  5.3145,
+  6.3443,
+  6.1181
+ ],
+ "window_net_r": {
+  "mix14": 0.5125,
+  "mix17": 0.5124,
+  "mix17b": 0.5123
+ },
+ "window_net_spearman": {
+  "mix14": 0.4975,
+  "mix17": 0.4976,
+  "mix17b": 0.4972
+ },
+ "n_windows": 864,
+ "tapes_found": 864,
+ "tracker_trk_a_mix14": {
+  "fills": 35700,
+  "pnl_before_rebates": -3342.1,
+  "GF": [
+   0.4013,
+   0.3819
+  ],
+  "XM": [
+   -0.0009,
+   0.0228
+  ],
+  "DS": [
+   0.4665,
+   0.4477
+  ],
+  "pool": [
+   0.5065,
+   0.4674
+  ],
+  "pool_pearson_block_ci95": [
+   0.437,
+   0.5713
+  ],
+  "pool_halves": [
+   0.4949,
+   0.5151
+  ],
+  "pool_halves_spearman": [
+   0.4158,
+   0.5125
+  ]
+ },
+ "tracker_trk_a_mix17": {
+  "fills": 35761,
+  "pnl_before_rebates": -3276.8,
+  "GF": [
+   0.3996,
+   0.3799
+  ],
+  "XM": [
+   0.0003,
+   0.0248
+  ],
+  "DS": [
+   0.468,
+   0.4495
+  ],
+  "pool": [
+   0.5064,
+   0.4675
+  ],
+  "pool_pearson_block_ci95": [
+   0.434,
+   0.572
+  ],
+  "pool_halves": [
+   0.4917,
+   0.5175
+  ],
+  "pool_halves_spearman": [
+   0.4134,
+   0.5139
+  ]
+ },
+ "tracker_trk_a_mix17b": {
+  "fills": 35752,
+  "pnl_before_rebates": -3284.2,
+  "GF": [
+   0.3982,
+   0.3796
+  ],
+  "XM": [
+   0.0003,
+   0.0235
+  ],
+  "DS": [
+   0.4672,
+   0.4483
+  ],
+  "pool": [
+   0.5051,
+   0.4657
+  ],
+  "pool_pearson_block_ci95": [
+   0.4345,
+   0.5708
+  ],
+  "pool_halves": [
+   0.4914,
+   0.5154
+  ],
+  "pool_halves_spearman": [
+   0.4119,
+   0.5116
+  ]
+ },
+ "adopted_mix17": false
+}
