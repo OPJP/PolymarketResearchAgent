@@ -1,0 +1,49 @@
+{
+ "w45_txs_with_ms": 10028,
+ "by_wallet": {
+  "0xd84403efd50b49a1d8a7181627e00307e6ea5908": 9392,
+  "0x03b4c58b1bb31007cb97e2c8f2216d33c805d29c": 636
+ },
+ "m0": {
+  "DS": {
+   "n": 42649,
+   "share_with_w45_leg_in_prev_300ms": 0.027
+  },
+  "GF": {
+   "n": 12447,
+   "share_with_w45_leg_in_prev_300ms": 0.037
+  },
+  "XM": {
+   "n": 2534,
+   "share_with_w45_leg_in_prev_300ms": 0.3662
+  }
+ },
+ "placebo_m0-3s": {
+  "DS": {
+   "n": 42649,
+   "share_with_w45_leg_in_prev_300ms": 0.0293
+  },
+  "GF": {
+   "n": 12447,
+   "share_with_w45_leg_in_prev_300ms": 0.0349
+  },
+  "XM": {
+   "n": 2534,
+   "share_with_w45_leg_in_prev_300ms": 0.0434
+  }
+ },
+ "xm_gap_from_w45_ms_quantiles": {
+  "0.1": 7.700000000000003,
+  "0.25": 15.0,
+  "0.5": 45.0,
+  "0.75": 125.0,
+  "0.9": 202.30000000000007
+ },
+ "xm_same_outcome_as_w45": 0.8599,
+ "next_leg_after_w45_within_300ms": {
+  "DS": 1517,
+  "GF": 649,
+  "XM": 1690,
+  "none": 6172
+ }
+}

@@ -1,5 +1,5 @@
 {
- "generated_at": 1793521937,
+ "generated_at": 1793522962,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -107,18 +107,18 @@
    ],
    "status": "in_progress",
    "wall_reason": null,
-   "iterations": 15,
-   "minutes": 974.1,
-   "hypotheses": 211,
+   "iterations": 16,
+   "minutes": 1042.8,
+   "hypotheses": 223,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9132,
    "best_rule": "it14: presence rule unchanged since iteration 8 (block seconds); side = decision-clock dc14_spot (dc_exam14, pre-registration 5); price unchanged; PnL = exposure tracker trk_a with target mix14 (pre-registration 7, dc_hazard14.hazard_imbalance)",
    "has_final_rule": true,
-   "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts each window [VALIDATE-only]; the salts are not V8 Math.random output of nearby calls (a validated V8 state solver fails on every copy group), so the runtime's generator is not recoverable that way [VALIDATE-only]. It sits next to Polymarket's engine and reads the Binance SPOT book ~80-110 ms after Binance stamps it; when the spot microprice shifts toward an outcome over the last ~100-250 ms against the Polymarket price, it submits the pre-signed order at the ask it saw ~30 ms before arriving (DS at the ask, GF and XM one cent above) [VALIDATE-only]; the side is 0.8369 per taker order on the pre-registered split [VALIDATE-only]. Polymarket's makers react to the same Binance move and pull their asks: the Polymarket book alone predicts the operator's takes nearly as well as the Binance trigger (0.873 vs 0.881 at the decision clock), but that power sits in the last ~50 ms before the bot's own view: with the book cut before the bot's view the decoded hazard still gains +0.058, with it cut 50 ms later only +0.008 [VALIDATE-only]. Polymarket holds every marketable order 150 ms; during that hold ~95% of the ask depth the bot saw at its limit is cancelled untraded, and the order fills what is left, so the realized size is the makers' cancel race, not the visible depth [VALIDATE-only]. Lost races rest at the old ask and fill as maker about half the time [VALIDATE-only]. Original sizes are scheduled configuration (window-index A/B arms) plus pyramiding of the held leg (own state) [VALIDATE-only]. Positions are held to resolution; most shares end paired; about half the profit is the taker-fee rebate [VALIDATE-only]. The window PnL is the size of the lean; public data predicts it at r ~0.5 (exposure tracker 0.5065 / 0.4674 on 10-20..22) because the realized fills are set after the decision by the cancel race [VALIDATE-only]; which wallet carries a decision is a near-random thinning (XM's PnL ceiling 0.43-0.46 < 0.47 even with a sharper allocation model) [VALIDATE-only]. Nothing is exam-verified yet.",
+   "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts 13-120 s ahead (1.66 ms per cent whatever the number of sizes per cent, so the signing is parallel or the timestamps are scheduled; the salts are not V8 Math.random output of nearby calls) [VALIDATE-only]. It sits next to Polymarket's engine and reads the Binance SPOT book ~80-110 ms after Binance stamps it; when the spot microprice shifts toward an outcome over the last ~100-250 ms it submits a pre-signed order at the ask it saw ~30-70 ms before arriving [VALIDATE-only]; the side is 0.8369 per taker order on the pre-registered split [VALIDATE-only]. Each decision goes to the first free wallet in a fixed priority list DS > GF > W4 > XM (> W5; W4 / W5 are the operator's other wallets), a wallet staying busy ~300 ms after its submission whether its order fills or not; GF- and XM-led legs are often a later slot behind lost legs nobody sees (tick lock shifted by the slot gaps; DS remainders exactly one cent below GF's limit; 37% of XM-led first legs follow a W4 / W5 leg within 300 ms) [VALIDATE-only]. The size is a large / small class with per-wallet base rates (DS ~4%, GF / XM ~32-34%), repeated on the side of the operator's realized large lean and priced one cent above the ask when large; DS's large class is predictable from public data (AUC ~0.8), GF's and XM's mostly from the operator's own realized lean [VALIDATE-only]. Polymarket holds every marketable order 150 ms; the makers cancel most of the depth the bot saw, and the order fills min(size, depth left ~35 ms before the match) (r 0.895) [VALIDATE-only]. Lost races rest at the old ask and sometimes fill as maker [VALIDATE-only]. Positions are held to resolution; most shares end paired; about half the profit is the taker-fee rebate [VALIDATE-only]. The window PnL is the size of the large lean: public data predicts it at r ~0.5 (exposure tracker 0.5065 / 0.4674 on 10-20..22), because the size realizations are coins conditioned on the operator's own realized lean, which a replica's own state cannot reproduce; which wallet carries a decision follows the dispatcher, and with the operator's occupancy or its local decision density known XM's PnL ceiling is 0.51-0.62 (0.43-0.46 under a lottery), but the public hazard does not reproduce that density (0.48) [VALIDATE-only]. Nothing is exam-verified yet.",
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 10
+   "panels": 11
   },
   {
    "key": "elmcap2-carry",

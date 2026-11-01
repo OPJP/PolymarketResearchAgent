@@ -1,4 +1,33 @@
-# btc5m-bot: frozen rule (iteration 15: UNCHANGED from iteration 14; side = decision clock on Binance's own clock, dc_exam14; presence / price unchanged since iteration 8; the PnL rule is the exposure tracker with the mix14 target, pre-registration 7)
+# btc5m-bot: frozen rule (iteration 16: UNCHANGED from iteration 14; side = decision clock on Binance's own clock, dc_exam14; presence / price unchanged since iteration 8; the PnL rule is the exposure tracker with the mix14 target, pre-registration 7)
+
+Iteration 16 in one paragraph (no candidate adopted; the scored rule, code/final_rule.py and target_metrics are unchanged). The pivot
+was the COMPLETE decision record: the calldata of every operator taker order of 10-20..22 (72,602 txs newly fetched; before, 5% of
+orders had their original size), with the original-size class as the target and the carrying wallet as a deterministic state
+machine. (1) SIZE [VALIDATE-only]. The original size is a large (100) / small (30) class with per-wallet base rates outside size
+phases (DS 3.8%, GF 32%, XM 34% on 10-20; phases of hours lift every wallet). It is repeated on the side of the operator's realized
+large lean: GF / XM send large about half the time unless the order goes against that lean (then 13-15%, the small pairing stream).
+Price and size are one decision: large orders are priced one cent (or more) above the ask the bot saw, small ones at it; the
+iteration-13 per-wallet pay-up (DS 0, GF 1, XM 1 c) is mostly the per-wallet large share. From public data at the physical cut the
+large class is predictable for DS (within-wallet AUC 0.77-0.80, 0.80-0.84 with the book at its own view; reverse split 0.81 / 0.84)
+but only weakly for GF / XM (0.62-0.70), whose large class follows the operator's own realized lean (0.71-0.78 from it alone). On the
+true decision record with the dc14 side, the window-net r is 0.358 with the public menu, 0.401 with the public size model, 0.578 with
+the operator's own lean (a state no replica shares) and 0.685 with the true classes; a lean controller run on the rule's OWN
+simulated state is worse than the menu (0.314; pre-registration 10 (b) failed). Given the original size, the realized fill is
+execution on the post-hold book: min(size, o's ask depth <= L ~35 ms before the match) at r 0.895 on all 27,008 orders of 10-20.
+Condition 5's gap is therefore the size coin conditioned on the operator's realized lean. (2) ALLOCATION [VALIDATE-only]. A fixed
+priority list DS > GF > XM over in-flight orders with a ~300-ms slot names 77.8% of carriers from visible occupancy alone (0.73-0.82
+by day; always-DS 0.64). GF- and XM-led first legs are locked to the trigger tick 20 / 40 ms later than DS's on every feed (the
+slot gaps), and a DS remainder rests exactly one cent below GF's limit after >= 9% of GF-led first legs (placebo 0.3%, symmetric
+check 1.7-2.0%; 10-20 / 21 / 22: 9.5 / 8.8 / 8.5%): unseen lost legs occupy the higher slots. The operator's 4th wallet W4 is a
+slot of the same list: 36.6% of XM-led first legs follow a W4 / W5 leg within 300 ms (placebo 4.3%; DS 2.7%, GF 3.7%), and the best
+five-wallet order is DS > GF > W4 > XM > W5. With the operator's occupancy as allocation input XM's PnL ceiling is 0.52-0.62
+(thin16: oracle 0.525, redraw 0.620), and with the carrier-agnostic decision density of the last 300 ms alone 0.51-0.53, against
+0.43-0.46 under the lottery premise: condition 7 for XM is attainable in principle by a replica that reproduces the operator's local
+decision density; the public knee-clock hazard summed over the 300-600 ms before a decision does not reproduce that density (XM
+oracle 0.479 vs 0.556 with the true density), while the public book's cancel wave at the order's own view cut does better (XM
+allocation AUC 0.832, oracle XM PnL r 0.498 with halves 0.651 / 0.461, not pre-registered): for a public rule condition 7 for XM sits
+at the 0.47 bar, bounded by the take coin. (3) Also: DS's Polymarket view lies in (m - 250, m - 180] on the book clock; the signing time per
+cent is flat in the number of orders per cent (parallel signers or scheduled timestamps); no exchange feed gives XM a sharp knee.
 
 Iteration 15 in one paragraph (no candidate adopted; the scored rule, code/final_rule.py and target_metrics are unchanged). The
 pivot was a new data source and target: the ASK-side L2 book of every BTC 5m token, rebuilt from the public capture's price_change
@@ -228,7 +257,11 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    multiple of realized vol; such a fair value sits closer to 0.5 than Polymarket's, so underdogs look cheap. Underdog buys
    follow flat or adverse 12-s moves; the move before a buy is the same for favourites and underdogs (not a return-unit
    threshold).
-5. **Price - VALIDATE-only.** Limit = the touch (best ask) of the chosen outcome as the bot saw it 50-150 ms before the
+5. **Price - VALIDATE-only.** Iteration 16 (complete 10-20 calldata): the pay-up is set by the SIZE class, not the wallet: small
+   orders are priced at the ask the bot saw (DS 94%, GF 66%, XM 48% at +0 c), large ones above it (DS +1 c 60% / +2..3 c 21%, GF +1 c
+   84%, XM +1 c 40% / +2..3 c 45%), in a book whose ask is already moving toward o (+1.1 c over the 320 ms before the view for DS's
+   large orders); DS's view lies in (m - 250, m - 180] on the book clock. Older text:
+   Limit = the touch (best ask) of the chosen outcome as the bot saw it 50-150 ms before the
    match: it submits the pre-signed ladder order at that price (the trivial "touch" anchor, and the rule says so). 95.1% of
    6,306 VALIDATE taker orders within one tick of the best consumed maker price (equal 83.9%). 16% are deliberately one or
    more cents ABOVE the touch (GF 27%, XM 38-46%, DS 9-10%; the same shares on VALIDATE and 10-31; 18 of 21 live pay-up
@@ -239,7 +272,13 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    1 s bracket the Polymarket mid shifted by the venue move (midpoint - mid follows the 500-ms Binance move, corr 0.94 on 20
    moving pairs), and 42% of those pairs cost more than 1: the legs answer successive opposite ticks; they are not set
    arbitrage at a static value.
-6. **Size - VALIDATE-only (own state).** A fixed (small, large) menu per day, the same at every price: 60/100 (10-09..13),
+6. **Size - VALIDATE-only (own state).** Iteration 16, on the complete record of 10-20..22 (exact original sizes of every taker
+   order): large shares outside size phases DS 3.8%, GF 32%, XM 34%; P(large | wallet, side vs the operator's realized large lean)
+   none / with / against = DS 0.038 / 0.057 / 0.018, GF 0.478 / 0.506 / 0.131, XM 0.552 / 0.590 / 0.152 (fit 10-20); within-wallet
+   AUC from public data DS 0.77-0.84, GF 0.66-0.70, XM 0.62-0.68 (both splits); the rule's own simulated lean has no information
+   (window-net r 0.314 vs the menu's 0.356 on the true decisions, dc14 side). Given the size, the fill is execution on the post-hold
+   book (r 0.895). The carrier is a priority list DS > GF > XM over in-flight orders (~300-ms slot; 0.778 on visible occupancy).
+   A fixed (small, large) menu per day, the same at every price: 60/100 (10-09..13),
    Iteration 14: the menu alternates by WINDOW INDEX inside phases (arm B = (start/300) mod 4 in {1, 2} carries the larger base size: 33.9 vs 24.6 filled
    shares per taker order in 37 phase hours; 76-84% of the >= 45-share shares on 10-16..19 are B-arm windows): scheduled configuration, not an input
    response. Older text below:

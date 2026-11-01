@@ -3473,3 +3473,251 @@ cut alongside.
 Next-step addendum (after findings 12-14): wire the per-wallet price anchor (DS 0, GF 1, XM 1 c; finding 8) into evaluate() as a
 reported price component before the next exam, and carry XM's presence part (+0.030 at the e cut) into the condition-7 account.
 Iteration 15 ended about 07:06 UTC 11-01 (about 77 minutes of work). rec_bn15 v2 (pid 29736) keeps recording until 12:00 UTC.
+
+### Iteration 16 (2026-11-01 07:39 UTC start, local Windows laptop; development data: before H, and 10-31 00-06 / 12-18, 11-01 06-12)
+
+Split and primary metric unchanged (BUILD = 10-09..16, VALIDATE = 10-16..23). Calendar (`sealed.py btc5m-bot`, 07:39 UTC): released lots
+none; future examined until 10-31 00:00; the current block 11-01 06-12 is development. Shared recorder running (live.py status: clob_crypto /
+clob_wallets / rtds / sports connected). Panel after iteration 15 (panels/iter15_*.md): 13 proposals, added as X151-X163:
+information P1-P5 = X151-X155, mechanics P1-P4 = X156-X159, assumptions P1-P4 = X160-X163. Overlaps: X152 (large-size input) and X157
+(complete decision record, original-size decision) share one label set and one model ladder; X159 (zero-fill slot record) and X160
+(priority dispatcher with hidden occupancy) are the same dispatcher test; X161 is X160's payoff.
+
+PIVOT (required: < 0.01 on the primary metric over iterations 14-15). New target, unit and model class: the operator's ORIGINAL-SIZE
+decision per taker order (the large class, ~12% of orders, carries the window net: its part of N correlates 0.775 with N, the small
+part -0.002; information panel) on the COMPLETE decision record (calldata of every operator taker tx of 10-20..22, never fetched before:
+~72.6k txs, code/cdfull16.py, running in the background), and the carrying wallet as a deterministic PRIORITY-SLOT STATE MACHINE over
+the operator's own in-flight orders (D2 state machine) instead of a thinning lottery.
+
+Competing explanations (iteration 16; what separates them):
+- E1 PRIORITY-SLOT DISPATCHER: one decision stream; each decision goes to the first free wallet in DS > GF > XM; a wallet is busy while
+  its last order is in the hold, filled or not (unfilled lost races are hidden occupancy). XM is the overflow slot. Separates: a
+  deterministic priority rule on own in-flight orders names the carrier far above the fills-only 72%; XM-led first legs are locked
+  to a LATER tick of the same move as sharply as DS's.
+- E2 SLOW XM PATH: XM is a slower or jittered path that receives random decisions. Separates: XM's tick-lock distribution shifted by
+  a constant or broadened; no occupancy excess.
+- E3 SIZE = PER-WALLET COIN: P(large) is a per-wallet constant (DS ~5%, GF ~30%, XM ~32%). Separates: within wallet no input lifts
+  the AUC for large above ~0.6.
+- E4 SIZE = CONVICTION (public): large when the move or the edge (fair value from Binance minus the ask) is large, or when the
+  Polymarket book shows a deep book being pulled. Separates: within-wallet AUC >= 0.75 from public inputs at the physical cut.
+- E5 SIZE = OWN-STATE CONTROLLER: large when the operator's realized exposure lags its signal (pyramiding / deficit). Separates:
+  own-state inputs lift the within-wallet AUC well above the public ones.
+- E6 SIZE = BURST POSITION (size follows the dispatcher): the large order is a later decision of a burst (DS busy), which the
+  priority list sends to GF / XM. Separates: P(large) rises with the number of operator orders in flight and the leg rank within
+  wallet, and large DS orders are also follow-ups.
+- E7 POST-HOLD EXECUTION: given the original size the fill is min(size, depth left ~35 ms before the match) (mechanics panel, r 0.876),
+  so condition 5 is a decision-replica problem. Separates: the ladder with the MODELLED size reaches r(N) >= 0.6 on the true decisions.
+This iteration discriminates E3-E6 on the complete record (and its on-chain proxy for 10-19..22), E1 vs E2 on the routing record, and
+bounds E7 with the modelled size.
+
+Data added (iteration 16): the COMPLETE decision record of the capture days: V2 matchOrders calldata of every operator taker tx of
+10-20..22 (code/cdfull16.py; 72,602 txs fetched with batched eth_getTransactionByHash at ~35 tx/s: 10-20 26,780 in 773 s, 10-21 20,715
+in 567 s, 10-22 25,107; plus 3,741 already decoded), decoded fields only, in the session scratchpad it16/cdfull_*.parquet (the strategy
+cache is at its 1.5 GB cap). Every operator taker order of 10-20..22 now has its original size, limit and signing ms (before: 5%). The
+VALIDATE taker tapes were rebuilt from the HTTP cache into it16/tapes (2,016 windows, 2.9 M rows, 113 s).
+
+Findings (iteration 16):
+1. DISPATCH: A FIXED PRIORITY LIST DS > GF > XM WITH A 300-MS SLOT NAMES 73-82% OF CARRIERS ON VISIBLE OCCUPANCY ALONE, STABLE BY DAY
+   (X160 step 3 / X159 / X162 step 1 on the capture days; disp16.py, results/disp16.json, disp16_days.json; 117,791 taker orders of
+   10-17..22; a wallet is busy if it has a match in (m - H, m)): best rule H = 300 ms, order DS > GF > XM: 0.778 pooled (H 250 0.772,
+   200 0.751, 150 0.734, 100 0.722; every other order is lower), always-DS 0.639; by day 0.797 / 0.782 / 0.802 / 0.823 / 0.742 / 0.731
+   (always-DS 0.65-0.67, 0.61 on 10-21 / 22). P(GF | DS busy) 0.88-0.94 on every day; P(XM | nobody visibly busy) 0.03-0.06; P(GF |
+   nobody busy) 0.15-0.18 on 10-17..20 and 0.23-0.25 on 10-21..22 (the known dispatch phase 10-21 16 h -> 10-22 13 h). Events: 78.5%
+   single-leg, 17.4% two legs, 4% three or more (sequences DS 57%, GF 18%, DS>GF 13%, XM 3%). A slot that frees ~150 ms after the match
+   (300 ms after the arrival) fits best: the bot frees a wallet when the match is acknowledged, not when the hold ends.
+2. TICK LOCK BY CARRIER: GF- AND XM-LED FIRST LEGS ARE SHIFTED BY THE FAN-OUT GAPS (X160 step 1; X154 step 1 for spot; disp16.py; first
+   legs of 10-20..22 (DS 42,649, GF 12,447, XM 2,534); signed Binance spot microprice ticks toward o per leg per 10-ms bin of m0 - Te,
+   Te = capture receive - 131 ms, placebo m0 - 3 s subtracted): peak DS 265 ms (half-maximum 175-305), GF 285 (205-355), XM 305 (215-425);
+   per 50-ms bin DS 3.41 / 4.68 / 2.04 at 200 / 250 / 300 ms, XM 3.96 / 6.00 / 7.06 / 5.00 / 4.19 at 200..400 ms, with XM's pre-trigger
+   level ~2 per bin out to 800 ms (DS ~0.1-0.2). The shifts (+20 ms GF, +40 ms XM) equal the fan-out positions (DS -> GF 16 ms, GF -> XM
+   26 ms, information panel), while XM in a VISIBLE DS -> XM fan-out comes only 25 ms after DS: a constant slow XM path (E2) would put
+   XM >= 40 ms behind DS in every fan-out. Reading: a GF- or XM-led 'first leg' is the second or third slot of a fan-out whose earlier
+   legs lost their races unseen (E1), on long moves (XM's high pre-trigger level). Not yet proven: the hidden-occupancy census (the
+   lost legs' bid insertions in the event-level L2) is not run.
+3. THE BOT'S POLYMARKET VIEW, PER WALLET, FROM THE COMPLETE 10-20 CALLDATA (X151 step 1, 16 offsets only; view16.py, results/view16.json;
+   27,008 orders, 12,818 whose o-ask changed between m - 500 and m - 125): DS's limit equals o's ask at m - 180 .. m - 35 for 81.4-83.8%,
+   at m - 250 65.5%, at m - 500 3.8%: DS's view lies in (m - 250, m - 180] on the book clock. GF at +0 c rises monotonically to 0.769
+   at m - 35 while GF at +1 c peaks at m - 250 (0.484): either a later view or a +1 c pay-up on an earlier one (16 offsets cannot tell).
+   XM spreads over +0 / +1 / +2 c (0.60 at m - 35 for +0; 0.31 at m - 180 for +1; 0.21 at m - 250 for +2). Orders were pre-signed 13-120 s
+   before the match (median 65-68 s, every wallet).
+4. SIGNING THROUGHPUT IS FLAT IN THE NUMBER OF ORDERS PER CENT (X163 step 1; calldata sample + complete 10-20; 39,261 operator BUY orders):
+   ms per cent 1.62-1.71 on every day whatever the menu (10-16 with 30 / 50 / 200: 1.667; the one-size days 10-17 / 18: 1.639 / 1.660;
+   two-size days 1.62-1.71); per burst, Spearman of ms per cent with filled orders per cent 0.037 (p 0.065); same-ms groups of one
+   (wallet, token) hold up to 8 distinct salts, 92% of them one size, 0.8% span two cents. The per-cent time is not single-thread signing
+   work (parallel signers, or a timestamp scheduled per cent): the assumptions panel's regrouping by signer is the right next step for
+   X149 / X163 (step 2 open).
+5. UNSEEN HIGHER-PRIORITY LEGS PRECEDE GF-LED FIRST LEGS (X160 step 2 / X159, a fills-based proxy of the census; hidden16.py, results/
+   hidden16_10-20.json, hidden16_10-21.json; first legs with complete calldata limits; maker-FIRST operator order hashes = maker fills
+   only, no taker fill): a DS maker-first hash at exactly L_GF - 1 c (where a DS leg priced on the same view rests: DS pays +0, GF +1)
+   whose first maker fill lands in [m0 - 1, m0 + 4] s follows 9.48% / 8.83% / 8.54% of GF-led first legs on 10-20 / 21 / 22 (n 3,354 / 3,896 / 5,197),
+   against 1.2-2.4% at the neighbouring cents (L - 0, L - 2), 0.24-0.28% in the placebo 30 s earlier, and 1.7-2.0% for the symmetric
+   check on DS-led legs (GF at L_DS - 1). XM-led first legs: GF at L_XM - 2 5.1% (10-21), DS at L - 1 2.0-2.5%. Only remainders that rest
+   AND are hit within seconds are visible (lost legs rest below a market that just moved away), so >= 9% is a lower bound on the GF-led
+   first legs that follow a lost DS leg. Together with findings 1-2 this supports the priority-slot dispatcher with hidden occupancy
+   (E1) over a slow XM path (E2). The book-insertion census (all lost legs, filled or not) is still open.
+6. THE REALIZED FILL IS EXECUTION ON THE POST-HOLD BOOK, ON THE COMPLETE RECORD (X156 step 1; posthold16.py, results/posthold16.json; all
+   27,008 operator taker orders of 10-20 with their original size and limit): fill = min(original, o's ask depth <= L at m - 35 on the
+   book clock) at r 0.895 (85.4% within 10%; DS 0.883, GF 0.897, XM 0.894; large 0.876, small 0.858), 0.845 at m - 50, 0.672 at m - 100,
+   0.503 at the bot's view m - 180; the original size alone 0.432; 45.0% of orders fill less than their original size. The mechanics
+   panel's 0.876 on 929 orders replicates on the full population.
+
+PRE-REGISTRATION 10 (written 08:19 UTC 11-01, before size16 with exact labels is scored and before lean16 sees 10-22; lean16 was already
+run once with score day 10-21, see finding 8): (a) size16 'cd' (exact calldata labels, original size >= 90): per-wallet LightGBM ladder
+of feature groups, FIT 10-20 (its 19-h size phase included as is), SCORE once on 10-21..22; a measurement, nothing adopted. (b) E5 as a
+replica input: the lean controller with the rule's OWN simulated state (lean16 'lean_sim') counts as a usable size input only if, with
+the dc14 side on the true decision record of 10-21..22, it beats the public menu by >= 0.05 in window-net r. (c) The reverse split
+(fit 10-21..22, score 10-20) is reported alongside.
+7. PRICE AND SIZE ARE ONE DECISION: LARGE ORDERS PAY ABOVE THE ASK, SMALL ONES AT IT (complete 10-20 calldata, outside the 19-h size
+   phase; L - o's best ask at m - 180 on the book clock): DS small 0 c in 94.3% (+1 c 3.2%), DS large +1 c 60.4%, +2..3 c 20.7%, 0 c 17.6%;
+   GF small 0 c 65.5% / +1 c 28.3%, GF large +1 c 83.7% / 0 c 8.3%; XM small 0 c 48% / +1 24% / +2..3 26%, XM large +1 40% / +2..3 45%.
+   Large orders come in a MOVING Polymarket book: o's ask rose a(m-180) - a(m-500) = +1.10 c before DS's large orders (small -0.11), XM
+   +1.27 (+0.11), GF +0.28 (+0.13); within wallet, L - a(m-500) has AUC 0.812 for DS's large class (GF 0.604, XM 0.614), the depth <= L
+   at m - 500 0.694 / 0.639 / 0.644. So the iteration-13 per-wallet pay-up anchor (DS 0, GF 1, XM 1 c) is mostly the per-wallet LARGE
+   share: the limit is ask + 0 for a small order and ask + 1 (or more) for a large one, priced ahead of a move already under way.
+   Exact large shares outside size phases (10-20): DS 3.8%, GF 32.3%, XM 34.4%; not a pre-signed-stock effect (P(large) by the use index
+   of the (wallet, burst, token, cent) cell DS 3.8 / 3.2 / 2.8%, GF 32 / 26 / 25%; flat in ladder age); size phases raise every wallet
+   (10-19 01-13 h: 0.3-0.5; 10-20 19 h: DS 0.71, GF 0.64, XM 0.57).
+8. THE SIZE IS A LEAN-RELATIVE COIN THAT A REPLICA CANNOT SYNCHRONIZE (PRE-REGISTRATION 10 (b): E5 FAILS AS A REPLICA INPUT; lean16.py,
+   results/lean16_10-21.json, lean16_10-21_10-22.json, lean16_10-20.json; complete calldata labels; fit 10-20 -> score 10-21..22, and
+   the reverse):
+   - P(large | wallet, the order's side vs the operator's realized LARGE net so far in the window) on 10-20: DS none / with / against
+     0.038 / 0.057 / 0.018, GF 0.478 / 0.506 / 0.131, XM 0.552 / 0.590 / 0.152 (two streams at the order level: GF / XM send large about
+     half the time unless the order goes against the realized large lean, which is the small pairing flow); same wallet and window,
+     after a large order on the same side P(large) GF 0.589 / XM 0.618 / DS 0.132, on the other side 0.126 / 0.157 / 0.015;
+   - multi-leg events carry the large legs: mean number of large legs per event (on-chain proxy label, total fill > 30) 0.047 (one leg),
+     0.274 (two), 0.380 (three), 0.532 (four legs); 78.5% of events have one leg;
+   - ladder on the TRUE decision record (timing and carrier known), dc14 side, window-net r on 10-21..22 (494 windows): public menu 0.356,
+     per-wallet constant 0.351, lean controller on the rule's OWN simulated state 0.314 (AUC for the large class 0.52-0.54), the same
+     controller on the operator's TRUE realized state 0.521 (AUC 0.59-0.64), class oracle 0.619, true fill 0.707; reverse split (score
+     10-20, 265 windows): 0.480 / 0.475 / 0.456 / 0.633 / 0.739 / 0.816. With the true side the class oracle reaches 0.801 (menu 0.330).
+   The size realizations carry +0.26 of window-net r with the dc14 side (+0.47 with the true side). A rule's own simulated lean has no
+   information on them; only the operator's realized large orders do (own state the replica does not share). This is the quantitative
+   account of condition 5's gap: the binding term is the per-order size coin, conditioned on the operator's own realized lean.
+9. PRE-REGISTRATION 10 (a): THE ORIGINAL-SIZE CLASS ON THE COMPLETE RECORD: PUBLIC FOR DS, MOSTLY OWN STATE FOR GF / XM (X152, X157 steps
+   2-3; size16.py 'cd', results/size16_cd.json; fit 10-20 (27,008 orders), scored once on 10-21..22 (46,569 orders, 6,118 large); within-
+   wallet AUC for original size >= 90): groups G0 config (arm, window index mod 4, time in window, hour, price), G1 Binance spot at the
+   decision AND the leg's own anchor, G2 USD-M / ETH / OKX / Bybit, G3 Polymarket trades, G6 digital fair value, edge and the delta-scaled
+   predicted move, G4 / G4o the capture's book at m0 - 230 / m - 230 (book clock) and its 100-1000-ms changes, G5a own inventory (operator
+   net and realized LARGE net toward o, fills <= m - 2 s), G5 adds leg rank and own in-flight orders (fill-count-like, reported only):
+   - DS (1,344 large): G0 0.572, +spot 0.761, all public w/o book 0.766, + book 0.796, + own-anchor book 0.801, + G5a 0.842 (G6 alone 0.714;
+     top inputs o's ask depth to best + 4 c at m - 230, the 250-ms spot microprice return at the leg's own anchor, the 250-ms ask change,
+     USD-M 250 ms);
+   - GF (3,728): public 0.661, + book 0.660-0.667, G5a alone 0.714, public + G5a 0.775, public + G5 0.830;
+   - XM (1,046): public 0.624, + book 0.637, G5a alone 0.776, public + G5a 0.810, public + G5 0.811;
+   - pooled: public + book 0.817 (mostly wallet identity), + G5a 0.868.
+   The information panel's signature (within-wallet public AUC >= 0.75) holds for DS only; for GF / XM the 'if false' branch applies
+   (public <= 0.67, own realized lean lifts it). Ladder with these E[size] on the true decisions, dc14 side (ladder16.py, results/
+   ladder16_cd.json, 494 windows): menu 0.358, public model 0.401, public + G5a 0.578 (operator state, oracle for a replica), class
+   oracle 0.685.
+10. NO FEED GIVES XM A SHARP KNEE (X154 step 1 on every exact-stamped trade feed on disk; psth16.py, results/psth16.json; first legs of
+    10-20..22; peak lag and half-maximum span of m0 - T): Binance USD-M trades DS 265 [195, 305], GF 285 [235, 355], XM 325 [265, 395];
+    OKX swap trades 275 [185, 305] / 295 [235, 365] / 335 [205, 545]; Binance spot trades 265 [185, 295] / 275 [225, 355] / 305 [265, 695]
+    (spot book ticks, finding 2: 265 / 285 / 305). XM is later and broader on every feed by about the same amount: not a different feed,
+    a later slot (finding 2) on longer moves.
+
+Panel proposals of iteration 15 (catalog X151-X163) and what happened to them:
+- X151 (per-wallet view clock and maker envelope): step 1 at 16 offsets (finding 3); the event-level steps are open.
+- X152 (large-size input in public data): tried (findings 7-9): public for DS (0.80), mostly own realized lean for GF / XM.
+- X153 (Binance L2, Tardis 11-01): not run, open. X154 (XM's feed): every trade feed on disk (finding 10) and spot ticks (finding 2);
+  no XM-specific feed; W4 / W5 preceding legs open. X155 (kink test): open (needs X151 at event resolution).
+- X156 (closed-loop replica on the post-hold book): step 1 replicated on the complete record (finding 6, r 0.895); step 2 measured
+  (finding 8): the 'if false' branch applies (original size binding), so the replica is RULED OUT as a route to the signature.
+- X157 (complete decision record): tried (data added; findings 7-9). X158 (latency dispersion): open (event-level book).
+- X159 = X160 (priority dispatcher with hidden occupancy): visible-occupancy rule, tick lock, fills-based hidden-leg proxy (findings 1,
+  2, 5); the book-insertion census is open. X161 (replica with simulated occupancy): open. X162 (dispatcher versions): capture days
+  only (finding 1), open. X163 (PRNG by signer): step 1 FLAT (finding 4), step 2 open.
+Also this iteration: X145 ruled out with X156 (same ceiling); X93 tried (the race is execution on the post-hold book, finding 6).
+
+## Next (iteration 17)
+
+1. Condition 5 is bounded by the per-order size coin conditioned on the operator's REALIZED large lean (findings 7-9): with the true
+   decisions and the dc14 side the window-net r is 0.36 with the menu, 0.40 with the public size model, 0.58 with the operator's own
+   realized lean (a state a replica does not share) and 0.69 with the true classes. Untested ways in: (a) a size-weighted hazard target
+   (every 50-ms bin scored with a frozen P(large | public inputs at the bin, own-anchor spot and book), pre-registered against mix14 in
+   the tracker; DS's public model is 0.80); (b) X163 step 2 (per-signer salt chains through the V8 GF(2) solver): if a generator is
+   recovered, test whether it also draws the size and the carrier; (c) JavaScriptCore (X149) only after (b).
+2. Condition 7 through the dispatcher (findings 1, 2, 5, 11, 12, 15, 16): XM is the slot after W4 and its PnL ceiling is 0.51-0.62 once
+   the operator's local decision density is known, but the public hazard does not reproduce that density (0.48). Steps: (a) a model of
+   the operator's decision COUNT in the next / last 300 ms (burst intensity) from public inputs (the makers' cancel wave on both
+   outcomes, the knee-clock move, the hazard's own 300-ms sum), scored against the true density; (b) re-ingest the capture's 10-20
+   book at event level for the complement's ask at 1 - L (a lost leg rests as a bid at L) to count the unseen legs; (c) X161's replica
+   with simulated occupancy (five slots incl. W4 / W5) and per-wallet trackers; the public book's cancel wave already names XM's
+   overflow legs at AUC 0.832 (finding 17), so the first pre-registered test is an XM tracker with that allocation (bins scored with it).
+3. Condition 2: X151 at event resolution (5-ms view edges per wallet with the lost legs included; the makers' size-cancel envelope after
+   clean onsets), then pre-register the per-wallet cut and score once on days whose book has not been used (10-17..19 need the L2 ingest).
+4. Exam readiness: the out-of-time check of dc_exam14 / dc_hazard14 on rec_bn15 v2 (11-01 06:56-12:00 UTC, feeds btc5m_bnspot2 /
+   btc5m_bnusdm2; laptop offset from the trade stamps); the Tardis 11-01 HEAD check on 11-02 (X153 step 4); the price component's
+   size coupling (ask + 0 small, + 1 large) in FINAL_RULE.md.
+5. Still open: X5, X7, X9, X18, X26, X33, X36, X37, X44, X51, X53, X57, X66, X70, X72, X76, X87, X88, X90, X100, X104, X107, X113, X115,
+   X122, X123, X124, X127, X128, X130, X133, X139, X141, X142, X146, X148, X149, X150, X151, X153, X154, X155, X158, X159, X160, X161,
+   X162.
+
+Recorders at the end of iteration 16: the shared recorder runs (pid 27184); rec_bn15 v2 (pid 29736, my own, hard stop 11-01 12:00 UTC)
+and rec_eu11 (pid 14192) are alive; no recorder was started this iteration. No polyrea bug found. Cache: nothing added to
+.cache/re/btc5m-bot (at its 1.5 GB cap); the complete calldata (it16/cdfull_*.parquet, ~25 MB) and the rebuilt tapes (it16/tapes) live in
+the session scratchpad (rebuild: code/cdfull16.py ~35 min; tapes8_run.py ~2 min).
+
+Status after iteration 16: target not reached; target_metrics unchanged (presence 0.8701 vs 0.8464 at the block clock; side 0.8369;
+price 0.9512; PnL 0.5065 / 0.4674; coverage 1 / 1). The account of the failing conditions changes:
+- condition 5: the binding term is the original-size coin (large ~4% DS, ~32-34% GF / XM, priced at ask + 1), repeated on the side of
+  the operator's realized large lean; given the size, the fill is execution on the post-hold book (r 0.895). A replica's own simulated
+  lean carries no information on the size realizations (pre-registration 10 (b) failed: 0.314 vs 0.356);
+- condition 7: the carrier follows a fixed priority list over in-flight orders (0.778 on visible occupancy), with unseen lost legs ahead
+  of GF / XM-led legs (DS remainders at L_GF - 1 c for >= 9% of GF-led first legs; tick lock shifted by the slot gaps); XM's ceiling of
+  0.43-0.46 assumed a lottery and is not yet re-measured under the dispatcher;
+- condition 2: unchanged (cut convention at the decision clock; DS's view in (m - 250, m - 180] on the book clock).
+
+Addendum (08:35 UTC):
+11. XM'S 'FIRST LEGS' FOLLOW THE OPERATOR'S 4TH WALLET (X154 step 2: SIGNATURE MET; w45lead16.py, results/w45lead16.json; W4 0xd84403ef /
+    W5 0x03b4c58b taker BUYs from the data-api tapes (10,028 with server ms from the public capture), operator first legs of 10-20..22):
+    a W4 / W5 taker leg on the same window in the 300 ms before m0 precedes 36.6% of XM-led first legs (placebo 3 s earlier 4.3%) against
+    2.7% of DS-led (placebo 2.9%) and 3.7% of GF-led (3.5%); the gap is a median 45 ms (q10 8, q25 15, q75 125, q90 202) and 86% are on
+    the same outcome. After a W4 / W5 leg the next operator leg within 300 ms is XM 1,690 times, DS 1,517, GF 649 (none 6,172), although
+    XM carries only ~6% of the three wallets' legs. XM is the slot after W4.
+12. FIVE-WALLET PRIORITY LIST (disp16b.py, results/disp16b.json; 83,605 taker legs of DS / GF / XM / W4 / W5 on 10-20..22, visible
+    occupancy = a match in (m - H, m)): the best of the 120 orders x 3 slot lengths is DS > GF > W4 > XM > W5 with H = 300 ms (all legs
+    0.693, the three studied wallets 0.762; XM precision 0.645, recall 0.072); DS > GF > XM > W4 > W5 has XM precision 0.219 at recall 0.143.
+    With W4 placed ahead of XM the rule's XM calls are right two times in three, but most XM legs still come while the visible slots are
+    free (hidden occupancy: lost legs of the higher slots, finding 5).
+13. PER-SIGNER PRNG CHAINS ARE NOT V8 OUTPUT EITHER (X163 step 2; prng16.py, results/prng16.json): chains = (wallet, token, signing burst,
+    size) with >= 6 cents carrying one observed salt each (3,252 chains in the complete calldata of 10-20..22 plus samples); layouts M = 1-4
+    Math.random calls per order, one order per cent in signing order, V8's 64-entry cache read last-in-first-out with any phase (64), the
+    'hi' mantissa, Date.now() within +-2 ms of each order's timestamp; a consistent full-rank GF(2) system is a recovery. Self-test on the
+    same layouts: 4 / 4 synthetic chains recovered (true M and phase found). Real: 0 / 299 chains consistent under any of the 256
+    hypotheses. With prng15's copy groups (0 / 130) the salts are neither nearby nor per-signer sequential V8 outputs; JavaScriptCore /
+    Bun or a CSPRNG remain (X149).
+14. FINDING 9 REPLICATES IN THE REVERSE SPLIT (size16.py 'cd' fit 10-21..22 -> score 10-20, results/size16_cd_rev.json; 27,008 orders,
+    3,499 large): DS public 0.805, + book 0.836, + own lean 0.861; GF public 0.680, + book 0.696, lean alone 0.739, public + lean 0.801;
+    XM public 0.661, + book 0.683, lean alone 0.784, public + lean 0.831.
+15. UNDER THE DISPATCHER, XM'S PNL CEILING EXCEEDS 0.47: THE THINNING WALL COMPONENT IS VOID (X161 step 2 / X154 step 3, oracle for the
+    dispatch part; thin16.py, results/thin16.json; thin15 with the operator's own occupancy as allocation inputs: DS / GF / XM matches in
+    (m - 300, m), operator legs in the last 300 ms, a W4 / W5 leg in the last 300 ms; fit 10-17..19, score 10-20..22; 600 redraws):
+    XM one-vs-rest AUC 0.868 (clock model 0.791); oracle XM total PnL r 0.525 (halves 0.546 / 0.507) against 0.443 (clock) and 0.320
+    (base rates); redraw ceiling sqrt(test-retest) 0.620 against 0.468 / 0.309; occupancy and leg rank alone: AUC 0.765, oracle 0.506,
+    ceiling 0.613. 41.7% of all XM taker orders have a W4 / W5 leg in the 300 ms before them. The inputs are the operator's TRUE
+    occupancy (own state of the operator and its sibling wallets), so this bounds a replica that simulates its own dispatcher (its own
+    decisions, lost races and the W4 slot); it is not a public rule yet. Condition 7 for XM is attainable in principle, and the next step
+    is X161's replica with simulated occupancy and per-wallet trackers.
+
+16. ...BUT A PUBLIC REPLICA DOES NOT YET SEE THAT DENSITY (thin16.py variants, results/thin16_density.json, thin16_haz.json,
+    thin16_hazbin.json; hazbins16.py stores the frozen knee-clock hazard on every 50-ms bin of 10-20..22, it16/hazbins16.npz):
+    - carrier-agnostic TRUE decision density (operator legs of all five wallets in the 300 ms before the order) + the clock features,
+      fit 10-17..19 -> score 10-20..22: XM AUC 0.852, oracle XM total PnL r 0.529 (halves 0.558 / 0.504), redraw ceiling 0.559; without
+      leg rank 0.840 / 0.512 / 0.541;
+    - fit 10-20 -> score 10-21..22: clock only 0.773 / 0.486 (halves 0.625 / 0.451) / 0.427; + the PUBLIC hazard summed over the 300 /
+      600 ms before the decision band 0.788 / 0.479 / 0.457; + the hazard per second 0.772 / 0.478 / 0.444; TRUE density 0.838 / 0.556 /
+      0.535.
+    The public hazard does not reproduce the operator's local decision density (the take among top-hazard instants is still a coin,
+    P(take) ~6% in the top decile), so XM's PnL ceiling for a public replica stays at ~0.43-0.48; with the operator's own decision times
+    it is 0.51-0.56. Condition 7 for XM is bounded by the take coin, not by an i.i.d. carrier lottery.
+
+17. THE MAKERS' CANCEL WAVE IN THE PUBLIC BOOK NAMES XM'S OVERFLOW LEGS ALMOST AS WELL AS THE TRUE DENSITY (thin16.py THIN16_BOOK,
+    results/thin16_hazbin_book.json; fit 10-20 -> score 10-21..22; book features at the order's own view cut m - 230 on the book clock from
+    the capture L2 grid: o's and the other outcome's depth to best + 4 c relative to 250 / 500 / 1500 ms earlier, o's best-ask change over
+    500 ms): XM one-vs-rest AUC 0.832 (0.819 without leg rank) against 0.773 for the clock model and 0.838 for the TRUE decision density;
+    oracle XM total PnL r 0.498 (taker 0.527; halves 0.651 / 0.461), redraw ceiling 0.491 (clock 0.424, true density 0.535); without leg
+    rank 0.484 / 0.465. The drained book before XM's view (assumptions panel) is a public marker of the overflow slot; with it XM's PnL
+    ceiling reaches the 0.47 bar pooled but not in the later half. Not pre-registered; next: per-wallet trackers with this allocation.
+
+Iteration 16 ended about 08:50 UTC 11-01 (about 71 minutes). The shared recorder, rec_bn15 v2 and rec_eu11 are alive; no recorder was
+started this iteration.

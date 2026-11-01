@@ -1,0 +1,121 @@
+{
+ "orders": 117791,
+ "frame_match_coverage": 0.9609,
+ "clock": {
+  "auc_one_vs_rest": {
+   "DS": 0.74,
+   "GF": 0.7011,
+   "XM": 0.7733
+  },
+  "log_loss": 0.7626,
+  "oracle_xm_taker_pnl_r": 0.474,
+  "oracle_xm_total_pnl_r": 0.4861,
+  "oracle_xm_total_pnl_r_halves": [
+   0.6247,
+   0.4509
+  ],
+  "redraw_corr_with_true_xm_taker_pnl": {
+   "q025": 0.084,
+   "median": 0.1977,
+   "q975": 0.3133
+  },
+  "redraw_test_retest": {
+   "median": 0.1797,
+   "sqrt_median_ceiling": 0.424
+  }
+ },
+ "clock_book": {
+  "auc_one_vs_rest": {
+   "DS": 0.7563,
+   "GF": 0.7111,
+   "XM": 0.8319
+  },
+  "log_loss": 0.7396,
+  "oracle_xm_taker_pnl_r": 0.5266,
+  "oracle_xm_total_pnl_r": 0.498,
+  "oracle_xm_total_pnl_r_halves": [
+   0.6507,
+   0.4613
+  ],
+  "redraw_corr_with_true_xm_taker_pnl": {
+   "q025": 0.1517,
+   "median": 0.2572,
+   "q975": 0.3766
+  },
+  "redraw_test_retest": {
+   "median": 0.2415,
+   "sqrt_median_ceiling": 0.4914
+  }
+ },
+ "clock_book_hazbin": {
+  "auc_one_vs_rest": {
+   "DS": 0.7578,
+   "GF": 0.7125,
+   "XM": 0.8343
+  },
+  "log_loss": 0.7403,
+  "oracle_xm_taker_pnl_r": 0.5179,
+  "oracle_xm_total_pnl_r": 0.4979,
+  "oracle_xm_total_pnl_r_halves": [
+   0.6548,
+   0.4604
+  ],
+  "redraw_corr_with_true_xm_taker_pnl": {
+   "q025": 0.1352,
+   "median": 0.2472,
+   "q975": 0.3474
+  },
+  "redraw_test_retest": {
+   "median": 0.2369,
+   "sqrt_median_ceiling": 0.4867
+  }
+ },
+ "clock_book_hazbin_no_rank": {
+  "auc_one_vs_rest": {
+   "DS": 0.6764,
+   "GF": 0.6204,
+   "XM": 0.819
+  },
+  "log_loss": 0.7903,
+  "oracle_xm_taker_pnl_r": 0.4924,
+  "oracle_xm_total_pnl_r": 0.4843,
+  "oracle_xm_total_pnl_r_halves": [
+   0.6385,
+   0.4482
+  ],
+  "redraw_corr_with_true_xm_taker_pnl": {
+   "q025": 0.1168,
+   "median": 0.2305,
+   "q975": 0.3426
+  },
+  "redraw_test_retest": {
+   "median": 0.2161,
+   "sqrt_median_ceiling": 0.4649
+  }
+ },
+ "density_true_oracle": {
+  "auc_one_vs_rest": {
+   "DS": 0.7509,
+   "GF": 0.7074,
+   "XM": 0.8377
+  },
+  "log_loss": 0.7373,
+  "oracle_xm_taker_pnl_r": 0.565,
+  "oracle_xm_total_pnl_r": 0.5561,
+  "oracle_xm_total_pnl_r_halves": [
+   0.7047,
+   0.5188
+  ],
+  "redraw_corr_with_true_xm_taker_pnl": {
+   "q025": 0.1998,
+   "median": 0.3017,
+   "q975": 0.3961
+  },
+  "redraw_test_retest": {
+   "median": 0.2866,
+   "sqrt_median_ceiling": 0.5353
+  }
+ },
+ "xm_maker_share_fit": 0.0827,
+ "windows_scored": 494
+}

@@ -1,0 +1,94 @@
+{
+ "legs": {
+  "DS": 46475,
+  "GF": 22599,
+  "XM": 4503,
+  "W4": 9392,
+  "W5": 636
+ },
+ "rules": {},
+ "top_by_all_legs": [
+  {
+   "acc_all": 0.6926,
+   "acc_3wallets": 0.7617,
+   "xm_recall": 0.0715,
+   "xm_precision": 0.6453,
+   "H": 300,
+   "order": "DS>GF>W4>XM>W5"
+  },
+  {
+   "acc_all": 0.6895,
+   "acc_3wallets": 0.7577,
+   "xm_recall": 0.0062,
+   "xm_precision": 0.7778,
+   "H": 300,
+   "order": "DS>GF>W4>W5>XM"
+  },
+  {
+   "acc_all": 0.6761,
+   "acc_3wallets": 0.7661,
+   "xm_recall": 0.143,
+   "xm_precision": 0.2193,
+   "H": 300,
+   "order": "DS>GF>XM>W4>W5"
+  },
+  {
+   "acc_all": 0.6747,
+   "acc_3wallets": 0.7661,
+   "xm_recall": 0.143,
+   "xm_precision": 0.2193,
+   "H": 300,
+   "order": "DS>GF>XM>W5>W4"
+  },
+  {
+   "acc_all": 0.6689,
+   "acc_3wallets": 0.7577,
+   "xm_recall": 0.0062,
+   "xm_precision": 0.7778,
+   "H": 300,
+   "order": "DS>GF>W5>W4>XM"
+  },
+  {
+   "acc_all": 0.6685,
+   "acc_3wallets": 0.7578,
+   "xm_recall": 0.0073,
+   "xm_precision": 0.4024,
+   "H": 300,
+   "order": "DS>GF>W5>XM>W4"
+  }
+ ],
+ "reference": [
+  {
+   "acc_all": 0.6761,
+   "acc_3wallets": 0.7661,
+   "xm_recall": 0.143,
+   "xm_precision": 0.2193,
+   "H": 300,
+   "order": "DS>GF>XM>W4>W5"
+  },
+  {
+   "acc_all": 0.6926,
+   "acc_3wallets": 0.7617,
+   "xm_recall": 0.0715,
+   "xm_precision": 0.6453,
+   "H": 300,
+   "order": "DS>GF>W4>XM>W5"
+  },
+  {
+   "acc_all": 0.662,
+   "acc_3wallets": 0.7241,
+   "xm_recall": 0.0833,
+   "xm_precision": 0.431,
+   "H": 400,
+   "order": "DS>GF>W4>XM>W5"
+  },
+  {
+   "acc_all": 0.6596,
+   "acc_3wallets": 0.7359,
+   "xm_recall": 0.034,
+   "xm_precision": 0.7051,
+   "H": 200,
+   "order": "DS>GF>W4>XM>W5"
+  }
+ ]
+}

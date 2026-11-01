@@ -38,7 +38,7 @@ The premise is that every screened wallet runs a real strategy, so not finding i
 
 | Strategy | Status | Iterations | Best VALIDATE score | Exams | Wall audits (rejected) | Latest exam target met | Match | Backtest | Replicable | Persists |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [btc5m-bot](reverse_engineering/btc5m-bot/NOTES.md) | in progress | 15 (974 min) | 0.913 | 0 | 0 (0) | - | - | - | - | - |
+| [btc5m-bot](reverse_engineering/btc5m-bot/NOTES.md) | in progress | 16 (1043 min) | 0.913 | 0 | 0 (0) | - | - | - | - | - |
 | [elmcap2-carry](reverse_engineering/elmcap2-carry/NOTES.md) | in progress | 1 (48 min) | 0.896 | 0 | 0 (0) | - | - | - | - | - |
 | [jld-inplay-taker](reverse_engineering/jld-inplay-taker/NOTES.md) | not started | 0 (0 min) | - | 0 | 0 (0) | - | - | - | - | - |
 | [rebate-farmer](reverse_engineering/rebate-farmer/NOTES.md) | not started | 0 (0 min) | - | 0 | 0 (0) | - | - | - | - | - |

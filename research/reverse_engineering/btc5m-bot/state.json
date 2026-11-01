@@ -9577,6 +9577,287 @@
     }
    },
    "verdict": "DS / GF clear 0.05 at the e cut; XM +0.030 does not"
+  },
+  {
+   "id": "H212",
+   "family": "complete decision record: original-size class (X152 / X157)",
+   "description": "per-wallet LightGBM P(large) with public, book, edge and own-inventory groups on exact calldata labels, fit 10-20 -> score 10-21..22 and reverse",
+   "validate_metrics": {
+    "DS": {
+     "public": [
+      0.766,
+      0.805
+     ],
+     "public_book": [
+      0.801,
+      0.836
+     ],
+     "public_book_lean": [
+      0.842,
+      0.861
+     ]
+    },
+    "GF": {
+     "public": [
+      0.661,
+      0.68
+     ],
+     "lean_only": [
+      0.714,
+      0.739
+     ],
+     "public_lean": [
+      0.775,
+      0.801
+     ]
+    },
+    "XM": {
+     "public": [
+      0.624,
+      0.661
+     ],
+     "lean_only": [
+      0.776,
+      0.784
+     ],
+     "public_lean": [
+      0.81,
+      0.831
+     ]
+    }
+   },
+   "verdict": "public for DS (signature met), own realized lean for GF / XM (signature not met)"
+  },
+  {
+   "id": "H213",
+   "family": "lean controller as a replica size input (pre-registration 10 (b))",
+   "description": "P(large | wallet, side vs realized large lean) fitted on 10-20; the rule's own simulated lean vs the operator's true lean on the true decision record, dc14 side",
+   "validate_metrics": {
+    "rN_10_21_22": {
+     "menu": 0.3561,
+     "lean_sim": 0.3136,
+     "lean_true_state": 0.5213,
+     "class_oracle": 0.6192,
+     "true_fill": 0.7074
+    },
+    "rN_reverse_10_20": {
+     "menu": 0.4799,
+     "lean_sim": 0.456,
+     "lean_true_state": 0.6331,
+     "class_oracle": 0.739
+    }
+   },
+   "verdict": "rejected as a replica input (-0.04 vs the menu); the size coin is the binding term of condition 5"
+  },
+  {
+   "id": "H214",
+   "family": "post-hold execution on the complete record (X156 step 1)",
+   "description": "fill = min(original, o's ask depth <= L at m - x) for all 27,008 operator taker orders of 10-20",
+   "validate_metrics": {
+    "r_m35": 0.8952,
+    "within10_m35": 0.8537,
+    "r_m50": 0.8452,
+    "r_m180": 0.5025,
+    "per_wallet_m35": {
+     "DS": 0.8828,
+     "GF": 0.8974,
+     "XM": 0.8938
+    },
+    "orig_only": 0.4316
+   },
+   "verdict": "replicated: the realized fill is execution, the original size is the open term"
+  },
+  {
+   "id": "H215",
+   "family": "priority-slot dispatcher on visible occupancy (X159 / X160 / X162)",
+   "description": "deterministic DS > GF > XM over wallets with a match in (m - H, m), H grid 100-400 ms, all priority orders, 10-17..22",
+   "validate_metrics": {
+    "best": "H300 DS>GF>XM 0.7781",
+    "always_DS": 0.6394,
+    "by_day_H300": {
+     "10-17": 0.797,
+     "10-18": 0.782,
+     "10-19": 0.802,
+     "10-20": 0.823,
+     "10-21": 0.742,
+     "10-22": 0.731
+    }
+   },
+   "verdict": "priority list fits; hidden occupancy needed for the rest"
+  },
+  {
+   "id": "H216",
+   "family": "tick lock by carrier and other feeds (X160 step 1, X154)",
+   "description": "signed tick PSTH of first legs on Binance spot book ticks, USD-M, OKX swap and spot trades",
+   "validate_metrics": {
+    "spot_book_peak_ms": {
+     "DS": 265,
+     "GF": 285,
+     "XM": 305
+    },
+    "usdm_trades_peak_ms": {
+     "DS": 265,
+     "GF": 285,
+     "XM": 325
+    },
+    "okx_peak_ms": {
+     "DS": 275,
+     "GF": 295,
+     "XM": 335
+    }
+   },
+   "verdict": "GF / XM shifted by the slot gaps on every feed; no XM-specific feed"
+  },
+  {
+   "id": "H217",
+   "family": "fills-based hidden-occupancy proxy (X160 step 2 proxy)",
+   "description": "maker-first DS hashes at exactly L_GF - 1 c hit within [m0 - 1, m0 + 4] s after GF-led first legs",
+   "validate_metrics": {
+    "GF_led_DS_at_L-1": [
+     0.0948,
+     0.0883
+    ],
+    "neighbours_L0_L2": [
+     [
+      0.0116,
+      0.0236
+     ],
+     [
+      0.0177,
+      0.0205
+     ]
+    ],
+    "placebo_30s": [
+     0.0024,
+     0.0028
+    ],
+    "DS_led_GF_at_L-1": [
+     0.0168,
+     0.0201
+    ]
+   },
+   "verdict": "unseen DS legs priced on the same view precede >= 9% of GF-led first legs (lower bound)"
+  },
+  {
+   "id": "H218",
+   "family": "signing throughput and per-signer PRNG chains (X163)",
+   "description": "ms per cent vs orders per cent; V8 GF(2) solve of per-signer chains across cents",
+   "validate_metrics": {
+    "ms_per_cent_by_day": "1.62-1.71 (three-size day 1.667)",
+    "spearman_ms_vs_orders_per_cent": 0.037,
+    "prng_chains": "0 / 299 consistent (self-test 4 / 4)"
+   },
+   "verdict": "flat throughput; per-signer V8 chains rejected"
+  },
+  {
+   "id": "H219",
+   "family": "W4 / W5 legs ahead of XM (X154 step 2)",
+   "description": "W4 / W5 taker leg in the 300 ms before an operator first leg, by lead wallet",
+   "validate_metrics": {
+    "XM": 0.3662,
+    "XM_placebo": 0.0434,
+    "DS": 0.027,
+    "GF": 0.037,
+    "gap_median_ms": 45,
+    "same_outcome": 0.86
+   },
+   "verdict": "XM is the slot after W4"
+  },
+  {
+   "id": "H220",
+   "family": "five-wallet priority list (X159 / X162)",
+   "description": "deterministic priority over DS, GF, XM, W4, W5 with visible occupancy",
+   "validate_metrics": {
+    "best": "DS>GF>W4>XM>W5, H 300",
+    "acc_all": 0.6926,
+    "acc_3": 0.7617,
+    "xm_precision": 0.6453,
+    "xm_recall": 0.0715
+   },
+   "verdict": "W4 sits ahead of XM; hidden occupancy still needed"
+  },
+  {
+   "id": "H221",
+   "family": "dispatch-oracle allocation ceiling for XM (X161 step 2)",
+   "description": "thin15 with the operator's own occupancy and W4 / W5 legs in the last 300 ms as allocation inputs",
+   "validate_metrics": {
+    "xm_auc": 0.8676,
+    "oracle_xm_total_pnl_r": 0.5246,
+    "halves": [
+     0.5456,
+     0.507
+    ],
+    "redraw_ceiling": 0.6196,
+    "clock_model": {
+     "xm_auc": 0.7907,
+     "oracle": 0.4426,
+     "ceiling": 0.4677
+    }
+   },
+   "verdict": "the XM thinning ceiling is void under the dispatcher; attainable only by a replica that simulates its own occupancy"
+  },
+  {
+   "id": "H222",
+   "family": "replica-usable decision density for XM's allocation (X161 step 1)",
+   "description": "thin16 with the carrier-agnostic true decision density vs the public hazard summed over the 300 / 600 ms before the decision",
+   "validate_metrics": {
+    "fit_10_17_19": {
+     "true_density": {
+      "xm_auc": 0.8519,
+      "oracle": 0.5293,
+      "ceiling": 0.5588
+     }
+    },
+    "fit_10_20": {
+     "clock": {
+      "xm_auc": 0.7733,
+      "oracle": 0.4861,
+      "ceiling": 0.4266
+     },
+     "public_hazard_bins": {
+      "xm_auc": 0.7879,
+      "oracle": 0.4794,
+      "ceiling": 0.4565
+     },
+     "public_hazard_seconds": {
+      "xm_auc": 0.7722,
+      "oracle": 0.4779,
+      "ceiling": 0.4443
+     },
+     "true_density": {
+      "xm_auc": 0.8377,
+      "oracle": 0.5561,
+      "ceiling": 0.5353
+     }
+    }
+   },
+   "verdict": "the true density lifts XM above 0.47, the public hazard does not: condition 7 for XM is bounded by the take coin"
+  },
+  {
+   "id": "H223",
+   "family": "public book-wave allocation for XM (X161 step 1, public)",
+   "description": "thin16 allocation with the makers' cancel wave at the order's own view cut, fit 10-20 -> score 10-21..22",
+   "validate_metrics": {
+    "xm_auc": 0.8319,
+    "xm_auc_no_rank": 0.819,
+    "oracle_xm_total_pnl_r": 0.498,
+    "halves": [
+     0.6507,
+     0.4613
+    ],
+    "redraw_ceiling": 0.4914,
+    "clock": {
+     "xm_auc": 0.7733,
+     "oracle": 0.4861,
+     "ceiling": 0.424
+    },
+    "true_density": {
+     "xm_auc": 0.8377,
+     "oracle": 0.5561,
+     "ceiling": 0.5353
+    }
+   },
+   "verdict": "public book marks XM's overflow nearly as well as the true density; XM's ceiling reaches 0.47 pooled, not in the later half; not pre-registered"
   }
  ],
  "data_sources": [
@@ -9630,7 +9911,9 @@
   "Iteration 13: Hugging Face Fahri-5/updown-5m-polymarket-raw (CC0, not gated), revision f848a77ccfce4421d3cedbbe585576db77d36662, polymarket/ and btc/ day files for 10-17..22 only, read by HTTP range requests and reduced at once (trades with server ms + tx hash, touch changes, Binance spot book / trades, RTDS Chainlink); reduced copies in the session scratchpad it13/hf_dl (not in the workspace cache); HF answers 429 under parallel ingests",
   "Iteration 13: Hugging Face RabbitGo777/polymarket.btc_20261020.v4.parquet (not gated), revision 1e0218e12491c7e1d6183350a424fb3489539129: footer of binance.btc_20261020.v4.parquet and its USD-M BTCUSDT bookTicker rows for 10-20 11:00-12:00 UTC (133 row groups by ts_local statistics, microseconds); reduced copy in the session scratchpad it13/rabbit",
   "Iteration 13: Deribit public get_volatility_index_data BTC resolution 60 (1-min DVOL), 10-09..22, end < H, via the polyrea HTTP cache",
-  "Iteration 15: public capture Fahri-5/updown-5m-polymarket-raw (revision f848a77c) polymarket day files 10-20 / 10-21 / 10-22, ask-side L2 (price_change askPrice / askSize, book asks, bestAsk for the check) of every BTC 5m token, by HTTP range requests (2 threads, ~600 MB read per day), reduced at once to order-time ask vectors and a 50-ms depth grid (session scratchpad it15/)"
+  "Iteration 15: public capture Fahri-5/updown-5m-polymarket-raw (revision f848a77c) polymarket day files 10-20 / 10-21 / 10-22, ask-side L2 (price_change askPrice / askSize, book asks, bestAsk for the check) of every BTC 5m token, by HTTP range requests (2 threads, ~600 MB read per day), reduced at once to order-time ask vectors and a 50-ms depth grid (session scratchpad it15/)",
+  "Iteration 16: V2 matchOrders calldata of EVERY operator taker tx of 10-20..22 (72,602 txs fetched by batched eth_getTransactionByHash on polygon.drpc.org at ~35 tx/s + 3,741 already decoded; decoded fields only; session scratchpad it16/cdfull_*.parquet) = the complete decision record of the capture days (original size, limit, signing ms of every taker order)",
+  "Iteration 16: VALIDATE taker tapes rebuilt from the shared HTTP cache through the polyrea adapter (2,016 windows, 2.9 M rows; session scratchpad it16/tapes)"
  ],
  "iterations": [
   {
@@ -10044,6 +10327,36 @@
     "book-cut scan of the book-aware baseline (finding 12)",
     "pre-registration 9: reverse-split replication of the book cut",
     "per-wallet book-cut gains (finding 14)"
+   ]
+  },
+  {
+   "n": 16,
+   "minutes": 68.7,
+   "best_validate_score": 0.9132,
+   "block_seconds_presence": 0.8701,
+   "block_seconds_stronger_baseline": 0.8464,
+   "side_accuracy": 0.8369,
+   "pnl_corr": 0.5065,
+   "pnl_corr_spearman": 0.4674,
+   "paradigm": "The complete decision record (calldata of every operator taker order of the capture days) with the ORIGINAL-SIZE class as the target and the carrying wallet as a deterministic priority-slot state machine over the operator's own in-flight orders",
+   "families": [
+    "complete decision record: calldata of every operator taker tx of 10-20..22 (X157 step 1)",
+    "original-size class models with public / book / edge / own-lean groups, exact labels, forward and reverse split (X152, X157 steps 2-3)",
+    "price-size coupling: pay-up above the ask by size class",
+    "lean controller ladder on the true decisions, pre-registration 10 (b) (X156 step 2, X145)",
+    "post-hold execution identity on the complete record (X156 step 1, X93)",
+    "priority-slot dispatcher on visible occupancy, all orders and slot lengths, by day (X159, X160 step 3, X162 step 1)",
+    "tick-lock PSTH by carrier on spot ticks, USD-M, OKX and spot trades (X160 step 1, X154 step 1)",
+    "fills-based hidden-occupancy proxy: maker-first remainders at the higher-priority wallet's limit (X160 step 2 proxy)",
+    "per-wallet view clock at 16 offsets from the complete calldata (X151 step 1)",
+    "signing throughput fingerprint (X163 step 1)",
+    "per-signer PRNG chains through the V8 GF(2) solver (X163 step 2)",
+    "pre-signed cell use index and ladder age vs size",
+    "W4 / W5 legs ahead of XM's first legs (X154 step 2)",
+    "five-wallet priority list with W4 / W5 slots (X159, X162)",
+    "dispatch-oracle allocation ceiling for XM (X161 step 2, X154 step 3)",
+    "replica-usable decision density: per-bin public hazard over the last 300 / 600 ms vs the true density (X161 step 1)",
+    "public book-wave allocation model for XM (X161 step 1, public part)"
    ]
   }
  ],
@@ -10716,9 +11029,9 @@
    "evidence": "onset11.py / elast11.py (results/onset11.json, elast11.json): event unit, fit A scored C: FULL 0.681, normalizer terms without bp 0.657, FULL + normalizer 0.697 (+0.015, CI [-0.002, +0.032]); univariate |bp| 0.588 vs z_rv_h 0.51-0.57 (h = 5-300 s), tick counts 0.49-0.53, within-window percentile 0.584; event-level window chi2/df 14.8 -> 11.7. Complete live record per window-minute (110): elasticity of decisions to log(1 + Binance price-level events) 0.08 (se 0.18) with vol controls, 0.18 (0.09) alone, within-window 0.30 (0.21); var/mean 13.4 (over-dispersed); P(take) RISES with the operator's own recent decisions (rec30 0 / 1-2 / 3-5 / 6+: 1.5 / 4.7 / 4.8 / 7.5% A, 1.4 / 3.6 / 4.4 / 6.2% C; own state). Critique 3 (no rate response) confirmed; (a) z* and (b) pacing both rejected."
   },
   "X93": {
-   "status": "open",
+   "status": "tried",
    "source": "panel iteration 10, mechanics P2 (resolve the race on the recorded book: deterministic execution instead of X82's independent lottery)",
-   "evidence": "First step (race11.py, results/race11.json; 2,155 decisions): lost races would have been won by an EARLIER arrival of 10 / 25 / 50 / 100 / 150 ms in 3 / 11 / 21 / 40 / 51% of cases, by a later one in <= 1%; won races keep ask <= L for arrivals 25-150 ms earlier in 87-97% (the last ~25 ms before the match are unreliable in the 30-ms-coalesced recording); operator near-ties (another operator arrival within 5 ms) win 37.2% vs 63.0%. The race is close to deterministic given the arrival (flip rate 4-7% at 25-50 ms timing error on lost races), so X82's independent-lottery ceiling does not apply to replays on recorded books (future blocks); it still applies at the block clock. The full simulator (crowd queue, maker refills, per-window PnL) is not built. | Iteration 15 (race15 / decay15): on the capture's L2, the depth at <= L the bot saw vanishes during the hold with ~95% cancelled untraded (crowd takes 3.5%, own legs 1.0%); a depth-bound order fills what is left when it meets the book (median 15 left, 14 filled)."
+   "evidence": "First step in iteration 11 (race11.py: lost races would have been won by an earlier arrival of 25-150 ms in 11-51% of cases). Iteration 16 on the complete record (posthold16.py, results/posthold16.json): the race is deterministic execution on the recorded post-hold book: fill = min(original size, o's ask depth <= L at m - 35 ms on the book clock) at r 0.895 (85.4% within 10%) on all 27,008 operator taker orders of 10-20, per wallet 0.883 / 0.897 / 0.894, against 0.503 at the bot's view (m - 180)."
   },
   "X94": {
    "status": "tried",
@@ -10903,7 +11216,7 @@
   "X128": {
    "status": "open",
    "source": "panel iteration 13, information P4 (follower legs fired on the bot's own acknowledgements; dispatch route to condition 7)",
-   "evidence": "Partly tried (results/legs14.json): sequential followers (150-300 ms) score 0.8626 at their own anchor vs 0.7895 at the first-leg anchor (re-decisions on fresher information); transitions fan-out DS->GF, sequential GF->DS. Open: limits vs own-instant ask (calldata), P(follower | previous leg's fill outcome), the dispatch replay. Step 2 (follow14.json): P(sequential follower 150-300 ms) after a leg whose remainder rested and was hit 0.0822 vs 0.0916 without a resting fill; any follower < 300 ms 0.1624 vs 0.2278: followers are not triggered by remainders (slightly more after full fills). Open: steps 1 and 4."
+   "evidence": "Partly tried (results/legs14.json, follow14.json). Iteration 16: events are 78.5% single-leg, 17.4% two-leg, 4% longer (DS 57%, GF 18%, DS>GF 13%, XM 3%); large legs concentrate in multi-leg events (mean large legs per event 0.047 / 0.274 / 0.380 / 0.532 for 1-4 legs); GF- and XM-led first legs follow unseen lost DS legs (hidden16.py). Open: P(follower | previous leg's fill outcome) on the complete record, the dispatch replay."
   },
   "X129": {
    "status": "tried",
@@ -10913,7 +11226,7 @@
   "X130": {
    "status": "open",
    "source": "panel iteration 13, mechanics P1 (window-index A/B experiment schedule)",
-   "evidence": "Step 1 tried (ab14.py, results/ab14.json, ab14_hours.csv): arm B = (start/300) mod 4 in {1, 2}; size phases (37 hours |t| >= 4) in BUILD and VALIDATE, B windows fill [24.582, 33.918] (A, B) shares per taker order inside them; LARGE shares from B on 10-16..19 {'10-16': 0.765, '10-17': 0.8, '10-18': 0.84, '10-19': 0.78, '10-20': 0.512, '10-21': 0.502, '10-22': 0.418}; one dispatch phase [{'from': '10-21 16', 'to': '10-22 13', 'flagged_hours': 21}] (DS share A/B [0.685, 0.426]). Open: arm-aware relabel and rerun of two13 / ls13 / side13, natural experiments per arm, exam-risk simulation. Step 3 economics (abecon14.json): size phases B vs A return before rebates -0.0006 vs 0.0135, fees per window 45.01 vs 34.7; dispatch phase -0.0101 vs 0.0008; descriptive only."
+   "evidence": "Step 1 tried (ab14.py). Iteration 16 on exact calldata sizes: size phases raise every wallet's large share (10-19 01-13 h 0.3-0.5; 10-20 19 h DS 0.71, GF 0.64, XM 0.57); outside them DS 3.8%, GF 32.3%, XM 34.4% (10-20); the large class is priced ask + 1 c (finding 7). Steps 2-5 open."
   },
   "X131": {
    "status": "tried",
@@ -10976,9 +11289,9 @@
    "evidence": "Step 0 done (l2ingest15: ask L2 of 10-20..22, best-ask check 98.2-98.4%). Step 1: oracle r(N) with min(E[menu], depth) 0.430-0.440 vs public menu 0.395 and true fill 0.747 (signature 0.6 not met); 11.6-15.8% of depth-bound orders within 10% of min(orig, depth) (signature 70% not met). Step 2 = pre-registration 8 (hazflowD15): mix15 0.4772 / 0.4556 < mix14 0.4792 / 0.4594 on 576 windows, not adopted. Step 3 (M stream) not run: the remainder is set by the same cancel race."
   },
   "X145": {
-   "status": "open",
+   "status": "ruled_out",
    "source": "panel iteration 14, mechanics P2 (a replica that simulates its own fills on the capture; the corrected condition-5 ceiling)",
-   "evidence": "Step 1 input measured: with public depth the size model reaches r(N) 0.39-0.44 on the TRUE decisions (fillpred15 / depth15), far below the 0.75 signature, so the 'if false' branch applies: the makers' cancellation race inside the hold is the measured limit. The full simulator (cancel model + replica decisions) is not built."
+   "evidence": "Iteration 16 (with X156): the realized fill is execution on the post-hold book (fill = min(original, depth <= L at m - 35), r 0.895 on all 27,008 operator taker orders of 10-20), but the binding term is the ORIGINAL size: with the true decision times and carriers, the dc14 side and a size from the rule's own simulated lean the window-net r is 0.314 (menu 0.356; class oracle 0.619; true fills 0.707; lean16.py, results/lean16_10-21_10-22.json), so a replica that simulates its own fills on the recorded book is bounded far below the 0.75 signature."
   },
   "X146": {
    "status": "open",
@@ -10993,17 +11306,82 @@
   "X148": {
    "status": "open",
    "source": "panel iteration 14, assumptions P1 (attainability of conditions 5 and 7: is the operator one draw of its own decoded process?)",
-   "evidence": "Step 4 in one point: ceiling(AUC) for XM 0.3145 (base rates) / 0.4304 (AUC 0.670) / 0.4633 (AUC 0.791) (thin15). Steps 1-3 (fan-out-merged split-half, the decoded-process simulator, calibration of corr(operator, mean field) against sqrt(tt)) are not run; iteration 15 adds the measured cancel race (X143) as the size coin's physical source."
+   "evidence": "Step 4 in one point: ceiling(AUC) for XM 0.3145 (base rates) / 0.4304 (AUC 0.670) / 0.4633 (AUC 0.791) (thin15). Iteration 16 adds the SIZE-coin ceiling for condition 5 on the complete record (lean16, size16 'cd'): with the true decision times and carriers and the dc14 side, the window-net r is 0.356 (menu) / 0.401 (public size model) / 0.578 (public + the operator's own realized lean, not available to a replica) / 0.685 (class oracle) on 10-21..22; and the carrier is a priority list over in-flight orders (0.778 on visible occupancy) with unseen lost legs, which voids the i.i.d.-lottery premise of the XM ceiling (to be re-measured under the dispatcher). Steps 1-3 as specified are not run. Iteration 16 thin16: with the operator's own occupancy (incl. W4 / W5 legs) as allocation inputs the XM ceiling rises to 0.525 (oracle) / 0.620 (redraw), above 0.47."
   },
   "X149": {
    "status": "open",
    "source": "panel iteration 14, assumptions P2 (the residual coins are Math.random draws: recover the PRNG per burst)",
-   "evidence": "V8 part tried and rejected (prng15 / v8real15): 0 / 40 copy groups consistent at 2 ms, 0 / 20 at 50 ms, 0 / 6 at span +-24, 0 validated at 1.5 s, while the same solver recovers real Node v22 output (3 / 3 groups, 120 / 120 held-out salts). JSC / Bun (sum output, non-linear) needs a SAT / SMT solver absent from the shared venv: open."
+   "evidence": "V8 part tried and rejected for copy groups (prng15 / v8real15): 0 / 40 copy groups consistent at 2 ms, 0 / 20 at 50 ms, 0 / 6 at span +-24, 0 validated at 1.5 s, while the same solver recovers real Node v22 output (3 / 3 groups, 120 / 120 held-out salts). Iteration 16: the signing throughput is flat in the number of orders per cent (X163 step 1), so copies are not nearby calls of one generator; per-signer chains across cents: 0 / 299 consistent under M = 1-4 calls per order and any cache phase (prng16.py; self-test 4 / 4). JSC / Bun (sum output, non-linear) needs a SAT / SMT solver absent from the shared venv: open."
   },
   "X150": {
    "status": "open",
    "source": "panel iteration 14, assumptions P3 (run the examiner's procedure on a development pseudo-lot shaped like h1)",
    "evidence": "Not run in iteration 15."
+  },
+  "X151": {
+   "status": "open",
+   "source": "panel iteration 15, information P1 (fix the condition-2 cut per wallet from two measured clocks: the bot's view and the makers' first reaction)",
+   "evidence": "Step 1 partly run at the 16-offset resolution on the COMPLETE 10-20 calldata (view16.py, results/view16.json; 27,008 orders, 12,818 with an o-ask change in [m-500, m-125]): DS's limit equals o's ask at m-180..m-35 for 81.4-83.8%, at m-250 65.5%, at m-500 3.8%, so DS's view lies in (m-250, m-180] on the book clock; GF (+0 c) rises to 0.769 at m-35 while GF (+1 c) peaks at m-250 (0.484), unresolved between a later view and a +1 c pay-up on an earlier one; XM spreads over +0 / +1 / +2 c. Steps 1 (5-ms grid from event-level price_change rows, lost races' structs), 2 (maker size-cancel envelope after clean onsets) and 3 (pre-registered per-wallet cut) need the event-level L2 re-ingest; open."
+  },
+  "X152": {
+   "status": "tried",
+   "source": "panel iteration 15, information P2 (condition 5 is the large-size decision: its input in public data over the full population of large orders)",
+   "evidence": "Complete calldata labels (original size >= 90; size16.py 'cd', results/size16_cd.json and size16_cd_rev.json): within-wallet AUC for the large class, fit 10-20 -> score 10-21..22 (46,569 orders, 6,118 large) / reverse fit 10-21..22 -> score 10-20: DS public 0.766 / 0.805, + the capture's book at the order's own view 0.801 / 0.836, + own inventory 0.842 / 0.861; GF public 0.661 / 0.680, + book 0.660 / 0.696, own realized large lean alone 0.714 / 0.739, public + lean 0.775 / 0.801; XM public 0.624 / 0.661, + book 0.637 / 0.683, lean alone 0.776 / 0.784, public + lean 0.810 / 0.831. The fair-value edge and the delta-scaled predicted move add nothing within wallet beyond the spot moves (G6 alone DS 0.714, GF 0.634, XM 0.602). Signature (>= 0.75 from public groups) met for DS only; for GF / XM the 'if false' branch: the large decision is the own realized lean plus a coin. Price and size are coupled (large orders priced ask + 1 c or more, small at the ask; NOTES iteration 16 finding 7). Ladder on the true decisions with the dc14 side (window-net r, 494 windows): menu 0.358, public size model 0.401, public + own lean 0.578, class oracle 0.685."
+  },
+  "X153": {
+   "status": "open",
+   "source": "panel iteration 15, information P3 (Binance L2 on the dc14-wrong and book-only subsets; Tardis 11-01 out-of-time replication)",
+   "evidence": "Not run in iteration 16 (the Rabbit 10-20 depthUpdate rows need an L2 rebuild with u / U / pu checks; the Tardis free 11-01 day can only be HEAD-checked from 11-02)."
+  },
+  "X154": {
+   "status": "open",
+   "source": "panel iteration 15, information P4 (XM's feed fingerprint: the same host, a different trigger)",
+   "evidence": "Step 1 on every exact-stamped trade feed on disk and on spot book ticks (psth16.py, disp16.py): XM's peak is 40-60 ms later and broader than DS's on every feed (spot ticks 305 vs 265 ms; USD-M trades 325 vs 265; OKX swap 335 vs 275; spot trades 305 vs 265): no XM-specific feed. Step 2 (w45lead16.py, results/w45lead16.json): SIGNATURE MET: a W4 / W5 taker leg in the 300 ms before m0 precedes 36.6% of XM-led first legs (placebo 4.3%; DS 2.7%, GF 3.7%), median gap 45 ms, 86% same outcome; after a W4 / W5 leg the next operator leg within 300 ms is XM 1,690 times (DS 1,517, GF 649). Step 3 (refit XM's allocation with its own anchor and the W4 slot, the thin15 redraw ceiling) is open."
+  },
+  "X155": {
+   "status": "open",
+   "source": "panel iteration 15, information P5 (does the bot read the Polymarket book? a kink test at the measured per-wallet view)",
+   "evidence": "Not run: needs X151's per-wallet view edge at event resolution and the event-level size cancels."
+  },
+  "X156": {
+   "status": "ruled_out",
+   "source": "panel iteration 15, mechanics P1 (closed-loop decision replica at the decoded latency, executing on the post-hold book)",
+   "evidence": "Step 1 reproduced on the COMPLETE 10-20 record (posthold16.py, results/posthold16.json; 27,008 orders): realized taker fill = min(original size, o's ask depth <= L at m - 35 on the book clock) at r 0.895 (85.4% within 10%; DS 0.883, GF 0.897, XM 0.894; large 0.876, small 0.858; at the bot's view m - 180 only 0.503). Step 2 (ceiling with the true decision times, dc14 side and a MODELLED size on the rule's own simulated state; lean16.py, results/lean16_*.json): window-net r 0.314 with the rule's own simulated lean vs 0.356 for the public menu on 10-21..22 (reverse 0.456 vs 0.480), 0.521 with the operator's true realized lean, 0.619 for the class oracle and 0.707 for the true fills (pre-registration 10 (b) failed) against the 0.70 signature; the rule's simulated lean has AUC ~0.5 for the large class. The 'if false' branch applies: the original-size decision is the binding term, so a replica that executes on the recorded book (step 3) is bounded by step 2 and cannot reach the signature; the assumptions panel's leftover.py adds only +0.02-0.05 for executing on the post-hold book."
+  },
+  "X157": {
+   "status": "tried",
+   "source": "panel iteration 15, mechanics P2 (the complete decision record: calldata of every operator taker tx of the capture days; the original-size decision on it)",
+   "evidence": "Step 1 done: 72,602 operator taker txs of 10-20..22 fetched (cdfull16.py; session scratchpad it16/cdfull_*.parquet, decoded fields only) + 3,741 already decoded: every taker order of 10-20..22 has its original size, limit and signing ms. Steps 2-3: Complete calldata labels (original size >= 90; size16.py 'cd', results/size16_cd.json and size16_cd_rev.json): within-wallet AUC for the large class, fit 10-20 -> score 10-21..22 (46,569 orders, 6,118 large) / reverse fit 10-21..22 -> score 10-20: DS public 0.766 / 0.805, + the capture's book at the order's own view 0.801 / 0.836, + own inventory 0.842 / 0.861; GF public 0.661 / 0.680, + book 0.660 / 0.696, own realized large lean alone 0.714 / 0.739, public + lean 0.775 / 0.801; XM public 0.624 / 0.661, + book 0.637 / 0.683, lean alone 0.776 / 0.784, public + lean 0.810 / 0.831. The fair-value edge and the delta-scaled predicted move add nothing within wallet beyond the spot moves (G6 alone DS 0.714, GF 0.634, XM 0.602). Signature (>= 0.75 from public groups) met for DS only; for GF / XM the 'if false' branch: the large decision is the own realized lean plus a coin. Price and size are coupled (large orders priced ask + 1 c or more, small at the ask; NOTES iteration 16 finding 7). Ladder on the true decisions with the dc14 side (window-net r, 494 windows): menu 0.358, public size model 0.401, public + own lean 0.578, class oracle 0.685."
+  },
+  "X158": {
+   "status": "open",
+   "source": "panel iteration 15, mechanics P3 (identify the trigger clock by latency dispersion: Binance knee stamp vs Polymarket's first cancel)",
+   "evidence": "Not run: t_pm needs the event-level price_change ingest (the 50-ms grid cannot resolve IQRs of ~30 ms). The Binance side is in disp16's PSTH (DS half-max width 130 ms on the tick clock)."
+  },
+  "X159": {
+   "status": "open",
+   "source": "panel iteration 15, mechanics P4 (complete the slot record with zero-fill orders; DS>GF>XM priority dispatcher for condition 7)",
+   "evidence": "Visible-occupancy part run (disp16.py, results/disp16.json / disp16_days.json): the deterministic priority rule DS > GF > XM with a 300-ms slot names 0.778 of 117,791 carriers of 10-17..22 (0.73-0.82 by day; always-DS 0.639), every other order and slot length lower. Fills-based hidden-occupancy proxy (hidden16.py): a DS maker-first order hash at exactly L_GF - 1 c whose first maker fill lands in [m0 - 1, m0 + 4] s follows 9.5% of GF-led first legs of 10-20 (placebo 30 s earlier 0.24%; neighbours L - 0 1.2%, L - 2 2.4%; the symmetric check on DS-led legs 1.7%): unseen DS legs priced on the same view exist. The zero-fill census from book insertions (event-level L2) and the XM recall / slot-oracle PnL are open. Five-wallet list (disp16b.json): DS > GF > W4 > XM > W5 best (all legs 0.693; XM precision 0.645, recall 0.072)."
+  },
+  "X160": {
+   "status": "open",
+   "source": "panel iteration 15, assumptions P1 (the carrier is a priority-slot dispatcher on own in-flight orders with hidden occupancy)",
+   "evidence": "Steps 1 and 3 run in part (disp16.py, hidden16.py, race16.py): tick lock shifted +20 ms (GF) / +40 ms (XM) = the fan-out slot gaps, not a constant slow path; priority rule 0.778 on visible occupancy; unseen DS legs at L_GF - 1 for >= 9.5% of GF-led first legs (lower bound: only remainders hit within seconds are visible). Step 2 (book-insertion census of the lost legs) and step 4 are open."
+  },
+  "X161": {
+   "status": "open",
+   "source": "panel iteration 15, assumptions P2 (condition 7 via a replica that simulates its own slot occupancy on the recorded book)",
+   "evidence": "Step 2 (oracle ceiling for the dispatch part) run (thin16.py, results/thin16.json): with the operator's own occupancy (DS / GF / XM matches and W4 / W5 legs in the last 300 ms) as allocation inputs, XM one-vs-rest AUC 0.868 (clock model 0.791), oracle XM total PnL r 0.525 (halves 0.546 / 0.507; clock 0.443, base rates 0.320) and the redraw ceiling 0.620 (clock 0.468): above the 0.47 bar, so the thinning ceiling does not bind once the dispatcher is known. Steps 1 (PIT allocation with the replica's OWN simulated occupancy and book-resolved races) and 3 (per-wallet trackers) are not run; open. Step 1 in part (thin16 variants): the carrier-agnostic TRUE decision density of the last 300 ms gives XM oracle 0.529 / ceiling 0.559 (fit 10-17..19) and 0.556 / 0.535 (fit 10-20), but the PUBLIC knee-clock hazard summed over the 300 / 600 ms before the decision (every 50-ms bin scored, hazbins16.py) gives only 0.479 / 0.457 (clock alone 0.486 / 0.427): a public replica does not yet reproduce the local density. Public allocation (thin16 THIN16_BOOK, fit 10-20 -> score 10-21..22): the makers' cancel wave at the order's own view cut (o's and the other outcome's depth to best + 4 c vs 250 / 500 / 1500 ms earlier) lifts XM's AUC to 0.832 (true density 0.838; clock 0.773) and XM's oracle PnL r to 0.498 (halves 0.651 / 0.461; redraw ceiling 0.491): at the bar pooled, below it in the later half. Per-wallet trackers with this allocation (step 3) are open."
+  },
+  "X162": {
+   "status": "open",
+   "source": "panel iteration 15, assumptions P3 (allocation versions are dispatcher configurations: XM's 10-14 step and its 10-31 late-leg role)",
+   "evidence": "Step 1 on the six capture days only (disp16_days.json): P(GF | DS busy) 0.88-0.94 every day, P(XM | nobody visibly busy) 0.03-0.06, P(GF | nobody busy) 0.15-0.18 on 10-17..20 and 0.23-0.25 on 10-21..22 (the dispatch phase). BUILD days carry block timestamps only (no ms clock), the post-T0 blocks and W4 / W5 dating are not run. Iteration 16 also places W4 in the list: the best five-wallet order is DS > GF > W4 > XM > W5 with a 300-ms slot (disp16b.json: XM precision 0.645 vs 0.219 with XM ahead of W4). Open."
+  },
+  "X163": {
+   "status": "tried",
+   "source": "panel iteration 15, assumptions P4 (regroup the PRNG solve by signer rather than by millisecond)",
+   "evidence": "Step 1 run (finding 4): ms per cent 1.62-1.71 on every day whatever the number of sizes per cent (10-16, three sizes: 1.667; one-size days 1.639 / 1.660), Spearman with filled orders per cent 0.037 (p 0.065): FLAT. Step 2 run (prng16.py, results/prng16.json): 0 / 299 per-signer chains (one observed salt per cent, >= 6 cents) consistent with V8 xorshift128+ under M = 1-4 calls per order and any LIFO cache phase, while 4 / 4 synthetic chains on the same layouts are recovered. Tried: the per-signer V8 regrouping is rejected; the residual runtime question moves to X149 (JSC / Bun, CSPRNG)."
   }
  },
  "components": {
@@ -11025,12 +11403,12 @@
   "price": {
    "confidence": 0.9,
    "tag": "VALIDATE-only",
-   "description": "Limit = o's ask the bot saw ~30 ms before arriving (peak of P(limit == ask(a - Lambda)) at Lambda = 30 ms; DS 50, GF 10, XM 30); o's ask at m - 180 within a tick 90.7% live, 95.1% on VALIDATE calldata (trivial touch anchor, stated as such); lost races are the decisions priced on an ask that moved 30-180 ms before the arrival (their Lambda peak is 180 ms); 16% of taker orders 1+ c above the touch. Iteration 13: at the decision clock on VALIDATE (public capture, 2,476 calldata taker orders on 10-20 / 10-21) the limit is within a tick of o's archive ask at the arrival for 93.4% (exact 74.3%), at arrival - 30 ms 92.7%, vs 81.3% for the touch at the match itself; XM 66%. Iteration 14: unchanged (within a tick of the touch the bot saw 95.1%); the dispatch-phase arm does not change the price level. Iteration 15: the per-wallet anchor ask + (DS 0, GF 1, XM 1) c, measured against the capture's L2 best ask at m - 180, is within a tick on 10-21 / 10-22 for DS 0.947 / 0.947, GF 0.937 / 0.948, XM 0.820 / 0.795 (plain ask XM 0.64 / 0.71): condition 7's price part holds per wallet and day [VALIDATE-only]."
+   "description": "Limit = o's ask the bot saw (DS's view in (m - 250, m - 180] on the book clock, complete 10-20 calldata) plus 0 c for a small order and +1 c (or more) for a large one: DS small 0 c 94%, DS large +1 c 60% / +2..3 c 21%; GF small 0 c 66%, GF large +1 c 84%; XM spreads +0 / +1 / +2..3 (iteration 16). The per-wallet anchor of iteration 13 (DS 0, GF 1, XM 1 c; out of sample 0.937 pooled) is mostly the per-wallet large share. o's ask at m - 180 within a tick 90.7% live, 95.1% on VALIDATE calldata (trivial touch anchor, stated as such); lost races are the decisions priced on an ask that moved during the hold."
   },
   "size": {
-   "confidence": 0.75,
+   "confidence": 0.8,
    "tag": "VALIDATE-only",
-   "description": "Configuration plus own state plus the makers' cancel race: the ORIGINAL size is a menu coin (window-index A/B arms with a larger base size in B windows during size phases; 30 / 100 from 10-19) with pyramiding of the held leg (own state); the REALIZED taker fill is what survives the 150-ms taker delay: the ask depth at <= L the bot saw (median 107 shares for depth-bound orders) is ~95% cancelled untraded before the match (crowd takes 3.5%, own legs 1.0%), and a depth-bound order fills what is left (median 15 left, 14 filled; iteration 15). Public data at the decision predicts the realized fill at r 0.29 only; with the true decisions the window-net r falls from 0.70-0.75 (true fills) to 0.39-0.44 (public size)."
+   "description": "Iteration 16, on the COMPLETE calldata record of 10-20..22 (every operator taker order's original size): the ORIGINAL size is a large (100) / small (30) class with per-wallet base rates outside size phases (DS 3.8%, GF 32%, XM 34% on 10-20; size phases of hours raise every wallet, e.g. 10-19 01-13 h, 10-20 19 h), repeated on the side of the operator's realized large lean (GF / XM: P(large) ~0.5 with no lean, 0.51-0.59 with it, 0.13-0.15 against it = the small pairing stream), and coupled with the price (large orders priced ask + 1 c or more, small at the ask). DS's large class is public at AUC 0.77-0.84 (the 250-ms spot move at its own anchor, the book at its own view, an ask already moving toward o); GF / XM's is public at only 0.62-0.70 and own-lean driven (0.71-0.78 from the lean alone). The REALIZED taker fill is execution on the post-hold book: min(original, o's ask depth <= L ~35 ms before the match) at r 0.895 on all 27,008 orders of 10-20 (0.50 at the bot's view). A replica's own simulated lean carries no information on the size realizations (pre-registration 10 (b) failed). Carrier allocation: a fixed priority list over in-flight orders with a ~300-ms slot, DS > GF > (W4) > XM (0.778 of the three wallets' carriers on visible occupancy; with W4 / W5 as slots DS > GF > W4 > XM > W5 is best and 36.6% of XM-led first legs follow a W4 / W5 leg within 300 ms), with unseen lost legs ahead of GF / XM-led legs. The public book's cancel wave before a decision names XM's overflow legs at AUC 0.83 (true decision density 0.84), lifting XM's PnL ceiling to ~0.49-0.50 (iteration 16, not pre-registered)."
   },
   "exit": {
    "confidence": 0.9,
@@ -11038,7 +11416,7 @@
    "description": "Remainders and lost races rest as GTC bids at the old ask (cancelled never-filled remainders live DS median 328 ms, GF 240, XM 124); every position is held to resolution; 87% of shares end paired at 0.979; TAKER_REBATE = 0.5 x the previous day's taker fees. Iteration 12, the INVENTORY PATH: per window PnL = net x outcome (r 0.884); the net follows the current minute's BTC move (+), is bought back against the earlier minutes' moves (-) and leans with the previous window's outcome (+); public models predict the window net at r 0.46-0.48 (market activity alone 0.34), and an executable exposure tracker that buys the predicted net deficit with strict fills (latency >= 2 s) reproduces the per-window PnL at Pearson 0.476 / Spearman 0.440 (GF 0.34, DS 0.43, XM 0.06; market-only tracker 0.36 / 0.32); the wallets' per-window PnLs are nearly independent of each other (0.00-0.20). Iteration 13: the inventory path is two operator-level streams, a large-size lean (cross-wallet r 0.35-0.47) and a small-size taker counter-flow that buys back the REALIZED large inventory (within-wallet corr(L, S) -0.26..-0.60; dose-dependent pairing, t -26.5); public data predicts L at r 0.32 and the counter-flow residual at ~0.3, and a two-stream target adds nothing to the window-net prediction (0.4195 vs 0.4237). Per-wallet PnL is bounded by dispatch: XM <= 0.30-0.41 under every pooled-stream oracle. Iteration 14: a millisecond nowcast (nfms14) and a decision-hazard nowcast do not lift the tracker (pre-registrations 6 / 7); XM's PnL is a random thinning of the operator's decisions (oracle 0.3925, redraw ceiling 0.4304 < 0.47). Iteration 15: the depth-weighted hazard nowcast (pre-registration 8) does not lift the tracker (mix15 0.4772 / 0.4556 vs mix14 0.4792 / 0.4594 on 576 windows of 10-21..22)."
   }
  },
- "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts each window [VALIDATE-only]; the salts are not V8 Math.random output of nearby calls (a validated V8 state solver fails on every copy group), so the runtime's generator is not recoverable that way [VALIDATE-only]. It sits next to Polymarket's engine and reads the Binance SPOT book ~80-110 ms after Binance stamps it; when the spot microprice shifts toward an outcome over the last ~100-250 ms against the Polymarket price, it submits the pre-signed order at the ask it saw ~30 ms before arriving (DS at the ask, GF and XM one cent above) [VALIDATE-only]; the side is 0.8369 per taker order on the pre-registered split [VALIDATE-only]. Polymarket's makers react to the same Binance move and pull their asks: the Polymarket book alone predicts the operator's takes nearly as well as the Binance trigger (0.873 vs 0.881 at the decision clock), but that power sits in the last ~50 ms before the bot's own view: with the book cut before the bot's view the decoded hazard still gains +0.058, with it cut 50 ms later only +0.008 [VALIDATE-only]. Polymarket holds every marketable order 150 ms; during that hold ~95% of the ask depth the bot saw at its limit is cancelled untraded, and the order fills what is left, so the realized size is the makers' cancel race, not the visible depth [VALIDATE-only]. Lost races rest at the old ask and fill as maker about half the time [VALIDATE-only]. Original sizes are scheduled configuration (window-index A/B arms) plus pyramiding of the held leg (own state) [VALIDATE-only]. Positions are held to resolution; most shares end paired; about half the profit is the taker-fee rebate [VALIDATE-only]. The window PnL is the size of the lean; public data predicts it at r ~0.5 (exposure tracker 0.5065 / 0.4674 on 10-20..22) because the realized fills are set after the decision by the cancel race [VALIDATE-only]; which wallet carries a decision is a near-random thinning (XM's PnL ceiling 0.43-0.46 < 0.47 even with a sharper allocation model) [VALIDATE-only]. Nothing is exam-verified yet.",
+ "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts 13-120 s ahead (1.66 ms per cent whatever the number of sizes per cent, so the signing is parallel or the timestamps are scheduled; the salts are not V8 Math.random output of nearby calls) [VALIDATE-only]. It sits next to Polymarket's engine and reads the Binance SPOT book ~80-110 ms after Binance stamps it; when the spot microprice shifts toward an outcome over the last ~100-250 ms it submits a pre-signed order at the ask it saw ~30-70 ms before arriving [VALIDATE-only]; the side is 0.8369 per taker order on the pre-registered split [VALIDATE-only]. Each decision goes to the first free wallet in a fixed priority list DS > GF > W4 > XM (> W5; W4 / W5 are the operator's other wallets), a wallet staying busy ~300 ms after its submission whether its order fills or not; GF- and XM-led legs are often a later slot behind lost legs nobody sees (tick lock shifted by the slot gaps; DS remainders exactly one cent below GF's limit; 37% of XM-led first legs follow a W4 / W5 leg within 300 ms) [VALIDATE-only]. The size is a large / small class with per-wallet base rates (DS ~4%, GF / XM ~32-34%), repeated on the side of the operator's realized large lean and priced one cent above the ask when large; DS's large class is predictable from public data (AUC ~0.8), GF's and XM's mostly from the operator's own realized lean [VALIDATE-only]. Polymarket holds every marketable order 150 ms; the makers cancel most of the depth the bot saw, and the order fills min(size, depth left ~35 ms before the match) (r 0.895) [VALIDATE-only]. Lost races rest at the old ask and sometimes fill as maker [VALIDATE-only]. Positions are held to resolution; most shares end paired; about half the profit is the taker-fee rebate [VALIDATE-only]. The window PnL is the size of the large lean: public data predicts it at r ~0.5 (exposure tracker 0.5065 / 0.4674 on 10-20..22), because the size realizations are coins conditioned on the operator's own realized lean, which a replica's own state cannot reproduce; which wallet carries a decision follows the dispatcher, and with the operator's occupancy or its local decision density known XM's PnL ceiling is 0.51-0.62 (0.43-0.46 under a lottery), but the public hazard does not reproduce that density (0.48) [VALIDATE-only]. Nothing is exam-verified yet.",
  "target_metrics": {
   "presence_auc": 0.8701,
   "presence_baseline": 0.8464,
@@ -11072,7 +11450,8 @@
   "iteration14": "presence_auc / presence_baseline now compare the frozen block-second model with the STRONGER, capture-aware market baseline (pres14: VALIDATE 10-20..22 block seconds, 0.8701 vs 0.8464, gain 0.0237, CI [0.0172, 0.0314]: condition 2 FAILS); over all VALIDATE against the block-clock baseline it was 0.8747 / 0.8211. Decision-clock hazard (dc_hazard14, VALIDATE-only, not pre-registered as the target metric, taker first legs only): 0.8885 vs 0.7591. side_accuracy = decision-clock per taker order (pre-registration 5, dc_exam14), 0.8369 on 10-20..22; per decision 0.8236; side_baseline = market-only from the capture's Polymarket trades on the same orders; block-clock side 0.7666 (baseline 0.6323) kept apart. XM is the only wallet the side condition applies to (one-sided in 24.9% of its windows): one-sided windows 84.3% (halves 91.1 / 76.8%), per order halves 84.7 / 78.6%. pnl_corr unchanged (all VALIDATE 0.4758 / 0.4404; on 10-20..22 [0.4973, 0.4607]); per wallet XM 0.06 vs a random-thinning ceiling of 0.4304 (condition 7 unattainable for XM).",
   "iteration14_pnl": "Pre-registration 7 ADOPTED: the exposure tracker trk_a with target mix14 = 0.5 x avg + 0.5 x 5.935 x the decision-hazard imbalance beats the frozen avg target on both pooled correlations over the 864 windows of 10-20..22 ([0.5065, 0.4674] vs [0.4973, 0.4607]; CI [0.437, 0.5713]; halves [0.4949, 0.5151]; GF [0.4013, 0.3819], DS [0.4665, 0.4477], XM [-0.0009, 0.0228]). target_metrics.pnl_corr_* now report these 10-20..22 values (the hazard needs the public capture, which starts 10-17 and is used for fitting on 10-17..19); over all VALIDATE the frozen avg tracker gives 0.4758 / 0.4404. Condition 5 still fails (Spearman 0.467 < 0.5) and condition 7 fails for XM (a random-thinning ceiling of ~0.43).",
   "iteration14_decision_presence": "Decision-clock take hazard (VALIDATE-only): 0.8885 vs the stronger Polymarket-only baseline 0.7623 (basic 0.7591); reverse split 0.925 vs 0.781; per wallet DS 0.881, GF 0.903, XM 0.919.",
-  "iteration15": "target_metrics unchanged (no candidate adopted: pre-registration 8 lost to mix14). New risks measured: (1) at the decision clock a BOOK-aware market baseline (capture L2 depth and its changes) reaches 0.873 vs the decoded hazard 0.881 (+0.008), so condition 2 fails there too; the block-second presence was not re-tested against a book-aware baseline. (2) condition 7's price part: the per-wallet anchor (DS 0, GF 1, XM 1 c) holds per wallet and day on 10-21..22 (XM 0.82 / 0.79). (3) condition 5: ~0.3 of the window-net r on the true decisions is set by the makers' cancel race inside the 150-ms hold. (4) The book-aware baseline's power sits in the last 50 ms before the bot's own Polymarket view: with the book cut at e the decision-clock gain is +0.058 [0.050, 0.065]; at e + 50 +0.008 (finding 12). (5) Pre-registration 9: in the reverse split (score 10-20) the cut-at-e gain is +0.0805 [0.075, 0.086] (cut at e + 50: +0.023). (6) Per wallet at the e cut: DS +0.059, GF +0.061, XM +0.030 (condition 7 fails for XM's presence part too)."
+  "iteration15": "target_metrics unchanged (no candidate adopted: pre-registration 8 lost to mix14). New risks measured: (1) at the decision clock a BOOK-aware market baseline (capture L2 depth and its changes) reaches 0.873 vs the decoded hazard 0.881 (+0.008), so condition 2 fails there too; the block-second presence was not re-tested against a book-aware baseline. (2) condition 7's price part: the per-wallet anchor (DS 0, GF 1, XM 1 c) holds per wallet and day on 10-21..22 (XM 0.82 / 0.79). (3) condition 5: ~0.3 of the window-net r on the true decisions is set by the makers' cancel race inside the 150-ms hold. (4) The book-aware baseline's power sits in the last 50 ms before the bot's own Polymarket view: with the book cut at e the decision-clock gain is +0.058 [0.050, 0.065]; at e + 50 +0.008 (finding 12). (5) Pre-registration 9: in the reverse split (score 10-20) the cut-at-e gain is +0.0805 [0.075, 0.086] (cut at e + 50: +0.023). (6) Per wallet at the e cut: DS +0.059, GF +0.061, XM +0.030 (condition 7 fails for XM's presence part too).",
+  "iteration16": "Iteration 16: target_metrics unchanged (no candidate adopted; pre-registration 10 (b) failed: the lean controller on the rule's own simulated state does not beat the public menu on the true decision record, 0.314 vs 0.356). New measurements: original-size class within-wallet AUC from public data DS 0.80 / GF 0.66 / XM 0.64 (fit 10-20, score 10-21..22; reverse 0.84 / 0.70 / 0.68); realized fill = execution on the post-hold book at r 0.895; carrier = priority list over in-flight orders (0.778 on visible occupancy). Condition 7 account: under the dispatcher (operator occupancy incl. W4 / W5 as inputs) XM's PnL ceiling is 0.52-0.62 > 0.47 (thin16), so the lottery ceiling is void; but the public knee-clock hazard summed over the 300 ms before a decision does not reproduce that density (XM oracle 0.479 vs 0.556 with the true density), so for a public replica condition 7 is bounded by the take coin."
  },
  "catalog_open_after_iteration8": [
   "X5",
@@ -11314,5 +11693,54 @@
   "X148",
   "X149",
   "X150"
+ ],
+ "catalog_open_after_iteration16": [
+  "X5",
+  "X7",
+  "X9",
+  "X18",
+  "X26",
+  "X33",
+  "X36",
+  "X37",
+  "X44",
+  "X51",
+  "X53",
+  "X57",
+  "X66",
+  "X70",
+  "X72",
+  "X76",
+  "X87",
+  "X88",
+  "X90",
+  "X100",
+  "X104",
+  "X107",
+  "X113",
+  "X115",
+  "X122",
+  "X123",
+  "X124",
+  "X127",
+  "X128",
+  "X130",
+  "X133",
+  "X139",
+  "X141",
+  "X142",
+  "X146",
+  "X148",
+  "X149",
+  "X150",
+  "X151",
+  "X153",
+  "X154",
+  "X155",
+  "X158",
+  "X159",
+  "X160",
+  "X161",
+  "X162"
  ]
 }
