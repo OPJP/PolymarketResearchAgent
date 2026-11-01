@@ -1,0 +1,101 @@
+{
+ "days": [
+  "2026-10-20",
+  "2026-10-21",
+  "2026-10-22"
+ ],
+ "calldata_depth_bound": {
+  "n": 1641,
+  "median_D180": 127.79000091552734,
+  "median_filled": 11.0,
+  "sum_D180": 425604,
+  "sum_filled": 26372,
+  "share_missing_crowd": 0.0364,
+  "share_missing_own_prior": 0.0132,
+  "share_orders_crowd_took_any": 0.426,
+  "share_orders_own_prior_any": 0.1475,
+  "median_crowd_take": 0.0,
+  "mean_crowd_take": 11.26,
+  "corr_filled_vs_D180_minus_crowd_minus_own": 0.0569,
+  "corr_filled_vs_D180": 0.0741
+ },
+ "calldata_full": {
+  "n": 2077,
+  "median_D180": 234.8300018310547,
+  "median_filled": 30.0,
+  "sum_D180": 792326,
+  "sum_filled": 72530,
+  "share_missing_crowd": 0.0399,
+  "share_missing_own_prior": 0.0102,
+  "share_orders_crowd_took_any": 0.4651,
+  "share_orders_own_prior_any": 0.1319,
+  "median_crowd_take": 0.0,
+  "mean_crowd_take": 17.44,
+  "corr_filled_vs_D180_minus_crowd_minus_own": 0.1184,
+  "corr_filled_vs_D180": 0.1381
+ },
+ "calldata_depth_bound_within10_after_crowd": 0.1255,
+ "calldata_depth_bound_r_after_crowd": 0.3685,
+ "all_orders": {
+  "n": 73577,
+  "median_D180": 190.0,
+  "median_filled": 30.0,
+  "sum_D180": 24476480,
+  "sum_filled": 1950667,
+  "share_missing_crowd": 0.0351,
+  "share_missing_own_prior": 0.0104,
+  "share_orders_crowd_took_any": 0.4281,
+  "share_orders_own_prior_any": 0.1321,
+  "median_crowd_take": 0.0,
+  "mean_crowd_take": 13.46,
+  "corr_filled_vs_D180_minus_crowd_minus_own": 0.1311,
+  "corr_filled_vs_D180": 0.1505
+ },
+ "all_by_wallet": {
+  "DS": {
+   "n": 46475,
+   "median_D180": 146.14999389648438,
+   "median_filled": 30.0,
+   "sum_D180": 12396591,
+   "sum_filled": 1126251,
+   "share_missing_crowd": 0.0321,
+   "share_missing_own_prior": 0.0033,
+   "share_orders_crowd_took_any": 0.372,
+   "share_orders_own_prior_any": 0.0358,
+   "median_crowd_take": 0.0,
+   "mean_crowd_take": 10.22,
+   "corr_filled_vs_D180_minus_crowd_minus_own": 0.1154,
+   "corr_filled_vs_D180": 0.1271
+  },
+  "GF": {
+   "n": 22599,
+   "median_D180": 317.67999267578125,
+   "median_filled": 30.0,
+   "sum_D180": 10744372,
+   "sum_filled": 675670,
+   "share_missing_crowd": 0.0306,
+   "share_missing_own_prior": 0.0162,
+   "share_orders_crowd_took_any": 0.4884,
+   "share_orders_own_prior_any": 0.3024,
+   "median_crowd_take": 0.0,
+   "mean_crowd_take": 15.7,
+   "corr_filled_vs_D180_minus_crowd_minus_own": 0.1067,
+   "corr_filled_vs_D180": 0.1258
+  },
+  "XM": {
+   "n": 4503,
+   "median_D180": 156.0,
+   "median_filled": 30.0,
+   "sum_D180": 1335517,
+   "sum_filled": 148746,
+   "share_missing_crowd": 0.1018,
+   "share_missing_own_prior": 0.0287,
+   "share_orders_crowd_took_any": 0.7046,
+   "share_orders_own_prior_any": 0.2723,
+   "median_crowd_take": 10.0,
+   "mean_crowd_take": 35.65,
+   "corr_filled_vs_D180_minus_crowd_minus_own": 0.1051,
+   "corr_filled_vs_D180": 0.1382
+  }
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "n_fit": 34443,
+ "n_score": 57630,
+ "share": {
+  "DS": 0.74,
+  "GF": 0.216,
+  "XM": 0.044
+ },
+ "auc_XM_base": 0.7162,
+ "auc_XM_clock": 0.8053,
+ "xm_clock_top": {
+  "k340": 0.107,
+  "rel": 0.103,
+  "k350": 0.072,
+  "pdist": 0.056,
+  "hour": 0.055,
+  "k360": 0.047,
+  "dec_bs_mic_1000": 0.043,
+  "k330": 0.042
+ },
+ "auc_XM_post": 0.8076,
+ "auc_DS_base": 0.6274,
+ "auc_DS_clock": 0.6753,
+ "auc_DS_post": 0.6758,
+ "auc_GF_base": 0.5883,
+ "auc_GF_clock": 0.6228,
+ "auc_GF_post": 0.6232
+}

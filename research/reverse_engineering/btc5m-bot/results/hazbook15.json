@@ -1,0 +1,55 @@
+{
+ "bins_fit": 52102,
+ "bins_score": 98827,
+ "book_coverage_score": 1.0,
+ "top_PMB": {
+  "lpm": 0.288,
+  "o_c4_d100": 0.166,
+  "o_c1_0": 0.095,
+  "o_c2_d100": 0.055,
+  "x_best_0": 0.032,
+  "o_c2_0": 0.03
+ },
+ "top_FULLB": {
+  "lfull": 0.596,
+  "o_c1_0": 0.041,
+  "o_c4_d100": 0.035,
+  "x_best_0": 0.022,
+  "o_c0_0": 0.02,
+  "o_c4_0": 0.018
+ },
+ "top_BOOK_only": {
+  "o_c4_d100": 0.184,
+  "x_best_0": 0.154,
+  "o_best_0": 0.101,
+  "o_c1_0": 0.087,
+  "o_c2_0": 0.062,
+  "o_c2_d100": 0.048
+ },
+ "auc_p_full_frozen": 0.8808,
+ "auc_p_pm_only_frozen": 0.757,
+ "auc_PMB": 0.873,
+ "auc_FULLB": 0.9054,
+ "auc_BOOK_only": 0.8706,
+ "gain_p_full_frozen_minus_PMB": {
+  "point": 0.0078,
+  "ci95": [
+   0.0022,
+   0.0127
+  ]
+ },
+ "gain_FULLB_minus_PMB": {
+  "point": 0.0324,
+  "ci95": [
+   0.0278,
+   0.0365
+  ]
+ },
+ "leak_check_clean_share": 0.6192,
+ "leak_check_clean_positives": 15919,
+ "clean_auc_p_full_frozen": 0.912,
+ "clean_auc_p_pm_only_frozen": 0.7879,
+ "clean_auc_PMB": 0.9104,
+ "clean_auc_FULLB": 0.9337,
+ "clean_auc_BOOK_only": 0.9107
+}

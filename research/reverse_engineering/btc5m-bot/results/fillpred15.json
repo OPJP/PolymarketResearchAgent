@@ -1,0 +1,66 @@
+{
+ "n_fit": 27008,
+ "n_score": 46569,
+ "book_plus_state": {
+  "r_pred_filled": 0.2914,
+  "spearman": 0.2978,
+  "r_by_wallet": {
+   "DS": 0.2747,
+   "GF": 0.2585,
+   "XM": 0.1745
+  },
+  "top_gain": {
+   "dep0": 0.1,
+   "D_m180": 0.097,
+   "rank": 0.083,
+   "rel": 0.078,
+   "hour": 0.064,
+   "mv500": 0.058,
+   "b180": 0.055,
+   "dep3": 0.052
+  }
+ },
+ "state_only": {
+  "r_pred_filled": 0.1912,
+  "spearman": 0.1636,
+  "r_by_wallet": {
+   "DS": 0.144,
+   "GF": 0.1468,
+   "XM": 0.0756
+  },
+  "top_gain": {
+   "rel": 0.123,
+   "rank": 0.105,
+   "b180": 0.1,
+   "hour": 0.098,
+   "mv500": 0.081,
+   "amv500": 0.068,
+   "bdist": 0.068,
+   "amv100": 0.063
+  }
+ },
+ "ladder_true_fill": {
+  "rN": 0.6959,
+  "pnlP": 0.6402,
+  "pnlS": 0.6462,
+  "windows": 494
+ },
+ "ladder_public_menu": {
+  "rN": 0.3498,
+  "pnlP": 0.2523,
+  "pnlS": 0.2767,
+  "windows": 494
+ },
+ "ladder_pred_book_plus_state": {
+  "rN": 0.391,
+  "pnlP": 0.2872,
+  "pnlS": 0.3235,
+  "windows": 494
+ },
+ "ladder_pred_state_only": {
+  "rN": 0.3697,
+  "pnlP": 0.2692,
+  "pnlS": 0.3095,
+  "windows": 494
+ }
+}

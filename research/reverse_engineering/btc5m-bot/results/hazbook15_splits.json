@@ -1,0 +1,32 @@
+{
+ "day_20747": {
+  "p_full_frozen": 0.8937,
+  "p_pm_only_frozen": 0.7617,
+  "PMB": 0.877,
+  "FULLB": 0.9154,
+  "BOOK_only": 0.8741
+ },
+ "day_20748": {
+  "p_full_frozen": 0.8702,
+  "p_pm_only_frozen": 0.756,
+  "PMB": 0.8705,
+  "FULLB": 0.8975,
+  "BOOK_only": 0.8683
+ },
+ "book_quiet_half": {
+  "p_full_frozen": 0.9539,
+  "p_spot_only": 0.7658,
+  "p_pm_only_frozen": 0.8902,
+  "PMB": 0.8938,
+  "FULLB": 0.953,
+  "positives": 672
+ },
+ "book_active_half": {
+  "p_full_frozen": 0.7885,
+  "p_spot_only": 0.7578,
+  "p_pm_only_frozen": 0.5964,
+  "PMB": 0.7606,
+  "FULLB": 0.8208,
+  "positives": 35894
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "spot_top10|book_top10": {
+  "weighted_take_rate": 0.06158,
+  "bins_weight_share": 0.0277,
+  "positives": 10689
+ },
+ "spot_top10|book_rest": {
+  "weighted_take_rate": 0.01475,
+  "bins_weight_share": 0.0723,
+  "positives": 6677
+ },
+ "spot_rest|book_top10": {
+  "weighted_take_rate": 0.01895,
+  "bins_weight_share": 0.0723,
+  "positives": 8580
+ },
+ "spot_rest|book_rest": {
+  "weighted_take_rate": 0.00205,
+  "bins_weight_share": 0.8277,
+  "positives": 10620
+ }
+}

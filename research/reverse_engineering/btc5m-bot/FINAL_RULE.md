@@ -1,4 +1,28 @@
-# btc5m-bot: frozen rule (iteration 14; side = decision clock on Binance's own clock, dc_exam14; presence / price unchanged since iteration 8; the PnL rule is the exposure tracker with the mix14 target, pre-registration 7)
+# btc5m-bot: frozen rule (iteration 15: UNCHANGED from iteration 14; side = decision clock on Binance's own clock, dc_exam14; presence / price unchanged since iteration 8; the PnL rule is the exposure tracker with the mix14 target, pre-registration 7)
+
+Iteration 15 in one paragraph (no candidate adopted; the scored rule, code/final_rule.py and target_metrics are unchanged). The
+pivot was a new data source and target: the ASK-side L2 book of every BTC 5m token, rebuilt from the public capture's price_change
+level sizes for 10-20..22 (best-ask check 98.2-98.4%), and the operator's realized taker fill as an execution against it. Three
+results change the account. (1) The realized size is NOT the visible depth: for orders that fill less than their original size,
+the depth at or below the limit is a median 107 shares at the bot's view against a median fill of 11, and ~95% of it is CANCELLED
+untraded during Polymarket's 150-ms hold (other takers explain 3.5%, the operator's own legs 1.0%); a depth-bound order fills what
+the slower makers leave (median 15 left, 14 filled). With the TRUE decisions, public size information gives a window-net r of
+0.39-0.44 against 0.70-0.75 with the true fills, and a fill model on decision-time public data reaches r 0.29: about 0.3 of
+condition 5 is the makers' cancel race after the decision. The pre-registered depth-weighted hazard nowcast (pre-registration 8)
+lost to mix14 (0.4772 / 0.4556 vs 0.4792 / 0.4594 on 576 windows) and was not adopted. (2) The Polymarket BOOK predicts the
+operator's decisions as well as the decoded Binance trigger: a market-only baseline with the book's depth and its 100-ms changes
+reaches 0.873 against the hazard's 0.881 at the decision clock (0.910 vs 0.912 on bins with no operator print nearby); the
+operator trades into the makers' cancellation wave on the bought outcome (o's near-touch ask depth falls to 0.85 of its level
+200 ms before the match and 0.61 at 100 ms; placebo flat). That match sits in the last ~50 ms before the bot's own Polymarket
+view: with the book cut at e (before the bot's view for every label in the band) the decoded hazard gains +0.058 [0.050, 0.065]
+over the book-aware baseline, with it cut at e + 50 only +0.008; pre-registration 9 replicated this in the reverse split (score
+10-20: +0.0805 [0.075, 0.086] at the e cut, +0.023 at e + 50). Condition 2 at the decision clock therefore hinges on a 25-50-ms
+cut convention that must be fixed from physics (the bot's view = arrival - 30 ms) in the exam pre-registration; the book also carries part of the late-trigger sixth (book-only side right on 62% of dc14's errors;
+dc14 + book 0.838 vs 0.8135, not pre-registered). (3) The salts are not V8 Math.random output (a GF(2) state solver validated on
+real Node v22 output fails on all 130 copy groups); JSC / Bun is untested (no SAT solver in the venv). Also: a sharper allocation
+model (clock features, XM AUC 0.79) lifts XM's thinning ceiling only to 0.46 < 0.47; the iteration-13 per-wallet pay-up anchor
+(ask + 0 / 1 / 1 c for DS / GF / XM) holds out of sample per wallet and day (XM 0.82 / 0.79). A full-rate Binance recorder
+(rec_bn15) records the 11-01 06-12 development block for the out-of-time check.
 
 Iteration 14 in one paragraph. The decision clock was wrong by ~50-80 ms, and fixing it changes the side and the selection
 accounts. Both panels found that pre-registrations 3-4 (decision a = m - 180 ms on the collector's receive clock) cut off the
@@ -323,6 +347,19 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    redraw null at 2-minute FE; GF / XM follow the other wallets' recent decisions and are refractory to their own; the wallets
    take the same onsets jointly far above independence), not a sub-30-s self-exciting kernel (iteration 11's finding 13
    corrected); the fast crowd shares the selection and the recorded inputs explain 14-21% of that shared part.
+13. **Iteration 15: execution against the visible book (capture L2, 10-20..22) - VALIDATE-only (hypothesis where marked).**
+   (a) Size, realized part [VALIDATE-only]: the realized taker fill = the ask depth at or below the limit that survives the 150-ms
+   hold. The depth the bot saw at its limit (median 107 shares for depth-bound orders, 190 for all) is ~95% cancelled untraded
+   before the match (non-operator takes 3.5%, own other legs 1.0%); public data at the decision predicts the fill at r 0.29. Not in
+   the scored rule (the depth-weighted nowcast of pre-registration 8 lost to mix14). (b) Timing [VALIDATE-only]: the operator's
+   first legs fall inside a cancellation wave on the bought outcome's asks (near-touch depth 0.85 of its 1.5-s-earlier level at
+   200 ms before the match, 0.61 at 100 ms; placebo 1.00) while the other outcome's asks grow; a book-only model predicts the
+   take at 0.871 vs the decoded hazard's 0.881. (c) Side [VALIDATE-only, not pre-registered]: the book of both outcomes at
+   m0 - 210 ms gives 0.712 alone and dc14 + book 0.838 vs 0.8135 (10-21..22). (d) Price [VALIDATE-only]: per-wallet anchor ask +
+   (DS 0, GF 1, XM 1) c within a tick DS 0.947, GF 0.937-0.948, XM 0.795-0.820 per day on 10-21..22. (e) Coins [hypothesis
+   rejected for V8]: the salts are not nearby V8 Math.random outputs (validated solver, 0 / 130 groups); a JSC / Bun generator is
+   untested. (f) Dispatch [VALIDATE-only]: XM-led first legs carry a broader, earlier information profile (no sharp knee, plateau
+   0.785 vs DS 0.837); with those clock features P(XM) reaches AUC 0.79-0.81 and XM's thinning ceiling 0.46 (< 0.47).
 
 ## VALIDATE metrics (2026-10-16..23; target thresholds in brackets)
 
@@ -385,6 +422,12 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 
 ## Why it works
 
+- **Iteration 15, who loses and why the fills are small:** the operator and Polymarket's makers react to the same Binance move. Most
+  makers pull their stale asks within the 150-ms taker delay (the depth at the bot's limit falls ~95% before its order executes,
+  almost none of it traded), so the operator is paid by the SLOWEST makers, whose asks are still there when the hold ends; the
+  delay that Polymarket added to protect makers is exactly what caps the operator's fills. The race is against makers'
+  cancellations, not against other takers (3.5% of the vanished depth). [VALIDATE-only]
+
 - **Iteration 14, the edge in one line:** the bot is a latency arbitrageur of the Binance SPOT queue imbalance against Polymarket's quotes. It sits next
   to Polymarket's engine, sees Binance ~80-110 ms after the stamp, and lifts the outcome the spot book is moving toward before the makers requote; the
   makers who lose are those whose quotes lag the spot book by more than the 150-ms taker delay plus its route. Sizes are an operator experiment (A/B arms).
@@ -425,6 +468,11 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 
 ## Can a normal user deploy it now
 
+- **Iteration 15:** what a copy would receive is the makers' leftovers after the 150-ms hold, and that leftover is decided after the
+  decision (r 0.29 from public data at the decision). A replicator that fires on the same Binance move from a normal connection
+  arrives after the faster makers have cancelled and after the operator; it would fill even less. Nothing changed in the
+  conditions on the latest development data (10-20..22 capture; rec_bn15 records 11-01 06-12 for the next check).
+
 - **Iteration 14:** the decision needs a host near Polymarket's engine (London) with a direct Binance spot feed arriving within ~100 ms of the stamp, and
   the information is a 60-ms band: a home connection or a slower relay (the public collector receives Binance ~131 ms after the stamp) loses most of it
   (74% side at an anchor 50 ms too early). A copy executed >= 2 s later earns about -3% before rebates (exposure tracker).
@@ -452,6 +500,17 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   speed against stale makers inside Polymarket's 150-ms taker delay, which a home connection does not have.
 
 ## Known limitations
+
+- **Iteration 15:** (a) condition 2 is not met by any pre-registered unit so far: at the block clock +0.024 over a capture-aware
+  baseline; at the decision clock +0.008 [0.002, 0.013] over a BOOK-aware market baseline whose book ends at e + 50 ms, but +0.058
+  [0.050, 0.065] when the book ends at e, before the bot's own Polymarket view (finding 12). An examiner who adds book depth cut at
+  e + 50 will find the gap closed; the cut has to be pre-registered from the bot's measured view (arrival - 30 ms) before any claim.
+  Per wallet at the e cut: DS +0.059, GF +0.061, XM +0.030, so XM's presence part fails condition 7 even then. (b) condition 5: about 0.3 of the window-net r on the true
+  decisions is the makers' cancel race inside the hold (measured on the capture L2); the adopted mix14 tracker stays at 0.5065 /
+  0.4674. (c) condition 7: XM's PnL ceiling 0.43-0.46 < 0.47 (thin14 / thin15); the price part now holds per wallet with the
+  iteration-13 anchor (VALIDATE-only, not wired into evaluate(): target_metrics.price_within_tick stays the trivial touch anchor).
+  (d) The L2 ingest exists for 10-20..22 only (session scratchpad); code/l2ingest15.py rebuilds it from the capture for any
+  development day (2 threads, ~12 min per day).
 
 - **Iteration 14:** the decision-clock components (side, take hazard, the mix14 PnL target) read a public third-party capture
   (Hugging Face Fahri-5/updown-5m-polymarket-raw, revision pinned); if its exam-day files are missing the routes report errors and

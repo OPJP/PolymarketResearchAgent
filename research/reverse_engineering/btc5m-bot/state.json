@@ -9291,6 +9291,292 @@
     }
    },
    "verdict": "no increment"
+  },
+  {
+   "id": "H197",
+   "family": "depth-limited execution (X143 = X144)",
+   "description": "realized taker fill = min(menu, visible ask depth <= L at the bot's view)",
+   "validate_metrics": {
+    "oracle_rN_minE_m180": 0.4296,
+    "oracle_rN_minE_m150": 0.4401,
+    "oracle_rN_public_menu": 0.3954,
+    "oracle_rN_true_fill": 0.7473,
+    "within10_depth_bound_m180": 0.1164
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H198",
+   "family": "hold-queue race (X143 'if false')",
+   "description": "the depth the bot saw is taken by co-arriving takers in the hold",
+   "validate_metrics": {
+    "share_missing_crowd": 0.0351,
+    "share_missing_own_prior": 0.0104
+   },
+   "verdict": "rejected (takers explain 3.5%)"
+  },
+  {
+   "id": "H199",
+   "family": "maker cancel race in the taker delay",
+   "description": "the depth at <= L is cancelled during the 150-ms hold; the fill is what is left",
+   "validate_metrics": {
+    "median_depth_bound_D": {
+     "500": 357,
+     "180": 108,
+     "150": 71,
+     "100": 31,
+     "50": 17,
+     "35": 15,
+     "20": 0
+    },
+    "median_fill": 14,
+    "fill_r_public": 0.2914
+   },
+   "verdict": "supported (mechanism, VALIDATE-only)"
+  },
+  {
+   "id": "H200",
+   "family": "pre-registration 8: depth-weighted hazard nowcast (hazflowD15)",
+   "description": "mix15 = 0.5 avg + 0.5 cD x sum P^ x E[min(menu, D1)]",
+   "validate_metrics": {
+    "mix15": [
+     0.4772,
+     0.4556
+    ],
+    "mix14": [
+     0.4792,
+     0.4594
+    ],
+    "windows": 576
+   },
+   "verdict": "not adopted"
+  },
+  {
+   "id": "H201",
+   "family": "book-aware market baseline at the decision clock (X146 step 2)",
+   "description": "Polymarket trades + book depth / changes at e + 50 ms",
+   "validate_metrics": {
+    "auc_full": 0.8808,
+    "auc_PMB": 0.873,
+    "auc_book_only": 0.8706,
+    "auc_full_plus_book": 0.9054,
+    "gain_full_minus_PMB": 0.0078,
+    "clean_full": 0.912,
+    "clean_PMB": 0.9104
+   },
+   "verdict": "the decision-clock presence margin fails against it"
+  },
+  {
+   "id": "H202",
+   "family": "book side at the decision instant (X139 alternative)",
+   "description": "side from the Polymarket book of both outcomes at m0 - 210",
+   "validate_metrics": {
+    "book_only": 0.7121,
+    "dc14": 0.8135,
+    "dc14_plus_book": 0.838,
+    "book_on_dc14_wrong": 0.6229
+   },
+   "verdict": "partial: the book carries part of the late sixth"
+  },
+  {
+   "id": "H203",
+   "family": "V8 Math.random salts (X149 V8 part, X99, X105)",
+   "description": "same-ms copies are nearby V8 xorshift128+ outputs",
+   "validate_metrics": {
+    "groups_dt2": [
+     0,
+     40
+    ],
+    "groups_dt50": [
+     0,
+     20
+    ],
+    "groups_span24": [
+     0,
+     6
+    ],
+    "node_v22_ground_truth": [
+     3,
+     3
+    ]
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H204",
+   "family": "per-wallet clock and the XM ceiling (X140, X148 step 4)",
+   "description": "XM fires on a broader / earlier clock; sharper P^(wallet)",
+   "validate_metrics": {
+    "xm_auc_clock": 0.8053,
+    "xm_auc_base": 0.7162,
+    "ceiling_xm": 0.4633,
+    "oracle_xm": 0.4426
+   },
+   "verdict": "XM ceiling still < 0.47"
+  },
+  {
+   "id": "H205",
+   "family": "per-wallet pay-up anchor (X147)",
+   "description": "limit = ask + (DS 0, GF 1, XM 1) c",
+   "validate_metrics": {
+    "XM_10_21": 0.82,
+    "XM_10_22": 0.7945,
+    "GF": [
+     0.9365,
+     0.9481
+    ],
+    "DS": [
+     0.9473,
+     0.9465
+    ]
+   },
+   "verdict": "holds out of sample (VALIDATE-only)"
+  },
+  {
+   "id": "H206",
+   "family": "book vs spot channel of the take (2x2)",
+   "description": "take rate by the top deciles of the book-only and spot-only scores",
+   "validate_metrics": {
+    "both": 0.06158,
+    "spot_only": 0.01475,
+    "book_only": 0.01895,
+    "neither": 0.00205
+   },
+   "verdict": "both channels carry the take; order of events not yet resolved"
+  },
+  {
+   "id": "H207",
+   "family": "maker cancellation wave around the decisions (finding 10)",
+   "description": "o's ask depth near the touch before first legs vs placebo",
+   "validate_metrics": {
+    "rel_depth": {
+     "500": 0.968,
+     "300": 0.92,
+     "200": 0.852,
+     "100": 0.607,
+     "0": 0.52
+    },
+    "placebo": 1.006,
+    "drop30_ending_m0_100": 0.3985,
+    "placebo_drop30": 0.0679
+   },
+   "verdict": "supported (mechanism, VALIDATE-only)"
+  },
+  {
+   "id": "H208",
+   "family": "finding 4 splits",
+   "description": "decision-clock presence vs the book-aware baseline by day and by book state",
+   "validate_metrics": {
+    "10-21": [
+     0.8937,
+     0.877,
+     0.9154
+    ],
+    "10-22": [
+     0.8702,
+     0.8705,
+     0.8975
+    ],
+    "book_active_half": {
+     "full": 0.7885,
+     "PMB": 0.7606,
+     "full_plus_book": 0.8208,
+     "positives": 35894
+    },
+    "book_quiet_half_positives": 672
+   },
+   "verdict": "the book-aware baseline closes the gap on both days"
+  },
+  {
+   "id": "H209",
+   "family": "book cut vs the decision-clock presence margin (finding 12)",
+   "description": "book-aware baseline with the book sampled at e + 50 - shift",
+   "validate_metrics": {
+    "shift0": {
+     "PMB": 0.873,
+     "gain": 0.0078
+    },
+    "shift50": {
+     "PMB": 0.8229,
+     "book_only": 0.8179,
+     "gain": 0.0579,
+     "ci95": [
+      0.0501,
+      0.0646
+     ],
+     "full_plus_book": 0.8941
+    },
+    "shift100": {
+     "PMB": 0.7987,
+     "gain": 0.0821
+    },
+    "shift200": {
+     "PMB": 0.7797,
+     "gain": 0.1011
+    }
+   },
+   "verdict": "the book's co-reaction lies within ~50 ms of the bot's own view; the margin clears 0.05 only with a book cut at e (PIT for every label in the band)"
+  },
+  {
+   "id": "H210",
+   "family": "pre-registration 9 (reverse split of the book cut)",
+   "description": "fit 10-21..22, score 10-20; full hazard vs book-aware baseline with the book cut at e and at e + 50",
+   "validate_metrics": {
+    "cut_e": {
+     "full": 0.9018,
+     "PMB": 0.8213,
+     "gain": 0.0805,
+     "ci95": [
+      0.0752,
+      0.0861
+     ]
+    },
+    "cut_e50": {
+     "PMB": 0.8787,
+     "gain": 0.0231,
+     "ci95": [
+      0.0198,
+      0.0262
+     ]
+    }
+   },
+   "verdict": "met: >= 0.05 with the PIT book cut on both splits"
+  },
+  {
+   "id": "H211",
+   "family": "per-wallet book-cut gains (finding 14)",
+   "description": "decision-clock hazard vs book-aware baseline per carrying wallet, cut at e and at e + 50",
+   "validate_metrics": {
+    "cut_e": {
+     "DS": [
+      0.8734,
+      0.8147
+     ],
+     "GF": [
+      0.8958,
+      0.8347
+     ],
+     "XM": [
+      0.9121,
+      0.8822
+     ]
+    },
+    "cut_e50": {
+     "DS": [
+      0.8734,
+      0.8681
+     ],
+     "GF": [
+      0.8958,
+      0.882
+     ],
+     "XM": [
+      0.9121,
+      0.8994
+     ]
+    }
+   },
+   "verdict": "DS / GF clear 0.05 at the e cut; XM +0.030 does not"
   }
  ],
  "data_sources": [
@@ -9343,7 +9629,8 @@
   "Iteration 12: fingerprint census of the 10-31 match-tx calldata (it9/cd9 + it10/cdall10): burst phase, pre-signing lag, same-ms copies per wallet",
   "Iteration 13: Hugging Face Fahri-5/updown-5m-polymarket-raw (CC0, not gated), revision f848a77ccfce4421d3cedbbe585576db77d36662, polymarket/ and btc/ day files for 10-17..22 only, read by HTTP range requests and reduced at once (trades with server ms + tx hash, touch changes, Binance spot book / trades, RTDS Chainlink); reduced copies in the session scratchpad it13/hf_dl (not in the workspace cache); HF answers 429 under parallel ingests",
   "Iteration 13: Hugging Face RabbitGo777/polymarket.btc_20261020.v4.parquet (not gated), revision 1e0218e12491c7e1d6183350a424fb3489539129: footer of binance.btc_20261020.v4.parquet and its USD-M BTCUSDT bookTicker rows for 10-20 11:00-12:00 UTC (133 row groups by ts_local statistics, microseconds); reduced copy in the session scratchpad it13/rabbit",
-  "Iteration 13: Deribit public get_volatility_index_data BTC resolution 60 (1-min DVOL), 10-09..22, end < H, via the polyrea HTTP cache"
+  "Iteration 13: Deribit public get_volatility_index_data BTC resolution 60 (1-min DVOL), 10-09..22, end < H, via the polyrea HTTP cache",
+  "Iteration 15: public capture Fahri-5/updown-5m-polymarket-raw (revision f848a77c) polymarket day files 10-20 / 10-21 / 10-22, ask-side L2 (price_change askPrice / askSize, book asks, bestAsk for the check) of every BTC 5m token, by HTTP range requests (2 threads, ~600 MB read per day), reduced at once to order-time ask vectors and a 50-ms depth grid (session scratchpad it15/)"
  ],
  "iterations": [
   {
@@ -9728,6 +10015,36 @@
     "Polymarket touch on top of the knee-clock hazard (X119 / X114 best-ask part)",
     "arm economics (X130 step 3, descriptive)"
    ]
+  },
+  {
+   "n": 15,
+   "minutes": 77.0,
+   "best_validate_score": 0.9132,
+   "block_seconds_presence": 0.8701,
+   "block_seconds_stronger_baseline": 0.8464,
+   "side_accuracy": 0.8369,
+   "pnl_corr": 0.5065,
+   "pnl_corr_spearman": 0.4674,
+   "paradigm": "Depth-limited execution on the capture's L2 book (new data source: price_change level sizes; new unit: the taker order as an execution against the visible ask book; new target: the realized fill) plus the operator's coins as a recoverable PRNG stream (cryptanalytic model class)",
+   "families": [
+    "capture L2 ingest and reconstruction check (X144 step 0)",
+    "filled size vs visible depth, oracle ladder (X143 = X144 step 1)",
+    "hold decomposition: crowd takes, own legs, maker cancels; depth decay at 16 offsets (X143 'if false')",
+    "fill predictability at the decision (X145 step 1 input)",
+    "pre-registration 8: depth-weighted hazard nowcast and tracker (X144 step 2)",
+    "book-aware market baseline at the decision clock, own-print check (X146 step 2, X114)",
+    "book side at the decision instant on the dc14-wrong orders (X139 alternative)",
+    "book vs spot channel 2x2 of the take",
+    "V8 PRNG state recovery from salts with a ground-truth Node check (X149, X99, X105)",
+    "per-wallet knee profiles and clock-feature allocation (X140)",
+    "sharper thinning ceiling for XM (X140 step 4, X148 step 4)",
+    "per-wallet pay-up anchor out of sample (X147)",
+    "full-rate Binance recorder for the out-of-time check (X142)",
+    "maker cancellation wave timing vs placebo (finding 10)",
+    "book-cut scan of the book-aware baseline (finding 12)",
+    "pre-registration 9: reverse-split replication of the book cut",
+    "per-wallet book-cut gains (finding 14)"
+   ]
   }
  ],
  "frozen_rule": "code/final_rule.py (iteration 14: + dc_exam14 decision-clock side = target_metrics.side_accuracy; + dc_hazard14: decision-clock presence (reported) and the hazard imbalance in the PnL tracker target mix14 (pre-registration 7); block-second presence and price unchanged)",
@@ -9792,6 +10109,16 @@
    "what": "rec_eu11.py (pid 14192): sleeps until 11-01 05:59 UTC, then records btc5m_xeu (Coinbase level2_50 top + ticker, Bitstamp order_book, Kraken v2 book, SOL / XRP / DOGE / BNB perps on Binance USD-M, Bybit, OKX; sized L1 coalesced to 30 ms) and btc5m_xsnap (Binance USD-M depth5@100ms BTC / ETH, OKX books5, Bybit orderbook.50 BTCUSDT; every message) through tools/live.py Writer (every block filed by the Writer, never read in sealed blocks); cap 280 MB; status .cache/re/btc5m-bot/rec_eu11.status",
    "start": 1793512740,
    "end": 1793642400
+  },
+  {
+   "what": "rec_bn15.py v1 (pid 9312; feeds btc5m_bnspot / btc5m_bnusdm with t in MICROSECONDS, not usable through iter_live; stopped by taskkill to fix it): every message of Binance spot btcusdt@bookTicker + @trade and USD-M btcusdt@bookTicker (+ @aggTrade, which delivered nothing)",
+   "start": 1793512770,
+   "end": 1793515340
+  },
+  {
+   "what": "rec_bn15.py v2 (pid 29736): feeds btc5m_bnspot2 / btc5m_bnusdm2, t = receive ms, tu = receive us; every message of Binance spot btcusdt@bookTicker + @trade and USD-M btcusdt@bookTicker (USD-M @aggTrade delivers nothing on this endpoint); disk cap 280 MB, hard stop 12:00 UTC 11-01 (X142); the laptop clock runs ~0.65 s behind Binance",
+   "start": 1793515366,
+   "end": 1793534400
   }
  ],
  "catalog": {
@@ -10391,7 +10718,7 @@
   "X93": {
    "status": "open",
    "source": "panel iteration 10, mechanics P2 (resolve the race on the recorded book: deterministic execution instead of X82's independent lottery)",
-   "evidence": "First step (race11.py, results/race11.json; 2,155 decisions): lost races would have been won by an EARLIER arrival of 10 / 25 / 50 / 100 / 150 ms in 3 / 11 / 21 / 40 / 51% of cases, by a later one in <= 1%; won races keep ask <= L for arrivals 25-150 ms earlier in 87-97% (the last ~25 ms before the match are unreliable in the 30-ms-coalesced recording); operator near-ties (another operator arrival within 5 ms) win 37.2% vs 63.0%. The race is close to deterministic given the arrival (flip rate 4-7% at 25-50 ms timing error on lost races), so X82's independent-lottery ceiling does not apply to replays on recorded books (future blocks); it still applies at the block clock. The full simulator (crowd queue, maker refills, per-window PnL) is not built."
+   "evidence": "First step (race11.py, results/race11.json; 2,155 decisions): lost races would have been won by an EARLIER arrival of 10 / 25 / 50 / 100 / 150 ms in 3 / 11 / 21 / 40 / 51% of cases, by a later one in <= 1%; won races keep ask <= L for arrivals 25-150 ms earlier in 87-97% (the last ~25 ms before the match are unreliable in the 30-ms-coalesced recording); operator near-ties (another operator arrival within 5 ms) win 37.2% vs 63.0%. The race is close to deterministic given the arrival (flip rate 4-7% at 25-50 ms timing error on lost races), so X82's independent-lottery ceiling does not apply to replays on recorded books (future blocks); it still applies at the block clock. The full simulator (crowd queue, maker refills, per-window PnL) is not built. | Iteration 15 (race15 / decay15): on the capture's L2, the depth at <= L the bot saw vanishes during the hold with ~95% cancelled untraded (crowd takes 3.5%, own legs 1.0%); a depth-bound order fills what is left when it meets the book (median 15 left, 14 filled)."
   },
   "X94": {
    "status": "tried",
@@ -10419,9 +10746,9 @@
    "evidence": "Step 2 tried (lam11.py, results/lam11.json): among 1,252 decisions whose o-ask changed in [a - 400, a], P(limit == ask(a - Lambda)) peaks at Lambda = 30 ms (0.481; 0.455 at 0, 0.391 at 150, 0.274 at 300; placebo inside the hold 0.44 at -30); DS 50, GF 10, XM 30 ms; won races 30 ms (0.647), lost races 180 ms (0.378). The bot reads Polymarket ~30 ms old and Binance ~100+ ms old: near Polymarket's engine. Steps 1 (per-venue leading edges) and 3 (the (Lambda, tau) AUC profile) not done. | August (lam11b, pmxt 08-06 16-17, D = 250): peak Lambda = 50 ms on 270 decisions with an ask change. Iteration 14 (findings 1, 6, 8, 15): every feature re-expressed on the bot's clock. Per-venue leading edges on exchange clocks (step 1): the Binance spot knee sits 230-260 ms before the match (USD-M BTC / spot trades 220, USD-M ETH 210, OKX 200; Bybit, Deribit and Coinbase keep rising past the arrival as lagging copies), i.e. the bot reads Binance ~80-110 ms after the stamp and sits next to Polymarket's engine; the side (83.7%) and the take hazard (AUC 0.889) are scored on that clock with Polymarket read ~30 ms before the arrival (the (Lambda, tau) pair of step 3 fixed by physics and the fit-day knee rather than scanned)."
   },
   "X99": {
-   "status": "open",
+   "status": "tried",
    "source": "panel iteration 10, assumptions P4 (recover the bot's Math.random state from the order salts: Bun / JSC xorshift128+, V8 variants)",
-   "evidence": "Not tested in iteration 11 (the panel's V8 single-call test was negative; the JSC and multi-call variants need a z3 search over copy offsets)."
+   "evidence": "Not tested in iteration 11 (the panel's V8 single-call test was negative; the JSC and multi-call variants need a z3 search over copy offsets). | Iteration 15 (prng15 / v8real15): V8 xorshift128+ with the 64-entry LIFO cache rejected on 130 copy groups (0 / 40 consistent at 2 ms, 0 / 20 at 50 ms, 0 / 6 at +-24 calls; solver validated on real Node v22 output 3 / 3, 120 / 120). The JSC / Bun variant moved to X149 (open)."
   },
   "X100": {
    "status": "open",
@@ -10449,9 +10776,9 @@
    "evidence": "Not tested in iteration 12 (the pmxt range reader of iteration 11 is the route; ~100-115 MB of range requests per hour). Open."
   },
   "X105": {
-   "status": "open",
+   "status": "tried",
    "source": "panel iteration 11, mechanics P2 (recover the PRNG with the measured signing-loop layout fixing the generation offsets)",
-   "evidence": "Not tested in iteration 12 (with X99). Open."
+   "evidence": "Not tested in iteration 12 (with X99). Open. | Iteration 15: the layout form (same-ms copies of one level as nearby calls, offsets within +-12 / +-24, both cache orders through the GF(2) search) tested with prng15: no consistent V8 state in any group (see X99)."
   },
   "X106": {
    "status": "tried",
@@ -10494,9 +10821,9 @@
    "evidence": "Steps 1-4 tried on development days (NOTES iteration 13 findings 5-6; session scratchpad it13/ (hfprobe13.py, hfingest13.py); code/dc13.py, dcfeat13.py, dcside13.py, dcown13.py, dcprice13.py). Dataset CC0, not gated, revision pinned f848a77ccfce4421d3cedbbe585576db77d36662; only day names < H kept from the listing. 10-20: 97.3% of the operator's 39,899 txs carry an archive match ms (99.1-100% in hours 0-22; the day file ends 23:00), block - match q05/q50/q95 1,247 / 2,202 / 3,138 ms. Decision-clock side (a = m - 180 ms), fit 10-20 -> score 10-21 and the reverse (a disclosed deviation from the pre-registered 10-17..19 fit): full coverage per taker order 0.7715 / 0.7731 (GF 0.81-0.82, XM 0.80-0.85, DS 0.75), venue-only 0.761 / 0.763, Polymarket-state-only 0.588 / 0.586, + own-state pairing kernel 0.776 / 0.774; top input the Binance spot book microprice over the last 250 / 100 ms; 81-83% in minutes 0-2, 62-72% after 180 s. The frozen live vote windows with the archive's two Binance series agree only 0.657 on 57% (frozen) / 0.559 on 52% (PIT): the live 83% needs USD-M bookTicker + ETH series the archive lacks. Price: the taker limit is within a tick of o's archive ask at the arrival for 0.9342 of 2476 calldata orders (exact 0.7431; at a - 30 ms 0.9273; touch at the match 0.813; XM 0.6643). The pre-registered split (fit 10-17..19, score 10-20..22), the decision-level replica (step 5) and the exam route through evaluate() (step 6) are open. PRE-REGISTERED split (pre-registration 3; fit ['2026-10-17', '2026-10-18', '2026-10-19'] -> score the rest of ['2026-10-17', '2026-10-18', '2026-10-19', '2026-10-20', '2026-10-21', '2026-10-22']; Polymarket touch only on 10-20 / 10-21, NaN elsewhere): full 0.7628 (by wallet {'DS': 0.7425, 'GF': 0.7972, 'XM': 0.7997}), venue-only 0.7628, market-only 0.504; reverse 0.7408. Success (>= 0.80) NOT met. Per-wallet pay-up (payrank13): limit - ask premium rises with the leg rank (mean {\"0\": [0.183, 1914], \"1\": [0.777, 394], \"2\": [0.72, 93], \"3\": [1.107, 75]} c by rank); anchor ask + c_w (DS 0, GF 1 c, XM 1 c) within a tick {\"pool\": 0.9451, \"DS\": 0.9552, \"GF\": 0.9442, \"XM\": 0.8322} vs plain ask {\"pool\": 0.9273, \"DS\": 0.9552, \"GF\": 0.9148, \"XM\": 0.6643}. Per DECISION (first legs of fan-out events) the decision-clock side is [0.7537, 0.7491] (follower legs 80-87%: they see more of the move). The missing USD-M bookTicker (RabbitGo777 10-20 capture, revision 1e0218e1, 11:00-12:00 UTC, 926 orders) does not close the gap: USD-M 250 ms [0.7272, 0.9816] vs spot [0.7089, 0.8942] [agree, cover]; decision-clock model 0.7646, with the USD-M tick first 0.7559. Pre-registration 4 (exam route, spot-book-only model fitted on 10-17..19): 10-20..22 per order 0.7421 (by wallet {'DS': 0.7208, 'GF': 0.7779, 'XM': 0.781}), XM one-sided windows 0.814 (by day {'2026-10-20': 0.8986, '2026-10-21': 0.8049, '2026-10-22': 0.7258}); built into final_rule.evaluate() as 'side_decision_clock' (code/dc_exam13.py), reproducing the offline frame exactly on 10-20 11:00-12:00 (929 orders, 0.7104). Step 6 is done for the spot route; the full-venue route and the decision-level replica (step 5) remain. Full venue model (model_it13_dcside_A.txt): XM one-sided windows 0.843 of 172 (share 0.2486), XM per order 0.7997. Out-of-time check on the live recordings (dclive13): 59.6% on 10-31 12-18, an input-density mismatch (the recorder keeps price-change-only coalesced spot quotes); the capture's 10-31 / 11-01 day files also hold sealed blocks and were not opened. Iteration 14: step 6 rebuilt at the corrected clock (dc_exam14, pre-registration 5: 83.7% per order); the decision-level replica (step 5) is open (the hazard nowcast of pre-registration 7 is its first form)."
   },
   "X114": {
-   "status": "open",
+   "status": "tried",
    "source": "panel iteration 12, information P2 (Polymarket touch-queue fade: size-only maker requotes as the trigger of the quiet decisions)",
-   "evidence": "Not tested in iteration 13 (the quiet-instant event unit on 10-31 A / C and its 11-01 replication). Note for the test: book state counts as market activity for the examiner's baseline, so it cannot raise the presence gain over a market-activity baseline. Open. Iteration 14 (touch14.json): the best-ask part adds nothing beyond the knee-clock hazard; the size-only requotes need the capture's askSize / bidSize columns (not ingested). Open."
+   "evidence": "Not tested in iteration 13 (the quiet-instant event unit on 10-31 A / C and its 11-01 replication). Note for the test: book state counts as market activity for the examiner's baseline, so it cannot raise the presence gain over a market-activity baseline. Open. Iteration 14 (touch14.json): the best-ask part adds nothing beyond the knee-clock hazard; the size-only requotes need the capture's askSize / bidSize columns (not ingested). Open. | Iteration 15 (hazbook15): size-only level events of the capture's book (depth at best + 0..4 c and its 100 / 250 / 1000-ms changes, both outcomes) at the bot's view: a market-only baseline with them reaches 0.8730 vs the decoded hazard 0.8808; the top input is o's ask depth change over 100 ms (makers pulling asks)."
   },
   "X115": {
    "status": "open",
@@ -10599,9 +10926,9 @@
    "evidence": "Pre-registration 6 (nfms14) not adopted ([0.4845, 0.451] vs [0.4973, 0.4607] on 10-20..22); pre-registration 7 (hazard nowcast) window-net r {'nfhaz': 0.3704, 'avg': 0.5049, 'mix14': 0.5125}, tracker mix14 [0.5065, 0.4674] vs avg [0.4973, 0.4607]: adopted=True."
   },
   "X132": {
-   "status": "open",
+   "status": "tried",
    "source": "panel iteration 13, mechanics P3 (the true size decision: original sizes at the decision clock with the capture's L2 book)",
-   "evidence": "Steps 1-3 tried in compact form (size14.py, results/size14.json): 5,293 cluster taker orders of the six calldata sample hours on 10-17..22 with ORIGINAL sizes joined to the decision-clock frame; menus by arm (10-17/18: A 30/50, B 50 only; from 10-19: 30/100); large = above the (day, arm) mode: AUC of |250-ms knee-clock spot move| 0.5984 (first legs 0.6189; DS 0.5912, GF 0.5615, XM 0.5666), |p - 0.5| 0.4783: size is configuration plus own state. Open: the L2 visible-depth features (capture askSize / bidSize columns not ingested)."
+   "evidence": "Steps 1-3 tried in compact form (size14.py, results/size14.json): 5,293 cluster taker orders of the six calldata sample hours on 10-17..22 with ORIGINAL sizes joined to the decision-clock frame; menus by arm (10-17/18: A 30/50, B 50 only; from 10-19: 30/100); large = above the (day, arm) mode: AUC of |250-ms knee-clock spot move| 0.5984 (first legs 0.6189; DS 0.5912, GF 0.5615, XM 0.5666), |p - 0.5| 0.4783: size is configuration plus own state. Open: the L2 visible-depth features (capture askSize / bidSize columns not ingested). | Iteration 15: the L2 visible-depth part tested on the capture's ask book (depth15 / fillpred15): visible depth at the bot's view adds +0.035 to the oracle r(N) and the realized fill is predictable at r 0.291; the original size is configuration plus own state and the fill is the makers' cancel race."
   },
   "X133": {
    "status": "open",
@@ -10617,6 +10944,66 @@
    "status": "tried",
    "source": "panel iteration 13, assumptions P4 (condition 7 for XM as a formal random-thinning ceiling)",
    "evidence": "Same test as X134 (run once): oracle 0.3925, sqrt test-retest ceiling 0.4304 < 0.47."
+  },
+  "X139": {
+   "status": "open",
+   "source": "panel iteration 14, information P1 (decode the late-trigger sixth with Binance L2 order-book dynamics from the RabbitGo777 10-20 capture)",
+   "evidence": "Not run (the Rabbit binance file needs L2 rebuild with u / U / pu checks). Iteration 15 found a partial alternative: the Polymarket book at m0 - 210 is right on 62.3% of the orders dc14 gets wrong and dc14 + book reaches 0.838 vs 0.8135 per order on 10-21..22 (sidebook15.json); Binance L2 itself is untested."
+  },
+  "X140": {
+   "status": "tried",
+   "source": "panel iteration 14, information P2 (per-wallet and per-decision information clocks: XM as its own pipeline)",
+   "evidence": "xmknee15 / xmclock15 / thin15: knee profiles by leader (DS sharp at 260; GF rises 20-50 ms earlier; XM broad, plateau 0.785 vs 0.837); XM-vs-rest AUC 0.805 with pre-horizon clock features vs 0.716 (top k340 / k350 / k360); thin15 redraw ceiling for XM 0.4633 (AUC 0.791) vs 0.4304 (AUC 0.670), oracle 0.4426 < 0.47. Features are anchored on the realized match (partly XM's slower path)."
+  },
+  "X141": {
+   "status": "open",
+   "source": "panel iteration 14, information P3 (full-rate USD-M book and other venues' L1 / L2 at physical cuts over the whole 10-20 day)",
+   "evidence": "Not run in iteration 15."
+  },
+  "X142": {
+   "status": "open",
+   "source": "panel iteration 14, information P4 (full-rate raw Binance-family recorder through the Writer; Tardis 11-01 free day)",
+   "evidence": "rec_bn15 started (code/rec_bn15.py): every message of Binance spot btcusdt@bookTicker / @trade and USD-M @bookTicker / @aggTrade for the development block 11-01 06-12 (hard stop 12:00, cap 280 MB). Out-of-time scoring of dc_exam14 / dc_hazard14 on it and the Tardis HEAD check on 11-02 are still to do. v1 wrote t in microseconds (not iter_live compatible) and was replaced at 06:56 UTC by v2 (btc5m_bnspot2 / btc5m_bnusdm2, t in ms, verified through iter_live); USD-M @aggTrade delivers nothing on this endpoint; the laptop clock runs ~0.65 s behind Binance."
+  },
+  "X143": {
+   "status": "tried",
+   "source": "panel iteration 14, information P5 (deterministic fills from the capture's L2 sizes: race lottery or missing depth)",
+   "evidence": "Same test as X144 (run once). The visible depth does not set the fill: depth at <= L at the bot's view is a median 107 shares for depth-bound orders that fill 11; ~95% of it is cancelled untraded during the 150-ms hold (crowd takes 3.5%, own legs 1.0%); fill predictable at r 0.291 from decision-time public data (depth15 / race15 / decay15 / fillpred15)."
+  },
+  "X144": {
+   "status": "tried",
+   "source": "panel iteration 14, mechanics P1 (filled size is the visible depth: capture L2 at the bot's view into the condition-5 target and the maker remainder stream)",
+   "evidence": "Step 0 done (l2ingest15: ask L2 of 10-20..22, best-ask check 98.2-98.4%). Step 1: oracle r(N) with min(E[menu], depth) 0.430-0.440 vs public menu 0.395 and true fill 0.747 (signature 0.6 not met); 11.6-15.8% of depth-bound orders within 10% of min(orig, depth) (signature 70% not met). Step 2 = pre-registration 8 (hazflowD15): mix15 0.4772 / 0.4556 < mix14 0.4792 / 0.4594 on 576 windows, not adopted. Step 3 (M stream) not run: the remainder is set by the same cancel race."
+  },
+  "X145": {
+   "status": "open",
+   "source": "panel iteration 14, mechanics P2 (a replica that simulates its own fills on the capture; the corrected condition-5 ceiling)",
+   "evidence": "Step 1 input measured: with public depth the size model reaches r(N) 0.39-0.44 on the TRUE decisions (fillpred15 / depth15), far below the 0.75 signature, so the 'if false' branch applies: the makers' cancellation race inside the hold is the measured limit. The full simulator (cancel model + replica decisions) is not built."
+  },
+  "X146": {
+   "status": "open",
+   "source": "panel iteration 14, mechanics P3 (condition 2 at the decision clock finished: label every decision from on-chain structs; harden the baseline against the full book)",
+   "evidence": "Step 2 (baseline hardening with the capture's book depth) tried: the book-aware market baseline reaches 0.8730 vs the frozen full hazard 0.8808 (+0.0078 [0.0022, 0.0127]); book only 0.8706; full + book 0.9054 (+0.0324 over the baseline); on own-print-clean bins 0.910 vs 0.912 (hazbook15.json). Step 1 (lost-race labels from structs) not run. Book-cut scan (hazbook15_shift): with the book at e (before the bot's own view for every label in the band) the gain is +0.0579 [0.0501, 0.0646]; at e + 50 +0.0078. Pre-register the cut from physics and re-score on a 10-ms grid. Pre-registration 9 (reverse split, fit 10-21..22, score 10-20): cut at e +0.0805 [0.0752, 0.0861]; cut at e + 50 +0.0231."
+  },
+  "X147": {
+   "status": "tried",
+   "source": "panel iteration 14, mechanics P4 (per-wallet quote function for condition 7's price part: XM's pay-up)",
+   "evidence": "payup15: the iteration-13 anchor ask + (DS 0, GF 1, XM 1) c is within a tick on 10-21 / 10-22 for DS 0.947 / 0.947, GF 0.937 / 0.948, XM 0.820 / 0.795 (plain ask XM 0.640 / 0.712); a modal-k freeze on 10-20 (43 XM orders) picked c_XM = 0 and fails (0.671). k is a fixed per-wallet offset; the ordinal model is not needed."
+  },
+  "X148": {
+   "status": "open",
+   "source": "panel iteration 14, assumptions P1 (attainability of conditions 5 and 7: is the operator one draw of its own decoded process?)",
+   "evidence": "Step 4 in one point: ceiling(AUC) for XM 0.3145 (base rates) / 0.4304 (AUC 0.670) / 0.4633 (AUC 0.791) (thin15). Steps 1-3 (fan-out-merged split-half, the decoded-process simulator, calibration of corr(operator, mean field) against sqrt(tt)) are not run; iteration 15 adds the measured cancel race (X143) as the size coin's physical source."
+  },
+  "X149": {
+   "status": "open",
+   "source": "panel iteration 14, assumptions P2 (the residual coins are Math.random draws: recover the PRNG per burst)",
+   "evidence": "V8 part tried and rejected (prng15 / v8real15): 0 / 40 copy groups consistent at 2 ms, 0 / 20 at 50 ms, 0 / 6 at span +-24, 0 validated at 1.5 s, while the same solver recovers real Node v22 output (3 / 3 groups, 120 / 120 held-out salts). JSC / Bun (sum output, non-linear) needs a SAT / SMT solver absent from the shared venv: open."
+  },
+  "X150": {
+   "status": "open",
+   "source": "panel iteration 14, assumptions P3 (run the examiner's procedure on a development pseudo-lot shaped like h1)",
+   "evidence": "Not run in iteration 15."
   }
  },
  "components": {
@@ -10628,30 +11015,30 @@
   "timing": {
    "confidence": 0.8,
    "tag": "VALIDATE-only",
-   "description": "Decision = submission of a pre-signed ladder order ~150 ms before its match, on the Binance spot book read ~80-110 ms after the stamp (knee at 230-260 ms before the match on exchange time). At that clock the take is largely decoded: a 50-ms hazard reaches AUC 0.8885 vs 0.7591 for Polymarket activity (per wallet DS 0.8812, GF 0.9028, XM 0.9191); top inputs the 100 / 250-ms spot microprice return toward o and |p - 0.5|. Only ~8% of decisions follow a price-level tick (placebo 1.2%); the rest follow sub-tick queue-imbalance moves. Follower legs 180-220 ms later are re-decisions on fresher spot (86% at their own anchor vs 79%). An operator-level 30-60-s activity state remains (iteration 12). Block-second presence 0.870 vs a capture-aware market baseline 0.846 (+0.024): at the block clock the crowd's co-arrivals reveal most of the operator's takes. The fast crowd's co-takes in the same 50-ms knee band are explained 53% by the knee-clock design (iteration 12: 14-21%). Own-state kernels of past decisions add only +0.01 AUC at the knee clock (iteration 12: +0.037)."
+   "description": "Decision = submission of a pre-signed ladder order ~150 ms before its match, on the Binance spot book read ~80-110 ms after the stamp (knee at 230-260 ms before the match on exchange time). At that clock the take is largely decoded: a 50-ms hazard reaches AUC 0.8885 vs 0.7591 for Polymarket activity (per wallet DS 0.8812, GF 0.9028, XM 0.9191); top inputs the 100 / 250-ms spot microprice return toward o and |p - 0.5|. Only ~8% of decisions follow a price-level tick (placebo 1.2%); the rest follow sub-tick queue-imbalance moves. Follower legs 180-220 ms later are re-decisions on fresher spot (86% at their own anchor vs 79%). An operator-level 30-60-s activity state remains (iteration 12). Block-second presence 0.870 vs a capture-aware market baseline 0.846 (+0.024): at the block clock the crowd's co-arrivals reveal most of the operator's takes. The fast crowd's co-takes in the same 50-ms knee band are explained 53% by the knee-clock design (iteration 12: 14-21%). Own-state kernels of past decisions add only +0.01 AUC at the knee clock (iteration 12: +0.037). Iteration 15: the Polymarket book carries the same timing information: a market-only baseline with the capture's book depth and its 100-ms changes at the bot's view reaches 0.8730 against the decoded hazard's 0.8808 (book only 0.8706; on own-print-clean bins 0.910 vs 0.912); the makers cancel o's asks on the same Binance move ~before the operator's order arrives, and the operator takes what is left. Take rate by top deciles: both channels 6.2%, book only 1.9%, spot only 1.5%, neither 0.2%. Book cut scan: the makers' matching cancels arrive within ~50 ms of the bot's own view; with the book cut at e (PIT for every label) the hazard's gain over the book-aware baseline is +0.058 [0.050, 0.065], at e + 50 +0.008."
   },
   "side": {
    "confidence": 0.85,
    "tag": "VALIDATE-only",
-   "description": "Per decision: the direction of the Binance SPOT top-of-book microprice (mostly sub-tick queue-imbalance moves) over the ~250 ms ending ~230-260 ms before the match on Binance's own clock (the bot reads Binance ~80-110 ms after the stamp and arrives 150 ms before its match). Pre-registered (pre-registration 5), fitted on 10-17..19 and scored once on 10-20..22: 0.8369 per taker order (DS 0.8306, GF 0.8547, XM 0.8132), 0.8236 per decision, 88 / 87 / 84 / 78 / 69% by window minute; market-only 0.568, own-inventory 0.539, placebo 0.50, old anchor 0.742; the information arrives in a 60-ms band and nothing is added after it; no knee for the non-co-arriving crowd. Exam route dc_exam14 (capture day files). Late decisions (after 180 s) mix weaker tick-following and own-state pairing."
+   "description": "Per decision: the direction of the Binance SPOT top-of-book microprice (mostly sub-tick queue-imbalance moves) over the ~250 ms ending ~230-260 ms before the match on Binance's own clock (the bot reads Binance ~80-110 ms after the stamp and arrives 150 ms before its match). Pre-registered (pre-registration 5), fitted on 10-17..19 and scored once on 10-20..22: 0.8369 per taker order (DS 0.8306, GF 0.8547, XM 0.8132), 0.8236 per decision, 88 / 87 / 84 / 78 / 69% by window minute; market-only 0.568, own-inventory 0.539, placebo 0.50, old anchor 0.742; the information arrives in a 60-ms band and nothing is added after it; no knee for the non-co-arriving crowd. Exam route dc_exam14 (capture day files). Late decisions (after 180 s) mix weaker tick-following and own-state pairing. Iteration 15: the Polymarket book of both outcomes at m0 - 210 gives the side at 0.712 alone and is right on 62% of the orders dc14 gets wrong; dc14 + book 0.838 vs dc14 0.8135 per order on 10-21..22 (designed and scored once, not pre-registered)."
   },
   "price": {
    "confidence": 0.9,
    "tag": "VALIDATE-only",
-   "description": "Limit = o's ask the bot saw ~30 ms before arriving (peak of P(limit == ask(a - Lambda)) at Lambda = 30 ms; DS 50, GF 10, XM 30); o's ask at m - 180 within a tick 90.7% live, 95.1% on VALIDATE calldata (trivial touch anchor, stated as such); lost races are the decisions priced on an ask that moved 30-180 ms before the arrival (their Lambda peak is 180 ms); 16% of taker orders 1+ c above the touch. Iteration 13: at the decision clock on VALIDATE (public capture, 2,476 calldata taker orders on 10-20 / 10-21) the limit is within a tick of o's archive ask at the arrival for 93.4% (exact 74.3%), at arrival - 30 ms 92.7%, vs 81.3% for the touch at the match itself; XM 66%. Iteration 14: unchanged (within a tick of the touch the bot saw 95.1%); the dispatch-phase arm does not change the price level."
+   "description": "Limit = o's ask the bot saw ~30 ms before arriving (peak of P(limit == ask(a - Lambda)) at Lambda = 30 ms; DS 50, GF 10, XM 30); o's ask at m - 180 within a tick 90.7% live, 95.1% on VALIDATE calldata (trivial touch anchor, stated as such); lost races are the decisions priced on an ask that moved 30-180 ms before the arrival (their Lambda peak is 180 ms); 16% of taker orders 1+ c above the touch. Iteration 13: at the decision clock on VALIDATE (public capture, 2,476 calldata taker orders on 10-20 / 10-21) the limit is within a tick of o's archive ask at the arrival for 93.4% (exact 74.3%), at arrival - 30 ms 92.7%, vs 81.3% for the touch at the match itself; XM 66%. Iteration 14: unchanged (within a tick of the touch the bot saw 95.1%); the dispatch-phase arm does not change the price level. Iteration 15: the per-wallet anchor ask + (DS 0, GF 1, XM 1) c, measured against the capture's L2 best ask at m - 180, is within a tick on 10-21 / 10-22 for DS 0.947 / 0.947, GF 0.937 / 0.948, XM 0.820 / 0.795 (plain ask XM 0.64 / 0.71): condition 7's price part holds per wallet and day [VALIDATE-only]."
   },
   "size": {
-   "confidence": 0.7,
+   "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Configuration plus own state, not an input response: the operator runs window-index A/B arms (arm B = (start/300) mod 4 in {1, 2}); in size phases (37 development hours, BUILD and VALIDATE, boundaries at restarts) B windows carry the larger base size (33.9 vs 24.6 filled shares per taker order; 76-84% of the >= 45-share shares on 10-16..19 come from B windows). Large orders pyramid the operator's held leg (own state); the immediate spot move does not set the size (AUC ~0.6 at the corrected clock). The window PnL is the lean's size: the public share of the window net stays ~0.5 even at ms."
+   "description": "Configuration plus own state plus the makers' cancel race: the ORIGINAL size is a menu coin (window-index A/B arms with a larger base size in B windows during size phases; 30 / 100 from 10-19) with pyramiding of the held leg (own state); the REALIZED taker fill is what survives the 150-ms taker delay: the ask depth at <= L the bot saw (median 107 shares for depth-bound orders) is ~95% cancelled untraded before the match (crowd takes 3.5%, own legs 1.0%), and a depth-bound order fills what is left (median 15 left, 14 filled; iteration 15). Public data at the decision predicts the realized fill at r 0.29 only; with the true decisions the window-net r falls from 0.70-0.75 (true fills) to 0.39-0.44 (public size)."
   },
   "exit": {
    "confidence": 0.9,
    "tag": "VALIDATE-only",
-   "description": "Remainders and lost races rest as GTC bids at the old ask (cancelled never-filled remainders live DS median 328 ms, GF 240, XM 124); every position is held to resolution; 87% of shares end paired at 0.979; TAKER_REBATE = 0.5 x the previous day's taker fees. Iteration 12, the INVENTORY PATH: per window PnL = net x outcome (r 0.884); the net follows the current minute's BTC move (+), is bought back against the earlier minutes' moves (-) and leans with the previous window's outcome (+); public models predict the window net at r 0.46-0.48 (market activity alone 0.34), and an executable exposure tracker that buys the predicted net deficit with strict fills (latency >= 2 s) reproduces the per-window PnL at Pearson 0.476 / Spearman 0.440 (GF 0.34, DS 0.43, XM 0.06; market-only tracker 0.36 / 0.32); the wallets' per-window PnLs are nearly independent of each other (0.00-0.20). Iteration 13: the inventory path is two operator-level streams, a large-size lean (cross-wallet r 0.35-0.47) and a small-size taker counter-flow that buys back the REALIZED large inventory (within-wallet corr(L, S) -0.26..-0.60; dose-dependent pairing, t -26.5); public data predicts L at r 0.32 and the counter-flow residual at ~0.3, and a two-stream target adds nothing to the window-net prediction (0.4195 vs 0.4237). Per-wallet PnL is bounded by dispatch: XM <= 0.30-0.41 under every pooled-stream oracle. Iteration 14: a millisecond nowcast (nfms14) and a decision-hazard nowcast do not lift the tracker (pre-registrations 6 / 7); XM's PnL is a random thinning of the operator's decisions (oracle 0.3925, redraw ceiling 0.4304 < 0.47)."
+   "description": "Remainders and lost races rest as GTC bids at the old ask (cancelled never-filled remainders live DS median 328 ms, GF 240, XM 124); every position is held to resolution; 87% of shares end paired at 0.979; TAKER_REBATE = 0.5 x the previous day's taker fees. Iteration 12, the INVENTORY PATH: per window PnL = net x outcome (r 0.884); the net follows the current minute's BTC move (+), is bought back against the earlier minutes' moves (-) and leans with the previous window's outcome (+); public models predict the window net at r 0.46-0.48 (market activity alone 0.34), and an executable exposure tracker that buys the predicted net deficit with strict fills (latency >= 2 s) reproduces the per-window PnL at Pearson 0.476 / Spearman 0.440 (GF 0.34, DS 0.43, XM 0.06; market-only tracker 0.36 / 0.32); the wallets' per-window PnLs are nearly independent of each other (0.00-0.20). Iteration 13: the inventory path is two operator-level streams, a large-size lean (cross-wallet r 0.35-0.47) and a small-size taker counter-flow that buys back the REALIZED large inventory (within-wallet corr(L, S) -0.26..-0.60; dose-dependent pairing, t -26.5); public data predicts L at r 0.32 and the counter-flow residual at ~0.3, and a two-stream target adds nothing to the window-net prediction (0.4195 vs 0.4237). Per-wallet PnL is bounded by dispatch: XM <= 0.30-0.41 under every pooled-stream oracle. Iteration 14: a millisecond nowcast (nfms14) and a decision-hazard nowcast do not lift the tracker (pre-registrations 6 / 7); XM's PnL is a random thinning of the operator's decisions (oracle 0.3925, redraw ceiling 0.4304 < 0.47). Iteration 15: the depth-weighted hazard nowcast (pre-registration 8) does not lift the tracker (mix15 0.4772 / 0.4556 vs mix14 0.4792 / 0.4594 on 576 windows of 10-21..22)."
   }
  },
- "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts each window [VALIDATE-only]. It sits next to Polymarket's engine and reads the Binance SPOT book ~80-110 ms after Binance stamps it; when the spot microprice (mostly sub-tick queue-imbalance moves) shifts toward an outcome over the last ~100-250 ms against the Polymarket price, it submits the pre-signed order at the ask it saw ~30 ms before arriving; the take hazard on that clock reaches AUC 0.8885 against 0.7591 for Polymarket activity [VALIDATE-only] and the side is 0.8369 per taker order on the pre-registered split [VALIDATE-only]. Polymarket holds every marketable order 150 ms, so it races the fast crowd in that delay queue; followers ~200 ms later are fresh re-decisions [VALIDATE-only]. Lost races rest at the old ask and fill as maker about half the time [VALIDATE-only]. Order sizes are scheduled configuration (window-index A/B arms with a larger base size in B windows during size phases) plus pyramiding of the held leg (own state) [VALIDATE-only]. Positions are held to resolution; most shares end paired; about half the profit is the taker-fee rebate [VALIDATE-only]. The window PnL is the size of the lean, which public data predicts at r ~0.5 even at millisecond resolution (exposure tracker 0.476 / 0.440 [VALIDATE-only]); which wallet carries a decision is a near-random thinning (XM's PnL ceiling < 0.47 for any rule) [VALIDATE-only]. At the block clock the presence gain over a capture-aware market baseline is only +0.024 [VALIDATE-only]. Nothing is exam-verified yet.",
+ "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts each window [VALIDATE-only]; the salts are not V8 Math.random output of nearby calls (a validated V8 state solver fails on every copy group), so the runtime's generator is not recoverable that way [VALIDATE-only]. It sits next to Polymarket's engine and reads the Binance SPOT book ~80-110 ms after Binance stamps it; when the spot microprice shifts toward an outcome over the last ~100-250 ms against the Polymarket price, it submits the pre-signed order at the ask it saw ~30 ms before arriving (DS at the ask, GF and XM one cent above) [VALIDATE-only]; the side is 0.8369 per taker order on the pre-registered split [VALIDATE-only]. Polymarket's makers react to the same Binance move and pull their asks: the Polymarket book alone predicts the operator's takes nearly as well as the Binance trigger (0.873 vs 0.881 at the decision clock), but that power sits in the last ~50 ms before the bot's own view: with the book cut before the bot's view the decoded hazard still gains +0.058, with it cut 50 ms later only +0.008 [VALIDATE-only]. Polymarket holds every marketable order 150 ms; during that hold ~95% of the ask depth the bot saw at its limit is cancelled untraded, and the order fills what is left, so the realized size is the makers' cancel race, not the visible depth [VALIDATE-only]. Lost races rest at the old ask and fill as maker about half the time [VALIDATE-only]. Original sizes are scheduled configuration (window-index A/B arms) plus pyramiding of the held leg (own state) [VALIDATE-only]. Positions are held to resolution; most shares end paired; about half the profit is the taker-fee rebate [VALIDATE-only]. The window PnL is the size of the lean; public data predicts it at r ~0.5 (exposure tracker 0.5065 / 0.4674 on 10-20..22) because the realized fills are set after the decision by the cancel race [VALIDATE-only]; which wallet carries a decision is a near-random thinning (XM's PnL ceiling 0.43-0.46 < 0.47 even with a sharper allocation model) [VALIDATE-only]. Nothing is exam-verified yet.",
  "target_metrics": {
   "presence_auc": 0.8701,
   "presence_baseline": 0.8464,
@@ -10684,7 +11071,8 @@
   "iteration12_leak_check": "W4 (0xd844...) and W5 (0x03b4...), the operator's fourth / fifth fan-out wallets, are not excluded from the frozen tape features; rebuilding the VALIDATE features without them leaves every metric unchanged (w45chk12.json: {\"presence_block_seconds_rebuilt\": {\"auc_full\": 0.8747, \"auc_pure\": 0.819, \"gain\": 0.0557}, \"tracker_avg_rebuilt\": {\"pearson\": 0.4756, \"spearman\": 0.4394, \"GF\": 0.3469, \"XM\": 0.0554, \"DS\": 0.4217}, \"corr_nf_old_vs_rebuilt\": 0.9994, \"elapsed_s\": 143}).",
   "iteration14": "presence_auc / presence_baseline now compare the frozen block-second model with the STRONGER, capture-aware market baseline (pres14: VALIDATE 10-20..22 block seconds, 0.8701 vs 0.8464, gain 0.0237, CI [0.0172, 0.0314]: condition 2 FAILS); over all VALIDATE against the block-clock baseline it was 0.8747 / 0.8211. Decision-clock hazard (dc_hazard14, VALIDATE-only, not pre-registered as the target metric, taker first legs only): 0.8885 vs 0.7591. side_accuracy = decision-clock per taker order (pre-registration 5, dc_exam14), 0.8369 on 10-20..22; per decision 0.8236; side_baseline = market-only from the capture's Polymarket trades on the same orders; block-clock side 0.7666 (baseline 0.6323) kept apart. XM is the only wallet the side condition applies to (one-sided in 24.9% of its windows): one-sided windows 84.3% (halves 91.1 / 76.8%), per order halves 84.7 / 78.6%. pnl_corr unchanged (all VALIDATE 0.4758 / 0.4404; on 10-20..22 [0.4973, 0.4607]); per wallet XM 0.06 vs a random-thinning ceiling of 0.4304 (condition 7 unattainable for XM).",
   "iteration14_pnl": "Pre-registration 7 ADOPTED: the exposure tracker trk_a with target mix14 = 0.5 x avg + 0.5 x 5.935 x the decision-hazard imbalance beats the frozen avg target on both pooled correlations over the 864 windows of 10-20..22 ([0.5065, 0.4674] vs [0.4973, 0.4607]; CI [0.437, 0.5713]; halves [0.4949, 0.5151]; GF [0.4013, 0.3819], DS [0.4665, 0.4477], XM [-0.0009, 0.0228]). target_metrics.pnl_corr_* now report these 10-20..22 values (the hazard needs the public capture, which starts 10-17 and is used for fitting on 10-17..19); over all VALIDATE the frozen avg tracker gives 0.4758 / 0.4404. Condition 5 still fails (Spearman 0.467 < 0.5) and condition 7 fails for XM (a random-thinning ceiling of ~0.43).",
-  "iteration14_decision_presence": "Decision-clock take hazard (VALIDATE-only): 0.8885 vs the stronger Polymarket-only baseline 0.7623 (basic 0.7591); reverse split 0.925 vs 0.781; per wallet DS 0.881, GF 0.903, XM 0.919."
+  "iteration14_decision_presence": "Decision-clock take hazard (VALIDATE-only): 0.8885 vs the stronger Polymarket-only baseline 0.7623 (basic 0.7591); reverse split 0.925 vs 0.781; per wallet DS 0.881, GF 0.903, XM 0.919.",
+  "iteration15": "target_metrics unchanged (no candidate adopted: pre-registration 8 lost to mix14). New risks measured: (1) at the decision clock a BOOK-aware market baseline (capture L2 depth and its changes) reaches 0.873 vs the decoded hazard 0.881 (+0.008), so condition 2 fails there too; the block-second presence was not re-tested against a book-aware baseline. (2) condition 7's price part: the per-wallet anchor (DS 0, GF 1, XM 1 c) holds per wallet and day on 10-21..22 (XM 0.82 / 0.79). (3) condition 5: ~0.3 of the window-net r on the true decisions is set by the makers' cancel race inside the 150-ms hold. (4) The book-aware baseline's power sits in the last 50 ms before the bot's own Polymarket view: with the book cut at e the decision-clock gain is +0.058 [0.050, 0.065]; at e + 50 +0.008 (finding 12). (5) Pre-registration 9: in the reverse split (score 10-20) the cut-at-e gain is +0.0805 [0.075, 0.086] (cut at e + 50: +0.023). (6) Per wallet at the e cut: DS +0.059, GF +0.061, XM +0.030 (condition 7 fails for XM's presence part too)."
  },
  "catalog_open_after_iteration8": [
   "X5",
@@ -10884,5 +11272,47 @@
   "X130",
   "X132",
   "X133"
+ ],
+ "catalog_open_after_iteration15": [
+  "X5",
+  "X7",
+  "X9",
+  "X18",
+  "X26",
+  "X33",
+  "X36",
+  "X37",
+  "X44",
+  "X51",
+  "X53",
+  "X57",
+  "X66",
+  "X70",
+  "X72",
+  "X76",
+  "X87",
+  "X88",
+  "X90",
+  "X93",
+  "X100",
+  "X104",
+  "X107",
+  "X113",
+  "X115",
+  "X122",
+  "X123",
+  "X124",
+  "X127",
+  "X128",
+  "X130",
+  "X133",
+  "X139",
+  "X141",
+  "X142",
+  "X145",
+  "X146",
+  "X148",
+  "X149",
+  "X150"
  ]
 }

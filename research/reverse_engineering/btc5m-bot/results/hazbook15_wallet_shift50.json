@@ -1,0 +1,67 @@
+{
+ "bins_fit": 52102,
+ "bins_score": 98827,
+ "book_coverage_score": 1.0,
+ "top_PMB": {
+  "lpm": 0.443,
+  "o_c1_0": 0.077,
+  "x_best_0": 0.063,
+  "o_c0_0": 0.04,
+  "o_best_0": 0.038,
+  "o_c1_d100": 0.023
+ },
+ "top_BOOK_only": {
+  "x_best_0": 0.331,
+  "o_best_0": 0.135,
+  "o_c1_0": 0.087,
+  "o_c0_0": 0.036,
+  "o_c4_d100": 0.032,
+  "o_c2_0": 0.029
+ },
+ "top_FULLB": {
+  "lfull": 0.653,
+  "x_best_0": 0.033,
+  "o_c1_0": 0.022,
+  "o_best_0": 0.018,
+  "o_c2_0": 0.018,
+  "o_c4_0": 0.014
+ },
+ "auc_p_full_frozen": 0.8808,
+ "auc_p_pm_only_frozen": 0.757,
+ "auc_PMB": 0.8229,
+ "auc_BOOK_only": 0.8179,
+ "auc_FULLB": 0.8941,
+ "gain_p_full_frozen_minus_PMB": {
+  "point": 0.0579,
+  "ci95": [
+   0.0501,
+   0.0646
+  ]
+ },
+ "gain_FULLB_minus_PMB": {
+  "point": 0.0712,
+  "ci95": [
+   0.0634,
+   0.0785
+  ]
+ },
+ "shift_ms": 50,
+ "wallet_DS": {
+  "p_full_frozen": 0.8734,
+  "PMB": 0.8147,
+  "FULLB": 0.889,
+  "positives": 25729
+ },
+ "wallet_GF": {
+  "p_full_frozen": 0.8958,
+  "PMB": 0.8347,
+  "FULLB": 0.9044,
+  "positives": 9093
+ },
+ "wallet_XM": {
+  "p_full_frozen": 0.9121,
+  "PMB": 0.8822,
+  "FULLB": 0.9164,
+  "positives": 1744
+ }
+}

@@ -1,0 +1,49 @@
+{
+ "bins_fit": 98827,
+ "bins_score": 52102,
+ "book_coverage_score": 1.0,
+ "top_PMB": {
+  "lpm": 0.448,
+  "o_c1_0": 0.111,
+  "o_best_0": 0.058,
+  "o_c4_d100": 0.037,
+  "x_best_0": 0.036,
+  "o_c2_0": 0.029
+ },
+ "top_BOOK_only": {
+  "x_best_0": 0.287,
+  "o_best_0": 0.153,
+  "o_c1_0": 0.092,
+  "o_c2_0": 0.064,
+  "o_c4_0": 0.052,
+  "o_c4_d100": 0.05
+ },
+ "top_FULLB": {
+  "lfull": 0.693,
+  "o_best_0": 0.033,
+  "o_c1_0": 0.032,
+  "x_best_0": 0.024,
+  "o_c4_0": 0.018,
+  "o_c2_0": 0.017
+ },
+ "auc_p_full_frozen": 0.9018,
+ "auc_p_pm_only_frozen": 0.7626,
+ "auc_PMB": 0.8213,
+ "auc_BOOK_only": 0.8181,
+ "auc_FULLB": 0.9122,
+ "gain_p_full_frozen_minus_PMB": {
+  "point": 0.0805,
+  "ci95": [
+   0.0752,
+   0.0861
+  ]
+ },
+ "gain_FULLB_minus_PMB": {
+  "point": 0.0909,
+  "ci95": [
+   0.0856,
+   0.0968
+  ]
+ },
+ "shift_ms": 50
+}

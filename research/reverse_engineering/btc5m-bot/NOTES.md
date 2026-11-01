@@ -3231,3 +3231,245 @@ Status after iteration 14: target not reached. On VALIDATE (10-20..22 where the 
 - condition 5 (PnL): NOT met (0.507 / 0.467 with the adopted mix14 target);
 - condition 7: NOT met for XM's PnL (a measured random-thinning ceiling of ~0.43 < 0.47).
 Iteration 14 ended about 05:02 UTC 11-01 (about 70 minutes of work).
+
+### Iteration 15 (2026-11-01 05:46 UTC start, local Windows laptop; development data: before H, and 10-31 00-06 / 12-18, 11-01 06-12)
+
+Split and primary metric unchanged (BUILD = 10-09..16, VALIDATE = 10-16..23). Calendar (`sealed.py btc5m-bot`, 05:48 UTC): released lots
+none; the current block 11-01 00-06 was sealed; 11-01 06-12 is a development block (d + j = 2). Shared recorder running (pid 27184). Panel
+after iteration 14 (panels/iter14_*.md): 12 proposals, added as X139-X150 (information P1-P5 = X139-X143, mechanics P1-P4 = X144-X147,
+assumptions P1-P3 = X148-X150). X143 (information P5) and X144 (mechanics P1) are the same test (filled size = visible depth) and are run
+once; X145 (mechanics P2) and X148 (assumptions P1 step 2) share the fill-resolving simulator.
+
+PIVOT (required: progress < 0.02 over two iterations). New paradigm: DEPTH-LIMITED EXECUTION. The unit is the operator's taker order as an
+execution against the visible ask book; the new data source is the public capture's L2 level sizes (price_change askSize / book asks,
+never ingested before); the target is the realized fill (min(menu, depth at or below the limit)) and the window net it builds. Second,
+independent paradigm tested in parallel: the operator's coins as a recoverable PRNG stream (salts as an input; a cryptanalytic model class).
+
+Competing explanations (iteration 15; what separates them):
+- E1 DEPTH-LIMITED EXECUTION: the window lean = decisions x min(menu, visible ask depth <= L at the bot's view). Separates: on the true
+  decision record, sum of dc14 side x E[min(menu, D<=L)] reaches r(N) >= 0.6 against 0.39 for the public menu, and >= 70% of depth-bound
+  calldata orders fill within 10% of min(orig, D<=L).
+- E2 HOLD-QUEUE RACE: the fill is set by co-arrivals and maker cancels inside the 150-ms hold, not by the depth the bot saw. Separates:
+  D<=L at m - 1 (the book the order met) predicts the fill far better than D<=L at m - 180 (the bot's view).
+- E3 OWN-STATE PYRAMIDING: the size is a menu coin plus a short-leg gate on the realized net; given the depth, the menu and the gate still
+  add. Separates: min(menu, D) beats D alone; the gate adds within wallet.
+- E4 PRNG COINS: the wallet / size / take choices are Math.random draws of the same isolate that makes the salts. Separates: the salts of
+  same-ms copies solve as nearby V8 (or JSC) outputs, validated by exact prediction of held-out salts.
+- E5 CSPRNG OR ANOTHER RUNTIME: the salts are not recoverable V8 output. Separates: no consistent V8 state in >= 20 copy groups while the
+  same solver recovers real Node output.
+- E6 LATE-HORIZON SIXTH (information P1): ~17% of decisions use a Binance L2 state the L1 capture lacks. Separates: Rabbit 10-20 L2
+  features lift the side on dc14-wrong orders from 0.37 to >= 0.60.
+- E7 PER-WALLET PIPELINES (information P2): XM fires on its own, earlier clock. Separates: XM-vs-others AUC >= 0.85 with clock features.
+This iteration discriminates E1 / E2 / E3 (the capture's L2) and E4 / E5 (salts), and starts the full-rate recorder that E6 / X142 need.
+
+Live lab: rec_bn15 (code/rec_bn15.py; information P4 = X142) records the full-rate Binance spot btcusdt@bookTicker + @trade and USD-M
+btcusdt@bookTicker + @aggTrade (every message, receive-time us; feeds btc5m_bnspot / btc5m_bnusdm through the Writer) for the
+development block 11-01 06:00-12:00 (start 05:59:30, hard stop 12:00, disk cap 280 MB, USD-M stops first at 170 MB). Started 05:56 UTC
+(pid 9312). First 140 s: spot quotes 25/s, spot trades 10/s, USD-M quotes 153/s, ~15 bytes per record compressed.
+
+PRE-REGISTRATION 8 (written 06:08 UTC 11-01, before hazflowD15 is run and before any L2 depth of 10-21 / 10-22 is looked at; X144 step 2 =
+X143 step 4; code/hazflowD15.py): every 50-ms bin of every (window, outcome) of 10-20..22 is scored with the frozen
+model_it14_hazard_full.txt; each bin's probability is weighted by the expected realized taker fill at the bot's Polymarket view (grid
+time e + 50 ms, server clock): w = (1 - pL) min(30, D1) + pL min(100, D1), D1 = the capture's ask depth at best + 0..1 c of that outcome,
+pL = P(original size >= 90) of the operator's taker orders on the pre-10-20 calldata hours with the 30 / 100 menu. hD(s) = sum over bins
+with end e in [s - 2, s - 1) s of P^(Up) w(Up) - P^(Down) w(Down); nfhazD15 = cD x hD, cD = no-intercept OLS of the operator's
+per-second signed flow on hD on 10-20 only (the capture L2 exists only from my ingest; 10-20 is the fit day). Scored once on 10-21..22
+(576 windows) with tracker trk_a (frozen TRK constants, strict fills, latency >= 2 s): avg, mix14 (frozen), mix15 = 0.5 avg + 0.5
+nfhazD15. ADOPTION: mix15 replaces mix14 only if it beats mix14 on BOTH pooled Pearson and Spearman over those 576 windows. Reported
+either way: window-net r, per wallet, 2-h block CI, the day halves.
+
+Data added (iteration 15): the ASK-side L2 book of every BTC 5m token on 10-20, 10-21 and 10-22 from the public capture's price_change
+level sizes and book snapshots (code/l2ingest15.py; pinned revision f848a77c; columns eventType / exchangeTimestampMs / tokenId /
+askPrice / askSize / bestAsk / asks only, row groups by HTTP range requests, 2 threads; 570-600 MB read per day, 11-13 min; nothing raw
+kept). The market channel mirrors the outcomes (an Up ask at p is a Down bid at 1 - p), so the ask rows of both tokens give both ask
+books. Reconstruction check: the rebuilt best ask equals the capture's own bestAsk after 98.2 / 98.4 / 98.2% of ask rows (8.0M / 7.9M /
+7.3M checked); 0.6-0.9% of ask rows are sub-cent levels (dropped). Kept (session scratchpad it15/, ~460 MB): the 100-level ask vector
+at m - 1 / m - 150 / m - 180 for every operator taker order with a capture match ms (73,577 orders), a 50-ms grid of best ask and
+depth at best + 0..4 c for both outcomes of every window, and (10-20 only, l2ingest15b.py) the ask vector at 16 offsets m - 1 .. m - 500.
+
+Findings (iteration 15):
+1. THE REALIZED TAKER SIZE IS NOT THE VISIBLE DEPTH (X143 = X144 step 1; depth15.py, results/depth15.json; 10-20..22, 73,577 operator
+   taker orders, 759 windows; calldata limits and original sizes for 3,718 of them). E1 is rejected:
+   - calldata orders: 44.1% fill less than their original size; for those, the ask depth at or below the limit is a median 107 shares
+     at the bot's view (m - 180) and 71 at the arrival (m - 150) against a median fill of 11; only 11.6% (m - 180) / 15.8% (m - 150) of
+     them fill within 10% of min(original, visible depth) (signature >= 70%);
+   - oracle ladder on the TRUE decision record (dc14 side x size, r with the window net N over both roles): true total fill 0.747
+     (reproduces the mechanics panel), public menu 0.395, unit 0.403, min(E[menu], depth at the bot's view) 0.430, at the arrival
+     0.440, E[min(menu, depth)] 0.431, depth alone 0.367 (signature >= 0.6). The visible depth is worth +0.035 of r(N).
+2. THE DEPTH THE BOT SAW IS CANCELLED DURING THE 150-MS HOLD, NOT TAKEN (race15.py, decay15.py; results/race15.json, decay15.json):
+   - decay of the depth at or below L before the match (10-20, ask vectors at m - x): calldata depth-bound orders (453, median fill 14)
+     median 357 / 187 / 108 / 71 / 31 / 17 / 15 / 0 shares at x = 500 / 250 / 180 / 150 / 100 / 50 / 35 / 20 ms; fully filled orders
+     255 / 205 / 200 / 167 / 122 / 100 / 96 / 60 / 50. The capture's book events of a match are stamped ~20-35 ms before its trade rows
+     (the step between m - 35 and m - 20 is the match itself), so on the book clock the order meets the book ~25 ms before m: what is
+     left there (median 15) is what a depth-bound order fills (14);
+   - accounting of the gap D(m - 180) - filled (all 73,577 orders): non-operator taker BUYs of o at <= L and SELLs of the other outcome
+     at >= 1 - L matched in (m - 180, m) explain 3.5% of it, the operator's own other legs 1.0%; the rest (~95%) leaves the book
+     untraded, i.e. makers cancel (XM orders: crowd 10.2%). E2 holds in its cancel form: the hold queue that binds is the makers'
+     cancellation race, not co-arriving takers;
+   - the fill is barely predictable at the decision: LightGBM on the book at the bot's view + decision state + wallet, fit 10-20,
+     scored 10-21..22 (fillpred15.py): r(pred, filled) 0.291 (DS 0.275, GF 0.259, XM 0.175; state only 0.191); ladder r(N) with it
+     0.391 vs public menu 0.350 vs true fill 0.696 on the 494 score windows.
+   Consequence for condition 5: ~0.3 of the window-net r on the TRUE decisions (0.70-0.75 -> 0.39-0.44) is set by maker cancellations
+   inside the taker delay, after the decision. This replaces X82's race-lottery bound in the account and answers the mechanics panel's
+   "if false" branch: the binding race is the makers' cancel race, measured on the capture.
+3. PRE-REGISTRATION 8 SCORED: THE DEPTH-WEIGHTED HAZARD NOWCAST IS NOT ADOPTED (hazflowD15.py, results/hazflowD15.json; cD = 0.10888 on
+   10-20, pL = 0.2268 from 3,474 pre-10-20 calldata orders of the 30 / 100 menu). On the 576 windows of 10-21..22, tracker trk_a: mix15
+   0.4772 / 0.4556 against mix14 0.4792 / 0.4594 (avg 0.4809 / 0.4591; nfhazD alone 0.3446 / 0.3361); window-net r mix15 0.5024 vs
+   mix14 0.5032. Lower on both: mix14 stays the target. (The rebuilt unweighted h correlates 1.0 with iteration 14's h.)
+4. THE POLYMARKET BOOK PREDICTS THE OPERATOR'S DECISIONS AS WELL AS THE BINANCE TRIGGER DOES: THE DECISION-CLOCK PRESENCE MARGIN DOES
+   NOT SURVIVE A BOOK-AWARE MARKET BASELINE (X146 step 2, X114; hazbook15.py, results/hazbook15.json; the scored knee-clock hazard bins of
+   10-20..22, fit 10-20, scored once on 10-21..22, 98,827 bins, weighted AUC; book features at the bot's Polymarket view e + 50 ms:
+   best ask and depth at best + 0..4 c of both outcomes and their 100 / 250 / 1000-ms changes):
+   - frozen full hazard 0.8808; frozen Polymarket-trades-only 0.7570; book only 0.8706; trades-only + book (PMB) 0.8730; full + book
+     0.9054. Gains: full - PMB +0.0078 [0.0022, 0.0127]; (full + book) - PMB +0.0324 [0.0278, 0.0365]. Top book input: the change of
+     o's ask depth (best .. best + 4 c) over the last 100 ms (makers pulling o's asks).
+   - Own-print check: on the 62% of score bins with no operator match on the window in [t - 1500, t + 100] ms (15,919 positives), full
+     0.912, book only 0.911, PMB 0.910: the book signal is other makers' quote changes, not the operator's own fills.
+   Reading: the makers and the operator react to the same Binance move; the makers' cancellations show in the Polymarket book within
+   ~50 ms of the Binance stamp, before the operator's order arrives (~e + 80..130), and the operator takes the asks that are left. At
+   the decision clock a market-only baseline that watches the book is within 0.01 of the decoded hazard. Condition 2 therefore FAILS
+   against a book-aware baseline at the decision clock as well (block clock: +0.024 vs the capture-aware baseline, iteration 14).
+5. THE BOOK ALSO CARRIES PART OF THE LATE-TRIGGER SIXTH (X139 alternative; sidebook15.py, results/sidebook15.json; 46,569 operator
+   taker orders of 10-21..22 scored, fit 10-20; book of both outcomes at m0 - 210 ms, before the bot's arrival on the book clock):
+   book-only side 0.712 per order (DS 0.721, GF 0.713, XM 0.624), right on 62.3% of the orders dc14 gets wrong (18.7% of orders);
+   dc14 (frozen, per-decision anchor) 0.8135 -> dc14 + book 0.8380 (DS 0.847, GF 0.838, XM 0.754), rescuing 35.7% of dc14's errors.
+   Designed and scored once, not pre-registered; target_metrics.side_accuracy is unchanged (pre-registration 5's dc14 value).
+6. V8 MATH.RANDOM IS REJECTED AS THE SALT SOURCE (X149 = assumptions P2, V8 part; strong form of X99 / X105; prng15.py, v8real15.py,
+   results/prng15.json). Model: V8 xorshift128+, double = (state0 >> 12) / 2^52, 64-entry cache read last-in-first-out, salt =
+   round(r x Date.now()). Units: 130 copy groups of >= 4 distinct salts at one (wallet burst, token, price) signed in the same ms
+   (calldata sample hours); a depth-first GF(2) search over generation offsets in [-12, 12] (and [-24, 24]), validated by exact
+   prediction of the burst's other filled salts over +-3,000 outputs.
+   - Solver validated: synthetic self-test 6 / 6; REAL Node v22 output (local) 3 / 3 groups solved from 5 sparse salts, 120 / 120
+     held-out salts predicted exactly.
+   - Operator: 0 / 40 groups consistent at Date.now() tolerance 2 ms, 0 / 20 at 50 ms, 0 / 6 at span +-24; at 1.5 s, 7 / 13
+     "consistent" but 0 validated (too few known bits; false positives).
+   So the salts are not V8 output of nearby calls. JavaScriptCore / Bun (xorshift128+ with the SUM output, not GF(2)-linear) is
+   untested: it needs a SAT / SMT solver, which the shared venv does not have (z3, pysat, ortools absent; nothing installed). X149
+   stays open for the JSC variant.
+7. A SHARPER ALLOCATION MODEL RAISES THE XM CEILING TO 0.46, STILL BELOW 0.47 (X140 = information P2 steps 3-4, X148 step 4; xmclock15.py,
+   xmknee15.py, thin15.py; results/xmclock15.json, xmknee15.json, thin15.json):
+   - per-leader knee profiles (first legs, fit days; agreement of the 250-ms spot microprice return ending c ms before m0): DS 0.599 /
+     0.657 / 0.741 / 0.829 / 0.837 at c = 400 / 320 / 280 / 260 / 220 (sharp knee at 260); GF 0.633 / 0.720 / 0.790 / 0.825 / 0.834
+     (rises 20-50 ms earlier); XM 0.625 / 0.695 / 0.740 / 0.765 / 0.785 (broad, no sharp knee, lower plateau);
+   - XM-vs-rest among first legs with pre-horizon clock features (k400..k260, decision-anchor returns; fit 10-17..19, scored 10-20..22):
+     AUC 0.805 vs 0.716 without them (DS 0.675, GF 0.623); top inputs k340 / k350 / k360;
+   - thin15 (thin14 with these features; all taker orders): XM one-vs-rest AUC 0.791 (thin14 0.670); oracle XM total PnL r 0.4426
+     (halves 0.455 / 0.433; thin14 0.3925); redraw test-retest 0.2146 -> ceiling 0.4633 (thin14 0.4304); base rates 0.3145.
+   The ceiling is model-relative, as the assumptions panel said: 0.31 (base rates) -> 0.43 (AUC 0.67) -> 0.46 (AUC 0.79). Caveat: the
+   clock features are anchored on the realized first-leg match, so they partly encode XM's later arrival (its slower or jittered
+   path) rather than a decision-time input; even so the oracle (true decisions, sides, sizes, PnL) stays below 0.47.
+8. CONDITION 7, PRICE PART: THE ITERATION-13 PER-WALLET ANCHOR HOLDS OUT OF SAMPLE (X147 compact; payup15.py, results/payup15.json;
+   calldata taker orders, limit vs o's best ask at m - 180 from the capture L2): anchor ask + (DS 0, GF 1, XM 1) c within one tick on
+   10-21 / 10-22: DS 0.947 / 0.947, GF 0.937 / 0.948, XM 0.820 / 0.795 (n 100 / 73); pooled 0.937. The plain ask gives XM 0.640 / 0.712.
+   A "modal k on 10-20" freeze (written into the script before scoring) picked c_XM = 0 from 43 orders and fails (0.671): the +1 c
+   anchor is the iteration-13 hypothesis, not a refit.
+9. BOTH CHANNELS DRIVE THE TAKE, WITH EQUAL MARGINAL POWER (hazbook15_2x2.py, results/hazbook15_2x2.json; score days 10-21..22, weighted
+   take rate per 50-ms bin by the top weighted decile of the book-only score and of the frozen spot-only hazard): both top 6.16%,
+   spot only 1.48%, book only 1.90%, neither 0.21% (base 0.0062 overall). Where the Polymarket makers pull o's asks without a Binance
+   L1 move the operator still takes 9x more often than baseline. Either the bot reads the Polymarket book itself (the makers' cancel
+   wave as trigger or confirmation) or both react to a common faster input (Binance L2 / other venues: X139, X141). Separating them
+   needs the order of events at ms on one clock (the bot's read of the book vs of Binance): next iteration.
+10. THE OPERATOR TRADES INTO THE MAKERS' CANCELLATION WAVE (wave15.py, results/wave15.json; 59,630 first legs of 10-20..22; capture L2 grid,
+    server clock): o's ask depth at best .. best + 4 c relative to m0 - 1500 ms is 1.00 at 800-1500 ms before m0, 0.968 at 500, 0.920 at 300,
+    0.852 at 200, 0.607 at 100, 0.520 at m0 (the last step includes the operator's own match, ~25 ms before m on the book clock); at the
+    placebo anchor m0 - 5 s it stays 1.00-1.01. A >= 30% drop over 100 ms ends at m0 - 100 for 39.9% of first legs (placebo 6.8%), at
+    m0 - 200 for 13.6%, at m0 - 500 for 9.9%. The other outcome's ask depth RISES (1.075 at 200 ms, 1.16 at 100 ms) and o's best ask
+    rises 0.19 c by m0 - 250 and 0.59 c by m0: the makers re-quote toward o. The wave starts ~0.5 s before the match (the move builds),
+    and its steep part (m0 - 200 .. m0 - 100) coincides with the arrival of the knee-band Binance move in London; the operator's
+    order arrives (~m0 - 175 on the book clock) inside it and is filled by the asks the slower makers have not pulled when its
+    150-ms hold ends.
+11. FINDING 4 BY DAY AND BY BOOK STATE (hazbook15_splits.py, results/hazbook15_splits.json): full / PMB / full + book on 10-21 0.894 /
+    0.877 / 0.915, on 10-22 0.870 / 0.8705 / 0.898. 98% of the takes fall in the book-ACTIVE half of the bins (book-only score above its
+    weighted median: 35,894 positives vs 672): there the decoded hazard is 0.789, the book-aware baseline 0.761 and full + book 0.821
+    (+0.060 over the baseline, but on a subset chosen by the baseline's own score, which no exam unit allows).
+
+Live-lab correction: rec_bn15 v1 (06:00-06:57 UTC) wrote the receive time 't' in MICROSECONDS, which tools/live.py iter_live cannot
+filter (it compares 't' with ms), so feeds btc5m_bnspot / btc5m_bnusdm are not usable through iter_live. v1 was stopped (taskkill, my
+own pid 9312) and v2 restarted at 06:56 UTC (pid 29736, same hard stop 12:00) on feeds btc5m_bnspot2 / btc5m_bnusdm2 with t = receive ms
+and tu = receive us; verified through iter_live (spot quotes, spot trades, USD-M quotes). Two facts for the out-of-time check: the
+laptop clock runs ~0.65 s BEHIND Binance (spot trade E - receive t = +652 ms on the first record), so the offset must be calibrated
+from the trade stamps; and the USD-M @aggTrade stream delivers no messages on this endpoint (0 records in v1 and v2), so USD-M trades
+are missing from this recording.
+
+Panel proposals of iteration 14 (catalog X139-X150) and what happened to them:
+- X139 (Binance L2 for the late-trigger sixth): not run; the Polymarket book carries part of it instead (finding 5). Open.
+- X140 (per-wallet clocks): tried (finding 7). X141 (full-day USD-M / venue L2 at physical cuts): not run, open.
+- X142 (full-rate recorder): rec_bn15 recording 11-01 06-12; the out-of-time scoring and the Tardis 11-02 check are open.
+- X143 = X144 (filled size = visible depth): tried and rejected (findings 1-3); the 'if false' branch is measured (finding 2).
+- X145 (fill-simulating replica): its step-1 input measured (fill r 0.29 from public data); the simulator is open.
+- X146 (condition 2 at the decision clock): step 2 tried (finding 4: the book-aware baseline closes the gap); step 1 open.
+- X147 (per-wallet pay-up): tried (finding 8). X148 (attainability): step 4 in one point (finding 7); steps 1-3 open.
+- X149 (PRNG): V8 rejected (finding 6); JSC / Bun open. X150 (pseudo-lot run of the examiner's procedure): not run, open.
+Also closed this iteration: X99 and X105 (V8 forms, finding 6), X132 (L2 part, findings 1-2), X114 (size-only level events, finding 4).
+
+## Next (iteration 16)
+
+1. Condition 2 is now the binding question, and it is a question of the BASELINE'S CUT, not of decoding (findings 4, 11, 12): with
+   the Polymarket book ending at e + 50 ms a market-only baseline is within 0.01 AUC of the decoded hazard; with it ending at e,
+   before the bot's own Polymarket view for every label of the band, the hazard gains +0.058 [0.050, 0.065]. Steps: (a) re-ingest
+   the capture's book on a 10-ms grid (l2ingest15.py with a finer GRID_MS for the bins only) and fix the cut from physics BEFORE
+   scoring: book <= e, prints <= e + 25 (the bot's view is arrival - 30 ms on the trade clock, book events are stamped ~25 ms before
+   the trades of a match); (b) pre-register the decision-clock presence unit with a fill-covering label (X146 step 1: the fully lost
+   races from their on-chain structs), the fit set (10-17..19 or 10-20, declared), the examiner-style baseline (trades + book, same
+   model class) and the 2-h CI; (c) score once on days not yet used for the book (10-17..19 need the L2 ingest, ~12 min per day).
+   If the operator reads the Polymarket book itself (finding 9), that is a decoded input; the cut decides whether it can be shown.
+2. Out-of-time check of the frozen routes on rec_bn15 v2 (feeds btc5m_bnspot2 / btc5m_bnusdm2 from 06:56 UTC 11-01; v1 files are not
+   iter_live-compatible; USD-M aggTrade delivered nothing): operator fills from the chain for the block, server-ms matches from the shared recorder's clob_crypto 'x'
+   records (tx hashes), the laptop transit offset from the trade E / T stamps, then dc_exam14 (side) and dc_hazard14 (take) scored
+   once. The spot bookTicker rate seen live was 25-55/s (the capture had ~140/s on 10-20): compare rates before scoring.
+3. Condition 5: the realized fill is the makers' cancel race inside the hold (finding 2). A replica can only use its expectation
+   at the decision (r 0.29). Two untested ways to get closer: (a) the cancel race as a function of the makers present (the depth's
+   AGE and the identity / size pattern of the resting levels at the bot's view: stale old levels survive, fresh ones are pulled);
+   (b) the operator's own lost-race remainders (X133) resting at L after a depth-bound fill. Then the M stream.
+4. X149 JSC / Bun: a SAT / SMT solve of xorshift128+ with the SUM output on 4-6 same-ms copies per group (z3 is not in the shared
+   venv; ask before installing anything, or write a small bit-level guess-and-check over the carry into bit 15).
+5. X146 step 1 (label the fully lost races from their on-chain structs), X148 steps 1-3 (fan-out-merged split-half, decoded-process
+   simulator), X150 (pseudo-lot run of evaluate()), X139 / X141 (Binance L2 and the full-day USD-M book at the corrected clock).
+6. Still open from earlier: X5, X7, X9, X18, X26, X33, X36, X37, X44, X51, X53, X57, X66, X70, X72, X76, X87, X88, X90, X93, X100, X104,
+   X107, X113, X115, X122, X123, X124, X127, X128, X130, X133.
+
+Recorders at the end of iteration 15: the shared recorder runs (pid 27184); rec_bn15 (pid 9312, my own, hard stop 11-01 12:00 UTC,
+~6.5 MB after 33 min) records btc5m_bnspot / btc5m_bnusdm; rec_eu11 (pid 14192) is alive. No polyrea bug found. Cache:
+.cache/re/btc5m-bot gained only a state backup (state_backup_iter14.json); the L2 reductions (~460 MB) live in the session scratchpad
+it15/ (rebuild with code/l2ingest15.py, ~12 min per day, 2 threads).
+
+Status after iteration 15: target not reached; target_metrics unchanged (presence 0.8701 vs 0.8464 at the block clock; side 0.8369;
+price 0.9512; PnL 0.5065 / 0.4674; coverage 1 / 1). What changed is the account of the failing conditions:
+- condition 2 fails against a book-aware market baseline at the decision clock too (+0.008), because the makers' cancellations show
+  the operator's trigger in the Polymarket book;
+- condition 5 is bounded by the makers' cancel race inside the 150-ms hold (realized fills r 0.29 from public data at the decision);
+- condition 7: XM's PnL ceiling 0.43-0.46 < 0.47 under thinning; the price part holds per wallet with the iteration-13 anchor.
+
+12. THE BOOK'S MATCH TO THE OPERATOR SITS IN THE LAST 50 MS BEFORE ITS OWN VIEW: THE PRESENCE MARGIN DEPENDS ON THE BOOK CUT (hazbook15_shift.py,
+    results/hazbook15_shift{25,50,100,200}.json; same bins / split / models as finding 4, book features sampled at t = e + 50 - shift on
+    the 50-ms grid; the frozen full hazard and the trades-only score unchanged): book cut at e + 50: baseline PMB 0.873 (gain of the
+    decoded hazard +0.008); at e (shift 25 and 50 fall on the same grid point): PMB 0.823, book only 0.818, gain +0.0579 [0.0501,
+    0.0646], full + book 0.894 (+0.071 over PMB); at e - 50: PMB 0.799 (+0.082); at e - 150: 0.780 (+0.101). The makers' cancels that
+    mirror the operator's decision arrive within ~50 ms of the bot's own Polymarket view: a co-reaction to the same Binance move, not
+    a lead the bot could have followed. Physics of the cut: the bot's Polymarket view is its arrival - 30 ms (price evidence, trade
+    clock) = m0 - 180, i.e. [e + 25, e + 75) on the trade clock and [e, e + 50) on the book clock (book events are stamped ~25 ms
+    before the trades of the same match) for the label band m0 in [e + 205, e + 255). A market-only baseline that is point-in-time
+    for every label in the band must end its book at e and its prints at e + 25; under that cut the decoded hazard clears the 0.05
+    bar (+0.058, CI lower bound 0.050); under the iteration-14 convention (everything Polymarket at e + 50) it does not (+0.008).
+    Next: pre-register the cut from this physics, ingest a 10-ms book grid (the 50-ms grid cannot resolve e + 25), and re-score.
+
+PRE-REGISTRATION 9 (written 06:59 UTC 11-01, before it is run): reverse-split replication of finding 12's cut. Same bins, features and
+models as hazbook15 / hazbook15_shift, but FIT on 10-21..22 and SCORE once on 10-20 (whose labels were only used for fitting so far),
+book cut at e (shift 50 on the 50-ms grid), prints as in the frozen trades-only score. Claim tested: the frozen full hazard's weighted
+AUC exceeds the book-aware baseline PMB by >= 0.05 with a 2-h block CI lower bound > 0. Reported whatever the result, with the e + 50
+cut alongside.
+13. PRE-REGISTRATION 9 MET: THE CUT RESULT REPLICATES IN THE REVERSE SPLIT (hazbook15_shift_rev.py, results/hazbook15_rev_shift{50,0}.json;
+    fit 10-21..22, scored once on 10-20): book cut at e: frozen full hazard 0.9018 vs book-aware baseline PMB 0.8213, gain +0.0805
+    [0.0752, 0.0861] (book only 0.8181; full + book 0.9122); book cut at e + 50: PMB 0.8787, gain +0.0231 [0.0198, 0.0262]. On both
+    splits the decoded decision-clock hazard clears the 0.05 bar against a book-aware market baseline that ends before the bot's own
+    Polymarket view (+0.058 and +0.081) and fails it when the baseline may look 25-50 ms past that view (+0.008 and +0.023). Scope
+    caveats unchanged: taker first legs (77.9% of fills with their remainders), not the pre-registered presence unit of target_metrics.
+14. PER WALLET THE CUT-AT-e GAIN HOLDS FOR DS AND GF, NOT FOR XM (hazbook15_shift_wallet.py, results/hazbook15_wallet_shift{50,0}.json;
+    10-21..22; positives = first legs the wallet carried, against all negatives): book cut at e: DS full 0.8734 vs PMB 0.8147 (+0.059),
+    GF 0.8958 vs 0.8347 (+0.061), XM 0.9121 vs 0.8822 (+0.030; full + book 0.9164, +0.034); cut at e + 50: DS +0.005, GF +0.014, XM
+    +0.013. Condition 7 for the presence part therefore fails for XM even under the PIT cut: the book anticipates XM's decisions better
+    than the others' (XM's broad, earlier clock, finding 7, gives the makers time to react before XM's view).
+
+Next-step addendum (after findings 12-14): wire the per-wallet price anchor (DS 0, GF 1, XM 1 c; finding 8) into evaluate() as a
+reported price component before the next exam, and carry XM's presence part (+0.030 at the e cut) into the condition-7 account.
+Iteration 15 ended about 07:06 UTC 11-01 (about 77 minutes of work). rec_bn15 v2 (pid 29736) keeps recording until 12:00 UTC.
