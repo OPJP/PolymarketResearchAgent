@@ -1,0 +1,53 @@
+{
+ "instants_fit": 150929,
+ "instants_score": 127793,
+ "positives_fit": 57629,
+ "positives_score": 34438,
+ "auc_full": 0.9252,
+ "full_importance_top10": {
+  "pm_dist": 0.2573,
+  "sp_r100": 0.2129,
+  "sp_r250": 0.131,
+  "pm_last": 0.0775,
+  "rel": 0.0585,
+  "sp_r500": 0.045,
+  "sp_r1000": 0.0377,
+  "sp_nupd250": 0.0308,
+  "sp_r50": 0.0234,
+  "pm_d1": 0.0228
+ },
+ "auc_pm_only": 0.7807,
+ "auc_spot_only": 0.8543,
+ "gain_full_vs_pm_only": 0.1445,
+ "gain_block_ci95_300": [
+  0.1352,
+  0.1538
+ ],
+ "halves": {
+  "first": {
+   "full": 0.932,
+   "pm_only": 0.7748
+  },
+  "second": {
+   "full": 0.9174,
+   "pm_only": 0.7819
+  }
+ },
+ "by_wallet_first_legs": {
+  "DS": {
+   "full": 0.9204,
+   "pm_only": 0.7694,
+   "positives": 26818
+  },
+  "GF": {
+   "full": 0.9395,
+   "pm_only": 0.8074,
+   "positives": 6056
+  },
+  "XM": {
+   "full": 0.94,
+   "pm_only": 0.8627,
+   "positives": 1564
+  }
+ }
+}

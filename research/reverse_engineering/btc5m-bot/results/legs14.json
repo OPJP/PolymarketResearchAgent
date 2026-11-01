@@ -1,0 +1,93 @@
+{
+ "first": {
+  "n": 57630,
+  "acc_own_anchor": 0.8306,
+  "acc_first_leg_anchor": 0.8306,
+  "wallet_share": {
+   "DS": 0.74,
+   "GF": 0.216,
+   "XM": 0.044
+  }
+ },
+ "fanout_gap_0_60": {
+  "n": 5826,
+  "acc_own_anchor": 0.844,
+  "acc_first_leg_anchor": 0.821,
+  "wallet_share": {
+   "GF": 0.732,
+   "DS": 0.151,
+   "XM": 0.116
+  }
+ },
+ "gap_60_150": {
+  "n": 3011,
+  "acc_own_anchor": 0.8841,
+  "acc_first_leg_anchor": 0.7755,
+  "wallet_share": {
+   "GF": 0.674,
+   "DS": 0.191,
+   "XM": 0.135
+  }
+ },
+ "sequential_gap_150_300": {
+  "n": 7110,
+  "acc_own_anchor": 0.8626,
+  "acc_first_leg_anchor": 0.7895,
+  "wallet_share": {
+   "GF": 0.542,
+   "DS": 0.333,
+   "XM": 0.124
+  }
+ },
+ "gap_hist_20ms": {
+  "0": 5840,
+  "20": 2933,
+  "40": 1698,
+  "60": 1349,
+  "80": 1221,
+  "100": 936,
+  "120": 747,
+  "140": 698,
+  "160": 870,
+  "180": 1977,
+  "200": 2156,
+  "220": 1585,
+  "240": 1425,
+  "260": 1197,
+  "280": 1086
+ },
+ "sequential_prev_to_next_wallet": {
+  "DS": {
+   "DS": 595,
+   "GF": 2292,
+   "XM": 545
+  },
+  "GF": {
+   "DS": 5186,
+   "GF": 256,
+   "XM": 317
+  },
+  "XM": {
+   "DS": 555,
+   "GF": 803,
+   "XM": 83
+  }
+ },
+ "fanout_prev_to_next_wallet": {
+  "DS": {
+   "DS": 5,
+   "GF": 710,
+   "XM": 797
+  },
+  "GF": {
+   "DS": 7527,
+   "GF": 10,
+   "XM": 239
+  },
+  "XM": {
+   "DS": 438,
+   "GF": 740,
+   "XM": 5
+  }
+ }
+}

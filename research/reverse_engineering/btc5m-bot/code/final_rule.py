@@ -1,5 +1,15 @@
 """btc5m-bot frozen rule (iteration 8; iteration 10 adds pre-registered point-in-time clean live versions; iteration 12
-adds the exposure-tracker replica for the PnL condition).
+adds the exposure-tracker replica for the PnL condition; iteration 14 re-anchors the decision clock).
+
+Iteration 14 (PRE-REGISTRATION 5, NOTES.md iteration 14): 'side_decision_clock' now comes from code/dc_exam14.py: the decision
+anchor is X = m - 260 ms on EXCHANGE time (150-ms taker delay + 105-ms Binance-to-London + 5 ms), the capture's Binance spot book
+cut at X + 131 ms (collector receive clock) and its spot trades at X; frozen model_it14_dcside_spot.txt (fitted on 10-17..19;
+VALIDATE 10-20..22 scored once: 83.7% per taker order, 82.4% per decision). It is target_metrics.side_accuracy from iteration 14
+on (the block-clock side model stays as side_accuracy_block_clock). NEW reported component 'presence_decision_clock'
+(code/dc_hazard14.py, VALIDATE-only, not a pre-registered target metric): a 50-ms decision hazard on the same clock (label = a
+cluster first leg matched 205-255 ms after the bin end; model_it14_hazard_full.txt vs its Polymarket-only baseline
+model_it14_hazard_pm_only.txt; VALIDATE 10-20..22 0.889 vs 0.759). Presence (block seconds), price and the PnL tracker are
+unchanged; the block-second presence gain over a capture-aware market baseline is only +0.024 (results/pres14.json).
 
 Iteration 13: the scored rule and target_metrics are unchanged (the pre-registered two-stream tracker was not adopted). NEW
 reported component 'side_decision_clock' (pre-registration 4, X113 step 6; code/dc_exam13.py): per cluster taker order, the
@@ -1308,11 +1318,16 @@ def _evaluate_live_only(start_ts: int, end_ts: int, intervals, err: str) -> dict
            "note": "historical components need the Binance daily archives (published the next day UTC); live components only"}
     fills = cluster_fills(start_ts, end_ts, win)
     out["fills"] = int(len(fills))
-    try:  # iteration 13: decision-clock side from the public HF capture (needs no Binance daily archive)
-        import dc_exam13
-        out["side_decision_clock"] = dc_exam13.decision_clock_side(fills, start_ts, end_ts, allow_sealed=ALLOW_SEALED)
+    try:  # iteration 14 (pre-registration 5): decision-clock side re-anchored on exchange time (dc_exam14; needs no Binance daily archive)
+        import dc_exam14
+        out["side_decision_clock"] = dc_exam14.decision_clock_side(fills, start_ts, end_ts, allow_sealed=ALLOW_SEALED)
     except Exception as e:
         out["side_decision_clock"] = {"error": f"{type(e).__name__}: {e}"[:200]}
+    try:  # iteration 14 (X126 = X136): decision-clock take hazard on the knee clock (dc_hazard14; reported, VALIDATE-only)
+        import dc_hazard14
+        out["presence_decision_clock"] = dc_hazard14.decision_clock_presence(fills, win, start_ts, end_ts, allow_sealed=ALLOW_SEALED)
+    except Exception as e:
+        out["presence_decision_clock"] = {"error": f"{type(e).__name__}: {e}"[:200]}
     for key, fn in (("side_live_decision", lambda: _live_vote(fills, win, start_ts, end_ts)),
                     ("side_live_decision_ext", lambda: _live_vote(fills, win, start_ts, end_ts, feeds=LIVE_VOTE_FEEDS_EXT, venues=LIVE_VOTE_VENUES_EXT)),
                     ("presence_live_decision", lambda: _live_hazard(fills, start_ts, end_ts, intervals)),
@@ -1586,6 +1601,20 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
                                      "avg_a": _strict_tracker(up, dn, flow, win, fills, "a") if len(fills) else None,
                                      "avg_b": _strict_tracker(up, dn, flow, win, fills, "b") if len(fills) else None,
                                      "it4b_only_a": _strict_tracker(up, dn, flow4, win, fills, "a") if len(fills) else None}
+        # iteration 14 (PRE-REGISTRATION 7, adopted): target = 0.5 x the avg flow + 0.5 x HAZ_C x the decision-hazard imbalance h(s)
+        # from the public capture (dc_hazard14.hazard_imbalance; VALIDATE 10-20..22: 0.5065 / 0.4674 vs avg 0.4973 / 0.4607)
+        try:
+            import dc_hazard14
+            hz = dc_hazard14.hazard_imbalance(fills, win, start_ts, end_ts, allow_sealed=ALLOW_SEALED)
+            if hz is not None and len(hz) and len(fills):
+                hv = hz.set_index(["cid", "rel"]).h.reindex(pd.MultiIndex.from_arrays([up.cid.to_numpy(), up.rel.to_numpy().astype(np.int64)])).fillna(0.0).to_numpy()
+                flow_mix = 0.5 * flow + 0.5 * dc_hazard14.HAZ_C * hv
+                res_o["exposure_tracker"]["mix14_a"] = _strict_tracker(up, dn, flow_mix, win, fills, "a")
+                res_o["exposure_tracker"]["mix14_hazard_coverage"] = round(float((hv != 0).mean()), 4)
+                res_o["exposure_tracker"]["primary"] = "mix14_a"
+                res_o["exposure_tracker"]["target_flow"] = "0.5 x (0.5 it4b + 0.5 nf12b) + 0.5 x HAZ_C x hazard imbalance (dc_hazard14)"
+        except Exception as e:
+            res_o["exposure_tracker"]["mix14_error"] = repr(e)[:300]
     except Exception as e:
         res_o["exposure_tracker"] = {"error": repr(e)[:300]}
     # per-wallet PnL correlation of the primary proxy
@@ -1632,13 +1661,20 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
         out["price"]["live_book_pit"] = _live_touch(fills, win, start_ts, end_ts, pre_ms=PRE_MATCH_MS_PIT)
     except Exception as e:
         out["price"]["live_book_pit"] = {"error": type(e).__name__}
-    # iteration 13 (PRE-REGISTRATION 4, X113 step 6): the side at the DECISION clock from the public HF capture (matching-engine ms
-    # by tx hash; Binance spot book at a = m - 180 ms; frozen model_it13_dcside_spot.txt). Reported; not a target_metrics key.
+    # iteration 14 (PRE-REGISTRATION 5, X125 = X135): the side at the DECISION clock re-anchored on EXCHANGE time (dc_exam14: matching-
+    # engine ms by tx hash from the public HF capture; Binance spot book / trades cut at m - 260 ms exchange time; frozen
+    # model_it14_dcside_spot.txt, fitted on 10-17..19; VALIDATE 10-20..22 83.7% per order). It is target_metrics.side_accuracy from
+    # iteration 14 on (pre-registered consequence); the block-clock side model stays as side_accuracy_block_clock.
     try:
-        import dc_exam13
-        out["side_decision_clock"] = dc_exam13.decision_clock_side(fills, start_ts, end_ts, allow_sealed=ALLOW_SEALED)
+        import dc_exam14
+        out["side_decision_clock"] = dc_exam14.decision_clock_side(fills, start_ts, end_ts, allow_sealed=ALLOW_SEALED)
     except Exception as e:
         out["side_decision_clock"] = {"error": f"{type(e).__name__}: {e}"[:200]}
+    try:  # iteration 14 (X126 = X136): decision-clock take hazard on the knee clock (dc_hazard14; reported, VALIDATE-only)
+        import dc_hazard14
+        out["presence_decision_clock"] = dc_hazard14.decision_clock_presence(fills, win, start_ts, end_ts, allow_sealed=ALLOW_SEALED)
+    except Exception as e:
+        out["presence_decision_clock"] = {"error": f"{type(e).__name__}: {e}"[:200]}
     try:
         res_o["pnl_overlap_diagnostics"] = _pnl_overlap(fills, win)
     except Exception as e:
@@ -1657,7 +1693,8 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
                 out["side_condition_by_wallet"][w] = {"windows": int(len(ws)), "share_one_sided_windows": round(float((ws["min"] == ws["max"]).mean()), 4)}
     lb = out["price"].get("live_book") or {}
     sb30 = res_o.get("strict_fill_backtest") or {}
-    sb = ((res_o.get("exposure_tracker") or {}).get("avg_a")) or sb30  # iteration 12: the exposure tracker is the PnL rule
+    _et = res_o.get("exposure_tracker") or {}
+    sb = _et.get(_et.get("primary", "avg_a")) or _et.get("avg_a") or sb30  # iteration 12: the exposure tracker is the PnL rule; iteration 14: mix14_a when the capture exists
     out["target_metrics"] = {
         "presence_auc": (blk or {}).get("auc_full") or out["presence"]["auc_any_no_own_state"], "presence_baseline": (blk or {}).get("auc_pure_market_baseline") or out["presence"]["pure_market_baseline_auc_block_label"] or out["presence"]["co_occurrence_baseline_auc"],
         "presence_unit": "block seconds" if blk else "all seconds",
@@ -1665,7 +1702,16 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
         "selection_baseline": (out.get("selection") or {}).get("v3_size_classes", {}).get("pure_market_baseline_auc") or (out.get("selection") or {}).get("v3_size_classes", {}).get("co_occurrence_baseline_auc"),
         "selection_recall": ((out.get("selection") or {}).get("v3_size_classes", {}).get("at_preregistered_flag_full_or_partial_and_p_ge_0.30") or {}).get("recall"),
         "selection_lift": ((out.get("selection") or {}).get("v3_size_classes", {}).get("at_preregistered_flag_full_or_partial_and_p_ge_0.30") or {}).get("lift"),
-        "side_accuracy": sd.get("y", {}).get("accuracy_side_model"), "side_baseline": sd.get("y", {}).get("baseline_market_only_model"),
+        "side_accuracy": (out.get("side_decision_clock") or {}).get("accuracy_per_order") if (out.get("side_decision_clock") or {}).get("accuracy_per_order") is not None else sd.get("y", {}).get("accuracy_side_model"),
+        "side_accuracy_source": "decision clock per taker order (dc_exam14, pre-registration 5)" if (out.get("side_decision_clock") or {}).get("accuracy_per_order") is not None else "block-clock side model per one-sided second",
+        "side_accuracy_per_decision": (out.get("side_decision_clock") or {}).get("accuracy_per_decision"),
+        "side_accuracy_by_wallet": (out.get("side_decision_clock") or {}).get("by_wallet"),
+        "side_accuracy_halves_by_wallet": (out.get("side_decision_clock") or {}).get("halves_by_wallet"),
+        "side_accuracy_block_clock": sd.get("y", {}).get("accuracy_side_model"),
+        "presence_decision_clock_auc": (out.get("presence_decision_clock") or {}).get("auc_full"),
+        "presence_decision_clock_baseline": (out.get("presence_decision_clock") or {}).get("auc_pm_only_baseline"),
+        "presence_decision_clock_by_wallet": (out.get("presence_decision_clock") or {}).get("by_wallet"),
+        "side_baseline": sd.get("y", {}).get("baseline_market_only_model"),
         "side_accuracy_live_decision": (out.get("side_live_decision") or {}).get("agree_on_voted"),
         "side_accuracy_live_decision_abstain_half": (out.get("side_live_decision") or {}).get("accuracy_all_covered_abstain_half"),
         "side_accuracy_live_decision_full_coverage": ((out.get("side_live_decision") or {}).get("full_coverage") or {}).get("accuracy"),
@@ -1676,7 +1722,8 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
         "price_source": "recorded book 50 ms before the recorded match" if lb.get("within_1tick_ask_match") is not None else ("recorded book (block - DECISION_LAG_S)" if lb.get("within_1tick_ask_lag") is not None else ("touch of the same match from calldata (consumed maker orders; trivial touch anchor, not a PIT forecast)" if (out["price"].get("calldata_touch") or {}).get("within_1tick_touch") is not None else "last implied ask from others' prints")),
         "price_tape_anchor_T_within_1tick": out["price"].get("T_within_1tick_of_last_ask"),
         "pnl_corr_pearson": sb.get("per_window_pnl_corr_pearson"), "pnl_corr_spearman": sb.get("per_window_pnl_corr_spearman"),
-        "pnl_rule": "exposure tracker avg_a (iteration 12)" if sb is not sb30 else "30-share strict replica (iteration 4)",
+        "pnl_rule": (f"exposure tracker {_et.get('primary', 'avg_a')}" if sb is not sb30 else "30-share strict replica (iteration 4)"),
+        "pnl_corr_pearson_avg_a": (_et.get("avg_a") or {}).get("per_window_pnl_corr_pearson"), "pnl_corr_spearman_avg_a": (_et.get("avg_a") or {}).get("per_window_pnl_corr_spearman"),
         "pnl_corr_by_wallet": sb.get("by_wallet"),
         "pnl_corr_pearson_conv_b": (((res_o.get("exposure_tracker") or {}).get("avg_b")) or {}).get("per_window_pnl_corr_pearson"),
         "pnl_corr_spearman_conv_b": (((res_o.get("exposure_tracker") or {}).get("avg_b")) or {}).get("per_window_pnl_corr_spearman"),

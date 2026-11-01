@@ -1,0 +1,56 @@
+{
+ "size_phase": {
+  "A": {
+   "windows": 221,
+   "mean_gross_shares": 2751.1,
+   "return_before_rebates": 0.0135,
+   "pnl_per_window": 18.1,
+   "maker_share_of_fills": 0.343,
+   "fee_per_window": 34.7
+  },
+  "B": {
+   "windows": 220,
+   "mean_gross_shares": 3634.3,
+   "return_before_rebates": -0.0006,
+   "pnl_per_window": -1.1,
+   "maker_share_of_fills": 0.384,
+   "fee_per_window": 45.01
+  }
+ },
+ "dispatch_phase": {
+  "A": {
+   "windows": 126,
+   "mean_gross_shares": 3154.4,
+   "return_before_rebates": 0.0008,
+   "pnl_per_window": 1.21,
+   "maker_share_of_fills": 0.368,
+   "fee_per_window": 37.39
+  },
+  "B": {
+   "windows": 125,
+   "mean_gross_shares": 2885.8,
+   "return_before_rebates": -0.0101,
+   "pnl_per_window": -14.63,
+   "maker_share_of_fills": 0.373,
+   "fee_per_window": 33.85
+  }
+ },
+ "outside": {
+  "A": {
+   "windows": 1525,
+   "mean_gross_shares": 2970.7,
+   "return_before_rebates": 0.0012,
+   "pnl_per_window": 1.69,
+   "maker_share_of_fills": 0.38,
+   "fee_per_window": 36.12
+  },
+  "B": {
+   "windows": 1523,
+   "mean_gross_shares": 3179.4,
+   "return_before_rebates": 0.0096,
+   "pnl_per_window": 14.86,
+   "maker_share_of_fills": 0.396,
+   "fee_per_window": 38.37
+  }
+ }
+}

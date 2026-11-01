@@ -2890,3 +2890,344 @@ catalog_open_after_iteration13).
     check needs the capture's 10-31 / 11-01 day files. Those files also contain sealed blocks, so they stay unopened until the
     question whether a footer-only row-group selection is allowed is settled (they are not opened now).
 Iteration 13 ended 03:15 UTC (about 73 minutes of work).
+
+### Iteration 14 (2026-11-01 03:52 UTC start, local Windows laptop; development data: before H, and 10-31 00-06 / 12-18)
+
+Split and primary metric unchanged (BUILD = 10-09..16, VALIDATE = 10-16..23). Calendar (`sealed.py btc5m-bot`, 03:53 UTC): released
+lots none; the current block 11-01 00-06 is sealed; the next development block (11-01 06-12) starts after this iteration ends, so
+there is no new live development data this iteration. Shared recorder running (`live.py status`: current block sealed, wallet feed
+not stopped). Nothing sealed was read. Panel after iteration 13 (panels/iter13_*.md): 14 proposals, added as X125-X138 (information
+P1-P5 = X125-X129, mechanics P1-P5 = X130-X134, assumptions P1-P4 = X135-X138). X125 and X135 are the same test (the decision clock
+re-anchored on exchange time) and are run once; X134 and X138 are the same (the dispatch thinning ceiling); X131 and X137 are both
+condition 5 at millisecond resolution; X126 and X136 are both the take hazard at the corrected clock.
+
+Competing explanations (iteration 14; what separates them):
+- E1 CLOCK-ARTEFACT TICK SNIPER: the side is the Binance spot microprice over the ~250 ms before EXCHANGE time m - 260 (a London
+  host that reads Binance ~105 ms after the stamp and arrives 150 ms before its match); the 74-77% of pre-registrations 3 / 4 is
+  what is left after cutting the trigger's last 50-60 ms. Separates: re-clocked side >= 80% per decision, a curve that is flat past
+  the knee, no knee at placebo instants, no knee for crowd orders that do not co-arrive with the operator.
+- E2 POST-DECISION CONTINUATION: the rise near exchange m - 250 is the continuation of a move the bot decided on earlier; separates:
+  accuracy keeps rising past the knee, and orders that do not co-arrive show the same rise.
+- E3 SCHEDULED CONFIGURATION (A/B ARMS): base sizes and dispatch weights are experimental settings by window index mod 4 and phase,
+  not responses to inputs; separates: inside a phase the arm explains the size mix / DS share while the take rate and side do not
+  move, with phase boundaries at restarts.
+- E4 TWO-STREAM OPERATOR, OWN-STATE SIZE: the side is public (tick), the lean's size is own state (pyramiding); separates: original-
+  size labels still give a size AUC < 0.6 on public inputs; the window net is formed in [0, 150) s where the public side is best.
+- E5 RANDOM-THINNING DISPATCH: the wallet that carries a decision is an i.i.d. weighted draw (plus a per-wallet slot and a fixed leg
+  order); separates: XM's PnL r under 2,000 redraws of the wallet from public weights stays below 0.47 at the 97.5% quantile.
+- E6 ACK-LOOP FOLLOWERS: the 180-220-ms follower legs are re-decisions fired on the bot's own acknowledgements; separates: follower
+  limits track their own-instant ask, and P(follower) depends on the previous leg's outcome.
+- E7 PRIVATE INPUT: some input is in no public feed; separates: a residual after re-clocking that no venue's knee explains.
+This iteration discriminates E1 vs E2 (pre-registration 5 below, with its controls), measures E3 (the A/B schedule) and, if time
+allows, E5 (the redraw ceiling).
+
+PRE-REGISTRATION 5 (written 03:58 UTC 11-01, before any re-clocked feature is computed or any model fitted; X125 = X135):
+- Units: operator taker orders (fills role T, one per (tx, wallet, token)) of windows starting 10-17..22 that carry a capture match
+  ms m (minimum exchangeTimestampMs of the tx in the capture's trade rows, revision f848a77c). Events: orders on the same (window,
+  outcome) less than 300 ms after the previous order of the event; first leg = rank 0; m0 = the first leg's m.
+- Anchor, fixed by physics, not by accuracy: c = D + T + r = 150 + 105 + 5 = 260 ms on exchange time (D = the measured taker delay,
+  T = the iteration-11 Binance-to-London transit, r = reaction). Exchange-stamped series are cut at X* = m - 260; the capture's
+  spot book (collector receive clock) is cut at a* = X* + 131 = m - 129 (131 ms = the capture's median spot-trade transit,
+  iteration 13). Everything published at or before X* is published at least ~110 ms before the order arrived (m - 150).
+- PRIMARY model 'dc14_spot' (the exam route; inputs the capture carries for every day): Up-signed spot-book microprice and mid
+  returns over [a* - K, a*), spot-trade last-price returns over [X* - K, X*) (exchangeTimestampMs), K = 100 / 250 / 500 / 1000 /
+  2000 ms, and rel. LightGBM with dcside13's PARAMS / ROUNDS, fitted on 10-17..19, scored ONCE on 10-20..22.
+- SECONDARY model 'dc14_full': + Binance USD-M BTC / ETH aggTrades and OKX swap trades (exchange ms, cut at X*) and Bybit BTC / ETH
+  100-ms book bins (bin end <= X*). Same fit / score. Reported, not exam-routed.
+- Reported for both: per order (own anchor), per DECISION (every leg scored with features at its event's first-leg anchor m0),
+  first legs only, per wallet, by window minute, by day and VALIDATE half (10-20 / 10-21..22), XM's one-sided windows (mean p of
+  XM's orders), the old-anchor models on the same orders, and a market-only baseline from the capture's Polymarket trades (others'
+  last prices and signed flow, operator txs excluded) with the same model class.
+- Success = pooled accuracy >= 80% per decision AND per order on 10-20..22 at full coverage, with DS >= 77%.
+- Falsification controls, reported whatever the result: (i) placebo anchors m - 3000 and m + 3000 (expect ~50%); (ii) the knee
+  re-estimated on the FIT days only (univariate spot-book microprice sign over [m0 - c - 250, m0 - c), c = 400 .. 150 ms in 10-ms
+  steps, two-segment linear fit) and the univariate gain from c = 260 to c = 200 on the fit days (E1 needs <= 1.5 points; E2 a
+  continued rise); (iii) the knee per wallet and on the weekend fit days; (iv) a crowd control: non-operator taker BUYs more than
+  1 s from any operator match on the same window, univariate profile against c on their own match ms (E1 needs it flat).
+- Consequence fixed now: if success, 'dc14_spot' (anchor constants frozen) replaces model_it13_dcside_spot as the exam route
+  'side_decision_clock', and target_metrics.side_accuracy reports its pooled per-order accuracy on 10-20..22 (the block-clock
+  per-second value stays in the notes). If not, target_metrics.side_accuracy is unchanged and the route stays as it is.
+
+Findings (iteration 14):
+1. PRE-REGISTRATION 5 MET: AT THE PHYSICAL DECISION CLOCK THE SIDE IS 83.7% PER ORDER AND 82.4% PER DECISION ON 10-20..22 (dcclock14.py,
+   dcfit14.py; results/dcclock14.json; frame in the session scratchpad it14/). 117,791 operator taker orders (10-17..22), anchor
+   X = m - 260 ms exchange time (book receive m - 129), fitted on 10-17..19 (45,214 orders), scored once on 10-20..22 (72,577):
+   - PRIMARY dc14_spot (spot book + spot trades from the capture, the exam route): per order 0.8369 (DS 0.8306, GF 0.8547, XM
+     0.8132); per decision 0.8236 (DS 0.8265, GF 0.8257, XM 0.7833); first legs 0.8306. By day 0.857 / 0.837 / 0.815; 36-h halves
+     0.852 / 0.823; per wallet and half DS 0.843 / 0.818, GF 0.877 / 0.839, XM 0.847 / 0.786 (per decision XM 0.807 / 0.764). By
+     window minute 0.88 / 0.87 / 0.84 / 0.78 / 0.69; large 0.838, small 0.837. Share-weighted 0.8245. Top inputs: spot microprice
+     250 ms (49% of gain), 100 ms (23%), 500 ms (16%).
+   - Secondary dc14_full (+ USD-M BTC / ETH, OKX, Bybit BTC / ETH at the same exchange cut): 0.8516 per order, 0.8383 per decision
+     (DS 0.846, GF 0.866, XM 0.836 per order). Not exam-routed (it needs non-capture archives).
+   - Same orders: the frozen old-anchor route (m - 180 receive clock) 0.7421; market-only from the capture's non-operator
+     Polymarket trades (last implied price, its 0.5 / 3-s changes, signed flow 1 / 5 s, |p - 0.5|, rel; same model class) 0.5676;
+     own-inventory baseline (complement of the operator's realized net at block ts <= m - 2 s) 0.5394 on 95.9% coverage.
+   - Controls: placebo anchors m - 3 s / m + 3 s 0.4985 / 0.4999. Knee re-estimated on the FIT days only (first legs, univariate
+     microprice sign over [m0 - c - 250, m0 - c)): two-segment knee at c = 230 ms (level 0.834), slope 1.54 points per 10 ms before
+     it and 0.07 after; 0.606 / 0.670 / 0.750 / 0.825 / 0.832 / 0.837 / 0.837 at c = 400 / 320 / 280 / 260 / 240 / 200 / 150; the
+     gain from 260 to 200 is +1.2 points (weekend -0.3, 10-19 +3.0), from 320 to 260 +15.5. Per wallet the knee sits at 230 (DS,
+     XM) and 250 (GF). Crowd control (975,955 non-operator taker BUYs more than 1 s from any operator match on the window): 0.556 /
+     0.571 / 0.579 / 0.581 / 0.579 / 0.574 / 0.566 at the same cutoffs, flat (+1.0 point from 320 to 260). E1 (a clock artefact)
+     is supported over E2 (post-decision continuation): the information arrives in a 60-ms band ending ~230-260 ms before the
+     match, only for the operator, and nothing is added after it.
+   - Pre-registered consequence applied: dc14_spot (model_it14_dcside_spot.txt; code/dc_exam14.py) replaces the iteration-13 route
+     in final_rule.evaluate() and target_metrics.side_accuracy = 0.8369 (block-clock 0.7666 kept as side_accuracy_block_clock).
+     End to end on 10-20 11:00-12:00 the route reads only that hour's row groups (58 s) and reproduces the offline frame exactly
+     (929 orders, 0.8364 per order, 0.8138 per decision; old anchor 0.7104; placebo 0.476 / 0.489).
+   - Physics: the knee implies Binance-to-arrival ~80-110 ms (the knee at 230-260 minus the 150-ms delay), i.e. a host near the
+     Polymarket engine reading Binance directly; the information panel's reading. The old anchor stacked the collector's 131 ms and
+     a 30-ms posting latency on top.
+2. THE OPERATOR RUNS WINDOW-INDEX A/B ARMS (X130; ab14.py, results/ab14.json, ab14_hours.csv; mechanics panel replicated). Arm B =
+   (start / 300) mod 4 in {1, 2}. Per UTC hour (324 development hours), Welch t of per-window means B vs A:
+   - size: 37 hours with |t| >= 4 on the mean filled taker size, in runs 10-14 08-22, 10-15 18-21, 10-16 11-16, 10-18 13-17, 10-18 22
+     -> 10-19 03, 10-19 07-11 (BUILD and VALIDATE). Inside them B windows fill 33.9 shares per taker order vs 24.6 (P(filled >= 45)
+     0.445 vs 0.059); outside them B still 29.1 vs 26.3 (0.216 vs 0.069). On VALIDATE 76.5 / 80.0 / 84.0 / 78.0% of LARGE (>= 45
+     filled) taker shares on 10-16..19 come from B windows (B holds 52-58% of all taker shares), 50 / 50 / 42% on 10-20..22.
+   - dispatch: one phase, 10-21 16 -> 10-22 13 (21 flagged hours): DS share 0.685 (A) vs 0.426 (B), GF 0.263 vs 0.500, orders per
+     window 92 vs 84; outside it DS 0.676 vs 0.677.
+   - mod 2 shows nothing (1 hour with |t| >= 4).
+   Consequences: the size classes on 10-16..19 are mostly the B arm's base size (two13's L stream, X49's size AUCs and the size
+   component describe a configuration, not an input response); the dispatch phase makes DS / GF shares predictable from the window
+   index inside it. Neither changes the side (finding 1 has no arm term) or the take rate. The calldata original sizes of the
+   sample hours are reported in ab14.json (BUY takerAmount is already in shares in calldata_sample).
+3. CONDITION 7 FOR XM IS A RANDOM-THINNING CEILING (X134 = X138; thin14.py, results/thin14.json; 10-20..22, 864 windows). The wallet of
+   each TRUE operator taker decision (true side, size, realized PnL) is allocated by P^(wallet | public state at the decision) fitted
+   on 10-17..19 (multinomial LightGBM on rel, hour, window index mod 4, re-clocked tick strength, leg rank; one-vs-rest AUC DS 0.710,
+   GF 0.690, XM 0.670; log loss 0.724 vs 0.825 for base rates):
+   - oracle (true decisions weighted by P^(XM); XM's maker part as the pooled maker PnL x XM's maker share): r with XM's window PnL
+     0.393 (taker part 0.382; halves 0.415 / 0.373); with base-rate weights 0.320;
+   - 2,000 redraws of the wallet from P^: corr(redrawn XM PnL, true XM PnL) median 0.165 [0.067, 0.255]; two redraws correlate
+     0.185, so under thinning no predictor of XM's PnL can exceed sqrt(0.185) = 0.43; base-rate weights 0.31.
+   - the dispatch-phase flag adds nothing for XM (the phase moves DS / GF only).
+   Every oracle that knows the operator's decisions exactly stays below the 0.47 that condition 7 asks of XM. XM's realized PnL
+   behaves like one draw of a random thinning of the operator's decisions (redraw-vs-true 0.165 against redraw-vs-redraw 0.185).
+
+PRE-REGISTRATION 6 (written 04:13 UTC 11-01, before nfms14 is built or scored; X131 = X137, the millisecond nowcast for condition 5):
+- Target: the operator's signed filled shares per (window, block second s), Up +, both roles (the nf12 target), 10-17..22.
+- Features at block second s, all from data stamped before tau - 1000 ms (tau = the start of block second s; the same 1-s horizon as
+  the frozen cells): from the capture's Binance spot book (exchange-equivalent = receive - 131) the microprice change over the five
+  500-ms slices of [tau - 3500, tau - 1000) and over [tau - 5500, tau - 3500); on a 50-ms grid over [tau - 3500, tau - 1000) the
+  max / min 250-ms microprice return, the signed sum of the 250-ms returns with |r| >= 0.5 bp and the up-minus-down count of such
+  returns; spot-trade last-price change over [tau - 3500, tau - 1000) and [tau - 1500, tau - 1000) (exchange ms); from the capture's
+  Polymarket trades (server ms; operator txs, W4 and W5 taker txs excluded) the Up-signed flow over [tau - 2000, tau - 1000) and
+  [tau - 4000, tau - 2000), BUY counts on Up and Down over [tau - 2000, tau - 1000), the last implied Up price at tau - 1000 and its
+  3-s change; rel; and the frozen nf (it4b) and nf12b predictions of the same cell (stacking).
+- Model nfms14: LightGBM regression with nf12's PARAMS / ROUNDS, fitted on 10-17..19, scored once on 10-20..22.
+- Adoption (the only scored candidate): nfms14 replaces the avg target of the exposure tracker ONLY IF trk_a (frozen TRK constants,
+  strict fills, latency >= 2 s) with target nfms14 beats trk_a with the frozen avg target on BOTH pooled Pearson and Spearman over
+  the 864 windows of 10-20..22. Reported either way: window-net r of nfms14 / avg / nf12b on 10-20..22, per-wallet PnL r, the 2-h
+  block CI and the 36-h halves. If adopted, target_metrics.pnl_corr_* report the 10-20..22 values (disclosed) and the exam route
+  (capture day files) is built before any claim.
+4. PRE-REGISTRATION 6 SCORED: THE MILLISECOND NOWCAST DOES NOT LIFT CONDITION 5, NOT ADOPTED (X131 = X137; nfms14.py, results/nfms14.json;
+   259,200 cells fitted on 10-17..19, 259,200 scored on 10-20..22; 16,478 W4 / W5 taker txs excluded besides the operator's).
+   - Window-net r on 10-20..22: nfms14 0.514, frozen avg target 0.505, nf12b 0.459, it4b nf 0.470; early flow [0, 150) s: nfms14
+     0.493 vs avg 0.540. The stacked model leans on the frozen nf (28% of gain), then the capture's Polymarket price change and
+     flows (pm_d3 8%, pm_f2 4%, pm_bd1 4%) and the 500-ms spot slices (4% each).
+   - Tracker trk_a on the 864 windows: avg 0.4973 / 0.4607 (CI [0.424, 0.563], halves 0.474 / 0.514; GF 0.390, DS 0.456, XM 0.015);
+     nfms14 0.4845 / 0.4510 (GF 0.379, DS 0.469, XM -0.036). Lower on both, so not adopted (pre-registered rule).
+   - The mechanics panel's 'signature if false' holds: at millisecond resolution the public share of the window net is ~0.51 (the
+     same as the block-clock avg target, 0.505 on these days); the re-clocked side does not carry over to the net because the net is
+     set by the size of the lean (own state, finding 2's arm sizes and the pyramiding), not by the side of each decision.
+5. THE BLOCK-SECOND PRESENCE MARGIN DOES NOT SURVIVE A CAPTURE-AWARE MARKET BASELINE (X129 = information P5; pres14.py,
+   results/pres14.json; VALIDATE block seconds, new models fitted on 10-17..19 because BUILD has no capture, scored on 10-20..22,
+   341,960 cells):
+   - frozen full model (model_it5_blk_full, BUILD-fitted) 0.8701; frozen augmented baseline (model_it9_blk_aug) 0.8174; the same
+     augmented baseline refitted on 10-17..19 (AUGR) 0.8104;
+   - capture-aware market baseline MSB = AUGR's features + others' BUY counts / sizes on o and on the other outcome in five 500-ms
+     bins of server ms over [s - 3.5 s, s - 1 s) + SELL count on o (operator, W4 and W5 txs excluded; no reference feed): 0.8464.
+     The capture prints carry 25% of its gain (top: pm_o_n_2 / pm_o_n_3, the bins 2.0-1.5 s and 2.5-2.0 s before the block second,
+     where the co-arriving fast crowd's matches sit);
+   - gains: frozen full vs MSB +0.0237, 2-h block CI [0.0172, 0.0314] (p < 0.0005 for > 0, but below the 0.05 bar); vs AUGR +0.0597;
+     FULLMS (frozen features + the capture prints + knee-clock spot slices / sharp ticks, refitted on the same three days) 0.8600,
+     +0.0136 over MSB [-0.003, 0.026];
+   - per wallet (full / MSB): GF 0.863 / 0.842, XM 0.883 / 0.882, DS 0.851 / 0.828; halves 0.879 / 0.854 and 0.862 / 0.839.
+   Condition 2's +0.054 margin belongs to the block clock: a baseline that sees the crowd's co-arriving matches at server ms (1-2 s
+   before the operator's block second) recovers half of it. Honest status: condition 2 FAILS against the stronger (capture-aware)
+   market baseline on the days where it can be built (+0.024 < +0.05). target_metrics.presence_* now report this comparison.
+6. NO VENUE ADDS INFORMATION AFTER THE BINANCE SPOT KNEE; THE KNEE IS THE BOT'S BINANCE ROUTE (X127 = information P3, compact; knee14.py,
+   results/knee14.json; first legs, fit days, each venue on its own exchange clock, univariate):
+   - two-segment knees: spot book 230 ms (level 0.837, slope after ~0), spot trades 220, USD-M BTC 220, USD-M ETH 210, OKX swap 200.
+     On covered orders at c = 260: spot trades 0.733 (28% covered), USD-M BTC 0.728 (39%), USD-M ETH 0.764 (47%), OKX 0.712 (19%).
+   - Bybit BTC (100-ms book bins) has no knee: it keeps rising past the arrival (0.645 / 0.676 / 0.795 / 0.822 at c = 260 / 230 /
+     150 / 100), i.e. it moves AFTER the order has arrived (c < 150): a lagging copy of the Binance move, not an input.
+   - No venue's knee lies later than Binance's by a transit advantage (Deribit and Coinbase not fetched this iteration). The fast
+     input is the Binance spot book read ~80-110 ms after the stamp; the bot sits near the Polymarket engine.
+7. EVEN AT THE CORRECTED CLOCK FEW DECISIONS ARE LOCKED TO A PRICE-LEVEL TICK; THE TRIGGER IS THE SPOT QUEUE IMBALANCE (X126 = X136, locked
+   share; knee14.json): a spot microprice net move toward o >= 0.1 bp over the knee band [m0 - 320, m0 - 230) precedes 7.7% of first
+   legs (placebo bands 3 s / 5 s earlier 1.2%; DS 6.9, GF 9.9, XM 11.2%); a spot mid price-level change toward o 9.2% (placebo 1.5%).
+   The side information (83%) is carried by sub-tick microprice moves (L1 queue-size changes): the microprice changes in 96% of the
+   250-ms windows and points to the side 84% of the time; a price-level change is the exception. X111's 'only ~9% locked' stands on
+   the right clock with spot BTC included; what the 'unlocked' decisions follow is the queue imbalance, which no earlier recorder kept.
+8. AT THE KNEE CLOCK THE TAKE ITSELF IS DECODED: A 50-MS DECISION HAZARD REACHES AUC 0.889 AGAINST 0.759 FOR POLYMARKET ACTIVITY
+   (X126 = X136, compact form, designed before it was scored and scored once, NOT pre-registered as a target metric; hazard14.py,
+   results/hazard14.json; models model_it14_hazard_*.txt; exam route code/dc_hazard14.py, wired into evaluate() as
+   'presence_decision_clock'):
+   - unit: 50-ms bins on the exchange-equivalent clock of every (window, outcome) of 10-17..22, bin end e; label: an operator FIRST
+     leg on that outcome with m0 in [e + 205, e + 255) (the fit-day knee 230 +- 25 ms); features end at e (spot book / trades) and
+     e + 50 (others' Polymarket prints, server ms; operator, W4 and W5 txs excluded), all before the order's arrival at m0 - 150;
+     negatives sampled 1% with weight 100; fit 10-17..19 (127,793 bins, 34,438 positives), scored once on 10-20..22 (150,929 bins,
+     57,629 positives).
+   - weighted AUC: full 0.8885, Polymarket-only baseline 0.7591, spot-only 0.8064; gain +0.1294, 2-h block CI [0.122, 0.137];
+     halves 0.899 / 0.761 and 0.878 / 0.758; per wallet (first legs the wallet carried; the other wallets' first legs count as
+     negatives) DS 0.881 / 0.749, GF 0.903 / 0.773, XM 0.919 / 0.841. Top inputs: the 100-ms spot microprice return toward o (25%
+     of gain), |p - 0.5| (21%), the 250-ms return (13%), spot book update count (5%).
+   - End to end on 10-20 11:00-12:00 the route reproduces the offline positives exactly (718) and the AUC within sampling noise
+     (0.922 vs 0.920; baseline 0.807 vs 0.812; 70 s).
+   - Reading: on the right clock the operator's selection is mostly the Binance spot queue-imbalance move toward o against the
+     Polymarket price level; the crowd's co-arrivals cannot help a baseline at the decision clock because they match after the
+     decision. Caveats: taker first legs only (maker fills are not in the label, so the unit does not cover >= 80% of fills); not a
+     pre-registered target metric; the block-second presence (target_metrics) fails the capture-aware baseline (finding 5).
+9. FOLLOWER LEGS ARE RE-DECISIONS ON FRESHER INFORMATION (X128 = information P4, steps 1-3 partial; results/legs14.json, inline):
+   gaps between consecutive legs of an event (six days) are bimodal: 0-40 ms (8,773; fan-out) and 180-220 ms (4,133; one taker delay
+   + 30-70 ms). On 10-20..22 the side at the follower's OWN anchor vs its event's first-leg anchor: fan-out (< 60 ms) 0.844 / 0.821,
+   60-150 ms 0.884 / 0.776, sequential 150-300 ms 0.863 / 0.790 (first legs 0.831). Wallet transitions: fan-out DS -> GF 7,527, XM
+   after DS 797 / after GF 239; sequential GF -> DS 5,186, DS -> GF 2,292. So the sequential follower is a new decision taken after
+   the previous leg's response (~150 + RTT) on the then-current spot book, mostly by the other main wallet. Steps 1 (limit vs
+   own-instant ask, calldata), 2 (P(follower) by the previous leg's fill outcome) and 4 (dispatch replay) are open.
+
+PRE-REGISTRATION 7 (written 04:33 UTC 11-01, before hazflow14 is run; X113 step 5 / X137 strong form, the decision-hazard nowcast for
+condition 5): every 50-ms bin of every (window, outcome) of 10-17..22 is scored with the frozen model_it14_hazard_full.txt; per
+window second s the hazard imbalance h(s) = sum over bins with end e in [s - 2, s - 1) s of (P^(Up) - P^(Down)), known before s - 1
+(the horizon of the frozen cells); nfhaz14(s) = c x h(s), c = no-intercept OLS of the operator's per-second signed flow on h on
+10-17..19. PRIMARY candidate: the tracker target 0.5 x avg + 0.5 x nfhaz14 ('mix14'), adopted ONLY IF trk_a (frozen TRK constants,
+strict fills, latency >= 2 s) beats the frozen avg target on BOTH pooled Pearson and Spearman over the 864 windows of 10-20..22.
+nfhaz14 alone and the window-net r of each are reported.
+10. PRE-REGISTRATION 7 SCORED AND ADOPTED: THE DECISION-HAZARD IMBALANCE ADDS TO THE TRACKER TARGET, BY A LITTLE (hazflow14.py,
+    results/hazflow14.json; per-second hazard imbalance in the session scratchpad it14/hazflow14.parquet):
+    - h(s) from all 50-ms bins of every window (3.1M per day); c = 5.935 (no-intercept OLS on 10-17..19); per-second r with the
+      operator flow 0.085 (fit) / 0.063 (score): weak per second, because the bin-to-block-second mapping is loose (block lag
+      1.25-3.14 s).
+    - Window-net r on 10-20..22: nfhaz14 alone 0.370, avg 0.505, mix14 0.5125.
+    - Tracker trk_a, 864 windows: mix14 0.5065 / 0.4674 (CI [0.437, 0.571], halves 0.495 / 0.515; GF 0.401 / 0.382, DS 0.467 / 0.448,
+      XM -0.001 / 0.023) against avg 0.4973 / 0.4607; nfhaz14 alone 0.390 / 0.352. mix14 is higher on both, so it is ADOPTED under the
+      pre-registered rule: final_rule.evaluate() computes it through dc_hazard14.hazard_imbalance (capture day files) and makes it
+      the primary tracker ('mix14_a'); target_metrics.pnl_corr_* = 0.5065 / 0.4674 (10-20..22, disclosed). The gain is small (+0.009 /
+      +0.007, inside the CI) and Spearman stays below 0.5: condition 5 still fails, and condition 7 fails for XM.
+    - The mix14 tracker trades $145k (vs $276k for avg) at -2.3% before rebates (avg -2.8%).
+
+11. THE ORIGINAL SIZE IS NOT A RESPONSE TO THE KNEE-CLOCK MOVE (X132 steps 1-3, compact; size14.py, results/size14.json; 5,293 cluster
+    taker orders of the six calldata sample hours on 10-17..22 joined to the decision-clock frame; original size = BUY takerAmount):
+    - menus by arm: 10-17 / 10-18 arm A 30 (78-80%) / 50, arm B 50 only (97%); from 10-19 30 / 100 in both arms (large 11-21%).
+      So in the 10-16..19 size phase the B arm's single size IS the large label of two13 (finding 2).
+    - large = above the (day, arm) modal size: AUC of |250-ms spot microprice return| at the knee anchor 0.598 (first legs 0.619;
+      DS 0.591, GF 0.562, XM 0.567), signed toward the outcome 0.595, |p - 0.5| 0.478, rel 0.499.
+    The panel's 'signature if false' (AUC < 0.6 with original labels) holds within wallet: the size is configuration (arms, menus)
+    plus own-state pyramiding, not an input response. The L2-depth part of X132 (visible depth at o's ask) is not tested; X132 stays
+    open for it.
+12. THE KNEE-CLOCK HAZARD REPLICATES IN THE REVERSE SPLIT (X136 step 'reverse fit'; hazard14.py with HZ_REVERSE=1, results/
+    hazard14_reverse.json; models not saved): fit 10-20..22, score 10-17..19 (incl. the weekend): 0.925 vs Polymarket-only 0.781
+    (+0.145, CI [0.135, 0.154]); halves 0.932 / 0.775 and 0.917 / 0.782; per wallet DS 0.920 / 0.769, GF 0.940 / 0.807, XM 0.940 /
+    0.863. Exam-route data access is now segment-wise (<= 6 h of window starts per pass; only overlapping row groups are read, the next
+    day's file only when a segment reaches hour 23): dc_exam14 reproduces the offline frame exactly again (929 orders, 0.8364 /
+    0.8138, 50 s), and dc_hazard14's hazard imbalance matches the offline h at r 0.9993 (W4 / W5 are not excluded in the route).
+13. FOLLOWERS DO NOT WAIT FOR A REMAINDER (X128 step 2, compact; follow14.py, results/follow14.json; 117,791 taker orders of 10-17..22):
+    after a leg whose remainder rested and was hit (its order hash later has maker fills; 16,994 legs, median 12 filled shares) the
+    next leg of the event follows within 150-300 ms 8.2% of the time, within 60 ms 4.7%, within 300 ms 16.2%; after a leg without a
+    resting fill (100,797, median 30 = fully filled) 9.2% / 9.6% / 22.8% (first legs 7.0 vs 8.2% sequential). XM 14.1 vs 12.6%. The
+    sequential follower is not triggered by a remainder; it is slightly more frequent after full fills, which a persisting signal
+    explains as well as an acknowledgement loop. E6 is not separated from a continuing hazard; X128 stays open for steps 1 and 4.
+
+14. HALF OF THE SELECTION SHARED WITH THE FAST CROWD IS THE KNEE-CLOCK SPOT DESIGN (X136 / X101 on the knee clock; coat14.py,
+    results/coat14.json; the 150,929 scored hazard bins of 10-20..22; crowd take = a non-operator taker BUY on the same outcome
+    matched in the operator's knee band [e + 205, e + 255), W4 / W5 excluded; diagnostic only): P(crowd take | operator took the bin)
+    0.2334 vs 0.0744 otherwise; raw log OR 1.3312; conditional on the knee-clock hazard score
+    0.625 (53.0% explained), on the Polymarket-only score 1.0327 (22.4%), both
+    0.6026 (54.7%). Iteration 12 explained 14-21% with the USD-M onset design on the laptop clock. The panel's
+    signature (>= 50% explained) is met: the 'unrecorded shared input' was mostly the full-rate Binance spot book on the right clock.
+    A residual log OR of ~0.6 remains (the exact tick inside the 50-ms band, the touch, or a shared route). Standard errors are
+    understated by the 1% negative sampling weights.
+
+15. DERIBIT (LONDON) AND COINBASE ARE LAGGING COPIES OF THE BINANCE MOVE, NOT FASTER INPUTS (X127 steps 1-2 for the remaining venues;
+    knee14b.py, results/knee14b.json; cached hourly trades of 12 VALIDATE hours on 10-17..22, 7943 first legs): Deribit's agreement keeps
+    rising past the arrival (on covered orders 0.685 / 0.720 / 0.797 / 0.810 at c = 260 / 230 / 150 / 100 ms), Coinbase likewise (0.608 / 0.648 /
+    0.710 / 0.725). In the band after the Binance knee and before the arrival, [m0 - 230, m0 - 150), Deribit moves for 25.6% of first legs and
+    agrees 0.8133, but where it disagrees with the Binance spot sign at the knee (393 legs) Deribit is right only
+    0.2366 (Coinbase 0.3231); letting the late move override the Binance sign lowers the side from 0.8331 to
+    0.8072 (Coinbase 0.816). No venue on disk carries information the bot uses beyond the Binance spot book at its knee.
+    E7 (a faster or private input) has no support among Binance spot / USD-M, OKX, Bybit, Deribit and Coinbase; the per-trader knee
+    map (X127 step 3) is not done.
+
+16. SCOPE OF A DECISION-LEVEL PRESENCE (results/scope14.json; VALIDATE fills): taker-role fills are 62.6% of the operator's fills;
+    fills of orders that had at least one taker fill (the decisions the hazard labels, credited with their remainders' maker fills)
+    are 77.9% of fills (DS 79.8, GF 75.8, XM 68.7%) and 86.3% of the absolute PnL; 40.7% of maker fills belong to such orders. The
+    other 22% of fills come from fully lost races (no taker fill). A decision unit that also labels the fully lost races (their book
+    insertion at the old ask, visible in the capture's price_change events) would cover all fills; with filled decisions only the
+    fill scope is just under the 80% bar, the PnL scope above it.
+
+17. THE 'OPERATOR STATE' WAS MOSTLY SPOT ACTIVITY ON THE WRONG CLOCK (X136, own-kernel increment; hazard14.py with HZ_OWN=1,
+    results/hazard14_own.json; own state, mechanism only, models not saved): kernels of the operator's own earlier first legs on the
+    window (any outcome and same outcome, 30-s and 60-s decay, decisions matched before the bin) added to the knee-clock hazard: full
+    0.8885 -> 0.8988 (+0.0103), Polymarket-only 0.7591 -> 0.7876 (+0.0285). On the iteration-12 onset tables the same kind of
+    kernel added +0.037 (0.681 -> 0.718). The panel's signature (the own-kernel increment at least halved) is met: about three
+    quarters of the 30-60-s 'operator state' was spot-book activity that the USD-M onset design on the laptop clock did not see.
+
+18. THE DECISION-CLOCK GAIN SURVIVES A STRONGER POLYMARKET BASELINE (hazard14.py with HZ_PM2=1, results/hazard14_pm2.json; models not
+    saved): adding to the Polymarket-only design the age of the last print on o and on the other outcome, BUY counts over 0.5 s and 10 s,
+    SELL counts and BUY volume over 1 s on both outcomes, the other outcome's last price and the last print size gives 0.7623 (from
+    0.7591); the full model stays 0.8885 (0.8894 with the extra features): the gain over the stronger baseline is
+    +0.1262. At the decision clock the crowd's prints cannot reveal a decision that has not yet been matched, so the
+    co-occurrence route that erodes the block-second margin (finding 5) is closed by construction.
+
+19. THE POLYMARKET TOUCH ADDS NOTHING BEYOND THE KNEE-CLOCK HAZARD (X119, and the best-ask part of X114; touch14.py, results/touch14.json;
+    10-20 / 10-21 scored bins, the only days with the capture's touch; fit one day, score the other): touch features at the bot's
+    Polymarket view (e + 50 ms: o's best ask / bid, the age of the best ask, best-ask changes and moves over 250 / 1000 ms, the other
+    outcome's ask) on top of logit(P^ hazard): AUC 0.8935 -> 0.896 and 0.9016 -> 0.9031 (+0.0025 / +0.0015). Decisions do come
+    when o's ask is young (median age 433 ms vs 1100 ms; changed in the last 250 ms 0.377 vs
+    0.1955), but that is the makers requoting on the same spot moves: given the spot design the touch carries no
+    selection. The size-only requotes of X114 (queue sizes at o's touch) need the capture's askSize / bidSize columns (not ingested).
+
+20. THE ARMS AS A NATURAL EXPERIMENT, ECONOMICS ONLY (X130 step 3, descriptive; results/abecon14.json; all development windows < H): in the
+    size phases B windows trade 3634 vs 2751 gross shares per window and pay 45.0 vs 34.7 USD of taker fees, for a return before
+    rebates of -0.0006 vs 0.0135 (-1.1 vs 18.1 USD per window; 220 / 221 windows); in the dispatch phase -0.0101 vs
+    0.0008; outside both 0.0096 vs 0.0012. Per-window PnL is too noisy at these counts for a verdict (no test run); the larger
+    base size buys more fee volume (the rebate is half the taker fees) at an unchanged or lower gross return. Fill fractions and race
+    losses per arm (calldata) are not measured.
+
+Panel proposals of iteration 13 (catalog X125-X138) and what happened to them:
+- X125 = X135 (re-clock the side on exchange time): tried, pre-registration 5 met (finding 1); exam route rebuilt.
+- X126 (hazard on the knee clock): tried in compact form (finding 8; 50-ms label instead of 30 ms); exam route dc_hazard14.
+- X127 (per-venue knee map): tried for every venue on disk incl. Deribit and Coinbase (findings 6 and 15); the per-trader knees (step 3) are open.
+- X128 (follower legs on acknowledgements): partly tried (finding 9); open.
+- X129 (presence margin vs a capture-aware baseline): tried (finding 5): the block-second margin falls to +0.024.
+- X130 (A/B schedule): step 1 tried (finding 2) and the economics of step 3 (finding 20); the arm-aware relabel, fill fractions per arm
+  and the exam-risk check are open.
+- X131 (early-segment ms model) and X137 (ms nowcast): tried (findings 4 and 10): nfms14 not adopted, mix14 adopted (+0.009).
+- X132 (true size decision with original sizes): open (not run).
+- X133 (maker-role remainder process): open (not run).
+- X134 = X138 (random-thinning ceiling for XM): tried (finding 3): oracle 0.39, redraw ceiling 0.43 < 0.47.
+- X136 (strong form of X126): tried (findings 12, 14, 17): the reverse fit replicates, the knee-clock design explains 53% of the crowd
+  co-take, and the own-kernel increment falls from +0.037 to +0.010.
+Also closed this iteration: X111 (step 3 answered at the corrected clock, finding 7), X101 (finding 14), X98 (the bot's clock: findings 1, 6, 8,
+15), X109 (step 3: finding 17; step 4 not run) and X119 (finding 19). X113 stays open for its step 5 (the decision-level
+replica on the archive book; mix14 is its first, aggregate form).
+
+## Next (iteration 15)
+
+1. Condition 2 at the decision clock (the honest presence route): pre-register the knee-clock hazard as a presence metric with a
+   fill-covering unit (filled decisions cover 77.9% of fills and 86.3% of |PnL| (finding 16); add the fully lost races through
+   their book insertion in the capture price_change events), so that the scope condition (>= 80% of fills) holds;
+   then the examiner-style baseline (same model class, Polymarket-only, capture prints) and the 2-h CI. The block-second unit
+   fails against a capture-aware baseline (+0.024).
+2. Condition 5: mix14 is +0.009; the decision-level replica (X113 step 5) with the hazard as P(take), the side model as side and
+   the replica's own sent position for size (own-state size feedback), executed under the tracker's strict-fill rule; and the
+   arm-aware size (X130 step 2: B windows carry the larger base size in phases, which a public rule can know from the window index).
+3. X130 steps 2-5 (arm-aware relabel of two13 / ls13 / side13; size and dispatch natural experiments; mod-4 terms in the size and
+   dispatch models; the exam-risk simulation for condition 7's halves), X132 (L2 visible depth), X133 (maker remainder replay on
+   the archive book), X128 steps 1 / 4, X127 step 3 (per-trader knees).
+4. On 11-01 06-12 and later development blocks: the live recorder keeps coalesced spot quotes only, so the knee-clock models cannot
+   be checked live; add a full-rate Binance spot bookTicker recorder (tools/live.py Writer, hard stop, < 100 MB) before the next
+   development block, and score dc_exam14 / dc_hazard14 on it out of time.
+5. Still open from earlier: X5, X7, X9, X18, X26, X33, X36, X37, X44, X51, X53, X57, X66, X70, X72, X76, X87, X88, X90, X93, X99, X100, X104, X105, X107, X113, X114, X115, X122, X123, X124, X127, X128, X130, X132, X133.
+
+Recorders at the end of iteration 14: the shared recorder runs (live.py status: current block sealed, wallet feed not stopped); no
+recorder was started this iteration. No polyrea bug found. Cache: nothing large was added to .cache/re/btc5m-bot (the iteration-14
+frames live in the session scratchpad it14/, ~150 MB); new small files in code/ (models model_it14_*.txt) and results/.
+
+Status after iteration 14: target not reached. On VALIDATE (10-20..22 where the capture exists):
+- condition 2 (presence): FAILS against my stronger, capture-aware baseline at the block clock (0.870 vs 0.846, +0.024); at the
+  decision clock the take hazard is 0.889 vs 0.759 (+0.129) but it covers taker first legs only and was not pre-registered;
+- condition 3 (side): MET at the decision clock (0.837 per taker order, pre-registered; XM 0.813, halves 0.847 / 0.786);
+- condition 4 (price): met (0.951, trivial touch anchor);
+- condition 5 (PnL): NOT met (0.507 / 0.467 with the adopted mix14 target);
+- condition 7: NOT met for XM's PnL (a measured random-thinning ceiling of ~0.43 < 0.47).
+Iteration 14 ended about 05:02 UTC 11-01 (about 70 minutes of work).

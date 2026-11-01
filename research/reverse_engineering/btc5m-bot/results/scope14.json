@@ -1,0 +1,12 @@
+{
+ "fills": 235525,
+ "share_fills_role_T": 0.6262,
+ "share_fills_in_orders_with_a_taker_fill": 0.7785,
+ "share_absPnL_in_orders_with_a_taker_fill": 0.8628,
+ "maker_fills_of_partially_won_orders": 0.4073,
+ "by_wallet": {
+  "DS": 0.7984,
+  "GF": 0.758,
+  "XM": 0.6874
+ }
+}

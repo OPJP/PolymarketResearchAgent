@@ -1,4 +1,29 @@
-# btc5m-bot: frozen rule (iteration 13; presence / side / price unchanged since iteration 8; the PnL rule is the iteration-12 exposure tracker)
+# btc5m-bot: frozen rule (iteration 14; side = decision clock on Binance's own clock, dc_exam14; presence / price unchanged since iteration 8; the PnL rule is the exposure tracker with the mix14 target, pre-registration 7)
+
+Iteration 14 in one paragraph. The decision clock was wrong by ~50-80 ms, and fixing it changes the side and the selection
+accounts. Both panels found that pre-registrations 3-4 (decision a = m - 180 ms on the collector's receive clock) cut off the
+last 50-60 ms of the bot's information. Pre-registration 5 fixed the anchor from physics (150-ms taker delay + 105-ms
+Binance-to-London + 5 ms = 260 ms before the match, on Binance's exchange clock), refitted the spot-only exam route on 10-17..19
+and scored it once on 10-20..22: **83.7% per taker order (DS 83.1, GF 85.5, XM 81.3%), 82.4% per decision**, against 74.2% for
+the old anchor on the same orders, 56.8% for a Polymarket-only model and 53.9% for the own-inventory rule. The placebo anchors
+(m -/+ 3 s) give 50%. On the fit days the information arrives in a 60-ms band ending ~230 ms before the match (+15.5 points from
+c = 320 to 260 ms, +1.2 from 260 to 200). Crowd orders that do not co-arrive with the operator show no such band. The input is the
+Binance SPOT top of book, mostly sub-tick queue-imbalance moves; no other venue adds information after its knee. This model is
+now the exam route `side_decision_clock` (code/dc_exam14.py) and `target_metrics.side_accuracy`. On the same clock the TAKE is
+largely decoded: a 50-ms decision hazard reaches AUC 0.889 against 0.759 for Polymarket activity (VALIDATE-only, taker first
+legs, reported as `presence_decision_clock`, code/dc_hazard14.py). Two results go the other way. (1) The block-second presence
+margin does not survive a CAPTURE-AWARE market baseline: others' server-ms prints 1-3.5 s before the block second lift the
+baseline to 0.846 against the frozen model's 0.870 (+0.024 < 0.05), so condition 2 now FAILS against my stronger baseline.
+(2) Neither a millisecond net-flow nowcast (pre-registration 6) nor the hazard nowcast lifts condition 5. A decision-hazard nowcast (pre-registration 7) gives a window-net r of 0.5125 for the mix and a tracker of 0.5065 / 0.4674 against the frozen target's 0.4973 / 0.4607 on 10-20..22 (adopted).
+The size is scheduled configuration: window-index A/B arms (arm B = (start/300) mod 4 in {1, 2}) with a larger base size in B
+windows during size phases, and one dispatch phase (10-21 16 -> 10-22 13) that moves DS / GF shares. Condition 7 for XM is a
+random-thinning ceiling: with the operator's TRUE decisions and the best public allocation model, XM's PnL r is at most 0.39-0.43,
+below the 0.47 required. Further checks this iteration: the knee-clock design explains 53% of the fast crowd co-takes in the same 50-ms band (iteration
+12: 14-21%) and leaves the own-decision kernel only +0.010 AUC (it was +0.037), so the shared input and most of the 30-60-s
+"operator state" were the full-rate Binance spot book on the right clock; the hazard replicates in the reverse split (0.925 vs
+0.781); Deribit and Coinbase move after the order has arrived (lagging copies, no faster input); and the ORIGINAL order size is
+not a response to the knee-clock move (AUC ~0.60 within wallet), so size stays configuration plus own state.
+
 
 Iteration 13 in one paragraph (nothing in the scored rule or target_metrics changed and no candidate was adopted; `evaluate()`
 gains one reported component, `side_decision_clock`, described below). The inventory path is two
@@ -145,6 +170,10 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
 2. **Selection - VALIDATE-only.** Every BTC 5-minute Up/Down window (94-99% traded), nothing else; inside a window only
    prices in the ladder range (~0.12-0.88). Whole-cluster outages (40 min to 5 h) are bot-side.
 3. **Timing / trigger - VALIDATE-only (live development blocks).** The decision is the SUBMISSION of a pre-signed order
+   Iteration 14 (VALIDATE, decision clock on exchange time): the bot reads the Binance spot book ~80-110 ms after the stamp and its order arrives 150 ms
+   before the match; a 50-ms decision hazard on that clock reaches AUC 0.889 vs 0.759 for Polymarket activity (DS 0.881, GF 0.903, XM 0.919), top inputs the
+   100 / 250-ms spot microprice return toward o and |p - 0.5|; only ~8% of decisions follow a price-level tick (placebo 1.2%); followers ~200 ms later are
+   re-decisions on fresher spot. Older text below:
    ~250-350 ms before its MATCH after a microprice tick (size-weighted touch) of the Binance USD-M BTC/ETH perps (earliest,
    sharpest), OKX and Bybit toward the outcome. Of those 250-350 ms, 150 ms are Polymarket's taker delay (the order is held
    before matching; iteration 10, measured with a no-delay control) and ~30-40 ms signing / posting, so the bot itself
@@ -157,6 +186,10 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    (block clock) the presence score on block seconds is `model_it5_blk_full`; flag `p >= 0.30` (fixed in iteration 1). The
    bot does not act on one identifiable message (the latest lag-shifted tick does worse than the vote).
 4. **Side - VALIDATE-only.** Per decision (live): the sign of the microprice vote over [m - 600, m - 100) ms. Ten-series
+   Iteration 14 (pre-registration 5, the scored side): sign of the Binance spot microprice / mid / last-trade returns over [X - K, X), X = m - 260 ms on
+   exchange time (book: receive - 131), K = 100..2000 ms, LightGBM model_it14_dcside_spot.txt fitted on 10-17..19: 83.7% per taker order on 10-20..22
+   (DS 83.1, GF 85.5, XM 81.3%; per wallet and 36-h half DS 84.3 / 81.8, GF 87.7 / 83.9, XM 84.7 / 78.6%), 82.4% per decision, XM one-sided windows 84.3%
+   (halves 91.1 / 76.8%). Exam route dc_exam14 reads the capture's day files. Older text below:
    vote by interval 86.4% / 83.0% / 75.3% / 85.2% (fourth interval 16:33-17:55: 1 agreeing series 69.9%, 2: 79.7%, 3-4:
    89.5%, >= 5: 96.8%); the frozen exam-feed six-series vote 80.4% on 61.5% (16:04-16:25) and 85.4% on 68.0% (16:33-17:55;
    placebo 54%). Full coverage (pre-registered 10-31 18:16 UTC, chosen on 14:55-17:55; first clean test 11-01 06-12): vote
@@ -183,6 +216,9 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    moving pairs), and 42% of those pairs cost more than 1: the legs answer successive opposite ticks; they are not set
    arbitrage at a static value.
 6. **Size - VALIDATE-only (own state).** A fixed (small, large) menu per day, the same at every price: 60/100 (10-09..13),
+   Iteration 14: the menu alternates by WINDOW INDEX inside phases (arm B = (start/300) mod 4 in {1, 2} carries the larger base size: 33.9 vs 24.6 filled
+   shares per taker order in 37 phase hours; 76-84% of the >= 45-share shares on 10-16..19 are B-arm windows): scheduled configuration, not an input
+   response. Older text below:
    30/50 (10-15..18), 30/100 (10-19..22 and 10-31). Which size is used follows the OPERATOR'S OWN BOOK in the window: the
    large size is used when the three wallets together are flat or long the bought outcome (GF 59-77%, XM 59-83% of orders)
    and rarely when the order would reduce an opposite position (net < -200 shares: GF 12%, XM 15%, DS 10%). Within-wallet
@@ -199,6 +235,9 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
    decision that won vs lost its race the next same-outcome decision is large 19% vs 27%; the size reads the intended
    position or a regime (hypothesis, 111 large decisions).
 7. **Exit / inventory - VALIDATE-only.** 59% of taker orders leave a remainder; it rests as a GTC bid at the old ask for
+   Iteration 14: the executable PnL rule is the exposure tracker with the target mix14 = 0.5 x the frozen avg net flow + 0.5 x 5.935 x h(s), h(s) = the
+   sum over the 50-ms bins ending in [s - 2, s - 1) s of P^(take Up) - P^(take Down) from the frozen decision hazard (dc_hazard14.hazard_imbalance);
+   10-20..22: 0.5065 / 0.4674 vs 0.4973 / 0.4607 for avg. A millisecond net-flow nowcast (nfms14) was not adopted. Older text below:
    ~0.1-1 s and is cancelled (iteration 10, at server ms: never-filled remainders found in the book in 88%, life p25 94 ms,
    median 240 ms, p75 0.8 s, p90 3 s; the block-resolution "a few seconds" was an upper bound). Holds every position to resolution: no sells, merges, splits or conversions; REDEEM once per
    window; TAKER_REBATE once a day = exactly 0.5 x the previous day's taker fees; MAKER_REBATE once a day. 87.4% of the
@@ -297,6 +336,10 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
 | PnL test-retest ceiling of the TRUE rule, sizes FIXED (race lottery, r = 1 - (1 - q) kappa; iteration 9) | pooled 0.74 [0.71, 0.76] at q = 0.61, 0.80 at q = 0.70; DS 0.62, GF 0.73, XM 0.59 (q = 0.61); simulated 0.70 / 0.77 | upper bound |
 | the same with the own-net SIZE FEEDBACK re-simulated (iteration 10, lean10) | pooled 0.47-0.50 (q = 0.61), 0.55-0.58 (q = 0.70); per wallet 0.41-0.62; Spearman 0.46-0.59 | at the 0.5 bar even for the true rule |
 | per-window PnL vs large-only PnL / netLarge x outcome; sign(netLarge) = outcome | 0.77 (DS 0.53, GF 0.90, XM 0.81) / 0.75; 48.8% | the PnL is the lean, a coin |
+| ITERATION 14: presence on block seconds vs a CAPTURE-AWARE market baseline (others' server-ms prints on o / other outcome, 500-ms bins over [s - 3.5, s - 1); fit 10-17..19, scored 10-20..22) | frozen full 0.8701 vs 0.8464 -> gain **+0.024**, CI [0.017, 0.031]; GF 0.863 / 0.842, XM 0.883 / 0.882, DS 0.851 / 0.828 | gain >= 0.05 (**NOT met**) |
+| ITERATION 14: decision-clock take hazard (50-ms bins, label = first leg at m0 - [205, 255) ms; VALIDATE-only, taker first legs) | 0.8885 vs Polymarket-only 0.7591 (+0.129, CI [0.122, 0.137]; vs a stronger Polymarket baseline 0.7623: +0.126; reverse split 0.925 vs 0.781); DS 0.881 / 0.749, GF 0.903 / 0.773, XM 0.919 / 0.841 | (not the pre-registered unit) |
+| ITERATION 14: PnL, exposure tracker trk_a with target mix14 = 0.5 x avg + 0.5 x 5.935 x decision-hazard imbalance (pre-registration 7, adopted; 864 windows of 10-20..22) | **0.5065 / 0.4674** (Pearson / Spearman; CI [0.437, 0.5713]; halves [0.4949, 0.5151]; GF [0.4013, 0.3819], DS [0.4665, 0.4477], XM [-0.0009, 0.0228]) against the frozen avg target 0.4973 / 0.4607 | >= 0.5 both (**NOT met**: Spearman; XM fails condition 7) |
+| ITERATION 14: side at the decision clock (pre-registration 5; target_metrics.side_accuracy) | **0.8369** per taker order (DS 0.831, GF 0.855, XM 0.813), 0.8236 per decision; market-only 0.568, own-inventory 0.539, old anchor 0.742 | >= 0.80 (met on VALIDATE 10-20..22) |
 | presence over ALL seconds (unit pre-registered in iteration 1) | 0.9132 vs pure 0.8781 (+0.035) | |
 | selection (size classes + cell score) | AUC 0.869, recall 68.6% at lift 4.63 (pure baseline 0.846) | met; gain 0.023 < 0.05 |
 | side, pooled one-sided seconds (n = 90,170) | 76.7% (taker 79.4%); market-only 63.2%; own-inventory-only (short leg) 51.0%; side model + own state 75.5% | >= 80% where it applies |
@@ -342,6 +385,10 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 
 ## Why it works
 
+- **Iteration 14, the edge in one line:** the bot is a latency arbitrageur of the Binance SPOT queue imbalance against Polymarket's quotes. It sits next
+  to Polymarket's engine, sees Binance ~80-110 ms after the stamp, and lifts the outcome the spot book is moving toward before the makers requote; the
+  makers who lose are those whose quotes lag the spot book by more than the 150-ms taker delay plus its route. Sizes are an operator experiment (A/B arms).
+
 - **It buys complete sets below 1 by sniping stale quotes on both sides, and the fee rebate pays for the fees.** In the
   VALIDATE week the cluster bought both outcomes of almost every window; 87.4% of its shares ended paired at a pair cost of
   0.9786, so each pair locks ~2.1 c. Gross trading PnL before fees was $65,960: $48,923 from locked sets and $17,037 from
@@ -378,6 +425,10 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
 
 ## Can a normal user deploy it now
 
+- **Iteration 14:** the decision needs a host near Polymarket's engine (London) with a direct Binance spot feed arriving within ~100 ms of the stamp, and
+  the information is a 60-ms band: a home connection or a slower relay (the public collector receives Binance ~131 ms after the stamp) loses most of it
+  (74% side at an anchor 50 ms too early). A copy executed >= 2 s later earns about -3% before rebates (exposure tracker).
+
 - Location (iteration 11): the bot's limits match the Polymarket ask ~30 ms before its order arrives, while its reaction to
   Binance comes ~100-150 ms after the Binance stamp: it runs next to Polymarket's matching engine and sees Asian venues late,
   like any European host.
@@ -401,6 +452,11 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   speed against stale makers inside Polymarket's 150-ms taker delay, which a home connection does not have.
 
 ## Known limitations
+
+- **Iteration 14:** the decision-clock components (side, take hazard, the mix14 PnL target) read a public third-party capture
+  (Hugging Face Fahri-5/updown-5m-polymarket-raw, revision pinned); if its exam-day files are missing the routes report errors and
+  target_metrics fall back to the block-clock side and the avg tracker. The capture-aware presence baseline (pres14.py) is offline only.
+  The hazard labels taker first legs (77.9% of fills with their remainders, 86.3% of |PnL|).
 
 - Iteration 13, condition 7 is a MEASURED limit for XM, not a missing input (results/two13.json, share13.json). Per-wallet PnL r against PERFECT
   oracles of the pooled operator streams: pooled net x outcome GF 0.695, DS 0.630, XM 0.304 (halves 0.32 / 0.29); pooled large lean GF 0.753,
