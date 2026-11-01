@@ -1,0 +1,38 @@
+{
+ "BUILD": {
+  "n": 113,
+  "follow": {
+   "pearson": -0.141,
+   "spearman": -0.232,
+   "rule_pnl": 2820.0
+  },
+  "ladder": {
+   "pearson": -0.057,
+   "spearman": -0.034,
+   "rule_pnl": -13603.0
+  },
+  "both": {
+   "pearson": -0.144,
+   "spearman": -0.176,
+   "rule_pnl": -10783.0
+  }
+ },
+ "VALIDATE": {
+  "n": 107,
+  "follow": {
+   "pearson": -0.106,
+   "spearman": -0.084,
+   "rule_pnl": -1648.0
+  },
+  "ladder": {
+   "pearson": -0.108,
+   "spearman": -0.061,
+   "rule_pnl": -13244.0
+  },
+  "both": {
+   "pearson": -0.17,
+   "spearman": -0.104,
+   "rule_pnl": -14892.0
+  }
+ }
+}

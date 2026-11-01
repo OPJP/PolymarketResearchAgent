@@ -1,0 +1,361 @@
+{
+ "period": [
+  1793461200,
+  1793464800
+ ],
+ "windows": 12,
+ "bins": 720,
+ "cluster_maker_fills": 974,
+ "cluster_taker_fills": 182,
+ "tape_rows": 19471,
+ "tape_rows_removed_cluster_tx": 1147,
+ "presence_r5": {
+  "cl_coverage_bins": 0.9861111111111112,
+  "windows_with_cl": 7,
+  "auc_r5_with_r3_fallback": 0.6672365194207854,
+  "auc_r5_on_cl_windows": 0.6339684644432274,
+  "auc_r3_on_cl_windows": 0.6276267619843764,
+  "auc_activity_on_cl_windows": 0.5860309590383673,
+  "side_r5_on_cl_windows": {
+   "n": 77,
+   "acc": 0.6363636363636364,
+   "fav_last_print": 0.4675324675324675,
+   "binance_fav": 0.5064935064935064,
+   "p_vs_fav": 0.01754101668484509
+  },
+  "side_r3_on_cl_windows": {
+   "n": 77,
+   "acc": 0.5974025974025974,
+   "fav_last_print": 0.4675324675324675,
+   "binance_fav": 0.5064935064935064,
+   "p_vs_fav": 0.06072474247775972
+  }
+ },
+ "presence": {
+  "auc": 0.6592280530370099,
+  "auc_activity_baseline": 0.6390084562078334,
+  "auc_with_own_inventory": 0.7113899319229477,
+  "auc_within_active_windows": 0.6592280530370099,
+  "pos_rate": 0.25416666666666665,
+  "active_window_share": 1.0,
+  "gain_over_baseline": 0.02021959682917651
+ },
+ "side": {
+  "n": 125,
+  "acc": 0.616,
+  "fav_last_print": 0.488,
+  "binance_fav": 0.528,
+  "p_vs_fav": 0.016419568782134242
+ },
+ "side_activity_baseline": 0.52,
+ "price": {
+  "n_fills": 974,
+  "exact": 0.32238193018480493,
+  "within_0.01": 0.6252566735112937
+ },
+ "price_match_clock": {
+  "x_records": 19090,
+  "fills": 974,
+  "coverage_in_x": 0.9866529774127311,
+  "n_match_clock": 961,
+  "within_0.01": 0.8491155046826223,
+  "exact": 0.5431841831425598,
+  "combined_within_0.01": 0.837782340862423,
+  "combined_exact": 0.5359342915811088,
+  "combined_n": 974,
+  "block_clock_same_fills_within_0.01": 0.6337148803329865,
+  "anchor_last_print_within_0.01": 0.8303850156087409,
+  "per_wallet": {
+   "bosona": {
+    "within_0.01": 0.8617021276595744,
+    "exact": 0.5460992907801419,
+    "n": 282,
+    "combined_within_0.01": 0.8526315789473684
+   },
+   "almach": {
+    "within_0.01": 0.8571428571428571,
+    "exact": 0.6117216117216118,
+    "n": 273,
+    "combined_within_0.01": 0.8447653429602888
+   },
+   "momoney": {
+    "within_0.01": 0.8349753694581281,
+    "exact": 0.49507389162561577,
+    "n": 406,
+    "combined_within_0.01": 0.8228155339805825
+   }
+  }
+ },
+ "per_wallet": {
+  "bosona": {
+   "fills": 285,
+   "presence_auc": 0.6797220935618342,
+   "presence_auc_activity_baseline": 0.6470773506252896,
+   "side": 0.5797101449275363,
+   "presence_auc_r5_on_cl_windows": 0.636712962962963,
+   "presence_auc_r3_on_cl_windows": 0.6221296296296296,
+   "price_within_0.01": 0.5789473684210527,
+   "price_match_clock_within_0.01": 0.8617021276595744,
+   "price_combined_within_0.01": 0.8526315789473684,
+   "pnl_pearson": -0.015340731639357598,
+   "pnl_spearman": 0.1,
+   "pnl_windows": 11,
+   "btc15m": {
+    "fills": 62,
+    "presence_auc": 0.7034076227390181,
+    "presence_auc_activity_baseline": 0.6736918604651162,
+    "price_within_0.01": 0.5645161290322581
+   }
+  },
+  "almach": {
+   "fills": 277,
+   "presence_auc": 0.6252245986205298,
+   "presence_auc_activity_baseline": 0.6512104175119303,
+   "side": 0.6065573770491803,
+   "presence_auc_r5_on_cl_windows": 0.6204535953177257,
+   "presence_auc_r3_on_cl_windows": 0.6043582775919732,
+   "price_within_0.01": 0.6750902527075813,
+   "price_match_clock_within_0.01": 0.8571428571428571,
+   "price_combined_within_0.01": 0.8447653429602888,
+   "pnl_pearson": 0.0771418906269333,
+   "pnl_spearman": -0.04895104895104895,
+   "pnl_windows": 12,
+   "btc15m": {
+    "fills": 65,
+    "presence_auc": 0.7864771676057523,
+    "presence_auc_activity_baseline": 0.7648641829955429,
+    "price_within_0.01": 0.6153846153846154
+   }
+  },
+  "momoney": {
+   "fills": 412,
+   "presence_auc": 0.6459775454897406,
+   "presence_auc_activity_baseline": 0.629810298102981,
+   "side": 0.5604395604395604,
+   "presence_auc_r5_on_cl_windows": 0.6249357986646122,
+   "presence_auc_r3_on_cl_windows": 0.6209981167608287,
+   "price_within_0.01": 0.6237864077669902,
+   "price_match_clock_within_0.01": 0.8349753694581281,
+   "price_combined_within_0.01": 0.8228155339805825,
+   "pnl_pearson": 0.02581812658927416,
+   "pnl_spearman": 0.3706293706293706,
+   "pnl_windows": 12,
+   "btc15m": {
+    "fills": 47,
+    "presence_auc": 0.6798876798876798,
+    "presence_auc_activity_baseline": 0.6620744120744121,
+    "price_within_0.01": 0.5319148936170213
+   }
+  }
+ },
+ "pnl": {
+  "windows": 12,
+  "pearson": 0.030454161567702424,
+  "spearman": 0.13286713286713286,
+  "wallet_maker_return_on_usd": 0.04778404717899707
+ },
+ "selection": {
+  "all": {
+   "auc": 0.6460238396605261,
+   "auc_strat_global": 0.6214139344262295,
+   "auc_strat_window": 0.6271141649048626,
+   "recall_at_theta": 0.46010362694300516,
+   "lift_at_theta": 1.702496699203344,
+   "rotation_null": {
+    "global_mean": 0.6157786885245902,
+    "global_max": 0.6588114754098361,
+    "global_sd": 0.06085755083982584,
+    "window_mean": 0.611588266384778,
+    "window_max": 0.6170718816067653,
+    "window_sd": 0.007755003017770011,
+    "n_perm": 2
+   },
+   "z_vs_null_global": 0.09259731658395237,
+   "z_vs_null_window": 2.002049320226972,
+   "p_global": 0.6666666666666666,
+   "p_window": 0.3333333333333333,
+   "perm_p": 0.6666666666666666,
+   "criterion": {
+    "auc_ge_0.80": false,
+    "recall_ge_0.50": false,
+    "lift_ge_3": false,
+    "p_lt_0.01": false
+   }
+  },
+  "activity": {
+   "auc": 0.6286136633368847,
+   "auc_strat_global": 0.6352459016393442,
+   "auc_strat_window": 0.6271141649048626,
+   "recall_at_theta": 0.30362694300518134,
+   "lift_at_theta": 1.9126482420881752
+  },
+  "prints_sampled": 2672,
+  "wallet_prints": 965
+ },
+ "note": "selection population = in-window taker prints except the cluster's own taker prints; label = print's transaction holds a cluster maker fill; negatives subsampled 10% (weights 10), AUCs unbiased; rotation null: each day's windows take the spot path of the window k places later (bin-level spot columns and print fair recomputed)",
+ "btc15m": {
+  "windows": 3,
+  "bins": 540,
+  "cluster_maker_fills": 174,
+  "cluster_taker_fills": 16,
+  "presence": {
+   "auc": 0.7191955641612391,
+   "auc_activity_baseline": 0.7074458722055976,
+   "auc_within_active_windows": 0.7191955641612391,
+   "pos_rate": 0.08518518518518518,
+   "active_window_share": 1.0,
+   "gain_over_baseline": 0.011749691955641461
+  },
+  "side": {
+   "n": 42,
+   "acc": 0.7142857142857143,
+   "fav_last_print": 0.5952380952380952,
+   "binance_fav": 0.6428571428571429,
+   "p_vs_fav": 0.1796417236328125
+  },
+  "side_activity_baseline": 0.6428571428571429,
+  "price": {
+   "n_fills": 174,
+   "within_0.01": 0.5747126436781609
+  },
+  "pnl": {
+   "windows": 3,
+   "pearson": 0.9957485316518144,
+   "spearman": 0.5
+  },
+  "per_wallet": {
+   "bosona": {
+    "fills": 62,
+    "presence_auc": 0.7034076227390181,
+    "presence_auc_activity_baseline": 0.6736918604651162,
+    "price_within_0.01": 0.5645161290322581
+   },
+   "almach": {
+    "fills": 65,
+    "presence_auc": 0.7864771676057523,
+    "presence_auc_activity_baseline": 0.7648641829955429,
+    "price_within_0.01": 0.6153846153846154
+   },
+   "momoney": {
+    "fills": 47,
+    "presence_auc": 0.6798876798876798,
+    "presence_auc_activity_baseline": 0.6620744120744121,
+    "price_within_0.01": 0.5319148936170213
+   }
+  }
+ },
+ "union_btc5m_15m": {
+  "presence_auc": 0.7209687461615678,
+  "presence_auc_activity_baseline": 0.7053990063490315,
+  "bins": 1260,
+  "pos": 229,
+  "gain_over_baseline": 0.015569739812536287,
+  "side": {
+   "n": 167,
+   "acc": 0.6407185628742516,
+   "fav_last_print": 0.5149700598802395,
+   "binance_fav": 0.5568862275449101,
+   "p_vs_fav": 0.007716148726850634
+  },
+  "price_within_0.01_block_clock": 0.617595818815331
+ },
+ "scope": {
+  "buy_trades": 1373,
+  "share_trades_btc5m": 0.8419519300801165,
+  "share_trades_btc5m_15m": 0.9803350327749454,
+  "share_usd_btc5m": 0.7865107175866539,
+  "share_usd_btc5m_15m": 0.9487085151290012,
+  "note": "rule universe = BTC 5m + BTC 15m; a block with BTC 5m off is scored on BTC 15m (pre-registered 2026-10-31 iteration 8); trade-count and dollar shares of all cluster BUY trades; abs-PnL share not computed here"
+ },
+ "side_posture_match_clock": {
+  "n": 1104,
+  "matched_trades": 30630,
+  "accuracy_chainlink_edge_sign": 0.8442028985507246,
+  "baseline_binance_spot_edge_sign": 0.542572463768116,
+  "baseline_cheaper_side": 0.519927536231884,
+  "baseline_always_up": 0.677536231884058,
+  "cl_coverage": 1.0,
+  "per_family": {
+   "5m": {
+    "n": 960,
+    "accuracy": 0.8385416666666666
+   },
+   "15m": {
+    "n": 144,
+    "accuracy": 0.8819444444444444
+   }
+  },
+  "per_wallet": {
+   "bosona": {
+    "n": 330,
+    "accuracy": 0.8545454545454545
+   },
+   "almach": {
+    "n": 337,
+    "accuracy": 0.8545994065281899
+   },
+   "momoney": {
+    "n": 437,
+    "accuracy": 0.8283752860411899
+   }
+  },
+  "it9_slow_sigma_v3600": {
+   "accuracy": 0.8432971014492754,
+   "per_family": {
+    "5m": 0.8416666666666667,
+    "15m": 0.8541666666666666
+   },
+   "per_wallet": {
+    "bosona": 0.8454545454545455,
+    "almach": 0.8753709198813057,
+    "momoney": 0.816933638443936
+   }
+  },
+  "it9_by_regime": {
+   "burst_n": 0,
+   "burst_frozen": null,
+   "burst_slow": null,
+   "calm_frozen": 0.8442028985507246
+  },
+  "it9_halves": {
+   "first": {
+    "n": 668,
+    "frozen": 0.8667664670658682,
+    "slow": 0.8652694610778443
+   },
+   "second": {
+    "n": 436,
+    "frozen": 0.8096330275229358,
+    "slow": 0.8096330275229358
+   }
+  },
+  "it9_taker_events": {
+   "n": 633,
+   "frozen": 0.8309636650868878,
+   "slow": 0.8309636650868878,
+   "own_history_prev_event_baseline": 0.843042071197411,
+   "n_with_prev": 618
+  },
+  "it10_by_order_class": {
+   "500": {
+    "n": 911,
+    "posture": 0.8551042810098792,
+    "region_D_n": 267,
+    "region_D_bought_cl_favourite": 0.8876404494382022
+   },
+   "62_250": {
+    "n": 28,
+    "posture": 0.42857142857142855,
+    "region_D_n": 12,
+    "region_D_bought_cl_favourite": 0.16666666666666666
+   },
+   "other": {
+    "n": 165,
+    "posture": 0.8545454545454545,
+    "region_D_n": 39,
+    "region_D_bought_cl_favourite": 0.9230769230769231
+   }
+  },
+  "it10_tx_fetched": 1086
+ }
+}

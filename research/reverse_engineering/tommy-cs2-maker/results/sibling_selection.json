@@ -1,0 +1,32 @@
+{
+ "events": 718,
+ "grid_events": 337,
+ "sibling_7d67": {
+  "traded": 115,
+  "traded_grid": 0,
+  "traded_nongrid": 115,
+  "auc_s_lg": 0.9418,
+  "auc_s_lg_nongrid_only": 0.8682,
+  "auc_s_lg_nongrid_seen_leagues": 0.9298,
+  "nongrid_events": 381,
+  "nongrid_seen_league_events": 212,
+  "traded_rate_nongrid_seen_vs_unseen": [
+   0.245,
+   0.373
+  ]
+ },
+ "wallet": {
+  "traded": 244,
+  "traded_grid": 232,
+  "traded_nongrid": 12,
+  "auc_s_lg": 0.134,
+  "auc_s_lg_nongrid_only": 0.4645,
+  "auc_s_lg_nongrid_seen_leagues": 0.5271,
+  "nongrid_events": 381,
+  "nongrid_seen_league_events": 212,
+  "traded_rate_nongrid_seen_vs_unseen": [
+   0.057,
+   0.0
+  ]
+ }
+}

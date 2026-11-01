@@ -1,0 +1,41 @@
+{
+ "bo3_slugs": 544,
+ "maps": 248,
+ "maps_with_orders": 231,
+ "means": {
+  "rounds": 21.84,
+  "kills": 144.92,
+  "plants": 11.9,
+  "orders": 24.12,
+  "moments": 23.42
+ },
+ "offset_only": {
+  "kpr_c": {
+   "coef": -0.272,
+   "se": 0.124,
+   "p": 0.0278
+  },
+  "ppr_c": {
+   "coef": -0.808,
+   "se": 0.37,
+   "p": 0.0291
+  }
+ },
+ "rounds_free": {
+  "l_rounds": {
+   "coef": 1.576,
+   "se": 0.225,
+   "p": 0.0
+  },
+  "kpr_c": {
+   "coef": -0.319,
+   "se": 0.122,
+   "p": 0.009
+  },
+  "ppr_c": {
+   "coef": -0.734,
+   "se": 0.363,
+   "p": 0.0432
+  }
+ }
+}

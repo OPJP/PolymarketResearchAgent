@@ -1,0 +1,58 @@
+{
+ "rounds": 412,
+ "margin_counts": {
+  "-3": 1,
+  "-2": 1,
+  "-1": 4,
+  "0": 20,
+  "1": 70,
+  "2": 110,
+  "3": 94,
+  "4": 74,
+  "5": 38
+ },
+ "slope_dV_mid_per_kill_c": 0.65,
+ "slope_dP_mid_per_kill_c": 0.471,
+ "slope_lead_mid_per_kill_c": 0.21,
+ "slope_early_per_kill_c": 0.676,
+ "slope_P_early_per_kill_c": 0.498,
+ "by_margin_bin": {
+  "<=1": {
+   "n": 96,
+   "V_mid_c": 0.93,
+   "P_mid_c": -0.37,
+   "V_early_c": 2.84,
+   "P_early_c": -0.87
+  },
+  "2-3": {
+   "n": 204,
+   "V_mid_c": 3.27,
+   "P_mid_c": 1.66,
+   "V_early_c": 4.46,
+   "P_early_c": 1.16
+  },
+  ">=4": {
+   "n": 112,
+   "V_mid_c": 3.72,
+   "P_mid_c": 2.28,
+   "V_early_c": 5.67,
+   "P_early_c": 1.86
+  }
+ },
+ "slope_dV_mid_ci95_c": [
+  -0.009,
+  1.312
+ ],
+ "slope_dP_mid_ci95_c": [
+  -0.235,
+  1.18
+ ],
+ "slope_lead_mid_ci95_c": [
+  -0.273,
+  0.749
+ ],
+ "slope_early_ci95_c": [
+  -0.047,
+  1.477
+ ]
+}

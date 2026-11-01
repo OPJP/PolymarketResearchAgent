@@ -1,0 +1,88 @@
+{
+ "versions": {
+  "VALIDATE_taker": {
+   "n": 969,
+   "cap_1000_2000": 0.144,
+   "size_median": 469.985,
+   "fill_frac_median": 0.155,
+   "fill_frac_lt5pct": 0.297
+  },
+  "DEV_taker": {
+   "n": 73,
+   "cap_1000_2000": 0.0,
+   "size_median": 183.0,
+   "fill_frac_median": 0.242,
+   "fill_frac_lt5pct": 0.082
+  },
+  "VALIDATE_maker": {
+   "n": 13421,
+   "s100": 0.798,
+   "s10": 0.096,
+   "s11_99": 0.106,
+   "other": 0.0,
+   "whole_cent": 1.0
+  },
+  "DEV_maker": {
+   "n": 594,
+   "s100": 0.311,
+   "s10": 0.603,
+   "s11_99": 0.086,
+   "other": 0.0,
+   "whole_cent": 1.0
+  }
+ },
+ "first_subcent_maker_price_median": 0.999,
+ "historical_price_inplay_tick": {
+  "n": 13421,
+  "tick_0.01_share": 0.897,
+  "within_tick_last": 0.256,
+  "within_1c_last": 0.276,
+  "n_last": 12099,
+  "within_tick_top": 0.914,
+  "within_1c_top": 0.926,
+  "n_top": 13421,
+  "within_tick_bid": 0.396,
+  "within_1c_bid": 0.412,
+  "n_bid": 11870
+ },
+ "live_maker_price_server_clock": {
+  "n": 368,
+  "price_minus_bid_cents_m50": {
+   "-6": 0.049,
+   "-5": 0.06,
+   "-4": 0.027,
+   "-3": 0.043,
+   "-2": 0.079,
+   "-1": 0.114,
+   "0": 0.293,
+   "1": 0.147,
+   "2": 0.062,
+   "3": 0.041,
+   "4": 0.019,
+   "5": 0.008,
+   "6": 0.008
+  },
+  "at_bid_m50": 0.293,
+  "within_1c_m50": 0.554,
+  "bid_minus_0_to_4c_m50": 0.557,
+  "spread_median_m50": 1.0,
+  "price_minus_bid_cents_p300": {
+   "-6": 0.03,
+   "-5": 0.024,
+   "-4": 0.052,
+   "-3": 0.079,
+   "-2": 0.101,
+   "-1": 0.166,
+   "0": 0.462,
+   "1": 0.038,
+   "2": 0.008,
+   "3": 0.011,
+   "5": 0.003,
+   "6": 0.003
+  },
+  "at_bid_p300": 0.462,
+  "within_1c_p300": 0.666,
+  "bid_minus_0_to_4c_p300": 0.859,
+  "spread_median_p300": 1.0
+ }
+}

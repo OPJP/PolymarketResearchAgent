@@ -1,0 +1,27 @@
+{
+ "co_bursts": 107,
+ "hi_DT0": {
+  "tried": 63,
+  "hits": 0,
+  "control_tried": 39,
+  "control_hits": 0
+ },
+ "hi_DT3": {
+  "tried": 63,
+  "hits": 0,
+  "control_tried": 49,
+  "control_hits": 0
+ },
+ "lo_DT0": {
+  "tried": 63,
+  "hits": 0,
+  "control_tried": 40,
+  "control_hits": 0
+ },
+ "lo_DT3": {
+  "tried": 63,
+  "hits": 0,
+  "control_tried": 42,
+  "control_hits": 0
+ }
+}

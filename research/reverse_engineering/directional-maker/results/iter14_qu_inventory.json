@@ -1,0 +1,24 @@
+{
+ "fit": {
+  "n": 2411,
+  "flat_share": 0.26420572376607215,
+  "post_on_held": 0.5704622322435174,
+  "posture": 0.755868544600939,
+  "posture_when_flat": 0.8014059753954306,
+  "agree_share": 0.5586245772266065,
+  "acc_when_agree": 0.7790110998990918,
+  "posture_when_disagree": 0.6934865900383141,
+  "held_when_disagree": 0.3065134099616858
+ },
+ "test": {
+  "n": 3673,
+  "flat_share": 0.6722025592158998,
+  "post_on_held": 0.40863787375415284,
+  "posture": 0.7214810781377621,
+  "posture_when_flat": 0.7330903199675982,
+  "agree_share": 0.5465116279069767,
+  "acc_when_agree": 0.5972644376899696,
+  "posture_when_disagree": 0.8186813186813187,
+  "held_when_disagree": 0.1813186813186813
+ }
+}

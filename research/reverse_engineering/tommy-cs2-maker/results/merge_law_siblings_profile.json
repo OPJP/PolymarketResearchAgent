@@ -1,0 +1,30 @@
+{
+ "0xf1f2b3c6": {
+  "maker_orders": 1927,
+  "taker_orders": 0,
+  "events": 63,
+  "events_shared_with_wallet": 63,
+  "maker_size_top": {
+   "250.0": 442,
+   "50.0": 187,
+   "100.0": 109,
+   "200.0": 50,
+   "74.99": 49
+  },
+  "maker_buy_share": 1.0,
+  "whole_cent_share": 0.964,
+  "salt_over_sign_ms_max": 999999.9227790762
+ },
+ "0x52661b8e": {
+  "maker_orders": 1551,
+  "taker_orders": 0,
+  "events": 9,
+  "events_shared_with_wallet": 9,
+  "maker_size_top": {
+   "5.0": 1551
+  },
+  "maker_buy_share": 1.0,
+  "whole_cent_share": 1.0,
+  "salt_over_sign_ms_max": 0.9994080232462019
+ }
+}

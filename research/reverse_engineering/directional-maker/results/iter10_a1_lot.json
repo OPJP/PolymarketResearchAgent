@@ -1,0 +1,261 @@
+{
+ "study": {
+  "n_fills": 8256,
+  "n_with_cl": 979,
+  "share_with_cl": 0.11858042635658915,
+  "class_join_share": 1.0,
+  "SCHEDULE_ONLY_D_mid_a": {
+   "n_ok": 852,
+   "n_D": 105,
+   "share_D": 0.12323943661971831,
+   "acc_D_bought_cl_favourite": 0.6666666666666666,
+   "acc_A_bought_common_favourite": 0.5662650602409639
+  },
+  "NONSCHEDULE_D_mid_a": {
+   "n_ok": 116,
+   "n_D": 3,
+   "share_D": 0.02586206896551724,
+   "acc_D_bought_cl_favourite": 0.3333333333333333,
+   "acc_A_bought_common_favourite": 0.30973451327433627
+  },
+  "SCHEDULE_ONLY_posture_frozen": {
+   "n": 863,
+   "acc": 0.5677867902665121
+  },
+  "SCHEDULE_fresh_print_D_mid_a": {
+   "n_ok": 834,
+   "n_D": 104,
+   "share_D": 0.12470023980815348,
+   "acc_D_bought_cl_favourite": 0.6634615384615384,
+   "acc_A_bought_common_favourite": 0.5671232876712329
+  },
+  "D_mid_a": {
+   "n_ok": 968,
+   "n_D": 108,
+   "share_D": 0.1115702479338843,
+   "acc_D_bought_cl_favourite": 0.6574074074074074,
+   "acc_A_bought_common_favourite": 0.5325581395348837
+  },
+  "D_mid_fill_diag": {
+   "n_ok": 878,
+   "n_D": 101,
+   "share_D": 0.11503416856492027,
+   "acc_D_bought_cl_favourite": 0.45544554455445546,
+   "acc_A_bought_common_favourite": 0.5727155727155727
+  },
+  "posture_frozen_cl_mid_a": {
+   "n": 979,
+   "acc": 0.5669050051072523
+  },
+  "D_by_gap": {
+   "0-0.05": {
+    "n": 23,
+    "acc": 0.6956521739130435
+   },
+   "0.05-0.1": {
+    "n": 16,
+    "acc": 0.75
+   },
+   "0.1-0.2": {
+    "n": 37,
+    "acc": 0.5675675675675675
+   },
+   "0.2-1.01": {
+    "n": 38,
+    "acc": 0.7105263157894737
+   }
+  },
+  "all_by_gap_frozen_posture": {
+   "0-0.03": {
+    "n": 250,
+    "acc": 0.54
+   },
+   "0.03-0.1": {
+    "n": 403,
+    "acc": 0.6104218362282878
+   },
+   "0.1-0.2": {
+    "n": 203,
+    "acc": 0.5812807881773399
+   },
+   "0.2-1.01": {
+    "n": 123,
+    "acc": 0.45528455284552843
+   }
+  },
+  "in_CL_D_binance_agrees_with_CL": 0.7105263157894737,
+  "in_CL_D_bought_binance_favourite": 0.5,
+  "in_CL_D_when_BN_agrees_with_CL_acc": [
+   81,
+   0.6172839506172839
+  ],
+  "in_CL_D_when_BN_sides_with_market_acc_CL": [
+   33,
+   0.7878787878787878
+  ],
+  "D_by_gap_bn": {
+   "0-0.05": {
+    "n": 23,
+    "bn_sides_with_market": 0.43478260869565216,
+    "acc_cl": 0.6956521739130435,
+    "acc_cl_when_bn_agrees": 0.6153846153846154
+   },
+   "0.05-0.1": {
+    "n": 16,
+    "bn_sides_with_market": 0.125,
+    "acc_cl": 0.75,
+    "acc_cl_when_bn_agrees": 0.7857142857142857
+   },
+   "0.1-1.01": {
+    "n": 75,
+    "bn_sides_with_market": 0.28,
+    "acc_cl": 0.64,
+    "acc_cl_when_bn_agrees": 0.5740740740740741
+   }
+  },
+  "per_day_D_mid_a_n": {
+   "1792713600": 57,
+   "1792800000": 4,
+   "1792886400": 24,
+   "1792972800": 23
+  },
+  "per_day_D_mid_a": {
+   "1792713600": 0.7192982456140351,
+   "1792800000": 0.0,
+   "1792886400": 0.6666666666666666,
+   "1792972800": 0.6086956521739131
+  },
+  "per_wallet_D_mid_a": {
+   "momoney": 0.6451612903225806,
+   "almach": 0.6046511627906976,
+   "bosona": 0.7352941176470589
+  }
+ },
+ "validate": {
+  "n_fills": 27988,
+  "n_with_cl": 3663,
+  "share_with_cl": 0.13087751893668714,
+  "class_join_share": 0.9994539994539995,
+  "SCHEDULE_ONLY_D_mid_a": {
+   "n_ok": 2951,
+   "n_D": 142,
+   "share_D": 0.04811928159945781,
+   "acc_D_bought_cl_favourite": 0.6971830985915493,
+   "acc_A_bought_common_favourite": 0.3424706301174795
+  },
+  "NONSCHEDULE_D_mid_a": {
+   "n_ok": 664,
+   "n_D": 11,
+   "share_D": 0.016566265060240965,
+   "acc_D_bought_cl_favourite": 0.45454545454545453,
+   "acc_A_bought_common_favourite": 0.2327718223583461
+  },
+  "SCHEDULE_ONLY_posture_frozen": {
+   "n": 2996,
+   "acc": 0.7016021361815754
+  },
+  "SCHEDULE_fresh_print_D_mid_a": {
+   "n_ok": 2848,
+   "n_D": 137,
+   "share_D": 0.04810393258426966,
+   "acc_D_bought_cl_favourite": 0.708029197080292,
+   "acc_A_bought_common_favourite": 0.3412025082995205
+  },
+  "D_mid_a": {
+   "n_ok": 3617,
+   "n_D": 153,
+   "share_D": 0.042300248824993086,
+   "acc_D_bought_cl_favourite": 0.6797385620915033,
+   "acc_A_bought_common_favourite": 0.3215935334872979
+  },
+  "D_mid_fill_diag": {
+   "n_ok": 3358,
+   "n_D": 129,
+   "share_D": 0.0384157236450268,
+   "acc_D_bought_cl_favourite": 0.3488372093023256,
+   "acc_A_bought_common_favourite": 0.31340972437287085
+  },
+  "posture_frozen_cl_mid_a": {
+   "n": 3663,
+   "acc": 0.7095277095277095
+  },
+  "D_by_gap": {
+   "0-0.05": {
+    "n": 61,
+    "acc": 0.9180327868852459
+   },
+   "0.05-0.1": {
+    "n": 49,
+    "acc": 0.6326530612244898
+   },
+   "0.1-0.2": {
+    "n": 39,
+    "acc": 0.5384615384615384
+   },
+   "0.2-1.01": {
+    "n": 20,
+    "acc": 0.5
+   }
+  },
+  "all_by_gap_frozen_posture": {
+   "0-0.03": {
+    "n": 1038,
+    "acc": 0.6579961464354528
+   },
+   "0.03-0.1": {
+    "n": 1655,
+    "acc": 0.740785498489426
+   },
+   "0.1-0.2": {
+    "n": 728,
+    "acc": 0.7362637362637363
+   },
+   "0.2-1.01": {
+    "n": 242,
+    "acc": 0.6363636363636364
+   }
+  },
+  "in_CL_D_binance_agrees_with_CL": 0.6153846153846154,
+  "in_CL_D_bought_binance_favourite": 0.5621301775147929,
+  "in_CL_D_when_BN_agrees_with_CL_acc": [
+   104,
+   0.7115384615384616
+  ],
+  "in_CL_D_when_BN_sides_with_market_acc_CL": [
+   65,
+   0.676923076923077
+  ],
+  "D_by_gap_bn": {
+   "0-0.05": {
+    "n": 61,
+    "bn_sides_with_market": 0.45901639344262296,
+    "acc_cl": 0.9180327868852459,
+    "acc_cl_when_bn_agrees": 0.9393939393939394
+   },
+   "0.05-0.1": {
+    "n": 49,
+    "bn_sides_with_market": 0.46938775510204084,
+    "acc_cl": 0.6326530612244898,
+    "acc_cl_when_bn_agrees": 0.6153846153846154
+   },
+   "0.1-1.01": {
+    "n": 59,
+    "bn_sides_with_market": 0.23728813559322035,
+    "acc_cl": 0.5254237288135594,
+    "acc_cl_when_bn_agrees": 0.6
+   }
+  },
+  "per_day_D_mid_a_n": {
+   "1793059200": 31,
+   "1793145600": 48,
+   "1793232000": 36,
+   "1793318400": 38
+  },
+  "per_day_D_mid_a": {
+   "1793059200": 0.5161290322580645,
+   "1793145600": 0.8333333333333334,
+   "1793232000": 0.7222222222222222,
+   "1793318400": 0.5789473684210527
+  }
+ }
+}

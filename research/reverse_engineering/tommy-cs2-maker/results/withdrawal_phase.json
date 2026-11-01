@@ -1,0 +1,19 @@
+{
+ "episodes": 64,
+ "start_on_tick": 0.078,
+ "start_n": 43,
+ "end_on_tick": 0.062,
+ "end_n": 41,
+ "uniform": 0.06,
+ "start_nearest_own_burst": {
+  "('pull', 1)": 33,
+  "None": 29,
+  "('pull', 0)": 2
+ },
+ "end_nearest_own_burst": {
+  "('add', 1)": 53,
+  "('add', 0)": 8,
+  "None": 2,
+  "('add', 2)": 1
+ }
+}

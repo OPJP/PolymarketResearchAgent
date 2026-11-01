@@ -1,0 +1,30 @@
+{
+ "lam": 0.207,
+ "c0": -0.0053,
+ "h_main": 0.06499999761581421,
+ "h_last_minute": 0.1225000019185245,
+ "fit_seconds": 1184,
+ "test_prints": 20624,
+ "test_pos": 870,
+ "auc_gap": 0.6571,
+ "gap_ge_0.0": {
+  "flag_share": 0.06,
+  "recall": 0.118,
+  "lift": 1.97
+ },
+ "gap_ge_-0.01": {
+  "flag_share": 0.091,
+  "recall": 0.151,
+  "lift": 1.66
+ },
+ "gap_ge_-0.02": {
+  "flag_share": 0.129,
+  "recall": 0.2,
+  "lift": 1.55
+ },
+ "gap_ge_-0.03": {
+  "flag_share": 0.188,
+  "recall": 0.351,
+  "lift": 1.87
+ }
+}

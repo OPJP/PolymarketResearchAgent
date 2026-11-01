@@ -1,0 +1,166 @@
+{
+ "posture_delta0.01_qsess_L2_strict": {
+  "study": {
+   "pooled": [
+    0.0329,
+    0.0695
+   ],
+   "windows": 583,
+   "replay_return": -0.1515,
+   "almach": [
+    0.0306,
+    0.0861
+   ],
+   "bosona": [
+    0.0956,
+    0.0644
+   ],
+   "momoney": [
+    -0.0337,
+    0.0277
+   ]
+  },
+  "validate": {
+   "pooled": [
+    0.2066,
+    0.2181
+   ],
+   "windows": 1089,
+   "replay_return": -0.1655,
+   "almach": [
+    0.2377,
+    0.2401
+   ],
+   "bosona": [
+    0.1666,
+    0.2262
+   ],
+   "momoney": [
+    0.1608,
+    0.1787
+   ]
+  },
+  "validate_h1": {
+   "pooled": [
+    0.1654,
+    0.2484
+   ],
+   "windows": 548,
+   "replay_return": -0.1921,
+   "almach": [
+    0.2274,
+    0.2925
+   ],
+   "bosona": [
+    0.0935,
+    0.2502
+   ],
+   "momoney": [
+    0.1269,
+    0.2289
+   ]
+  },
+  "validate_h2": {
+   "pooled": [
+    0.235,
+    0.2034
+   ],
+   "windows": 541,
+   "replay_return": -0.1376,
+   "almach": [
+    0.2474,
+    0.2064
+   ],
+   "bosona": [
+    0.2131,
+    0.2172
+   ],
+   "momoney": [
+    0.1845,
+    0.1522
+   ]
+  }
+ },
+ "posture_delta0.0_qsess_L2_strict": {
+  "study": {
+   "pooled": [
+    0.0111,
+    0.0678
+   ],
+   "windows": 583,
+   "replay_return": -0.143,
+   "almach": [
+    0.0012,
+    0.0749
+   ],
+   "bosona": [
+    0.0819,
+    0.063
+   ],
+   "momoney": [
+    -0.0515,
+    0.024
+   ]
+  },
+  "validate": {
+   "pooled": [
+    0.2188,
+    0.2229
+   ],
+   "windows": 1089,
+   "replay_return": -0.1564,
+   "almach": [
+    0.2482,
+    0.2427
+   ],
+   "bosona": [
+    0.1763,
+    0.2351
+   ],
+   "momoney": [
+    0.1738,
+    0.1805
+   ]
+  },
+  "validate_h1": {
+   "pooled": [
+    0.175,
+    0.2468
+   ],
+   "windows": 548,
+   "replay_return": -0.1761,
+   "almach": [
+    0.2301,
+    0.2882
+   ],
+   "bosona": [
+    0.1086,
+    0.2537
+   ],
+   "momoney": [
+    0.1351,
+    0.2188
+   ]
+  },
+  "validate_h2": {
+   "pooled": [
+    0.2508,
+    0.2123
+   ],
+   "windows": 541,
+   "replay_return": -0.135,
+   "almach": [
+    0.2642,
+    0.2133
+   ],
+   "bosona": [
+    0.2218,
+    0.2299
+   ],
+   "momoney": [
+    0.202,
+    0.161
+   ]
+  }
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "takes": 39,
+ "x51_sized_cancels_total": 1818,
+ "x51_cancels_within_1s_of_takes": 12,
+ "offsets_ms": [
+  -640,
+  9,
+  11,
+  12,
+  13,
+  25,
+  56,
+  108,
+  285,
+  411,
+  606,
+  723
+ ],
+ "x51_cancels_in_wallet_take_markets": 896,
+ "share_followed_by_wallet_take_within_1s": 0.0011,
+ "share_preceded_by_wallet_take_within_1s": 0.0123
+}

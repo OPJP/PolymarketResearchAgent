@@ -1,0 +1,22 @@
+{
+ "cells": 4200,
+ "windows": 7,
+ "raw_base_rate": 0.051666666666666666,
+ "dx_records": 178905,
+ "dx_L1": {
+  "base_rate": 0.1180952380952381,
+  "precision": 0.4375,
+  "recall": 1.0,
+  "recall_pm1s": 1.0,
+  "auc_e_cl_dx_label": 0.6832489287953739,
+  "auc_e_cl_raw_label": 0.622319975101555
+ },
+ "dx_L2": {
+  "base_rate": 0.16666666666666666,
+  "precision": 0.31,
+  "recall": 1.0,
+  "recall_pm1s": 1.0,
+  "auc_e_cl_dx_label": 0.6763663265306123,
+  "auc_e_cl_raw_label": 0.622319975101555
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "orders": 1286,
+ "almach": {
+  "n": 458,
+  "age_ms_median": 753.0,
+  "age_ms_p75": 1771.25,
+  "stale_share": 0.64,
+  "acc_stale": 0.857,
+  "acc_fresh": 0.794,
+  "acc_age_lt_500": 0.79,
+  "acc_age_ge_1000": 0.858
+ },
+ "bosona": {
+  "n": 345,
+  "age_ms_median": 574.0,
+  "age_ms_p75": 1778.0,
+  "stale_share": 0.591,
+  "acc_stale": 0.858,
+  "acc_fresh": 0.787,
+  "acc_age_lt_500": 0.777,
+  "acc_age_ge_1000": 0.833
+ },
+ "momoney": {
+  "n": 483,
+  "age_ms_median": 747.0,
+  "age_ms_p75": 2515.5,
+  "stale_share": 0.586,
+  "acc_stale": 0.816,
+  "acc_fresh": 0.76,
+  "acc_age_lt_500": 0.77,
+  "acc_age_ge_1000": 0.814
+ }
+}

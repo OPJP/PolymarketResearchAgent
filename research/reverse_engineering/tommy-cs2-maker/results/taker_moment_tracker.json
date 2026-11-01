@@ -1,0 +1,9 @@
+{
+ "rounds": 4626,
+ "snaps": 1144,
+ "snaps_reversed": 1104,
+ "ratio": 1.036,
+ "clock": false,
+ "rounds_with_both_ends": 345,
+ "print_clock_reference": "maker regime print clock 1.30x (block) / 1.33x (match)"
+}

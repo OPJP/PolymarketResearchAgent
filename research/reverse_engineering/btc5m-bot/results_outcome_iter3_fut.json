@@ -1,0 +1,30 @@
+{
+ "kind": "fut",
+ "windows": 2016,
+ "soft": {
+  "pnl_corr_pearson": 0.4416,
+  "pnl_corr_spearman": 0.4055,
+  "net_position_corr": 0.4531,
+  "rule_return": -0.0242
+ },
+ "soft_side": {
+  "pnl_corr_pearson": 0.4405,
+  "pnl_corr_spearman": 0.4061,
+  "net_position_corr": 0.4464,
+  "rule_return": -0.0098
+ },
+ "soft_side_sharp": {
+  "pnl_corr_pearson": 0.3738,
+  "pnl_corr_spearman": 0.3323,
+  "net_position_corr": 0.3933,
+  "rule_return": 0.0132
+ },
+ "soft_side_sq": {
+  "pnl_corr_pearson": 0.4284,
+  "pnl_corr_spearman": 0.386,
+  "net_position_corr": 0.4403,
+  "rule_return": 0.0031
+ },
+ "wallet_return_before_rebates": 0.0017,
+ "diag_corr_wallet_pnl_vs_own_net_x_outcome": 0.8846
+}

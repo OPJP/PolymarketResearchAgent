@@ -1,0 +1,66 @@
+[
+ {
+  "day": "2026-10-23",
+  "opp_clean_taker_buy_ge090": 1473476,
+  "opp_all": 1488778,
+  "cluster_deep_shares": 5772,
+  "capture_vs_all": 0.0039,
+  "deep_share_of_cluster_fills": 0.0513
+ },
+ {
+  "day": "2026-10-24",
+  "opp_clean_taker_buy_ge090": 294854,
+  "opp_all": 295412,
+  "cluster_deep_shares": 673,
+  "capture_vs_all": 0.0023,
+  "deep_share_of_cluster_fills": 0.0389
+ },
+ {
+  "day": "2026-10-25",
+  "opp_clean_taker_buy_ge090": 728960,
+  "opp_all": 735605,
+  "cluster_deep_shares": 2180,
+  "capture_vs_all": 0.003,
+  "deep_share_of_cluster_fills": 0.0706
+ },
+ {
+  "day": "2026-10-26",
+  "opp_clean_taker_buy_ge090": 1684547,
+  "opp_all": 1736545,
+  "cluster_deep_shares": 27666,
+  "capture_vs_all": 0.0159,
+  "deep_share_of_cluster_fills": 0.1466
+ },
+ {
+  "day": "2026-10-27",
+  "opp_clean_taker_buy_ge090": 2170178,
+  "opp_all": 2279712,
+  "cluster_deep_shares": 52064,
+  "capture_vs_all": 0.0228,
+  "deep_share_of_cluster_fills": 0.207
+ },
+ {
+  "day": "2026-10-28",
+  "opp_clean_taker_buy_ge090": 2173327,
+  "opp_all": 2302372,
+  "cluster_deep_shares": 64222,
+  "capture_vs_all": 0.0279,
+  "deep_share_of_cluster_fills": 0.2326
+ },
+ {
+  "day": "2026-10-29",
+  "opp_clean_taker_buy_ge090": 2082648,
+  "opp_all": 2300896,
+  "cluster_deep_shares": 127054,
+  "capture_vs_all": 0.0552,
+  "deep_share_of_cluster_fills": 0.2661
+ },
+ {
+  "day": "2026-10-30",
+  "opp_clean_taker_buy_ge090": 1666179,
+  "opp_all": 1802489,
+  "cluster_deep_shares": 93827,
+  "capture_vs_all": 0.0521,
+  "deep_share_of_cluster_fills": 0.3247
+ }
+]

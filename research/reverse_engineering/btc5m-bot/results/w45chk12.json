@@ -1,0 +1,16 @@
+{
+ "presence_block_seconds_rebuilt": {
+  "auc_full": 0.8747,
+  "auc_pure": 0.819,
+  "gain": 0.0557
+ },
+ "tracker_avg_rebuilt": {
+  "pearson": 0.4756,
+  "spearman": 0.4394,
+  "GF": 0.3469,
+  "XM": 0.0554,
+  "DS": 0.4217
+ },
+ "corr_nf_old_vs_rebuilt": 0.9994,
+ "elapsed_s": 143
+}

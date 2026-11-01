@@ -1,0 +1,51 @@
+{
+ "orders": 926,
+ "usdm_rows": 1334226,
+ "ts_local_minus_E_ms_median": 135.8,
+ "usdm_100": [
+  0.7197,
+  0.8898
+ ],
+ "spot_100_same_orders": [
+  0.6983,
+  0.716
+ ],
+ "usdm_250": [
+  0.7272,
+  0.9816
+ ],
+ "spot_250_same_orders": [
+  0.7089,
+  0.8942
+ ],
+ "usdm_500": [
+  0.6991,
+  0.9978
+ ],
+ "spot_500_same_orders": [
+  0.6711,
+  0.9816
+ ],
+ "usdm_1000": [
+  0.6447,
+  1.0
+ ],
+ "spot_1000_same_orders": [
+  0.6303,
+  0.9989
+ ],
+ "vote_two_series_500": {
+  "cover": 0.3294,
+  "agree": 0.659
+ },
+ "vote_spot_only_500": {
+  "cover": 0.149,
+  "agree": 0.5507
+ },
+ "vote_usdm_only_500": {
+  "cover": 0.3175,
+  "agree": 0.6463
+ },
+ "dc_model_same_orders": 0.7646,
+ "usdm250_vote_then_model": 0.7559
+}

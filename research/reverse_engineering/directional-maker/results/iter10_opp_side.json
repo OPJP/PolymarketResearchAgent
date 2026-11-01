@@ -1,0 +1,24 @@
+{
+ "study": {
+  "62_250": {
+   "pairs": 20,
+   "share_opposite_outcome": 0.15
+  },
+  "500": {
+   "pairs": 2359,
+   "share_opposite_outcome": 0.037
+  },
+  "windows_with_both": 22
+ },
+ "validate": {
+  "62_250": {
+   "pairs": 163,
+   "share_opposite_outcome": 0.706
+  },
+  "500": {
+   "pairs": 9236,
+   "share_opposite_outcome": 0.045
+  },
+  "windows_with_both": 116
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "R3": {
+  "auc": 0.7159,
+  "within_active": 0.7084,
+  "side": 0.6634
+ },
+ "R3+level": {
+  "auc": 0.7158,
+  "within_active": 0.7083,
+  "side": 0.6599
+ },
+ "activity": {
+  "auc": 0.6843,
+  "within_active": 0.6767,
+  "side": 0.6127
+ },
+ "activity+level": {
+  "auc": 0.6851,
+  "within_active": 0.6776,
+  "side": 0.613
+ }
+}

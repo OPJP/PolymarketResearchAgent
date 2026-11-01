@@ -1,0 +1,116 @@
+{
+ "auc_C_ydec": 0.7278,
+ "n": 67029,
+ "base_rate": 0.0403,
+ "top1pct": {
+  "n": 671,
+  "P(decision)": 0.2325,
+  "no_decision": {
+   "n": 515,
+   "other_taker_buys_o": 0.7981,
+   "ask_up_no_other_trade": 0.0252,
+   "nothing": 0.1767
+  },
+  "with_decision": {
+   "other_taker_buys_o_too": 0.9359
+  },
+  "P(decision|busy)": [
+   0.2941,
+   68
+  ],
+  "P(decision|not busy)": [
+   0.2255,
+   603
+  ]
+ },
+ "top3pct": {
+  "n": 2011,
+  "P(decision)": 0.1735,
+  "no_decision": {
+   "n": 1662,
+   "other_taker_buys_o": 0.725,
+   "ask_up_no_other_trade": 0.0205,
+   "nothing": 0.2545
+  },
+  "with_decision": {
+   "other_taker_buys_o_too": 0.9054
+  },
+  "P(decision|busy)": [
+   0.2346,
+   260
+  ],
+  "P(decision|not busy)": [
+   0.1645,
+   1751
+  ]
+ },
+ "bottom50pct": {
+  "n": 33515,
+  "P(decision)": 0.0173,
+  "no_decision": {
+   "n": 32934,
+   "other_taker_buys_o": 0.3511,
+   "ask_up_no_other_trade": 0.0188,
+   "nothing": 0.6301
+  },
+  "with_decision": {
+   "other_taker_buys_o_too": 0.6954
+  },
+  "P(decision|busy)": [
+   0.0619,
+   323
+  ],
+  "P(decision|not busy)": [
+   0.0169,
+   33192
+  ]
+ },
+ "top3pct_P(decision)_by_rel": {
+  "0-60": [
+   0.1744,
+   711
+  ],
+  "60-120": [
+   0.2129,
+   479
+  ],
+  "120-180": [
+   0.1512,
+   582
+  ],
+  "180-240": [
+   0.1464,
+   239
+  ],
+  "240-300": [
+   NaN,
+   0
+  ]
+ },
+ "top3pct_P(decision)_by_ask": {
+  "0.0-0.15": [
+   0.4909,
+   55
+  ],
+  "0.15-0.3": [
+   0.3545,
+   110
+  ],
+  "0.3-0.5": [
+   0.162,
+   679
+  ],
+  "0.5-0.7": [
+   0.1282,
+   897
+  ],
+  "0.7-0.85": [
+   0.2251,
+   191
+  ],
+  "0.85-1.0": [
+   0.1899,
+   79
+  ]
+ }
+}

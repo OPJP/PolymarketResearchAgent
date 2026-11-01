@@ -1,0 +1,188 @@
+{
+ "n_fills_with_grid": 1892,
+ "windows": 144,
+ "study": {
+  "n": 170,
+  "cur": 0.7705882352941177,
+  "twap60": {
+   "all": 0.7647058823529411,
+   "disagree_n": 17,
+   "disagree_windows": 9,
+   "slow_wins_in_disagreement": 0.47058823529411764,
+   "disagree_US": [
+    15,
+    0.4666666666666667
+   ],
+   "disagree_off": [
+    2,
+    0.5
+   ],
+   "disagree_62_250": [
+    1,
+    1.0
+   ],
+   "disagree_500": [
+    14,
+    0.42857142857142855
+   ]
+  },
+  "ew10": {
+   "all": 0.7529411764705882,
+   "disagree_n": 17,
+   "disagree_windows": 7,
+   "slow_wins_in_disagreement": 0.4117647058823529,
+   "disagree_US": [
+    15,
+    0.4
+   ],
+   "disagree_off": [
+    2,
+    0.5
+   ],
+   "disagree_62_250": [
+    1,
+    1.0
+   ],
+   "disagree_500": [
+    15,
+    0.4
+   ]
+  },
+  "ew30": {
+   "all": 0.7647058823529411,
+   "disagree_n": 17,
+   "disagree_windows": 9,
+   "slow_wins_in_disagreement": 0.47058823529411764,
+   "disagree_US": [
+    15,
+    0.4666666666666667
+   ],
+   "disagree_off": [
+    2,
+    0.5
+   ],
+   "disagree_62_250": [
+    1,
+    1.0
+   ],
+   "disagree_500": [
+    14,
+    0.42857142857142855
+   ]
+  },
+  "ew60": {
+   "all": 0.7647058823529411,
+   "disagree_n": 17,
+   "disagree_windows": 9,
+   "slow_wins_in_disagreement": 0.47058823529411764,
+   "disagree_US": [
+    15,
+    0.4666666666666667
+   ],
+   "disagree_off": [
+    2,
+    0.5
+   ],
+   "disagree_62_250": [
+    1,
+    1.0
+   ],
+   "disagree_500": [
+    14,
+    0.42857142857142855
+   ]
+  }
+ },
+ "validate": {
+  "n": 1261,
+  "cur": 0.6153846153846154,
+  "twap60": {
+   "all": 0.7065820777160984,
+   "disagree_n": 275,
+   "disagree_windows": 27,
+   "slow_wins_in_disagreement": 0.7090909090909091,
+   "disagree_US": [
+    159,
+    0.7232704402515723
+   ],
+   "disagree_off": [
+    116,
+    0.6896551724137931
+   ],
+   "disagree_62_250": [
+    39,
+    0.7948717948717948
+   ],
+   "disagree_500": [
+    161,
+    0.8136645962732919
+   ]
+  },
+  "ew10": {
+   "all": 0.605868358445678,
+   "disagree_n": 180,
+   "disagree_windows": 21,
+   "slow_wins_in_disagreement": 0.4666666666666667,
+   "disagree_US": [
+    135,
+    0.48148148148148145
+   ],
+   "disagree_off": [
+    45,
+    0.4222222222222222
+   ],
+   "disagree_62_250": [
+    22,
+    0.045454545454545456
+   ],
+   "disagree_500": [
+    123,
+    0.5691056910569106
+   ]
+  },
+  "ew30": {
+   "all": 0.6732751784298177,
+   "disagree_n": 239,
+   "disagree_windows": 29,
+   "slow_wins_in_disagreement": 0.6527196652719666,
+   "disagree_US": [
+    143,
+    0.6293706293706294
+   ],
+   "disagree_off": [
+    96,
+    0.6875
+   ],
+   "disagree_62_250": [
+    22,
+    0.7727272727272727
+   ],
+   "disagree_500": [
+    146,
+    0.726027397260274
+   ]
+  },
+  "ew60": {
+   "all": 0.6780333068992863,
+   "disagree_n": 245,
+   "disagree_windows": 29,
+   "slow_wins_in_disagreement": 0.6612244897959184,
+   "disagree_US": [
+    135,
+    0.6518518518518519
+   ],
+   "disagree_off": [
+    110,
+    0.6727272727272727
+   ],
+   "disagree_62_250": [
+    33,
+    0.7575757575757576
+   ],
+   "disagree_500": [
+    140,
+    0.7428571428571429
+   ]
+  }
+ }
+}

@@ -1,0 +1,1284 @@
+{
+ "1793455200_1793465634": {
+  "span": [
+   1793455200,
+   1793465634
+  ],
+  "n": 2045,
+  "matched_tx": 72362,
+  "by_wallet": {
+   "bosona": {
+    "mid_report_k1.0": [
+     0.851,
+     484
+    ],
+    "mid_report_k1.4": [
+     0.841,
+     484
+    ],
+    "mid_report_k2.0": [
+     0.814,
+     484
+    ],
+    "mid_nowcast_k1.0": [
+     0.847,
+     484
+    ],
+    "mid_nowcast_k1.4": [
+     0.841,
+     484
+    ],
+    "mid_nowcast_k2.0": [
+     0.814,
+     484
+    ],
+    "mid_cheaper": [
+     0.552,
+     487
+    ],
+    "mid_band0-0.05_report_k1.0": [
+     0.719,
+     32
+    ],
+    "mid_band0-0.05_nowcast_k1.0": [
+     0.719,
+     32
+    ],
+    "mid_band0-0.05_cheaper": [
+     0.562,
+     32
+    ],
+    "mid_band0.05-0.1_report_k1.0": [
+     0.866,
+     67
+    ],
+    "mid_band0.05-0.1_nowcast_k1.0": [
+     0.836,
+     67
+    ],
+    "mid_band0.05-0.1_cheaper": [
+     0.642,
+     67
+    ],
+    "mid_band0.1-1.01_report_k1.0": [
+     0.86,
+     385
+    ],
+    "mid_band0.1-1.01_nowcast_k1.0": [
+     0.86,
+     385
+    ],
+    "mid_band0.1-1.01_cheaper": [
+     0.538,
+     385
+    ],
+    "deep_report_k1.0": [
+     0.591,
+     88
+    ],
+    "deep_report_k1.4": [
+     0.705,
+     88
+    ],
+    "deep_report_k2.0": [
+     0.761,
+     88
+    ],
+    "deep_nowcast_k1.0": [
+     0.591,
+     88
+    ],
+    "deep_nowcast_k1.4": [
+     0.705,
+     88
+    ],
+    "deep_nowcast_k2.0": [
+     0.761,
+     88
+    ],
+    "deep_cheaper": [
+     0.843,
+     89
+    ],
+    "deep_band0-0.05_report_k1.0": [
+     0.345,
+     29
+    ],
+    "deep_band0-0.05_nowcast_k1.0": [
+     0.345,
+     29
+    ],
+    "deep_band0-0.05_cheaper": [
+     0.759,
+     29
+    ],
+    "deep_band0.05-0.1_report_k1.0": [
+     0.353,
+     17
+    ],
+    "deep_band0.05-0.1_nowcast_k1.0": [
+     0.353,
+     17
+    ],
+    "deep_band0.05-0.1_cheaper": [
+     0.706,
+     17
+    ],
+    "deep_band0.1-1.01_report_k1.0": [
+     0.857,
+     42
+    ],
+    "deep_band0.1-1.01_nowcast_k1.0": [
+     0.857,
+     42
+    ],
+    "deep_band0.1-1.01_cheaper": [
+     0.952,
+     42
+    ],
+    "share_band_ge0.1_mid": 0.795
+   },
+   "almach": {
+    "mid_report_k1.0": [
+     0.879,
+     580
+    ],
+    "mid_report_k1.4": [
+     0.878,
+     580
+    ],
+    "mid_report_k2.0": [
+     0.767,
+     580
+    ],
+    "mid_nowcast_k1.0": [
+     0.872,
+     580
+    ],
+    "mid_nowcast_k1.4": [
+     0.871,
+     580
+    ],
+    "mid_nowcast_k2.0": [
+     0.767,
+     580
+    ],
+    "mid_cheaper": [
+     0.428,
+     580
+    ],
+    "mid_band0-0.05_report_k1.0": [
+     0.514,
+     37
+    ],
+    "mid_band0-0.05_nowcast_k1.0": [
+     0.514,
+     37
+    ],
+    "mid_band0-0.05_cheaper": [
+     0.541,
+     37
+    ],
+    "mid_band0.05-0.1_report_k1.0": [
+     0.857,
+     70
+    ],
+    "mid_band0.05-0.1_nowcast_k1.0": [
+     0.857,
+     70
+    ],
+    "mid_band0.05-0.1_cheaper": [
+     0.471,
+     70
+    ],
+    "mid_band0.1-1.01_report_k1.0": [
+     0.911,
+     473
+    ],
+    "mid_band0.1-1.01_nowcast_k1.0": [
+     0.903,
+     473
+    ],
+    "mid_band0.1-1.01_cheaper": [
+     0.412,
+     473
+    ],
+    "deep_report_k1.0": [
+     0.634,
+     93
+    ],
+    "deep_report_k1.4": [
+     0.742,
+     93
+    ],
+    "deep_report_k2.0": [
+     0.796,
+     93
+    ],
+    "deep_nowcast_k1.0": [
+     0.602,
+     93
+    ],
+    "deep_nowcast_k1.4": [
+     0.677,
+     93
+    ],
+    "deep_nowcast_k2.0": [
+     0.796,
+     93
+    ],
+    "deep_cheaper": [
+     0.952,
+     105
+    ],
+    "deep_band0-0.05_report_k1.0": [
+     0.262,
+     42
+    ],
+    "deep_band0-0.05_nowcast_k1.0": [
+     0.19,
+     42
+    ],
+    "deep_band0-0.05_cheaper": [
+     0.881,
+     42
+    ],
+    "deep_band0.05-0.1_report_k1.0": [
+     0.824,
+     17
+    ],
+    "deep_band0.05-0.1_nowcast_k1.0": [
+     0.824,
+     17
+    ],
+    "deep_band0.05-0.1_cheaper": [
+     1.0,
+     17
+    ],
+    "deep_band0.1-1.01_report_k1.0": [
+     1.0,
+     34
+    ],
+    "deep_band0.1-1.01_nowcast_k1.0": [
+     1.0,
+     34
+    ],
+    "deep_band0.1-1.01_cheaper": [
+     1.0,
+     34
+    ],
+    "share_band_ge0.1_mid": 0.816
+   },
+   "momoney": {
+    "mid_report_k1.0": [
+     0.83,
+     664
+    ],
+    "mid_report_k1.4": [
+     0.81,
+     664
+    ],
+    "mid_report_k2.0": [
+     0.729,
+     664
+    ],
+    "mid_nowcast_k1.0": [
+     0.828,
+     664
+    ],
+    "mid_nowcast_k1.4": [
+     0.809,
+     664
+    ],
+    "mid_nowcast_k2.0": [
+     0.726,
+     664
+    ],
+    "mid_cheaper": [
+     0.49,
+     671
+    ],
+    "mid_band0-0.05_report_k1.0": [
+     0.843,
+     51
+    ],
+    "mid_band0-0.05_nowcast_k1.0": [
+     0.843,
+     51
+    ],
+    "mid_band0-0.05_cheaper": [
+     0.588,
+     51
+    ],
+    "mid_band0.05-0.1_report_k1.0": [
+     0.863,
+     95
+    ],
+    "mid_band0.05-0.1_nowcast_k1.0": [
+     0.853,
+     95
+    ],
+    "mid_band0.05-0.1_cheaper": [
+     0.484,
+     95
+    ],
+    "mid_band0.1-1.01_report_k1.0": [
+     0.822,
+     518
+    ],
+    "mid_band0.1-1.01_nowcast_k1.0": [
+     0.822,
+     518
+    ],
+    "mid_band0.1-1.01_cheaper": [
+     0.479,
+     518
+    ],
+    "deep_report_k1.0": [
+     0.398,
+     113
+    ],
+    "deep_report_k1.4": [
+     0.407,
+     113
+    ],
+    "deep_report_k2.0": [
+     0.566,
+     113
+    ],
+    "deep_nowcast_k1.0": [
+     0.398,
+     113
+    ],
+    "deep_nowcast_k1.4": [
+     0.407,
+     113
+    ],
+    "deep_nowcast_k2.0": [
+     0.566,
+     113
+    ],
+    "deep_cheaper": [
+     0.858,
+     113
+    ],
+    "deep_band0-0.05_report_k1.0": [
+     0.134,
+     67
+    ],
+    "deep_band0-0.05_nowcast_k1.0": [
+     0.134,
+     67
+    ],
+    "deep_band0-0.05_cheaper": [
+     0.91,
+     67
+    ],
+    "deep_band0.05-0.1_report_k1.0": [
+     0.667,
+     27
+    ],
+    "deep_band0.05-0.1_nowcast_k1.0": [
+     0.667,
+     27
+    ],
+    "deep_band0.05-0.1_cheaper": [
+     0.852,
+     27
+    ],
+    "deep_band0.1-1.01_report_k1.0": [
+     0.947,
+     19
+    ],
+    "deep_band0.1-1.01_nowcast_k1.0": [
+     0.947,
+     19
+    ],
+    "deep_band0.1-1.01_cheaper": [
+     0.684,
+     19
+    ],
+    "share_band_ge0.1_mid": 0.78
+   },
+   "all": {
+    "mid_report_k1.0": [
+     0.852,
+     1728
+    ],
+    "mid_report_k1.4": [
+     0.841,
+     1728
+    ],
+    "mid_report_k2.0": [
+     0.766,
+     1728
+    ],
+    "mid_nowcast_k1.0": [
+     0.848,
+     1728
+    ],
+    "mid_nowcast_k1.4": [
+     0.839,
+     1728
+    ],
+    "mid_nowcast_k2.0": [
+     0.764,
+     1728
+    ],
+    "mid_cheaper": [
+     0.487,
+     1738
+    ],
+    "mid_band0-0.05_report_k1.0": [
+     0.708,
+     120
+    ],
+    "mid_band0-0.05_nowcast_k1.0": [
+     0.708,
+     120
+    ],
+    "mid_band0-0.05_cheaper": [
+     0.567,
+     120
+    ],
+    "mid_band0.05-0.1_report_k1.0": [
+     0.862,
+     232
+    ],
+    "mid_band0.05-0.1_nowcast_k1.0": [
+     0.849,
+     232
+    ],
+    "mid_band0.05-0.1_cheaper": [
+     0.526,
+     232
+    ],
+    "mid_band0.1-1.01_report_k1.0": [
+     0.863,
+     1376
+    ],
+    "mid_band0.1-1.01_nowcast_k1.0": [
+     0.86,
+     1376
+    ],
+    "mid_band0.1-1.01_cheaper": [
+     0.472,
+     1376
+    ],
+    "deep_report_k1.0": [
+     0.531,
+     294
+    ],
+    "deep_report_k1.4": [
+     0.602,
+     294
+    ],
+    "deep_report_k2.0": [
+     0.697,
+     294
+    ],
+    "deep_nowcast_k1.0": [
+     0.52,
+     294
+    ],
+    "deep_nowcast_k1.4": [
+     0.582,
+     294
+    ],
+    "deep_nowcast_k2.0": [
+     0.697,
+     294
+    ],
+    "deep_cheaper": [
+     0.886,
+     307
+    ],
+    "deep_band0-0.05_report_k1.0": [
+     0.217,
+     138
+    ],
+    "deep_band0-0.05_nowcast_k1.0": [
+     0.196,
+     138
+    ],
+    "deep_band0-0.05_cheaper": [
+     0.87,
+     138
+    ],
+    "deep_band0.05-0.1_report_k1.0": [
+     0.623,
+     61
+    ],
+    "deep_band0.05-0.1_nowcast_k1.0": [
+     0.623,
+     61
+    ],
+    "deep_band0.05-0.1_cheaper": [
+     0.852,
+     61
+    ],
+    "deep_band0.1-1.01_report_k1.0": [
+     0.926,
+     95
+    ],
+    "deep_band0.1-1.01_nowcast_k1.0": [
+     0.926,
+     95
+    ],
+    "deep_band0.1-1.01_cheaper": [
+     0.916,
+     95
+    ],
+    "share_band_ge0.1_mid": 0.796
+   }
+  },
+  "hourly_mid": {
+   "10-31 14": {
+    "report_k1.0": [
+     0.771,
+     210
+    ],
+    "report_k1.4": [
+     0.771,
+     210
+    ],
+    "report_k2.0": [
+     0.776,
+     210
+    ],
+    "nowcast_k1.0": [
+     0.771,
+     210
+    ],
+    "nowcast_k1.4": [
+     0.771,
+     210
+    ],
+    "nowcast_k2.0": [
+     0.776,
+     210
+    ],
+    "cheaper": [
+     0.368,
+     220
+    ],
+    "wallet_n": {
+     "almach": 84,
+     "momoney": 80,
+     "bosona": 56
+    }
+   },
+   "10-31 15": {
+    "report_k1.0": [
+     0.918,
+     804
+    ],
+    "report_k1.4": [
+     0.905,
+     804
+    ],
+    "report_k2.0": [
+     0.77,
+     804
+    ],
+    "nowcast_k1.0": [
+     0.912,
+     804
+    ],
+    "nowcast_k1.4": [
+     0.898,
+     804
+    ],
+    "nowcast_k2.0": [
+     0.767,
+     804
+    ],
+    "cheaper": [
+     0.509,
+     804
+    ],
+    "wallet_n": {
+     "momoney": 275,
+     "almach": 271,
+     "bosona": 258
+    }
+   },
+   "10-31 16": {
+    "report_k1.0": [
+     0.803,
+     714
+    ],
+    "report_k1.4": [
+     0.79,
+     714
+    ],
+    "report_k2.0": [
+     0.758,
+     714
+    ],
+    "nowcast_k1.0": [
+     0.8,
+     714
+    ],
+    "nowcast_k1.4": [
+     0.791,
+     714
+    ],
+    "nowcast_k2.0": [
+     0.758,
+     714
+    ],
+    "cheaper": [
+     0.499,
+     714
+    ],
+    "wallet_n": {
+     "momoney": 316,
+     "almach": 225,
+     "bosona": 173
+    }
+   }
+  }
+ },
+ "1793516400_1793524800": {
+  "span": [
+   1793516400,
+   1793524800
+  ],
+  "n": 589,
+  "matched_tx": 38745,
+  "by_wallet": {
+   "bosona": {
+    "mid_report_k1.0": [
+     0.633,
+     297
+    ],
+    "mid_report_k1.4": [
+     0.673,
+     297
+    ],
+    "mid_report_k2.0": [
+     0.68,
+     297
+    ],
+    "mid_nowcast_k1.0": [
+     0.677,
+     297
+    ],
+    "mid_nowcast_k1.4": [
+     0.69,
+     297
+    ],
+    "mid_nowcast_k2.0": [
+     0.677,
+     297
+    ],
+    "mid_cheaper": [
+     0.654,
+     298
+    ],
+    "mid_band0-0.05_report_k1.0": [
+     0.435,
+     124
+    ],
+    "mid_band0-0.05_nowcast_k1.0": [
+     0.468,
+     124
+    ],
+    "mid_band0-0.05_cheaper": [
+     0.524,
+     124
+    ],
+    "mid_band0.05-0.1_report_k1.0": [
+     0.582,
+     55
+    ],
+    "mid_band0.05-0.1_nowcast_k1.0": [
+     0.655,
+     55
+    ],
+    "mid_band0.05-0.1_cheaper": [
+     0.582,
+     55
+    ],
+    "mid_band0.1-1.01_report_k1.0": [
+     0.864,
+     118
+    ],
+    "mid_band0.1-1.01_nowcast_k1.0": [
+     0.907,
+     118
+    ],
+    "mid_band0.1-1.01_cheaper": [
+     0.822,
+     118
+    ],
+    "deep_report_k1.0": [
+     0.542,
+     118
+    ],
+    "deep_report_k1.4": [
+     0.856,
+     118
+    ],
+    "deep_report_k2.0": [
+     0.907,
+     118
+    ],
+    "deep_nowcast_k1.0": [
+     0.542,
+     118
+    ],
+    "deep_nowcast_k1.4": [
+     0.856,
+     118
+    ],
+    "deep_nowcast_k2.0": [
+     0.907,
+     118
+    ],
+    "deep_cheaper": [
+     0.909,
+     121
+    ],
+    "deep_band0-0.05_report_k1.0": [
+     0.186,
+     59
+    ],
+    "deep_band0-0.05_nowcast_k1.0": [
+     0.186,
+     59
+    ],
+    "deep_band0-0.05_cheaper": [
+     0.898,
+     59
+    ],
+    "deep_band0.05-0.1_report_k1.0": [
+     0.929,
+     28
+    ],
+    "deep_band0.05-0.1_nowcast_k1.0": [
+     0.929,
+     28
+    ],
+    "deep_band0.05-0.1_cheaper": [
+     0.964,
+     28
+    ],
+    "deep_band0.1-1.01_report_k1.0": [
+     0.871,
+     31
+    ],
+    "deep_band0.1-1.01_nowcast_k1.0": [
+     0.871,
+     31
+    ],
+    "deep_band0.1-1.01_cheaper": [
+     0.871,
+     31
+    ],
+    "share_band_ge0.1_mid": 0.397
+   },
+   "almach": {
+    "mid_report_k1.0": [
+     0.522,
+     23
+    ],
+    "mid_report_k1.4": [
+     0.522,
+     23
+    ],
+    "mid_report_k2.0": [
+     0.609,
+     23
+    ],
+    "mid_nowcast_k1.0": [
+     0.565,
+     23
+    ],
+    "mid_nowcast_k1.4": [
+     0.522,
+     23
+    ],
+    "mid_nowcast_k2.0": [
+     0.565,
+     23
+    ],
+    "mid_cheaper": [
+     0.565,
+     23
+    ],
+    "mid_band0-0.05_report_k1.0": [
+     0.5,
+     10
+    ],
+    "mid_band0-0.05_nowcast_k1.0": [
+     0.5,
+     10
+    ],
+    "mid_band0-0.05_cheaper": [
+     0.5,
+     10
+    ],
+    "mid_band0.05-0.1_report_k1.0": [
+     0.556,
+     9
+    ],
+    "mid_band0.05-0.1_nowcast_k1.0": [
+     0.556,
+     9
+    ],
+    "mid_band0.05-0.1_cheaper": [
+     0.667,
+     9
+    ],
+    "mid_band0.1-1.01_report_k1.0": [
+     0.5,
+     4
+    ],
+    "mid_band0.1-1.01_nowcast_k1.0": [
+     0.75,
+     4
+    ],
+    "mid_band0.1-1.01_cheaper": [
+     0.5,
+     4
+    ],
+    "deep_report_k1.0": [
+     0.915,
+     59
+    ],
+    "deep_report_k1.4": [
+     0.831,
+     59
+    ],
+    "deep_report_k2.0": [
+     0.864,
+     59
+    ],
+    "deep_nowcast_k1.0": [
+     0.915,
+     59
+    ],
+    "deep_nowcast_k1.4": [
+     0.847,
+     59
+    ],
+    "deep_nowcast_k2.0": [
+     0.864,
+     59
+    ],
+    "deep_cheaper": [
+     0.847,
+     59
+    ],
+    "deep_band0-0.05_report_k1.0": [
+     0.941,
+     17
+    ],
+    "deep_band0-0.05_nowcast_k1.0": [
+     0.941,
+     17
+    ],
+    "deep_band0-0.05_cheaper": [
+     0.529,
+     17
+    ],
+    "deep_band0.05-0.1_report_k1.0": [
+     0.846,
+     26
+    ],
+    "deep_band0.05-0.1_nowcast_k1.0": [
+     0.846,
+     26
+    ],
+    "deep_band0.05-0.1_cheaper": [
+     0.962,
+     26
+    ],
+    "deep_band0.1-1.01_report_k1.0": [
+     1.0,
+     16
+    ],
+    "deep_band0.1-1.01_nowcast_k1.0": [
+     1.0,
+     16
+    ],
+    "deep_band0.1-1.01_cheaper": [
+     1.0,
+     16
+    ],
+    "share_band_ge0.1_mid": 0.174
+   },
+   "momoney": {
+    "mid_report_k1.0": [
+     0.125,
+     48
+    ],
+    "mid_report_k1.4": [
+     0.604,
+     48
+    ],
+    "mid_report_k2.0": [
+     0.625,
+     48
+    ],
+    "mid_nowcast_k1.0": [
+     0.792,
+     48
+    ],
+    "mid_nowcast_k1.4": [
+     0.604,
+     48
+    ],
+    "mid_nowcast_k2.0": [
+     0.604,
+     48
+    ],
+    "mid_cheaper": [
+     0.694,
+     49
+    ],
+    "mid_band0-0.05_report_k1.0": [
+     0.091,
+     33
+    ],
+    "mid_band0-0.05_nowcast_k1.0": [
+     0.788,
+     33
+    ],
+    "mid_band0-0.05_cheaper": [
+     0.909,
+     33
+    ],
+    "mid_band0.05-0.1_report_k1.0": [
+     0.333,
+     3
+    ],
+    "mid_band0.05-0.1_nowcast_k1.0": [
+     0.333,
+     3
+    ],
+    "mid_band0.05-0.1_cheaper": [
+     0.0,
+     3
+    ],
+    "mid_band0.1-1.01_report_k1.0": [
+     0.167,
+     12
+    ],
+    "mid_band0.1-1.01_nowcast_k1.0": [
+     0.917,
+     12
+    ],
+    "mid_band0.1-1.01_cheaper": [
+     0.25,
+     12
+    ],
+    "deep_report_k1.0": [
+     0.718,
+     39
+    ],
+    "deep_report_k1.4": [
+     0.667,
+     39
+    ],
+    "deep_report_k2.0": [
+     0.769,
+     39
+    ],
+    "deep_nowcast_k1.0": [
+     0.718,
+     39
+    ],
+    "deep_nowcast_k1.4": [
+     0.667,
+     39
+    ],
+    "deep_nowcast_k2.0": [
+     0.769,
+     39
+    ],
+    "deep_cheaper": [
+     0.769,
+     39
+    ],
+    "deep_band0-0.05_report_k1.0": [
+     0.9,
+     10
+    ],
+    "deep_band0-0.05_nowcast_k1.0": [
+     0.9,
+     10
+    ],
+    "deep_band0-0.05_cheaper": [
+     0.7,
+     10
+    ],
+    "deep_band0.05-0.1_report_k1.0": [
+     0.75,
+     16
+    ],
+    "deep_band0.05-0.1_nowcast_k1.0": [
+     0.75,
+     16
+    ],
+    "deep_band0.05-0.1_cheaper": [
+     1.0,
+     16
+    ],
+    "deep_band0.1-1.01_report_k1.0": [
+     0.538,
+     13
+    ],
+    "deep_band0.1-1.01_nowcast_k1.0": [
+     0.538,
+     13
+    ],
+    "deep_band0.1-1.01_cheaper": [
+     0.538,
+     13
+    ],
+    "share_band_ge0.1_mid": 0.25
+   },
+   "all": {
+    "mid_report_k1.0": [
+     0.56,
+     368
+    ],
+    "mid_report_k1.4": [
+     0.655,
+     368
+    ],
+    "mid_report_k2.0": [
+     0.668,
+     368
+    ],
+    "mid_nowcast_k1.0": [
+     0.685,
+     368
+    ],
+    "mid_nowcast_k1.4": [
+     0.668,
+     368
+    ],
+    "mid_nowcast_k2.0": [
+     0.66,
+     368
+    ],
+    "mid_cheaper": [
+     0.654,
+     370
+    ],
+    "mid_band0-0.05_report_k1.0": [
+     0.371,
+     167
+    ],
+    "mid_band0-0.05_nowcast_k1.0": [
+     0.533,
+     167
+    ],
+    "mid_band0-0.05_cheaper": [
+     0.599,
+     167
+    ],
+    "mid_band0.05-0.1_report_k1.0": [
+     0.567,
+     67
+    ],
+    "mid_band0.05-0.1_nowcast_k1.0": [
+     0.627,
+     67
+    ],
+    "mid_band0.05-0.1_cheaper": [
+     0.567,
+     67
+    ],
+    "mid_band0.1-1.01_report_k1.0": [
+     0.791,
+     134
+    ],
+    "mid_band0.1-1.01_nowcast_k1.0": [
+     0.903,
+     134
+    ],
+    "mid_band0.1-1.01_cheaper": [
+     0.761,
+     134
+    ],
+    "deep_report_k1.0": [
+     0.676,
+     216
+    ],
+    "deep_report_k1.4": [
+     0.815,
+     216
+    ],
+    "deep_report_k2.0": [
+     0.87,
+     216
+    ],
+    "deep_nowcast_k1.0": [
+     0.676,
+     216
+    ],
+    "deep_nowcast_k1.4": [
+     0.819,
+     216
+    ],
+    "deep_nowcast_k2.0": [
+     0.87,
+     216
+    ],
+    "deep_cheaper": [
+     0.868,
+     219
+    ],
+    "deep_band0-0.05_report_k1.0": [
+     0.419,
+     86
+    ],
+    "deep_band0-0.05_nowcast_k1.0": [
+     0.419,
+     86
+    ],
+    "deep_band0-0.05_cheaper": [
+     0.802,
+     86
+    ],
+    "deep_band0.05-0.1_report_k1.0": [
+     0.857,
+     70
+    ],
+    "deep_band0.05-0.1_nowcast_k1.0": [
+     0.857,
+     70
+    ],
+    "deep_band0.05-0.1_cheaper": [
+     0.971,
+     70
+    ],
+    "deep_band0.1-1.01_report_k1.0": [
+     0.833,
+     60
+    ],
+    "deep_band0.1-1.01_nowcast_k1.0": [
+     0.833,
+     60
+    ],
+    "deep_band0.1-1.01_cheaper": [
+     0.833,
+     60
+    ],
+    "share_band_ge0.1_mid": 0.364
+   }
+  },
+  "hourly_mid": {
+   "11-01 07": {
+    "report_k1.0": [
+     0.652,
+     158
+    ],
+    "report_k1.4": [
+     0.684,
+     158
+    ],
+    "report_k2.0": [
+     0.69,
+     158
+    ],
+    "nowcast_k1.0": [
+     0.677,
+     158
+    ],
+    "nowcast_k1.4": [
+     0.684,
+     158
+    ],
+    "nowcast_k2.0": [
+     0.684,
+     158
+    ],
+    "cheaper": [
+     0.658,
+     158
+    ],
+    "wallet_n": {
+     "bosona": 148,
+     "almach": 7,
+     "momoney": 3
+    }
+   },
+   "11-01 08": {
+    "report_k1.0": [
+     0.473,
+     201
+    ],
+    "report_k1.4": [
+     0.617,
+     201
+    ],
+    "report_k2.0": [
+     0.637,
+     201
+    ],
+    "nowcast_k1.0": [
+     0.677,
+     201
+    ],
+    "nowcast_k1.4": [
+     0.642,
+     201
+    ],
+    "nowcast_k2.0": [
+     0.627,
+     201
+    ],
+    "cheaper": [
+     0.635,
+     203
+    ],
+    "wallet_n": {
+     "bosona": 143,
+     "momoney": 45,
+     "almach": 15
+    }
+   },
+   "11-01 09": {
+    "report_k1.0": [
+     0.889,
+     9
+    ],
+    "report_k1.4": [
+     1.0,
+     9
+    ],
+    "report_k2.0": [
+     1.0,
+     9
+    ],
+    "nowcast_k1.0": [
+     1.0,
+     9
+    ],
+    "nowcast_k1.4": [
+     1.0,
+     9
+    ],
+    "nowcast_k2.0": [
+     1.0,
+     9
+    ],
+    "cheaper": [
+     1.0,
+     9
+    ],
+    "wallet_n": {
+     "bosona": 7,
+     "almach": 1,
+     "momoney": 1
+    }
+   }
+  }
+ }
+}

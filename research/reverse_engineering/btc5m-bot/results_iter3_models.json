@@ -1,0 +1,191 @@
+{
+ "build_days": 7,
+ "val_days": 7,
+ "presence": {
+  "auc_any_fut": 0.9038,
+  "auc_taker_fut": 0.9067,
+  "auc_maker_fut": 0.879,
+  "auc_with_own_fut": 0.9159,
+  "auc_any_it2": 0.8957,
+  "co_occurrence_baseline": 0.8889,
+  "by_wallet": {
+   "GF": 0.9018,
+   "XM": 0.9209,
+   "DS": 0.8913
+  },
+  "at_0.30": {
+   "recall": 0.5846,
+   "lift": 4.143,
+   "flag_share": 0.1411,
+   "p_value": 0.0
+  }
+ },
+ "side": {
+  "side_model_fut": {
+   "acc": 0.7034,
+   "acc_spot_r3_zero": 0.6477,
+   "acc_moving": 0.7882
+  },
+  "presence_fut": {
+   "acc": 0.6995,
+   "acc_spot_r3_zero": 0.6448,
+   "acc_moving": 0.7828
+  },
+  "presence_it2": {
+   "acc": 0.6663,
+   "acc_spot_r3_zero": 0.5957,
+   "acc_moving": 0.7738
+  },
+  "market_only": {
+   "acc": 0.6323,
+   "acc_spot_r3_zero": 0.5761,
+   "acc_moving": 0.718
+  },
+  "presence_fut_own": {
+   "acc": 0.7032,
+   "acc_spot_r3_zero": 0.6493,
+   "acc_moving": 0.7854
+  },
+  "favourite": {
+   "acc": 0.459,
+   "acc_spot_r3_zero": 0.4293,
+   "acc_moving": 0.5041
+  },
+  "sign_futures_3s": {
+   "acc": 0.6266,
+   "acc_spot_r3_zero": 0.5545,
+   "acc_moving": 0.7365
+  },
+  "n": 90170,
+  "share_spot_r3_zero": 0.6036,
+  "mcnemar_p_side_model_vs_market_only": 0.0,
+  "taker_side_model_fut": 0.7173,
+  "acc_top50pct_conf": 0.8228,
+  "acc_top20pct_conf": 0.9093,
+  "acc_top10pct_conf": 0.9365
+ },
+ "presence_top_gain": [
+  [
+   "m_last",
+   0.168
+  ],
+  [
+   "n1",
+   0.106
+  ],
+  [
+   "vwap10",
+   0.105
+  ],
+  [
+   "n2",
+   0.089
+  ],
+  [
+   "age_last",
+   0.073
+  ],
+  [
+   "ask_o",
+   0.05
+  ],
+  [
+   "bid_o",
+   0.043
+  ],
+  [
+   "F_pm3000",
+   0.037
+  ],
+  [
+   "sig",
+   0.033
+  ],
+  [
+   "F_pm2000",
+   0.028
+  ],
+  [
+   "dm5",
+   0.02
+  ],
+  [
+   "rel",
+   0.019
+  ],
+  [
+   "mxf3",
+   0.013
+  ],
+  [
+   "F_since",
+   0.011
+  ],
+  [
+   "tau",
+   0.011
+  ]
+ ],
+ "side_top_gain": [
+  [
+   "F_pm2000",
+   0.344
+  ],
+  [
+   "F_since",
+   0.044
+  ],
+  [
+   "r2",
+   0.041
+  ],
+  [
+   "rn2",
+   0.032
+  ],
+  [
+   "F_pm3000",
+   0.03
+  ],
+  [
+   "F_ofi3000",
+   0.02
+  ],
+  [
+   "D_ask_o",
+   0.018
+  ],
+  [
+   "F_ofi2000",
+   0.017
+  ],
+  [
+   "rel",
+   0.012
+  ],
+  [
+   "F_pm5000",
+   0.011
+  ],
+  [
+   "n30",
+   0.011
+  ],
+  [
+   "sig",
+   0.011
+  ],
+  [
+   "spread",
+   0.011
+  ],
+  [
+   "mxf3",
+   0.011
+  ],
+  [
+   "mxa3",
+   0.011
+  ]
+ ]
+}

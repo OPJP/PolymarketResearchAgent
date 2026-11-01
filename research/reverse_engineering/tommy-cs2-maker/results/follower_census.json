@@ -1,0 +1,20 @@
+{
+ "untriggered": {
+  "bursts": 111,
+  "share_with_follower_at_top_0_2s": 0.342,
+  "mean_followers_at_top": 0.847,
+  "shifted_mean_at_top": 0.244,
+  "ratio": 3.47,
+  "mean_at_top_pm1c": 1.342,
+  "shifted_mean_pm1c": 0.477
+ },
+ "triggered": {
+  "bursts": 696,
+  "share_with_follower_at_top_0_2s": 0.503,
+  "mean_followers_at_top": 1.603,
+  "shifted_mean_at_top": 0.253,
+  "ratio": 6.35,
+  "mean_at_top_pm1c": 2.907,
+  "shifted_mean_pm1c": 0.485
+ }
+}

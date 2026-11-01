@@ -1,0 +1,41 @@
+{
+ "seconds": 3359,
+ "chainlink_noise": {
+  "coef_per_100usd": [
+   0.135
+  ],
+  "heldout_r2": 0.0342,
+  "corr_test": [
+   0.244
+  ]
+ },
+ "futures_change": {
+  "coef_per_100usd": [
+   -0.0662
+  ],
+  "heldout_r2": -0.0243,
+  "corr_test": [
+   -0.063
+  ]
+ },
+ "both": {
+  "coef_per_100usd": [
+   0.1398,
+   -0.0999
+  ],
+  "heldout_r2": 0.037,
+  "corr_test": [
+   0.244,
+   -0.063
+  ]
+ },
+ "chainlink_noise_t-1": {
+  "coef_per_100usd": [
+   -0.0471
+  ],
+  "heldout_r2": -0.0149,
+  "corr_test": [
+   -0.118
+  ]
+ }
+}

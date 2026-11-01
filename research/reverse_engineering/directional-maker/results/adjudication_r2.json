@@ -1,0 +1,50 @@
+{
+ "round": 2,
+ "lot": "f1",
+ "intervals": [
+  [
+   1793426400,
+   1793448000
+  ],
+  [
+   1793469600,
+   1793491200
+  ],
+  [
+   1793491200,
+   1793512800
+  ]
+ ],
+ "examiner_criteria": {
+  "match": "fail",
+  "backtest": "fail",
+  "replicable": "fail",
+  "persists": "fail"
+ },
+ "criteria": {
+  "match": "fail",
+  "backtest": "fail",
+  "replicable": "fail",
+  "persists": "fail"
+ },
+ "components": {
+  "selection": "fail",
+  "timing": "fail",
+  "side": "partial",
+  "price": "partial",
+  "size": "fail",
+  "exit": "partial"
+ },
+ "target_met": false,
+ "target_conditions": {
+  "scope": "met (pooled). 0.844 of trades and 0.914 of abs PnL are in BTC 5m+15m; both halves are >= 0.84 and >= 0.90. almach has 0.776 of its trades in the universe (reported).",
+  "presence_or_selection": "not met. Presence AUC is 0.597 against a bar of 0.85, and its gain over the stronger activity baseline (0.632) is -0.035 [-0.049, -0.009]. Selection AUC is 0.675 against 0.80, with recall 49% (bar 50%) and lift 2.0 (bar 3); its gain over the examiner's baseline (0.687) is -0.012.",
+  "side": "applies (45% of windows are one-sided). Not met: R8c scores 0.699 against a bar of 0.80. The market-only baseline (cheaper token) scores 0.637 and the own-inventory-only baseline (previous fill's side) 0.797.",
+  "price": "met on the rule's own R7 clock: 0.868, halves 0.864 / 0.871, and every wallet-half >= 0.80. It is the trivial anchor 'last print minus a tick', and the touch anchor beats it (0.971 on the match clock). The point-in-time-safe block clock gives 0.750.",
+  "outcome": "not met. The per-window PnL correlation is 0.365 Pearson and 0.248 Spearman, against a bar of 0.5 for both.",
+  "significance": "not met. The presence gain (p 0.9985) and the selection gain (p 0.952) point the wrong way, and the selection rotation null gives p 0.987. The side rotation null (p 0.0005) and the correlation permutation (p 0.002 / 0.0025) are significant, but on metrics below their bars.",
+  "replication": "not met. No threshold of conditions 2, 3 or 5 holds even pooled; only price holds in both halves and for all three wallets."
+ },
+ "deploy_now_supported": false,
+ "refutations": {}
+}

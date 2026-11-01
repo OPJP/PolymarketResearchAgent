@@ -1,0 +1,61 @@
+{
+ "cells": 69120,
+ "filled_cells": 6735,
+ "typed_cells": 6735,
+ "fn_share_all": 0.6644,
+ "fn_share_activity_all": 0.7039,
+ "fill_class_shares": {
+  "main": 0.4965,
+  "deep": 0.1871,
+  "pairing": 0.1779,
+  "remainder": 0.1326,
+  "other": 0.006
+ },
+ "by_cell_class": {
+  "has_main_fresh": {
+   "cells": 4600,
+   "fn_share": 0.635,
+   "fn_share_activity": 0.6937,
+   "share_of_all_fn": 0.6527
+  },
+  "other_mix": {
+   "cells": 35,
+   "fn_share": 0.4,
+   "fn_share_activity": 0.3714,
+   "share_of_all_fn": 0.0031
+  },
+  "own_state_only": {
+   "cells": 2100,
+   "fn_share": 0.7333,
+   "fn_share_activity": 0.7319,
+   "share_of_all_fn": 0.3441
+  }
+ },
+ "cells_holding_class": {
+  "main": {
+   "cells_with_class": 4600,
+   "fn_share": 0.635
+  },
+  "pairing": {
+   "cells_with_class": 1577,
+   "fn_share": 0.6487
+  },
+  "deep": {
+   "cells_with_class": 1061,
+   "fn_share": 0.7502
+  },
+  "remainder": {
+   "cells_with_class": 1359,
+   "fn_share": 0.621
+  },
+  "other": {
+   "cells_with_class": 81,
+   "fn_share": 0.3951
+  }
+ },
+ "reading": {
+  "own_state_only_share_of_fn": 0.3441,
+  "main_fn_share": 0.635,
+  "signature_met": false
+ }
+}

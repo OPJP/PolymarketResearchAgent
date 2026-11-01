@@ -1,0 +1,20 @@
+{
+ "messages_with_msg_orders": 654,
+ "map1": {
+  "n": 15,
+  "slope_match_on_map": 0.632,
+  "corr": 0.827,
+  "same_sign_share": 0.867,
+  "ratio_median": 0.667
+ },
+ "map2": {
+  "n": 31,
+  "slope_match_on_map": 0.189,
+  "corr": 0.194,
+  "same_sign_share": 0.742,
+  "ratio_median": 0.333
+ },
+ "map3": {
+  "n": 0
+ }
+}

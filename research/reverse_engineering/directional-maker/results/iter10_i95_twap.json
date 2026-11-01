@@ -1,0 +1,46 @@
+{
+ "n": 1265,
+ "twap_seconds": 14040,
+ "almach|500": {
+  "n": 411,
+  "add_cl": 0.771,
+  "add_tw": 0.572,
+  "match_cl": 0.825,
+  "match_tw": 0.582
+ },
+ "almach|other": {
+  "n": 40,
+  "add_cl": 0.525,
+  "add_tw": 0.3,
+  "match_cl": 0.575,
+  "match_tw": 0.35
+ },
+ "bosona|500": {
+  "n": 241,
+  "add_cl": 0.768,
+  "add_tw": 0.589,
+  "match_cl": 0.851,
+  "match_tw": 0.606
+ },
+ "bosona|other": {
+  "n": 95,
+  "add_cl": 0.547,
+  "add_tw": 0.526,
+  "match_cl": 0.632,
+  "match_tw": 0.516
+ },
+ "momoney|500": {
+  "n": 424,
+  "add_cl": 0.646,
+  "add_tw": 0.608,
+  "match_cl": 0.722,
+  "match_tw": 0.606
+ },
+ "momoney|other": {
+  "n": 54,
+  "add_cl": 0.759,
+  "add_tw": 0.537,
+  "match_cl": 0.759,
+  "match_tw": 0.574
+ }
+}

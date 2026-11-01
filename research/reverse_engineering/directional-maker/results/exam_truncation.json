@@ -1,0 +1,19 @@
+{
+ "n_windows": 40,
+ "rows": 2400,
+ "trunc_feature_mismatch": 0,
+ "corrupt_feature_mismatch": 0,
+ "trunc_pred_mismatch": 0,
+ "corrupt_pred_mismatch": 0,
+ "control_t_minus_1_feature_mismatch": 1042,
+ "control_t_minus_1_pred_mismatch": 938,
+ "mismatch_features": {},
+ "price_checked": 656,
+ "price_mismatch": 0,
+ "selection_prints_checked": 360,
+ "selection_feature_mismatch": 1,
+ "selection_mismatch_features": {
+  "fair_p": 1,
+  "edge_p": 1
+ }
+}

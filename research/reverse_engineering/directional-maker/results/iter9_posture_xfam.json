@@ -1,0 +1,79 @@
+{
+ "maker_fills": 36,
+ "scored": 36,
+ "all": {
+  "n": 36,
+  "windows": 10,
+  "frozen": 0.75,
+  "slow": 0.583,
+  "cheaper": 0.639,
+  "favourite": 0.361,
+  "always_up": 0.667,
+  "regionD_share": 0.0
+ },
+ "btc_4h": {
+  "n": 22,
+  "windows": 1,
+  "frozen": 0.727,
+  "slow": 0.682,
+  "cheaper": 0.818,
+  "favourite": 0.182,
+  "always_up": 0.773,
+  "regionD_share": 0.0
+ },
+ "eth_15m": {
+  "n": 8,
+  "windows": 4,
+  "frozen": 1.0,
+  "slow": 0.25,
+  "cheaper": 0.5,
+  "favourite": 0.5,
+  "always_up": 0.5,
+  "regionD_share": 0.0
+ },
+ "sol_5m": {
+  "n": 5,
+  "windows": 4,
+  "frozen": 0.6,
+  "slow": 0.8,
+  "cheaper": 0.2,
+  "favourite": 0.8,
+  "always_up": 0.6,
+  "regionD_share": 0.0
+ },
+ "non-BTC": {
+  "n": 14,
+  "windows": 9,
+  "frozen": 0.786,
+  "slow": 0.429,
+  "cheaper": 0.357,
+  "favourite": 0.643,
+  "always_up": 0.5,
+  "regionD_share": 0.0
+ },
+ "burst>1.5": {
+  "n": 7,
+  "windows": 3,
+  "frozen": 1.0,
+  "slow": 0.143,
+  "cheaper": 0.857,
+  "favourite": 0.143,
+  "always_up": 0.286,
+  "regionD_share": 0.0
+ },
+ "wallet bosona": {
+  "n": 15,
+  "frozen": 0.6,
+  "slow": 0.533
+ },
+ "wallet almach": {
+  "n": 10,
+  "frozen": 0.9,
+  "slow": 0.7
+ },
+ "wallet momoney": {
+  "n": 11,
+  "frozen": 0.818,
+  "slow": 0.545
+ }
+}

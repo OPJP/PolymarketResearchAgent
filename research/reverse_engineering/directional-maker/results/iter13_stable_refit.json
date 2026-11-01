@@ -1,0 +1,92 @@
+{
+ "windows": {
+  "build": 1313,
+  "study": 718,
+  "validate": 768
+ },
+ "maker_fills": 67968,
+ "importance_rule": {
+  "last_s": 21794.0,
+  "hit_o10": 13509.0,
+  "rel": 7921.0,
+  "edge_s": 7879.0,
+  "sig": 5550.0,
+  "fair_s": 4865.0,
+  "hit_s10": 3996.0,
+  "z_s": 3913.0,
+  "e_open_s": 3509.0,
+  "vol_s30": 3351.0
+ },
+ "importance_activity": {
+  "last_s": 28833.0,
+  "hit_o10": 14578.0,
+  "rel": 12787.0,
+  "hit_s10": 3957.0,
+  "vol_s30": 3783.0,
+  "dpx_s30": 3552.0,
+  "vol_s60": 3139.0,
+  "dpx_s10": 3133.0,
+  "dpx_s60": 3009.0,
+  "prev_n": 2986.0
+ },
+ "study": {
+  "refit_auc": 0.7211478128912034,
+  "refit_activity": 0.6951903869195843,
+  "frozen_auc": 0.7223709952030257,
+  "frozen_activity": 0.7025103027779258,
+  "pos_rate": 0.10721912720519963,
+  "refit_gain": 0.025957425971619097,
+  "refit_side": {
+   "n": 4249,
+   "acc": 0.638503177218169,
+   "fav_last_print": 0.3617321722758296,
+   "binance_fav": 0.3779712873617322,
+   "p_vs_fav": 2.350455401912479e-139
+  },
+  "refit_activity_side": 0.570487173452577,
+  "per_wallet": {
+   "bosona": {
+    "refit_auc": 0.7329057219084006,
+    "refit_activity": 0.7029170223197087
+   },
+   "almach": {
+    "refit_auc": 0.734947542144521,
+    "refit_activity": 0.7062115141199073
+   },
+   "momoney": {
+    "refit_auc": 0.7137547335610203,
+    "refit_activity": 0.68907792222148
+   }
+  }
+ },
+ "validate": {
+  "refit_auc": 0.7306133878483146,
+  "refit_activity": 0.7035748527885124,
+  "frozen_auc": 0.7540352814265785,
+  "frozen_activity": 0.7318613379142943,
+  "pos_rate": 0.0890842013888889,
+  "refit_gain": 0.02703853505980225,
+  "refit_side": {
+   "n": 3767,
+   "acc": 0.5890629147863021,
+   "fav_last_print": 0.4645606583488187,
+   "binance_fav": 0.501460047783382,
+   "p_vs_fav": 1.0964702557544633e-27
+  },
+  "refit_activity_side": 0.554021767985134,
+  "per_wallet": {
+   "bosona": {
+    "refit_auc": 0.7339062119884019,
+    "refit_activity": 0.7041415965600336
+   },
+   "almach": {
+    "refit_auc": 0.7322028645744563,
+    "refit_activity": 0.7009562839857703
+   },
+   "momoney": {
+    "refit_auc": 0.7351354822041676,
+    "refit_activity": 0.7067456263862505
+   }
+  }
+ }
+}

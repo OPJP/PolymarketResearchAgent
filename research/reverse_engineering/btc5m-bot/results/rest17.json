@@ -1,0 +1,149 @@
+{
+ "c_mix14_refit": 5.9348,
+ "coef_mix17": [
+  5.3145,
+  6.2641
+ ],
+ "coef_mix17b": [
+  5.3145,
+  6.3443,
+  6.1181
+ ],
+ "window_net_r": {
+  "mix14": 0.5125,
+  "mix17": 0.5124,
+  "mix17b": 0.5123
+ },
+ "window_net_spearman": {
+  "mix14": 0.4975,
+  "mix17": 0.4976,
+  "mix17b": 0.4972
+ },
+ "n_windows": 864,
+ "tapes_found": 864,
+ "tracker_mix14": {
+  "fills": 35700,
+  "rest_fills": 0,
+  "rest_shares": 0.0,
+  "pnl_before_rebates": -3342.1,
+  "rest_pnl": 0.0,
+  "GF": [
+   0.4013,
+   0.3819
+  ],
+  "XM": [
+   -0.0009,
+   0.0228
+  ],
+  "DS": [
+   0.4665,
+   0.4477
+  ],
+  "pool": [
+   0.5065,
+   0.4674
+  ],
+  "pool_halves": [
+   0.4949,
+   0.5151
+  ],
+  "pool_halves_spearman": [
+   0.4158,
+   0.5125
+  ]
+ },
+ "tracker_rest30": {
+  "fills": 76308,
+  "rest_fills": 35503,
+  "rest_shares": 201836.6,
+  "pnl_before_rebates": -18536.8,
+  "rest_pnl": -13654.3,
+  "GF": [
+   0.3409,
+   0.3468
+  ],
+  "XM": [
+   -0.0036,
+   0.0206
+  ],
+  "DS": [
+   0.4096,
+   0.4128
+  ],
+  "pool": [
+   0.4365,
+   0.4226
+  ],
+  "pool_halves": [
+   0.4305,
+   0.441
+  ],
+  "pool_halves_spearman": [
+   0.3585,
+   0.4742
+  ]
+ },
+ "tracker_rest10": {
+  "fills": 58970,
+  "rest_fills": 21281,
+  "rest_shares": 111451.2,
+  "pnl_before_rebates": -11167.1,
+  "rest_pnl": -6715.6,
+  "GF": [
+   0.3905,
+   0.3704
+  ],
+  "XM": [
+   -0.0011,
+   0.0158
+  ],
+  "DS": [
+   0.4593,
+   0.4428
+  ],
+  "pool": [
+   0.4956,
+   0.4508
+  ],
+  "pool_halves": [
+   0.4828,
+   0.505
+  ],
+  "pool_halves_spearman": [
+   0.3995,
+   0.4917
+  ]
+ },
+ "tracker_rest60": {
+  "fills": 88768,
+  "rest_fills": 45885,
+  "rest_shares": 274975.3,
+  "pnl_before_rebates": -25864.0,
+  "rest_pnl": -21869.1,
+  "GF": [
+   0.2457,
+   0.3291
+  ],
+  "XM": [
+   0.0096,
+   0.0305
+  ],
+  "DS": [
+   0.3161,
+   0.3949
+  ],
+  "pool": [
+   0.3285,
+   0.4078
+  ],
+  "pool_halves": [
+   0.3828,
+   0.2986
+  ],
+  "pool_halves_spearman": [
+   0.3467,
+   0.4548
+  ]
+ },
+ "adopted_rest30": false
+}

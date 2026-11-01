@@ -1,0 +1,82 @@
+{
+ "prints": 1718686,
+ "cluster_share": 0.0541,
+ "pooled": {
+  "auc_rule": 0.8939,
+  "auc_RE_pure_baseline": 0.8762,
+  "auc_own_MKTX_baseline": 0.8739,
+  "at_flag": {
+   "recall": 0.7352,
+   "precision": 0.2887,
+   "lift": 5.338,
+   "flag_share": 0.1377
+  }
+ },
+ "first_half": {
+  "auc_rule": 0.8985,
+  "auc_RE_pure_baseline": 0.8769,
+  "auc_own_MKTX_baseline": 0.8721,
+  "at_flag": {
+   "recall": 0.7239,
+   "precision": 0.2951,
+   "lift": 6.053,
+   "flag_share": 0.1196
+  }
+ },
+ "second_half": {
+  "auc_rule": 0.8887,
+  "auc_RE_pure_baseline": 0.8742,
+  "auc_own_MKTX_baseline": 0.8743,
+  "at_flag": {
+   "recall": 0.7443,
+   "precision": 0.2839,
+   "lift": 4.789,
+   "flag_share": 0.1554
+  }
+ },
+ "by_wallet": {
+  "GF": {
+   "auc_rule": 0.8951,
+   "auc_RE_pure_baseline": 0.8743,
+   "auc_own_MKTX_baseline": 0.872,
+   "at_flag": {
+    "recall": 0.7363,
+    "precision": 0.1017,
+    "lift": 6.488,
+    "flag_share": 0.1135
+   }
+  },
+  "XM": {
+   "auc_rule": 0.9047,
+   "auc_RE_pure_baseline": 0.8801,
+   "auc_own_MKTX_baseline": 0.8783,
+   "at_flag": {
+    "recall": 0.7352,
+    "precision": 0.0246,
+    "lift": 6.948,
+    "flag_share": 0.1058
+   }
+  },
+  "DS": {
+   "auc_rule": 0.8923,
+   "auc_RE_pure_baseline": 0.8766,
+   "auc_own_MKTX_baseline": 0.8743,
+   "at_flag": {
+    "recall": 0.7347,
+    "precision": 0.211,
+    "lift": 5.808,
+    "flag_share": 0.1265
+   }
+  }
+ },
+ "strongest_baseline": "auc_RE_pure_baseline",
+ "gain_vs_strongest": 0.0177,
+ "gain_boot": {
+  "lo95": 0.0151,
+  "hi95": 0.0204,
+  "p_gain_le_0": 0.0,
+  "p_gain_le_0.05": 1.0,
+  "n_boot": 2000,
+  "blocks": 48
+ }
+}

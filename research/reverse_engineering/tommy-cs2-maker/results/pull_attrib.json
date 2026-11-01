@@ -1,0 +1,162 @@
+{
+ "window_utc": [
+  "14:50",
+  "18:00"
+ ],
+ "markets": 8,
+ "wallet_takes": 39,
+ "pulls_detected": 11147,
+ "x49": {
+  "takes": 39,
+  "with_own_pull_0_60ms": 0.897,
+  "own_pull_offset_ms_p10_p50_p90": [
+   11.0,
+   14.0,
+   18.6
+  ],
+  "pull_sizes": {
+   "100.0": 19,
+   "68.0": 8,
+   "54.0": 7,
+   "58.0": 1
+  },
+  "share_other_cancel_before_own_pull": 0.286,
+  "share_other_cancel_in_50ms_before_sign": 0.103,
+  "other_first_cancel_lag_after_own_ms_p10_p25_p50_p75": [
+   -37.2,
+   -6.0,
+   10.0,
+   89.0
+  ],
+  "other_first_cancel_after_sign_ms_p10_p25_p50": [
+   -0.8,
+   9.0,
+   20.0
+  ],
+  "share_other_cancel_between_sign_and_own_pull": 0.2,
+  "cancels_attributed_as_remainders": 5,
+  "base_rate_other_cancel_in_random_14ms": 0.0037,
+  "between_sign_and_pull_cancels": [
+   {
+    "a": "81843488889857888473332775434511029378974137176597515331525093595163310030198",
+    "side": "SELL",
+    "p": 0.41,
+    "size": 31.26,
+    "rel_ms": 5.0,
+    "take_tx": "0x7d9dfdb5c57bc8b281d1de4bdab9d8232f8150eae0fe5d3a14bb259dad0c7e10"
+   },
+   {
+    "a": "81843488889857888473332775434511029378974137176597515331525093595163310030198",
+    "side": "BUY",
+    "p": 0.46,
+    "size": 168.0,
+    "rel_ms": 3.0,
+    "take_tx": "0xe8714673a8f9486bd7983ef3f5ccf5c2b5c855671b2ef1ac1abc5bc8e507c822"
+   },
+   {
+    "a": "81843488889857888473332775434511029378974137176597515331525093595163310030198",
+    "side": "BUY",
+    "p": 0.5,
+    "size": 5.0,
+    "rel_ms": 9.0,
+    "take_tx": "0x4c4d8d6fdaa8983113681aeed6ea8a62feec7ba5a40b103a990d050df17eddba"
+   },
+   {
+    "a": "81843488889857888473332775434511029378974137176597515331525093595163310030198",
+    "side": "BUY",
+    "p": 0.49,
+    "size": 45.0,
+    "rel_ms": 9.0,
+    "take_tx": "0x4c4d8d6fdaa8983113681aeed6ea8a62feec7ba5a40b103a990d050df17eddba"
+   },
+   {
+    "a": "81843488889857888473332775434511029378974137176597515331525093595163310030198",
+    "side": "BUY",
+    "p": 0.49,
+    "size": 199.0,
+    "rel_ms": 11.0,
+    "take_tx": "0x4c4d8d6fdaa8983113681aeed6ea8a62feec7ba5a40b103a990d050df17eddba"
+   },
+   {
+    "a": "81843488889857888473332775434511029378974137176597515331525093595163310030198",
+    "side": "BUY",
+    "p": 0.52,
+    "size": 180.0,
+    "rel_ms": 12.0,
+    "take_tx": "0x4c4d8d6fdaa8983113681aeed6ea8a62feec7ba5a40b103a990d050df17eddba"
+   },
+   {
+    "a": "81843488889857888473332775434511029378974137176597515331525093595163310030198",
+    "side": "SELL",
+    "p": 0.38,
+    "size": 40.47,
+    "rel_ms": 14.0,
+    "take_tx": "0x965024606358562f8397f6947426382502d58e54c49b20c89d20105960c18624"
+   },
+   {
+    "a": "100343709105197278682746728839783580753474055785365069683896190091860555386133",
+    "side": "SELL",
+    "p": 0.74,
+    "size": 46.75,
+    "rel_ms": 5.0,
+    "take_tx": "0x560691730b65b6564bb20a35c10760011993254eb17a4eda199a278b8de89e8c"
+   },
+   {
+    "a": "100343709105197278682746728839783580753474055785365069683896190091860555386133",
+    "side": "SELL",
+    "p": 0.74,
+    "size": 7.01,
+    "rel_ms": 11.0,
+    "take_tx": "0x4348bf3fdd2e7a29b6ceb0b93250fdda35e32528d64a00ac64c9542ae3e8b229"
+   },
+   {
+    "a": "100343709105197278682746728839783580753474055785365069683896190091860555386133",
+    "side": "SELL",
+    "p": 0.78,
+    "size": 60.0,
+    "rel_ms": 9.0,
+    "take_tx": "0x9dbf22346035c80301517fee399b1fa4a39153a05f3cc816cc06eb3ffee22745"
+   },
+   {
+    "a": "100343709105197278682746728839783580753474055785365069683896190091860555386133",
+    "side": "SELL",
+    "p": 0.79,
+    "size": 20.0,
+    "rel_ms": 34.0,
+    "take_tx": "0x9dbf22346035c80301517fee399b1fa4a39153a05f3cc816cc06eb3ffee22745"
+   }
+  ]
+ },
+ "x46": {
+  "multi_level_pulls_with_take": {
+   "n": 33,
+   "strict_signature": 0.636,
+   "mid_up_ge1c_10s": 0.879,
+   "mid_down_ge1c_10s": 0.091
+  },
+  "multi_level_pulls_without_take": {
+   "n": 829,
+   "strict_signature": 0.035,
+   "mid_up_ge1c_10s": 0.32,
+   "mid_down_ge1c_10s": 0.305
+  },
+  "pulls_without_take_with_signature": {
+   "n": 29,
+   "strict_signature": 1.0,
+   "mid_up_ge1c_10s": 0.621,
+   "mid_down_ge1c_10s": 0.172
+  },
+  "pulls_without_take_no_signature": {
+   "n": 800,
+   "strict_signature": 0.0,
+   "mid_up_ge1c_10s": 0.309,
+   "mid_down_ge1c_10s": 0.31
+  },
+  "random_times": {
+   "n": 600,
+   "strict_signature": 0.027,
+   "mid_up_ge1c_10s": 0.258,
+   "mid_down_ge1c_10s": 0.285
+  }
+ }
+}

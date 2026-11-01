@@ -1,0 +1,46 @@
+{
+ "wallet_takes": {
+  "n": 39,
+  "wallet_maker_hit_in_tx": 0.0,
+  "[-300,0)": {
+   "rate": 0.026,
+   "null": 0.047,
+   "ratio": 0.55
+  },
+  "[0,150)": {
+   "rate": 0.949,
+   "null": 0.038,
+   "ratio": 24.67
+  },
+  "[150,match)": {
+   "rate": 0.256,
+   "null": 0.15,
+   "ratio": 1.71
+  }
+ },
+ "pack_takes_without_wallet": {
+  "n": 54,
+  "wallet_maker_hit_in_tx": 0.37,
+  "[-300,0)": {
+   "rate": 0.204,
+   "null": 0.009,
+   "ratio": 22.0
+  },
+  "[0,150)": {
+   "rate": 0.259,
+   "null": 0.009,
+   "ratio": 28.0
+  },
+  "[150,match)": {
+   "rate": 0.278,
+   "null": 0.111,
+   "ratio": 2.5
+  }
+ },
+ "busy_phase_control_retail_buys": {
+  "[-300,0)": 0.072,
+  "[0,150)": 0.052,
+  "n_retail_buys": 401
+ },
+ "pre_pack_pull_fak_return_signature": 0.0
+}

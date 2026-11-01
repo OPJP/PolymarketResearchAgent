@@ -1,0 +1,72 @@
+{
+ "fit_cells_sampled": 133663,
+ "score_cells": 341960,
+ "w45_tx_excluded": 16478,
+ "auc_frozen_full": 0.8701,
+ "auc_frozen_aug_baseline": 0.8174,
+ "auc_MSB": 0.8464,
+ "MSB_importance_top10": {
+  "m_last": 0.1709,
+  "vwap10": 0.1422,
+  "O_ask_o": 0.0755,
+  "pm_o_n_2": 0.042,
+  "bid_o": 0.0346,
+  "pm_o_n_3": 0.032,
+  "n30": 0.0237,
+  "rel": 0.023,
+  "pm_o_v_3": 0.0217,
+  "pm_o_v_2": 0.0212
+ },
+ "MSB_capture_share_of_gain": 0.249,
+ "auc_AUGR": 0.8104,
+ "auc_FULLMS": 0.86,
+ "gain_frozen_full_vs_MSB": 0.0237,
+ "gain_FULLMS_vs_MSB": 0.0136,
+ "gain_frozen_full_vs_AUGR": 0.0597,
+ "boot_frozen_full_vs_MSB": {
+  "lo95": 0.0172,
+  "hi95": 0.0314,
+  "one_sided_p_gain_le_0": 0.0,
+  "n_boot": 2000,
+  "blocks": 36
+ },
+ "boot_FULLMS_vs_MSB": {
+  "lo95": -0.0029,
+  "hi95": 0.026,
+  "one_sided_p_gain_le_0": 0.043,
+  "n_boot": 2000,
+  "blocks": 36
+ },
+ "by_wallet": {
+  "GF": {
+   "pf": 0.8634,
+   "MSB": 0.8419,
+   "FULLMS": 0.855,
+   "AUGR": 0.7991
+  },
+  "XM": {
+   "pf": 0.8825,
+   "MSB": 0.8823,
+   "FULLMS": 0.8757,
+   "AUGR": 0.8204
+  },
+  "DS": {
+   "pf": 0.8506,
+   "MSB": 0.8275,
+   "FULLMS": 0.8417,
+   "AUGR": 0.7937
+  }
+ },
+ "halves": {
+  "first": {
+   "pf": 0.8786,
+   "MSB": 0.8543,
+   "FULLMS": 0.8625
+  },
+  "second": {
+   "pf": 0.8616,
+   "MSB": 0.8394,
+   "FULLMS": 0.8577
+  }
+ }
+}

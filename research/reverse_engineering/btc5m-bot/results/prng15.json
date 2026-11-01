@@ -1,0 +1,43 @@
+{
+ "model": "V8 xorshift128+, ToDouble = (state0 >> 12) / 2^52, 64-entry cache read LIFO; salt = round(r * Date.now()), Date.now() within +-DT of the order timestamp",
+ "unit": "copy groups: >= 4 distinct salts of one (wallet burst, token, price) signed in the same ms (calldata sample hours, development)",
+ "prng15_hi": {
+  "P": 12,
+  "variant": "hi",
+  "DT": 2,
+  "real_groups_tested": 40,
+  "real_consistent": 0,
+  "real_validated": 0,
+  "synthetic_selftest_solved": 6
+ },
+ "prng15_hi_dt50": {
+  "P": 12,
+  "variant": "hi",
+  "DT": 50,
+  "real_groups_tested": 20,
+  "real_consistent": 0,
+  "real_validated": 0
+ },
+ "prng15_hi_dt1500": {
+  "P": 12,
+  "variant": "hi",
+  "DT": 1500,
+  "real_groups_tested": 13,
+  "real_consistent": 7,
+  "real_validated": 0
+ },
+ "prng15_hi_p24": {
+  "P": 24,
+  "variant": "hi",
+  "DT": 3,
+  "real_groups_tested": 6,
+  "real_consistent": 0,
+  "real_validated": 0
+ },
+ "ground_truth_real_node_v22": {
+  "groups": 3,
+  "solved_and_validated": 3,
+  "held_out_salts_predicted": 120,
+  "held_out_total": 120
+ }
+}

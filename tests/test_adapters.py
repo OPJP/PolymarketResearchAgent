@@ -36,7 +36,7 @@ def test_merge_cursor_pages_multi_page_same_timestamp():
 
 
 def test_decode_v2_receipt_maker_role():
-    rec = json.loads((FIX / "receipt_v2_maker.json").read_text())
+    rec = json.loads((FIX / "receipt_v2_maker.json").read_text(encoding="utf-8"))
     fills = decode_fills(rec)
     mine = [f for f in fills if f.maker == W]
     assert len(mine) == 1
@@ -51,7 +51,7 @@ def test_decode_v2_receipt_maker_role():
 
 
 def test_decode_v1_receipt_maker_role():
-    rec = json.loads((FIX / "receipt_v1_maker.json").read_text())
+    rec = json.loads((FIX / "receipt_v1_maker.json").read_text(encoding="utf-8"))
     fills = decode_fills(rec)
     mine = [f for f in fills if f.maker == W]
     assert len(mine) == 1

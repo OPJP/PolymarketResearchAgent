@@ -1,0 +1,392 @@
+{
+ "wallet_prints": 3961,
+ "share_with_any_same_token_buy_0_30s_before": 0.5402676091895986,
+ "pairs": 11025,
+ "null_pairs_per_shift": 2286.5,
+ "top_leaders": [
+  {
+   "leader": "0x621efa310f59013ce082e4af3e4ca130e43b8e10",
+   "pairs": 444,
+   "null_pairs": 28.0,
+   "ratio_vs_null": 15.857142857142858,
+   "share_of_wallet_prints": 0.11209290583186064,
+   "lag_med": 11.0,
+   "lag_iqr": 14.0,
+   "logratio_sd": 1.682305255697884,
+   "logratio_med": 1.4356671939485284
+  },
+  {
+   "leader": "0x580325efbb00a3262513d16bce6bbcc979313f3f",
+   "pairs": 224,
+   "null_pairs": 28.5,
+   "ratio_vs_null": 7.859649122807017,
+   "share_of_wallet_prints": 0.05655137591517294,
+   "lag_med": 9.0,
+   "lag_iqr": 18.0,
+   "logratio_sd": 2.7181073472036883,
+   "logratio_med": 2.581216329925511
+  },
+  {
+   "leader": "0x6e2c0e9474af7d720e5aba2a5b0bb6f723b7787c",
+   "pairs": 217,
+   "null_pairs": 53.5,
+   "ratio_vs_null": 4.05607476635514,
+   "share_of_wallet_prints": 0.05478414541782378,
+   "lag_med": 17.0,
+   "lag_iqr": 12.0,
+   "logratio_sd": 1.8164809114849623,
+   "logratio_med": 0.06213178110700597
+  },
+  {
+   "leader": "0xddb6e6246546230503f153506ac1e9914978b9b3",
+   "pairs": 153,
+   "null_pairs": 21.5,
+   "ratio_vs_null": 7.116279069767442,
+   "share_of_wallet_prints": 0.03862660944206009,
+   "lag_med": 9.0,
+   "lag_iqr": 11.0,
+   "logratio_sd": 1.7220333588546346,
+   "logratio_med": 3.0155349008501706
+  },
+  {
+   "leader": "0x93ef3fca8816946cb9a43b49fcfd66d7668d6dda",
+   "pairs": 145,
+   "null_pairs": 2.5,
+   "ratio_vs_null": 58.0,
+   "share_of_wallet_prints": 0.03660691744508962,
+   "lag_med": 7.0,
+   "lag_iqr": 11.0,
+   "logratio_sd": 1.7364081455323925,
+   "logratio_med": 2.41126907984339
+  },
+  {
+   "leader": "0x2a69660046d7acc4ab204d7cc5ba78b0776cd2f7",
+   "pairs": 128,
+   "null_pairs": 66.0,
+   "ratio_vs_null": 1.9393939393939394,
+   "share_of_wallet_prints": 0.03231507195152739,
+   "lag_med": 12.0,
+   "lag_iqr": 17.0,
+   "logratio_sd": 2.715207629016471,
+   "logratio_med": -0.546362350041341
+  },
+  {
+   "leader": "0x21ce81f50e18b8d301186a0d64ccf68c4d4de2ea",
+   "pairs": 122,
+   "null_pairs": 0.5,
+   "ratio_vs_null": 244.0,
+   "share_of_wallet_prints": 0.030800302953799544,
+   "lag_med": 8.0,
+   "lag_iqr": 13.75,
+   "logratio_sd": 1.7587420747161713,
+   "logratio_med": 2.1468002064179297
+  },
+  {
+   "leader": "0xe8e086f7ef06af27889edfb5026e1453c61d7eec",
+   "pairs": 120,
+   "null_pairs": 25.0,
+   "ratio_vs_null": 4.8,
+   "share_of_wallet_prints": 0.03029537995455693,
+   "lag_med": 12.0,
+   "lag_iqr": 15.0,
+   "logratio_sd": 2.004232825925846,
+   "logratio_med": 2.8779150043795467
+  },
+  {
+   "leader": "0x592997c2d8119d82d71f21119957c6434d244684",
+   "pairs": 118,
+   "null_pairs": 11.0,
+   "ratio_vs_null": 10.727272727272727,
+   "share_of_wallet_prints": 0.029790456955314314,
+   "lag_med": 11.0,
+   "lag_iqr": 17.0,
+   "logratio_sd": 2.018093177794763,
+   "logratio_med": 0.2714209187966536
+  },
+  {
+   "leader": "0x84ad9c5c547a82ec9a08547b94bd922446e5bfb7",
+   "pairs": 117,
+   "null_pairs": 28.0,
+   "ratio_vs_null": 4.178571428571429,
+   "share_of_wallet_prints": 0.02953799545569301,
+   "lag_med": 11.0,
+   "lag_iqr": 14.0,
+   "logratio_sd": 1.850523816884561,
+   "logratio_med": 0.9902168693151294
+  },
+  {
+   "leader": "0xbfd770b7ff07fb2ece41b0e7c593db65a84cf0bf",
+   "pairs": 113,
+   "null_pairs": 9.0,
+   "ratio_vs_null": 12.555555555555555,
+   "share_of_wallet_prints": 0.028528149457207774,
+   "lag_med": 10.0,
+   "lag_iqr": 17.0,
+   "logratio_sd": 2.0985860345115213,
+   "logratio_med": -0.11536808271629942
+  },
+  {
+   "leader": "0xc785252b25901a591e9d962e09f4342468444ef2",
+   "pairs": 113,
+   "null_pairs": 6.5,
+   "ratio_vs_null": 17.384615384615383,
+   "share_of_wallet_prints": 0.028528149457207774,
+   "lag_med": 12.0,
+   "lag_iqr": 12.0,
+   "logratio_sd": 2.4432108212233556,
+   "logratio_med": 0.865477037372472
+  },
+  {
+   "leader": "0x821dab0565ebf5b327f51db06223fdcfe01acf16",
+   "pairs": 110,
+   "null_pairs": 59.0,
+   "ratio_vs_null": 1.8644067796610169,
+   "share_of_wallet_prints": 0.027770764958343852,
+   "lag_med": 16.0,
+   "lag_iqr": 15.75,
+   "logratio_sd": 1.8573243510825783,
+   "logratio_med": 0.8236551940026475
+  },
+  {
+   "leader": "0x870a742f10c5d80433825e8e90fe4e00ae9b6c6e",
+   "pairs": 101,
+   "null_pairs": 2.5,
+   "ratio_vs_null": 40.4,
+   "share_of_wallet_prints": 0.025498611461752082,
+   "lag_med": 10.0,
+   "lag_iqr": 16.0,
+   "logratio_sd": 1.9642176289436737,
+   "logratio_med": 1.0136352047369102
+  },
+  {
+   "leader": "0x216050de6080fac3926226b2b8ce3d5544784c78",
+   "pairs": 95,
+   "null_pairs": 19.5,
+   "ratio_vs_null": 4.871794871794871,
+   "share_of_wallet_prints": 0.023983842464024237,
+   "lag_med": 18.0,
+   "lag_iqr": 16.0,
+   "logratio_sd": 1.3827999719975042,
+   "logratio_med": 2.822535608059149
+  },
+  {
+   "leader": "0x47138dc1eef25f1ea91f3b2fda0e0f455c634d21",
+   "pairs": 94,
+   "null_pairs": 24.5,
+   "ratio_vs_null": 3.836734693877551,
+   "share_of_wallet_prints": 0.02373138096440293,
+   "lag_med": 15.0,
+   "lag_iqr": 11.75,
+   "logratio_sd": 1.8646248759029964,
+   "logratio_med": 1.540445040947149
+  },
+  {
+   "leader": "0x42a1b2b43134d83f6ec639de4c2b40aa2a36a8e9",
+   "pairs": 87,
+   "null_pairs": 17.5,
+   "ratio_vs_null": 4.9714285714285715,
+   "share_of_wallet_prints": 0.021964150467053776,
+   "lag_med": 11.0,
+   "lag_iqr": 13.5,
+   "logratio_sd": 1.7560631282594976,
+   "logratio_med": 3.688641322568093
+  },
+  {
+   "leader": "0xc0e4f49b80a2162aa8c1c1ad1bd0867574e3dd38",
+   "pairs": 78,
+   "null_pairs": 12.0,
+   "ratio_vs_null": 6.5,
+   "share_of_wallet_prints": 0.019691996970462006,
+   "lag_med": 16.5,
+   "lag_iqr": 11.0,
+   "logratio_sd": 1.7808178145908218,
+   "logratio_med": 1.353504538407713
+  },
+  {
+   "leader": "0xc70974218b9c6570f7701cd6fafc04ed490fbda9",
+   "pairs": 77,
+   "null_pairs": 11.0,
+   "ratio_vs_null": 7.0,
+   "share_of_wallet_prints": 0.019439535470840697,
+   "lag_med": 12.0,
+   "lag_iqr": 11.0,
+   "logratio_sd": 1.8669065527479893,
+   "logratio_med": 2.995732273553991
+  },
+  {
+   "leader": "0x85264d29fa7279946d15105c17eb6c2533f572aa",
+   "pairs": 77,
+   "null_pairs": 6.5,
+   "ratio_vs_null": 11.846153846153847,
+   "share_of_wallet_prints": 0.019439535470840697,
+   "lag_med": 17.0,
+   "lag_iqr": 17.0,
+   "logratio_sd": 1.7706878355982385,
+   "logratio_med": 0.2639760611925938
+  },
+  {
+   "leader": "0x775d9de0c72c76a459fadfbb4cd79d5715236beb",
+   "pairs": 76,
+   "null_pairs": 19.5,
+   "ratio_vs_null": 3.8974358974358974,
+   "share_of_wallet_prints": 0.01918707397121939,
+   "lag_med": 12.0,
+   "lag_iqr": 16.0,
+   "logratio_sd": 1.93506561562605,
+   "logratio_med": 3.0198025748543094
+  },
+  {
+   "leader": "0x6b23c73159b753c96d3c1ed94413f113300c04a3",
+   "pairs": 75,
+   "null_pairs": 12.0,
+   "ratio_vs_null": 6.25,
+   "share_of_wallet_prints": 0.01893461247159808,
+   "lag_med": 15.0,
+   "lag_iqr": 15.0,
+   "logratio_sd": 2.129126197562117,
+   "logratio_med": 1.3083328196381763
+  },
+  {
+   "leader": "0xe37f63fd351ae6915f7d827e9eefdbb579836635",
+   "pairs": 66,
+   "null_pairs": 6.5,
+   "ratio_vs_null": 10.153846153846153,
+   "share_of_wallet_prints": 0.01666245897500631,
+   "lag_med": 13.0,
+   "lag_iqr": 13.0,
+   "logratio_sd": 1.841809612491889,
+   "logratio_med": 0.31643294381094556
+  },
+  {
+   "leader": "0x67706ec33d1bc5ed0db5cf0681b74b57b64ec3bd",
+   "pairs": 62,
+   "null_pairs": 15.5,
+   "ratio_vs_null": 4.0,
+   "share_of_wallet_prints": 0.01565261297652108,
+   "lag_med": 12.0,
+   "lag_iqr": 16.5,
+   "logratio_sd": 1.8307817116467655,
+   "logratio_med": 3.2521614010556616
+  },
+  {
+   "leader": "0xe91171f655be1568e4c63f29663c0028649e3d4e",
+   "pairs": 61,
+   "null_pairs": 6.0,
+   "ratio_vs_null": 10.166666666666666,
+   "share_of_wallet_prints": 0.015400151476899772,
+   "lag_med": 14.0,
+   "lag_iqr": 9.0,
+   "logratio_sd": 2.310314481308756,
+   "logratio_med": 0.14796737305514326
+  },
+  {
+   "leader": "0x8a80528dce46711a54aa3455c2cc81dea51e11c5",
+   "pairs": 60,
+   "null_pairs": 14.0,
+   "ratio_vs_null": 4.285714285714286,
+   "share_of_wallet_prints": 0.015147689977278465,
+   "lag_med": 11.5,
+   "lag_iqr": 11.25,
+   "logratio_sd": 1.782187914132415,
+   "logratio_med": 2.861672947893342
+  },
+  {
+   "leader": "0x299f1e05b122ddda46e4199093f05234f3732c50",
+   "pairs": 60,
+   "null_pairs": 2.0,
+   "ratio_vs_null": 30.0,
+   "share_of_wallet_prints": 0.015147689977278465,
+   "lag_med": 12.0,
+   "lag_iqr": 15.0,
+   "logratio_sd": 1.238671107590379,
+   "logratio_med": 1.5472827711478003
+  },
+  {
+   "leader": "0x14e72e19ea2f6e2be41504dd3268184ebe5fa32c",
+   "pairs": 56,
+   "null_pairs": 14.0,
+   "ratio_vs_null": 4.0,
+   "share_of_wallet_prints": 0.014137843978793235,
+   "lag_med": 12.0,
+   "lag_iqr": 14.25,
+   "logratio_sd": 1.873428516765259,
+   "logratio_med": 3.2998450002745825
+  },
+  {
+   "leader": "0xca5f15ee1795b7d3df5ce1767ac5570badae41f5",
+   "pairs": 56,
+   "null_pairs": 4.5,
+   "ratio_vs_null": 12.444444444444445,
+   "share_of_wallet_prints": 0.014137843978793235,
+   "lag_med": 12.0,
+   "lag_iqr": 13.25,
+   "logratio_sd": 2.034334344804574,
+   "logratio_med": 2.6096403927241285
+  },
+  {
+   "leader": "0x10d79cc72df76ea3d6bdc2d54f41dbcbbb18bbf6",
+   "pairs": 56,
+   "null_pairs": 38.0,
+   "ratio_vs_null": 1.4736842105263157,
+   "share_of_wallet_prints": 0.014137843978793235,
+   "lag_med": 15.0,
+   "lag_iqr": 17.25,
+   "logratio_sd": 2.072886385039502,
+   "logratio_med": 0.37886066024860365
+  }
+ ],
+ "top_followers": [
+  {
+   "follower": "0x621efa310f59013ce082e4af3e4ca130e43b8e10",
+   "pairs": 1532,
+   "lag_med": 3.0
+  },
+  {
+   "follower": "0x93ef3fca8816946cb9a43b49fcfd66d7668d6dda",
+   "pairs": 570,
+   "lag_med": 3.0
+  },
+  {
+   "follower": "0x21ce81f50e18b8d301186a0d64ccf68c4d4de2ea",
+   "pairs": 454,
+   "lag_med": 3.0
+  },
+  {
+   "follower": "0xe37f63fd351ae6915f7d827e9eefdbb579836635",
+   "pairs": 351,
+   "lag_med": 4.0
+  },
+  {
+   "follower": "0x870a742f10c5d80433825e8e90fe4e00ae9b6c6e",
+   "pairs": 310,
+   "lag_med": 2.0
+  },
+  {
+   "follower": "0x0f68efefeb0d5cfe57cd083515cecfea2aa7e18f",
+   "pairs": 175,
+   "lag_med": 4.0
+  },
+  {
+   "follower": "0x2a69660046d7acc4ab204d7cc5ba78b0776cd2f7",
+   "pairs": 167,
+   "lag_med": 15.0
+  },
+  {
+   "follower": "0xfa168cdbead2dd0f814aaa476874454f861adac4",
+   "pairs": 152,
+   "lag_med": 3.0
+  },
+  {
+   "follower": "0x6e2c0e9474af7d720e5aba2a5b0bb6f723b7787c",
+   "pairs": 140,
+   "lag_med": 19.5
+  },
+  {
+   "follower": "0x65dc5ca0cd354b515e7e47a815d1c36e9ebf2666",
+   "pairs": 136,
+   "lag_med": 5.0
+  }
+ ],
+ "strong_form_leaders": [],
+ "max_share_any_leader": 0.11209290583186064
+}

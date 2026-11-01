@@ -1,0 +1,614 @@
+{
+ "strategy": "rn1-inplay-maker",
+ "wallets": [
+  "0x2005d16a84ceefa912d4e380cd32e7ff827875ea"
+ ],
+ "primary_metric": "presence_auc (pre-registered in iteration 1): VALIDATE 2026-10-16..22 ROC AUC of the rule's score for 'RN1 has >= 1 maker fill in this (market, 60-s bin)' over cells of the sampled events' markets (all sibling markets) in [gameStart-2h, gameStart+5h] that have >= 1 public taker print in the bin; point in time, no own-state features",
+ "split": {
+  "BUILD": [
+   1790899200,
+   1792108800
+  ],
+  "VALIDATE": [
+   1792108800,
+   1792713600
+  ],
+  "live_only": "development 6-h blocks after T0: day d BUILD iff floor(d/2) even (10-31, 11-01 BUILD; 11-02, 11-03 VALIDATE)"
+ },
+ "status": "continue",
+ "wall_reason": null,
+ "sealed_from": {
+  "H": 1792713600,
+  "T0": 1793404800,
+  "released_lots": [],
+  "future_examined_until": 1793404800
+ },
+ "live_lab": [],
+ "strategy_statement": "",
+ "components": {},
+ "catalog": {
+  "A1": {
+   "status": "open",
+   "evidence": ""
+  },
+  "A2": {
+   "status": "open",
+   "evidence": ""
+  },
+  "A3": {
+   "status": "open",
+   "evidence": ""
+  },
+  "A4": {
+   "status": "open",
+   "evidence": ""
+  },
+  "A4b": {
+   "status": "open",
+   "evidence": ""
+  },
+  "A5": {
+   "status": "open",
+   "evidence": ""
+  },
+  "A5a": {
+   "status": "open",
+   "evidence": ""
+  },
+  "A6": {
+   "status": "open",
+   "evidence": ""
+  },
+  "A6b": {
+   "status": "open",
+   "evidence": ""
+  },
+  "A7": {
+   "status": "open",
+   "evidence": ""
+  },
+  "A8": {
+   "status": "open",
+   "evidence": ""
+  },
+  "B1": {
+   "status": "open",
+   "evidence": ""
+  },
+  "B2": {
+   "status": "open",
+   "evidence": ""
+  },
+  "B3": {
+   "status": "open",
+   "evidence": ""
+  },
+  "B4": {
+   "status": "open",
+   "evidence": ""
+  },
+  "B5": {
+   "status": "open",
+   "evidence": ""
+  },
+  "B6": {
+   "status": "open",
+   "evidence": ""
+  },
+  "B7": {
+   "status": "open",
+   "evidence": ""
+  },
+  "B8": {
+   "status": "open",
+   "evidence": ""
+  },
+  "B9": {
+   "status": "open",
+   "evidence": ""
+  },
+  "C1": {
+   "status": "open",
+   "evidence": ""
+  },
+  "C2": {
+   "status": "open",
+   "evidence": ""
+  },
+  "C3": {
+   "status": "open",
+   "evidence": ""
+  },
+  "C4": {
+   "status": "open",
+   "evidence": ""
+  },
+  "C4b": {
+   "status": "open",
+   "evidence": ""
+  },
+  "C5": {
+   "status": "open",
+   "evidence": ""
+  },
+  "C6": {
+   "status": "open",
+   "evidence": ""
+  },
+  "C7": {
+   "status": "open",
+   "evidence": ""
+  },
+  "C8": {
+   "status": "open",
+   "evidence": ""
+  },
+  "D1": {
+   "status": "open",
+   "evidence": ""
+  },
+  "D2": {
+   "status": "open",
+   "evidence": ""
+  },
+  "D3": {
+   "status": "open",
+   "evidence": ""
+  },
+  "D4": {
+   "status": "open",
+   "evidence": ""
+  },
+  "E1": {
+   "status": "open",
+   "evidence": ""
+  },
+  "E2": {
+   "status": "open",
+   "evidence": ""
+  },
+  "E3": {
+   "status": "open",
+   "evidence": ""
+  },
+  "E4": {
+   "status": "open",
+   "evidence": ""
+  },
+  "E5": {
+   "status": "open",
+   "evidence": ""
+  },
+  "E6": {
+   "status": "open",
+   "evidence": ""
+  },
+  "E7": {
+   "status": "open",
+   "evidence": ""
+  },
+  "X1": {
+   "status": "open",
+   "evidence": "",
+   "source": "reviewer lead 2026-10-31: Combos/RFQ flow (Gamma rfqEnabled) as a hedge or a source of its two-sided quoting"
+  },
+  "X2": {
+   "status": "open",
+   "evidence": "",
+   "source": "reviewer lead 2026-10-31: Polymarket sports websocket latency against ESPN and against its V2 order signing times"
+  }
+ },
+ "target_metrics": {
+  "presence_auc": null,
+  "selection_auc": null,
+  "selection_recall": null,
+  "selection_lift": null,
+  "presence_baseline": null,
+  "selection_baseline": null,
+  "side_accuracy": null,
+  "side_baseline": null,
+  "price_within_tick": null,
+  "pnl_corr_pearson": null,
+  "pnl_corr_spearman": null,
+  "coverage_fills": null,
+  "coverage_abs_pnl": null
+ },
+ "best": {
+  "rule_id": null,
+  "validate_metrics": {}
+ },
+ "hypotheses": [],
+ "data_sources": [],
+ "dimensions": {
+  "clob_book_levels": {
+   "family": "polymarket_internal",
+   "status": "proxy",
+   "source": "live lab clob_wallets (post-T0 dev blocks); pre-H only the tape",
+   "resolution": "200 ms top-10, 30 s full",
+   "publication_latency": "ws push",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "public_tape": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "data-api /trades (taker and maker rows) per market",
+   "resolution": "1 s",
+   "publication_latency": "block time",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "other_wallets": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "tape wallets; V2 calldata of every order in the tx",
+   "resolution": "1 s / ms signing",
+   "publication_latency": "block time",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "listings_metadata": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "Gamma markets/events (listing fields only)",
+   "resolution": "per market",
+   "publication_latency": "at listing",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "market_comments": {
+   "family": "polymarket_internal",
+   "status": "missing",
+   "source": "Gamma /comments (parent_entity_type, parent_entity_id)",
+   "resolution": "per post",
+   "publication_latency": "post time",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "fees_rebates_rewards": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "activity MAKER_REBATE/TAKER_REBATE/REWARD rows; Gamma feeSchedule, rewards params",
+   "resolution": "daily",
+   "publication_latency": "daily",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "taker_delay": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "Gamma secondsDelay (1 s on 98.7% of its markets)",
+   "resolution": "per market",
+   "publication_latency": "at listing",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "operational_events": {
+   "family": "polymarket_internal",
+   "status": "missing",
+   "source": "Polymarket status page / engine restarts",
+   "resolution": "event",
+   "publication_latency": "unknown",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "sibling_markets": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "tapes of all markets of the same event",
+   "resolution": "1 s",
+   "publication_latency": "block time",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "sportsbook_odds": {
+   "family": "related_markets",
+   "status": "blocked",
+   "source": "Pinnacle / bet365 / odds APIs need keys",
+   "resolution": "sub-second",
+   "publication_latency": "unknown",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "betfair_exchange": {
+   "family": "related_markets",
+   "status": "blocked",
+   "source": "Betfair stream API needs a key",
+   "resolution": "50 ms",
+   "publication_latency": "unknown",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "kalshi_sports": {
+   "family": "related_markets",
+   "status": "missing",
+   "source": "Kalshi public market data (sports)",
+   "resolution": "trade",
+   "publication_latency": "unknown",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "espn_pbp": {
+   "family": "event_state",
+   "status": "have",
+   "source": "polyrea.adapters.espn play-by-play wall clocks, win probability",
+   "resolution": "1 s",
+   "publication_latency": "~3.5 s after the public price jump (soccer goals)",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "polymarket_sports_ws": {
+   "family": "event_state",
+   "status": "have",
+   "source": "live lab feed 'sports' (live-only, from 2026-10-31)",
+   "resolution": "push",
+   "publication_latency": "unknown (to measure, X2)",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "official_data_feed": {
+   "family": "event_state",
+   "status": "blocked",
+   "source": "Sportradar / Genius / IMG Arena official feeds (commercial)",
+   "resolution": "sub-second",
+   "publication_latency": "fastest",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "tennis_courtside": {
+   "family": "event_state",
+   "status": "infeasible",
+   "source": "in-venue scouts; no public trace",
+   "resolution": "point",
+   "publication_latency": "fastest",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "esports_feeds": {
+   "family": "event_state",
+   "status": "missing",
+   "source": "GRID (signup, blocked), HLTV (Cloudflare), bo3.gg / liquipedia (to try)",
+   "resolution": "round",
+   "publication_latency": "unknown",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "video_streams": {
+   "family": "event_state",
+   "status": "missing",
+   "source": "broadcast / Twitch stream with delay",
+   "resolution": "frame",
+   "publication_latency": "stream delay",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "settlement_oracle": {
+   "family": "event_state",
+   "status": "missing",
+   "source": "UMA proposals and disputes for sports markets",
+   "resolution": "event",
+   "publication_latency": "minutes-hours",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "news_wires": {
+   "family": "information",
+   "status": "missing",
+   "source": "GDELT, Google News RSS (team news, injuries, lineups)",
+   "resolution": "15 min",
+   "publication_latency": "minutes",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "social_media": {
+   "family": "information",
+   "status": "blocked",
+   "source": "X blocked; proxies Telegram previews, Reddit RSS, Bluesky",
+   "resolution": "post",
+   "publication_latency": "seconds-minutes",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "official_calendars": {
+   "family": "information",
+   "status": "have",
+   "source": "Gamma gameStartTime, ESPN schedules",
+   "resolution": "per game",
+   "publication_latency": "days ahead",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "own_inventory": {
+   "family": "own_state",
+   "status": "have",
+   "source": "its fills (activity / OrderFilled)",
+   "resolution": "fill",
+   "publication_latency": "own",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "own_pnl_drawdown": {
+   "family": "own_state",
+   "status": "have",
+   "source": "fills + settlement (outcome only for PnL)",
+   "resolution": "fill",
+   "publication_latency": "own",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "own_capital": {
+   "family": "own_state",
+   "status": "proxy",
+   "source": "on-chain collateral balance (pUSD/USDC) at blocks",
+   "resolution": "block",
+   "publication_latency": "own",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "time_of_day": {
+   "family": "operator",
+   "status": "have",
+   "source": "clock",
+   "resolution": "s",
+   "publication_latency": "0",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "human_reaction": {
+   "family": "operator",
+   "status": "have",
+   "source": "B1 signing times (ms)",
+   "resolution": "ms",
+   "publication_latency": "0",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "restarts_maintenance": {
+   "family": "operator",
+   "status": "proxy",
+   "source": "gaps in its signing-time stream",
+   "resolution": "s",
+   "publication_latency": "0",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "bot_loop_cadence": {
+   "family": "operator",
+   "status": "have",
+   "source": "B1 signing ms fractions and inter-order gaps",
+   "resolution": "ms",
+   "publication_latency": "0",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "latency_colocation": {
+   "family": "infrastructure",
+   "status": "have",
+   "source": "B1 signing -> block time; taker order ages",
+   "resolution": "ms",
+   "publication_latency": "0",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  },
+  "api_outages": {
+   "family": "infrastructure",
+   "status": "missing",
+   "source": "Polymarket status history, engine restart notices",
+   "resolution": "event",
+   "publication_latency": "unknown",
+   "best_indicator": null,
+   "min_detectable_share": null,
+   "verdict": "untested"
+  }
+ },
+ "indicators": [
+  {
+   "name": "own_tape_calm_logit",
+   "dimension": "public_tape",
+   "definition": "reviewer logistic on own-tape calm (range 30/120 s, prints)",
+   "event": "level",
+   "period": "legacy",
+   "result": {
+    "test_auc": 0.531,
+    "perm_p": 0.589,
+    "n_test": 20881,
+    "test_markets": 80
+   },
+   "verdict": "no_effect_legacy"
+  },
+  {
+   "name": "sibling_market_jumps",
+   "dimension": "sibling_markets",
+   "definition": "jumps of 3/5/10 c in sibling markets",
+   "event": "jump",
+   "period": "legacy",
+   "result": {
+    "test_auc": 0.563,
+    "perm_p": 0.115,
+    "test_markets": 72
+   },
+   "verdict": "no_effect_legacy"
+  },
+  {
+   "name": "espn_time_since_goal",
+   "dimension": "espn_pbp",
+   "definition": "time since ESPN soccer goal",
+   "event": "event features",
+   "period": "legacy",
+   "result": {
+    "test_auc": 0.547,
+    "perm_p": 0.18
+   },
+   "verdict": "no_effect_legacy"
+  },
+  {
+   "name": "absence_after_soccer_goal",
+   "dimension": "espn_pbp",
+   "definition": "share of touch fills in the window after an ESPN goal, RN1 vs other makers",
+   "event": "ESPN goal",
+   "period": "legacy",
+   "result": {
+    "rn1_share": 0.06,
+    "others_share": 0.129,
+    "p": 0.0005,
+    "held_out_games_in_direction": "23 of 32"
+   },
+   "verdict": "drives_absence_legacy"
+  },
+  {
+   "name": "espn_scoring_play_first5s",
+   "dimension": "espn_pbp",
+   "definition": "share of passive fills in the first 5 s after ESPN scoring plays",
+   "event": "ESPN scoring play",
+   "period": "legacy",
+   "result": {
+    "rn1_share": 0.014,
+    "all_makers_share": 0.049
+   },
+   "verdict": "drives_absence_legacy"
+  },
+  {
+   "name": "tape_jump_5c_30s",
+   "dimension": "public_tape",
+   "definition": "seconds since a 5-cent tape jump within 30 s",
+   "event": "jump",
+   "period": "legacy",
+   "result": {
+    "rn1_share_fills_0_5s": 0.078,
+    "others_share_fills_0_5s": 0.146
+   },
+   "verdict": "drives_absence_legacy"
+  }
+ ],
+ "iterations": []
+}

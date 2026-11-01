@@ -1,0 +1,97 @@
+{
+ "5m": {
+  "pooled_inblock": 0.8310301507537688,
+  "n": 3184,
+  "rule_report": {
+   "n_fills": 3184,
+   "within_0.01_inblock": 0.8310301507537688,
+   "within_0.01_block_clock": 0.75,
+   "trivial_last_print_no_offset_inblock": 0.7961683417085427,
+   "inblock_anchor_share": 0.7572236180904522,
+   "fill_tx_position_found": 1.0,
+   "per_wallet": {
+    "bosona": {
+     "within_0.01_inblock": 0.843213296398892,
+     "within_0.01_block_clock": 0.7484764542936289,
+     "n": 1805
+    },
+    "almach": {
+     "within_0.01_inblock": 0.8256735340729001,
+     "within_0.01_block_clock": 0.7559429477020603,
+     "n": 631
+    },
+    "momoney": {
+     "within_0.01_inblock": 0.8061497326203209,
+     "within_0.01_block_clock": 0.7486631016042781,
+     "n": 748
+    }
+   }
+  },
+  "r7": {
+   "pooled": 0.8684045226130653,
+   "match_share": 0.684359296482412,
+   "halves": {
+    "early": 0.8642797668609492,
+    "late": 0.8709026727181038
+   },
+   "per_wallet": {
+    "bosona": 0.8880886426592798,
+    "almach": 0.8431061806656102,
+    "momoney": 0.8422459893048129
+   },
+   "per_wallet_half": {
+    "bosona_early": 0.8862973760932945,
+    "bosona_late": 0.8885088919288646,
+    "almach_early": 0.8629807692307693,
+    "almach_late": 0.8046511627906977,
+    "momoney_early": 0.8484162895927602,
+    "momoney_late": 0.8333333333333334
+   },
+   "inblock_by_half": {
+    "early": 0.8484596169858452,
+    "late": 0.8204740292486132
+   }
+  }
+ },
+ "15m": {
+  "pooled_inblock": 0.8065693430656934,
+  "n": 822,
+  "rule_report": {
+   "n_fills": 822,
+   "within_0.01_inblock": 0.8065693430656934,
+   "within_0.01_block_clock": 0.781021897810219,
+   "trivial_last_print_no_offset_inblock": 0.7895377128953771,
+   "inblock_anchor_share": 0.6618004866180048,
+   "fill_tx_position_found": 1.0,
+   "per_wallet": {
+    "bosona": {
+     "within_0.01_inblock": 0.7811704834605598,
+     "within_0.01_block_clock": 0.7760814249363868,
+     "n": 393
+    },
+    "almach": {
+     "within_0.01_inblock": 0.8349514563106796,
+     "within_0.01_block_clock": 0.8495145631067961,
+     "n": 206
+    },
+    "momoney": {
+     "within_0.01_inblock": 0.8251121076233184,
+     "within_0.01_block_clock": 0.726457399103139,
+     "n": 223
+    }
+   }
+  },
+  "halves": {
+   "early": 0.7876923076923077,
+   "late": 0.8189134808853119
+  },
+  "per_wallet_half": {
+   "bosona_early": 0.7454545454545455,
+   "bosona_late": 0.7950530035335689,
+   "almach_early": 0.8,
+   "almach_late": 0.8648648648648649,
+   "momoney_early": 0.8166666666666667,
+   "momoney_late": 0.8349514563106796
+  }
+ }
+}

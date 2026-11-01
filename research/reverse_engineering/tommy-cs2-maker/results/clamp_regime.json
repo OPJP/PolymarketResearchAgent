@@ -1,0 +1,24 @@
+{
+ "adds": 2678,
+ "regime_shares": {
+  "below": 0.268,
+  "between": 0.24,
+  "pinned": 0.232,
+  "join": 0.231,
+  "cross": 0.03
+ },
+ "public": {
+  "regime_accuracy": 0.387,
+  "largest_class_share": 0.305,
+  "w1_rule": 0.636,
+  "w1_J": 0.661,
+  "w1_oracle_J_or_askm1": 0.742
+ },
+ "with_own_state": {
+  "regime_accuracy": 0.469,
+  "largest_class_share": 0.305,
+  "w1_rule": 0.646,
+  "w1_J": 0.661,
+  "w1_oracle_J_or_askm1": 0.742
+ }
+}

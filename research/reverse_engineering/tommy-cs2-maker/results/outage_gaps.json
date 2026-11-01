@@ -1,0 +1,22 @@
+{
+ "gaps": [
+  {
+   "start": "10-17 16:43",
+   "end": "17:22",
+   "hours": 0.66,
+   "p4e_prints_per_h_in_gap": 10.6,
+   "p4e_prints_per_h_rest_of_run": 52.8,
+   "other_subs_per_h_in_gap": 30.4,
+   "other_subs_per_h_rest_of_run": 87.8
+  },
+  {
+   "start": "10-22 10:01",
+   "end": "11:00",
+   "hours": 0.98,
+   "p4e_prints_per_h_in_gap": 2.0,
+   "p4e_prints_per_h_rest_of_run": 56.1,
+   "other_subs_per_h_in_gap": 12.2,
+   "other_subs_per_h_rest_of_run": 179.1
+  }
+ ]
+}

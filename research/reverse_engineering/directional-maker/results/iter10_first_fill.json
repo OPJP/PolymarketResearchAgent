@@ -1,0 +1,48 @@
+{
+ "study": {
+  "first_fill_all": {
+   "n": 425,
+   "chainlink": 0.664,
+   "binance": 0.635,
+   "cheaper": 0.52,
+   "favourite": 0.492
+  },
+  "first_fill_500": {
+   "n": 163,
+   "chainlink": 0.675,
+   "binance": 0.669,
+   "cheaper": 0.497,
+   "favourite": 0.528
+  },
+  "first_fill_offsession_62_250": {
+   "n": 251,
+   "chainlink": 0.661,
+   "binance": 0.618,
+   "cheaper": 0.55,
+   "favourite": 0.454
+  }
+ },
+ "validate": {
+  "first_fill_all": {
+   "n": 1022,
+   "chainlink": 0.734,
+   "binance": 0.674,
+   "cheaper": 0.639,
+   "favourite": 0.362
+  },
+  "first_fill_500": {
+   "n": 531,
+   "chainlink": 0.753,
+   "binance": 0.691,
+   "cheaper": 0.676,
+   "favourite": 0.315
+  },
+  "first_fill_offsession_62_250": {
+   "n": 473,
+   "chainlink": 0.719,
+   "binance": 0.66,
+   "cheaper": 0.609,
+   "favourite": 0.402
+  }
+ }
+}

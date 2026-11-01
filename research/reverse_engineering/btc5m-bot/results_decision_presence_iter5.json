@@ -1,0 +1,142 @@
+{
+ "note": "Iteration 5 (D1 decision-aligned presence + a PURE market-activity baseline).",
+ "mkt_pure_features": [
+  "rel",
+  "tau",
+  "m_last",
+  "age_last",
+  "ask_o",
+  "age_ask",
+  "bid_o",
+  "age_bid",
+  "vwap10",
+  "vwap30",
+  "n1",
+  "n2",
+  "n5",
+  "n30",
+  "vol30",
+  "flow1",
+  "flow2",
+  "flow5",
+  "flow30",
+  "spread",
+  "dm5",
+  "dm10",
+  "dm30"
+ ],
+ "dropped_from_old_baseline": [
+  "dgap10",
+  "dgap5",
+  "gap_ask",
+  "gap_m",
+  "gap_vw",
+  "sp_since"
+ ],
+ "k0": {
+  "base_rate": 0.10737,
+  "auc_full": 0.9132,
+  "auc_pure": 0.8781,
+  "auc_old_mkt": 0.8889,
+  "gain_full_over_pure": 0.0351,
+  "gain_full_over_old_mkt": 0.0243,
+  "by_wallet": {
+   "GF": {
+    "full": 0.9119,
+    "pure": 0.8687
+   },
+   "XM": {
+    "full": 0.9242,
+    "pure": 0.8774
+   },
+   "DS": {
+    "full": 0.901,
+    "pure": 0.8675
+   }
+  }
+ },
+ "k1": {
+  "base_rate": 0.10737,
+  "auc_full": 0.907,
+  "auc_pure": 0.8717,
+  "auc_old_mkt": 0.8818,
+  "gain_full_over_pure": 0.0353,
+  "gain_full_over_old_mkt": 0.0252,
+  "by_wallet": {
+   "GF": {
+    "full": 0.9038,
+    "pure": 0.859
+   },
+   "XM": {
+    "full": 0.9131,
+    "pure": 0.8573
+   },
+   "DS": {
+    "full": 0.8954,
+    "pure": 0.8621
+   }
+  }
+ },
+ "k2": {
+  "base_rate": 0.10737,
+  "auc_full": 0.8893,
+  "auc_pure": 0.8691,
+  "gain_full_over_pure": 0.0202,
+  "by_wallet": {
+   "GF": {
+    "full": 0.8808,
+    "pure": 0.8554
+   },
+   "XM": {
+    "full": 0.8871,
+    "pure": 0.8495
+   },
+   "DS": {
+    "full": 0.8781,
+    "pure": 0.8601
+   }
+  }
+ },
+ "pure_baseline_top_gain_k1": [
+  [
+   "m_last",
+   249710.7
+  ],
+  [
+   "vwap10",
+   235672.5
+  ],
+  [
+   "n2",
+   199546.9
+  ],
+  [
+   "n1",
+   163452.7
+  ],
+  [
+   "ask_o",
+   53652.1
+  ],
+  [
+   "age_last",
+   50990.0
+  ],
+  [
+   "bid_o",
+   33028.8
+  ],
+  [
+   "n30",
+   33005.1
+  ],
+  [
+   "n5",
+   28054.8
+  ],
+  [
+   "dm5",
+   24958.0
+  ]
+ ]
+}

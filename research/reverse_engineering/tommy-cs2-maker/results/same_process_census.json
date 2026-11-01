@@ -1,0 +1,265 @@
+{
+ "makers_scanned": 87,
+ "top": [
+  {
+   "maker": "0x52661b8e13158f23d94a9e8302ab0295704c22ac",
+   "orders": 1064,
+   "lag0_5": 128,
+   "lag0_5_same_price": 47,
+   "per5ms_5_50": 16.33,
+   "ratio": 7.84,
+   "sizes_top": {
+    "5.0": 1064
+   },
+   "sig_type": 3,
+   "tokens": 38,
+   "first": 1792595146,
+   "last": 1792671984,
+   "excess": 111.67
+  },
+  {
+   "maker": "0x671190333b064b0899b4ac1aec86744b1f82885b",
+   "orders": 382,
+   "lag0_5": 61,
+   "lag0_5_same_price": 40,
+   "per5ms_5_50": 2.11,
+   "ratio": 28.89,
+   "sizes_top": {
+    "5.0": 382
+   },
+   "sig_type": 3,
+   "tokens": 7,
+   "first": 1792690565,
+   "last": 1792701922,
+   "excess": 58.89
+  },
+  {
+   "maker": "0x7d67f01d3e7b7c56c3df7b2ea08a58917d7f5f14",
+   "orders": 271,
+   "lag0_5": 21,
+   "lag0_5_same_price": 16,
+   "per5ms_5_50": 0.89,
+   "ratio": 23.62,
+   "sizes_top": {
+    "5.0": 271
+   },
+   "sig_type": 3,
+   "tokens": 13,
+   "first": 1792163134,
+   "last": 1792172251,
+   "excess": 20.11
+  },
+  {
+   "maker": "0x51dbdd2b19427dc8e88bb15a4046a38d8427f9b3",
+   "orders": 2209,
+   "lag0_5": 28,
+   "lag0_5_same_price": 24,
+   "per5ms_5_50": 12.67,
+   "ratio": 2.21,
+   "sizes_top": {
+    "100.0": 320,
+    "60.0": 252,
+    "20.0": 121
+   },
+   "sig_type": 1,
+   "tokens": 259,
+   "first": 1792160347,
+   "last": 1792703299,
+   "excess": 15.33
+  },
+  {
+   "maker": "0x893575c7d99542163c6b6e8a0fe5af0b6d217daa",
+   "orders": 3482,
+   "lag0_5": 17,
+   "lag0_5_same_price": 3,
+   "per5ms_5_50": 8.78,
+   "ratio": 1.94,
+   "sizes_top": {
+    "5.0": 1469,
+    "10.0": 375,
+    "6.0": 246
+   },
+   "sig_type": 1,
+   "tokens": 280,
+   "first": 1792157971,
+   "last": 1792703026,
+   "excess": 8.22
+  },
+  {
+   "maker": "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+   "orders": 1437,
+   "lag0_5": 11,
+   "lag0_5_same_price": 7,
+   "per5ms_5_50": 4.78,
+   "ratio": 2.3,
+   "sizes_top": {
+    "718.0": 79,
+    "690.0": 72,
+    "705.0": 68
+   },
+   "sig_type": 1,
+   "tokens": 149,
+   "first": 1792159726,
+   "last": 1792710937,
+   "excess": 6.22
+  },
+  {
+   "maker": "0xd9e0aaca471f489be338fd0f91a26e8669a805f2",
+   "orders": 907,
+   "lag0_5": 5,
+   "lag0_5_same_price": 5,
+   "per5ms_5_50": 1.67,
+   "ratio": 3.0,
+   "sizes_top": {
+    "300.0": 326,
+    "25.0": 10,
+    "35.0": 7
+   },
+   "sig_type": 2,
+   "tokens": 56,
+   "first": 1792158046,
+   "last": 1792703082,
+   "excess": 3.33
+  },
+  {
+   "maker": "0xed446954680979932092e970b443e6ae61e34f76",
+   "orders": 1272,
+   "lag0_5": 5,
+   "lag0_5_same_price": 1,
+   "per5ms_5_50": 2.78,
+   "ratio": 1.8,
+   "sizes_top": {
+    "162.0": 7,
+    "152.0": 6,
+    "270.0": 6
+   },
+   "sig_type": 3,
+   "tokens": 257,
+   "first": 1792162964,
+   "last": 1792702020,
+   "excess": 2.22
+  },
+  {
+   "maker": "0x1aa4881ae333cd967913cc9758e730a792127971",
+   "orders": 506,
+   "lag0_5": 3,
+   "lag0_5_same_price": 2,
+   "per5ms_5_50": 1.11,
+   "ratio": 2.7,
+   "sizes_top": {
+    "10.0": 506
+   },
+   "sig_type": 3,
+   "tokens": 221,
+   "first": 1792157984,
+   "last": 1792710139,
+   "excess": 1.89
+  },
+  {
+   "maker": "0xa3c2ec158f222f3f4f5f4f57b113d761a4d3df3d",
+   "orders": 150,
+   "lag0_5": 2,
+   "lag0_5_same_price": 2,
+   "per5ms_5_50": 0.22,
+   "ratio": 9.0,
+   "sizes_top": {
+    "251.0": 17,
+    "5.0": 9,
+    "250.0": 8
+   },
+   "sig_type": 2,
+   "tokens": 75,
+   "first": 1792168332,
+   "last": 1792701826,
+   "excess": 1.78
+  },
+  {
+   "maker": "0xc4fe817476491890086330a639ac417d51bf601f",
+   "orders": 811,
+   "lag0_5": 2,
+   "lag0_5_same_price": 0,
+   "per5ms_5_50": 0.44,
+   "ratio": 4.5,
+   "sizes_top": {
+    "150.0": 65,
+    "45.0": 44,
+    "49.0": 32
+   },
+   "sig_type": 1,
+   "tokens": 229,
+   "first": 1792157996,
+   "last": 1792709096,
+   "excess": 1.56
+  },
+  {
+   "maker": "0xe81a03b376563c06dc1205c8243860bec31597ea",
+   "orders": 306,
+   "lag0_5": 2,
+   "lag0_5_same_price": 2,
+   "per5ms_5_50": 0.44,
+   "ratio": 4.5,
+   "sizes_top": {
+    "10.0": 306
+   },
+   "sig_type": 3,
+   "tokens": 130,
+   "first": 1792157990,
+   "last": 1792709655,
+   "excess": 1.56
+  },
+  {
+   "maker": "0x5eaf552df53be1ceb37d3c5a571d12ce6b69ea07",
+   "orders": 392,
+   "lag0_5": 2,
+   "lag0_5_same_price": 0,
+   "per5ms_5_50": 0.56,
+   "ratio": 3.6,
+   "sizes_top": {
+    "10.0": 333,
+    "5.0": 59
+   },
+   "sig_type": 3,
+   "tokens": 148,
+   "first": 1792160781,
+   "last": 1792710139,
+   "excess": 1.44
+  },
+  {
+   "maker": "0x758dac51ba3cc9a246a79787da9df11c5f425d9e",
+   "orders": 2564,
+   "lag0_5": 7,
+   "lag0_5_same_price": 2,
+   "per5ms_5_50": 5.89,
+   "ratio": 1.19,
+   "sizes_top": {
+    "6.0": 120,
+    "5.0": 106,
+    "7.0": 100
+   },
+   "sig_type": 3,
+   "tokens": 390,
+   "first": 1792157997,
+   "last": 1792710679,
+   "excess": 1.1100000000000003
+  },
+  {
+   "maker": "0xf1f2b3c6c5bea42a6664fe3a8395addc1ab28c8d",
+   "orders": 899,
+   "lag0_5": 2,
+   "lag0_5_same_price": 0,
+   "per5ms_5_50": 0.89,
+   "ratio": 2.25,
+   "sizes_top": {
+    "250.0": 112,
+    "50.0": 100,
+    "100.0": 73
+   },
+   "sig_type": 3,
+   "tokens": 174,
+   "first": 1792164590,
+   "last": 1792709656,
+   "excess": 1.1099999999999999
+  }
+ ],
+ "n_ratio_ge_3_and_excess_ge_20": 3
+}

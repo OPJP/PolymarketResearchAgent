@@ -1,0 +1,85 @@
+{
+ "all": {
+  "rounds": 183,
+  "auc_V": 0.703,
+  "auc_P": 0.622,
+  "dV_winner_c": 2.12,
+  "dP_winner_c": 1.15,
+  "placebo_prev_winner": {
+   "rounds": 182,
+   "auc_V": 0.562,
+   "auc_P": 0.485,
+   "same_winner_as_prev": 0.626
+  },
+  "auc_V_resid_given_P": 0.629,
+  "beta_V_on_P": 0.491,
+  "auc_diff_ci95_event_boot": [
+   -0.056,
+   0.304
+  ]
+ },
+ "map_books": {
+  "rounds": 89,
+  "auc_V": 0.766,
+  "auc_P": 0.736,
+  "dV_winner_c": 3.4,
+  "dP_winner_c": 2.09,
+  "placebo_prev_winner": {
+   "rounds": 88,
+   "auc_V": 0.542,
+   "auc_P": 0.417,
+   "same_winner_as_prev": 0.625
+  },
+  "auc_V_resid_given_P": 0.626,
+  "beta_V_on_P": 0.565,
+  "auc_diff_ci95_event_boot": [
+   -0.144,
+   0.343
+  ]
+ },
+ "match_books": {
+  "rounds": 94,
+  "auc_V": 0.614,
+  "auc_P": 0.489,
+  "dV_winner_c": 0.9,
+  "dP_winner_c": 0.25,
+  "placebo_prev_winner": {
+   "rounds": 94,
+   "auc_V": 0.573,
+   "auc_P": 0.566,
+   "same_winner_as_prev": 0.628
+  },
+  "auc_V_resid_given_P": 0.604,
+  "beta_V_on_P": -0.006,
+  "auc_diff_ci95_event_boot": [
+   0.02,
+   0.227
+  ]
+ },
+ "fingerprint_d2bb_grid": {
+  "orders": 659,
+  "sizes_top": {
+   "200.0": 39,
+   "60.0": 39,
+   "100.0": 29,
+   "400.0": 24,
+   "340.0": 23,
+   "440.0": 19,
+   "380.0": 18,
+   "360.0": 17
+  },
+  "band_share_0.05_0.95": 0.971,
+  "whole_cent": 0.994,
+  "burst_size_counts": {
+   "1": 649,
+   "2": 5
+  },
+  "slot_gap_c_counts": {
+   "4.0": 1,
+   "2.0": 1,
+   "35.0": 1,
+   "5.0": 1,
+   "15.0": 1
+  }
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "seconds": 11174,
+ "aligned_seconds": 3055,
+ "placebo_nonaligned": {
+  "n": 8119,
+  "gap_q": {
+   "0.1": -0.25,
+   "0.5": -0.05,
+   "0.9": 0.171
+  },
+  "corr_gap_net_upbuy_3s": -0.0633,
+  "next_print_buys_up_when_gap_pos": 0.433,
+  "next_print_buys_up_when_gap_neg": 0.601,
+  "n_big": 7559
+ },
+ "aligned": {
+  "n": 3055,
+  "gap_q": {
+   "0.1": -0.153,
+   "0.5": -0.005,
+   "0.9": 0.235
+  },
+  "corr_gap_net_upbuy_3s": 0.0453,
+  "next_print_buys_up_when_gap_pos": 0.442,
+  "next_print_buys_up_when_gap_neg": 0.499,
+  "n_big": 2414
+ },
+ "cluster_fills": {
+  "0": {
+   "n": 849,
+   "up_share_gap_pos": 0.718,
+   "up_share_gap_neg": 0.43,
+   "side_acc_sign_gap": 0.64,
+   "side_acc_posture": 0.817
+  },
+  "1": {
+   "n": 358,
+   "up_share_gap_pos": 0.432,
+   "up_share_gap_neg": 0.758,
+   "side_acc_sign_gap": 0.285,
+   "side_acc_posture": 0.821
+  }
+ }
+}

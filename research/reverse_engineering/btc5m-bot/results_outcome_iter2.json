@@ -1,0 +1,11 @@
+{
+ "windows": 2016,
+ "pnl_corr_hard_pearson": 0.3159,
+ "pnl_corr_hard_spearman": 0.2732,
+ "pnl_corr_soft_pearson": 0.3989,
+ "pnl_corr_soft_spearman": 0.3629,
+ "net_position_corr_soft": 0.415,
+ "rule_return_hard": -0.0176,
+ "rule_return_soft": -0.028,
+ "wallet_return_before_rebates": 0.0017
+}

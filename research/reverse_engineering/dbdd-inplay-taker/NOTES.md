@@ -162,3 +162,16 @@ size*price here), so subtracting a modelled fee again double-counts it.
 
 **Iteration 1 close (08:15 UTC, ~50 min)**: primary `sel_auc` VALIDATE = 0.731 (R-LGB-PUB-1). Target not met.
 Status: continue. Large data kept in `.cache/re/dbdd-inplay-taker/` (activity, gamma, tapes, feats, ESPN).
+
+### Iteration 2 (2026-11-01, local run, start 15:40 UTC) - pre-registration of the first E3 screen
+
+Written before running `code/e3_goals.py`.
+- Dimension family: event state, soccer (ESPN `keyEvents` wall clocks; published publicly, used as event times).
+- Decisions: the wallet's B1 signing times (ms) in soccer games matched to ESPN; units = games
+  [first key event - 15 min, last key event + 30 min), overlapping games dropped (first kept).
+- Indicators (8): goal_any, goal_lead (go-ahead or equaliser), card_red, period (kick-off, half-time, 2nd half,
+  end of regular time), delay_start, delay_end (ESPN start-delay / end-delay: stoppages, VAR), yellow, sub
+  (the last two as expected-null controls).
+- Lag ranges: max_lag_s 120 at 1-s bins (core |lag| < 60 s) and max_lag_s 1200 at 10-s bins (core < 600 s).
+- Null: tools/indicators.py event_study auto (activity-stratified swap), 400 draws; BH over the joint family
+  per lag range; survivors q <= 0.10 confirmed once on VALIDATE at alpha 0.01 one-sided with Holm.

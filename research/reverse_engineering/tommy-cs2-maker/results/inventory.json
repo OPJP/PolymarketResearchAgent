@@ -1,0 +1,46 @@
+{
+ "fills": 36666,
+ "usd": 1007108.0,
+ "share_fills_pregame": 0.009,
+ "rel_min_quantiles": {
+  "0.01": 0.2,
+  "0.05": 7.5,
+  "0.25": 35.2,
+  "0.5": 74.6,
+  "0.75": 113.3,
+  "0.95": 169.9,
+  "0.99": 205.0
+ },
+ "role_usd_share": {
+  "maker": 0.846,
+  "taker": 0.154
+ },
+ "markets": 229,
+ "pair_cost_wavg": 0.9785,
+ "pair_cost_q": {
+  "0.1": 0.93,
+  "0.25": 0.956,
+  "0.5": 0.979,
+  "0.75": 1.005,
+  "0.9": 1.03
+ },
+ "paired_share_of_shares": 0.974,
+ "unpaired_over_maxabs_q": {
+  "0.25": 0.125,
+  "0.5": 0.289,
+  "0.75": 0.539
+ },
+ "unpaired_won_rate": 0.323,
+ "pnl_total": 13140.0,
+ "pnl_locked_pairs": 21569.0,
+ "pnl_by_split": {
+  "BUILD": 5106.0,
+  "VALIDATE": 8035.0
+ },
+ "pnl_by_smt": {
+  "child_moneyline": 6466.0,
+  "moneyline": 6674.0
+ },
+ "share_markets_pnl_pos": 0.581,
+ "taker_usd_share": 0.154
+}

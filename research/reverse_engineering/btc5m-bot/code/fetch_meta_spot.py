@@ -1,6 +1,7 @@
 """Gamma metadata for every BTC 5m window in [START, H) and Binance 1-s klines (dev period only)."""
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 import os, sys, time, json
-sys.path.insert(0, "/home/user/PolymarketResearchAgent")
+sys.path.insert(0, _ROOT + "")
 import numpy as np, pandas as pd
 from polyrea.workflows.updown_study import window_slugs, fetch_windows
 from polyrea.analysis.updown import windows_from_markets
@@ -8,7 +9,7 @@ from polyrea.adapters.spot import binance_seconds
 
 H = 1792713600
 START = int(sys.argv[1]) if len(sys.argv) > 1 else 1791158400  # 2026-10-05? overridden by arg
-OUT = "/home/user/PolymarketResearchAgent/.cache/re/btc5m-bot"
+OUT = _ROOT + "/.cache/re/btc5m-bot"
 t0 = time.time()
 slugs = window_slugs("btc", "5m", START, H)
 markets = fetch_windows(slugs)

@@ -1,0 +1,166 @@
+{
+ "BUILD": {
+  "gap_0_5s_prev_wallet": {
+   "same_team": [
+    60,
+    0.017
+   ],
+   "other_team": [
+    0,
+    null
+   ]
+  },
+  "gap_0_5s_prev_pack_only": {
+   "same_team": [
+    297,
+    0.084
+   ],
+   "other_team": [
+    1,
+    0.0
+   ]
+  },
+  "gap_5_30s_prev_wallet": {
+   "same_team": [
+    30,
+    0.3
+   ],
+   "other_team": [
+    26,
+    0.269
+   ]
+  },
+  "gap_5_30s_prev_pack_only": {
+   "same_team": [
+    146,
+    0.123
+   ],
+   "other_team": [
+    91,
+    0.286
+   ]
+  },
+  "gap_30_120s_prev_wallet": {
+   "same_team": [
+    24,
+    0.125
+   ],
+   "other_team": [
+    31,
+    0.29
+   ]
+  },
+  "gap_30_120s_prev_pack_only": {
+   "same_team": [
+    192,
+    0.073
+   ],
+   "other_team": [
+    112,
+    0.357
+   ]
+  },
+  "gap_120_600s_prev_wallet": {
+   "same_team": [
+    38,
+    0.289
+   ],
+   "other_team": [
+    37,
+    0.135
+   ]
+  },
+  "gap_120_600s_prev_pack_only": {
+   "same_team": [
+    230,
+    0.139
+   ],
+   "other_team": [
+    207,
+    0.217
+   ]
+  }
+ },
+ "VALIDATE": {
+  "gap_0_5s_prev_wallet": {
+   "same_team": [
+    41,
+    0.0
+   ],
+   "other_team": [
+    1,
+    1.0
+   ]
+  },
+  "gap_0_5s_prev_pack_only": {
+   "same_team": [
+    284,
+    0.063
+   ],
+   "other_team": [
+    4,
+    0.0
+   ]
+  },
+  "gap_5_30s_prev_wallet": {
+   "same_team": [
+    36,
+    0.333
+   ],
+   "other_team": [
+    28,
+    0.25
+   ]
+  },
+  "gap_5_30s_prev_pack_only": {
+   "same_team": [
+    172,
+    0.099
+   ],
+   "other_team": [
+    99,
+    0.232
+   ]
+  },
+  "gap_30_120s_prev_wallet": {
+   "same_team": [
+    48,
+    0.167
+   ],
+   "other_team": [
+    29,
+    0.448
+   ]
+  },
+  "gap_30_120s_prev_pack_only": {
+   "same_team": [
+    213,
+    0.141
+   ],
+   "other_team": [
+    140,
+    0.264
+   ]
+  },
+  "gap_120_600s_prev_wallet": {
+   "same_team": [
+    32,
+    0.281
+   ],
+   "other_team": [
+    36,
+    0.25
+   ]
+  },
+  "gap_120_600s_prev_pack_only": {
+   "same_team": [
+    232,
+    0.181
+   ],
+   "other_team": [
+    214,
+    0.192
+   ]
+  }
+ }
+}

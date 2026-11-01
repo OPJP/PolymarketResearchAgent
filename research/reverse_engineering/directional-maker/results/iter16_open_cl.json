@@ -1,0 +1,101 @@
+{
+ "fills": 2853,
+ "with_cl": 2853,
+ "verification": [
+  {
+   "sym": "ETHUSDT",
+   "st": 1792716300,
+   "mean_cl": 2389.658623,
+   "priceToBeat": 2389.6856632416634,
+   "diff": -0.02704
+  },
+  {
+   "sym": "ETHUSDT",
+   "st": 1792722300,
+   "mean_cl": 2400.874658,
+   "priceToBeat": 2400.8957766974963,
+   "diff": -0.021119
+  },
+  {
+   "sym": "SOLUSDT",
+   "st": 1792745400,
+   "mean_cl": 104.729364,
+   "priceToBeat": 104.72936356881125,
+   "diff": 0.0
+  },
+  {
+   "sym": "SOLUSDT",
+   "st": 1792763400,
+   "mean_cl": 104.900454,
+   "priceToBeat": 104.9004536315544,
+   "diff": 0.0
+  },
+  {
+   "sym": "XRPUSDT",
+   "st": 1792719900,
+   "mean_cl": 1.311687,
+   "priceToBeat": 1.3116879756886226,
+   "diff": -1e-06
+  },
+  {
+   "sym": "XRPUSDT",
+   "st": 1792736100,
+   "mean_cl": 1.326936,
+   "priceToBeat": 1.3269361704725526,
+   "diff": 0.0
+  }
+ ],
+ "BUILD": {
+  "n": 1754,
+  "disagree_n": 63,
+  "disagree_share": 0.036,
+  "post_binance_standin": 0.89,
+  "post_binance_standin_on_disagree": 0.841,
+  "itm_binance_standin": 0.832,
+  "itm_binance_standin_on_disagree": 0.381,
+  "post_chainlink_true": 0.916,
+  "post_chainlink_true_on_disagree": 0.984,
+  "itm_chainlink_true": 0.84,
+  "itm_chainlink_true_on_disagree": 0.619
+ },
+ "STUDY": {
+  "n": 741,
+  "disagree_n": 17,
+  "disagree_share": 0.023,
+  "post_binance_standin": 0.931,
+  "post_binance_standin_on_disagree": 0.647,
+  "itm_binance_standin": 0.849,
+  "itm_binance_standin_on_disagree": 0.118,
+  "post_chainlink_true": 0.941,
+  "post_chainlink_true_on_disagree": 0.765,
+  "itm_chainlink_true": 0.866,
+  "itm_chainlink_true_on_disagree": 0.882
+ },
+ "VALIDATE": {
+  "n": 323,
+  "disagree_n": 9,
+  "disagree_share": 0.028,
+  "post_binance_standin": 0.864,
+  "post_binance_standin_on_disagree": 0.889,
+  "itm_binance_standin": 0.796,
+  "itm_binance_standin_on_disagree": 0.0,
+  "post_chainlink_true": 0.882,
+  "post_chainlink_true_on_disagree": 0.889,
+  "itm_chainlink_true": 0.824,
+  "itm_chainlink_true_on_disagree": 1.0
+ },
+ "VALIDATE_half_first": {
+  "post_binance_standin": 0.911,
+  "itm_binance_standin": 0.842,
+  "post_chainlink_true": 0.943,
+  "itm_chainlink_true": 0.848,
+  "n": 158
+ },
+ "VALIDATE_half_second": {
+  "post_binance_standin": 0.818,
+  "itm_binance_standin": 0.752,
+  "post_chainlink_true": 0.824,
+  "itm_chainlink_true": 0.8,
+  "n": 165
+ }
+}

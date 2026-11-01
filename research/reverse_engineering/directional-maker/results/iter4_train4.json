@@ -1,0 +1,35 @@
+{
+ "all": {
+  "auc": 0.7135,
+  "baseline": 0.6843,
+  "own": 0.7469,
+  "within_active": 0.706,
+  "side": 0.6572,
+  "side_activity": 0.6127,
+  "side_own": 0.7055,
+  "build_rows": 311040,
+  "gain": 0.0292
+ },
+ "recent_10_16": {
+  "auc": 0.7115,
+  "baseline": 0.6901,
+  "own": 0.7451,
+  "within_active": 0.7042,
+  "side": 0.6561,
+  "side_activity": 0.6105,
+  "side_own": 0.6952,
+  "build_rows": 190080,
+  "gain": 0.0214
+ },
+ "lot_study_only": {
+  "auc": 0.6867,
+  "baseline": 0.6816,
+  "own": 0.7315,
+  "within_active": 0.6799,
+  "side": 0.6143,
+  "side_activity": 0.5854,
+  "side_own": 0.6596,
+  "build_rows": 69120,
+  "gain": 0.0051
+ }
+}

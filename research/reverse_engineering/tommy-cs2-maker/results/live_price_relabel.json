@@ -1,0 +1,39 @@
+{
+ "n_orders": 172,
+ "label_valid_rule": "F_mkt & (in_burst | size != 100)",
+ "J_frozen": {
+  "n": 172,
+  "within_tick": 0.424,
+  "exact": 0.198
+ },
+ "JC_frozen": {
+  "n": 172,
+  "within_tick": 0.424,
+  "exact": 0.198
+ },
+ "J_valid": {
+  "n": 172,
+  "within_tick": 0.419,
+  "exact": 0.209
+ },
+ "JC_valid": {
+  "n": 172,
+  "within_tick": 0.419,
+  "exact": 0.209
+ },
+ "J_none": {
+  "n": 172,
+  "within_tick": 0.471,
+  "exact": 0.221
+ },
+ "JC_none": {
+  "n": 172,
+  "within_tick": 0.471,
+  "exact": 0.221
+ },
+ "lt": {
+  "n": 171,
+  "within_tick": 0.187,
+  "exact": 0.082
+ }
+}

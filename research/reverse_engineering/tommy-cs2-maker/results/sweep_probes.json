@@ -1,0 +1,90 @@
+{
+ "n_probes": {
+  "VALIDATE": 15941,
+  "BUILD": 13400
+ },
+ "base_rate": {
+  "BUILD": 0.2493,
+  "VALIDATE": 0.2971
+ },
+ "sweeps": {
+  "BUILD": 7572,
+  "VALIDATE": 8749
+ },
+ "models": {
+  "A_activity": {
+   "logit_val_auc": 0.6627,
+   "gbm_val_auc": 0.6323,
+   "gbm_importance": {
+    "l10": 830,
+    "l60": 2173,
+    "elapsed": 2917,
+    "p": 1394,
+    "absmid": 1686
+   }
+  },
+  "Q_quote": {
+   "logit_val_auc": 0.6689,
+   "gbm_val_auc": 0.6639,
+   "gbm_importance": {
+    "l10": 534,
+    "l60": 1427,
+    "elapsed": 2077,
+    "p": 990,
+    "absmid": 1279,
+    "dq": 1203,
+    "d_known": 0,
+    "pairf": 1490
+   }
+  },
+  "QO_quote_own": {
+   "logit_val_auc": 0.6951,
+   "gbm_val_auc": 0.7147,
+   "gbm_importance": {
+    "l10": 404,
+    "l60": 1034,
+    "elapsed": 1657,
+    "p": 860,
+    "absmid": 1116,
+    "dq": 1066,
+    "d_known": 0,
+    "pairf": 1152,
+    "own_c": 1711
+   }
+  },
+  "gain_Q_minus_A": {
+   "point": 0.0316,
+   "ci95": [
+    0.0149,
+    0.0466
+   ],
+   "p_le0": 0.0,
+   "block": "market"
+  },
+  "band_rule": {
+   "build_rate_by_d": {
+    "-1": 0.2673,
+    "-2": 0.2843,
+    "-3": 0.2782,
+    "-4": 0.2996,
+    "-5": 0.2748,
+    "-6": 0.2346,
+    "0": 0.1794,
+    "above": 0.2605,
+    "unknown": 0.5
+   },
+   "build_n_by_d": {
+    "above": 3348,
+    "-6": 2400,
+    "0": 2363,
+    "-1": 1695,
+    "-2": 1270,
+    "-3": 913,
+    "-4": 731,
+    "-5": 644,
+    "unknown": 36
+   },
+   "val_auc": 0.5956
+  }
+ }
+}

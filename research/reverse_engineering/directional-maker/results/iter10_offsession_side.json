@@ -1,0 +1,41 @@
+{
+ "study": {
+  "62|pure_offsession": {
+   "n": 256,
+   "under_held_own_state": 0.41,
+   "cheaper": 0.5,
+   "chainlink": 0.434,
+   "binance": 0.402
+  },
+  "250|pure_offsession": {
+   "n": 49,
+   "under_held_own_state": 0.102,
+   "cheaper": 0.306,
+   "chainlink": 0.551,
+   "binance": 0.469
+  }
+ },
+ "validate": {
+  "62|pure_offsession": {
+   "n": 581,
+   "under_held_own_state": 0.491,
+   "cheaper": 0.565,
+   "chainlink": 0.582,
+   "binance": 0.592
+  },
+  "62|with_500": {
+   "n": 32,
+   "under_held_own_state": 0.969,
+   "cheaper": 0.625,
+   "chainlink": 0.594,
+   "binance": 0.594
+  },
+  "250|pure_offsession": {
+   "n": 586,
+   "under_held_own_state": 0.317,
+   "cheaper": 0.647,
+   "chainlink": 0.654,
+   "binance": 0.664
+  }
+ }
+}

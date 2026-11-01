@@ -1,0 +1,76 @@
+{
+ "P4e": {
+  "ref_taker_orders": 2140,
+  "sibling_taker_orders": 450,
+  "sibling_orders_on_ref_tokens": 331,
+  "pairs_within_2s": 52,
+  "hist_bins_ms": [
+   -2000,
+   -500,
+   -100,
+   -20,
+   0,
+   20,
+   40,
+   60,
+   80,
+   100,
+   200,
+   500,
+   2001
+  ],
+  "hist": [
+   4,
+   0,
+   1,
+   2,
+   9,
+   14,
+   13,
+   4,
+   2,
+   2,
+   0,
+   1
+  ],
+  "median_lag_ms_within_500": 34.0,
+  "share_in_20_100ms": 0.635
+ },
+ "0x2005d16a": {
+  "ref_taker_orders": 763,
+  "sibling_taker_orders": 450,
+  "sibling_orders_on_ref_tokens": 241,
+  "pairs_within_2s": 34,
+  "hist_bins_ms": [
+   -2000,
+   -500,
+   -100,
+   -20,
+   0,
+   20,
+   40,
+   60,
+   80,
+   100,
+   200,
+   500,
+   2001
+  ],
+  "hist": [
+   10,
+   2,
+   2,
+   2,
+   5,
+   7,
+   3,
+   1,
+   0,
+   0,
+   2,
+   0
+  ],
+  "median_lag_ms_within_500": 22.5,
+  "share_in_20_100ms": 0.324
+ }
+}

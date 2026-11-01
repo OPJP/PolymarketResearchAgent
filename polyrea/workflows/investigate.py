@@ -200,7 +200,7 @@ def investigate_wallet(
     if out_dir is not None:
         d = out_dir / wallet.lower()
         d.mkdir(parents=True, exist_ok=True)
-        (d / "profile.json").write_text(json.dumps(ev.to_dict(), indent=1))
+        (d / "profile.json").write_text(json.dumps(ev.to_dict(), indent=1), encoding="utf-8")
         if not per_market.empty:
             per_market.to_csv(d / "per_market.csv.gz", index=False)
     return ev

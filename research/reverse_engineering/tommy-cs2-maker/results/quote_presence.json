@@ -1,0 +1,421 @@
+{
+ "markets": 43,
+ "by_group": [
+  {
+   "grp": "traded",
+   "markets": 5,
+   "hours": 6.14,
+   "add100_per_h_median": 347.73,
+   "add100_per_h_mean": 539.68,
+   "pair_per_h_median": 0.0,
+   "changes_per_h_median": 12858.89
+  },
+  {
+   "grp": "untraded_GRID",
+   "markets": 19,
+   "hours": 24.73,
+   "add100_per_h_median": 112.07,
+   "add100_per_h_mean": 538.64,
+   "pair_per_h_median": 0.0,
+   "changes_per_h_median": 22225.99
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "markets": 19,
+   "hours": 20.5,
+   "add100_per_h_median": 0.66,
+   "add100_per_h_mean": 72.26,
+   "pair_per_h_median": 0.0,
+   "changes_per_h_median": 486.62
+  }
+ ],
+ "per_market": [
+  {
+   "grp": "traded",
+   "event": "cs2-gls1-pcy-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 1.5,
+   "add100_per_h": 1374.84,
+   "pair_per_h": 0.0,
+   "changes_per_h": 35835.07
+  },
+  {
+   "grp": "traded",
+   "event": "cs2-gls1-pcy-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 1.27,
+   "add100_per_h": 776.25,
+   "pair_per_h": 0.0,
+   "changes_per_h": 12858.89
+  },
+  {
+   "grp": "traded",
+   "event": "cs2-wraith-ntr-2026-10-31",
+   "league": "CyberClash",
+   "hours": 1.51,
+   "add100_per_h": 347.73,
+   "pair_per_h": 0.0,
+   "changes_per_h": 15403.86
+  },
+  {
+   "grp": "traded",
+   "event": "cs2-bhe-bar2-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 1.47,
+   "add100_per_h": 199.56,
+   "pair_per_h": 0.0,
+   "changes_per_h": 8034.14
+  },
+  {
+   "grp": "traded",
+   "event": "cs2-gls1-pcy-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 0.39,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 40.84
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-skr2-for10-2026-10-31",
+   "league": "CCT Europe",
+   "hours": 1.58,
+   "add100_per_h": 2584.71,
+   "pair_per_h": 0.0,
+   "changes_per_h": 31473.68
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-jjh-bmb-2026-10-31",
+   "league": "Circuito Retake",
+   "hours": 1.45,
+   "add100_per_h": 2047.51,
+   "pair_per_h": 0.0,
+   "changes_per_h": 33311.25
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-jjh-bmb-2026-10-31",
+   "league": "Circuito Retake",
+   "hours": 1.52,
+   "add100_per_h": 1247.55,
+   "pair_per_h": 0.0,
+   "changes_per_h": 22225.99
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-skr2-for10-2026-10-31",
+   "league": "CCT Europe",
+   "hours": 1.52,
+   "add100_per_h": 1114.37,
+   "pair_per_h": 0.0,
+   "changes_per_h": 40601.92
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-fokus-baks-2026-10-31",
+   "league": "CCT Europe",
+   "hours": 1.51,
+   "add100_per_h": 862.68,
+   "pair_per_h": 0.0,
+   "changes_per_h": 44352.07
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-skr2-for10-2026-10-31",
+   "league": "CCT Europe",
+   "hours": 1.66,
+   "add100_per_h": 804.26,
+   "pair_per_h": 0.0,
+   "changes_per_h": 14202.54
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-fokus-baks-2026-10-31",
+   "league": "CCT Europe",
+   "hours": 1.6,
+   "add100_per_h": 649.59,
+   "pair_per_h": 0.0,
+   "changes_per_h": 22903.49
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-jjh-bmb-2026-10-31",
+   "league": "Circuito Retake",
+   "hours": 1.52,
+   "add100_per_h": 445.15,
+   "pair_per_h": 0.0,
+   "changes_per_h": 42420.33
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-fokus-baks-2026-10-31",
+   "league": "CCT Europe",
+   "hours": 1.52,
+   "add100_per_h": 255.41,
+   "pair_per_h": 0.0,
+   "changes_per_h": 33692.43
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-lowcor1-tdp-2026-10-31",
+   "league": "Gamers Club Masters",
+   "hours": 0.7,
+   "add100_per_h": 112.07,
+   "pair_per_h": 0.0,
+   "changes_per_h": 29446.92
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-lowcor1-tdp-2026-10-31",
+   "league": "Gamers Club Masters",
+   "hours": 0.7,
+   "add100_per_h": 95.25,
+   "pair_per_h": 0.0,
+   "changes_per_h": 27444.38
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-nao-pain-2026-10-31",
+   "league": "Gamers Club Masters",
+   "hours": 1.06,
+   "add100_per_h": 8.47,
+   "pair_per_h": 0.0,
+   "changes_per_h": 1646.84
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-nao-pain-2026-10-31",
+   "league": "Gamers Club Masters",
+   "hours": 1.06,
+   "add100_per_h": 5.65,
+   "pair_per_h": 0.0,
+   "changes_per_h": 388.83
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-ssins-mis-2026-10-31",
+   "league": "CCT Europe",
+   "hours": 1.44,
+   "add100_per_h": 1.39,
+   "pair_per_h": 0.0,
+   "changes_per_h": 319.92
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-ssins-mis-2026-10-31",
+   "league": "CCT Europe",
+   "hours": 1.11,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 116.68
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-invict1-don-2026-10-31",
+   "league": "European Pro League",
+   "hours": 1.43,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 7.0
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-invict1-don-2026-10-31",
+   "league": "European Pro League",
+   "hours": 1.54,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 23.37
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-invict1-don-2026-10-31",
+   "league": "European Pro League",
+   "hours": 1.42,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 23.94
+  },
+  {
+   "grp": "untraded_GRID",
+   "event": "cs2-lowcor1-tdp-2026-10-31",
+   "league": "Gamers Club Masters",
+   "hours": 0.38,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 119.82
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-wraith-ntr-2026-10-31",
+   "league": "CyberClash",
+   "hours": 1.41,
+   "add100_per_h": 620.48,
+   "pair_per_h": 0.0,
+   "changes_per_h": 8479.42
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-shin-isg-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 0.61,
+   "add100_per_h": 226.13,
+   "pair_per_h": 0.0,
+   "changes_per_h": 5999.1
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-gg1-esprot-2026-10-31",
+   "league": "Battle of Baltics",
+   "hours": 1.51,
+   "add100_per_h": 218.59,
+   "pair_per_h": 0.0,
+   "changes_per_h": 20906.52
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-hachae-wc1-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 0.6,
+   "add100_per_h": 126.46,
+   "pair_per_h": 0.0,
+   "changes_per_h": 35389.3
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-shin-isg-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 0.61,
+   "add100_per_h": 87.1,
+   "pair_per_h": 0.0,
+   "changes_per_h": 3776.58
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-ep-dnk2-2026-10-31",
+   "league": "ESEA",
+   "hours": 0.85,
+   "add100_per_h": 60.84,
+   "pair_per_h": 0.0,
+   "changes_per_h": 12880.08
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-omega1-priv-2026-10-31",
+   "league": "CyberClash",
+   "hours": 1.52,
+   "add100_per_h": 23.74,
+   "pair_per_h": 0.0,
+   "changes_per_h": 3669.79
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-shin-isg-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 0.55,
+   "add100_per_h": 7.24,
+   "pair_per_h": 0.0,
+   "changes_per_h": 486.62
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-hachae-wc1-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 0.6,
+   "add100_per_h": 1.68,
+   "pair_per_h": 0.0,
+   "changes_per_h": 251.71
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-omega1-priv-2026-10-31",
+   "league": "CyberClash",
+   "hours": 1.51,
+   "add100_per_h": 0.66,
+   "pair_per_h": 0.0,
+   "changes_per_h": 2687.84
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-1win-5s-2026-10-31",
+   "league": "Moscow Cyber Games",
+   "hours": 1.08,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 53.46
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-1win-5s-2026-10-31",
+   "league": "Moscow Cyber Games",
+   "hours": 1.42,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 22.48
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-1win-5s-2026-10-31",
+   "league": "Moscow Cyber Games",
+   "hours": 1.4,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 49.4
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-bhe-bar2-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 0.81,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 29.75
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-gg1-esprot-2026-10-31",
+   "league": "Battle of Baltics",
+   "hours": 1.6,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 36.18
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-gg1-esprot-2026-10-31",
+   "league": "Battle of Baltics",
+   "hours": 1.89,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 22.18
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-wraith-ntr-2026-10-31",
+   "league": "CyberClash",
+   "hours": 0.51,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 35.11
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-omega1-priv-2026-10-31",
+   "league": "CyberClash",
+   "hours": 1.48,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 843.96
+  },
+  {
+   "grp": "untraded_nonGRID",
+   "event": "cs2-hachae-wc1-2026-10-31",
+   "league": "FiReSPORTS",
+   "hours": 0.53,
+   "add100_per_h": 0.0,
+   "pair_per_h": 0.0,
+   "changes_per_h": 46.79
+  }
+ ]
+}

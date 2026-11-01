@@ -1,0 +1,8 @@
+{
+ "side_orders": 300,
+ "side_identical": 300,
+ "side_prob_max_abs_diff": 0.0,
+ "hazard_bins": 200,
+ "hazard_identical": 200,
+ "hazard_prob_max_abs_diff": 0.0
+}

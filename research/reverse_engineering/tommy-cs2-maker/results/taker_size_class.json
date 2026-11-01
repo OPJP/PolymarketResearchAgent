@@ -1,0 +1,56 @@
+{
+ "BUILD_cap": {
+  "n": 249,
+  "fill_frac_median": 0.05,
+  "spearman_premium_move10": 0.04,
+  "premium_mean_c": 1.0,
+  "move10_mean_c": 2.47,
+  "markout10_c_shw": 0.59,
+  "markout60_c_shw": 1.86,
+  "settle_edge_pct_usd": 3.49,
+  "move10_up_share": 0.446
+ },
+ "BUILD_odd": {
+  "n": 477,
+  "fill_frac_median": 0.106,
+  "spearman_premium_move10": 0.154,
+  "premium_mean_c": 1.09,
+  "move10_mean_c": 2.98,
+  "markout10_c_shw": 1.57,
+  "markout60_c_shw": 3.39,
+  "settle_edge_pct_usd": 15.46,
+  "move10_up_share": 0.562
+ },
+ "VALIDATE_cap": {
+  "n": 140,
+  "fill_frac_median": 0.058,
+  "spearman_premium_move10": 0.127,
+  "premium_mean_c": 1.21,
+  "move10_mean_c": 3.09,
+  "markout10_c_shw": 0.95,
+  "markout60_c_shw": 0.25,
+  "settle_edge_pct_usd": 2.59,
+  "move10_up_share": 0.643
+ },
+ "VALIDATE_odd": {
+  "n": 749,
+  "fill_frac_median": 0.147,
+  "spearman_premium_move10": 0.085,
+  "premium_mean_c": 1.46,
+  "move10_mean_c": 2.18,
+  "markout10_c_shw": 1.36,
+  "markout60_c_shw": 2.2,
+  "settle_edge_pct_usd": 10.62,
+  "move10_up_share": 0.439
+ },
+ "daily_cap_share": {
+  "10-16": 0.058,
+  "10-17": 0.52,
+  "10-18": 0.643,
+  "10-19": 0.323,
+  "10-20": 0.31,
+  "10-21": 0.126,
+  "10-22": 0.199
+ },
+ "cap_share_changepoint_after_day": "10-16"
+}

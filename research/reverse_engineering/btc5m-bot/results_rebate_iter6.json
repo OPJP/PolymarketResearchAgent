@@ -1,0 +1,81 @@
+{
+ "GF": {
+  "MAKER_REBATE": {
+   "rows": 95,
+   "usd": 7275.2,
+   "first": "2026-07-18"
+  },
+  "TAKER_REBATE": {
+   "rows": 95,
+   "usd": 63389.2,
+   "first": "2026-07-20"
+  }
+ },
+ "XM": {
+  "MAKER_REBATE": {
+   "rows": 129,
+   "usd": 29790.4,
+   "first": "2026-06-13"
+  },
+  "TAKER_REBATE": {
+   "rows": 128,
+   "usd": 201104.9,
+   "first": "2026-06-20"
+  }
+ },
+ "DS": {
+  "MAKER_REBATE": {
+   "rows": 95,
+   "usd": 13501.5,
+   "first": "2026-07-18"
+  },
+  "TAKER_REBATE": {
+   "rows": 96,
+   "usd": 111739.4,
+   "first": "2026-07-19"
+  }
+ },
+ "W4": {
+  "MAKER_REBATE": {
+   "rows": 87,
+   "usd": 5148.7,
+   "first": "2026-07-18"
+  },
+  "TAKER_REBATE": {
+   "rows": 83,
+   "usd": 36490.2,
+   "first": "2026-07-24"
+  }
+ },
+ "taker_rebate_over_prev_day_fees": {
+  "DS": {
+   "n_days": 13,
+   "median": 0.5,
+   "min": 0.5,
+   "max": 0.5
+  },
+  "GF": {
+   "n_days": 13,
+   "median": 0.5,
+   "min": 0.5,
+   "max": 0.5
+  },
+  "XM": {
+   "n_days": 13,
+   "median": 0.5,
+   "min": 0.5,
+   "max": 0.5
+  }
+ },
+ "validate_rebate_rows_10_17_to_10_22": {
+  "DS_MAKER_REBATE": 1448.1,
+  "DS_TAKER_REBATE": 15206.3,
+  "GF_MAKER_REBATE": 927.7,
+  "GF_TAKER_REBATE": 8384.2,
+  "W4_MAKER_REBATE": 476.8,
+  "W4_TAKER_REBATE": 3712.2,
+  "XM_MAKER_REBATE": 271.8,
+  "XM_TAKER_REBATE": 2002.1
+ },
+ "fills_fee_total_validate_usd": 61571.5
+}

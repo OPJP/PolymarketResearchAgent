@@ -1,0 +1,145 @@
+{
+ "hours": [
+  {
+   "period": "D250_before_0817",
+   "day": "2026-08-10",
+   "vol_bp": 0.4612,
+   "abs_move_bp": 59.5,
+   "maker_share": 0.2323,
+   "fills": 917
+  },
+  {
+   "period": "D250_before_0817",
+   "day": "2026-08-11",
+   "vol_bp": 0.3057,
+   "abs_move_bp": 15.1,
+   "maker_share": 0.4295,
+   "fills": 1269
+  },
+  {
+   "period": "D250_before_0817",
+   "day": "2026-08-12",
+   "vol_bp": 0.3143,
+   "abs_move_bp": 9.1,
+   "maker_share": 0.5683,
+   "fills": 1383
+  },
+  {
+   "period": "D250_before_0817",
+   "day": "2026-08-13",
+   "vol_bp": 0.7481,
+   "abs_move_bp": 41.1,
+   "maker_share": 0.4961,
+   "fills": 1413
+  },
+  {
+   "period": "D50_after_0817",
+   "day": "2026-08-18",
+   "vol_bp": 0.2253,
+   "abs_move_bp": 2.7,
+   "maker_share": 0.265,
+   "fills": 1830
+  },
+  {
+   "period": "D50_after_0817",
+   "day": "2026-08-19",
+   "vol_bp": 1.0253,
+   "abs_move_bp": 13.1,
+   "maker_share": 0.2507,
+   "fills": 1775
+  },
+  {
+   "period": "D50_after_0817",
+   "day": "2026-08-20",
+   "vol_bp": 0.7664,
+   "abs_move_bp": 50.4,
+   "maker_share": 0.2565,
+   "fills": 1743
+  },
+  {
+   "period": "D50_after_0817",
+   "day": "2026-08-21",
+   "vol_bp": 0.8161,
+   "abs_move_bp": 34.8,
+   "maker_share": 0.2614,
+   "fills": 1224
+  },
+  {
+   "period": "D50_before_0904",
+   "day": "2026-08-31",
+   "vol_bp": 0.579,
+   "abs_move_bp": 7.1,
+   "maker_share": 0.5243,
+   "fills": 2922
+  },
+  {
+   "period": "D50_before_0904",
+   "day": "2026-09-01",
+   "vol_bp": 0.5652,
+   "abs_move_bp": 41.5,
+   "maker_share": 0.6153,
+   "fills": 2706
+  },
+  {
+   "period": "D50_before_0904",
+   "day": "2026-09-02",
+   "vol_bp": 0.5208,
+   "abs_move_bp": 16.1,
+   "maker_share": 0.6307,
+   "fills": 2586
+  },
+  {
+   "period": "D50_before_0904",
+   "day": "2026-09-03",
+   "vol_bp": 0.7484,
+   "abs_move_bp": 47.2,
+   "maker_share": 0.5537,
+   "fills": 3473
+  },
+  {
+   "period": "D150_after_0904",
+   "day": "2026-09-07",
+   "vol_bp": 0.293,
+   "abs_move_bp": 26.2,
+   "maker_share": 0.5411,
+   "fills": 1641
+  },
+  {
+   "period": "D150_after_0904",
+   "day": "2026-09-08",
+   "vol_bp": 0.4309,
+   "abs_move_bp": 21.8,
+   "maker_share": 0.52,
+   "fills": 1896
+  },
+  {
+   "period": "D150_after_0904",
+   "day": "2026-09-09",
+   "vol_bp": 0.5084,
+   "abs_move_bp": 26.5,
+   "maker_share": 0.4853,
+   "fills": 1257
+  },
+  {
+   "period": "D150_after_0904",
+   "day": "2026-09-10",
+   "vol_bp": 0.4138,
+   "abs_move_bp": 6.5,
+   "maker_share": 0.3508,
+   "fills": 1713
+  }
+ ],
+ "corr(maker_share, log vol)": -0.1499,
+ "ols_vol_only [a, b_logvol]": [
+  0.4017,
+  -0.0502
+ ],
+ "ols_vol_plus_regimes [a, b_logvol, D50_after_0817, D50_before_0904, D150_after_0904] (base D250)": [
+  0.4069,
+  -0.029,
+  -0.1625,
+  0.1592,
+  0.0411
+ ],
+ "corr(fills, log vol)": 0.2378
+}

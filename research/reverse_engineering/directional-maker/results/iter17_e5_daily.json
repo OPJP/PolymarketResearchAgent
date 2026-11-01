@@ -1,0 +1,64 @@
+{
+ "gdelt_status": [
+  200,
+  "application/json; charset=utf-8"
+ ],
+ "gdelt_points": 67,
+ "fng_status": 200,
+ "fng_points": 200,
+ "n_days": 83,
+ "on_share_mean": 0.844,
+ "spearman": {
+  "gdelt_prev~on_share": [
+   0.181,
+   0.1459,
+   66
+  ],
+  "gdelt_prev~fills": [
+   0.143,
+   0.2523,
+   66
+  ],
+  "gdelt_same~on_share": [
+   0.178,
+   0.1503,
+   67
+  ],
+  "gdelt_same~fills": [
+   0.161,
+   0.1934,
+   67
+  ],
+  "fng_prev~on_share": [
+   0.21,
+   0.0586,
+   82
+  ],
+  "fng_prev~fills": [
+   0.08,
+   0.4727,
+   82
+  ],
+  "fng_same~on_share": [
+   0.241,
+   0.0279,
+   83
+  ],
+  "fng_same~fills": [
+   0.073,
+   0.5115,
+   83
+  ],
+  "abs_dfng_prev~on_share": [
+   -0.162,
+   0.1496,
+   81
+  ],
+  "abs_dfng_prev~fills": [
+   -0.162,
+   0.1479,
+   81
+  ]
+ },
+ "reading_met": false
+}

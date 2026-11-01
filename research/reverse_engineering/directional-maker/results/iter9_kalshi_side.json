@@ -1,0 +1,142 @@
+{
+ "fills_15m": 446,
+ "with_kalshi": 446,
+ "quarters": {
+  "1793449800": {
+   "ticker": "KXBTC15M-26OCT310845-45",
+   "trades": 9000,
+   "floor_strike": 77439.9,
+   "first_trade": 1793450580.158417
+  },
+  "1793452500": {
+   "ticker": "KXBTC15M-26OCT310930-30",
+   "trades": 23000,
+   "floor_strike": 77349.38,
+   "first_trade": 1793453055.937816
+  },
+  "1793454300": {
+   "ticker": "KXBTC15M-26OCT311000-00",
+   "trades": 26000,
+   "floor_strike": 77398.48,
+   "first_trade": 1793454666.13519
+  },
+  "1793455200": {
+   "ticker": "KXBTC15M-26OCT311015-15",
+   "trades": 26000,
+   "floor_strike": 77375.02,
+   "first_trade": 1793455940.831559
+  },
+  "1793456100": {
+   "ticker": "KXBTC15M-26OCT311030-30",
+   "trades": 16000,
+   "floor_strike": 77373.42,
+   "first_trade": 1793456648.016038
+  },
+  "1793457000": {
+   "ticker": "KXBTC15M-26OCT311045-45",
+   "trades": 12000,
+   "floor_strike": 77322.12,
+   "first_trade": 1793457576.270249
+  },
+  "1793457900": {
+   "ticker": "KXBTC15M-26OCT311100-00",
+   "trades": 34000,
+   "floor_strike": 77385.19,
+   "first_trade": 1793458202.689008
+  },
+  "1793458800": {
+   "ticker": "KXBTC15M-26OCT311115-15",
+   "trades": 40000,
+   "floor_strike": 77301.51,
+   "first_trade": 1793459067.413698
+  },
+  "1793459700": {
+   "ticker": "KXBTC15M-26OCT311130-30",
+   "trades": 18000,
+   "floor_strike": 77307.98,
+   "first_trade": 1793460333.279017
+  },
+  "1793461500": {
+   "ticker": "KXBTC15M-26OCT311200-00",
+   "trades": 66356,
+   "floor_strike": 77449.96,
+   "first_trade": 1793461500.196666
+  },
+  "1793462400": {
+   "ticker": "KXBTC15M-26OCT311215-15",
+   "trades": 30000,
+   "floor_strike": 77452.02,
+   "first_trade": 1793462670.591658
+  },
+  "1793463300": {
+   "ticker": "KXBTC15M-26OCT311230-30",
+   "trades": 71116,
+   "floor_strike": 77474.5,
+   "first_trade": 1793463300.056555
+  },
+  "1793464200": {
+   "ticker": "KXBTC15M-26OCT311245-45",
+   "trades": 31000,
+   "floor_strike": 77477.17,
+   "first_trade": 1793464382.059669
+  },
+  "1793465100": {
+   "ticker": "KXBTC15M-26OCT311300-00",
+   "trades": 28000,
+   "floor_strike": 77449.02,
+   "first_trade": 1793465225.855882
+  },
+  "1793466000": {
+   "ticker": "KXBTC15M-26OCT311315-15",
+   "trades": 43000,
+   "floor_strike": 77477.41,
+   "first_trade": 1793466303.888288
+  },
+  "1793466900": {
+   "ticker": "KXBTC15M-26OCT311330-30",
+   "trades": 27000,
+   "floor_strike": 77486.07,
+   "first_trade": 1793467494.718052
+  },
+  "1793467800": {
+   "ticker": "KXBTC15M-26OCT311345-45",
+   "trades": 43000,
+   "floor_strike": 77460.62,
+   "first_trade": 1793467847.329426
+  },
+  "1793468700": {
+   "ticker": "KXBTC15M-26OCT311400-00",
+   "trades": 41000,
+   "floor_strike": 77482.79,
+   "first_trade": 1793468717.760349
+  }
+ },
+ "acc_kalshi_cheap": 0.3452914798206278,
+ "acc_slow_posture": 0.9170403587443946,
+ "acc_frozen_posture": 0.7533632286995515,
+ "agree_slow_kalshi_share": 0.3789237668161435,
+ "acc_when_agree": 0.8461538461538461,
+ "acc_slow_when_disagree": 0.9602888086642599,
+ "acc_kalshi_when_disagree": 0.039711191335740074,
+ "n_disagree": 277,
+ "basis_floor_strike_minus_ptb": {
+  "1793449800": -16.26,
+  "1793452500": -14.94,
+  "1793454300": -24.47,
+  "1793455200": -17.49,
+  "1793456100": -18.88,
+  "1793457000": -16.73,
+  "1793457900": -20.89,
+  "1793458800": -16.39,
+  "1793459700": -20.25,
+  "1793461500": -26.21,
+  "1793462400": -33.78,
+  "1793463300": -34.74,
+  "1793464200": -30.66,
+  "1793465100": -29.52,
+  "1793466000": -30.08,
+  "1793466900": -26.56,
+  "1793467800": -27.73,
+  "1793468700": -32.86
+ }
+}

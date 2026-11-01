@@ -35,7 +35,71 @@ CRITERIA = [
 
 
 def load_json(p: Path) -> Any:
-    return json.loads(p.read_text()) if p.exists() else None
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+
+def load_deep_re() -> list[dict[str, Any]]:
+    """Progress of the per-strategy deep reverse engineering (research/reverse_engineering/<key>/)."""
+    base = RESEARCH / "reverse_engineering"
+    spec = load_json(base / "strategies.json") or {"strategies": []}
+    out = []
+    for s in spec.get("strategies", []):
+        d = base / s["key"]
+        state = load_json(d / "state.json") or {}
+        exam = load_json(d / "results" / "exam.json")
+        adj = load_json(d / "results" / "adjudication.json")
+        # Written by the workflow at every checkpoint: stage, exam rounds, wall audits, panels.
+        prog = load_json(d / "results" / "progress.json") or {}
+        iters = state.get("iterations") or []
+        scores = [it.get("best_validate_score") for it in iters if isinstance(it.get("best_validate_score"), (int, float))]
+        best = state.get("best") or {}
+        # A strategy whose agent is still working after an exam is in progress, not finished.
+        reopened = state.get("status") == "continue"
+        if prog.get("stage"):
+            status = {"reverse_engineering": "in_progress"}.get(prog["stage"], prog["stage"])
+        elif adj and not reopened:
+            status = "adjudicated"
+        elif exam and not reopened:
+            status = "examined"
+        elif state.get("status") in ("target_reached", "wall"):
+            status = state["status"]
+        elif iters:
+            status = "in_progress"
+        else:
+            status = "not_started"
+        audits = prog.get("wall_audits") or []
+        row = {
+            "key": s["key"],
+            "title": s.get("title"),
+            "wallets": s.get("wallets") or [],
+            "status": status,
+            "wall_reason": state.get("wall_reason"),
+            "iterations": len(iters),
+            "minutes": sum(it.get("minutes") or 0 for it in iters),
+            "hypotheses": len(state.get("hypotheses") or []),
+            "primary_metric": state.get("primary_metric"),
+            "best_validate_score": max(scores) if scores else None,
+            "best_rule": best.get("rule_id"),
+            "has_final_rule": (d / "FINAL_RULE.md").exists(),
+            "strategy_statement": state.get("strategy_statement"),
+            "exam_rounds": prog.get("exam_rounds", len(list((d / "results").glob("adjudication_r*.json"))) or (1 if adj else 0)),
+            "wall_audits": len(audits),
+            "walls_rejected": sum(1 for a in audits if not a.get("accepted")),
+            "panels": prog.get("panels", len({p.name.split("_")[0] for p in (d / "panels").glob("iter*_*.md")})),
+        }
+        if exam:
+            row["exam"] = {
+                "target_met": exam.get("target_met"),
+                "leakage_passed": (exam.get("leakage_check") or {}).get("passed"),
+                "criteria": exam.get("criteria") or {},
+                "metrics": exam.get("metrics") or {},
+                "rule_summary": exam.get("rule_summary"),
+                "why_it_works": exam.get("why_it_works"),
+            }
+        if adj:
+            row["adjudication"] = adj
+        out.append(row)
+    return out
 
 
 def a1_criteria(m: dict[str, Any]) -> dict[str, dict[str, str]]:
@@ -55,7 +119,7 @@ def a1_criteria(m: dict[str, Any]) -> dict[str, dict[str, str]]:
 
 def build_ledger() -> dict[str, Any]:
     a1 = load_json(RESEARCH / "stage_a" / "stage_a1.json") or {"wallets": [], "evidence": {}}
-    verdicts = {p.stem.lower(): json.loads(p.read_text()) for p in sorted((RESEARCH / "verdicts").glob("*.json"))}
+    verdicts = {p.stem.lower(): json.loads(p.read_text(encoding="utf-8")) for p in sorted((RESEARCH / "verdicts").glob("*.json"))}
     rows = []
     for r in a1["wallets"]:
         m = r["metrics"]
@@ -106,9 +170,10 @@ def build_ledger() -> dict[str, Any]:
         "criteria": [{"key": k, "label": l, "rule": d} for k, l, d in CRITERIA],
         "screen_criteria": (ev.get("derived") or {}).get("criteria"),
         "funnel": _funnel(rows),
+        "deep_re": load_deep_re(),
         "wallets": rows,
     }
-    (RESEARCH / "ledger.json").write_text(json.dumps(to_jsonable(ledger), indent=1))
+    (RESEARCH / "ledger.json").write_text(json.dumps(to_jsonable(ledger), indent=1), encoding="utf-8")
     return ledger
 
 
@@ -167,11 +232,11 @@ def write_reports(ledger: dict[str, Any]) -> None:
         if r.get("deep_dive"):
             d = RESEARCH / "wallets" / r["wallet"]
             d.mkdir(parents=True, exist_ok=True)
-            (d / "REPORT.md").write_text(wallet_report_md(r))
+            (d / "REPORT.md").write_text(wallet_report_md(r), encoding="utf-8")
 
 
 def render_dashboard(ledger: dict[str, Any], fragment: bool = False) -> str:
-    tpl = (Path(__file__).parent / "dashboard_template.html").read_text()
+    tpl = (Path(__file__).parent / "dashboard_template.html").read_text(encoding="utf-8")
     slim = dict(ledger)
     slim["wallets"] = [{k: v for k, v in r.items()} for r in ledger["wallets"]]
     data = json.dumps(to_jsonable(slim)).replace("</", "<\\/")
@@ -205,6 +270,25 @@ def write_summary_md(ledger: dict[str, Any]) -> None:
         failed = [labels[k] for k, _, _ in CRITERIA if (crit.get(k) or {}).get("status") == "fail"]
         partial = [labels[k] for k, _, _ in CRITERIA if (crit.get(k) or {}).get("status") == "partial"]
         lines.append(f"| {r['rank']} | [{r['name']}](wallets/{r['wallet']}/REPORT.md) | {r.get('archetype') or ''} | {r['verdict']} | {'; '.join(failed) or '-'} | {'; '.join(partial) or '-'} |")
+    re_rows = ledger.get("deep_re") or []
+    if re_rows:
+        lines += ["", "## Deep reverse engineering (one expert agent per strategy)", "",
+                  "The premise is that every screened wallet runs a real strategy, so not finding it counts as a failure. Each agent works in iterations of about 75 minutes, for up to about 20 hours per strategy. "
+                  "After every iteration, three fresh-eyes experts propose untried directions. A wall stands only after 10+ hours of work, with the direction catalog closed and three auditors unable to name an untried direction. "
+                  "When an agent claims the target, an independent examiner scores the frozen rule on sealed data, and skeptics try to refute any pass. "
+                  "A failed exam sends its diagnosis back to the agent, and the next exam uses newer data. "
+                  "Workspaces: `reverse_engineering/<strategy>/` (`NOTES.md`, `FINAL_RULE.md`, `EXAM*.md`, `panels/`).", "",
+                  "| Strategy | Status | Iterations | Best VALIDATE score | Exams | Wall audits (rejected) | Latest exam target met | Match | Backtest | Replicable | Persists |",
+                  "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
+        for s in re_rows:
+            ex = s.get("exam") or {}
+            cr = dict(ex.get("criteria") or {})
+            cr.update(((s.get("adjudication") or {}).get("criteria")) or {})
+            score = "-" if s.get("best_validate_score") is None else f"{s['best_validate_score']:.3f}"
+            tm = ex.get("target_met")
+            lines.append(f"| [{s['key']}](reverse_engineering/{s['key']}/NOTES.md) | {s['status'].replace('_', ' ')} | {s['iterations']} ({round(s.get('minutes') or 0)} min) | {score} | "
+                         f"{s.get('exam_rounds', 0)} | {s.get('wall_audits', 0)} ({s.get('walls_rejected', 0)}) | "
+                         f"{'-' if tm is None else ('yes' if tm else 'no')} | {cr.get('match', '-')} | {cr.get('backtest', '-')} | {cr.get('replicable', '-')} | {cr.get('persists', '-')} |")
     lines += ["", "## Criteria across deep-dived wallets", "", "Not sequential: every criterion was assessed for every wallet where possible.", "",
               "| Criterion | Pass | Partial | Fail | Not assessed |", "| --- | --- | --- | --- | --- |"]
     for k, label, _ in CRITERIA:
@@ -234,7 +318,7 @@ def write_summary_md(ledger: dict[str, Any]) -> None:
     lines += ["", "Full per-wallet detail: `ledger.json` and the dashboard (`../dashboard/index.html`).",
               "", "The adversarial review of the first round (code audit, a challenge of every verdict, an independent re-check of stage A1, and a completeness critique) "
               "is recorded in `review_2026-10-31/` with every reviewer's scripts and outputs; the defects it confirmed and how they were fixed are listed in `../docs/methodology.md`."]
-    (RESEARCH / "README.md").write_text("\n".join(lines) + "\n")
+    (RESEARCH / "README.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def build_all(artifact_path: Path | None = None) -> dict[str, Any]:
@@ -242,9 +326,9 @@ def build_all(artifact_path: Path | None = None) -> dict[str, Any]:
     write_reports(ledger)
     write_summary_md(ledger)
     (ROOT / "dashboard").mkdir(exist_ok=True)
-    (ROOT / "dashboard" / "index.html").write_text(render_dashboard(ledger))
+    (ROOT / "dashboard" / "index.html").write_text(render_dashboard(ledger), encoding="utf-8")
     if artifact_path is not None:
-        artifact_path.write_text(render_dashboard(ledger, fragment=True))
+        artifact_path.write_text(render_dashboard(ledger, fragment=True), encoding="utf-8")
     return ledger
 
 

@@ -1,0 +1,34 @@
+{
+ "BUILD": {
+  "markets": 113,
+  "one_sided_95": 0.0,
+  "one_sided_90": 0.0,
+  "share0_quantiles": [
+   0.461,
+   0.484,
+   0.499,
+   0.512,
+   0.529
+  ],
+  "by_type": {
+   "child_moneyline": 0.0,
+   "moneyline": 0.0
+  }
+ },
+ "VALIDATE": {
+  "markets": 116,
+  "one_sided_95": 0.0,
+  "one_sided_90": 0.0,
+  "share0_quantiles": [
+   0.472,
+   0.484,
+   0.499,
+   0.511,
+   0.542
+  ],
+  "by_type": {
+   "child_moneyline": 0.0,
+   "moneyline": 0.0
+  }
+ }
+}

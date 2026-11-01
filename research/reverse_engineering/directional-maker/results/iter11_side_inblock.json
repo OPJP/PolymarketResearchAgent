@@ -1,0 +1,56 @@
+{
+ "study": {
+  "n_fills_with_cl": 4773,
+  "n_fills": 8256,
+  "posture_mid_b3": 0.5774,
+  "posture_mid_inblock": 0.5762,
+  "gain": -0.0013,
+  "gain_ci95_2h_blocks": [
+   -0.0318,
+   0.0309
+  ],
+  "regionD_mid_b3": {
+   "n_D": 479,
+   "acc_D": 0.6409185803757829
+  },
+  "regionD_mid_inblock": {
+   "n_D": 505,
+   "acc_D": 0.5722772277227722
+  },
+  "per_wallet_inblock": {
+   "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed": 0.5858,
+   "0x3725d52f3c252e8374999cc8617292ea2608ad88": 0.5776,
+   "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3": 0.5651
+  },
+  "adopt": null
+ },
+ "validate": {
+  "n_fills_with_cl": 16387,
+  "n_fills": 27988,
+  "posture_mid_b3": 0.6913,
+  "posture_mid_inblock": 0.698,
+  "gain": 0.0067,
+  "gain_ci95_2h_blocks": [
+   -0.0078,
+   0.0206
+  ],
+  "regionD_mid_b3": {
+   "n_D": 759,
+   "acc_D": 0.6245059288537549
+  },
+  "regionD_mid_inblock": {
+   "n_D": 1048,
+   "acc_D": 0.5830152671755725
+  },
+  "per_wallet_inblock": {
+   "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed": 0.7037,
+   "0x3725d52f3c252e8374999cc8617292ea2608ad88": 0.7025,
+   "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3": 0.6879
+  },
+  "halves_inblock": [
+   0.6675,
+   0.7188
+  ],
+  "adopt": false
+ }
+}

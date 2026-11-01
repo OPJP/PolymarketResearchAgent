@@ -1,0 +1,90 @@
+{
+ "by_wallet": {
+  "pool": {
+   "BUILD": {
+    "windows": 2016,
+    "corr_pnl_net_x_outcome": 0.8447,
+    "share_net_sign_agrees_outcome": 0.5447,
+    "mean_abs_net": 306.5,
+    "mean_gross": 3122.9,
+    "pnl_sum": 22914.4
+   },
+   "VALIDATE": {
+    "windows": 2016,
+    "corr_pnl_net_x_outcome": 0.8845,
+    "share_net_sign_agrees_outcome": 0.4853,
+    "mean_abs_net": 328.5,
+    "mean_gross": 2600.4,
+    "pnl_sum": 4388.5
+   }
+  },
+  "GF": {
+   "BUILD": {
+    "windows": 2016,
+    "corr_pnl_net_x_outcome": 0.9023,
+    "share_net_sign_agrees_outcome": 0.5309,
+    "mean_abs_net": 139.4,
+    "mean_gross": 752.9,
+    "pnl_sum": 4450.8
+   },
+   "VALIDATE": {
+    "windows": 2016,
+    "corr_pnl_net_x_outcome": 0.9213,
+    "share_net_sign_agrees_outcome": 0.4947,
+    "mean_abs_net": 197.2,
+    "mean_gross": 874.1,
+    "pnl_sum": 1448.8
+   }
+  },
+  "XM": {
+   "BUILD": {
+    "windows": 2016,
+    "corr_pnl_net_x_outcome": 0.8633,
+    "share_net_sign_agrees_outcome": 0.5285,
+    "mean_abs_net": 154.2,
+    "mean_gross": 1153.4,
+    "pnl_sum": 10496.1
+   },
+   "VALIDATE": {
+    "windows": 2016,
+    "corr_pnl_net_x_outcome": 0.9165,
+    "share_net_sign_agrees_outcome": 0.5266,
+    "mean_abs_net": 74.4,
+    "mean_gross": 212.9,
+    "pnl_sum": 1583.5
+   }
+  },
+  "DS": {
+   "BUILD": {
+    "windows": 2016,
+    "corr_pnl_net_x_outcome": 0.8919,
+    "share_net_sign_agrees_outcome": 0.5291,
+    "mean_abs_net": 162.2,
+    "mean_gross": 1216.6,
+    "pnl_sum": 7967.5
+   },
+   "VALIDATE": {
+    "windows": 2016,
+    "corr_pnl_net_x_outcome": 0.8874,
+    "share_net_sign_agrees_outcome": 0.4519,
+    "mean_abs_net": 180.9,
+    "mean_gross": 1513.4,
+    "pnl_sum": 1356.3
+   }
+  }
+ },
+ "netflow_model_validate": {
+  "corr_net_nf_sum": 0.4583,
+  "spearman_net_nf_sum": 0.4496,
+  "corr_net_pu_minus_pd": 0.4396,
+  "corr_pnl_nf_sum_x_outcome": 0.4041,
+  "corr_final_net_net_before_60": 0.4647,
+  "corr_nf_sum_before_60_vs_net_before_60": 0.4793,
+  "corr_final_net_net_before_120": 0.6606,
+  "corr_nf_sum_before_120_vs_net_before_120": 0.4685,
+  "corr_final_net_net_before_180": 0.8073,
+  "corr_nf_sum_before_180_vs_net_before_180": 0.4876,
+  "corr_final_net_net_before_240": 0.9314,
+  "corr_nf_sum_before_240_vs_net_before_240": 0.4798
+ }
+}

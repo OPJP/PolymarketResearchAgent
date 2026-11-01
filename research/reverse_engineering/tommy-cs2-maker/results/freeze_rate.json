@@ -1,0 +1,36 @@
+{
+ "rounds": 405,
+ "freeze_dark_nh": {
+  "n": 70,
+  "rate_per_min": 0.576,
+  "m60_c": 3.01,
+  "up": 0.586,
+  "down": 0.271
+ },
+ "action_dark_nh": {
+  "n": 350,
+  "rate_per_min": 0.493,
+  "m60_c": 2.73,
+  "up": 0.623,
+  "down": 0.309
+ },
+ "freeze_all": {
+  "n": 286,
+  "rate_per_min": 2.354
+ },
+ "action_all": {
+  "n": 1255,
+  "rate_per_min": 1.768
+ },
+ "freeze_visible": {
+  "n": 51,
+  "rate_per_min": 0.42
+ },
+ "action_visible": {
+  "n": 180,
+  "rate_per_min": 0.254
+ },
+ "ratio_freeze_over_action_dark_nh": 1.168,
+ "ratio_freeze_over_action_all": 1.331,
+ "ratio_freeze_over_action_visible": 1.654
+}

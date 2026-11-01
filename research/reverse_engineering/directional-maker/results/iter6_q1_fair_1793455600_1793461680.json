@@ -1,0 +1,73 @@
+{
+ "period": [
+  1793455600,
+  1793461680
+ ],
+ "confirmed_5m": {
+  "n": 667,
+  "P_moved_250ms": 0.037,
+  "P_toward_given_moved_250ms": 0.08,
+  "mean_signed_move_usd_250ms": -0.11,
+  "P_moved_1000ms": 0.255,
+  "P_toward_given_moved_1000ms": 0.106,
+  "mean_signed_move_usd_1000ms": -2.88,
+  "P_moved_3000ms": 0.394,
+  "P_toward_given_moved_3000ms": 0.213,
+  "mean_signed_move_usd_3000ms": -2.95,
+  "edge_q": {
+   "0.1": -0.108,
+   "0.25": -0.018,
+   "0.5": 0.026,
+   "0.75": 0.084,
+   "0.9": 0.123
+  },
+  "edge_mean": 0.0163,
+  "P_edge_gt_0.02": 0.525
+ },
+ "null_at_touch_any_size": {
+  "n": 6000,
+  "P_moved_250ms": 0.038,
+  "P_toward_given_moved_250ms": 0.827,
+  "mean_signed_move_usd_250ms": 0.09,
+  "P_moved_1000ms": 0.107,
+  "P_toward_given_moved_1000ms": 0.76,
+  "mean_signed_move_usd_1000ms": 0.32,
+  "P_moved_3000ms": 0.223,
+  "P_toward_given_moved_3000ms": 0.628,
+  "mean_signed_move_usd_3000ms": 0.37,
+  "edge_q": {
+   "0.1": -0.106,
+   "0.25": -0.054,
+   "0.5": -0.0,
+   "0.75": 0.047,
+   "0.9": 0.1
+  },
+  "edge_mean": -0.0037,
+  "P_edge_gt_0.02": 0.367
+ },
+ "null_at_touch_500_100": {
+  "n": 4000,
+  "P_moved_250ms": 0.051,
+  "P_toward_given_moved_250ms": 0.902,
+  "mean_signed_move_usd_250ms": 0.19,
+  "P_moved_1000ms": 0.143,
+  "P_toward_given_moved_1000ms": 0.829,
+  "mean_signed_move_usd_1000ms": 0.61,
+  "P_moved_3000ms": 0.25,
+  "P_toward_given_moved_3000ms": 0.668,
+  "mean_signed_move_usd_3000ms": 0.72,
+  "edge_q": {
+   "0.1": -0.097,
+   "0.25": -0.045,
+   "0.5": 0.004,
+   "0.75": 0.045,
+   "0.9": 0.1
+  },
+  "edge_mean": 0.0008,
+  "P_edge_gt_0.02": 0.376
+ },
+ "auc_confirmed_vs_500_100_null_edge": 0.589,
+ "auc_confirmed_vs_500_100_null_mv1000": 0.364,
+ "auc_confirmed_vs_500_100_null_mv3000": 0.364,
+ "auc_confirmed_vs_500_100_null_mv250": 0.464
+}

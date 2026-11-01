@@ -1,0 +1,29 @@
+{
+ "n_my_taker": 1698,
+ "n_same_team_others_10s": 5298,
+ "n_opp_team_others_10s": 3748,
+ "same_team_lag_hist": {
+  "-10": 598,
+  "-5": 219,
+  "-3": 137,
+  "-2": 137,
+  "-1": 47,
+  "-0.5": 298,
+  "0": 1214,
+  "0.5": 568,
+  "1": 503,
+  "2": 243,
+  "3": 457,
+  "5": 877
+ },
+ "share_others_after_me": 0.729,
+ "orders_with_same_team_other_within_10s": 1173,
+ "earliest_other_minus_me_q": {
+  "0.1": -8.48,
+  "0.25": -5.44,
+  "0.5": -0.06,
+  "0.75": 0.41,
+  "0.9": 3.2
+ },
+ "share_me_first": 0.412
+}

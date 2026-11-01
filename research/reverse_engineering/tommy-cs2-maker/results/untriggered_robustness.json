@@ -1,0 +1,95 @@
+{
+ "trig": {
+  "n": 1087,
+  "mean": -0.032,
+  "median": 0.0,
+  "trim10_mean": -0.009,
+  "share_le_-1c": 0.334,
+  "share_ge_+1c": 0.307,
+  "share_le_-3c": 0.164,
+  "share_ge_+3c": 0.168,
+  "sign_test_p_neg": 0.7930718668991189
+ },
+ "trig_cross_only": {
+  "n": 70,
+  "mean": -0.157,
+  "median": 0.0,
+  "trim10_mean": 0.063,
+  "share_le_-1c": 0.314,
+  "share_ge_+1c": 0.329,
+  "share_le_-3c": 0.129,
+  "share_ge_+3c": 0.1,
+  "sign_test_p_neg": 0.8471612900684409
+ },
+ "untrig_all": {
+  "n": 213,
+  "mean": -0.601,
+  "median": 0.0,
+  "trim10_mean": -0.43,
+  "share_le_-1c": 0.343,
+  "share_ge_+1c": 0.197,
+  "share_le_-3c": 0.146,
+  "share_ge_+3c": 0.08,
+  "sign_test_p_neg": 0.003239832913173854
+ },
+ "untrig_by_book": {
+  "cs2-bhe-bar2-2026-10-31": {
+   "n": 47,
+   "mean_c": -0.745
+  },
+  "cs2-gls1-pcy-2026-10-31": {
+   "n": 18,
+   "mean_c": -1.0
+  },
+  "cs2-shin-isg-2026-10-31": {
+   "n": 51,
+   "mean_c": -0.402
+  },
+  "cs2-shin-isg-2026-10-31-game1": {
+   "n": 94,
+   "mean_c": -0.559
+  },
+  "cs2-wraith-ntr-2026-10-31": {
+   "n": 3,
+   "mean_c": -0.667
+  }
+ },
+ "untrig_by_hour": {
+  "14": {
+   "n": 23,
+   "mean_c": -0.261
+  },
+  "15": {
+   "n": 45,
+   "mean_c": -1.089
+  },
+  "16": {
+   "n": 112,
+   "mean_c": -0.545
+  },
+  "17": {
+   "n": 33,
+   "mean_c": -0.364
+  }
+ },
+ "untrig_by_side": {
+  "BUY": {
+   "n": 111,
+   "mean_c": -1.05
+  },
+  "SELL": {
+   "n": 102,
+   "mean_c": -0.113
+  }
+ },
+ "untrig_by_multi": {
+  "False": {
+   "n": 139,
+   "mean_c": -0.248
+  },
+  "True": {
+   "n": 74,
+   "mean_c": -1.264
+  }
+ }
+}

@@ -1,0 +1,308 @@
+{
+ "cluster_maker_buy_fills": 34410,
+ "joined_share": 0.9977622784074397,
+ "windows": 1346,
+ "top20": [
+  "0x0cb038487586d1119b165466072e9baf666f3a90",
+  "0x805b3a28fc4d6519af84bb3f243b190d3ee7da76",
+  "0x3048d65321be3497164cdfc2996f94f98a2e7537",
+  "0x41e2e1ccf1e4940029af02259a31c6b89b9fa354",
+  "0x9e3ed7b661a903fc97afcf49e0f014ebe869f882",
+  "0xb55fa1296e6ec55d0ce53d93b9237389f11764d4",
+  "0xe9076a87c5ed90ef16e6fe6529c943baeca0cff6",
+  "0xc53375ff94e96100f2b30a4b5775db35218d69a9",
+  "0x6979b1a23c14e5cf0c6d29310080841d19d4c2a3",
+  "0x70d43599216fc93cc2573af9e5ebc340613b6491",
+  "0xe8ade1c67a880380ec861c476052c2f00057a859",
+  "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
+  "0xeebde7a0e019a63e6b476eb425505b7b3e6eba30",
+  "0xcd917f26d0ecfe2b9f203868c505a8731b1a3d2b",
+  "0x71246529fd8c3887724b178844ba1bb94defcc9c",
+  "0x747abbf12e38ce77ae9ad50e6b234be4f45a766d",
+  "0x21f4c1a1be34a39a7bc20985df4b7e5a39fb691d",
+  "0x98a52de3c84646bd22043ec033e0d078525328d3",
+  "0xd3d3467ff83c943e9fa5a26a4ffd01f979bf81dc",
+  "0xae50b6122d613c661b71c3fc6775971deb25d7aa"
+ ],
+ "by_week": [
+  {
+   "week": "09-11",
+   "fills": 7347,
+   "cluster_return": 0.1118,
+   "cluster_pnl": 12350.2333,
+   "rest_share_shares": 0.5761,
+   "rest_share_pnl": 0.5216,
+   "rest_return": 0.1038,
+   "rest_pnl": 6441.8639,
+   "round_usd_share_shares": 0.2082,
+   "round_usd_share_pnl": 0.3313,
+   "round_usd_return": 0.1726,
+   "round_usd_pnl": 4091.39,
+   "top20_sep_share_shares": 0.2092,
+   "top20_sep_share_pnl": 0.1319,
+   "top20_sep_return": 0.0704,
+   "top20_sep_pnl": 1629.0615,
+   "unjoined_share_shares": 0.0065,
+   "unjoined_share_pnl": 0.0152,
+   "unjoined_return": 0.1177,
+   "unjoined_pnl": 187.9179
+  },
+  {
+   "week": "09-18",
+   "fills": 8075,
+   "cluster_return": 0.0833,
+   "cluster_pnl": 15250.6579,
+   "rest_share_shares": 0.5377,
+   "rest_share_pnl": 0.8143,
+   "rest_return": 0.1259,
+   "rest_pnl": 12418.7872,
+   "round_usd_share_shares": 0.2304,
+   "round_usd_share_pnl": 0.219,
+   "round_usd_return": 0.0809,
+   "round_usd_pnl": 3339.2201,
+   "top20_sep_share_shares": 0.2249,
+   "top20_sep_share_pnl": -0.0179,
+   "top20_sep_return": -0.0067,
+   "top20_sep_pnl": -272.9182,
+   "unjoined_share_shares": 0.007,
+   "unjoined_share_pnl": -0.0154,
+   "unjoined_return": -0.1026,
+   "unjoined_pnl": -234.4311
+  },
+  {
+   "week": "09-25",
+   "fills": 6447,
+   "cluster_return": 0.0561,
+   "cluster_pnl": 8687.9511,
+   "rest_share_shares": 0.5547,
+   "rest_share_pnl": 0.0683,
+   "rest_return": 0.0067,
+   "rest_pnl": 593.2037,
+   "round_usd_share_shares": 0.2407,
+   "round_usd_share_pnl": 0.2698,
+   "round_usd_return": 0.0663,
+   "round_usd_pnl": 2343.8604,
+   "top20_sep_share_shares": 0.1987,
+   "top20_sep_share_pnl": 0.6356,
+   "top20_sep_return": 0.1843,
+   "top20_sep_pnl": 5522.0628,
+   "unjoined_share_shares": 0.0059,
+   "unjoined_share_pnl": 0.0263,
+   "unjoined_return": 0.1432,
+   "unjoined_pnl": 228.8242
+  },
+  {
+   "week": "10-02",
+   "fills": 6809,
+   "cluster_return": 0.0872,
+   "cluster_pnl": 16427.73,
+   "rest_share_shares": 0.4796,
+   "rest_share_pnl": 0.179,
+   "rest_return": 0.0327,
+   "rest_pnl": 2941.0337,
+   "round_usd_share_shares": 0.2507,
+   "round_usd_share_pnl": 0.2378,
+   "round_usd_return": 0.0807,
+   "round_usd_pnl": 3907.2702,
+   "top20_sep_share_shares": 0.2697,
+   "top20_sep_share_pnl": 0.5831,
+   "top20_sep_return": 0.1914,
+   "top20_sep_pnl": 9579.4261,
+   "unjoined_share_shares": NaN,
+   "unjoined_share_pnl": NaN,
+   "unjoined_return": NaN,
+   "unjoined_pnl": NaN
+  },
+  {
+   "week": "10-09",
+   "fills": 2962,
+   "cluster_return": 0.0843,
+   "cluster_pnl": 7986.1591,
+   "rest_share_shares": 0.6502,
+   "rest_share_pnl": 0.9128,
+   "rest_return": 0.1195,
+   "rest_pnl": 7289.9143,
+   "round_usd_share_shares": 0.2394,
+   "round_usd_share_pnl": 0.022,
+   "round_usd_return": 0.0075,
+   "round_usd_pnl": 175.3027,
+   "top20_sep_share_shares": 0.1102,
+   "top20_sep_share_pnl": 0.065,
+   "top20_sep_return": 0.0506,
+   "top20_sep_pnl": 519.262,
+   "unjoined_share_shares": 0.0001,
+   "unjoined_share_pnl": 0.0002,
+   "unjoined_return": 0.0753,
+   "unjoined_pnl": 1.68
+  },
+  {
+   "week": "10-16",
+   "fills": 2770,
+   "cluster_return": -0.0675,
+   "cluster_pnl": -6790.1048,
+   "rest_share_shares": 0.5938,
+   "rest_share_pnl": 0.3543,
+   "rest_return": -0.0414,
+   "rest_pnl": -2405.8954,
+   "round_usd_share_shares": 0.305,
+   "round_usd_share_pnl": 0.9081,
+   "round_usd_return": -0.2038,
+   "round_usd_pnl": -6166.0641,
+   "top20_sep_share_shares": 0.0625,
+   "top20_sep_share_pnl": -0.0042,
+   "top20_sep_return": 0.004,
+   "top20_sep_pnl": 28.5526,
+   "unjoined_share_shares": 0.0387,
+   "unjoined_share_pnl": -0.2582,
+   "unjoined_return": 0.3361,
+   "unjoined_pnl": 1753.3021
+  }
+ ],
+ "taker_volume_by_week": {
+  "09-11": {
+   "rest": 0.5809999704360962,
+   "round_usd": 0.2442999929189682,
+   "top20_sep": 0.17470000684261322
+  },
+  "09-18": {
+   "rest": 0.5964000225067139,
+   "round_usd": 0.25360000133514404,
+   "top20_sep": 0.15000000596046448
+  },
+  "09-25": {
+   "rest": 0.5666999816894531,
+   "round_usd": 0.27559998631477356,
+   "top20_sep": 0.15760000050067902
+  },
+  "10-02": {
+   "rest": 0.5698000192642212,
+   "round_usd": 0.2630999982357025,
+   "top20_sep": 0.1670999974012375
+  },
+  "10-09": {
+   "rest": 0.6105999946594238,
+   "round_usd": 0.25429999828338623,
+   "top20_sep": 0.13510000705718994
+  },
+  "10-16": {
+   "rest": 0.632099986076355,
+   "round_usd": 0.2621999979019165,
+   "top20_sep": 0.10570000112056732
+  }
+ },
+ "taker_volume_abs_by_week": {
+  "09-11": {
+   "rest": 8897062.0,
+   "round_usd": 3741158.0,
+   "top20_sep": 2675048.0
+  },
+  "09-18": {
+   "rest": 9916082.0,
+   "round_usd": 4217379.0,
+   "top20_sep": 2493503.0
+  },
+  "09-25": {
+   "rest": 8419770.0,
+   "round_usd": 4094824.0,
+   "top20_sep": 2341696.0
+  },
+  "10-02": {
+   "rest": 8179538.0,
+   "round_usd": 3776956.0,
+   "top20_sep": 2398390.0
+  },
+  "10-09": {
+   "rest": 8521010.0,
+   "round_usd": 3549272.0,
+   "top20_sep": 1885127.0
+  },
+  "10-16": {
+   "rest": 9468380.0,
+   "round_usd": 3928236.0,
+   "top20_sep": 1583592.0
+  }
+ },
+ "spearman_weekly_return_vs_share": {
+  "round_usd": -0.6,
+  "top20_sep": 0.6,
+  "rest": -0.2
+ },
+ "by_fold": {
+  "sep_stable": {
+   "rest": {
+    "share_shares": 0.5334164063596203,
+    "share_pnl": 0.4248168548483039,
+    "return": 0.06616189098583325,
+    "pnl": 22394.888466809578
+   },
+   "round_usd": {
+    "share_shares": 0.23390003264626588,
+    "share_pnl": 0.25953395627386794,
+    "return": 0.09195054607473487,
+    "pnl": 13681.740584842317
+   },
+   "top20_sep": {
+    "share_shares": 0.22799754914239953,
+    "share_pnl": 0.3121908640748184,
+    "return": 0.11433169559790451,
+    "pnl": 16457.63227499301
+   },
+   "unjoined": {
+    "share_shares": 0.004686011851714317,
+    "share_pnl": 0.003458324803009793,
+    "return": 0.03327367763281998,
+    "pnl": 182.31102970964133
+   },
+   "all": {
+    "return": 0.08279574738593141,
+    "pnl": 52716.57235635455,
+    "fills": 28678
+   }
+  },
+  "oct_control": {
+   "rest": {
+    "share_shares": 0.6213332900637896,
+    "share_pnl": 4.083442664399232,
+    "return": 0.04101870517341599,
+    "pnl": 4884.01893702507
+   },
+   "round_usd": {
+    "share_shares": 0.27298447860120767,
+    "share_pnl": -5.008770629842236,
+    "return": -0.11168627137426923,
+    "pnl": -5990.761379029556
+   },
+   "top20_sep": {
+    "share_shares": 0.08579538521533477,
+    "share_pnl": 0.4580181792423887,
+    "return": 0.03159078368143092,
+    "pnl": 547.8145880249989
+   },
+   "unjoined": {
+    "share_shares": 0.019886846119667866,
+    "share_pnl": 1.4673097862006144,
+    "return": 0.33500706567721195,
+    "pnl": 1754.9820999728286
+   },
+   "all": {
+    "return": 0.006124600880973037,
+    "pnl": 1196.0542459933426,
+    "fills": 5732
+   }
+  }
+ },
+ "cheaper_share_by_pop_fold": {
+  "sep_stable": {
+   "rest": 0.646,
+   "round_usd": 0.703,
+   "top20_sep": 0.58,
+   "unjoined": 0.0
+  },
+  "oct_control": {
+   "rest": 0.422,
+   "round_usd": 0.488,
+   "top20_sep": 0.404,
+   "unjoined": 0.143
+  }
+ }
+}

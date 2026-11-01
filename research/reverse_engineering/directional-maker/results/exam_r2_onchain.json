@@ -1,0 +1,17 @@
+{
+ "role_check": {
+  "sampled": 120,
+  "receipts_decoded": 120,
+  "role_agree": 120,
+  "shares_agree": 119,
+  "tape_taker_share": 0.023612388837779823
+ },
+ "inblock_check_0612": {
+  "fills": 150,
+  "inblock_anchor_share": 0.72,
+  "within_tick_inblock": 0.86,
+  "within_tick_block_clock": 0.7666666666666667,
+  "rpc_positions": 1404
+ },
+ "secs": 65.9
+}

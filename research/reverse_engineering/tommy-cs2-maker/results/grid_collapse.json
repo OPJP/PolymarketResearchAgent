@@ -1,0 +1,17 @@
+{
+ "tokens": 20,
+ "events_by_grid": {
+  "False": {
+   "markets": 9,
+   "market_hours": 3.43,
+   "collapses_per_market_hour": 121.9,
+   "deep_share": 0.237
+  },
+  "True": {
+   "markets": 11,
+   "market_hours": 4.06,
+   "collapses_per_market_hour": 59.6,
+   "deep_share": 0.054
+  }
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "trig": {
+  "n": 1087,
+  "take_within_5_60s": 0.155,
+  "null": 0.117,
+  "p_greater": 0.0,
+  "share_of_those_on_gaining_team": 0.562,
+  "null_gaining_share": 0.493
+ },
+ "trig_cross_only": {
+  "n": 70,
+  "take_within_5_60s": 0.243,
+  "null": 0.169,
+  "p_greater": 0.045,
+  "share_of_those_on_gaining_team": 0.588,
+  "null_gaining_share": 0.529
+ },
+ "untrig_all": {
+  "n": 213,
+  "take_within_5_60s": 0.211,
+  "null": 0.168,
+  "p_greater": 0.035,
+  "share_of_those_on_gaining_team": 0.622,
+  "null_gaining_share": 0.481
+ }
+}

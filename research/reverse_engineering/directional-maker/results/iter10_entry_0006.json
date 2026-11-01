@@ -1,0 +1,40 @@
+{
+ "dev1031_0006": {
+  "500|entry": {
+   "n": 278,
+   "cl_favourite": 0.45,
+   "market_favourite": 0.392,
+   "cheaper": 0.608
+  },
+  "500|later": {
+   "n": 399,
+   "cl_favourite": 0.251,
+   "market_favourite": 0.188,
+   "cheaper": 0.812
+  },
+  "62_250|entry": {
+   "n": 2,
+   "cl_favourite": 1.0,
+   "market_favourite": 1.0,
+   "cheaper": 0.0
+  },
+  "62_250|later": {
+   "n": 338,
+   "cl_favourite": 0.355,
+   "market_favourite": 0.373,
+   "cheaper": 0.624
+  },
+  "all|entry": {
+   "n": 295,
+   "cl_favourite": 0.447,
+   "market_favourite": 0.393,
+   "cheaper": 0.607
+  },
+  "all|later": {
+   "n": 939,
+   "cl_favourite": 0.326,
+   "market_favourite": 0.307,
+   "cheaper": 0.69
+  }
+ }
+}

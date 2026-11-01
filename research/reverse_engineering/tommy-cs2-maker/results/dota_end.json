@@ -1,0 +1,68 @@
+[
+ {
+  "event": "dota2-ty-gl-2026-10-22",
+  "map": 1,
+  "market_end_offset_s": 394.0,
+  "wallet_last_taker_minus_settle_s": -61.6,
+  "wallet_last_maker_sign_minus_settle_s": -60.5,
+  "wallet_takers_in_120s_before_settle": 1,
+  "of_which_on_winner": 0,
+  "takers_total": 20,
+  "duration_s": 2223
+ },
+ {
+  "event": "dota2-ty-gl-2026-10-22",
+  "map": 2,
+  "market_end_offset_s": 483.0,
+  "wallet_last_taker_minus_settle_s": -528.7,
+  "wallet_last_maker_sign_minus_settle_s": -2.7,
+  "wallet_takers_in_120s_before_settle": 0,
+  "of_which_on_winner": 0,
+  "takers_total": 5,
+  "duration_s": 1988
+ },
+ {
+  "event": "dota2-liquid-1win-2026-10-22",
+  "map": 1,
+  "market_end_offset_s": 1007.0,
+  "wallet_last_taker_minus_settle_s": -67.6,
+  "wallet_last_maker_sign_minus_settle_s": -60.2,
+  "wallet_takers_in_120s_before_settle": 1,
+  "of_which_on_winner": 0,
+  "takers_total": 15,
+  "duration_s": 4619
+ },
+ {
+  "event": "dota2-liquid-1win-2026-10-22",
+  "map": 2,
+  "market_end_offset_s": 439.0,
+  "wallet_last_taker_minus_settle_s": -89.3,
+  "wallet_last_maker_sign_minus_settle_s": 11.5,
+  "wallet_takers_in_120s_before_settle": 1,
+  "of_which_on_winner": 1,
+  "takers_total": 10,
+  "duration_s": 1595
+ },
+ {
+  "event": "dota2-ty-gl-2026-10-31",
+  "map": 1,
+  "market_end_offset_s": -1024.0,
+  "wallet_last_taker_minus_settle_s": null,
+  "wallet_last_maker_sign_minus_settle_s": 1345.1,
+  "wallet_takers_in_120s_before_settle": 0,
+  "of_which_on_winner": 0,
+  "takers_total": 0,
+  "duration_s": 2255
+ },
+ {
+  "event": "dota2-ty-gl-2026-10-31",
+  "map": 2,
+  "market_end_offset_s": -345.0,
+  "wallet_last_taker_minus_settle_s": 48.8,
+  "wallet_last_maker_sign_minus_settle_s": 42.9,
+  "wallet_takers_in_120s_before_settle": 0,
+  "of_which_on_winner": 0,
+  "takers_total": 5,
+  "duration_s": 3162
+ }
+]

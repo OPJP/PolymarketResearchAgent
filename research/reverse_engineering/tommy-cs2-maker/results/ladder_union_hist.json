@@ -1,0 +1,16 @@
+{
+ "co_bursts": 107,
+ "sibling_orders": 238,
+ "sibling_equal_to_a_wallet_price": 0.702,
+ "sibling_below_every_wallet_price": 0.282,
+ "sibling_above_wallet_top": 0.017,
+ "union_within_V_minus_4c": 0.981,
+ "sibling_slot_hist_cents_below_V": {
+  "0": 116,
+  "1": 57,
+  "2": 35,
+  "3": 16,
+  "4": 11,
+  "5": 3
+ }
+}

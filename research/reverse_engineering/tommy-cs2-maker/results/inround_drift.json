@@ -1,0 +1,77 @@
+{
+ "maps": 86,
+ "rounds": 894,
+ "auc_dW": 0.8993,
+ "auc_dP": 0.6753,
+ "auc_dW_resid_on_dP": 0.8701,
+ "share_rounds_dW_nonzero": 0.961,
+ "share_rounds_dP_nonzero": 0.793,
+ "auc_diff_W_minus_P": 0.224,
+ "auc_diff_ci95": [
+  0.1845,
+  0.2625
+ ],
+ "auc_diff_p_le0": 0.0,
+ "auc_dW_when_print_flat": {
+  "n": 185,
+  "auc": 0.7716
+ },
+ "guard_10s": {
+  "rounds": 872,
+  "auc_dW": 0.8694,
+  "auc_dP": 0.663
+ },
+ "guard_20s": {
+  "rounds": 849,
+  "auc_dW": 0.8392,
+  "auc_dP": 0.6559
+ },
+ "guard_30s": {
+  "rounds": 820,
+  "auc_dW": 0.8086,
+  "auc_dP": 0.6457
+ },
+ "guard_45s": {
+  "rounds": 770,
+  "auc_dW": 0.7884,
+  "auc_dP": 0.619
+ },
+ "by_split": {
+  "BUILD": {
+   "maps": 38,
+   "rounds": 376,
+   "auc_dW": 0.9127,
+   "auc_dP": 0.7252,
+   "auc_dW_pre": 0.7133,
+   "auc_dP_pre": 0.5658
+  },
+  "VALIDATE": {
+   "maps": 48,
+   "rounds": 518,
+   "auc_dW": 0.8942,
+   "auc_dP": 0.639,
+   "auc_dW_pre": 0.7037,
+   "auc_dP_pre": 0.5222
+  }
+ },
+ "pre_print_move": {
+  "rounds": 681,
+  "auc_dW": 0.7084,
+  "auc_dP": 0.54,
+  "share_dW_nonzero": 0.934,
+  "rounds_where_print_later_moved": {
+   "rounds": 389,
+   "auc_dW": 0.6155
+  }
+ },
+ "early_30s": {
+  "rounds": 612,
+  "auc_dW": 0.5951,
+  "auc_dP": 0.5856
+ },
+ "early_60s": {
+  "rounds": 735,
+  "auc_dW": 0.6617,
+  "auc_dP": 0.6082
+ }
+}

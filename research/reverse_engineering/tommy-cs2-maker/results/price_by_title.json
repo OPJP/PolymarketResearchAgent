@@ -1,0 +1,13 @@
+{
+ "note": "X156 steps 1-2, historical part. CS2 from ledger_rows_iter10 (last-print anchor, in-play tick); the ledger has no Dota anchor rows, so Dota uses the iteration-9 VALIDATE number (X123: last print 0.431 on its Dota maker orders).",
+ "VALIDATE_cs2_last_print": 0.305,
+ "BUILD_cs2_last_print": 0.309,
+ "VALIDATE_dota2_last_print_iter9": 0.431,
+ "implied_pooled_at_dota_share": {
+  "0.04": 0.31,
+  "0.15": 0.324,
+  "0.46": 0.363,
+  "0.54": 0.373
+ },
+ "reading": "Even the Dota-heavy 10-31 mix (54% of trades) lifts the examinable last-print anchor only to about 0.37, far from 0.80; the per-order oracle ceiling with V known is 0.71-0.75 (X150)."
+}

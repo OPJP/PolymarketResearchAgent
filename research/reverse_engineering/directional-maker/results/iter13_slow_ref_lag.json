@@ -1,0 +1,160 @@
+{
+ "study": {
+  "b-0": {
+   "n": 52,
+   "current": 0.846,
+   "twap60": 0.865,
+   "disagree_n": 7,
+   "twap_wins": 0.571
+  },
+  "b-1": {
+   "n": 62,
+   "current": 0.887,
+   "twap60": 0.887,
+   "disagree_n": 8,
+   "twap_wins": 0.5
+  },
+  "b-2": {
+   "n": 72,
+   "current": 0.806,
+   "twap60": 0.778,
+   "disagree_n": 6,
+   "twap_wins": 0.333
+  },
+  "b-3": {
+   "n": 124,
+   "current": 0.782,
+   "twap60": 0.742,
+   "disagree_n": 5,
+   "twap_wins": 0.0
+  },
+  "b-4": {
+   "n": 170,
+   "current": 0.771,
+   "twap60": 0.765,
+   "disagree_n": 17,
+   "twap_wins": 0.471
+  },
+  "b-5": {
+   "n": 169,
+   "current": 0.734,
+   "twap60": 0.751,
+   "disagree_n": 11,
+   "twap_wins": 0.636
+  },
+  "b-6": {
+   "n": 90,
+   "current": 0.856,
+   "twap60": 0.8,
+   "disagree_n": 11,
+   "twap_wins": 0.273
+  },
+  "b-7": {
+   "n": 86,
+   "current": 0.733,
+   "twap60": 0.721,
+   "disagree_n": 5,
+   "twap_wins": 0.4
+  },
+  "b-8": {
+   "n": 74,
+   "current": 0.892,
+   "twap60": 0.878,
+   "disagree_n": 5,
+   "twap_wins": 0.4
+  },
+  "b-9": {
+   "n": 70,
+   "current": 0.857,
+   "twap60": 0.857,
+   "disagree_n": 8,
+   "twap_wins": 0.5
+  },
+  "b-10": {
+   "n": 106,
+   "current": 0.849,
+   "twap60": 0.84,
+   "disagree_n": 9,
+   "twap_wins": 0.444
+  }
+ },
+ "validate": {
+  "b-0": {
+   "n": 517,
+   "current": 0.54,
+   "twap60": 0.754,
+   "disagree_n": 143,
+   "twap_wins": 0.888
+  },
+  "b-1": {
+   "n": 540,
+   "current": 0.546,
+   "twap60": 0.685,
+   "disagree_n": 133,
+   "twap_wins": 0.782
+  },
+  "b-2": {
+   "n": 629,
+   "current": 0.603,
+   "twap60": 0.75,
+   "disagree_n": 165,
+   "twap_wins": 0.782
+  },
+  "b-3": {
+   "n": 894,
+   "current": 0.541,
+   "twap60": 0.692,
+   "disagree_n": 209,
+   "twap_wins": 0.823
+  },
+  "b-4": {
+   "n": 1261,
+   "current": 0.615,
+   "twap60": 0.707,
+   "disagree_n": 275,
+   "twap_wins": 0.709
+  },
+  "b-5": {
+   "n": 1190,
+   "current": 0.644,
+   "twap60": 0.72,
+   "disagree_n": 231,
+   "twap_wins": 0.697
+  },
+  "b-6": {
+   "n": 746,
+   "current": 0.599,
+   "twap60": 0.755,
+   "disagree_n": 146,
+   "twap_wins": 0.897
+  },
+  "b-7": {
+   "n": 685,
+   "current": 0.672,
+   "twap60": 0.756,
+   "disagree_n": 102,
+   "twap_wins": 0.784
+  },
+  "b-8": {
+   "n": 698,
+   "current": 0.638,
+   "twap60": 0.738,
+   "disagree_n": 112,
+   "twap_wins": 0.812
+  },
+  "b-9": {
+   "n": 588,
+   "current": 0.631,
+   "twap60": 0.747,
+   "disagree_n": 106,
+   "twap_wins": 0.821
+  },
+  "b-10": {
+   "n": 612,
+   "current": 0.611,
+   "twap60": 0.717,
+   "disagree_n": 131,
+   "twap_wins": 0.748
+  }
+ }
+}

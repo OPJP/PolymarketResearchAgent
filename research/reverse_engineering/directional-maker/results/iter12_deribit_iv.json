@@ -1,0 +1,14 @@
+{
+ "blocks": 80,
+ "trades": 148444,
+ "front_atm_trades": 14998,
+ "spearman_F_vs_log_iv": -0.206,
+ "spearman_F_vs_log_rv": -0.43,
+ "spearman_iv_vs_rv": 0.598,
+ "k_blocks": 28,
+ "sd_log_k": 0.518,
+ "sd_log_k_rv_over_iv": 0.641,
+ "spearman_k_vs_log_iv": 0.11,
+ "mean_iv_build_study": 28.73,
+ "mean_iv_validate_aggregate": 35.31
+}

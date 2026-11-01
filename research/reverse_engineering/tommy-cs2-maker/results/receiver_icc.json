@@ -1,0 +1,121 @@
+{
+ "receivers_rows": {
+  "P4e": 501,
+  "wallet": 180,
+  "0x72aaaaf9": 91,
+  "0x2529c68d": 89,
+  "0xfe8a28be": 74,
+  "0x2005d16a": 60,
+  "G_0xddb6e624": 49,
+  "G_0x67706ec3": 47,
+  "G_0xf1ee4842": 45,
+  "G_0x8a80528d": 45,
+  "G_0x7c8cc255": 44,
+  "G_0xe8e086f7": 35,
+  "G_0x42a1b2b4": 31,
+  "G_0xc7097421": 26,
+  "G_0x14e72e19": 23,
+  "G_0x775d9de0": 18,
+  "G_0xb7ab821f": 12
+ },
+ "fe_build_premium_c": {
+  "0x2005d16a": 0.0,
+  "0x2529c68d": 4.0,
+  "0x72aaaaf9": 5.0,
+  "0xfe8a28be": 4.0,
+  "G_0x14e72e19": 7.45,
+  "G_0x42a1b2b4": 8.0,
+  "G_0x67706ec3": 7.64,
+  "G_0x775d9de0": 7.95,
+  "G_0x7c8cc255": 55.84,
+  "G_0x8a80528d": 8.0,
+  "G_0xb7ab821f": 11.0,
+  "G_0xc7097421": 8.0,
+  "G_0xddb6e624": 7.69,
+  "G_0xe8e086f7": 7.9,
+  "G_0xf1ee4842": 44.55,
+  "P4e": 5.0,
+  "wallet": 3.0
+ },
+ "BUILD": {
+  "icc_raw_limit": [
+   0.77,
+   294,
+   814
+  ],
+  "icc_premium": [
+   0.149,
+   294,
+   814
+  ],
+  "icc_premium_fe_adjusted": [
+   0.43,
+   294,
+   814
+  ],
+  "within_msg_spread_adj_c_p50_p90": [
+   3.0,
+   10.67
+  ],
+  "share_msgs_all_within_1c_adj": 0.282,
+  "premium_sd_c": 11.41,
+  "wallet_vs_others_adj_corr": [
+   0.787,
+   109
+  ]
+ },
+ "VALIDATE": {
+  "icc_raw_limit": [
+   0.745,
+   207,
+   556
+  ],
+  "icc_premium": [
+   0.171,
+   207,
+   556
+  ],
+  "icc_premium_fe_adjusted": [
+   0.279,
+   207,
+   556
+  ],
+  "within_msg_spread_adj_c_p50_p90": [
+   3.0,
+   20.84
+  ],
+  "share_msgs_all_within_1c_adj": 0.213,
+  "premium_sd_c": 13.31,
+  "wallet_vs_others_adj_corr": [
+   0.388,
+   71
+  ]
+ },
+ "ALL": {
+  "icc_raw_limit": [
+   0.76,
+   501,
+   1370
+  ],
+  "icc_premium": [
+   0.16,
+   501,
+   1370
+  ],
+  "icc_premium_fe_adjusted": [
+   0.348,
+   501,
+   1370
+  ],
+  "within_msg_spread_adj_c_p50_p90": [
+   3.0,
+   13.16
+  ],
+  "share_msgs_all_within_1c_adj": 0.253,
+  "premium_sd_c": 12.22,
+  "wallet_vs_others_adj_corr": [
+   0.654,
+   180
+  ]
+ }
+}

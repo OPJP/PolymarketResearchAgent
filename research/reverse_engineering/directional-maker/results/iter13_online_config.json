@@ -1,0 +1,176 @@
+{
+ "params": {
+  "1": {
+   "from_block": 0,
+   "k_all": 1.0,
+   "k_entry": 1.4,
+   "dec": "cheaper",
+   "n_prev": 452
+  },
+  "3": {
+   "from_block": 2,
+   "k_all": 1.0,
+   "k_entry": 1.0,
+   "dec": "favourite",
+   "n_prev": 1381
+  },
+  "6": {
+   "from_block": 2,
+   "k_all": 1.0,
+   "k_entry": 1.0,
+   "dec": "favourite",
+   "n_prev": 1381
+  },
+  "11": {
+   "from_block": 10,
+   "k_all": 0.5,
+   "k_entry": 0.7,
+   "dec": "favourite",
+   "n_prev": 490
+  },
+  "12": {
+   "from_block": 10,
+   "k_all": 0.5,
+   "k_entry": 0.7,
+   "dec": "favourite",
+   "n_prev": 490
+  },
+  "14": {
+   "from_block": 13,
+   "k_all": 1.4,
+   "k_entry": 1.4,
+   "dec": "favourite",
+   "n_prev": 422
+  },
+  "17": {
+   "from_block": 16,
+   "k_all": 1.0,
+   "k_entry": 1.0,
+   "dec": "cheaper",
+   "n_prev": 945
+  },
+  "19": {
+   "from_block": 18,
+   "k_all": 2.0,
+   "k_entry": 1.4,
+   "dec": "cheaper",
+   "n_prev": 1424
+  },
+  "20": {
+   "from_block": 18,
+   "k_all": 2.0,
+   "k_entry": 1.4,
+   "dec": "cheaper",
+   "n_prev": 1424
+  },
+  "22": {
+   "from_block": 21,
+   "k_all": 1.0,
+   "k_entry": 1.4,
+   "dec": "cheaper",
+   "n_prev": 1322
+  },
+  "25": {
+   "from_block": 24,
+   "k_all": 3.0,
+   "k_entry": 3.0,
+   "dec": "cheaper",
+   "n_prev": 1774
+  },
+  "27": {
+   "from_block": 26,
+   "k_all": 2.0,
+   "k_entry": 1.4,
+   "dec": "cheaper",
+   "n_prev": 3043
+  },
+  "28": {
+   "from_block": 26,
+   "k_all": 2.0,
+   "k_entry": 1.4,
+   "dec": "cheaper",
+   "n_prev": 3043
+  },
+  "30": {
+   "from_block": 29,
+   "k_all": 2.0,
+   "k_entry": 1.4,
+   "dec": "cheaper",
+   "n_prev": 1457
+  }
+ },
+ "study": {
+  "n_fills": 3453,
+  "blocks": 6,
+  "frozen": 0.5997683174051549,
+  "online_all": 0.5925282363162467,
+  "online_entry": 0.5766000579206487,
+  "online_k_only": 0.6449464233999421,
+  "cheap": 0.5050680567622358,
+  "entry_run_n": 259,
+  "entry_run_frozen": 0.6640926640926641,
+  "entry_run_online_all": 0.6988416988416989,
+  "entry_run_online_entry": 0.667953667953668,
+  "entry_run_online_k_only": 0.6872586872586872,
+  "gain_online_all": -0.007240081088908196,
+  "gain_ci95": [
+   -0.09026298969569987,
+   0.09780671412476405
+  ],
+  "gain_p_le_0": 0.54,
+  "per_wallet": {
+   "almach": {
+    "frozen": 0.6007428040854225,
+    "online_all": 0.6155988857938719,
+    "n": 1077
+   },
+   "bosona": {
+    "frozen": 0.5901639344262295,
+    "online_all": 0.5729898516783762,
+    "n": 1281
+   },
+   "momoney": {
+    "frozen": 0.6100456621004566,
+    "online_all": 0.5926940639269407,
+    "n": 1095
+   }
+  }
+ },
+ "validate": {
+  "n_fills": 13679,
+  "blocks": 8,
+  "frozen": 0.7069230206886469,
+  "online_all": 0.6971269829665911,
+  "online_entry": 0.7020981065867388,
+  "online_k_only": 0.6971269829665911,
+  "cheap": 0.6833832882520652,
+  "entry_run_n": 543,
+  "entry_run_frozen": 0.7403314917127072,
+  "entry_run_online_all": 0.712707182320442,
+  "entry_run_online_entry": 0.7421731123388582,
+  "entry_run_online_k_only": 0.712707182320442,
+  "gain_online_all": -0.009796037722055706,
+  "gain_ci95": [
+   -0.05095699818694714,
+   0.026771038994944138
+  ],
+  "gain_p_le_0": 0.676,
+  "per_wallet": {
+   "almach": {
+    "frozen": 0.7218390804597701,
+    "online_all": 0.7027586206896552,
+    "n": 4350
+   },
+   "bosona": {
+    "frozen": 0.6812236754599867,
+    "online_all": 0.6832187984925737,
+    "n": 4511
+   },
+   "momoney": {
+    "frozen": 0.7175176421751764,
+    "online_all": 0.7050643420506434,
+    "n": 4818
+   }
+  }
+ }
+}

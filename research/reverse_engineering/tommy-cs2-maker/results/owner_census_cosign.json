@@ -1,0 +1,247 @@
+[
+ {
+  "addr": "0x0d2d845a6ff64e31e04a70afce8a573940767ff5",
+  "orders": 425,
+  "taker_orders": 4,
+  "near_0_5ms_operator": 0,
+  "band_5_50ms_operator": 7,
+  "ratio_per_ms": 0.0,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 325,
+   "?": 100
+  },
+  "first": "2026-06-30 13:39:31.981000",
+  "last": "2026-10-22 20:03:38.774000"
+ },
+ {
+  "addr": "0x10d79cc72df76ea3d6bdc2d54f41dbcbbb18bbf6",
+  "orders": 890,
+  "taker_orders": 29,
+  "near_0_5ms_operator": 7,
+  "band_5_50ms_operator": 5,
+  "ratio_per_ms": 12.6,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 885,
+   "?": 5
+  },
+  "first": "2026-09-24 10:31:29.957000",
+  "last": "2026-10-16 13:26:24.428000"
+ },
+ {
+  "addr": "0x2b55d2ee278dfbe003fe692f2a6eddc22072b98d",
+  "orders": 205,
+  "taker_orders": 0,
+  "near_0_5ms_operator": 1,
+  "band_5_50ms_operator": 11,
+  "ratio_per_ms": 0.82,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 205
+  },
+  "first": "2026-10-12 16:50:58.531000",
+  "last": "2026-10-16 12:54:53.305000"
+ },
+ {
+  "addr": "0x3da80ca893666957475095ac1504094df93dbe26",
+  "orders": 51,
+  "taker_orders": 0,
+  "near_0_5ms_operator": 0,
+  "band_5_50ms_operator": 3,
+  "ratio_per_ms": 0.0,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 51
+  },
+  "first": "2026-10-21 10:12:58.609000",
+  "last": "2026-10-21 22:21:40.233000"
+ },
+ {
+  "addr": "0x45361ff76a9308998703e0acb658691eca9af41b",
+  "orders": 53,
+  "taker_orders": 53,
+  "near_0_5ms_operator": 0,
+  "band_5_50ms_operator": 1,
+  "ratio_per_ms": 0.0,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 53
+  },
+  "first": "2026-10-14 15:17:04.921000",
+  "last": "2026-10-22 15:10:12.452000"
+ },
+ {
+  "addr": "0x64c4a7437742d07356774cad6d55dcd9cf411018",
+  "orders": 25,
+  "taker_orders": 9,
+  "near_0_5ms_operator": 0,
+  "band_5_50ms_operator": 0,
+  "ratio_per_ms": null,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 25
+  },
+  "first": "2026-10-16 13:44:33.334000",
+  "last": "2026-10-22 19:21:47.615000"
+ },
+ {
+  "addr": "0x92fb5219708dd1d0345951500533d6b368c260af",
+  "orders": 49,
+  "taker_orders": 34,
+  "near_0_5ms_operator": 0,
+  "band_5_50ms_operator": 0,
+  "ratio_per_ms": null,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 49
+  },
+  "first": "2026-10-09 19:11:31.979000",
+  "last": "2026-10-22 17:08:58.675000"
+ },
+ {
+  "addr": "0xaadb0195b9bd6ce427d3510322f9f7280dd58de6",
+  "orders": 464,
+  "taker_orders": 464,
+  "near_0_5ms_operator": 0,
+  "band_5_50ms_operator": 2,
+  "ratio_per_ms": 0.0,
+  "taker_pairs_with_P4e_2s": 128,
+  "taker_lag_vs_P4e_median_ms": 1759.5,
+  "taker_lag_in_0_100ms_share": 0.0,
+  "titles": {
+   "cs2": 464
+  },
+  "first": "2026-10-15 12:14:12.532000",
+  "last": "2026-10-18 15:46:11.725000"
+ },
+ {
+  "addr": "0xc785252b25901a591e9d962e09f4342468444ef2",
+  "orders": 56,
+  "taker_orders": 56,
+  "near_0_5ms_operator": 0,
+  "band_5_50ms_operator": 0,
+  "ratio_per_ms": null,
+  "taker_pairs_with_P4e_2s": 2,
+  "taker_lag_vs_P4e_median_ms": -1079.0,
+  "taker_lag_in_0_100ms_share": 0.0,
+  "titles": {
+   "cs2": 51,
+   "?": 5
+  },
+  "first": "2026-09-09 20:20:52.690000",
+  "last": "2026-10-22 21:12:22.385000"
+ },
+ {
+  "addr": "0xca0b532de01108a972a101c1dec91503099067e0",
+  "orders": 105,
+  "taker_orders": 0,
+  "near_0_5ms_operator": 1,
+  "band_5_50ms_operator": 9,
+  "ratio_per_ms": 1.0,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 105
+  },
+  "first": "2026-10-12 16:57:17.630000",
+  "last": "2026-10-16 08:22:29.431000"
+ },
+ {
+  "addr": "0xd2bb94594762beda042e596598800d83f781bd8e",
+  "orders": 372,
+  "taker_orders": 0,
+  "near_0_5ms_operator": 16,
+  "band_5_50ms_operator": 16,
+  "ratio_per_ms": 9.0,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 372
+  },
+  "first": "2026-10-12 17:21:38.194000",
+  "last": "2026-10-16 13:27:29.092000"
+ },
+ {
+  "addr": "0xe86aaecf94cad617e1f234f73223f0ed3929a901",
+  "orders": 58,
+  "taker_orders": 58,
+  "near_0_5ms_operator": 0,
+  "band_5_50ms_operator": 2,
+  "ratio_per_ms": 0.0,
+  "taker_pairs_with_P4e_2s": 6,
+  "taker_lag_vs_P4e_median_ms": -796.0,
+  "taker_lag_in_0_100ms_share": 0.0,
+  "titles": {
+   "cs2": 56,
+   "?": 2
+  },
+  "first": "2026-10-14 10:12:22.741000",
+  "last": "2026-10-22 08:49:45.137000"
+ },
+ {
+  "addr": "0xf8df2427fb3f835d99c28b431cb1c7c3ed874d4c",
+  "orders": 74,
+  "taker_orders": 0,
+  "near_0_5ms_operator": 0,
+  "band_5_50ms_operator": 0,
+  "ratio_per_ms": null,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 72,
+   "?": 2
+  },
+  "first": "2026-09-19 15:26:00.013000",
+  "last": "2026-10-20 20:11:00.011000"
+ },
+ {
+  "addr": "0xfb3ab011587835646dbcae3355c786c2f4ccaef9",
+  "orders": 43,
+  "taker_orders": 20,
+  "near_0_5ms_operator": 0,
+  "band_5_50ms_operator": 0,
+  "ratio_per_ms": null,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 43
+  },
+  "first": "2026-10-19 10:34:13.388000",
+  "last": "2026-10-22 20:30:36.798000"
+ },
+ {
+  "addr": "0xfc23869c29e0cda2b3d379c4aa665bbe5b3c2f5e",
+  "orders": 154,
+  "taker_orders": 154,
+  "near_0_5ms_operator": 1,
+  "band_5_50ms_operator": 3,
+  "ratio_per_ms": 3.0,
+  "taker_pairs_with_P4e_2s": 0,
+  "taker_lag_vs_P4e_median_ms": null,
+  "taker_lag_in_0_100ms_share": null,
+  "titles": {
+   "cs2": 154
+  },
+  "first": "2026-10-12 17:07:28.933000",
+  "last": "2026-10-16 13:27:33.239000"
+ }
+]

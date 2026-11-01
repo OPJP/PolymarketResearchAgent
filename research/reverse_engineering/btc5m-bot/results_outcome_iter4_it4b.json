@@ -1,0 +1,35 @@
+{
+ "tag": "it4b",
+ "windows": 2016,
+ "soft": {
+  "pnl_corr_pearson": 0.4175,
+  "pnl_corr_spearman": 0.403,
+  "net_position_corr": 0.4403,
+  "rule_return": -0.0162
+ },
+ "soft_side": {
+  "pnl_corr_pearson": 0.4258,
+  "pnl_corr_spearman": 0.4087,
+  "net_position_corr": 0.4448,
+  "rule_return": -0.0004
+ },
+ "soft_side_it3s_same_pipeline": {
+  "pnl_corr_pearson": 0.4359,
+  "pnl_corr_spearman": 0.4179,
+  "net_position_corr": 0.4513,
+  "rule_return": -0.0045
+ },
+ "netflow": {
+  "pnl_corr_pearson": 0.4344,
+  "pnl_corr_spearman": 0.412,
+  "net_position_corr": 0.4581,
+  "rule_return": 0.0486
+ },
+ "netflow_x_side": {
+  "pnl_corr_pearson": 0.4348,
+  "pnl_corr_spearman": 0.4144,
+  "net_position_corr": 0.4576,
+  "rule_return": 0.0543
+ },
+ "wallet_return_before_rebates": 0.0017
+}

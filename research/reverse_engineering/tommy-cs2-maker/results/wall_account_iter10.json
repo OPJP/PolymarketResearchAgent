@@ -1,0 +1,36 @@
+{
+ "note": "Quantified account of what is not decoded after iteration 10 (development data only; numbers from the named results files). Not a wall claim: 26 catalog items are open.",
+ "decoded_or_described": {
+  "selection": "v5 VALIDATE AUC 0.970 vs activity 0.886, gain +0.084 [0.030, 0.152], recall 0.744, lift 3.155 (final_rule_v5_validate_exam_intervals.json); boundary = coverage of its feed product (group P); PGL Masters treatment pre-registered (tier12_listing.json)",
+  "size": "100 shares CS2, 10 shares Dota 2 (size rule accuracy 0.894)",
+  "exit": "never sells, 300-s merge loop, hard band [0.05, 0.95] (0 of 25,878 orders outside; endgame_stop.json)",
+  "price_structure": "whole-cent BUY ladders; one coherent event valuation across match and map markets (series_coherence_msg_follow.json); own-state persistence 0.500 (message_ledger.json)",
+  "timing_structure": "maker re-pricing event-locked at ~+51 ms on Feed P messages (cascade_lock.json); taker at +50 ms behind P4e on plant / turn messages"
+ },
+ "unexplained": {
+  "price_within_tick": {
+   "best_public_historical": 0.305,
+   "best_own_state_historical": 0.5,
+   "oracle_union_own_and_last_print": 0.599,
+   "best_public_live_touch": 0.47,
+   "oracle_future_mid_plus_ladder_index_iter9_panel": 0.52,
+   "target": 0.8,
+   "offset_sd_from_last_print_c": 6.0,
+   "explained_by_message_phase_r2": 0.043,
+   "receiver_shared_value_icc": [0.28, 0.43],
+   "leader_locked_share_of_its_message_repricings": 0.061,
+   "its_level_informativeness_s10_vs_best_subscriber_class": [0.244, 0.133],
+   "source": "message_ledger.json, own_persistence.json, offset_phase.json, receiver_icc.json, cascade_lock.json, subscriber_makers.json"
+  },
+  "outcome_pnl_corr": {
+   "with_real_taker_leg_and_engine_replay_of_own_maker_orders_validate": [0.866, 0.804],
+   "taker_at_earliest_public_trace_oracle_maker_validate_best": [0.596, 0.438],
+   "taker_at_earliest_public_trace_oracle_maker_build_best": [0.459, 0.498],
+   "fully_executable_public_best_validate": [0.327, 0.206],
+   "target": 0.5,
+   "source": "outcome_bound.json, outcome_bound_lag0.json, outcome_bound_lag0_tol2.json"
+  },
+  "input_precedes_public_traces": "message re-pricings at ~+51 ms after P4e's signing, ~1.0 s before P4e's trade print on the CLOB socket and ~3.4 s before its block; 3.7-5.1% of its filled maker orders are in this class, 71% are signed > 5 s after any message (quiet) and are not predicted by any public state either"
+ },
+ "open_external_candidates": ["X133 Thunderpick in-play odds via bo3.gg (recording)", "X118 / X132 Valve Dota spectator state (recording)", "X38 / X87 Twitch chat clock (recording)", "consent-gated: demos X37 / X122, VODs X4 / X22 / X53, HLTV X64, bookmaker pages X48 b, PandaScore token X55"]
+}

@@ -1,0 +1,37 @@
+{
+ "value_changes": 834,
+ "on_tick": 227,
+ "with_phase": 705,
+ "step_on_tick": {
+  "n": 227,
+  "share_1c": 0.687,
+  "share_2c": 0.185,
+  "share_ge3c": 0.128,
+  "median_c": 1.0,
+  "share_up": 0.665
+ },
+ "step_off_tick": {
+  "n": 478,
+  "share_1c": 0.573,
+  "share_2c": 0.209,
+  "share_ge3c": 0.218,
+  "median_c": 1.0,
+  "share_up": 0.785
+ },
+ "step_all": {
+  "n": 834,
+  "share_1c": 0.565,
+  "share_2c": 0.205,
+  "share_ge3c": 0.23,
+  "median_c": 1.0,
+  "share_up": 0.76
+ },
+ "sign_persistence": {
+  "pairs": 640,
+  "same_sign_share": 0.706,
+  "null_same_sign_p50": 0.645,
+  "runs_ge3_per_change": 0.1219,
+  "null_runs_ge3_p50": 0.1258,
+  "p_same_ge": 0.0
+ }
+}

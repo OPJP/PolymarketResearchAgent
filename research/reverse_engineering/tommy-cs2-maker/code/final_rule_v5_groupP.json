@@ -1,0 +1,54 @@
+{
+ "members": [
+  "0x72aaaaf9f6b0286e390de5b568af0f99a00c90e0",
+  "0x2529c68db36ce8aa64c64affe620267744a3548a",
+  "0xfe8a28be83ba295a9384f72f240d2cfa96bc23ce",
+  "0x2005d16a84ceefa912d4e380cd32e7ff827875ea",
+  "0x4ebc2722adc772bde8680792d0a6fdf15499a33d"
+ ],
+ "hours": 72,
+ "recipe": "score = logistic(a * logit(v4 score) + b * log1p(gp72) + c); thr = 20th pct of fitted positives",
+ "build": {
+  "coef": [
+   1.2476791019965343,
+   1.18905958695273
+  ],
+  "icpt": -1.1134913717584212,
+  "thr": 0.3071660536574857,
+  "n_events": 256,
+  "n_traded": 41
+ },
+ "exam": {
+  "coef": [
+   1.1633620518600367,
+   0.9697933155609058
+  ],
+  "icpt": -1.0506374725061107,
+  "thr": 0.4720589901740153,
+  "n_events": 384,
+  "n_traded": 77
+ },
+ "boost": {
+  "build": {
+   "b": 0.35365745101236484,
+   "thr": 0.23091951218505885
+  },
+  "exam": {
+   "b": 0.27734342025578035,
+   "thr": 0.37970590889742956
+  }
+ },
+ "group_G": [
+  "0x14e72e19ea2f6e2be41504dd3268184ebe5fa32c",
+  "0x42a1b2b43134d83f6ec639de4c2b40aa2a36a8e9",
+  "0x67706ec33d1bc5ed0db5cf0681b74b57b64ec3bd",
+  "0x775d9de0c72c76a459fadfbb4cd79d5715236beb",
+  "0x7c8cc25556ef9c0962b41d0ebb74d2fd17a42d81",
+  "0x8a80528dce46711a54aa3455c2cc81dea51e11c5",
+  "0xb7ab821f037a4c8deb9b23b8001a4be985d116d0",
+  "0xc70974218b9c6570f7701cd6fafc04ed490fbda9",
+  "0xddb6e6246546230503f153506ac1e9914978b9b3",
+  "0xe8e086f7ef06af27889edfb5026e1453c61d7eec",
+  "0xf1ee4842fa0c7283632185e42577027452d4519c"
+ ]
+}

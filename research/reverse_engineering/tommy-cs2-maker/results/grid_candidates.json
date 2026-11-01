@@ -1,0 +1,108 @@
+{
+ "0x68915897": {
+  "trades": 859,
+  "txs": 804,
+  "orders_decoded_block": 729,
+  "events_top": {
+   "dota2-ty-gl-2026-10-31": 252,
+   "dota2-ts8-gl-2026-10-31": 103,
+   "dota2-ws1-cis-2026-11-01": 83,
+   "dota2-xe-hn-2026-10-31": 50,
+   "cs2-nao-pain-2026-10-31": 45,
+   "dota2-hkr-p-2026-10-31": 42,
+   "cs2-skr2-for10-2026-10-31": 32,
+   "cs2-fokus-baks-2026-10-31": 28,
+   "cs2-lowcor1-tdp-2026-10-31": 27,
+   "cs2-jjh-bmb-2026-10-31": 25,
+   "cs2-gls1-pcy-2026-10-31": 21,
+   "cs2-hachae-wc1-2026-10-31": 20
+  },
+  "cosign_cross_market": {
+   "pairs_0_5ms": 0,
+   "pairs_5_50ms": 0,
+   "per_ms_ratio": null
+  },
+  "cosign_same_tokens": {
+   "pairs_0_5ms": 6,
+   "pairs_5_50ms": 5,
+   "per_ms_ratio": 9.82
+  },
+  "design": {
+   "orders": 729,
+   "buy_share": 1.0,
+   "whole_cent": 0.819,
+   "band": 0.841,
+   "sizes_top": {
+    "100.0": 470,
+    "30.0": 73,
+    "4.0": 25,
+    "6.0": 12,
+    "5.0": 11,
+    "70.0": 10,
+    "13.0": 6,
+    "81.0": 5
+   },
+   "burst_size_counts": {
+    "1": 707,
+    "2": 11
+   },
+   "multi_level_share_of_orders": 0.03,
+   "slot_gap_c_counts": {
+    "4.0": 9,
+    "3.0": 1,
+    "2.0": 1
+   }
+  }
+ },
+ "0x5d40576b": {
+  "trades": 348,
+  "txs": 348,
+  "orders_decoded_block": 324,
+  "events_top": {
+   "cs2-nao-pain-2026-10-31": 72,
+   "dota2-ty-gl-2026-10-31": 46,
+   "dota2-xe-hn-2026-10-31": 35,
+   "cs2-ssins-mis-2026-10-31": 30,
+   "cs2-invict1-don-2026-10-31": 21,
+   "cs2-wraith-ntr-2026-10-31": 17,
+   "cs2-bhe-bar2-2026-10-31": 17,
+   "dota2-hkr-p-2026-10-31": 16,
+   "cs2-gls1-pcy-2026-10-31": 15,
+   "cs2-bca-9ine-2026-10-31": 15,
+   "cs2-skr2-for10-2026-10-31": 15,
+   "cs2-mnte-prodig-2026-10-31": 12
+  },
+  "cosign_cross_market": {
+   "pairs_0_5ms": 0,
+   "pairs_5_50ms": 0,
+   "per_ms_ratio": null
+  },
+  "cosign_same_tokens": {
+   "pairs_0_5ms": 1,
+   "pairs_5_50ms": 1,
+   "per_ms_ratio": 8.18
+  },
+  "design": {
+   "orders": 324,
+   "buy_share": 1.0,
+   "whole_cent": 0.985,
+   "band": 0.938,
+   "sizes_top": {
+    "100.0": 36,
+    "50.0": 35,
+    "5.0": 28,
+    "10.0": 17,
+    "51.0": 13,
+    "20.0": 12,
+    "6.0": 12,
+    "75.0": 11
+   },
+   "burst_size_counts": {
+    "1": 324
+   },
+   "multi_level_share_of_orders": 0.0,
+   "slot_gap_c_counts": {}
+  }
+ },
+ "note": "activity of the 10-31 12-18 window filtered to development-unit events of the listing projection before any use; rows of other events were discarded unread and are not counted"
+}

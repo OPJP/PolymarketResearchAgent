@@ -1,0 +1,193 @@
+{
+ "interval": [
+  1793458500,
+  1793462640
+ ],
+ "n": 604,
+ "W600": {
+  "real": {
+   "all": {
+    "n": 604,
+    "mom_cover": 0.616,
+    "mom_agree": 0.53,
+    "val_cover": 0.495,
+    "val_agree": 0.452
+   },
+   "strong_3plus": {
+    "n": 301,
+    "mom_cover": 0.585,
+    "mom_agree": 0.602,
+    "val_cover": 0.475,
+    "val_agree": 0.357
+   },
+   "weak_1_2": {
+    "n": 223,
+    "mom_cover": 0.641,
+    "mom_agree": 0.448,
+    "val_cover": 0.511,
+    "val_agree": 0.561
+   },
+   "no_vote": {
+    "n": 80,
+    "mom_cover": 0.662,
+    "mom_agree": 0.509,
+    "val_cover": 0.525,
+    "val_agree": 0.476
+   }
+  },
+  "placebo": {
+   "all": {
+    "n": 604,
+    "mom_cover": 0.55,
+    "mom_agree": 0.5,
+    "val_cover": 0.421,
+    "val_agree": 0.504
+   },
+   "strong_3plus": {
+    "n": 301,
+    "mom_cover": 0.508,
+    "mom_agree": 0.477,
+    "val_cover": 0.369,
+    "val_agree": 0.532
+   },
+   "weak_1_2": {
+    "n": 223,
+    "mom_cover": 0.583,
+    "mom_agree": 0.546,
+    "val_cover": 0.471,
+    "val_agree": 0.448
+   },
+   "no_vote": {
+    "n": 80,
+    "mom_cover": 0.613,
+    "mom_agree": 0.449,
+    "val_cover": 0.475,
+    "val_agree": 0.579
+   }
+  }
+ },
+ "W1500": {
+  "real": {
+   "all": {
+    "n": 604,
+    "mom_cover": 0.79,
+    "mom_agree": 0.495,
+    "val_cover": 0.724,
+    "val_agree": 0.508
+   },
+   "strong_3plus": {
+    "n": 301,
+    "mom_cover": 0.774,
+    "mom_agree": 0.532,
+    "val_cover": 0.711,
+    "val_agree": 0.467
+   },
+   "weak_1_2": {
+    "n": 223,
+    "mom_cover": 0.807,
+    "mom_agree": 0.456,
+    "val_cover": 0.74,
+    "val_agree": 0.545
+   },
+   "no_vote": {
+    "n": 80,
+    "mom_cover": 0.8,
+    "mom_agree": 0.469,
+    "val_cover": 0.725,
+    "val_agree": 0.552
+   }
+  },
+  "placebo": {
+   "all": {
+    "n": 604,
+    "mom_cover": 0.717,
+    "mom_agree": 0.48,
+    "val_cover": 0.631,
+    "val_agree": 0.517
+   },
+   "strong_3plus": {
+    "n": 301,
+    "mom_cover": 0.671,
+    "mom_agree": 0.475,
+    "val_cover": 0.575,
+    "val_agree": 0.52
+   },
+   "weak_1_2": {
+    "n": 223,
+    "mom_cover": 0.74,
+    "mom_agree": 0.491,
+    "val_cover": 0.65,
+    "val_agree": 0.51
+   },
+   "no_vote": {
+    "n": 80,
+    "mom_cover": 0.825,
+    "mom_agree": 0.47,
+    "val_cover": 0.787,
+    "val_agree": 0.524
+   }
+  }
+ },
+ "W3000": {
+  "real": {
+   "all": {
+    "n": 604,
+    "mom_cover": 0.859,
+    "mom_agree": 0.489,
+    "val_cover": 0.81,
+    "val_agree": 0.507
+   },
+   "strong_3plus": {
+    "n": 301,
+    "mom_cover": 0.85,
+    "mom_agree": 0.555,
+    "val_cover": 0.801,
+    "val_agree": 0.44
+   },
+   "weak_1_2": {
+    "n": 223,
+    "mom_cover": 0.852,
+    "mom_agree": 0.432,
+    "val_cover": 0.798,
+    "val_agree": 0.567
+   },
+   "no_vote": {
+    "n": 80,
+    "mom_cover": 0.912,
+    "mom_agree": 0.411,
+    "val_cover": 0.875,
+    "val_agree": 0.586
+   }
+  },
+  "placebo": {
+   "all": {
+    "n": 604,
+    "mom_cover": 0.818,
+    "mom_agree": 0.478,
+    "val_cover": 0.77,
+    "val_agree": 0.518
+   },
+   "strong_3plus": {
+    "n": 301,
+    "mom_cover": 0.801,
+    "mom_agree": 0.465,
+    "val_cover": 0.764,
+    "val_agree": 0.526
+   },
+   "weak_1_2": {
+    "n": 223,
+    "mom_cover": 0.825,
+    "mom_agree": 0.511,
+    "val_cover": 0.753,
+    "val_agree": 0.494
+   },
+   "no_vote": {
+    "n": 80,
+    "mom_cover": 0.863,
+    "mom_agree": 0.435,
+    "val_cover": 0.838,
+    "val_agree": 0.552
+   }
+  }
+ }
+}

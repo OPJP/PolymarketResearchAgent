@@ -1,0 +1,15 @@
+{
+ "build_prints": 320610,
+ "build_pos": 34350,
+ "max_ts": 1792108792,
+ "all": {
+  "theta_refit": 0.01698130336758783,
+  "theta_frozen": 0.01698130336758783,
+  "max_abs_pred_diff": 0.0
+ },
+ "activity": {
+  "theta_refit": 0.01736697994132774,
+  "theta_frozen": 0.01736697994132774,
+  "max_abs_pred_diff": 0.0
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "[-30,-5)": {
+  "maker_same_side": 911,
+  "maker_opp_side": 369,
+  "share_same": 0.712
+ },
+ "[-5,0)": {
+  "maker_same_side": 120,
+  "maker_opp_side": 40,
+  "share_same": 0.75
+ },
+ "[0,5)": {
+  "maker_same_side": 697,
+  "maker_opp_side": 970,
+  "share_same": 0.418
+ },
+ "[5,30)": {
+  "maker_same_side": 976,
+  "maker_opp_side": 1166,
+  "share_same": 0.456
+ },
+ "[30,120)": {
+  "maker_same_side": 2036,
+  "maker_opp_side": 3674,
+  "share_same": 0.357
+ }
+}

@@ -16,7 +16,7 @@ WALLET = "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2"
 OUT = ROOT / ".cache/re/tommy-cs2-maker"
 TAPES = OUT / "tapes"
 RES = ROOT / "research/reverse_engineering/tommy-cs2-maker"
-MAKER_START = 1792540800 - 4 * 86400  # 2026-10-16 00:00 UTC
+MAKER_START = 1792108800  # 2026-10-16 00:00 UTC (fixed: the cloud value 1792540800-4*86400 was 17 Oct)
 SPLIT = 1792540800  # 2026-10-21 00:00 UTC: BUILD = [MAKER_START, SPLIT), VALIDATE = [SPLIT, H)
 
 
@@ -38,7 +38,7 @@ def token_map() -> dict[str, tuple[str, int]]:
 
 
 def chain_fills() -> pd.DataFrame:
-    f = pd.read_parquet(OUT / "chain_fills_1791072000_1792713600.parquet")
+    f = pd.read_parquet(OUT / "chain_fills_1792108800_1792713600.parquet")
     f = f[f["bts"] < H].copy()
     tm = token_map()
     f["cid"] = f["token_id"].map(lambda t: tm.get(str(t), (None, -1))[0])

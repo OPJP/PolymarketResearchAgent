@@ -1,0 +1,99 @@
+{
+ "hour": "2026-07-22T13",
+ "cluster_btc5m_trades": 490,
+ "markets": 11,
+ "calldata": {
+  "txs": 150,
+  "cluster_orders": 166,
+  "timestamp_zero_share": 1.0,
+  "metadata_zero_share": 1.0,
+  "orig_size_top": {
+   "500.0": 75,
+   "300.0": 43,
+   "50.0": 27,
+   "454.89": 9,
+   "299.99": 2,
+   "370.17": 2,
+   "123.48": 1,
+   "59.69": 1
+  }
+ },
+ "salt": {
+  "bosona": {
+   "n": 76,
+   "salt_min": 636475.0,
+   "salt_max": 718948.0,
+   "monotone_share": 0.92,
+   "rate_per_s": 24.58944543828265
+  },
+  "almach": {
+   "n": 82,
+   "salt_min": 24366.0,
+   "salt_max": 113027.0,
+   "monotone_share": 0.9753086419753086,
+   "rate_per_s": 26.450178997613364
+  },
+  "momoney": {
+   "n": 8,
+   "salt_min": 32354.0,
+   "salt_max": 133014.0,
+   "monotone_share": 1.0,
+   "rate_per_s": 32.387387387387385
+  }
+ },
+ "book": {
+  "bytes_MB": 67.0,
+  "events": 4216889,
+  "types": {
+   "price_change": 4112832,
+   "book": 70780,
+   "last_trade_price": 33266,
+   "tick_size_change": 11
+  }
+ },
+ "filled_orders": {
+  "n": 153,
+  "add_found": 0.6209150326797386,
+  "age_ms_median": 1044.0,
+  "at_touch_share": 0.49473684210526314,
+  "since_trade_ms_median": 69.0,
+  "burst_ge2_share": 0.2631578947368421,
+  "orig_sizes": {
+   "500.0": 72,
+   "300.0": 39,
+   "50.0": 24,
+   "454.89": 9,
+   "299.99": 2,
+   "370.17": 2,
+   "123.48": 1,
+   "18.25": 1
+  }
+ },
+ "burst_by_size": {
+  "5.0": {
+   "adds": 346711,
+   "burst_ge2": 0.6186305020607942
+  },
+  "10.0": {
+   "adds": 74090,
+   "burst_ge2": 0.20596571737076527
+  },
+  "50.0": {
+   "adds": 32305,
+   "burst_ge2": 0.059835938709178145
+  },
+  "100.0": {
+   "adds": 41972,
+   "burst_ge2": 0.07581244639283331
+  },
+  "300.0": {
+   "adds": 9116,
+   "burst_ge2": 0.03411584028082492
+  },
+  "500.0": {
+   "adds": 21006,
+   "burst_ge2": 0.1202513567552128
+  }
+ },
+ "burst_other_sizes": 0.07386715551916848
+}

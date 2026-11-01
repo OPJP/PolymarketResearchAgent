@@ -1,0 +1,140 @@
+{
+ "build": {
+  "k": 3.0,
+  "prior": 0.23976608187134502,
+  "tier_rate": {
+   "3": 0.875,
+   "4": 0.42105263157894735,
+   "5": 0.030612244897959183
+  },
+  "league_sum": {
+   "1win": 4,
+   "1win Private Club": 4,
+   "CCT Europe": 0,
+   "CCT South America": 0,
+   "CIS LAN Championship": 0,
+   "CyberClash": 0,
+   "DACH CS Masters": 0,
+   "DraculaN": 12,
+   "Dust2.dk Ligaen": 0,
+   "ESEA": 0,
+   "European Pro League": 0,
+   "Exort Fiesta": 0,
+   "GLuck Yungstar": 0,
+   "Gamers Club Liga S\u00e9rie A": 0,
+   "NODWIN Clutch Series": 3,
+   "PGL": 9,
+   "Stake Pulse": 6,
+   "Stake Ranked": 3,
+   "United21": 0,
+   "VOID Autumn Cup": 0
+  },
+  "league_n": {
+   "1win": 4,
+   "1win Private Club": 4,
+   "CCT Europe": 1,
+   "CCT South America": 6,
+   "CIS LAN Championship": 6,
+   "CyberClash": 8,
+   "DACH CS Masters": 1,
+   "DraculaN": 35,
+   "Dust2.dk Ligaen": 6,
+   "ESEA": 24,
+   "European Pro League": 5,
+   "Exort Fiesta": 3,
+   "GLuck Yungstar": 10,
+   "Gamers Club Liga S\u00e9rie A": 6,
+   "NODWIN Clutch Series": 17,
+   "PGL": 13,
+   "Stake Pulse": 8,
+   "Stake Ranked": 8,
+   "United21": 3,
+   "VOID Autumn Cup": 3
+  },
+  "coef": [
+   -0.5868093682356701,
+   0.005757881557423146,
+   1.2749675801670504,
+   3.7721983093250606
+  ],
+  "icpt": -4.5128852036573095,
+  "thr": 0.23091951218505885,
+  "act_coef": [
+   -0.9140345190012751,
+   0.2825903879714059,
+   1.4716334305347134
+  ],
+  "act_icpt": -5.0266571245956335
+ },
+ "exam": {
+  "k": 3.0,
+  "prior": 0.29389312977099236,
+  "tier_rate": {
+   "3": 0.9090909090909091,
+   "4": 0.5104166666666666,
+   "5": 0.05555555555555555
+  },
+  "league_sum": {
+   "1win": 4,
+   "1win Private Club": 10,
+   "CCT Europe": 0,
+   "CCT South America": 0,
+   "CIS LAN Championship": 2,
+   "Circuit X": 8,
+   "CyberClash": 0,
+   "DACH CS Masters": 0,
+   "DraculaN": 24,
+   "Dust2.dk Ligaen": 0,
+   "ESEA": 0,
+   "ESL Challenger League": 0,
+   "European Pro League": 0,
+   "Exort Fiesta": 0,
+   "GLuck Yungstar": 0,
+   "Gamers Club Liga S\u00e9rie A": 0,
+   "NODWIN Clutch Series": 6,
+   "PGL": 9,
+   "Stake Pulse": 6,
+   "Stake Ranked": 8,
+   "United21": 0,
+   "VOID Autumn Cup": 0
+  },
+  "league_n": {
+   "1win": 4,
+   "1win Private Club": 10,
+   "CCT Europe": 2,
+   "CCT South America": 8,
+   "CIS LAN Championship": 16,
+   "Circuit X": 10,
+   "CyberClash": 8,
+   "DACH CS Masters": 2,
+   "DraculaN": 51,
+   "Dust2.dk Ligaen": 6,
+   "ESEA": 37,
+   "ESL Challenger League": 6,
+   "European Pro League": 5,
+   "Exort Fiesta": 11,
+   "GLuck Yungstar": 10,
+   "Gamers Club Liga S\u00e9rie A": 7,
+   "NODWIN Clutch Series": 23,
+   "PGL": 13,
+   "Stake Pulse": 8,
+   "Stake Ranked": 14,
+   "United21": 4,
+   "VOID Autumn Cup": 7
+  },
+  "coef": [
+   -0.6574137209356045,
+   0.04879809359261444,
+   1.333807862355393,
+   4.597529587851891
+  ],
+  "icpt": -4.874548309771354,
+  "thr": 0.37970590889742956,
+  "act_coef": [
+   -1.1627844549974957,
+   0.3550007037377391,
+   1.7028745955163374
+  ],
+  "act_icpt": -5.038556653401757
+ }
+}

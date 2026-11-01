@@ -1,0 +1,460 @@
+{
+ "bursts": 1508,
+ "adds": 2699,
+ "filled_adds": 134,
+ "class_share_orders": {
+  "V_change": 0.743,
+  "refill_same_V": 0.257
+ },
+ "class_share_filled": {
+  "V_change": 0.896,
+  "refill_same_V": 0.104
+ },
+ "title_share_orders": {
+  "cs2": 1.0
+ },
+ "oracle_L0_V_after": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.875,
+   "per_order_no_rank": 0.73,
+   "filled_orders": 134,
+   "set_unit_filled": 0.873
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.898,
+   "per_order_no_rank": 0.775,
+   "filled_orders": 120,
+   "set_unit_filled": 0.908
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.808,
+   "per_order_no_rank": 0.599,
+   "filled_orders": 14,
+   "set_unit_filled": 0.571
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.875,
+   "per_order_no_rank": 0.73,
+   "filled_orders": 134,
+   "set_unit_filled": 0.873
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "L_0.001s": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.368,
+   "per_order_no_rank": 0.287,
+   "filled_orders": 134,
+   "set_unit_filled": 0.216
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.215,
+   "per_order_no_rank": 0.179,
+   "filled_orders": 120,
+   "set_unit_filled": 0.175
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.808,
+   "per_order_no_rank": 0.599,
+   "filled_orders": 14,
+   "set_unit_filled": 0.571
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.368,
+   "per_order_no_rank": 0.287,
+   "filled_orders": 134,
+   "set_unit_filled": 0.216
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "L_0.1s": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.365,
+   "per_order_no_rank": 0.286,
+   "filled_orders": 134,
+   "set_unit_filled": 0.239
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.235,
+   "per_order_no_rank": 0.193,
+   "filled_orders": 120,
+   "set_unit_filled": 0.192
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.742,
+   "per_order_no_rank": 0.555,
+   "filled_orders": 14,
+   "set_unit_filled": 0.643
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.365,
+   "per_order_no_rank": 0.286,
+   "filled_orders": 134,
+   "set_unit_filled": 0.239
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "L_0.25s": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.355,
+   "per_order_no_rank": 0.276,
+   "filled_orders": 134,
+   "set_unit_filled": 0.231
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.234,
+   "per_order_no_rank": 0.19,
+   "filled_orders": 120,
+   "set_unit_filled": 0.183
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.703,
+   "per_order_no_rank": 0.526,
+   "filled_orders": 14,
+   "set_unit_filled": 0.643
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.355,
+   "per_order_no_rank": 0.276,
+   "filled_orders": 134,
+   "set_unit_filled": 0.231
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "L_0.5s": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.335,
+   "per_order_no_rank": 0.266,
+   "filled_orders": 134,
+   "set_unit_filled": 0.224
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.217,
+   "per_order_no_rank": 0.185,
+   "filled_orders": 120,
+   "set_unit_filled": 0.175
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.674,
+   "per_order_no_rank": 0.501,
+   "filled_orders": 14,
+   "set_unit_filled": 0.643
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.335,
+   "per_order_no_rank": 0.266,
+   "filled_orders": 134,
+   "set_unit_filled": 0.224
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "L_1s": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.306,
+   "per_order_no_rank": 0.244,
+   "filled_orders": 134,
+   "set_unit_filled": 0.194
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.201,
+   "per_order_no_rank": 0.169,
+   "filled_orders": 120,
+   "set_unit_filled": 0.142
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.607,
+   "per_order_no_rank": 0.461,
+   "filled_orders": 14,
+   "set_unit_filled": 0.643
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.306,
+   "per_order_no_rank": 0.244,
+   "filled_orders": 134,
+   "set_unit_filled": 0.194
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "L_2s": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.298,
+   "per_order_no_rank": 0.243,
+   "filled_orders": 134,
+   "set_unit_filled": 0.194
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.204,
+   "per_order_no_rank": 0.172,
+   "filled_orders": 120,
+   "set_unit_filled": 0.142
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.568,
+   "per_order_no_rank": 0.447,
+   "filled_orders": 14,
+   "set_unit_filled": 0.643
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.298,
+   "per_order_no_rank": 0.243,
+   "filled_orders": 134,
+   "set_unit_filled": 0.194
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "L_4s": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.293,
+   "per_order_no_rank": 0.243,
+   "filled_orders": 134,
+   "set_unit_filled": 0.216
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.211,
+   "per_order_no_rank": 0.179,
+   "filled_orders": 120,
+   "set_unit_filled": 0.158
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.532,
+   "per_order_no_rank": 0.429,
+   "filled_orders": 14,
+   "set_unit_filled": 0.714
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.293,
+   "per_order_no_rank": 0.243,
+   "filled_orders": 134,
+   "set_unit_filled": 0.216
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "L_8s": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.282,
+   "per_order_no_rank": 0.243,
+   "filled_orders": 134,
+   "set_unit_filled": 0.246
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.218,
+   "per_order_no_rank": 0.189,
+   "filled_orders": 120,
+   "set_unit_filled": 0.192
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.464,
+   "per_order_no_rank": 0.402,
+   "filled_orders": 14,
+   "set_unit_filled": 0.714
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.282,
+   "per_order_no_rank": 0.243,
+   "filled_orders": 134,
+   "set_unit_filled": 0.246
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "L_16s": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.295,
+   "per_order_no_rank": 0.245,
+   "filled_orders": 134,
+   "set_unit_filled": 0.224
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.232,
+   "per_order_no_rank": 0.197,
+   "filled_orders": 120,
+   "set_unit_filled": 0.167
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.474,
+   "per_order_no_rank": 0.382,
+   "filled_orders": 14,
+   "set_unit_filled": 0.714
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.295,
+   "per_order_no_rank": 0.245,
+   "filled_orders": 134,
+   "set_unit_filled": 0.224
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "L_30s": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.258,
+   "per_order_no_rank": 0.225,
+   "filled_orders": 134,
+   "set_unit_filled": 0.194
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.226,
+   "per_order_no_rank": 0.195,
+   "filled_orders": 120,
+   "set_unit_filled": 0.175
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.352,
+   "per_order_no_rank": 0.314,
+   "filled_orders": 14,
+   "set_unit_filled": 0.357
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.258,
+   "per_order_no_rank": 0.225,
+   "filled_orders": 134,
+   "set_unit_filled": 0.194
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ },
+ "public_J": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.499,
+   "per_order_no_rank": 0.412,
+   "filled_orders": 134,
+   "set_unit_filled": 0.507
+  },
+  "V_change": {
+   "orders": 2005,
+   "set_unit": 0.516,
+   "per_order_no_rank": 0.433,
+   "filled_orders": 120,
+   "set_unit_filled": 0.525
+  },
+  "refill_same_V": {
+   "orders": 694,
+   "set_unit": 0.45,
+   "per_order_no_rank": 0.349,
+   "filled_orders": 14,
+   "set_unit_filled": 0.357
+  },
+  "cs2": {
+   "orders": 2699,
+   "set_unit": 0.499,
+   "per_order_no_rank": 0.412,
+   "filled_orders": 134,
+   "set_unit_filled": 0.507
+  },
+  "dota2": {
+   "orders": 0,
+   "set_unit": null,
+   "per_order_no_rank": null,
+   "filled_orders": 0,
+   "set_unit_filled": null
+  }
+ }
+}

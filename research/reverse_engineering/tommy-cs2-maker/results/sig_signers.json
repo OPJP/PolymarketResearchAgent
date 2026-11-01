@@ -1,0 +1,206 @@
+{
+ "txs": 333,
+ "orders": 1617,
+ "domains": {
+  "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2": {
+   "name": "DepositWallet",
+   "version": "1",
+   "chainId": 137,
+   "verifyingContract": "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2"
+  },
+  "0x26c283df72be6f746b6acd37b7b06ff89da60cdf": {
+   "name": "DepositWallet",
+   "version": "1",
+   "chainId": 137,
+   "verifyingContract": "0x26c283df72be6f746b6acd37b7b06ff89da60cdf"
+  },
+  "0xf1a290bc1ab24404fceacdfbb1305e325916516a": {
+   "name": "DepositWallet",
+   "version": "1",
+   "chainId": 137,
+   "verifyingContract": "0xf1a290bc1ab24404fceacdfbb1305e325916516a"
+  },
+  "0x4cd4554904388f7efe1f95bb0eba3dd507c38a5c": {
+   "name": "DepositWallet",
+   "version": "1",
+   "chainId": 137,
+   "verifyingContract": "0x4cd4554904388f7efe1f95bb0eba3dd507c38a5c"
+  },
+  "0xe08771473b2f794127c54957825cc716e01abc81": {
+   "name": "DepositWallet",
+   "version": "1",
+   "chainId": 137,
+   "verifyingContract": "0xe08771473b2f794127c54957825cc716e01abc81"
+  }
+ },
+ "domain_errors": {},
+ "selectors": {
+  "0x3c2b4399": 1617
+ },
+ "sigtype3_orders": 1064,
+ "contents_ok_share": 0.9981,
+ "ctype_ok_share": 0.9981,
+ "per_target": {
+  "wallet": {
+   "orders": 273,
+   "sig_type": {
+    "3": 273
+   },
+   "keys": {
+    "0x8af810f0e236cae55588ea6a084013c24122fd4f": 273
+   },
+   "keys_taker_leg": {
+    "0x8af810f0e236cae55588ea6a084013c24122fd4f": 114
+   },
+   "keys_maker_leg": {
+    "0x8af810f0e236cae55588ea6a084013c24122fd4f": 159
+   },
+   "keys_by_day": {
+    "10-01": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 2
+    },
+    "10-02": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 1
+    },
+    "10-03": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 2
+    },
+    "10-04": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 3
+    },
+    "10-05": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 3
+    },
+    "10-06": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 1
+    },
+    "10-07": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 1
+    },
+    "10-09": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 2
+    },
+    "10-10": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 4
+    },
+    "10-11": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 3
+    },
+    "10-12": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 4
+    },
+    "10-13": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 2
+    },
+    "10-14": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 2
+    },
+    "10-16": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 25
+    },
+    "10-17": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 29
+    },
+    "10-18": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 24
+    },
+    "10-19": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 32
+    },
+    "10-20": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 32
+    },
+    "10-21": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 46
+    },
+    "10-22": {
+     "0x8af810f0e236cae55588ea6a084013c24122fd4f": 55
+    }
+   }
+  },
+  "2005d16a": {
+   "orders": 31,
+   "sig_type": {
+    "1": 31
+   },
+   "keys": {
+    "0x5d4fd194c4181ad61b1b5cb72dab8f9c4f9a2edc": 31
+   }
+  },
+  "P4e": {
+   "orders": 20,
+   "sig_type": {
+    "3": 20
+   },
+   "keys": {
+    "0xbf6461fa5665f3d09cf5303b87968f19032c837b": 20
+   }
+  },
+  "51dbdd2b": {
+   "orders": 35,
+   "sig_type": {
+    "1": 35
+   },
+   "keys": {
+    "0xdecd4b4cb7e41b6824518b704161cb423833e780": 35
+   }
+  },
+  "52661b8e": {
+   "orders": 52,
+   "sig_type": {
+    "3": 52
+   },
+   "keys": {
+    "0xe6f64514da23906bacb209f81de6e1d13db51955": 52
+   }
+  },
+  "8a80528d": {
+   "orders": 18,
+   "sig_type": {
+    "3": 18
+   },
+   "keys": {
+    "0x875909d76d219a00adb0daef62e2768243c5c817": 18
+   }
+  },
+  "P93": {
+   "orders": 16,
+   "sig_type": {
+    "1": 16
+   },
+   "keys": {
+    "0xbac5c53ae4d8947b18db81e6198fe10624c2b39f": 16
+   }
+  },
+  "ddb6e624": {
+   "orders": 17,
+   "sig_type": {
+    "2": 17
+   },
+   "keys": {
+    "0xa4f6d7e43888d1890551301b19c2595ac1097b10": 17
+   }
+  },
+  "f1ee4842": {
+   "orders": 19,
+   "sig_type": {
+    "1": 19
+   },
+   "keys": {
+    "0x5dfc48b515e9ad48663c35a9dbca7a5feda9233d": 19
+   }
+  },
+  "f1f2b3c6": {
+   "orders": 26,
+   "sig_type": {
+    "3": 26
+   },
+   "keys": {
+    "0x2aba90a3ed0cb6c5053df9f9b660e5e20f3dc5b3": 26
+   }
+  }
+ },
+ "keys_shared_by_several_makers": {},
+ "distinct_makers": 316,
+ "distinct_keys": 315
+}

@@ -1,0 +1,63 @@
+{
+ "blocks": 152,
+ "change_points": 2,
+ "cp_times": [
+  1792022400,
+  1792058400
+ ],
+ "segments": [
+  {
+   "from": 1791504000,
+   "to": 1792022400,
+   "blocks": 72,
+   "mean_margin": 0.112
+  },
+  {
+   "from": 1792022400,
+   "to": 1792058400,
+   "blocks": 5,
+   "mean_margin": -0.437
+  },
+  {
+   "from": 1792058400,
+   "to": 1792713600,
+   "blocks": 75,
+   "mean_margin": 0.17
+  }
+ ],
+ "obs_near_monday": 0,
+ "null_counts": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "null_q95": 0.75,
+ "each_monday_hit": [
+  false,
+  false
+ ],
+ "reading_met": false
+}

@@ -1,0 +1,15 @@
+{
+ "own_adds": 2506,
+ "real": {
+  "sync": 0.529,
+  "sync_1c": 0.298,
+  "sync_1c_given_sync": 0.563,
+  "diff_c_median_given_sync": 1.0
+ },
+ "null_near_shift": {
+  "sync": 0.295,
+  "sync_1c": 0.144,
+  "sync_1c_given_sync": 0.489,
+  "diff_c_median_given_sync": 1.4
+ }
+}

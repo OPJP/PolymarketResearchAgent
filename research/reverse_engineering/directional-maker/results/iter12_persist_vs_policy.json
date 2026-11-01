@@ -1,0 +1,56 @@
+{
+ "study": {
+  "schedule": {
+   "n": 5065,
+   "held": 0.787,
+   "previous_fill_side": 0.8853,
+   "share_differ": 0.156,
+   "where_differ_held": 0.1848,
+   "where_differ_previous": 0.8152,
+   "n_differ": 790
+  },
+  "non_schedule": {
+   "n": 745,
+   "held": 0.0604,
+   "previous_fill_side": 0.6577,
+   "share_differ": 0.6134,
+   "where_differ_held": 0.0131,
+   "where_differ_previous": 0.9869,
+   "n_differ": 457
+  }
+ },
+ "validate": {
+  "schedule": {
+   "n": 15056,
+   "held": 0.7711,
+   "previous_fill_side": 0.8842,
+   "share_differ": 0.175,
+   "where_differ_held": 0.1769,
+   "where_differ_previous": 0.8231,
+   "n_differ": 2635
+  },
+  "non_schedule": {
+   "n": 2838,
+   "held": 0.0937,
+   "previous_fill_side": 0.6505,
+   "share_differ": 0.5941,
+   "where_differ_held": 0.0314,
+   "where_differ_previous": 0.9686,
+   "n_differ": 1686
+  }
+ },
+ "own_history_baselines": {
+  "study": {
+   "own_history_prev_fill_side": 0.8089,
+   "decided_cheaper_else_own_history": 0.7888,
+   "composite_with_prev_side": 0.8142,
+   "share_with_prev_fill": 0.8387
+  },
+  "validate": {
+   "own_history_prev_fill_side": 0.8224,
+   "decided_cheaper_else_own_history": 0.8264,
+   "composite_with_prev_side": 0.8523,
+   "share_with_prev_fill": 0.9069
+  }
+ }
+}

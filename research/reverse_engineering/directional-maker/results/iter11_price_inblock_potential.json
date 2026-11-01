@@ -1,0 +1,20 @@
+{
+ "study": {
+  "fills": 8256,
+  "block_anchor_within_tick": 0.617,
+  "share_with_same_second_clean_print": 0.9788,
+  "block_anchor_within_tick_when_same_second": 0.6091,
+  "oracle_block_or_any_same_second": 0.964,
+  "same_second_first_row_order": 0.6582,
+  "same_second_last_row_order": 0.6281
+ },
+ "validate": {
+  "fills": 27988,
+  "block_anchor_within_tick": 0.7091,
+  "share_with_same_second_clean_print": 0.9664,
+  "block_anchor_within_tick_when_same_second": 0.7024,
+  "oracle_block_or_any_same_second": 0.9792,
+  "same_second_first_row_order": 0.7379,
+  "same_second_last_row_order": 0.6823
+ }
+}

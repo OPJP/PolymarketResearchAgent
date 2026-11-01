@@ -1,0 +1,614 @@
+{
+ "addresses_ge50": 499,
+ "proxy125": 499,
+ "owner_kinds": {
+  "eoa": 472,
+  "delegate_operator": 19,
+  "delegate_other": 8
+ },
+ "other_delegates": {
+  "0x69007702764179f14f51cdce752f4f775d74e139": 4,
+  "0x7702cb554e6bfb442cb743a7df23154544a7176c": 2,
+  "0x77021100bd87b7008e5e1989d0eb38555d0d0000": 2
+ },
+ "operator_delegate_accounts": [
+  {
+   "addr": "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2",
+   "known": "wallet",
+   "owner": "0x8af810f0e236cae55588ea6a084013c24122fd4f",
+   "orders": 36698,
+   "maker_share": 0.953,
+   "buy_share": 0.999,
+   "whole_cents": 0.997,
+   "band": 1.0,
+   "sizes": {
+    "100.0": 30286,
+    "10.0": 1419,
+    "1000.0": 230,
+    "79.0": 211,
+    "50.0": 210
+   },
+   "tokens": 469
+  },
+  {
+   "addr": "0x0d2d845a6ff64e31e04a70afce8a573940767ff5",
+   "known": "NEW",
+   "owner": "0x13a1303c6c57b79a0caf41de9a84dffc5492fe3f",
+   "orders": 503,
+   "maker_share": 0.992,
+   "buy_share": 0.74,
+   "whole_cents": 0.996,
+   "band": 0.992,
+   "sizes": {
+    "100.0": 108,
+    "175.0": 41,
+    "50.0": 20,
+    "51.0": 15,
+    "250.0": 15
+   },
+   "tokens": 155
+  },
+  {
+   "addr": "0x10d79cc72df76ea3d6bdc2d54f41dbcbbb18bbf6",
+   "known": "NEW",
+   "owner": "0x0b18bc5c10e06c8ca7511c2b7ee8ae4f6ec6b5cb",
+   "orders": 994,
+   "maker_share": 0.971,
+   "buy_share": 1.0,
+   "whole_cents": 1.0,
+   "band": 1.0,
+   "sizes": {
+    "20.0": 800,
+    "10.0": 119,
+    "5.0": 37,
+    "100.0": 6,
+    "200.0": 4
+   },
+   "tokens": 90
+  },
+  {
+   "addr": "0x2b55d2ee278dfbe003fe692f2a6eddc22072b98d",
+   "known": "NEW",
+   "owner": "0x4e87b3362b8d7da580d18a1249f50a7776b93072",
+   "orders": 205,
+   "maker_share": 1.0,
+   "buy_share": 1.0,
+   "whole_cents": 0.888,
+   "band": 1.0,
+   "sizes": {
+    "5.0": 171,
+    "8.0": 24,
+    "6.0": 10
+   },
+   "tokens": 42
+  },
+  {
+   "addr": "0x3da80ca893666957475095ac1504094df93dbe26",
+   "known": "NEW",
+   "owner": "0xfc157466f394b9cbb190ee4e54103634f1106ee6",
+   "orders": 59,
+   "maker_share": 1.0,
+   "buy_share": 1.0,
+   "whole_cents": 0.949,
+   "band": 1.0,
+   "sizes": {
+    "20.0": 31,
+    "14.0": 4,
+    "40.0": 4,
+    "13.0": 4,
+    "6.0": 3
+   },
+   "tokens": 21
+  },
+  {
+   "addr": "0x45361ff76a9308998703e0acb658691eca9af41b",
+   "known": "NEW",
+   "owner": "0x8995467218e754d672e06a97628de54d1bb0a54f",
+   "orders": 53,
+   "maker_share": 0.0,
+   "buy_share": 0.774,
+   "whole_cents": 0.226,
+   "band": 0.83,
+   "sizes": {
+    "417.0": 3,
+    "357.0": 2,
+    "227.0": 2,
+    "444.0": 2,
+    "222.0": 1
+   },
+   "tokens": 27
+  },
+  {
+   "addr": "0x52661b8e13158f23d94a9e8302ab0295704c22ac",
+   "known": "TommyLeePeeecan",
+   "owner": "0xe6f64514da23906bacb209f81de6e1d13db51955",
+   "orders": 4244,
+   "maker_share": 0.682,
+   "buy_share": 1.0,
+   "whole_cents": 1.0,
+   "band": 0.992,
+   "sizes": {
+    "5.0": 2515,
+    "50.0": 654,
+    "10.0": 330,
+    "40.0": 314,
+    "20.0": 149
+   },
+   "tokens": 1003
+  },
+  {
+   "addr": "0x64c4a7437742d07356774cad6d55dcd9cf411018",
+   "known": "NEW",
+   "owner": "0x8b4bc1ec9f6d2e41ed29821e1c7f8b190f153fd3",
+   "orders": 159,
+   "maker_share": 0.937,
+   "buy_share": 1.0,
+   "whole_cents": 1.0,
+   "band": 1.0,
+   "sizes": {
+    "3000.0": 70,
+    "5000.0": 62,
+    "2000.0": 23,
+    "1500.0": 2,
+    "4000.0": 2
+   },
+   "tokens": 17
+  },
+  {
+   "addr": "0x671190333b064b0899b4ac1aec86744b1f82885b",
+   "known": "0x67119033",
+   "owner": "0x116342d6fb15dd1925a3ffb9baf5fbea17923829",
+   "orders": 1912,
+   "maker_share": 0.931,
+   "buy_share": 0.997,
+   "whole_cents": 0.999,
+   "band": 1.0,
+   "sizes": {
+    "20.0": 780,
+    "5.0": 579,
+    "10.0": 431,
+    "15.0": 20,
+    "120.0": 7
+   },
+   "tokens": 72
+  },
+  {
+   "addr": "0x7d67f01d3e7b7c56c3df7b2ea08a58917d7f5f14",
+   "known": "BACKTESTEOCARAIO1",
+   "owner": "0x80a19b874ed5e7e4e931fea8410e35e9fec1b460",
+   "orders": 9444,
+   "maker_share": 0.678,
+   "buy_share": 0.939,
+   "whole_cents": 0.93,
+   "band": 0.997,
+   "sizes": {
+    "100.0": 3059,
+    "5.0": 783,
+    "500.0": 275,
+    "1000.0": 245,
+    "7.0": 209
+   },
+   "tokens": 668
+  },
+  {
+   "addr": "0x92fb5219708dd1d0345951500533d6b368c260af",
+   "known": "NEW",
+   "owner": "0xfbf36e63651e2d0991c2a51750eb306fbf3d9158",
+   "orders": 60,
+   "maker_share": 0.433,
+   "buy_share": 0.667,
+   "whole_cents": 0.95,
+   "band": 0.967,
+   "sizes": {
+    "100.0": 24,
+    "50.0": 13,
+    "87.0": 3,
+    "125.0": 3,
+    "117.0": 2
+   },
+   "tokens": 18
+  },
+  {
+   "addr": "0xaadb0195b9bd6ce427d3510322f9f7280dd58de6",
+   "known": "NEW",
+   "owner": "0xf77fb342db68ed348205e97714071bc6731d3b1a",
+   "orders": 464,
+   "maker_share": 0.0,
+   "buy_share": 0.683,
+   "whole_cents": 0.347,
+   "band": 0.95,
+   "sizes": {
+    "2.0": 95,
+    "3.0": 78,
+    "4.0": 55,
+    "5.0": 42,
+    "7.0": 25
+   },
+   "tokens": 60
+  },
+  {
+   "addr": "0xc785252b25901a591e9d962e09f4342468444ef2",
+   "known": "NEW",
+   "owner": "0x50000cada0ed078ff50d7f64f54edaea701f17e1",
+   "orders": 56,
+   "maker_share": 0.0,
+   "buy_share": 0.857,
+   "whole_cents": 0.911,
+   "band": 0.821,
+   "sizes": {
+    "44.0": 3,
+    "53.0": 3,
+    "74.0": 2,
+    "99.0": 2,
+    "20.0": 2
+   },
+   "tokens": 23
+  },
+  {
+   "addr": "0xca0b532de01108a972a101c1dec91503099067e0",
+   "known": "NEW",
+   "owner": "0xdd952f37398bbb6cb3fc902ae71cad17323f4348",
+   "orders": 105,
+   "maker_share": 1.0,
+   "buy_share": 1.0,
+   "whole_cents": 0.943,
+   "band": 1.0,
+   "sizes": {
+    "5.0": 74,
+    "8.0": 28,
+    "7.0": 3
+   },
+   "tokens": 20
+  },
+  {
+   "addr": "0xd2bb94594762beda042e596598800d83f781bd8e",
+   "known": "NEW",
+   "owner": "0xc96948e14a6cd6e8d0c3424b211f85b2357dd8aa",
+   "orders": 381,
+   "maker_share": 1.0,
+   "buy_share": 1.0,
+   "whole_cents": 0.942,
+   "band": 0.995,
+   "sizes": {
+    "200.0": 52,
+    "100.0": 35,
+    "120.0": 29,
+    "160.0": 13,
+    "480.0": 13
+   },
+   "tokens": 42
+  },
+  {
+   "addr": "0xe86aaecf94cad617e1f234f73223f0ed3929a901",
+   "known": "NEW",
+   "owner": "0x0e669fc9389b3ca2fef4551d2c266e13b37678a2",
+   "orders": 60,
+   "maker_share": 0.0,
+   "buy_share": 0.95,
+   "whole_cents": 0.5,
+   "band": 1.0,
+   "sizes": {
+    "233.0": 12,
+    "256.0": 10,
+    "142.0": 6,
+    "100.0": 4,
+    "556.0": 4
+   },
+   "tokens": 12
+  },
+  {
+   "addr": "0xf8df2427fb3f835d99c28b431cb1c7c3ed874d4c",
+   "known": "NEW",
+   "owner": "0x327ed53ca8a0d37610683b47bda5bf17bf9cb41e",
+   "orders": 74,
+   "maker_share": 1.0,
+   "buy_share": 1.0,
+   "whole_cents": 0.703,
+   "band": 1.0,
+   "sizes": {
+    "10.0": 74
+   },
+   "tokens": 35
+  },
+  {
+   "addr": "0xfb3ab011587835646dbcae3355c786c2f4ccaef9",
+   "known": "NEW",
+   "owner": "0xb7e639b81c76752292429ecf24faf61dbe42eb03",
+   "orders": 54,
+   "maker_share": 0.611,
+   "buy_share": 0.926,
+   "whole_cents": 0.963,
+   "band": 0.963,
+   "sizes": {
+    "10.0": 15,
+    "200.0": 10,
+    "20.0": 10,
+    "40.0": 4,
+    "100.0": 4
+   },
+   "tokens": 13
+  },
+  {
+   "addr": "0xfc23869c29e0cda2b3d379c4aa665bbe5b3c2f5e",
+   "known": "NEW",
+   "owner": "0x853dbe84d68218328f4ae07e5fb0f5a140d3a569",
+   "orders": 154,
+   "maker_share": 0.0,
+   "buy_share": 0.578,
+   "whole_cents": 0.961,
+   "band": 0.955,
+   "sizes": {
+    "999.0": 17,
+    "1000.0": 6,
+    "480.0": 4,
+    "98.0": 4,
+    "3059.0": 3
+   },
+   "tokens": 54
+  }
+ ],
+ "new_candidates": [
+  {
+   "addr": "0x0d2d845a6ff64e31e04a70afce8a573940767ff5",
+   "known": "NEW",
+   "owner": "0x13a1303c6c57b79a0caf41de9a84dffc5492fe3f",
+   "orders": 503,
+   "maker_share": 0.992,
+   "buy_share": 0.74,
+   "whole_cents": 0.996,
+   "band": 0.992,
+   "sizes": {
+    "100.0": 108,
+    "175.0": 41,
+    "50.0": 20,
+    "51.0": 15,
+    "250.0": 15
+   },
+   "tokens": 155
+  },
+  {
+   "addr": "0x10d79cc72df76ea3d6bdc2d54f41dbcbbb18bbf6",
+   "known": "NEW",
+   "owner": "0x0b18bc5c10e06c8ca7511c2b7ee8ae4f6ec6b5cb",
+   "orders": 994,
+   "maker_share": 0.971,
+   "buy_share": 1.0,
+   "whole_cents": 1.0,
+   "band": 1.0,
+   "sizes": {
+    "20.0": 800,
+    "10.0": 119,
+    "5.0": 37,
+    "100.0": 6,
+    "200.0": 4
+   },
+   "tokens": 90
+  },
+  {
+   "addr": "0x2b55d2ee278dfbe003fe692f2a6eddc22072b98d",
+   "known": "NEW",
+   "owner": "0x4e87b3362b8d7da580d18a1249f50a7776b93072",
+   "orders": 205,
+   "maker_share": 1.0,
+   "buy_share": 1.0,
+   "whole_cents": 0.888,
+   "band": 1.0,
+   "sizes": {
+    "5.0": 171,
+    "8.0": 24,
+    "6.0": 10
+   },
+   "tokens": 42
+  },
+  {
+   "addr": "0x3da80ca893666957475095ac1504094df93dbe26",
+   "known": "NEW",
+   "owner": "0xfc157466f394b9cbb190ee4e54103634f1106ee6",
+   "orders": 59,
+   "maker_share": 1.0,
+   "buy_share": 1.0,
+   "whole_cents": 0.949,
+   "band": 1.0,
+   "sizes": {
+    "20.0": 31,
+    "14.0": 4,
+    "40.0": 4,
+    "13.0": 4,
+    "6.0": 3
+   },
+   "tokens": 21
+  },
+  {
+   "addr": "0x45361ff76a9308998703e0acb658691eca9af41b",
+   "known": "NEW",
+   "owner": "0x8995467218e754d672e06a97628de54d1bb0a54f",
+   "orders": 53,
+   "maker_share": 0.0,
+   "buy_share": 0.774,
+   "whole_cents": 0.226,
+   "band": 0.83,
+   "sizes": {
+    "417.0": 3,
+    "357.0": 2,
+    "227.0": 2,
+    "444.0": 2,
+    "222.0": 1
+   },
+   "tokens": 27
+  },
+  {
+   "addr": "0x64c4a7437742d07356774cad6d55dcd9cf411018",
+   "known": "NEW",
+   "owner": "0x8b4bc1ec9f6d2e41ed29821e1c7f8b190f153fd3",
+   "orders": 159,
+   "maker_share": 0.937,
+   "buy_share": 1.0,
+   "whole_cents": 1.0,
+   "band": 1.0,
+   "sizes": {
+    "3000.0": 70,
+    "5000.0": 62,
+    "2000.0": 23,
+    "1500.0": 2,
+    "4000.0": 2
+   },
+   "tokens": 17
+  },
+  {
+   "addr": "0x92fb5219708dd1d0345951500533d6b368c260af",
+   "known": "NEW",
+   "owner": "0xfbf36e63651e2d0991c2a51750eb306fbf3d9158",
+   "orders": 60,
+   "maker_share": 0.433,
+   "buy_share": 0.667,
+   "whole_cents": 0.95,
+   "band": 0.967,
+   "sizes": {
+    "100.0": 24,
+    "50.0": 13,
+    "87.0": 3,
+    "125.0": 3,
+    "117.0": 2
+   },
+   "tokens": 18
+  },
+  {
+   "addr": "0xaadb0195b9bd6ce427d3510322f9f7280dd58de6",
+   "known": "NEW",
+   "owner": "0xf77fb342db68ed348205e97714071bc6731d3b1a",
+   "orders": 464,
+   "maker_share": 0.0,
+   "buy_share": 0.683,
+   "whole_cents": 0.347,
+   "band": 0.95,
+   "sizes": {
+    "2.0": 95,
+    "3.0": 78,
+    "4.0": 55,
+    "5.0": 42,
+    "7.0": 25
+   },
+   "tokens": 60
+  },
+  {
+   "addr": "0xc785252b25901a591e9d962e09f4342468444ef2",
+   "known": "NEW",
+   "owner": "0x50000cada0ed078ff50d7f64f54edaea701f17e1",
+   "orders": 56,
+   "maker_share": 0.0,
+   "buy_share": 0.857,
+   "whole_cents": 0.911,
+   "band": 0.821,
+   "sizes": {
+    "44.0": 3,
+    "53.0": 3,
+    "74.0": 2,
+    "99.0": 2,
+    "20.0": 2
+   },
+   "tokens": 23
+  },
+  {
+   "addr": "0xca0b532de01108a972a101c1dec91503099067e0",
+   "known": "NEW",
+   "owner": "0xdd952f37398bbb6cb3fc902ae71cad17323f4348",
+   "orders": 105,
+   "maker_share": 1.0,
+   "buy_share": 1.0,
+   "whole_cents": 0.943,
+   "band": 1.0,
+   "sizes": {
+    "5.0": 74,
+    "8.0": 28,
+    "7.0": 3
+   },
+   "tokens": 20
+  },
+  {
+   "addr": "0xd2bb94594762beda042e596598800d83f781bd8e",
+   "known": "NEW",
+   "owner": "0xc96948e14a6cd6e8d0c3424b211f85b2357dd8aa",
+   "orders": 381,
+   "maker_share": 1.0,
+   "buy_share": 1.0,
+   "whole_cents": 0.942,
+   "band": 0.995,
+   "sizes": {
+    "200.0": 52,
+    "100.0": 35,
+    "120.0": 29,
+    "160.0": 13,
+    "480.0": 13
+   },
+   "tokens": 42
+  },
+  {
+   "addr": "0xe86aaecf94cad617e1f234f73223f0ed3929a901",
+   "known": "NEW",
+   "owner": "0x0e669fc9389b3ca2fef4551d2c266e13b37678a2",
+   "orders": 60,
+   "maker_share": 0.0,
+   "buy_share": 0.95,
+   "whole_cents": 0.5,
+   "band": 1.0,
+   "sizes": {
+    "233.0": 12,
+    "256.0": 10,
+    "142.0": 6,
+    "100.0": 4,
+    "556.0": 4
+   },
+   "tokens": 12
+  },
+  {
+   "addr": "0xf8df2427fb3f835d99c28b431cb1c7c3ed874d4c",
+   "known": "NEW",
+   "owner": "0x327ed53ca8a0d37610683b47bda5bf17bf9cb41e",
+   "orders": 74,
+   "maker_share": 1.0,
+   "buy_share": 1.0,
+   "whole_cents": 0.703,
+   "band": 1.0,
+   "sizes": {
+    "10.0": 74
+   },
+   "tokens": 35
+  },
+  {
+   "addr": "0xfb3ab011587835646dbcae3355c786c2f4ccaef9",
+   "known": "NEW",
+   "owner": "0xb7e639b81c76752292429ecf24faf61dbe42eb03",
+   "orders": 54,
+   "maker_share": 0.611,
+   "buy_share": 0.926,
+   "whole_cents": 0.963,
+   "band": 0.963,
+   "sizes": {
+    "10.0": 15,
+    "200.0": 10,
+    "20.0": 10,
+    "40.0": 4,
+    "100.0": 4
+   },
+   "tokens": 13
+  },
+  {
+   "addr": "0xfc23869c29e0cda2b3d379c4aa665bbe5b3c2f5e",
+   "known": "NEW",
+   "owner": "0x853dbe84d68218328f4ae07e5fb0f5a140d3a569",
+   "orders": 154,
+   "maker_share": 0.0,
+   "buy_share": 0.578,
+   "whole_cents": 0.961,
+   "band": 0.955,
+   "sizes": {
+    "999.0": 17,
+    "1000.0": 6,
+    "480.0": 4,
+    "98.0": 4,
+    "3059.0": 3
+   },
+   "tokens": 54
+  }
+ ]
+}

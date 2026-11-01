@@ -160,13 +160,13 @@ def run_screen(
     as_of = as_of or int(time.time()) // 86400 * 86400  # complete days only
     out_dir.mkdir(parents=True, exist_ok=True)
     if snapshot is not None:
-        snap = json.loads(Path(snapshot).read_text())
+        snap = json.loads(Path(snapshot).read_text(encoding="utf-8"))
         board, lb_sources = snap["rows"][:limit], []
     else:
         board, lb_sources = pm.leaderboard(time_period=time_period, limit=limit)
         (out_dir / "leaderboard_snapshot.json").write_text(
             json.dumps({"fetched_at": int(time.time()), "time_period": time_period, "order_by": "PNL", "rows": board}, indent=1)
-        )
+        , encoding="utf-8")
     results: dict[str, dict[str, Any]] = {}
 
     def work(row: dict[str, Any]) -> tuple[str, dict[str, Any]]:
@@ -242,5 +242,5 @@ def run_screen(
             "Return on capital is not available from the PnL series; it is evaluated in stage A2 from reconstructed exposure.",
         ],
     )
-    (out_dir / "stage_a1.json").write_text(json.dumps(to_jsonable({"evidence": ev.to_dict(), "wallets": rows_out}), indent=1))
+    (out_dir / "stage_a1.json").write_text(json.dumps(to_jsonable({"evidence": ev.to_dict(), "wallets": rows_out}), indent=1), encoding="utf-8")
     return {"evidence": ev, "wallets": rows_out}

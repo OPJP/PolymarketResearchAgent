@@ -1,0 +1,28 @@
+{
+ "wallet_vs_p4e": {
+  "pairs": 191,
+  "events": 86,
+  "prem_lead_mean_c": 3.59,
+  "prem_follow_mean_c": 2.4,
+  "corr_premiums": 0.21,
+  "corr_lead_move60": 0.089,
+  "corr_follow_move60": 0.163,
+  "partial_corr_given_move60": 0.199,
+  "limit_diff_sd_c": 3.3,
+  "limit_diff_median_c": -1.0,
+  "share_limit_diff_within_1c": 0.361
+ },
+ "p93_vs_p4e": {
+  "pairs": 193,
+  "events": 82,
+  "prem_lead_mean_c": 4.85,
+  "prem_follow_mean_c": 4.24,
+  "corr_premiums": 0.607,
+  "corr_lead_move60": 0.197,
+  "corr_follow_move60": 0.348,
+  "partial_corr_given_move60": 0.586,
+  "limit_diff_sd_c": 3.43,
+  "limit_diff_median_c": -0.0,
+  "share_limit_diff_within_1c": 0.44
+ }
+}

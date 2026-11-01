@@ -1,0 +1,39 @@
+{
+ "slug": "btc-updown-4h-1793448000",
+ "points": 227,
+ "book_records": 19511,
+ "trades": 143,
+ "median_abs_err": {
+  "mid_t-60": 0.01,
+  "mid_t-30": 0.005,
+  "mid_t": 0.005,
+  "mid_t+30": 0.01,
+  "mid_t+60": 0.015,
+  "mean_mid_prev_60": 0.0049,
+  "mean_mid_next_60": 0.0123,
+  "last_trade_t": 0.01,
+  "last_trade_t+60": 0.015
+ },
+ "share_within_0.005": {
+  "mid_t-60": 0.198,
+  "mid_t-30": 0.433,
+  "mid_t": 0.385,
+  "mid_t+30": 0.225,
+  "mid_t+60": 0.146,
+  "mean_mid_prev_60": 0.505,
+  "mean_mid_next_60": 0.26,
+  "last_trade_t": 0.141,
+  "last_trade_t+60": 0.116
+ },
+ "n": {
+  "mid_t-60": 217,
+  "mid_t-30": 217,
+  "mid_t": 218,
+  "mid_t+30": 218,
+  "mid_t+60": 219,
+  "mean_mid_prev_60": 218,
+  "mean_mid_next_60": 219,
+  "last_trade_t": 92,
+  "last_trade_t+60": 95
+ }
+}

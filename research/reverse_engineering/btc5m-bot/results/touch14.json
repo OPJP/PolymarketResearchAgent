@@ -1,0 +1,38 @@
+{
+ "bins": 99654,
+ "touch_coverage": 0.9709,
+ "fit_2026-10-20_score_2026-10-21": {
+  "auc_hazard_only": 0.8935,
+  "auc_hazard_plus_touch": 0.896,
+  "gain": 0.0025,
+  "importance_top6": {
+   "lf": 0.913,
+   "t_age": 0.02,
+   "t_d250": 0.016,
+   "t_d1000": 0.013,
+   "t_ask_x": 0.011,
+   "t_ask": 0.01
+  }
+ },
+ "fit_2026-10-21_score_2026-10-20": {
+  "auc_hazard_only": 0.9016,
+  "auc_hazard_plus_touch": 0.9031,
+  "gain": 0.0015,
+  "importance_top6": {
+   "lf": 0.909,
+   "t_d250": 0.017,
+   "t_age": 0.016,
+   "t_d1000": 0.012,
+   "t_bid": 0.012,
+   "t_ask_x": 0.01
+  }
+ },
+ "ask_age_ms_median": {
+  "decisions": 433.0,
+  "negatives": 1100.0
+ },
+ "ask_changed_last_250ms_share": {
+  "decisions": 0.377,
+  "negatives_weighted": 0.1955
+ }
+}

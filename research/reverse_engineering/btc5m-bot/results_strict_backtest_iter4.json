@@ -1,0 +1,14 @@
+{
+ "windows": 2015,
+ "rule_fills": 60466,
+ "rule_windows_traded": 1979,
+ "rule_usd": 261550.5,
+ "rule_pnl_before_rebates": -4229.1,
+ "rule_return_before_rebates": -0.0162,
+ "rule_fee_usd": 8931.1,
+ "rule_return_with_50pct_fee_rebate": 0.0009,
+ "per_window_pnl_corr_pearson": 0.1755,
+ "per_window_pnl_corr_spearman": 0.1692,
+ "wallet_return_before_rebates": 0.0017,
+ "note": "observed-liquidity strict fills, latency >= 2 s after the information horizon, capture 1.0 (upper bound), 30-share orders, taker only"
+}

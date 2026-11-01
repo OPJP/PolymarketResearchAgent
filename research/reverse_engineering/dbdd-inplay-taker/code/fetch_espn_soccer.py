@@ -1,13 +1,13 @@
 """ESPN soccer key events (with wall clocks) for every soccer game the wallet traded in the tape window (< H).
 Saves every key event (goals, cards, subs, period starts/ends) so later iterations can test any event family."""
 import sys, json, re, time
-sys.path.insert(0, '/home/user/PolymarketResearchAgent')
+import os; sys.path.insert(0, os.path.dirname(__file__)); from polyrea_path import CACHE
 import numpy as np, pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from polyrea.adapters.http import shared_client
 from polyrea.adapters.espn import team_matches
 
-CACHE = '/home/user/PolymarketResearchAgent/.cache/re/dbdd-inplay-taker'
+import glob
 H = 1792713600
 LG = {'epl': 'eng.1', 'elc': 'eng.2', 'el1': 'eng.3', 'lal': 'esp.1', 'es2': 'esp.2', 'bun': 'ger.1', 'bl2': 'ger.2', 'sea': 'ita.1',
       'itsb': 'ita.2', 'fl1': 'fra.1', 'fl2': 'fra.2', 'ucl': 'uefa.champions', 'uel': 'uefa.europa', 'uecl': 'uefa.europa.conf',
@@ -63,10 +63,11 @@ def find(row):
 
 
 if __name__ == '__main__':
-    act = pd.read_parquet(f'{CACHE}/activity.parquet')
-    gm = json.load(open(f'{CACHE}/gamma.json'))
-    tr = act[(act.type == 'TRADE') & (act.timestamp >= 1790121600)]
-    tr = tr.copy()
+    # iteration 2 (local): activity from per-chunk files, Gamma from gamma2.json; development units only
+    act = pd.concat([pd.read_parquet(f) for f in glob.glob(f'{CACHE}/activity/*.parquet')])
+    gm = json.load(open(f'{CACHE}/gamma2.json'))
+    tr = act[(act.type == 'TRADE')].copy()
+    tr = tr[tr.conditionId.map(lambda c: (gm.get(c) or {}).get('sealed', 1) == 0)]
     tr['base'] = tr.eventSlug.str.replace(r'-(more-markets|halftime-result|total-corners|exact-score|player-props|first-half.*|btts.*)$', '', regex=True)
     tr['vs'] = tr.title.str.contains(r' vs\.? ', regex=True)
     tr = tr.sort_values('vs', ascending=False)
@@ -81,7 +82,7 @@ if __name__ == '__main__':
         except Exception:
             return np.nan
     ev['gst'] = ev.cid.map(gst_of)
-    ev = ev[(ev.gst < H - 3 * 3600)]
+    ev = ev[(ev.gst < time.time() - 3 * 3600)]
     print('soccer events', len(ev), ev.pref.value_counts().head(15).to_dict(), flush=True)
     t0 = time.time()
     rows, matched = [], 0
@@ -93,6 +94,5 @@ if __name__ == '__main__':
             if i % 100 == 0:
                 print(i, matched, round(time.time() - t0), flush=True)
     df = pd.DataFrame(rows)
-    df = df[df.wallclock.isna() | (df.wallclock < H)]
     df.to_parquet(f'{CACHE}/espn_soccer_keyevents.parquet')
     print('done events', len(ev), 'matched', matched, 'key events', len(df), round(time.time() - t0), flush=True)

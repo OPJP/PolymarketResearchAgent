@@ -1,0 +1,32 @@
+{
+ "presence": {
+  "windows": 29,
+  "rows": 870,
+  "trunc_feature_mismatch": 0,
+  "corrupt_feature_mismatch": 0,
+  "trunc_pred_mismatch": 0,
+  "corrupt_pred_mismatch": 0,
+  "control_feature_mismatch": 756,
+  "control_pred_mismatch": 670,
+  "bad_features": {}
+ },
+ "side_r8c": {
+  "n": 300,
+  "trunc_mismatch": 0,
+  "corrupt_mismatch": 0,
+  "control_mismatch": 16,
+  "no_decision": 0
+ },
+ "price_block_clock": {
+  "n": 300,
+  "trunc_mismatch": 0,
+  "corrupt_mismatch": 0,
+  "control_mismatch": 79
+ },
+ "selection_print_features": {
+  "n": 300,
+  "dq_last_mismatch": 0,
+  "fair_p_mismatch": 0,
+  "fair_p_mismatch_first_2s": 0
+ }
+}

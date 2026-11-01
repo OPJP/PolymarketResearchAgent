@@ -1,0 +1,32 @@
+{
+ "tx": 262,
+ "orders": 137,
+ "almach": {
+  "n_pre": 43,
+  "n_post": 7,
+  "slope_pre": 11.89,
+  "slope_post": 14.49,
+  "salt_jump_across": 1319.0,
+  "gap_s_across": 105
+ },
+ "bosona": {
+  "n_pre": 38,
+  "n_post": 3,
+  "slope_pre": 11.78,
+  "slope_post": null,
+  "salt_jump_across": 271.0,
+  "gap_s_across": 21
+ },
+ "momoney": {
+  "n_pre": 43,
+  "n_post": 3,
+  "slope_pre": 11.82,
+  "slope_post": null,
+  "salt_jump_across": 1235.0,
+  "gap_s_across": 90
+ },
+ "drops": [
+  -2.5999999999999996
+ ],
+ "reading_met": false
+}

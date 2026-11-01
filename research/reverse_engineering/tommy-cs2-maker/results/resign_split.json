@@ -1,0 +1,30 @@
+{
+ "BUILD_matched_others_only": {
+  "taker_orders": 36747,
+  "rate_after_0.5_2s": 0.121,
+  "rate_control": 0.038,
+  "ratio": 3.16,
+  "rate_before_-1.5_0s": 0.081
+ },
+ "BUILD_matched_wallet": {
+  "taker_orders": 12709,
+  "rate_after_0.5_2s": 0.223,
+  "rate_control": 0.054,
+  "ratio": 4.11,
+  "rate_before_-1.5_0s": 0.194
+ },
+ "VALIDATE_matched_others_only": {
+  "taker_orders": 36312,
+  "rate_after_0.5_2s": 0.125,
+  "rate_control": 0.045,
+  "ratio": 2.79,
+  "rate_before_-1.5_0s": 0.085
+ },
+ "VALIDATE_matched_wallet": {
+  "taker_orders": 15255,
+  "rate_after_0.5_2s": 0.235,
+  "rate_control": 0.063,
+  "ratio": 3.72,
+  "rate_before_-1.5_0s": 0.187
+ }
+}

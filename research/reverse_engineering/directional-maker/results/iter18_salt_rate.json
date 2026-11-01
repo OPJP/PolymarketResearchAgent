@@ -1,0 +1,62 @@
+{
+ "blocks": [
+  96499879,
+  96505816
+ ],
+ "times_utc": [
+  "14:01:15",
+  "16:29:40"
+ ],
+ "sec_per_block": 1.4999,
+ "almach": {
+  "orders": 252,
+  "pre_30min": {
+   "n": 16,
+   "slope_orders_per_s": 12.67,
+   "median_pairwise": 9.0,
+   "monotone_share": 0.93
+  },
+  "post_to_17_05": {
+   "n": 0
+  },
+  "post_17_05_17_35": {
+   "n": 0
+  }
+ },
+ "bosona": {
+  "orders": 250,
+  "pre_30min": {
+   "n": 14,
+   "slope_orders_per_s": 12.05,
+   "median_pairwise": 6.86,
+   "monotone_share": 0.85
+  },
+  "post_to_17_05": {
+   "n": 0
+  },
+  "post_17_05_17_35": {
+   "n": 0
+  }
+ },
+ "momoney": {
+  "orders": 256,
+  "pre_30min": {
+   "n": 11,
+   "slope_orders_per_s": 11.87,
+   "median_pairwise": 8.11,
+   "monotone_share": 1.0
+  },
+  "post_to_17_05": {
+   "n": 0
+  },
+  "post_17_05_17_35": {
+   "n": 0
+  }
+ },
+ "drops": [
+  NaN,
+  NaN,
+  NaN
+ ],
+ "reading_met": false
+}

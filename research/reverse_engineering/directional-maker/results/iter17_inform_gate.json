@@ -1,0 +1,24 @@
+{
+ "n_windows": 6336,
+ "n_informative": 2883,
+ "BUILD_N12": {
+  "blocks": 151,
+  "spearman": -0.186,
+  "p": 0.021872036124172194,
+  "H_median": 0.5833333333333334
+ },
+ "BUILD_N36": {
+  "blocks": 151,
+  "spearman": -0.13,
+  "p": 0.11131563646033774,
+  "H_median": 0.6388888888888888
+ },
+ "BUILD_N96": {
+  "blocks": 149,
+  "spearman": -0.083,
+  "p": 0.3122559796260464,
+  "H_median": 0.6458333333333334
+ },
+ "threshold_H36": 0.6388888888888888,
+ "build_reading_met": false
+}

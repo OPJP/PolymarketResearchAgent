@@ -1,0 +1,144 @@
+{
+ "n": 429,
+ "windows": 17,
+ "always_up": 0.438,
+ "cheaper": 0.627,
+ "cl_exact_k0.3": 0.385,
+ "cl_exact_k0.5": 0.433,
+ "cl_exact_k0.7": 0.48,
+ "cl_exact_k1.0": 0.601,
+ "cl_exact_k1.4": 0.623,
+ "cl_exact_k2.0": 0.651,
+ "cl_exact_k3.0": 0.645,
+ "cl_exact_itm": 0.445,
+ "fut_minus_basis_k0.3": 0.38,
+ "fut_minus_basis_k0.5": 0.369,
+ "fut_minus_basis_k0.7": 0.383,
+ "fut_minus_basis_k1.0": 0.536,
+ "fut_minus_basis_k1.4": 0.626,
+ "fut_minus_basis_k2.0": 0.634,
+ "fut_minus_basis_k3.0": 0.654,
+ "fut_minus_basis_itm": 0.429,
+ "fav_buy": 0.373,
+ "per_window": [
+  {
+   "w": "btc-updown-15m-1793516400",
+   "n": 12,
+   "up_share": 0.5,
+   "post_up": 0.5,
+   "mid": 0.228
+  },
+  {
+   "w": "btc-updown-15m-1793517300",
+   "n": 4,
+   "up_share": 0.25,
+   "post_up": 0.25,
+   "mid": 0.13
+  },
+  {
+   "w": "btc-updown-15m-1793518200",
+   "n": 49,
+   "up_share": 0.571,
+   "post_up": 0.408,
+   "mid": 0.391
+  },
+  {
+   "w": "btc-updown-15m-1793519100",
+   "n": 34,
+   "up_share": 0.118,
+   "post_up": 0.0,
+   "mid": 0.653
+  },
+  {
+   "w": "btc-updown-5m-1793516400",
+   "n": 30,
+   "up_share": 0.667,
+   "post_up": 0.7,
+   "mid": 0.097
+  },
+  {
+   "w": "btc-updown-5m-1793516700",
+   "n": 16,
+   "up_share": 0.625,
+   "post_up": 0.312,
+   "mid": 0.66
+  },
+  {
+   "w": "btc-updown-5m-1793517000",
+   "n": 30,
+   "up_share": 0.133,
+   "post_up": 0.733,
+   "mid": 0.397
+  },
+  {
+   "w": "btc-updown-5m-1793517300",
+   "n": 16,
+   "up_share": 0.25,
+   "post_up": 0.188,
+   "mid": 0.104
+  },
+  {
+   "w": "btc-updown-5m-1793517600",
+   "n": 32,
+   "up_share": 0.406,
+   "post_up": 0.281,
+   "mid": 0.275
+  },
+  {
+   "w": "btc-updown-5m-1793517900",
+   "n": 40,
+   "up_share": 0.05,
+   "post_up": 0.075,
+   "mid": 0.83
+  },
+  {
+   "w": "btc-updown-5m-1793518200",
+   "n": 38,
+   "up_share": 0.632,
+   "post_up": 0.842,
+   "mid": 0.407
+  },
+  {
+   "w": "btc-updown-5m-1793518500",
+   "n": 17,
+   "up_share": 0.235,
+   "post_up": 0.294,
+   "mid": 0.541
+  },
+  {
+   "w": "btc-updown-5m-1793518800",
+   "n": 20,
+   "up_share": 0.95,
+   "post_up": 0.6,
+   "mid": 0.25
+  },
+  {
+   "w": "btc-updown-5m-1793519100",
+   "n": 31,
+   "up_share": 0.452,
+   "post_up": 0.677,
+   "mid": 0.459
+  },
+  {
+   "w": "btc-updown-5m-1793519400",
+   "n": 23,
+   "up_share": 0.783,
+   "post_up": 0.0,
+   "mid": 0.879
+  },
+  {
+   "w": "btc-updown-5m-1793519700",
+   "n": 36,
+   "up_share": 0.444,
+   "post_up": 0.0,
+   "mid": 0.83
+  },
+  {
+   "w": "btc-updown-5m-1793520000",
+   "n": 1,
+   "up_share": 1.0,
+   "post_up": 0.0,
+   "mid": 0.585
+  }
+ ]
+}

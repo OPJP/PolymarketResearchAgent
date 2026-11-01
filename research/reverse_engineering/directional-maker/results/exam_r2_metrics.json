@@ -1,0 +1,663 @@
+{
+ "cut_ts": 1793478300,
+ "labels": {
+  "btc5m_buy_trades": 3261,
+  "maker": 3184,
+  "taker": 77,
+  "rule_mk_fills": 3184,
+  "bins_agree_with_rule_y": 1.0
+ },
+ "presence": {
+  "pooled": {
+   "p_rule": 0.5972909598822664,
+   "p_activity": 0.6319691706623581,
+   "p_own": 0.7149646039866372,
+   "x_activity_refit": 0.6319691706623581,
+   "x_act_ext": 0.6295632027462159,
+   "x_act_clock": 0.6092939962699979,
+   "pos": 807,
+   "n": 12180,
+   "stronger_baseline": "p_activity",
+   "gain": -0.0346782107800917,
+   "gain_ci95": [
+    -0.04934349818503377,
+    -0.008822600591902026
+   ],
+   "gain_p_le0": 0.9985007496251874,
+   "blocks": 9
+  },
+  "early": {
+   "p_rule": 0.5619211611109931,
+   "p_activity": 0.6144204473325925,
+   "p_own": 0.7009026642221232,
+   "x_activity_refit": 0.6144204473325925,
+   "x_act_ext": 0.6105359590940087,
+   "x_act_clock": 0.5838394671083834,
+   "pos": 294,
+   "n": 6060,
+   "stronger_baseline": "p_activity",
+   "gain": -0.052499286221599384,
+   "gain_ci95": [
+    -0.07147785488813885,
+    -0.006226764908784377
+   ],
+   "gain_p_le0": 0.9785107446276862,
+   "blocks": 5
+  },
+  "late": {
+   "p_rule": 0.6248531580025108,
+   "p_activity": 0.646663475167319,
+   "p_own": 0.7078317933827495,
+   "x_activity_refit": 0.646663475167319,
+   "x_act_ext": 0.6463185985493627,
+   "x_act_clock": 0.6385171556996249,
+   "pos": 513,
+   "n": 6120,
+   "stronger_baseline": "p_activity",
+   "gain": -0.02181031716480819,
+   "gain_ci95": [
+    -0.04944823688924904,
+    0.005634074988593363
+   ],
+   "gain_p_le0": 0.9405297351324338,
+   "blocks": 5
+  },
+  "per_wallet": {
+   "bosona": {
+    "all": {
+     "p_rule": 0.602565002413556,
+     "p_activity": 0.63978021133343,
+     "p_own": 0.728400379936605,
+     "x_activity_refit": 0.63978021133343,
+     "x_act_ext": 0.6366609145930588,
+     "x_act_clock": 0.6140950188744089,
+     "pos": 581,
+     "n": 12180,
+     "stronger_baseline": "p_activity",
+     "gain": -0.037215208919873954,
+     "gain_ci95": [
+      -0.06416515839817484,
+      -0.0019284431145432225
+     ],
+     "gain_p_le0": 0.9790104947526237,
+     "blocks": 9
+    },
+    "early": {
+     "p_rule": 0.5862183648465786,
+     "p_activity": 0.6294069780199685,
+     "p_own": 0.7198231722927256,
+     "x_activity_refit": 0.6294069780199685,
+     "x_act_ext": 0.6279737958526862,
+     "x_act_clock": 0.6020153695644224,
+     "pos": 148,
+     "n": 6060,
+     "stronger_baseline": "p_activity",
+     "gain": -0.043188613173389845,
+     "gain_ci95": [
+      -0.07533108866442195,
+      0.0031827694454134026
+     ],
+     "gain_p_le0": 0.9695152423788106,
+     "blocks": 5
+    },
+    "late": {
+     "p_rule": 0.6198367412245667,
+     "p_activity": 0.6509039091221784,
+     "p_own": 0.7083945354077266,
+     "x_activity_refit": 0.6509039091221784,
+     "x_act_ext": 0.6488242907226116,
+     "x_act_clock": 0.6412432877382109,
+     "pos": 433,
+     "n": 6120,
+     "stronger_baseline": "p_activity",
+     "gain": -0.03106716789761177,
+     "gain_ci95": [
+      -0.05782423724153418,
+      -0.0033511587335280923
+     ],
+     "gain_p_le0": 0.9770114942528736,
+     "blocks": 5
+    },
+    "fills": 1805
+   },
+   "almach": {
+    "all": {
+     "p_rule": 0.5987109989666268,
+     "p_activity": 0.6329847900373423,
+     "p_own": 0.6953581871345029,
+     "x_activity_refit": 0.6329847900373423,
+     "x_act_ext": 0.630654929660161,
+     "x_act_clock": 0.6183843561380022,
+     "pos": 228,
+     "n": 12180,
+     "stronger_baseline": "p_activity",
+     "gain": -0.03427379107071549,
+     "gain_ci95": [
+      -0.07376985860232631,
+      0.029945388273906918
+     ],
+     "gain_p_le0": 0.8610694652673663,
+     "blocks": 9
+    },
+    "early": {
+     "p_rule": 0.5486674554879423,
+     "p_activity": 0.6104678461422884,
+     "p_own": 0.6865327548643979,
+     "x_activity_refit": 0.6104678461422884,
+     "x_act_ext": 0.6044742130568702,
+     "x_act_clock": 0.5769722879573285,
+     "pos": 144,
+     "n": 6060,
+     "stronger_baseline": "p_activity",
+     "gain": -0.06180039065434617,
+     "gain_ci95": [
+      -0.0767273775343923,
+      -0.0006869834710743206
+     ],
+     "gain_p_le0": 0.9790104947526237,
+     "blocks": 5
+    },
+    "late": {
+     "p_rule": 0.6715993720218373,
+     "p_activity": 0.6647081794944618,
+     "p_own": 0.7309673703808892,
+     "x_activity_refit": 0.6647081794944618,
+     "x_act_ext": 0.6683648111332008,
+     "x_act_clock": 0.6678362365489603,
+     "pos": 84,
+     "n": 6120,
+     "stronger_baseline": "x_act_ext",
+     "gain": 0.003234560888636495,
+     "gain_ci95": [
+      -0.05970418747207587,
+      0.05526754925414121
+     ],
+     "gain_p_le0": 0.42778610694652675,
+     "blocks": 5
+    },
+    "fills": 631
+   },
+   "momoney": {
+    "all": {
+     "p_rule": 0.5900817350313882,
+     "p_activity": 0.6282150237612092,
+     "p_own": 0.671366546890856,
+     "x_activity_refit": 0.6282150237612092,
+     "x_act_ext": 0.6335989979137906,
+     "x_act_clock": 0.620961298423621,
+     "pos": 247,
+     "n": 12180,
+     "stronger_baseline": "x_act_ext",
+     "gain": -0.04351726288240243,
+     "gain_ci95": [
+      -0.076558798175138,
+      0.010399677910687117
+     ],
+     "gain_p_le0": 0.9485257371314343,
+     "blocks": 9
+    },
+    "early": {
+     "p_rule": 0.5404887197585287,
+     "p_activity": 0.6058791638931799,
+     "p_own": 0.6591908117001369,
+     "x_activity_refit": 0.6058791638931799,
+     "x_act_ext": 0.6082675022711194,
+     "x_act_clock": 0.578628871892125,
+     "pos": 162,
+     "n": 6060,
+     "stronger_baseline": "x_act_ext",
+     "gain": -0.06777878251259062,
+     "gain_ci95": [
+      -0.08696915416520068,
+      -0.02031627102770084
+     ],
+     "gain_p_le0": 0.9930034982508745,
+     "blocks": 5
+    },
+    "late": {
+     "p_rule": 0.6667244992446025,
+     "p_activity": 0.6628607631950875,
+     "p_own": 0.7298523319849896,
+     "x_activity_refit": 0.6628607631950875,
+     "x_act_ext": 0.6731224718553536,
+     "x_act_clock": 0.6707071494712218,
+     "pos": 85,
+     "n": 6120,
+     "stronger_baseline": "x_act_ext",
+     "gain": -0.006397972610751035,
+     "gain_ci95": [
+      -0.06144724307434357,
+      0.03279348604151744
+     ],
+     "gain_p_le0": 0.5867066466766616,
+     "blocks": 5
+    },
+    "fills": 748
+   }
+  },
+  "within_active_windows": {
+   "rule": 0.6197236575507485,
+   "activity": 0.6456759058230169
+  },
+  "active_window_share": 0.8620689655172413
+ },
+ "side": {
+  "pooled": {
+   "r8c": 0.6991206030150754,
+   "cheaper": 0.6366206030150754,
+   "favourite": 0.3633793969849246,
+   "bn_posture": 0.5006281407035176,
+   "rose": 0.5128768844221105,
+   "held": 0.6491834170854272,
+   "under": 0.3514447236180904,
+   "prev_fill": 0.7974246231155779,
+   "n": 3184,
+   "best_market_only": [
+    "cheaper",
+    0.6366206030150754
+   ],
+   "best_own_inventory_only": [
+    "prev_fill",
+    0.7974246231155779
+   ],
+   "mcnemar_vs_market": {
+    "rule_only": 327,
+    "base_only": 128,
+    "p_one_sided": 1.8977527956203975e-21
+   },
+   "share_decided": 0.3548994974874372,
+   "chainlink_coverage": 1.0
+  },
+  "early": {
+   "r8c": 0.7094088259783514,
+   "cheaper": 0.6344712739383847,
+   "favourite": 0.3655287260616153,
+   "bn_posture": 0.6153205661948377,
+   "rose": 0.4537885095753539,
+   "held": 0.7443796835970025,
+   "under": 0.3039134054954205,
+   "prev_fill": 0.835970024979184,
+   "n": 1201,
+   "best_market_only": [
+    "cheaper",
+    0.6344712739383847
+   ],
+   "best_own_inventory_only": [
+    "prev_fill",
+    0.835970024979184
+   ],
+   "mcnemar_vs_market": {
+    "rule_only": 125,
+    "base_only": 35,
+    "p_one_sided": 2.2842936408809525e-13
+   },
+   "share_decided": 0.37468776019983346,
+   "chainlink_coverage": 1.0
+  },
+  "late": {
+   "r8c": 0.6928895612708018,
+   "cheaper": 0.637922339889057,
+   "favourite": 0.362077660110943,
+   "bn_posture": 0.43116490166414523,
+   "rose": 0.5486636409480585,
+   "held": 0.5915279878971256,
+   "under": 0.38023197175995965,
+   "prev_fill": 0.7740796772566818,
+   "n": 1983,
+   "best_market_only": [
+    "cheaper",
+    0.637922339889057
+   ],
+   "best_own_inventory_only": [
+    "prev_fill",
+    0.7740796772566818
+   ],
+   "mcnemar_vs_market": {
+    "rule_only": 202,
+    "base_only": 93,
+    "p_one_sided": 1.0086625426007e-10
+   },
+   "share_decided": 0.3429147755925366,
+   "chainlink_coverage": 1.0
+  },
+  "per_wallet": {
+   "bosona": {
+    "r8c": 0.6969529085872577,
+    "cheaper": 0.6476454293628808,
+    "favourite": 0.3523545706371191,
+    "bn_posture": 0.4692520775623269,
+    "rose": 0.5445983379501385,
+    "held": 0.607202216066482,
+    "under": 0.3717451523545706,
+    "prev_fill": 0.7728531855955678,
+    "n": 1805,
+    "best_market_only": [
+     "cheaper",
+     0.6476454293628808
+    ],
+    "best_own_inventory_only": [
+     "prev_fill",
+     0.7728531855955678
+    ],
+    "mcnemar_vs_market": {
+     "rule_only": 174,
+     "base_only": 85,
+     "p_one_sided": 1.6839169491753964e-08
+    },
+    "share_decided": 0.3041551246537396,
+    "chainlink_coverage": 1.0
+   },
+   "almach": {
+    "r8c": 0.6846275752773375,
+    "cheaper": 0.6275752773375595,
+    "favourite": 0.3724247226624406,
+    "bn_posture": 0.49920760697305866,
+    "rose": 0.4849445324881141,
+    "held": 0.7068145800316957,
+    "under": 0.3090332805071315,
+    "prev_fill": 0.8526148969889065,
+    "n": 631,
+    "best_market_only": [
+     "cheaper",
+     0.6275752773375595
+    ],
+    "best_own_inventory_only": [
+     "prev_fill",
+     0.8526148969889065
+    ],
+    "mcnemar_vs_market": {
+     "rule_only": 56,
+     "base_only": 20,
+     "p_one_sided": 2.1844661031122207e-05
+    },
+    "share_decided": 0.41679873217115687,
+    "chainlink_coverage": 1.0
+   },
+   "momoney": {
+    "r8c": 0.7165775401069518,
+    "cheaper": 0.6176470588235294,
+    "favourite": 0.38235294117647056,
+    "bn_posture": 0.5775401069518716,
+    "rose": 0.45989304812834225,
+    "held": 0.7018716577540107,
+    "under": 0.3382352941176471,
+    "prev_fill": 0.8101604278074866,
+    "n": 748,
+    "best_market_only": [
+     "cheaper",
+     0.6176470588235294
+    ],
+    "best_own_inventory_only": [
+     "prev_fill",
+     0.8101604278074866
+    ],
+    "mcnemar_vs_market": {
+     "rule_only": 97,
+     "base_only": 23,
+     "p_one_sided": 2.6318048961167515e-12
+    },
+    "share_decided": 0.42513368983957217,
+    "chainlink_coverage": 1.0
+   }
+  },
+  "per_wallet_half": {
+   "bosona_early": {
+    "r8c": 0.7201166180758017,
+    "cheaper": 0.6763848396501457,
+    "favourite": 0.3236151603498542,
+    "bn_posture": 0.6559766763848397,
+    "rose": 0.4956268221574344,
+    "held": 0.7755102040816326,
+    "under": 0.2565597667638484,
+    "prev_fill": 0.8396501457725948,
+    "n": 343,
+    "best_market_only": [
+     "cheaper",
+     0.6763848396501457
+    ],
+    "best_own_inventory_only": [
+     "prev_fill",
+     0.8396501457725948
+    ],
+    "mcnemar_vs_market": {
+     "rule_only": 29,
+     "base_only": 14,
+     "p_one_sided": 0.015769748676575546
+    },
+    "share_decided": 0.3965014577259475,
+    "chainlink_coverage": 1.0
+   },
+   "bosona_late": {
+    "r8c": 0.6915184678522572,
+    "cheaper": 0.6409028727770177,
+    "favourite": 0.3590971272229822,
+    "bn_posture": 0.42544459644322846,
+    "rose": 0.5560875512995896,
+    "held": 0.5677154582763337,
+    "under": 0.3987688098495212,
+    "prev_fill": 0.7571819425444597,
+    "n": 1462,
+    "best_market_only": [
+     "cheaper",
+     0.6409028727770177
+    ],
+    "best_own_inventory_only": [
+     "prev_fill",
+     0.7571819425444597
+    ],
+    "mcnemar_vs_market": {
+     "rule_only": 145,
+     "base_only": 71,
+     "p_one_sided": 2.6603641708466845e-07
+    },
+    "share_decided": 0.28248974008207933,
+    "chainlink_coverage": 1.0
+   },
+   "almach_early": {
+    "r8c": 0.6923076923076923,
+    "cheaper": 0.6466346153846154,
+    "favourite": 0.35336538461538464,
+    "bn_posture": 0.5072115384615384,
+    "rose": 0.4807692307692308,
+    "held": 0.7211538461538461,
+    "under": 0.31009615384615385,
+    "prev_fill": 0.8533653846153846,
+    "n": 416,
+    "best_market_only": [
+     "cheaper",
+     0.6466346153846154
+    ],
+    "best_own_inventory_only": [
+     "prev_fill",
+     0.8533653846153846
+    ],
+    "mcnemar_vs_market": {
+     "rule_only": 34,
+     "base_only": 15,
+     "p_one_sided": 0.004699620761936529
+    },
+    "share_decided": 0.39663461538461536,
+    "chainlink_coverage": 1.0
+   },
+   "almach_late": {
+    "r8c": 0.6697674418604651,
+    "cheaper": 0.5906976744186047,
+    "favourite": 0.40930232558139534,
+    "bn_posture": 0.48372093023255813,
+    "rose": 0.4930232558139535,
+    "held": 0.6790697674418604,
+    "under": 0.30697674418604654,
+    "prev_fill": 0.8511627906976744,
+    "n": 215,
+    "best_market_only": [
+     "cheaper",
+     0.5906976744186047
+    ],
+    "best_own_inventory_only": [
+     "prev_fill",
+     0.8511627906976744
+    ],
+    "mcnemar_vs_market": {
+     "rule_only": 22,
+     "base_only": 5,
+     "p_one_sided": 0.0007568597793579102
+    },
+    "share_decided": 0.4558139534883721,
+    "chainlink_coverage": 1.0
+   },
+   "momoney_early": {
+    "r8c": 0.7171945701357466,
+    "cheaper": 0.5904977375565611,
+    "favourite": 0.4095022624434389,
+    "bn_posture": 0.6855203619909502,
+    "rose": 0.39592760180995473,
+    "held": 0.7420814479638009,
+    "under": 0.334841628959276,
+    "prev_fill": 0.8167420814479638,
+    "n": 442,
+    "best_market_only": [
+     "bn_posture",
+     0.6855203619909502
+    ],
+    "best_own_inventory_only": [
+     "prev_fill",
+     0.8167420814479638
+    ],
+    "mcnemar_vs_market": {
+     "rule_only": 109,
+     "base_only": 95,
+     "p_one_sided": 0.18138073261354465
+    },
+    "share_decided": 0.33710407239819007,
+    "chainlink_coverage": 1.0
+   },
+   "momoney_late": {
+    "r8c": 0.7156862745098039,
+    "cheaper": 0.6568627450980392,
+    "favourite": 0.3431372549019608,
+    "bn_posture": 0.4215686274509804,
+    "rose": 0.5522875816993464,
+    "held": 0.6437908496732027,
+    "under": 0.3431372549019608,
+    "prev_fill": 0.8006535947712419,
+    "n": 306,
+    "best_market_only": [
+     "cheaper",
+     0.6568627450980392
+    ],
+    "best_own_inventory_only": [
+     "prev_fill",
+     0.8006535947712419
+    ],
+    "mcnemar_vs_market": {
+     "rule_only": 35,
+     "base_only": 17,
+     "p_one_sided": 0.008766617649542452
+    },
+    "share_decided": 0.5522875816993464,
+    "chainlink_coverage": 1.0
+   }
+  },
+  "chainlink_values_live": 63580,
+  "windows_with_fills": 176,
+  "one_sided_windows_share_95": 0.44886363636363635,
+  "one_sided_windows_share_100": 0.4147727272727273
+ },
+ "price": {
+  "pooled": {
+   "n": 3184,
+   "match_clock_share": 0.684359296482412,
+   "rule_block_clock": 0.75,
+   "rule_match_where_recorded_else_block": 0.8420226130653267,
+   "anchor_last_print_block": 0.6664572864321608,
+   "on_match_clock": {
+    "n": 2179,
+    "rule": 0.8815970628728774,
+    "last_print": 0.8379990821477742,
+    "touch": 0.9705611775528978,
+    "touch_minus_tick": 0.9397424103035878,
+    "rule_block_same_fills": 0.7471317117944011
+   }
+  },
+  "early": {
+   "n": 1201,
+   "match_clock_share": 0.19400499583680267,
+   "rule_block_clock": 0.7735220649458784,
+   "rule_match_where_recorded_else_block": 0.8034970857618651,
+   "anchor_last_print_block": 0.7243963363863447,
+   "on_match_clock": {
+    "n": 233,
+    "rule": 0.9399141630901288,
+    "last_print": 0.927038626609442,
+    "touch": 0.9783549783549783,
+    "touch_minus_tick": 0.9264069264069265,
+    "rule_block_same_fills": 0.7854077253218884
+   }
+  },
+  "late": {
+   "n": 1983,
+   "match_clock_share": 0.9813414019162885,
+   "rule_block_clock": 0.7357539082198689,
+   "rule_match_where_recorded_else_block": 0.8653555219364599,
+   "anchor_last_print_block": 0.6313666162380231,
+   "on_match_clock": {
+    "n": 1946,
+    "rule": 0.8746145940390545,
+    "last_print": 0.8273381294964028,
+    "touch": 0.9696345856922285,
+    "touch_minus_tick": 0.9413278435409161,
+    "rule_block_same_fills": 0.7425488180883865
+   }
+  },
+  "per_wallet": {
+   "bosona": {
+    "n": 1805,
+    "match_clock_share": 0.8138504155124654,
+    "rule_block_clock": 0.7484764542936289,
+    "rule_match_where_recorded_else_block": 0.8664819944598338,
+    "anchor_last_print_block": 0.6365650969529086,
+    "on_match_clock": {
+     "n": 1469,
+     "rule": 0.8938053097345132,
+     "last_print": 0.8502382573179034,
+     "touch": 0.9768076398362893,
+     "touch_minus_tick": 0.9461118690313779,
+     "rule_block_same_fills": 0.7488087134104833
+    }
+   },
+   "almach": {
+    "n": 631,
+    "match_clock_share": 0.48335974643423135,
+    "rule_block_clock": 0.7559429477020603,
+    "rule_match_where_recorded_else_block": 0.8003169572107766,
+    "anchor_last_print_block": 0.7004754358161648,
+    "on_match_clock": {
+     "n": 305,
+     "rule": 0.839344262295082,
+     "last_print": 0.7836065573770492,
+     "touch": 0.9605263157894737,
+     "touch_minus_tick": 0.9210526315789473,
+     "rule_block_same_fills": 0.7475409836065574
+    }
+   },
+   "momoney": {
+    "n": 748,
+    "match_clock_share": 0.5414438502673797,
+    "rule_block_clock": 0.7486631016042781,
+    "rule_match_where_recorded_else_block": 0.8181818181818182,
+    "anchor_last_print_block": 0.7098930481283422,
+    "on_match_clock": {
+     "n": 405,
+     "rule": 0.8691358024691358,
+     "last_print": 0.8345679012345679,
+     "touch": 0.9554455445544554,
+     "touch_minus_tick": 0.9306930693069307,
+     "rule_block_same_fills": 0.7407407407407407
+    }
+   }
+  },
+  "x_records": 137305,
+  "q_tokens": 131
+ },
+ "secs": 75.1
+}

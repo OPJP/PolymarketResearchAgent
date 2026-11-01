@@ -1,0 +1,99 @@
+{
+ "BUILD": {
+  "n": 1767,
+  "present_share": 0.162,
+  "obs_persistence_diff": 0.126,
+  "obs_runs": 521,
+  "within_market": {
+   "null_diff_median": 0.035,
+   "p_diff": 0.0025,
+   "null_runs_median": 547.0,
+   "p_runs": 0.0105
+  },
+  "within_market_x_price_x_reversal_x_gametime": {
+   "null_diff_median": 0.09,
+   "p_diff": 0.089,
+   "null_runs_median": 538.0,
+   "p_runs": 0.0435
+  },
+  "composition_only_no_market": {
+   "null_diff_median": 0.021,
+   "p_diff": 0.002,
+   "null_runs_median": 561.0,
+   "p_runs": 0.0015
+  },
+  "present_by_prev": {
+   "reversal_120s": 0.353,
+   "same_team_120s": 0.056,
+   "no_prev_120s": 0.194,
+   "n": [
+    272,
+    718,
+    777
+   ]
+  }
+ },
+ "VALIDATE": {
+  "n": 1856,
+  "present_share": 0.166,
+  "obs_persistence_diff": 0.124,
+  "obs_runs": 536,
+  "within_market": {
+   "null_diff_median": 0.04,
+   "p_diff": 0.0035,
+   "null_runs_median": 568.0,
+   "p_runs": 0.0035
+  },
+  "within_market_x_price_x_reversal_x_gametime": {
+   "null_diff_median": 0.063,
+   "p_diff": 0.009,
+   "null_runs_median": 562.0,
+   "p_runs": 0.004
+  },
+  "composition_only_no_market": {
+   "null_diff_median": 0.017,
+   "p_diff": 0.0015,
+   "null_runs_median": 588.0,
+   "p_runs": 0.0
+  },
+  "present_by_prev": {
+   "reversal_120s": 0.287,
+   "same_team_120s": 0.08,
+   "no_prev_120s": 0.204,
+   "n": [
+    300,
+    765,
+    791
+   ]
+  }
+ },
+ "public_covariate_model": {
+  "features": [
+   "is_match",
+   "rev",
+   "same",
+   "gtime",
+   "pdev",
+   "plev_f",
+   "lmove",
+   "lusd",
+   "n_orders"
+  ],
+  "validate_auc": 0.747,
+  "coef": {
+   "is_match": 0.252,
+   "rev": 0.795,
+   "same": -1.371,
+   "gtime": 0.236,
+   "pdev": -1.197,
+   "plev_f": -0.802,
+   "lmove": 0.031,
+   "lusd": 0.156,
+   "n_orders": 0.245
+  }
+ },
+ "with_lagged_own_label_diagnostic": {
+  "validate_auc": 0.756,
+  "coef_lag": 0.79
+ }
+}

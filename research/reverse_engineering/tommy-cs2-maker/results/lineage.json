@@ -1,0 +1,35 @@
+{
+ "latest_block": 96542275,
+ "owner_nonce": 3,
+ "owner_code_len": 23,
+ "wallet_code_len": 125,
+ "archive_probe": "ok",
+ "deploy_block": 88606547,
+ "deploy_ts": 1781614806,
+ "deploy_txs": [
+  {
+   "hash": "0x257a4e410fbcff21ba296d73a7bc42935652b83e42b1b062e0080673ef79483e",
+   "from": "0x7cebbed5b6e62f7420bdc81a45a322c65116468c",
+   "to": "0x00000000000fb5c9adea0298d729a0cb3823cc07",
+   "selector": "0x77835641"
+  }
+ ],
+ "txs_mentioning_wallet_in_input": [],
+ "first_incoming": [],
+ "sources": {},
+ "safe_factory_code_len": 3188,
+ "owner_safe": "0x08d5b3d962104a80c10822e049a88e6758630bdc",
+ "owner_safe_code_len": 0,
+ "activity": {
+  "owner_eoa": {
+   "rows_before_H_first_page": 0,
+   "types": [],
+   "first_ts": null
+  },
+  "owner_safe": {
+   "rows_before_H_first_page": 0,
+   "types": [],
+   "first_ts": null
+  }
+ }
+}

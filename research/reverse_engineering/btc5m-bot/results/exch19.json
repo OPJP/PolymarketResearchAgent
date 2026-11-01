@@ -1,0 +1,63 @@
+{
+ "prereg": "19",
+ "orders": 73577,
+ "strata": 1436,
+ "pairs_Q1_Q2": [
+  71369,
+  72818
+ ],
+ "short_pairs": 35768,
+ "Q1_same_wallet_lag1_same_class": {
+  "observed": 0.81888,
+  "null_mean": 0.80866,
+  "null_q99": 0.8107,
+  "excess": 0.01022,
+  "p_one_sided": 0.0004997501249375312
+ },
+ "Q2_pooled_lag1_same_class": {
+  "observed": 0.79012,
+  "null_mean": 0.77809,
+  "null_q99": 0.77996,
+  "excess": 0.01203,
+  "p_one_sided": 0.0004997501249375312
+ },
+ "Q3_Q1_gap_lt_2s": {
+  "observed": 0.85255,
+  "null_mean": 0.84027,
+  "null_q99": 0.84335,
+  "excess": 0.01228,
+  "p_one_sided": 0.0004997501249375312
+ },
+ "Q4_Q1_gap_ge_2s": {
+  "observed": 0.78506,
+  "null_mean": 0.7769,
+  "null_q99": 0.78046,
+  "excess": 0.00816,
+  "p_one_sided": 0.0004997501249375312
+ },
+ "Q5_large_runs": {
+  "observed": 7039.0,
+  "null_mean": 7377.562,
+  "null_q99": 7306.99,
+  "excess": -338.562,
+  "p_one_sided": 0.0004997501249375312
+ },
+ "per_wallet_Q1": {
+  "DS": {
+   "pairs": 45716,
+   "observed": 0.9213,
+   "large_rate": 0.0432
+  },
+  "GF": {
+   "pairs": 21842,
+   "observed": 0.6459,
+   "large_rate": 0.2681
+  },
+  "XM": {
+   "pairs": 3811,
+   "observed": 0.5817,
+   "large_rate": 0.3449
+  }
+ },
+ "exchangeable_at_0.01": false
+}

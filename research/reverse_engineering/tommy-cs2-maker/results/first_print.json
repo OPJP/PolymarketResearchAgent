@@ -1,0 +1,10 @@
+{
+ "orders": 78,
+ "first_other_trade_in_event_after_sign_ms_p10_p25_p50": [
+  2399,
+  5599,
+  43234
+ ],
+ "share_first_other_trade_within_1040ms": 0.026,
+ "own_fill_is_first_print_after_sign": 0.436
+}

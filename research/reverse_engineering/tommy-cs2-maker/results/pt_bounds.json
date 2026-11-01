@@ -1,0 +1,20 @@
+{
+ "bounds": 75236,
+ "markets": 220,
+ "exact_levels": 24180,
+ "with_next_exact_60s": 26872,
+ "with_prev_exact_60s": 25452,
+ "binding_share_(pw - next <= 1c)": 0.53,
+ "bound_below_next_exact_(pw < next)": 0.27,
+ "tight_share_(0 <= pw - next <= 1c)": 0.26,
+ "exact_share_(pw == next)": 0.151,
+ "gap_pw_minus_next_c_quantiles": [
+  -4.0,
+  -1.0,
+  1.0,
+  5.0,
+  9.0
+ ],
+ "violated_share_(prev > pw + 1c)": 0.162,
+ "bounds_per_exact_level": 3.11
+}

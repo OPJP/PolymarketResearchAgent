@@ -1,0 +1,35 @@
+{
+ "joiner_levels_removed": 6056,
+ "original_mid": {
+  "h2s": {
+   "own": 0.5218,
+   "other": 0.2388
+  },
+  "h10s": {
+   "own": 0.4422,
+   "other": 0.1686
+  },
+  "h30s": {
+   "own": 0.3439,
+   "other": 0.0949
+  },
+  "own_adds": 2740,
+  "other_adds": 75232
+ },
+ "joiner_free_mid": {
+  "h2s": {
+   "own": 0.4402,
+   "other": 0.2279
+  },
+  "h10s": {
+   "own": 0.4233,
+   "other": 0.174
+  },
+  "h30s": {
+   "own": 0.3714,
+   "other": 0.1181
+  },
+  "own_adds": 2740,
+  "other_adds": 75223
+ }
+}

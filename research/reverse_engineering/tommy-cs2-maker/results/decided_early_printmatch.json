@@ -1,0 +1,249 @@
+{
+ "rounds": 410,
+ "by_class": {
+  "CT_elim_T": {
+   "n": 143,
+   "V_c": {
+    "mid": 3.28,
+    "late": 0.88,
+    "end": 0.94,
+    "after": 0.96,
+    "post": 0.97
+   },
+   "P_c": {
+    "mid": 1.34,
+    "late": -0.34,
+    "end": 5.42,
+    "after": 0.25,
+    "post": 0.6
+   },
+   "V_before_share": 0.591,
+   "P_before_share": 0.137
+  },
+  "T_elim_CT": {
+   "n": 103,
+   "V_c": {
+    "mid": 3.69,
+    "late": 0.74,
+    "end": 1.16,
+    "after": 0.95,
+    "post": -0.02
+   },
+   "P_c": {
+    "mid": 2.77,
+    "late": -0.96,
+    "end": 4.93,
+    "after": 1.24,
+    "post": -0.09
+   },
+   "V_before_share": 0.68,
+   "P_before_share": 0.23
+  },
+  "bombed_CT_alive": {
+   "n": 77,
+   "V_c": {
+    "mid": 1.44,
+    "late": 0.62,
+    "end": 0.75,
+    "after": 1.54,
+    "post": 0.29
+   },
+   "P_c": {
+    "mid": 1.68,
+    "late": -0.68,
+    "end": 3.68,
+    "after": 0.59,
+    "post": 0.91
+   },
+   "V_before_share": 0.444,
+   "P_before_share": 0.161
+  },
+  "bombed_CT_wiped": {
+   "n": 6,
+   "V_c": {
+    "mid": -4.53,
+    "late": -0.33,
+    "end": 2.17,
+    "after": 4.5,
+    "post": 2.12
+   },
+   "P_c": {
+    "mid": -3.57,
+    "late": -2.23,
+    "end": 4.53,
+    "after": 3.82,
+    "post": 5.13
+   },
+   "V_before_share": -1.241,
+   "P_before_share": -0.754
+  },
+  "defuse_T_alive": {
+   "n": 5,
+   "V_c": {
+    "mid": 1.52,
+    "late": 1.6,
+    "end": 0.6,
+    "after": 0.2,
+    "post": 0.37
+   },
+   "P_c": {
+    "mid": 0.0,
+    "late": -0.42,
+    "end": 11.02,
+    "after": 3.2,
+    "post": -0.4
+   },
+   "V_before_share": 0.728,
+   "P_before_share": -0.032
+  },
+  "defuse_after_T_wiped": {
+   "n": 51,
+   "V_c": {
+    "mid": 2.07,
+    "late": 0.74,
+    "end": 0.66,
+    "after": 0.86,
+    "post": 0.79
+   },
+   "P_c": {
+    "mid": 1.88,
+    "late": -1.11,
+    "end": 6.03,
+    "after": -0.72,
+    "post": 1.2
+   },
+   "V_before_share": 0.549,
+   "P_before_share": 0.106
+  },
+  "time_out": {
+   "n": 25,
+   "V_c": {
+    "mid": -0.16,
+    "late": 0.92,
+    "end": 1.12,
+    "after": 0.9,
+    "post": -0.42
+   },
+   "P_c": {
+    "mid": -3.76,
+    "late": 0.04,
+    "end": 4.41,
+    "after": 0.28,
+    "post": 1.84
+   },
+   "V_before_share": 0.32,
+   "P_before_share": -1.327
+  },
+  "ALL": {
+   "n": 410,
+   "V_c": {
+    "mid": 2.53,
+    "late": 0.77,
+    "end": 0.95,
+    "after": 1.09,
+    "post": 0.5
+   },
+   "P_c": {
+    "mid": 1.43,
+    "late": -0.66,
+    "end": 5.04,
+    "after": 0.53,
+    "post": 0.69
+   },
+   "V_before_share": 0.565,
+   "P_before_share": 0.11
+  }
+ },
+ "by_group": {
+  "decided_early": {
+   "n": 128,
+   "V_c": {
+    "mid": 1.7,
+    "late": 0.67,
+    "end": 0.71,
+    "after": 1.27,
+    "post": 0.49
+   },
+   "P_c": {
+    "mid": 1.76,
+    "late": -0.85,
+    "end": 4.62,
+    "after": 0.07,
+    "post": 1.03
+   },
+   "V_before_share": 0.489,
+   "P_before_share": 0.137
+  },
+  "elimination": {
+   "n": 246,
+   "V_c": {
+    "mid": 3.45,
+    "late": 0.82,
+    "end": 1.03,
+    "after": 0.96,
+    "post": 0.56
+   },
+   "P_c": {
+    "mid": 1.94,
+    "late": -0.6,
+    "end": 5.22,
+    "after": 0.66,
+    "post": 0.31
+   },
+   "V_before_share": 0.627,
+   "P_before_share": 0.178
+  },
+  "other": {
+   "n": 36,
+   "V_c": {
+    "mid": -0.67,
+    "late": 0.8,
+    "end": 1.23,
+    "after": 1.42,
+    "post": 0.13
+   },
+   "P_c": {
+    "mid": -3.21,
+    "late": -0.41,
+    "end": 5.35,
+    "after": 1.28,
+    "post": 2.08
+   },
+   "V_before_share": 0.045,
+   "P_before_share": -0.709
+  }
+ },
+ "diff_before_share_decided_minus_elim_V": {
+  "point": -0.138,
+  "ci95": [
+   -0.451,
+   0.085
+  ],
+  "draws": 2000
+ },
+ "diff_before_share_decided_minus_elim_P": {
+  "point": -0.041,
+  "ci95": [
+   -0.377,
+   0.193
+  ],
+  "draws": 2000
+ },
+ "bombed_CT_alive_by_duration": {
+  "short": {
+   "n": 26,
+   "V_before_share": -0.258,
+   "P_before_share": 0.059
+  },
+  "mid": {
+   "n": 25,
+   "V_before_share": 0.692,
+   "P_before_share": 0.3
+  },
+  "long": {
+   "n": 26,
+   "V_before_share": 0.769,
+   "P_before_share": 0.067
+  }
+ }
+}

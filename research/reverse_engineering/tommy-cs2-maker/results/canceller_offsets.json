@@ -1,0 +1,25 @@
+{
+ "s100": {
+  "n": 100,
+  "off_ms_p10_p25_p50_p75": [
+   13,
+   14,
+   15,
+   17
+  ]
+ },
+ "s2e3c": {
+  "n": 0,
+  "off_ms_p10_p25_p50_p75": []
+ },
+ "other": {
+  "n": 537,
+  "off_ms_p10_p25_p50_p75": [
+   17,
+   68,
+   125,
+   218
+  ]
+ },
+ "s100_level_has_own_filled_complement_bid_in_prior_10min": 0.01
+}

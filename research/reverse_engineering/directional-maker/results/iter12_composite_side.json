@@ -1,0 +1,300 @@
+{
+ "study": {
+  "n": 8256,
+  "share_decided": 0.1399,
+  "share_entry": 0.2905,
+  "share_pair": 0.0787,
+  "composite_own": {
+   "fill": 0.7029,
+   "order": 0.633,
+   "almach": 0.7096,
+   "bosona": 0.6616,
+   "momoney": 0.7388,
+   "by_branch": {
+    "decided": 0.5922,
+    "entry": 0.6364,
+    "pair": 1.0,
+    "rest": 0.7261
+   }
+  },
+  "composite_own_no_size": {
+   "fill": 0.6242,
+   "order": 0.5459,
+   "almach": 0.6136,
+   "bosona": 0.5954,
+   "momoney": 0.663,
+   "by_branch": {
+    "decided": 0.5922,
+    "entry": 0.6364,
+    "pair": 0.0,
+    "rest": 0.7261
+   }
+  },
+  "no_own_state": {
+   "fill": 0.5693,
+   "order": 0.5342,
+   "almach": 0.5757,
+   "bosona": 0.5627,
+   "momoney": 0.5702,
+   "by_branch": {
+    "decided": 0.5922,
+    "entry": 0.6364,
+    "pair": 0.5108,
+    "rest": 0.5324
+   }
+  },
+  "posture": {
+   "fill": 0.5655,
+   "order": 0.5385,
+   "almach": 0.5777,
+   "bosona": 0.5547,
+   "momoney": 0.5656,
+   "by_branch": {
+    "decided": 0.5654,
+    "entry": 0.6364,
+    "pair": 0.5108,
+    "rest": 0.5324
+   }
+  },
+  "cheaper": {
+   "fill": 0.484,
+   "order": 0.4349,
+   "almach": 0.4875,
+   "bosona": 0.4833,
+   "momoney": 0.4816,
+   "by_branch": {
+    "decided": 0.5922,
+    "entry": 0.5008,
+    "pair": 0.5185,
+    "rest": 0.4377
+   }
+  },
+  "favourite": {
+   "fill": 0.516,
+   "order": 0.5651,
+   "almach": 0.5125,
+   "bosona": 0.5167,
+   "momoney": 0.5184,
+   "by_branch": {
+    "decided": 0.4078,
+    "entry": 0.4992,
+    "pair": 0.4815,
+    "rest": 0.5623
+   }
+  },
+  "held_only": {
+   "fill": 0.5827,
+   "order": 0.5178,
+   "almach": 0.5824,
+   "bosona": 0.5602,
+   "momoney": 0.606,
+   "by_branch": {
+    "decided": 0.2961,
+    "entry": 0.6364,
+    "pair": 0.0,
+    "rest": 0.7261
+   }
+  },
+  "by_day": {
+   "2026-10-23": {
+    "composite_own": 0.695,
+    "composite_own_no_size": 0.624,
+    "no_own_state": 0.541,
+    "posture": 0.541,
+    "cheaper": 0.427,
+    "favourite": 0.573,
+    "held_only": 0.611
+   },
+   "2026-10-24": {
+    "composite_own": 0.648,
+    "composite_own_no_size": 0.563,
+    "no_own_state": 0.565,
+    "posture": 0.572,
+    "cheaper": 0.391,
+    "favourite": 0.609,
+    "held_only": 0.554
+   },
+   "2026-10-25": {
+    "composite_own": 0.64,
+    "composite_own_no_size": 0.573,
+    "no_own_state": 0.52,
+    "posture": 0.523,
+    "cheaper": 0.432,
+    "favourite": 0.568,
+    "held_only": 0.552
+   },
+   "2026-10-26": {
+    "composite_own": 0.736,
+    "composite_own_no_size": 0.649,
+    "no_own_state": 0.607,
+    "posture": 0.597,
+    "cheaper": 0.553,
+    "favourite": 0.447,
+    "held_only": 0.577
+   }
+  }
+ },
+ "validate": {
+  "n": 27988,
+  "share_decided": 0.2728,
+  "share_entry": 0.1864,
+  "share_pair": 0.0949,
+  "composite_own": {
+   "fill": 0.7664,
+   "order": 0.6919,
+   "almach": 0.7694,
+   "bosona": 0.7552,
+   "momoney": 0.7746,
+   "halves": [
+    0.7481,
+    0.779
+   ],
+   "by_branch": {
+    "decided": 0.8118,
+    "entry": 0.676,
+    "pair": 1.0,
+    "rest": 0.7268
+   }
+  },
+  "composite_own_no_size": {
+   "fill": 0.6715,
+   "order": 0.5845,
+   "almach": 0.6762,
+   "bosona": 0.6733,
+   "momoney": 0.6654,
+   "halves": [
+    0.6629,
+    0.6775
+   ],
+   "by_branch": {
+    "decided": 0.8118,
+    "entry": 0.676,
+    "pair": 0.0004,
+    "rest": 0.7268
+   }
+  },
+  "no_own_state": {
+   "fill": 0.6925,
+   "order": 0.637,
+   "almach": 0.7022,
+   "bosona": 0.6841,
+   "momoney": 0.6917,
+   "halves": [
+    0.6797,
+    0.7014
+   ],
+   "by_branch": {
+    "decided": 0.8118,
+    "entry": 0.676,
+    "pair": 0.6632,
+    "rest": 0.6328
+   }
+  },
+  "posture": {
+   "fill": 0.6794,
+   "order": 0.6355,
+   "almach": 0.6891,
+   "bosona": 0.6735,
+   "momoney": 0.6759,
+   "halves": [
+    0.6566,
+    0.6951
+   ],
+   "by_branch": {
+    "decided": 0.7636,
+    "entry": 0.676,
+    "pair": 0.6632,
+    "rest": 0.6328
+   }
+  },
+  "cheaper": {
+   "fill": 0.6785,
+   "order": 0.6092,
+   "almach": 0.6783,
+   "bosona": 0.675,
+   "momoney": 0.6822,
+   "halves": [
+    0.6288,
+    0.7127
+   ],
+   "by_branch": {
+    "decided": 0.8118,
+    "entry": 0.6219,
+    "pair": 0.7012,
+    "rest": 0.6159
+   }
+  },
+  "favourite": {
+   "fill": 0.3215,
+   "order": 0.3908,
+   "almach": 0.3217,
+   "bosona": 0.325,
+   "momoney": 0.3178,
+   "halves": [
+    0.3712,
+    0.2873
+   ],
+   "by_branch": {
+    "decided": 0.1882,
+    "entry": 0.3781,
+    "pair": 0.2988,
+    "rest": 0.3841
+   }
+  },
+  "held_only": {
+   "fill": 0.558,
+   "order": 0.4985,
+   "almach": 0.555,
+   "bosona": 0.5665,
+   "momoney": 0.5524,
+   "halves": [
+    0.5617,
+    0.5554
+   ],
+   "by_branch": {
+    "decided": 0.3954,
+    "entry": 0.676,
+    "pair": 0.0004,
+    "rest": 0.7268
+   }
+  },
+  "by_day": {
+   "2026-10-27": {
+    "composite_own": 0.721,
+    "composite_own_no_size": 0.633,
+    "no_own_state": 0.664,
+    "posture": 0.64,
+    "cheaper": 0.637,
+    "favourite": 0.363,
+    "held_only": 0.543
+   },
+   "2026-10-28": {
+    "composite_own": 0.77,
+    "composite_own_no_size": 0.686,
+    "no_own_state": 0.692,
+    "posture": 0.67,
+    "cheaper": 0.623,
+    "favourite": 0.377,
+    "held_only": 0.576
+   },
+   "2026-10-29": {
+    "composite_own": 0.779,
+    "composite_own_no_size": 0.67,
+    "no_own_state": 0.688,
+    "posture": 0.677,
+    "cheaper": 0.7,
+    "favourite": 0.3,
+    "held_only": 0.549
+   },
+   "2026-10-30": {
+    "composite_own": 0.779,
+    "composite_own_no_size": 0.689,
+    "no_own_state": 0.721,
+    "posture": 0.721,
+    "cheaper": 0.732,
+    "favourite": 0.268,
+    "held_only": 0.564
+   }
+  }
+ }
+}

@@ -1,0 +1,34 @@
+{
+ "events": [
+  "cs2-gls1-pcy-2026-10-31",
+  "cs2-shin-isg-2026-10-31"
+ ],
+ "by_event": {
+  "cs2-gls1-pcy-2026-10-31": {
+   "own_adds_no_trade_300ms": 1011,
+   "sync_rate": 0.21,
+   "null_rate": 0.071,
+   "quiet_n": 890,
+   "quiet_sync_rate": 0.237,
+   "quiet_null_rate": 0.082
+  },
+  "cs2-shin-isg-2026-10-31": {
+   "own_adds_no_trade_300ms": 1125,
+   "sync_rate": 0.394,
+   "null_rate": 0.164,
+   "quiet_n": 855,
+   "quiet_sync_rate": 0.367,
+   "quiet_null_rate": 0.15
+  }
+ },
+ "pooled": {
+  "own_adds": 2136,
+  "sync_rate": 0.307,
+  "null_rate": 0.117,
+  "quiet_own_adds": 1745,
+  "quiet_sync_rate": 0.301,
+  "quiet_null_rate": 0.114,
+  "excess_share": 0.19,
+  "quiet_excess_share": 0.187
+ }
+}

@@ -1,0 +1,38 @@
+{
+ "windows": 23616,
+ "on_share": 0.847,
+ "off_runs": 7,
+ "starts_utc": [
+  "08-19 09:05",
+  "08-31 06:35",
+  "08-31 21:00",
+  "09-01 20:50",
+  "09-02 01:35",
+  "09-03 17:05",
+  "09-20 08:50"
+ ],
+ "bitcoin": {
+  "n_obs": 2,
+  "share_obs": 0.0,
+  "n_placebo": 16,
+  "share_placebo": 0.062,
+  "binom_p": 1.0,
+  "reading_met": false
+ },
+ "macro": {
+  "n_obs": 1,
+  "share_obs": 0.0,
+  "n_placebo": 17,
+  "share_placebo": 0.0,
+  "binom_p": 1.0,
+  "reading_met": false
+ },
+ "vol": {
+  "n_obs": 7,
+  "share_obs": 0.143,
+  "n_placebo": 56,
+  "share_placebo": 0.214,
+  "binom_p": 0.8151359146547296,
+  "reading_met": false
+ }
+}

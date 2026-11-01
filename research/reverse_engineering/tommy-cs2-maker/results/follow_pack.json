@@ -1,0 +1,32 @@
+{
+ "LAT1": {
+  "BUILD": {
+   "n": 2113,
+   "edge_pct": 3.96
+  },
+  "VALIDATE": {
+   "n": 2159,
+   "edge_pct": 0.24
+  }
+ },
+ "LAT3": {
+  "BUILD": {
+   "n": 2111,
+   "edge_pct": 3.39
+  },
+  "VALIDATE": {
+   "n": 2155,
+   "edge_pct": -0.53
+  }
+ },
+ "LAT10": {
+  "BUILD": {
+   "n": 2101,
+   "edge_pct": 2.55
+  },
+  "VALIDATE": {
+   "n": 2150,
+   "edge_pct": -1.23
+  }
+ }
+}

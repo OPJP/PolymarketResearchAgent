@@ -1,0 +1,75 @@
+{
+ "wallets": {
+  "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": {
+   "presence_auc": 0.7490378461690492,
+   "presence_baseline": 0.727628129150645,
+   "presence_baseline_act": 0.72560771644775,
+   "presence_baseline_act2": 0.727628129150645,
+   "presence_gain": 0.021409717018404217,
+   "presence_gain_ci95": [
+    0.004770677911344667,
+    0.04032403004907574
+   ],
+   "presence_p_gain_le_0": 0.0065,
+   "n_cells": 25571,
+   "pos_rate": 0.08564389347307497,
+   "n_events": 119,
+   "selection_auc": null,
+   "selection_recall": null,
+   "selection_lift": null,
+   "selection_baseline": null,
+   "pnl_corr_pearson": null,
+   "pnl_corr_spearman": null,
+   "coverage_fills": 1.0,
+   "coverage_abs_pnl": null,
+   "price_within_tick": 0.7291501191421763,
+   "price_exact": 0.3839025681758009,
+   "price_anchor_last_print_within_tick": 0.7484776277468891,
+   "price_anchor_last_print_exact": 0.2907069102462272,
+   "n_price": 3777,
+   "side_accuracy": 0.5347388596070916,
+   "side_baseline_favourite": 0.4652611403929085,
+   "side_baseline": 0.5347388596070916,
+   "n_side": 2087
+  }
+ },
+ "pooled": {
+  "presence_auc": 0.7490378461690492,
+  "presence_baseline": 0.727628129150645,
+  "presence_baseline_act": 0.72560771644775,
+  "presence_baseline_act2": 0.727628129150645,
+  "presence_gain": 0.021409717018404217,
+  "presence_gain_ci95": [
+   0.004770677911344667,
+   0.04032403004907574
+  ],
+  "presence_p_gain_le_0": 0.0065,
+  "n_cells": 25571,
+  "pos_rate": 0.08564389347307497,
+  "n_events": 119,
+  "selection_auc": null,
+  "selection_recall": null,
+  "selection_lift": null,
+  "selection_baseline": null,
+  "pnl_corr_pearson": null,
+  "pnl_corr_spearman": null,
+  "coverage_fills": 1.0,
+  "coverage_abs_pnl": null,
+  "price_within_tick": 0.7291501191421763,
+  "price_exact": 0.3839025681758009,
+  "price_anchor_last_print_within_tick": 0.7484776277468891,
+  "price_anchor_last_print_exact": 0.2907069102462272,
+  "n_price": 3777,
+  "side_accuracy": 0.5347388596070916,
+  "side_baseline_favourite": 0.4652611403929085,
+  "side_baseline": 0.5347388596070916,
+  "n_side": 2087
+ },
+ "intervals": [
+  [
+   1792108800,
+   1792713600
+  ]
+ ],
+ "seconds": 161.53150939941406
+}

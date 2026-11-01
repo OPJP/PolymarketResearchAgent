@@ -1,0 +1,77 @@
+{
+ "bursts_with_both_sides": 5622,
+ "own_pair_sum_q": {
+  "0.1": 0.92,
+  "0.25": 0.95,
+  "0.5": 0.97,
+  "0.75": 0.99,
+  "0.9": 0.99
+ },
+ "own_pair_sum_iqr_c": 4.0,
+ "others_pair_sum_q": {
+  "0.1": 0.93,
+  "0.25": 0.96,
+  "0.5": 0.98,
+  "0.75": 0.99,
+  "0.9": 0.99
+ },
+ "own_sum_mode_share": {
+  "0.99": 0.23,
+  "0.98": 0.218,
+  "0.97": 0.16,
+  "0.96": 0.111,
+  "0.95": 0.061,
+  "0.94": 0.051
+ },
+ "K_fit": 0.98,
+ "non_trigger_side_rules": {
+  "fit_half": {
+   "n": 2811,
+   "join_others_best": {
+    "within_1c": 0.628,
+    "exact": 0.333,
+    "n": 2811
+   },
+   "keep_own_previous_top": {
+    "within_1c": 1.0,
+    "exact": 1.0,
+    "n": 2811
+   },
+   "pair_cap_K_minus_trigger_top": {
+    "within_1c": 0.628,
+    "exact": 0.22,
+    "n": 2811
+   },
+   "min(join, K - trigger)": {
+    "within_1c": 0.667,
+    "exact": 0.28,
+    "n": 2811
+   },
+   "other_side_unchanged_share": 1.0
+  },
+  "score_half": {
+   "n": 2811,
+   "join_others_best": {
+    "within_1c": 0.704,
+    "exact": 0.402,
+    "n": 2808
+   },
+   "keep_own_previous_top": {
+    "within_1c": 1.0,
+    "exact": 1.0,
+    "n": 2811
+   },
+   "pair_cap_K_minus_trigger_top": {
+    "within_1c": 0.588,
+    "exact": 0.215,
+    "n": 2811
+   },
+   "min(join, K - trigger)": {
+    "within_1c": 0.726,
+    "exact": 0.334,
+    "n": 2808
+   },
+   "other_side_unchanged_share": 1.0
+  }
+ }
+}

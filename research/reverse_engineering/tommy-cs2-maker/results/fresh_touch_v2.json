@@ -1,0 +1,140 @@
+{
+ "n": {
+  "add": 1973,
+  "fill": 172
+ },
+ "fill": {
+  "n": 172,
+  "touch_all": 0.419,
+  "by_D_all": {
+   "0.25": {
+    "within_tick": 0.372,
+    "coverage": 0.401,
+    "on_covered_FT": 0.391,
+    "on_covered_touch": 0.507
+   },
+   "0.5": {
+    "within_tick": 0.36,
+    "coverage": 0.523,
+    "on_covered_FT": 0.433,
+    "on_covered_touch": 0.544
+   },
+   "1": {
+    "within_tick": 0.378,
+    "coverage": 0.698,
+    "on_covered_FT": 0.408,
+    "on_covered_touch": 0.467
+   },
+   "2": {
+    "within_tick": 0.36,
+    "coverage": 0.86,
+    "on_covered_FT": 0.358,
+    "on_covered_touch": 0.426
+   },
+   "5": {
+    "within_tick": 0.401,
+    "coverage": 0.901,
+    "on_covered_FT": 0.406,
+    "on_covered_touch": 0.426
+   },
+   "15": {
+    "within_tick": 0.407,
+    "coverage": 0.959,
+    "on_covered_FT": 0.412,
+    "on_covered_touch": 0.424
+   },
+   "60": {
+    "within_tick": 0.413,
+    "coverage": 1.0,
+    "on_covered_FT": 0.413,
+    "on_covered_touch": 0.419
+   }
+  },
+  "fitted": {
+   "D": 60,
+   "k": 0.0,
+   "fit_FT": 0.435,
+   "fit_touch": 0.435,
+   "touch_k": 0.0,
+   "second_half": {
+    "n": 87,
+    "FT": 0.391,
+    "touch": 0.402,
+    "gain_ci95_event_boot": [
+     -0.019,
+     0.0
+    ],
+    "new_top_n": 68,
+    "new_top_FT": 0.456,
+    "new_top_touch": 0.471
+   }
+  }
+ },
+ "add": {
+  "n": 1973,
+  "touch_all": 0.452,
+  "by_D_all": {
+   "0.25": {
+    "within_tick": 0.429,
+    "coverage": 0.512,
+    "on_covered_FT": 0.416,
+    "on_covered_touch": 0.46
+   },
+   "0.5": {
+    "within_tick": 0.441,
+    "coverage": 0.686,
+    "on_covered_FT": 0.451,
+    "on_covered_touch": 0.467
+   },
+   "1": {
+    "within_tick": 0.44,
+    "coverage": 0.782,
+    "on_covered_FT": 0.444,
+    "on_covered_touch": 0.459
+   },
+   "2": {
+    "within_tick": 0.429,
+    "coverage": 0.867,
+    "on_covered_FT": 0.435,
+    "on_covered_touch": 0.461
+   },
+   "5": {
+    "within_tick": 0.437,
+    "coverage": 0.932,
+    "on_covered_FT": 0.438,
+    "on_covered_touch": 0.454
+   },
+   "15": {
+    "within_tick": 0.431,
+    "coverage": 0.979,
+    "on_covered_FT": 0.431,
+    "on_covered_touch": 0.452
+   },
+   "60": {
+    "within_tick": 0.44,
+    "coverage": 0.997,
+    "on_covered_FT": 0.441,
+    "on_covered_touch": 0.452
+   }
+  },
+  "fitted": {
+   "D": 1,
+   "k": -0.01,
+   "fit_FT": 0.452,
+   "fit_touch": 0.45,
+   "touch_k": -0.01,
+   "second_half": {
+    "n": 987,
+    "FT": 0.39,
+    "touch": 0.411,
+    "gain_ci95_event_boot": [
+     -0.025,
+     -0.016
+    ],
+    "new_top_n": 654,
+    "new_top_FT": 0.424,
+    "new_top_touch": 0.486
+   }
+  }
+ }
+}

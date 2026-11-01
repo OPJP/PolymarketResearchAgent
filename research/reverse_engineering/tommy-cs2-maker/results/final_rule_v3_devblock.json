@@ -1,0 +1,84 @@
+{
+ "rule_id": "tommy-v3-grid-league-upstream",
+ "constants": "exam",
+ "events": 14,
+ "events_traded": 3,
+ "markets": 40,
+ "markets_traded": 6,
+ "grid_events": 8,
+ "grid_events_traded": 0,
+ "selection_auc": 0.7576,
+ "selection_baseline": 0.4242,
+ "selection_recall": 0.333,
+ "selection_lift": 4.667,
+ "selection_gain": 0.3334,
+ "selection_gain_ci95": [
+  -0.1538,
+  0.9091
+ ],
+ "selection_gain_p_le0": 0.128,
+ "presence_auc": 0.9231,
+ "presence_baseline": 0.7388,
+ "price_within_tick": 0.207,
+ "price_exact_last_print": 0.074,
+ "price_within_cent": 0.207,
+ "size_100_accuracy": 0.793,
+ "size_rule_accuracy": 0.793,
+ "pnl_corr_pearson": -0.687,
+ "pnl_corr_spearman": -0.759,
+ "pnl_markets": 6,
+ "side_accuracy": null,
+ "live_trigger": null,
+ "live_taker_diagnostic_server_clock": {
+  "taker_orders_with_book": 61,
+  "collapse_in_2s_before_sign": 0.148,
+  "collapse_in_1.1s_after_sign": 0.721,
+  "random_time_collapse_in_prior_2s": 0.021,
+  "match_minus_sign_ms_p10_p50_p90": [
+   1036,
+   1040,
+   1052
+  ]
+ },
+ "pooled": {
+  "events": 14,
+  "events_traded": 3,
+  "markets": 40,
+  "markets_traded": 6,
+  "grid_events": 8,
+  "grid_events_traded": 0,
+  "selection_auc": 0.7576,
+  "selection_baseline": 0.4242,
+  "selection_recall": 0.333,
+  "selection_lift": 4.667,
+  "selection_gain": 0.3334,
+  "selection_gain_ci95": [
+   -0.1538,
+   0.9091
+  ],
+  "selection_gain_p_le0": 0.128,
+  "presence_auc": 0.9231,
+  "presence_baseline": 0.7388,
+  "price_within_tick": 0.207,
+  "price_exact_last_print": 0.074,
+  "price_within_cent": 0.207,
+  "size_100_accuracy": 0.793,
+  "size_rule_accuracy": 0.793,
+  "pnl_corr_pearson": -0.687,
+  "pnl_corr_spearman": -0.759,
+  "pnl_markets": 6,
+  "side_accuracy": null,
+  "live_trigger": null,
+  "live_taker_diagnostic_server_clock": {
+   "taker_orders_with_book": 61,
+   "collapse_in_2s_before_sign": 0.148,
+   "collapse_in_1.1s_after_sign": 0.721,
+   "random_time_collapse_in_prior_2s": 0.021,
+   "match_minus_sign_ms_p10_p50_p90": [
+    1036,
+    1040,
+    1052
+   ]
+  }
+ }
+}

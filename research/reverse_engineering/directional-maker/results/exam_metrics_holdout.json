@@ -1,0 +1,208 @@
+{
+ "days": [
+  "2026-10-23",
+  "2026-10-24",
+  "2026-10-25",
+  "2026-10-26",
+  "2026-10-27",
+  "2026-10-28",
+  "2026-10-29",
+  "2026-10-30"
+ ],
+ "windows": 2304,
+ "bins": 138240,
+ "pos_rate": 0.06579137731481481,
+ "active_window_share": 0.7256944444444444,
+ "presence": {
+  "auc_R2": 0.6995702764604973,
+  "auc_activity_baseline": 0.6808999771002039,
+  "auc_R2_with_own_inventory": 0.7723400247889921,
+  "auc_R2_within_active_windows": 0.7085142990669272,
+  "auc_baseline_within_active_windows": 0.6802659145396082,
+  "gain_over_baseline": 0.018670299360293408,
+  "auc_R2_with_window_oracle_ceiling": 0.794101335184331,
+  "bootstrap_windows": {
+   "n": 300,
+   "R2_ci95": [
+    0.6928162132917873,
+    0.7068480239982509
+   ],
+   "gain_ci95": [
+    0.01414621882779458,
+    0.02298418860308087
+   ],
+   "p_gain_le_0": 0.0033222591362126247,
+   "p_R2_ge_0.85": 0.0033222591362126247
+  },
+  "daily": {
+   "2026-10-23": {
+    "R2": 0.7797,
+    "baseline": 0.7521,
+    "active_share": 0.639
+   },
+   "2026-10-24": {
+    "R2": 0.7423,
+    "baseline": 0.7425,
+    "active_share": 0.188
+   },
+   "2026-10-25": {
+    "R2": 0.7147,
+    "baseline": 0.7102,
+    "active_share": 0.392
+   },
+   "2026-10-26": {
+    "R2": 0.751,
+    "baseline": 0.7274,
+    "active_share": 0.806
+   },
+   "2026-10-27": {
+    "R2": 0.7189,
+    "baseline": 0.6909,
+    "active_share": 0.934
+   },
+   "2026-10-28": {
+    "R2": 0.7045,
+    "baseline": 0.689,
+    "active_share": 0.969
+   },
+   "2026-10-29": {
+    "R2": 0.7066,
+    "baseline": 0.6836,
+    "active_share": 0.951
+   },
+   "2026-10-30": {
+    "R2": 0.6904,
+    "baseline": 0.6306,
+    "active_share": 0.927
+   }
+  },
+  "forward_days": {
+   "auc_R2": 0.6904482878045968,
+   "auc_activity_baseline": 0.630589727216355,
+   "bins": 17280
+  }
+ },
+ "side": {
+  "n_one_sided_bins": 8605,
+  "accuracy": {
+   "R2_higher_p": 0.6545031958163858,
+   "mkt_favourite_last_print": 0.44079023823358515,
+   "mkt_underdog_last_print": 0.5621150493898897,
+   "mkt_more_bid_hits_10s": 0.55746658919233,
+   "mkt_activity_model_higher_p": 0.599535153980244,
+   "ref_binance_favourite": 0.4569436374201046,
+   "ref_binance_underdog": 0.5430563625798954
+  },
+  "best_market_only": "mkt_activity_model_higher_p",
+  "mcnemar_vs_best": {
+   "R2_right_base_wrong": 1384,
+   "R2_wrong_base_right": 911,
+   "p_one_sided": 2.358279593110254e-23
+  },
+  "p_acc_ge_0.80": 1.0,
+  "by_time": {
+   "0-30s": 0.7346393588601959,
+   "30-120s": 0.6464260929909785,
+   "120-300s": 0.64
+  },
+  "top25pct_confidence_acc": 0.712360594795539
+ },
+ "price": {
+  "n": 36244,
+  "exact": 0.3502648714269948,
+  "within_1tick": 0.688031122392672,
+  "base_last_print_within_1tick": 0.6093698267299416,
+  "base_last_minus_2c_within_1tick": 0.5230934775411102
+ },
+ "wallet": {
+  "maker_fills": 36244,
+  "taker_fills": 840,
+  "maker_usd": 719559.208730863,
+  "maker_pnl": 28448.49073413695,
+  "maker_return": 0.03953599702283506,
+  "all_buys_return": 0.037784797717140814,
+  "all_buys_pnl": 29085.455034043283,
+  "maker_fill_win_rate": 0.4041220615826068,
+  "maker_avg_price": 0.4566877934399158,
+  "per_window_t": 2.5621387355971046,
+  "per_window_p_one_sided": 0.005233037518671542,
+  "per_window_bootstrap_p": 0.008598280343931213,
+  "active_windows": 1672,
+  "daily": {
+   "2026-10-23": {
+    "pnl": -4666.3,
+    "usd": 71224.8,
+    "ret": -0.0655,
+    "fills": 2668
+   },
+   "2026-10-24": {
+    "pnl": 683.0,
+    "usd": 6946.9,
+    "ret": 0.0983,
+    "fills": 437
+   },
+   "2026-10-25": {
+    "pnl": -586.9,
+    "usd": 19731.4,
+    "ret": -0.0297,
+    "fills": 1332
+   },
+   "2026-10-26": {
+    "pnl": 9356.1,
+    "usd": 77287.8,
+    "ret": 0.1211,
+    "fills": 3819
+   },
+   "2026-10-27": {
+    "pnl": 4931.5,
+    "usd": 95603.5,
+    "ret": 0.0516,
+    "fills": 5019
+   },
+   "2026-10-28": {
+    "pnl": 5330.7,
+    "usd": 109451.7,
+    "ret": 0.0487,
+    "fills": 6388
+   },
+   "2026-10-29": {
+    "pnl": 8743.5,
+    "usd": 181193.6,
+    "ret": 0.0483,
+    "fills": 9855
+   },
+   "2026-10-30": {
+    "pnl": 4656.9,
+    "usd": 158119.6,
+    "ret": 0.0295,
+    "fills": 6726
+   }
+  },
+  "forward_days": {
+   "maker_pnl": 4656.942261892296,
+   "maker_usd": 158119.58147110773,
+   "maker_return": 0.02945202750073831,
+   "fills": 6726
+  }
+ },
+ "pnl_correlation": {
+  "expected_rule_pnl_vs_wallet_on_wallet_windows": {
+   "n": 1672,
+   "pearson": 0.29461935227342423,
+   "spearman": 0.33401889746801544
+  },
+  "strict_backtest_vs_wallet_all_windows": {
+   "n": 2304,
+   "pearson": 0.20329567181186456,
+   "spearman": 0.21052477172450612
+  },
+  "strict_backtest_vs_wallet_on_wallet_windows": {
+   "n": 1672,
+   "pearson": 0.24668108608630732,
+   "spearman": 0.25472744671482966
+  }
+ },
+ "fee_rate_values": {
+  "0.07": 2304
+ }
+}

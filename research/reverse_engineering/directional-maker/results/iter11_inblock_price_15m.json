@@ -1,0 +1,14 @@
+{
+ "study": {
+  "fills": 1356,
+  "inblock_share": 0.7235,
+  "block_clock_within_tick": 0.6556,
+  "inblock_within_tick": 0.7301
+ },
+ "validate": {
+  "fills": 2996,
+  "inblock_share": 0.7126,
+  "block_clock_within_tick": 0.6662,
+  "inblock_within_tick": 0.7664
+ }
+}

@@ -1,0 +1,198 @@
+{
+ "by_block": {
+  "10-23 00": {
+   "n": 32720,
+   "market_k_median": 1.173,
+   "market_sigma_median_e5": 3.996,
+   "cluster_best_k": 1.0
+  },
+  "10-23 06": {
+   "n": 37865,
+   "market_k_median": 1.244,
+   "market_sigma_median_e5": 3.322,
+   "cluster_best_k": 0.5
+  },
+  "10-23 12": {
+   "n": 81654,
+   "market_k_median": 1.066,
+   "market_sigma_median_e5": 5.282,
+   "cluster_best_k": 0.5
+  },
+  "10-23 18": {
+   "n": 34215,
+   "market_k_median": 1.292,
+   "market_sigma_median_e5": 3.363,
+   "cluster_best_k": 0.5
+  },
+  "10-24 00": {
+   "n": 26189,
+   "market_k_median": 1.251,
+   "market_sigma_median_e5": 2.907,
+   "cluster_best_k": null
+  },
+  "10-24 06": {
+   "n": 26970,
+   "market_k_median": 1.243,
+   "market_sigma_median_e5": 2.635,
+   "cluster_best_k": null
+  },
+  "10-24 12": {
+   "n": 34804,
+   "market_k_median": 1.022,
+   "market_sigma_median_e5": 5.169,
+   "cluster_best_k": 1.0
+  },
+  "10-24 18": {
+   "n": 22697,
+   "market_k_median": 1.199,
+   "market_sigma_median_e5": 2.831,
+   "cluster_best_k": 0.85
+  },
+  "10-25 00": {
+   "n": 20776,
+   "market_k_median": 1.349,
+   "market_sigma_median_e5": 2.059,
+   "cluster_best_k": null
+  },
+  "10-25 06": {
+   "n": 23083,
+   "market_k_median": 1.158,
+   "market_sigma_median_e5": 2.501,
+   "cluster_best_k": null
+  },
+  "10-25 12": {
+   "n": 30132,
+   "market_k_median": 1.223,
+   "market_sigma_median_e5": 2.51,
+   "cluster_best_k": 0.5
+  },
+  "10-25 18": {
+   "n": 25905,
+   "market_k_median": 1.106,
+   "market_sigma_median_e5": 3.385,
+   "cluster_best_k": 0.5
+  },
+  "10-26 00": {
+   "n": 40412,
+   "market_k_median": 1.054,
+   "market_sigma_median_e5": 5.742,
+   "cluster_best_k": 1.0
+  },
+  "10-26 06": {
+   "n": 34351,
+   "market_k_median": 1.154,
+   "market_sigma_median_e5": 3.471,
+   "cluster_best_k": 1.2
+  },
+  "10-26 12": {
+   "n": 51934,
+   "market_k_median": 1.122,
+   "market_sigma_median_e5": 6.905,
+   "cluster_best_k": 1.7
+  },
+  "10-26 18": {
+   "n": 38211,
+   "market_k_median": 1.281,
+   "market_sigma_median_e5": 2.988,
+   "cluster_best_k": 1.7
+  },
+  "10-27 00": {
+   "n": 35627,
+   "market_k_median": 1.157,
+   "market_sigma_median_e5": 3.562,
+   "cluster_best_k": 1.0
+  },
+  "10-27 06": {
+   "n": 34822,
+   "market_k_median": 1.162,
+   "market_sigma_median_e5": 3.356,
+   "cluster_best_k": 1.7
+  },
+  "10-27 12": {
+   "n": 40106,
+   "market_k_median": 1.146,
+   "market_sigma_median_e5": 4.452,
+   "cluster_best_k": 2.5
+  },
+  "10-27 18": {
+   "n": 38195,
+   "market_k_median": 1.189,
+   "market_sigma_median_e5": 2.996,
+   "cluster_best_k": 1.7
+  },
+  "10-28 00": {
+   "n": 27556,
+   "market_k_median": 1.142,
+   "market_sigma_median_e5": 3.077,
+   "cluster_best_k": 1.7
+  },
+  "10-28 06": {
+   "n": 32195,
+   "market_k_median": 1.262,
+   "market_sigma_median_e5": 2.9,
+   "cluster_best_k": 1.7
+  },
+  "10-28 12": {
+   "n": 49148,
+   "market_k_median": 1.169,
+   "market_sigma_median_e5": 3.997,
+   "cluster_best_k": 1.4
+  },
+  "10-28 18": {
+   "n": 45046,
+   "market_k_median": 1.174,
+   "market_sigma_median_e5": 4.888,
+   "cluster_best_k": 0.85
+  },
+  "10-29 00": {
+   "n": 43825,
+   "market_k_median": 1.138,
+   "market_sigma_median_e5": 4.028,
+   "cluster_best_k": 2.0
+  },
+  "10-29 06": {
+   "n": 41464,
+   "market_k_median": 1.247,
+   "market_sigma_median_e5": 3.174,
+   "cluster_best_k": 1.7
+  },
+  "10-29 12": {
+   "n": 52655,
+   "market_k_median": 1.037,
+   "market_sigma_median_e5": 6.146,
+   "cluster_best_k": 2.0
+  },
+  "10-29 18": {
+   "n": 40236,
+   "market_k_median": 0.971,
+   "market_sigma_median_e5": 8.836,
+   "cluster_best_k": 2.5
+  },
+  "10-30 00": {
+   "n": 46133,
+   "market_k_median": 0.97,
+   "market_sigma_median_e5": 8.196,
+   "cluster_best_k": 1.4
+  },
+  "10-30 06": {
+   "n": 42012,
+   "market_k_median": 1.087,
+   "market_sigma_median_e5": 5.301,
+   "cluster_best_k": 2.0
+  },
+  "10-30 12": {
+   "n": 47649,
+   "market_k_median": 1.091,
+   "market_sigma_median_e5": 7.775,
+   "cluster_best_k": 2.0
+  },
+  "10-30 18": {
+   "n": 40352,
+   "market_k_median": 1.139,
+   "market_sigma_median_e5": 5.114,
+   "cluster_best_k": 1.4
+  }
+ },
+ "spearman_market_k_vs_cluster_k": -0.281,
+ "blocks": 28
+}

@@ -1,0 +1,174 @@
+{
+ "orders_taker_unique": 92963,
+ "orders_matched_to_capture": 88978,
+ "accuracy_per_order": 0.8193,
+ "halves": [
+  0.8213,
+  0.8176
+ ],
+ "by_wallet": {
+  "GF": {
+   "acc": 0.8255,
+   "n": 24762,
+   "halves": [
+    0.8253,
+    0.8257
+   ]
+  },
+  "XM": {
+   "acc": 0.7789,
+   "n": 5531,
+   "halves": [
+    0.7886,
+    0.7717
+   ]
+  },
+  "DS": {
+   "acc": 0.8204,
+   "n": 58685,
+   "halves": [
+    0.8226,
+    0.8186
+   ]
+  }
+ },
+ "baselines": {
+  "favourite": {
+   "acc": 0.462,
+   "halves": [
+    0.4514,
+    0.4708
+   ],
+   "by_wallet": {
+    "GF": 0.4622,
+    "XM": 0.4747,
+    "DS": 0.4607
+   }
+  },
+  "underdog": {
+   "acc": 0.538,
+   "halves": [
+    0.5486,
+    0.5292
+   ],
+   "by_wallet": {
+    "GF": 0.5378,
+    "XM": 0.5253,
+    "DS": 0.5393
+   }
+  },
+  "pm_momentum_1s_then_favourite": {
+   "acc": 0.5135,
+   "halves": [
+    0.5218,
+    0.5065
+   ],
+   "by_wallet": {
+    "GF": 0.5267,
+    "XM": 0.5553,
+    "DS": 0.504
+   }
+  },
+  "pm_momentum_3s_then_favourite": {
+   "acc": 0.5,
+   "halves": [
+    0.5151,
+    0.4875
+   ],
+   "by_wallet": {
+    "GF": 0.5117,
+    "XM": 0.5297,
+    "DS": 0.4923
+   }
+  },
+  "others_last_taker_buy_side": {
+   "acc": 0.5378,
+   "halves": [
+    0.544,
+    0.5326
+   ],
+   "by_wallet": {
+    "GF": 0.5573,
+    "XM": 0.5939,
+    "DS": 0.5243
+   }
+  },
+  "own_inventory_short_leg_cluster": {
+   "acc": 0.5064,
+   "halves": [
+    0.5062,
+    0.5065
+   ],
+   "by_wallet": {
+    "GF": 0.4968,
+    "XM": 0.5228,
+    "DS": 0.5088
+   }
+  },
+  "own_inventory_short_leg_wallet": {
+   "acc": 0.5045,
+   "halves": [
+    0.5039,
+    0.5049
+   ],
+   "by_wallet": {
+    "GF": 0.5121,
+    "XM": 0.5267,
+    "DS": 0.4992
+   }
+  }
+ },
+ "best_market_only": "underdog",
+ "best_own_inventory_only": "own_inventory_short_leg_cluster",
+ "mcnemar_vs_best_market_only_p": 0.0,
+ "within_window_permutation_null": {
+  "null_mean": 0.5118,
+  "null_max": 0.5176,
+  "p_one_sided": 0.0005,
+  "draws": 2000
+ },
+ "side_applicability": {
+  "DS": {
+   "windows": 1131,
+   "share_one_sided": 0.0035,
+   "order_count_null_share": 0.0028,
+   "halves": [
+    0.0018,
+    0.0053
+   ]
+  },
+  "GF": {
+   "windows": 1128,
+   "share_one_sided": 0.0319,
+   "order_count_null_share": 0.0239,
+   "halves": [
+    0.0405,
+    0.0232
+   ]
+  },
+  "XM": {
+   "windows": 1021,
+   "share_one_sided": 0.1988,
+   "order_count_null_share": 0.1825,
+   "halves": [
+    0.2411,
+    0.1573
+   ]
+  }
+ },
+ "one_sided_windows_side_acc": {
+  "GF": {
+   "windows_scored": 32,
+   "acc_first_order": 0.9375
+  },
+  "XM": {
+   "windows_scored": 149,
+   "acc_first_order": 0.8121
+  },
+  "DS": {
+   "windows_scored": 4,
+   "acc_first_order": 1.0
+  }
+ },
+ "elapsed_s": 179
+}

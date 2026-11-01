@@ -1,0 +1,27 @@
+{
+ "period": [
+  1793455600,
+  1793457062
+ ],
+ "trades": 8764,
+ "cluster_trades": 139,
+ "by_resting_state": {
+  "100": {
+   "n": 373,
+   "p_cluster": 0.0483
+  },
+  "500": {
+   "n": 352,
+   "p_cluster": 0.125
+  },
+  "none": {
+   "n": 8039,
+   "p_cluster": 0.0096
+  }
+ },
+ "cluster_trades_by_state": {
+  "none": 77,
+  "500": 44,
+  "100": 18
+ }
+}

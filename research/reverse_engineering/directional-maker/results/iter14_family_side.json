@@ -1,0 +1,413 @@
+{
+ "build": {
+  "btc_5m": {
+   "buys": 58568,
+   "usd": 2000678,
+   "fav_share": 0.495,
+   "fav_share_usd": 0.798,
+   "weekend_fav_share": 0.559,
+   "median_price": 0.5,
+   "schedule_size_share": 0.056
+  },
+  "btc_15m": {
+   "buys": 28530,
+   "usd": 1175561,
+   "fav_share": 0.572,
+   "fav_share_usd": 0.8,
+   "weekend_fav_share": 0.6,
+   "median_price": 0.56,
+   "schedule_size_share": 0.102
+  },
+  "btc_hourly": {
+   "buys": 4923,
+   "usd": 175749,
+   "fav_share": 0.55,
+   "fav_share_usd": 0.801,
+   "weekend_fav_share": 0.562,
+   "median_price": 0.56,
+   "schedule_size_share": 0.019
+  },
+  "eth_5m": {
+   "buys": 8484,
+   "usd": 140967,
+   "fav_share": 0.643,
+   "fav_share_usd": 0.81,
+   "weekend_fav_share": 0.743,
+   "median_price": 0.59,
+   "schedule_size_share": 0.026
+  },
+  "btc_4h": {
+   "buys": 2475,
+   "usd": 124621,
+   "fav_share": 0.651,
+   "fav_share_usd": 0.809,
+   "weekend_fav_share": 0.569,
+   "median_price": 0.62,
+   "schedule_size_share": 0.023
+  },
+  "eth_daily": {
+   "buys": 1581,
+   "usd": 34338,
+   "fav_share": 0.466,
+   "fav_share_usd": 0.737,
+   "weekend_fav_share": 0.536,
+   "median_price": 0.45,
+   "schedule_size_share": 0.039
+  },
+  "sol_5m": {
+   "buys": 1526,
+   "usd": 21287,
+   "fav_share": 0.619,
+   "fav_share_usd": 0.825,
+   "weekend_fav_share": 0.682,
+   "median_price": 0.59,
+   "schedule_size_share": 0.072
+  },
+  "btc_daily": {
+   "buys": 438,
+   "usd": 19188,
+   "fav_share": 0.459,
+   "fav_share_usd": 0.716,
+   "weekend_fav_share": 0.424,
+   "median_price": 0.44,
+   "schedule_size_share": 0.037
+  },
+  "eth_15m": {
+   "buys": 2290,
+   "usd": 18898,
+   "fav_share": 0.475,
+   "fav_share_usd": 0.74,
+   "weekend_fav_share": 0.56,
+   "median_price": 0.48,
+   "schedule_size_share": 0.025
+  },
+  "eth_hourly": {
+   "buys": 1535,
+   "usd": 17301,
+   "fav_share": 0.726,
+   "fav_share_usd": 0.901,
+   "weekend_fav_share": 0.689,
+   "median_price": 0.69,
+   "schedule_size_share": 0.01
+  },
+  "sol_daily": {
+   "buys": 1046,
+   "usd": 16814,
+   "fav_share": 0.468,
+   "fav_share_usd": 0.749,
+   "weekend_fav_share": 0.461,
+   "median_price": 0.48,
+   "schedule_size_share": 0.027
+  },
+  "xrp_5m": {
+   "buys": 1454,
+   "usd": 12379,
+   "fav_share": 0.715,
+   "fav_share_usd": 0.879,
+   "weekend_fav_share": 0.727,
+   "median_price": 0.65,
+   "schedule_size_share": 0.054
+  },
+  "bnb_hourly": {
+   "buys": 954,
+   "usd": 9182,
+   "fav_share": 0.637,
+   "fav_share_usd": 0.885,
+   "weekend_fav_share": 0.654,
+   "median_price": 0.72,
+   "schedule_size_share": 0.019
+  },
+  "sol_15m": {
+   "buys": 305,
+   "usd": 4015,
+   "fav_share": 0.777,
+   "fav_share_usd": 0.933,
+   "weekend_fav_share": 0.843,
+   "median_price": 0.78,
+   "schedule_size_share": 0.043
+  },
+  "eth_4h": {
+   "buys": 188,
+   "usd": 3158,
+   "fav_share": 0.59,
+   "fav_share_usd": 0.874,
+   "weekend_fav_share": 0.581,
+   "median_price": 0.63,
+   "schedule_size_share": 0.011
+  },
+  "doge_5m": {
+   "buys": 366,
+   "usd": 3000,
+   "fav_share": 0.705,
+   "fav_share_usd": 0.891,
+   "weekend_fav_share": 0.754,
+   "median_price": 0.72,
+   "schedule_size_share": 0.016
+  },
+  "xrp_hourly": {
+   "buys": 118,
+   "usd": 2381,
+   "fav_share": 0.5,
+   "fav_share_usd": 0.689,
+   "weekend_fav_share": 0.5,
+   "median_price": 0.52,
+   "schedule_size_share": 0.008
+  },
+  "bnb_4h": {
+   "buys": 298,
+   "usd": 2292,
+   "fav_share": 0.497,
+   "fav_share_usd": 0.73,
+   "weekend_fav_share": 0.381,
+   "median_price": 0.5,
+   "schedule_size_share": 0.023
+  },
+  "sol_hourly": {
+   "buys": 148,
+   "usd": 2014,
+   "fav_share": 0.709,
+   "fav_share_usd": 0.94,
+   "weekend_fav_share": 0.778,
+   "median_price": 0.71,
+   "schedule_size_share": 0.02
+  }
+ },
+ "study": {
+  "btc_5m": {
+   "buys": 8237,
+   "usd": 168171,
+   "fav_share": 0.519,
+   "fav_share_usd": 0.814,
+   "weekend_fav_share": 0.532,
+   "median_price": 0.53,
+   "schedule_size_share": 0.124
+  },
+  "btc_15m": {
+   "buys": 1351,
+   "usd": 43067,
+   "fav_share": 0.634,
+   "fav_share_usd": 0.871,
+   "weekend_fav_share": 0.575,
+   "median_price": 0.602,
+   "schedule_size_share": 0.213
+  },
+  "btc_4h": {
+   "buys": 487,
+   "usd": 30820,
+   "fav_share": 0.772,
+   "fav_share_usd": 0.878,
+   "weekend_fav_share": 0.804,
+   "median_price": 0.68,
+   "schedule_size_share": 0.014
+  },
+  "btc_hourly": {
+   "buys": 975,
+   "usd": 24263,
+   "fav_share": 0.669,
+   "fav_share_usd": 0.895,
+   "weekend_fav_share": 0.666,
+   "median_price": 0.63,
+   "schedule_size_share": 0.023
+  },
+  "eth_hourly": {
+   "buys": 431,
+   "usd": 6487,
+   "fav_share": 0.821,
+   "fav_share_usd": 0.944,
+   "weekend_fav_share": 0.885,
+   "median_price": 0.77,
+   "schedule_size_share": 0.007
+  },
+  "eth_15m": {
+   "buys": 693,
+   "usd": 6203,
+   "fav_share": 0.527,
+   "fav_share_usd": 0.79,
+   "weekend_fav_share": 0.611,
+   "median_price": 0.52,
+   "schedule_size_share": 0.019
+  },
+  "btc_daily": {
+   "buys": 149,
+   "usd": 6114,
+   "fav_share": 0.651,
+   "fav_share_usd": 0.806,
+   "weekend_fav_share": 0.829,
+   "median_price": 0.65,
+   "schedule_size_share": 0.047
+  },
+  "eth_daily": {
+   "buys": 282,
+   "usd": 5698,
+   "fav_share": 0.514,
+   "fav_share_usd": 0.755,
+   "weekend_fav_share": 0.591,
+   "median_price": 0.55,
+   "schedule_size_share": 0.025
+  },
+  "xrp_5m": {
+   "buys": 792,
+   "usd": 4954,
+   "fav_share": 0.801,
+   "fav_share_usd": 0.909,
+   "weekend_fav_share": 0.811,
+   "median_price": 0.64,
+   "schedule_size_share": 0.005
+  },
+  "sol_daily": {
+   "buys": 162,
+   "usd": 3857,
+   "fav_share": 0.506,
+   "fav_share_usd": 0.809,
+   "weekend_fav_share": 0.551,
+   "median_price": 0.53,
+   "schedule_size_share": 0.093
+  },
+  "eth_5m": {
+   "buys": 325,
+   "usd": 3782,
+   "fav_share": 0.582,
+   "fav_share_usd": 0.719,
+   "weekend_fav_share": 0.621,
+   "median_price": 0.56,
+   "schedule_size_share": 0.031
+  },
+  "bnb_hourly": {
+   "buys": 295,
+   "usd": 3513,
+   "fav_share": 0.793,
+   "fav_share_usd": 0.903,
+   "weekend_fav_share": 0.851,
+   "median_price": 0.77,
+   "schedule_size_share": 0.031
+  },
+  "sol_5m": {
+   "buys": 359,
+   "usd": 2375,
+   "fav_share": 0.646,
+   "fav_share_usd": 0.814,
+   "weekend_fav_share": 0.74,
+   "median_price": 0.59,
+   "schedule_size_share": 0.267
+  }
+ },
+ "validate_agg": {
+  "btc_5m": {
+   "buys": 28142,
+   "usd": 544153,
+   "fav_share": 0.317,
+   "fav_share_usd": 0.753,
+   "weekend_fav_share": 0.514,
+   "median_price": 0.33,
+   "schedule_size_share": 0.09
+  },
+  "btc_15m": {
+   "buys": 3030,
+   "usd": 86625,
+   "fav_share": 0.387,
+   "fav_share_usd": 0.717,
+   "weekend_fav_share": 0.647,
+   "median_price": 0.31,
+   "schedule_size_share": 0.074
+  },
+  "btc_hourly": {
+   "buys": 789,
+   "usd": 21709,
+   "fav_share": 0.442,
+   "fav_share_usd": 0.725,
+   "weekend_fav_share": 0.87,
+   "median_price": 0.47,
+   "schedule_size_share": 0.03
+  },
+  "btc_4h": {
+   "buys": 291,
+   "usd": 12811,
+   "fav_share": 0.457,
+   "fav_share_usd": 0.71,
+   "weekend_fav_share": 1.0,
+   "median_price": 0.45,
+   "schedule_size_share": 0.003
+  },
+  "eth_5m": {
+   "buys": 381,
+   "usd": 8109,
+   "fav_share": 0.619,
+   "fav_share_usd": 0.899,
+   "weekend_fav_share": 1.0,
+   "median_price": 0.57,
+   "schedule_size_share": 0.031
+  },
+  "eth_daily": {
+   "buys": 374,
+   "usd": 7798,
+   "fav_share": 0.476,
+   "fav_share_usd": 0.744,
+   "weekend_fav_share": 0.545,
+   "median_price": 0.48,
+   "schedule_size_share": 0.013
+  },
+  "btc_daily": {
+   "buys": 167,
+   "usd": 6649,
+   "fav_share": 0.359,
+   "fav_share_usd": 0.631,
+   "weekend_fav_share": null,
+   "median_price": 0.34,
+   "schedule_size_share": 0.024
+  },
+  "sol_daily": {
+   "buys": 218,
+   "usd": 5148,
+   "fav_share": 0.5,
+   "fav_share_usd": 0.813,
+   "weekend_fav_share": 0.667,
+   "median_price": 0.503,
+   "schedule_size_share": 0.028
+  },
+  "eth_15m": {
+   "buys": 591,
+   "usd": 4951,
+   "fav_share": 0.464,
+   "fav_share_usd": 0.771,
+   "weekend_fav_share": 0.875,
+   "median_price": 0.46,
+   "schedule_size_share": 0.039
+  },
+  "bnb_hourly": {
+   "buys": 384,
+   "usd": 3545,
+   "fav_share": 0.518,
+   "fav_share_usd": 0.858,
+   "weekend_fav_share": 0.429,
+   "median_price": 0.58,
+   "schedule_size_share": 0.005
+  },
+  "eth_hourly": {
+   "buys": 206,
+   "usd": 3019,
+   "fav_share": 0.66,
+   "fav_share_usd": 0.91,
+   "weekend_fav_share": 1.0,
+   "median_price": 0.64,
+   "schedule_size_share": 0.029
+  },
+  "xrp_5m": {
+   "buys": 257,
+   "usd": 2596,
+   "fav_share": 0.603,
+   "fav_share_usd": 0.863,
+   "weekend_fav_share": null,
+   "median_price": 0.6,
+   "schedule_size_share": 0.019
+  },
+  "sol_5m": {
+   "buys": 219,
+   "usd": 2355,
+   "fav_share": 0.694,
+   "fav_share_usd": 0.926,
+   "weekend_fav_share": null,
+   "median_price": 0.61,
+   "schedule_size_share": 0.114
+  }
+ }
+}

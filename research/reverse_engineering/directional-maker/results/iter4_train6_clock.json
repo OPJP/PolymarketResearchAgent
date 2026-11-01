@@ -1,0 +1,27 @@
+{
+ "all_path_xwin": {
+  "auc": 0.7135,
+  "within_active": 0.706,
+  "side": 0.6572
+ },
+ "all_path_xwin+clock": {
+  "auc": 0.7159,
+  "within_active": 0.7084,
+  "side": 0.6634
+ },
+ "activity+clock": {
+  "auc": 0.692,
+  "within_active": 0.6847,
+  "side": 0.6305
+ },
+ "all_path_xwin+session": {
+  "auc": 0.7139,
+  "within_active": 0.7064,
+  "side": 0.6589
+ },
+ "all_path_xwin+clock+own": {
+  "auc": 0.7469,
+  "within_active": 0.7343,
+  "side": 0.7045
+ }
+}

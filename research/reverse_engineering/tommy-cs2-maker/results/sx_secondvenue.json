@@ -1,0 +1,89 @@
+{
+ "sx_week": {
+  "fill_txs_all_sports": 28734,
+  "markets_all_sports": 4622,
+  "esports_markets": 20,
+  "esports_fill_txs": 74,
+  "cs2_markets": 11,
+  "cs2_fill_txs": 63,
+  "cs2_leagues": {
+   "Counter-Strike Stake Ranked": 4,
+   "Counter-Strike CCT Europe": 2,
+   "Counter-Strike Stake Pulse": 2,
+   "Counter-Strike DraculaN": 2,
+   "Counter-Strike Thunderpick World Championship": 1
+  },
+  "cs2_types": {
+   "52.0": 9,
+   "13372.0": 1,
+   "13371.0": 1
+  },
+  "cs2_fill_txs_inplay": 59,
+  "cs2_fill_usdc": 7655.5
+ },
+ "overlap": {
+  "sx_cs2_markets_matched_to_wallet_match_markets": 6,
+  "wallet_events_with_sx_market": 6,
+  "wallet_events_total": 80
+ },
+ "density": [
+  {
+   "slug": "cs2-ast10-mibr-2026-10-16",
+   "sx_fill_txs_inplay": 5,
+   "inplay_hours_wallet": 3.12
+  },
+  {
+   "slug": "cs2-ef1-bcg-2026-10-21",
+   "sx_fill_txs_inplay": 8,
+   "inplay_hours_wallet": 3.35
+  },
+  {
+   "slug": "cs2-unity-bca-2026-10-22",
+   "sx_fill_txs_inplay": 0,
+   "inplay_hours_wallet": 2.53
+  },
+  {
+   "slug": "cs2-unity-fokus-2026-10-21",
+   "sx_fill_txs_inplay": 1,
+   "inplay_hours_wallet": 3.13
+  },
+  {
+   "slug": "cs2-sng2-mzp-2026-10-22",
+   "sx_fill_txs_inplay": 22,
+   "inplay_hours_wallet": 3.73
+  },
+  {
+   "slug": "cs2-bbl1-bcg-2026-10-20",
+   "sx_fill_txs_inplay": 0,
+   "inplay_hours_wallet": 1.3
+  }
+ ],
+ "inplay_fill_comparison": {
+  "n_fills": 138,
+  "events": 4,
+  "sx_minus_pm_last": {
+   "n": 138,
+   "mean_c": 4.19,
+   "sd_c": 3.56,
+   "within_1c": 0.029
+  },
+  "sx_minus_wallet_bid_tok0": {
+   "n": 132,
+   "mean_c": 4.82,
+   "sd_c": 7.05,
+   "within_1c": 0.174
+  },
+  "sx_minus_wallet_implied_ask_tok0": {
+   "n": 138,
+   "mean_c": 2.43,
+   "sd_c": 6.31,
+   "within_1c": 0.058
+  },
+  "pm_last_minus_wallet_bid_tok0": {
+   "n": 132,
+   "mean_c": 0.66,
+   "sd_c": 4.9,
+   "within_1c": 0.242
+  }
+ }
+}

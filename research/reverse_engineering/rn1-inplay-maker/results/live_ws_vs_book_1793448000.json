@@ -1,0 +1,60 @@
+{
+ "block": 1793448000,
+ "clock_offset_s": 0.713,
+ "games_with_books": 92,
+ "ws_events": 1537,
+ "events_with_jump_within_60s": 201,
+ "first_jump_minus_ws_q": {
+  "0.1": -59.2,
+  "0.25": -53.93,
+  "0.5": -43.3,
+  "0.75": -25.43,
+  "0.9": 22.5
+ },
+ "nearest_jump_minus_ws_q": {
+  "0.1": -45.56,
+  "0.25": -31.35,
+  "0.5": -11.7,
+  "0.75": 6.35,
+  "0.9": 29.16
+ },
+ "share_book_moved_first": 0.6268656716417911,
+ "by_league": {
+  "atp": {
+   "n": 70,
+   "median_nearest": -9.69
+  },
+  "cfb": {
+   "n": 38,
+   "median_nearest": -17.18
+  },
+  "el1": {
+   "n": 9,
+   "median_nearest": 4.78
+  },
+  "elc": {
+   "n": 9,
+   "median_nearest": -35.59
+  },
+  "enl": {
+   "n": 6,
+   "median_nearest": 1.26
+  },
+  "epl": {
+   "n": 10,
+   "median_nearest": 0.39
+  },
+  "sea": {
+   "n": 7,
+   "median_nearest": -45.87
+  },
+  "wta": {
+   "n": 6,
+   "median_nearest": -20.59
+  },
+  "wta challenger": {
+   "n": 21,
+   "median_nearest": -32.7
+  }
+ }
+}

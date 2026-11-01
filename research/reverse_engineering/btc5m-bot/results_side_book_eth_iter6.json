@@ -1,0 +1,46 @@
+{
+ "build_rows_with_eth_book": 80348,
+ "validate_rows": 90170,
+ "eth_book_coverage_validate": 1.0,
+ "side_it6_eth_book": 0.7717,
+ "side_it5_frozen_same_rows": 0.7666,
+ "control_retrained_without_eth": 0.7666,
+ "taker_it6": 0.8026,
+ "taker_it5": 0.7936,
+ "halves_it6": [
+  0.7649,
+  0.7784
+ ],
+ "mcnemar_vs_it5": {
+  "it6_only_right": 3064,
+  "it5_only_right": 2606,
+  "p": 1.2608390217148585e-09
+ },
+ "eth_book_gain_share": 0.1414,
+ "top_eth_feats": [
+  [
+   "BE_mid3",
+   27519.0
+  ],
+  [
+   "BE_mid_d21",
+   8221.1
+  ],
+  [
+   "BE_imb_avg1",
+   7087.2
+  ],
+  [
+   "BE_imb5_avg1",
+   3760.6
+  ],
+  [
+   "BE_imb_d1",
+   1535.9
+  ],
+  [
+   "BE_spread",
+   832.0
+  ]
+ ]
+}

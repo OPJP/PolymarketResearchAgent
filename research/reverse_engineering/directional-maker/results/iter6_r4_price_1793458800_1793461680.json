@@ -1,0 +1,35 @@
+{
+ "x_records": 11677,
+ "fills": 340,
+ "coverage_in_x": 0.9970588235294118,
+ "n_match_clock": 339,
+ "within_0.01": 0.8849557522123894,
+ "exact": 0.5752212389380531,
+ "combined_within_0.01": 0.8849557522123894,
+ "combined_exact": 0.5752212389380531,
+ "combined_n": 339,
+ "block_clock_same_fills_within_0.01": NaN,
+ "anchor_last_print_within_0.01": 0.911504424778761,
+ "per_wallet": {
+  "bosona": {
+   "within_0.01": 0.8415841584158416,
+   "exact": 0.504950495049505,
+   "n": 101,
+   "combined_within_0.01": 0.8415841584158416
+  },
+  "almach": {
+   "within_0.01": 0.8768115942028986,
+   "exact": 0.6521739130434783,
+   "n": 138,
+   "combined_within_0.01": 0.8768115942028986
+  },
+  "momoney": {
+   "within_0.01": 0.94,
+   "exact": 0.54,
+   "n": 100,
+   "combined_within_0.01": 0.94
+  }
+ },
+ "seconds": 1.9,
+ "windows": 9
+}

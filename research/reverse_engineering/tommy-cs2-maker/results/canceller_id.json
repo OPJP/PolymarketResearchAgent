@@ -1,0 +1,110 @@
+{
+ "cancels_total": 51345,
+ "wallet_orders": 28,
+ "wave": {
+  "windows": 28,
+  "cancels_per_window": 20.0,
+  "cancel_size_median": 22.0,
+  "attributed_top": [
+   [
+    "(ambiguous)",
+    198
+   ],
+   [
+    "(no fingerprint)",
+    150
+   ],
+   [
+    "0x2e3c40fa",
+    91
+   ],
+   [
+    "(size 100: shared)",
+    90
+   ],
+   [
+    "0x6c1415bf",
+    7
+   ],
+   [
+    "0x893575c7",
+    7
+   ],
+   [
+    "0x51dbdd2b",
+    4
+   ],
+   [
+    "0x45f82472",
+    3
+   ],
+   [
+    "0xbef58c65",
+    3
+   ],
+   [
+    "0x9f63eb94",
+    3
+   ],
+   [
+    "0xc4fe8174",
+    1
+   ],
+   [
+    "0x0063b23c",
+    1
+   ]
+  ]
+ },
+ "control": {
+  "windows": 280,
+  "cancels_per_window": 0.93,
+  "cancel_size_median": 22.0,
+  "attributed_top": [
+   [
+    "(no fingerprint)",
+    104
+   ],
+   [
+    "(ambiguous)",
+    93
+   ],
+   [
+    "(size 100: shared)",
+    24
+   ],
+   [
+    "0x2e3c40fa",
+    22
+   ],
+   [
+    "0x51dbdd2b",
+    5
+   ],
+   [
+    "0x45f82472",
+    3
+   ],
+   [
+    "0x6c1415bf",
+    3
+   ],
+   [
+    "0xbef58c65",
+    2
+   ],
+   [
+    "0x9f63eb94",
+    1
+   ],
+   [
+    "0x758dac51",
+    1
+   ],
+   [
+    "0x893575c7",
+    1
+   ]
+  ]
+ }
+}

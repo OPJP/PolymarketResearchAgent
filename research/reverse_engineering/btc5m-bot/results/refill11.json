@@ -1,0 +1,222 @@
+{
+ "periods": {
+  "D250_before_0817": {
+   "days": [
+    {
+     "day": "2026-08-10",
+     "taker_first_orders": 695,
+     "refilled": 12,
+     "maker_first_orders": 134,
+     "refill_p": 0.0173,
+     "refill_delay_s_q50_90": [
+      0.0,
+      2.0
+     ]
+    },
+    {
+     "day": "2026-08-11",
+     "taker_first_orders": 696,
+     "refilled": 57,
+     "maker_first_orders": 225,
+     "refill_p": 0.0819,
+     "refill_delay_s_q50_90": [
+      1.0,
+      7.199999999999996
+     ]
+    },
+    {
+     "day": "2026-08-12",
+     "taker_first_orders": 547,
+     "refilled": 79,
+     "maker_first_orders": 256,
+     "refill_p": 0.1444,
+     "refill_delay_s_q50_90": [
+      0.0,
+      5.000000000000014
+     ]
+    },
+    {
+     "day": "2026-08-13",
+     "taker_first_orders": 670,
+     "refilled": 68,
+     "maker_first_orders": 288,
+     "refill_p": 0.1015,
+     "refill_delay_s_q50_90": [
+      0.0,
+      8.0
+     ]
+    }
+   ],
+   "refill_p": 0.0828,
+   "taker_first": 2608,
+   "maker_first": 903,
+   "maker_first_share_of_orders": 0.2572
+  },
+  "D50_after_0817": {
+   "days": [
+    {
+     "day": "2026-08-18",
+     "taker_first_orders": 1311,
+     "refilled": 85,
+     "maker_first_orders": 232,
+     "refill_p": 0.0648,
+     "refill_delay_s_q50_90": [
+      0.0,
+      3.0
+     ]
+    },
+    {
+     "day": "2026-08-19",
+     "taker_first_orders": 1287,
+     "refilled": 78,
+     "maker_first_orders": 231,
+     "refill_p": 0.0606,
+     "refill_delay_s_q50_90": [
+      0.0,
+      2.0
+     ]
+    },
+    {
+     "day": "2026-08-20",
+     "taker_first_orders": 1239,
+     "refilled": 80,
+     "maker_first_orders": 215,
+     "refill_p": 0.0646,
+     "refill_delay_s_q50_90": [
+      0.0,
+      2.0
+     ]
+    },
+    {
+     "day": "2026-08-21",
+     "taker_first_orders": 873,
+     "refilled": 56,
+     "maker_first_orders": 136,
+     "refill_p": 0.0641,
+     "refill_delay_s_q50_90": [
+      0.0,
+      1.0
+     ]
+    }
+   ],
+   "refill_p": 0.0635,
+   "taker_first": 4710,
+   "maker_first": 814,
+   "maker_first_share_of_orders": 0.1474
+  },
+  "D50_before_0904": {
+   "days": [
+    {
+     "day": "2026-08-31",
+     "taker_first_orders": 1263,
+     "refilled": 226,
+     "maker_first_orders": 496,
+     "refill_p": 0.1789,
+     "refill_delay_s_q50_90": [
+      0.0,
+      3.0
+     ]
+    },
+    {
+     "day": "2026-09-01",
+     "taker_first_orders": 929,
+     "refilled": 247,
+     "maker_first_orders": 485,
+     "refill_p": 0.2659,
+     "refill_delay_s_q50_90": [
+      0.0,
+      3.0
+     ]
+    },
+    {
+     "day": "2026-09-02",
+     "taker_first_orders": 829,
+     "refilled": 201,
+     "maker_first_orders": 421,
+     "refill_p": 0.2425,
+     "refill_delay_s_q50_90": [
+      0.0,
+      3.0
+     ]
+    },
+    {
+     "day": "2026-09-03",
+     "taker_first_orders": 1362,
+     "refilled": 309,
+     "maker_first_orders": 587,
+     "refill_p": 0.2269,
+     "refill_delay_s_q50_90": [
+      0.0,
+      3.0
+     ]
+    }
+   ],
+   "refill_p": 0.2243,
+   "taker_first": 4383,
+   "maker_first": 1989,
+   "maker_first_share_of_orders": 0.3121
+  },
+  "D150_after_0904": {
+   "days": [
+    {
+     "day": "2026-09-07",
+     "taker_first_orders": 675,
+     "refilled": 146,
+     "maker_first_orders": 268,
+     "refill_p": 0.2163,
+     "refill_delay_s_q50_90": [
+      0.0,
+      2.0
+     ]
+    },
+    {
+     "day": "2026-09-08",
+     "taker_first_orders": 824,
+     "refilled": 150,
+     "maker_first_orders": 302,
+     "refill_p": 0.182,
+     "refill_delay_s_q50_90": [
+      0.0,
+      2.0
+     ]
+    },
+    {
+     "day": "2026-09-09",
+     "taker_first_orders": 572,
+     "refilled": 96,
+     "maker_first_orders": 190,
+     "refill_p": 0.1678,
+     "refill_delay_s_q50_90": [
+      0.0,
+      2.0
+     ]
+    },
+    {
+     "day": "2026-09-10",
+     "taker_first_orders": 1036,
+     "refilled": 152,
+     "maker_first_orders": 179,
+     "refill_p": 0.1467,
+     "refill_delay_s_q50_90": [
+      0.0,
+      2.0
+     ]
+    }
+   ],
+   "refill_p": 0.1751,
+   "taker_first": 3107,
+   "maker_first": 939,
+   "maker_first_share_of_orders": 0.2321
+  }
+ },
+ "change_0817 (D 250->50)": [
+  -0.0623,
+  -0.0193,
+  0.0256
+ ],
+ "change_0904 (D 50->150)": [
+  -0.0881,
+  -0.0485,
+  -0.0088
+ ]
+}

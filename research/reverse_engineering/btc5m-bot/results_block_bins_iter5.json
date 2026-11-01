@@ -1,0 +1,18 @@
+{
+ "hours": 166,
+ "locked_hours": 154,
+ "share_cells_kept": 0.6653,
+ "positives_dropped_share": 0.0,
+ "base_rate_all": 0.1074,
+ "base_rate_block_seconds": 0.1614,
+ "auc_full_all": 0.9132,
+ "auc_full_block_seconds": 0.8752,
+ "auc_pure_all": 0.8781,
+ "auc_pure_block_seconds": 0.8192,
+ "auc_full_k1_all": 0.907,
+ "auc_full_k1_block_seconds": 0.8628,
+ "auc_pure_k1_all": 0.8717,
+ "auc_pure_k1_block_seconds": 0.8062,
+ "gain_block_seconds": 0.056,
+ "gain_block_seconds_k1": 0.0566
+}

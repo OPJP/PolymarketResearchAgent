@@ -1,0 +1,54 @@
+{
+ "round": 1,
+ "lot": "h1",
+ "intervals": [
+  [
+   1792713600,
+   1792800000
+  ],
+  [
+   1792886400,
+   1792972800
+  ],
+  [
+   1793059200,
+   1793145600
+  ],
+  [
+   1793232000,
+   1793318400
+  ]
+ ],
+ "examiner_criteria": {
+  "match": "partial",
+  "backtest": "fail",
+  "replicable": "fail",
+  "persists": "fail"
+ },
+ "criteria": {
+  "match": "partial",
+  "backtest": "fail",
+  "replicable": "fail",
+  "persists": "fail"
+ },
+ "components": {
+  "selection": "pass",
+  "timing": "partial",
+  "side": "pass",
+  "price": "partial",
+  "size": "partial",
+  "exit": "pass"
+ },
+ "target_met": false,
+ "target_conditions": {
+  "scope": "met: the universe (every BTC 5m window) holds 100% of the wallets' lot fills (160,664) and 100% of |PnL|",
+  "presence_or_selection": "NOT met. Block-second presence AUC is 0.8673 (>= 0.85), but its gain over the strongest market baseline (the RE's capture-aware MSB, 0.8564) is +0.0109 [0.0072, 0.0145]. Over the RE's pure baseline it is +0.0483 and over the examiner's BUILD-fitted MKTX +0.0459, so it is below 0.05 against every baseline. Selection: AUC 0.894, recall 73.5% at lift 5.34, gain +0.018 < 0.05.",
+  "side": "not applicable by the 20% rule (XM one-sided in 19.9% of its windows, against an order-count null of 18.3%; GF 3.2%, DS 0.4%). Reported anyway: 0.8193 per taker order (halves 0.821 / 0.818; DS 0.820, GF 0.826, XM 0.779) against 0.538 for the best market-only rule and 0.506 for own inventory. It would be met within the 3-point tolerance.",
+  "price": "met under the proviso: 95.3% of 14,130 sampled taker orders are within one tick (XM 81.8%). The rule is the trivial touch anchor read off the match, not a PIT forecast, and the touch + 1 tick anchor scores better (97.5%).",
+  "outcome": "NOT met: per-window PnL correlation 0.4245 / 0.4114 (Pearson / Spearman), CIs [0.371, 0.478] / [0.357, 0.463]",
+  "significance": "the nulls reject at p <= 0.0005 (PnL rotation p = 0.00025, presence permutation p = 0.0005, side permutation p = 0.0005), but the gain >= 0.05 is rejected (P(gain <= 0.05) = 1.0)",
+  "replication": "NOT met: XM presence is 0.841 (second half 0.811) and below MSB in both halves; per-wallet PnL correlation is GF 0.28, XM 0.14, DS 0.42 (all < 0.47); the second-half pooled PnL correlation is 0.402 / 0.367"
+ },
+ "deploy_now_supported": false,
+ "refutations": {}
+}

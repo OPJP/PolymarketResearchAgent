@@ -1,0 +1,46 @@
+{
+ "parents": 1631,
+ "with_children": 477,
+ "child_shares_over_parent": 0.228,
+ "pair_cost_q": [
+  0.932,
+  0.95,
+  0.96
+ ],
+ "BUILD": {
+  "events": 40,
+  "parent_pnl": 5175.0,
+  "child_pnl": -1905.0,
+  "unit_pnl": 3270.0,
+  "parent_ret": 0.0671,
+  "unit_ret": 0.0362,
+  "p_ci95": [
+   -5002.0,
+   14955.0
+  ],
+  "p_p_le0": 0.1505,
+  "u_ci95": [
+   -7251.0,
+   12788.0
+  ],
+  "u_p_le0": 0.265
+ },
+ "VALIDATE": {
+  "events": 36,
+  "parent_pnl": 3938.0,
+  "child_pnl": 1153.0,
+  "unit_pnl": 5090.0,
+  "parent_ret": 0.0522,
+  "unit_ret": 0.0551,
+  "p_ci95": [
+   -5538.0,
+   14108.0
+  ],
+  "p_p_le0": 0.2167,
+  "u_ci95": [
+   -3933.0,
+   14242.0
+  ],
+  "u_p_le0": 0.1353
+ }
+}

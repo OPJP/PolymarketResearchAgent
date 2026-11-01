@@ -1,0 +1,58 @@
+{
+ "local": {
+  "windows": 24,
+  "bins": 1440,
+  "cluster_maker_fills": 172,
+  "cluster_taker_fills": 13,
+  "tape_rows": 31584,
+  "tape_rows_removed_cluster_tx": 166,
+  "presence": {
+   "auc": 0.7805513523263621,
+   "auc_activity_baseline": 0.7680452144983013,
+   "auc_with_own_inventory": 0.7942900662384383,
+   "auc_within_active_windows": 0.7750436664432994,
+   "pos_rate": 0.050694444444444445,
+   "active_window_share": 0.9166666666666666,
+   "gain_over_baseline": 0.01250613782806076
+  },
+  "price": {
+   "n_fills": 172,
+   "exact": 0.3488372093023256,
+   "within_0.01": 0.5872093023255814
+  },
+  "pnl": {
+   "windows": 22,
+   "pearson": 0.7500880071376113,
+   "spearman": 0.453416149068323,
+   "wallet_maker_return_on_usd": -0.019951236362267307
+  }
+ },
+ "adapter": {
+  "windows": 24,
+  "bins": 1440,
+  "cluster_maker_fills": 172,
+  "cluster_taker_fills": 13,
+  "tape_rows": 31587,
+  "tape_rows_removed_cluster_tx": 166,
+  "presence": {
+   "auc": 0.7805513523263621,
+   "auc_activity_baseline": 0.7680452144983013,
+   "auc_with_own_inventory": 0.7942900662384383,
+   "auc_within_active_windows": 0.7750436664432994,
+   "pos_rate": 0.050694444444444445,
+   "active_window_share": 0.9166666666666666,
+   "gain_over_baseline": 0.01250613782806076
+  },
+  "price": {
+   "n_fills": 172,
+   "exact": 0.3488372093023256,
+   "within_0.01": 0.5872093023255814
+  },
+  "pnl": {
+   "windows": 22,
+   "pearson": 0.7500880071376113,
+   "spearman": 0.453416149068323,
+   "wallet_maker_return_on_usd": -0.019951236362267307
+  }
+ }
+}

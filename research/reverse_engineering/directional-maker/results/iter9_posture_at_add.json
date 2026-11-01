@@ -1,0 +1,44 @@
+{
+ "almach|500": {
+  "n": 411,
+  "posture_at_add": 0.771,
+  "posture_at_match": 0.825,
+  "median_age_ms": 752.0,
+  "flip_between_add_and_match": 0.122
+ },
+ "almach|other": {
+  "n": 40,
+  "posture_at_add": 0.525,
+  "posture_at_match": 0.575,
+  "median_age_ms": 754.0,
+  "flip_between_add_and_match": 0.05
+ },
+ "bosona|500": {
+  "n": 241,
+  "posture_at_add": 0.768,
+  "posture_at_match": 0.851,
+  "median_age_ms": 823.0,
+  "flip_between_add_and_match": 0.091
+ },
+ "bosona|other": {
+  "n": 95,
+  "posture_at_add": 0.547,
+  "posture_at_match": 0.632,
+  "median_age_ms": 185.0,
+  "flip_between_add_and_match": 0.105
+ },
+ "momoney|500": {
+  "n": 424,
+  "posture_at_add": 0.646,
+  "posture_at_match": 0.722,
+  "median_age_ms": 735.0,
+  "flip_between_add_and_match": 0.104
+ },
+ "momoney|other": {
+  "n": 54,
+  "posture_at_add": 0.759,
+  "posture_at_match": 0.759,
+  "median_age_ms": 533.0,
+  "flip_between_add_and_match": 0.111
+ }
+}

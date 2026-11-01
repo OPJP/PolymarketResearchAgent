@@ -1,0 +1,44 @@
+[
+ {
+  "period": "study",
+  "windows": 1152,
+  "proxy_agree": 0.9826388888888888,
+  "disagree_windows": 20,
+  "disagree_with_cluster_net": 10,
+  "cluster_follows_real": 0.7,
+  "cluster_follows_proxy": 0.3,
+  "market_follows_real_in_disagree": 0.85,
+  "near_strike_windows_with_net": 49,
+  "near_cluster_follows_real": 0.5102040816326531,
+  "near_market_follows_real": 0.853448275862069,
+  "all_cluster_follows_real": 0.5902777777777778
+ },
+ {
+  "period": "validate",
+  "windows": 1152,
+  "proxy_agree": 0.9739583333333334,
+  "disagree_windows": 30,
+  "disagree_with_cluster_net": 30,
+  "cluster_follows_real": 0.6,
+  "cluster_follows_proxy": 0.4,
+  "market_follows_real_in_disagree": 0.7333333333333333,
+  "near_strike_windows_with_net": 114,
+  "near_cluster_follows_real": 0.5087719298245614,
+  "near_market_follows_real": 0.8,
+  "all_cluster_follows_real": 0.4070631970260223
+ },
+ {
+  "period": "build_pre_H",
+  "windows": 4032,
+  "proxy_agree": 0.9811507936507936,
+  "disagree_windows": 76,
+  "disagree_with_cluster_net": 65,
+  "cluster_follows_real": 0.5846153846153846,
+  "cluster_follows_proxy": 0.4153846153846154,
+  "market_follows_real_in_disagree": NaN,
+  "near_strike_windows_with_net": 328,
+  "near_cluster_follows_real": 0.5487804878048781,
+  "near_market_follows_real": NaN,
+  "all_cluster_follows_real": 0.5549368968077208
+ }
+]

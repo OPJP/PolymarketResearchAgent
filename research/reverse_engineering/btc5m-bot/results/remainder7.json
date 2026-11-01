@@ -1,0 +1,71 @@
+{
+ "orders": 13443,
+ "taker_first": 10967,
+ "sanity_filled_share_max": 1.0,
+ "taker_first_with_remainder_share": 0.5941,
+ "remainder_ever_fills_again_share": 0.19,
+ "remainder_size_share_median": 0.6,
+ "fill_span_s_when_refilled": {
+  "p10": 0.0,
+  "p25": 0.0,
+  "p50": 0.0,
+  "p75": 2.0,
+  "p90": 3.0
+ },
+ "by_size": {
+  "30": {
+   "n": 5807,
+   "with_remainder": 0.488,
+   "refill_given_rem": 0.2219
+  },
+  "50": {
+   "n": 988,
+   "with_remainder": 0.6538,
+   "refill_given_rem": 0.1997
+  },
+  "60": {
+   "n": 2877,
+   "with_remainder": 0.6722,
+   "refill_given_rem": 0.1841
+  },
+  "100": {
+   "n": 1182,
+   "with_remainder": 0.8443,
+   "refill_given_rem": 0.1092
+  },
+  "200": {
+   "n": 113,
+   "with_remainder": 0.9115,
+   "refill_given_rem": 0.1456
+  }
+ },
+ "by_wallet": {
+  "DS": {
+   "with_remainder": 0.5306,
+   "refill_given_rem": 0.2152
+  },
+  "GF": {
+   "with_remainder": 0.6698,
+   "refill_given_rem": 0.1496
+  },
+  "XM": {
+   "with_remainder": 0.6696,
+   "refill_given_rem": 0.1864
+  }
+ },
+ "maker_first_orders": 2476,
+ "upper_bound_removal_s_after_last_fill": {
+  "n_remainders_with_tape": 3298,
+  "n_bounded": 2813,
+  "censored_no_cheaper_print": 485,
+  "quantiles": {
+   "p10": 1.0,
+   "p25": 2.0,
+   "p50": 5.0,
+   "p75": 15.0,
+   "p90": 42.0
+  },
+  "share_le_3s": 0.4248,
+  "share_le_10s": 0.6857
+ }
+}

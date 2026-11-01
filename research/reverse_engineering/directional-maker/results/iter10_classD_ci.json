@@ -1,0 +1,51 @@
+{
+ "study": {
+  "500": {
+   "n": 61,
+   "windows": 13,
+   "acc": 0.77,
+   "ci95_window_bootstrap": [
+    0.632,
+    0.97
+   ]
+  },
+  "62": {
+   "n": 51,
+   "windows": 18,
+   "acc": 0.549,
+   "ci95_window_bootstrap": [
+    0.338,
+    0.804
+   ]
+  }
+ },
+ "validate": {
+  "500": {
+   "n": 89,
+   "windows": 30,
+   "acc": 0.933,
+   "ci95_window_bootstrap": [
+    0.837,
+    1.0
+   ]
+  },
+  "62": {
+   "n": 70,
+   "windows": 30,
+   "acc": 0.443,
+   "ci95_window_bootstrap": [
+    0.25,
+    0.639
+   ]
+  },
+  "250": {
+   "n": 33,
+   "windows": 16,
+   "acc": 0.515,
+   "ci95_window_bootstrap": [
+    0.256,
+    0.838
+   ]
+  }
+ }
+}

@@ -1,0 +1,2655 @@
+{
+ "taker_fills": 834,
+ "with_match_time": 782,
+ "matches": 782,
+ "by_wallet": {
+  "DS": 521,
+  "GF": 222,
+  "XM": 39
+ },
+ "feeds": {
+  "bnf_BTC": 52428,
+  "bnf_ETH": 50315,
+  "bns_BTC": 52260,
+  "bns_ETH": 19848,
+  "cb_BTC": 40932,
+  "cb_ETH": 9902,
+  "okx_BTC": 56392,
+  "okx_ETH": 81478
+ },
+ "matches_inside_feed_coverage": 782,
+ "trade_feeds": {
+  "bnf_BTC": {
+   "W1000_g0": {
+    "match": {
+     "moved": 0.1701,
+     "n_moved": 133,
+     "agree": 0.797
+    },
+    "placebo": {
+     "moved": 0.0665,
+     "n_moved": 52,
+     "agree": 0.6538
+    }
+   },
+   "W300_g0": {
+    "match": {
+     "moved": 0.0601,
+     "n_moved": 47,
+     "agree": 0.8723
+    },
+    "placebo": {
+     "moved": 0.0256,
+     "n_moved": 20,
+     "agree": 0.8
+    }
+   },
+   "W500_g100": {
+    "match": {
+     "moved": 0.1049,
+     "n_moved": 82,
+     "agree": 0.939
+    },
+    "placebo": {
+     "moved": 0.0332,
+     "n_moved": 26,
+     "agree": 0.6154
+    }
+   },
+   "W1000_g100": {
+    "match": {
+     "moved": 0.1829,
+     "n_moved": 143,
+     "agree": 0.7692
+    },
+    "placebo": {
+     "moved": 0.0627,
+     "n_moved": 49,
+     "agree": 0.6327
+    }
+   },
+   "W2000_g0": {
+    "match": {
+     "moved": 0.2532,
+     "n_moved": 198,
+     "agree": 0.6616
+    },
+    "placebo": {
+     "moved": 0.1189,
+     "n_moved": 93,
+     "agree": 0.6129
+    }
+   }
+  },
+  "bnf_ETH": {
+   "W1000_g0": {
+    "match": {
+     "moved": 0.3146,
+     "n_moved": 246,
+     "agree": 0.9106
+    },
+    "placebo": {
+     "moved": 0.0985,
+     "n_moved": 77,
+     "agree": 0.5065
+    }
+   },
+   "W300_g0": {
+    "match": {
+     "moved": 0.1471,
+     "n_moved": 115,
+     "agree": 0.9478
+    },
+    "placebo": {
+     "moved": 0.0409,
+     "n_moved": 32,
+     "agree": 0.5312
+    }
+   },
+   "W500_g100": {
+    "match": {
+     "moved": 0.2391,
+     "n_moved": 187,
+     "agree": 0.9412
+    },
+    "placebo": {
+     "moved": 0.0537,
+     "n_moved": 42,
+     "agree": 0.5238
+    }
+   },
+   "W1000_g100": {
+    "match": {
+     "moved": 0.3171,
+     "n_moved": 248,
+     "agree": 0.8952
+    },
+    "placebo": {
+     "moved": 0.1049,
+     "n_moved": 82,
+     "agree": 0.5244
+    }
+   },
+   "W2000_g0": {
+    "match": {
+     "moved": 0.4041,
+     "n_moved": 316,
+     "agree": 0.8228
+    },
+    "placebo": {
+     "moved": 0.1918,
+     "n_moved": 150,
+     "agree": 0.5667
+    }
+   }
+  },
+  "bns_BTC": {
+   "W1000_g0": {
+    "match": {
+     "moved": 0.1714,
+     "n_moved": 134,
+     "agree": 0.806
+    },
+    "placebo": {
+     "moved": 0.0627,
+     "n_moved": 49,
+     "agree": 0.5714
+    }
+   },
+   "W300_g0": {
+    "match": {
+     "moved": 0.0627,
+     "n_moved": 49,
+     "agree": 0.9796
+    },
+    "placebo": {
+     "moved": 0.0179,
+     "n_moved": 14,
+     "agree": 0.7857
+    }
+   },
+   "W500_g100": {
+    "match": {
+     "moved": 0.1176,
+     "n_moved": 92,
+     "agree": 0.9348
+    },
+    "placebo": {
+     "moved": 0.032,
+     "n_moved": 25,
+     "agree": 0.72
+    }
+   },
+   "W1000_g100": {
+    "match": {
+     "moved": 0.1726,
+     "n_moved": 135,
+     "agree": 0.8
+    },
+    "placebo": {
+     "moved": 0.0588,
+     "n_moved": 46,
+     "agree": 0.5652
+    }
+   },
+   "W2000_g0": {
+    "match": {
+     "moved": 0.2494,
+     "n_moved": 195,
+     "agree": 0.6718
+    },
+    "placebo": {
+     "moved": 0.0985,
+     "n_moved": 77,
+     "agree": 0.5714
+    }
+   }
+  },
+  "bns_ETH": {
+   "W1000_g0": {
+    "match": {
+     "moved": 0.234,
+     "n_moved": 183,
+     "agree": 0.8579
+    },
+    "placebo": {
+     "moved": 0.0921,
+     "n_moved": 72,
+     "agree": 0.5556
+    }
+   },
+   "W300_g0": {
+    "match": {
+     "moved": 0.1125,
+     "n_moved": 88,
+     "agree": 0.9205
+    },
+    "placebo": {
+     "moved": 0.0332,
+     "n_moved": 26,
+     "agree": 0.5769
+    }
+   },
+   "W500_g100": {
+    "match": {
+     "moved": 0.165,
+     "n_moved": 129,
+     "agree": 0.8992
+    },
+    "placebo": {
+     "moved": 0.0448,
+     "n_moved": 35,
+     "agree": 0.6857
+    }
+   },
+   "W1000_g100": {
+    "match": {
+     "moved": 0.2263,
+     "n_moved": 177,
+     "agree": 0.8362
+    },
+    "placebo": {
+     "moved": 0.0934,
+     "n_moved": 73,
+     "agree": 0.5616
+    }
+   },
+   "W2000_g0": {
+    "match": {
+     "moved": 0.3223,
+     "n_moved": 252,
+     "agree": 0.754
+    },
+    "placebo": {
+     "moved": 0.1662,
+     "n_moved": 130,
+     "agree": 0.5538
+    }
+   }
+  },
+  "cb_BTC": {
+   "W1000_g0": {
+    "match": {
+     "moved": 0.2199,
+     "n_moved": 172,
+     "agree": 0.7267
+    },
+    "placebo": {
+     "moved": 0.0857,
+     "n_moved": 67,
+     "agree": 0.5672
+    }
+   },
+   "W300_g0": {
+    "match": {
+     "moved": 0.0895,
+     "n_moved": 70,
+     "agree": 0.8857
+    },
+    "placebo": {
+     "moved": 0.0294,
+     "n_moved": 23,
+     "agree": 0.6522
+    }
+   },
+   "W500_g100": {
+    "match": {
+     "moved": 0.156,
+     "n_moved": 122,
+     "agree": 0.7869
+    },
+    "placebo": {
+     "moved": 0.0473,
+     "n_moved": 37,
+     "agree": 0.5135
+    }
+   },
+   "W1000_g100": {
+    "match": {
+     "moved": 0.211,
+     "n_moved": 165,
+     "agree": 0.7091
+    },
+    "placebo": {
+     "moved": 0.0831,
+     "n_moved": 65,
+     "agree": 0.5385
+    }
+   },
+   "W2000_g0": {
+    "match": {
+     "moved": 0.2737,
+     "n_moved": 214,
+     "agree": 0.6776
+    },
+    "placebo": {
+     "moved": 0.1317,
+     "n_moved": 103,
+     "agree": 0.5243
+    }
+   }
+  },
+  "cb_ETH": {
+   "W1000_g0": {
+    "match": {
+     "moved": 0.2302,
+     "n_moved": 180,
+     "agree": 0.7444
+    },
+    "placebo": {
+     "moved": 0.165,
+     "n_moved": 129,
+     "agree": 0.5581
+    }
+   },
+   "W300_g0": {
+    "match": {
+     "moved": 0.0997,
+     "n_moved": 78,
+     "agree": 0.7821
+    },
+    "placebo": {
+     "moved": 0.0358,
+     "n_moved": 28,
+     "agree": 0.7143
+    }
+   },
+   "W500_g100": {
+    "match": {
+     "moved": 0.1522,
+     "n_moved": 119,
+     "agree": 0.7983
+    },
+    "placebo": {
+     "moved": 0.0716,
+     "n_moved": 56,
+     "agree": 0.6786
+    }
+   },
+   "W1000_g100": {
+    "match": {
+     "moved": 0.2302,
+     "n_moved": 180,
+     "agree": 0.7
+    },
+    "placebo": {
+     "moved": 0.1714,
+     "n_moved": 134,
+     "agree": 0.5373
+    }
+   },
+   "W2000_g0": {
+    "match": {
+     "moved": 0.3862,
+     "n_moved": 302,
+     "agree": 0.6325
+    },
+    "placebo": {
+     "moved": 0.2621,
+     "n_moved": 205,
+     "agree": 0.522
+    }
+   }
+  },
+  "okx_BTC": {
+   "W1000_g0": {
+    "match": {
+     "moved": 0.1381,
+     "n_moved": 108,
+     "agree": 0.8148
+    },
+    "placebo": {
+     "moved": 0.0716,
+     "n_moved": 56,
+     "agree": 0.4821
+    }
+   },
+   "W300_g0": {
+    "match": {
+     "moved": 0.0512,
+     "n_moved": 40,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.023,
+     "n_moved": 18,
+     "agree": 0.6667
+    }
+   },
+   "W500_g100": {
+    "match": {
+     "moved": 0.0793,
+     "n_moved": 62,
+     "agree": 0.9032
+    },
+    "placebo": {
+     "moved": 0.0358,
+     "n_moved": 28,
+     "agree": 0.5
+    }
+   },
+   "W1000_g100": {
+    "match": {
+     "moved": 0.133,
+     "n_moved": 104,
+     "agree": 0.7788
+    },
+    "placebo": {
+     "moved": 0.0678,
+     "n_moved": 53,
+     "agree": 0.4528
+    }
+   },
+   "W2000_g0": {
+    "match": {
+     "moved": 0.2136,
+     "n_moved": 167,
+     "agree": 0.6587
+    },
+    "placebo": {
+     "moved": 0.1125,
+     "n_moved": 88,
+     "agree": 0.5114
+    }
+   }
+  },
+  "okx_ETH": {
+   "W1000_g0": {
+    "match": {
+     "moved": 0.2775,
+     "n_moved": 217,
+     "agree": 0.9171
+    },
+    "placebo": {
+     "moved": 0.133,
+     "n_moved": 104,
+     "agree": 0.5192
+    }
+   },
+   "W300_g0": {
+    "match": {
+     "moved": 0.1368,
+     "n_moved": 107,
+     "agree": 0.9346
+    },
+    "placebo": {
+     "moved": 0.0499,
+     "n_moved": 39,
+     "agree": 0.4872
+    }
+   },
+   "W500_g100": {
+    "match": {
+     "moved": 0.2123,
+     "n_moved": 166,
+     "agree": 0.9398
+    },
+    "placebo": {
+     "moved": 0.0703,
+     "n_moved": 55,
+     "agree": 0.5636
+    }
+   },
+   "W1000_g100": {
+    "match": {
+     "moved": 0.2839,
+     "n_moved": 222,
+     "agree": 0.9009
+    },
+    "placebo": {
+     "moved": 0.1368,
+     "n_moved": 107,
+     "agree": 0.5514
+    }
+   },
+   "W2000_g0": {
+    "match": {
+     "moved": 0.3977,
+     "n_moved": 311,
+     "agree": 0.7942
+    },
+    "placebo": {
+     "moved": 0.2212,
+     "n_moved": 173,
+     "agree": 0.5607
+    }
+   }
+  }
+ },
+ "composite_1s": {
+  "moved_any": 0.6343,
+  "agree_vote_where_moved": 0.8063,
+  "n_moved_vote": 480
+ },
+ "composite_2s": {
+  "moved_any": 0.7749,
+  "agree_vote_where_moved": 0.7094
+ },
+ "composite_600_100ms_largest_move": {
+  "moved": 0.5013,
+  "agree": 0.8648,
+  "n": 392
+ },
+ "quiet_share": 0.3657,
+ "staleness_quiet": {
+  "bnf_BTC": {
+   "W2000_g1000": {
+    "quiet_match": {
+     "moved": 0.1608,
+     "n_moved": 46,
+     "agree": 0.1957
+    },
+    "quiet_placebo": {
+     "moved": 0.1434,
+     "n_moved": 41,
+     "agree": 0.4878
+    }
+   },
+   "W4000_g1000": {
+    "quiet_match": {
+     "moved": 0.2692,
+     "n_moved": 77,
+     "agree": 0.2727
+    },
+    "quiet_placebo": {
+     "moved": 0.2448,
+     "n_moved": 70,
+     "agree": 0.4429
+    }
+   },
+   "W9000_g1000": {
+    "quiet_match": {
+     "moved": 0.3881,
+     "n_moved": 111,
+     "agree": 0.3423
+    },
+    "quiet_placebo": {
+     "moved": 0.3776,
+     "n_moved": 108,
+     "agree": 0.463
+    }
+   },
+   "W500_g100": {
+    "quiet_match": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    },
+    "quiet_placebo": {
+     "moved": 0.042,
+     "n_moved": 12,
+     "agree": 0.6667
+    }
+   }
+  },
+  "bnf_ETH": {
+   "W2000_g1000": {
+    "quiet_match": {
+     "moved": 0.1748,
+     "n_moved": 50,
+     "agree": 0.38
+    },
+    "quiet_placebo": {
+     "moved": 0.1748,
+     "n_moved": 50,
+     "agree": 0.66
+    }
+   },
+   "W4000_g1000": {
+    "quiet_match": {
+     "moved": 0.2937,
+     "n_moved": 84,
+     "agree": 0.3452
+    },
+    "quiet_placebo": {
+     "moved": 0.2867,
+     "n_moved": 82,
+     "agree": 0.5244
+    }
+   },
+   "W9000_g1000": {
+    "quiet_match": {
+     "moved": 0.486,
+     "n_moved": 139,
+     "agree": 0.4029
+    },
+    "quiet_placebo": {
+     "moved": 0.4895,
+     "n_moved": 140,
+     "agree": 0.5071
+    }
+   },
+   "W500_g100": {
+    "quiet_match": {
+     "moved": 0.0035,
+     "n_moved": 1,
+     "agree": 1.0
+    },
+    "quiet_placebo": {
+     "moved": 0.042,
+     "n_moved": 12,
+     "agree": 0.5833
+    }
+   }
+  },
+  "bns_BTC": {
+   "W2000_g1000": {
+    "quiet_match": {
+     "moved": 0.1469,
+     "n_moved": 42,
+     "agree": 0.2619
+    },
+    "quiet_placebo": {
+     "moved": 0.1154,
+     "n_moved": 33,
+     "agree": 0.3939
+    }
+   },
+   "W4000_g1000": {
+    "quiet_match": {
+     "moved": 0.2343,
+     "n_moved": 67,
+     "agree": 0.3284
+    },
+    "quiet_placebo": {
+     "moved": 0.1958,
+     "n_moved": 56,
+     "agree": 0.375
+    }
+   },
+   "W9000_g1000": {
+    "quiet_match": {
+     "moved": 0.3706,
+     "n_moved": 106,
+     "agree": 0.4245
+    },
+    "quiet_placebo": {
+     "moved": 0.3462,
+     "n_moved": 99,
+     "agree": 0.404
+    }
+   },
+   "W500_g100": {
+    "quiet_match": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    },
+    "quiet_placebo": {
+     "moved": 0.028,
+     "n_moved": 8,
+     "agree": 0.625
+    }
+   }
+  },
+  "bns_ETH": {
+   "W2000_g1000": {
+    "quiet_match": {
+     "moved": 0.1469,
+     "n_moved": 42,
+     "agree": 0.381
+    },
+    "quiet_placebo": {
+     "moved": 0.1399,
+     "n_moved": 40,
+     "agree": 0.425
+    }
+   },
+   "W4000_g1000": {
+    "quiet_match": {
+     "moved": 0.2622,
+     "n_moved": 75,
+     "agree": 0.3867
+    },
+    "quiet_placebo": {
+     "moved": 0.2238,
+     "n_moved": 64,
+     "agree": 0.4375
+    }
+   },
+   "W9000_g1000": {
+    "quiet_match": {
+     "moved": 0.4056,
+     "n_moved": 116,
+     "agree": 0.3793
+    },
+    "quiet_placebo": {
+     "moved": 0.3951,
+     "n_moved": 113,
+     "agree": 0.4867
+    }
+   },
+   "W500_g100": {
+    "quiet_match": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    },
+    "quiet_placebo": {
+     "moved": 0.0315,
+     "n_moved": 9,
+     "agree": 0.6667
+    }
+   }
+  },
+  "cb_BTC": {
+   "W2000_g1000": {
+    "quiet_match": {
+     "moved": 0.1538,
+     "n_moved": 44,
+     "agree": 0.2273
+    },
+    "quiet_placebo": {
+     "moved": 0.1434,
+     "n_moved": 41,
+     "agree": 0.439
+    }
+   },
+   "W4000_g1000": {
+    "quiet_match": {
+     "moved": 0.2657,
+     "n_moved": 76,
+     "agree": 0.3026
+    },
+    "quiet_placebo": {
+     "moved": 0.2273,
+     "n_moved": 65,
+     "agree": 0.4154
+    }
+   },
+   "W9000_g1000": {
+    "quiet_match": {
+     "moved": 0.4056,
+     "n_moved": 116,
+     "agree": 0.3362
+    },
+    "quiet_placebo": {
+     "moved": 0.4161,
+     "n_moved": 119,
+     "agree": 0.4622
+    }
+   },
+   "W500_g100": {
+    "quiet_match": {
+     "moved": 0.007,
+     "n_moved": 2,
+     "agree": 0.5
+    },
+    "quiet_placebo": {
+     "moved": 0.0559,
+     "n_moved": 16,
+     "agree": 0.5625
+    }
+   }
+  },
+  "cb_ETH": {
+   "W2000_g1000": {
+    "quiet_match": {
+     "moved": 0.2692,
+     "n_moved": 77,
+     "agree": 0.3506
+    },
+    "quiet_placebo": {
+     "moved": 0.2273,
+     "n_moved": 65,
+     "agree": 0.4462
+    }
+   },
+   "W4000_g1000": {
+    "quiet_match": {
+     "moved": 0.3951,
+     "n_moved": 113,
+     "agree": 0.354
+    },
+    "quiet_placebo": {
+     "moved": 0.3986,
+     "n_moved": 114,
+     "agree": 0.4298
+    }
+   },
+   "W9000_g1000": {
+    "quiet_match": {
+     "moved": 0.528,
+     "n_moved": 151,
+     "agree": 0.4437
+    },
+    "quiet_placebo": {
+     "moved": 0.5524,
+     "n_moved": 158,
+     "agree": 0.5127
+    }
+   },
+   "W500_g100": {
+    "quiet_match": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    },
+    "quiet_placebo": {
+     "moved": 0.0699,
+     "n_moved": 20,
+     "agree": 0.75
+    }
+   }
+  },
+  "okx_BTC": {
+   "W2000_g1000": {
+    "quiet_match": {
+     "moved": 0.1538,
+     "n_moved": 44,
+     "agree": 0.2045
+    },
+    "quiet_placebo": {
+     "moved": 0.1014,
+     "n_moved": 29,
+     "agree": 0.3793
+    }
+   },
+   "W4000_g1000": {
+    "quiet_match": {
+     "moved": 0.2203,
+     "n_moved": 63,
+     "agree": 0.2857
+    },
+    "quiet_placebo": {
+     "moved": 0.2028,
+     "n_moved": 58,
+     "agree": 0.3621
+    }
+   },
+   "W9000_g1000": {
+    "quiet_match": {
+     "moved": 0.3147,
+     "n_moved": 90,
+     "agree": 0.3222
+    },
+    "quiet_placebo": {
+     "moved": 0.3357,
+     "n_moved": 96,
+     "agree": 0.4479
+    }
+   },
+   "W500_g100": {
+    "quiet_match": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    },
+    "quiet_placebo": {
+     "moved": 0.0559,
+     "n_moved": 16,
+     "agree": 0.5
+    }
+   }
+  },
+  "okx_ETH": {
+   "W2000_g1000": {
+    "quiet_match": {
+     "moved": 0.2098,
+     "n_moved": 60,
+     "agree": 0.3167
+    },
+    "quiet_placebo": {
+     "moved": 0.1958,
+     "n_moved": 56,
+     "agree": 0.5714
+    }
+   },
+   "W4000_g1000": {
+    "quiet_match": {
+     "moved": 0.3392,
+     "n_moved": 97,
+     "agree": 0.3505
+    },
+    "quiet_placebo": {
+     "moved": 0.3252,
+     "n_moved": 93,
+     "agree": 0.4516
+    }
+   },
+   "W9000_g1000": {
+    "quiet_match": {
+     "moved": 0.5,
+     "n_moved": 143,
+     "agree": 0.3636
+    },
+    "quiet_placebo": {
+     "moved": 0.5,
+     "n_moved": 143,
+     "agree": 0.5315
+    }
+   },
+   "W500_g100": {
+    "quiet_match": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    },
+    "quiet_placebo": {
+     "moved": 0.0699,
+     "n_moved": 20,
+     "agree": 0.7
+    }
+   }
+  }
+ },
+ "quotes": {
+  "recv_minus_exchange_ms_bf": -1034.0,
+  "by_BTC": {
+   "n_records": 16874,
+   "matches_covered": 219,
+   "mid_W1000_g0": {
+    "match": {
+     "moved": 0.1598,
+     "n_moved": 35,
+     "agree": 0.8571
+    },
+    "placebo": {
+     "moved": 0.0685,
+     "n_moved": 15,
+     "agree": 0.5333
+    },
+    "quiet": {
+     "moved": 0.0299,
+     "n_moved": 2,
+     "agree": 0.5
+    }
+   },
+   "mid_W500_g100": {
+    "match": {
+     "moved": 0.0959,
+     "n_moved": 21,
+     "agree": 0.9524
+    },
+    "placebo": {
+     "moved": 0.0274,
+     "n_moved": 6,
+     "agree": 0.8333
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "mid_W300_g0": {
+    "match": {
+     "moved": 0.0502,
+     "n_moved": 11,
+     "agree": 0.9091
+    },
+    "placebo": {
+     "moved": 0.0183,
+     "n_moved": 4,
+     "agree": 0.5
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "mid_W200_g50": {
+    "match": {
+     "moved": 0.0365,
+     "n_moved": 8,
+     "agree": 0.875
+    },
+    "placebo": {
+     "moved": 0.0137,
+     "n_moved": 3,
+     "agree": 0.3333
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "micro_W1000_g0": {
+    "match": {
+     "moved": 0.1598,
+     "n_moved": 35,
+     "agree": 0.8571
+    },
+    "placebo": {
+     "moved": 0.0685,
+     "n_moved": 15,
+     "agree": 0.5333
+    },
+    "quiet": {
+     "moved": 0.0299,
+     "n_moved": 2,
+     "agree": 0.5
+    }
+   },
+   "micro_W500_g100": {
+    "match": {
+     "moved": 0.0959,
+     "n_moved": 21,
+     "agree": 0.9524
+    },
+    "placebo": {
+     "moved": 0.0274,
+     "n_moved": 6,
+     "agree": 0.8333
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "micro_W300_g0": {
+    "match": {
+     "moved": 0.0502,
+     "n_moved": 11,
+     "agree": 0.9091
+    },
+    "placebo": {
+     "moved": 0.0183,
+     "n_moved": 4,
+     "agree": 0.5
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "micro_W200_g50": {
+    "match": {
+     "moved": 0.0365,
+     "n_moved": 8,
+     "agree": 0.875
+    },
+    "placebo": {
+     "moved": 0.0137,
+     "n_moved": 3,
+     "agree": 0.3333
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   }
+  },
+  "by_ETH": {
+   "n_records": 22802,
+   "matches_covered": 219,
+   "mid_W1000_g0": {
+    "match": {
+     "moved": 0.4201,
+     "n_moved": 92,
+     "agree": 0.8587
+    },
+    "placebo": {
+     "moved": 0.1598,
+     "n_moved": 35,
+     "agree": 0.6
+    },
+    "quiet": {
+     "moved": 0.1642,
+     "n_moved": 11,
+     "agree": 0.3636
+    }
+   },
+   "mid_W500_g100": {
+    "match": {
+     "moved": 0.347,
+     "n_moved": 76,
+     "agree": 0.8816
+    },
+    "placebo": {
+     "moved": 0.0822,
+     "n_moved": 18,
+     "agree": 0.5556
+    },
+    "quiet": {
+     "moved": 0.1194,
+     "n_moved": 8,
+     "agree": 0.5
+    }
+   },
+   "mid_W300_g0": {
+    "match": {
+     "moved": 0.2146,
+     "n_moved": 47,
+     "agree": 0.8511
+    },
+    "placebo": {
+     "moved": 0.0685,
+     "n_moved": 15,
+     "agree": 0.6
+    },
+    "quiet": {
+     "moved": 0.0746,
+     "n_moved": 5,
+     "agree": 0.6
+    }
+   },
+   "mid_W200_g50": {
+    "match": {
+     "moved": 0.1644,
+     "n_moved": 36,
+     "agree": 0.8333
+    },
+    "placebo": {
+     "moved": 0.0502,
+     "n_moved": 11,
+     "agree": 0.5455
+    },
+    "quiet": {
+     "moved": 0.0746,
+     "n_moved": 5,
+     "agree": 0.6
+    }
+   },
+   "micro_W1000_g0": {
+    "match": {
+     "moved": 0.411,
+     "n_moved": 90,
+     "agree": 0.8556
+    },
+    "placebo": {
+     "moved": 0.1598,
+     "n_moved": 35,
+     "agree": 0.6
+    },
+    "quiet": {
+     "moved": 0.1642,
+     "n_moved": 11,
+     "agree": 0.3636
+    }
+   },
+   "micro_W500_g100": {
+    "match": {
+     "moved": 0.3333,
+     "n_moved": 73,
+     "agree": 0.8904
+    },
+    "placebo": {
+     "moved": 0.0776,
+     "n_moved": 17,
+     "agree": 0.5294
+    },
+    "quiet": {
+     "moved": 0.1194,
+     "n_moved": 8,
+     "agree": 0.5
+    }
+   },
+   "micro_W300_g0": {
+    "match": {
+     "moved": 0.2009,
+     "n_moved": 44,
+     "agree": 0.8636
+    },
+    "placebo": {
+     "moved": 0.0639,
+     "n_moved": 14,
+     "agree": 0.5714
+    },
+    "quiet": {
+     "moved": 0.0746,
+     "n_moved": 5,
+     "agree": 0.6
+    }
+   },
+   "micro_W200_g50": {
+    "match": {
+     "moved": 0.1644,
+     "n_moved": 36,
+     "agree": 0.8333
+    },
+    "placebo": {
+     "moved": 0.0502,
+     "n_moved": 11,
+     "agree": 0.5455
+    },
+    "quiet": {
+     "moved": 0.0746,
+     "n_moved": 5,
+     "agree": 0.6
+    }
+   }
+  },
+  "bf_BTC": {
+   "n_records": 41557,
+   "matches_covered": 219,
+   "mid_W1000_g0": {
+    "match": {
+     "moved": 0.1918,
+     "n_moved": 42,
+     "agree": 0.8095
+    },
+    "placebo": {
+     "moved": 0.0548,
+     "n_moved": 12,
+     "agree": 0.6667
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W500_g100": {
+    "match": {
+     "moved": 0.1233,
+     "n_moved": 27,
+     "agree": 0.9259
+    },
+    "placebo": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.8
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W300_g0": {
+    "match": {
+     "moved": 0.0639,
+     "n_moved": 14,
+     "agree": 0.8571
+    },
+    "placebo": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.8
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W200_g50": {
+    "match": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.6
+    },
+    "placebo": {
+     "moved": 0.0091,
+     "n_moved": 2,
+     "agree": 1.0
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W1000_g0": {
+    "match": {
+     "moved": 0.1781,
+     "n_moved": 39,
+     "agree": 0.8462
+    },
+    "placebo": {
+     "moved": 0.0548,
+     "n_moved": 12,
+     "agree": 0.6667
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W500_g100": {
+    "match": {
+     "moved": 0.1233,
+     "n_moved": 27,
+     "agree": 0.9259
+    },
+    "placebo": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.8
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W300_g0": {
+    "match": {
+     "moved": 0.0594,
+     "n_moved": 13,
+     "agree": 0.8462
+    },
+    "placebo": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.8
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W200_g50": {
+    "match": {
+     "moved": 0.0183,
+     "n_moved": 4,
+     "agree": 0.5
+    },
+    "placebo": {
+     "moved": 0.0091,
+     "n_moved": 2,
+     "agree": 1.0
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   }
+  },
+  "bf_ETH": {
+   "n_records": 42164,
+   "matches_covered": 219,
+   "mid_W1000_g0": {
+    "match": {
+     "moved": 0.4429,
+     "n_moved": 97,
+     "agree": 0.9175
+    },
+    "placebo": {
+     "moved": 0.1187,
+     "n_moved": 26,
+     "agree": 0.4615
+    },
+    "quiet": {
+     "moved": 0.0299,
+     "n_moved": 2,
+     "agree": 1.0
+    }
+   },
+   "mid_W500_g100": {
+    "match": {
+     "moved": 0.3607,
+     "n_moved": 79,
+     "agree": 0.9241
+    },
+    "placebo": {
+     "moved": 0.0685,
+     "n_moved": 15,
+     "agree": 0.4667
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "mid_W300_g0": {
+    "match": {
+     "moved": 0.2009,
+     "n_moved": 44,
+     "agree": 0.9318
+    },
+    "placebo": {
+     "moved": 0.0457,
+     "n_moved": 10,
+     "agree": 0.5
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W200_g50": {
+    "match": {
+     "moved": 0.137,
+     "n_moved": 30,
+     "agree": 0.9
+    },
+    "placebo": {
+     "moved": 0.0274,
+     "n_moved": 6,
+     "agree": 0.3333
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W1000_g0": {
+    "match": {
+     "moved": 0.4429,
+     "n_moved": 97,
+     "agree": 0.9175
+    },
+    "placebo": {
+     "moved": 0.1142,
+     "n_moved": 25,
+     "agree": 0.48
+    },
+    "quiet": {
+     "moved": 0.0299,
+     "n_moved": 2,
+     "agree": 1.0
+    }
+   },
+   "micro_W500_g100": {
+    "match": {
+     "moved": 0.3607,
+     "n_moved": 79,
+     "agree": 0.9241
+    },
+    "placebo": {
+     "moved": 0.0639,
+     "n_moved": 14,
+     "agree": 0.4286
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "micro_W300_g0": {
+    "match": {
+     "moved": 0.1963,
+     "n_moved": 43,
+     "agree": 0.9302
+    },
+    "placebo": {
+     "moved": 0.0457,
+     "n_moved": 10,
+     "agree": 0.5
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W200_g50": {
+    "match": {
+     "moved": 0.1187,
+     "n_moved": 26,
+     "agree": 0.8846
+    },
+    "placebo": {
+     "moved": 0.0274,
+     "n_moved": 6,
+     "agree": 0.3333
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   }
+  },
+  "hl_ETH": {
+   "n_records": 7063,
+   "matches_covered": 219,
+   "mid_W1000_g0": {
+    "match": {
+     "moved": 0.1735,
+     "n_moved": 38,
+     "agree": 0.8421
+    },
+    "placebo": {
+     "moved": 0.0731,
+     "n_moved": 16,
+     "agree": 0.5625
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "mid_W500_g100": {
+    "match": {
+     "moved": 0.1096,
+     "n_moved": 24,
+     "agree": 0.875
+    },
+    "placebo": {
+     "moved": 0.0411,
+     "n_moved": 9,
+     "agree": 0.4444
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "mid_W300_g0": {
+    "match": {
+     "moved": 0.0913,
+     "n_moved": 20,
+     "agree": 0.95
+    },
+    "placebo": {
+     "moved": 0.0411,
+     "n_moved": 9,
+     "agree": 0.5556
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "mid_W200_g50": {
+    "match": {
+     "moved": 0.0776,
+     "n_moved": 17,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.6
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 1.0
+    }
+   },
+   "micro_W1000_g0": {
+    "match": {
+     "moved": 0.4201,
+     "n_moved": 92,
+     "agree": 0.8913
+    },
+    "placebo": {
+     "moved": 0.1872,
+     "n_moved": 41,
+     "agree": 0.4878
+    },
+    "quiet": {
+     "moved": 0.1493,
+     "n_moved": 10,
+     "agree": 0.9
+    }
+   },
+   "micro_W500_g100": {
+    "match": {
+     "moved": 0.2466,
+     "n_moved": 54,
+     "agree": 0.9444
+    },
+    "placebo": {
+     "moved": 0.1005,
+     "n_moved": 22,
+     "agree": 0.5
+    },
+    "quiet": {
+     "moved": 0.0746,
+     "n_moved": 5,
+     "agree": 1.0
+    }
+   },
+   "micro_W300_g0": {
+    "match": {
+     "moved": 0.2785,
+     "n_moved": 61,
+     "agree": 0.9672
+    },
+    "placebo": {
+     "moved": 0.1096,
+     "n_moved": 24,
+     "agree": 0.5417
+    },
+    "quiet": {
+     "moved": 0.0597,
+     "n_moved": 4,
+     "agree": 1.0
+    }
+   },
+   "micro_W200_g50": {
+    "match": {
+     "moved": 0.1918,
+     "n_moved": 42,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.0457,
+     "n_moved": 10,
+     "agree": 0.7
+    },
+    "quiet": {
+     "moved": 0.0448,
+     "n_moved": 3,
+     "agree": 1.0
+    }
+   }
+  },
+  "bs_BTC": {
+   "n_records": 22231,
+   "matches_covered": 219,
+   "mid_W1000_g0": {
+    "match": {
+     "moved": 0.137,
+     "n_moved": 30,
+     "agree": 0.8667
+    },
+    "placebo": {
+     "moved": 0.0502,
+     "n_moved": 11,
+     "agree": 0.6364
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W500_g100": {
+    "match": {
+     "moved": 0.0822,
+     "n_moved": 18,
+     "agree": 0.9444
+    },
+    "placebo": {
+     "moved": 0.0274,
+     "n_moved": 6,
+     "agree": 0.8333
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W300_g0": {
+    "match": {
+     "moved": 0.0411,
+     "n_moved": 9,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.0137,
+     "n_moved": 3,
+     "agree": 0.6667
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W200_g50": {
+    "match": {
+     "moved": 0.0183,
+     "n_moved": 4,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.0091,
+     "n_moved": 2,
+     "agree": 1.0
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W1000_g0": {
+    "match": {
+     "moved": 0.1324,
+     "n_moved": 29,
+     "agree": 0.8621
+    },
+    "placebo": {
+     "moved": 0.0502,
+     "n_moved": 11,
+     "agree": 0.6364
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W500_g100": {
+    "match": {
+     "moved": 0.0731,
+     "n_moved": 16,
+     "agree": 0.9375
+    },
+    "placebo": {
+     "moved": 0.0274,
+     "n_moved": 6,
+     "agree": 0.8333
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W300_g0": {
+    "match": {
+     "moved": 0.0274,
+     "n_moved": 6,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.0137,
+     "n_moved": 3,
+     "agree": 0.6667
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W200_g50": {
+    "match": {
+     "moved": 0.0183,
+     "n_moved": 4,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.0091,
+     "n_moved": 2,
+     "agree": 1.0
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   }
+  },
+  "bs_ETH": {
+   "n_records": 12549,
+   "matches_covered": 219,
+   "mid_W1000_g0": {
+    "match": {
+     "moved": 0.2694,
+     "n_moved": 59,
+     "agree": 0.8136
+    },
+    "placebo": {
+     "moved": 0.0822,
+     "n_moved": 18,
+     "agree": 0.5
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 0.0
+    }
+   },
+   "mid_W500_g100": {
+    "match": {
+     "moved": 0.2192,
+     "n_moved": 48,
+     "agree": 0.8542
+    },
+    "placebo": {
+     "moved": 0.0411,
+     "n_moved": 9,
+     "agree": 0.5556
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W300_g0": {
+    "match": {
+     "moved": 0.1187,
+     "n_moved": 26,
+     "agree": 0.8846
+    },
+    "placebo": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.8
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W200_g50": {
+    "match": {
+     "moved": 0.0959,
+     "n_moved": 21,
+     "agree": 0.8571
+    },
+    "placebo": {
+     "moved": 0.0137,
+     "n_moved": 3,
+     "agree": 1.0
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W1000_g0": {
+    "match": {
+     "moved": 0.2603,
+     "n_moved": 57,
+     "agree": 0.8246
+    },
+    "placebo": {
+     "moved": 0.0685,
+     "n_moved": 15,
+     "agree": 0.4667
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W500_g100": {
+    "match": {
+     "moved": 0.21,
+     "n_moved": 46,
+     "agree": 0.8696
+    },
+    "placebo": {
+     "moved": 0.032,
+     "n_moved": 7,
+     "agree": 0.5714
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W300_g0": {
+    "match": {
+     "moved": 0.1187,
+     "n_moved": 26,
+     "agree": 0.8846
+    },
+    "placebo": {
+     "moved": 0.0183,
+     "n_moved": 4,
+     "agree": 0.75
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W200_g50": {
+    "match": {
+     "moved": 0.0868,
+     "n_moved": 19,
+     "agree": 0.8421
+    },
+    "placebo": {
+     "moved": 0.0091,
+     "n_moved": 2,
+     "agree": 1.0
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   }
+  },
+  "hl_BTC": {
+   "n_records": 8078,
+   "matches_covered": 219,
+   "mid_W1000_g0": {
+    "match": {
+     "moved": 0.105,
+     "n_moved": 23,
+     "agree": 0.7826
+    },
+    "placebo": {
+     "moved": 0.0639,
+     "n_moved": 14,
+     "agree": 0.7857
+    },
+    "quiet": {
+     "moved": 0.0299,
+     "n_moved": 2,
+     "agree": 0.5
+    }
+   },
+   "mid_W500_g100": {
+    "match": {
+     "moved": 0.0776,
+     "n_moved": 17,
+     "agree": 0.8235
+    },
+    "placebo": {
+     "moved": 0.0502,
+     "n_moved": 11,
+     "agree": 0.8182
+    },
+    "quiet": {
+     "moved": 0.0299,
+     "n_moved": 2,
+     "agree": 0.5
+    }
+   },
+   "mid_W300_g0": {
+    "match": {
+     "moved": 0.0548,
+     "n_moved": 12,
+     "agree": 0.6667
+    },
+    "placebo": {
+     "moved": 0.0365,
+     "n_moved": 8,
+     "agree": 0.875
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 0.0
+    }
+   },
+   "mid_W200_g50": {
+    "match": {
+     "moved": 0.0457,
+     "n_moved": 10,
+     "agree": 0.6
+    },
+    "placebo": {
+     "moved": 0.032,
+     "n_moved": 7,
+     "agree": 0.8571
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 0.0
+    }
+   },
+   "micro_W1000_g0": {
+    "match": {
+     "moved": 0.1507,
+     "n_moved": 33,
+     "agree": 0.8182
+    },
+    "placebo": {
+     "moved": 0.0594,
+     "n_moved": 13,
+     "agree": 0.7692
+    },
+    "quiet": {
+     "moved": 0.0299,
+     "n_moved": 2,
+     "agree": 0.5
+    }
+   },
+   "micro_W500_g100": {
+    "match": {
+     "moved": 0.0959,
+     "n_moved": 21,
+     "agree": 0.8571
+    },
+    "placebo": {
+     "moved": 0.0502,
+     "n_moved": 11,
+     "agree": 0.8182
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 0.0
+    }
+   },
+   "micro_W300_g0": {
+    "match": {
+     "moved": 0.0639,
+     "n_moved": 14,
+     "agree": 0.7143
+    },
+    "placebo": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.8
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 0.0
+    }
+   },
+   "micro_W200_g50": {
+    "match": {
+     "moved": 0.0457,
+     "n_moved": 10,
+     "agree": 0.7
+    },
+    "placebo": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.8
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 0.0
+    }
+   }
+  },
+  "ok_ETH": {
+   "n_records": 28859,
+   "matches_covered": 219,
+   "mid_W1000_g0": {
+    "match": {
+     "moved": 0.3288,
+     "n_moved": 72,
+     "agree": 0.9167
+    },
+    "placebo": {
+     "moved": 0.1416,
+     "n_moved": 31,
+     "agree": 0.5806
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 0.0
+    }
+   },
+   "mid_W500_g100": {
+    "match": {
+     "moved": 0.2785,
+     "n_moved": 61,
+     "agree": 0.9016
+    },
+    "placebo": {
+     "moved": 0.0731,
+     "n_moved": 16,
+     "agree": 0.6875
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 0.0
+    }
+   },
+   "mid_W300_g0": {
+    "match": {
+     "moved": 0.1598,
+     "n_moved": 35,
+     "agree": 0.9429
+    },
+    "placebo": {
+     "moved": 0.0411,
+     "n_moved": 9,
+     "agree": 0.5556
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W200_g50": {
+    "match": {
+     "moved": 0.1005,
+     "n_moved": 22,
+     "agree": 0.9091
+    },
+    "placebo": {
+     "moved": 0.0274,
+     "n_moved": 6,
+     "agree": 0.5
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W1000_g0": {
+    "match": {
+     "moved": 0.3196,
+     "n_moved": 70,
+     "agree": 0.9286
+    },
+    "placebo": {
+     "moved": 0.137,
+     "n_moved": 30,
+     "agree": 0.5667
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 0.0
+    }
+   },
+   "micro_W500_g100": {
+    "match": {
+     "moved": 0.274,
+     "n_moved": 60,
+     "agree": 0.9
+    },
+    "placebo": {
+     "moved": 0.0685,
+     "n_moved": 15,
+     "agree": 0.6667
+    },
+    "quiet": {
+     "moved": 0.0149,
+     "n_moved": 1,
+     "agree": 0.0
+    }
+   },
+   "micro_W300_g0": {
+    "match": {
+     "moved": 0.1598,
+     "n_moved": 35,
+     "agree": 0.9429
+    },
+    "placebo": {
+     "moved": 0.0411,
+     "n_moved": 9,
+     "agree": 0.5556
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W200_g50": {
+    "match": {
+     "moved": 0.1005,
+     "n_moved": 22,
+     "agree": 0.9091
+    },
+    "placebo": {
+     "moved": 0.0274,
+     "n_moved": 6,
+     "agree": 0.5
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   }
+  },
+  "ok_BTC": {
+   "n_records": 22371,
+   "matches_covered": 219,
+   "mid_W1000_g0": {
+    "match": {
+     "moved": 0.1324,
+     "n_moved": 29,
+     "agree": 0.8966
+    },
+    "placebo": {
+     "moved": 0.0502,
+     "n_moved": 11,
+     "agree": 0.6364
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W500_g100": {
+    "match": {
+     "moved": 0.0913,
+     "n_moved": 20,
+     "agree": 0.9
+    },
+    "placebo": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.8
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W300_g0": {
+    "match": {
+     "moved": 0.032,
+     "n_moved": 7,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.0137,
+     "n_moved": 3,
+     "agree": 0.6667
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "mid_W200_g50": {
+    "match": {
+     "moved": 0.0183,
+     "n_moved": 4,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W1000_g0": {
+    "match": {
+     "moved": 0.1324,
+     "n_moved": 29,
+     "agree": 0.8966
+    },
+    "placebo": {
+     "moved": 0.0502,
+     "n_moved": 11,
+     "agree": 0.6364
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W500_g100": {
+    "match": {
+     "moved": 0.0913,
+     "n_moved": 20,
+     "agree": 0.9
+    },
+    "placebo": {
+     "moved": 0.0228,
+     "n_moved": 5,
+     "agree": 0.8
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W300_g0": {
+    "match": {
+     "moved": 0.032,
+     "n_moved": 7,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.0137,
+     "n_moved": 3,
+     "agree": 0.6667
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   },
+   "micro_W200_g50": {
+    "match": {
+     "moved": 0.0183,
+     "n_moved": 4,
+     "agree": 1.0
+    },
+    "placebo": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    },
+    "quiet": {
+     "moved": 0.0,
+     "n_moved": 0,
+     "agree": null
+    }
+   }
+  }
+ },
+ "chainlink_lag_scan": {
+  "0": {
+   "match": {
+    "moved": 0.7008,
+    "n_moved": 548,
+    "agree": 0.4964
+   },
+   "placebo": {
+    "moved": 0.6471,
+    "n_moved": 506,
+    "agree": 0.5455
+   },
+   "quiet_match": {
+    "moved": 0.6748,
+    "n_moved": 193,
+    "agree": 0.5026
+   }
+  },
+  "250": {
+   "match": {
+    "moved": 0.6777,
+    "n_moved": 530,
+    "agree": 0.4811
+   },
+   "placebo": {
+    "moved": 0.6458,
+    "n_moved": 505,
+    "agree": 0.5188
+   },
+   "quiet_match": {
+    "moved": 0.6259,
+    "n_moved": 179,
+    "agree": 0.486
+   }
+  },
+  "500": {
+   "match": {
+    "moved": 0.6688,
+    "n_moved": 523,
+    "agree": 0.4895
+   },
+   "placebo": {
+    "moved": 0.6253,
+    "n_moved": 489,
+    "agree": 0.5133
+   },
+   "quiet_match": {
+    "moved": 0.6503,
+    "n_moved": 186,
+    "agree": 0.4516
+   }
+  },
+  "750": {
+   "match": {
+    "moved": 0.6586,
+    "n_moved": 515,
+    "agree": 0.4835
+   },
+   "placebo": {
+    "moved": 0.6266,
+    "n_moved": 490,
+    "agree": 0.498
+   },
+   "quiet_match": {
+    "moved": 0.6434,
+    "n_moved": 184,
+    "agree": 0.462
+   }
+  },
+  "1000": {
+   "match": {
+    "moved": 0.6611,
+    "n_moved": 517,
+    "agree": 0.4797
+   },
+   "placebo": {
+    "moved": 0.6215,
+    "n_moved": 486,
+    "agree": 0.4856
+   },
+   "quiet_match": {
+    "moved": 0.6469,
+    "n_moved": 185,
+    "agree": 0.4649
+   }
+  },
+  "1250": {
+   "match": {
+    "moved": 0.6662,
+    "n_moved": 521,
+    "agree": 0.4914
+   },
+   "placebo": {
+    "moved": 0.6279,
+    "n_moved": 491,
+    "agree": 0.5071
+   },
+   "quiet_match": {
+    "moved": 0.6713,
+    "n_moved": 192,
+    "agree": 0.4583
+   }
+  },
+  "1500": {
+   "match": {
+    "moved": 0.6573,
+    "n_moved": 514,
+    "agree": 0.5078
+   },
+   "placebo": {
+    "moved": 0.6407,
+    "n_moved": 501,
+    "agree": 0.505
+   },
+   "quiet_match": {
+    "moved": 0.6434,
+    "n_moved": 184,
+    "agree": 0.4946
+   }
+  },
+  "2000": {
+   "match": {
+    "moved": 0.6471,
+    "n_moved": 506,
+    "agree": 0.4901
+   },
+   "placebo": {
+    "moved": 0.665,
+    "n_moved": 520,
+    "agree": 0.4923
+   },
+   "quiet_match": {
+    "moved": 0.6259,
+    "n_moved": 179,
+    "agree": 0.4134
+   }
+  },
+  "3000": {
+   "match": {
+    "moved": 0.6522,
+    "n_moved": 510,
+    "agree": 0.5078
+   },
+   "placebo": {
+    "moved": 0.6598,
+    "n_moved": 516,
+    "agree": 0.5213
+   },
+   "quiet_match": {
+    "moved": 0.6643,
+    "n_moved": 190,
+    "agree": 0.4895
+   }
+  }
+ },
+ "polymarket_book": {
+  "shared200ms": {
+   "W1000": {
+    "n": 782,
+    "ask_rose": 0.3696,
+    "ask_fell": 0.2877,
+    "placebo_rose": 0.1747,
+    "placebo_fell": 0.228,
+    "quiet_n": 286,
+    "quiet_rose": 0.3741,
+    "quiet_fell": 0.3042
+   },
+   "W300": {
+    "n": 782,
+    "ask_rose": 0.2353,
+    "ask_fell": 0.1701,
+    "placebo_rose": 0.084,
+    "placebo_fell": 0.1027,
+    "quiet_n": 286,
+    "quiet_rose": 0.2448,
+    "quiet_fell": 0.1713
+   },
+   "W100": {
+    "n": 782,
+    "ask_rose": 0.0985,
+    "ask_fell": 0.0703,
+    "placebo_rose": 0.0373,
+    "placebo_fell": 0.032,
+    "quiet_n": 286,
+    "quiet_rose": 0.0629,
+    "quiet_fell": 0.0699
+   }
+  },
+  "raw": {
+   "W1000": {
+    "n": 219,
+    "ask_rose": 0.3059,
+    "ask_fell": 0.2785,
+    "placebo_rose": 0.1682,
+    "placebo_fell": 0.1727,
+    "quiet_n": 67,
+    "quiet_rose": 0.2239,
+    "quiet_fell": 0.3284
+   },
+   "W300": {
+    "n": 219,
+    "ask_rose": 0.2146,
+    "ask_fell": 0.0959,
+    "placebo_rose": 0.0773,
+    "placebo_fell": 0.0682,
+    "quiet_n": 67,
+    "quiet_rose": 0.194,
+    "quiet_fell": 0.0896
+   },
+   "W100": {
+    "n": 219,
+    "ask_rose": 0.105,
+    "ask_fell": 0.0365,
+    "placebo_rose": 0.0455,
+    "placebo_fell": 0.0273,
+    "quiet_n": 67,
+    "quiet_rose": 0.0448,
+    "quiet_fell": 0.0299
+   }
+  }
+ },
+ "raw_book_bought_outcome": {
+  "W1000_end20": {
+   "ask_all": {
+    "n": 219,
+    "rose": 0.4018,
+    "fell": 0.2511
+   },
+   "ask_quiet": {
+    "n": 67,
+    "rose": 0.3881,
+    "fell": 0.2985
+   },
+   "ask_moving": {
+    "n": 152,
+    "rose": 0.4079,
+    "fell": 0.2303
+   },
+   "ask_placebo": {
+    "n": 220,
+    "rose": 0.1682,
+    "fell": 0.1773
+   },
+   "bid_all": {
+    "n": 219,
+    "rose": 0.4064,
+    "fell": 0.2374
+   },
+   "bid_quiet": {
+    "n": 67,
+    "rose": 0.403,
+    "fell": 0.2537
+   },
+   "bid_moving": {
+    "n": 152,
+    "rose": 0.4079,
+    "fell": 0.2303
+   },
+   "bid_placebo": {
+    "n": 220,
+    "rose": 0.1636,
+    "fell": 0.1773
+   }
+  },
+  "W300_end20": {
+   "ask_all": {
+    "n": 219,
+    "rose": 0.3607,
+    "fell": 0.0959
+   },
+   "ask_quiet": {
+    "n": 67,
+    "rose": 0.4179,
+    "fell": 0.1045
+   },
+   "ask_moving": {
+    "n": 152,
+    "rose": 0.3355,
+    "fell": 0.0921
+   },
+   "ask_placebo": {
+    "n": 220,
+    "rose": 0.0864,
+    "fell": 0.0682
+   },
+   "bid_all": {
+    "n": 219,
+    "rose": 0.3744,
+    "fell": 0.0594
+   },
+   "bid_quiet": {
+    "n": 67,
+    "rose": 0.403,
+    "fell": 0.0448
+   },
+   "bid_moving": {
+    "n": 152,
+    "rose": 0.3618,
+    "fell": 0.0658
+   },
+   "bid_placebo": {
+    "n": 220,
+    "rose": 0.0909,
+    "fell": 0.0636
+   }
+  }
+ },
+ "crowd_300ms": {
+  "match_any_before": 0.7136,
+  "match_any_after": 0.8645,
+  "placebo_any_before": 0.4834,
+  "placebo_any_after": 0.4731,
+  "match_same_dir_before": 0.6737,
+  "quiet_any_before": 0.7308,
+  "quiet_same_dir_before": 0.6506
+ }
+}

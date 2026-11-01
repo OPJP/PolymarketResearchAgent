@@ -1,0 +1,156 @@
+{
+ "wallet_after_p4e": {
+  "n": 203,
+  "events": 44,
+  "median_lag_ms": 50.0,
+  "by_class": {
+   "follow_on": {
+    "count": 25,
+    "median": 40.0,
+    "mean": 41.0
+   },
+   "isolated": {
+    "count": 122,
+    "median": 53.0,
+    "mean": 50.9
+   },
+   "reversal": {
+    "count": 56,
+    "median": 50.5,
+    "mean": 49.9
+   }
+  },
+  "by_multi": {
+   "multi": {
+    "count": 1,
+    "median": 64.0
+   },
+   "single": {
+    "count": 202,
+    "median": 49.5
+   }
+  },
+  "by_price": {
+   "high": {
+    "count": 66,
+    "median": 46.0
+   },
+   "low": {
+    "count": 69,
+    "median": 55.0
+   },
+   "mid": {
+    "count": 68,
+    "median": 52.0
+   }
+  },
+  "mixedlm": {
+   "event_sd_ms": 8.03,
+   "resid_sd_ms": 25.11,
+   "fe": {
+    "Intercept": [
+     66.62,
+     0.0151
+    ],
+    "C(cls, Treatment('isolated'))[T.follow_on]": [
+     -10.92,
+     0.0688
+    ],
+    "C(cls, Treatment('isolated'))[T.reversal]": [
+     -0.87,
+     0.8377
+    ],
+    "C(pt3)[T.low]": [
+     7.8,
+     0.0831
+    ],
+    "C(pt3)[T.mid]": [
+     1.42,
+     0.7614
+    ],
+    "C(multi)[T.single]": [
+     -17.84,
+     0.4958
+    ]
+   }
+  },
+  "reversal_minus_follow_on_median_ms_ci95": [
+   -4.0,
+   10.0,
+   22.0
+  ]
+ },
+ "r2_after_p4e_control": {
+  "n": 63,
+  "events": 19,
+  "median_lag_ms": 25.0,
+  "by_class": {
+   "follow_on": {
+    "count": 9,
+    "median": 17.0,
+    "mean": 13.3
+   },
+   "isolated": {
+    "count": 49,
+    "median": 26.0,
+    "mean": 25.9
+   },
+   "reversal": {
+    "count": 5,
+    "median": 18.0,
+    "mean": 17.4
+   }
+  },
+  "by_multi": {
+   "single": {
+    "count": 63,
+    "median": 25.0
+   }
+  },
+  "by_price": {
+   "high": {
+    "count": 21,
+    "median": 32.0
+   },
+   "low": {
+    "count": 21,
+    "median": 17.0
+   },
+   "mid": {
+    "count": 21,
+    "median": 25.0
+   }
+  },
+  "mixedlm": {
+   "event_sd_ms": 16.8,
+   "resid_sd_ms": 23.03,
+   "fe": {
+    "Intercept": [
+     36.96,
+     0.0771
+    ],
+    "C(cls, Treatment('isolated'))[T.follow_on]": [
+     -12.52,
+     0.2154
+    ],
+    "C(cls, Treatment('isolated'))[T.reversal]": [
+     -10.85,
+     0.3543
+    ],
+    "C(pt3)[T.low]": [
+     -13.38,
+     0.1173
+    ],
+    "C(pt3)[T.mid]": [
+     -8.33,
+     0.3176
+    ]
+   }
+  },
+  "reversal_minus_follow_on_median_ms_ci95": [
+   -44.0,
+   -1.0,
+   39.0
+  ]
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "R3": {
+  "auc": 0.7159,
+  "within_active": 0.7084,
+  "side": 0.6634
+ },
+ "R3+eth_sol": {
+  "auc": 0.7149,
+  "within_active": 0.7073,
+  "side": 0.6634
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "bursts": 1508,
+ "adds": 2699,
+ "share_bursts_with_mid_move_ge_half_c": 0.536,
+ "R0": {
+  "all": {
+   "orders": 2694,
+   "set_unit": 0.5,
+   "per_order_no_rank": 0.412
+  },
+  "first_half": {
+   "orders": 1697,
+   "set_unit": 0.494,
+   "per_order_no_rank": 0.377
+  },
+  "second_half": {
+   "orders": 997,
+   "set_unit": 0.509,
+   "per_order_no_rank": 0.472
+  }
+ },
+ "R1": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.326,
+   "per_order_no_rank": 0.268
+  },
+  "first_half": {
+   "orders": 1697,
+   "set_unit": 0.324,
+   "per_order_no_rank": 0.242
+  },
+  "second_half": {
+   "orders": 1002,
+   "set_unit": 0.328,
+   "per_order_no_rank": 0.311
+  }
+ },
+ "R2": {
+  "all": {
+   "orders": 2699,
+   "set_unit": 0.351,
+   "per_order_no_rank": 0.285
+  },
+  "first_half": {
+   "orders": 1697,
+   "set_unit": 0.341,
+   "per_order_no_rank": 0.255
+  },
+  "second_half": {
+   "orders": 1002,
+   "set_unit": 0.366,
+   "per_order_no_rank": 0.335
+  }
+ },
+ "R3": {
+  "all": {
+   "orders": 2694,
+   "set_unit": 0.453,
+   "per_order_no_rank": 0.361
+  },
+  "first_half": {
+   "orders": 1697,
+   "set_unit": 0.438,
+   "per_order_no_rank": 0.324
+  },
+  "second_half": {
+   "orders": 997,
+   "set_unit": 0.479,
+   "per_order_no_rank": 0.423
+  }
+ },
+ "R4": {
+  "all": {
+   "orders": 2694,
+   "set_unit": 0.458,
+   "per_order_no_rank": 0.377
+  },
+  "first_half": {
+   "orders": 1697,
+   "set_unit": 0.459,
+   "per_order_no_rank": 0.353
+  },
+  "second_half": {
+   "orders": 997,
+   "set_unit": 0.456,
+   "per_order_no_rank": 0.417
+  }
+ }
+}

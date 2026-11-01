@@ -1,0 +1,52 @@
+{
+ "res_v": {
+  "n": 1132,
+  "maps": 92,
+  "spearman_eq": -0.287,
+  "ci95": [
+   -0.336,
+   -0.235
+  ],
+  "ols_eq_coef_c_per_1k": -0.071,
+  "ols_eq_t": -9.29,
+  "ols_ct_coef_c": 0.553
+ },
+ "res_p": {
+  "n": 1033,
+  "maps": 86,
+  "spearman_eq": -0.238,
+  "ci95": [
+   -0.302,
+   -0.173
+  ],
+  "ols_eq_coef_c_per_1k": -0.063,
+  "ols_eq_t": -5.98,
+  "ols_ct_coef_c": 0.636
+ },
+ "offset_vs_print_ctrl_prev_rounds": {
+  "n": 1128,
+  "eq_coef_c_per_1k": 0.004,
+  "eq_t": 0.2,
+  "prevA_coef_c": 4.527,
+  "prevA_t": 15.59,
+  "prev2A_coef_c": 0.525,
+  "scoreA_coef_c": 0.298
+ },
+ "offset_vs_print_prev_A_won": {
+  "n": 574,
+  "eq_coef_c_per_1k": -0.003,
+  "eq_t": -0.11
+ },
+ "offset_vs_print_prev_A_lost": {
+  "n": 554,
+  "eq_coef_c_per_1k": 0.037,
+  "eq_t": 1.5
+ },
+ "offset_vs_print": {
+  "n": 1128,
+  "maps": 92,
+  "spearman_eq_tokdemeaned": 0.54,
+  "ols_eq_coef_c_per_1k": 0.317,
+  "ols_eq_t": 24.6
+ }
+}

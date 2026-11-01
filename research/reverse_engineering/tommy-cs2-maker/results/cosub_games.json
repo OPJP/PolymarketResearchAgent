@@ -1,0 +1,83 @@
+{
+ "valorant": {
+  "fills": 458,
+  "txs": 450,
+  "share_signed_after_taker_0_100ms": 0.0087,
+  "share_100_1000ms": 0.1048,
+  "share_1000_1200ms": 0.0175,
+  "share_before_taker": 0.8035,
+  "offset_ms_p10_p50_p90_of_after": [
+   242.0,
+   946.0,
+   3594.0
+  ],
+  "hist_after_0_1200_by_100ms": [
+   4,
+   4,
+   3,
+   6,
+   7,
+   6,
+   1,
+   4,
+   8,
+   9,
+   3,
+   5
+  ]
+ },
+ "lol": {
+  "fills": 157,
+  "txs": 156,
+  "share_signed_after_taker_0_100ms": 0.0,
+  "share_100_1000ms": 0.051,
+  "share_1000_1200ms": 0.0064,
+  "share_before_taker": 0.8981,
+  "offset_ms_p10_p50_p90_of_after": [
+   476.0,
+   1022.0,
+   73462.0
+  ],
+  "hist_after_0_1200_by_100ms": [
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   4,
+   0,
+   0,
+   1,
+   0,
+   1
+  ]
+ },
+ "cs2_wallet_markets": {
+  "fills": 7666,
+  "txs": 7503,
+  "share_signed_after_taker_0_100ms": 0.0143,
+  "share_100_1000ms": 0.135,
+  "share_1000_1200ms": 0.0173,
+  "share_before_taker": 0.7274,
+  "offset_ms_p10_p50_p90_of_after": [
+   200.0,
+   952.0,
+   6552.0
+  ],
+  "hist_after_0_1200_by_100ms": [
+   110,
+   98,
+   111,
+   66,
+   83,
+   106,
+   101,
+   125,
+   149,
+   196,
+   87,
+   46
+  ]
+ }
+}

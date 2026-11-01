@@ -1,0 +1,20 @@
+{
+ "bursts": 2653,
+ "train": 1591,
+ "test": 1062,
+ "lgbm_within_tick": 0.208,
+ "lgbm_exact": 0.06,
+ "lgbm_mad": 0.04,
+ "anchor_bb_minus_0.075_within_tick": 0.213,
+ "importance": {
+  "fair": 799,
+  "tok_bb": 629,
+  "tok_ba": 356,
+  "left": 1399,
+  "h15": 49,
+  "fmb": 868,
+  "tok_up_i": 100
+ },
+ "corr_q_tok_bb_test": 0.961,
+ "corr_q_fair_test": 0.945
+}

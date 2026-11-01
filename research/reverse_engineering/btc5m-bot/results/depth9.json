@@ -1,0 +1,73 @@
+{
+ "n_taker_first_with_book": 1326,
+ "payup_share": 0.2738,
+ "limit_below_touch_share": 0.046,
+ "payup": {
+  "n": 363,
+  "L==depth_cover": 0.1763,
+  "L==touch+1c": 0.5179,
+  "L>=depth_cover": 0.8623,
+  "touch_covered_Z": 0.5482,
+  "L_minus_touch_c": {
+   "1.0": 188,
+   "2.0": 42,
+   "3.0": 22,
+   "4.0": 15,
+   "5.0": 96
+  },
+  "by_wallet": {
+   "DS": [
+    0.1712,
+    146
+   ],
+   "GF": [
+    0.1919,
+    172
+   ],
+   "XM": [
+    0.1333,
+    45
+   ]
+  }
+ },
+ "touch_orders": {
+  "n": 902,
+  "touch_covered_Z": 0.612,
+  "cover_would_need_payup": 0.388
+ },
+ "payup_vs_touch_not_covering": {
+  "P(payup | touch < Z)": 0.3037,
+  "n_pred": 540,
+  "P(payup | touch >= Z)": 0.2532,
+  "n_not": 786
+ },
+ "size_from_depth": {
+  "DS": {
+   "n": 926,
+   "large_share": 0.0205,
+   "auc_tz": 0.3669,
+   "auc_d1": 0.3249,
+   "auc_d2": 0.3127,
+   "P(payup|large)": 0.7368,
+   "P(payup|small)": 0.1455
+  },
+  "GF": {
+   "n": 338,
+   "large_share": 0.0592,
+   "auc_tz": 0.4631,
+   "auc_d1": 0.3956,
+   "auc_d2": 0.3764,
+   "P(payup|large)": 0.85,
+   "P(payup|small)": 0.4874
+  },
+  "XM": {
+   "n": 62,
+   "large_share": 0.2581,
+   "auc_tz": 0.5285,
+   "auc_d1": 0.481,
+   "auc_d2": 0.4205,
+   "P(payup|large)": 0.75,
+   "P(payup|small)": 0.7174
+  }
+ }
+}

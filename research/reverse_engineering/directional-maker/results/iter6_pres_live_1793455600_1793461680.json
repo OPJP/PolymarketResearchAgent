@@ -1,0 +1,15 @@
+{
+ "bins": 1140,
+ "windows": 19,
+ "pos_rate": 0.1035,
+ "train_bins": 600,
+ "test_bins": 540,
+ "test_windows": 9,
+ "activity": 0.5864,
+ "activity+futures": 0.5865,
+ "activity+chainlink": 0.6266,
+ "activity+futures+chainlink": 0.6206,
+ "univariate_test_auc_edge_f": 0.598,
+ "univariate_test_auc_edge_c": 0.656,
+ "univariate_test_auc_c_minus_f": 0.608
+}

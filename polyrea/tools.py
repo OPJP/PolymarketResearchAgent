@@ -114,7 +114,7 @@ def inspect_market(condition_id: str | None = None, slug: str | None = None, inc
 def inspect_research_ledger() -> dict[str, Any]:
     """Return research/ledger.json: every researched wallet with its verdict, stage and reasons."""
     p = RESEARCH_DIR / "ledger.json"
-    return json.loads(p.read_text()) if p.exists() else {"wallets": []}
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"wallets": []}
 
 
 # ------------------------------------------------------------------ trace
@@ -347,13 +347,13 @@ def record_verdict(wallet: str, verdict: str, stage: str, reasons: list[str], ev
     if verdict not in ("pass", "reject", "inconclusive", "in_progress"):
         raise ValueError("verdict must be pass | reject | inconclusive | in_progress")
     p = RESEARCH_DIR / "ledger.json"
-    ledger = json.loads(p.read_text()) if p.exists() else {"wallets": []}
+    ledger = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"wallets": []}
     entries = {e["wallet"]: e for e in ledger["wallets"]}
     e = entries.get(wallet.lower(), {"wallet": wallet.lower()})
     e.update({"verdict": verdict, "stage": stage, "reasons": reasons, "evidence_paths": evidence_paths or [], "summary": summary, "updated_at": int(time.time())})
     entries[wallet.lower()] = e
     ledger["wallets"] = sorted(entries.values(), key=lambda x: x.get("rank") or 10**9)
-    p.write_text(json.dumps(to_jsonable(ledger), indent=1))
+    p.write_text(json.dumps(to_jsonable(ledger), indent=1), encoding="utf-8")
     return {"recorded": e}
 
 

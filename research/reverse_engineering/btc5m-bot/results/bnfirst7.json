@@ -1,0 +1,182 @@
+[
+ {
+  "interval": [
+   1793456040,
+   1793458080
+  ],
+  "n": 173,
+  "weak_n": 36,
+  "per_series_in_weak": {
+   "bf_BTC": [
+    1.0,
+    5
+   ],
+   "bf_ETH": [
+    0.583,
+    12
+   ],
+   "bs_BTC": [
+    null,
+    0
+   ],
+   "bs_ETH": [
+    0.143,
+    7
+   ],
+   "by_BTC": [
+    1.0,
+    1
+   ],
+   "by_ETH": [
+    0.727,
+    11
+   ],
+   "hl_BTC": [
+    0.357,
+    14
+   ],
+   "hl_ETH": [
+    0.762,
+    21
+   ],
+   "ok_BTC": [
+    1.0,
+    1
+   ],
+   "ok_ETH": [
+    0.333,
+    9
+   ]
+  },
+  "vote": {
+   "cover": 0.925,
+   "agree": 0.8625
+  },
+  "binance_first": {
+   "cover": 0.948,
+   "agree": 0.8415,
+   "binance_ticked_share": 0.832,
+   "agree_when_binance_ticked": 0.8611
+  }
+ },
+ {
+  "interval": [
+   1793458200,
+   1793462640
+  ],
+  "n": 695,
+  "weak_n": 223,
+  "per_series_in_weak": {
+   "bf_BTC": [
+    0.678,
+    59
+   ],
+   "bf_ETH": [
+    0.7,
+    50
+   ],
+   "bs_BTC": [
+    0.833,
+    6
+   ],
+   "bs_ETH": [
+    0.696,
+    23
+   ],
+   "by_BTC": [
+    0.696,
+    23
+   ],
+   "by_ETH": [
+    0.564,
+    78
+   ],
+   "hl_BTC": [
+    0.624,
+    109
+   ],
+   "hl_ETH": [
+    0.571,
+    91
+   ],
+   "ok_BTC": [
+    0.8,
+    15
+   ],
+   "ok_ETH": [
+    0.579,
+    57
+   ]
+  },
+  "vote": {
+   "cover": 0.869,
+   "agree": 0.7925
+  },
+  "binance_first": {
+   "cover": 0.89,
+   "agree": 0.7882,
+   "binance_ticked_share": 0.529,
+   "agree_when_binance_ticked": 0.8288
+  }
+ },
+ {
+  "interval": [
+   1793462640,
+   1793463900
+  ],
+  "n": 273,
+  "weak_n": 129,
+  "per_series_in_weak": {
+   "bf_BTC": [
+    0.769,
+    26
+   ],
+   "bf_ETH": [
+    0.625,
+    16
+   ],
+   "bs_BTC": [
+    1.0,
+    1
+   ],
+   "bs_ETH": [
+    0.7,
+    10
+   ],
+   "by_BTC": [
+    0.875,
+    8
+   ],
+   "by_ETH": [
+    0.741,
+    58
+   ],
+   "hl_BTC": [
+    0.643,
+    42
+   ],
+   "hl_ETH": [
+    0.46,
+    63
+   ],
+   "ok_BTC": [
+    0.333,
+    3
+   ],
+   "ok_ETH": [
+    0.5,
+    12
+   ]
+  },
+  "vote": {
+   "cover": 0.846,
+   "agree": 0.7532
+  },
+  "binance_first": {
+   "cover": 0.89,
+   "agree": 0.7737,
+   "binance_ticked_share": 0.509,
+   "agree_when_binance_ticked": 0.8129
+  }
+ }
+]

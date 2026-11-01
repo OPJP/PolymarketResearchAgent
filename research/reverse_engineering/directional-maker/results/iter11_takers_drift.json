@@ -1,0 +1,104 @@
+{
+ "fills_with_taker": {
+  "study": 8256,
+  "validate": 27988
+ },
+ "study": {
+  "takers": 2250,
+  "top10_share": 0.1486,
+  "top50_share": 0.3314,
+  "fav_share_all": 0.5143,
+  "fav_share_top10": 0.6805,
+  "fav_share_rest": 0.4853,
+  "sig_type_share": {
+   "3": 0.6567,
+   "1": 0.2137,
+   "2": 0.1122,
+   "0": 0.0174
+  },
+  "fav_by_sig_type": {
+   "0": 0.4514,
+   "1": 0.5539,
+   "2": 0.4665,
+   "3": 0.5113
+  }
+ },
+ "validate": {
+  "takers": 4396,
+  "top10_share": 0.1257,
+  "top50_share": 0.2888,
+  "fav_share_all": 0.3123,
+  "fav_share_top10": 0.3623,
+  "fav_share_rest": 0.3052,
+  "sig_type_share": {
+   "3": 0.5964,
+   "1": 0.2436,
+   "2": 0.1382,
+   "0": 0.0218
+  },
+  "fav_by_sig_type": {
+   "0": 0.3492,
+   "1": 0.3266,
+   "2": 0.2704,
+   "3": 0.3149
+  },
+  "share_from_takers_seen_on_study": 0.5844,
+  "fav_share_takers_seen_on_study": 0.3188,
+  "fav_share_new_takers": 0.3033
+ },
+ "takers_in_both": 1253,
+ "fav_share_same_takers": {
+  "study": 0.517,
+  "validate": 0.3188
+ },
+ "by_day": {
+  "2026-10-23": {
+   "fills": 2668,
+   "fav_share": 0.591,
+   "share_validate_top10_takers": 0.09,
+   "fav_share_excluding_validate_top10": 0.586
+  },
+  "2026-10-24": {
+   "fills": 437,
+   "fav_share": 0.558,
+   "share_validate_top10_takers": 0.078,
+   "fav_share_excluding_validate_top10": 0.556
+  },
+  "2026-10-25": {
+   "fills": 1332,
+   "fav_share": 0.533,
+   "share_validate_top10_takers": 0.095,
+   "fav_share_excluding_validate_top10": 0.519
+  },
+  "2026-10-26": {
+   "fills": 3819,
+   "fav_share": 0.449,
+   "share_validate_top10_takers": 0.12,
+   "fav_share_excluding_validate_top10": 0.429
+  },
+  "2026-10-27": {
+   "fills": 5019,
+   "fav_share": 0.36,
+   "share_validate_top10_takers": 0.114,
+   "fav_share_excluding_validate_top10": 0.348
+  },
+  "2026-10-28": {
+   "fills": 6388,
+   "fav_share": 0.371,
+   "share_validate_top10_takers": 0.139,
+   "fav_share_excluding_validate_top10": 0.36
+  },
+  "2026-10-29": {
+   "fills": 9855,
+   "fav_share": 0.288,
+   "share_validate_top10_takers": 0.135,
+   "fav_share_excluding_validate_top10": 0.282
+  },
+  "2026-10-30": {
+   "fills": 6726,
+   "fav_share": 0.256,
+   "share_validate_top10_takers": 0.108,
+   "fav_share_excluding_validate_top10": 0.255
+  }
+ }
+}

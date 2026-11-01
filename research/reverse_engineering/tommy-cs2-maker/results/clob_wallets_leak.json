@@ -1,0 +1,96 @@
+{
+ "block": "10-31 12-18",
+ "traded_markets": 9,
+ "share_first_sub_after_first_trade": 0.889,
+ "rows": [
+  {
+   "cid": "0x6d6744bfbb",
+   "event": "cs2-gls1-pcy-2026-10-31",
+   "first_trade": 1793456140.0,
+   "first_sub": 1793456912.759,
+   "sub_minus_trade_s": 772.8
+  },
+  {
+   "cid": "0x89781eae5f",
+   "event": "dota2-ty-gl-2026-10-31",
+   "first_trade": 1793451592.0,
+   "first_sub": NaN,
+   "sub_minus_trade_s": NaN
+  },
+  {
+   "cid": "0x9a03ffb4b5",
+   "event": "cs2-bhe-bar2-2026-10-31",
+   "first_trade": 1793451930.0,
+   "first_sub": 1793452173.128,
+   "sub_minus_trade_s": 243.1
+  },
+  {
+   "cid": "0xc21ae7eae4",
+   "event": "cs2-gls1-pcy-2026-10-31",
+   "first_trade": 1793451457.0,
+   "first_sub": 1793452550.983,
+   "sub_minus_trade_s": 1094.0
+  },
+  {
+   "cid": "0xd00b0c731f",
+   "event": "dota2-ty-gl-2026-10-31",
+   "first_trade": 1793456155.0,
+   "first_sub": 1793457294.028,
+   "sub_minus_trade_s": 1139.0
+  },
+  {
+   "cid": "0xd6ffe6d986",
+   "event": "cs2-gls1-pcy-2026-10-31",
+   "first_trade": 1793451594.0,
+   "first_sub": 1793451784.649,
+   "sub_minus_trade_s": 190.6
+  },
+  {
+   "cid": "0xea4b51cf3b",
+   "event": "cs2-bhe-bar2-2026-10-31",
+   "first_trade": 1793451547.0,
+   "first_sub": 1793451784.649,
+   "sub_minus_trade_s": 237.6
+  },
+  {
+   "cid": "0xea99530a5c",
+   "event": "cs2-wraith-ntr-2026-10-31",
+   "first_trade": 1793452768.0,
+   "first_sub": 1793448501.204,
+   "sub_minus_trade_s": -4266.8
+  },
+  {
+   "cid": "0xf8456842c0",
+   "event": "dota2-ty-gl-2026-10-31",
+   "first_trade": 1793451616.0,
+   "first_sub": NaN,
+   "sub_minus_trade_s": NaN
+  }
+ ],
+ "clob_wallets_markets_in_block": 508,
+ "tommy_cs2_near_markets": 496082,
+ "cs2_near_markets_never_in_clob_wallets": 496082,
+ "leaky": false,
+ "unreadable_slices": [
+  [
+   "subs",
+   1793448000,
+   "error('Error -3 while decompressing data: invalid block type')"
+  ],
+  [
+   "subs",
+   1793448900,
+   "error('Error -3 while decompressing data: invalid block type')"
+  ],
+  [
+   "subs",
+   1793449800,
+   "error('Error -3 while decompressing data: invalid block type')"
+  ],
+  [
+   "subs",
+   1793450700,
+   "error('Error -3 while decompressing data: invalid block type')"
+  ]
+ ]
+}

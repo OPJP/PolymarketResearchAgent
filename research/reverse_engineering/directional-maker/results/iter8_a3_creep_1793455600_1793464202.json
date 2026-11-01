@@ -1,0 +1,24 @@
+{
+ "seconds": 16800,
+ "test_pos_rate": 0.0428,
+ "activity": 0.6718,
+ "activity+chainlink": 0.7397,
+ "activity+futures+chainlink": 0.7478,
+ "activity+chainlink+creep_state": 0.7437,
+ "activity+futures+chainlink+creep_state": 0.7479,
+ "univariate_run_pos": 0.5932,
+ "univariate_run_pos2": 0.6026,
+ "univariate_run_neg": 0.3907,
+ "univariate_e_mean3": 0.5885,
+ "univariate_e_mean10": 0.5225,
+ "rate_by_run_pos_s": {
+  "(-1, 0]": 0.025,
+  "(0, 1]": 0.0631,
+  "(1, 2]": 0.0742,
+  "(2, 4]": 0.071,
+  "(4, 8]": 0.0667,
+  "(8, 16]": 0.054,
+  "(16, 32]": 0.0604,
+  "(32, 300]": 0.0378
+ }
+}

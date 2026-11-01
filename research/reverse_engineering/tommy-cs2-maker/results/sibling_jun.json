@@ -1,0 +1,38 @@
+{
+ "describe": {
+  "orders": 786,
+  "whole_cent": 1.0,
+  "outside_band_005_095": 0.0,
+  "sizes": {
+   "9.0": 92,
+   "10.0": 78,
+   "7.0": 72,
+   "8.0": 63,
+   "12.0": 61
+  },
+  "bursts": 496,
+  "orders_per_burst_mean": 1.58
+ },
+ "price": {
+  "n": 786,
+  "within_tick_last_print": 0.455,
+  "exact_last_print": 0.144,
+  "median_offset_c": 0.0,
+  "within_tick_print_age_le_10s": 0.48,
+  "within_tick_print_age_gt_60s": 0.537
+ },
+ "taker_orders": 1128,
+ "taker_sizes": {
+  "7.0": 94,
+  "6.0": 80,
+  "10.0": 76,
+  "8.0": 75,
+  "9.0": 73
+ },
+ "p4e_taker_orders": 0,
+ "maker_sides": {
+  "0": 737,
+  "1": 49
+ },
+ "tapes": 13
+}

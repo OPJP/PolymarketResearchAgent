@@ -1,0 +1,114 @@
+{
+ "2026-10-23": {
+  "clean": {
+   "buy_shares": 11187598.0,
+   "fav_share_of_buys": 0.5146,
+   "sell_share": 0.1251,
+   "fav_share_of_sells": 0.5959
+  },
+  "cluster_tx": {
+   "buy_shares": 237218.609375,
+   "fav_share_of_buys": 0.3434,
+   "sell_share": 0.1758,
+   "fav_share_of_sells": 0.6874
+  }
+ },
+ "2026-10-24": {
+  "clean": {
+   "buy_shares": 9796516.0,
+   "fav_share_of_buys": 0.4939,
+   "sell_share": 0.1166,
+   "fav_share_of_sells": 0.604
+  },
+  "cluster_tx": {
+   "buy_shares": 44394.484375,
+   "fav_share_of_buys": 0.2964,
+   "sell_share": 0.1462,
+   "fav_share_of_sells": 0.4759
+  }
+ },
+ "2026-10-25": {
+  "clean": {
+   "buy_shares": 9440640.0,
+   "fav_share_of_buys": 0.4949,
+   "sell_share": 0.1165,
+   "fav_share_of_sells": 0.5982
+  },
+  "cluster_tx": {
+   "buy_shares": 125085.5,
+   "fav_share_of_buys": 0.2782,
+   "sell_share": 0.1389,
+   "fav_share_of_sells": 0.6727
+  }
+ },
+ "2026-10-26": {
+  "clean": {
+   "buy_shares": 11422826.0,
+   "fav_share_of_buys": 0.4804,
+   "sell_share": 0.1219,
+   "fav_share_of_sells": 0.6005
+  },
+  "cluster_tx": {
+   "buy_shares": 348482.21875,
+   "fav_share_of_buys": 0.4198,
+   "sell_share": 0.1296,
+   "fav_share_of_sells": 0.731
+  }
+ },
+ "2026-10-27": {
+  "clean": {
+   "buy_shares": 11549744.0,
+   "fav_share_of_buys": 0.5043,
+   "sell_share": 0.1151,
+   "fav_share_of_sells": 0.579
+  },
+  "cluster_tx": {
+   "buy_shares": 575312.5,
+   "fav_share_of_buys": 0.3951,
+   "sell_share": 0.0914,
+   "fav_share_of_sells": 0.5447
+  }
+ },
+ "2026-10-28": {
+  "clean": {
+   "buy_shares": 10784620.0,
+   "fav_share_of_buys": 0.5069,
+   "sell_share": 0.1273,
+   "fav_share_of_sells": 0.5645
+  },
+  "cluster_tx": {
+   "buy_shares": 572216.375,
+   "fav_share_of_buys": 0.4183,
+   "sell_share": 0.1122,
+   "fav_share_of_sells": 0.5664
+  }
+ },
+ "2026-10-29": {
+  "clean": {
+   "buy_shares": 11567104.0,
+   "fav_share_of_buys": 0.491,
+   "sell_share": 0.1165,
+   "fav_share_of_sells": 0.6228
+  },
+  "cluster_tx": {
+   "buy_shares": 904980.25,
+   "fav_share_of_buys": 0.4932,
+   "sell_share": 0.1298,
+   "fav_share_of_sells": 0.6506
+  }
+ },
+ "2026-10-30": {
+  "clean": {
+   "buy_shares": 12092543.0,
+   "fav_share_of_buys": 0.4619,
+   "sell_share": 0.1034,
+   "fav_share_of_sells": 0.6401
+  },
+  "cluster_tx": {
+   "buy_shares": 791830.0,
+   "fav_share_of_buys": 0.4081,
+   "sell_share": 0.0857,
+   "fav_share_of_sells": 0.2493
+  }
+ }
+}

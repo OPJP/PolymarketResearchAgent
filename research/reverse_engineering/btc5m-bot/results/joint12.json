@@ -1,0 +1,206 @@
+{
+ "score_fit_A_on_C": {
+  "joint_excess": {
+   "DS-GF": {
+    "joint_minus_product_weighted": 0.00552,
+    "by_score_bin[bin, joint, product]": [
+     [
+      0,
+      0.0029,
+      0.0001
+     ],
+     [
+      1,
+      0.0057,
+      0.0004
+     ],
+     [
+      2,
+      0.0113,
+      0.0014
+     ],
+     [
+      3,
+      0.0253,
+      0.0044
+     ]
+    ]
+   },
+   "DS-XM": {
+    "joint_minus_product_weighted": 0.00472,
+    "by_score_bin[bin, joint, product]": [
+     [
+      0,
+      0.0029,
+      0.0001
+     ],
+     [
+      1,
+      0.007,
+      0.0004
+     ],
+     [
+      2,
+      0.0067,
+      0.001
+     ],
+     [
+      3,
+      0.0136,
+      0.0037
+     ]
+    ]
+   },
+   "GF-XM": {
+    "joint_minus_product_weighted": 0.00218,
+    "by_score_bin[bin, joint, product]": [
+     [
+      0,
+      0.001,
+      0.0
+     ],
+     [
+      1,
+      0.0026,
+      0.0001
+     ],
+     [
+      2,
+      0.0041,
+      0.0003
+     ],
+     [
+      3,
+      0.0097,
+      0.002
+     ]
+    ]
+   }
+  },
+  "rerouting": {
+   "DS": {
+    "busy_share": 0.0222,
+    "P(other takes | w busy)": 0.1067,
+    "P(other takes | w free)": 0.0171,
+    "P(other takes | w busy, top score bin)": 0.241,
+    "P(other takes | w free, top score bin)": 0.0706
+   },
+   "GF": {
+    "busy_share": 0.005,
+    "P(other takes | w busy)": 0.1935,
+    "P(other takes | w free)": 0.0435,
+    "P(other takes | w busy, top score bin)": 0.2162,
+    "P(other takes | w free, top score bin)": 0.115
+   },
+   "XM": {
+    "busy_share": 0.0046,
+    "P(other takes | w busy)": 0.156,
+    "P(other takes | w free)": 0.0438,
+    "P(other takes | w busy, top score bin)": 0.2414,
+    "P(other takes | w free, top score bin)": 0.1111
+   }
+  }
+ },
+ "score_fit_C_on_A": {
+  "joint_excess": {
+   "DS-GF": {
+    "joint_minus_product_weighted": 0.00957,
+    "by_score_bin[bin, joint, product]": [
+     [
+      0,
+      0.0061,
+      0.0004
+     ],
+     [
+      1,
+      0.0097,
+      0.001
+     ],
+     [
+      2,
+      0.0219,
+      0.0032
+     ],
+     [
+      3,
+      0.0377,
+      0.0116
+     ]
+    ]
+   },
+   "DS-XM": {
+    "joint_minus_product_weighted": 0.00533,
+    "by_score_bin[bin, joint, product]": [
+     [
+      0,
+      0.0033,
+      0.0002
+     ],
+     [
+      1,
+      0.0063,
+      0.0006
+     ],
+     [
+      2,
+      0.0124,
+      0.002
+     ],
+     [
+      3,
+      0.0178,
+      0.007
+     ]
+    ]
+   },
+   "GF-XM": {
+    "joint_minus_product_weighted": 0.00341,
+    "by_score_bin[bin, joint, product]": [
+     [
+      0,
+      0.0023,
+      0.0001
+     ],
+     [
+      1,
+      0.0026,
+      0.0003
+     ],
+     [
+      2,
+      0.0064,
+      0.0009
+     ],
+     [
+      3,
+      0.0207,
+      0.0051
+     ]
+    ]
+   }
+  },
+  "rerouting": {
+   "DS": {
+    "busy_share": 0.0274,
+    "P(other takes | w busy)": 0.1443,
+    "P(other takes | w free)": 0.0289,
+    "P(other takes | w busy, top score bin)": 0.283,
+    "P(other takes | w free, top score bin)": 0.1133
+   },
+   "GF": {
+    "busy_share": 0.0111,
+    "P(other takes | w busy)": 0.2154,
+    "P(other takes | w free)": 0.0543,
+    "P(other takes | w busy, top score bin)": 0.3478,
+    "P(other takes | w free, top score bin)": 0.1583
+   },
+   "XM": {
+    "busy_share": 0.0051,
+    "P(other takes | w busy)": 0.2292,
+    "P(other takes | w free)": 0.0594,
+    "P(other takes | w busy, top score bin)": 0.3448,
+    "P(other takes | w free, top score bin)": 0.1767
+   }
+  }
+ }
+}

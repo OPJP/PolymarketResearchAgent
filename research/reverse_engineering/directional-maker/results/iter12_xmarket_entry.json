@@ -1,0 +1,26 @@
+{
+ "study": {
+  "entry_fills": 1291,
+  "posture": 0.6584,
+  "share_with_15m_position": 0.2122,
+  "follow_15m_position": 0.7044,
+  "posture_where_15m_position": 0.6715,
+  "agree_share": 0.6679,
+  "acc_where_agree": 0.7814,
+  "follow_15m_where_disagree": 0.5495,
+  "share_with_prev5_position": 0.7862,
+  "follow_prev5_net": 0.5734
+ },
+ "validate": {
+  "entry_fills": 2459,
+  "posture": 0.7039,
+  "share_with_15m_position": 0.2257,
+  "follow_15m_position": 0.6144,
+  "posture_where_15m_position": 0.7351,
+  "agree_share": 0.6018,
+  "acc_where_agree": 0.7904,
+  "follow_15m_where_disagree": 0.3484,
+  "share_with_prev5_position": 0.9439,
+  "follow_prev5_net": 0.5019
+ }
+}

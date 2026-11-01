@@ -1,0 +1,135 @@
+{
+ "events_build": 256,
+ "events_val": 128,
+ "pos_build": 41,
+ "pos_val": 36,
+ "grid_events_build": 85,
+ "grid_traded_build": 0,
+ "grid_events_val": 37,
+ "grid_traded_val": 0,
+ "nongrid_rate_build": 0.24,
+ "nongrid_rate_val": 0.396,
+ "S_grid_only": {
+  "val_auc": 0.7011
+ },
+ "S_lg": {
+  "val_auc": 0.9016,
+  "thr": 0.3157894736842105,
+  "val_recall": 0.861,
+  "val_lift": 2.45,
+  "val_precision": 0.689,
+  "val_selected": 45
+ },
+ "B_act": {
+  "val_auc": 0.8967,
+  "thr": 0.2239985237410838,
+  "val_recall": 0.639,
+  "val_lift": 2.82,
+  "val_precision": 0.793,
+  "val_selected": 29
+ },
+ "S_lg_act": {
+  "val_auc": 0.9574,
+  "thr": 0.1341245846401862,
+  "val_recall": 0.806,
+  "val_lift": 2.79,
+  "val_precision": 0.784,
+  "val_selected": 37
+ },
+ "B_act_gbm": {
+  "val_auc": 0.8872
+ },
+ "S_lg_act_gbm": {
+  "val_auc": 0.9402
+ },
+ "gain_S_lg_vs_B_act": {
+  "gain": 0.0048,
+  "ci95": [
+   -0.0778,
+   0.0918
+  ],
+  "p_le0": 0.4813
+ },
+ "gain_S_lg_act_vs_B_act": {
+  "gain": 0.0607,
+  "ci95": [
+   0.0169,
+   0.1139
+  ],
+  "p_le0": 0.0015
+ },
+ "gain_S_lg_act_gbm_vs_B_act_gbm": {
+  "gain": 0.053,
+  "ci95": [
+   -0.0107,
+   0.1203
+  ],
+  "p_le0": 0.0548
+ },
+ "val_by_league_nongrid": {
+  "DraculaN": {
+   "sum": 12,
+   "size": 16
+  },
+  "ESEA": {
+   "sum": 0,
+   "size": 13
+  },
+  "CIS LAN Championship": {
+   "sum": 2,
+   "size": 10
+  },
+  "Circuit X": {
+   "sum": 8,
+   "size": 10
+  },
+  "Exort Fiesta": {
+   "sum": 0,
+   "size": 8
+  },
+  "1win Private Club": {
+   "sum": 6,
+   "size": 6
+  },
+  "ESL Challenger League": {
+   "sum": 0,
+   "size": 6
+  },
+  "Stake Ranked": {
+   "sum": 5,
+   "size": 6
+  },
+  "NODWIN Clutch Series": {
+   "sum": 3,
+   "size": 6
+  },
+  "VOID Autumn Cup": {
+   "sum": 0,
+   "size": 4
+  },
+  "CCT South America": {
+   "sum": 0,
+   "size": 2
+  },
+  "DACH CS Masters": {
+   "sum": 0,
+   "size": 1
+  },
+  "CCT Europe": {
+   "sum": 0,
+   "size": 1
+  },
+  "Gamers Club Liga S\u00e9rie A": {
+   "sum": 0,
+   "size": 1
+  },
+  "United21": {
+   "sum": 0,
+   "size": 1
+  }
+ },
+ "lead_hours_grid_vs_not": {
+  "grid": 15.9,
+  "nongrid": 15.9
+ }
+}

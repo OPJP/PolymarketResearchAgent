@@ -1,0 +1,424 @@
+{
+ "windows": 2014,
+ "tape_rows": 3076389,
+ "maker_fills": 41748,
+ "taker_fills": 3443,
+ "presence": {
+  "october_control": {
+   "windows": 528,
+   "auc": 0.815195380633884,
+   "auc_activity": 0.7764325032322408,
+   "pos_rate": 0.046433080808080805,
+   "active_window_share": 0.6363636363636364,
+   "gain": 0.03876287740164319,
+   "per_wallet": {
+    "bosona": {
+     "auc": 0.8109277638401216,
+     "auc_activity": 0.7858736844806795
+    },
+    "almach": {
+     "auc": 0.8156307767982175,
+     "auc_activity": 0.7744883026279514
+    },
+    "momoney": {
+     "auc": 0.8132399044607341,
+     "auc_activity": 0.779466971794373
+    }
+   }
+  },
+  "study_stable": {
+   "windows": 718,
+   "auc": 0.7223709952030257,
+   "auc_activity": 0.7025103027779258,
+   "pos_rate": 0.10721912720519963,
+   "active_window_share": 0.9094707520891365,
+   "gain": 0.019860692425099913,
+   "per_wallet": {
+    "bosona": {
+     "auc": 0.7185173965196263,
+     "auc_activity": 0.7031427877988383
+    },
+    "almach": {
+     "auc": 0.7355637172959624,
+     "auc_activity": 0.7139505361018336
+    },
+    "momoney": {
+     "auc": 0.7217248024049859,
+     "auc_activity": 0.7006708975098985
+    }
+   }
+  },
+  "validate_stable": {
+   "windows": 768,
+   "auc": 0.7540352814265785,
+   "auc_activity": 0.7318613379142943,
+   "pos_rate": 0.0890842013888889,
+   "active_window_share": 0.91796875,
+   "gain": 0.02217394351228419,
+   "per_wallet": {
+    "bosona": {
+     "auc": 0.756457352560511,
+     "auc_activity": 0.7312305804037629
+    },
+    "almach": {
+     "auc": 0.7454028633879617,
+     "auc_activity": 0.7207474364655722
+    },
+    "momoney": {
+     "auc": 0.7504585489748379,
+     "auc_activity": 0.7315718595371552
+    }
+   }
+  }
+ },
+ "side": {
+  "october_control": {
+   "n": 5732,
+   "public": 0.665910676901605,
+   "posture": 0.6345080251221215,
+   "cheaper": 0.4521981856245639,
+   "favourite": 0.5478018143754362,
+   "per_run_public": 0.6115326251896813,
+   "entry_run_public": 0.6785714285714286,
+   "entry_run_cheaper": 0.44345238095238093,
+   "later_runs_public": 0.541795665634675,
+   "runs": 659,
+   "return_per_dollar": 0.006124600880973071,
+   "window_net_side_wins": 0.5435435435435435,
+   "outcome_coverage": 1.0,
+   "not_decided_n": 4995,
+   "not_decided_posture": 0.6664664664664665
+  },
+  "study_stable": {
+   "n": 18808,
+   "public": 0.5246703530412591,
+   "posture": 0.4926095278604849,
+   "cheaper": 0.7085282858358145,
+   "favourite": 0.29147171416418544,
+   "per_run_public": 0.5002707092582567,
+   "entry_run_public": 0.554364471669219,
+   "entry_run_cheaper": 0.5911179173047473,
+   "later_runs_public": 0.47068676716917923,
+   "runs": 1847,
+   "return_per_dollar": 0.09252176165007404,
+   "window_net_side_wins": 0.47601476014760147,
+   "outcome_coverage": 0.8620267971076138,
+   "not_decided_n": 15887,
+   "not_decided_posture": 0.4934222949581419
+  },
+  "validate_stable": {
+   "n": 17208,
+   "public": 0.6212226871222687,
+   "posture": 0.5815318456531846,
+   "cheaper": 0.5817061831706183,
+   "favourite": 0.41829381682938166,
+   "per_run_public": 0.5835572272971521,
+   "entry_run_public": 0.6638297872340425,
+   "entry_run_cheaper": 0.5092198581560283,
+   "later_runs_public": 0.5346020761245674,
+   "runs": 1861,
+   "return_per_dollar": 0.07360874388395638,
+   "window_net_side_wins": 0.556989247311828,
+   "outcome_coverage": 0.7246048349604834,
+   "not_decided_n": 14598,
+   "not_decided_posture": 0.6043978627209207
+  }
+ },
+ "side_by_week": {
+  "0": {
+   "n": 8761,
+   "public": 0.4754023513297569,
+   "posture": 0.4404748316402237,
+   "cheaper": 0.7742266864513183,
+   "favourite": 0.22577331354868166,
+   "per_run_public": 0.45787139689578715,
+   "entry_run_public": 0.4887459807073955,
+   "entry_run_cheaper": 0.6270096463022508,
+   "later_runs_public": 0.4416243654822335,
+   "runs": 902,
+   "return_per_dollar": 0.11178119833439293,
+   "window_net_side_wins": 0.3944223107569721,
+   "outcome_coverage": 0.8387170414336264,
+   "not_decided_n": 7438,
+   "not_decided_posture": 0.4308954019897822
+  },
+  "1": {
+   "n": 9044,
+   "public": 0.5657894736842105,
+   "posture": 0.538920831490491,
+   "cheaper": 0.6337903582485626,
+   "favourite": 0.36620964175143744,
+   "per_run_public": 0.5364705882352941,
+   "entry_run_public": 0.6066666666666667,
+   "entry_run_cheaper": 0.53,
+   "later_runs_public": 0.49818181818181817,
+   "runs": 850,
+   "return_per_dollar": 0.08332970050175668,
+   "window_net_side_wins": 0.5658914728682171,
+   "outcome_coverage": 0.8928571428571429,
+   "not_decided_n": 7642,
+   "not_decided_posture": 0.5512954723894269
+  },
+  "2": {
+   "n": 7034,
+   "public": 0.593687802104066,
+   "posture": 0.5621268126243958,
+   "cheaper": 0.644583451805516,
+   "favourite": 0.35541654819448393,
+   "per_run_public": 0.5719557195571956,
+   "entry_run_public": 0.6590909090909091,
+   "entry_run_cheaper": 0.564935064935065,
+   "later_runs_public": 0.5188118811881188,
+   "runs": 813,
+   "return_per_dollar": 0.05610005768469264,
+   "window_net_side_wins": 0.5492424242424242,
+   "outcome_coverage": 0.9165481944839352,
+   "not_decided_n": 5911,
+   "not_decided_posture": 0.5672475046523431
+  },
+  "3": {
+   "n": 7918,
+   "public": 0.633114422834049,
+   "posture": 0.5848699166456176,
+   "cheaper": 0.5959838343015913,
+   "favourite": 0.4040161656984087,
+   "per_run_public": 0.583969465648855,
+   "entry_run_public": 0.6547231270358306,
+   "entry_run_cheaper": 0.511400651465798,
+   "later_runs_public": 0.5386221294363257,
+   "runs": 786,
+   "return_per_dollar": 0.08741191957562829,
+   "window_net_side_wins": 0.5427350427350427,
+   "outcome_coverage": 0.860318262187421,
+   "not_decided_n": 6823,
+   "not_decided_posture": 0.6162978162098783
+  },
+  "4": {
+   "n": 6221,
+   "public": 0.6715962063976852,
+   "posture": 0.6315704870599582,
+   "cheaper": 0.5000803729303971,
+   "favourite": 0.49991962706960297,
+   "per_run_public": 0.6215022091310751,
+   "entry_run_public": 0.7079037800687286,
+   "entry_run_cheaper": 0.46735395189003437,
+   "later_runs_public": 0.5567010309278351,
+   "runs": 679,
+   "return_per_dollar": 0.08434046980541296,
+   "window_net_side_wins": 0.5283018867924528,
+   "outcome_coverage": 0.47612923967207843,
+   "not_decided_n": 5230,
+   "not_decided_posture": 0.662906309751434
+  },
+  "5": {
+   "n": 2770,
+   "public": 0.6231046931407942,
+   "posture": 0.6,
+   "cheaper": 0.3787003610108303,
+   "favourite": 0.6212996389891696,
+   "per_run_public": 0.5875370919881305,
+   "entry_run_public": 0.6440677966101694,
+   "entry_run_cheaper": 0.4124293785310734,
+   "later_runs_public": 0.525,
+   "runs": 337,
+   "return_per_dollar": -0.06749784159804259,
+   "window_net_side_wins": 0.5574712643678161,
+   "outcome_coverage": 1.0,
+   "not_decided_n": 2436,
+   "not_decided_posture": 0.6354679802955665
+  }
+ },
+ "side_per_wallet": {
+  "october_control": {
+   "momoney": {
+    "n": 2053,
+    "public": 0.6668290306867998,
+    "posture": 0.6312713102776425,
+    "cheaper": 0.4719922065270336,
+    "favourite": 0.5280077934729663,
+    "per_run_public": 0.6177474402730375,
+    "entry_run_public": 0.7017543859649122,
+    "entry_run_cheaper": 0.4421052631578947,
+    "later_runs_public": 0.5382059800664452,
+    "runs": 586,
+    "return_per_dollar": 0.02217894993006777,
+    "window_net_side_wins": 0.568904593639576,
+    "outcome_coverage": 1.0,
+    "not_decided_n": 1819,
+    "not_decided_posture": 0.6673996701484332
+   },
+   "almach": {
+    "n": 1789,
+    "public": 0.6433761878144215,
+    "posture": 0.6277249860257127,
+    "cheaper": 0.4488541084404695,
+    "favourite": 0.5511458915595304,
+    "per_run_public": 0.5985533453887885,
+    "entry_run_public": 0.6819923371647509,
+    "entry_run_cheaper": 0.44061302681992337,
+    "later_runs_public": 0.523972602739726,
+    "runs": 553,
+    "return_per_dollar": -0.005194609740649228,
+    "window_net_side_wins": 0.53125,
+    "outcome_coverage": 1.0,
+    "not_decided_n": 1539,
+    "not_decided_posture": 0.6491228070175439
+   },
+   "bosona": {
+    "n": 1890,
+    "public": 0.6862433862433862,
+    "posture": 0.6444444444444445,
+    "cheaper": 0.43386243386243384,
+    "favourite": 0.5661375661375662,
+    "per_run_public": 0.599640933572711,
+    "entry_run_public": 0.6729323308270677,
+    "entry_run_cheaper": 0.4398496240601504,
+    "later_runs_public": 0.5326460481099656,
+    "runs": 557,
+    "return_per_dollar": 7.096711724545466e-05,
+    "window_net_side_wins": 0.5384615384615384,
+    "outcome_coverage": 1.0,
+    "not_decided_n": 1637,
+    "not_decided_posture": 0.681734880879658
+   }
+  },
+  "study_stable": {
+   "momoney": {
+    "n": 7383,
+    "public": 0.5220100230258703,
+    "posture": 0.4919409454151429,
+    "cheaper": 0.6933495868887986,
+    "favourite": 0.3066504131112014,
+    "per_run_public": 0.5002839295854627,
+    "entry_run_public": 0.563011456628478,
+    "entry_run_cheaper": 0.5891980360065466,
+    "later_runs_public": 0.46695652173913044,
+    "runs": 1761,
+    "return_per_dollar": 0.09919068033805341,
+    "window_net_side_wins": 0.5,
+    "outcome_coverage": 0.8676689692536909,
+    "not_decided_n": 6226,
+    "not_decided_posture": 0.49068422743334406
+   },
+   "almach": {
+    "n": 5430,
+    "public": 0.5233885819521179,
+    "posture": 0.4931860036832412,
+    "cheaper": 0.7152854511970534,
+    "favourite": 0.2847145488029466,
+    "per_run_public": 0.5,
+    "entry_run_public": 0.5524956970740104,
+    "entry_run_cheaper": 0.5903614457831325,
+    "later_runs_public": 0.4727921498661909,
+    "runs": 1702,
+    "return_per_dollar": 0.10151706198466913,
+    "window_net_side_wins": 0.48326359832635984,
+    "outcome_coverage": 0.856353591160221,
+    "not_decided_n": 4666,
+    "not_decided_posture": 0.49507072438919847
+   },
+   "bosona": {
+    "n": 5995,
+    "public": 0.5291075896580484,
+    "posture": 0.49291075896580483,
+    "cheaper": 0.7211009174311926,
+    "favourite": 0.27889908256880735,
+    "per_run_public": 0.4985456660849331,
+    "entry_run_public": 0.5617597292724196,
+    "entry_run_cheaper": 0.5905245346869712,
+    "later_runs_public": 0.4654255319148936,
+    "runs": 1719,
+    "return_per_dollar": 0.07651899163979398,
+    "window_net_side_wins": 0.4865979381443299,
+    "outcome_coverage": 0.8602168473728107,
+    "not_decided_n": 4995,
+    "not_decided_posture": 0.4952952952952953
+   }
+  },
+  "validate_stable": {
+   "momoney": {
+    "n": 6329,
+    "public": 0.6279033022594407,
+    "posture": 0.5961447306051509,
+    "cheaper": 0.5609100963817348,
+    "favourite": 0.4390899036182651,
+    "per_run_public": 0.579610538373425,
+    "entry_run_public": 0.6576862123613312,
+    "entry_run_cheaper": 0.5118858954041204,
+    "later_runs_public": 0.5354260089686098,
+    "runs": 1746,
+    "return_per_dollar": 0.08517430946717729,
+    "window_net_side_wins": 0.5995260663507109,
+    "outcome_coverage": 0.7204929688734397,
+    "not_decided_n": 5403,
+    "not_decided_posture": 0.6224319822320933
+   },
+   "almach": {
+    "n": 5112,
+    "public": 0.6148278560250391,
+    "posture": 0.5788341158059468,
+    "cheaper": 0.5805946791862285,
+    "favourite": 0.4194053208137715,
+    "per_run_public": 0.5783847980997625,
+    "entry_run_public": 0.6599326599326599,
+    "entry_run_cheaper": 0.49663299663299665,
+    "later_runs_public": 0.5339449541284403,
+    "runs": 1684,
+    "return_per_dollar": 0.0675456396278315,
+    "window_net_side_wins": 0.5411471321695761,
+    "outcome_coverage": 0.7163536776212832,
+    "not_decided_n": 4368,
+    "not_decided_posture": 0.5975274725274725
+   },
+   "bosona": {
+    "n": 5767,
+    "public": 0.6195595630310387,
+    "posture": 0.5678862493497485,
+    "cheaper": 0.6055141321310907,
+    "favourite": 0.3944858678689093,
+    "per_run_public": 0.5751789976133651,
+    "entry_run_public": 0.6527545909849749,
+    "entry_run_cheaper": 0.4974958263772955,
+    "later_runs_public": 0.532033426183844,
+    "runs": 1676,
+    "return_per_dollar": 0.06640085307671352,
+    "window_net_side_wins": 0.5620437956204379,
+    "outcome_coverage": 0.7364314201491243,
+    "not_decided_n": 4827,
+    "not_decided_posture": 0.5904288377874456
+   }
+  }
+ },
+ "presence_by_week": {
+  "0": {
+   "auc": 0.7162547793898495,
+   "auc_activity": 0.6938972505694,
+   "windows": 336
+  },
+  "1": {
+   "auc": 0.7275037857939376,
+   "auc_activity": 0.7075884629027575,
+   "windows": 334
+  },
+  "2": {
+   "auc": 0.7406583337359708,
+   "auc_activity": 0.7209064151641433,
+   "windows": 336
+  },
+  "3": {
+   "auc": 0.7613514083128848,
+   "auc_activity": 0.727652701461755,
+   "windows": 336
+  },
+  "4": {
+   "auc": 0.7967328629524077,
+   "auc_activity": 0.7699936449786505,
+   "windows": 336
+  },
+  "5": {
+   "auc": 0.8185697157066854,
+   "auc_activity": 0.7748071585563726,
+   "windows": 336
+  }
+ }
+}

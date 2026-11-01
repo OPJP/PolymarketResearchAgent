@@ -1,0 +1,38 @@
+{
+ "BUILD": {
+  "markets": 2532,
+  "later_fills": 12463,
+  "later_same_as_first_fillweighted": 0.628,
+  "later_same_as_open_fillweighted": 0.502,
+  "markets_with_open": 749,
+  "majority_side_eq_first_fill": 0.907,
+  "later_mktfav_fillweighted": 0.631
+ },
+ "STUDY": {
+  "markets": 1050,
+  "later_fills": 4222,
+  "later_same_as_first_fillweighted": 0.676,
+  "later_same_as_open_fillweighted": 0.438,
+  "markets_with_open": 312,
+  "majority_side_eq_first_fill": 0.918,
+  "later_mktfav_fillweighted": 0.71
+ },
+ "VALIDATE": {
+  "markets": 829,
+  "later_fills": 3431,
+  "later_same_as_first_fillweighted": 0.674,
+  "later_same_as_open_fillweighted": 0.445,
+  "markets_with_open": 244,
+  "majority_side_eq_first_fill": 0.917,
+  "later_mktfav_fillweighted": 0.561
+ },
+ "dev_after_T0": {
+  "markets": 74,
+  "later_fills": 308,
+  "later_same_as_first_fillweighted": 0.575,
+  "later_same_as_open_fillweighted": 0.179,
+  "markets_with_open": 14,
+  "majority_side_eq_first_fill": 0.838,
+  "later_mktfav_fillweighted": 0.62
+ }
+}

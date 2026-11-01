@@ -1,0 +1,570 @@
+{
+ "proxy_vs_gamma_BUILD": {
+  "windows": 2778,
+  "agree": 0.8258
+ },
+ "redeem_vs_gamma": {
+  "windows": 4387,
+  "agree": 1.0
+ },
+ "outcome_source_windows": {
+  "redeem": 33463,
+  "none": 318,
+  "gamma": 65
+ },
+ "table": {
+  "06": {
+   "fills": 77413,
+   "usd": 2241805.0,
+   "ret": 0.0235,
+   "cheap_share": 0.496,
+   "R_median": 0.983,
+   "q0": {
+    "cheap": {
+     "fills": 12301,
+     "ret": 0.0393
+    },
+    "fav": {
+     "fills": 7505,
+     "ret": 0.0781
+    },
+    "all": {
+     "fills": 19806,
+     "ret": 0.069,
+     "cheap_share": 0.621,
+     "usd": 534090.0
+    }
+   },
+   "q1": {
+    "cheap": {
+     "fills": 7004,
+     "ret": -0.0713
+    },
+    "fav": {
+     "fills": 7173,
+     "ret": 0.0047
+    },
+    "all": {
+     "fills": 14177,
+     "ret": -0.0093,
+     "cheap_share": 0.494,
+     "usd": 416206.0
+    }
+   },
+   "q2": {
+    "cheap": {
+     "fills": 6813,
+     "ret": 0.0673
+    },
+    "fav": {
+     "fills": 7441,
+     "ret": -0.0165
+    },
+    "all": {
+     "fills": 14254,
+     "ret": -0.0038,
+     "cheap_share": 0.478,
+     "usd": 429755.0
+    }
+   },
+   "q3": {
+    "cheap": {
+     "fills": 6388,
+     "ret": 0.0233
+    },
+    "fav": {
+     "fills": 7791,
+     "ret": 0.059
+    },
+    "all": {
+     "fills": 14179,
+     "ret": 0.0541,
+     "cheap_share": 0.451,
+     "usd": 432636.0
+    }
+   },
+   "q4": {
+    "cheap": {
+     "fills": 5901,
+     "ret": 0.0423
+    },
+    "fav": {
+     "fills": 9096,
+     "ret": -0.011
+    },
+    "all": {
+     "fills": 14997,
+     "ret": -0.005,
+     "cheap_share": 0.393,
+     "usd": 429118.0
+    }
+   }
+  },
+  "07": {
+   "fills": 242587,
+   "usd": 5491847.0,
+   "ret": 0.0385,
+   "cheap_share": 0.599,
+   "R_median": 1.235,
+   "q0": {
+    "cheap": {
+     "fills": 41953,
+     "ret": 0.0116
+    },
+    "fav": {
+     "fills": 17585,
+     "ret": 0.0378
+    },
+    "all": {
+     "fills": 59538,
+     "ret": 0.0297,
+     "cheap_share": 0.705,
+     "usd": 1194302.0
+    }
+   },
+   "q1": {
+    "cheap": {
+     "fills": 25880,
+     "ret": 0.2089
+    },
+    "fav": {
+     "fills": 18685,
+     "ret": 0.0321
+    },
+    "all": {
+     "fills": 44565,
+     "ret": 0.0677,
+     "cheap_share": 0.581,
+     "usd": 1061745.0
+    }
+   },
+   "q2": {
+    "cheap": {
+     "fills": 25710,
+     "ret": 0.2027
+    },
+    "fav": {
+     "fills": 19236,
+     "ret": 0.0332
+    },
+    "all": {
+     "fills": 44946,
+     "ret": 0.0669,
+     "cheap_share": 0.572,
+     "usd": 1041860.0
+    }
+   },
+   "q3": {
+    "cheap": {
+     "fills": 24546,
+     "ret": 0.0644
+    },
+    "fav": {
+     "fills": 20274,
+     "ret": 0.0035
+    },
+    "all": {
+     "fills": 44820,
+     "ret": 0.0145,
+     "cheap_share": 0.548,
+     "usd": 1119316.0
+    }
+   },
+   "q4": {
+    "cheap": {
+     "fills": 27238,
+     "ret": 0.0943
+    },
+    "fav": {
+     "fills": 21480,
+     "ret": -0.0015
+    },
+    "all": {
+     "fills": 48718,
+     "ret": 0.017,
+     "cheap_share": 0.559,
+     "usd": 1074623.0
+    }
+   }
+  },
+  "08": {
+   "fills": 208983,
+   "usd": 5601182.0,
+   "ret": 0.0409,
+   "cheap_share": 0.571,
+   "R_median": 0.954,
+   "q0": {
+    "cheap": {
+     "fills": 19101,
+     "ret": 0.0166
+    },
+    "fav": {
+     "fills": 18203,
+     "ret": 0.0378
+    },
+    "all": {
+     "fills": 37304,
+     "ret": 0.0341,
+     "cheap_share": 0.512,
+     "usd": 1122731.0
+    }
+   },
+   "q1": {
+    "cheap": {
+     "fills": 24953,
+     "ret": 0.0167
+    },
+    "fav": {
+     "fills": 16615,
+     "ret": 0.0474
+    },
+    "all": {
+     "fills": 41568,
+     "ret": 0.0402,
+     "cheap_share": 0.6,
+     "usd": 1045344.0
+    }
+   },
+   "q2": {
+    "cheap": {
+     "fills": 25984,
+     "ret": 0.0528
+    },
+    "fav": {
+     "fills": 17937,
+     "ret": 0.0437
+    },
+    "all": {
+     "fills": 43921,
+     "ret": 0.0458,
+     "cheap_share": 0.592,
+     "usd": 1158153.0
+    }
+   },
+   "q3": {
+    "cheap": {
+     "fills": 23876,
+     "ret": 0.1148
+    },
+    "fav": {
+     "fills": 20015,
+     "ret": 0.0181
+    },
+    "all": {
+     "fills": 43891,
+     "ret": 0.0374,
+     "cheap_share": 0.544,
+     "usd": 1213000.0
+    }
+   },
+   "q4": {
+    "cheap": {
+     "fills": 25478,
+     "ret": 0.0849
+    },
+    "fav": {
+     "fills": 16821,
+     "ret": 0.0358
+    },
+    "all": {
+     "fills": 42299,
+     "ret": 0.0474,
+     "cheap_share": 0.602,
+     "usd": 1061954.0
+    }
+   }
+  },
+  "09": {
+   "fills": 223015,
+   "usd": 5092859.0,
+   "ret": 0.0293,
+   "cheap_share": 0.675,
+   "R_median": 0.995,
+   "q0": {
+    "cheap": {
+     "fills": 26340,
+     "ret": 0.0439
+    },
+    "fav": {
+     "fills": 17118,
+     "ret": 0.0092
+    },
+    "all": {
+     "fills": 43458,
+     "ret": 0.0184,
+     "cheap_share": 0.606,
+     "usd": 1117741.0
+    }
+   },
+   "q1": {
+    "cheap": {
+     "fills": 30181,
+     "ret": 0.0335
+    },
+    "fav": {
+     "fills": 13891,
+     "ret": 0.0165
+    },
+    "all": {
+     "fills": 44072,
+     "ret": 0.0219,
+     "cheap_share": 0.685,
+     "usd": 1028780.0
+    }
+   },
+   "q2": {
+    "cheap": {
+     "fills": 29183,
+     "ret": 0.0791
+    },
+    "fav": {
+     "fills": 12919,
+     "ret": 0.0511
+    },
+    "all": {
+     "fills": 42102,
+     "ret": 0.0602,
+     "cheap_share": 0.693,
+     "usd": 1001610.0
+    }
+   },
+   "q3": {
+    "cheap": {
+     "fills": 31599,
+     "ret": 0.0178
+    },
+    "fav": {
+     "fills": 13647,
+     "ret": 0.045
+    },
+    "all": {
+     "fills": 45246,
+     "ret": 0.0365,
+     "cheap_share": 0.698,
+     "usd": 999749.0
+    }
+   },
+   "q4": {
+    "cheap": {
+     "fills": 33279,
+     "ret": 0.0139
+    },
+    "fav": {
+     "fills": 14858,
+     "ret": 0.0085
+    },
+    "all": {
+     "fills": 48137,
+     "ret": 0.0101,
+     "cheap_share": 0.691,
+     "usd": 944980.0
+    }
+   }
+  },
+  "10": {
+   "fills": 70192,
+   "usd": 2170103.0,
+   "ret": 0.0117,
+   "cheap_share": 0.564,
+   "R_median": 1.142,
+   "q0": {
+    "cheap": {
+     "fills": 5371,
+     "ret": 0.0133
+    },
+    "fav": {
+     "fills": 6488,
+     "ret": 0.0281
+    },
+    "all": {
+     "fills": 11859,
+     "ret": 0.0256,
+     "cheap_share": 0.453,
+     "usd": 446162.0
+    }
+   },
+   "q1": {
+    "cheap": {
+     "fills": 6007,
+     "ret": 0.0321
+    },
+    "fav": {
+     "fills": 6160,
+     "ret": 0.0132
+    },
+    "all": {
+     "fills": 12167,
+     "ret": 0.0169,
+     "cheap_share": 0.494,
+     "usd": 405993.0
+    }
+   },
+   "q2": {
+    "cheap": {
+     "fills": 6696,
+     "ret": 0.0721
+    },
+    "fav": {
+     "fills": 5526,
+     "ret": 0.0031
+    },
+    "all": {
+     "fills": 12222,
+     "ret": 0.0158,
+     "cheap_share": 0.548,
+     "usd": 422365.0
+    }
+   },
+   "q3": {
+    "cheap": {
+     "fills": 8468,
+     "ret": 0.0979
+    },
+    "fav": {
+     "fills": 5257,
+     "ret": 0.019
+    },
+    "all": {
+     "fills": 13725,
+     "ret": 0.0378,
+     "cheap_share": 0.617,
+     "usd": 363081.0
+    }
+   },
+   "q4": {
+    "cheap": {
+     "fills": 13070,
+     "ret": -0.041
+    },
+    "fav": {
+     "fills": 7149,
+     "ret": -0.0187
+    },
+    "all": {
+     "fills": 20219,
+     "ret": -0.025,
+     "cheap_share": 0.646,
+     "usd": 532501.0
+    }
+   },
+   "oct_cheap_top_minus_bottom_ci90": [
+    -0.2013,
+    0.0724
+   ]
+  },
+  "lot": {
+   "fills": 12532,
+   "usd": 270029.0,
+   "ret": 0.0375,
+   "cheap_share": 0.624,
+   "R_median": 0.946,
+   "q0": {
+    "cheap": {
+     "fills": 1699,
+     "ret": 0.2192
+    },
+    "fav": {
+     "fills": 1148,
+     "ret": 0.0082
+    },
+    "all": {
+     "fills": 2847,
+     "ret": 0.055,
+     "cheap_share": 0.597,
+     "usd": 69848.0
+    }
+   },
+   "q1": {
+    "cheap": {
+     "fills": 1396,
+     "ret": 0.1727
+    },
+    "fav": {
+     "fills": 898,
+     "ret": 0.0134
+    },
+    "all": {
+     "fills": 2294,
+     "ret": 0.044,
+     "cheap_share": 0.609,
+     "usd": 58541.0
+    }
+   },
+   "q2": {
+    "cheap": {
+     "fills": 1453,
+     "ret": 0.1928
+    },
+    "fav": {
+     "fills": 931,
+     "ret": 0.0187
+    },
+    "all": {
+     "fills": 2384,
+     "ret": 0.0563,
+     "cheap_share": 0.609,
+     "usd": 48989.0
+    }
+   },
+   "q3": {
+    "cheap": {
+     "fills": 1389,
+     "ret": 0.1591
+    },
+    "fav": {
+     "fills": 956,
+     "ret": 0.0207
+    },
+    "all": {
+     "fills": 2345,
+     "ret": 0.0507,
+     "cheap_share": 0.592,
+     "usd": 47333.0
+    }
+   },
+   "q4": {
+    "cheap": {
+     "fills": 1879,
+     "ret": -0.0766
+    },
+    "fav": {
+     "fills": 783,
+     "ret": -0.0159
+    },
+    "all": {
+     "fills": 2662,
+     "ret": -0.032,
+     "cheap_share": 0.706,
+     "usd": 45317.0
+    }
+   }
+  }
+ },
+ "sep_to_oct_by_quintile": {
+  "q0": {
+   "sep": 0.0184,
+   "oct": 0.0256,
+   "usd_oct": 446162.0
+  },
+  "q1": {
+   "sep": 0.0219,
+   "oct": 0.0169,
+   "usd_oct": 405993.0
+  },
+  "q2": {
+   "sep": 0.0602,
+   "oct": 0.0158,
+   "usd_oct": 422365.0
+  },
+  "q3": {
+   "sep": 0.0365,
+   "oct": 0.0378,
+   "usd_oct": 363081.0
+  },
+  "q4": {
+   "sep": 0.0101,
+   "oct": -0.025,
+   "usd_oct": 532501.0
+  }
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "interval": [
+  1793458500,
+  1793459400
+ ],
+ "feed": "btc5m_venues2",
+ "matches": 162,
+ "covered": 162,
+ "quiet_share_covered": 0.1914,
+ "all": {
+  "n": 162,
+  "cover": 0.9074,
+  "agree": 0.8299
+ },
+ "quiet": {
+  "n": 31,
+  "cover": 0.7097,
+  "agree": 0.7727
+ },
+ "moving": {
+  "n": 131,
+  "cover": 0.9542,
+  "agree": 0.84
+ },
+ "placebo": {
+  "cover": 0.8148,
+  "agree": 0.553
+ }
+}

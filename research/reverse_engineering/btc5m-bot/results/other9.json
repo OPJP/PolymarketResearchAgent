@@ -1,0 +1,112 @@
+{
+ "windows": [
+  [
+   "eth5m",
+   "1793462400"
+  ],
+  [
+   "eth5m",
+   "1793463600"
+  ],
+  [
+   "eth5m",
+   "1793464800"
+  ],
+  [
+   "sol5m",
+   "1793462400"
+  ],
+  [
+   "sol5m",
+   "1793463600"
+  ],
+  [
+   "sol5m",
+   "1793464800"
+  ],
+  [
+   "btc15m",
+   "1793462400"
+  ],
+  [
+   "btc15m",
+   "1793463300"
+  ],
+  [
+   "btc5m",
+   "1793462400"
+  ],
+  [
+   "btc5m",
+   "1793463600"
+  ],
+  [
+   "btc5m",
+   "1793464800"
+  ]
+ ],
+ "orders": 5493,
+ "txs": 1882,
+ "operator_orders_by_kind": {
+  "btc5m|DS": 32,
+  "btc5m|GF": 13,
+  "btc5m|W4": 8,
+  "btc5m|XM": 19
+ },
+ "burst_makers(n>=8, burst share>=0.6)": [
+  {
+   "kind": "btc5m",
+   "maker": "0xc53375ff",
+   "n": 32,
+   "burst": 1.0,
+   "sigtype3": 1.0,
+   "sig317": 1.0,
+   "zero_builder_meta": 1.0,
+   "oper": "DS"
+  },
+  {
+   "kind": "btc5m",
+   "maker": "0x3048d653",
+   "n": 19,
+   "burst": 1.0,
+   "sigtype3": 1.0,
+   "sig317": 1.0,
+   "zero_builder_meta": 1.0,
+   "oper": "XM"
+  },
+  {
+   "kind": "btc5m",
+   "maker": "0x0ca4e9d2",
+   "n": 13,
+   "burst": 1.0,
+   "sigtype3": 1.0,
+   "sig317": 1.0,
+   "zero_builder_meta": 1.0,
+   "oper": "GF"
+  },
+  {
+   "kind": "btc5m",
+   "maker": "0xd84403ef",
+   "n": 8,
+   "burst": 0.875,
+   "sigtype3": 1.0,
+   "sig317": 1.0,
+   "zero_builder_meta": 1.0,
+   "oper": "W4"
+  }
+ ],
+ "burst_share_all_orders_by_kind": {
+  "btc15m": 0.0197,
+  "btc5m": 0.0644,
+  "eth5m": 0.0438,
+  "sol5m": 0.0459
+ },
+ "burst_share_fingerprinted(st3,317,zero_bm)_by_kind": {
+  "btc15m": 0.0156,
+  "btc5m": 0.0871,
+  "eth5m": 0.0437,
+  "sol5m": 0.0446
+ },
+ "other_assets_fingerprinted_orders": 2076,
+ "other_assets_fingerprinted_in_burst": 0.0308
+}

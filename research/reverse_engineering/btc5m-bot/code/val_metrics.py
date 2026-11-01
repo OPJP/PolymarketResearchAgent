@@ -1,11 +1,12 @@
 """VALIDATE metrics (side, price, selection, outcome) from the cached VALIDATE predictions of exp_tape_model_lean."""
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 import sys, os, json
-sys.path.insert(0, "/home/user/PolymarketResearchAgent/research/reverse_engineering/btc5m-bot/code")
+sys.path.insert(0, _ROOT + "/research/reverse_engineering/btc5m-bot/code")
 import numpy as np, pandas as pd
 from scipy import stats
 from sklearn.metrics import roc_auc_score
-C = "/home/user/PolymarketResearchAgent/.cache/re/btc5m-bot"
-R = "/home/user/PolymarketResearchAgent/research/reverse_engineering/btc5m-bot"
+C = _ROOT + "/.cache/re/btc5m-bot"
+R = _ROOT + "/research/reverse_engineering/btc5m-bot"
 CL = {"0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6", "0x3048d65321be3497164cdfc2996f94f98a2e7537", "0xc53375ff94e96100f2b30a4b5775db35218d69a9"}
 P_THRESH = 0.30
 cv = pd.read_parquet(f"{C}/val_pred_tape.parquet")

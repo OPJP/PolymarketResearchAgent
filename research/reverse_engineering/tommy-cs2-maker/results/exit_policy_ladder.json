@@ -1,0 +1,262 @@
+{
+ "markets": 229,
+ "BUILD": {
+  "markets": 113,
+  "wallet_pnl": 5105.7,
+  "C0": {
+   "pnl": -2080.6,
+   "usd": 418146.5,
+   "return": -0.005,
+   "pnl_vs_wallet": [
+    0.067,
+    0.275,
+    113
+   ],
+   "unpaired_vs_wallet": [
+    0.213,
+    0.228,
+    113
+   ],
+   "pairs_vs_wallet_pnl": [
+    0.436,
+    0.209,
+    113
+   ],
+   "median_unpaired": 709.8
+  },
+  "C400": {
+   "pnl": -4145.3,
+   "usd": 325712.2,
+   "return": -0.0127,
+   "pnl_vs_wallet": [
+    -0.325,
+    -0.023,
+    113
+   ],
+   "unpaired_vs_wallet": [
+    0.208,
+    0.205,
+    113
+   ],
+   "pairs_vs_wallet_pnl": [
+    0.393,
+    0.186,
+    113
+   ],
+   "median_unpaired": 298.1
+  },
+  "C600": {
+   "pnl": -5811.2,
+   "usd": 356886.6,
+   "return": -0.0163,
+   "pnl_vs_wallet": [
+    -0.25,
+    0.061,
+    113
+   ],
+   "unpaired_vs_wallet": [
+    0.147,
+    0.219,
+    113
+   ],
+   "pairs_vs_wallet_pnl": [
+    0.405,
+    0.197,
+    113
+   ],
+   "median_unpaired": 434.8
+  },
+  "T26": {
+   "pnl": -5174.8,
+   "usd": 353431.1,
+   "return": -0.0146,
+   "pnl_vs_wallet": [
+    -0.258,
+    0.058,
+    113
+   ],
+   "unpaired_vs_wallet": [
+    0.151,
+    0.2,
+    113
+   ],
+   "pairs_vs_wallet_pnl": [
+    0.403,
+    0.196,
+    113
+   ],
+   "median_unpaired": 402.9
+  },
+  "T26S": {
+   "pnl": -4060.9,
+   "usd": 345684.9,
+   "return": -0.0117,
+   "pnl_vs_wallet": [
+    -0.271,
+    0.04,
+    113
+   ],
+   "unpaired_vs_wallet": [
+    0.123,
+    0.181,
+    113
+   ],
+   "pairs_vs_wallet_pnl": [
+    0.401,
+    0.195,
+    113
+   ],
+   "median_unpaired": 334.2
+  }
+ },
+ "VALIDATE": {
+  "markets": 116,
+  "wallet_pnl": 8034.6,
+  "C0": {
+   "pnl": -318.9,
+   "usd": 491800.5,
+   "return": -0.0006,
+   "pnl_vs_wallet": [
+    0.315,
+    0.238,
+    116
+   ],
+   "unpaired_vs_wallet": [
+    0.266,
+    0.304,
+    116
+   ],
+   "pairs_vs_wallet_pnl": [
+    0.534,
+    0.359,
+    116
+   ],
+   "median_unpaired": 792.2
+  },
+  "C400": {
+   "pnl": -245.3,
+   "usd": 376591.5,
+   "return": -0.0007,
+   "pnl_vs_wallet": [
+    0.352,
+    0.108,
+    116
+   ],
+   "unpaired_vs_wallet": [
+    0.066,
+    0.156,
+    116
+   ],
+   "pairs_vs_wallet_pnl": [
+    0.542,
+    0.367,
+    116
+   ],
+   "median_unpaired": 332.2
+  },
+  "C600": {
+   "pnl": 356.3,
+   "usd": 413149.1,
+   "return": 0.0009,
+   "pnl_vs_wallet": [
+    0.408,
+    0.178,
+    116
+   ],
+   "unpaired_vs_wallet": [
+    0.141,
+    0.195,
+    116
+   ],
+   "pairs_vs_wallet_pnl": [
+    0.548,
+    0.364,
+    116
+   ],
+   "median_unpaired": 341.6
+  },
+  "T26": {
+   "pnl": 960.6,
+   "usd": 409553.7,
+   "return": 0.0023,
+   "pnl_vs_wallet": [
+    0.432,
+    0.181,
+    116
+   ],
+   "unpaired_vs_wallet": [
+    0.142,
+    0.176,
+    116
+   ],
+   "pairs_vs_wallet_pnl": [
+    0.548,
+    0.365,
+    116
+   ],
+   "median_unpaired": 344.5
+  },
+  "T26S": {
+   "pnl": 2229.2,
+   "usd": 402565.2,
+   "return": 0.0055,
+   "pnl_vs_wallet": [
+    0.479,
+    0.21,
+    116
+   ],
+   "unpaired_vs_wallet": [
+    0.151,
+    0.19,
+    116
+   ],
+   "pairs_vs_wallet_pnl": [
+    0.549,
+    0.368,
+    116
+   ],
+   "median_unpaired": 323.3
+  }
+ },
+ "build_scores": {
+  "C0": 0.067,
+  "C400": -0.325,
+  "C600": -0.25,
+  "T26": -0.258,
+  "T26S": -0.271
+ },
+ "chosen_on_BUILD": "C0",
+ "VALIDATE_chosen": {
+  "pnl": -318.9,
+  "usd": 491800.5,
+  "return": -0.0006,
+  "pnl_vs_wallet": [
+   0.315,
+   0.238,
+   116
+  ],
+  "unpaired_vs_wallet": [
+   0.266,
+   0.304,
+   116
+  ],
+  "pairs_vs_wallet_pnl": [
+   0.534,
+   0.359,
+   116
+  ],
+  "median_unpaired": 792.2
+ },
+ "VALIDATE_chosen_halves": [
+  [
+   0.034,
+   0.063,
+   58
+  ],
+  [
+   0.553,
+   0.395,
+   58
+  ]
+ ]
+}

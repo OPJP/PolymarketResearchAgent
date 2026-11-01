@@ -1,0 +1,50 @@
+{
+ "study": {
+  "taker_buys": 219,
+  "share_buys_side_held_less": 0.7168949771689498,
+  "flatten_n": 157,
+  "ratio_median": 0.9995789338480731,
+  "ratio_p25_p75": [
+   0.2000312306824678,
+   0.9999956385209564
+  ],
+  "exact_size_share(0.98-1.02)": 0.4585987261146497,
+  "pair_cost_median": 1.12,
+  "pair_cost_p10_p90": [
+   0.81722858524,
+   1.417
+  ],
+  "rel_median": 176.0,
+  "merge_after_share": 0.17197452229299362,
+  "taker_pnl_usd": 214.89589997005686,
+  "windows": 1488,
+  "paired_shares_all": 84896.051809,
+  "paired_shares_maker_only": 75818.307367,
+  "pnl_total": 5000.72946000047,
+  "pnl_from_taker_fills": 214.89589997005694
+ },
+ "validate": {
+  "taker_buys": 621,
+  "share_buys_side_held_less": 0.8325281803542673,
+  "flatten_n": 517,
+  "ratio_median": 0.802641296018608,
+  "ratio_p25_p75": [
+   0.20589084662229787,
+   0.9999629792702462
+  ],
+  "exact_size_share(0.98-1.02)": 0.4158607350096712,
+  "pair_cost_median": 1.06,
+  "pair_cost_p10_p90": [
+   0.7171072573232915,
+   1.3240566684813007
+  ],
+  "rel_median": 115.0,
+  "merge_after_share": 0.5125725338491296,
+  "taker_pnl_usd": 422.06839993627887,
+  "windows": 3058,
+  "paired_shares_all": 417590.599103,
+  "paired_shares_maker_only": 375341.90808900003,
+  "pnl_total": 24084.725574042815,
+  "pnl_from_taker_fills": 422.0683999362782
+ }
+}

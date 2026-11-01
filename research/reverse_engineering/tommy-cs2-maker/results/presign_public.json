@@ -1,0 +1,14 @@
+{
+ "wallet": {
+  "n": 82,
+  "trade_any_event_market_[-1s,0)": 0.061,
+  "book_change_any_event_market_[-300ms,0)": 0.585,
+  "book_change_any_event_market_[-100ms,0)": 0.195
+ },
+ "random": {
+  "n": 1640,
+  "trade_any_event_market_[-1s,0)": 0.013,
+  "book_change_any_event_market_[-300ms,0)": 0.33,
+  "book_change_any_event_market_[-100ms,0)": 0.159
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "market_hours_with_book": 10.74,
+ "orders": {
+  "other": 1449,
+  "pack": 160,
+  "W": 40
+ },
+ "grid": [
+  {
+   "frac": 0.3,
+   "min_ref": 200,
+   "events": 409,
+   "events_per_market_hour": 38.1,
+   "recall_W": 0.575,
+   "precision_W": 0.056,
+   "recall_pack": 0.212,
+   "precision_pack": 0.029,
+   "recall_other": 0.026,
+   "precision_other": 0.068,
+   "W_other_team_event_share": 0.0
+  },
+  {
+   "frac": 0.3,
+   "min_ref": 500,
+   "events": 275,
+   "events_per_market_hour": 25.6,
+   "recall_W": 0.45,
+   "precision_W": 0.065,
+   "recall_pack": 0.181,
+   "precision_pack": 0.033,
+   "recall_other": 0.022,
+   "precision_other": 0.087,
+   "W_other_team_event_share": 0.0
+  },
+  {
+   "frac": 0.5,
+   "min_ref": 200,
+   "events": 756,
+   "events_per_market_hour": 70.4,
+   "recall_W": 0.7,
+   "precision_W": 0.037,
+   "recall_pack": 0.369,
+   "precision_pack": 0.028,
+   "recall_other": 0.072,
+   "precision_other": 0.071,
+   "W_other_team_event_share": 0.0
+  },
+  {
+   "frac": 0.5,
+   "min_ref": 500,
+   "events": 504,
+   "events_per_market_hour": 46.9,
+   "recall_W": 0.525,
+   "precision_W": 0.042,
+   "recall_pack": 0.281,
+   "precision_pack": 0.028,
+   "recall_other": 0.068,
+   "precision_other": 0.099,
+   "W_other_team_event_share": 0.0
+  }
+ ]
+}

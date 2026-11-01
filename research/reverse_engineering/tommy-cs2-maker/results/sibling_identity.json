@@ -1,0 +1,125 @@
+{
+ "wallet_orders": 25878,
+ "0xd2bb9459": {
+  "activity_trades": 14773,
+  "txs": 14021,
+  "sampled_txs": 700,
+  "orders_decoded": 718,
+  "cosign_with_wallet": {
+   "pairs_0_5ms": 0,
+   "pairs_5_50ms": 6,
+   "per_ms_ratio": null
+  },
+  "design": {
+   "orders": 718,
+   "buy_share": 1.0,
+   "whole_cent": 0.883,
+   "band": 0.951,
+   "sizes_top": {
+    "50.0": 50,
+    "200.0": 47,
+    "600.0": 37,
+    "100.0": 37,
+    "120.0": 30,
+    "400.0": 29,
+    "320.0": 17,
+    "160.0": 17
+   },
+   "burst_size_counts": {
+    "1": 708,
+    "2": 5
+   },
+   "multi_level_share_of_orders": 0.014,
+   "slot_gap_c_counts": {
+    "1.0": 4,
+    "0.1": 1
+   }
+  },
+  "maker_share": 1.0
+ },
+ "0x10d79cc7": {
+  "activity_trades": 14280,
+  "txs": 12436,
+  "sampled_txs": 700,
+  "orders_decoded": 833,
+  "cosign_with_wallet": {
+   "pairs_0_5ms": 1,
+   "pairs_5_50ms": 6,
+   "per_ms_ratio": 1.36
+  },
+  "design": {
+   "orders": 833,
+   "buy_share": 1.0,
+   "whole_cent": 1.0,
+   "band": 0.993,
+   "sizes_top": {
+    "20.0": 553,
+    "80.0": 117,
+    "40.0": 38,
+    "239.0": 28,
+    "200.0": 10,
+    "100.0": 9,
+    "240.0": 5,
+    "259.0": 5
+   },
+   "burst_size_counts": {
+    "1": 652,
+    "2": 59,
+    "3": 13,
+    "4": 2,
+    "5": 2,
+    "6": 1
+   },
+   "multi_level_share_of_orders": 0.217,
+   "slot_gap_c_counts": {
+    "1.0": 88,
+    "-0.0": 8,
+    "3.0": 3,
+    "4.0": 2,
+    "7.0": 1,
+    "2.0": 1
+   }
+  },
+  "maker_share": 0.706
+ },
+ "0x7d67f01d": {
+  "activity_trades": 4019,
+  "txs": 3755,
+  "sampled_txs": 700,
+  "orders_decoded": 712,
+  "cosign_with_wallet": {
+   "pairs_0_5ms": 13,
+   "pairs_5_50ms": 24,
+   "per_ms_ratio": 4.43
+  },
+  "design": {
+   "orders": 712,
+   "buy_share": 0.973,
+   "whole_cent": 0.994,
+   "band": 0.999,
+   "sizes_top": {
+    "100.0": 258,
+    "5.0": 140,
+    "10.0": 42,
+    "159.0": 7,
+    "19.0": 6,
+    "57.0": 6,
+    "50.0": 6,
+    "9.0": 5
+   },
+   "burst_size_counts": {
+    "1": 644,
+    "2": 29,
+    "3": 2,
+    "4": 1
+   },
+   "multi_level_share_of_orders": 0.096,
+   "slot_gap_c_counts": {
+    "-0.0": 26,
+    "1.0": 9,
+    "3.0": 1
+   }
+  },
+  "maker_share": 0.838
+ }
+}

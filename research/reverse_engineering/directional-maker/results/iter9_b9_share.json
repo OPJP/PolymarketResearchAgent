@@ -1,0 +1,16 @@
+{
+ "windows": 4032,
+ "cluster_share_of_volume_pooled": 0.017389424239049947,
+ "share_median": 0.005895132908126386,
+ "share_p90": 0.04839606410746014,
+ "spearman_share_vs_total_volume": 0.18048240410346472,
+ "share_by_volume_quintile": {
+  "0": 0.0158,
+  "1": 0.0139,
+  "2": 0.0144,
+  "3": 0.0165,
+  "4": 0.0222
+ },
+ "maker_rebates_usd_build": 14501.675299999997,
+ "rewards_usd_build": 3.4386
+}

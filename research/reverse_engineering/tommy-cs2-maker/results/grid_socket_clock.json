@@ -1,0 +1,319 @@
+{
+ "events": {
+  "cs2-fokus-baks-2026-10-31": {
+   "home": "FOKUS",
+   "away": "BakS eSports",
+   "score_changes": 50,
+   "round_ticks": 48,
+   "tick_gap_mod_20_2": [
+    0.18,
+    0.59,
+    1.45
+   ],
+   "markets": {
+    "0x0e963f2c": {
+     "smt": "child_moneyline",
+     "outcomes": [
+      "FOKUS",
+      "BakS eSports"
+     ],
+     "a_is_home": true,
+     "orders": 0,
+     "bursts": 0,
+     "prints": 110
+    },
+    "0x83b57c9e": {
+     "smt": "moneyline",
+     "outcomes": [
+      "FOKUS",
+      "BakS eSports"
+     ],
+     "a_is_home": true,
+     "orders": 41,
+     "bursts": 41,
+     "prints": 208
+    },
+    "0xa70a7836": {
+     "smt": "child_moneyline",
+     "outcomes": [
+      "FOKUS",
+      "BakS eSports"
+     ],
+     "a_is_home": true,
+     "orders": 93,
+     "bursts": 93,
+     "prints": 509
+    }
+   },
+   "L_fit_print": 2,
+   "L_profile_print_c": {
+    "0": 2.66,
+    "10": 2.38,
+    "20": 0.82,
+    "30": 0.85,
+    "40": 0.92,
+    "50": 0.59,
+    "60": 0.48
+   }
+  },
+  "cs2-jjh-bmb-2026-10-31": {
+   "home": "JiJieHao",
+   "away": "BASEMENT BOYS",
+   "score_changes": 39,
+   "round_ticks": 37,
+   "tick_gap_mod_20_2": [
+    0.11,
+    0.46,
+    14.45
+   ],
+   "markets": {
+    "0x0927035c": {
+     "smt": "child_moneyline",
+     "outcomes": [
+      "JiJieHao",
+      "BASEMENT BOYS"
+     ],
+     "a_is_home": true,
+     "orders": 60,
+     "bursts": 60,
+     "prints": 380
+    },
+    "0x4c7f0e98": {
+     "smt": "moneyline",
+     "outcomes": [
+      "JiJieHao",
+      "BASEMENT BOYS"
+     ],
+     "a_is_home": true,
+     "orders": 26,
+     "bursts": 26,
+     "prints": 197
+    },
+    "0xd997f5f3": {
+     "smt": "child_moneyline",
+     "outcomes": [
+      "JiJieHao",
+      "BASEMENT BOYS"
+     ],
+     "a_is_home": true,
+     "orders": 26,
+     "bursts": 26,
+     "prints": 157
+    }
+   },
+   "L_fit_print": 10,
+   "L_profile_print_c": {
+    "0": 1.24,
+    "10": 1.4,
+    "20": 0.99,
+    "30": 0.67,
+    "40": 0.61,
+    "50": 0.63,
+    "60": 0.75
+   }
+  },
+  "cs2-bca-pha-2026-11-01": {
+   "home": "Betclic Apogee Esports",
+   "away": "Phantom",
+   "score_changes": 23,
+   "round_ticks": 22,
+   "tick_gap_mod_20_2": [
+    0.09,
+    19.93,
+    20.18
+   ],
+   "markets": {
+    "0x48874ce5": {
+     "smt": "child_moneyline",
+     "outcomes": [
+      "Betclic Apogee Esports",
+      "Phantom"
+     ],
+     "a_is_home": true,
+     "orders": 0,
+     "bursts": 0,
+     "prints": 0
+    },
+    "0x69b26b0a": {
+     "smt": "child_moneyline",
+     "outcomes": [
+      "Betclic Apogee Esports",
+      "Phantom"
+     ],
+     "a_is_home": true,
+     "orders": 69,
+     "bursts": 69,
+     "prints": 0
+    },
+    "0x76b95600": {
+     "smt": "moneyline",
+     "outcomes": [
+      "Betclic Apogee Esports",
+      "Phantom"
+     ],
+     "a_is_home": true,
+     "orders": 23,
+     "bursts": 23,
+     "prints": 0
+    }
+   },
+   "L_fit_print": 0,
+   "L_profile_print_c": {
+    "0": -900,
+    "10": -900,
+    "20": -900,
+    "30": -900,
+    "40": -900,
+    "50": -900,
+    "60": -900
+   }
+  },
+  "cs2-jjh-mzp-2026-11-01": {
+   "home": "JiJieHao",
+   "away": "Metizport",
+   "score_changes": 37,
+   "round_ticks": 35,
+   "tick_gap_mod_20_2": [
+    0.09,
+    0.59,
+    20.17
+   ],
+   "markets": {
+    "0x5ef71cfa": {
+     "smt": "child_moneyline",
+     "outcomes": [
+      "JiJieHao",
+      "Metizport"
+     ],
+     "a_is_home": true,
+     "orders": 203,
+     "bursts": 203,
+     "prints": 2
+    },
+    "0x79268483": {
+     "smt": "child_moneyline",
+     "outcomes": [
+      "JiJieHao",
+      "Metizport"
+     ],
+     "a_is_home": true,
+     "orders": 48,
+     "bursts": 48,
+     "prints": 0
+    },
+    "0xf8f8edf1": {
+     "smt": "moneyline",
+     "outcomes": [
+      "JiJieHao",
+      "Metizport"
+     ],
+     "a_is_home": true,
+     "orders": 70,
+     "bursts": 70,
+     "prints": 81
+    }
+   },
+   "L_fit_print": 0,
+   "L_profile_print_c": {
+    "0": 0.0,
+    "10": 0.0,
+    "20": 0.0,
+    "30": 0.0,
+    "40": 0.0,
+    "50": 0.0,
+    "60": 0.0
+   }
+  }
+ },
+ "rounds": {
+  "all": {
+   "rounds": 327,
+   "V_mid_c": 2.26,
+   "P_mid_c": 1.28,
+   "n_mid": 226,
+   "V_end_c": 2.01,
+   "P_end_c": 2.03,
+   "n_end": 233,
+   "V_after_c": 1.08,
+   "P_after_c": 0.51,
+   "n_after": 234,
+   "mid_auc_V": 0.726,
+   "mid_auc_P": 0.661,
+   "mid_auc_n": 184,
+   "mid_auc_V_all": 0.705,
+   "V_share_by_window": {
+    "mid": 0.417,
+    "end": 0.376,
+    "after": 0.206
+   },
+   "V_moves_per_round_mid": 1.36,
+   "V_moves_per_round_end": 0.61,
+   "mid_window_s": 100.0
+  },
+  "map_books": {
+   "rounds": 186,
+   "V_mid_c": 3.51,
+   "P_mid_c": 2.18,
+   "n_mid": 111,
+   "V_end_c": 3.25,
+   "P_end_c": 3.28,
+   "n_end": 115,
+   "V_after_c": 1.5,
+   "P_after_c": 0.69,
+   "n_after": 115,
+   "mid_auc_V": 0.777,
+   "mid_auc_P": 0.764,
+   "mid_auc_n": 89,
+   "mid_auc_V_all": 0.754,
+   "V_share_by_window": {
+    "mid": 0.418,
+    "end": 0.397,
+    "after": 0.185
+   },
+   "V_moves_per_round_mid": 1.99,
+   "V_moves_per_round_end": 0.86,
+   "mid_window_s": 99.9
+  },
+  "match_books": {
+   "rounds": 141,
+   "V_mid_c": 1.06,
+   "P_mid_c": 0.43,
+   "n_mid": 115,
+   "V_end_c": 0.79,
+   "P_end_c": 0.84,
+   "n_end": 118,
+   "V_after_c": 0.68,
+   "P_after_c": 0.33,
+   "n_after": 119,
+   "mid_auc_V": 0.646,
+   "mid_auc_P": 0.544,
+   "mid_auc_n": 95,
+   "mid_auc_V_all": 0.633,
+   "V_share_by_window": {
+    "mid": 0.413,
+    "end": 0.311,
+    "after": 0.276
+   },
+   "V_moves_per_round_mid": 0.7,
+   "V_moves_per_round_end": 0.35,
+   "mid_window_s": 100.2
+  }
+ },
+ "G2": {
+  "orders": 519,
+  "within_tick_print": 0.233,
+  "median_offset_c": -1.0,
+  "within_tick_print_minus1c": 0.235,
+  "offset_q10_q50_q90_c": [
+   -16.0,
+   -1.0,
+   13.2
+  ],
+  "whole_cent_share": 0.992,
+  "lead_follow": {
+   "V_then_print_same_dir_10s": 67,
+   "print_then_V_same_dir_10s": 47,
+   "V_changes": 421
+  }
+ }
+}

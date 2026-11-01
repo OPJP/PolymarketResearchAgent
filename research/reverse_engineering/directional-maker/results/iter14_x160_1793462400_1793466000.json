@@ -1,0 +1,62 @@
+{
+ "span": [
+  1793462400,
+  1793466000
+ ],
+ "cells": 14370,
+ "positives": 996,
+ "windows": 16,
+ "cluster_txs_dropped": 842,
+ "activity": 0.698496318157331,
+ "activity_ref": 0.7439005310910158,
+ "activity_chainlink": 0.7399092031352567,
+ "gain": 0.045404212933684795,
+ "when_either_outcome": {
+  "activity": 0.6482984426647371,
+  "activity_ref": 0.684026213225016,
+  "seconds": 7185,
+  "pos_rate": 0.13639526791927628
+ },
+ "which_outcome_one_sided_seconds": {
+  "n": 964,
+  "activity": 0.6286307053941909,
+  "activity_ref": 0.7240663900414938
+ },
+ "model": "code14/models/quote_presence_*.txt, LightGBM fitted on 10-31 14-16 (code14/pres_quote.py LAG 1432 ms, point-in-time safe), no refit",
+ "quote_unit_side": {
+  "n": 2070,
+  "n_scored": 1937,
+  "n_exact_publish_clock": 0,
+  "rule": "posture at the post: latest Chainlink report published before it (dy_rtds publish ms), else stamp <= t - 1432 ms; k1.0 x futures sigma300",
+  "side_accuracy": [
+   0.7414,
+   1937
+  ],
+  "first_half": [
+   0.7164,
+   1301
+  ],
+  "second_half": [
+   0.7925,
+   636
+  ],
+  "btc5m": [
+   0.6776,
+   1253
+  ],
+  "btc15m": [
+   0.8582,
+   684
+  ],
+  "baseline_always_up": 0.4729,
+  "baseline_cheaper": [
+   0.4445,
+   1937
+  ],
+  "baseline_mid_rose_1s": [
+   0.6341,
+   943
+  ],
+  "caveat": "exact 500/1000 adds at the touch include other makers' orders (~12% of exact 500s, X36); unit = post, not wallet"
+ }
+}

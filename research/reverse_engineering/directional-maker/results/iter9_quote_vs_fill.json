@@ -1,0 +1,21 @@
+{
+ "fills": 1433,
+ "only_bought_side": {
+  "share": 0.164,
+  "posture_acc": 0.809
+ },
+ "only_other_side": {
+  "share": 0.03,
+  "posture_acc": 0.884
+ },
+ "both": {
+  "share": 0.001,
+  "posture_acc": 1.0
+ },
+ "neither": {
+  "share": 0.805,
+  "posture_acc": 0.811
+ },
+ "quote_side_predictor_acc_when_one_sided": 0.845,
+ "one_sided_share": 0.194
+}

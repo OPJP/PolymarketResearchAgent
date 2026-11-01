@@ -1,0 +1,7 @@
+{
+ "pairs": 2343,
+ "spearman_off_vs_sibling_pre2s": 0.0337,
+ "spearman_off_vs_own_book_pre2s": 0.0217,
+ "spearman_off_vs_sibling_future10s": 0.1304,
+ "share_sibling_pre_moved_ge1c": 0.1426
+}

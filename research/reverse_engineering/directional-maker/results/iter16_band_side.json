@@ -1,0 +1,78 @@
+{
+ "study": {
+  "n": 8256,
+  "dead_zone_share": 0.3708,
+  "R8": {
+   "fill": 0.5693,
+   "dead_zone": 0.5681,
+   "per_wallet": {
+    "almach": 0.5757,
+    "bosona": 0.5627,
+    "momoney": 0.5702
+   }
+  },
+  "R8b": {
+   "fill": 0.5205,
+   "dead_zone": 0.4365,
+   "per_wallet": {
+    "almach": 0.5293,
+    "bosona": 0.5066,
+    "momoney": 0.5266
+   }
+  },
+  "cheaper": {
+   "fill": 0.484,
+   "dead_zone": 0.4365,
+   "per_wallet": {
+    "almach": 0.4875,
+    "bosona": 0.4833,
+    "momoney": 0.4816
+   }
+  },
+  "posture_in_dead_zone": 0.5681
+ },
+ "validate": {
+  "n": 27988,
+  "dead_zone_share": 0.3561,
+  "R8": {
+   "fill": 0.6925,
+   "dead_zone": 0.6317,
+   "per_wallet": {
+    "almach": 0.7022,
+    "bosona": 0.6841,
+    "momoney": 0.6917
+   },
+   "halves": [
+    0.6797,
+    0.7014
+   ]
+  },
+  "R8b": {
+   "fill": 0.6862,
+   "dead_zone": 0.6139,
+   "per_wallet": {
+    "almach": 0.6887,
+    "bosona": 0.6809,
+    "momoney": 0.689
+   },
+   "halves": [
+    0.6531,
+    0.7089
+   ]
+  },
+  "cheaper": {
+   "fill": 0.6785,
+   "dead_zone": 0.6139,
+   "per_wallet": {
+    "almach": 0.6783,
+    "bosona": 0.675,
+    "momoney": 0.6822
+   },
+   "halves": [
+    0.6288,
+    0.7127
+   ]
+  },
+  "posture_in_dead_zone": 0.6317
+ }
+}

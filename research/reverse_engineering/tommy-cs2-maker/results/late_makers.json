@@ -1,0 +1,418 @@
+{
+ "hist_wallet_takes": {
+  "maker_rows": 4714,
+  "late_rows": 1549,
+  "late_usd_share": 0.19,
+  "late_offset_ms_hist": {
+   "(0.0, 20.0]": 11,
+   "(20.0, 50.0]": 32,
+   "(50.0, 100.0]": 74,
+   "(100.0, 200.0]": 174,
+   "(200.0, 500.0]": 434,
+   "(500.0, 1000.0]": 763,
+   "(1000.0, 1500.0]": 46,
+   "(1500.0, 3000.0]": 12,
+   "(3000.0, 1000000000.0]": 3
+  },
+  "late_offset_ms_p10_p25_p50_p75": [
+   121,
+   254,
+   537,
+   827
+  ],
+  "top_late_makers": [
+   {
+    "maker": "0xed446954",
+    "late_usd": 8525,
+    "n": 26,
+    "off_p10": 399,
+    "off_p50": 948,
+    "late_share_of_its_usd": 0.563
+   },
+   {
+    "maker": "0x5d40576b",
+    "late_usd": 2210,
+    "n": 104,
+    "off_p10": 123,
+    "off_p50": 539,
+    "late_share_of_its_usd": 0.557
+   },
+   {
+    "maker": "0x893575c7",
+    "late_usd": 2147,
+    "n": 275,
+    "off_p10": 143,
+    "off_p50": 570,
+    "late_share_of_its_usd": 0.46
+   },
+   {
+    "maker": "0x68915897",
+    "late_usd": 1783,
+    "n": 35,
+    "off_p10": 83,
+    "off_p50": 429,
+    "late_share_of_its_usd": 0.48
+   },
+   {
+    "maker": "0x2005d16a",
+    "late_usd": 1578,
+    "n": 2,
+    "off_p10": 984,
+    "off_p50": 988,
+    "late_share_of_its_usd": 0.274
+   },
+   {
+    "maker": "0x758dac51",
+    "late_usd": 1335,
+    "n": 37,
+    "off_p10": 74,
+    "off_p50": 704,
+    "late_share_of_its_usd": 0.325
+   },
+   {
+    "maker": "0xb35f674a",
+    "late_usd": 1207,
+    "n": 15,
+    "off_p10": 226,
+    "off_p50": 555,
+    "late_share_of_its_usd": 0.64
+   },
+   {
+    "maker": "0x299f1e05",
+    "late_usd": 1042,
+    "n": 40,
+    "off_p10": 145,
+    "off_p50": 818,
+    "late_share_of_its_usd": 0.347
+   },
+   {
+    "maker": "0xd218e474",
+    "late_usd": 735,
+    "n": 12,
+    "off_p10": 196,
+    "off_p50": 380,
+    "late_share_of_its_usd": 0.668
+   },
+   {
+    "maker": "0x51dbdd2b",
+    "late_usd": 720,
+    "n": 11,
+    "off_p10": 242,
+    "off_p50": 526,
+    "late_share_of_its_usd": 0.496
+   }
+  ]
+ },
+ "dev_wallet_takes": {
+  "maker_rows": 138,
+  "late_rows": 44,
+  "late_usd_share": 0.232,
+  "late_offset_ms_hist": {
+   "(0.0, 20.0]": 1,
+   "(20.0, 50.0]": 6,
+   "(50.0, 100.0]": 4,
+   "(100.0, 200.0]": 6,
+   "(200.0, 500.0]": 10,
+   "(500.0, 1000.0]": 12,
+   "(1000.0, 1500.0]": 4,
+   "(1500.0, 3000.0]": 1,
+   "(3000.0, 1000000000.0]": 0
+  },
+  "late_offset_ms_p10_p25_p50_p75": [
+   46,
+   103,
+   346,
+   701
+  ],
+  "top_late_makers": [
+   {
+    "maker": "0x893575c7",
+    "late_usd": 303,
+    "n": 26,
+    "off_p10": 45,
+    "off_p50": 204,
+    "late_share_of_its_usd": 0.526
+   },
+   {
+    "maker": "0x299f1e05",
+    "late_usd": 123,
+    "n": 5,
+    "off_p10": 1124,
+    "off_p50": 1309,
+    "late_share_of_its_usd": 0.504
+   },
+   {
+    "maker": "0x7eeb94f2",
+    "late_usd": 48,
+    "n": 3,
+    "off_p10": 41,
+    "off_p50": 55,
+    "late_share_of_its_usd": 1.0
+   },
+   {
+    "maker": "0x6c21ba8e",
+    "late_usd": 14,
+    "n": 2,
+    "off_p10": 424,
+    "off_p50": 543,
+    "late_share_of_its_usd": 1.0
+   },
+   {
+    "maker": "0x9be88e2f",
+    "late_usd": 10,
+    "n": 2,
+    "off_p10": 565,
+    "off_p50": 565,
+    "late_share_of_its_usd": 0.506
+   },
+   {
+    "maker": "0xe0877147",
+    "late_usd": 7,
+    "n": 1,
+    "off_p10": 197,
+    "off_p50": 197,
+    "late_share_of_its_usd": 1.0
+   },
+   {
+    "maker": "0xc8fd5867",
+    "late_usd": 7,
+    "n": 1,
+    "off_p10": 752,
+    "off_p50": 752,
+    "late_share_of_its_usd": 1.0
+   },
+   {
+    "maker": "0xf1a290bc",
+    "late_usd": 7,
+    "n": 1,
+    "off_p10": 778,
+    "off_p50": 778,
+    "late_share_of_its_usd": 1.0
+   },
+   {
+    "maker": "0x4cd45549",
+    "late_usd": 7,
+    "n": 1,
+    "off_p10": 408,
+    "off_p50": 408,
+    "late_share_of_its_usd": 1.0
+   },
+   {
+    "maker": "0x42a1b2b4",
+    "late_usd": 5,
+    "n": 1,
+    "off_p10": 53,
+    "off_p50": 53,
+    "late_share_of_its_usd": 0.375
+   }
+  ]
+ },
+ "dev_pack_takes": {
+  "maker_rows": 381,
+  "late_rows": 115,
+  "late_usd_share": 0.213,
+  "late_offset_ms_hist": {
+   "(0.0, 20.0]": 0,
+   "(20.0, 50.0]": 2,
+   "(50.0, 100.0]": 6,
+   "(100.0, 200.0]": 4,
+   "(200.0, 500.0]": 17,
+   "(500.0, 1000.0]": 53,
+   "(1000.0, 1500.0]": 6,
+   "(1500.0, 3000.0]": 15,
+   "(3000.0, 1000000000.0]": 12
+  },
+  "late_offset_ms_p10_p25_p50_p75": [
+   195,
+   486,
+   682,
+   1047
+  ],
+  "top_late_makers": [
+   {
+    "maker": "0x9f63eb94",
+    "late_usd": 343,
+    "n": 17,
+    "off_p10": 531,
+    "off_p50": 698,
+    "late_share_of_its_usd": 0.731
+   },
+   {
+    "maker": "0x0063b23c",
+    "late_usd": 196,
+    "n": 12,
+    "off_p10": 671,
+    "off_p50": 683,
+    "late_share_of_its_usd": 0.35
+   },
+   {
+    "maker": "0x9cc2eb90",
+    "late_usd": 186,
+    "n": 1,
+    "off_p10": 2257698,
+    "off_p50": 2257698,
+    "late_share_of_its_usd": 0.801
+   },
+   {
+    "maker": "0x893575c7",
+    "late_usd": 162,
+    "n": 22,
+    "off_p10": 73,
+    "off_p50": 427,
+    "late_share_of_its_usd": 0.936
+   },
+   {
+    "maker": "0x758dac51",
+    "late_usd": 136,
+    "n": 13,
+    "off_p10": 424,
+    "off_p50": 612,
+    "late_share_of_its_usd": 0.372
+   },
+   {
+    "maker": "0xf1f2b3c6",
+    "late_usd": 135,
+    "n": 1,
+    "off_p10": 409,
+    "off_p50": 409,
+    "late_share_of_its_usd": 0.257
+   },
+   {
+    "maker": "0x0d42cc5f",
+    "late_usd": 90,
+    "n": 4,
+    "off_p10": 1435,
+    "off_p50": 2340,
+    "late_share_of_its_usd": 1.0
+   },
+   {
+    "maker": "0x68915897",
+    "late_usd": 60,
+    "n": 5,
+    "off_p10": 946,
+    "off_p50": 1010,
+    "late_share_of_its_usd": 0.219
+   },
+   {
+    "maker": "0xdb1c76d1",
+    "late_usd": 42,
+    "n": 1,
+    "off_p10": 819,
+    "off_p50": 819,
+    "late_share_of_its_usd": 1.0
+   },
+   {
+    "maker": "0x299f1e05",
+    "late_usd": 17,
+    "n": 3,
+    "off_p10": 695,
+    "off_p50": 1772,
+    "late_share_of_its_usd": 0.226
+   }
+  ]
+ },
+ "dev_other_takes": {
+  "maker_rows": 8701,
+  "late_rows": 1765,
+  "late_usd_share": 0.122,
+  "late_offset_ms_hist": {
+   "(0.0, 20.0]": 31,
+   "(20.0, 50.0]": 20,
+   "(50.0, 100.0]": 22,
+   "(100.0, 200.0]": 66,
+   "(200.0, 500.0]": 286,
+   "(500.0, 1000.0]": 564,
+   "(1000.0, 1500.0]": 208,
+   "(1500.0, 3000.0]": 189,
+   "(3000.0, 1000000000.0]": 379
+  },
+  "late_offset_ms_p10_p25_p50_p75": [
+   248,
+   512,
+   942,
+   2180
+  ],
+  "top_late_makers": [
+   {
+    "maker": "0x8a68a3dc",
+    "late_usd": 18544,
+    "n": 23,
+    "off_p10": 477,
+    "off_p50": 1018,
+    "late_share_of_its_usd": 0.622
+   },
+   {
+    "maker": "0x9f63eb94",
+    "late_usd": 14205,
+    "n": 184,
+    "off_p10": 134,
+    "off_p50": 923,
+    "late_share_of_its_usd": 0.233
+   },
+   {
+    "maker": "0xd3b034d7",
+    "late_usd": 13409,
+    "n": 2,
+    "off_p10": 10123,
+    "off_p50": 11343,
+    "late_share_of_its_usd": 0.656
+   },
+   {
+    "maker": "0x9697b2ac",
+    "late_usd": 4675,
+    "n": 3,
+    "off_p10": 705,
+    "off_p50": 2243,
+    "late_share_of_its_usd": 0.138
+   },
+   {
+    "maker": "0x758dac51",
+    "late_usd": 3557,
+    "n": 107,
+    "off_p10": 215,
+    "off_p50": 732,
+    "late_share_of_its_usd": 0.291
+   },
+   {
+    "maker": "0xf1f2b3c6",
+    "late_usd": 3240,
+    "n": 36,
+    "off_p10": 153,
+    "off_p50": 1282,
+    "late_share_of_its_usd": 0.168
+   },
+   {
+    "maker": "0x68915897",
+    "late_usd": 3209,
+    "n": 80,
+    "off_p10": 255,
+    "off_p50": 1012,
+    "late_share_of_its_usd": 0.347
+   },
+   {
+    "maker": "0x77d9009e",
+    "late_usd": 2998,
+    "n": 4,
+    "off_p10": 2262,
+    "off_p50": 4435,
+    "late_share_of_its_usd": 0.06
+   },
+   {
+    "maker": "0x3fc7d228",
+    "late_usd": 1955,
+    "n": 5,
+    "off_p10": 5959,
+    "off_p50": 9074,
+    "late_share_of_its_usd": 0.691
+   },
+   {
+    "maker": "0x5b100dbe",
+    "late_usd": 1885,
+    "n": 2,
+    "off_p10": 2765,
+    "off_p50": 5225,
+    "late_share_of_its_usd": 0.67
+   }
+  ]
+ }
+}

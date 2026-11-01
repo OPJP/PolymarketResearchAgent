@@ -1,0 +1,194 @@
+{
+ "held_nopair": {
+  "study": {
+   "windows": 583,
+   "corr_pnl": [
+    0.0494,
+    0.1203
+   ],
+   "replay_pnl": -117519.5,
+   "replay_locked": 14.9,
+   "cluster_pnl": 4785.8,
+   "cluster_locked": 321.6
+  },
+  "validate": {
+   "windows": 1089,
+   "corr_pnl": [
+    0.1114,
+    0.1789
+   ],
+   "replay_pnl": -209158.4,
+   "replay_locked": -18.9,
+   "cluster_pnl": 23662.7,
+   "cluster_locked": 38072.2
+  }
+ },
+ "held_depth_0.0": {
+  "study": {
+   "windows": 583,
+   "corr_pnl": [
+    0.1231,
+    0.0344
+   ],
+   "replay_pnl": -281303.5,
+   "replay_locked": -84667.7,
+   "cluster_pnl": 4785.8,
+   "cluster_locked": 321.6
+  },
+  "validate": {
+   "windows": 1089,
+   "corr_pnl": [
+    0.0269,
+    0.0281
+   ],
+   "replay_pnl": -589716.2,
+   "replay_locked": -146619.7,
+   "cluster_pnl": 23662.7,
+   "cluster_locked": 38072.2
+  }
+ },
+ "held_depth_0.05": {
+  "study": {
+   "windows": 583,
+   "corr_pnl": [
+    -0.0214,
+    0.0172
+   ],
+   "replay_pnl": -216200.9,
+   "replay_locked": 53918.8,
+   "cluster_pnl": 4785.8,
+   "cluster_locked": 321.6
+  },
+  "validate": {
+   "windows": 1089,
+   "corr_pnl": [
+    0.1738,
+    0.1678
+   ],
+   "replay_pnl": -485905.2,
+   "replay_locked": 96911.1,
+   "cluster_pnl": 23662.7,
+   "cluster_locked": 38072.2
+  }
+ },
+ "held_depth_0.11": {
+  "study": {
+   "windows": 583,
+   "corr_pnl": [
+    0.0014,
+    0.0848
+   ],
+   "replay_pnl": -194507.7,
+   "replay_locked": 44178.6,
+   "cluster_pnl": 4785.8,
+   "cluster_locked": 321.6
+  },
+  "validate": {
+   "windows": 1089,
+   "corr_pnl": [
+    0.127,
+    0.166
+   ],
+   "replay_pnl": -366206.6,
+   "replay_locked": 85555.5,
+   "cluster_pnl": 23662.7,
+   "cluster_locked": 38072.2
+  }
+ },
+ "posture_nopair": {
+  "study": {
+   "windows": 583,
+   "corr_pnl": [
+    0.0329,
+    0.0695
+   ],
+   "replay_pnl": -78897.8,
+   "replay_locked": 117707.3,
+   "cluster_pnl": 4785.8,
+   "cluster_locked": 321.6
+  },
+  "validate": {
+   "windows": 1089,
+   "corr_pnl": [
+    0.2066,
+    0.2181
+   ],
+   "replay_pnl": -215582.8,
+   "replay_locked": 231395.0,
+   "cluster_pnl": 23662.7,
+   "cluster_locked": 38072.2
+  }
+ },
+ "posture_depth_0.0": {
+  "study": {
+   "windows": 583,
+   "corr_pnl": [
+    0.1078,
+    0.0142
+   ],
+   "replay_pnl": -230098.2,
+   "replay_locked": -60781.7,
+   "cluster_pnl": 4785.8,
+   "cluster_locked": 321.6
+  },
+  "validate": {
+   "windows": 1089,
+   "corr_pnl": [
+    -0.0163,
+    -0.0021
+   ],
+   "replay_pnl": -466038.8,
+   "replay_locked": -106442.8,
+   "cluster_pnl": 23662.7,
+   "cluster_locked": 38072.2
+  }
+ },
+ "posture_depth_0.05": {
+  "study": {
+   "windows": 583,
+   "corr_pnl": [
+    0.1029,
+    0.0592
+   ],
+   "replay_pnl": -188609.6,
+   "replay_locked": 57761.1,
+   "cluster_pnl": 4785.8,
+   "cluster_locked": 321.6
+  },
+  "validate": {
+   "windows": 1089,
+   "corr_pnl": [
+    0.1472,
+    0.1227
+   ],
+   "replay_pnl": -396774.8,
+   "replay_locked": 134540.3,
+   "cluster_pnl": 23662.7,
+   "cluster_locked": 38072.2
+  }
+ },
+ "posture_depth_0.11": {
+  "study": {
+   "windows": 583,
+   "corr_pnl": [
+    0.0683,
+    0.0993
+   ],
+   "replay_pnl": -154203.7,
+   "replay_locked": 111478.5,
+   "cluster_pnl": 4785.8,
+   "cluster_locked": 321.6
+  },
+  "validate": {
+   "windows": 1089,
+   "corr_pnl": [
+    0.1849,
+    0.1905
+   ],
+   "replay_pnl": -341151.6,
+   "replay_locked": 225159.7,
+   "cluster_pnl": 23662.7,
+   "cluster_locked": 38072.2
+  }
+ }
+}

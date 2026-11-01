@@ -1,0 +1,312 @@
+{
+ "BUILD": {
+  "markets": 113,
+  "none": {
+   "maker_plus_real_taker": [
+    0.885,
+    0.681,
+    113
+   ],
+   "maker_alone": [
+    0.407,
+    0.434,
+    113
+   ],
+   "maker_pnl": -1059.8,
+   "pair_cost_median": 0.9757,
+   "spearman_loss": 0.0,
+   "spearman_loss_ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "quiet": {
+   "maker_plus_real_taker": [
+    0.836,
+    0.604,
+    113
+   ],
+   "maker_alone": [
+    0.362,
+    0.418,
+    113
+   ],
+   "maker_pnl": -8848.8,
+   "pair_cost_median": 0.9923,
+   "spearman_loss": 0.077,
+   "spearman_loss_ci95": [
+    -0.001,
+    0.169
+   ]
+  },
+  "follow": {
+   "maker_plus_real_taker": [
+    0.791,
+    0.53,
+    113
+   ],
+   "maker_alone": [
+    0.321,
+    0.292,
+    113
+   ],
+   "maker_pnl": -6864.6,
+   "pair_cost_median": 0.9897,
+   "spearman_loss": 0.151,
+   "spearman_loss_ci95": [
+    0.061,
+    0.264
+   ]
+  },
+  "msg": {
+   "maker_plus_real_taker": [
+    0.859,
+    0.637,
+    113
+   ],
+   "maker_alone": [
+    0.372,
+    0.412,
+    113
+   ],
+   "maker_pnl": -4316.6,
+   "pair_cost_median": 0.9835,
+   "spearman_loss": 0.044,
+   "spearman_loss_ci95": [
+    -0.017,
+    0.121
+   ]
+  },
+  "repair": {
+   "maker_plus_real_taker": [
+    0.886,
+    0.699,
+    113
+   ],
+   "maker_alone": [
+    0.392,
+    0.406,
+    113
+   ],
+   "maker_pnl": -3173.3,
+   "pair_cost_median": 0.9787,
+   "spearman_loss": -0.018,
+   "spearman_loss_ci95": [
+    -0.052,
+    0.015
+   ]
+  },
+  "quiet+follow": {
+   "maker_plus_real_taker": [
+    0.75,
+    0.506,
+    113
+   ],
+   "maker_alone": [
+    0.284,
+    0.306,
+    113
+   ],
+   "maker_pnl": -14837.3,
+   "pair_cost_median": 1.008,
+   "spearman_loss": 0.175,
+   "spearman_loss_ci95": [
+    0.05,
+    0.315
+   ]
+  },
+  "all": {
+   "maker_plus_real_taker": [
+    0.688,
+    0.419,
+    113
+   ],
+   "maker_alone": [
+    0.233,
+    0.248,
+    113
+   ],
+   "maker_pnl": -21076.3,
+   "pair_cost_median": 1.0193,
+   "spearman_loss": 0.262,
+   "spearman_loss_ci95": [
+    0.117,
+    0.399
+   ]
+  },
+  "endgame": {
+   "maker_plus_real_taker": [
+    0.88,
+    0.649,
+    113
+   ],
+   "maker_alone": [
+    0.419,
+    0.45,
+    113
+   ],
+   "maker_pnl": 3399.2,
+   "pair_cost_median": 1.0063,
+   "spearman_loss": 0.032,
+   "spearman_loss_ci95": [
+    -0.012,
+    0.083
+   ]
+  }
+ },
+ "VALIDATE": {
+  "markets": 116,
+  "none": {
+   "maker_plus_real_taker": [
+    0.866,
+    0.804,
+    116
+   ],
+   "maker_alone": [
+    0.434,
+    0.332,
+    116
+   ],
+   "maker_pnl": 4588.7,
+   "pair_cost_median": 0.9735,
+   "spearman_loss": 0.0,
+   "spearman_loss_ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "quiet": {
+   "maker_plus_real_taker": [
+    0.767,
+    0.654,
+    116
+   ],
+   "maker_alone": [
+    0.353,
+    0.255,
+    116
+   ],
+   "maker_pnl": -5817.7,
+   "pair_cost_median": 0.9969,
+   "spearman_loss": 0.15,
+   "spearman_loss_ci95": [
+    0.058,
+    0.245
+   ]
+  },
+  "follow": {
+   "maker_plus_real_taker": [
+    0.772,
+    0.615,
+    116
+   ],
+   "maker_alone": [
+    0.315,
+    0.241,
+    116
+   ],
+   "maker_pnl": -2864.6,
+   "pair_cost_median": 0.9889,
+   "spearman_loss": 0.189,
+   "spearman_loss_ci95": [
+    0.095,
+    0.291
+   ]
+  },
+  "msg": {
+   "maker_plus_real_taker": [
+    0.814,
+    0.7,
+    116
+   ],
+   "maker_alone": [
+    0.402,
+    0.307,
+    116
+   ],
+   "maker_pnl": 1585.2,
+   "pair_cost_median": 0.9778,
+   "spearman_loss": 0.104,
+   "spearman_loss_ci95": [
+    0.034,
+    0.183
+   ]
+  },
+  "repair": {
+   "maker_plus_real_taker": [
+    0.849,
+    0.769,
+    116
+   ],
+   "maker_alone": [
+    0.409,
+    0.297,
+    116
+   ],
+   "maker_pnl": 1837.5,
+   "pair_cost_median": 0.9776,
+   "spearman_loss": 0.035,
+   "spearman_loss_ci95": [
+    -0.002,
+    0.08
+   ]
+  },
+  "quiet+follow": {
+   "maker_plus_real_taker": [
+    0.585,
+    0.446,
+    116
+   ],
+   "maker_alone": [
+    0.199,
+    0.152,
+    116
+   ],
+   "maker_pnl": -12881.7,
+   "pair_cost_median": 1.0039,
+   "spearman_loss": 0.358,
+   "spearman_loss_ci95": [
+    0.204,
+    0.511
+   ]
+  },
+  "all": {
+   "maker_plus_real_taker": [
+    0.442,
+    0.339,
+    116
+   ],
+   "maker_alone": [
+    0.132,
+    0.083,
+    116
+   ],
+   "maker_pnl": -18211.5,
+   "pair_cost_median": 1.0148,
+   "spearman_loss": 0.465,
+   "spearman_loss_ci95": [
+    0.283,
+    0.629
+   ]
+  },
+  "endgame": {
+   "maker_plus_real_taker": [
+    0.849,
+    0.784,
+    116
+   ],
+   "maker_alone": [
+    0.453,
+    0.32,
+    116
+   ],
+   "maker_pnl": 9221.7,
+   "pair_cost_median": 1.0028,
+   "spearman_loss": 0.02,
+   "spearman_loss_ci95": [
+    -0.012,
+    0.054
+   ]
+  }
+ }
+}

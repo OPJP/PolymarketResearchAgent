@@ -1,0 +1,81 @@
+{
+ "20260805_16": {
+  "matches": 385,
+  "by_wallet": {
+   "XM": 311,
+   "DS": 62,
+   "GF": 12
+  },
+  "pit_D250 [m-850, m-280)": {
+   "voted": 0.6675,
+   "agree_on_voted": 0.6965,
+   "placebo_agree": 0.5373,
+   "full_coverage_tie_half": 0.6312,
+   "agree_DS": 0.65,
+   "agree_XM": 0.7171
+  },
+  "pit_D150 [m-650, m-180)": {
+   "voted": 0.613,
+   "agree_on_voted": 0.7373,
+   "placebo_agree": 0.5455,
+   "full_coverage_tie_half": 0.6455,
+   "agree_DS": 0.7,
+   "agree_XM": 0.7433
+  },
+  "frozen [m-600, m-100)": {
+   "voted": 0.626,
+   "agree_on_voted": 0.7344,
+   "placebo_agree": 0.5306,
+   "full_coverage_tie_half": 0.6468,
+   "agree_DS": 0.6154,
+   "agree_XM": 0.7577
+  },
+  "late [m-280, m-30)": {
+   "voted": 0.4753,
+   "agree_on_voted": 0.5792,
+   "placebo_agree": 0.4713,
+   "full_coverage_tie_half": 0.5377,
+   "agree_XM": 0.5811
+  }
+ },
+ "20260806_16": {
+  "matches": 637,
+  "by_wallet": {
+   "XM": 514,
+   "DS": 102,
+   "GF": 21
+  },
+  "pit_D250 [m-850, m-280)": {
+   "voted": 0.606,
+   "agree_on_voted": 0.7228,
+   "placebo_agree": 0.5576,
+   "full_coverage_tie_half": 0.635,
+   "agree_DS": 0.7206,
+   "agree_XM": 0.7152
+  },
+  "pit_D150 [m-650, m-180)": {
+   "voted": 0.6091,
+   "agree_on_voted": 0.7577,
+   "placebo_agree": 0.5552,
+   "full_coverage_tie_half": 0.657,
+   "agree_DS": 0.8182,
+   "agree_XM": 0.7418
+  },
+  "frozen [m-600, m-100)": {
+   "voted": 0.6232,
+   "agree_on_voted": 0.7254,
+   "placebo_agree": 0.5268,
+   "full_coverage_tie_half": 0.6405,
+   "agree_DS": 0.8154,
+   "agree_XM": 0.7066
+  },
+  "late [m-280, m-30)": {
+   "voted": 0.3846,
+   "agree_on_voted": 0.6327,
+   "placebo_agree": 0.4414,
+   "full_coverage_tie_half": 0.551,
+   "agree_DS": 0.6977,
+   "agree_XM": 0.6296
+  }
+ }
+}

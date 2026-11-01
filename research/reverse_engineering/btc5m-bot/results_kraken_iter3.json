@@ -1,0 +1,39 @@
+{
+ "hours": [
+  1792249200,
+  1792317600,
+  1792440000,
+  1792504800,
+  1792548000,
+  1792659600
+ ],
+ "n_seconds": 3436,
+ "all": {
+  "share": 1.0,
+  "kr3": {
+   "agree": 0.6358,
+   "nonzero_share": 0.5809,
+   "n": 1996
+  },
+  "kr_m1": {
+   "agree": 0.644,
+   "nonzero_share": 0.282,
+   "n": 969
+  },
+  "our_side_model_acc": 0.7302
+ },
+ "no_move_six_series": {
+  "share": 0.2791,
+  "kr3": {
+   "agree": 0.4985,
+   "nonzero_share": 0.3493,
+   "n": 335
+  },
+  "kr_m1": {
+   "agree": 0.5699,
+   "nonzero_share": 0.194,
+   "n": 186
+  },
+  "our_side_model_acc": 0.6288
+ }
+}

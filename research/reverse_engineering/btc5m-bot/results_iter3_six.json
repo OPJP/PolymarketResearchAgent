@@ -1,0 +1,161 @@
+{
+ "build_days": 7,
+ "val_days": 7,
+ "presence": {
+  "auc_any": 0.9095,
+  "auc_taker": 0.9136,
+  "auc_maker": 0.8821,
+  "auc_with_own": 0.9206,
+  "auc_venues_without_binance_futures": 0.9068,
+  "by_wallet": {
+   "GF": 0.9083,
+   "XM": 0.9241,
+   "DS": 0.897
+  },
+  "at_0.30": {
+   "recall": 0.6084,
+   "lift": 4.293,
+   "flag_share": 0.1417,
+   "p_value": 0.0
+  }
+ },
+ "side": {
+  "n": 90170,
+  "share_with_venue_data": 0.9418,
+  "side_model_venues": {
+   "acc": 0.7317,
+   "acc_with_venue_data": 0.7318,
+   "acc_spot_r3_zero": 0.6889,
+   "acc_binance_flat": 0.6712,
+   "acc_moving": 0.7969
+  },
+  "side_model_fut_it3": {
+   "acc": 0.7034,
+   "acc_with_venue_data": 0.7032,
+   "acc_spot_r3_zero": 0.6477,
+   "acc_binance_flat": 0.6256,
+   "acc_moving": 0.7882
+  },
+  "presence_venues": {
+   "acc": 0.7301,
+   "acc_with_venue_data": 0.7302,
+   "acc_spot_r3_zero": 0.6872,
+   "acc_binance_flat": 0.6693,
+   "acc_moving": 0.7954
+  },
+  "taker_side_model_venues": 0.7521,
+  "mcnemar_p_venues_vs_fut_only": 1.104772088378991e-111
+ },
+ "side_top_gain": [
+  [
+   "C6_pm2000",
+   0.21
+  ],
+  [
+   "C6_mx2000",
+   0.103
+  ],
+  [
+   "C_mx2000",
+   0.07
+  ],
+  [
+   "C_pm2000",
+   0.059
+  ],
+  [
+   "C6_since_mx",
+   0.017
+  ],
+  [
+   "C6_since_mean",
+   0.017
+  ],
+  [
+   "Y_ofin3000",
+   0.016
+  ],
+  [
+   "F_ofi3000",
+   0.014
+  ],
+  [
+   "D_ask_o",
+   0.012
+  ],
+  [
+   "B_pm500",
+   0.011
+  ],
+  [
+   "B_pm3000",
+   0.011
+  ],
+  [
+   "F_pm5000",
+   0.011
+  ],
+  [
+   "F_ofi2000",
+   0.011
+  ],
+  [
+   "B_pm2000",
+   0.01
+  ],
+  [
+   "F_pm10000",
+   0.009
+  ]
+ ],
+ "presence_top_gain": [
+  [
+   "m_last",
+   0.147
+  ],
+  [
+   "n1",
+   0.135
+  ],
+  [
+   "vwap10",
+   0.1
+  ],
+  [
+   "n2",
+   0.093
+  ],
+  [
+   "bid_o",
+   0.058
+  ],
+  [
+   "ask_o",
+   0.054
+  ],
+  [
+   "age_last",
+   0.039
+  ],
+  [
+   "sig",
+   0.025
+  ],
+  [
+   "C6_nup2000",
+   0.023
+  ],
+  [
+   "rel",
+   0.02
+  ],
+  [
+   "dm5",
+   0.017
+  ],
+  [
+   "C_mx2000",
+   0.015
+  ]
+ ]
+}

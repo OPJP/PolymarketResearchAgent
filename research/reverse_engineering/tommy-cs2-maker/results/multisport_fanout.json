@@ -1,0 +1,296 @@
+{
+ "overlap_markets": 1106,
+ "decoded_txs": 30113,
+ "taker_buys": {
+  "0xddb6e6246546230503f153506ac1e9914978b9b3": 5571,
+  "0x8a80528dce46711a54aa3455c2cc81dea51e11c5": 3445,
+  "0x2005d16a84ceefa912d4e380cd32e7ff827875ea": 1064,
+  "0x2a69660046d7acc4ab204d7cc5ba78b0776cd2f7": 999,
+  "0x821dab0565ebf5b327f51db06223fdcfe01acf16": 619,
+  "0x0346afae2603313d2bbee96b628536c8cbe352a5": 370
+ },
+ "r2_then_pair": {
+  "lead_takes": 1064,
+  "pairs": 13,
+  "shift30s_null_mean": 4.25,
+  "median_ms": 148.0,
+  "iqr_ms": 122.0,
+  "events": 12,
+  "by_sport": {
+   "arg": {
+    "count": 2,
+    "median": 139.5
+   },
+   "col1": {
+    "count": 2,
+    "median": 37.0
+   },
+   "epl": {
+    "count": 2,
+    "median": 129.5
+   },
+   "ere": {
+    "count": 1,
+    "median": 494.0
+   },
+   "fr2": {
+    "count": 1,
+    "median": 117.0
+   },
+   "sea": {
+    "count": 2,
+    "median": 76.0
+   },
+   "swe": {
+    "count": 1,
+    "median": 233.0
+   },
+   "uel": {
+    "count": 2,
+    "median": 244.0
+   }
+  },
+  "hist_100ms": [
+   0,
+   0,
+   1,
+   0,
+   0,
+   2,
+   6,
+   1,
+   2,
+   1
+  ]
+ },
+ "r2_then_f1ee": {
+  "lead_takes": 1064,
+  "pairs": 1,
+  "shift30s_null_mean": 0.0,
+  "median_ms": 171.0,
+  "iqr_ms": 0.0,
+  "events": 1,
+  "by_sport": {
+   "nfl": {
+    "count": 1,
+    "median": 171.0
+   }
+  },
+  "hist_100ms": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   0,
+   0,
+   0
+  ]
+ },
+ "pair0_then_pair1": {
+  "lead_takes": 3445,
+  "pairs": 1812,
+  "shift30s_null_mean": 64.15,
+  "median_ms": 0.0,
+  "iqr_ms": 10.0,
+  "events": 243,
+  "by_sport": {
+   "arg": {
+    "count": 32,
+    "median": -1.0
+   },
+   "bl2": {
+    "count": 1,
+    "median": -4.0
+   },
+   "bol1": {
+    "count": 2,
+    "median": 3.0
+   },
+   "bra": {
+    "count": 117,
+    "median": 0.0
+   },
+   "bra2": {
+    "count": 21,
+    "median": 0.0
+   },
+   "bun": {
+    "count": 23,
+    "median": 0.0
+   },
+   "chi": {
+    "count": 2,
+    "median": 105.5
+   },
+   "col": {
+    "count": 66,
+    "median": 1.5
+   },
+   "col1": {
+    "count": 118,
+    "median": 0.0
+   },
+   "den": {
+    "count": 6,
+    "median": 2.0
+   },
+   "ecu1": {
+    "count": 1,
+    "median": -111.0
+   },
+   "egy1": {
+    "count": 31,
+    "median": 0.0
+   },
+   "elc": {
+    "count": 3,
+    "median": 0.0
+   },
+   "epl": {
+    "count": 37,
+    "median": -2.0
+   },
+   "ere": {
+    "count": 43,
+    "median": -1.0
+   },
+   "es2": {
+    "count": 28,
+    "median": -3.0
+   },
+   "fl1": {
+    "count": 156,
+    "median": 0.0
+   },
+   "fr2": {
+    "count": 1,
+    "median": -44.0
+   },
+   "gre1": {
+    "count": 25,
+    "median": 0.0
+   },
+   "idn1": {
+    "count": 17,
+    "median": -1.0
+   },
+   "itsb": {
+    "count": 3,
+    "median": -2.0
+   },
+   "ja2": {
+    "count": 5,
+    "median": 1.0
+   },
+   "jap": {
+    "count": 14,
+    "median": 0.5
+   },
+   "kor": {
+    "count": 3,
+    "median": 1.0
+   },
+   "lal": {
+    "count": 126,
+    "median": -1.0
+   },
+   "mex": {
+    "count": 92,
+    "median": 0.0
+   },
+   "nba": {
+    "count": 135,
+    "median": 0.0
+   },
+   "par1": {
+    "count": 1,
+    "median": -5.0
+   },
+   "pol": {
+    "count": 1,
+    "median": 102.0
+   },
+   "por": {
+    "count": 28,
+    "median": 0.0
+   },
+   "sea": {
+    "count": 97,
+    "median": -1.0
+   },
+   "spl": {
+    "count": 46,
+    "median": 0.0
+   },
+   "swe": {
+    "count": 1,
+    "median": -6.0
+   },
+   "tur": {
+    "count": 13,
+    "median": 0.0
+   },
+   "tur2": {
+    "count": 6,
+    "median": -40.0
+   },
+   "ucl": {
+    "count": 250,
+    "median": 0.0
+   },
+   "uel": {
+    "count": 241,
+    "median": 0.0
+   },
+   "uru1": {
+    "count": 3,
+    "median": -46.0
+   },
+   "ven1": {
+    "count": 1,
+    "median": 104.0
+   },
+   "wnba": {
+    "count": 16,
+    "median": 0.0
+   }
+  },
+  "hist_100ms": [
+   37,
+   187,
+   578,
+   869,
+   117,
+   24
+  ]
+ },
+ "f1ee_then_pair": {
+  "lead_takes": 159,
+  "pairs": 5,
+  "shift30s_null_mean": 0.0,
+  "median_ms": 85.0,
+  "iqr_ms": 129.0,
+  "events": 3,
+  "by_sport": {
+   "nba": {
+    "count": 5,
+    "median": 85.0
+   }
+  },
+  "hist_100ms": [
+   0,
+   0,
+   0,
+   0,
+   2,
+   2,
+   0,
+   0,
+   1,
+   0
+  ]
+ }
+}

@@ -1,0 +1,55 @@
+{
+ "windows": 480,
+ "cluster": {
+  "n": 194,
+  "slope": 0.2289,
+  "se": 0.0799,
+  "p_one_sided_pos": 0.0020851301069165205,
+  "ctrl_absret": -20.072,
+  "ctrl_trail1h": -6.016
+ },
+ "market_buy_rows": {
+  "n": 480,
+  "slope": -0.0143,
+  "se": 0.0059,
+  "p_one_sided_pos": 0.9926649636760886,
+  "ctrl_absret": -1.512,
+  "ctrl_trail1h": -5.458
+ },
+ "market_all_rows": {
+  "n": 480,
+  "slope": -0.0119,
+  "se": 0.0058,
+  "p_one_sided_pos": 0.9808428476984619,
+  "ctrl_absret": -1.288,
+  "ctrl_trail1h": -5.367
+ },
+ "same_windows": {
+  "n": 194,
+  "cluster": {
+   "n": 194,
+   "slope": 0.2289,
+   "se": 0.0799,
+   "p_one_sided_pos": 0.0020851301069165205,
+   "ctrl_absret": -20.072,
+   "ctrl_trail1h": -6.016
+  },
+  "market_all_rows": {
+   "n": 194,
+   "slope": -0.0127,
+   "se": 0.0073,
+   "p_one_sided_pos": 0.9587889445705023,
+   "ctrl_absret": 0.439,
+   "ctrl_trail1h": -1.086
+  },
+  "market_buy_rows": {
+   "n": 194,
+   "slope": -0.0168,
+   "se": 0.0075,
+   "p_one_sided_pos": 0.9872150081202005,
+   "ctrl_absret": 0.24,
+   "ctrl_trail1h": 0.375
+  }
+ },
+ "reading_met": true
+}

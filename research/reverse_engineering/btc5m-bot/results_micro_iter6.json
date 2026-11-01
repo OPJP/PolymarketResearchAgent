@@ -1,0 +1,118 @@
+{
+ "sum>0.0_all": {
+  "cover": 1.0,
+  "n": 204,
+  "acc": 0.8382
+ },
+ "sum>0.0_quiet": {
+  "cover": 1.0,
+  "n": 63,
+  "acc": 0.7302
+ },
+ "sum>0.0_moving": {
+  "cover": 1.0,
+  "n": 141,
+  "acc": 0.8865
+ },
+ "sum>0.0_placebo": {
+  "cover": 0.961,
+  "acc": 0.4796
+ },
+ "sum>0.01_all": {
+  "cover": 0.814,
+  "n": 166,
+  "acc": 0.8976
+ },
+ "sum>0.01_quiet": {
+  "cover": 0.619,
+  "n": 39,
+  "acc": 0.8205
+ },
+ "sum>0.01_moving": {
+  "cover": 0.901,
+  "n": 127,
+  "acc": 0.9213
+ },
+ "sum>0.01_placebo": {
+  "cover": 0.495,
+  "acc": 0.4455
+ },
+ "sum>0.05_all": {
+  "cover": 0.647,
+  "n": 132,
+  "acc": 0.9015
+ },
+ "sum>0.05_quiet": {
+  "cover": 0.27,
+  "n": 17,
+  "acc": 0.6471
+ },
+ "sum>0.05_moving": {
+  "cover": 0.816,
+  "n": 115,
+  "acc": 0.9391
+ },
+ "sum>0.05_placebo": {
+  "cover": 0.225,
+  "acc": 0.4783
+ },
+ "vote>0.0_all": {
+  "cover": 0.902,
+  "n": 184,
+  "acc": 0.8641
+ },
+ "vote>0.0_quiet": {
+  "cover": 0.794,
+  "n": 50,
+  "acc": 0.84
+ },
+ "vote>0.0_moving": {
+  "cover": 0.95,
+  "n": 134,
+  "acc": 0.8731
+ },
+ "vote>0.0_placebo": {
+  "cover": 0.691,
+  "acc": 0.461
+ },
+ "vote>0.01_all": {
+  "cover": 0.902,
+  "n": 184,
+  "acc": 0.8641
+ },
+ "vote>0.01_quiet": {
+  "cover": 0.794,
+  "n": 50,
+  "acc": 0.84
+ },
+ "vote>0.01_moving": {
+  "cover": 0.95,
+  "n": 134,
+  "acc": 0.8731
+ },
+ "vote>0.01_placebo": {
+  "cover": 0.691,
+  "acc": 0.461
+ },
+ "vote>0.05_all": {
+  "cover": 0.902,
+  "n": 184,
+  "acc": 0.8641
+ },
+ "vote>0.05_quiet": {
+  "cover": 0.794,
+  "n": 50,
+  "acc": 0.84
+ },
+ "vote>0.05_moving": {
+  "cover": 0.95,
+  "n": 134,
+  "acc": 0.8731
+ },
+ "vote>0.05_placebo": {
+  "cover": 0.691,
+  "acc": 0.461
+ },
+ "covered_matches": 204,
+ "covered_quiet": 63
+}

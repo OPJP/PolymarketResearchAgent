@@ -1,0 +1,92 @@
+{
+ "auc_C": {
+  "full": 0.681,
+  "full+crowd": 0.6853,
+  "full+own": 0.7154,
+  "full+crowd+own": 0.7168
+ },
+ "auc_C_PRICE_events": {
+  "full": 0.535,
+  "full+crowd": 0.5786,
+  "full+own": 0.5994,
+  "full+crowd+own": 0.5887
+ },
+ "corr(rec30, crowd30)_A": 0.5585,
+ "P(decision) by crowd30 tercile x rec30_A": {
+  "crowd30_tercile0 rec30=0": [
+   0.0297,
+   809
+  ],
+  "crowd30_tercile0 rec30 1-5": [
+   0.0495,
+   5334
+  ],
+  "crowd30_tercile0 rec30 6+": [
+   0.0555,
+   3100
+  ],
+  "crowd30_tercile1 rec30=0": [
+   0.0032,
+   315
+  ],
+  "crowd30_tercile1 rec30 1-5": [
+   0.0401,
+   3766
+  ],
+  "crowd30_tercile1 rec30 6+": [
+   0.0719,
+   5285
+  ],
+  "crowd30_tercile2 rec30=0": [
+   0.0,
+   558
+  ],
+  "crowd30_tercile2 rec30 1-5": [
+   0.0663,
+   860
+  ],
+  "crowd30_tercile2 rec30 6+": [
+   0.0852,
+   8043
+  ]
+ },
+ "corr(rec30, crowd30)_C": 0.4988,
+ "P(decision) by crowd30 tercile x rec30_C": {
+  "crowd30_tercile0 rec30=0": [
+   0.0125,
+   2720
+  ],
+  "crowd30_tercile0 rec30 1-5": [
+   0.0375,
+   5656
+  ],
+  "crowd30_tercile0 rec30 6+": [
+   0.0624,
+   1826
+  ],
+  "crowd30_tercile1 rec30=0": [
+   0.0075,
+   935
+  ],
+  "crowd30_tercile1 rec30 1-5": [
+   0.0489,
+   4108
+  ],
+  "crowd30_tercile1 rec30 6+": [
+   0.0676,
+   5255
+  ],
+  "crowd30_tercile2 rec30=0": [
+   0.0319,
+   626
+  ],
+  "crowd30_tercile2 rec30 1-5": [
+   0.0363,
+   2783
+  ],
+  "crowd30_tercile2 rec30 6+": [
+   0.0585,
+   6903
+  ]
+ }
+}

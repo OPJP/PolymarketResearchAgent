@@ -1,0 +1,168 @@
+{
+ "markets": {
+  "cs2-fokus-baks-2026-10-31-game2": {
+   "timer_pairs_100": 89,
+   "txs": 628,
+   "maker_orders_100_whole": 63,
+   "top_makers": {
+    "0xd3bd48ab21f6976e3d97227f3f0632477e655369": {
+     "orders": 17,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    },
+    "0xca0b532de01108a972a101c1dec91503099067e0": {
+     "orders": 16,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    },
+    "0x2b55d2ee278dfbe003fe692f2a6eddc22072b98d": {
+     "orders": 15,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    },
+    "0xd2bb94594762beda042e596598800d83f781bd8e": {
+     "orders": 8,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    },
+    "0x6891589732cf8beaaf424b117d5c5c20919f6bb9": {
+     "orders": 6,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    }
+   }
+  },
+  "cs2-jjh-bmb-2026-10-31-game1": {
+   "timer_pairs_100": 73,
+   "txs": 486,
+   "maker_orders_100_whole": 54,
+   "top_makers": {
+    "0xca0b532de01108a972a101c1dec91503099067e0": {
+     "orders": 15,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    },
+    "0x2b55d2ee278dfbe003fe692f2a6eddc22072b98d": {
+     "orders": 14,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    },
+    "0x6891589732cf8beaaf424b117d5c5c20919f6bb9": {
+     "orders": 8,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    },
+    "0xd3bd48ab21f6976e3d97227f3f0632477e655369": {
+     "orders": 8,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    },
+    "0x4ddc7068ef679dc7c34e2c22411975baa1b9e73f": {
+     "orders": 2,
+     "buy_share": 1.0,
+     "sig_type": 1,
+     "is_wallet": false
+    }
+   }
+  },
+  "cs2-skr2-for10-2026-10-31": {
+   "timer_pairs_100": 63,
+   "txs": 77,
+   "maker_orders_100_whole": 2,
+   "top_makers": {
+    "0x4ddc7068ef679dc7c34e2c22411975baa1b9e73f": {
+     "orders": 1,
+     "buy_share": 1.0,
+     "sig_type": 1,
+     "is_wallet": false
+    },
+    "0x7e5972bfc25819775ee5a9d4f191919375487b8b": {
+     "orders": 1,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    }
+   }
+  },
+  "cs2-lowcor1-tdp-2026-10-31": {
+   "timer_pairs_100": 56,
+   "txs": 265,
+   "maker_orders_100_whole": 18,
+   "top_makers": {
+    "0x6891589732cf8beaaf424b117d5c5c20919f6bb9": {
+     "orders": 9,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    },
+    "0x5d40576be2e9c61d283f4fd80d7a5ccf2331ba95": {
+     "orders": 2,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    },
+    "0x10251a3689408681fde34475c97fa4f749367e11": {
+     "orders": 2,
+     "buy_share": 1.0,
+     "sig_type": 1,
+     "is_wallet": false
+    },
+    "0xd218e474776403a330142299f7796e8ba32eb5c9": {
+     "orders": 2,
+     "buy_share": 1.0,
+     "sig_type": 1,
+     "is_wallet": false
+    },
+    "0x0d2d845a6ff64e31e04a70afce8a573940767ff5": {
+     "orders": 1,
+     "buy_share": 1.0,
+     "sig_type": 3,
+     "is_wallet": false
+    }
+   }
+  }
+ },
+ "across_markets": {
+  "0xca0b532de01108a972a101c1dec91503099067e0": {
+   "orders": 31,
+   "markets": 2
+  },
+  "0x2b55d2ee278dfbe003fe692f2a6eddc22072b98d": {
+   "orders": 29,
+   "markets": 2
+  },
+  "0xd3bd48ab21f6976e3d97227f3f0632477e655369": {
+   "orders": 25,
+   "markets": 2
+  },
+  "0x6891589732cf8beaaf424b117d5c5c20919f6bb9": {
+   "orders": 23,
+   "markets": 3
+  },
+  "0xd2bb94594762beda042e596598800d83f781bd8e": {
+   "orders": 10,
+   "markets": 2
+  },
+  "0x5d40576be2e9c61d283f4fd80d7a5ccf2331ba95": {
+   "orders": 4,
+   "markets": 2
+  },
+  "0x4ddc7068ef679dc7c34e2c22411975baa1b9e73f": {
+   "orders": 3,
+   "markets": 2
+  },
+  "0xf0dad340e363a1af5ffbc5a5fdeec45f1381749b": {
+   "orders": 2,
+   "markets": 1
+  }
+ }
+}

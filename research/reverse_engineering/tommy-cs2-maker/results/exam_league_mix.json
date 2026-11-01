@@ -1,0 +1,32 @@
+{
+ "h1": {
+  "events": 180,
+  "grid_events": 80,
+  "non_grid": 100,
+  "non_grid_in_seen_league": 74,
+  "non_grid_unseen_league": 26,
+  "share_unseen": 0.26,
+  "unseen_leagues_n": 2,
+  "non_grid_by_tier": {
+   "5": 62,
+   "2": 18,
+   "4": 16,
+   "3": 4
+  }
+ },
+ "h2": {
+  "events": 157,
+  "grid_events": 62,
+  "non_grid": 95,
+  "non_grid_in_seen_league": 71,
+  "non_grid_unseen_league": 24,
+  "share_unseen": 0.253,
+  "unseen_leagues_n": 3,
+  "non_grid_by_tier": {
+   "5": 60,
+   "4": 16,
+   "2": 13,
+   "3": 6
+  }
+ }
+}

@@ -1,0 +1,64 @@
+{
+ "val_cells": 804746,
+ "auc_full": 0.8747,
+ "auc_pure_baseline_it5": 0.8193,
+ "auc_augmented_baseline": 0.8211,
+ "gain_vs_pure": 0.0554,
+ "gain_vs_augmented": 0.0536,
+ "by_wallet": {
+  "GF": {
+   "full": 0.8745,
+   "pure": 0.8098,
+   "augmented": 0.8117,
+   "gain_vs_augmented": 0.0628
+  },
+  "XM": {
+   "full": 0.8927,
+   "pure": 0.825,
+   "augmented": 0.8269,
+   "gain_vs_augmented": 0.0658
+  },
+  "DS": {
+   "full": 0.8571,
+   "pure": 0.8047,
+   "augmented": 0.8063,
+   "gain_vs_augmented": 0.0508
+  }
+ },
+ "halves": {
+  "first": {
+   "full": 0.875,
+   "augmented": 0.8219,
+   "gain": 0.0531
+  },
+  "second": {
+   "full": 0.8725,
+   "augmented": 0.8195,
+   "gain": 0.053
+  }
+ },
+ "gain_vs_augmented_block_bootstrap_2h": {
+  "lo95": 0.0506,
+  "hi95": 0.0563,
+  "one_sided_p_gain_le_0": 0.0,
+  "n_boot": 2000,
+  "blocks": 84
+ },
+ "augmented_importance_top": {
+  "m_last": 170406.0,
+  "vwap10": 167006.0,
+  "O_ask_o": 79202.0,
+  "ask_o": 78931.0,
+  "bid_o": 69029.0,
+  "n1": 58117.0,
+  "n2": 43414.0,
+  "n30": 42608.0,
+  "tau": 32372.0,
+  "dm2": 19331.0,
+  "dm5": 15771.0,
+  "O_bid_o": 15327.0,
+  "O_n1": 14938.0,
+  "spread": 14716.0,
+  "rel": 14065.0
+ }
+}

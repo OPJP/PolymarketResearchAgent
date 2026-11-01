@@ -1,0 +1,23 @@
+{
+ "cos_cancels": 667,
+ "by_group": {
+  "trig": {
+   "n": 1087,
+   "cosub_cancel_within_-50_+100ms": 0.183,
+   "null": 0.007,
+   "p_greater": 0.0
+  },
+  "trig_cross_only": {
+   "n": 70,
+   "cosub_cancel_within_-50_+100ms": 0.114,
+   "null": 0.009,
+   "p_greater": 0.0
+  },
+  "untrig_all": {
+   "n": 213,
+   "cosub_cancel_within_-50_+100ms": 0.047,
+   "null": 0.006,
+   "p_greater": 0.0
+  }
+ }
+}

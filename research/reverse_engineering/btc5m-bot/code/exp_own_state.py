@@ -1,14 +1,15 @@
 """Secondary: spot+tape model WITH own-state (cluster net inventory in the window up to s-1; no own fill counts/times)."""
+import os as _os; _ROOT = _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", ".."))  # repo root
 import sys, os, time, json
-sys.path.insert(0, "/home/user/PolymarketResearchAgent/research/reverse_engineering/btc5m-bot/code")
+sys.path.insert(0, _ROOT + "/research/reverse_engineering/btc5m-bot/code")
 import numpy as np, pandas as pd
 from spot import Spot
 from cells import build_cells, FEATS
 from tape_feats import add_tape_feats, TAPE_FEATS
 from sklearn.metrics import roc_auc_score
 import lightgbm as lgb
-C = "/home/user/PolymarketResearchAgent/.cache/re/btc5m-bot"
-R = "/home/user/PolymarketResearchAgent/research/reverse_engineering/btc5m-bot"
+C = _ROOT + "/.cache/re/btc5m-bot"
+R = _ROOT + "/research/reverse_engineering/btc5m-bot"
 V0, V1 = 1792108800, 1792713600
 sp = Spot(); f = pd.read_parquet(f"{C}/fills.parquet"); win = pd.read_parquet(f"{C}/windows.parquet")
 has = lambda d: d[[os.path.exists(f"{C}/tapes/{c}.parquet") for c in d.cid]]

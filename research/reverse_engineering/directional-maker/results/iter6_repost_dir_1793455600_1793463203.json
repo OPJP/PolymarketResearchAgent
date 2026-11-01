@@ -1,0 +1,18 @@
+{
+ "S500": {
+  "reposts": 7259,
+  "share_with_fut_move_50_250ms": 0.046,
+  "agree_50_250ms": 0.952,
+  "n_moved": 333,
+  "agree_50_1050ms": 0.792,
+  "n_moved_1s": 664
+ },
+ "S100": {
+  "reposts": 4127,
+  "share_with_fut_move_50_250ms": 0.028,
+  "agree_50_250ms": 0.895,
+  "n_moved": 114,
+  "agree_50_1050ms": 0.762,
+  "n_moved_1s": 484
+ }
+}

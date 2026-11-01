@@ -1,0 +1,25 @@
+{
+ "kalshi_markets": 7,
+ "kalshi_trades": 253071,
+ "matches": 968,
+ "[m-2000,m-100)_match": {
+  "moved_share": 0.5754,
+  "agree": 0.6768,
+  "n_moved": 557
+ },
+ "[m-2000,m-100)_placebo": {
+  "moved_share": 0.4938,
+  "agree": 0.4979,
+  "n_moved": 478
+ },
+ "[m-600,m-100)_match": {
+  "moved_share": 0.469,
+  "agree": 0.7401,
+  "n_moved": 454
+ },
+ "[m-600,m-100)_placebo": {
+  "moved_share": 0.4163,
+  "agree": 0.4888,
+  "n_moved": 403
+ }
+}

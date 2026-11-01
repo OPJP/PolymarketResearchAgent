@@ -1,0 +1,20 @@
+{
+ "span": [
+  1793516400,
+  1793520420
+ ],
+ "cells": 14382,
+ "pos": 138,
+ "train_pos": 62,
+ "test_pos": 76,
+ "activity_y": 0.7477,
+ "activity_y_before": 0.8212,
+ "activity_ref_y": 0.7298,
+ "activity_ref_y_before": 0.7765,
+ "gain_y": -0.0179,
+ "gain_y_boot95": [
+  -0.0546,
+  0.0284
+ ],
+ "gain_placebo_before": -0.0447
+}

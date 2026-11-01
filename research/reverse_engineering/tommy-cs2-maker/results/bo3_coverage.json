@@ -1,0 +1,42 @@
+{
+ "bo3_details": 201,
+ "pm_events": 197,
+ "matched": 151,
+ "by_traded": {
+  "False": {
+   "n": 149,
+   "matched": 110,
+   "lc": {
+    "false": 110,
+    "NaN": 39
+   },
+   "lcs": {
+    "null": 110,
+    "NaN": 39
+   },
+   "bo3_tier": {
+    "c": 70,
+    "b": 40,
+    "NaN": 39
+   }
+  },
+  "True": {
+   "n": 48,
+   "matched": 41,
+   "lc": {
+    "false": 41,
+    "NaN": 7
+   },
+   "lcs": {
+    "null": 41,
+    "NaN": 7
+   },
+   "bo3_tier": {
+    "b": 26,
+    "a": 10,
+    "NaN": 7,
+    "c": 5
+   }
+  }
+ }
+}

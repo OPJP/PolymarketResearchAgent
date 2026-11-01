@@ -1,0 +1,212 @@
+{
+ "beta_build": {
+  "E": 1.235,
+  "L": 1.508,
+  "X": 1.376,
+  "G": 1.428
+ },
+ "build_days": 7,
+ "val_days": 7,
+ "presence": {
+  "auc_any": 0.9132,
+  "auc_taker": 0.9187,
+  "auc_maker": 0.8832,
+  "auc_with_own": 0.9242,
+  "auc_it3s_same_rows": 0.9095,
+  "auc_it4_same_rows": 0.9127,
+  "auc_market_only_baseline": 0.8889,
+  "by_wallet": {
+   "GF": 0.9119,
+   "XM": 0.9242,
+   "DS": 0.901
+  },
+  "at_0.30": {
+   "recall": 0.6401,
+   "lift": 4.303,
+   "flag_share": 0.1487,
+   "p_value": 0.0
+  }
+ },
+ "side": {
+  "n": 90170,
+  "share_nomove": 0.2616,
+  "side_it4b": {
+   "acc": 0.7526,
+   "taker": 0.7792,
+   "nomove": 0.6762,
+   "moving": 0.7797,
+   "nomove_eth_ge1bp": 0.8
+  },
+  "side_it4b_big": {
+   "acc": 0.7528,
+   "taker": 0.7794,
+   "nomove": 0.6739,
+   "moving": 0.7808,
+   "nomove_eth_ge1bp": 0.8038
+  },
+  "side_it3s": {
+   "acc": 0.7317,
+   "taker": 0.7521,
+   "nomove": 0.6223,
+   "moving": 0.7705,
+   "nomove_eth_ge1bp": 0.6542
+  },
+  "side_it4": {
+   "acc": 0.75,
+   "taker": 0.775,
+   "nomove": 0.6657,
+   "moving": 0.7799,
+   "nomove_eth_ge1bp": 0.8053
+  },
+  "mcnemar_it4_vs_it3s": {
+   "it4_only_right": 5757,
+   "it3s_only_right": 3875,
+   "p": 2.1766416852288028e-82
+  }
+ },
+ "side_top_gain": [
+  [
+   "C6_pm2000",
+   0.214
+  ],
+  [
+   "C_pm2000",
+   0.069
+  ],
+  [
+   "C6_mx2000",
+   0.059
+  ],
+  [
+   "C_mx2000",
+   0.042
+  ],
+  [
+   "A_pmmean2000",
+   0.036
+  ],
+  [
+   "E_pm2000",
+   0.025
+  ],
+  [
+   "E_pm3000",
+   0.018
+  ],
+  [
+   "A_pmmean3000",
+   0.018
+  ],
+  [
+   "C6_since_mean",
+   0.015
+  ],
+  [
+   "E_rel3000",
+   0.013
+  ],
+  [
+   "F_ofi3000",
+   0.013
+  ],
+  [
+   "F_pm5000",
+   0.012
+  ],
+  [
+   "D_ask_o",
+   0.011
+  ],
+  [
+   "C6_since_mx",
+   0.01
+  ],
+  [
+   "Y_ofin3000",
+   0.01
+  ],
+  [
+   "F_ofi2000",
+   0.009
+  ],
+  [
+   "E_pm500",
+   0.009
+  ],
+  [
+   "E_rel2000",
+   0.009
+  ],
+  [
+   "A_relmean3000",
+   0.009
+  ],
+  [
+   "age_bid",
+   0.007
+  ]
+ ],
+ "presence_top_gain": [
+  [
+   "m_last",
+   0.141
+  ],
+  [
+   "n1",
+   0.128
+  ],
+  [
+   "vwap10",
+   0.109
+  ],
+  [
+   "n2",
+   0.086
+  ],
+  [
+   "bid_o",
+   0.052
+  ],
+  [
+   "age_last",
+   0.044
+  ],
+  [
+   "ask_o",
+   0.04
+  ],
+  [
+   "C_mx2000",
+   0.026
+  ],
+  [
+   "sig",
+   0.021
+  ],
+  [
+   "rel",
+   0.019
+  ],
+  [
+   "C6_nup2000",
+   0.016
+  ],
+  [
+   "dm5",
+   0.015
+  ],
+  [
+   "C6_since_mean",
+   0.015
+  ],
+  [
+   "C_pm2000",
+   0.014
+  ],
+  [
+   "tau",
+   0.01
+  ]
+ ],
+ "alt_gain_share_side": 0.2176
+}

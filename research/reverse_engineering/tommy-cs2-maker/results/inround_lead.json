@@ -1,0 +1,40 @@
+{
+ "maps": 86,
+ "rounds": 894,
+ "D1c": {
+  "only_wallet": 0.359,
+  "only_print": 0.03,
+  "both": 0.519,
+  "neither": 0.092,
+  "wallet_first_when_both": 0.474,
+  "median_lead_s_when_both": 0.0,
+  "p25_p75_lead_s": [
+   0.0,
+   37.7
+  ]
+ },
+ "D2c": {
+  "only_wallet": 0.366,
+  "only_print": 0.046,
+  "both": 0.432,
+  "neither": 0.157,
+  "wallet_first_when_both": 0.487,
+  "median_lead_s_when_both": 0.0,
+  "p25_p75_lead_s": [
+   0.0,
+   34.1
+  ]
+ },
+ "D3c": {
+  "only_wallet": 0.376,
+  "only_print": 0.053,
+  "both": 0.358,
+  "neither": 0.214,
+  "wallet_first_when_both": 0.481,
+  "median_lead_s_when_both": 0.0,
+  "p25_p75_lead_s": [
+   0.0,
+   35.9
+  ]
+ }
+}

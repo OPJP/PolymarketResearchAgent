@@ -1,0 +1,50 @@
+{
+ "after_prints": 18335,
+ "ctrl_prints": 11155,
+ "after_same_team_usd_share": 0.584,
+ "ctrl_same_team_usd_share": 0.524,
+ "after_top10_same_team_share": 0.48,
+ "ctrl_top10_same_team_share": 0.328,
+ "top_followers": {
+  "0x4ebc2722": {
+   "after_usd": 118468.0,
+   "ctrl_usd": 60078.0
+  },
+  "0x2005d16a": {
+   "after_usd": 60912.0,
+   "ctrl_usd": 7598.0
+  },
+  "0xfe8a28be": {
+   "after_usd": 20975.0,
+   "ctrl_usd": 5752.0
+  },
+  "0x2529c68d": {
+   "after_usd": 20182.0,
+   "ctrl_usd": 5349.0
+  },
+  "0x72aaaaf9": {
+   "after_usd": 17687.0,
+   "ctrl_usd": 5312.0
+  },
+  "0x93078b5d": {
+   "after_usd": 10852.0,
+   "ctrl_usd": 3246.0
+  },
+  "0x56c9fbde": {
+   "after_usd": 9917.0,
+   "ctrl_usd": 8354.0
+  },
+  "0xe9076a87": {
+   "after_usd": 9788.0,
+   "ctrl_usd": 5533.0
+  },
+  "0x9e3ed7b6": {
+   "after_usd": 9555.0,
+   "ctrl_usd": 7906.0
+  },
+  "0xddc38b82": {
+   "after_usd": 8559.0,
+   "ctrl_usd": 11769.0
+  }
+ }
+}

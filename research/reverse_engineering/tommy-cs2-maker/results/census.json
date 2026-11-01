@@ -1,0 +1,348 @@
+{
+ "BUILD": {
+  "bursts_3c": 1845,
+  "label_share": {
+   "wallet-absent": 0.802,
+   "wallet-led": 0.089,
+   "wallet-near": 0.066,
+   "wallet-late": 0.042
+  },
+  "label_n": {
+   "wallet-absent": 1480,
+   "wallet-led": 165,
+   "wallet-near": 122,
+   "wallet-late": 78
+  },
+  "by_label": {
+   "wallet-absent": {
+    "n": 1480,
+    "move10_median_c": 6.0,
+    "share_hit_on_complement": 0.193,
+    "stale_shares": 24127.0,
+    "indelay_shares": 11106.0,
+    "markout_10s_c": -1.01,
+    "markout_30s_c": -1.93,
+    "markout_120s_c": -3.16,
+    "usd_median": 45.9
+   },
+   "wallet-late": {
+    "n": 78,
+    "move10_median_c": 7.3,
+    "share_hit_on_complement": 0.103,
+    "stale_shares": 335.0,
+    "indelay_shares": 500.0,
+    "markout_10s_c": -0.47,
+    "markout_30s_c": -2.03,
+    "markout_120s_c": 8.1,
+    "usd_median": 22.1
+   },
+   "wallet-led": {
+    "n": 165,
+    "move10_median_c": 6.0,
+    "share_hit_on_complement": 0.024,
+    "stale_shares": 0.0,
+    "indelay_shares": 690.0,
+    "markout_10s_c": -0.34,
+    "markout_30s_c": -2.56,
+    "markout_120s_c": 1.64,
+    "usd_median": 38.4
+   },
+   "wallet-near": {
+    "n": 122,
+    "move10_median_c": 6.0,
+    "share_hit_on_complement": 0.082,
+    "stale_shares": 0.0,
+    "indelay_shares": 2052.0,
+    "markout_10s_c": -3.54,
+    "markout_30s_c": -4.31,
+    "markout_120s_c": -2.58,
+    "usd_median": 194.0
+   }
+  }
+ },
+ "VALIDATE": {
+  "bursts_3c": 1941,
+  "label_share": {
+   "wallet-absent": 0.798,
+   "wallet-led": 0.114,
+   "wallet-near": 0.044,
+   "wallet-late": 0.044
+  },
+  "label_n": {
+   "wallet-absent": 1548,
+   "wallet-led": 222,
+   "wallet-near": 86,
+   "wallet-late": 85
+  },
+  "by_label": {
+   "wallet-absent": {
+    "n": 1548,
+    "move10_median_c": 6.0,
+    "share_hit_on_complement": 0.218,
+    "stale_shares": 30168.0,
+    "indelay_shares": 12387.0,
+    "markout_10s_c": -1.47,
+    "markout_30s_c": -1.68,
+    "markout_120s_c": -1.58,
+    "usd_median": 31.9
+   },
+   "wallet-late": {
+    "n": 85,
+    "move10_median_c": 6.0,
+    "share_hit_on_complement": 0.129,
+    "stale_shares": 426.0,
+    "indelay_shares": 812.0,
+    "markout_10s_c": -1.03,
+    "markout_30s_c": -0.28,
+    "markout_120s_c": -6.74,
+    "usd_median": 27.2
+   },
+   "wallet-led": {
+    "n": 222,
+    "move10_median_c": 7.0,
+    "share_hit_on_complement": 0.09,
+    "stale_shares": 271.0,
+    "indelay_shares": 3190.0,
+    "markout_10s_c": -1.61,
+    "markout_30s_c": 3.08,
+    "markout_120s_c": 4.7,
+    "usd_median": 48.6
+   },
+   "wallet-near": {
+    "n": 86,
+    "move10_median_c": 6.39,
+    "share_hit_on_complement": 0.14,
+    "stale_shares": 200.0,
+    "indelay_shares": 881.0,
+    "markout_10s_c": -2.99,
+    "markout_30s_c": -5.84,
+    "markout_120s_c": -7.07,
+    "usd_median": 116.2
+   }
+  }
+ },
+ "robustness_active_and_thresholds": {
+  "BUILD": {
+   "all": {
+    "n": 1845,
+    "absent_share": 0.802
+   },
+   "wallet_order_within_60s": {
+    "n": 1672,
+    "absent_share": 0.782
+   },
+   "within_300s": {
+    "n": 1788,
+    "absent_share": 0.796
+   },
+   "move>=0.02_active60": {
+    "n": 1672,
+    "absent_share": 0.782
+   },
+   "move>=0.05_active60": {
+    "n": 1153,
+    "absent_share": 0.774
+   },
+   "move>=0.08_active60": {
+    "n": 576,
+    "absent_share": 0.769
+   },
+   "usd>=100_active60": {
+    "n": 592,
+    "absent_share": 0.76
+   },
+   "orders>=2_active60": {
+    "n": 579,
+    "absent_share": 0.629
+   }
+  },
+  "VALIDATE": {
+   "all": {
+    "n": 1941,
+    "absent_share": 0.798
+   },
+   "wallet_order_within_60s": {
+    "n": 1769,
+    "absent_share": 0.778
+   },
+   "within_300s": {
+    "n": 1886,
+    "absent_share": 0.792
+   },
+   "move>=0.02_active60": {
+    "n": 1769,
+    "absent_share": 0.778
+   },
+   "move>=0.05_active60": {
+    "n": 1198,
+    "absent_share": 0.766
+   },
+   "move>=0.08_active60": {
+    "n": 650,
+    "absent_share": 0.772
+   },
+   "usd>=100_active60": {
+    "n": 559,
+    "absent_share": 0.742
+   },
+   "orders>=2_active60": {
+    "n": 572,
+    "absent_share": 0.638
+   }
+  }
+ },
+ "robustness_event_level_absent": {
+  "BUILD": {
+   "absent": 1480,
+   "absent_with_wallet_take_elsewhere_in_event_[-1,+30]s": 203,
+   "strict_absent_share_of_all": 0.692
+  },
+  "VALIDATE": {
+   "absent": 1548,
+   "absent_with_wallet_take_elsewhere_in_event_[-1,+30]s": 200,
+   "strict_absent_share_of_all": 0.694
+  }
+ },
+ "which_bursts_it_leads": {
+  "univariate_auc_led_vs_absent": {
+   "absmid": {
+    "BUILD": 0.47,
+    "VALIDATE": 0.441
+   },
+   "p_before": {
+    "BUILD": 0.441,
+    "VALIDATE": 0.449
+   },
+   "elapsed_min": {
+    "BUILD": 0.533,
+    "VALIDATE": 0.559
+   },
+   "is_map": {
+    "BUILD": 0.463,
+    "VALIDATE": 0.461
+   },
+   "move10": {
+    "BUILD": 0.524,
+    "VALIDATE": 0.537
+   },
+   "usd": {
+    "BUILD": 0.59,
+    "VALIDATE": 0.596
+   },
+   "n_orders": {
+    "BUILD": 0.689,
+    "VALIDATE": 0.666
+   }
+  },
+  "led_rate_by_p_before": {
+   "BUILD|(0.0, 0.2]": [
+    0.146,
+    137
+   ],
+   "BUILD|(0.2, 0.35]": [
+    0.194,
+    310
+   ],
+   "BUILD|(0.35, 0.5]": [
+    0.215,
+    441
+   ],
+   "BUILD|(0.5, 0.65]": [
+    0.119,
+    463
+   ],
+   "BUILD|(0.65, 0.8]": [
+    0.172,
+    262
+   ],
+   "BUILD|(0.8, 1.0]": [
+    0.078,
+    154
+   ],
+   "VALIDATE|(0.0, 0.2]": [
+    0.103,
+    184
+   ],
+   "VALIDATE|(0.2, 0.35]": [
+    0.222,
+    324
+   ],
+   "VALIDATE|(0.35, 0.5]": [
+    0.213,
+    417
+   ],
+   "VALIDATE|(0.5, 0.65]": [
+    0.154,
+    475
+   ],
+   "VALIDATE|(0.65, 0.8]": [
+    0.151,
+    337
+   ],
+   "VALIDATE|(0.8, 1.0]": [
+    0.034,
+    119
+   ]
+  },
+  "led_rate_by_market_type": {
+   "BUILD|child_moneyline": [
+    0.146,
+    1106
+   ],
+   "BUILD|moneyline": [
+    0.189,
+    661
+   ],
+   "VALIDATE|child_moneyline": [
+    0.148,
+    1103
+   ],
+   "VALIDATE|moneyline": [
+    0.193,
+    753
+   ]
+  },
+  "led_rate_by_elapsed_min": {
+   "BUILD|(0, 30]": [
+    0.152,
+    310
+   ],
+   "BUILD|(120, 180]": [
+    0.191,
+    324
+   ],
+   "BUILD|(180, 300]": [
+    0.438,
+    16
+   ],
+   "BUILD|(30, 60]": [
+    0.142,
+    337
+   ],
+   "BUILD|(60, 120]": [
+    0.158,
+    780
+   ],
+   "VALIDATE|(0, 30]": [
+    0.131,
+    251
+   ],
+   "VALIDATE|(120, 180]": [
+    0.191,
+    477
+   ],
+   "VALIDATE|(180, 300]": [
+    0.227,
+    141
+   ],
+   "VALIDATE|(30, 60]": [
+    0.128,
+    321
+   ],
+   "VALIDATE|(60, 120]": [
+    0.167,
+    666
+   ]
+  }
+ }
+}

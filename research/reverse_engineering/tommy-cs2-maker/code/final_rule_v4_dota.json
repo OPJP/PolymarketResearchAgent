@@ -1,0 +1,32 @@
+{
+ "build": {
+  "league_sum": {
+   "1win Streamers League": 0,
+   "BLAST Slam": 0,
+   "DreamLeague": 0,
+   "EPL Masters": 0
+  },
+  "league_n": {
+   "1win Streamers League": 10,
+   "BLAST Slam": 7,
+   "DreamLeague": 14,
+   "EPL Masters": 25
+  }
+ },
+ "exam": {
+  "league_sum": {
+   "1win Streamers League": 0,
+   "BLAST Slam": 0,
+   "DreamLeague": 0,
+   "EPL Masters": 0,
+   "PARI Universe": 3
+  },
+  "league_n": {
+   "1win Streamers League": 10,
+   "BLAST Slam": 7,
+   "DreamLeague": 14,
+   "EPL Masters": 33,
+   "PARI Universe": 4
+  }
+ }
+}

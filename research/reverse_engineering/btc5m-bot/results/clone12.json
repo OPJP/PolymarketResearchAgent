@@ -1,0 +1,271 @@
+{
+ "operator": [
+  {
+   "mk": "0x0ca4e9d27ff826a109ecbf74754fb66b93f277a6",
+   "orders": 894,
+   "op": true,
+   "presigned_share": 0.9787,
+   "lag_med_s": 74.088,
+   "inburst_share": 0.9955,
+   "same_ms_share": 0.604,
+   "size_top": "{0.0: 894}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0x3048d65321be3497164cdfc2996f94f98a2e7537",
+   "orders": 1196,
+   "op": true,
+   "presigned_share": 0.9933,
+   "lag_med_s": 74.314,
+   "inburst_share": 1.0,
+   "same_ms_share": 0.8077,
+   "size_top": "{0.0: 1196}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0xc53375ff94e96100f2b30a4b5775db35218d69a9",
+   "orders": 2118,
+   "op": true,
+   "presigned_share": 0.9745,
+   "lag_med_s": 66.715,
+   "inburst_share": 1.0,
+   "same_ms_share": 0.7087,
+   "size_top": "{0.0: 2118}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0xd84403efd50b49a1d8a7181627e00307e6ea5908",
+   "orders": 455,
+   "op": true,
+   "presigned_share": 0.989,
+   "lag_med_s": 66.432,
+   "inburst_share": 0.3736,
+   "same_ms_share": 0.6308,
+   "size_top": "{0.0: 455}",
+   "buy_share": 1.0
+  }
+ ],
+ "non_operator_wallets_ge40": 551,
+ "presigned_candidates": [
+  {
+   "mk": "0x03b4c58b1bb31007cb97e2c8f2216d33c805d29c",
+   "orders": 63,
+   "op": false,
+   "presigned_share": 0.9841,
+   "lag_med_s": 42.102,
+   "inburst_share": 1.0,
+   "same_ms_share": 0.6032,
+   "size_top": "{0.0: 63}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0x18324df64a6034b9d39704f43e030965d70269f6",
+   "orders": 56,
+   "op": false,
+   "presigned_share": 0.7143,
+   "lag_med_s": 23.361,
+   "inburst_share": 0.3571,
+   "same_ms_share": 0.7143,
+   "size_top": "{0.0: 56}",
+   "buy_share": 0.9107
+  },
+  {
+   "mk": "0xdc358e301c9b3d5a3a93e9ba1542e15a8deae438",
+   "orders": 133,
+   "op": false,
+   "presigned_share": 0.9624,
+   "lag_med_s": 110.329,
+   "inburst_share": 0.2632,
+   "same_ms_share": 0.4286,
+   "size_top": "{0.0: 133}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0xc5d5ccaa9844b0aa6a555ce7643695e14b6059e0",
+   "orders": 240,
+   "op": false,
+   "presigned_share": 0.7042,
+   "lag_med_s": 14.323,
+   "inburst_share": 0.1833,
+   "same_ms_share": 0.6958,
+   "size_top": "{0.0: 240}",
+   "buy_share": 0.1958
+  },
+  {
+   "mk": "0x0b0c06e3f4d2c4afeb2f42bf45d63549cc211eaf",
+   "orders": 61,
+   "op": false,
+   "presigned_share": 0.8852,
+   "lag_med_s": 27.941,
+   "inburst_share": 0.1639,
+   "same_ms_share": 1.0,
+   "size_top": "{0.0: 61}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0x747abbf12e38ce77ae9ad50e6b234be4f45a766d",
+   "orders": 196,
+   "op": false,
+   "presigned_share": 0.6122,
+   "lag_med_s": 9.0245,
+   "inburst_share": 0.148,
+   "same_ms_share": 0.7245,
+   "size_top": "{0.0: 196}",
+   "buy_share": 0.199
+  },
+  {
+   "mk": "0x21d0a97aac03917e752857a551bbe5103a00e8d7",
+   "orders": 78,
+   "op": false,
+   "presigned_share": 0.9103,
+   "lag_med_s": 49.223,
+   "inburst_share": 0.1154,
+   "same_ms_share": 0.7308,
+   "size_top": "{0.0: 78}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0xe1bb946ef5b94451f42cdd58a844c186d2032cd2",
+   "orders": 60,
+   "op": false,
+   "presigned_share": 1.0,
+   "lag_med_s": 184.995,
+   "inburst_share": 0.1,
+   "same_ms_share": 0.3833,
+   "size_top": "{0.0: 60}",
+   "buy_share": 0.0333
+  },
+  {
+   "mk": "0x881f273d5e061ff221146d5a51cc8add1f2ae773",
+   "orders": 174,
+   "op": false,
+   "presigned_share": 0.6897,
+   "lag_med_s": 6.243,
+   "inburst_share": 0.0977,
+   "same_ms_share": 0.0,
+   "size_top": "{0.0: 174}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0x12c36e9dafe4fb336d53bcfb85f778b147d31ba8",
+   "orders": 71,
+   "op": false,
+   "presigned_share": 0.9437,
+   "lag_med_s": 139.635,
+   "inburst_share": 0.0704,
+   "same_ms_share": 0.4225,
+   "size_top": "{0.0: 71}",
+   "buy_share": 0.9577
+  },
+  {
+   "mk": "0xde66e9e0d9b098a8f82d6cd3e58eecf9ea610c98",
+   "orders": 79,
+   "op": false,
+   "presigned_share": 0.6962,
+   "lag_med_s": 13.935,
+   "inburst_share": 0.0633,
+   "same_ms_share": 0.1139,
+   "size_top": "{0.0: 79}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0xbce19d6d3ed3ca73becce8c045d71529c8b0197a",
+   "orders": 49,
+   "op": false,
+   "presigned_share": 0.9592,
+   "lag_med_s": 141.494,
+   "inburst_share": 0.0612,
+   "same_ms_share": 0.6327,
+   "size_top": "{0.0: 49}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0xbf119cf0f6ff285688857487e669adad35cf2ce1",
+   "orders": 90,
+   "op": false,
+   "presigned_share": 0.5222,
+   "lag_med_s": 5.539,
+   "inburst_share": 0.0556,
+   "same_ms_share": 0.5889,
+   "size_top": "{0.0: 90}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0xbc1fc906a4f56c242a720a7b9a8e2c4a92d8723f",
+   "orders": 450,
+   "op": false,
+   "presigned_share": 0.6356,
+   "lag_med_s": 12.7135,
+   "inburst_share": 0.0489,
+   "same_ms_share": 0.4689,
+   "size_top": "{0.0: 450}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0x7d8a547ecae47a031ea46fff45876e400c28217a",
+   "orders": 1073,
+   "op": false,
+   "presigned_share": 0.5582,
+   "lag_med_s": 6.376,
+   "inburst_share": 0.0485,
+   "same_ms_share": 0.2787,
+   "size_top": "{0.0: 1073}",
+   "buy_share": 0.8527
+  },
+  {
+   "mk": "0x05179bf71f2af850593e824595f285877ea9d513",
+   "orders": 72,
+   "op": false,
+   "presigned_share": 0.6528,
+   "lag_med_s": 62.246,
+   "inburst_share": 0.0417,
+   "same_ms_share": 0.3611,
+   "size_top": "{0.0: 72}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0x03512a9086a34576f82c8434f8552eb3256766cf",
+   "orders": 55,
+   "op": false,
+   "presigned_share": 0.6182,
+   "lag_med_s": 7.329,
+   "inburst_share": 0.0364,
+   "same_ms_share": 0.0,
+   "size_top": "{0.0: 55}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0x306b9abc6c2247f1bdb90e39118cc03603ecd246",
+   "orders": 87,
+   "op": false,
+   "presigned_share": 0.6552,
+   "lag_med_s": 15.05,
+   "inburst_share": 0.0345,
+   "same_ms_share": 0.5517,
+   "size_top": "{0.0: 87}",
+   "buy_share": 0.8506
+  },
+  {
+   "mk": "0xb0f85baa97990910a3e8ac2b4a58a322f01ecef5",
+   "orders": 711,
+   "op": false,
+   "presigned_share": 0.5485,
+   "lag_med_s": 6.928,
+   "inburst_share": 0.0323,
+   "same_ms_share": 0.3418,
+   "size_top": "{0.0: 711}",
+   "buy_share": 1.0
+  },
+  {
+   "mk": "0x1aeee16b6565076240fd46c520665292d2e90fb2",
+   "orders": 418,
+   "op": false,
+   "presigned_share": 0.6411,
+   "lag_med_s": 8.6255,
+   "inburst_share": 0.0287,
+   "same_ms_share": 0.5024,
+   "size_top": "{0.0: 418}",
+   "buy_share": 1.0
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "seconds": 16800,
+ "test_seconds": 10800,
+ "test_pos_rate": 0.042777777777777776,
+ "activity": 0.6718,
+ "activity+chainlink_frozen": 0.7397,
+ "activity+chainlink_slow": 0.7366,
+ "activity+futures+chainlink_frozen": 0.7478,
+ "activity+futures+chainlink_slow": 0.7321,
+ "activity+both_chainlink": 0.7359,
+ "univariate_e_cl_frozen": 0.6232,
+ "univariate_e_cl_slow": 0.6062,
+ "burst_seconds": 690,
+ "burst_univariate_frozen": 0.6954,
+ "burst_univariate_slow": 0.3677,
+ "slow_minus_frozen_ci95": [
+  -0.0325,
+  0.002
+ ]
+}

@@ -1,0 +1,31 @@
+{
+ "dt_window_ms": [
+  180,
+  2000
+ ],
+ "crowd_decisions": 28293,
+ "crowd_wallets": 1896,
+ "grid_A": 59784,
+ "grid_C": 67029,
+ "base_crowd_A": 0.1254,
+ "base_crowd_C": 0.1057,
+ "base_cluster_A": 0.0141,
+ "base_cluster_C": 0.0095,
+ "auc_C": {
+  "crowd_label_crowd_model": 0.582,
+  "crowd_label_pm_activity_baseline": 0.6566,
+  "cluster_label_frozen_crowd_model": 0.5997,
+  "cluster_label_cluster_model": 0.6548,
+  "cluster_label_pm_activity_baseline": 0.6569
+ },
+ "P(cluster | crowd decision same 100 ms)_C": 0.0318,
+ "P(cluster | no crowd decision)_C": 0.0068,
+ "P(crowd | cluster decision)_C": 0.3549,
+ "top3pct_crowd_model_C": {
+  "n": 2011,
+  "P(crowd)": 0.2347,
+  "P(cluster)": 0.0582,
+  "recall_cluster": 0.1845
+ },
+ "top3pct_taken_vs_skipped_auc_C": 0.6702
+}

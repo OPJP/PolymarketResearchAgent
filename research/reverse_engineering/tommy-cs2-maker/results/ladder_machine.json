@@ -1,0 +1,155 @@
+{
+ "adds": 2699,
+ "bursts": 1508,
+ "burst_ms": 20.0,
+ "depth": 5,
+ "cooldown_ms": 1512.0,
+ "burst_size_counts": {
+  "1": 860,
+  "2": 389,
+  "3": 83,
+  "4": 69,
+  "5": 106,
+  "6": 1
+ },
+ "V_after": {
+  "orders": 2698,
+  "bursts": 1507,
+  "per_order_no_rank": 0.73,
+  "set_unit": 0.875,
+  "per_burst": 0.833,
+  "set_unit_by_class": {
+   "fresh": [
+    0.912,
+    1141
+   ],
+   "up": [
+    0.938,
+    989
+   ],
+   "same": [
+    0.556,
+    324
+   ],
+   "down": [
+    0.869,
+    244
+   ]
+  }
+ },
+ "V_after_cooldown": {
+  "orders": 2698,
+  "bursts": 1507,
+  "per_order_no_rank": 0.678,
+  "set_unit": 0.807,
+  "per_burst": 0.772,
+  "set_unit_by_class": {
+   "fresh": [
+    0.839,
+    1141
+   ],
+   "up": [
+    0.881,
+    989
+   ],
+   "same": [
+    0.503,
+    324
+   ],
+   "down": [
+    0.758,
+    244
+   ]
+  }
+ },
+ "V_error_curve": {
+  "-2c": 0.215,
+  "-1c": 0.701,
+  "+1c": 0.813,
+  "+2c": 0.083
+ },
+ "proxy_J": {
+  "orders": 2694,
+  "bursts": 1505,
+  "per_order_no_rank": 0.412,
+  "set_unit": 0.5,
+  "per_burst": 0.466,
+  "set_unit_by_class": {
+   "fresh": [
+    0.454,
+    1142
+   ],
+   "up": [
+    0.604,
+    984
+   ],
+   "same": [
+    0.306,
+    324
+   ],
+   "down": [
+    0.553,
+    244
+   ]
+  }
+ },
+ "proxy_J_plus_1c": {
+  "orders": 2694,
+  "bursts": 1505,
+  "per_order_no_rank": 0.382,
+  "set_unit": 0.472,
+  "per_burst": 0.452,
+  "set_unit_by_class": {
+   "fresh": [
+    0.395,
+    1142
+   ],
+   "up": [
+    0.65,
+    984
+   ],
+   "same": [
+    0.216,
+    324
+   ],
+   "down": [
+    0.455,
+    244
+   ]
+  }
+ },
+ "proxy_own_top_before": {
+  "orders": 1557,
+  "bursts": 1059,
+  "per_order_no_rank": 0.218,
+  "set_unit": 0.232,
+  "per_burst": 0.255,
+  "set_unit_by_class": {
+   "up": [
+    0.028,
+    989
+   ],
+   "same": [
+    0.556,
+    324
+   ],
+   "down": [
+    0.627,
+    244
+   ]
+  }
+ },
+ "same_V_class": {
+  "adds": 290,
+  "slot_dist": {
+   "-5": 44,
+   "-4": 57,
+   "-3": 44,
+   "-2": 47,
+   "-1": 59,
+   "0": 39
+  },
+  "share_at_recently_vacated_price": 0.083,
+  "n_own_before_median": 2.0
+ }
+}

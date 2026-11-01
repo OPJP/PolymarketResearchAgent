@@ -1,0 +1,30 @@
+{
+ "period": [
+  1793059200,
+  1793404800
+ ],
+ "windows": 1089,
+ "runtime_s": 22,
+ "rule_per_share": {
+  "pearson": 0.32853833017215067,
+  "spearman": 0.32494323274850817
+ },
+ "rule_x_size_public_clock": {
+  "pearson": 0.32108547320598224,
+  "spearman": 0.2833331435104239
+ },
+ "rule_x_size_own_prev30min_maxfill": {
+  "pearson": 0.341470725791811,
+  "spearman": 0.28829509655321955
+ },
+ "ceiling_wallet_fills_one_share": {
+  "pearson": 0.688039993981645,
+  "spearman": 0.780148611667946
+ },
+ "ceiling_one_share_x_size_own": {
+  "pearson": 0.6439355385965282,
+  "spearman": 0.7683412265361751
+ },
+ "size_pub_share_500": 0.3774104683195592,
+ "corr_size_own_vs_wallet_abs_pnl": 0.32992532134390834
+}

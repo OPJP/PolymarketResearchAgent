@@ -1,0 +1,121 @@
+{
+ "study": {
+  "fill": 0.7534,
+  "order": 0.6895,
+  "n": 8256,
+  "branches": {
+   "decided": [
+    0.5922,
+    1155
+   ],
+   "entry": [
+    0.6584,
+    1291
+   ],
+   "sched_held": [
+    0.787,
+    5065
+   ],
+   "nonsched_under": [
+    0.9396,
+    745
+   ]
+  },
+  "per_wallet": {
+   "almach": 0.7506,
+   "bosona": 0.7322,
+   "momoney": 0.7775
+  },
+  "by_day": {
+   "2026-10-23": 0.763,
+   "2026-10-24": 0.673,
+   "2026-10-25": 0.669,
+   "2026-10-26": 0.785
+  }
+ },
+ "validate": {
+  "fill": 0.79,
+  "order": 0.7251,
+  "n": 27988,
+  "branches": {
+   "decided": [
+    0.8118,
+    7635
+   ],
+   "entry": [
+    0.7039,
+    2459
+   ],
+   "sched_held": [
+    0.7711,
+    15056
+   ],
+   "nonsched_under": [
+    0.9063,
+    2838
+   ]
+  },
+  "per_wallet": {
+   "almach": 0.7949,
+   "bosona": 0.7831,
+   "momoney": 0.7921
+  },
+  "halves": [
+   0.7823,
+   0.7952
+  ],
+  "by_day": {
+   "2026-10-27": 0.755,
+   "2026-10-28": 0.804,
+   "2026-10-29": 0.798,
+   "2026-10-30": 0.791
+  },
+  "acc_ci95": [
+   0.7655,
+   0.8111
+  ],
+  "no_own_state": 0.6925,
+  "gain_over_no_own_ci95": [
+   0.0742,
+   0.1209
+  ]
+ },
+ "own_inventory_baselines_cluster": {
+  "study": {
+   "held_only_cluster": 0.6388,
+   "under_only_cluster": 0.4119,
+   "held_cluster_where_inv": 0.6355
+  },
+  "validate": {
+   "held_only_cluster": 0.611,
+   "under_only_cluster": 0.4278,
+   "held_cluster_where_inv": 0.6013
+  }
+ },
+ "btc15m_no_size": {
+  "study": {
+   "n": 1356,
+   "composite_no_size": 0.6962,
+   "no_own_state": 0.5833,
+   "posture_bn": 0.5568,
+   "cheaper": 0.3562,
+   "share_decided": 0.1335,
+   "share_entry": 0.16,
+   "after_entry_held": 0.6921
+  },
+  "validate": {
+   "n": 2996,
+   "composite_no_size": 0.754,
+   "no_own_state": 0.8214,
+   "posture_bn": 0.7987,
+   "cheaper": 0.6355,
+   "share_decided": 0.2407,
+   "share_entry": 0.1452,
+   "after_entry_held": 0.7016
+  }
+ },
+ "pooled_5m_15m_validate": {
+  "n": 30984,
+  "acc": 0.7865
+ }
+}

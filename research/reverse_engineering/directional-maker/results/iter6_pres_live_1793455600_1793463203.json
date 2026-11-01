@@ -1,0 +1,25 @@
+{
+ "bins": 1440,
+ "windows": 24,
+ "pos_rate": 0.1514,
+ "train_bins": 600,
+ "test_bins": 840,
+ "test_windows": 14,
+ "activity": 0.6036,
+ "activity+futures": 0.6102,
+ "activity+chainlink": 0.6378,
+ "activity+futures+chainlink": 0.6409,
+ "side_test": {
+  "n_one_sided_bins": 127,
+  "edge_c": 0.63,
+  "edge_f": 0.614,
+  "sc_activity": 0.551,
+  "sc_activity+futures": 0.583,
+  "sc_activity+chainlink": 0.622,
+  "sc_activity+futures+chainlink": 0.63,
+  "always_up": 0.598
+ },
+ "univariate_test_auc_edge_f": 0.565,
+ "univariate_test_auc_edge_c": 0.588,
+ "univariate_test_auc_c_minus_f": 0.55
+}

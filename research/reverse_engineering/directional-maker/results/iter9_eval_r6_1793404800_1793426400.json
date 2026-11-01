@@ -1,0 +1,221 @@
+{
+ "period": [
+  1793404800,
+  1793426400
+ ],
+ "windows": 72,
+ "bins": 4320,
+ "cluster_maker_fills": 1178,
+ "cluster_taker_fills": 56,
+ "tape_rows": 91651,
+ "tape_rows_removed_cluster_tx": 1150,
+ "presence_r5": {
+  "cl_coverage_bins": 0.0,
+  "windows_with_cl": 0,
+  "auc_r5_with_r3_fallback": 0.6788591859434515,
+  "auc_r5_on_cl_windows": NaN,
+  "auc_r3_on_cl_windows": NaN,
+  "auc_activity_on_cl_windows": NaN
+ },
+ "presence": {
+  "auc": 0.6788591859434515,
+  "auc_activity_baseline": 0.6951987352186207,
+  "auc_with_own_inventory": 0.7421308954990288,
+  "auc_within_active_windows": 0.6704300773830426,
+  "pos_rate": 0.06875,
+  "active_window_share": 0.8611111111111112,
+  "gain_over_baseline": -0.01633954927516923
+ },
+ "side": {
+  "n": 281,
+  "acc": 0.604982206405694,
+  "fav_last_print": 0.3665480427046263,
+  "binance_fav": 0.3487544483985765,
+  "p_vs_fav": 5.673227217095143e-09
+ },
+ "side_activity_baseline": 0.6512455516014235,
+ "price": {
+  "n_fills": 1178,
+  "exact": 0.34804753820033957,
+  "within_0.01": 0.6825127334465195
+ },
+ "price_match_clock": {
+  "x_records": 0,
+  "fills": 1178,
+  "note": "no live trade records for this period (block-clock price only)"
+ },
+ "per_wallet": {
+  "bosona": {
+   "fills": 394,
+   "presence_auc": 0.6996635299634556,
+   "presence_auc_activity_baseline": 0.7144559654360296,
+   "side": 0.5870967741935483,
+   "price_within_0.01": 0.6878172588832487,
+   "pnl_pearson": 0.26448709851780616,
+   "pnl_spearman": 0.33440060987230796,
+   "pnl_windows": 54,
+   "btc15m": {
+    "fills": 134,
+    "presence_auc": 0.8772431592744219,
+    "presence_auc_activity_baseline": 0.8247746727293321,
+    "price_within_0.01": 0.7835820895522388
+   }
+  },
+  "almach": {
+   "fills": 364,
+   "presence_auc": 0.6884750600961538,
+   "presence_auc_activity_baseline": 0.7072716346153847,
+   "side": 0.5844155844155844,
+   "price_within_0.01": 0.717032967032967,
+   "pnl_pearson": 0.14193425676287932,
+   "pnl_spearman": 0.2660861151427189,
+   "pnl_windows": 53,
+   "btc15m": {
+    "fills": 123,
+    "presence_auc": 0.8974357881274644,
+    "presence_auc_activity_baseline": 0.8603048065650644,
+    "price_within_0.01": 0.8048780487804879
+   }
+  },
+  "momoney": {
+   "fills": 420,
+   "presence_auc": 0.6867350756239644,
+   "presence_auc_activity_baseline": 0.6996671595437028,
+   "side": 0.5592105263157895,
+   "price_within_0.01": 0.6476190476190476,
+   "pnl_pearson": 0.30724246556563173,
+   "pnl_spearman": 0.26081632653061226,
+   "pnl_windows": 49,
+   "btc15m": {
+    "fills": 155,
+    "presence_auc": 0.8310345984764589,
+    "presence_auc_activity_baseline": 0.7940124761830187,
+    "price_within_0.01": 0.7483870967741936
+   }
+  }
+ },
+ "pnl": {
+  "windows": 62,
+  "pearson": 0.26800421943083186,
+  "spearman": 0.3368084409861247,
+  "wallet_maker_return_on_usd": -0.10037786537035645
+ },
+ "selection": {
+  "all": {
+   "auc": 0.6782303456775316,
+   "auc_strat_global": 0.6770786006360745,
+   "auc_strat_window": 0.6773875295974744,
+   "recall_at_theta": 0.3656307129798903,
+   "lift_at_theta": 3.070050339204797,
+   "rotation_null": {
+    "global_mean": 0.633178100863244,
+    "global_max": 0.6541344843253066,
+    "global_sd": 0.02963680171034029,
+    "window_mean": 0.691199684293607,
+    "window_max": 0.7038279400157853,
+    "window_sd": 0.01785905051142027,
+    "n_perm": 2
+   },
+   "z_vs_null_global": 1.4812833112661277,
+   "z_vs_null_window": -0.7733980419227888,
+   "p_global": 0.3333333333333333,
+   "p_window": 1.0,
+   "perm_p": 1.0,
+   "criterion": {
+    "auc_ge_0.80": false,
+    "recall_ge_0.50": false,
+    "lift_ge_3": true,
+    "p_lt_0.01": false
+   }
+  },
+  "activity": {
+   "auc": 0.6753357866127505,
+   "auc_strat_global": 0.688323489323035,
+   "auc_strat_window": 0.6829123914759274,
+   "recall_at_theta": 0.453382084095064,
+   "lift_at_theta": 2.115369142393192
+  },
+  "prints_sampled": 9843,
+  "wallet_prints": 1094
+ },
+ "note": "selection population = in-window taker prints except the cluster's own taker prints; label = print's transaction holds a cluster maker fill; negatives subsampled 10% (weights 10), AUCs unbiased; rotation null: each day's windows take the spot path of the window k places later (bin-level spot columns and print fair recomputed)",
+ "btc15m": {
+  "windows": 24,
+  "bins": 4320,
+  "cluster_maker_fills": 412,
+  "cluster_taker_fills": 6,
+  "presence": {
+   "auc": 0.8533373711053837,
+   "auc_activity_baseline": 0.8146226898097817,
+   "auc_within_active_windows": 0.8589820744824832,
+   "pos_rate": 0.025231481481481483,
+   "active_window_share": 0.8333333333333334,
+   "gain_over_baseline": 0.03871468129560196
+  },
+  "side": {
+   "n": 105,
+   "acc": 0.9142857142857143,
+   "fav_last_print": 0.8,
+   "binance_fav": 0.8095238095238095,
+   "p_vs_fav": 0.0020904541015625
+  },
+  "side_activity_baseline": 0.7904761904761904,
+  "price": {
+   "n_fills": 412,
+   "within_0.01": 0.7766990291262136
+  },
+  "pnl": {
+   "windows": 20,
+   "pearson": 0.7292346324874035,
+   "spearman": 0.6796992481203008
+  },
+  "per_wallet": {
+   "bosona": {
+    "fills": 134,
+    "presence_auc": 0.8772431592744219,
+    "presence_auc_activity_baseline": 0.8247746727293321,
+    "price_within_0.01": 0.7835820895522388
+   },
+   "almach": {
+    "fills": 123,
+    "presence_auc": 0.8974357881274644,
+    "presence_auc_activity_baseline": 0.8603048065650644,
+    "price_within_0.01": 0.8048780487804879
+   },
+   "momoney": {
+    "fills": 155,
+    "presence_auc": 0.8310345984764589,
+    "presence_auc_activity_baseline": 0.7940124761830187,
+    "price_within_0.01": 0.7483870967741936
+   }
+  }
+ },
+ "union_btc5m_15m": {
+  "presence_auc": 0.7708022485166037,
+  "presence_auc_activity_baseline": 0.767238088856609,
+  "bins": 8640,
+  "pos": 406,
+  "gain_over_baseline": 0.003564159659994681,
+  "side": {
+   "n": 386,
+   "acc": 0.689119170984456,
+   "fav_last_print": 0.4844559585492228,
+   "binance_fav": 0.4740932642487047,
+   "p_vs_fav": 7.39434276422849e-11
+  },
+  "price_within_0.01_block_clock": 0.7069182389937106
+ },
+ "scope": {
+  "buy_trades": 1808,
+  "share_trades_btc5m": 0.6825221238938053,
+  "share_trades_btc5m_15m": 0.9137168141592921,
+  "share_usd_btc5m": 0.4622024778305974,
+  "share_usd_btc5m_15m": 0.9494862838168976,
+  "note": "rule universe = BTC 5m + BTC 15m; a block with BTC 5m off is scored on BTC 15m (pre-registered 2026-10-31 iteration 8); trade-count and dollar shares of all cluster BUY trades; abs-PnL share not computed here"
+ },
+ "side_posture_match_clock": {
+  "n": 0,
+  "matched_trades": 0,
+  "books_tokens": 0
+ }
+}

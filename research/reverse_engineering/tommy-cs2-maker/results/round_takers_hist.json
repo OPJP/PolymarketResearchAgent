@@ -1,0 +1,43 @@
+{
+ "events": 39,
+ "round_markets": 665,
+ "decoded_round_txs": 529,
+ "by_time": {
+  "take": {
+   "n": 969,
+   "share_round_taker_signed_in_prior_1000ms": 0.0093,
+   "share_prior_200ms": 0.001,
+   "share_next_500ms": 0.0671,
+   "median_lead_ms": 461.0
+  },
+  "ctrl-120": {
+   "n": 969,
+   "share_round_taker_signed_in_prior_1000ms": 0.0021,
+   "share_prior_200ms": 0.0,
+   "share_next_500ms": 0.0031,
+   "median_lead_ms": 450.0
+  },
+  "ctrl120": {
+   "n": 969,
+   "share_round_taker_signed_in_prior_1000ms": 0.0072,
+   "share_prior_200ms": 0.0,
+   "share_next_500ms": 0.0021,
+   "median_lead_ms": 529.0
+  },
+  "ctrl240": {
+   "n": 969,
+   "share_round_taker_signed_in_prior_1000ms": 0.0041,
+   "share_prior_200ms": 0.001,
+   "share_next_500ms": 0.0083,
+   "median_lead_ms": 639.5
+  }
+ },
+ "prior_1000ms_signers_top": {
+  "0xfe8a28be83ba295a9384f72f240d2cfa96bc23ce": 4,
+  "0xb7ab821f037a4c8deb9b23b8001a4be985d116d0": 2,
+  "0x2529c68db36ce8aa64c64affe620267744a3548a": 2,
+  "0x72aaaaf9f6b0286e390de5b568af0f99a00c90e0": 1,
+  "0xcf475caf6ea8912afa2ff973427e9683dd85d019": 1,
+  "0x1b44a7a2aeec83d21b81130d7b5f449132f51488": 1
+ }
+}

@@ -1,0 +1,120 @@
+{
+ "partial_orders_on_recorded_books": 516,
+ "partial_orders_wallet": 180,
+ "gt_cancels": 132,
+ "gt_cancels_wallet": 54,
+ "gt_owner_top": {
+  "wallet": 54,
+  "0x758dac51ba3cc9a246a79787da9df11c5f425d9e": 19,
+  "0x9f63eb94c9f8340930053f75aa74708b66e79551": 19,
+  "0x51dbdd2b19427dc8e88bb15a4046a38d8427f9b3": 13,
+  "0x893575c7d99542163c6b6e8a0fe5af0b6d217daa": 10,
+  "0x5d40576be2e9c61d283f4fd80d7a5ccf2331ba95": 4,
+  "0x6891589732cf8beaaf424b117d5c5c20919f6bb9": 4,
+  "0x006608d41f0083473aef36b385d45ed526fab477": 1
+ },
+ "label_precision_by_cocancel": {
+  "all": {
+   "bursts": 1370,
+   "with_gt_cocancel": 22,
+   "precision_wallet": 0.955,
+   "n_gt_wallet": 21,
+   "n_gt_other_only": 1
+  },
+  "cls_multi": {
+   "bursts": 829,
+   "with_gt_cocancel": 16,
+   "precision_wallet": 0.938,
+   "n_gt_wallet": 15,
+   "n_gt_other_only": 1
+  },
+  "cls_single_odd": {
+   "bursts": 541,
+   "with_gt_cocancel": 6,
+   "precision_wallet": 1.0,
+   "n_gt_wallet": 6,
+   "n_gt_other_only": 0
+  },
+  "grp_untrig_all": {
+   "bursts": 213,
+   "with_gt_cocancel": 0,
+   "precision_wallet": null,
+   "n_gt_wallet": 0,
+   "n_gt_other_only": 0
+  },
+  "grp_trig": {
+   "bursts": 1087,
+   "with_gt_cocancel": 22,
+   "precision_wallet": 0.955,
+   "n_gt_wallet": 21,
+   "n_gt_other_only": 1
+  },
+  "grp_trig_cross_only": {
+   "bursts": 70,
+   "with_gt_cocancel": 0,
+   "precision_wallet": null,
+   "n_gt_wallet": 0,
+   "n_gt_other_only": 0
+  },
+  "multi_untrig_all": {
+   "bursts": 74,
+   "with_gt_cocancel": 0,
+   "precision_wallet": null,
+   "n_gt_wallet": 0,
+   "n_gt_other_only": 0
+  },
+  "multi_trig": {
+   "bursts": 740,
+   "with_gt_cocancel": 16,
+   "precision_wallet": 0.938,
+   "n_gt_wallet": 15,
+   "n_gt_other_only": 1
+  }
+ },
+ "gt_wallet_in_label_burst": 0.407,
+ "gt_other_in_label_burst": 0.013,
+ "markouts_by_attribution": {
+  "untrig_gt_wallet": {
+   "n": 0,
+   "mk10_mean_c": null,
+   "mk2_mean_c": null,
+   "mk30_mean_c": null
+  },
+  "untrig_gt_other_only": {
+   "n": 0,
+   "mk10_mean_c": null,
+   "mk2_mean_c": null,
+   "mk30_mean_c": null
+  },
+  "untrig_no_gt": {
+   "n": 213,
+   "mk10_mean_c": -0.601,
+   "mk2_mean_c": -0.223,
+   "mk30_mean_c": -0.646
+  },
+  "trig_gt_wallet": {
+   "n": 21,
+   "mk10_mean_c": -1.048,
+   "mk2_mean_c": -1.048,
+   "mk30_mean_c": -0.69
+  },
+  "trig_gt_other_only": {
+   "n": 1,
+   "mk10_mean_c": -1.0,
+   "mk2_mean_c": -1.5,
+   "mk30_mean_c": -1.0
+  }
+ },
+ "gt_wallet_life_s_p25_50_75": [
+  28.0,
+  51.9,
+  107.9
+ ],
+ "gt_wallet_orig_shares": {
+  "100.0": 27,
+  "54.0": 11,
+  "59.0": 5,
+  "68.0": 4,
+  "58.0": 3
+ }
+}

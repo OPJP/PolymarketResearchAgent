@@ -1,0 +1,38 @@
+{
+ "study": {
+  "n_joined": 8256,
+  "direct": {
+   "share": 0.187,
+   "frozen": 0.445,
+   "slow": 0.492,
+   "bought_underdog": 0.382
+  },
+  "mint": {
+   "share": 0.813,
+   "frozen": 0.565,
+   "slow": 0.572,
+   "bought_underdog": 0.508
+  }
+ },
+ "validate": {
+  "n_joined": 27988,
+  "direct": {
+   "share": 0.12,
+   "frozen": 0.579,
+   "slow": 0.539,
+   "bought_underdog": 0.566
+  },
+  "mint": {
+   "share": 0.88,
+   "frozen": 0.654,
+   "slow": 0.567,
+   "bought_underdog": 0.694
+  },
+  "other": {
+   "share": 0.001,
+   "frozen": 0.647,
+   "slow": 0.647,
+   "bought_underdog": 0.118
+  }
+ }
+}

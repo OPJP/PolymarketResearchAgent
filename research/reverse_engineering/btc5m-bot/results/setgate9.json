@@ -1,0 +1,43 @@
+{
+ "n_top3": 2011,
+ "P(decision|top3)": 0.1735,
+ "top3_by_state": {
+  "no_holdings_other": [
+   0.1195,
+   293
+  ],
+  "unpaired_other_0": [
+   0.1424,
+   927
+  ],
+  "unpaired_other_pos_pair<0.97": [
+   0.3105,
+   351
+  ],
+  "unpaired_other_pos_pair_0.97-1.0": [
+   0.2105,
+   76
+  ],
+  "unpaired_other_pos_pair>=1.0": [
+   0.1566,
+   364
+  ]
+ },
+ "top3_auc_neg_pair_cost": 0.5907,
+ "top3_auc_unpaired_other": 0.5968,
+ "top3_auc_own_net_o(neg=short)": 0.5851,
+ "all_grid_by_state": {
+  "unpaired_other_pos_pair<0.97": [
+   0.0563,
+   11960
+  ],
+  "unpaired_other_pos_pair>=1.0": [
+   0.0354,
+   14964
+  ],
+  "no_holdings_other": [
+   0.025,
+   8051
+  ]
+ }
+}

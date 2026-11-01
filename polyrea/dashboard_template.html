@@ -101,6 +101,11 @@ tr.reasons td { background: var(--bg); color: var(--muted); cursor: default; }
 tr.reasons ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
 .reason1 { color: var(--muted); min-width: 28ch; max-width: 52ch; }
 .count { color: var(--muted); font-size: 0.85rem; }
+table.re { min-width: 900px; }
+table.re tbody tr { cursor: default; }
+table.re th { cursor: default; }
+table.re .det { color: var(--muted); font-size: 0.8rem; }
+table.re .mark { display: inline-block; min-width: 1.3rem; text-align: center; }
 .method { display: grid; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; }
 .method ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 0.9rem; }
 .method code { font-family: var(--mono); font-size: 0.85em; }
@@ -123,6 +128,19 @@ tr.reasons ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
   <section aria-labelledby="funnel-h">
     <div class="section-head"><h2 id="funnel-h">Elimination funnel</h2><span class="count">Each step keeps only wallets that passed every step above it</span></div>
     <div class="funnel" id="funnel"></div>
+  </section>
+
+  <section aria-labelledby="re-h" id="re-section" hidden>
+    <div class="section-head"><h2 id="re-h">Deep reverse engineering</h2><span class="count">One expert agent per strategy until it is decoded; panels, audited walls, repeated exams on sealed data</span></div>
+    <div class="tablebox">
+      <table class="re">
+        <thead><tr>
+          <th>Strategy</th><th>Status</th><th>Iterations</th><th>Best VALIDATE score</th><th>Exams</th><th>Wall audits</th><th>Exam target</th>
+          <th>Match</th><th>Backtest</th><th>Replicable</th><th>Persists</th>
+        </tr></thead>
+        <tbody id="re-rows"></tbody>
+      </table>
+    </div>
   </section>
 
   <section aria-labelledby="dossier-h">
@@ -200,6 +218,26 @@ tr.reasons ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
 
   const crit = L.criteria;
   const markChar = { pass: "✓", fail: "✕", partial: "◐", untested: "·", na: "–" };
+
+  const RE = L.deep_re || [];
+  if (RE.length) {
+    document.getElementById("re-section").hidden = false;
+    const cell = (s) => s ? `<span class="mark ${esc(s)}" title="${esc(s)}">${markChar[s] || "·"}</span> ${esc(s)}` : `<span class="det">-</span>`;
+    const statusPill = { decoded: "pass", adjudicated: "pass", examined: "pass", target_reached: "pass", wall_accepted: "inconclusive", wall: "inconclusive",
+      budget_exhausted: "reject", not_decoded_exams_exhausted: "reject", agent_failed: "reject", agent_cap: "reject",
+      examining: "in_progress", in_progress: "in_progress", not_started: "in_progress" };
+    document.getElementById("re-rows").innerHTML = RE.map((s) => {
+      const ex = s.exam || {};
+      const cr = Object.assign({}, ex.criteria || {}, (s.adjudication && s.adjudication.criteria) || {});
+      const tm = ex.target_met == null ? "-" : (ex.target_met ? "met" : "not met");
+      const title = [s.strategy_statement, s.primary_metric, s.best_rule && `best rule ${s.best_rule}`, s.wall_reason && `wall: ${s.wall_reason}`].filter(Boolean).join("; ");
+      return `<tr title="${esc(title)}"><td><b>${esc(s.key)}</b><br><span class="det">${esc(s.title || "")}</span></td>` +
+        `<td><span class="pill ${statusPill[s.status] || "in_progress"}">${esc(s.status.replace(/_/g, " "))}</span></td>` +
+        `<td class="num">${s.iterations} (${Math.round(s.minutes || 0)} min)</td><td class="num">${num(s.best_validate_score, 3)}</td>` +
+        `<td class="num">${s.exam_rounds || 0}</td><td class="num">${s.wall_audits || 0}${s.walls_rejected ? ` (${s.walls_rejected} rejected)` : ""}</td>` +
+        `<td>${esc(tm)}</td><td>${cell(cr.match)}</td><td>${cell(cr.backtest)}</td><td>${cell(cr.replicable)}</td><td>${cell(cr.persists)}</td></tr>`;
+    }).join("");
+  }
   document.getElementById("dossier-count").textContent = `${deep.length} wallets passed the stage A screen`;
   document.getElementById("dossiers").innerHTML = deep.sort((a, b) => (a.rank || 0) - (b.rank || 0)).map((r) => {
     const v = r.deep_dive;

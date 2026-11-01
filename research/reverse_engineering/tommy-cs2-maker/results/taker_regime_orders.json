@@ -1,0 +1,35 @@
+{
+ "txs": 11692,
+ "wallet_rows": 11692,
+ "orders": 11692,
+ "role_share": {
+  "taker": 1.0
+ },
+ "side_share_taker": {
+  "0": 0.579,
+  "1": 0.421
+ },
+ "taker": {
+  "n": 11692,
+  "inplay_share": 0.995,
+  "one_tx_share": 1.0,
+  "fill_frac_q": [
+   0.352,
+   1.0,
+   1.0
+  ],
+  "shares_q": [
+   71.0,
+   275.0,
+   999.0,
+   1689.0
+  ],
+  "round_100_share": 0.031,
+  "sign_to_block_q": [
+   3.16,
+   24.9,
+   268.17
+  ],
+  "price_whole_cent": 0.999
+ }
+}

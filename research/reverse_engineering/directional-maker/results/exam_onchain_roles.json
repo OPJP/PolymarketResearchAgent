@@ -1,0 +1,12 @@
+{
+ "n": 150,
+ "receipt_found": 150,
+ "order_found": 150,
+ "role_agree": 150,
+ "shares_agree": 147,
+ "tape_role_counts": {
+  "maker": 148,
+  "taker": 2
+ },
+ "disagree": []
+}

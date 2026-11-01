@@ -1,0 +1,13 @@
+{
+ "take_clusters": 1568,
+ "share_with_any_subscriber": 0.262,
+ "null_shift30s": 0.003,
+ "orders_cosigned_by": {
+  "0xddb6e624": 38,
+  "0x2005d16a": 50,
+  "0x93078b5d": 134,
+  "0x4ebc2722": 207,
+  "0xf1ee4842": 33,
+  "0x8a80528d": 45
+ }
+}

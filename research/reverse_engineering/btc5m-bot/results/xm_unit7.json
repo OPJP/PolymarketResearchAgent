@@ -1,0 +1,29 @@
+{
+ "XM": {
+  "taker_orders": 8761,
+  "per_order_coverage": 0.5569,
+  "per_order_accuracy": 0.8215,
+  "one_sided_windows": 420,
+  "one_sided_windows_with_taker_order": 332,
+  "per_window_coverage": 0.7199,
+  "per_window_accuracy_first_decision": 0.8577
+ },
+ "GF": {
+  "taker_orders": 41968,
+  "per_order_coverage": 0.657,
+  "per_order_accuracy": 0.8249,
+  "one_sided_windows": 59,
+  "one_sided_windows_with_taker_order": 53,
+  "per_window_coverage": 0.7736,
+  "per_window_accuracy_first_decision": 0.9512
+ },
+ "DS": {
+  "taker_orders": 91909,
+  "per_order_coverage": 0.6928,
+  "per_order_accuracy": 0.7855,
+  "one_sided_windows": 3,
+  "one_sided_windows_with_taker_order": 2,
+  "per_window_coverage": 1.0,
+  "per_window_accuracy_first_decision": 0.5
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "orders": 117791,
+ "joined": 117791,
+ "rested_remainder": {
+  "n": 16994,
+  "P_seq_follower_150_300": 0.0822,
+  "P_fanout_follower_lt60": 0.0469,
+  "P_any_follower_lt300": 0.1624,
+  "median_filled_shares": 12.205
+ },
+ "no_resting_fill": {
+  "n": 100797,
+  "P_seq_follower_150_300": 0.0916,
+  "P_fanout_follower_lt60": 0.096,
+  "P_any_follower_lt300": 0.2278,
+  "median_filled_shares": 30.0
+ },
+ "first_legs": {
+  "rested": {
+   "n": 13693,
+   "P_seq": 0.07,
+   "P_any": 0.1556
+  },
+  "not_rested": {
+   "n": 78380,
+   "P_seq": 0.0818,
+   "P_any": 0.2289
+  }
+ },
+ "by_wallet": {
+  "DS": {
+   "rested": 0.0744,
+   "not_rested": 0.0858
+  },
+  "GF": {
+   "rested": 0.0875,
+   "not_rested": 0.0969
+  },
+  "XM": {
+   "rested": 0.1408,
+   "not_rested": 0.1255
+  }
+ }
+}

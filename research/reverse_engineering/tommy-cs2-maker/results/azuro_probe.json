@@ -1,0 +1,82 @@
+{
+ "window": "2026-10-20 15:00-17:00 UTC (2 h, 3,600 blocks), topic-only getLogs on drpc in 100-block windows",
+ "results": {
+  "LiveCore.NewLiveBet": {
+   "blocks": [
+    95907087,
+    95910686
+   ],
+   "calls": 36,
+   "errors": 0,
+   "n_logs_2h": 0,
+   "addresses": {}
+  },
+  "Corev3.NewBet": {
+   "blocks": [
+    95907087,
+    95910686
+   ],
+   "calls": 36,
+   "errors": 0,
+   "n_logs_2h": 0,
+   "addresses": {}
+  },
+  "Corev2.NewBet": {
+   "blocks": [
+    95907087,
+    95910686
+   ],
+   "calls": 36,
+   "errors": 0,
+   "n_logs_2h": 0,
+   "addresses": {}
+  }
+ },
+ "gnosis_2h_10-20_15-17": {
+  "from_block": 48864283,
+  "blocks": 1440,
+  "results": {
+   "LiveCore.NewLiveBet": [
+    "n=0",
+    []
+   ],
+   "Corev3.NewBet": [
+    "n=0",
+    []
+   ],
+   "Corev2.NewBet": [
+    "n=0",
+    []
+   ]
+  }
+ },
+ "note": "first Polygon window was 10-21 07:00-09:00 UTC (label corrected)",
+ "polygon_10-20_15-17": {
+  "LiveCore.NewLiveBet": {
+   "n_2h": 0,
+   "addresses": {}
+  },
+  "Corev3.NewBet": {
+   "n_2h": 0,
+   "addresses": {}
+  }
+ },
+ "gnosis_known_contracts_10-20_15-17": {
+  "from_block": 48853951,
+  "blocks": 1440,
+  "results": {
+   "LP_v2v3": {
+    "n_logs_2h": 0,
+    "topic0_counts": {}
+   },
+   "Factory": {
+    "n_logs_2h": 0,
+    "topic0_counts": {}
+   },
+   "Core_v1": {
+    "n_logs_2h": 0,
+    "topic0_counts": {}
+   }
+  }
+ }
+}

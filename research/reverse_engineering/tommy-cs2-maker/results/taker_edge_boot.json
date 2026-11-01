@@ -1,0 +1,24 @@
+{
+ "BUILD": {
+  "events": 40,
+  "usd": 77084,
+  "edge_pct": 6.71,
+  "ci95_pct": [
+   -6.9,
+   19.64
+  ],
+  "p_le0": 0.15775,
+  "events_pos": 0.65
+ },
+ "VALIDATE": {
+  "events": 39,
+  "usd": 78384,
+  "edge_pct": 5.25,
+  "ci95_pct": [
+   -7.3,
+   17.09
+  ],
+  "p_le0": 0.21225,
+  "events_pos": 0.59
+ }
+}

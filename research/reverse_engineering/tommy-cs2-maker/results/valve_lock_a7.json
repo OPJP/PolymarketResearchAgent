@@ -1,0 +1,41 @@
+{
+ "snapshots": 7458,
+ "matches": 11,
+ "kill_events": 601,
+ "decisions": 70,
+ "gate_failed_note": "same_feed_gate.json: G1 lag IQR 69.5 ms > 40, G2 +0.98c < +1c; exploratory only",
+ "peak_lag_s": 2.0,
+ "peak_z": 1.6,
+ "windows": {
+  "-10..0s": {
+   "obs": 26,
+   "null_mean": 37.7,
+   "ratio": 0.69,
+   "p": 0.948
+  },
+  "0..10s": {
+   "obs": 28,
+   "null_mean": 37.4,
+   "ratio": 0.75,
+   "p": 0.895
+  },
+  "-5..5s": {
+   "obs": 32,
+   "null_mean": 37.7,
+   "ratio": 0.85,
+   "p": 0.744
+  },
+  "-30..-10s": {
+   "obs": 50,
+   "null_mean": 74.8,
+   "ratio": 0.67,
+   "p": 0.978
+  },
+  "10..30s": {
+   "obs": 42,
+   "null_mean": 75.5,
+   "ratio": 0.56,
+   "p": 0.998
+  }
+ }
+}

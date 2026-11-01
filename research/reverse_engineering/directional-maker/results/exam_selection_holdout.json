@@ -1,0 +1,43 @@
+{
+ "prints_sampled": 368849,
+ "wallet_prints": 33697,
+ "base_rate": 0.009954162465803522,
+ "neg_frac": 0.1,
+ "all": {
+  "auc": 0.6814996455222433,
+  "auc_strat_global": 0.6855405474698856,
+  "auc_strat_window": 0.6427041186587269,
+  "recall_at_theta": 0.3177434192954862,
+  "lift_at_theta": 2.567155432227935,
+  "flag_share": 0.12377256900072098,
+  "rotation_null_2h_blocks": {
+   "n_perm": 200,
+   "global_mean": 0.6241371573938861,
+   "global_sd": 0.003941122093608689,
+   "global_max": 0.6367070784100582,
+   "window_mean": 0.6314701364933245,
+   "window_sd": 0.0043004727757695845,
+   "window_max": 0.6421175850722232
+  },
+  "p_global": 0.004975124378109453,
+  "p_window": 0.004975124378109453,
+  "p": 0.004975124378109453,
+  "z_global": 15.580179608131719,
+  "z_window": 2.612266778829225,
+  "criterion": {
+   "auc_ge_0.80": false,
+   "recall_ge_0.50": false,
+   "lift_ge_3": false,
+   "p_lt_0.01": true
+  }
+ },
+ "activity": {
+  "auc": 0.6558649795480437,
+  "auc_strat_global": 0.6535060571441347,
+  "auc_strat_window": 0.6337048046047857,
+  "recall_at_theta": 0.32637920289640027,
+  "lift_at_theta": 2.230031054906556,
+  "flag_share": 0.14635634422302246
+ },
+ "forward_days_all_auc": 0.6660805420539011
+}

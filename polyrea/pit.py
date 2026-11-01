@@ -375,7 +375,7 @@ class ExternalRegistry:
         self.path = path
         self.sources: dict[str, ExternalSourceSpec] = dict(BUILTIN_SOURCES)
         if path and path.exists():
-            for raw in json.loads(path.read_text()):
+            for raw in json.loads(path.read_text(encoding="utf-8")):
                 spec = ExternalSourceSpec(**raw)
                 self.sources[spec.name] = spec
 
@@ -384,7 +384,7 @@ class ExternalRegistry:
         if self.path:
             custom = [dataclasses.asdict(s) for n, s in sorted(self.sources.items()) if n not in BUILTIN_SOURCES]
             self.path.parent.mkdir(parents=True, exist_ok=True)
-            self.path.write_text(json.dumps(custom, indent=2))
+            self.path.write_text(json.dumps(custom, indent=2), encoding="utf-8")
 
     def fetch(self, name: str, start: int, end: int, http: Any = None) -> tuple[TimeSeries, list[Any]]:
         from polyrea.adapters.http import shared_client

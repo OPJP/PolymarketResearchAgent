@@ -1,0 +1,70 @@
+{
+ "p4e_takes": 4018,
+ "with_complement_ladder_60s": 0,
+ "wallet": {
+  "cosign_with_p4e_ladder": NaN,
+  "cosign_without": 0.0495,
+  "n_with": 0,
+  "n_without": 4018
+ },
+ "0x2005d16a": {
+  "cosign_with_p4e_ladder": NaN,
+  "cosign_without": 0.0154,
+  "n_with": 0,
+  "n_without": 4018
+ },
+ "0x8a80528d": {
+  "cosign_with_p4e_ladder": NaN,
+  "cosign_without": 0.0114,
+  "n_with": 0,
+  "n_without": 4018
+ },
+ "0xddb6e624": {
+  "cosign_with_p4e_ladder": NaN,
+  "cosign_without": 0.0124,
+  "n_with": 0,
+  "n_without": 4018
+ },
+ "0xf1ee4842": {
+  "cosign_with_p4e_ladder": NaN,
+  "cosign_without": 0.0152,
+  "n_with": 0,
+  "n_without": 4018
+ },
+ "0x93078b5d": {
+  "cosign_with_p4e_ladder": NaN,
+  "cosign_without": 0.0316,
+  "n_with": 0,
+  "n_without": 4018
+ },
+ "maker_vs_taker_rows_16_22": {
+  "0x4ebc2722": {
+   "maker_rows": 0,
+   "taker_rows": 4118
+  },
+  "0x2005d16a": {
+   "maker_rows": 5815,
+   "taker_rows": 1013
+  },
+  "0x8a80528d": {
+   "maker_rows": 64,
+   "taker_rows": 1670
+  },
+  "0xddb6e624": {
+   "maker_rows": 52,
+   "taker_rows": 1709
+  },
+  "0xf1ee4842": {
+   "maker_rows": 0,
+   "taker_rows": 1219
+  },
+  "0x93078b5d": {
+   "maker_rows": 15,
+   "taker_rows": 2679
+  },
+  "0x0063b23c": {
+   "maker_rows": 34968,
+   "taker_rows": 1698
+  }
+ }
+}

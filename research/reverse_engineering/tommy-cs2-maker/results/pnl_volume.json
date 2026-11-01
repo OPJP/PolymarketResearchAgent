@@ -1,0 +1,18 @@
+{
+ "BUILD": {
+  "markets": 113,
+  "corr_locked_pnl_pearson": 0.852,
+  "corr_pubvol_pnl_pearson": 0.372,
+  "corr_pubvol_pnl_spearman": 0.131,
+  "corr_pubvol_locked_spearman": 0.176,
+  "pnl_var_share_locked": 0.794
+ },
+ "VALIDATE": {
+  "markets": 107,
+  "corr_locked_pnl_pearson": 0.824,
+  "corr_pubvol_pnl_pearson": 0.386,
+  "corr_pubvol_pnl_spearman": 0.333,
+  "corr_pubvol_locked_spearman": 0.426,
+  "pnl_var_share_locked": 0.826
+ }
+}

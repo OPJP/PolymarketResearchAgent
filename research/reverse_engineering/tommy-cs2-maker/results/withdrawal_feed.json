@@ -1,0 +1,17 @@
+{
+ "episodes": 64,
+ "pack_take_within_1.5s_of_start": 0.0,
+ "control": 0.003,
+ "pack_take_in_5s_before_start": 0.016,
+ "control_5s_before": 0.008,
+ "own_take_within_1.5s_of_start": 0.047,
+ "own_take_control": 0.003,
+ "pack_orders_in_block": 229,
+ "events_with_pack": [
+  "cs2-bhe-bar2-2026-10-31",
+  "cs2-gls1-pcy-2026-10-31",
+  "cs2-shin-isg-2026-10-31",
+  "cs2-wraith-ntr-2026-10-31",
+  "dota2-ty-gl-2026-10-31"
+ ]
+}

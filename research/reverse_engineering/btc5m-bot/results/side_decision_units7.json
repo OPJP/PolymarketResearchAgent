@@ -1,0 +1,41 @@
+{
+ "chunks": [
+  "1792130400",
+  "1792238400",
+  "1792339200",
+  "1792432800",
+  "1792461600",
+  "1792591200",
+  "1792706400"
+ ],
+ "by_wallet": {
+  "GF": {
+   "taker_orders": 3712,
+   "accuracy_per_order": 0.7462,
+   "baseline_market_only_per_order": 0.6177,
+   "one_sided_windows_scored": 4,
+   "accuracy_per_one_sided_window": 1.0
+  },
+  "XM": {
+   "taker_orders": 769,
+   "accuracy_per_order": 0.7308,
+   "baseline_market_only_per_order": 0.6385,
+   "one_sided_windows_scored": 29,
+   "accuracy_per_one_sided_window": 0.6897
+  },
+  "DS": {
+   "taker_orders": 8708,
+   "accuracy_per_order": 0.7184,
+   "baseline_market_only_per_order": 0.588,
+   "one_sided_windows_scored": 0,
+   "accuracy_per_one_sided_window": null
+  },
+  "pool": {
+   "taker_orders": 13189,
+   "accuracy_per_order": 0.727,
+   "baseline_market_only_per_order": 0.5993,
+   "one_sided_windows_scored": 0,
+   "accuracy_per_one_sided_window": null
+  }
+ }
+}

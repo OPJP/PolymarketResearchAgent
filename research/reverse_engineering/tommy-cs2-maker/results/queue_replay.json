@@ -1,0 +1,669 @@
+{
+ "n_markets": 229,
+ "variants": [
+  {
+   "params": {
+    "K": 0.97,
+    "L": 1
+   },
+   "oracle_pulls": false,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -12071.0,
+    "bot_usd": 233782.5,
+    "bot_return": -0.0516,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.323,
+     -0.129,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.069,
+     -0.004,
+     112
+    ],
+    "pairs_corr": [
+     0.807,
+     0.792,
+     113
+    ],
+    "bot_pair_cost_median": 1.0053,
+    "bot_pairs_share": 0.955
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -10828.9,
+    "bot_usd": 247418.3,
+    "bot_return": -0.0438,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     -0.038,
+     -0.035,
+     116
+    ],
+    "pair_cost_corr": [
+     -0.034,
+     -0.063,
+     105
+    ],
+    "pairs_corr": [
+     0.942,
+     0.908,
+     116
+    ],
+    "bot_pair_cost_median": 1.0054,
+    "bot_pairs_share": 0.956
+   }
+  },
+  {
+   "params": {
+    "K": 0.97,
+    "L": 1
+   },
+   "oracle_pulls": true,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -11816.5,
+    "bot_usd": 232659.0,
+    "bot_return": -0.0508,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.352,
+     -0.143,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.077,
+     -0.014,
+     112
+    ],
+    "pairs_corr": [
+     0.807,
+     0.792,
+     113
+    ],
+    "bot_pair_cost_median": 1.0048,
+    "bot_pairs_share": 0.954
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -10734.1,
+    "bot_usd": 246398.8,
+    "bot_return": -0.0436,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     -0.014,
+     -0.018,
+     116
+    ],
+    "pair_cost_corr": [
+     -0.031,
+     -0.06,
+     105
+    ],
+    "pairs_corr": [
+     0.943,
+     0.909,
+     116
+    ],
+    "bot_pair_cost_median": 1.0048,
+    "bot_pairs_share": 0.956
+   }
+  },
+  {
+   "params": {
+    "K": 0.97,
+    "L": 3
+   },
+   "oracle_pulls": false,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -24105.3,
+    "bot_usd": 467892.6,
+    "bot_return": -0.0515,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.375,
+     -0.127,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.195,
+     -0.066,
+     112
+    ],
+    "pairs_corr": [
+     0.806,
+     0.797,
+     113
+    ],
+    "bot_pair_cost_median": 1.0179,
+    "bot_pairs_share": 0.966
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -26064.4,
+    "bot_usd": 495338.1,
+    "bot_return": -0.0526,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     -0.123,
+     -0.067,
+     116
+    ],
+    "pair_cost_corr": [
+     0.005,
+     0.016,
+     105
+    ],
+    "pairs_corr": [
+     0.955,
+     0.918,
+     116
+    ],
+    "bot_pair_cost_median": 1.0144,
+    "bot_pairs_share": 0.967
+   }
+  },
+  {
+   "params": {
+    "K": 0.97,
+    "L": 3
+   },
+   "oracle_pulls": true,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -23848.5,
+    "bot_usd": 465492.9,
+    "bot_return": -0.0512,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.356,
+     -0.124,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.195,
+     -0.061,
+     112
+    ],
+    "pairs_corr": [
+     0.807,
+     0.798,
+     113
+    ],
+    "bot_pair_cost_median": 1.0181,
+    "bot_pairs_share": 0.966
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -25631.3,
+    "bot_usd": 493211.8,
+    "bot_return": -0.052,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     -0.113,
+     -0.057,
+     116
+    ],
+    "pair_cost_corr": [
+     0.008,
+     0.036,
+     105
+    ],
+    "pairs_corr": [
+     0.954,
+     0.917,
+     116
+    ],
+    "bot_pair_cost_median": 1.0144,
+    "bot_pairs_share": 0.967
+   }
+  },
+  {
+   "params": {
+    "K": 0.96,
+    "L": 1
+   },
+   "oracle_pulls": false,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -11290.9,
+    "bot_usd": 221121.1,
+    "bot_return": -0.0511,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.398,
+     -0.212,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.117,
+     -0.069,
+     112
+    ],
+    "pairs_corr": [
+     0.798,
+     0.797,
+     113
+    ],
+    "bot_pair_cost_median": 1.0066,
+    "bot_pairs_share": 0.958
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -10861.4,
+    "bot_usd": 233533.5,
+    "bot_return": -0.0465,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     -0.148,
+     -0.101,
+     116
+    ],
+    "pair_cost_corr": [
+     0.006,
+     0.001,
+     105
+    ],
+    "pairs_corr": [
+     0.942,
+     0.91,
+     116
+    ],
+    "bot_pair_cost_median": 1.006,
+    "bot_pairs_share": 0.96
+   }
+  },
+  {
+   "params": {
+    "K": 0.96,
+    "L": 1
+   },
+   "oracle_pulls": true,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -10916.5,
+    "bot_usd": 219632.6,
+    "bot_return": -0.0497,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.374,
+     -0.182,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.113,
+     -0.063,
+     112
+    ],
+    "pairs_corr": [
+     0.801,
+     0.796,
+     113
+    ],
+    "bot_pair_cost_median": 1.0066,
+    "bot_pairs_share": 0.957
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -10880.1,
+    "bot_usd": 232760.3,
+    "bot_return": -0.0467,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     -0.143,
+     -0.1,
+     116
+    ],
+    "pair_cost_corr": [
+     0.003,
+     -0.01,
+     105
+    ],
+    "pairs_corr": [
+     0.942,
+     0.913,
+     116
+    ],
+    "bot_pair_cost_median": 1.0066,
+    "bot_pairs_share": 0.96
+   }
+  },
+  {
+   "params": {
+    "K": 0.98,
+    "L": 1
+   },
+   "oracle_pulls": false,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -12996.4,
+    "bot_usd": 249039.9,
+    "bot_return": -0.0522,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.272,
+     -0.072,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.05,
+     0.043,
+     112
+    ],
+    "pairs_corr": [
+     0.808,
+     0.789,
+     113
+    ],
+    "bot_pair_cost_median": 1.0027,
+    "bot_pairs_share": 0.952
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -10624.0,
+    "bot_usd": 262979.4,
+    "bot_return": -0.0404,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     -0.073,
+     -0.04,
+     116
+    ],
+    "pair_cost_corr": [
+     -0.045,
+     -0.071,
+     105
+    ],
+    "pairs_corr": [
+     0.943,
+     0.908,
+     116
+    ],
+    "bot_pair_cost_median": 0.9981,
+    "bot_pairs_share": 0.957
+   }
+  },
+  {
+   "params": {
+    "K": 0.98,
+    "L": 1
+   },
+   "oracle_pulls": true,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -12956.5,
+    "bot_usd": 247196.1,
+    "bot_return": -0.0524,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.251,
+     -0.07,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.05,
+     0.046,
+     112
+    ],
+    "pairs_corr": [
+     0.804,
+     0.789,
+     113
+    ],
+    "bot_pair_cost_median": 1.0027,
+    "bot_pairs_share": 0.951
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -10558.7,
+    "bot_usd": 261351.8,
+    "bot_return": -0.0404,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     -0.02,
+     -0.016,
+     116
+    ],
+    "pair_cost_corr": [
+     -0.03,
+     -0.059,
+     105
+    ],
+    "pairs_corr": [
+     0.942,
+     0.91,
+     116
+    ],
+    "bot_pair_cost_median": 0.9975,
+    "bot_pairs_share": 0.956
+   }
+  },
+  {
+   "params": {
+    "K": 0.97,
+    "L": 1,
+    "IMAX": 200.0
+   },
+   "oracle_pulls": false,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -11213.2,
+    "bot_usd": 222455.0,
+    "bot_return": -0.0504,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.409,
+     -0.154,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.144,
+     0.015,
+     112
+    ],
+    "pairs_corr": [
+     0.796,
+     0.789,
+     113
+    ],
+    "bot_pair_cost_median": 1.0173,
+    "bot_pairs_share": 0.969
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -11173.6,
+    "bot_usd": 235547.5,
+    "bot_return": -0.0474,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     -0.143,
+     -0.072,
+     116
+    ],
+    "pair_cost_corr": [
+     -0.116,
+     -0.093,
+     105
+    ],
+    "pairs_corr": [
+     0.941,
+     0.91,
+     116
+    ],
+    "bot_pair_cost_median": 1.0161,
+    "bot_pairs_share": 0.969
+   }
+  },
+  {
+   "params": {
+    "K": 0.97,
+    "L": 1,
+    "IMAX": 200.0
+   },
+   "oracle_pulls": true,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -11035.7,
+    "bot_usd": 220382.8,
+    "bot_return": -0.0501,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.407,
+     -0.161,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.148,
+     0.008,
+     112
+    ],
+    "pairs_corr": [
+     0.795,
+     0.791,
+     113
+    ],
+    "bot_pair_cost_median": 1.0174,
+    "bot_pairs_share": 0.969
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -11070.5,
+    "bot_usd": 234428.8,
+    "bot_return": -0.0472,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     -0.142,
+     -0.055,
+     116
+    ],
+    "pair_cost_corr": [
+     -0.1,
+     -0.078,
+     105
+    ],
+    "pairs_corr": [
+     0.942,
+     0.911,
+     116
+    ],
+    "bot_pair_cost_median": 1.0149,
+    "bot_pairs_share": 0.969
+   }
+  },
+  {
+   "params": {
+    "K": 0.97,
+    "L": 1,
+    "LAT": 1000.0
+   },
+   "oracle_pulls": false,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -11777.9,
+    "bot_usd": 237406.7,
+    "bot_return": -0.0496,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.364,
+     -0.094,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.062,
+     -0.005,
+     112
+    ],
+    "pairs_corr": [
+     0.8,
+     0.792,
+     113
+    ],
+    "bot_pair_cost_median": 1.0034,
+    "bot_pairs_share": 0.958
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -10688.7,
+    "bot_usd": 252062.1,
+    "bot_return": -0.0424,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     0.022,
+     -0.023,
+     116
+    ],
+    "pair_cost_corr": [
+     -0.029,
+     -0.026,
+     105
+    ],
+    "pairs_corr": [
+     0.946,
+     0.909,
+     116
+    ],
+    "bot_pair_cost_median": 1.0072,
+    "bot_pairs_share": 0.959
+   }
+  },
+  {
+   "params": {
+    "K": 0.97,
+    "L": 1,
+    "LAT": 1000.0
+   },
+   "oracle_pulls": true,
+   "BUILD": {
+    "markets": 113,
+    "bot_pnl": -11515.4,
+    "bot_usd": 235860.1,
+    "bot_return": -0.0488,
+    "wallet_pnl": 5105.7,
+    "pnl_corr_pearson_spearman_n": [
+     -0.349,
+     -0.106,
+     113
+    ],
+    "pair_cost_corr": [
+     -0.066,
+     -0.013,
+     112
+    ],
+    "pairs_corr": [
+     0.798,
+     0.792,
+     113
+    ],
+    "bot_pair_cost_median": 1.0038,
+    "bot_pairs_share": 0.957
+   },
+   "VALIDATE": {
+    "markets": 116,
+    "bot_pnl": -10510.1,
+    "bot_usd": 250442.6,
+    "bot_return": -0.042,
+    "wallet_pnl": 8034.6,
+    "pnl_corr_pearson_spearman_n": [
+     0.06,
+     0.01,
+     116
+    ],
+    "pair_cost_corr": [
+     -0.018,
+     -0.008,
+     105
+    ],
+    "pairs_corr": [
+     0.946,
+     0.909,
+     116
+    ],
+    "bot_pair_cost_median": 1.0052,
+    "bot_pairs_share": 0.959
+   }
+  }
+ ]
+}

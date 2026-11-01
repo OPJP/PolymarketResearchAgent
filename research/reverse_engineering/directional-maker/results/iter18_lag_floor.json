@@ -1,0 +1,88 @@
+{
+ "1101_0700_1200": {
+  "posts": 2259,
+  "dm_bnf": {
+   "bricks": 4703,
+   "share_same_0_300ms": 0.165,
+   "share_opp_0_300ms": 0.085,
+   "mode_ms": 97.5,
+   "share_same_in_mode_band": 0.035,
+   "share_opp_in_mode_band": 0.015,
+   "p10_same_lag_ms_in_0_500": 88.0
+  },
+  "dm_bns": {
+   "bricks": 5048,
+   "share_same_0_300ms": 0.132,
+   "share_opp_0_300ms": 0.073,
+   "mode_ms": 87.5,
+   "share_same_in_mode_band": 0.023,
+   "share_opp_in_mode_band": 0.011,
+   "p10_same_lag_ms_in_0_500": 61.400000000000006
+  },
+  "dm_okx": {
+   "bricks": 1159,
+   "share_same_0_300ms": 0.12,
+   "share_opp_0_300ms": 0.013,
+   "mode_ms": 102.5,
+   "share_same_in_mode_band": 0.017,
+   "share_opp_in_mode_band": 0.002,
+   "p10_same_lag_ms_in_0_500": 29.0
+  },
+  "dm_byb": {
+   "bricks": 2313,
+   "share_same_0_300ms": 0.157,
+   "share_opp_0_300ms": 0.015,
+   "mode_ms": 117.5,
+   "share_same_in_mode_band": 0.024,
+   "share_opp_in_mode_band": 0.0,
+   "p10_same_lag_ms_in_0_500": 36.400000000000006
+  },
+  "dm_cb": {
+   "bricks": 4619,
+   "share_same_0_300ms": 0.192,
+   "share_opp_0_300ms": 0.1,
+   "mode_ms": 132.5,
+   "share_same_in_mode_band": 0.028,
+   "share_opp_in_mode_band": 0.014,
+   "p10_same_lag_ms_in_0_500": 38.0
+  },
+  "dm_hl": {
+   "bricks": 1963,
+   "share_same_0_300ms": 0.05,
+   "share_opp_0_300ms": 0.023,
+   "mode_ms": 42.5,
+   "share_same_in_mode_band": 0.008,
+   "share_opp_in_mode_band": 0.001,
+   "p10_same_lag_ms_in_0_500": 35.0
+  },
+  "dx_drb": {
+   "bricks": 2635,
+   "share_same_0_300ms": 0.061,
+   "share_opp_0_300ms": 0.029,
+   "mode_ms": 67.5,
+   "share_same_in_mode_band": 0.009,
+   "share_opp_in_mode_band": 0.001,
+   "p10_same_lag_ms_in_0_500": 38.7
+  },
+  "dx_bst": {
+   "bricks": 1036,
+   "share_same_0_300ms": 0.042,
+   "share_opp_0_300ms": 0.012,
+   "mode_ms": 62.5,
+   "share_same_in_mode_band": 0.005,
+   "share_opp_in_mode_band": 0.0,
+   "p10_same_lag_ms_in_0_500": 32.800000000000004
+  },
+  "dy_rtds": {
+   "bricks": 3990,
+   "share_same_0_300ms": 0.06,
+   "share_opp_0_300ms": 0.027,
+   "mode_ms": 7.5,
+   "share_same_in_mode_band": 0.009,
+   "share_opp_in_mode_band": 0.0,
+   "p10_same_lag_ms_in_0_500": 24.0
+  }
+ },
+ "best_feed": "dm_byb",
+ "signature_met": false
+}

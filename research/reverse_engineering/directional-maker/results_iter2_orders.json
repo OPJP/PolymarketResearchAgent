@@ -1,0 +1,49 @@
+{
+ "fills": 13925,
+ "orders": 6271,
+ "fills_per_order_median": 1.0,
+ "single_fill_share": 0.5852336150534205,
+ "price_constant_share": 1.0,
+ "filled_shares_quantiles": [
+  6.439025,
+  22.147609,
+  75.79,
+  192.949167,
+  372.75
+ ],
+ "filled_shares_top": {
+  "500.0": 363,
+  "125.0": 275,
+  "250.0": 247,
+  "5.0": 165,
+  "10.0": 124,
+  "25.0": 99,
+  "50.0": 91,
+  "2.0": 90
+ },
+ "orders_per_window_median": 4.0,
+ "multi_fill_orders": 2601,
+ "life_quantiles_multi": [
+  0.0,
+  0.0,
+  1.0,
+  2.0,
+  8.0
+ ],
+ "dfair_abs_quantiles_life>=5s": [
+  0.0029765070073703424,
+  0.007163916488499032,
+  0.035250106779835824,
+  0.16839317562358797
+ ],
+ "dfair_signed_mean_life>=5s": -0.01135067539000495,
+ "n_life>=5s": 73,
+ "dfair_abs_quantiles_random_same_life": [
+  0.003577070670840121,
+  0.009193061902351696,
+  0.08455707368030321,
+  0.30282209129765714
+ ],
+ "last_fill_fair_minus_price_median_life>=5s": 0.019619095298210154,
+ "first_fill_fair_minus_price_median_life>=5s": 0.018959245111687468
+}
