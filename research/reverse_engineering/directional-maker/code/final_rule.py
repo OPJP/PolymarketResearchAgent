@@ -1,4 +1,9 @@
 """Frozen rule for the directional-maker cluster (bosona, almach, mo-money).
+Iteration 16 (no frozen decision changed): evaluate() also reports 'instance_mode' (which wallets run the main BTC
+ladder per 15-min slot; split = one wallet >= 0.80 of the mid-band fills) and 'side_nowcast_match_clock' (per-fill
+side on the live match clock under the Chainlink report and under the nowcast report + futures move since its stamp,
+k 1.0, per wallet and edge band), both from code/r10_mode.py; 'r9_nonbtc_module' also reports the hourly / daily / 4h fills
+against the CLOB prices-history minute mid (posture_prices_history_k1.0; later daily fills 0.74-0.75 on STUDY / VALIDATE).
 Iteration 15 (no frozen decision changed): evaluate() also reports 'r9_nonbtc_module' (code/r9_nonbtc.py): scope of R8's
 universe against every crypto Up/Down family and the side of the cluster's fills outside BTC 5m/15m under unfitted rules
 (in the money under the family's Binance reference at the window open; a fill-price posture as a description). The live
@@ -1162,6 +1167,20 @@ def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_
         res["r9_nonbtc_module"] = r9_nonbtc.report(start_ts, end_ts, intervals=intervals, allow_sealed=ALLOW_SEALED)
     except Exception as ex:
         res["r9_nonbtc_module"] = {"error": repr(ex)[:300]}
+    # iteration 16 (reported, not counted; code/r10_mode.py): the engine-instance mode per 15-min slot (X177: is the main
+    # BTC ladder run by one wallet only?) and the per-fill side on the live match clock under the report and under the
+    # latency-corrected Chainlink nowcast (X178 / X179), per wallet and per edge band.
+    try:
+        sys.path.insert(0, str(HERE))
+        import r10_mode  # noqa: E402
+        res["instance_mode"] = r10_mode.instance_mode(start_ts, end_ts, intervals=intervals, allow_sealed=ALLOW_SEALED)
+    except Exception as ex:
+        res["instance_mode"] = {"error": repr(ex)[:300]}
+    try:
+        res["side_nowcast_match_clock"] = r10_mode.side_nowcast_match_clock(start_ts, end_ts, intervals=intervals,
+                                                                            allow_sealed=ALLOW_SEALED, iter_xq=_iter_live_xq)
+    except Exception as ex:
+        res["side_nowcast_match_clock"] = {"error": repr(ex)[:300]}
     del stats
     return res
 

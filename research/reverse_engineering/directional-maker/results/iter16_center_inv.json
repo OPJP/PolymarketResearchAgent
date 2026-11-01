@@ -1,0 +1,70 @@
+{
+ "1793467740_1793469600": {
+  "units": 437,
+  "share_with_position": 0.84,
+  "share_holding_cheaper": 0.071,
+  "share_holding_favourite": 0.769,
+  "base_edge_cheap": [
+   [
+    -0.0027,
+    0.3022,
+    -0.0139
+   ],
+   0.5478
+  ],
+  "with_inv_sign": [
+   [
+    -0.002,
+    0.2999,
+    -0.0078,
+    0.0018
+   ],
+   0.5482
+  ],
+  "with_inv_sign_and_size_k": [
+   [
+    -0.002,
+    0.3015,
+    -0.0068,
+    0.0006,
+    0.0017
+   ],
+   0.5487
+  ],
+  "center_toward_held_outcome": 0.676
+ },
+ "1793516400_1793524500": {
+  "units": 1138,
+  "share_with_position": 0.547,
+  "share_holding_cheaper": 0.304,
+  "share_holding_favourite": 0.243,
+  "base_edge_cheap": [
+   [
+    0.0014,
+    0.1281,
+    0.0899
+   ],
+   0.1725
+  ],
+  "with_inv_sign": [
+   [
+    -0.0003,
+    0.1221,
+    0.082,
+    0.0144
+   ],
+   0.2072
+  ],
+  "with_inv_sign_and_size_k": [
+   [
+    -0.0002,
+    0.1222,
+    0.0822,
+    0.0146,
+    -0.0005
+   ],
+   0.2073
+  ],
+  "center_toward_held_outcome": 0.638
+ }
+}

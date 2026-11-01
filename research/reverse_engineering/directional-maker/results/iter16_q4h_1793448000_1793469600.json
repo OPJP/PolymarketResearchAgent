@@ -1,0 +1,64 @@
+{
+ "span": [
+  1793448000,
+  1793469600
+ ],
+ "adds": 3148,
+ "scored": 2456,
+ "windows": [
+  "btc-updown-4h-1793448000",
+  "btc-updown-4h-1793462400"
+ ],
+ "posture_k1.0": 0.388,
+ "posture_k2.0": 0.521,
+ "posture_k4.0": 0.59,
+ "cheaper": 0.666,
+ "always_up": 0.649,
+ "at_or_above_touch": 0.03,
+ "dist_below_mid_median": 0.065,
+ "dist_below_mid_iqr": [
+  0.045,
+  0.085
+ ],
+ "touch_minus_add_median": 0.05,
+ "depth_tau_<0.5h": [
+  0.08,
+  1039
+ ],
+ "depth_tau_0.5-1h": [
+  0.055,
+  202
+ ],
+ "depth_tau_1-2h": [
+  0.06,
+  478
+ ],
+ "depth_tau_2-3h": [
+  0.055,
+  462
+ ],
+ "depth_tau_>=3h": [
+  0.055,
+  275
+ ],
+ "depth_mid_0-0.3": [
+  0.055,
+  1127
+ ],
+ "depth_mid_0.3-0.5": [
+  0.055,
+  505
+ ],
+ "depth_mid_0.5-0.7": [
+  0.065,
+  398
+ ],
+ "depth_mid_0.7-1.0": [
+  0.085,
+  426
+ ],
+ "within_tick_mid_minus_0.05": 0.363,
+ "within_tick_mid_minus_0.06": 0.388,
+ "within_tick_mid_minus_0.07": 0.375,
+ "within_tick_touch_minus_0.05": 0.4
+}

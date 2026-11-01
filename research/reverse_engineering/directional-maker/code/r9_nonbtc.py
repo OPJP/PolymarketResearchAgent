@@ -44,6 +44,7 @@ OPEN_S = 20
 K_POSTURE = 1.0
 K_PUBLIC = 0.7          # iteration 15 T1d: opening posture against the last public print (VALIDATE 0.866, STUDY 0.924)
 PUBLIC_PRICE = True
+PRICES_HISTORY = True   # iteration 16 X185: long families vs the CLOB prices-history minute mid (reported)
 
 
 def parse(slug: str):
@@ -241,6 +242,36 @@ def report(start_ts: int, end_ts: int, intervals=None, allow_sealed: bool = Fals
     Fs7 = np.where(up == 1, Fu7, 1 - Fu7)
     nb["posture_public_ok"] = np.where(np.isfinite(Fs7) & np.isfinite(ppub), (Fs7 > ppub).astype(float), np.nan)
     nb["mktfav_public_ok"] = np.where(np.isfinite(ppub) & (ppub != 0.5), (ppub > 0.5).astype(float), np.nan)
+    # iteration 16 X185 (reported): the long families (hourly, daily, 4h) against the CLOB prices-history minute mid of the
+    # bought token (a point stamped t = the mean book mid of [t - 60, t); the last point stamped <= T - 1), posture k 1.0
+    # (later daily fills 0.74-0.75 on STUDY / VALIDATE, market favourite from the same mid 0.51-0.59).
+    pmid = np.full(len(nb), np.nan)
+    if PRICES_HISTORY:
+        try:
+            from concurrent.futures import ThreadPoolExecutor
+            lg = nb[nb.group.isin(["hourly", "daily", "4h"])]
+            toks = lg.groupby(lg.asset.astype(str)).agg(st=("st", "first"), L=("L", "first")).reset_index()
+
+            def _ph(row):
+                try:
+                    pts, _ = pm.price_history(str(row[0]), int(row[1]) - 600, int(row[1] + row[2]) + 60, fidelity_minutes=1)
+                except Exception:  # noqa: BLE001
+                    return str(row[0]), []
+                return str(row[0]), sorted(pts)
+            with ThreadPoolExecutor(3) as ex:
+                hist = dict(ex.map(_ph, toks.itertuples(index=False, name=None)))
+            for tok, g in lg.groupby(lg.asset.astype(str)):
+                pts = hist.get(tok) or []
+                if not pts:
+                    continue
+                tsv = np.array([x[0] for x in pts], np.int64); pv = np.array([x[1] for x in pts], float)
+                kk = np.searchsorted(tsv, g.ts.to_numpy(np.int64) - 1, side="right") - 1
+                okk = (kk >= 0) & (g.ts.to_numpy(np.int64) - tsv[np.clip(kk, 0, None)] <= 600)
+                pmid[g.index] = np.where(okk, pv[np.clip(kk, 0, None)], np.nan)
+        except Exception as ex:  # noqa: BLE001
+            out["prices_history_error"] = repr(ex)[:200]
+    nb["posture_ph_ok"] = np.where(np.isfinite(Fs) & np.isfinite(pmid), (Fs > pmid).astype(float), np.nan)
+    nb["mktfav_ph_ok"] = np.where(np.isfinite(pmid) & (pmid != 0.5), (pmid > 0.5).astype(float), np.nan)
     nb["mktfav_ok"] = np.where(nb.price != 0.5, (nb.price > 0.5).astype(float), np.nan)
     nb["cheap_ok"] = np.where(nb.price != 0.5, (nb.price < 0.5).astype(float), np.nan)
     nb["up_ok"] = up
@@ -249,7 +280,9 @@ def report(start_ts: int, end_ts: int, intervals=None, allow_sealed: bool = Fals
     def agg(g):
         return {"n": int(len(g)), "itm": _m(g.itm_ok), "posture_public_k0.7": _m(g.posture_public_ok), "mktfav_public": _m(g.mktfav_public_ok),
                 "n_public": int(g.posture_public_ok.notna().sum()), "posture_fillprice": _m(g.post_fp_ok), "mktfav": _m(g.mktfav_ok),
-                "cheaper": _m(g.cheap_ok), "always_up": _m(g.up_ok), "usd": round(float(g.usd.sum()), 1)}
+                "cheaper": _m(g.cheap_ok), "always_up": _m(g.up_ok), "usd": round(float(g.usd.sum()), 1),
+                "posture_prices_history_k1.0": _m(g.posture_ph_ok), "mktfav_prices_history": _m(g.mktfav_ph_ok),
+                "n_prices_history": int(g.posture_ph_ok.notna().sum())}
     res = {"all": agg(nb), "open": agg(nb[nb.phase == "open"]), "later": agg(nb[nb.phase == "later"]),
            "by_group_phase": {f"{k[0]}|{k[1]}": agg(g) for k, g in nb.groupby(["group", "phase"])},
            "per_wallet": {w: agg(g) for w, g in nb.groupby("wallet")},

@@ -1,0 +1,283 @@
+{
+ "span": [
+  1793512800,
+  1793525100
+ ],
+ "n": 455,
+ "all_all": {
+  "touch": [
+   0.743,
+   455
+  ],
+  "touch_m1": [
+   0.749,
+   455
+  ],
+  "ask_m1": [
+   0.727,
+   455
+  ],
+  "r7_last_m1": [
+   0.888,
+   455
+  ],
+  "last": [
+   0.807,
+   455
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "all_mid": {
+  "touch": [
+   0.703,
+   316
+  ],
+  "touch_m1": [
+   0.69,
+   316
+  ],
+  "ask_m1": [
+   0.68,
+   316
+  ],
+  "r7_last_m1": [
+   0.886,
+   316
+  ],
+  "last": [
+   0.82,
+   316
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "alt-5m/15m_all": {
+  "touch": [
+   0.722,
+   72
+  ],
+  "touch_m1": [
+   0.611,
+   72
+  ],
+  "ask_m1": [
+   0.597,
+   72
+  ],
+  "r7_last_m1": [
+   0.556,
+   72
+  ],
+  "last": [
+   0.431,
+   72
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "alt-5m/15m_mid": {
+  "touch": [
+   0.75,
+   48
+  ],
+  "touch_m1": [
+   0.646,
+   48
+  ],
+  "ask_m1": [
+   0.604,
+   48
+  ],
+  "r7_last_m1": [
+   0.521,
+   48
+  ],
+  "last": [
+   0.396,
+   48
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "btc-5m/15m_all": {
+  "touch": [
+   0.747,
+   383
+  ],
+  "touch_m1": [
+   0.775,
+   383
+  ],
+  "ask_m1": [
+   0.752,
+   383
+  ],
+  "r7_last_m1": [
+   0.95,
+   383
+  ],
+  "last": [
+   0.877,
+   383
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "btc-5m/15m_mid": {
+  "touch": [
+   0.694,
+   268
+  ],
+  "touch_m1": [
+   0.698,
+   268
+  ],
+  "ask_m1": [
+   0.694,
+   268
+  ],
+  "r7_last_m1": [
+   0.951,
+   268
+  ],
+  "last": [
+   0.896,
+   268
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "wallet_almach_all": {
+  "touch": [
+   0.843,
+   51
+  ],
+  "touch_m1": [
+   0.882,
+   51
+  ],
+  "ask_m1": [
+   0.784,
+   51
+  ],
+  "r7_last_m1": [
+   0.843,
+   51
+  ],
+  "last": [
+   0.725,
+   51
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "wallet_almach_mid": {
+  "touch": [
+   0.833,
+   24
+  ],
+  "touch_m1": [
+   0.833,
+   24
+  ],
+  "ask_m1": [
+   0.75,
+   24
+  ],
+  "r7_last_m1": [
+   0.792,
+   24
+  ],
+  "last": [
+   0.667,
+   24
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "wallet_bosona_all": {
+  "touch": [
+   0.762,
+   320
+  ],
+  "touch_m1": [
+   0.772,
+   320
+  ],
+  "ask_m1": [
+   0.75,
+   320
+  ],
+  "r7_last_m1": [
+   0.897,
+   320
+  ],
+  "last": [
+   0.812,
+   320
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "wallet_bosona_mid": {
+  "touch": [
+   0.732,
+   228
+  ],
+  "touch_m1": [
+   0.719,
+   228
+  ],
+  "ask_m1": [
+   0.711,
+   228
+  ],
+  "r7_last_m1": [
+   0.895,
+   228
+  ],
+  "last": [
+   0.82,
+   228
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "wallet_momoney_all": {
+  "touch": [
+   0.607,
+   84
+  ],
+  "touch_m1": [
+   0.583,
+   84
+  ],
+  "ask_m1": [
+   0.607,
+   84
+  ],
+  "r7_last_m1": [
+   0.881,
+   84
+  ],
+  "last": [
+   0.833,
+   84
+  ],
+  "price_minus_touch_median": 0.0
+ },
+ "wallet_momoney_mid": {
+  "touch": [
+   0.547,
+   64
+  ],
+  "touch_m1": [
+   0.531,
+   64
+  ],
+  "ask_m1": [
+   0.547,
+   64
+  ],
+  "r7_last_m1": [
+   0.891,
+   64
+  ],
+  "last": [
+   0.875,
+   64
+  ],
+  "price_minus_touch_median": 0.0
+ }
+}

@@ -1,0 +1,85 @@
+{
+ "fills": 5914,
+ "with_mid": 5914,
+ "tokens": 864,
+ "STUDY_hourly": {
+  "n": 1785,
+  "posture_mid_k1.0": 0.625,
+  "market_favourite_mid": 0.705,
+  "cheaper_mid": 0.292,
+  "price_mid_m1": 0.257,
+  "price_mid": 0.262,
+  "price_mid_m2": 0.221,
+  "fill_minus_mid_median": -0.005
+ },
+ "STUDY_daily": {
+  "n": 717,
+  "posture_mid_k1.0": 0.753,
+  "market_favourite_mid": 0.593,
+  "cheaper_mid": 0.403,
+  "price_mid_m1": 0.523,
+  "price_mid": 0.548,
+  "price_mid_m2": 0.368,
+  "fill_minus_mid_median": -0.005
+ },
+ "STUDY_4h": {
+  "n": 594,
+  "posture_mid_k1.0": 0.704,
+  "market_favourite_mid": 0.771,
+  "cheaper_mid": 0.221,
+  "price_mid_m1": 0.444,
+  "price_mid": 0.365,
+  "price_mid_m2": 0.411,
+  "fill_minus_mid_median": -0.02
+ },
+ "STUDY_all": {
+  "n": 3096,
+  "posture_mid_k1.0": 0.67,
+  "market_favourite_mid": 0.692,
+  "cheaper_mid": 0.304,
+  "price_mid_m1": 0.354,
+  "price_mid": 0.348,
+  "price_mid_m2": 0.291,
+  "fill_minus_mid_median": -0.01
+ },
+ "VALIDATE_hourly": {
+  "n": 1395,
+  "posture_mid_k1.0": 0.515,
+  "market_favourite_mid": 0.564,
+  "cheaper_mid": 0.43,
+  "price_mid_m1": 0.315,
+  "price_mid": 0.292,
+  "price_mid_m2": 0.257,
+  "fill_minus_mid_median": -0.015
+ },
+ "VALIDATE_daily": {
+  "n": 953,
+  "posture_mid_k1.0": 0.736,
+  "market_favourite_mid": 0.513,
+  "cheaper_mid": 0.485,
+  "price_mid_m1": 0.452,
+  "price_mid": 0.485,
+  "price_mid_m2": 0.344,
+  "fill_minus_mid_median": -0.005
+ },
+ "VALIDATE_4h": {
+  "n": 470,
+  "posture_mid_k1.0": 0.547,
+  "market_favourite_mid": 0.547,
+  "cheaper_mid": 0.443,
+  "price_mid_m1": 0.434,
+  "price_mid": 0.298,
+  "price_mid_m2": 0.457,
+  "fill_minus_mid_median": -0.02
+ },
+ "VALIDATE_all": {
+  "n": 2818,
+  "posture_mid_k1.0": 0.595,
+  "market_favourite_mid": 0.544,
+  "cheaper_mid": 0.451,
+  "price_mid_m1": 0.381,
+  "price_mid": 0.358,
+  "price_mid_m2": 0.32,
+  "fill_minus_mid_median": -0.015
+ }
+}

@@ -1,0 +1,655 @@
+{
+ "rule": "split = one wallet >= 0.80 of mid-band BTC 5m+15m BUY fills in a 15-min slot with >= 20 of them",
+ "BUILD": {
+  "slots": 1016,
+  "split_slots": 9,
+  "split_share": 0.009,
+  "median_top_share": 0.44,
+  "split_by_wallet": {
+   "momoney": 6,
+   "bosona": 2,
+   "almach": 1
+  }
+ },
+ "STUDY": {
+  "slots": 147,
+  "split_slots": 0,
+  "split_share": 0.0,
+  "median_top_share": 0.436,
+  "split_by_wallet": {}
+ },
+ "VALIDATE": {
+  "slots": 319,
+  "split_slots": 0,
+  "split_share": 0.0,
+  "median_top_share": 0.429,
+  "split_by_wallet": {}
+ },
+ "dev": {
+  "slots": 49,
+  "split_slots": 5,
+  "split_share": 0.102,
+  "median_top_share": 0.482,
+  "split_by_wallet": {
+   "bosona": 5
+  }
+ },
+ "dev_slots": [
+  {
+   "slot": "10-31 00:00",
+   "n": 175,
+   "bosona": 65,
+   "almach": 47,
+   "momoney": 63,
+   "split": false
+  },
+  {
+   "slot": "10-31 00:15",
+   "n": 72,
+   "bosona": 34,
+   "almach": 23,
+   "momoney": 15,
+   "split": false
+  },
+  {
+   "slot": "10-31 00:30",
+   "n": 80,
+   "bosona": 25,
+   "almach": 28,
+   "momoney": 27,
+   "split": false
+  },
+  {
+   "slot": "10-31 00:45",
+   "n": 93,
+   "bosona": 28,
+   "almach": 36,
+   "momoney": 29,
+   "split": false
+  },
+  {
+   "slot": "10-31 01:00",
+   "n": 56,
+   "bosona": 9,
+   "almach": 27,
+   "momoney": 20,
+   "split": false
+  },
+  {
+   "slot": "10-31 01:15",
+   "n": 28,
+   "bosona": 3,
+   "almach": 7,
+   "momoney": 18,
+   "split": false
+  },
+  {
+   "slot": "10-31 01:30",
+   "n": 56,
+   "bosona": 16,
+   "almach": 14,
+   "momoney": 26,
+   "split": false
+  },
+  {
+   "slot": "10-31 02:00",
+   "n": 64,
+   "bosona": 18,
+   "almach": 27,
+   "momoney": 19,
+   "split": false
+  },
+  {
+   "slot": "10-31 02:15",
+   "n": 76,
+   "bosona": 21,
+   "almach": 28,
+   "momoney": 27,
+   "split": false
+  },
+  {
+   "slot": "10-31 02:30",
+   "n": 35,
+   "bosona": 14,
+   "almach": 8,
+   "momoney": 13,
+   "split": false
+  },
+  {
+   "slot": "10-31 02:45",
+   "n": 23,
+   "bosona": 9,
+   "almach": 5,
+   "momoney": 9,
+   "split": false
+  },
+  {
+   "slot": "10-31 03:00",
+   "n": 28,
+   "bosona": 2,
+   "almach": 21,
+   "momoney": 5,
+   "split": false
+  },
+  {
+   "slot": "10-31 03:30",
+   "n": 22,
+   "bosona": 3,
+   "almach": 6,
+   "momoney": 13,
+   "split": false
+  },
+  {
+   "slot": "10-31 04:15",
+   "n": 31,
+   "bosona": 12,
+   "almach": 7,
+   "momoney": 12,
+   "split": false
+  },
+  {
+   "slot": "10-31 04:30",
+   "n": 29,
+   "bosona": 8,
+   "almach": 10,
+   "momoney": 11,
+   "split": false
+  },
+  {
+   "slot": "10-31 04:45",
+   "n": 68,
+   "bosona": 16,
+   "almach": 19,
+   "momoney": 33,
+   "split": false
+  },
+  {
+   "slot": "10-31 05:00",
+   "n": 70,
+   "bosona": 22,
+   "almach": 22,
+   "momoney": 26,
+   "split": false
+  },
+  {
+   "slot": "10-31 05:15",
+   "n": 28,
+   "bosona": 12,
+   "almach": 6,
+   "momoney": 10,
+   "split": false
+  },
+  {
+   "slot": "10-31 05:30",
+   "n": 62,
+   "bosona": 25,
+   "almach": 12,
+   "momoney": 25,
+   "split": false
+  },
+  {
+   "slot": "10-31 05:45",
+   "n": 123,
+   "bosona": 45,
+   "almach": 32,
+   "momoney": 46,
+   "split": false
+  },
+  {
+   "slot": "10-31 13:00",
+   "n": 52,
+   "bosona": 11,
+   "almach": 34,
+   "momoney": 7,
+   "split": false
+  },
+  {
+   "slot": "10-31 13:15",
+   "n": 55,
+   "bosona": 11,
+   "almach": 35,
+   "momoney": 9,
+   "split": false
+  },
+  {
+   "slot": "10-31 13:30",
+   "n": 23,
+   "bosona": 17,
+   "almach": 0,
+   "momoney": 6,
+   "split": false
+  },
+  {
+   "slot": "10-31 13:45",
+   "n": 86,
+   "bosona": 29,
+   "almach": 32,
+   "momoney": 25,
+   "split": false
+  },
+  {
+   "slot": "10-31 14:00",
+   "n": 39,
+   "bosona": 19,
+   "almach": 8,
+   "momoney": 12,
+   "split": false
+  },
+  {
+   "slot": "10-31 14:15",
+   "n": 50,
+   "bosona": 16,
+   "almach": 20,
+   "momoney": 14,
+   "split": false
+  },
+  {
+   "slot": "10-31 14:30",
+   "n": 25,
+   "bosona": 2,
+   "almach": 6,
+   "momoney": 17,
+   "split": false
+  },
+  {
+   "slot": "10-31 14:45",
+   "n": 122,
+   "bosona": 23,
+   "almach": 60,
+   "momoney": 39,
+   "split": false
+  },
+  {
+   "slot": "10-31 15:00",
+   "n": 69,
+   "bosona": 18,
+   "almach": 34,
+   "momoney": 17,
+   "split": false
+  },
+  {
+   "slot": "10-31 15:15",
+   "n": 60,
+   "bosona": 11,
+   "almach": 17,
+   "momoney": 32,
+   "split": false
+  },
+  {
+   "slot": "10-31 15:30",
+   "n": 154,
+   "bosona": 63,
+   "almach": 66,
+   "momoney": 25,
+   "split": false
+  },
+  {
+   "slot": "10-31 15:45",
+   "n": 540,
+   "bosona": 171,
+   "almach": 160,
+   "momoney": 209,
+   "split": false
+  },
+  {
+   "slot": "10-31 16:00",
+   "n": 294,
+   "bosona": 55,
+   "almach": 91,
+   "momoney": 148,
+   "split": false
+  },
+  {
+   "slot": "10-31 16:15",
+   "n": 311,
+   "bosona": 103,
+   "almach": 100,
+   "momoney": 108,
+   "split": false
+  },
+  {
+   "slot": "10-31 16:30",
+   "n": 60,
+   "bosona": 6,
+   "almach": 17,
+   "momoney": 37,
+   "split": false
+  },
+  {
+   "slot": "10-31 16:45",
+   "n": 89,
+   "bosona": 22,
+   "almach": 28,
+   "momoney": 39,
+   "split": false
+  },
+  {
+   "slot": "10-31 17:00",
+   "n": 74,
+   "bosona": 12,
+   "almach": 34,
+   "momoney": 28,
+   "split": false
+  },
+  {
+   "slot": "10-31 17:15",
+   "n": 27,
+   "bosona": 9,
+   "almach": 18,
+   "momoney": 0,
+   "split": false
+  },
+  {
+   "slot": "10-31 17:30",
+   "n": 25,
+   "bosona": 8,
+   "almach": 8,
+   "momoney": 9,
+   "split": false
+  },
+  {
+   "slot": "10-31 17:45",
+   "n": 23,
+   "bosona": 7,
+   "almach": 9,
+   "momoney": 7,
+   "split": false
+  },
+  {
+   "slot": "11-01 07:00",
+   "n": 35,
+   "bosona": 35,
+   "almach": 0,
+   "momoney": 0,
+   "split": true
+  },
+  {
+   "slot": "11-01 07:15",
+   "n": 28,
+   "bosona": 20,
+   "almach": 5,
+   "momoney": 3,
+   "split": false
+  },
+  {
+   "slot": "11-01 07:30",
+   "n": 84,
+   "bosona": 82,
+   "almach": 2,
+   "momoney": 0,
+   "split": true
+  },
+  {
+   "slot": "11-01 07:45",
+   "n": 33,
+   "bosona": 33,
+   "almach": 0,
+   "momoney": 0,
+   "split": true
+  },
+  {
+   "slot": "11-01 08:00",
+   "n": 24,
+   "bosona": 24,
+   "almach": 0,
+   "momoney": 0,
+   "split": true
+  },
+  {
+   "slot": "11-01 08:15",
+   "n": 48,
+   "bosona": 48,
+   "almach": 0,
+   "momoney": 0,
+   "split": true
+  },
+  {
+   "slot": "11-01 08:30",
+   "n": 37,
+   "bosona": 21,
+   "almach": 4,
+   "momoney": 12,
+   "split": false
+  },
+  {
+   "slot": "11-01 08:45",
+   "n": 97,
+   "bosona": 53,
+   "almach": 11,
+   "momoney": 33,
+   "split": false
+  },
+  {
+   "slot": "11-01 09:00",
+   "n": 41,
+   "bosona": 25,
+   "almach": 4,
+   "momoney": 12,
+   "split": false
+  }
+ ],
+ "deep_share": {
+  "almach": {
+   "BUILD": 0.155,
+   "STUDY": 0.146,
+   "VALIDATE": 0.307,
+   "dev": 0.212
+  },
+  "bosona": {
+   "BUILD": 0.188,
+   "STUDY": 0.157,
+   "VALIDATE": 0.293,
+   "dev": 0.229
+  },
+  "momoney": {
+   "BUILD": 0.152,
+   "STUDY": 0.138,
+   "VALIDATE": 0.307,
+   "dev": 0.202
+  }
+ },
+ "fills": {
+  "almach": {
+   "BUILD": 27756,
+   "STUDY": 3134,
+   "VALIDATE": 10236,
+   "dev": 1532
+  },
+  "bosona": {
+   "BUILD": 28816,
+   "STUDY": 3413,
+   "VALIDATE": 10645,
+   "dev": 1784
+  },
+  "momoney": {
+   "BUILD": 31297,
+   "STUDY": 3339,
+   "VALIDATE": 10796,
+   "dev": 1655
+  }
+ },
+ "dev_blocks": {
+  "10-31 00": {
+   "almach": {
+    "mid": 399,
+    "deep": 108,
+    "first": "00:00:48",
+    "median_price": 0.44
+   },
+   "bosona": {
+    "mid": 414,
+    "deep": 137,
+    "first": "00:00:48",
+    "median_price": 0.45
+   },
+   "momoney": {
+    "mid": 460,
+    "deep": 130,
+    "first": "00:00:49",
+    "median_price": 0.46
+   }
+  },
+  "10-31 12": {
+   "almach": {
+    "mid": 782,
+    "deep": 154,
+    "first": "12:00:27",
+    "median_price": 0.48
+   },
+   "bosona": {
+    "mid": 620,
+    "deep": 147,
+    "first": "12:03:03",
+    "median_price": 0.47
+   },
+   "momoney": {
+    "mid": 801,
+    "deep": 162,
+    "first": "12:03:00",
+    "median_price": 0.47
+   }
+  },
+  "11-01 06": {
+   "almach": {
+    "mid": 26,
+    "deep": 63,
+    "first": "07:15:03",
+    "median_price": 0.06
+   },
+   "bosona": {
+    "mid": 341,
+    "deep": 125,
+    "first": "07:00:48",
+    "median_price": 0.33
+   },
+   "momoney": {
+    "mid": 60,
+    "deep": 42,
+    "first": "07:15:03",
+    "median_price": 0.47
+   }
+  }
+ },
+ "dev_hourly": {
+  "10-31 00": {
+   "almach_deep": 32,
+   "almach_mid": 134,
+   "bosona_deep": 17,
+   "bosona_mid": 152,
+   "momoney_deep": 10,
+   "momoney_mid": 134
+  },
+  "10-31 01": {
+   "almach_deep": 14,
+   "almach_mid": 54,
+   "bosona_deep": 12,
+   "bosona_mid": 36,
+   "momoney_deep": 28,
+   "momoney_mid": 69
+  },
+  "10-31 02": {
+   "almach_deep": 6,
+   "almach_mid": 68,
+   "bosona_deep": 28,
+   "bosona_mid": 62,
+   "momoney_deep": 12,
+   "momoney_mid": 68
+  },
+  "10-31 03": {
+   "almach_deep": 21,
+   "almach_mid": 34,
+   "bosona_deep": 43,
+   "bosona_mid": 24,
+   "momoney_deep": 33,
+   "momoney_mid": 26
+  },
+  "10-31 04": {
+   "almach_deep": 10,
+   "almach_mid": 37,
+   "bosona_deep": 23,
+   "bosona_mid": 36,
+   "momoney_deep": 15,
+   "momoney_mid": 56
+  },
+  "10-31 05": {
+   "almach_deep": 25,
+   "almach_mid": 72,
+   "bosona_deep": 14,
+   "bosona_mid": 104,
+   "momoney_deep": 32,
+   "momoney_mid": 107
+  },
+  "10-31 12": {
+   "almach_deep": 6,
+   "almach_mid": 5,
+   "bosona_deep": 23,
+   "bosona_mid": 7,
+   "momoney_deep": 22,
+   "momoney_mid": 13
+  },
+  "10-31 13": {
+   "almach_deep": 39,
+   "almach_mid": 101,
+   "bosona_deep": 24,
+   "bosona_mid": 68,
+   "momoney_deep": 22,
+   "momoney_mid": 47
+  },
+  "10-31 14": {
+   "almach_deep": 30,
+   "almach_mid": 94,
+   "bosona_deep": 16,
+   "bosona_mid": 60,
+   "momoney_deep": 51,
+   "momoney_mid": 82
+  },
+  "10-31 15": {
+   "almach_deep": 48,
+   "almach_mid": 277,
+   "bosona_deep": 30,
+   "bosona_mid": 263,
+   "momoney_deep": 44,
+   "momoney_mid": 283
+  },
+  "10-31 16": {
+   "almach_deep": 29,
+   "almach_mid": 236,
+   "bosona_deep": 51,
+   "bosona_mid": 186,
+   "momoney_deep": 20,
+   "momoney_mid": 332
+  },
+  "10-31 17": {
+   "almach_deep": 2,
+   "almach_mid": 69,
+   "bosona_deep": 3,
+   "bosona_mid": 36,
+   "momoney_deep": 3,
+   "momoney_mid": 44
+  },
+  "11-01 07": {
+   "almach_deep": 13,
+   "almach_mid": 7,
+   "bosona_deep": 64,
+   "bosona_mid": 170,
+   "momoney_deep": 19,
+   "momoney_mid": 3
+  },
+  "11-01 08": {
+   "almach_deep": 50,
+   "almach_mid": 15,
+   "bosona_deep": 59,
+   "bosona_mid": 146,
+   "momoney_deep": 23,
+   "momoney_mid": 45
+  },
+  "11-01 09": {
+   "almach_deep": 0,
+   "almach_mid": 4,
+   "bosona_deep": 2,
+   "bosona_mid": 25,
+   "momoney_deep": 0,
+   "momoney_mid": 12
+  }
+ }
+}
