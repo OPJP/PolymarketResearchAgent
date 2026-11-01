@@ -1,4 +1,46 @@
-# directional-maker: frozen rule R8 (iteration 12 = R7 + the window state-machine side; iteration 13: unchanged, burst-start reporting added)
+# directional-maker: frozen rule R8 (iteration 12 = R7 + the window state-machine side; iterations 13-14: unchanged, reporting blocks added)
+
+**Iteration 14 (pivot: the uncensored quote unit and event time; no frozen decision changed; R8 stays; two reported
+blocks added: `quote_unit_side` and `quote_presence_event_time`).** `evaluate()` now also reports the side of the
+uncensored quote: every 500 / 1000 post at the touch of a BTC 5m / 15m window in the exam recorder dx_clob, scored
+against the posture computed AT THE POST from the latest Chainlink report PUBLISHED before it (the streaming recorder's
+publish ms where it exists, else the point-in-time-safe stamp lag 1,432 ms; priceToBeat; sigma = 1.0 x the 300-s Binance
+USD-M mid sigma; `code14/qu_dx.py`), and the event-time presence of those posts per (window, outcome, second) from
+frozen LightGBM models fitted on 10-31 14-16 with point-in-time-safe inputs (`code14/x160_block.py`,
+`code14/models/quote_presence_*.txt`; rule vs the activity-only model of the same class). Tag: VALIDATE-only (one
+block). These describe the decoded quote, not fills; the per-fill metrics are unchanged.
+What iteration 14 established (details in NOTES, results/iter14_*.json):
+- **Side of the uncensored quote (VALIDATE-only, one block):** at-touch 500/1000 posts follow the posture from the latest
+  published report at **0.831** on the 585 posts with exact publish times (17:29-18:00 on the full-depth book; every fixed
+  stamp lag scores 0.78-0.79 on the same posts), and at 0.75-0.76 with the point-in-time-safe fixed lag on 14-18
+  (baselines: always-Up 0.51, cheaper 0.44, "the outcome whose mid rose over 1 s" 0.65). A 1.0-s stamp lag gives 0.815 /
+  0.811 but can use a report up to ~0.5 s before its public publish (publish delay q10 0.79 s, median 1.09 s, q90 1.47 s),
+  so it is not counted. The exam-recorder form is noisier (0.742 on 15:53-18:00; its touch comes only with schedule-size
+  deltas). The 62/250 posts at the touch are at chance (0.51, n 521). Own inventory does not set the quote's side.
+- **The fills are a selected subset of the quote:** per filled order the match-clock posture keeps its R8 form (0.855 /
+  0.815) and is higher than on the quote unit because the takers fill the posture-side posts. The "fell" law of the
+  mechanics panel (class-(i) fills on the outcome that fell 0.90-1.00) is reversed on unfilled posts (the engine re-posts
+  at the touch on the outcome that ROSE after a futures move, 0.72-0.82): fill selection, not the engine's rule. A
+  futures two-regime rule adds <= +0.01 per fill; the class-(ii) volatility scale is not identifiable out of sample.
+- **Presence at event time:** (window, outcome, 1-s) fill presence 0.805 vs activity 0.774 (gain +0.031): the gain is the
+  same as on 10-s bins. **Quote presence** on the same panel (label: an at-touch 500/1000 post on the outcome in the
+  second; the brief's "order resting" unit) with point-in-time-safe inputs: 0.701 vs activity 0.672 (Chainlink-only
+  0.717): gain +0.029 / +0.045, the same as fills. (A first run with a 1.0-s stamp lag showed +0.090; that lag reads the
+  report published inside the label second, so it was look-ahead and is withdrawn.)
+- **Selection by quote geometry:** fixed score 0.558; activity + posture + price geometry 0.742 (recall 0.42 at lift 3).
+- **Order life cycle in the replay:** one taker batch per order raises a strict replay's return by 5-7 points (VALIDATE
+  -16.6% -> -10.7%) but not its window correlation (0.213 / 0.214; oracle ceiling 0.47-0.53).
+- **Selection (own state, reported):** BTC 5m switch-offs follow drawdowns since the 01:00 restart (AUC 0.82-0.93, 7
+  events) at no fixed level ($1.1k-$14.6k), plus scheduled-looking switch-offs at ~18:15-18:30 ET on weekend evenings.
+- **Scope on the exam lot:** on the latest weekend analogs (10-24/25) R8's universe holds 0.00-0.72 of trades and dollars;
+  with BTC 5m/15m off the cluster runs small non-schedule orders on BTC 4h/hourly/daily, ETH and XRP. Only a universe of
+  every crypto Up/Down family (1.00) meets the scope bar on those blocks; R9 (X161) is not built yet. Operational event:
+  no BTC/ETH 5m-15m windows were listed for 11-01 ~05:00-06:59 UTC (the US DST fall-back hour).
+- **Who paid:** in September (+8.3% per $) the profit was spread over all taker populations; in October (+0.6%) the
+  top-20 September counterparties' share of its fills fell 63% and its fills against round-USD retail moved from the
+  cheaper token (0.70) to the favourite (0.49) and lost 11%.
+- **Data:** GMX v2 on Arbitrum (arb1.arbitrum.io) emits the Chainlink Data Streams BTC value on chain, equal to the RTDS
+  value to the cent, but only ~3 BTC stamps per 10 minutes.
 
 **Iteration 13 (no frozen decision changed; R8 stays; one reporting block added).** `code/side_sm.py` now also reports the
 side per burst start (`side_state_machine.per_burst_start`, all starts and starts after a gap of >= 30 s; burst =
@@ -151,6 +193,11 @@ Historical VALIDATE (2026-10-27..30; aggregate only), union BTC 5m + 15m (`code8
 Scope per 6-hour block (iteration 9, every development block 10-08..10-31): R6's universe meets 0.80 of trades and dollars
 in 34% of blocks; + BTC 4h 45%; + BTC hourly/daily 62%; + ETH 89%; every crypto Up/Down family 100%.
 
+Quote unit (iteration 14, reported as `quote_unit_side` and `quote_presence_event_time`; VALIDATE-only on one block):
+side of every 500/1000 post at the touch from the latest published report 0.831 (585 posts with exact publish times),
+0.75-0.76 with the point-in-time-safe fixed lag, 0.742 from the exam recorder (15:53-18:00); event-time post presence
+0.701 vs 0.672 activity (gain +0.029).
+
 Live (development block 10-31 12:00-18:00 UTC, match clock, through `evaluate()` and `code9/vol_live.py`): per-fill side
 0.786 (15:00-16:30 0.836, the pre-registered live VALIDATE), match-clock price 0.82-0.86, 5m presence 0.71 vs 0.66-0.68
 activity, union presence 0.775 vs 0.750.
@@ -220,6 +267,14 @@ mints) fill its bid on the other at the touch; a slower copy only gets the trade
 
 Iteration 13 adds the time dimension of the economics. On a pre-registered sample of the stable weeks (BTC 5m windows of the hours 02/08/14/20, 09-11..10-11) its maker fills earned +9.3% (09-11..25) and +7.4% (09-26..10-11) per dollar held to resolution, against +0.6% on the same hours of 10-12..22; in those profitable weeks it bought the cheaper token on 71% of fills (09-11..25) and its side did not follow the Chainlink posture (0.49). So the money of the stable version came from buying below the outcome probability on whichever side the takers sold, mostly the underdog by count and the favourite by dollars (assumptions panel F2), and the Chainlink-skewed quoting is the configuration that ran while the return fell. On the live block, the fills split into quote moves to the touch (73%, side = the Chainlink posture 0.81) and resting rungs about 2 c below the touch that the takers sweep (27%, side = the book's lean, not the posture): the second group is paid by takers who push one outcome down through several price levels in one block.
 
+Iteration 14 adds the counterparties of the profitable version (pre-registered stable sample, 34,410 maker fills joined
+to their takers). In September it earned +8.3% per $ from all three taker populations alike (round-USD retail +9.2%, the
+top-20 counterparties +11.4%, the rest +6.6%), mostly by buying the cheaper token below its probability. In October
+(+0.6%) the top-20 counterparties' share of its fills fell 63%, and against unchanged retail flow its fills moved to the
+favourite (cheaper share 0.70 -> 0.49) and lost 11%. The engine's quote is a mid-pegged ladder skewed to the Chainlink
+report just published: it follows the posture at 0.75-0.83 per at-touch post (0.83 on the exact publish clock), and the
+takers then choose which posts fill.
+
 ## Can a normal user deploy it now
 
 Not from the public-data rule. The tape-only version lost 12.8% under strict fills at 2-s latency in exam round 1. What it
@@ -233,6 +288,13 @@ on BTC 5m (10-31), and its operator switched BTC 5m off and restarted two of the
 Iteration 13: the configuration that earned 7-9% per dollar in September (module always on, underdog-heavy fills) is no longer what runs; the October configuration earned +0.6% per dollar on the October BUILD sample hours before rebates, and the operator updates the engine within 1-3 days of listing changes (the last-fill time moved from ~45 s to ~100 s before the end when the settlement switched to TWAP-60). A replicator would be copying a moving target whose current version earns little before rebates.
 
 ## Open leads (not part of the frozen rule)
+
+- X160: replicate the quote-unit side (latest published report, k 1.0) and the safe event-time quote presence on the
+  next development blocks with BTC books and dy_rtds publish times (11-01 07:00-12:00, 18-24), including the 62/250 posts
+  (`code14/x160_block.py <start> <end>`).
+- X161 / X151: R9, a family-general universe for the weekend exam blocks (every crypto Up/Down family: R7 price, the R8
+  public side with the cheaper-token branch where no Chainlink series exists, presence by transfer of the R3 class), frozen
+  before it is scored on the weekend analogs.
 
 - X102 (information panel I10-2): print-level selection with the settlement-grade reference on the lot. A pre-registered
   queue (`code11/queue_x102.py`: consecutive window pairs i = 0, 16, ..., 272 of every lot day, every even second of

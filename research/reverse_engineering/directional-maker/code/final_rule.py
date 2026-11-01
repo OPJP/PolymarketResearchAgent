@@ -1,5 +1,15 @@
 """Frozen rule for the directional-maker cluster (bosona, almach, mo-money).
 
+Iteration 14 (no frozen decision changed): evaluate() also reports 'quote_unit_side' (code14/qu_dx.py), the side of the
+uncensored quote: every 500 / 1000 post at the touch of a BTC 5m / 15m window in the exam recorder dx_clob, against the
+posture at the post from the latest Chainlink report published before it (dy_rtds publish ms where recorded, else the
+point-in-time-safe stamp lag 1,432 ms; priceToBeat; 1.0 x the 300-s Binance USD-M mid sigma from dx_bnf / dm_bnf).
+10-31: 0.831 on the 585 posts with exact publish ms, 0.75-0.76 with the fixed safe lag; reported, VALIDATE-only.
+It also reports 'quote_presence_event_time' (code14/x160_block.py): the event-time presence of those posts per (window,
+outcome, second) from frozen LightGBM models fitted on 10-31 14-16 with point-in-time-safe inputs (code14/models/),
+rule vs activity-only baseline (10-31 16-18: 0.701 vs 0.672).
+Reads recordings through iter_live(..., allow_sealed=ALLOW_SEALED).
+
 Iteration 12 rule R8 = R7 (below, unchanged) + the window state-machine side, reported as 'side_state_machine' (BTC 5m)
 and 'btc15m.side_state_machine' (code/side_sm.py, block clock, no recordings): decided window (|Up mid - 0.5| > 0.4 at
 b - 3) -> the cheaper token; no cluster position in the window -> the Chainlink posture (stamp b - 4, Gamma strike,
@@ -1109,6 +1119,25 @@ def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_
         res["side_posture_match_clock"] = side_posture_match_clock(mk_all, w_all, start_ts, end_ts, sp)
     except Exception as ex:  # the live part must never break the tape evaluation
         res["side_posture_match_clock"] = {"error": repr(ex)[:300]}
+    # iteration 14 (reported, VALIDATE-only; not a target metric by itself): the side of the uncensored quote, i.e. every
+    # 500 / 1000 post at the touch of a BTC 5m / 15m window in the exam recorder dx_clob, against the frozen posture
+    # (latest Chainlink report published before the post, else stamp <= t - 1,432 ms; priceToBeat; 1.0 x 300-s Binance
+    # USD-M mid sigma); code14/qu_dx.py.
+    try:
+        sys.path.insert(0, str(HERE.parent / "code14"))
+        import qu_dx  # noqa: E402
+        res["quote_unit_side"] = qu_dx.quote_unit_side(start_ts, end_ts, allow_sealed=ALLOW_SEALED, intervals=intervals)
+    except Exception as ex:  # recordings may be missing; never break the evaluation
+        res["quote_unit_side"] = {"error": repr(ex)[:300]}
+    # iteration 14 (reported, VALIDATE-only): event-time QUOTE presence, P(an at-touch 500/1000 post on the outcome in
+    # [T, T+1)) per (BTC 5m / 15m window, outcome, second), frozen LightGBM models fitted on 10-31 14-16 (code14/models/),
+    # rule (activity + Chainlink / futures reference) vs the activity-only baseline of the same class; code14/x160_block.py.
+    try:
+        import x160_block  # noqa: E402
+        res["quote_presence_event_time"] = x160_block.quote_presence(start_ts, end_ts, allow_sealed=ALLOW_SEALED,
+                                                                     intervals=intervals, with_side=False)
+    except Exception as ex:
+        res["quote_presence_event_time"] = {"error": repr(ex)[:300]}
     del stats
     return res
 

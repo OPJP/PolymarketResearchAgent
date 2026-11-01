@@ -1,0 +1,257 @@
+{
+ "rows": 220994,
+ "markets": 13029,
+ "btc_5m": {
+  "events_total": 7,
+  "at_risk": 4802,
+  "build": {
+   "events": 3,
+   "at_risk": 3011,
+   "M1_dd_day_auc": 0.875,
+   "M1_dd_day_rate_above_vs_below_buildmedian": [
+    1.0,
+    0.0003,
+    14331.6
+   ],
+   "M2_lvl_day_auc": 0.86,
+   "M2_lvl_day_rate_above_vs_below_buildmedian": [
+    0.1538,
+    0.0003,
+    8435.4
+   ],
+   "M3_dd_on_auc": 0.565,
+   "M3_dd_on_rate_above_vs_below_buildmedian": [
+    0.0016,
+    0.0006,
+    278.4
+   ],
+   "M4_lvl_on_auc": 0.729,
+   "M4_lvl_on_rate_above_vs_below_buildmedian": [
+    0.0026,
+    0.0004,
+    278.4
+   ],
+   "gate_auc": 0.726
+  },
+  "study": {
+   "events": 2,
+   "at_risk": 585,
+   "M1_dd_day_auc": 0.822,
+   "M1_dd_day_rate_above_vs_below_buildmedian": [
+    null,
+    0.0034,
+    14331.6
+   ],
+   "M2_lvl_day_auc": 0.649,
+   "M2_lvl_day_rate_above_vs_below_buildmedian": [
+    null,
+    0.0034,
+    8435.4
+   ],
+   "M3_dd_on_auc": 0.889,
+   "M3_dd_on_rate_above_vs_below_buildmedian": [
+    0.0116,
+    0.0,
+    278.4
+   ],
+   "M4_lvl_on_auc": 0.915,
+   "M4_lvl_on_rate_above_vs_below_buildmedian": [
+    0.015,
+    0.0,
+    278.4
+   ],
+   "gate_auc": 0.629
+  },
+  "validate_agg": {
+   "events": 1,
+   "at_risk": 1090,
+   "M1_dd_day_auc": 0.927,
+   "M1_dd_day_rate_above_vs_below_buildmedian": [
+    null,
+    0.0009,
+    14331.6
+   ],
+   "M2_lvl_day_auc": 0.314,
+   "M2_lvl_day_rate_above_vs_below_buildmedian": [
+    null,
+    0.0009,
+    8435.4
+   ],
+   "M3_dd_on_auc": 0.96,
+   "M3_dd_on_rate_above_vs_below_buildmedian": [
+    0.0023,
+    0.0,
+    278.4
+   ],
+   "M4_lvl_on_auc": 0.146,
+   "M4_lvl_on_rate_above_vs_below_buildmedian": [
+    0.0,
+    0.0011,
+    278.4
+   ],
+   "gate_auc": 0.49
+  },
+  "live_1031": {
+   "events": 1,
+   "at_risk": 116,
+   "M1_dd_day_auc": 0.73,
+   "M1_dd_day_rate_above_vs_below_buildmedian": [
+    null,
+    0.0086,
+    14331.6
+   ],
+   "M2_lvl_day_auc": 0.652,
+   "M2_lvl_day_rate_above_vs_below_buildmedian": [
+    null,
+    0.0086,
+    8435.4
+   ],
+   "M3_dd_on_auc": 0.922,
+   "M3_dd_on_rate_above_vs_below_buildmedian": [
+    0.0185,
+    0.0,
+    278.4
+   ],
+   "M4_lvl_on_auc": 0.096,
+   "M4_lvl_on_rate_above_vs_below_buildmedian": [
+    0.0,
+    0.0122,
+    278.4
+   ],
+   "gate_auc": 0.2
+  },
+  "build_study_live_event_values": [
+   {
+    "t": "Sat 10-17 20:35",
+    "dd_day": 14332.0,
+    "lvl_day": -8435.0,
+    "dd_on": 278.0
+   },
+   {
+    "t": "Sat 10-17 22:30",
+    "dd_day": 14555.0,
+    "lvl_day": -8659.0,
+    "dd_on": 491.0
+   },
+   {
+    "t": "Sun 10-18 22:15",
+    "dd_day": 2194.0,
+    "lvl_day": 978.0,
+    "dd_on": 59.0
+   },
+   {
+    "t": "Fri 10-23 20:40",
+    "dd_day": 7715.0,
+    "lvl_day": -7623.0,
+    "dd_on": 2295.0
+   },
+   {
+    "t": "Sat 10-24 22:30",
+    "dd_day": 1129.0,
+    "lvl_day": 2528.0,
+    "dd_on": 494.0
+   },
+   {
+    "t": "Sat 10-31 16:55",
+    "dd_day": 3793.0,
+    "lvl_day": -245.0,
+    "dd_on": 2171.0
+   }
+  ]
+ },
+ "btc_15m": {
+  "events_total": 25,
+  "at_risk": 1425,
+  "build": {
+   "events": 11,
+   "at_risk": 1080,
+   "M1_dd_day_auc": 0.547,
+   "M1_dd_day_rate_above_vs_below_buildmedian": [
+    0.0127,
+    0.0082,
+    1695.6
+   ],
+   "M2_lvl_day_auc": 0.607,
+   "M2_lvl_day_rate_above_vs_below_buildmedian": [
+    0.0182,
+    0.0067,
+    0.0
+   ],
+   "M3_dd_on_auc": 0.579,
+   "M3_dd_on_rate_above_vs_below_buildmedian": [
+    0.0169,
+    0.0069,
+    1702.5
+   ],
+   "M4_lvl_on_auc": 0.665,
+   "M4_lvl_on_rate_above_vs_below_buildmedian": [
+    0.0167,
+    0.0069,
+    506.9
+   ],
+   "gate_auc": 0.789
+  },
+  "study": {
+   "events": 8,
+   "at_risk": 103,
+   "M1_dd_day_auc": 0.797,
+   "M1_dd_day_rate_above_vs_below_buildmedian": [
+    0.1905,
+    0.0488,
+    1695.6
+   ],
+   "M2_lvl_day_auc": 0.713,
+   "M2_lvl_day_rate_above_vs_below_buildmedian": [
+    0.1224,
+    0.037,
+    0.0
+   ],
+   "M3_dd_on_auc": 0.775,
+   "M3_dd_on_rate_above_vs_below_buildmedian": [
+    0.25,
+    0.0632,
+    1702.5
+   ],
+   "M4_lvl_on_auc": 0.654,
+   "M4_lvl_on_rate_above_vs_below_buildmedian": [
+    0.1333,
+    0.0548,
+    506.9
+   ],
+   "gate_auc": 0.541
+  },
+  "validate_agg": {
+   "events": 6,
+   "at_risk": 205,
+   "M1_dd_day_auc": 0.53,
+   "M1_dd_day_rate_above_vs_below_buildmedian": [
+    0.0606,
+    0.0233,
+    1695.6
+   ],
+   "M2_lvl_day_auc": 0.525,
+   "M2_lvl_day_rate_above_vs_below_buildmedian": [
+    0.1111,
+    0.0255,
+    0.0
+   ],
+   "M3_dd_on_auc": 0.585,
+   "M3_dd_on_rate_above_vs_below_buildmedian": [
+    0.0,
+    0.0309,
+    1702.5
+   ],
+   "M4_lvl_on_auc": 0.559,
+   "M4_lvl_on_rate_above_vs_below_buildmedian": [
+    0.0588,
+    0.0266,
+    506.9
+   ],
+   "gate_auc": 0.485
+  },
+  "live_1031": {
+   "events": 0,
+   "at_risk": 37
+  }
+ }
+}

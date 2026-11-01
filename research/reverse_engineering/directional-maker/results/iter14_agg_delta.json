@@ -1,0 +1,26 @@
+{
+ "build": {
+  "entries": 3012,
+  "with_exposure_ge10": 2618,
+  "entry_offsets_exposure": 0.45454545454545453,
+  "entry_follows_exposure": 0.5454545454545454,
+  "big_exposure_ge500_offsets": 0.43586206896551727,
+  "n_big": 1450
+ },
+ "study": {
+  "entries": 585,
+  "with_exposure_ge10": 508,
+  "entry_offsets_exposure": 0.484251968503937,
+  "entry_follows_exposure": 0.515748031496063,
+  "big_exposure_ge500_offsets": 0.5170278637770898,
+  "n_big": 323
+ },
+ "validate_agg": {
+  "entries": 1089,
+  "with_exposure_ge10": 843,
+  "entry_offsets_exposure": 0.4863582443653618,
+  "entry_follows_exposure": 0.5136417556346382,
+  "big_exposure_ge500_offsets": 0.4575645756457565,
+  "n_big": 271
+ }
+}

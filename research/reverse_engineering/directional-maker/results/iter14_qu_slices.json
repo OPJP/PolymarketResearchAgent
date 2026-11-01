@@ -1,0 +1,75 @@
+{
+ "500_1000": [
+  0.812,
+  5610
+ ],
+ "62_250": [
+  0.534,
+  521
+ ],
+ "62_250_cheaper": [
+  0.376,
+  521
+ ],
+ "last60_500": [
+  0.681,
+  574
+ ],
+ "last60_500_cheaper": [
+  0.08,
+  574
+ ],
+ "last60_500_fav": [
+  0.92,
+  574
+ ],
+ "last60_mid_extreme_share": 0.923,
+ "decided_branch_by_half": {
+  "fit": {
+   "posture_500": [
+    0.815,
+    2244
+   ],
+   "decided_fav_else_posture_500": [
+    0.818,
+    2244
+   ],
+   "decided_share_500": 0.149,
+   "posture_on_decided": [
+    0.594,
+    335
+   ],
+   "fav_on_decided": [
+    0.615,
+    335
+   ],
+   "cheaper_on_decided": [
+    0.385,
+    335
+   ]
+  },
+  "test": {
+   "posture_500": [
+    0.811,
+    3366
+   ],
+   "decided_fav_else_posture_500": [
+    0.802,
+    3366
+   ],
+   "decided_share_500": 0.187,
+   "posture_on_decided": [
+    0.676,
+    630
+   ],
+   "fav_on_decided": [
+    0.627,
+    630
+   ],
+   "cheaper_on_decided": [
+    0.373,
+    630
+   ]
+  }
+ }
+}

@@ -1,0 +1,242 @@
+{
+ "post_L500_k0.7": {
+  "fit_i": 0.856,
+  "fit_ii": 0.689,
+  "fit_all": 0.815,
+  "test_i": 0.746,
+  "test_ii": 0.472,
+  "test_all": 0.659
+ },
+ "post_L500_k1.0": {
+  "fit_i": 0.854,
+  "fit_ii": 0.709,
+  "fit_all": 0.819,
+  "test_i": 0.829,
+  "test_ii": 0.497,
+  "test_all": 0.723
+ },
+ "post_L500_k1.4": {
+  "fit_i": 0.872,
+  "fit_ii": 0.638,
+  "fit_all": 0.815,
+  "test_i": 0.823,
+  "test_ii": 0.509,
+  "test_all": 0.723
+ },
+ "post_L750_k0.7": {
+  "fit_i": 0.871,
+  "fit_ii": 0.694,
+  "fit_all": 0.827,
+  "test_i": 0.832,
+  "test_ii": 0.484,
+  "test_all": 0.721
+ },
+ "post_L750_k1.0": {
+  "fit_i": 0.874,
+  "fit_ii": 0.714,
+  "fit_all": 0.835,
+  "test_i": 0.903,
+  "test_ii": 0.503,
+  "test_all": 0.775
+ },
+ "post_L750_k1.4": {
+  "fit_i": 0.867,
+  "fit_ii": 0.643,
+  "fit_all": 0.812,
+  "test_i": 0.897,
+  "test_ii": 0.497,
+  "test_all": 0.769
+ },
+ "post_L1000_k0.7": {
+  "fit_i": 0.876,
+  "fit_ii": 0.684,
+  "fit_all": 0.829,
+  "test_i": 0.805,
+  "test_ii": 0.56,
+  "test_all": 0.727
+ },
+ "post_L1000_k1.0": {
+  "fit_i": 0.877,
+  "fit_ii": 0.704,
+  "fit_all": 0.835,
+  "test_i": 0.87,
+  "test_ii": 0.579,
+  "test_all": 0.777
+ },
+ "post_L1000_k1.4": {
+  "fit_i": 0.876,
+  "fit_ii": 0.633,
+  "fit_all": 0.816,
+  "test_i": 0.864,
+  "test_ii": 0.566,
+  "test_all": 0.769
+ },
+ "post_L1250_k0.7": {
+  "fit_i": 0.774,
+  "fit_ii": 0.709,
+  "fit_all": 0.758,
+  "test_i": 0.785,
+  "test_ii": 0.566,
+  "test_all": 0.715
+ },
+ "post_L1250_k1.0": {
+  "fit_i": 0.779,
+  "fit_ii": 0.714,
+  "fit_all": 0.763,
+  "test_i": 0.853,
+  "test_ii": 0.585,
+  "test_all": 0.767
+ },
+ "post_L1250_k1.4": {
+  "fit_i": 0.786,
+  "fit_ii": 0.663,
+  "fit_all": 0.756,
+  "test_i": 0.844,
+  "test_ii": 0.572,
+  "test_all": 0.757
+ },
+ "post_L1500_k0.7": {
+  "fit_i": 0.776,
+  "fit_ii": 0.735,
+  "fit_all": 0.766,
+  "test_i": 0.729,
+  "test_ii": 0.572,
+  "test_all": 0.679
+ },
+ "post_L1500_k1.0": {
+  "fit_i": 0.778,
+  "fit_ii": 0.735,
+  "fit_all": 0.767,
+  "test_i": 0.794,
+  "test_ii": 0.604,
+  "test_all": 0.733
+ },
+ "post_L1500_k1.4": {
+  "fit_i": 0.798,
+  "fit_ii": 0.689,
+  "fit_all": 0.771,
+  "test_i": 0.794,
+  "test_ii": 0.566,
+  "test_all": 0.721
+ },
+ "fill_L500_k0.7": {
+  "fit_i": 0.761,
+  "fit_ii": 0.719,
+  "fit_all": 0.751,
+  "test_i": 0.605,
+  "test_ii": 0.566,
+  "test_all": 0.592
+ },
+ "fill_L500_k1.0": {
+  "fit_i": 0.755,
+  "fit_ii": 0.801,
+  "fit_all": 0.766,
+  "test_i": 0.667,
+  "test_ii": 0.748,
+  "test_all": 0.693
+ },
+ "fill_L500_k1.4": {
+  "fit_i": 0.791,
+  "fit_ii": 0.816,
+  "fit_all": 0.797,
+  "test_i": 0.687,
+  "test_ii": 0.786,
+  "test_all": 0.719
+ },
+ "fill_L750_k0.7": {
+  "fit_i": 0.811,
+  "fit_ii": 0.735,
+  "fit_all": 0.792,
+  "test_i": 0.705,
+  "test_ii": 0.566,
+  "test_all": 0.661
+ },
+ "fill_L750_k1.0": {
+  "fit_i": 0.804,
+  "fit_ii": 0.796,
+  "fit_all": 0.802,
+  "test_i": 0.782,
+  "test_ii": 0.742,
+  "test_all": 0.769
+ },
+ "fill_L750_k1.4": {
+  "fit_i": 0.842,
+  "fit_ii": 0.827,
+  "fit_all": 0.839,
+  "test_i": 0.782,
+  "test_ii": 0.786,
+  "test_all": 0.783
+ },
+ "fill_L1000_k0.7": {
+  "fit_i": 0.836,
+  "fit_ii": 0.755,
+  "fit_all": 0.816,
+  "test_i": 0.746,
+  "test_ii": 0.484,
+  "test_all": 0.663
+ },
+ "fill_L1000_k1.0": {
+  "fit_i": 0.826,
+  "fit_ii": 0.791,
+  "fit_all": 0.817,
+  "test_i": 0.838,
+  "test_ii": 0.66,
+  "test_all": 0.781
+ },
+ "fill_L1000_k1.4": {
+  "fit_i": 0.859,
+  "fit_ii": 0.837,
+  "fit_all": 0.854,
+  "test_i": 0.832,
+  "test_ii": 0.748,
+  "test_all": 0.805
+ },
+ "fill_L1250_k0.7": {
+  "fit_i": 0.837,
+  "fit_ii": 0.776,
+  "fit_all": 0.822,
+  "test_i": 0.764,
+  "test_ii": 0.491,
+  "test_all": 0.677
+ },
+ "fill_L1250_k1.0": {
+  "fit_i": 0.833,
+  "fit_ii": 0.821,
+  "fit_all": 0.83,
+  "test_i": 0.855,
+  "test_ii": 0.623,
+  "test_all": 0.781
+ },
+ "fill_L1250_k1.4": {
+  "fit_i": 0.856,
+  "fit_ii": 0.852,
+  "fit_all": 0.855,
+  "test_i": 0.844,
+  "test_ii": 0.755,
+  "test_all": 0.815
+ },
+ "fill_L1500_k0.7": {
+  "fit_i": 0.856,
+  "fit_ii": 0.806,
+  "fit_all": 0.844,
+  "test_i": 0.779,
+  "test_ii": 0.453,
+  "test_all": 0.675
+ },
+ "fill_L1500_k1.0": {
+  "fit_i": 0.854,
+  "fit_ii": 0.857,
+  "fit_all": 0.855,
+  "test_i": 0.864,
+  "test_ii": 0.585,
+  "test_all": 0.775
+ },
+ "fill_L1500_k1.4": {
+  "fit_i": 0.874,
+  "fit_ii": 0.872,
+  "fit_all": 0.874,
+  "test_i": 0.853,
+  "test_ii": 0.717,
+  "test_all": 0.809
+ }
+}

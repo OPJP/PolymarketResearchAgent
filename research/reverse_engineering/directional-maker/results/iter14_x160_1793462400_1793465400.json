@@ -1,0 +1,49 @@
+{
+ "span": [
+  1793462400,
+  1793465400
+ ],
+ "cells": 11378,
+ "positives": 958,
+ "windows": 13,
+ "cluster_txs_dropped": 801,
+ "activity": 0.6579216237442849,
+ "activity_ref": 0.7690716423771533,
+ "activity_chainlink": 0.7638737733361649,
+ "gain": 0.11115001863286844,
+ "quote_unit_side": {
+  "n": 2021,
+  "n_scored": 1937,
+  "rule": "posture L1000ms k1.0 futures sigma300",
+  "side_accuracy": [
+   0.8162,
+   1937
+  ],
+  "first_half": [
+   0.8074,
+   1184
+  ],
+  "second_half": [
+   0.83,
+   753
+  ],
+  "btc5m": [
+   0.7885,
+   1253
+  ],
+  "btc15m": [
+   0.867,
+   684
+  ],
+  "baseline_always_up": 0.4729,
+  "baseline_cheaper": [
+   0.4445,
+   1937
+  ],
+  "baseline_mid_rose_1s": [
+   0.6341,
+   943
+  ],
+  "caveat": "exact 500/1000 adds at the touch include other makers' orders (~12% of exact 500s, X36); unit = post, not wallet"
+ }
+}
