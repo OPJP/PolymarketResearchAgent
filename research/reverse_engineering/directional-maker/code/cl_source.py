@@ -60,6 +60,11 @@ def _live(start_ts: int, end_ts: int, allow_sealed: bool) -> dict:
                         continue
                     if r.get("k") == "u":
                         if r.get("tp") == "cl" and r.get("sy") == "btc" and r.get("ts") and r.get("v") is not None:
+                            # X167 (iteration 15): also require the server stamps (value stamp, publish ms) to be in a
+                            # development block; the laptop receive time t drifts.
+                            if not allow_sealed and (_sealed.future_block_sealed(int(r["ts"]) / 1000.0) or
+                                                     (r.get("P") and _sealed.future_block_sealed(int(r["P"]) / 1000.0))):
+                                continue
                             out.setdefault(int(r["ts"]) // 1000, float(r["v"]))
                     elif r.get("q") == "crypto_prices_chainlink":
                         try:
@@ -71,6 +76,8 @@ def _live(start_ts: int, end_ts: int, allow_sealed: bool) -> dict:
                             continue
                         for x in pl.get("data", []) or []:
                             try:
+                                if not allow_sealed and _sealed.future_block_sealed(int(x["timestamp"]) / 1000.0):
+                                    continue  # X167: server stamp in a sealed block
                                 out.setdefault(int(x["timestamp"]) // 1000, float(x["value"]))
                             except (KeyError, TypeError, ValueError):
                                 pass

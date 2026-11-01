@@ -1,0 +1,87 @@
+{
+ "n": 2097,
+ "with_public_price": 0.966618979494516,
+ "by_fold": [
+  {
+   "fold": "BUILD",
+   "itm": 0.8224,
+   "mktfav_pub": 0.6225,
+   "post_pub_k0.7": 0.8816,
+   "post_fill_k0.7": 0.9299,
+   "post_pub_k1.0": 0.817,
+   "post_fill_k1.0": 0.8791,
+   "post_pub_k1.4": 0.6788,
+   "post_fill_k1.4": 0.7055,
+   "n": 2027
+  }
+ ],
+ "by_fold_group": [
+  {
+   "fold": "BUILD",
+   "fg": "4h",
+   "itm": 0.875,
+   "mktfav_pub": 0.0,
+   "post_pub_k0.7": 0.875,
+   "post_fill_k0.7": 0.875,
+   "post_pub_k1.0": 0.875,
+   "post_fill_k1.0": 0.875,
+   "post_pub_k1.4": 0.875,
+   "post_fill_k1.4": 1.0,
+   "n": 8
+  },
+  {
+   "fold": "BUILD",
+   "fg": "alt-15m",
+   "itm": 0.7685,
+   "mktfav_pub": 0.4139,
+   "post_pub_k0.7": 0.9258,
+   "post_fill_k0.7": 0.9318,
+   "post_pub_k1.0": 0.9021,
+   "post_fill_k1.0": 0.8991,
+   "post_pub_k1.4": 0.8872,
+   "post_fill_k1.4": 0.8576,
+   "n": 337
+  },
+  {
+   "fold": "BUILD",
+   "fg": "alt-5m",
+   "itm": 0.8516,
+   "mktfav_pub": 0.7259,
+   "post_pub_k0.7": 0.8739,
+   "post_fill_k0.7": 0.9311,
+   "post_pub_k1.0": 0.7873,
+   "post_fill_k1.0": 0.8647,
+   "post_pub_k1.4": 0.6041,
+   "post_fill_k1.4": 0.6415,
+   "n": 1523
+  },
+  {
+   "fold": "BUILD",
+   "fg": "hourly",
+   "itm": 0.6541,
+   "mktfav_pub": 0.0805,
+   "post_pub_k0.7": 0.8616,
+   "post_fill_k0.7": 0.9182,
+   "post_pub_k1.0": 0.9182,
+   "post_fill_k1.0": 0.9748,
+   "post_pub_k1.4": 0.9434,
+   "post_fill_k1.4": 0.9811,
+   "n": 159
+  }
+ ],
+ "by_fold_phase": [
+  {
+   "fold": "BUILD",
+   "phase": "open<20s",
+   "itm": 0.8224,
+   "mktfav_pub": 0.6225,
+   "post_pub_k0.7": 0.8816,
+   "post_fill_k0.7": 0.9299,
+   "post_pub_k1.0": 0.817,
+   "post_fill_k1.0": 0.8791,
+   "post_pub_k1.4": 0.6788,
+   "post_fill_k1.4": 0.7055,
+   "n": 2027
+  }
+ ]
+}

@@ -1,5 +1,5 @@
 {
- "generated_at": 1793521206,
+ "generated_at": 1793521937,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -194,8 +194,8 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 15,
-   "minutes": 1088.8000000000002,
-   "hypotheses": 182,
+   "minutes": 1067.8000000000002,
+   "hypotheses": 183,
    "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state, clean tape (every print in a cluster transaction removed). From iteration 4 VALIDATE = 2026-10-27..30.",
    "best_validate_score": 0.7723,
    "best_rule": "R8 = R7 + the window state-machine side (counted: the public part, decided -> cheaper else Chainlink posture; own-state composite reported) (iterations 14-15: unchanged; reported blocks quote_unit_side, quote_presence_event_time and r9_nonbtc_module added)",
@@ -204,7 +204,7 @@
    "exam_rounds": 1,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 10,
+   "panels": 11,
    "exam": {
     "target_met": false,
     "leakage_passed": true,

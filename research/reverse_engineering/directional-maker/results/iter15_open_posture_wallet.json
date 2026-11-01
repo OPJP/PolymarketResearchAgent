@@ -1,0 +1,52 @@
+{
+ "per_wallet": {
+  "BUILD|almach": [
+   0.898,
+   610.0
+  ],
+  "BUILD|bosona": [
+   0.882,
+   694.0
+  ],
+  "BUILD|momoney": [
+   0.867,
+   723.0
+  ],
+  "STUDY|almach": [
+   0.922,
+   283.0
+  ],
+  "STUDY|bosona": [
+   0.919,
+   297.0
+  ],
+  "STUDY|momoney": [
+   0.931,
+   261.0
+  ],
+  "VALIDATE|almach": [
+   0.856,
+   153.0
+  ],
+  "VALIDATE|bosona": [
+   0.855,
+   172.0
+  ],
+  "VALIDATE|momoney": [
+   0.888,
+   169.0
+  ],
+  "dev_after_T0|almach": [
+   1.0,
+   12.0
+  ],
+  "dev_after_T0|bosona": [
+   1.0,
+   9.0
+  ],
+  "dev_after_T0|momoney": [
+   1.0,
+   5.0
+  ]
+ }
+}

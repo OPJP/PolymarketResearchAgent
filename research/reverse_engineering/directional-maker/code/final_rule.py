@@ -1,4 +1,8 @@
 """Frozen rule for the directional-maker cluster (bosona, almach, mo-money).
+Iteration 15 (no frozen decision changed): evaluate() also reports 'r9_nonbtc_module' (code/r9_nonbtc.py): scope of R8's
+universe against every crypto Up/Down family and the side of the cluster's fills outside BTC 5m/15m under unfitted rules
+(in the money under the family's Binance reference at the window open; a fill-price posture as a description). The live
+readers now also require the records' server stamps to lie in development blocks (X167: the laptop clock drifts).
 
 Iteration 14 (no frozen decision changed): evaluate() also reports 'quote_unit_side' (code14/qu_dx.py), the side of the
 uncensored quote: every 500 / 1000 post at the touch of a BTC 5m / 15m window in the exam recorder dx_clob, against the
@@ -334,7 +338,12 @@ def _iter_live_x(start_ts: int, end_ts: int):
                 except ValueError:
                     continue
                 t = r.get("t", 0) / 1000.0
-                if start_ts <= t < end_ts and (ALLOW_SEALED or not _sealed.future_block_sealed(t)):
+                # iteration 15 (X167, clock integrity): the laptop clock drifts (~0.19 s/h slow since 11-01 02:29 UTC),
+                # so a record is development only if BOTH its receive time and its server stamp lie in development
+                # blocks; records without a server stamp are filtered by receive time as before.
+                srv = r.get("s")
+                if start_ts <= t < end_ts and (ALLOW_SEALED or not (_sealed.future_block_sealed(t) or
+                                                                   (srv and _sealed.future_block_sealed(int(srv) / 1000.0)))):
                     yield r
 
 
@@ -631,7 +640,12 @@ def _iter_live_xq(start_ts: int, end_ts: int, toks: set):
                 except ValueError:
                     continue
                 t = r.get("t", 0) / 1000.0
-                if start_ts <= t < end_ts and (ALLOW_SEALED or not _sealed.future_block_sealed(t)):
+                # iteration 15 (X167, clock integrity): the laptop clock drifts (~0.19 s/h slow since 11-01 02:29 UTC),
+                # so a record is development only if BOTH its receive time and its server stamp lie in development
+                # blocks; records without a server stamp are filtered by receive time as before.
+                srv = r.get("s")
+                if start_ts <= t < end_ts and (ALLOW_SEALED or not (_sealed.future_block_sealed(t) or
+                                                                   (srv and _sealed.future_block_sealed(int(srv) / 1000.0)))):
                     yield r
 
 
@@ -651,14 +665,14 @@ def side_posture_match_clock(mk: pd.DataFrame, w: pd.DataFrame, start_ts: int, e
     for r in _iter_live_xq(start_ts - LIVE_PAD_S, end_ts + LIVE_PAD_S, ups):
         if r.get("k") == "x":
             h = str(r.get("h", "")).lower()
-            if h and h not in match_ms:
-                match_ms[h] = int(r.get("s") or r.get("t"))
+            if h and h not in match_ms and r.get("s"):
+                match_ms[h] = int(r["s"])  # server ms only (X167: no laptop-time fallback)
         elif r.get("k") == "q" and str(r.get("a")) in ups:
             b, o = r.get("b") or [], r.get("o") or []
-            if b and o:
+            if b and o and r.get("s"):  # server ms only (X167: no laptop-time fallback)
                 bb = max(float(x[0]) for x in b)
                 ba = min(float(x[0]) for x in o)
-                books.setdefault(str(r.get("a")), []).append((int(r.get("s") or r.get("t")), (bb + ba) / 2))
+                books.setdefault(str(r.get("a")), []).append((int(r["s"]), (bb + ba) / 2))
     bk = {t: (np.array([x[0] for x in v]), np.array([x[1] for x in v])) for t, v in books.items()}
     for t in bk:
         o = np.argsort(bk[t][0], kind="stable")
@@ -1138,6 +1152,16 @@ def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_
                                                                      intervals=intervals, with_side=False)
     except Exception as ex:
         res["quote_presence_event_time"] = {"error": repr(ex)[:300]}
+    # iteration 15 (reported, not counted): the module outside BTC 5m/15m that carries the idle weekend blocks
+    # (code/r9_nonbtc.py): scope of R8's universe vs every crypto family (pooled, per wallet, per examiner-style half) and
+    # the side of the non-BTC fills under unfitted rules (itm = in the money under the family's Binance reference vs the
+    # strike, public and sigma-free; posture_fillprice = a description that uses the fill price), with market baselines.
+    try:
+        sys.path.insert(0, str(HERE))
+        import r9_nonbtc  # noqa: E402
+        res["r9_nonbtc_module"] = r9_nonbtc.report(start_ts, end_ts, intervals=intervals, allow_sealed=ALLOW_SEALED)
+    except Exception as ex:
+        res["r9_nonbtc_module"] = {"error": repr(ex)[:300]}
     del stats
     return res
 

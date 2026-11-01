@@ -3718,3 +3718,339 @@ before it is published.
   quote_presence_event_time 0.744 vs activity 0.698 (gain +0.045); quote_unit_side 0.741 (n 1,937, all on the fixed
   1,432-ms lag: dy_rtds starts at 17:29); per-fill match-clock side 0.768 (n 678). (Iteration 14 ended 2026-11-01 ~06:51
   UTC, about 80 minutes.)
+
+## Iteration 15 (started 2026-11-01 07:14 UTC; 965 of 1,200 minutes used)
+
+Situation at the start: the current development block (Sunday 11-01 06-12 UTC) is the idle weekend configuration
+(06:00-07:20: bosona 94 activity rows, almach 39, mo-money 37, mostly BTC/ETH hourly and daily; BTC 5m/15m books
+recorded again from 07:00 after the 05:00-06:59 listing gap). The next future exam is a weekend lot whose idle blocks
+are carried by the non-BTC families. Laptop clock (X167): `dy_rtds` clk offsets (Binance minus laptop) 0.677 s at
+06:03, 0.867 s at 07:03, 0.898 s at 07:13 (+0.031 s per 10 min; w32tm "not synchronized", last sync 11-01 02:29 UTC).
+**The user should resync Windows time before 11-01 12:00 UTC** (agents may not change system settings); the code
+guard is below.
+
+Competing explanations of the money, this iteration (what tells them apart):
+- E1 one engine, one rule everywhere: the mid-pegged ladder with a settlement-reference skew runs on every family;
+  the non-BTC fills differ only because their books are thin. Tell: non-BTC fills follow the posture sign(F - mid) as
+  much as the in-the-money side; R7 works where the anchor is fresh.
+- E2 a separate always-on strike-gap module on the non-BTC families: it bids for the outcome in the money under the
+  family's settlement reference (sign(S - K), sigma-free), mostly at the window open, at fixed per-family sizes, in
+  all three wallets at once. Tell: opening fills follow sign(S - K) >= 0.85 against a market favourite <= 0.70; prices
+  track the fair, not the last print.
+- E3 long-horizon favourite harvest (hourly/daily/4h): it buys near-certain favourites (0.90+) hours before the end
+  (favourite-longshot bias, carry). Tell: daily fills at >= 0.9; the in-the-money side equals the market favourite;
+  PnL per $ small and positive with rare large losses.
+- E4 taker-chosen fills on resting ladders everywhere: the module has no directional rule; one-sidedness is the takers'
+  flow. Tell: side at chance against both the reference and the market.
+- E5 liquidity rewards: per-family sizes set to rewardsMinSize, quotes within rewardsMaxSpread. Tell: sizes = Gamma
+  rewardsMinSize. **Checked first (Gamma, development markets): rewardsMinSize is 50 and rewardsMaxSpread 4.5 on ETH 5m,
+  BTC hourly, BTC daily and BTC 4h alike, while the configured sizes are 10/12/19/38 (below 50, not reward-eligible),
+  50 (daily) and 400 (4h). Rejected for the 5m alts and the hourly family.**
+- E6 cross-asset hedge: the non-BTC buys offset the cluster's BTC exposure. Tell: the alt side correlates with the
+  cluster's net BTC delta (X133 found no hedge between BTC windows).
+- E7 (unlikely) a faster reference at the open (e.g. Binance before the Chainlink relay): opening fills timed before the
+  public reference moves.
+This iteration discriminates E2/E3 against E1/E4 on the non-BTC families (they decide the idle half of the exam lot),
+and checks the panels' clock and unit criticisms of the BTC quote unit.
+
+Pre-registered tests (written about 07:27 UTC 11-01, before any of the measurements below were computed):
+- T1 = X173 + X175 + X164 (assumptions P1 / P3, information I14-2; the non-BTC module's side). Universe: every cluster
+  BUY trade (all roles; side is scored for every decision) on the crypto Up/Down families other than BTC 5m/15m:
+  {eth, sol, xrp, bnb, doge}-updown-{5m, 15m}, {btc, eth, sol, xrp, bnb, doge}-updown-4h, <coin>-up-or-down-<date>-<h>-et
+  (hourly, Binance 1h candle), <coin>-up-or-down-on-<date> (daily, Binance 1m close at noon ET vs the previous noon).
+  Reference S = Binance spot 1-s close of second T - 3 (T = block second; the spot second is public one second after
+  it ends and the print may have matched up to 2 s before T). Strike K: Chainlink TWAP families (5m/15m/4h) = the
+  Binance TWAP-60 stand-in (mean 1-s close over [st - 60, st - 1]; same basis on both sides); hourly = the Binance
+  1-s open at st (the 1h candle's open); daily = Gamma priceToBeat (the previous noon close; listing-time field).
+  Rule (no fitting): **buy the outcome in the money, Up iff S > K** (sigma-free). Baselines: market favourite (the
+  outcome priced above 0.5, from the fill price), cheaper token, always-Up. Strata: opening (T - st < 20 s) vs later;
+  family; BUILD sample days (10-08..22 even days), STUDY 10-23..26 per day, VALIDATE 10-27..30 aggregate,
+  development blocks 10-31 00-06 / 12-18 and 11-01 06:00-now. Signature (panel): opening >= 0.85 in every BUILD week and
+  on STUDY with the market favourite <= 0.70; combined >= 0.80 per fill on the idle analogs.
+- T2 = X168 (mechanics P1, light): the per-family size table from activity (modal size share per family x session x
+  wallet), the /8 arithmetic, and the share of non-BTC fills whose size equals the family constant.
+- T3 = X166 (information I14-4): the settlement-average variance law k(tau) = tau / (60 sqrt 3) for tau <= 60 and
+  sqrt((tau - 40) / tau) above, on the rebuilt quote unit of 10-31 14-18 with the point-in-time-safe lag (1,432 ms)
+  and on the exact publish clock (17:29-18:00), no fitting, against one global k 1.0 and the band fit, per tau band.
+- T4 = X170 (mechanics P3): the quote-unit side on pure classes only: 500 posts at non-extreme prices (0.03 < p < 0.97),
+  exact publish clock and safe lag, vs the extreme 500s and the 1000/250/62 posts.
+- T5 = X163 / X169 (information I14-1 / mechanics P2; publish-anchored unit) where an active block with dy_rtds
+  exists: units (window, outcome, publish P_i); label Q = an at-touch 500 add (non-extreme) on s in [P_i, P_i + 300 ms);
+  frozen score without fitting = 1[posture from report i favours s] x |F_i - mid|, against an activity score
+  (prints on s in the previous 1 s); placebo at P_i + 500 ms with report i - 1. Blocks: 10-31 17:29-18:00 (BTC 15m) and
+  11-01 07:00-now (whatever the cluster quotes). Under-powered by construction this iteration; the full fitted test
+  (fit 07:00-09:30, test 09:30-12:00) is left to the next iteration if BTC 5m/15m quote today.
+- T6 = X174 (assumptions P2, light): the examiner's halves on mock weekend lots (Sat 06-12 + Sat 18-24 + Sun 00-06 of
+  10-10/11, 10-17/18, 10-24/25): scope of R8's universe and of the all-family universe per half, from activity.
+
+### Iteration 15 results (07:15-08:00 UTC 11-01)
+
+**X167 (information I14-5): clock integrity.** dy_rtds clk offsets (Binance minus laptop): 10-31 17:36 0.043 s, 17:57
+0.107 s; 11-01 06:03 0.677 s, then +0.031 s every 10 min to 0.898 s at 07:13 (w32tm: "Leap Indicator 3 (not
+synchronized)", last successful sync 11-01 02:29 UTC; the rate was the same before that sync). Receive minus publish
+for BTC Chainlink 07:00-07:30: median -596 ms (it was +234 ms on 10-31). Code guard: `final_rule._iter_live_x` and
+`_iter_live_xq` now keep a record only if both its receive time and its server stamp `s` lie in development blocks; the
+match-ms and book readers no longer fall back to the laptop `t`; `cl_source._live` also drops values whose value stamp or
+publish ms is in a sealed block. The scripts that read through `tools/live.iter_live` (qu_dx, x160_block) still rely on
+the filing by receive time (dev windows only, so sealed units are not scored; a dev window's records after a
+dev-to-sealed boundary are cut by window end). **A resync of the Windows clock by the user is needed before 11-01
+12:00 UTC (first leaking boundary, ~1.8 s); agents may not change system settings.**
+
+**T1 = X173 + X175 + X164 (the non-BTC module's side; `code15/nb_side.py`, results/iter15_nb_side.json).** 117,912
+cluster BUY trades parsed (BUILD sample days 60,689; STUDY 15,706; VALIDATE 36,612; development after T0 4,905), non-BTC
+families 27,402. Rule "in the money under the family's Binance reference, Up iff S(T-3) > K" (no fitting):
+
+| fold | opening fills (< 20 s): itm / market favourite (n) | later fills: itm / market favourite (n) | all non-BTC |
+| --- | --- | --- | --- |
+| BUILD (8 days) | **0.814** / 0.622 (2,097) | 0.598 / 0.606 (14,227) | 0.625 / 0.608 |
+| STUDY 10-23 / 24 / 25 / 26 | 0.722 / 0.897 / 0.860 / 0.837 vs 0.48 / 0.65 / 0.67 / 0.77 | 0.64 / 0.75 / 0.75 / 0.65 vs 0.62 / 0.76 / 0.72 / 0.65 | 0.65 / 0.77 / 0.77 / 0.67 |
+| VALIDATE (aggregate) | **0.778** / 0.485 (535) | 0.552 / 0.545 (4,382) | 0.576 / 0.539 |
+| after T0 (development) | 0.54 / 0.23 (26) | 0.54 / 0.54 (326) | 0.543 / 0.517 |
+
+By family (opening): alt 5m 0.848 BUILD / 0.77-0.90 STUDY / 0.791 VALIDATE (market favourite 0.73 / 0.59-0.86 / 0.61);
+alt 15m 0.765 / 0.61-0.95 / 0.780. The longer families trade later in the window: hourly later 0.692 / 0.76-0.78 / 0.578,
+4h later 0.668 / 0.71-0.82 / 0.496, daily 0.453 / 0.35-0.71 / 0.498. Per wallet the numbers are within 0.02 of each
+other in every fold. Per one-sided market (>= 70% of shares on one outcome; 77-85% of markets) the first fill's itm side
+gives the majority side 0.689 BUILD, 0.66-0.79 STUDY, 0.629 VALIDATE. **Verdict: the opening rule is real (+0.19 to
++0.29 over the market favourite on BUILD and VALIDATE) but below the panel's 0.85 signature (BUILD 0.81, VALIDATE 0.78),
+and it covers only 13% of the non-BTC fills; later fills follow the market favourite (0.55-0.75), and on VALIDATE the
+non-BTC side is 0.58 (market 0.54). R9's planned cheaper-token fallback would be the anti-rule (0.39-0.46).** Same rule on
+BTC 5m: 0.34-0.64 (VALIDATE 0.335: the cluster bought the out-of-the-money outcome on two thirds of VALIDATE BTC 5m fills,
+the favourite-share drift), BTC 15m after T0 0.80.
+
+**T1b (post hoc; `code15/nb_posture.py`, results/iter15_nb_posture.json): relative value with the fill price as the
+market price (description, not public).** buy s iff Phi(ln(S/K) / (k sigma300 sqrt(tau))) of s > the fill price;
+k 1.0: non-BTC BUILD 0.667, STUDY 0.753, VALIDATE 0.676, after T0 0.622 (itm 0.625 / 0.721 / 0.576 / 0.543); by family
+(BUILD / STUDY / VALIDATE): 4h 0.822 / 0.833 / 0.689, alt 15m 0.806 / 0.865 / 0.755, daily 0.790 / 0.803 / 0.786, hourly
+0.659 / 0.656 / 0.630, alt 5m 0.561 / 0.749 / 0.600; k 1.4 and above is worse on every fold. The public version (last
+clean print instead of the fill price) is T1d below.
+
+**T1c (`code15/nb_pnl.py`, results/iter15_nb_pnl.json; Binance stand-in settlement): where the non-BTC money is.**
+Later fills earn +3.5% per $ (BUILD, $319k cost), +3.1% (STUDY), +2.6% (VALIDATE); opening fills +0.6% / -14.5% / -2.4%.
+The in-the-money opening fills lose (-2.4% BUILD, -14.8% STUDY, -8.7% VALIDATE) while the opening fills against the rule
+win (+15% / -14% / +31%): the opening rule describes the side but is not where the profit is (E2's "takers trade the open
+as 50/50" mechanism is refuted). The profit is in the 4h (+8.4% BUILD, +4.8% VALIDATE) and hourly (+7.5%, +10.0%) later
+fills, i.e. buying below a Binance-volatility fair on the long-horizon families (E3-like value buying, not a favourite
+harvest: the daily family earns about 0).
+
+**T2 = X168 (size table from activity fill sizes; results/iter15_nb_side.json size_table).** Modal fill sizes per family
+are identical in the three wallets: BTC hourly 38 off / 300 US session, BTC 4h 400, ETH 15m 30, SOL 15m 30, ETH 5m 50
+off / 150 US, SOL 5m 50 (almach 12) / 100 US, XRP 5m 10 / 50, BNB 5m 10, DOGE 5m 10 / 40, dailies 50 (BTC daily 200),
+ETH hourly 5. Mode shares are 0.07-0.76 because fills are partial; the calldata sizes of the mechanics panel are cleaner.
+Calldata of 11-01 06:00-07:40 (`code15/today_sizes.py`, 239 transactions): BTC 5m 500 (28 of 43 cluster orders) and 100
+(5), BTC 15m 500, ETH 5m 150, ETH 15m 30, ETH/SOL daily 50, XRP 5m 50: the high levels run on a Sunday morning. E5
+(sizes = rewardsMinSize) is rejected (Gamma rewardsMinSize 50, rewardsMaxSpread 4.5 on every family checked).
+
+**T3 = X166 (information I14-4; `code15/qu_law.py`, results/iter15_qu_law.json): the settlement-average variance law
+does not beat one global k.** Non-extreme 500 posts of 10-31 14-18, safe lag: law 0.779 = k 1.0 0.779 (n 4,887); last
+120 s: law 0.749 (fit 0.813 / test 0.705), k 1.0 0.731, band k 0.3 0.761 (n 427); exact publish clock 17:29-18:00: law
+0.835 vs k 1.0 0.866 (n 447; the law is worse at 120-300 s, 0.746 vs 0.806). Signature (last 120 s >= 0.83 on both
+halves without fitting) not met: the engine's time-left profile is not the TWAP variance law.
+
+**T4 = X170 (mechanics P3, purity by class; same script).** Posture accuracy by label class, k 1.0: 500 at non-extreme
+bids **0.779 (safe lag, n 4,887) and 0.866 (exact publish clock, n 447)**; 500 at bids <= 0.03 or >= 0.97 0.57-0.69;
+1000 0.70-0.87; 250 0.49-0.61; 62 0.49-0.53 (n 324, mostly one 15m window's last minutes). The pure main ladder on the
+exact clock clears the panel's 0.85 signature on the one block that has the clock; the "62/250 at chance" statement is
+withdrawn as a statement about the off-session ladder (they are other makers' orders and deep rungs; mechanics panel).
+
+**T5 = X163 / X169 (publish-anchored unit, no fitting; `code15/pub_unit.py`).** 10-31 17:29-18:00 (BTC 15m; 1,774
+publishes, 7,010 (window, outcome, publish) cells, 119 non-extreme 500 posts in [P_i, P_i + 300 ms)): the report-i
+posture level ranks the cells at **AUC 0.794** and picks the outcome at **0.866** (one-outcome cells), against no-fit
+activity scores 0.53 (mid changes in the last 1 s) and 0.52; placebo [P_i - 300 ms, P_i) (posts before report i is
+public): level 0.625, which 0.652; the CHANGE in posture from report i-1 to i scores 0.665 / 0.706 after the publish but
+0.429 / 0.424 before it (posts just before a publish sit on the side the new report then reverses). That is the trigger
+signature: the 500 ladder is re-sided by each published report within 300 ms. The Polymarket mid over the last second
+points the other way (0.19 / 0.81: the engine posts on the outcome whose mid fell), so a fitted activity model would use
+it; the fitted version is left for a full development block. 11-01 07:00-07:55 (Sunday, BTC 5m resumed; 2,714
+publishes, 60 non-extreme 500 posts): level 0.675, which 0.717 (n 60), placebo before 0.609 / 0.633, change 0.601 after /
+0.399 before: the same ordering, weaker.
+
+**X160 replication on the second development block with books (`code15/qu_today.py`, `qu_today_scan.py`): fails on its
+first 50 minutes.** 11-01 07:00-07:50 (12 windows, 279 non-extreme 500 posts; calldata shows the cluster's BTC 5m orders
+are 500s again): exact publish clock k 1.0 0.624 (n 218; BTC 5m 0.614), safe lag 0.599; best of a k x reference scan
+0.697 (Binance futures minus its rolling basis, k 1.4); cheaper token 0.663, always-Down 0.595. Per window the posts' Up
+share and the window's posture agree in about half of the 12 windows and are opposite in others (5m-1793517000: posts
+13% Up, posture 73% Up). The quote-unit side of 10-31 (0.83-0.87) does not carry to the Sunday-morning block on 50
+minutes; the full block (to 12:00) must be scored before the quote side is made exam-facing.
+
+**T6 = X174 (assumptions P2 light; `code15/mock_halves.py`, results/iter15_mock_halves.json): the examiner's halves on
+weekend mock lots.** R8 universe share of trades / $ per half: 10-10/11 earlier 0.86 / 0.92, later 0.83 / 0.89; 10-17/18
+earlier 0.87 / 0.92, **later 0.41 / 0.61**; 10-24/25 **earlier 0.39 / 0.38, later 0.28 / 0.32**. Per wallet the shares
+move together (within 0.08). R8's universe fails scope in at least one half of two of the three mock lots; only the
+all-family universe holds in every half. The non-BTC itm side per half: 0.55-0.82 (market favourite 0.65-0.75).
+
+**R9 reporting block (`code/r9_nonbtc.py`, wired into evaluate() as `r9_nonbtc_module`, not counted).** Loads the
+cluster's activity for the period, Binance 1-s klines by REST (development blocks only unless ALLOW_SEALED), Gamma
+priceToBeat for dailies; reports the R8-universe scope (pooled, per wallet, per examiner-style half) and the non-BTC side
+(itm open / later / by family / per wallet / per half, the fill-price posture as a description, baselines). Smoke test on
+the development block 10-31 00-06 (68 s): R8 universe 0.914 of trades / 0.949 of $ (halves 0.90 / 0.94); non-BTC fills
+156: itm 0.548 (open 0.82, n 18; later 0.51), fill-price posture 0.680, market favourite 0.519.
+
+**X172 (mechanics P5, crude form; `code15/cancel_lag.py`, results/iter15_cancel_lag.json): mo-money's resting rungs
+carry an older posture.** Filled orders of 10-31 14-18 (it14_fills_lq), posture from the report public before fill - L
+(stamp lag 1,432 ms), k 1.0, mid just before the fill for every L (crude). Class (ii) (resting rungs): mo-money 0.617 at
+L 0, 0.669 at 312 ms, 0.699 at 500 ms, **0.752 at 1,000 ms**, 0.647 at 2,000 ms; bosona 0.784 / 0.802 / 0.775 / 0.748;
+almach 0.847 / 0.838 / 0.865 / 0.793. Class (i) is flat or falls with L for every wallet (0.83-0.87 at L <= 312 ms). So
+mo-money's swept rungs match the posture of about one second earlier, while the other two wallets' rungs match the
+current one: a slower cancel / re-side path in mo-money's engine instance (consistent with the panel's remainder-remove
+latency 312 ms vs 73-118 ms). At its own best lag mo-money's class (ii) is within 3 points of bosona's best and 11 below
+almach's: the per-wallet gap shrinks from 17-23 points to 3-11 but does not close. A proper version needs the mid series
+at fill - L (dm_clob_raw), not the mid at the fill.
+
+**X170 on the current block (`code15/purity_today.py`, results/iter15_purity_1793516400_1793519700.json): the 500 label is
+pure on 11-01 too.** All-match calldata of every trade transaction recorded in dm_clob_raw for 11-01 07:00-07:55 (12,392
+transactions): filled exact-size maker BUY orders that are the cluster's: **500 at non-extreme prices 0.907 (n 162)**,
+500 extreme 0.33 (15), 100 non-extreme 0.13 (253), 100 extreme 0.02 (62), 250 0.00 (170), 1000 0.00 (11), 62 0.37 (19).
+So the X160 replication failure below is not a label artefact: the cluster's own 500 posts changed side behaviour.
+
+**X160 on the full hour 11-01 07:00-08:00 (`qu_today.py`, `qu_today_scan.py` on the rebuilt table, 17 windows, 429
+pure-class 500 posts, 358 on the exact publish clock).** Posture k 1.0: 0.601 (exact clock), 0.578 (safe lag); BTC 5m
+0.608, BTC 15m 0.569; scan: k 2.0-3.0 0.645-0.654, futures-minus-basis k 3.0 0.654; cheaper token 0.627-0.642. On this
+Sunday-morning block the engine's at-touch quote is closest to a very flat fair (k 2-3, i.e. bid the underdog), about the
+cheaper-token baseline, while on 10-31 17:29-18:00 (Saturday evening, BTC 15m) k 1.0 gave 0.866. The quote side is a
+k-family whose configuration moves between blocks (as the fill-level k drift of iteration 11 showed); it is not one frozen
+rule.
+
+**Unit-membership fix (sealed-data hygiene).** The development activity of 10-31 12-18 held 19 rows of units that had
+started in the sealed block before it (hourly 7am ET, BTC/ETH 15m 11:45, BTC 5m 11:55, BNB 4h 08:00; trades stamped after
+12:00). They were purged from the cached act15 files and `nb_side.py` now drops every unit whose window starts in a sealed
+block (the rule is by unit start, not by trade time); the T1 numbers were recomputed (below). None of these rows was
+scored before (their strikes need spot seconds of the sealed block, which were never fetched), but they were counted in
+the trade totals of the after-T0 fold. `code/r9_nonbtc.py` filtered by unit start from the beginning.
+
+**X176 (assumptions P4; `code15/sel_open.py`, results/iter15_sel_open.json): print-level selection on the non-BTC 5m/15m
+families fails; the takers' size selects the cluster's fills.** 167,734 taker prints in the alt 5m/15m windows the
+cluster traded (STUDY, VALIDATE, after T0), 3,587 of them in cluster-fill transactions (base rate 2.1%). Frozen score
+(maker-BUY outcome in the money + opening + small taker size), no fitting: AUC 0.621 (recall at k 0.12, lift 5.6); the
+itm part alone 0.615; an activity-only score (opening + taker-size rank) **0.730** (recall 0.10, lift 4.8). Opening prints:
+0.605 / 0.632 / 0.617; later prints 0.534 / 0.588 / 0.694. VALIDATE 0.581 / 0.584 / 0.714. Signature (opening >= 0.85,
+all prints >= 0.80 with recall >= 50% at lift >= 3) not met: rejected; the larger the taker order, the likelier it reaches
+the cluster's quotes (co-occurrence), whatever the side.
+
+**X163 fitted form on the current block (`code15/pub_fit.py`, results/iter15_pub_fit_1793516400_1793520420.json; post hoc,
+small).** 11-01 07:00-08:07, publish-anchored cells (14,382; 138 pure 500 posts in [P_i, P_i + 300 ms); fit on the first
+60% of publishes, test on the rest; LightGBM 7 leaves 200 rounds): activity 0.748, activity + report-i posture 0.730,
+gain **-0.018 (10-min block bootstrap [-0.055, +0.028])**; placebo before the publish -0.045. On the Sunday-morning
+block, where the side relation is weak (0.60), the reference adds nothing to the publish-anchored presence either. With
+the no-fit result of 10-31 17:29-18:00 (0.794 vs 0.53) the publish-clock account holds on one block and fails on the
+next: X163 stays open for the full 07:00-12:00 block.
+
+**T1d (post hoc, follows T1b; `code15/nb_public.py`, results/iter15_nb_public.json): the non-BTC posture with a PUBLIC
+market price (the last clean taker print of the market stamped <= T - 2; dailies excluded because their tapes are too long
+to page this iteration).** Non-daily non-BTC fills with a public price: STUDY 4,984, VALIDATE 3,877, after T0 271.
+
+| fold / phase | itm | market favourite (public print) | public posture k 0.7 | k 1.0 | k 1.4 | fill-price posture k 1.0 |
+| --- | --- | --- | --- | --- | --- | --- |
+| VALIDATE all | 0.598 | 0.568 | 0.590 | 0.587 | 0.538 | 0.647 |
+| VALIDATE opening (n 494) | 0.792 | 0.544 | **0.866** | 0.806 | 0.733 | 0.921 |
+| VALIDATE later (n 3,383) | 0.569 | 0.572 | 0.550 | 0.555 | 0.509 | 0.607 |
+| STUDY opening (n 841) | 0.843 | 0.613 | **0.924** | 0.882 | 0.730 | 0.929 |
+| STUDY later (n 4,143) | 0.717 | 0.703 | 0.686 | 0.634 | 0.487 | 0.704 |
+| after T0 opening (n 26) / later (n 245) | 0.54 / 0.66 | 0.31 / 0.66 | 1.00 / 0.64 | 0.92 / 0.53 | | |
+
+At the window open the relative-value posture against the last public print (fair = Binance digital with 0.7 x the
+symbol's 300-s volatility, strike = the TWAP-60 stand-in) picks the cluster's side at **0.866 on VALIDATE and 0.924 on
+STUDY** (k 0.7 chosen among the three pre-listed values; it is best on both folds), against the market favourite 0.54 /
+0.61: the opening quote of the alt families is decoded on public inputs. After the open no public rule beats the market
+favourite (0.55-0.70), and the fill-price posture's extra points come from the fill price itself. Combined on VALIDATE
+(posture k 0.7 at the open, market favourite later) the non-daily non-BTC side is about 0.61. By family (VALIDATE, all
+phases): alt 15m posture k 1.0 0.695 (market 0.484), alt 5m itm 0.668 (0.661), hourly itm 0.589 (0.552), 4h 0.51-0.59
+(0.501).
+
+## Iteration-15 checkpoint
+- Primary metric (historical VALIDATE 10-27..30, BTC 5m 10-s fill presence AUC, no own state): unchanged at **0.716**
+  (activity 0.684). R8 stays frozen; no frozen decision changed; one reported block added (`r9_nonbtc_module`,
+  `code/r9_nonbtc.py`); the live readers filter by server stamps (X167). target_metrics unchanged (union presence 0.788 /
+  0.780; selection 0.685 / 29.5% / 2.87; side 0.693 / 0.679; price 0.803; pnl 0.207 / 0.218; coverage 0.868 / 0.891).
+- Paradigm: decode the module that carries the idle weekend blocks on its own terms (per-family sizes, the opening
+  in-the-money rule, the settlement reference per family, where its money is) and test the panels' unit and clock
+  criticisms of the BTC quote (publish-anchored cells with a placebo, label purity, the TWAP variance law, the second
+  development block).
+- What it showed: (1) outside BTC 5m/15m the cluster quotes a configured size per family in all three accounts; at the
+  open of the 5m/15m alt windows its side is decoded on public inputs (a Binance-digital posture with 0.7 x sigma300
+  against the last public print: 0.866 VALIDATE, 0.924 STUDY; in the money 0.78-0.81; market favourite 0.54-0.62), but
+  those buys lose money; its profit there is in later 4h/hourly buys (+5-10% per $), whose side
+  is at the market favourite level on public inputs; (2) R8's universe fails the scope bar in a half of two of three weekend
+  mock lots; (3) on 10-31 17:29-18:00 each public Chainlink publish re-sides the pure 500 ladder within 300 ms (no-fit AUC
+  0.794, outcome 0.866, placebo before the publish 0.625; the posture change predicts posts after the publish at 0.665 and
+  anti-predicts those before at 0.429); (4) on the next development block (11-01 07:00-08:00, Sunday, label purity 0.91)
+  the same quote follows the k 1.0 posture at only 0.60, best k 2-3 at 0.65, about the cheaper token (0.63-0.64): the
+  quote's volatility configuration moves between blocks; (5) the TWAP variance law does not beat one k; (6) mo-money's
+  resting rungs carry the posture of ~1 s earlier (class ii 0.62 at the fill -> 0.75 at fill - 1 s), the first mechanical
+  account of its per-wallet deficit; (7) print-level selection on the non-BTC families fails (frozen score 0.62 vs an
+  activity score 0.73: the takers' order size selects the cluster's fills); (8) fitted on the publish-anchored cells of
+  11-01 07:00-08:07 the reference adds nothing to quote presence (gain -0.018 [-0.055, +0.028]); (9) the laptop clock drifts
+  0.19 s/h (needs a user resync before 11-01 12:00 UTC).
+- Closed this iteration: X164, X166, X167, X168, X170, X173, X174, X175, X176 (tried), X151, X161, X83 (tried). New open:
+  X163 (fitted test on a full block), X165, X169, X171, X172 (crude form run, proper form open).
+
+**Next steps (iteration 16).**
+1. X163 / X169 fitted on the full development block 11-01 07:00-12:00 (dm_clob_raw to 12:00): publish-anchored cells, an
+   activity LightGBM of the same class vs activity + report-i posture (k as a per-block state: fit k on the first hour,
+   apply to the rest), labels from pure 500 posts; placebo before the publish; 20-min block bootstrap.
+2. X160: score the quote side on the whole 07:00-12:00 block per hour with a k scan per hour, and test whether the
+   block's k is predictable from public state at the block start (the market's own implied k, realised vol, weekday).
+3. The non-BTC public posture (T1d): if it reaches >= 0.70 on VALIDATE, wire it into r9_nonbtc as the later-fill rule;
+   fetch the daily tapes (excluded in iteration 15 for paging time).
+4. X171 FIFO replay with the recorded queue on 10-31 14-18 and 11-01 07-12; X165 competition at the switch-offs.
+5. Ask the user (via the return) to resync the Windows clock.
+
+### Addendum (08:20 UTC): why the quote side did not replicate on 11-01 (post hoc; `code15/cl_sigma.py`, `edge_bands.py`)
+
+- **The Chainlink noise regime ended.** The 300-s sd of 1-s Chainlink changes over the futures-mid sd: **8.2 on 10-31
+  14-18** (Chainlink 10.2 $/s vs futures 1.2 $/s, the white-noise regime of 10-30/31) against **0.92 on 11-01 07-08**
+  (1.29 vs 1.28). The engine does not price with the Chainlink stream's own volatility: with sigma = k x the Chainlink
+  sigma300 the 10-31 posts score 0.45-0.53 (futures sigma k 1.0: 0.783); on 11-01 the two sigmas coincide (0.60-0.65).
+- **Accuracy by |F - mid| (pure 500 posts, k 1.0, futures sigma):** 10-31 14-18: < 0.02 0.585, 0.02-0.05 0.625, 0.05-0.1
+  0.720, 0.1-0.2 0.837, >= 0.2 **0.935**; 56% of posts at >= 0.1. 11-01 07-08: 0.611 / 0.556 / 0.517 / 0.726 / 0.783;
+  27% at >= 0.1. In the clean regime the reference and the market disagree far less, so the posture carries less
+  information, and even at the same edge the posts follow it less (small n at the top: 23 posts >= 0.2).
+- Reading: the "0.83-0.87 decoded quote side" of iterations 13-14 is mostly a property of the noise regime, in which the
+  noisy report pulled the engine's fair far from the market and the engine followed it (and lost money: the BTC 5m blocks
+  of 10-31 lost 11.9% and 3.9% before BTC 5m was switched off). In the clean regime the at-touch quote is near the
+  cheaper-token baseline. The quote's side rule is therefore "skew toward the latest published report", whose visible
+  strength depends on how far the report sits from the market; it is not a stable 0.8+ public description of the posts.
+  This also explains part of the k drift: a fitted k compensates for how often the report and the market disagree.
+
+**evaluate() on the current development hour 11-01 07:00-08:00 (results in .cache/re/directional-maker/it15_eval_1101_07.json;
+216 cluster BTC 5m maker fills, 12 windows; Sunday, clean Chainlink stream).** Per-fill match-clock side 0.740 (n 246)
+against the cheaper token 0.736, Binance 0.598, always-Up 0.516: in the clean regime the fill side equals the
+cheaper-token baseline. R7 price 0.912 (match clock 0.955, n 198). BTC 5m presence 0.580 vs activity 0.609 (gain -0.029);
+union 0.719 vs 0.715. Quote unit side (exam-recorder form) 0.621 (n 525); quote presence at event time 0.743 vs 0.716
+(gain +0.028). r9_nonbtc_module: R8 universe 0.78 of trades / 0.74 of $, **earlier half 0.54 / 0.41**, per wallet bosona
+0.86, almach 0.51, mo-money 0.52; non-BTC opening fills public posture 1.00 (n 12), later 0.783 vs market favourite 0.767
+(n 60). Both smoke tests of evaluate() (10-31 16-17, 10-31 00-01) ran end to end with the new block.
+
+**Chainlink noise by 6-h block on STUDY days (`code15/noise_days.py`, X102 even-second values fetched so far, 10-23..25):**
+sd of 2-s Chainlink changes over the futures' 0.69-0.98 (correlation 0.23-0.44): the lot's STUDY days were in the clean
+regime; the white-noise regime (ratio 8.2 at 1 s on 10-31 14-18) is specific to 10-30/31 and had ended by 11-01 07:00.
+It therefore does not explain the k step of the 10-24/25 weekend (iteration 11).
+
+**T1e (`code15/nb_public_build.py`, results/iter15_nb_public_build_open.json): the opening posture replicates on BUILD.**
+Opening fills (< 20 s) of the non-daily non-BTC families on the 8 BUILD sample days (n 2,027), the same public posture
+(Binance digital, 0.7 x sigma300, against the price from the last clean taker print <= T - 2): **0.882** (k 1.0 0.817,
+k 1.4 0.679; in the money 0.822; market favourite from the same print 0.623). By family: alt 15m 0.926 (n 337), alt 5m
+0.874 (1,523), hourly 0.862 (159). With STUDY 0.924 and VALIDATE 0.866 the opening quote of the alt families is decoded on
+public inputs at 0.87-0.92 on three folds, about +0.26 over the market favourite; it covers about 13% of the non-BTC
+fills (the later fills stay at the market-favourite level).
+
+**Persistence of the non-BTC fills (`code15/nb_persist.py`, results/iter15_nb_persist.json; own state, reported).** Per
+non-daily non-BTC market: later fills (>= 20 s) on the outcome of the market's first cluster fill 0.628 BUILD / 0.676
+STUDY / 0.674 VALIDATE (fill-weighted); on the outcome of the market's OPENING fill only 0.502 / 0.438 / 0.445; the
+majority side by shares equals the first fill's side in 91-92% of markets. After the directional opening bid the module
+buys both outcomes about equally (two-sided, the takers choose), and the opening fill decides the market's net side.
+So per market the public opening posture (0.87-0.92 per opening fill) is the decoded part of the non-BTC side; the later
+fills are a two-sided ladder (E4) at the market-favourite level (0.56-0.71).
+
+**Is the decoded opening quote profitable? (`code15/nb_pub_pnl.py`, results/iter15_nb_pub_pnl.json; Binance stand-in
+settlement.)** Opening fills that agree with the public posture: -0.4% per $ BUILD (n 1,787), -16.1% STUDY (777), -1.3%
+VALIDATE (428); those against it +4.8% / -2.6% / +77% (n 240 / 64 / 66). Later fills: posture-agreeing +1.4% STUDY /
++7.8% VALIDATE, against it +16.8% / -10.5%. The decoded part of the non-BTC side (the opening bid) is break-even to
+losing; the module's profit sits in the two-sided later fills, whose side is the takers' choice. As on BTC 5m, the public
+decode reaches the engine's quote, not what makes the money.
+
+**Opening posture per wallet and per half (results/iter15_open_posture_wallet.json).** almach / bosona / mo-money: BUILD
+0.898 / 0.882 / 0.867, STUDY 0.922 / 0.919 / 0.931, VALIDATE 0.856 / 0.855 / 0.888 (n 153-723 each): the three engine
+instances quote the opening alike. VALIDATE halves by window start: 0.944 (n 232) vs 0.798 (n 262): the halves differ by
+0.15, so the opening component would fail the examiner's replication condition (3 points) on a lot like VALIDATE.
+(Iteration 15 ended about 08:32 UTC 11-01, about 77 minutes.)
