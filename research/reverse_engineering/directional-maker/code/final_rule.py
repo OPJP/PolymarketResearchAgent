@@ -1,5 +1,14 @@
 """Frozen rule for the directional-maker cluster (bosona, almach, mo-money).
 
+Iteration 12 rule R8 = R7 (below, unchanged) + the window state-machine side, reported as 'side_state_machine' (BTC 5m)
+and 'btc15m.side_state_machine' (code/side_sm.py, block clock, no recordings): decided window (|Up mid - 0.5| > 0.4 at
+b - 3) -> the cheaper token; no cluster position in the window -> the Chainlink posture (stamp b - 4, Gamma strike,
+1.4 x 300-s vol; Binance stand-in fallback); after entry -> the cluster's held outcome for schedule-size orders and the
+under-held outcome for non-schedule (pairing) orders (calldata original size, at most 3,000 transactions). Own state is
+reported separately; the COUNTED side is the public part 'no_own_state' (decided -> cheaper, else posture): VALIDATE 0.693
+per 5m fill (code12/composite_side.py), cheaper-token baseline 0.679. The own-state composite (0.790) is below the
+own-history baseline 'own_history_prev_fill' (0.822): after entry the fill side is persistence, not a decoded rule.
+
 Iteration 11 rule R7 = R6 (below, unchanged) + a recording-free clock for the price rule (pre-registered 2026-11-01 00:43 UTC,
 adopted on VALIDATE: all 27,988 BTC 5m maker fills 0.807 vs block clock 0.709; BTC 15m 0.766 vs 0.666): the anchor "last
 clean trade of the market before the fill" is taken on the shared recorder's match ms where the trade is recorded (R4),
@@ -514,6 +523,16 @@ def _evaluate_btc15m(start_ts, end_ts, intervals, pm, sp, ct, local):
         out["price_inblock"] = inblock_price.price_inblock(mk, w, clean, _cluster_tx_hashes(start_ts, end_ts, pm, local), CLUSTER)
     except Exception as ex:  # noqa: BLE001
         out["price_inblock"] = {"error": repr(ex)[:300]}
+    try:  # R8 side (iteration 12) on BTC 15m: the same window state machine (code/side_sm.py), 15m Gamma strike
+        import side_sm
+        import cl_source
+        pa = _ptb_any(w)
+        ptb15 = {int(s_): v_ for (f_, s_), v_ in pa.items() if f_ == "15m"}
+        out["side_state_machine"] = side_sm.side_state_machine(
+            mk, buys, w, clean, sp, _cluster_tx_hashes(start_ts, end_ts, pm, local), CLUSTER, ptb=ptb15,
+            cl_values=lambda s: cl_source.cl_values(s, allow_sealed=ALLOW_SEALED, fetch=FETCH_CL, max_requests=MAX_CL_REQUESTS))
+    except Exception as ex:  # noqa: BLE001
+        out["side_state_machine"] = {"error": repr(ex)[:300]}
     pay = dict(zip(w["cid"], w["up_payout"]))
     mk2 = mk.assign(c=[tok2cid.get(t) for t in mk["token_id"]], up=mk["token_id"].isin(upset))
     mk2["won"] = [(pay.get(c) if u else 1 - pay.get(c)) if pay.get(c) is not None else np.nan for c, u in zip(mk2["c"], mk2["up"])]
@@ -949,6 +968,19 @@ def evaluate(start_ts: int, end_ts: int, intervals=None, local: bool = False, n_
     res["pnl"] = {"windows": int(len(j)), "pearson": float(j.corr().iloc[0, 1]) if len(j) > 2 else float("nan"),
                   "spearman": float(j.corr(method="spearman").iloc[0, 1]) if len(j) > 2 else float("nan"),
                   "wallet_maker_return_on_usd": float(((mk2["won"] - mk2["price"]) * mk2["shares"]).sum() / usd) if usd else float("nan")}
+    # R8 side (iteration 12): the decoded window state machine per BTC 5m maker fill on the block clock (no recordings):
+    # decided window -> cheaper token; entry (no cluster position) -> Chainlink posture (Binance stand-in fallback);
+    # after entry -> held outcome for schedule-size orders, under-held outcome for non-schedule (pairing) orders.
+    # Own state (cluster inventory, the order's calldata size) is reported separately ('no_own_state').
+    try:
+        import side_sm
+        import cl_source
+        _txh8 = _cluster_tx_hashes(start_ts, end_ts, pm, local)
+        res["side_state_machine"] = side_sm.side_state_machine(
+            mk, buys, w, clean, sp, _txh8, CLUSTER, ptb=_ptb(w),
+            cl_values=lambda s: cl_source.cl_values(s, allow_sealed=ALLOW_SEALED, fetch=FETCH_CL, max_requests=MAX_CL_REQUESTS))
+    except Exception as ex:  # never break the tape evaluation
+        res["side_state_machine"] = {"error": repr(ex)[:300]}
     del c2, by, clean
     # selection over in-window taker prints, per UTC day block, with the rotation null (scores aligned to rows)
     models = {nm: lgb.Booster(model_file=str(HERE / f"selection2_{nm}.txt")) for nm in ("all", "activity")}

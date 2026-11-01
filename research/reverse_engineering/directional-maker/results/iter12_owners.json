@@ -1,0 +1,82 @@
+{
+ "bosona": {
+  "proxy": "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed",
+  "code_len": 252,
+  "owners": [
+   "0x4acd0e52e40c7c2cd8de60a354bec5d7c0599186"
+  ],
+  "threshold": null,
+  "owner_info": {
+   "0x4acd0e52e40c7c2cd8de60a354bec5d7c0599186": {
+    "polygon_nonce": 2,
+    "code_len": 2,
+    "hl_role": {
+     "role": "missing"
+    },
+    "hl_fills_365d_before_T0": 0,
+    "hl_ledger_n": 0
+   }
+  },
+  "owner_source": "ERC-1967 proxy immutable args (factory 0x00000000000fb5c9adea0298d729a0cb3823cc07, implementation 0x58ca52ebe0dadfdf531cde7062e76746de4db1eb)"
+ },
+ "almach": {
+  "proxy": "0x3725d52f3c252e8374999cc8617292ea2608ad88",
+  "code_len": 252,
+  "owners": [
+   "0xb3f8b214298b939ee14cf3d6467bbe691a64a512"
+  ],
+  "threshold": null,
+  "owner_info": {
+   "0xb3f8b214298b939ee14cf3d6467bbe691a64a512": {
+    "polygon_nonce": 1456,
+    "code_len": 2,
+    "hl_role": {
+     "role": "missing"
+    },
+    "hl_fills_365d_before_T0": 0,
+    "hl_ledger_n": 0
+   }
+  },
+  "owner_source": "ERC-1967 proxy immutable args (factory 0x00000000000fb5c9adea0298d729a0cb3823cc07, implementation 0x58ca52ebe0dadfdf531cde7062e76746de4db1eb)"
+ },
+ "momoney": {
+  "proxy": "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3",
+  "code_len": 250,
+  "owners": [
+   "0xd1f9bc03d7395134647c6a7d3b468cfdd4b38292"
+  ],
+  "threshold": 1,
+  "owner_info": {
+   "0xd1f9bc03d7395134647c6a7d3b468cfdd4b38292": {
+    "polygon_nonce": 445,
+    "hl_role": {
+     "role": "user"
+    },
+    "hl_fills_120d_before_T0": 0,
+    "hl_ledger_n": 5,
+    "hl_ledger_last": [
+     [
+      1762379331514,
+      "deposit"
+     ],
+     [
+      1768870449752,
+      "withdraw"
+     ],
+     [
+      1770416312437,
+      "withdraw"
+     ],
+     [
+      1770649924492,
+      "withdraw"
+     ],
+     [
+      1781376404517,
+      "spotTransfer"
+     ]
+    ]
+   }
+  }
+ }
+}

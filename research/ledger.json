@@ -1,5 +1,5 @@
 {
- "generated_at": 1793502270,
+ "generated_at": 1793502383,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -194,17 +194,17 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 12,
-   "minutes": 830.6,
+   "minutes": 824.8000000000001,
    "hypotheses": 152,
    "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state, clean tape (every print in a cluster transaction removed). From iteration 4 VALIDATE = 2026-10-27..30.",
    "best_validate_score": 0.7723,
    "best_rule": "R8 = R7 + the window state-machine side (counted: the public part, decided -> cheaper else Chainlink posture; own-state composite reported)",
    "has_final_rule": true,
-   "strategy_statement": "[engine: VALIDATE-only] One engine family (timestamp-0 orders, per-wallet salt counters reset by the daily ~01:00 UTC restart) runs three accounts with three owner keys (mo-money: Safe of 0xd1f9bc03...; almach / bosona: ERC-1967 proxies of 0xb3f8b214... / 0x4acd0e52...) that share one position state per window. [selection: hypothesis] It quotes nearly every crypto Up/Down window of the modules it runs; BTC 5m/15m are switched off for hours, mostly Fri-Sun US-Eastern evenings. [timing: VALIDATE-only] It re-prices on each Chainlink report within ~0-150 ms of the RTDS relay and after Binance moves; its filled orders are fresh posts at the touch. [side: VALIDATE-only (public part); own-state description otherwise] The window entry buys the outcome whose Chainlink edge over the Polymarket mid is positive (digital, 1.4 x 300-s vol; 0.70 per entry fill on VALIDATE, the ladder center implies k 1.1-1.4 live); in decided windows a deep-bid module buys the cheap loser (switched up from Monday 10-26); after entry its fills come in same-side runs (the previous fill's side predicts 0.88) and imbalance-sized pairing bids buy the under-held outcome. Public per-fill side 0.69 on VALIDATE (cheaper-token baseline 0.68; own-history baseline 0.82). The fill-level favourite share drifts with the entry and deep-bid decisions; it is not a weekday, volatility or competitor effect. [price: exam-verified (block clock) / VALIDATE-only (in-block and match clock)] Fill price = the last clean trade before the fill minus a tick: 0.80 within a tick on the in-block execution order, 0.83-0.86 on the live match clock. [size: VALIDATE-only] 500 x 2^k schedule rungs in the US session, 62/250 outside, plus imbalance-sized pairing bids. [exit: VALIDATE-only] Holds to resolution, completes pairs with maker pairing bids, merges ~65 s before the end. [economics: VALIDATE-only] It earns as a fast at-the-touch maker with a Chainlink-skewed entry: its locked pairs (+$38k on VALIDATE) and its directional residual both depend on fills of quotes refreshed within ~0.1-1 s; a strict-fill replay of the decoded machine loses 11-16% and tracks its window PnL at <= 0.21 / 0.22 (oracle side 0.47 / 0.53 without the pairing leg, 0.25 / 0.30 with it).",
+   "strategy_statement": "[engine: VALIDATE-only] One engine family (timestamp-0 orders, per-wallet salt counters reset by the daily ~01:00 UTC restart) runs three accounts with three owner keys (mo-money: Safe of 0xd1f9bc03...; almach / bosona: ERC-1967 proxies of 0xb3f8b214... / 0x4acd0e52...) whose fill sides move together (block favourite shares correlate 0.69-0.78 over May-October). [selection: hypothesis] It quotes nearly every crypto Up/Down window of the modules it runs; BTC 5m/15m are switched off for hours, mostly Fri-Sun US-Eastern evenings. [timing: VALIDATE-only] It re-prices on each Chainlink report within ~0-150 ms of the RTDS relay and after Binance moves; its filled orders are fresh posts at the touch. [side: VALIDATE-only (public part); own-state description otherwise] The window entry buys the outcome whose Chainlink edge over the Polymarket mid is positive (digital, 1.4 x 300-s vol; 0.70 per entry fill on VALIDATE, the ladder center implies k 1.1-1.4 live); in decided windows a deep-bid module buys the cheap loser (switched up from Monday 10-26); after entry its fills come in same-side runs (the previous fill's side predicts 0.88) and imbalance-sized pairing bids buy the under-held outcome. Public per-fill side 0.69 on VALIDATE (cheaper-token baseline 0.68; own-history baseline 0.82). The fill-level favourite share drifts with the entry and deep-bid decisions; it is not a weekday, volatility or competitor effect. [price: exam-verified (block clock) / VALIDATE-only (in-block and match clock)] Fill price = the last clean trade before the fill minus a tick: 0.80 within a tick on the in-block execution order, 0.83-0.86 on the live match clock. [size: VALIDATE-only] 500 x 2^k schedule rungs in the US session, 62/250 outside, plus imbalance-sized pairing bids. [exit: VALIDATE-only] Holds to resolution, completes pairs with maker pairing bids, merges ~65 s before the end. [economics: VALIDATE-only] It earns as a fast at-the-touch maker with a Chainlink-skewed entry: its locked pairs (+$38k on VALIDATE) and its directional residual both depend on fills of quotes refreshed within ~0.1-1 s; a strict-fill replay of the decoded machine loses 11-16% and tracks its window PnL at <= 0.21 / 0.22 (oracle side 0.47 / 0.53 without the pairing leg, 0.25 / 0.30 with it).",
    "exam_rounds": 1,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 7,
+   "panels": 8,
    "exam": {
     "target_met": false,
     "leakage_passed": true,
