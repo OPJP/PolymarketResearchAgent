@@ -1,44 +1,44 @@
 {
-  "brief": "find-the-strategy (2026-10-31, calendar lots)",
-  "stage": "budget_exhausted",
-  "iterations": 18,
-  "minutes": 1240,
-  "budget_minutes": 1200,
-  "best_validate_score": 0.7723,
-  "progress": 0.81274,
-  "released": [
-    "h1",
-    "h2"
-  ],
-  "future_examined_until": 1793512800,
-  "exam_rounds": 2,
-  "exams": [
-    {
-      "round": 1,
-      "lot": "h1+h2",
-      "criteria": {
-        "match": "partial",
-        "backtest": "fail",
-        "replicable": "fail",
-        "persists": "fail"
-      },
-      "target_met": false
-    },
-    {
-      "round": 2,
-      "lot": "f1",
-      "criteria": {
-        "match": "fail",
-        "backtest": "fail",
-        "replicable": "fail",
-        "persists": "fail"
-      },
-      "target_met": false
-    }
-  ],
-  "wall_audits": [],
-  "wall_refusals": 0,
-  "claim_refusals": 0,
-  "panels": 14,
-  "note": null
+ "brief": "find-the-strategy (2026-10-31, calendar lots)",
+ "stage": "budget_exhausted",
+ "iterations": 18,
+ "minutes": 1240,
+ "budget_minutes": 1200,
+ "best_validate_score": 0.7723,
+ "progress": 0.81274,
+ "released": [
+  "h1",
+  "h2"
+ ],
+ "future_examined_until": 1793512800,
+ "exam_rounds": 2,
+ "exams": [
+  {
+   "round": 1,
+   "lot": "h1+h2",
+   "criteria": {
+    "match": "partial",
+    "backtest": "fail",
+    "replicable": "fail",
+    "persists": "fail"
+   },
+   "target_met": false
+  },
+  {
+   "round": 2,
+   "lot": "f1",
+   "criteria": {
+    "match": "fail",
+    "backtest": "fail",
+    "replicable": "fail",
+    "persists": "fail"
+   },
+   "target_met": false
+  }
+ ],
+ "wall_audits": [],
+ "wall_refusals": 0,
+ "claim_refusals": 0,
+ "panels": 14,
+ "note": null
 }
