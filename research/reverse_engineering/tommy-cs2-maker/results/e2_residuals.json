@@ -1,0 +1,198 @@
+{
+ "bins": 317760,
+ "positives": 6217,
+ "markets": 662,
+ "traded_markets": 113,
+ "oof_auc_rule": 0.9772,
+ "oof_auc_activity_b0": 0.9582,
+ "oof_auc_rule_in_traded_markets": 0.91,
+ "oof_auc_b0_in_traded_markets": 0.9105,
+ "selection_oof_auc_league_rate": 0.9387,
+ "selection_residual": {
+  "events": 256,
+  "traded": 41,
+  "missed_traded_events (OOF league score below the untraded 75th pct)": 0,
+  "false_alarm_events (untraded, score >= traded median)": 6,
+  "missed_by_tier": {},
+  "missed_leagues": {},
+  "false_alarm_leagues": {
+   "PGL": 4,
+   "Stake Pulse": 2
+  },
+  "traded_rate_by_hour_block": {
+   "0": [
+    0.0,
+    5
+   ],
+   "4": [
+    0.0,
+    8
+   ],
+   "8": [
+    0.179,
+    84
+   ],
+   "12": [
+    0.27,
+    63
+   ],
+   "16": [
+    0.107,
+    84
+   ],
+   "20": [
+    0.0,
+    12
+   ]
+  },
+  "traded_rate_by_weekday": {
+   "0": [
+    0.242,
+    66
+   ],
+   "1": [
+    0.174,
+    69
+   ],
+   "4": [
+    0.075,
+    53
+   ],
+   "5": [
+    0.211,
+    38
+   ],
+   "6": [
+    0.033,
+    30
+   ]
+  },
+  "missed_rate_by_hour_block": {
+   "0": 0.0,
+   "4": 0.0,
+   "8": 0.0,
+   "12": 0.0,
+   "16": 0.0,
+   "20": 0.0
+  }
+ },
+ "timing_residual_by_elapsed_min": {
+  "(-1.0, 10.0]": {
+   "bins": 2373,
+   "pos_rate": 0.1913,
+   "mean_p": 0.1498,
+   "auc": 0.779
+  },
+  "(10.0, 30.0]": {
+   "bins": 4520,
+   "pos_rate": 0.2427,
+   "mean_p": 0.1982,
+   "auc": 0.749
+  },
+  "(30.0, 60.0]": {
+   "bins": 6780,
+   "pos_rate": 0.1839,
+   "mean_p": 0.1478,
+   "auc": 0.761
+  },
+  "(60.0, 90.0]": {
+   "bins": 6780,
+   "pos_rate": 0.2133,
+   "mean_p": 0.166,
+   "auc": 0.82
+  },
+  "(90.0, 120.0]": {
+   "bins": 6780,
+   "pos_rate": 0.1661,
+   "mean_p": 0.1281,
+   "auc": 0.892
+  },
+  "(120.0, 180.0]": {
+   "bins": 13560,
+   "pos_rate": 0.0593,
+   "mean_p": 0.0402,
+   "auc": 0.978
+  },
+  "(180.0, 240.0]": {
+   "bins": 13447,
+   "pos_rate": 0.0032,
+   "mean_p": 0.0036,
+   "auc": 0.999
+  }
+ },
+ "timing_residual_by_hour_of_day_utc": {
+  "8": {
+   "bins": 10310,
+   "pos_rate": 0.1722,
+   "mean_p": 0.0837,
+   "auc": 0.87
+  },
+  "12": {
+   "bins": 19980,
+   "pos_rate": 0.1295,
+   "mean_p": 0.1211,
+   "auc": 0.884
+  },
+  "16": {
+   "bins": 18950,
+   "pos_rate": 0.0869,
+   "mean_p": 0.0742,
+   "auc": 0.943
+  },
+  "20": {
+   "bins": 5000,
+   "pos_rate": 0.0416,
+   "mean_p": 0.0303,
+   "auc": 0.985
+  }
+ },
+ "timing_residual_by_book": {
+  "map": {
+   "bins": 34560,
+   "pos_rate": 0.0858,
+   "mean_p": 0.0664,
+   "auc": 0.946
+  },
+  "match": {
+   "bins": 19680,
+   "pos_rate": 0.1653,
+   "mean_p": 0.1294,
+   "auc": 0.837
+  }
+ },
+ "e7_residual_clustering": {
+  "orders_with_bin": 9840,
+  "unexplained_orders": 4917,
+  "events": 41,
+  "delta_0.5": {
+   "unexplained": {
+    "ratio": 0.6326530612244898,
+    "p": 0.8737541528239202
+   },
+   "all_signings": {
+    "ratio": 0.8774928774928775,
+    "p": 0.7774086378737541
+   }
+  },
+  "delta_2.0": {
+   "unexplained": {
+    "ratio": 0.7004048582995951,
+    "p": 0.9900332225913622
+   },
+   "all_signings": {
+    "ratio": 0.8149509803921569,
+    "p": 0.9966777408637874
+   }
+  },
+  "delta_10.0": {
+   "unexplained": {
+    "ratio": 0.9934701492537313,
+    "p": 0.5415282392026578
+   },
+   "all_signings": {
+    "ratio": 1.000270782561603,
+    "p": 0.5249169435215947
+   }
+  }
+ }
+}

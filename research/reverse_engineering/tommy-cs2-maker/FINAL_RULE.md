@@ -23,6 +23,54 @@ Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
 - Iteration 13 changed no rule component. It found the operator's other accounts (one of them ran this strategy before
   the wallet did), replicated the selection rule out of sample on that account, rejected three bookmakers' Dota lines
   as the value, and measured the value's in-round information against bo3 round winners.
+- Iteration 14 changed no rule component. It ran the 11-01 brief's hidden-dimension pass (dimension inventory,
+  out-of-fold residual shape, cross-event synchrony, a pre-registered event-state indicator screen confirmed on
+  VALIDATE) and measured the price item's lag tolerance, an own-state transport rule, a phase-gated public ladder, the
+  value's path on the feed's own clock, and the operator's sports quoting and further accounts.
+
+## What iteration 14 established (no rule change)
+
+- **The residual's shape (E2, out of fold on BUILD; VALIDATE-only evidence for the rule).** Selection is almost fully
+  explained (OOF league AUC 0.939, no traded event missed). Timing inside traded markets is co-occurrence (OOF 0.910
+  for the rule vs 0.9105 for activity alone). The price item carries the unexplained part: 68% of orders are off the
+  last print, piling up at round ends. No cross-event synchrony of the misses (E7: ratio 0.63-0.99, p >= 0.54), so no
+  shared outage, headline or cross-market driver.
+- **The wallet acts before the public tape and just after the push feed's visible subscribers (E3-1, pre-registered;
+  13 of 18 rows confirmed on VALIDATE at Holm alpha 0.01; hypothesis-level reading).** Its re-pricing decisions follow
+  informed takers' signatures by +0.4-1.5 s, sign-concordant, and precede public print jumps, other-book jumps and the
+  first print after a silence by 2.5-5 s, in the same direction. Only 12-18% of its re-pricings have a visible
+  informed take in the 3 s before them (null about 3%); the rest sit at messages no wallet-free take prints.
+- **The price item tolerates no input lag (X201; BUILD-live).** Through the frozen ladder machine, its own value lagged
+  by 0.25 s keeps 0.355 of the set unit (4 s: 0.293; oracle 0.875); the orders that fill are 90% V-change bursts, which
+  score 0.20-0.23 at any lag. A delayed public in-play state (stream, Valve 4-s Dota snapshots, HLTV) can name the
+  feed's class but cannot carry the price item.
+- **Own state does not carry it either (X198).** The freshest own level transported over the complement (K 0.97) and
+  the series map (map to match slope 0.46) gives 0.44 within one tick on VALIDATE with its own knowledge at signing,
+  and 0.26-0.27 with only what is public at block time (the last print: 0.305-0.322).
+- **On the feed's clock its value steps at the message (X189 / X195 first pass).** Around 2,111 informed clusters
+  its value moves 42-57% of its 60-s move within (-1, +3] s, with no private ramp before the message (beyond the
+  print's own pre-trend), and the print follows 2-5 s later on those messages. It also moves (+1.0c) at clusters that
+  favour the round's eventual loser, but the print-inferred clock cannot separate "round results" from "in-round
+  events".
+- **Round results or in-round events: still open (hypothesis, first pass).** On a round clock built from bo3
+  durations snapped to the feed's winner-direction informed clusters (weak: 1.39x the snaps of a reversed winner
+  sequence; 61 rounds), its winner-signed move sits at the round-end message (+2.84c) with none mid-round (-0.47c). With
+  single informed takes as anchors (1.34x; 141 rounds) it also moves mid-round (+2.11c; VALIDATE +3.02c, mid-round
+  AUC 0.67 vs the print's 0.61). On the print's own clock it has moved most of the way before the print reacts (the
+  10-45 s lead). No public anchor set gives a reliable round clock, so "round results seen early" vs "in-round events"
+  is not decided; kill / round-end ticks (demos, consent) would decide it.
+- **Version history (VALIDATE-only).** The operator's esports maker quoted two-sided around the public print in
+  July-August (within one tick 0.43, bid -1c / ask +1c, no merges) and switched, after a pause from 09-03 to 09-16, to
+  the BUY-only merge design with the private value on 09-17 (the second account from 09-21).
+- **A phase-gated public ladder does not carry the outcome item (X202).** Quoting a five-slot public ladder only after
+  a point-in-time informed-take clock: VALIDATE per-market Pearson / Spearman with the wallet 0.253 / 0.046 (return
+  +0.5%); no variant reaches 0.5.
+- **The operator.** At least six accounts on one process: two more BUY-only whole-cent CS2 makers (0x10d79cc7,
+  0xd2bb9459) co-sign with the operator's accounts at 0-5 ms (12.6x / 9.0x per ms) and share the owners' EIP-7702
+  delegate (which 19 of 499 deposit-wallet owners use, so the delegate alone is not proof). Its sports account
+  (0x52661b8e, September) is a BUY taker (1,148 takes, 152 single-slot makers bidding above the print) whose MLB takes
+  show no fixed-lag reaction to official play ends (statsapi; p_link 0.52-0.90): the push-feed maker is an esports
+  product, which narrows the vendor search.
 
 ## What iteration 13 established (no rule change)
 
@@ -485,7 +533,13 @@ order-level fill engine, a census of informed bursts) and found:
   In the first VALIDATE-live block (11-01 06-12) it had not traded by 09:43 UTC (the block's non-GRID events so far
   were outside its selection, and v5 skipped them too). Iteration 13: the strategy is older than the wallet's maker
   regime (on another account of the same operator from at least late September), so the conditions are not a one-week
-  anomaly.
+  anomaly. Iteration 14: the whole 11-01 06-12 VALIDATE-live block passed without a wallet trade (cs2-bca-pha, its
+  last candidate, still untraded at 11:56 UTC).
+- **Iteration 14 numbers for a replicator.** The feed is esports-only as far as the operator's accounts show (its sports
+  account is a slower state-based taker). A copy that receives the same messages 0.25 s later than the wallet already
+  loses 60% of the price item (X201); a public ladder gated on the visible informed-take clock earns about 0% and does
+  not track the wallet's per-market PnL (X202). So without the feed and a fan-out position near the wallet's, there is
+  no reduced version worth running.
 - **A replicator with public data and a home connection** sees the event only through the cancel wave or later.
   - The wallet's own ladder is hit at about a third of the pack's events and barely pulls there (17% vs 10% in a
     control, iteration 7); a home connection 100-300 ms behind the cancel wave would be hit more often. Its maker adds
@@ -512,6 +566,14 @@ order-level fill engine, a census of informed bursts) and found:
   Whether that is fast enough against the 1-s in-play delay is the pre-registered X118 test.
 
 ## Not explained yet
+
+- **Iteration 14 account.** Price: its value moves at the push feed's messages (a step within 0-3 s of the visible
+  informed clusters, no private ramp before them), and only 12-18% of its re-pricings have a visible message in the
+  3 s before; the other ~85% sit at messages no wallet-free take prints. The item tolerates no input lag (0.25 s costs
+  60% of the set unit), so only the feed itself can carry it; own state transported across books reaches 0.44, the
+  last print 0.31. Which message kinds move V (round results vs in-round kills / plants) needs a true round clock or
+  demo kill ticks (consent). Outcome: a phase-gated public ladder stays at 0.25 / 0.05 (VALIDATE). The vendor: an
+  esports-only push feed (the operator's sports account shows no fixed-lag reaction to official MLB plays).
 
 - **Iteration 13 account.** Price: V to the cent. V is an in-round win-probability state (within-round drift toward
   the round winner AUC 0.90 vs the print's 0.68), one value per event on its map and match books, that leads other

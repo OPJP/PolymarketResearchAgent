@@ -1,5 +1,5 @@
 {
- "generated_at": 1793534336,
+ "generated_at": 1793534700,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -370,7 +370,7 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 14,
-   "minutes": 1011.0,
+   "minutes": 987.0,
    "hypotheses": 151,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.8834,
@@ -380,7 +380,7 @@
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 12
+   "panels": 13
   }
  ],
  "wallets": [

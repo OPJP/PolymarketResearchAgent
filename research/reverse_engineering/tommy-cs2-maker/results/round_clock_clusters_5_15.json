@@ -1,0 +1,54 @@
+{
+ "maps_tracked": 77,
+ "rounds": 1732,
+ "snapped": 186,
+ "snapped_placebo_reversed": 128,
+ "G_counts": {
+  "0.0": 39,
+  "10.0": 18,
+  "30.0": 12,
+  "20.0": 8
+ },
+ "rounds_with_both_ends_snapped": 18,
+ "round_len_s_median": 123.3,
+ "V_mid_mean_c": -3.202,
+ "P_mid_mean_c": -1.506,
+ "V_late_mean_c": 1.056,
+ "P_late_mean_c": 2.193,
+ "V_end_mean_c": 1.278,
+ "P_end_mean_c": 0.598,
+ "V_after_mean_c": 1.407,
+ "P_after_mean_c": 1.984,
+ "V_share_mid_late_end_after": [
+  -5.941,
+  1.959,
+  2.371,
+  2.61
+ ],
+ "auc_mid_V": 0.3831,
+ "auc_mid_P": 0.4416,
+ "by_split": {
+  "BUILD": {
+   "rounds": 7,
+   "auc_mid_V": 0.4583,
+   "auc_mid_P": 0.3333,
+   "V_mid_late_end_after_c": [
+    -0.2,
+    0.429,
+    3.571,
+    1.857
+   ]
+  },
+  "VALIDATE": {
+   "rounds": 11,
+   "auc_mid_V": 0.3214,
+   "auc_mid_P": 0.5,
+   "V_mid_late_end_after_c": [
+    -4.567,
+    1.455,
+    -0.182,
+    1.12
+   ]
+  }
+ }
+}

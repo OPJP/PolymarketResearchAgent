@@ -1,0 +1,179 @@
+{
+ "K_build": 0.97,
+ "K_pairs": 544,
+ "BETA_build": 0.46,
+ "BETA_pairs": 86,
+ "BUILD": {
+  "orders": 10759,
+  "P_tok": {
+   "coverage": 0.972,
+   "within_tick_all": 0.409,
+   "within_tick_covered": 0.421,
+   "first_in_burst": 0.418,
+   "later_in_burst": 0.325,
+   "cs2": 0.409,
+   "dota2": null,
+   "match_book": 0.436,
+   "map_book": 0.386
+  },
+  "T_tok0": {
+   "coverage": 0.972,
+   "within_tick_all": 0.412,
+   "within_tick_covered": 0.424,
+   "first_in_burst": 0.42,
+   "later_in_burst": 0.333,
+   "cs2": 0.412,
+   "dota2": null,
+   "match_book": 0.438,
+   "map_book": 0.389
+  },
+  "T_tok1": {
+   "coverage": 0.972,
+   "within_tick_all": 0.278,
+   "within_tick_covered": 0.286,
+   "first_in_burst": 0.265,
+   "later_in_burst": 0.41,
+   "cs2": 0.278,
+   "dota2": null,
+   "match_book": 0.299,
+   "map_book": 0.26
+  },
+  "T_book0": {
+   "coverage": 0.985,
+   "within_tick_all": 0.441,
+   "within_tick_covered": 0.448,
+   "first_in_burst": 0.448,
+   "later_in_burst": 0.368,
+   "cs2": 0.441,
+   "dota2": null,
+   "match_book": 0.452,
+   "map_book": 0.431
+  },
+  "T_book1": {
+   "coverage": 0.985,
+   "within_tick_all": 0.306,
+   "within_tick_covered": 0.311,
+   "first_in_burst": 0.292,
+   "later_in_burst": 0.442,
+   "cs2": 0.306,
+   "dota2": null,
+   "match_book": 0.325,
+   "map_book": 0.289
+  },
+  "T_event1": {
+   "coverage": 0.985,
+   "within_tick_all": 0.302,
+   "within_tick_covered": 0.307,
+   "first_in_burst": 0.289,
+   "later_in_burst": 0.44,
+   "cs2": 0.302,
+   "dota2": null,
+   "match_book": 0.34,
+   "map_book": 0.269
+  },
+  "T_event0": {
+   "coverage": 0.985,
+   "within_tick_all": 0.424,
+   "within_tick_covered": 0.43,
+   "first_in_burst": 0.429,
+   "later_in_burst": 0.373,
+   "cs2": 0.424,
+   "dota2": null,
+   "match_book": 0.458,
+   "map_book": 0.393
+  },
+  "share_first_in_burst": 0.91
+ },
+ "VALIDATE": {
+  "orders": 13421,
+  "P_tok": {
+   "coverage": 0.978,
+   "within_tick_all": 0.417,
+   "within_tick_covered": 0.427,
+   "first_in_burst": 0.416,
+   "later_in_burst": 0.438,
+   "cs2": 0.405,
+   "dota2": 0.532,
+   "match_book": 0.439,
+   "map_book": 0.397
+  },
+  "T_tok0": {
+   "coverage": 0.978,
+   "within_tick_all": 0.419,
+   "within_tick_covered": 0.429,
+   "first_in_burst": 0.42,
+   "later_in_burst": 0.412,
+   "cs2": 0.408,
+   "dota2": 0.53,
+   "match_book": 0.441,
+   "map_book": 0.4
+  },
+  "T_tok1": {
+   "coverage": 0.978,
+   "within_tick_all": 0.295,
+   "within_tick_covered": 0.302,
+   "first_in_burst": 0.277,
+   "later_in_burst": 0.514,
+   "cs2": 0.285,
+   "dota2": 0.394,
+   "match_book": 0.309,
+   "map_book": 0.282
+  },
+  "T_book0": {
+   "coverage": 0.987,
+   "within_tick_all": 0.44,
+   "within_tick_covered": 0.445,
+   "first_in_burst": 0.441,
+   "later_in_burst": 0.427,
+   "cs2": 0.429,
+   "dota2": 0.543,
+   "match_book": 0.457,
+   "map_book": 0.424
+  },
+  "T_book1": {
+   "coverage": 0.987,
+   "within_tick_all": 0.31,
+   "within_tick_covered": 0.314,
+   "first_in_burst": 0.291,
+   "later_in_burst": 0.536,
+   "cs2": 0.301,
+   "dota2": 0.394,
+   "match_book": 0.316,
+   "map_book": 0.304
+  },
+  "T_event1": {
+   "coverage": 0.987,
+   "within_tick_all": 0.306,
+   "within_tick_covered": 0.31,
+   "first_in_burst": 0.286,
+   "later_in_burst": 0.537,
+   "cs2": 0.296,
+   "dota2": 0.394,
+   "match_book": 0.329,
+   "map_book": 0.284
+  },
+  "T_event0": {
+   "coverage": 0.987,
+   "within_tick_all": 0.419,
+   "within_tick_covered": 0.424,
+   "first_in_burst": 0.417,
+   "later_in_burst": 0.432,
+   "cs2": 0.408,
+   "dota2": 0.515,
+   "match_book": 0.458,
+   "map_book": 0.383
+  },
+  "share_first_in_burst": 0.922
+ },
+ "VALIDATE_gain_T_event1_over_P_tok": [
+  -0.1341,
+  -0.1107,
+  -0.0922
+ ],
+ "VALIDATE_gain_T_book1_over_P_tok": [
+  -0.1287,
+  -0.1068,
+  -0.0892
+ ],
+ "avail_mode": "sign"
+}

@@ -1,0 +1,202 @@
+{
+ "maps": 86,
+ "clusters": 1015,
+ "share_match_round_winner": 0.607,
+ "match": {
+  "n": 616,
+  "dV_mean_c": 2.189,
+  "dP_mean_c": 3.026,
+  "V_toward_s_ge1c": 0.32,
+  "V_against_s_ge1c": 0.058,
+  "P_toward_s_ge1c": 0.554
+ },
+ "non_match": {
+  "n": 399,
+  "dV_mean_c": 1.002,
+  "dP_mean_c": 1.508,
+  "V_toward_s_ge1c": 0.206,
+  "V_against_s_ge1c": 0.068,
+  "P_toward_s_ge1c": 0.466
+ },
+ "non_match_early": {
+  "n": 59,
+  "dV_mean_c": 0.902,
+  "dP_mean_c": 1.491,
+  "V_toward_s_ge1c": 0.254,
+  "V_against_s_ge1c": 0.136,
+  "P_toward_s_ge1c": 0.475
+ },
+ "non_match_late": {
+  "n": 53,
+  "dV_mean_c": 0.613,
+  "dP_mean_c": 1.724,
+  "V_toward_s_ge1c": 0.189,
+  "V_against_s_ge1c": 0.151,
+  "P_toward_s_ge1c": 0.509
+ },
+ "match_late": {
+  "n": 196,
+  "dV_mean_c": 3.745,
+  "dP_mean_c": 4.952,
+  "V_toward_s_ge1c": 0.454,
+  "V_against_s_ge1c": 0.077,
+  "P_toward_s_ge1c": 0.755
+ },
+ "match_early": {
+  "n": 102,
+  "dV_mean_c": 2.759,
+  "dP_mean_c": 2.711,
+  "V_toward_s_ge1c": 0.431,
+  "V_against_s_ge1c": 0.069,
+  "P_toward_s_ge1c": 0.51
+ },
+ "by_winner_side_and_plant": {
+  "winner_CT_planted_False": {
+   "clusters": 418,
+   "share_toward_T": 0.419,
+   "toward_T": {
+    "n": 175,
+    "dV_mean_c": 0.937,
+    "dP_mean_c": 1.64,
+    "V_toward_s_ge1c": 0.183,
+    "V_against_s_ge1c": 0.069,
+    "P_toward_s_ge1c": 0.463
+   },
+   "toward_CT": {
+    "n": 243,
+    "dV_mean_c": 2.335,
+    "dP_mean_c": 3.255,
+    "V_toward_s_ge1c": 0.342,
+    "V_against_s_ge1c": 0.049,
+    "P_toward_s_ge1c": 0.588
+   }
+  },
+  "winner_CT_planted_True": {
+   "clusters": 176,
+   "share_toward_T": 0.398,
+   "toward_T": {
+    "n": 70,
+    "dV_mean_c": 0.839,
+    "dP_mean_c": 0.769,
+    "V_toward_s_ge1c": 0.157,
+    "V_against_s_ge1c": 0.057,
+    "P_toward_s_ge1c": 0.343
+   },
+   "toward_CT": {
+    "n": 106,
+    "dV_mean_c": 2.471,
+    "dP_mean_c": 3.326,
+    "V_toward_s_ge1c": 0.387,
+    "V_against_s_ge1c": 0.066,
+    "P_toward_s_ge1c": 0.547
+   }
+  },
+  "winner_T_planted_False": {
+   "clusters": 48,
+   "share_toward_T": 0.771,
+   "toward_T": {
+    "n": 37,
+    "dV_mean_c": 1.697,
+    "dP_mean_c": 2.689,
+    "V_toward_s_ge1c": 0.243,
+    "V_against_s_ge1c": 0.081,
+    "P_toward_s_ge1c": 0.459
+   },
+   "toward_CT": {
+    "n": 11,
+    "dV_mean_c": 2.106,
+    "dP_mean_c": 2.635,
+    "V_toward_s_ge1c": 0.364,
+    "V_against_s_ge1c": 0.0,
+    "P_toward_s_ge1c": 0.636
+   }
+  },
+  "winner_T_planted_True": {
+   "clusters": 373,
+   "share_toward_T": 0.617,
+   "toward_T": {
+    "n": 230,
+    "dV_mean_c": 1.983,
+    "dP_mean_c": 2.701,
+    "V_toward_s_ge1c": 0.278,
+    "V_against_s_ge1c": 0.061,
+    "P_toward_s_ge1c": 0.535
+   },
+   "toward_CT": {
+    "n": 143,
+    "dV_mean_c": 1.076,
+    "dP_mean_c": 1.621,
+    "V_toward_s_ge1c": 0.245,
+    "V_against_s_ge1c": 0.077,
+    "P_toward_s_ge1c": 0.517
+   }
+  }
+ },
+ "by_end_reason": {
+  "BombDefused": {
+   "clusters": 176,
+   "share_toward_T": 0.398,
+   "share_match": 0.602
+  },
+  "CTWin": {
+   "clusters": 369,
+   "share_toward_T": 0.434,
+   "share_match": 0.566
+  },
+  "TargetBombed": {
+   "clusters": 193,
+   "share_toward_T": 0.637,
+   "share_match": 0.637
+  },
+  "TargetSaved": {
+   "clusters": 49,
+   "share_toward_T": 0.306,
+   "share_match": 0.694
+  },
+  "TerroristsWin": {
+   "clusters": 228,
+   "share_toward_T": 0.632,
+   "share_match": 0.632
+  }
+ },
+ "by_split": {
+  "BUILD": {
+   "match": {
+    "n": 193,
+    "dV_mean_c": 2.934,
+    "dP_mean_c": 3.758,
+    "V_toward_s_ge1c": 0.399,
+    "V_against_s_ge1c": 0.021,
+    "P_toward_s_ge1c": 0.658
+   },
+   "non_match": {
+    "n": 89,
+    "dV_mean_c": 0.905,
+    "dP_mean_c": 2.287,
+    "V_toward_s_ge1c": 0.213,
+    "V_against_s_ge1c": 0.067,
+    "P_toward_s_ge1c": 0.607
+   },
+   "share_match": 0.684
+  },
+  "VALIDATE": {
+   "match": {
+    "n": 423,
+    "dV_mean_c": 1.849,
+    "dP_mean_c": 2.692,
+    "V_toward_s_ge1c": 0.284,
+    "V_against_s_ge1c": 0.076,
+    "P_toward_s_ge1c": 0.506
+   },
+   "non_match": {
+    "n": 310,
+    "dV_mean_c": 1.029,
+    "dP_mean_c": 1.284,
+    "V_toward_s_ge1c": 0.203,
+    "V_against_s_ge1c": 0.068,
+    "P_toward_s_ge1c": 0.426
+   },
+   "share_match": 0.577
+  }
+ }
+}

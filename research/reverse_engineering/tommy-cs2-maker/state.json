@@ -79,7 +79,7 @@
    "end": 1793664000
   }
  ],
- "strategy_statement": "CS2 and Dota 2 in-play bot of one operator who signs for at least four accounts with one process (the wallet 'TommyLeePeeca'; 0x52661b8e 'TommyLeePeeecan'; 0x67119033, owned by the wallet owner's $2,000 recipient; 0x7d67f01d 'BACKTESTEOCARAIO1'). The maker strategy ran on 0x7d67f01d (non-GRID CS2, Dota and LoL, from at least 09-21) and moved to the main account on 10-16, when the main account stopped its GRID taker; it has the same maker prices, feed position and selection on both accounts; in June the same design quoted at the stale public print (0.455 within one tick), and the private value appeared by late September, in the feed era [VALIDATE-only]. [VALIDATE-only] Selection: whole events of non-GRID CS2 / Dota 2 leagues covered by its push-feed product; frozen v5 pooled AUC 0.970 vs activity 0.886, recall 0.74 at lift 3.16, coverage 1.0; its league / GRID component also scores the operator's earlier account's event choice at AUC 0.94 out of sample. [VALIDATE-only] Maker: whole-cent BUY ladders on both outcome tokens (100 shares in CS2, 10 in Dota 2), never sells, merges pairs in a 300-s loop (pair cost 0.978); a burst of n adds takes the n highest free slots V, V - 1c, ..., V - 4c inside [0.05, 0.95] (oracle 0.875 live; confirmed historically through the 5-share accounts). [hypothesis, historical outcome-validated] V is its own in-round win-probability state fed by a private esports push feed: within a round its value drifts toward the eventual round winner (AUC 0.90 vs the print's 0.68), one value per event is written to the map and match books, and the value leads other traders' executed prices (Spearman 0.32 vs 0.15 for other makers). No public source obtained reproduces V to the cent (bookmaker lines, round tables, public game state, filters of prints or book deltas all score at or below the last print). [hypothesis] Taker: FAK buys of the team that gained on messages of the shared push feed (>= 19 subscribers at fixed lags; the operator sat at +30-65 ms behind P4e since late September), taken when its revealed value reaches the stale ask; its maker leg also re-prices at the messages it does not take. Exit: never sells; pulls and re-pairs the complement around its takes; merges complete pairs; holds the residual. Not decoded to the exam bar: the price item needs V to the cent and the outcome item needs the +50-ms take; both stand on a private feed (measured bounds in FINAL_RULE.md).",
+ "strategy_statement": "CS2 and Dota 2 in-play bot of one operator who signs for at least four accounts with one process (the wallet 'TommyLeePeeca'; 0x52661b8e 'TommyLeePeeecan'; 0x67119033, owned by the wallet owner's $2,000 recipient; 0x7d67f01d 'BACKTESTEOCARAIO1'). The maker strategy ran on 0x7d67f01d (non-GRID CS2, Dota and LoL, from at least 09-21) and moved to the main account on 10-16, when the main account stopped its GRID taker; it has the same maker prices, feed position and selection on both accounts; in June the same design quoted at the stale public print (0.455 within one tick), and the private value appeared by late September, in the feed era [VALIDATE-only]. [VALIDATE-only] Selection: whole events of non-GRID CS2 / Dota 2 leagues covered by its push-feed product; frozen v5 pooled AUC 0.970 vs activity 0.886, recall 0.74 at lift 3.16, coverage 1.0; its league / GRID component also scores the operator's earlier account's event choice at AUC 0.94 out of sample. [VALIDATE-only] Maker: whole-cent BUY ladders on both outcome tokens (100 shares in CS2, 10 in Dota 2), never sells, merges pairs in a 300-s loop (pair cost 0.978); a burst of n adds takes the n highest free slots V, V - 1c, ..., V - 4c inside [0.05, 0.95] (oracle 0.875 live; confirmed historically through the 5-share accounts). [hypothesis, historical outcome-validated] V is its own in-round win-probability state fed by a private esports push feed: within a round its value drifts toward the eventual round winner (AUC 0.90 vs the print's 0.68), one value per event is written to the map and match books, and the value leads other traders' executed prices (Spearman 0.32 vs 0.15 for other makers). No public source obtained reproduces V to the cent (bookmaker lines, round tables, public game state, filters of prints or book deltas all score at or below the last print). [hypothesis] Taker: FAK buys of the team that gained on messages of the shared push feed (>= 19 subscribers at fixed lags; the operator sat at +30-65 ms behind P4e since late September), taken when its revealed value reaches the stale ask; its maker leg also re-prices at the messages it does not take. Exit: never sells; pulls and re-pairs the complement around its takes; merges complete pairs; holds the residual. Not decoded to the exam bar: the price item needs V to the cent and the outcome item needs the +50-ms take; both stand on a private feed (measured bounds in FINAL_RULE.md). [hypothesis, iteration 14] The private part of V is the push feed's message stream priced at the message: on the feed's clock (informed take clusters) its value steps within 0-3 s and is flat before, the market follows 2-5 s later on those messages (10-45 s on average); a value lagged by even 0.25 s loses the price item (X201), so only the feed itself, not a delayed public source, can carry it.",
  "components": {
   "selection": {
    "confidence": 0.78,
@@ -87,9 +87,9 @@
    "description": "Whole events of non-GRID CS2 and Dota 2 leagues (never a GRID event: CS2 0/122, Dota EPL Masters 0/33) covered by its feed product (group P: P4e, 0x2005d16a, the slow trio, fixed on BUILD). Frozen v5 = logistic(1.25 logit(v4 league/popularity score) + 1.19 log1p(gp72) - 1.11), gp72 = group-P members with a print in another event of the league in the previous 72 h: VALIDATE pooled AUC 0.970 vs activity 0.886 (gain +0.084 [0.030, 0.152]), recall 0.744 at lift 3.155; CS2 0.972, Dota 0.926; coverage 1.0 / 1.0. GRID events are covered by group G's fan-out (same delivery order, larger markouts there), so the boundary is the coverage of the wallet's product, not data speed. Forward 10-31 block: AUC 0.842 but recall 0 in development runs (earlier sealed events skipped). Iteration 10 (X140): the exam lots' only non-GRID tier-1/2 stratum is PGL Masters (h1 18, h2 21 events; never in development); pre-registered treatment = v5 unchanged, i.e. gp72 decides it by group-P coverage of earlier PGL Masters events (examiner counts them); h1 is not lift-ceiling-bound (base rate 0.145-0.222). Iteration 13 (X187, VALIDATE-only): the frozen league / GRID component replicates out of sample on the operator's earlier maker account (0x7d67f01d, 10-01..10-15, 718 events): AUC 0.942 (non-GRID only 0.868); the selection belongs to the maker strategy and moved with it on 10-16."
   },
   "timing": {
-   "confidence": 0.65,
+   "confidence": 0.68,
    "tag": "hypothesis",
-   "description": "Taker: messages of a shared esports push feed (>= 19 subscribers at fixed lags, 29% of its take clusters co-signed on the same token, 38.5% in any market of the event; P4e 0, 0x2005d16a +25, the wallet +50, three at ~+200, P93 ~+400 ms; lag invariant across event classes within ~10 ms; not shared in football / NBA / tennis), of the plant / turn kind; raw events priced by each subscriber (premium corr with P4e 0.21). Its Dota takes are on the same fan-out (P4e 50 ms earlier on 22% of them; slower co-signers 0xfe8a28be / 0x2529c68d / 0x72aaaaf9 at +450-500 ms). Maker: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices the ladder without any public trigger (single-order moves in 6 ms, multi-level pulls re-added in ~0.26 s), and these re-pricings precede adverse moves (validated label -0.60c, ground-truth wallet cancels -0.94c in 10 s, other makers' +0.74c); the take hazard rises with them (weak). Not a public execution filter (take vs strip-only AUC 0.52). Iteration 9: the fan-out is one broadcast (order consistency at the marginals' null, common-mode lag residual r 0.86) with a load-dependent slow tier (the trio); the Dota kill messages look machine-timed on isolated kills; the Dota maker bursts are only weakly locked to kills (13% vs 10% within 6 s). Uncensored adds: its informative re-pricings (up on the token / down on the complement) precede 11% of the slower subscribers' takes within 1 s (about 10x the shifted null): the maker leg moves on the feed's messages. Iteration 10 (X136): the maker re-pricing on P4e-alone messages is EVENT-locked (signs before or < 20 ms after the fastest co-receiver maker 0xed446954 on 33% of shared messages, lag corr -0.48; same lag with and without any leader), so it is not a book reaction to a faster maker. Iteration 12: two clocks. Event path (off-tick): takes (0 of 22 on the loop) and triggered actions within a median 17 ms of a book change. Loop path: a free-running ~504-ms loop carries the quiet re-pricings (72.8% of untriggered adds within 15 ms of the predicted tick vs 6% uniform; X158), whose inputs leave a public trace in at most ~14 points of cases. It withdraws whole events for variable lengths (median 12.5 s, 3% at the 3-tick repair) at moments of public action (X159 steps 1-2). The take is consistent with its revealed value reaching the stale ask (X170, AUC 0.81). Event-wide withdrawals start with triggered pulls and end with triggered adds, off the loop (7.8% / 6.2% on tick vs 6% uniform). Iteration 13: the event path is co-reception of a dense hidden stream shared with other operators' makers (65-81% of 'triggered' adds signed before their trigger reached the book; withdrawals start on the same co-mover cluster as other pulls); its maker leg re-prices at the pack's messages it does not take (5.3x shifted), so the take's kind filter sits at the take decision (value threshold), not at its input."
+   "description": "Taker: messages of a shared esports push feed (>= 19 subscribers at fixed lags, 29% of its take clusters co-signed on the same token, 38.5% in any market of the event; P4e 0, 0x2005d16a +25, the wallet +50, three at ~+200, P93 ~+400 ms; lag invariant across event classes within ~10 ms; not shared in football / NBA / tennis), of the plant / turn kind; raw events priced by each subscriber (premium corr with P4e 0.21). Its Dota takes are on the same fan-out (P4e 50 ms earlier on 22% of them; slower co-signers 0xfe8a28be / 0x2529c68d / 0x72aaaaf9 at +450-500 ms). Maker: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices the ladder without any public trigger (single-order moves in 6 ms, multi-level pulls re-added in ~0.26 s), and these re-pricings precede adverse moves (validated label -0.60c, ground-truth wallet cancels -0.94c in 10 s, other makers' +0.74c); the take hazard rises with them (weak). Not a public execution filter (take vs strip-only AUC 0.52). Iteration 9: the fan-out is one broadcast (order consistency at the marginals' null, common-mode lag residual r 0.86) with a load-dependent slow tier (the trio); the Dota kill messages look machine-timed on isolated kills; the Dota maker bursts are only weakly locked to kills (13% vs 10% within 6 s). Uncensored adds: its informative re-pricings (up on the token / down on the complement) precede 11% of the slower subscribers' takes within 1 s (about 10x the shifted null): the maker leg moves on the feed's messages. Iteration 10 (X136): the maker re-pricing on P4e-alone messages is EVENT-locked (signs before or < 20 ms after the fastest co-receiver maker 0xed446954 on 33% of shared messages, lag corr -0.48; same lag with and without any leader), so it is not a book reaction to a faster maker. Iteration 12: two clocks. Event path (off-tick): takes (0 of 22 on the loop) and triggered actions within a median 17 ms of a book change. Loop path: a free-running ~504-ms loop carries the quiet re-pricings (72.8% of untriggered adds within 15 ms of the predicted tick vs 6% uniform; X158), whose inputs leave a public trace in at most ~14 points of cases. It withdraws whole events for variable lengths (median 12.5 s, 3% at the 3-tick repair) at moments of public action (X159 steps 1-2). The take is consistent with its revealed value reaching the stale ask (X170, AUC 0.81). Event-wide withdrawals start with triggered pulls and end with triggered adds, off the loop (7.8% / 6.2% on tick vs 6% uniform). Iteration 13: the event path is co-reception of a dense hidden stream shared with other operators' makers (65-81% of 'triggered' adds signed before their trigger reached the book; withdrawals start on the same co-mover cluster as other pulls); its maker leg re-prices at the pack's messages it does not take (5.3x shifted), so the take's kind filter sits at the take decision (value threshold), not at its input. Iteration 14 (E3-1, pre-registered, BH on BUILD, VALIDATE confirmation): its maker re-pricing decisions follow the informed takers' signatures (peak +0.4-0.6 s, sign-concordant) and precede public print events by 2.5-5 s; no cross-event synchrony of the unexplained decisions (E7)."
   },
   "side": {
    "confidence": 0.5,
@@ -97,9 +97,9 @@
    "description": "Maker: both outcomes in every market, CS2 and Dota (VALIDATE-only). Taker: the team that gained in-round on plant / turn events (first informed move against the previous burst). Side is not scored (two-sided at market level)."
   },
   "price": {
-   "confidence": 0.55,
+   "confidence": 0.58,
    "tag": "VALIDATE-only",
-   "description": "Maker: one private value V per burst plus a mechanical ladder: a burst of n adds takes the n highest free whole-cent slots V .. V - 4c inside [0.05, 0.95], top-first (X163, BUILD-live oracle: set unit 0.875, per order 0.73, up / fresh / down bursts 0.87-0.94; V must be exact to the cent: +-1c gives 0.70 / 0.81, +-2c 0.22 / 0.08). V is not a round-score Markov table (X171: residual 3.22c vs the print's 3.21c), not the others' fresh levels (X153), not SX Bet (X145), not a public per-minute Dota state map (X167 step 1: 0.17 vs the last print 0.42); its quiet re-pricings are sampled on its 504-ms loop with little public trace (X158). Examinable historical anchor: the last print 0.305-0.322 within one tick (VALIDATE); a point-in-time partial-fill book does not beat it (X165, 0.274 vs 0.275). Live: touch 0.42 (fills) / 0.45 (adds). Pre-game 1-2c under Polymarket's print. Iteration 13: V is an in-round win-probability state (its within-round drift predicts the round winner at AUC 0.90 vs the print's 0.68; 0.79 vs 0.62 even 45 s before the print-inferred round end); one value per event written to the map and match books by the same cents (96% direction agreement); not a de-margined BetBoom / SpinBetter / Parimatch Dota line (no closer than the print), not an EMA of prints (<= 0.30), not its own top plus the public delta (<= 0.46 through the machine); the five-slot ladder is confirmed historically through the operator's 5-share accounts (98% of co-bursts inside V - 4c)."
+   "description": "Maker: one private value V per burst plus a mechanical ladder: a burst of n adds takes the n highest free whole-cent slots V .. V - 4c inside [0.05, 0.95], top-first (X163, BUILD-live oracle: set unit 0.875, per order 0.73, up / fresh / down bursts 0.87-0.94; V must be exact to the cent: +-1c gives 0.70 / 0.81, +-2c 0.22 / 0.08). V is not a round-score Markov table (X171: residual 3.22c vs the print's 3.21c), not the others' fresh levels (X153), not SX Bet (X145), not a public per-minute Dota state map (X167 step 1: 0.17 vs the last print 0.42); its quiet re-pricings are sampled on its 504-ms loop with little public trace (X158). Examinable historical anchor: the last print 0.305-0.322 within one tick (VALIDATE); a point-in-time partial-fill book does not beat it (X165, 0.274 vs 0.275). Live: touch 0.42 (fills) / 0.45 (adds). Pre-game 1-2c under Polymarket's print. Iteration 13: V is an in-round win-probability state (its within-round drift predicts the round winner at AUC 0.90 vs the print's 0.68; 0.79 vs 0.62 even 45 s before the print-inferred round end); one value per event written to the map and match books by the same cents (96% direction agreement); not a de-margined BetBoom / SpinBetter / Parimatch Dota line (no closer than the print), not an EMA of prints (<= 0.30), not its own top plus the public delta (<= 0.46 through the machine); the five-slot ladder is confirmed historically through the operator's 5-share accounts (98% of co-bursts inside V - 4c). Iteration 14: the price item tolerates no input lag (X201: a value lagged 0.25 s keeps 0.355 of the set unit, 4 s 0.293; 90% of filled orders are V-change bursts, 0.20-0.23 at any lag); own state transported over the complement and the series map reaches 0.44 (X198; 0.26-0.27 when only on-chain-public own fills are used); on the feed's own clock its value steps at the informed messages (57% / 42% of the 60-s move in (-1, +3] s) with no private pre-message ramp, and the clean print reacts 2-5 s later (X189 first pass). V = map value written into the match book through a series map (slope 0.46)."
   },
   "size": {
    "confidence": 0.58,
@@ -109,7 +109,7 @@
   "exit": {
    "confidence": 0.8,
    "tag": "VALIDATE-only",
-   "description": "Never sells. Pulls the complement at its takes and re-posts ~1.03 s later; re-prices bids away from private adverse events between takes; merges complete pairs in one 300-s loop for CS2 and Dota (300.22 s + 7.28 s per merge on 16-22 Oct; on 10-31 the per-merge increment drifted, X156) and holds the residual. Pair cost 0.978 (CS2), ~0.98 (Dota). Hard client band [0.05, 0.95]; bids the eventual loser down to the band with no early stop. Outcome (iteration 11, X155 / X149 / X151): its own maker orders delayed up to 2 s with the real taker leg keep 0.70 / 0.62 (VALIDATE); the take is binding: on the observed book its own FAK empties the stale remainder (median residual 0 after its match), so a public-lag copy reaches at most 0.50 / 0.41. Iteration 12 (X169): on 3,028 wallet-absent informed bursts later takers obtain only 3-7% of the wallet's typical take at <= the leader's limit after its match: the stale remainder is gone by the match, so the T_lo world (outcome <= 0.50 / 0.41 at any public lag of the take) is real, not a replay convention. Iteration 13: the same BUY-only + MERGE design ran on the operator's earlier account (0x7d67f01d) in September-October."
+   "description": "Never sells. Pulls the complement at its takes and re-posts ~1.03 s later; re-prices bids away from private adverse events between takes; merges complete pairs in one 300-s loop for CS2 and Dota (300.22 s + 7.28 s per merge on 16-22 Oct; on 10-31 the per-merge increment drifted, X156) and holds the residual. Pair cost 0.978 (CS2), ~0.98 (Dota). Hard client band [0.05, 0.95]; bids the eventual loser down to the band with no early stop. Outcome (iteration 11, X155 / X149 / X151): its own maker orders delayed up to 2 s with the real taker leg keep 0.70 / 0.62 (VALIDATE); the take is binding: on the observed book its own FAK empties the stale remainder (median residual 0 after its match), so a public-lag copy reaches at most 0.50 / 0.41. Iteration 12 (X169): on 3,028 wallet-absent informed bursts later takers obtain only 3-7% of the wallet's typical take at <= the leader's limit after its match: the stale remainder is gone by the match, so the T_lo world (outcome <= 0.50 / 0.41 at any public lag of the take) is real, not a replay convention. Iteration 13: the same BUY-only + MERGE design ran on the operator's earlier account (0x7d67f01d) in September-October. Iteration 14 (X202): a round-phase-gated public ladder does not earn the wallet's per-market PnL profile (VALIDATE 0.25 / 0.05)."
   }
  },
  "catalog": {
@@ -1146,6 +1146,116 @@
    "status": "open",
    "source": "self-proposed (iteration 13): the operator's other accounts in GRID CS2 events (0x67119033 27 GRID events, 0x52661b8e 13 in October) as a window on the same process where round scores are public",
    "evidence": "First pass (grid_inround.json, code/iter13/grid_inround.py): their October GRID CS2 quoting has the maker design (0x67119033 27 events, BUY 0.995, whole cents 0.984, band 1.0, 20 shares; 0x52661b8e 13 events, BUY 1.00, 5 shares); 2,078 GRID-event transactions decoded; only 11 maps / 71 rounds usable: within-round AUC 0.660 for their level vs 0.357 for the print (unreliable with so few rounds). Open: needs their full GRID record and the sports socket's GRID round clock on development blocks."
+  },
+  "E1": {
+   "status": "tried",
+   "source": "BRIEF 11-01",
+   "evidence": "state.json dimensions: 38 entries over the seven families (iteration 14), each with status, source, resolution, latency, best indicator and verdict; missing / blocked ones carry their to-do."
+  },
+  "E2": {
+   "status": "tried",
+   "source": "BRIEF 11-01",
+   "evidence": "Out-of-fold BUILD residuals (code/iter14/e2_residuals.py, results/e2_residuals.json): GroupKFold(5) over 2-h blocks; rule = activity + listing meta with OOF league rate: OOF AUC 0.9772 vs activity 0.9582; inside traded markets 0.91 vs 0.9105 (timing inside markets = co-occurrence); selection OOF league AUC 0.9387, 0 traded events missed, 6 false alarms (PGL 4, Stake Pulse 2); in-market residual largest in the first 60 min of play (AUC 0.75-0.78 vs 0.89-1.0 later). Price residual (68% of orders off the last print) piles up at round ends. NOTES 'Missing dimensions'."
+  },
+  "E3": {
+   "status": "tried",
+   "source": "BRIEF 11-01",
+   "evidence": "E3-1 (event state: push-feed proxies and public tape events) pre-registered in NOTES iteration 14 and screened on BUILD with BH; survivors confirmed on VALIDATE (results/e3_screen.json). BUILD survivors 18 of 18 rows; VALIDATE confirmed 13: I1_informed_take pm2s peak 0.375 s p_link 0.00044 signed 0.03596403596403597; I3_print_jump_2c pm60s peak -3.5 s p_link 1.8e-08 signed 5.300050455445684e-12; I4_print_jump_3sigma pm60s peak -3.5 s p_link 4.3e-09 signed 9.21765172330827e-10; I1_informed_take pm60s peak 0.5 s p_link 3.7e-09 signed 7.855762249848527e-09; I2_informed_cluster pm60s peak 1.5 s p_link 2.8e-08 signed 2.814263701015315e-08; I5_other_book_jump pm60s peak -3.5 s p_link 3e-08 signed 6.186567459010155e-07; I6_print_after_silence pm60s peak -2.5 s p_link 4.6e-08 signed None; I3_print_jump_2c pm600s peak -2.5 s p_link 1.6e-07 signed 2.0796704760154542e-13; I4_print_jump_3sigma pm600s peak -7.5 s p_link 4e-10 signed 2.8780296590568577e-12; I1_informed_take pm600s peak 0.0 s p_link 2.4e-09 signed 2.502215591351151e-10; I5_other_book_jump pm600s peak -5.0 s p_link 2.6e-07 signed 1.249084523599812e-09; I2_informed_cluster "
+  },
+  "E4": {
+   "status": "tried",
+   "source": "BRIEF 11-01",
+   "evidence": "Discrepancy / composite indicators: legacy bookmaker line minus print (X172 Dota: no closer than the print), MR12 / side-aware tables minus print (X171, X181 step 4: no closer), Dota game-state fair value (X123); iteration 14: other-book (map <-> match) jumps as a divergence event (E3-1 I5: follows its decisions by 3.5-5 s) and the map -> match series map of its own value (slope 0.46, X198). No discrepancy indicator leads its decisions."
+  },
+  "E5": {
+   "status": "open",
+   "source": "BRIEF 11-01",
+   "evidence": "News / social / official sources against selection (which matches it skips) not screened; chat recorders exist (X38 / X87)."
+  },
+  "E6": {
+   "status": "tried",
+   "source": "BRIEF 11-01",
+   "evidence": "First form (code/iter14/e6_latent.py, results/e6_latent.json): latent = push-feed message intensity proxied point in time by group-P wallet-free takes on the event; VALIDATE incremental_auc over co-occurrence +0.0240 (CI [0.015497321741412962, 0.03576210019219007]), over co-occurrence + self-excitation +0.0003: nothing beyond its own past. Event study of the proxy against its decisions: E3-1 (I1 / I2 lead its re-pricings by 0.4-1.5 s; public series follow them). Legacy latent fits: X171, X181."
+  },
+  "E7": {
+   "status": "tried",
+   "source": "BRIEF 11-01",
+   "evidence": "residual_clustering of out-of-fold BUILD presence misses (signing times of maker orders whose signing bin is under-predicted, >= 10 min after start, market key = event, 4917 orders in 41 events): ratio 0.63 / 0.70 / 0.99 at 0.5 / 2 / 10 s, p 0.87 / 0.99 / 0.54; all signings 0.81 (p 1.00) at 2 s: no cross-event synchrony (no common driver at second scale). Power (results/e7_power.json): min_detectable_share 0.05 (planted 0.5-s cross-event coincidences, 3 of 3 runs)."
+  },
+  "X189": {
+   "status": "open",
+   "source": "panel iteration 13 information P1: round-END clock on the feed's time, then V as a side / economy-aware score table",
+   "evidence": "First pass, step 1 on the feed's own clock (code/iter14/message_profile.py, results/message_profile.json): 2,111 informed take clusters (>= 2 group-P / G takers within 300 ms, wallet-free txs). Its value steps at the message: BUILD 57% / VALIDATE 42% of its 60-s signed move in (-1, +3] s, 3.5% / 25% before (the print shows the same pre-trend on VALIDATE); V - P +1.72 / +0.79c at +2 s, ~0 by +60 s; the print reacts at +3..+5 s. Steps 2-5 (bo3 alignment of the clusters, union-top uncensoring, table fit on the clock, opener / plant regressions on clock rounds) not run."
+  },
+  "X190": {
+   "status": "open",
+   "source": "panel iteration 13 information P2: point-in-time round-end signal from public prints as the price rule's score clock",
+   "evidence": "E3-1 screen (results/e3_screen.json): public print events (I3 >= 2c clean-print jumps, I4 3-sigma jumps, I5 other-book jumps, I6 first print after silence) follow its re-pricing decisions (shape peaks at -2.5..-5 s, decisions BEFORE the public event; no link at +-2 s for I3 / I4 / I5), while its decisions follow the informed takers' signatures by +0.4-0.6 s. With X201 (a value lagged by 0.25 s keeps 0.355 of the set unit, 0.215 on V-change bursts) a public round-end signal that arrives 2-5 s after the feed cannot carry the price item; iteration 9's LightGBM with group-P / G take features scored 0.285 vs the print's 0.298. Signature (>= 0.40 on burst tops) not reachable; the score-table step (V_hat = table(score_pub)) not built."
+  },
+  "X191": {
+   "status": "open",
+   "source": "panel iteration 13 information P3: LoL natural experiment without the lolesports key (Leaguepedia RiotGameId + Riot livestats)",
+   "evidence": "Not run in iteration 14."
+  },
+  "X192": {
+   "status": "tried",
+   "source": "panel iteration 13 information P4: feed-state synchrony across concurrent events (E7) as a presence input",
+   "evidence": "E7 on out-of-fold BUILD presence misses (results/e2_residuals.json): ratio 0.63 / 0.70 / 0.99 at 0.5 / 2 / 10 s (p 0.87 / 0.99 / 0.54), all signings 0.81 at 2 s (p 1.00): no cross-event synchrony, so the step-3 feed-state feature is not built (the proposal's 'if false' branch: presence is per-market)."
+  },
+  "X193": {
+   "status": "open",
+   "source": "panel iteration 13 information P5: pure-Python CS2 demo game-event extractor so the demo test needs one consent",
+   "evidence": "Not written in iteration 14; the download still needs the user's consent (X37 / X122)."
+  },
+  "X194": {
+   "status": "tried",
+   "source": "panel iteration 13 mechanics P1: the operator's in-play sports quoting as a public-input twin of V",
+   "evidence": "First pass, steps 1-2 and a first step-4 check (code/iter14/sports_twin.py, results/sports_twin.json): 0x52661b8e's September sport trades 1334 in 421 events, 1326 txs decoded; orders maker 152 / taker 1148; maker fingerprint {\"buy_share\": 1.0, \"whole_cents\": 1.0, \"in_band_0.05_0.95\": 0.967, \"size_top\": {\"50.0\": 47, \"40.0\": 46, \"5.0\": 28, \"80.0\": 15, \"20.0\": 13, \"300.0\": 3}, \"sig_types\": {\"3\": 152}, \"salt_median\": 813004661721.5}; bursts {\"bursts\": 137, \"orders_per_burst\": {\"1\": 127, \"2\": 6, \"3\": 3, \"4\": 1}, \"slot_below_top\": {\"0\": 140, \"1\": 3, \"2\": 4, \"3\": 3, \"5\": 1, \"6\": 1}}; price vs last print on 40 markets: within one tick 0.128, median offset 5.0c, by group {\"football\": {\"orders\": 45, \"within_tick\": 0.133, \"median_offset_c\": 8.0, \"top_within_tick\": 0.133}, \"mlb\": {\"orders\": 41, \"within_tick\": 0.122, \"median_offset_c\": 3.0, \"top_within_tick\": 0.122}}. MLB (code/iter14/mlb_twin.py, results/mlb_twin.json): 73 games / 350 takes against statsapi play ends: p_link +-10 s 0.5209580838323353, +-60 s 0.7445109780439122; scoring plays +-60 s 0.9021956087824351, +-600 s 0.005988023952095809 (shape peak -122.5 s: it buys the team that scores about 2 min before the run); on-base plays (1,793) +-10 s 0.9760479041916168, +-60 s 0.08782435129740519. No fixed-lag play reaction: the sports account is a slower state-based BUY taker, not the push-feed ladder maker (the panel's if-false branch: the feed is an esports product). Football (ESPN key events), the public in-play model fit and co-receivers not run."
+  },
+  "X195": {
+   "status": "open",
+   "source": "panel iteration 13 mechanics P2: a wallet-independent true round clock, then the kill-state vs early-result test",
+   "evidence": "First pass with the feed's own messages as the clock (X189 step 1, results/message_profile.json): no pre-message ramp of V beyond the print's own (K reading unsupported in this unit); its move is a step at the message. Clock first pass (code/iter14/round_clock.py, results/round_clock_clusters_*.json): bo3 durations snapped to winner-direction informed clusters in [-15, +30] s: 286 snaps vs 206 with the winner sequence reversed (1.39x; weak clock); on 61 rounds with both ends snapped its winner-signed change mid-round -0.47c, at the message +2.84c (mid-round AUC 0.537 vs print 0.569); single-take anchors (results/round_clock_takes_*.json): 515 vs 383 snaps (1.34x), 141 rounds, mid-round +2.11c (VALIDATE +3.02c), at the message +2.14c, mid AUC 0.638 vs 0.605: the R-vs-K split depends on the anchor set, and no public anchor set is a reliable clock (1.3-1.45x over the reversed sequence). Print-anchored variant (results/round_clock_print_15_30.json): 875 vs 673 snaps (1.30x), 412 rounds; its value moves +2.85c mid-round and +1.55c late before the print jump (mid AUC 0.675 vs 0.606): the 10-45 s lead. Survivor gradient and a better anchor set (co-receiver maker clusters, all books) not run."
+  },
+  "X196": {
+   "status": "tried",
+   "source": "panel iteration 13 mechanics P3: the operator's July-September versions, two-sided quotes as an uncensored V",
+   "evidence": "First pass (code/iter14/july_twosided.py, results/july_twosided.json): 0x52661b8e July CS2 / August Dota, 1800 txs decoded, 739 maker orders (BUY 0.231): within one tick of the last print 0.428 with offsets BUY -1.0c / SELL 1.0c: a print-pegged two-sided quote. Activity by day: two-sided without merges through 09-02, silent 09-03..09-16, BUY-only + MERGE from 09-17 (0x7d67f01d from 09-21): the private-value design arrives as a step after a two-week pause (change point 09-03..09-17). Same-token bid / ask pairs within 2 s: 1 (the uncensored-mid test needs a longer pairing window); the weekly in-round AUC and co-signing-lag dating (steps 3-5) not run."
+  },
+  "X197": {
+   "status": "open",
+   "source": "panel iteration 13 mechanics P4: uncensor V with price-time priority (every public trade bounds its quote)",
+   "evidence": "Steps 1 + 4 simplified (code/iter14/pt_bounds.py, results/pt_bounds.json): 75,236 upper bounds from wallet-free sweeps of bids in 220 markets vs 24,180 exact own levels (3.1x); with a next own level within 60 s the bound is 0-1c above it in 26.0% (exact 15.1%; the panel bar of >= 30% narrowly fails), below it in 27%; previous own level > 1c above the swept level in 16.2% (order gone). Steps 2 (censored fit of V) and 3 (in-round timing at bound resolution) not run."
+  },
+  "X198": {
+   "status": "tried",
+   "source": "panel iteration 13 mechanics P5: examinable historical price rule, one event value through the series map, the complement and the slots",
+   "evidence": "code/iter14/event_transport.py, results/event_transport_{sign,block}.json: K 0.97, BETA (map -> match) 0.46 on BUILD. VALIDATE within one tick, own knowledge at signing: per-token persistence 0.417, complement transport 0.44, map <-> match transport 0.419, -1c slot shift 0.31; public at block time (fills on chain before signing): 0.264 / 0.273 (last print 0.305-0.322). Signature >= 0.60 fails: its value moves between its own fills on all books at once; own-state ceiling ~0.44."
+  },
+  "X199": {
+   "status": "open",
+   "source": "panel iteration 13 assumptions P1: V as a kill-state model on a latent per-round kill-order lattice",
+   "evidence": "Not run in iteration 14 (finding 5: V steps at the feed's messages with no private pre-message ramp, which a lattice fit on print-inferred rounds cannot resolve)."
+  },
+  "X200": {
+   "status": "ruled_out",
+   "source": "panel iteration 13 assumptions P2: V as a per-book delta integrator with re-anchoring",
+   "evidence": "Measured: the match book moves 0.57 x the map move for map moves >= 3c (mechanics panel iter-13, 32 pairs; slope 1.05 on s x dV_map) and BETA (consecutive co-repricings) 0.46 on BUILD (X198): a series map of one map value, not equal cents per message (the integrator signature 'ratio ~1 at every horizon' fails at the same-tick horizon once the 1-cent tick is removed)."
+  },
+  "X201": {
+   "status": "tried",
+   "source": "panel iteration 13 assumptions P3: lag tolerance of the price item before relying on any delayed public source",
+   "evidence": "code/iter14/lag_tolerance.py, results/lag_tolerance.json (BUILD-live, frozen X163 machine): set unit at L = 0+ / 0.25 / 1 / 4 s = 0.368 / 0.355 / 0.306 / 0.293 (oracle 0.875, others' best bid now 0.499); V-change bursts (0.743 of orders, 0.896 of filled orders) 0.215 at 0+; refills 0.808 -> 0.532 at 4 s. 'If true' signature holds: delayed public sources cannot carry the price item. Dota leg not covered (no Dota adds in BUILD-live)."
+  },
+  "X202": {
+   "status": "tried",
+   "source": "panel iteration 13 assumptions P4: a round-phase-gated public ladder for the outcome item",
+   "evidence": "code/iter14/phase_gated_ladder.py, results/phase_gated_ladder.json (validated X57 engine): BUILD-chosen G_20_60; VALIDATE per-market Pearson / Spearman 0.253 / 0.046 (return 0.005, 116 markets); halves [[0.08, -0.021, 58], [0.49, 0.086, 58]]; every gated variant <= 0.35 / 0.12 with returns -5.5%..+2.0%; the continuous five-slot ladder 0.315 / 0.238. Fails (< 0.5): the outcome item stays gated by its value."
+  },
+  "X203": {
+   "status": "tried",
+   "source": "panel iteration 13 assumptions P5: find the operator's other processes by key fingerprint (7702 delegate 0x63c0c19a), funding and names",
+   "evidence": "Steps 1 and 4 (code/iter14/owner_census.py, owner_census_cosign.py; results/owner_census*.json; chain state at latest, read-only): all 499 sigType-3 addresses with >= 50 orders in the decoded calldata are factory proxies (125- or 146-byte); owners 472 EOAs, 19 delegate to 0x63c0c19a (the four known operator owners included, 0x116342d6 too), 8 to other delegates. Behaviour: 0x10d79cc7 (890 CS2 orders 09-24..10-16, BUY-only whole-cent 20-share maker) 7 orders within 0-5 ms of an operator order vs 5 in 5-50 ms (12.6x per ms); 0xd2bb9459 (372 CS2 orders 10-12..10-16, BUY-only maker, 100-200 shares) 16 vs 16 (9.0x); the other 13 show no excess; no taker-only account at feed speed (0xaadb0195 +1.76 s behind P4e). So >= 6 operator accounts, all CS2 here (no LoL / GRID window). Steps 2 (USDC funding links) and 3 (profile names) not run."
   }
  },
  "target_metrics": {
@@ -3395,6 +3505,68 @@
     "freeze_sd_p_c": 2.82
    },
    "verdict": "rejected (no closer than the print)"
+  },
+  {
+   "id": "H146",
+   "family": "price",
+   "description": "A delayed public in-play state (stream, Valve 4-s, HLTV) can carry the price item.",
+   "validate_metrics": {
+    "set_unit_L0.25": 0.355,
+    "set_unit_L4": 0.293
+   },
+   "verdict": "rejected (BUILD-live, X201)"
+  },
+  {
+   "id": "H147",
+   "family": "price",
+   "description": "Own state transported across the complement and the series map gives the next order (>= 0.60).",
+   "validate_metrics": {
+    "T_book_sign": 0.44,
+    "P_tok_sign": 0.417
+   },
+   "verdict": "rejected (0.44)"
+  },
+  {
+   "id": "H148",
+   "family": "outcome",
+   "description": "A round-phase-gated public ladder reproduces the wallet's per-market PnL (>= 0.5).",
+   "validate_metrics": {
+    "pearson_spearman": [
+     0.253,
+     0.046,
+     116
+    ]
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H149",
+   "family": "presence",
+   "description": "A common cross-event driver (E7) explains presence misses.",
+   "validate_metrics": {
+    "ratio_2s": 0.7,
+    "p": 0.99
+   },
+   "verdict": "rejected (BUILD)"
+  },
+  {
+   "id": "H150",
+   "family": "price",
+   "description": "V builds a private in-round state before the feed's messages (K).",
+   "validate_metrics": {
+    "V_share_before_msg_build": 0.035,
+    "V_share_before_msg_val": 0.254
+   },
+   "verdict": "open: no pre-message ramp in the message-locked profile, but mid-round moves appear on a single-take clock (VALIDATE); no reliable public round clock"
+  },
+  {
+   "id": "H151",
+   "family": "timing",
+   "description": "Its re-pricings follow the push feed's messages and precede the public print (E3-1).",
+   "validate_metrics": {
+    "e3": "BUILD survivors 18 of 18 rows; VALIDATE confirmed 13: I1_informed_take pm2s peak 0.375 s p_link 0.00044 signed 0.03596403596403597; I3_print_jump_2c pm60s peak -3.5 s p_link 1.8e-08 signed 5.300050455445684e-12; I4_print_jump_3sigma pm60s peak -3.5 s p_link 4.3e-09 signed 9.21765172330827e-10; I1_in"
+   },
+   "verdict": "supported (BUILD screen; VALIDATE confirmation in e3_screen.json)"
   }
  ],
  "data_sources": [
@@ -3767,6 +3939,33 @@
     "joiner-free mid lead (X186)",
     "side-aware MR12 table at freeze time (X181 step 4)"
    ]
+  },
+  {
+   "n": 14,
+   "minutes": 71.0,
+   "best_validate_score": 0.8834,
+   "status": "continue",
+   "paradigm": "brief-11-01 hidden-dimension pass (E1 inventory, E2 out-of-fold residual shape, E7 synchrony, E3 pre-registered event-state screen) plus the feed's own clock as the unit (message-locked value paths), the lag tolerance of the price item, own-state transport, a phase-gated public ladder, and the operator's sports quoting as a new data source",
+   "families": [
+    "E1 dimension inventory (37 dimensions)",
+    "E2 out-of-fold BUILD residuals (GroupKFold 2-h blocks)",
+    "E7 residual_clustering across events",
+    "E3-1 event-state screen with BH (informed takes, clusters, print jumps, other-book jumps, silence)",
+    "message-locked value / print profiles on informed clusters (X189 / X195 first pass)",
+    "lag tolerance of the ladder machine (X201)",
+    "feed-message and print-anchored round clocks from bo3 durations (X195 first pass)",
+    "price-time priority bounds of its quote (X197 steps 1 + 4)",
+    "E7 power statement",
+    "E6 latent with incremental_auc over co-occurrence + self-excitation",
+    "two-sided July-August quotes and the 09-17 change point (X196)",
+    "7702-delegate owner census with co-signing confirmation (X203)",
+    "MLB statsapi event study of the sports account (X194)",
+    "own-state transport across complement and series map (X198)",
+    "round-phase-gated public ladder in the X57 engine (X202)",
+    "operator's September sports quoting: calldata, fingerprint, price vs print (X194 first pass)",
+    "delta integrator ruled out by measurement (X200)",
+    "legacy indicator ledger (31 rows)"
+   ]
   }
  ],
  "tool_bugs": [
@@ -3829,20 +4028,21 @@
   "outcome_knockout": "Iteration 9 (X124): the validated engine's executable public variant D correlates 0.245 / 0.089 with the wallet's per-market PnL on VALIDATE (0.126 / 0.114 BUILD), below the prints baseline; not adopted. The wallet's own prices quoted continuously keep the margin (C +1.3%), its windows at the public anchor lose (B -2.3%).",
   "iteration10": "Rule unchanged (v5): target_metrics are the iteration-9 VALIDATE values. Outcome feasibility (X138): with the real taker leg its own maker orders replayed reach 0.87 / 0.80; with the taker at its first public trace at most 0.60 / 0.44 (oracle maker leg); executable public sets <= 0.33 / 0.21. Price: best historical own-state anchor 0.500 (previous own level), public 0.305.",
   "iteration_11": "No rule change; target_metrics unchanged (v5). Measured bounds: price per order capped at about 0.71-0.75 even with the wallet's own value known (X150); the best examinable historical anchor stays the last print (0.305), point-in-time own state 0.280 (X152); outcome at public lag of the take <= 0.50 / 0.41 on the observed record (X155 / X149).",
-  "iteration_12": "No rule change; target_metrics unchanged (v5). New measured bounds: the price item with V known is 0.73 per order / 0.875 on the burst-set unit (X163), so it is gated only by V; the PIT partial-fill book does not beat the last print (X165); the T_lo outcome world is confirmed on wallet-absent bursts (X169)."
+  "iteration_12": "No rule change; target_metrics unchanged (v5). New measured bounds: the price item with V known is 0.73 per order / 0.875 on the burst-set unit (X163), so it is gated only by V; the PIT partial-fill book does not beat the last print (X165); the T_lo outcome world is confirmed on wallet-absent bursts (X169).",
+  "iter14": "Unchanged (v5 frozen). Candidate outcome component not frozen: the continuous five-slot public ladder in the X57 engine scores VALIDATE 0.315 / 0.238 (BUILD 0.067 / 0.275) against the frozen generic replay -0.131 / -0.081; it would need the lot public calldata inside evaluate()."
  },
  "next_steps": [
-  "VALIDATE-live 11-01 06-12: if the wallet trades cs2-bca-pha (11:00), run the pre-registered live tests (X163, X158, X159 step 3 / X168, X144) and the live forms of X173 / X174 / X177.",
-  "X181 step 4 (side-aware table at freeze time) and a winner-free round clock (on-chain co-mover clusters, X180 step 2) to make the in-round state measurable point in time.",
-  "X188 / X184: the operator's other accounts in GRID CS2 (public round scores) and in LoL (Riot live stats; needs the user's decision on the lolesports web key) as windows on the same value process.",
-  "X185 / X186: the earlier account's June-July versions; the lead on a joiner-free mid.",
-  "Ask the user: demos, Kick VOD, HLTV pages, the lolesports web key, a solver install, and whether the examiner may score the burst-set unit."
+  "X194 steps 3-5: the operator's football / MLB quoting against ESPN key events and MLB statsapi playEvents (event study, public in-play model, co-receivers).",
+  "X189 steps 2-5 / X195: align the informed-cluster clock to bo3 rounds (winner direction, durations); regress V's steps at clock round ends on opener / plant / alive_time; union-top uncensoring.",
+  "X203 owner census by the 7702 delegate; X196 July-September versions; X197 price-time bounds; X191 LoL; X199 kill lattice.",
+  "E4 composite event indicators, E5 news / social for selection, E6 latent fit with incremental_auc over co-occurrence + self-excitation baselines.",
+  "VALIDATE-live: no wallet record in 11-01 06-12 (bca-pha still untraded at 11:56 UTC); the next development blocks fall after the budget."
  ],
  "data_bugs": [
   "pack_orders.parquet (iteration 2) was built from calldata_pub only, which excludes every tx with a wallet order: 5,752 pack taker orders that hit the wallet's ladder were missing from pack-based analyses (clusters, pack-vs-rounds, P4e side shares). code/iter5/census.py rebuilds from both records.",
   "iteration 7: exam_params.py first run also counted the state field acceptingOrders per lot (h1 / h2 / sealed T0 included); removed from results/exam_params.json and from the script; not used anywhere."
  ],
- "updated": "2026-11-01T10:11:42Z",
+ "updated": "2026-11-01T12:03:08Z",
  "progress_gauges": {
   "registered": "2026-11-01 ~06:15 UTC (iteration 11), before any VALIDATE-live record of the wallet exists; the primary metric presence_auc stays as pre-registered in iteration 1 and is still reported",
   "reason": "presence_auc cannot register progress for a two-sided maker present in every in-play bin (co-occurrence by construction, assumptions panel iter-10 critique 5); the binding items are price and outcome",
@@ -3859,6 +4059,1899 @@
   "g3_outcome_bound": {
    "definition": "per-market Pearson / Spearman of an oracle copy of its decisions at the executable latency (2 s) on the observed record",
    "value": "0.431 / 0.404 VALIDATE, 0.233 / 0.357 BUILD (latency_bound.json, corrected follower direction): below 0.5 whatever the decode; T_lo confirmed on 3,028 wallet-absent bursts (X169)"
+  },
+  "iter14_note": "No gauge moved: X201 / X198 / X202 measure why the price and outcome items stay out of reach of public and own-state inputs; the burst-set unit live bound is unchanged (0.875 oracle, 0.499 public J)."
+ },
+ "dimensions": {
+  "pm_tape_prints": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "data-api /trades tapes (taker rows), wallet transactions excluded",
+   "resolution": "per trade",
+   "publication_latency": "block time (~2 s after the match)",
+   "best_indicator": "activity n120 / n600 (presence baseline 0.8907 VALIDATE); last clean print (price 0.305-0.322)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "co-occurrence: inside traded markets the OOF presence AUC of activity alone equals the rule's (0.9105 vs 0.910, E2); the last clean print is the best historical price anchor but is late at informed moments (assumptions iter-13 check A)"
+  },
+  "pm_book_levels_queue_cancels": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "CLOB market websocket (shared recorder clob_wallets from 10-31; own recorder tommy_cs2_near)",
+   "resolution": "ms receive time",
+   "publication_latency": "real time",
+   "best_indicator": "others' best bid J at the burst (set unit 0.499 BUILD-live, X201); touch 0.452 per order",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "co-reception: other makers re-price at the same ms (X180 / X154); live only (no pre-T0 history)"
+  },
+  "pm_other_wallets_feed_subscribers": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "V2 calldata signing ms of every filled order (79k public taker txs)",
+   "resolution": "ms (sign time)",
+   "publication_latency": "on chain at block time",
+   "best_indicator": "group-P coverage gp72 (selection v5); informed take clusters (E3-1)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "selection (v5 gain +0.084) and timing evidence of the push feed (>= 19 subscribers at fixed lags)"
+  },
+  "pm_listings_metadata": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "Gamma markets / events (listing-time fields)",
+   "resolution": "per market",
+   "publication_latency": "at listing",
+   "best_indicator": "league / tier / GRID flag score (v4 / v5)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "selection AUC 0.970 VALIDATE; never a GRID event"
+  },
+  "pm_market_comments": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "Gamma /comments (parent_entity_type=Event, parent_entity_id) and events.commentCount, verified 11-01",
+   "resolution": "per comment",
+   "publication_latency": "post time",
+   "best_indicator": "commentCount",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "iteration 14: commentCount 0 in 40 of 40 sampled BUILD events (20 traded, 20 untraded); /comments empty: the dimension carries no content for these markets"
+  },
+  "pm_fees_rebates_rewards": {
+   "family": "polymarket_internal",
+   "status": "have",
+   "source": "Gamma feeSchedule, rewards params; activity MAKER_REBATE / REWARD rows",
+   "resolution": "per market / day",
+   "publication_latency": "listing / daily",
+   "best_indicator": "listing parameters 10-01..10-22 identical (C4b)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "the 10-16 switch is an account migration (iteration 13), not a policy change; rebate share of PnL not re-screened under the 11-01 rules"
+  },
+  "pm_operational_events": {
+   "family": "polymarket_internal",
+   "status": "proxy",
+   "source": "idle-gap scan (X106), status history not fetched",
+   "resolution": "minutes",
+   "publication_latency": "after the fact",
+   "best_indicator": "group-P silence in idle gaps",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "E7 found no cross-event synchrony of unexplained decisions (iteration 14; min_detectable_share 0.05)"
+  },
+  "pm_sports_websocket_scores": {
+   "family": "event_state",
+   "status": "have",
+   "source": "Polymarket sports websocket (shared recorder `sports`, from 10-31)",
+   "resolution": "per message",
+   "publication_latency": "real time",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "live only; GRID CS2 round scores; no wallet record on VALIDATE-live blocks yet"
+  },
+  "pm_same_event_other_books": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "tapes of map / match books; round handicap / totals listed (tapes not cached)",
+   "resolution": "per trade",
+   "publication_latency": "block time",
+   "best_indicator": "map -> match series slope 0.46 (BUILD, X198) / 0.49 (mechanics iter-13)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "the wallet writes one map value into the match book through a series map; the public match print moves 0.11 x"
+  },
+  "sportsbook_inplay_cs2_thunderpick": {
+   "family": "related_markets",
+   "status": "proxy",
+   "source": "Thunderpick odds via bo3.gg live index (own recorder tommy_tp_odds2, from 10-31)",
+   "resolution": "per update",
+   "publication_latency": "~seconds",
+   "best_indicator": "de-margined p (X144 frozen tests)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "no development match with both records yet"
+  },
+  "sportsbook_inplay_dota_hawk": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "hawk.live archive (BetBoom, SpinBetter, Parimatch)",
+   "resolution": "per update",
+   "publication_latency": "archive",
+   "best_indicator": "de-margined line within 1c 0.54-0.63 vs print 0.60-0.70 (X172)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "E4 signature failed for three providers; other providers unarchived (family incomplete)"
+  },
+  "other_venue_sxbet": {
+   "family": "related_markets",
+   "status": "have",
+   "source": "SX Rollup fills decoded key-free (X145)",
+   "resolution": "per fill",
+   "publication_latency": "block time",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "sparse esports coverage"
+  },
+  "other_venue_azuro": {
+   "family": "related_markets",
+   "status": "proxy",
+   "source": "Azuro on-chain bet events (X161 probe)",
+   "resolution": "per bet",
+   "publication_latency": "block time",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "mapping not done"
+  },
+  "betting_exchange_apis": {
+   "family": "related_markets",
+   "status": "blocked",
+   "source": "Betfair / Pinnacle / sportsbook APIs (keys)",
+   "resolution": "",
+   "publication_latency": "",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "keys needed (user)"
+  },
+  "push_feed_inround_events": {
+   "family": "event_state",
+   "status": "proxy",
+   "source": "co-subscribers' signing times (P4e, 0x2005d16a, the trio; group P / G)",
+   "resolution": "ms",
+   "publication_latency": "feed time (sign); public at block time",
+   "best_indicator": "informed take clusters (E3-1 I1 / I2)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "fan-out at fixed lags (wallet +50 ms behind P4e); maker re-pricings event-locked to messages (X136); its maker leg re-prices on messages it does not take (X183); vendor unknown"
+  },
+  "round_results_bo3": {
+   "family": "event_state",
+   "status": "have",
+   "source": "bo3.gg rounds (winners, end reasons, kills, plants, economy; no wall clock)",
+   "resolution": "per round",
+   "publication_latency": "after the fact (no timestamps)",
+   "best_indicator": "in-round drift AUC 0.899 vs print 0.675 (X181)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "outcome-validated information in V; not point in time"
+  },
+  "feed_time_round_end_clock": {
+   "family": "event_state",
+   "status": "proxy",
+   "source": "informed take clusters, co-receiver signing clusters, print-inferred segments",
+   "resolution": "s",
+   "publication_latency": "feed time",
+   "best_indicator": "V ~ print(t + 20 s): 0.461 within one tick (information iter-13)",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": "the price residual's main shape: failures pile up in the last 10-30 s of rounds (0.07-0.10 vs 0.33)"
+  },
+  "kill_level_inround_state": {
+   "family": "event_state",
+   "status": "missing",
+   "source": "demos (consent), HLTV scorebot (Cloudflare), stream OCR (consent)",
+   "resolution": "tick",
+   "publication_latency": "server time + delay",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "information iter-13: V does not load on openers / plants; assumptions iter-13: V moves toward T in T eliminations without plant"
+  },
+  "dota_spectator_state_valve": {
+   "family": "event_state",
+   "status": "have",
+   "source": "Valve key-free realtime stats (own recorder tommy_dota_rt, from 10-31)",
+   "resolution": "4 s",
+   "publication_latency": "spectator delay",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "X201: a 4-s-lagged value keeps 0.29 of the set unit; live only"
+  },
+  "dota_public_minute_state": {
+   "family": "event_state",
+   "status": "have",
+   "source": "OpenDota per-minute state (historical)",
+   "resolution": "60 s",
+   "publication_latency": "post-match",
+   "best_indicator": "inverse fit 0.17 within one tick (X167)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "family incomplete"
+  },
+  "stream_video_and_chat": {
+   "family": "event_state",
+   "status": "proxy",
+   "source": "Twitch / Kick chat (own recorders tommy_chat, tommy_kick_pdt); VOD needs consent",
+   "resolution": "s",
+   "publication_latency": "stream delay",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "X201: lagged inputs cannot carry the price item"
+  },
+  "lol_riot_livestats": {
+   "family": "event_state",
+   "status": "proxy",
+   "source": "feed.lolesports.com livestats (key-free), Leaguepedia game ids (rate-limited)",
+   "resolution": "10 s frames",
+   "publication_latency": "~live",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "X184 / X191: the operator's LoL quoting (earlier account) as a natural experiment"
+  },
+  "grid_official_data": {
+   "family": "event_state",
+   "status": "blocked",
+   "source": "GRID esports (signup)",
+   "resolution": "",
+   "publication_latency": "",
+   "best_indicator": "GRID flag (selection: never GRID)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "signup needs the user"
+  },
+  "settlement_oracle": {
+   "family": "event_state",
+   "status": "missing",
+   "source": "UMA / Polymarket resolution of match markets",
+   "resolution": "per market",
+   "publication_latency": "after the match",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "settlement-side only for in-play markets; not a plausible in-play input"
+  },
+  "news_rss_wires": {
+   "family": "information",
+   "status": "missing",
+   "source": "Google News RSS, GDELT (verified by the brief 11-01)",
+   "resolution": "per item",
+   "publication_latency": "first appearance",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "E5 selection screen (which matches it skips) not run"
+  },
+  "social_media": {
+   "family": "information",
+   "status": "proxy",
+   "source": "Reddit RSS, Telegram previews, Bluesky; X blocked",
+   "resolution": "per post",
+   "publication_latency": "post time",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "E5"
+  },
+  "esports_schedules": {
+   "family": "information",
+   "status": "have",
+   "source": "Gamma schedule, bo3.gg match lists, liquipedia",
+   "resolution": "per match",
+   "publication_latency": "days ahead",
+   "best_indicator": "league / tier score",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "selection"
+  },
+  "own_resting_levels": {
+   "family": "own_state",
+   "status": "have",
+   "source": "own orders (B1) and the live book's own label",
+   "resolution": "ms",
+   "publication_latency": "own",
+   "best_indicator": "per-token persistence 0.417 VALIDATE (X198, own knowledge)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "price ladder: the n highest free slots V..V-4 (X163)"
+  },
+  "own_inventory_pair_balance": {
+   "family": "own_state",
+   "status": "have",
+   "source": "own fills, merges",
+   "resolution": "per fill",
+   "publication_latency": "own",
+   "best_indicator": "merge law 300.22 + 7.28 x merges s",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "exit: merges pairs on a ~300-s loop and holds the residual to resolution"
+  },
+  "own_pnl_drawdown_capital": {
+   "family": "own_state",
+   "status": "have",
+   "source": "activity (clamped to development periods)",
+   "resolution": "daily",
+   "publication_latency": "own",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "every development day positive; no drawdown regime to test"
+  },
+  "operator_time_of_day": {
+   "family": "operator",
+   "status": "have",
+   "source": "listing times",
+   "resolution": "hour",
+   "publication_latency": "",
+   "best_indicator": "traded rate by start hour: 0 at 00-08 and 20-24 UTC, 0.11-0.27 at 08-20 (E2)",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "confounded with the schedule of the leagues it selects"
+  },
+  "operator_processing_loop_504ms": {
+   "family": "operator",
+   "status": "have",
+   "source": "live book (own label), historical signing times",
+   "resolution": "ms",
+   "publication_latency": "own",
+   "best_indicator": "504-ms loop phase (X158)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "timing of quiet re-pricings; period wanders 503-505 ms (sleep loop, mechanics iter-13)"
+  },
+  "operator_multi_account": {
+   "family": "operator",
+   "status": "have",
+   "source": "same-process census, owner keys, profile names (X176)",
+   "resolution": "per order",
+   "publication_latency": "on chain",
+   "best_indicator": "0-5 ms co-signing",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "one operator, four accounts; the 10-16 switch is an account migration"
+  },
+  "operator_human_reaction": {
+   "family": "operator",
+   "status": "have",
+   "source": "attention check vs concurrency (iteration 12 panel)",
+   "resolution": "",
+   "publication_latency": "",
+   "best_indicator": "elasticity -0.06",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "E19 human desk closed by the attention check (no power statement)"
+  },
+  "infra_fanout_position_latency": {
+   "family": "infrastructure",
+   "status": "have",
+   "source": "signing-time lags behind P4e on the same token",
+   "resolution": "ms",
+   "publication_latency": "on chain",
+   "best_indicator": "+50 ms (wallet), +34 ms (Oct, earlier account)",
+   "min_detectable_share": null,
+   "verdict": "drives",
+   "note": "take race position; maker re-pricing at messages"
+  },
+  "infra_outages_restarts": {
+   "family": "infrastructure",
+   "status": "proxy",
+   "source": "idle gaps (X106), merge-loop phase breaks (X95)",
+   "resolution": "minutes",
+   "publication_latency": "after the fact",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "E7: no cross-event synchrony of unexplained decisions"
+  },
+  "feed_vendor_identity": {
+   "family": "event_state",
+   "status": "missing",
+   "source": "commercial esports data feeds (not identified; GRID excluded by selection)",
+   "resolution": "ms",
+   "publication_latency": "push",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "iteration 14: the operator's sports account shows no push-feed play reaction (MLB), so the feed is an esports product; the private-value design starts 09-17"
+  },
+  "infra_rate_limits": {
+   "family": "infrastructure",
+   "status": "missing",
+   "source": "",
+   "resolution": "",
+   "publication_latency": "",
+   "best_indicator": "",
+   "min_detectable_share": null,
+   "verdict": "untested",
+   "note": "not observable from the public record"
   }
- }
+ },
+ "indicators": [
+  {
+   "name": "sports_socket_vs_espn_vs_signing",
+   "dimension": "pm_sports_websocket_scores",
+   "definition": "Polymarket sports websocket latency against ESPN / the wallet's signing",
+   "event": "score update",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "A5",
+    "status": "tried",
+    "evidence": "Sports websocket has round scores only for GRID events (info panel); the wallet's events are non-GRID, so it cannot time their rounds. bo3.gg: no live coverage for the wallet's live matches today (live_coverage None); bo3 round durations do not align pack clusters better than permuted durations (round_align.json). HLTV blocked (403). Kick VOD stream clock = X4 (open). Iter 3: for its dev-block events the socket's round part stays 000-000 (map scores only) while GRID events carry per-round scores; its taker signing precedes every public trace on the server clock. HLTV scorebot also blocked (X36). SX Bet lists the same tier-3 events in play but its odds need a key (X23).",
+    "source": null
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "provider_latency_socket_vs_market",
+   "dimension": "pm_sports_websocket_scores",
+   "definition": "sports socket vs market reaction (provider latency)",
+   "event": "score update",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X103",
+    "status": "tried",
+    "evidence": "provider_latency.json (10-31 12-18 development units): sports-socket map-score update minus the market's terminal repricing: non-GRID (Dota incl.) n 20 min 16 s, p10 26 s [16, 65], median 169 s; GRID n 17 min 20 s, p10 47 s [20, 165], median 196 s. The provider is tens of seconds to minutes behind the market for both classes: it cannot be the feed and does not separate GRID from non-GRID. Gamma score polling (step 5) is redundant with this result.",
+    "source": "information panel P3 (iter 7): Polymarket's own data provider as a latency yardstick, GRID as the positive control"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "push_feed_cosigner_fanout",
+   "dimension": "push_feed_inround_events",
+   "definition": "co-subscribers' signing lags on the same token",
+   "event": "informed take",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X65",
+    "status": "tried",
+    "evidence": "Partial: 0x51dbdd2b traded Stake Pulse 17 / PGL 10 / NODWIN 4 CS2 events on 10-12..10-15 (assumptions panel iter 4) and P4e was in 48% of the maker-regime leagues' non-GRID events 09-26..10-15 (iteration 2): both predate the wallet there, so the source predates the switch. The latency change point needs calldata of their maker orders before 10-16 (~30k pre-switch txs) and was not run; X69 covers the X51 rerun. | Iteration 5 sample (cosub_history.json, 1,600 pre-switch txs of 10-12..10-15 tier-3 markets): presence and in-delay posting of 0x51dbdd2b / 0xed446954 / 0x2005d16a unchanged across the switch (e.g. 0x51dbdd2b 5.9% vs 6.7% of txs, in-delay 23.7% vs 17.8%): the fast makers predate the wallet; event-latency change point still needs an event clock. | Iteration 7 (feed_preswitch.json): in the 1,600-tx pre-switch sample (10-12..10-15) the feed subscribers P4e (80 takes), 0x2005d16a (26), 0xddb6e624 (11), 0xf1ee4842 (8) and P93 (25) already take while the wallet has none; co-sign offsets need the full pre-switch matched-order record (0 same-token pairs in a tx sample): the feed predates the wallet's switch; its fan-out date is still open. | feed_preswitch.json (4,712 subscriber taker txs of 10-09..10-15 decoded): lags after P4e already as in 16-22 Oct: 0x2005d16a +12 ms (57 pairs), 0xf1ee4842 +145 (13), 0xddb6e624 +202 (11), P93 +369 (36), null 0-3; the wallet has no takes there before 10-16 and signs at +50 ms from its first maker-regime day. The feed and its fan-out predate the wallet by >= 1 week; the wallet joined (or started using) it at the 10-16 switch, with its maker client and merge loop. | Iteration 13 correction (X176): one operator signs for at least four accounts with one process (0x52661b8e 'TommyLeePeeecan', 0x67119033 owned by 0x116342d6, the wallet owner's $2,000 recipient, and 0x7d67f01d 'BACKTESTEOCARAIO1', the maker strategy's account before 10-16); see X176.",
+    "source": "information panel P5 (iter 4): date the feed by the co-subscribers' histories"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "wallet_minus_P4e_lag_by_event_class",
+   "dimension": "push_feed_inround_events",
+   "definition": "wallet - P4e lag by event class, MixedLM",
+   "event": "informed take",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X111",
+    "status": "tried",
+    "evidence": "lag_by_class.json (203 co-signed pairs, 44 events): isolated 53, reversal 50.5, follow-on 40 ms; MixedLM follow-on -10.9 ms (p 0.07), reversal -0.9 (p 0.84), event SD 8.0, residual 25.1 ms; reversal - follow-on +10 ms [-4, +22]; control 0x2005d16a - P4e similar (-12.5 / -10.9 ms, n.s.). No class-dependent offset >= 20 ms: one fan-out with the kind filter at the wallet. Step 2 (pull share at P4e-alone events live) waits for P4e takes on a recorded book (with X115); step 3 (geography, clob_latency.json): CLOB path latency (match - sign - 1 s) wallet p50 41 ms (39), 0xf1ee4842 p50 56 ms (15): its ~100-160 ms later signing is on the feed's side, not network distance.",
+    "source": "mechanics panel P5 (iter 7): one stream or two (lag by event class, residual coupling to P4e)"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "fanout_delivery_structure",
+   "dimension": "push_feed_inround_events",
+   "definition": "order consistency, common mode, queue load of the fan-out",
+   "event": "informed take",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X126",
+    "status": "tried",
+    "evidence": "fanout_structure.json (4,087 P4e messages, 157 with >= 3 acting subscribers): pair order consistency median 0.573 vs 0.612 under independent marginals (0 of 21 pairs above the null p95): no fixed sending order; lag-residual common mode r 0.864 (shuffled 0.008): one shared message time; queue load: the slow trio +142-188 ms per extra P4e message in the previous 1 s (t 2.6-4.3), the wallet and group G no slope. One broadcast; the trio consumes it sequentially.",
+    "source": "mechanics panel P4 (iter 8): the fan-out's delivery structure (broadcast or sequential sender)"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "cascade_lock_event_vs_leader",
+   "dimension": "push_feed_inround_events",
+   "definition": "co-receiver cascade: event-locked vs leader-locked re-pricing",
+   "event": "P4e message",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X136",
+    "status": "tried",
+    "evidence": "cascade_lock.json (16-22 Oct on chain, 3,674 P4e messages): of 446 messages with a wallet maker re-pricing within 150 ms, any of six fast co-receiver makers signed >= 20 ms before it on 6.1%; vs 0xed446954 (n 21; +18 vs +51 ms) the wallet signs first on 14%, < 20 ms after on 33%, lag corr -0.48 (slope -0.43); its takes vs 0xed446954 first 22%, < 20 ms 41%, corr -0.04; vs 0x2005d16a first 26%, < 20 ms 63%; its lag is the same with (51 ms) and without (53 ms) any leader order. Event-locked (signature if false). R-anchor step not pursued (the latest other-maker add scores 0.47-0.51 vs 0.46 for the mid, iteration-9 information panel); R as the placebo: X135 and the cascade member 0x51dbdd2b (0.49 fill-selected vs the wallet 0.64). Owners (X110 table): 0xed446954 0x1aaef256..., P4e 0xbf6461fa..., wallet 0x8af810f0...: different keys (not P4e's maker leg, not a wallet sibling).",
+    "source": "mechanics panel P1 (iter 9): co-receiver maker cascade; event-locked vs leader-locked re-pricing"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "declined_messages_maker_leg",
+   "dimension": "push_feed_inround_events",
+   "definition": "wallet maker orders within +-30 ms of informed clusters it does not take",
+   "event": "informed cluster",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X183",
+    "status": "tried",
+    "evidence": "Historical form (declined_messages.json, code/iter13/declined_messages.py; 16-22 Oct pack take clusters): a filled wallet maker order signed within +-30 ms of the cluster onset on any book of the event: no_wallet_take_P4e 0.0197 vs 0.0037 shifted (5.33x, n 2232); no_wallet_take_noP4e 0.0111 vs 0.0031 shifted (3.6x, n 3607); no_wallet_take_multi_who 0.0134 vs 0.0044 shifted (3.05x, n 1570); with_wallet_take 0.0331 vs 0.0055 shifted (6.06x, n 1510). Its maker leg re-prices at the messages it does not take: the round-win kind is received and declined (withdraws iteration-7 finding 20). The BUILD-live direction test (V toward the pack's team) not run.",
+    "source": "assumptions panel P4 (iter 12): is the round-win kind missing from its input, or received and declined?"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "triggered_adds_coreception",
+   "dimension": "pm_book_levels_queue_cancels",
+   "definition": "non-own same-book changes before its adds vs book arrival",
+   "event": "book change",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X180",
+    "status": "tried",
+    "evidence": "Step 1 partly: Check A replicated (65-81% of 'triggered' linked adds signed before their trigger reached the book; NOTES iteration 13 finding 7); only 9 linked non-own adds sign within 20 ms of an own linked add on BUILD-live (1.3% vs 0.1% shifted), too few for per-maker lag fits; the co-movers are other operators (0x893575c7, 0x51dbdd2b, 0x4f87cf20, 0x758dac51). Step 2 on chain: the panel's Check G (other makers' filled-order clusters follow 13.1% of P4e's messages within 300 ms vs 0.8%). Withdrawal starts sit on co-mover clusters like the other pulls (X175). Steps 3-4 (re-label on the cluster clock, the post-onset price rule) wait for VALIDATE-live.",
+    "source": "assumptions panel P1 (iter 12): the event path is a common-cause cluster; co-mover message clock"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "withdrawal_triggers",
+   "dimension": "pm_book_levels_queue_cancels",
+   "definition": "latest non-own change on any book before an event-wide withdrawal",
+   "event": "book change",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X175",
+    "status": "tried",
+    "evidence": "withdrawal_triggers.json (code/iter13/withdrawal_triggers.py; BUILD-live): latest non-own change on the event's books within 40 ms before: withdrawal starts 0.766 (mean 2.91 changes; kinds {'cancel': 0.612, 'add': 0.388}; sizes {'other': 0.49, '30-49': 0.184, '10': 0.143, '50-100w': 0.082, '5': 0.061, '20': 0.041}), other triggered pulls 0.697 (3.26; {'cancel': 0.533, 'add': 0.45, 'cons': 0.017}), shifted 0.228 (0.74). No class precedes >= 60% of starts against <= 20% of other pulls (signature a fails); no trade precedes any start; a withdrawal starts on the same co-mover cluster as its other pulls. Suspension overlap (b) and the round-book clock (c) wait for VALIDATE-live.",
+    "source": "information panel P4 (iter 12): name what starts and ends each event-wide withdrawal"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "lead_of_level_on_trades",
+   "dimension": "pm_tape_prints",
+   "definition": "offset of uncensored adds vs later public VWAP",
+   "event": "own add",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X182",
+    "status": "tried",
+    "evidence": "Step 1 (follower_census.json, lead_vs_trades.json; BUILD-live): non-own adds at its new top within 2 s: untriggered 0.847 vs 0.244 shifted (3.47x), triggered 1.603 vs 0.253 (6.35x): joiners exist. Lead on executed prices: Spearman(offset to mid, non-wallet trade VWAP in (t+5, t+60] s minus mid) 0.3155 for 1058 own adds vs 0.1526 for other makers (null 0.0052, p95 0.0442, p 0.0): the lead is not only followers'. Step 2 (joiner-free mid, per-tick controller with an absorbing gap) not run. | Step 2 (joiner-free mid, X186): the lead survives (10 s 0.423 vs 0.442 original; others 0.174).",
+    "source": "assumptions panel P3 (iter 12): the lead of V may be its followers'; per-tick book-state controller"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "joiner_free_lead",
+   "dimension": "pm_book_levels_queue_cancels",
+   "definition": "lead of its level on a joiner-free mid",
+   "event": "own add",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X186",
+    "status": "tried",
+    "evidence": "joiner_free_lead.json (code/iter13/joiner_free_lead.py; BUILD-live): 6056 joiner levels (non-own adds at its new top +-1c within 2 s after its adds) excluded from the others' mid with the iteration-7 builder; Spearman of its adds' offset vs the mid move at 2 / 10 / 30 s: original 0.5218 / 0.4422 / 0.3439 (others 0.2388 / 0.1686 / 0.0949), joiner-free 0.4402 / 0.4233 / 0.3714 (others 0.2279 / 0.174 / 0.1181). Joiners carry part of the 2-s lead only; the follower signature (<= 0.15 at 10 s) fails; with lead_vs_trades.json the lead is information, not imitation.",
+    "source": "self-proposed (iteration 13): the lead of its level on a joiner-free mid (X182 step 2)"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "slow_filter_prints",
+   "dimension": "pm_tape_prints",
+   "definition": "EMA of clean prints (half-lives 0-180 s) as its level",
+   "event": "level",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X174",
+    "status": "tried",
+    "evidence": "Historical form (slow_filter_hist.json, code/iter13/slow_filter_hist.py): EMA of the same market's public prints (wallet transactions excluded) at half-lives 0 / 2 / 5 / 15 / 60 / 180 s, rounded after a BUILD offset, within one tick of 12,099 VALIDATE maker orders: 0.3 / 0.294 / 0.279 / 0.222 / 0.146 / 0.12: every memory is worse than the last print. Live form (on-tick hazard on the event composite with round books) waits for VALIDATE-live records of the wallet.",
+    "source": "information panel P3 (iter 12): rounded slow filter of the event's public composite (strong form of E16)"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "signed_public_delta_rules",
+   "dimension": "pm_book_levels_queue_cancels",
+   "definition": "own top + 1c x sign(last-second mid move)",
+   "event": "mid move >= 0.5c",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X177",
+    "status": "tried",
+    "evidence": "First pass (tick_rule.json, code/iter13/tick_rule.py; BUILD-live 1508 add bursts / 2699 adds through the frozen X163 machine, no fitting): set unit / per order: R0 J 0.5 / 0.412, R1 own top before 0.326 / 0.268, R2 own top + 1c x sign(last-second others'-mid move) 0.351 / 0.285, R3 J + signed step 0.453 / 0.361, R4 hybrid 0.458 / 0.377. The signed public delta adds <= 2.5 points to its own top and loses 5 points on J: not 'previous level plus public delta'. The full ledger (holds, queue state, pulls on both tokens) waits for VALIDATE-live.",
+    "source": "mechanics panel P2 (iter 12): a signed per-tick ledger of the 504-ms loop with pulls, queue state and public deltas"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "inround_drift_vs_bo3_winner",
+   "dimension": "round_results_bo3",
+   "definition": "its level's within-round drift vs the round winner (print-inferred rounds)",
+   "event": "round",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X181",
+    "status": "tried",
+    "evidence": "Steps 1-3 (inround_drift.json, code/iter13/inround_drift.py; 86 CS2 maps, 894 rounds; round boundaries from the print's X171 fit): AUC of its within-round level change for the bo3 round winner 0.8993 vs the print's 0.6753 (difference 0.224 [0.1845, 0.2625], map bootstrap p 0.0); residualised on the print 0.8701; print flat {'n': 185, 'auc': 0.7716}; guard 10s 0.8694 vs 0.663; guard 20s 0.8392 vs 0.6559; guard 30s 0.8086 vs 0.6457; guard 45s 0.7884 vs 0.619; early windows first 30s 0.5951 vs 0.5856; first 60s 0.6617 vs 0.6082; inround_lead.json: a >= 2c move toward the winner inside the round only by its value 0.366, only by the print 0.046, both 0.432; before the print's first >= 2c move in the round 0.7084 vs 0.54 (681 rounds; 0.6155 where the print moves later); by split BUILD 0.9127 vs 0.7252, VALIDATE 0.8942 vs 0.639. Signature met: its value is an in-round win-probability state that builds up its lead during the round. Step 4 (freeze_side_table.json, code/iter13/freeze_side_table.py): side-aware MR12 table (q_CT, q_T grid per map, bo3 sides) at the first burst after each print-inferred round end, 1033 observations on 68 maps: residual SD median 3.96c (its level) vs 2.82c (print), its level closer on 10% of maps; signature (<= 2c and >= 0.7c below the print) fails (the comparison favours the print, whose fit placed the boundaries).",
+    "source": "assumptions panel P2 (iter 12): V is an in-round win-probability state; round-level drift and a side-aware table at freeze time"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "mr12_hmm_clock_free",
+   "dimension": "round_results_bo3",
+   "definition": "clock-free HMM of its levels against an MR12 / MR3 table vs 200 permutations",
+   "event": "round",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X171",
+    "status": "tried",
+    "evidence": "round_markov_fit.json (code/iter12/round_markov_fit.py; pre-registered in NOTES iteration 12): clock-free hidden-Markov fit (Viterbi over the round index, MR12 / MR3 table at a constant round-win probability, per-token offsets, 2 Viterbi-EM passes) of its filled maker bursts on 92 CS2 map markets of 16-22 Oct (4 dropped for unmatched bo3 team names), true bo3 winner sequence vs 200 permutations with the same final score, the last public print as control. Median over maps: rank of the true sequence 0.143 (V) vs 0.103 (print); residual SD 3.22c vs 3.21c (V smaller on 49% of maps); first burst after inferred round ends 2.69c vs 2.90c. BUILD 3.03c vs 3.21c, VALIDATE 3.28c vs 3.18c. Pre-registered verdict: not a score table (pre-registered rule). Its levels sit no closer to a round-score Markov valuation than the print does (E1a in constant-p form fails).",
+    "source": "assumptions panel P5 (iter 11): clock-free fit of CS2 V to a round-state Markov valuation"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "round_economy_at_starts",
+   "dimension": "round_results_bo3",
+   "definition": "level minus print vs equipment difference at inferred round starts",
+   "event": "round start",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X160",
+    "status": "open",
+    "evidence": "Clock-free form of steps 4-5 (round_econ.json, code/iter12/round_econ.py; first burst after each round end inferred by the X171 fit, bo3 round economy of the new round): residual vs table ~ equipment difference Spearman -0.287 [-0.336, -0.235] (V) vs -0.238 [-0.302, -0.173] (print); its level minus the last print ~ equipment difference: Spearman 0.54, OLS 0.317c per $1k (t 24.6); controlling the previous rounds' winners and the score: 0.004c per $1k (t 0.2), previous-round winner 4.527c (t 15.59); offset_vs_print_prev_A_won: -0.003c per $1k (t -0.11); offset_vs_print_prev_A_lost: 0.037c per $1k (t 1.5). Steps 1-3 (pause-aware DP clock on public jumps, causal round starts) and step 6 (anchor rule) not run.",
+    "source": "information panel P3 (iter 11): historical in-round clock and economy from bo3 with a pause-aware DP"
+   },
+   "verdict": "open"
+  },
+  {
+   "name": "P4e_round_winner_alignment",
+   "dimension": "round_results_bo3",
+   "definition": "P4e take sequence vs bo3 round winners",
+   "event": "round",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X125",
+    "status": "ruled_out",
+    "evidence": "p4e_round_align.json (70 bo3-parsed maps): NW identity of P4e's bought-team sequence vs bo3's round winners 0.785 vs 0.792 permuted / 0.771 random, 2 of 70 maps at p < 0.05, Fisher p 1.0, team-share Spearman 0.12 (p 0.32). With the socket's round part constant for its events (X2) and bo3 timing alignment at the control (X10, 0 of 95 maps), no point-in-time CS2 round clock exists for its events, so the round-score V cannot be scored; the remaining clock is demos (X122, consent).",
+    "source": "mechanics panel P3 (iter 8): a CS2 round clock from P4e's round-win messages and a round-score fair value"
+   },
+   "verdict": "no_effect (legacy; no power statement)"
+  },
+  {
+   "name": "take_event_types",
+   "dimension": "round_results_bo3",
+   "definition": "take-event share per team vs dW / dFK / dBP / dCL (binomial GLM)",
+   "event": "round",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X50",
+    "status": "tried",
+    "evidence": "Pulls as units: X46. Clock-free test (event_type_counts.json, 82 maps, 541 take events): binomial GLM with map fixed effects of its take-event share per team: dW alone 0.28 (p 0.12), dFK alone 0.06 (p 0.71), dFK beyond dW -0.17 (p 0.44), dBP beyond dW/dFK/dCL +0.60 (p 0.059; corr 0.38, the highest). P4e: dW p 8e-8, dFK beyond dW p 0.59, dBP beyond -0.67 (p 0.0008). The opening-kill reading is not supported; bomb plants are the leading candidate (weak power). Half-level clock follow-up (t_side_share.json; bo3 begin_at + duration x first-12-round share = halftime, +-3 min and overtime dropped): the wallet buys the T side in 53.8% of 422 take events on 87 maps (binomial p 0.13; map-bootstrap CI [0.49, 0.59]; half 1 56.1%, half 2 50.8%), so a plant-driven trigger is not confirmed by side; P4e buys the CT side in 59.2% of 1,133 events (p 6e-10): the pack's trigger set differs from the wallet's.",
+    "source": "assumptions panel P4 (iter 3): pulls as the unit of the taker decision; clock-free event-type test"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "dota_bursts_vs_kills",
+   "dimension": "dota_public_minute_state",
+   "definition": "Dota maker bursts 0-6 s after kills on the feed clock",
+   "event": "kill",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X119",
+    "status": "tried",
+    "evidence": "Price part = X123 (rejected: last print + dV 0.411 vs last print 0.431 on 857 VALIDATE Dota orders; placebo clocks 0.420-0.426). Timing part (dota_burst_events.json, 412 maker signing bursts of 10-22, P4e-only D): 0-6 s after an own-team kill 7.8% vs 5.2% on shifted clocks (p 0.045), any kill 13.4% vs 10.2% (p 0.075); the >= 50% signature fails. The uncensored live version (book events, net worth / positions) is part of X118.",
+    "source": "information panel P2 (iter 8): rebuild the Dota ladder's price from spectator-clock events"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "dota_inverse_fit_public_state",
+   "dimension": "dota_public_minute_state",
+   "definition": "Dota value vs public per-minute state with placebo clocks",
+   "event": "minute",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X167",
+    "status": "open",
+    "evidence": "Step 1 (historical) dota_inverse_fit.json (code/iter12/dota_inverse_fit.py; 1054 filled maker orders on 8 Dota maps, clock from P4e's takes, state at tau - 5 s): inverse fit on oriented gold / xp / kill leads, minute and the pre-game prior, leave one map out: within one tick 0.169 (logistic LS, MAE 5.36c) / 0.154 (LightGBM, MAE 9.02c) at the true clock vs 0.068 / 0.088 at -/+300 s and the last print 0.42 (MAE 2.58c); last print + model change 0.414 (placebos 0.423 / 0.415). Public per-minute state carries the coarse level only. Step 2 (Valve live state at receive time, tommy_dota_rt) waits for development blocks with Dota in play.",
+    "source": "assumptions panel P1 (iter 11): Dota V as a learnable map of Valve's public spectator state (inverse fit of its own levels)"
+   },
+   "verdict": "open"
+  },
+  {
+   "name": "dota_game_state_fair_value",
+   "dimension": "dota_public_minute_state",
+   "definition": "Dota fair value from 160 OpenDota pro matches as the maker anchor",
+   "event": "minute",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X123",
+    "status": "tried",
+    "evidence": "dota_v_anchor.json: V = logistic(gold / xp / kill leads x minute) on 160 OpenDota pro matches of 10-08..10-20 (6,326 minutes, in-sample AUC 0.837), P4e-only D per map, state at tau - 5 s. Within one tick: VALIDATE (857 Dota orders) last print 0.431, last print - s 0.443, last print + dV - s 0.411 (D +-120 / 300 s: 0.420-0.426), |V| - s 0.050; BUILD-live (197) 0.503 / 0.513 / 0.467 (0.411-0.472) / 0.030. Spearman(price - last print, dV) -0.189 at the true clock (bid-ask bounce after own-team gains). Rejected: the private V is not the public game state at minute / kill resolution.",
+    "source": "mechanics panel P1 (iter 8): Dota game-state fair value as the maker's anchor"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "hawk_bookmaker_lines_dota",
+   "dimension": "sportsbook_inplay_dota_hawk",
+   "definition": "de-margined bookmaker lines vs its Dota value (clock-free alignment)",
+   "event": "line update",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X172",
+    "status": "tried",
+    "evidence": "Step 0: hawk.live series pages fetched once each as a normal visitor through the shared cached client (code/iter13/hawk_fetch.py; Inertia data-page JSON; head-to-head list with sealed series dropped unread): 10-22 ty-gl, 10-22 ts8-legion1 (team-spirit-vs-legion), 10-31 ty-gl (pari-universe-playoffs); 10-22 liquid-1win HTTP 404 'No query results for model [App\\Models\\Series]' under three slugs. Step 1 (hawk_align.json, code/iter13/hawk_align.py): 6 maps, BetBoom / SpinBetter / Parimatch, proportional de-margin; clock-free monotone alignment of its 686 Dota burst tops: wallet RMS vs print RMS (median over maps) betboom 1.08c vs 1.06c, spin-better 1.52c vs 1.11c, parimatch 1.40c vs 1.12c; wallet below print on 1 of 6 maps for each provider; within 1c pooled 0.54-0.63 vs print 0.60-0.70; reversed 2.2-3.5c, other maps 1.9-2.9c (power). Verdict: its Dota value is not a de-margined line of these three providers (it tracks them exactly as closely as the market). Step 2 (live poller with timestamps) not run: no wallet Dota trade in the VALIDATE-live block (dota2-synaps-hn skipped), later development blocks fall after the budget.",
+    "source": "information panel P1 (iter 12): hawk.live archived and live multi-bookmaker Dota lines as the wallet's Dota value (E4 for the Dota half)"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "sxbet_second_venue",
+   "dimension": "other_venue_sxbet",
+   "definition": "SX Bet fills vs its quotes",
+   "event": "fill",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X145",
+    "status": "tried",
+    "evidence": "sx_fetch.py / sx_analysis.py, sx_secondvenue.json. Verified: SX Rollup Blockscout API key-free; exchange proxy 0x890482680C3a0116aBB003B17e7D694D13a6c1eB (EIP-1967, implementation 0x4336940c... initialized 10-13, unverified; the verified FillOrder ABIs' OrderFill topic is not emitted after the upgrade); fill txs (selector 0x468e5f52) decoded from calldata (maker, fill, totalBetSize, percentageOdds, isMakerBettingOutcomeOne, validated on a sample); api.sx.bet/markets/find answers key-free for finished markets. 16-22 Oct (blocks 10,543,166-10,686,804, all before H): 28734 fill txs on 4622 markets, but only 20 esports markets (74 fill txs) and 11 CS2 markets (63 fill txs, 59 in play, $7655.5). 6 of the wallet's 80 traded events have an SX market; in play they hold 0-22 fill txs per ~3-h match (about 1 per hour, the panel's density bar is 1 per minute). On the 138 matched in-play maker fills: SX implied probability - Polymarket last print {'n': 138, 'mean_c': 4.19, 'sd_c': 3.56, 'within_1c': 0.029}, - the wallet's latest bid on the token {'n': 132, 'mean_c': 4.82, 'sd_c': 7.05, 'within_1c': 0.174}: SX quotes a wide margin above Polymarket and tracks Polymarket's print (SD 3.6c) more than the wallet's level (SD 7.1c). Signature if false holds: SX in-play fills are sparse and follow Polymarket; the SX branch of the second-venue class is closed (also closes X73's chain half). Azuro: X41 stays infeasible (subgraph DNS failure); not re-run.",
+    "source": "information panel P2 (iter 10): second venues that settle on chain (SX Bet via the SX Rollup explorer, Azuro on Polygon)"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "azuro_probe",
+   "dimension": "other_venue_azuro",
+   "definition": "Azuro bet events on Polygon / Gnosis",
+   "event": "bet",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X161",
+    "status": "tried",
+    "evidence": "azuro_probe.json (iteration 12): event signatures from Azuro's public indexer configuration (LiveCore NewLiveBet(address,address,uint256,uint256,uint64,uint128,uint64,uint128), Core v3 NewBet(...,uint256,uint128[]), Core v2 NewBet(...,uint64,uint128[2]); keccak verified on Transfer). Topic-only eth_getLogs on Polygon via drpc in 100-block windows: 0 logs for all three in 10-20 15:00-17:00 UTC and 10-21 07:00-09:00 UTC (36 calls each, no errors); Gnosis (rpc.gnosischain.com): 0 logs for the same topics and 0 logs of any kind from the known LP 0x204e7371..., factory 0x8EA1a724..., core v1 0x4fE6A9e4... in 10-20 15:00-17:00. publicnode refuses topic-only queries ('Please specify an address in your request'). No historical on-chain in-play line under Azuro's documented contracts in the study period; a newer undocumented deployment is not excluded (Azuro API / subgraph unreachable, X41).",
+    "source": "information panel P4 (iter 11): Azuro on chain as a historical in-play line"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "multisport_fanout",
+   "dimension": "push_feed_inround_events",
+   "definition": "co-signing in football / NBA / tennis",
+   "event": "informed take",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X114",
+    "status": "tried",
+    "evidence": "multisport_fanout.json (30,113 txs of 1,106 non-esports markets, 16-22 Oct): 0x2005d16a's 1,064 taker BUYs have 13 same-token co-signs by the 0x8a80528d / 0xddb6e624 process within 500 ms (30-s shift null 4.25; median +148 ms, IQR 122) and 1 with 0xf1ee4842 (null 0). The CS2 fan-out does not repeat in football / NBA / tennis: an esports product; the ESPN step is moot.",
+    "source": "assumptions panel P3 (iter 7): is the shared feed multi-sport (cross-sport fan-out, ESPN clock)?"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "grid_natural_experiment",
+   "dimension": "grid_official_data",
+   "definition": "GRID vs non-GRID events: decoded GRID-event txs",
+   "event": "event",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X120",
+    "status": "tried",
+    "evidence": "grid_experiment.json (11,702 public taker txs of the 25 GRID CS2 events with most group-G prints decoded into calldata_grid/): group G's lags behind 0xf1ee4842 identical in GRID and non-GRID events (0x7c8cc255 +10.5 vs +6.5 ms, 0x8a80528d +63.5 vs +56.5, 0x67706ec3 +54 vs +57, 0xc7097421 +71.5 vs +66.5, 0xddb6e624 +57.5 vs +43; nulls 0-3); group-G clusters in GRID events have no pre-move (-0.01c vs -0.18c) and LARGER markouts (10 s +1.78 vs +0.89c, diff +0.90c [0.35, 1.45]; 60 s +2.80 vs +1.57c, +1.23c [0.46, 2.01]). The relative-speed reading (pre-moves, small markouts in GRID events) is rejected; the wallet's boundary is the coverage of its product. Step 3 (dota_grid_market_clock.json): GRID-flagged Dota markets (77 maps) follow kills at D 817-962 s after start_time on 10 of 15 significant maps (real time would be ~100-250 s); non-GRID 18 maps, 1 significant (1005 s): no real-time pricing visible in GRID Dota markets either. Step 4 is covered by iteration 7 (X65: the fan-out existed on 10-09..10-15 with the same lags; the wallet joined at its 10-16 switch).",
+    "source": "information panel P3 (iter 8): GRID events as a natural experiment (coverage vs relative-speed boundary)"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "outages_idle_gaps",
+   "dimension": "infra_outages_restarts",
+   "definition": "idle-but-up gaps vs group-P silence",
+   "event": "gap",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X106",
+    "status": "open",
+    "evidence": "Step 1 run (outage_gaps.json): the wallet's two idle-but-up gaps (10-17 16:43-17:22, 10-22 10:01-11:00): P4e 10.6 / 2.0 prints per hour vs 52.8 / 56.1 in the rest of the run, other subscribers 30 / 12 vs 88 / 179: game-phase lulls, not a wallet-side outage. Steps 2 (feed-wide outages with the socket's live fields) and 3 (common-mode lag shocks across titles) not run. | Step 3 power check: wallet lag after P4e 51 ms (CS2, 203) vs 49 ms (Dota, 15); hours with co-signs in both titles 2-3: infeasible on 16-22 Oct (only 10-22 had Dota).",
+    "source": "information panel P6 (iter 7): outages as natural experiments (one source or two)"
+   },
+   "verdict": "open"
+  },
+  {
+   "name": "loop_504ms_phase",
+   "dimension": "operator_processing_loop_504ms",
+   "definition": "504-ms loop phase and tick attribution",
+   "event": "loop tick",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X158",
+    "status": "tried",
+    "evidence": "loop_attribution_all.json / loop_attribution.json (code/iter12/loop_attribution.py; BUILD-live server clock, P = 504 ms, +-15 ms, uniform 0.06): on-tick rates triggered_add 0.142 (n 1099), triggered_pull 0.127 (n 872), untriggered_add 0.728 (n 224), untriggered_pull 0.346 (n 182), takes 0.0 (n 22). Attribution over all own bursts: off-tick bursts follow a same-book non-own change within 40 ms in 0.61 (control ticks 0.195, median lag 17.0 ms): event-driven; on-tick bursts 0.181 vs 0.156 within 40 ms, any same-book change in the previous tick 0.669 vs 0.526, sibling books 0.341 vs 0.323; the excess sits 250-504 ms before the tick. The quiet class is sampled on the loop; at most ~14 points of on-tick re-pricings follow public book changes: branch (a) fails. Steps 3-5 (sign runs, step sizes, off-tick message counts vs bo3 kills, tick-sampled follower) not run; replicate on VALIDATE-live. | Step 3 (loop_steps.json): on-tick value changes are 68.7% 1c steps (off-tick 57.3%; >= 3c 12.8% vs 21.8%); consecutive changes share sign 70.6% vs 64.5% shuffled (p < 0.003) but runs >= 3 at the shuffled rate (0.122 vs 0.126): no clock-driven drift (branch c fails); jumps come off the loop, at events. | Market pull (loop_market_pull.json): value changes toward the others' mid 0.736 on tick vs 0.728 shuffled (p 0.39), 0.846 off tick vs 0.830 (p 0.005); slope of dV on the gap 0.43 / 0.53: not separable from the add-only sample composition. | Historical replication (loop_historical.json, 16-22 Oct signing clock, 19764 filled-order bursts): on-tick quiet 0.117 (n 13497), follow 0.081, msg 0.063, repair 0.057, takes 0.056 (n 1532), uniform 0.06; period scan peak 504.0 ms. Loop and off-loop takes replicate on the client clock (weaker lock: censored record).",
+    "source": "information panel P1 (iter 11): the 504-ms loop as the decision clock; tick-level attribution of what moves V"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "same_process_accounts",
+   "dimension": "operator_multi_account",
+   "definition": "0-5 ms co-signing census; owners; names",
+   "event": "own order",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X176",
+    "status": "tried",
+    "evidence": "same_process_census.json, sibling_accounts.json, sibling_history.json, sibling_price.json, sibling_feed_lag.json, sibling_sep.json, ladder_union_hist.json, sibling_selection.json (code/iter13/). Census over every maker with >= 100 orders in the wallet's 16-22 Oct markets: orders signed 0-5 ms after a same-token wallet order vs the [5, 50) ms rate: 0x52661b8e 128 vs 16.33 per 5 ms (7.84x, 47 same price, sizes {'5.0': 1064}); 0x67119033 61 vs 2.11 per 5 ms (28.89x, 40 same price, sizes {'5.0': 382}); 0x7d67f01d 21 vs 0.89 per 5 ms (23.62x, 16 same price, sizes {'5.0': 271}); every other maker <= 4.5x. Owners in the immutable proxy args (same factory 0xd729a0cb as the wallet): 0x7d67f01d -> 0x80a19b87, 0x52661b8e -> 0xe6f64514, 0x67119033 -> 0x116342d6 (the EOA that received the wallet owner's only outgoing $2,000); 0x80a19b87 / 0xe6f64514 / the wallet's owner are EIP-7702 accounts delegated to 0x63c0c19a. Profile names: 0x52661b8e 'TommyLeePeeecan', 0x7d67f01d 'BACKTESTEOCARAIO1'. 0x7d67f01d: BUY-only + MERGE maker since September (Sep 8,909 BUY / 0 SELL, Oct 35,877 / 68; 100-share CS2 / Dota, LoL 100 then 10), all-non-GRID CS2 in 10-01..10-15 (19,310 trades, 133 events) while the wallet was a GRID taker (7,506 of 7,717 CS2 trades GRID); winds down from 10-16 as the wallet takes the role over. Its 10-08..10-15 maker orders (sample 3,253 txs): within one tick of the last print 0.298 (wallet BUILD 0.309 / VALIDATE 0.305), offset -1c, whole cents, band, ramp sizes; its takes (1000 / 2000 caps) sign a median 34.0 ms after P4e on the same token (63.5% in [20, 100) ms). September: maker within tick 0.218 at offset -3.0c, takes 65.0 ms after P4e. Historical uncensoring: the 5-share co-signed orders sit in the wallet's five slots (union within V - 4c in 0.981 of 107 bursts; slot profile {'0': 116, '1': 57, '2': 35, '3': 16, '4': 11, '5': 3}). Selection replication: the frozen league / GRID component scores 0x7d67f01d's 10-01..10-15 event choice at AUC 0.9418 (0.8682 within non-GRID). One operator, at least four accounts, one signing process; the 10-16 switch is an account migration (corrects C1 / X14 / X65 / X95 / X110).",
+    "source": "mechanics panel P1 (iter 12): map every account the wallet's bot signs for and use them as natural experiments on V"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "map_match_coupling",
+   "dimension": "pm_same_event_other_books",
+   "definition": "same-tick map / match re-pricings vs series sensitivity",
+   "event": "own burst",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X173",
+    "status": "tried",
+    "evidence": "Historical form (event_value_coupling.json, code/iter13/event_value_coupling.py): 53 same-tick (+-5 ms) map / match burst pairs with both changes nonzero in 33 CS2 Bo3 events of 16-22 Oct: team-direction agreement 0.962; |dV_match / dV_map| median by s tercile low 1.0 (s 0.337, n 18), mid 0.917 (s 0.458, n 18), high 0.8 (s 0.52, n 17); Spearman(s, |ratio|) -0.157 (p 0.26); public prints over the same intervals ratio 0.109 (n 29). One private event-level update written to both books by about the same cents (not scaled by s; not public co-motion). Live form (decider maps, public-change term) waits for VALIDATE-live.",
+    "source": "information panel P2 (iter 12): one game value per event: map-match same-tick coupling against the series sensitivity"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "thunderpick_or_chat_first",
+   "dimension": "sportsbook_inplay_cs2_thunderpick",
+   "definition": "legacy esports odds / chat check",
+   "event": "update",
+   "period": "legacy",
+   "result": {
+    "catalog_id": "X97",
+    "status": "tried",
+    "evidence": "coreceivers.json: P4e 203 co-signs on 44 events, -50 ms, event SD 9.1 ms, Kick - Twitch +2 ms [-7, +12]; 0x2005d16a 49 on 20 events, -20 ms, event SD 6.8 ms, +9 [-6, +23.5] -> pre-registered verdict: shared push feed. fanout_subscribers.json: lags to P4e equal on P4e-alone and co-signed events (0x2005d16a +25 / +44, 0xf1ee4842 +209 / +149, 0x8a80528d +203 / +220, 0xddb6e624 +203 / +217, P93 +404 / +385 ms; shift null 1-6 pairs). census_p4e_types.json: P4e-alone bursts load on round wins (dW +1.09, p 2e-4), not plants (dBP -0.54, p 0.08); wallet-without-P4e bursts on plants (dBP +1.29, p 0.045). Dota: no co-signs. Step 2 (live calibration) pending: P4e / 0x2005d16a absent from the 10-31 12-18 dev markets. | fanout_reader_check.json: P4e is a pure taker in its markets (4,118 taker rows, 0 maker rows; no P4e maker order on the exposed side in the 60 s before any of its 4,018 BUY takes), so the co-signers at +25 to +400 ms cannot be reacting to a P4e book trace (its FAK is invisible until the match >= 1 s later): independent push delivery at fixed lags. | wallet_exclusive_share.json: 26.2% of its 1,568 take clusters are co-signed by at least one subscriber at its fixed lag (null 0.3%); 74% are taken alone. | Iteration 8 (cs2_cosign_scan.json, cosigner_vs_p4e.json): a general scan finds 19 fixed-lag co-signers (a +100-175 ms group of about ten and a +455-520 ms group incl. the trio 0xfe8a28be / 0x72aaaaf9 / 0x2529c68d), all also at fixed lags behind P4e on P4e-alone events; shared share of the wallet's take clusters 28.8% (known six 26.2%).",
+    "source": "assumptions panel P1 (iter 6): the input is a shared push feed; co-receivers as instruments"
+   },
+   "verdict": "see evidence"
+  },
+  {
+   "name": "e7_residual_clustering_delta_0.5s",
+   "dimension": "infra_outages_restarts",
+   "definition": "out-of-fold BUILD presence misses (signing bins below the median OOF p), signing times, market key = event, >= 10 min after start",
+   "event": "cross-event coincidence within 0.5 s",
+   "period": "BUILD",
+   "result": {
+    "n_units": 41,
+    "n_events": 4917,
+    "min_detectable_share": 0.05
+   },
+   "verdict": "no_effect"
+  },
+  {
+   "name": "e7_residual_clustering_delta_2.0s",
+   "dimension": "infra_outages_restarts",
+   "definition": "out-of-fold BUILD presence misses (signing bins below the median OOF p), signing times, market key = event, >= 10 min after start",
+   "event": "cross-event coincidence within 2.0 s",
+   "period": "BUILD",
+   "result": {
+    "n_units": 41,
+    "n_events": 4917,
+    "min_detectable_share": 0.05
+   },
+   "verdict": "no_effect"
+  },
+  {
+   "name": "e7_residual_clustering_delta_10.0s",
+   "dimension": "infra_outages_restarts",
+   "definition": "out-of-fold BUILD presence misses (signing bins below the median OOF p), signing times, market key = event, >= 10 min after start",
+   "event": "cross-event coincidence within 10.0 s",
+   "period": "BUILD",
+   "result": {
+    "n_units": 41,
+    "n_events": 4917,
+    "min_detectable_share": 0.05
+   },
+   "verdict": "no_effect"
+  },
+  {
+   "name": "lag_tolerance_price_item",
+   "dimension": "dota_spectator_state_valve / stream_video_and_chat (lagged public state)",
+   "definition": "frozen X163 machine with V = own value path at t - L (BUILD-live)",
+   "event": "burst",
+   "period": "legacy",
+   "result": {
+    "set_unit_by_L": {
+     "L_0.001s": 0.368,
+     "L_0.1s": 0.365,
+     "L_0.25s": 0.355,
+     "L_0.5s": 0.335,
+     "L_1s": 0.306,
+     "L_2s": 0.298,
+     "L_4s": 0.293,
+     "L_8s": 0.282,
+     "L_16s": 0.295,
+     "L_30s": 0.258
+    },
+    "V_change_by_L": {
+     "L_0.001s": 0.215,
+     "L_0.1s": 0.235,
+     "L_0.25s": 0.234,
+     "L_0.5s": 0.217,
+     "L_1s": 0.201,
+     "L_2s": 0.204,
+     "L_4s": 0.211,
+     "L_8s": 0.218,
+     "L_16s": 0.232,
+     "L_30s": 0.226
+    },
+    "oracle": 0.875,
+    "public_J": 0.499
+   },
+   "verdict": "lagged inputs cannot carry the price item"
+  },
+  {
+   "name": "E3-1_I2_informed_cluster_pm2s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I2_informed_cluster",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 113,
+    "n_units": 113,
+    "n_events": 1642,
+    "peak_lag_s": 0.875,
+    "peak_lift": 6.835902753552624,
+    "level_peak_in_flank": false,
+    "median_lift": 4.3892293226166235,
+    "shape_peak_lag_s": 0.625,
+    "shape_width_s": 0.5,
+    "shape_lift": 1.4776632523084288,
+    "p_level": 5.702819706861793e-10,
+    "p_shape": 6.752699335230347e-05,
+    "p_link": 6.752699335230347e-05,
+    "q_bh": 9.688655567939194e-05,
+    "signed_p_link": 0.0002595729823857268,
+    "signed_q_bh": 0.0003426363367491594
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I1_informed_take_pm2s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I1_informed_take",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 96,
+    "n_units": 113,
+    "n_events": 8853,
+    "peak_lag_s": 1.125,
+    "peak_lift": 2.675483714604975,
+    "level_peak_in_flank": true,
+    "median_lift": 2.236499213629448,
+    "shape_peak_lag_s": 0.375,
+    "shape_width_s": 1.0,
+    "shape_lift": 1.3469251449794253,
+    "p_level": 1.7457443983258306e-07,
+    "p_shape": 0.0002535601250798034,
+    "p_link": 0.0002535601250798034,
+    "q_bh": 0.0003426363367491594,
+    "signed_p_link": 0.0023397416872770575,
+    "signed_q_bh": 0.0029696721415439576
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I3_print_jump_2c_pm2s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I3_print_jump_2c",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 113,
+    "n_events": 6384,
+    "peak_lag_s": -1.625,
+    "peak_lift": 2.3925844456204826,
+    "level_peak_in_flank": true,
+    "median_lift": 1.8328964368938905,
+    "shape_peak_lag_s": 0.25,
+    "shape_width_s": 0.25,
+    "shape_lift": 0.8580857968102568,
+    "p_level": 1.734857854727502e-07,
+    "p_shape": 0.9077306733167082,
+    "p_link": 0.9077306733167082,
+    "q_bh": 0.9077306733167082,
+    "signed_p_link": 0.00997506234413965,
+    "signed_q_bh": 0.012191742865059573
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I5_other_book_jump_pm2s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I5_other_book_jump",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 113,
+    "n_events": 5916,
+    "peak_lag_s": -1.625,
+    "peak_lift": 2.0724134257801,
+    "level_peak_in_flank": true,
+    "median_lift": 1.6218899288944868,
+    "shape_peak_lag_s": -0.75,
+    "shape_width_s": 0.25,
+    "shape_lift": 0.8668076205047869,
+    "p_level": 6.531184772443942e-06,
+    "p_shape": 0.8703241895261845,
+    "p_link": 0.8703241895261845,
+    "q_bh": 0.8975218204488777,
+    "signed_p_link": 0.05236907730673317,
+    "signed_q_bh": 0.06172069825436409
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I6_print_after_silence_pm2s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I6_print_after_silence",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 113,
+    "n_events": 2364,
+    "peak_lag_s": -1.625,
+    "peak_lift": 1.9388449182539746,
+    "level_peak_in_flank": true,
+    "median_lift": 1.371629797838606,
+    "shape_peak_lag_s": 0.0,
+    "shape_width_s": 0.25,
+    "shape_lift": 0.9150326649016685,
+    "p_level": 7.252564973407453e-05,
+    "p_shape": 0.07231920199501247,
+    "p_link": 0.07231920199501247,
+    "q_bh": 0.08229426433915213
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I4_print_jump_3sigma_pm2s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I4_print_jump_3sigma",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 94,
+    "n_units": 113,
+    "n_events": 2650,
+    "peak_lag_s": -1.625,
+    "peak_lift": 1.9320010548271995,
+    "level_peak_in_flank": true,
+    "median_lift": 1.8881693804244586,
+    "shape_peak_lag_s": -0.125,
+    "shape_width_s": 1.0,
+    "shape_lift": 0.8361774687867947,
+    "p_level": 1.1919511163230161e-06,
+    "p_shape": 0.5286783042394015,
+    "p_link": 0.5286783042394015,
+    "q_bh": 0.5627865819322662,
+    "signed_p_link": 0.08478802992518704,
+    "signed_q_bh": 0.09326683291770574
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I2_informed_cluster_pm60s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I2_informed_cluster",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 113,
+    "n_units": 113,
+    "n_events": 1642,
+    "peak_lag_s": 0.5,
+    "peak_lift": 5.795140432675951,
+    "level_peak_in_flank": false,
+    "median_lift": 1.5317871148682847,
+    "shape_peak_lag_s": 1.5,
+    "shape_width_s": 4.0,
+    "shape_lift": 4.598530149928725,
+    "p_level": 7.281295071012792e-12,
+    "p_shape": 1.9864978089997546e-12,
+    "p_link": 7.281295071012792e-12,
+    "q_bh": 2.4028273734342217e-10,
+    "signed_p_link": 6.615663679483763e-07,
+    "signed_q_bh": 9.923495519225644e-07
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I1_informed_take_pm60s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I1_informed_take",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 96,
+    "n_units": 113,
+    "n_events": 8853,
+    "peak_lag_s": 7.5,
+    "peak_lift": 1.923246080134485,
+    "level_peak_in_flank": false,
+    "median_lift": 1.1324532929274762,
+    "shape_peak_lag_s": 0.5,
+    "shape_width_s": 2.0,
+    "shape_lift": 6.820798036253507,
+    "p_level": 3.988411094913769e-09,
+    "p_shape": 1.8202314685636815e-08,
+    "p_link": 1.8202314685636815e-08,
+    "q_bh": 3.439635625673848e-08,
+    "signed_p_link": 3.8717324424653545e-10,
+    "signed_q_bh": 2.555343412027134e-09
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I3_print_jump_2c_pm60s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I3_print_jump_2c",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 113,
+    "n_events": 6384,
+    "peak_lag_s": -4.5,
+    "peak_lift": 2.2531158862022185,
+    "level_peak_in_flank": false,
+    "median_lift": 1.3486751276441107,
+    "shape_peak_lag_s": -3.5,
+    "shape_width_s": 4.0,
+    "shape_lift": 3.5688722070968906,
+    "p_level": 1.6974498923126666e-09,
+    "p_shape": 4.752396322191208e-09,
+    "p_link": 4.752396322191208e-09,
+    "q_bh": 1.5682907863230986e-08,
+    "signed_p_link": 1.776630009834604e-08,
+    "signed_q_bh": 3.439635625673848e-08
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I4_print_jump_3sigma_pm60s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I4_print_jump_3sigma",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 94,
+    "n_units": 113,
+    "n_events": 2650,
+    "peak_lag_s": -5.5,
+    "peak_lift": 1.824744958581927,
+    "level_peak_in_flank": false,
+    "median_lift": 1.24439520782421,
+    "shape_peak_lag_s": -3.5,
+    "shape_width_s": 4.0,
+    "shape_lift": 4.057529020404004,
+    "p_level": 4.476986785676155e-10,
+    "p_shape": 6.097948970720717e-09,
+    "p_link": 6.097948970720717e-09,
+    "q_bh": 1.829384691216215e-08,
+    "signed_p_link": 1.6871419018495306e-08,
+    "signed_q_bh": 3.439635625673848e-08
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I5_other_book_jump_pm60s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I5_other_book_jump",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 113,
+    "n_events": 5916,
+    "peak_lag_s": -3.5,
+    "peak_lift": 2.351464889826154,
+    "level_peak_in_flank": false,
+    "median_lift": 1.194505619157212,
+    "shape_peak_lag_s": -3.5,
+    "shape_width_s": 2.0,
+    "shape_lift": 3.457084830653735,
+    "p_level": 6.513356748929076e-09,
+    "p_shape": 1.639254573705207e-08,
+    "p_link": 1.639254573705207e-08,
+    "q_bh": 3.439635625673848e-08,
+    "signed_p_link": 5.461963578486847e-07,
+    "signed_q_bh": 8.583085623336474e-07
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I6_print_after_silence_pm60s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I6_print_after_silence",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 113,
+    "n_events": 2364,
+    "peak_lag_s": -2.5,
+    "peak_lift": 1.8873152367600494,
+    "level_peak_in_flank": false,
+    "median_lift": 0.9771820968111726,
+    "shape_peak_lag_s": -2.5,
+    "shape_width_s": 4.0,
+    "shape_lift": 3.7718194198172585,
+    "p_level": 6.203844183653768e-08,
+    "p_shape": 5.180879407755437e-07,
+    "p_link": 5.180879407755437e-07,
+    "q_bh": 8.548451022796471e-07
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I1_informed_take_pm600s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I1_informed_take",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 96,
+    "n_units": 113,
+    "n_events": 8853,
+    "peak_lag_s": 7.5,
+    "peak_lift": 1.8433110597877467,
+    "level_peak_in_flank": false,
+    "median_lift": 1.0858212520303485,
+    "shape_peak_lag_s": 7.5,
+    "shape_width_s": 20.0,
+    "shape_lift": 2.7849986724561897,
+    "p_level": 2.4375349292368277e-09,
+    "p_shape": 1.6486384160147832e-09,
+    "p_link": 2.4375349292368277e-09,
+    "q_bh": 8.937628073868368e-09,
+    "signed_p_link": 4.766631843812638e-11,
+    "signed_q_bh": 7.864942542290852e-10
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I3_print_jump_2c_pm600s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I3_print_jump_2c",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 113,
+    "n_events": 6384,
+    "peak_lag_s": -2.5,
+    "peak_lift": 2.0461559397582287,
+    "level_peak_in_flank": false,
+    "median_lift": 1.1978651762185155,
+    "shape_peak_lag_s": -2.5,
+    "shape_width_s": 10.0,
+    "shape_lift": 3.012589109734011,
+    "p_level": 1.0158884603446527e-08,
+    "p_shape": 1.1366424976557828e-08,
+    "p_link": 1.1366424976557828e-08,
+    "q_bh": 2.9184266484210825e-08,
+    "signed_p_link": 8.572718375623484e-11,
+    "signed_q_bh": 8.612748969662551e-10
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I4_print_jump_3sigma_pm600s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I4_print_jump_3sigma",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 94,
+    "n_units": 113,
+    "n_events": 2650,
+    "peak_lag_s": 7.5,
+    "peak_lift": 1.5946299509865112,
+    "level_peak_in_flank": false,
+    "median_lift": 1.1157962172921765,
+    "shape_peak_lag_s": -2.5,
+    "shape_width_s": 40.0,
+    "shape_lift": 2.0656978318367023,
+    "p_level": 4.6471536036509864e-10,
+    "p_shape": 1.1300373478892478e-09,
+    "p_link": 1.1300373478892478e-09,
+    "q_bh": 4.661404060043147e-09,
+    "signed_p_link": 1.0439695720803093e-10,
+    "signed_q_bh": 8.612748969662551e-10
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I2_informed_cluster_pm600s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I2_informed_cluster",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 113,
+    "n_units": 113,
+    "n_events": 1642,
+    "peak_lag_s": 2.5,
+    "peak_lift": 3.586305396393164,
+    "level_peak_in_flank": false,
+    "median_lift": 1.3613807802310967,
+    "shape_peak_lag_s": 2.5,
+    "shape_width_s": 10.0,
+    "shape_lift": 3.505164228998777,
+    "p_level": 6.763760632565884e-10,
+    "p_shape": 1.602284259167692e-12,
+    "p_link": 6.763760632565884e-10,
+    "q_bh": 3.720068347911236e-09,
+    "signed_p_link": 1.87616488673119e-08,
+    "signed_q_bh": 3.439635625673848e-08
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I5_other_book_jump_pm600s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I5_other_book_jump",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 113,
+    "n_events": 5916,
+    "peak_lag_s": -5.0,
+    "peak_lift": 1.969172016775132,
+    "level_peak_in_flank": false,
+    "median_lift": 1.0900840940609358,
+    "shape_peak_lag_s": -5.0,
+    "shape_width_s": 5.0,
+    "shape_lift": 2.7348756116041257,
+    "p_level": 1.149683225135578e-08,
+    "p_shape": 1.811691379778269e-09,
+    "p_link": 1.149683225135578e-08,
+    "q_bh": 2.9184266484210825e-08,
+    "signed_p_link": 1.087262572437312e-09,
+    "signed_q_bh": 4.661404060043147e-09
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I6_print_after_silence_pm600s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 pre-registered (NOTES iteration 14)",
+   "event": "I6_print_after_silence",
+   "period": "BUILD",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 113,
+    "n_events": 2364,
+    "peak_lag_s": -2.5,
+    "peak_lift": 1.551567749000746,
+    "level_peak_in_flank": false,
+    "median_lift": 1.0069570671273484,
+    "shape_peak_lag_s": -2.5,
+    "shape_width_s": 10.0,
+    "shape_lift": 2.1659363356449997,
+    "p_level": 6.5011143031107e-08,
+    "p_shape": 3.310727939119682e-07,
+    "p_link": 3.310727939119682e-07,
+    "q_bh": 5.750211683734185e-07
+   },
+   "verdict": "survivor"
+  },
+  {
+   "name": "E3-1_I1_informed_take_pm2s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I1_informed_take",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 98,
+    "n_units": 116,
+    "n_events": 8691,
+    "peak_lag_s": 1.375,
+    "peak_lift": 3.3349991698973542,
+    "level_peak_in_flank": true,
+    "median_lift": 2.8449117859865236,
+    "shape_peak_lag_s": 0.375,
+    "shape_width_s": 1.0,
+    "shape_lift": 1.376317420480468,
+    "p_level": 3.172760109437941e-08,
+    "p_shape": 0.0004353207354661834,
+    "p_link": 0.0004353207354661834,
+    "q_bh": 0.004788528090128017,
+    "signed_p_link": 0.03596403596403597,
+    "signed_q_bh": 0.09890109890109891
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I2_informed_cluster_pm2s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I2_informed_cluster",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 116,
+    "n_events": 2492,
+    "peak_lag_s": 1.375,
+    "peak_lift": 2.9198653360876787,
+    "level_peak_in_flank": true,
+    "median_lift": 2.359418272777943,
+    "shape_peak_lag_s": 0.625,
+    "shape_width_s": 0.5,
+    "shape_lift": 1.6168477889632638,
+    "p_level": 5.356118415909558e-08,
+    "p_shape": 0.006993006993006993,
+    "p_link": 0.006993006993006993,
+    "q_bh": 0.025641025641025644,
+    "signed_p_link": 0.004995004995004995,
+    "signed_q_bh": 0.025641025641025644
+   },
+   "verdict": "not_confirmed (stays untested without power)"
+  },
+  {
+   "name": "E3-1_I3_print_jump_2c_pm2s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I3_print_jump_2c",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 95,
+    "n_units": 116,
+    "n_events": 7263,
+    "peak_lag_s": -1.125,
+    "peak_lift": 2.160691251158542,
+    "level_peak_in_flank": true,
+    "median_lift": 1.9239428427105867,
+    "shape_peak_lag_s": -0.25,
+    "shape_width_s": 0.25,
+    "shape_lift": 0.8087535592801475,
+    "p_level": 1.7244115884073986e-07,
+    "p_shape": 0.9120879120879121,
+    "p_link": 0.9120879120879121,
+    "q_bh": 1.0,
+    "signed_p_link": 0.14585414585414586,
+    "signed_q_bh": 0.3208791208791209
+   },
+   "verdict": "not_confirmed (stays untested without power)"
+  },
+  {
+   "name": "E3-1_I4_print_jump_3sigma_pm2s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I4_print_jump_3sigma",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 97,
+    "n_units": 116,
+    "n_events": 2562,
+    "peak_lag_s": -1.625,
+    "peak_lift": 2.3990413509748696,
+    "level_peak_in_flank": true,
+    "median_lift": 1.9529736233035278,
+    "shape_peak_lag_s": -0.5,
+    "shape_width_s": 0.25,
+    "shape_lift": 0.9202454142530653,
+    "p_level": 2.1511825780816087e-07,
+    "p_shape": 1.0,
+    "p_link": 1.0,
+    "q_bh": 1.0,
+    "signed_p_link": 0.27172827172827174,
+    "signed_q_bh": 0.4945054945054945
+   },
+   "verdict": "not_confirmed (stays untested without power)"
+  },
+  {
+   "name": "E3-1_I6_print_after_silence_pm2s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I6_print_after_silence",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 100,
+    "n_units": 116,
+    "n_events": 2519,
+    "peak_lag_s": -1.625,
+    "peak_lift": 2.093163451921681,
+    "level_peak_in_flank": true,
+    "median_lift": 1.412753451595624,
+    "shape_peak_lag_s": -0.75,
+    "shape_width_s": 0.25,
+    "shape_lift": 1.24999998152368,
+    "p_level": 3.905250147692199e-05,
+    "p_shape": 0.3146853146853147,
+    "p_link": 0.3146853146853147,
+    "q_bh": 0.4945054945054945
+   },
+   "verdict": "not_confirmed (stays untested without power)"
+  },
+  {
+   "name": "E3-1_I5_other_book_jump_pm2s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I5_other_book_jump",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 101,
+    "n_units": 116,
+    "n_events": 6458,
+    "peak_lag_s": -1.125,
+    "peak_lift": 2.1282841009282474,
+    "level_peak_in_flank": true,
+    "median_lift": 1.7867186199206768,
+    "shape_peak_lag_s": -0.75,
+    "shape_width_s": 0.25,
+    "shape_lift": 0.9565217294821429,
+    "p_level": 8.282779739288707e-06,
+    "p_shape": 0.932067932067932,
+    "p_link": 0.932067932067932,
+    "q_bh": 1.0,
+    "signed_p_link": 0.8821178821178821,
+    "signed_q_bh": 1.0
+   },
+   "verdict": "not_confirmed (stays untested without power)"
+  },
+  {
+   "name": "E3-1_I3_print_jump_2c_pm60s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I3_print_jump_2c",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 95,
+    "n_units": 116,
+    "n_events": 7263,
+    "peak_lag_s": -3.5,
+    "peak_lift": 2.1404528387948245,
+    "level_peak_in_flank": false,
+    "median_lift": 1.5354301308988547,
+    "shape_peak_lag_s": -3.5,
+    "shape_width_s": 4.0,
+    "shape_lift": 2.934591105179667,
+    "p_level": 1.225998906723665e-08,
+    "p_shape": 1.833122894375772e-08,
+    "p_link": 1.833122894375772e-08,
+    "q_bh": 3.360725306355582e-08,
+    "signed_p_link": 5.300050455445684e-12,
+    "signed_q_bh": 5.830055500990253e-11
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I4_print_jump_3sigma_pm60s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I4_print_jump_3sigma",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 97,
+    "n_units": 116,
+    "n_events": 2562,
+    "peak_lag_s": -5.5,
+    "peak_lift": 2.18130261663981,
+    "level_peak_in_flank": false,
+    "median_lift": 1.3342713267903656,
+    "shape_peak_lag_s": -3.5,
+    "shape_width_s": 4.0,
+    "shape_lift": 3.491941256790521,
+    "p_level": 2.4660916868117194e-10,
+    "p_shape": 4.286305045279779e-09,
+    "p_link": 4.286305045279779e-09,
+    "q_bh": 1.1787338874519392e-08,
+    "signed_p_link": 9.21765172330827e-10,
+    "signed_q_bh": 5.069708447819548e-09
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I1_informed_take_pm60s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I1_informed_take",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 98,
+    "n_units": 116,
+    "n_events": 8691,
+    "peak_lag_s": 0.5,
+    "peak_lift": 2.8398985282506786,
+    "level_peak_in_flank": false,
+    "median_lift": 1.3523267821668024,
+    "shape_peak_lag_s": 0.5,
+    "shape_width_s": 4.0,
+    "shape_lift": 4.713972228867509,
+    "p_level": 3.746592227573655e-09,
+    "p_shape": 2.220995422863443e-09,
+    "p_link": 3.746592227573655e-09,
+    "q_bh": 1.1787338874519392e-08,
+    "signed_p_link": 7.855762249848527e-09,
+    "signed_q_bh": 1.7282676949666757e-08
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I2_informed_cluster_pm60s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I2_informed_cluster",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 116,
+    "n_events": 2492,
+    "peak_lag_s": 1.5,
+    "peak_lift": 2.5477774223737013,
+    "level_peak_in_flank": false,
+    "median_lift": 1.4269015382911754,
+    "shape_peak_lag_s": 1.5,
+    "shape_width_s": 4.0,
+    "shape_lift": 3.2038588536317336,
+    "p_level": 8.7134402189512e-09,
+    "p_shape": 2.7739692734535504e-08,
+    "p_link": 2.7739692734535504e-08,
+    "q_bh": 3.615223191560051e-08,
+    "signed_p_link": 2.814263701015315e-08,
+    "signed_q_bh": 3.615223191560051e-08
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I5_other_book_jump_pm60s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I5_other_book_jump",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 101,
+    "n_units": 116,
+    "n_events": 6458,
+    "peak_lag_s": -3.5,
+    "peak_lift": 2.5057040741468692,
+    "level_peak_in_flank": false,
+    "median_lift": 1.3247054826529032,
+    "shape_peak_lag_s": -3.5,
+    "shape_width_s": 2.0,
+    "shape_lift": 3.1636364416794356,
+    "p_level": 2.957909884003678e-08,
+    "p_shape": 2.5244081486290178e-08,
+    "p_link": 2.957909884003678e-08,
+    "q_bh": 3.615223191560051e-08,
+    "signed_p_link": 6.186567459010155e-07,
+    "signed_q_bh": 6.186567459010155e-07
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I6_print_after_silence_pm60s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I6_print_after_silence",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 100,
+    "n_units": 116,
+    "n_events": 2519,
+    "peak_lag_s": -2.5,
+    "peak_lift": 1.9258580741754854,
+    "level_peak_in_flank": false,
+    "median_lift": 0.9998667486853239,
+    "shape_peak_lag_s": -2.5,
+    "shape_width_s": 2.0,
+    "shape_lift": 3.8650895681610216,
+    "p_level": 3.3118158020785834e-08,
+    "p_shape": 4.578868435230633e-08,
+    "p_link": 4.578868435230633e-08,
+    "q_bh": 5.036755278753696e-08
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I3_print_jump_2c_pm600s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I3_print_jump_2c",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 95,
+    "n_units": 116,
+    "n_events": 7263,
+    "peak_lag_s": -7.5,
+    "peak_lift": 1.8742621774291053,
+    "level_peak_in_flank": false,
+    "median_lift": 1.373856477911546,
+    "shape_peak_lag_s": -2.5,
+    "shape_width_s": 10.0,
+    "shape_lift": 2.5248770976036723,
+    "p_level": 1.6046166284491623e-07,
+    "p_shape": 1.1649056541614944e-08,
+    "p_link": 1.6046166284491623e-07,
+    "q_bh": 1.961198101437865e-07,
+    "signed_p_link": 2.0796704760154542e-13,
+    "signed_q_bh": 2.2876375236169996e-12
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I4_print_jump_3sigma_pm600s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I4_print_jump_3sigma",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 97,
+    "n_units": 116,
+    "n_events": 2562,
+    "peak_lag_s": -7.5,
+    "peak_lift": 2.045918273941988,
+    "level_peak_in_flank": false,
+    "median_lift": 1.2100547875367855,
+    "shape_peak_lag_s": -7.5,
+    "shape_width_s": 10.0,
+    "shape_lift": 2.771411190165987,
+    "p_level": 3.4431492007089033e-10,
+    "p_shape": 4.0066078987074723e-10,
+    "p_link": 4.0066078987074723e-10,
+    "q_bh": 1.101817172144555e-09,
+    "signed_p_link": 2.8780296590568577e-12,
+    "signed_q_bh": 1.5829163124812717e-11
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I1_informed_take_pm600s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I1_informed_take",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 98,
+    "n_units": 116,
+    "n_events": 8691,
+    "peak_lag_s": 0.0,
+    "peak_lift": 2.5128928645386885,
+    "level_peak_in_flank": false,
+    "median_lift": 1.2553732629889225,
+    "shape_peak_lag_s": 0.0,
+    "shape_width_s": 5.0,
+    "shape_lift": 4.103489305716972,
+    "p_level": 2.3582066915102794e-09,
+    "p_shape": 5.389487710228676e-10,
+    "p_link": 2.3582066915102794e-09,
+    "q_bh": 4.3233789344355124e-09,
+    "signed_p_link": 2.502215591351151e-10,
+    "signed_q_bh": 9.174790501620888e-10
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I5_other_book_jump_pm600s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I5_other_book_jump",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 101,
+    "n_units": 116,
+    "n_events": 6458,
+    "peak_lag_s": -5.0,
+    "peak_lift": 2.0625516028545827,
+    "level_peak_in_flank": false,
+    "median_lift": 1.2118764638354946,
+    "shape_peak_lag_s": -5.0,
+    "shape_width_s": 5.0,
+    "shape_lift": 2.5624413586072152,
+    "p_level": 2.550955051736791e-07,
+    "p_shape": 1.276227376413154e-08,
+    "p_link": 2.550955051736791e-07,
+    "q_bh": 2.80605055691047e-07,
+    "signed_p_link": 1.249084523599812e-09,
+    "signed_q_bh": 2.7479859519195864e-09
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I2_informed_cluster_pm600s",
+   "dimension": "push_feed_inround_events",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I2_informed_cluster",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 99,
+    "n_units": 116,
+    "n_events": 2492,
+    "peak_lag_s": 0.0,
+    "peak_lift": 2.2710905345566217,
+    "level_peak_in_flank": false,
+    "median_lift": 1.310877359085797,
+    "shape_peak_lag_s": 0.0,
+    "shape_width_s": 5.0,
+    "shape_lift": 3.0711167653156464,
+    "p_level": 6.545101363983441e-08,
+    "p_shape": 8.283704204478829e-09,
+    "p_link": 6.545101363983441e-08,
+    "q_bh": 8.999514375477231e-08,
+    "signed_p_link": 1.3828345972156673e-08,
+    "signed_q_bh": 2.17302579562462e-08
+   },
+   "verdict": "confirmed"
+  },
+  {
+   "name": "E3-1_I6_print_after_silence_pm600s",
+   "dimension": "pm_tape_prints",
+   "definition": "E3-1 VALIDATE confirmation (one-sided alpha 0.01, Holm)",
+   "event": "I6_print_after_silence",
+   "period": "VALIDATE",
+   "result": {
+    "null": "swap",
+    "units_in_null": 100,
+    "n_units": 116,
+    "n_events": 2519,
+    "peak_lag_s": -2.5,
+    "peak_lift": 1.5609794996582005,
+    "level_peak_in_flank": false,
+    "median_lift": 1.0274130308976277,
+    "shape_peak_lag_s": -2.5,
+    "shape_width_s": 10.0,
+    "shape_lift": 1.963389778420664,
+    "p_level": 1.463245229624738e-06,
+    "p_shape": 5.961000129488834e-07,
+    "p_link": 1.463245229624738e-06,
+    "q_bh": 1.4632452296247381e-06
+   },
+   "verdict": "confirmed"
+  }
+ ],
+ "live_split_e3_note": "Live-only dimensions: the iteration-6 live split (BUILD-live 10-31 12-18, VALIDATE-live 11-01 06-12 and later development blocks) is kept (it predates the brief's default split)."
 }
