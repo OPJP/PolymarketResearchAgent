@@ -1,0 +1,33 @@
+{
+ "maps": 11,
+ "rounds": 71,
+ "skipped_markets": {
+  "no_map": 25,
+  "few_orders": 8,
+  "no_bo3": 8,
+  "names": 4,
+  "tape": 3
+ },
+ "bo3_days": 7,
+ "auc_dW": 0.6595,
+ "auc_dP": 0.3571,
+ "guard_10s": {
+  "rounds": 70,
+  "auc_dW": 0.6626,
+  "auc_dP": 0.3562
+ },
+ "guard_30s": {
+  "rounds": 65,
+  "auc_dW": 0.6428,
+  "auc_dP": 0.3733
+ },
+ "guard_45s": {
+  "rounds": 65,
+  "auc_dW": 0.6181,
+  "auc_dP": 0.3681
+ },
+ "auc_diff_ci95": [
+  0.1113,
+  0.4926
+ ]
+}

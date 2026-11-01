@@ -1,0 +1,104 @@
+{
+ "sibling_7d67": {
+  "describe": {
+   "orders": 2663,
+   "whole_cent": 1.0,
+   "outside_band_005_095": 0.0,
+   "sizes": {
+    "100.0": 1657,
+    "71.0": 27,
+    "57.0": 27,
+    "79.0": 24,
+    "50.0": 21
+   },
+   "bursts": 2609,
+   "orders_per_burst_mean": 1.02
+  },
+  "price": {
+   "n": 2644,
+   "within_tick_last_print": 0.298,
+   "exact_last_print": 0.116,
+   "median_offset_c": -1.0,
+   "within_tick_print_age_le_10s": 0.331,
+   "within_tick_print_age_gt_60s": 0.211
+  },
+  "taker_orders": 450,
+  "taker_sizes": {
+   "1000.0": 76,
+   "2000.0": 37,
+   "800.0": 11,
+   "1800.0": 7,
+   "1018.0": 6
+  },
+  "markets_with_orders": 127,
+  "tapes": 127
+ },
+ "wallet_BUILD": {
+  "describe": {
+   "orders": 10759,
+   "whole_cent": 1.0,
+   "outside_band_005_095": 0.0,
+   "sizes": {
+    "100.0": 9757,
+    "5.0": 158,
+    "54.0": 58,
+    "79.0": 46,
+    "50.0": 45
+   },
+   "bursts": 8986,
+   "orders_per_burst_mean": 1.2
+  },
+  "price": {
+   "n": 10727,
+   "within_tick_last_print": 0.309,
+   "exact_last_print": 0.117,
+   "median_offset_c": -1.0,
+   "within_tick_print_age_le_10s": 0.365,
+   "within_tick_print_age_gt_60s": 0.19
+  }
+ },
+ "wallet_VALIDATE": {
+  "describe": {
+   "orders": 13421,
+   "whole_cent": 1.0,
+   "outside_band_005_095": 0.0,
+   "sizes": {
+    "100.0": 10705,
+    "10.0": 1292,
+    "60.0": 121,
+    "50.0": 120,
+    "90.0": 75
+   },
+   "bursts": 11081,
+   "orders_per_burst_mean": 1.21
+  },
+  "price": {
+   "n": 12099,
+   "within_tick_last_print": 0.305,
+   "exact_last_print": 0.115,
+   "median_offset_c": -1.0,
+   "within_tick_print_age_le_10s": 0.35,
+   "within_tick_print_age_gt_60s": 0.188
+  }
+ },
+ "sibling_7d67_1016_in_wallet_markets": {
+  "describe": {
+   "orders": 271,
+   "whole_cent": 1.0,
+   "outside_band_005_095": 0.0,
+   "sizes": {
+    "5.0": 271
+   },
+   "bursts": 223,
+   "orders_per_burst_mean": 1.22
+  },
+  "price": {
+   "n": 271,
+   "within_tick_last_print": 0.306,
+   "exact_last_print": 0.144,
+   "median_offset_c": -1.0,
+   "within_tick_print_age_le_10s": 0.36,
+   "within_tick_print_age_gt_60s": 0.125
+  }
+ }
+}

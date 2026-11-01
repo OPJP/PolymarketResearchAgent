@@ -1,0 +1,70 @@
+{
+ "describe": {
+  "orders": 1433,
+  "whole_cent": 1.0,
+  "outside_band_005_095": 0.0,
+  "sizes": {
+   "100.0": 1118,
+   "50.0": 16,
+   "63.0": 14,
+   "53.0": 9,
+   "70.0": 9
+  },
+  "bursts": 1142,
+  "orders_per_burst_mean": 1.25
+ },
+ "price": {
+  "n": 1430,
+  "within_tick_last_print": 0.218,
+  "exact_last_print": 0.077,
+  "median_offset_c": -3.0,
+  "within_tick_print_age_le_10s": 0.24,
+  "within_tick_print_age_gt_60s": 0.16
+ },
+ "taker_orders": 1455,
+ "taker_sizes": {
+  "500.0": 275,
+  "1000.0": 169,
+  "50.0": 47,
+  "100.0": 44,
+  "138.0": 11
+ },
+ "p4e_taker_orders": 1718,
+ "lag_vs_p4e": {
+  "sibling_takers": 893,
+  "on_ref_tokens": 516,
+  "pairs_within_2s": 128,
+  "bins": [
+   -2000,
+   -500,
+   -100,
+   -20,
+   0,
+   20,
+   40,
+   60,
+   80,
+   100,
+   200,
+   500,
+   2001
+  ],
+  "hist": [
+   5,
+   1,
+   0,
+   2,
+   3,
+   19,
+   25,
+   30,
+   11,
+   20,
+   7,
+   5
+  ],
+  "median_lag_ms_within_500": 65.0,
+  "share_in_0_100ms": 0.688
+ },
+ "tapes": 115
+}

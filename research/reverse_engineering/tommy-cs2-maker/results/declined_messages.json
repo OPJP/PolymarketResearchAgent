@@ -1,0 +1,26 @@
+{
+ "no_wallet_take_P4e": {
+  "clusters": 2232,
+  "member_rate": 0.0197,
+  "shifted_rate": 0.0037,
+  "ratio": 5.33
+ },
+ "no_wallet_take_noP4e": {
+  "clusters": 3607,
+  "member_rate": 0.0111,
+  "shifted_rate": 0.0031,
+  "ratio": 3.6
+ },
+ "no_wallet_take_multi_who": {
+  "clusters": 1570,
+  "member_rate": 0.0134,
+  "shifted_rate": 0.0044,
+  "ratio": 3.05
+ },
+ "with_wallet_take": {
+  "clusters": 1510,
+  "member_rate": 0.0331,
+  "shifted_rate": 0.0055,
+  "ratio": 6.06
+ }
+}

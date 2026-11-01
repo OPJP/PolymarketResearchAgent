@@ -1,0 +1,10 @@
+{
+ "maps": 86,
+ "freeze_obs": 1033,
+ "maps_fitted": 68,
+ "freeze_sd_v_median_c": 3.96,
+ "freeze_sd_p_median_c": 2.82,
+ "share_maps_v_below_p": 0.103,
+ "share_maps_v_le_2c": 0.074,
+ "signature_v_le_2c_and_0p7_below_print": false
+}

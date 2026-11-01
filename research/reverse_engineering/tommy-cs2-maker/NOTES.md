@@ -3869,3 +3869,361 @@ freeze-time residual SD <= 3c; otherwise V is not a score table even between eve
   +-1.5 s: 4.7% vs 0.3% (3 episodes). Pack takes are sparse in the block (229), so this is underpowered: the
   withdrawals are not visibly tied to the take-kind messages, and their trigger stays to be named on VALIDATE-live
   (candidates: round ends, pauses, an odds-product suspension, an inventory limit).
+
+# Iteration 13 (2026-11-01, started 09:00 UTC; 835 of 1200 budget minutes used before it)
+
+Read first: NOTES (iteration 12 in full, earlier sections by heading), state.json (catalog A1-X171, components, target
+metrics, live split, progress gauges), FINAL_RULE.md, panels/iter12_{information,mechanics,assumptions}.md. No EXAM or
+wall-audit files. Calendar: no released lots, future examined up to 10-31 00:00; the current block 11-01 06-12 is
+development. Shared recorder OK at 09:01 UTC (pid 27184, current block dev; `rtds` / `sports` show `written: 0` in the
+status counters although both are connected and the dev `sports` folder has 11-01 06-09 h files). The 12 iteration-12
+panel proposals become X172-X183: information P1-P4 = X172-X175, mechanics P1-P4 = X176-X179, assumptions P1-P4 =
+X180-X183.
+
+**State of the VALIDATE-live block at 09:05 UTC.** The block's development units (listing projection,
+`code/iter13/block_listing.py`): cs2-ep-maybe, cs2-unity-got1, cs2-jjh-mzp (GRID), cs2-the9-5s (09:00, non-GRID),
+dota2-synaps-hn (09:00, non-GRID), cs2-bca-pha (11:00, non-GRID). The wallet has 0 trades in the9-5s and synaps-hn at
+09:05 (`block_wallet_check.py`, per market). So no wallet record exists yet in the first VALIDATE-live block; the
+pre-registered live tests wait (re-checked at the end of the iteration).
+
+**Pivot (required: the primary metric did not move in iterations 9-12).** New data and new units: (1) a historical
+multi-bookmaker in-play line for the Dota half (hawk.live archive; E4 tested where a vendor is visible), (2) the
+operator's other account(s) as a second window on the same process (0x52661b8e), (3) one value per EVENT rather than
+per book (map-match coupling against the public series sensitivity), (4) the in-round drift of its value on the round
+in progress (historical bo3 rounds), instead of fitting anchors to its per-book levels.
+
+## Competing explanations (iteration 13) and the observation that separates them
+1. **E1b own in-play model on the private push feed's raw events.** Its Dota value moves before every listed bookmaker
+   at jumps, and sits no closer to any bookmaker line than the public print does.
+2. **E4 a relayed bookmaker in-play line minus a margin** (for Dota a CIS bookmaker whose lines hawk.live archives).
+   One provider's de-margined p explains its Dota tops far better than the print does (residual and within-1c share,
+   pre-game levels), and beats placebo maps and the reversed sequence.
+3. **E20 one game value per event, mapped into the match book through a series model.** Same-tick map / match
+   re-pricings agree in team direction and their size ratio follows the public series sensitivity s (decider maps:
+   ratio ~1; s small: little match-book motion).
+4. **E16 / E21 a rounded slow filter of public prices (a book-state controller).** Its quiet steps follow the sign of
+   the last-second public move and a filter of the composite reproduces its level (>= 0.6 through the ladder machine).
+5. **E22 one operator, several accounts on one process.** A second account co-signs at 0-5 ms with the same prices; if
+   it also quotes markets with public inputs (GRID events, other titles), V can be studied there.
+6. **E23 the event path is co-reception of a dense hidden stream** (5-, 10-, 20-share makers move with it at the same
+   ms). Per-maker fixed sign-time order with overlapping sign times; the on-chain cluster clock locks to P4e's messages.
+7. **E24 (unlikely) an in-round win-probability state that resets near a side-aware table at freeze time.** Its
+   within-round drift predicts the round winner beyond the print's drift (AUC gap >= 0.08).
+8. **E19 (unlikely) a human desk per match.** Closed by the attention check of the iteration-12 assumptions panel
+   (elasticity -0.06 on concurrency); not re-tested.
+
+## Findings (iteration 13); numbers in results/*.json, code in code/iter13/
+1. **Its Dota value is not a de-margined line of the three bookmakers hawk.live archives (X172 step 1, information
+   P1; `hawk_fetch.py`, `hawk_align.py`, `hawk_align.json`).** hawk.live series pages fetched once each as a normal
+   visitor (Inertia `data-page` JSON; the head-to-head list, which holds sealed series, dropped unread): 10-22 ty-gl,
+   10-22 ts8-legion1 (`team-spirit-vs-legion`), 10-31 ty-gl (`pari-universe-playoffs`); 10-22 liquid-1win 404 under three
+   slugs. Six maps, BetBoom / SpinBetter / Parimatch lines (27-130 non-null updates per map, margins 5.3-8.1%,
+   proportional de-margin). Clock-free monotone alignment (X171 machinery, mu per token, 3 EM passes) of its 686 Dota
+   burst tops (team-A space, edges excluded): wallet RMS residual 0.94-1.66c against the last public print's 0.84-1.47c
+   at the same times; wallet closer than the print on 1 of 6 maps for every provider (free alignment), within 1c
+   0.54-0.63 (wallet) vs 0.60-0.70 (print) pooled. Controls show the alignment has power: reversed sequences 1.4-4.2c,
+   other maps' sequences 0.9-7.6c (median 1.9-2.9c). With a +-0.3 time-fraction band: wallet 1.53-2.33c vs print
+   1.36-2.30c. Its token offsets sit about 1c either side of the lines (A bids -0.4..-1.3c, B bids +0.3..+1.8c in A
+   space), and its first bid on each map sits 0-2c under the providers' pre-game lines and within 1c of the print.
+   **Verdict: E4 fails for these three providers** (signature "within 1c on >= 50% of quiet Dota orders AND far closer
+   than the print" not met: it tracks the bookmakers exactly as closely as the market does). Other listed providers
+   (GGBET, EGB, Stake, Coinplay, Megapari, 1xBit, BC.GAME) carry no archived lines for these series.
+2. **The operator runs at least three more accounts on the same signing process, and the maker strategy ran on one of
+   them before the wallet's "switch" (X176, mechanics P1; `same_process_census.py`, `sibling_accounts.py`,
+   `sibling_history.py`; `same_process_census.json`, `sibling_accounts.json`, `sibling_history.json`).**
+   - **Census.** Over every maker with >= 100 orders in the wallet's 16-22 Oct markets (calldata_all), orders signed 0-5
+     ms after a wallet order on the same token (before the wallet's order can be on the book, transit ~18-24 ms)
+     against the [5, 50) ms rate per 5 ms: 0x52661b8e 128 vs 16.3 (7.8x; 47 at the same price), **0x67119033** 61 vs 2.1
+     (28.9x; 40 same price), **0x7d67f01d** 21 vs 0.9 (23.6x; 16 same price); every other maker <= 4.5x with <= 7
+     orders (the feed co-subscribers 0x51dbdd2b / 0x2005d16a 2.2-2.3x). All three are sigType-3 5-share accounts in the
+     wallet's markets, each for a few hours only: 0x7d67f01d 10-16 15:05-17:37 (the wallet's first maker day),
+     0x52661b8e 10-21 15:05 - 10-22 12:26, 0x67119033 10-22 17:36-20:45.
+   - **Owners (chain state at latest, read-only).** Deposit wallets from the same factory (0xd729a0cb...) as the
+     wallet's; owner keys in the immutable proxy args: 0x7d67f01d -> 0x80a19b87 (125-byte proxy, the wallet's layout),
+     0x52661b8e -> 0xe6f64514, 0x67119033 -> **0x116342d6, the EOA that received the wallet owner's only outgoing $2,000**
+     (funding link). The owners 0x80a19b87 and 0xe6f64514 are EIP-7702 accounts delegated to 0x63c0c19a, like the
+     wallet's owner.
+   - **Names (data-api profile fields).** 0x52661b8e is "TommyLeePeeecan" (the wallet is "TommyLeePeeca");
+     0x7d67f01d is "BACKTESTEOCARAIO1". One operator.
+   - **Histories (activity before H).** 0x7d67f01d ("BACKTESTEOCARAIO1"): 48,194 trades since 06-19; in September and
+     October BUY-only (Sep 8,909 BUY / 0 SELL; Oct 35,877 / 68) with 997 / 2,291 MERGEs, sizes 100 (CS2, Dota) and 10
+     (LoL Oct): **the wallet's maker design**. In 10-01..10-15 it traded 133 CS2 events, all non-GRID (19,310 trades,
+     0 GRID), while the wallet traded GRID (7,506 of its 7,717 CS2 trades were GRID events). From 10-16 the wallet makes
+     in non-GRID events (35,194 trades, 0 GRID) and 0x7d67f01d winds down (1,621 / 452 / 0 / 478 / 948 / 64 / 456 trades
+     per day 10-16..10-22, against 1,100-3,700 per day in early October). In the pre-switch subscriber taker
+     transactions (10-09..10-15, 4,712 txs, `feed_pre/calldata`) 0x7d67f01d is the maker in 691 orders (494 of 100
+     shares; 0 taker rows): the informed pack was already taking against this account's ladder. 0x52661b8e: 32,668
+     trades since 07-03 (LoL, Dota, CS2, BTC, football; BUY 17.8k / SELL 14.9k; sizes 5 / 10 / 50); 0x67119033: 4,064
+     trades since 09-27 (CS2, ITF tennis, Valorant, LoL, Dota; sizes 20 / 5 / 15).
+   - **Reading.** The "switch from taker to maker on 10-16" is an account migration: the non-GRID CS2 / Dota maker with
+     this design ran on 0x7d67f01d for at least six weeks before; on 10-16 the operator stopped the GRID taker on the main
+     account and moved the maker there. The C1 / X14 / X95 / X110 closures ("no shared key", "different processes") are
+     corrected: one operator, at least four accounts, one signing process. C4b gets its answer: no Polymarket change is
+     needed for the switch (iteration 1: listing parameters identical 10-01..10-22).
+3. **Before 10-16 the earlier account ran the whole strategy with the same maker prices and the same feed position
+   (X176 steps 4-5; `sibling_price.py`, `sibling_feed_lag.py`; `sibling_price.json`, `sibling_feed_lag.json`).**
+   3,253 of 0x7d67f01d's 10,230 CS2 / Dota trade transactions of 10-08..10-15 (450 per day) decoded with
+   `fetch_calldata.py` into `sib7d67/calldata` (40 s, publicnode). Same code path for both accounts:
+   - maker orders (2,663): whole cents 1.000, outside [0.05, 0.95] 0.000, 100 shares 62% plus odd sizes 50-79 (the
+     wallet's event-wide size ramp), 1.02 orders per 50-ms burst; within one tick of the last public print stamped
+     before signing **0.298** (exact 0.116, median offset -1c; prints <= 10 s old 0.331, > 60 s 0.211) against the
+     wallet's own **0.309 BUILD / 0.305 VALIDATE** (exact 0.117 / 0.115, offset -1c, 0.365 / 0.350 and 0.19 / 0.188 by
+     print age) and against its own 5-share orders inside the wallet's 10-16 markets 0.306;
+   - taker orders (450 in the sample): sizes 1000 / 2000 / 800 / 1800 (the wallet's early taker caps); against P4e's
+     taker orders on the same token (pre-switch subscriber calldata): 52 pairs within 2 s, lag histogram [-2000, -500,
+     -100, -20, 0, 20, 40, 60, 80, 100, 200, 500, 2000] ms = 4 / 0 / 1 / 2 / 9 / 14 / 13 / 4 / 2 / 2 / 0 / 1, median
+     **+34 ms**, 63.5% in [20, 100) ms; against 0x2005d16a median +22.5 ms. The wallet signs at +50 ms after P4e in 16-22
+     Oct.
+   So the maker's private value is as private on the earlier account (0.298 vs the print) as on the wallet, and the
+   operator already sat in the feed's fan-out at +30-50 ms behind P4e on 10-08..10-15. The 10-16 "switch" moved one
+   running strategy to the main account; it did not start one. (X65's "the wallet joined an existing push feed at the
+   switch" is corrected: the operator was on it before, on the other account.)
+4. **September on the earlier account: the feed position and a wider quote (X176; `sibling_sep.py`,
+   `sibling_sep.json`).** 3,000 of 0x7d67f01d's CS2 / Dota transactions of 09-21..09-30 and P4e's 1,718 transactions on
+   the same markets (09-26..09-30) decoded. Maker orders (1,433): whole cents 1.000, band 0.000 outside, 100 shares plus
+   the 50-70 ramp sizes; within one tick of the last print **0.218** (exact 0.077) with a median offset of **-3c**
+   (October -1c). Taker orders (1,455; sizes 500 / 1000 / 50 / 100): 128 pairs within 2 s of a P4e take on the same
+   token, lags [0, 20) 3, [20, 40) 19, [40, 60) 25, [60, 80) 30, [80, 100) 11, [100, 200) 20, [200, 500) 7, beyond 5 or
+   fewer: median **+65 ms**, 68.8% in [0, 100) ms. So the operator was already in the feed's fan-out in late September
+   (a little later, +65 ms, than in October, +34 ms, and the wallet's +50 ms), and its maker then quoted about 3c under the
+   print instead of 1c (a spread parameter that tightened by early October: a bot-version change, C4). There is no
+   feed-free period in the record of this process from 09-26 on; June / July (BUY and SELL, 5-7-share CS2, LoL) is
+   another design and was not decoded.
+5. **One value per event, moved by the same cents on the match book (X173 historical form, information P2;
+   `event_value_coupling.py`, `event_value_coupling.json`).** Same-tick (+-5 ms) map / match burst pairs of CS2 Bo3
+   events in 16-22 Oct with both changes nonzero (previous burst on the token <= 30 s earlier): 53 pairs in 33 events.
+   Team-direction agreement **0.962**; |dV_match / dV_map| median 1.00 / 0.92 / 0.80 in the s terciles (s median 0.34 /
+   0.46 / 0.52; s = 2r(1-r) on map 1, r or 1 - r on map 2 after the map-1 result); Spearman(s, |ratio|) -0.16 (p 0.26);
+   no-intercept slopes 0.50 on dV_map (R^2 0.73) and 1.05 on s * dV_map (R^2 0.70; s varies little here). The public
+   prints of the two books over the same intervals move in a ratio of 0.11 (n 29). Reading: when it re-prices both books
+   of an event on one tick it moves them in the same direction by about the same number of cents, about twice what a
+   constant-strength series model gives (s ~ 0.45), while the public match book moves far less over the same
+   intervals. That is one private event-level update written to both books (E20 without an exact series mapping), not
+   public co-motion (E16 predicts the public ratio). Censored record (both books filled at the tick), small n; the
+   live test with s in the decider range needs VALIDATE-live.
+6. **A slow filter of the public prints is not its level (X174 historical form, information P3; `slow_filter_hist.py`,
+   `slow_filter_hist.json`).** EMA of the same market's public prints (wallet transactions excluded, prints stamped
+   before signing) with half-lives 0 / 2 / 5 / 15 / 60 / 180 s, rounded to the cent after a BUILD-fitted offset, within
+   one tick of its 12,099 VALIDATE maker orders: 0.300 / 0.294 / 0.279 / 0.222 / 0.146 / 0.120 (BUILD 0.306 ... 0.128):
+   every memory makes it worse than the last print. The live form (on-tick hazard on the event composite with the round
+   books) waits for VALIDATE-live records of the wallet.
+7. **The "triggered" event path is mostly co-reception, replicated (X180 step 1 / X178, assumptions P1 Check A;
+   the panel's `reactfloor2.py` re-run unchanged on BUILD-live).** Of 156 calldata-linked own adds, 89-97 have a non-own
+   same-book change within 40 ms before their book time, and 65-81% of those were signed before that change reached the
+   book (own-removal tolerance 3 / 30 ms, with or without wallet-size levels; sign minus trigger p50 -14 ms); the
+   triggers are cancels 51, adds 37, trades 1, of 10 / 20 / 5 shares; non-own same-book changes in [sign - 20, sign - 2]
+   ms 0.494 vs 0.123 shifted. **Who the co-movers are:** among the 717 linked NON-own adds of the block, only 9 are signed
+   within 20 ms of an own linked add (1.3% vs 0.1% shifted): 0x893575c7 (4), the feed co-subscriber 0x51dbdd2b (3),
+   0x4f87cf20, 0x758dac51; none of the operator's three other accounts. So the event path's co-movers are other
+   operators' makers on the same hidden stream (the feed's maker-side subscribers), not the operator's own accounts;
+   the reaction reading of the triggered class (and the precursor-price rule of mechanics P3, X178) falls on its
+   "if false" branch for the linked adds: precursors are co-receptions, not inputs.
+8. **Its new top attracts joiners (X182 step 1, assumptions P3; `follower_census.py`, `follower_census.json`;
+   BUILD-live).** Non-own BUY adds at its new top price on the same token within (0, 2] s after its add bursts (own
+   levels within 3 ms removed), against the same count at +-5..30-s shifted times: untriggered adds 0.85 vs 0.24 per
+   burst (3.5x; 34% of bursts get at least one), triggered adds 1.60 vs 0.25 (6.4x; 50%); at its top +-1c 1.34 vs 0.48
+   and 2.91 vs 0.49. So part of the book's later motion toward its level is other makers joining it (followers, or
+   co-receivers acting a little later). The lead of its level over the others' mid (iteration 9 / finding 14) must be
+   re-measured on a joiner-free mid before it is read as private information (step 2 not run this iteration).
+9. **The lead of its level survives on executed prices (X182 step 1b; `lead_vs_trades.py`, `lead_vs_trades.json`;
+   BUILD-live).** Offset of each uncensored add from the others' mid 100 ms before, against the VWAP of public trades
+   (wallet transactions excluded) in (t + 5, t + 60] s minus that mid: Spearman **0.316** for its 1,058 adds against
+   0.153 for the other makers' 38,682 adds (null 0.005, p95 0.044, p < 0.005). Joiners resting at its level cannot make
+   trades by themselves, so the lead is not only followers' doing (a residual channel remains: followers' resting orders
+   at its price can be hit in transactions without the wallet). It stays the strongest evidence that its value carries
+   information the book does not.
+10. **Historical uncensoring of the ladder through the operator's 5-share accounts (X176 step 6;
+    `ladder_union_hist.py`, `ladder_union_hist.json`; 16-22 Oct, VALIDATE-only).** 107 wallet maker bursts with a
+    same-process 5-share order 0-10 ms after the burst on the same token (238 such orders): 70.2% at a price of a wallet
+    order in the burst, 28.2% below every wallet price of the burst (its unfilled lower slots), 1.7% above its top;
+    the union lies within [V - 4c, V] (V = union top) in 98.1% of bursts; slot profile of the 5-share orders (cents
+    below V) 0 / 1 / 2 / 3 / 4 / 5 = 116 / 57 / 35 / 16 / 11 / 3. The same process writes the same five-slot ladder to
+    both accounts: the first historical (non-live) confirmation of the X163 slot structure.
+11. **A signed public delta added to its own top does not give its value (X177 first pass, mechanics P2; `tick_rule.py`,
+    `tick_rule.json`; BUILD-live, 1,508 add bursts / 2,699 adds, frozen X163 machine, no fitting).** 53.6% of bursts
+    follow an others'-mid move of >= 0.5c in [t - 1000, t - 30] ms. Burst-set unit / per order: R0 V = J (others'
+    best) 0.500 / 0.412; R1 own top before (J when fresh; own state) 0.326 / 0.268; R2 R1 + 1c x sign(last-second mid
+    move) 0.351 / 0.285; R3 J + 1c x sign(move) 0.453 / 0.361; R4 R2 when its top is within 1c of J, else J 0.458 /
+    0.377 (halves 0.32-0.51, same ranking). The sign of the recent public move adds 2.5 points to its own previous top and
+    costs 5 points on J: the quiet value is not "previous level plus the public delta", and no rule here reaches the
+    oracle's 0.875. (The full per-tick ledger with holds, queue state and pulls on both tokens was not built.)
+12. **What precedes an event-wide withdrawal is the same co-mover cluster that precedes its other triggered pulls (X175,
+    information P4; `withdrawal_triggers.py`, `withdrawal_triggers.json`; BUILD-live).** Latest non-own change on any
+    book of the event within 40 ms before: 64 withdrawal starts 76.6% (mean 2.9 changes in the 40 ms; last change cancel
+    61% / add 39% / trade 0%; sizes non-round 49%, 30-49 18%, 10 14%, 50-100 whole 8%, 5 6%, 20 4%; lag p50 10 ms);
+    1,116 other triggered pulls 69.7% (3.3; cancel 53% / add 45% / trade 1.7%; non-round 34%, 10 22%, 50-100 21%);
+    shifted start times 22.8% (0.74). No change class precedes >= 60% of starts against <= 20% of the other pulls
+    (signature (a) fails), no trade precedes any start, and the cluster around a start is the same size as around any
+    triggered pull: a withdrawal begins on the hidden stream like its other pulls (co-reception, finding 7), and its
+    length, not its trigger, is what distinguishes it. Signatures (b) suspensions and (c) round-book clock need
+    VALIDATE-live; (d) own guard stays possible.
+13. **The salts are not one V8 stream across the operator's accounts either (X179, mechanics P4; `salt_merged.py`,
+    `salt_merged.json`).** 63 co-signed bursts (wallet burst + 5-share sibling orders 0-10 ms after it, merged in signing
+    order, 3-8 orders), the iteration-7 GF(2) machinery (V8 xorshift128+, salt = round(U x sign_ms), both mantissa
+    conventions, DT 0 / 3 ms), strides 1-6 forward and reverse: 0 consistent systems (>= 20 redundant equations) in every
+    variant; mismatched controls 0 of 40-42. With X96 (0 of 71 wallet-only bursts, strides 1-9), the salts are not
+    consecutive or small-stride outputs of one recoverable V8 Math.random stream, single or merged; X96 / X179 close
+    (another engine or a cryptographic source; strides beyond 9 need a solver install, which needs the user).
+14. **First VALIDATE-live block, selection so far (`final_rule.evaluate(11-01 06:00, 12:00)` at 09:43 UTC;
+    `final_rule_v5_validate_live_1101a_partial.json`).** 6 development-unit events started (4 GRID; non-GRID the9-5s and
+    dota2-synaps-hn): the frozen v5 selects 0 and the wallet traded 0 (6 of 6 skips agree; no positive yet, so no AUC).
+    No wallet record exists in the block at 09:43, so the pre-registered live price / loop / suspension tests have no
+    units yet; cs2-bca-pha (11:00, non-GRID, CCT) is the block's last candidate.
+15. **The earlier account quoted LoL with the same design (sibling activity, `sibling_history.json` and an inline
+    profile).** 0x7d67f01d by title and month: CS2 Sep 5,641 trades (BUY 1.00, in band 1.00, 100 shares), Oct 23,983
+    (BUY 1.00, band 1.00, 100); Dota Sep / Oct BUY 1.00, 100 shares; **LoL Sep 1,255 (BUY 1.00, whole cents 0.947, band
+    1.00, 100 shares, 9 events), Oct 8,796 (BUY 0.992, whole cents 0.981, band 0.999, 10 shares, 29 events)**; June CS2
+    (BUY 0.75, 7 shares) and July LoL (BUY 0.57, 25 shares) are an older two-sided design. The same maker runs on LoL,
+    a title whose in-game state Riot publishes live (a natural experiment for the value model: new item X184, needs a
+    decision on the lolesports web key, see next steps).
+16. **The frozen selection rule describes the operator's selection out of sample, on another account and an earlier
+    period (X187; `sibling_selection.py`, `sibling_selection.json`).** All 718 CS2 events with first game start in
+    10-01..10-15 (337 GRID; never used in any fit). Label: 0x7d67f01d traded the event (115, all non-GRID). Score: the
+    frozen league / GRID component s_lg of v4 / v5 (exam constants, fitted on the wallet's 10-16..10-22 events; no tape
+    needed). **AUC 0.942** over all events, 0.868 within non-GRID events, 0.930 within non-GRID events of leagues seen in
+    the fit; unseen non-GRID leagues are traded at 0.373 against 0.245 for seen ones. The wallet's own CS2 events of the
+    same window (its GRID taker regime, 244 events, 232 GRID) score 0.134 on the same component: the selection rule is
+    the maker strategy's, and it moved with the strategy. (VALIDATE-only evidence: the label is the operator's, not the
+    examined wallet's.)
+17. **Its maker leg acts on the messages it does not take: the kind filter is at the take, not at the input (X183
+    historical form, assumptions P4; `declined_messages.py`, `declined_messages.json`; 16-22 Oct pack take clusters).**
+    A filled wallet maker order signed within +-30 ms of the cluster's first signing on any book of the event: clusters
+    without a wallet take and with P4e 1.97% vs 0.37% at +-2..10-s shifts (**5.3x**, 2,232 clusters); without P4e 1.11%
+    vs 0.31% (3.6x, 3,607); with >= 2 informed takers 1.34% vs 0.44% (3.1x); clusters with its own take 3.31% vs 0.55%
+    (6.1x, 1,510). Lower bounds (filled orders only). With X136 (event-locked maker re-pricing on P4e-alone messages)
+    this withdraws iteration 7's synthesis (finding 20: "the kind selectivity sits at its input"): its client receives
+    the messages the pack takes and re-prices on them, and declines to take, consistent with X170's value threshold
+    (it takes when its revealed value reaches the stale ask).
+18. **Its value drifts toward the round's winner during the round, far ahead of the print (X181 steps 1-3, assumptions
+    P2; `inround_drift.py`, `inround_drift.json`; 86 CS2 maps of 16-22 Oct with bo3 rounds, 894 rounds).** Round
+    boundaries from the PRINT (the X171 fit of the last public print with the true winner sequence: wallet-value-free and
+    favouring the print). Within each inferred round, the change of its level (team-A space, per-token offsets to the
+    print removed) from the first to the last burst predicts the bo3 round winner at **AUC 0.899** against the print's
+    0.675 over the same bursts (difference 0.224 [0.185, 0.263], map-cluster bootstrap, 0 of 2,000 <= 0); residualised
+    on the print's change 0.870; in the 185 rounds where the print did not move at all 0.772. Keeping the last 10 / 20 /
+    30 / 45 s before the print-inferred end out (its earlier reaction to the round result itself): 0.869 / 0.839 / 0.809
+    / 0.788 against the print's 0.663 / 0.656 / 0.646 / 0.619. The panel's signature (>= 0.70 and >= print + 0.08,
+    residual term significant) is met with a wide margin: **its value is an in-round win-probability state** that
+    moves toward the round's winner while the print does not. Caveat: the rounds are inferred from the print, which can
+    place a round end after the true end when prints are sparse, so part of the gap can be its faster reaction to the
+    round result itself; the guards bound it (0.79 vs 0.62 with 45 s left out) and finding 19's early windows show the
+    advantage building up during the round. The first quantitative, historical, outcome-validated measure of the
+    information in V. (Step 4, a side-aware table at freeze time, not run.)
+
+## Hypothesis ledger (iteration 13)
+- E4 relayed bookmaker line: **rejected for BetBoom / SpinBetter / Parimatch on Dota** (finding 1); other bookmakers
+  unarchived; Thunderpick (CS2) still waits for live matched matches.
+- E1b own in-play model on the private feed: **strengthened** (finding 18: in-round drift toward the round winner, AUC
+  0.90 vs the print's 0.68; finding 17: the maker leg receives the messages it does not take; finding 9: the lead
+  survives on executed trades).
+- E20 one value per event: **supported in direction and size** (finding 5: 96% same team direction, equal cents on both
+  books, not scaled by the series sensitivity; public ratio 0.11).
+- E16 / E21 slow public filter or book-state controller: **rejected in the historical form** (finding 6: every EMA
+  memory is worse than the last print) and in the first live form (finding 11: public deltas add <= 2.5 points);
+  joiners exist (finding 8) but the lead survives on trades (finding 9).
+- E22 one operator, several accounts: **established** (findings 2-4, 10, 16): four accounts, one signing process; the
+  strategy ran on 0x7d67f01d with the same maker prices, feed position and selection before 10-16; the 10-16 switch is
+  an account migration.
+- E23 the event path is co-reception of a dense hidden stream: **supported** (finding 7: 65-81% of triggered adds signed
+  before the trigger reached the book; co-movers are other operators' makers; finding 12: the same cluster precedes
+  withdrawals and other pulls).
+- E24 in-round win-probability state: **supported** (finding 18); the freeze-time table form untested.
+- Mechanics: the five-slot ladder confirmed historically (finding 10); salts not a recoverable V8 stream (finding 13);
+  the take's kind filter sits at the take decision (finding 17).
+
+## What is unexplained (quantitative)
+- Price: V to the cent. Given V, the ladder machine reaches 0.875 (set unit) / 0.73 (per order) live and the
+  historical union of the operator's accounts sits inside its five slots in 98%. V is an in-round win-probability
+  state that drifts toward the round winner (AUC 0.90 within rounds) tens of seconds before the print (0.68); no
+  public source obtained reproduces it: not three CIS bookmakers' Dota lines (no closer than the print), not a filter of
+  public prints (<= 0.30), not public deltas on its own top (<= 0.46 through the machine), not public Dota per-minute
+  state (0.17), not an MR12 table (no closer than the print). Its input is the push feed's in-round events, which the
+  maker leg receives even for the messages it does not take.
+- Outcome: bounded below 0.5 at any public lag (natural experiment of iteration 12).
+- Selection: passes on VALIDATE and replicates out of sample on the operator's earlier account (AUC 0.94).
+
+## Next iteration (plan)
+1. VALIDATE-live (11-01 06-12): if the wallet trades cs2-bca-pha (11:00), run the pre-registered live tests (X163
+   machine, X158 replication, X159 step 3 / X168 Thunderpick suspensions, X144 frozen tests, X173 live form with s,
+   X174 live form, X177 per-tick ledger on both tokens).
+2. X181 step 4 (side-aware table at freeze time) and a round-start clock for the in-round drift that does not use the
+   winner sequence (on-chain co-mover clusters, X180 step 2), to make the in-round state measurable point in time.
+3. The operator's other accounts: their GRID-event and LoL quoting as natural experiments on the same value process
+   (X184 needs a decision on the lolesports web key; GRID CS2 has public round scores on the sports socket).
+4. Ask the user: consent items (demos, Kick VOD, HLTV pages, lolesports web key, a solver install) and whether the
+   examiner may score the burst-set unit.
+19. **When in the round its value gets ahead (X181 companion; `inround_lead.py`, `inround_lead.json`, and the early
+    windows of `inround_drift.json`).** Same 894 print-inferred rounds. A move of >= 2c toward the eventual round winner
+    within the round: only its value 36.6%, only the print 4.6%, both 43.2%, neither 15.7% (>= 1c: 35.9 / 3.0 / 51.9 /
+    9.2%; >= 3c: 37.6 / 5.3 / 35.8 / 21.4%); when both move, they cross at the same burst in most rounds (median lead
+    0 s, upper quartile +34 s; its value first in 48.7%, ties not counted). Early windows (bursts within the first 30 /
+    60 s after the round's first burst, >= 10 s before the inferred end): AUC 0.595 vs 0.586 and 0.662 vs 0.608. So the
+    advantage builds up during the round (little in freeze time and the opening seconds, most of it in the later part):
+    in about a third of rounds its value moves decisively toward the winner while the print never does inside the round.
+    That is the in-round event information (kills, plants) of the push feed, priced into its quotes.
+20. **The same value process in GRID events: underpowered first pass (X188; `grid_inround.py`, `grid_inround.json`).**
+    0x67119033 (27 GRID CS2 events in October, BUY 0.995, whole cents 0.984, band 1.0, 20 shares) and 0x52661b8e (13 GRID
+    events, BUY 1.00, 5 shares) quote GRID events with the maker design; their 2,078 GRID-event transactions decoded
+    (`sib_grid/calldata`). Only 11 map markets carry enough bursts and a bo3 round sequence (71 rounds): within-round
+    AUC 0.660 for their level vs 0.357 for the print (guards 10 / 30 / 45 s: 0.663 / 0.643 / 0.618 vs 0.356 / 0.373 /
+    0.368; bootstrap of the gap [0.11, 0.49]). The print's AUC below 0.5 with so few rounds says the comparison is not
+    reliable; no conclusion about whether the in-round lead depends on the feed's coverage. Needs the operator's full
+    GRID-event record (and, on development blocks after T0, the sports socket's GRID round clock).
+
+## Iteration 13 closing state
+- Status: continue. Rule v5 unchanged (selection passes on VALIDATE; price and outcome fail). Primary metric presence_auc
+  unchanged at 0.8834 (activity baseline 0.8907); target_metrics unchanged.
+- Catalog: X172-X183 (panel) and X184-X188 (self) added. Tried: X172 (historical), X173 (historical), X174
+  (historical), X175, X176, X177 (first pass), X179, X180 (step 1 / Check G), X181 (steps 1-3), X182 (step 1), X183
+  (historical), X187; ruled out: X178; X96 closed as tried with X179. Open new: X184 (needs the user's decision on the
+  lolesports web key), X185, X186, X188.
+- Corrections: C1 / X14 / X65 / X95 / X110 / C4 / C4b evidence amended (one operator, four accounts, account
+  migration on 10-16); iteration 7 finding 20 withdrawn (the take's kind filter is a decision, finding 17).
+- Recorders: shared recorder OK at 09:01 UTC (pid 27184); own recorders untouched (tommy_kick_pdt, tommy_tp_odds2,
+  tommy_dota_rt, tommy_cs2_near, tommy_cs2_rounds, tommy_chat). No new recorder.
+- Sealed-data handling: nothing in `.cache/live/sealed/` was opened. Live reads were through `iter_live` (development
+  blocks only) for the block's subscription list. Gamma listings of today's events were read for listing-time fields
+  only (slug, start, GRID flag, resolution-source channel). Wallet trades were requested per development-unit market
+  only. hawk.live pages: development series only, head-to-head lists (which name sealed series) dropped unread. The
+  sibling accounts' activity and calldata were clamped to before H; chain-state calls (code, nonce at latest) are not
+  tied to any market unit.
+21. **The June version pegged to the public print; the private value came later (X185; `sibling_jun.py`,
+    `sibling_jun.json`).** All 2,133 CS2 transactions of 0x7d67f01d in 06-19..06-30 decoded (17 markets, 13 with tapes):
+    786 maker orders (whole cents 1.000, band 0 outside, sizes 7-12 shares, BUY 737 / SELL 49) and 1,128 taker orders
+    (6-10 shares). Maker orders within one tick of the last public print **0.455** (exact 0.144, median offset **0c**;
+    prints older than 60 s 0.537), against late September 0.218 (offset -3c), 10-08..10-15 0.298 (-1c) and the wallet
+    0.305-0.309 (-1c). So the same operator's maker quoted AT the stale public print in June and moved to a private
+    value by late September, when it already sat in the push feed's fan-out (+65 ms behind P4e). A bot-version history
+    (C4) that matches the reading of finding 18: the private part of V is the feed-era in-round information, added on top
+    of a design (whole cents, band, ladders) that existed before it.
+22. **Ahead of the market inside the round, before the print prices anything (X181 robustness; `inround_drift.json`
+    `pre_print_move`).** Only bursts before the print's first move of >= 2c (either direction) inside the round: its
+    level's drift predicts the round winner at AUC **0.708** against the print's 0.540 (681 rounds); in the 389 rounds
+    where the print does move >= 2c later in the round, its drift before that move predicts the winner at **0.616**.
+    So part of its in-round information is ahead of anything the market has priced (not only a faster reaction to the
+    round end), which addresses the caveat of finding 18.
+    Replication by split (`inround_drift.json` `by_split`): BUILD 38 maps / 376 rounds, AUC 0.913 vs the print's 0.725,
+    before the print's first 2c move 0.713 vs 0.566; VALIDATE 48 maps / 518 rounds, 0.894 vs 0.639, before the move
+    0.704 vs 0.522. The in-round information of its value replicates within 0.02 across the two halves of the record.
+23. **The lead survives a joiner-free mid (X186 / X182 step 2; `joiner_free_lead.py`, `joiner_free_lead.json`;
+    BUILD-live).** 6,056 joiner levels (non-own adds at its new top +-1c within 2 s after its add bursts) treated like own
+    levels in the iteration-7 mid builder. Spearman of its adds' offset from the others' mid (100 ms before) against the
+    mid move to +2 / +10 / +30 s: original 0.522 / 0.442 / 0.344 (other makers 0.239 / 0.169 / 0.095), joiner-free
+    0.440 / 0.423 / 0.371 (others 0.228 / 0.174 / 0.118). Joiners carry part of the 2-s lead only; at 10-30 s the lead
+    is unchanged. The panel's "follower" signature (lead at the other makers' level, <= 0.15 at 10 s) fails: with
+    finding 9 (executed trades) the lead is information, not imitation.
+
+## Iteration 13 end
+- About 77 wall-clock minutes (09:00-10:17 UTC); budget used about 912 of 1200 minutes (finding 24 was added after this line). Rule v5 unchanged;
+  target_metrics unchanged (presence 0.8834 vs 0.8907; selection 0.970 vs 0.886, recall 0.744, lift 3.155; price 0.322;
+  pnl -0.131 / -0.081; coverage 1.0 / 1.0).
+- The first VALIDATE-live block had no wallet record by 09:56 UTC (bca-pha at 11:00 is the last candidate); its six
+  started events were all skipped by both the wallet and v5.
+24. **Not a side-aware score table at round starts either (X181 step 4; `freeze_side_table.py`,
+    `freeze_side_table.json`).** Side-aware MR12 table (team A's round-win probability as CT and as T on a 0.30-0.70 grid
+    per map, sides from bo3, approximate overtime), observations at the first burst after each print-inferred round end
+    (1,033 on 68 maps with >= 8), the best grid point chosen separately for each series: residual SD median **3.96c**
+    for its level against 2.82c for the print (its level closer on 10% of maps, <= 2c on 7%). The panel's signature
+    (<= 2c and >= 0.7c below the print) fails; the comparison favours the print (the boundaries come from the print's own
+    fit), but its level at round starts is not a score / side table: with finding 18 it is a state that already carries
+    in-round information (or the next round's first events) when the print still sits on the score.
