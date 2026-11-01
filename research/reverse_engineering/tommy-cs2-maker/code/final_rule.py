@@ -1,5 +1,7 @@
-"""tommy-cs2-maker frozen rule v3 (`tommy-v3-grid-league-upstream`, iteration 3, 2026-10-31; unchanged and re-checked in
-iterations 4 and 5: no candidate beat it on VALIDATE; see FINAL_RULE.md and NOTES.md iteration 5).
+"""tommy-cs2-maker frozen rule v4 (`tommy-v4-grid-league-dota`, iteration 8, 2026-11-01) = v3 (`tommy-v3-grid-league-upstream`,
+iteration 3) with the rule universe widened to Dota 2 (Gamma series 10309: the wallet's Dota module since 10-22 is 15-54%
+of its fills) and scope item 1 computed on the lot (`coverage_fills`, `coverage_abs_pnl` from `_coverage()`). The Dota 2
+league table (`final_rule_v4_dota.json`) uses the v3 recipe on the same periods; every CS2 constant is unchanged.
 
 Selection constants are unchanged from v2 (final_rule_v2_constants.json):
   "build": fitted on BUILD (gameStart 2026-10-16 .. 10-21), used for the VALIDATE numbers in state.json;
@@ -48,6 +50,10 @@ WALLET = "0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2"
 H = 1792713600
 CACHE = ROOT / ".cache/re/tommy-cs2-maker"
 CALL = json.load(open(HERE / "final_rule_v2_constants.json"))
+# v4 (iteration 8, X112): Dota 2 league table fitted with the v3 recipe on the same periods (build: 10-16..10-20,
+# exam: 10-16..H); the CS2 coefficients, prior, tier rates and threshold are unchanged.
+DOTA = json.load(open(HERE / "final_rule_v4_dota.json"))
+SERIES = ("10310", "10309")
 BIN, NB, INPLAY_MIN = 30, 480, 210
 COL_FRAC, COL_MINREF, COL_BIN = 0.5, 200, 500
 ACT = ["n", "v", "w"]
@@ -88,33 +94,41 @@ def _universe(start, end, iv) -> pd.DataFrame:
         u = pd.read_parquet(CACHE / "universe.parquet")
         em = pd.read_parquet(CACHE / "events_meta.parquet")[["event_slug", "grid_series_id"]]
         u = u.merge(em, on="event_slug", how="left")
+        u["series"] = "10310"
+        if (CACHE / "universe_dota.parquet").exists():  # v4 (iteration 8, X112): Dota 2 universe (series 10309)
+            ud = pd.read_parquet(CACHE / "universe_dota.parquet")
+            ud = ud[pd.to_numeric(ud["gs_ts"], errors="coerce") < H]
+            u = pd.concat([u, ud[[c for c in ud.columns if c in set(u.columns) | {"grid_series_id", "series"}]]],
+                          ignore_index=True)
     else:
         from polyrea.adapters.http import shared_client
         h = shared_client()
         rows = []
         lo = pd.Timestamp(start - 20 * 86400, unit="s").strftime("%Y-%m-%dT%H:%M:%SZ")
         hi = pd.Timestamp(end, unit="s").strftime("%Y-%m-%dT%H:%M:%SZ")
-        off = 0
-        while True:
-            d, _ = h.get_json("https://gamma-api.polymarket.com/events", {"series_id": "10310", "start_date_min": lo,
-                              "start_date_max": hi, "limit": 100, "offset": off}, adapter="gamma.events", max_age=3600)
-            if not d:
-                break
-            for e in d:
-                meta = e.get("eventMetadata") or {}
-                if isinstance(meta, str):
-                    try:
-                        meta = json.loads(meta)
-                    except Exception:  # noqa: BLE001
-                        meta = {}
-                for m in e.get("markets") or []:
-                    rows.append({"event_slug": e.get("slug"), "league": meta.get("league"), "league_tier": meta.get("leagueTier"),
-                                 "grid_series_id": meta.get("gridSeriesId"), "cid": m.get("conditionId"),
-                                 "smt": m.get("sportsMarketType"), "game_start": m.get("gameStartTime"),
-                                 "tokens": m.get("clobTokenIds"), "outcomes": m.get("outcomes")})
-            if len(d) < 100:
-                break
-            off += 100
+        for series in SERIES:  # v4: CS2 (10310) and Dota 2 (10309)
+            off = 0
+            while True:
+                d, _ = h.get_json("https://gamma-api.polymarket.com/events", {"series_id": series, "start_date_min": lo,
+                                  "start_date_max": hi, "limit": 100, "offset": off}, adapter="gamma.events", max_age=3600)
+                if not d:
+                    break
+                for e in d:
+                    meta = e.get("eventMetadata") or {}
+                    if isinstance(meta, str):
+                        try:
+                            meta = json.loads(meta)
+                        except Exception:  # noqa: BLE001
+                            meta = {}
+                    for m in e.get("markets") or []:
+                        rows.append({"series": series, "event_slug": e.get("slug"), "league": meta.get("league"),
+                                     "league_tier": meta.get("leagueTier"), "grid_series_id": meta.get("gridSeriesId"),
+                                     "cid": m.get("conditionId"), "smt": m.get("sportsMarketType"),
+                                     "game_start": m.get("gameStartTime"), "tokens": m.get("clobTokenIds"),
+                                     "outcomes": m.get("outcomes")})
+                if len(d) < 100:
+                    break
+                off += 100
         u = pd.DataFrame(rows).drop_duplicates("cid")
         u["gs_ts"] = u["game_start"].map(_gs)
     u = u[u["smt"].isin(["moneyline", "child_moneyline"])].copy()
@@ -636,8 +650,59 @@ def _live_trigger(u, fills, iv) -> dict | None:
             "taker_presence_baseline_insample": round(_auc(base, x["y"]), 4)}
 
 
+def _coverage(u, iv, end, pay) -> dict:
+    """Scope item 1 (iteration 8, X112): share of the wallet's fills (TRADE rows) and of its absolute settlement PnL
+    in the lot's units that the rule universe (CS2 + Dota 2 match / map-winner markets) covers. Units = markets whose
+    event (or, outside the universe, the market itself) starts in an interval. Settlement values only settle PnL."""
+    ucid = set(u["cid"])
+    if end <= H and (CACHE / "activity_dev.parquet").exists():
+        a = pd.read_parquet(CACHE / "activity_dev.parquet")
+    elif not ALLOW_SEALED and (CACHE / "activity_devblocks.parquet").exists():
+        a = pd.read_parquet(CACHE / "activity_devblocks.parquet")  # development units only (cached, may be partial)
+    else:
+        from polyrea.adapters.polymarket import PolymarketData
+        rows, _, _ = PolymarketData().activity(WALLET, start=int(min(x[0] for x in iv)) - 6 * 3600,
+                                               end=int(min(max(x[1] for x in iv) + 8 * 3600, end + 8 * 3600)))
+        a = pd.DataFrame(rows)
+    if a is None or len(a) == 0:
+        return {"coverage_fills": None, "coverage_abs_pnl": None}
+    a = a[a["type"] == "TRADE"].copy()
+    for c in ("size", "usdcSize"):
+        a[c] = a[c].astype(float)
+    a["outcomeIndex"] = a["outcomeIndex"].astype(int)
+    egs = u.groupby("event_slug")["gs_ts"].transform("min")
+    gs = dict(zip(u["cid"], egs))
+    pay = dict(pay)
+    miss = sorted(set(a["conditionId"]) - set(gs))
+    if miss:
+        from polyrea.adapters.polymarket import PolymarketData
+        mk, _ = PolymarketData().markets_by_condition(miss)
+        for cid, x in mk.items():
+            gs[cid] = _gs(x.get("gameStartTime") or x.get("eventStartTime") or x.get("startDate"))
+            try:
+                pay.setdefault(cid, float(json.loads(x.get("outcomePrices"))[0]))  # settlement only
+            except Exception:  # noqa: BLE001
+                pass
+    a["gs"] = a["conditionId"].map(gs).astype(float)
+    a = a[a["gs"].notna() & _in(a["gs"].to_numpy(), iv)]
+    if len(a) == 0:
+        return {"coverage_fills": None, "coverage_abs_pnl": None}
+    a["p0"] = a["conditionId"].map(pay).astype(float)
+    a["val"] = a["size"] * np.where(a["outcomeIndex"] == 0, a["p0"], 1 - a["p0"])
+    g = a.groupby("conditionId").agg(f=("size", "size"), usd=("usdcSize", "sum"), val=("val", "sum"))
+    g["pnl"] = (g["val"] - g["usd"]).abs()
+    inu = g.index.isin(list(ucid))
+    return {"coverage_fills": round(float(g.loc[inu, "f"].sum() / g["f"].sum()), 4),
+            "coverage_abs_pnl": round(float(g.loc[inu, "pnl"].sum() / max(g["pnl"].sum(), 1e-9)), 4),
+            "coverage_markets": int(len(g)), "coverage_markets_in_universe": int(inu.sum()),
+            "coverage_fills_cs2_only": round(float(g.loc[g.index.isin(list(set(u.loc[u["series"] == "10310", "cid"]))), "f"].sum()
+                                                   / g["f"].sum()), 4) if "series" in u else None}
+
+
 def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
-    C = CALL[CONSTANTS]
+    C = dict(CALL[CONSTANTS])
+    C["league_sum"] = {**C["league_sum"], **DOTA[CONSTANTS]["league_sum"]}  # v4: Dota 2 leagues, same recipe
+    C["league_n"] = {**C["league_n"], **DOTA[CONSTANTS]["league_n"]}
     iv = [tuple(x) for x in intervals] if intervals else [(start_ts, end_ts)]
     u = _universe(start_ts, end_ts, iv)
     fills = _wallet_fills(u, end_ts)
@@ -660,7 +725,11 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
     u["grid"] = u["grid_series_id"].notna() if "grid_series_id" in u else False
     ev = u.groupby("event_slug").agg(y=("y", "max"), n=("n", "sum"), v=("v", "sum"), w=("w", "sum"), league=("league", "first"),
                                      tier=("league_tier", "first"), grid=("grid", "max"), gs=("gs_ts", "min")).reset_index()
-    out = {"rule_id": "tommy-v3-grid-league-upstream", "constants": CONSTANTS, "events": int(len(ev)), "events_traded": int(ev["y"].sum()),
+    if "series" not in u:
+        u["series"] = "10310"
+    u["series"] = u["series"].fillna("10310").astype(str)
+    dser = dict(zip(u["event_slug"], u["series"]))
+    out = {"rule_id": "tommy-v4-grid-league-dota", "constants": CONSTANTS, "events": int(len(ev)), "events_traded": int(ev["y"].sum()),
            "markets": int(len(u)), "markets_traded": int(u["y"].sum()), "grid_events": int(ev["grid"].sum()),
            "grid_events_traded": int(ev.loc[ev["grid"], "y"].sum())}
     sc, ba = selection_score(ev, C), activity_baseline(ev, C)
@@ -681,6 +750,15 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
     out["selection_gain"] = round(out["selection_auc"] - out["selection_baseline"], 4)
     out["selection_gain_ci95"] = [round(float(np.quantile(g, 0.025)), 4), round(float(np.quantile(g, 0.975)), 4)] if len(g) else None
     out["selection_gain_p_le0"] = round(float((g <= 0).mean()), 4) if len(g) else None
+    for tname, code in (("cs2", "10310"), ("dota2", "10309")):  # v4: per-title selection (subsets of the pooled score)
+        mt = ev["event_slug"].map(dser).fillna("10310").to_numpy() == code
+        if mt.sum() and y[mt].min() != y[mt].max():
+            out[f"selection_{tname}"] = {"events": int(mt.sum()), "traded": int(y[mt].sum()), "auc": round(_auc(sc[mt], y[mt]), 4),
+                                         "baseline": round(_auc(ba[mt], y[mt]), 4),
+                                         "recall": round(float(y[mt & sel].sum() / max(y[mt].sum(), 1)), 3),
+                                         "lift": round(float(y[mt & sel].mean() / max(y[mt].mean(), 1e-9)), 3) if (mt & sel).sum() else None}
+        elif mt.sum():
+            out[f"selection_{tname}"] = {"events": int(mt.sum()), "traded": int(y[mt].sum()), "selected": int((mt & sel).sum())}
     # presence (fill per market x 30-s bin): event score x in-play, vs prints-only baseline (co-occurrence check)
     esc = dict(zip(ev["event_slug"], sc))
     bins = []
@@ -736,7 +814,8 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
     for r in u.itertuples():
         if r.cid not in pay or (r.event_slug not in selected and r.cid not in traded):
             continue
-        rp = _replay(tapes.get(r.cid), r.gs_ts, pay[r.cid]) if r.event_slug in selected else 0.0
+        rp = (_replay(tapes.get(r.cid), r.gs_ts, pay[r.cid], size=10.0 if str(r.series) == "10309" else 100.0)
+              if r.event_slug in selected else 0.0)
         f = fills[fills["cid"] == r.cid] if len(fills) else fills
         wp = float((f["fill"] * np.where(f["oi"] == 0, pay[r.cid], 1 - pay[r.cid]) - f["usdc"]).sum()) if len(f) else 0.0
         dt = tapes.get(r.cid)
@@ -764,6 +843,10 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
     out["live_trigger"] = None  # v2 book trigger retracted (receive-clock artefact); see live_taker_diagnostic
     out["live_taker_diagnostic_server_clock"] = _live_diag(u, fills, iv)
     out["live_price"] = _live_price(u, fills, iv)
+    try:
+        out.update(_coverage(u, iv, end_ts, pay))
+    except Exception as e:  # noqa: BLE001
+        out["coverage_error"] = repr(e)[:200]
     # one wallet: per-wallet metrics equal the pooled ones
     core = {k: v for k, v in out.items() if k not in ("rule_id", "constants")}
     out["per_wallet"] = {WALLET: core}

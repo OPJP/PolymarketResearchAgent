@@ -1,0 +1,9 @@
+{
+ "pnl_corr_pearson": 0.034,
+ "pnl_corr_spearman": -0.085,
+ "pnl_markets": 127,
+ "pnl_baseline_prints_pearson": 0.325,
+ "pnl_baseline_prints_spearman": 0.283,
+ "pnl_corr_partial_given_prints": -0.003,
+ "selection_auc": 0.9528
+}

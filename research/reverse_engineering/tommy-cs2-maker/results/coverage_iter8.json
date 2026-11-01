@@ -1,0 +1,208 @@
+{
+ "by_day": {
+  "10-16": {
+   "cs2_only": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "cs2_dota": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "fills": 855,
+   "markets": 11,
+   "markets_unsettled": 0,
+   "dota_fills": 0,
+   "dota_pnl": 0.0,
+   "cs2_pnl": 236.5
+  },
+  "10-17": {
+   "cs2_only": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "cs2_dota": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "fills": 3879,
+   "markets": 24,
+   "markets_unsettled": 0,
+   "dota_fills": 0,
+   "dota_pnl": 0.0,
+   "cs2_pnl": 1354.6
+  },
+  "10-18": {
+   "cs2_only": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "cs2_dota": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "fills": 375,
+   "markets": 3,
+   "markets_unsettled": 0,
+   "dota_fills": 0,
+   "dota_pnl": 0.0,
+   "cs2_pnl": -146.7
+  },
+  "10-19": {
+   "cs2_only": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "cs2_dota": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "fills": 6063,
+   "markets": 40,
+   "markets_unsettled": 0,
+   "dota_fills": 0,
+   "dota_pnl": 0.0,
+   "cs2_pnl": 1194.4
+  },
+  "10-20": {
+   "cs2_only": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "cs2_dota": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "fills": 5236,
+   "markets": 35,
+   "markets_unsettled": 0,
+   "dota_fills": 0,
+   "dota_pnl": 0.0,
+   "cs2_pnl": 2992.7
+  },
+  "10-21": {
+   "cs2_only": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "cs2_dota": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "fills": 10721,
+   "markets": 64,
+   "markets_unsettled": 0,
+   "dota_fills": 0,
+   "dota_pnl": 0.0,
+   "cs2_pnl": 4265.2
+  },
+  "10-22": {
+   "cs2_only": {
+    "coverage_fills": 0.8457,
+    "coverage_abs_pnl": 0.9785,
+    "coverage_usd": 0.9608
+   },
+   "cs2_dota": {
+    "coverage_fills": 1.0,
+    "coverage_abs_pnl": 1.0,
+    "coverage_usd": 1.0
+   },
+   "fills": 9537,
+   "markets": 52,
+   "markets_unsettled": 0,
+   "dota_fills": 1472,
+   "dota_pnl": 119.1,
+   "cs2_pnl": 4482.4
+  }
+ },
+ "build_16_20": {
+  "cs2_only": {
+   "coverage_fills": 1.0,
+   "coverage_abs_pnl": 1.0,
+   "coverage_usd": 1.0
+  },
+  "cs2_dota": {
+   "coverage_fills": 1.0,
+   "coverage_abs_pnl": 1.0,
+   "coverage_usd": 1.0
+  },
+  "fills": 16408,
+  "markets": 113,
+  "markets_unsettled": 0,
+  "dota_fills": 0,
+  "dota_pnl": 0.0,
+  "cs2_pnl": 5631.5
+ },
+ "validate_21_22": {
+  "cs2_only": {
+   "coverage_fills": 0.9273,
+   "coverage_abs_pnl": 0.99,
+   "coverage_usd": 0.9828
+  },
+  "cs2_dota": {
+   "coverage_fills": 1.0,
+   "coverage_abs_pnl": 1.0,
+   "coverage_usd": 1.0
+  },
+  "fills": 20258,
+  "markets": 116,
+  "markets_unsettled": 0,
+  "dota_fills": 1472,
+  "dota_pnl": 119.1,
+  "cs2_pnl": 8747.7
+ },
+ "devblock_10_31_12_18_to_1455": {
+  "cs2_only": {
+   "coverage_fills": 0.4568,
+   "coverage_abs_pnl": 0.9273,
+   "coverage_usd": 0.7721
+  },
+  "cs2_dota": {
+   "coverage_fills": 1.0,
+   "coverage_abs_pnl": 1.0,
+   "coverage_usd": 1.0
+  },
+  "fills": 659,
+  "markets": 9,
+  "markets_unsettled": 0,
+  "dota_fills": 358,
+  "dota_pnl": 21.9,
+  "cs2_pnl": 62.0
+ },
+ "devblock_10_31_12_18_universe_tapes": {
+  "cs2_only": {
+   "coverage_fills": 0.4252,
+   "coverage_abs_pnl": 0.7786,
+   "coverage_usd": 0.7276
+  },
+  "cs2_dota": {
+   "coverage_fills": 1.0,
+   "coverage_abs_pnl": 1.0,
+   "coverage_usd": 1.0
+  },
+  "fills": 1498,
+  "markets": 14,
+  "markets_unsettled": 0,
+  "dota_fills": 861,
+  "dota_pnl": 80.8,
+  "cs2_pnl": -32.9,
+  "note": "denominator = CS2 + Dota universe markets only (wallet fills from the market tapes); data-api /trades rows"
+ },
+ "dota_events_traded_dev": [
+  "dota2-liquid-1win-2026-10-22",
+  "dota2-ts8-legion1-2026-10-22",
+  "dota2-ty-gl-2026-10-22"
+ ]
+}

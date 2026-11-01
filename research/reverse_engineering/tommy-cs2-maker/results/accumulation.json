@@ -1,0 +1,120 @@
+{
+ "steps": 22011,
+ "takes": 56,
+ "untrig_pulls": 213,
+ "base_rate": 0.0087,
+ "hazard_by_n10": {
+  "0": [
+   0.0083,
+   20431
+  ],
+  "1": [
+   0.0105,
+   1148
+  ],
+  "2": [
+   0.0202,
+   347
+  ],
+  "3+": [
+   0.0353,
+   85
+  ]
+ },
+ "hazard_by_n30": {
+  "0": [
+   0.0078,
+   18176
+  ],
+  "1": [
+   0.0118,
+   2201
+  ],
+  "2": [
+   0.0156,
+   1155
+  ],
+  "3+": [
+   0.0146,
+   479
+  ]
+ },
+ "hazard_by_n60": {
+  "0": [
+   0.0076,
+   15978
+  ],
+  "1": [
+   0.0072,
+   2787
+  ],
+  "2": [
+   0.0149,
+   1677
+  ],
+  "3+": [
+   0.0159,
+   1569
+  ]
+ },
+ "logit_n10": {
+  "coef_log1p_untrig": [
+   0.476,
+   0.051
+  ],
+  "coef_log1p_pub30": [
+   0.476,
+   0.0
+  ],
+  "coef_log1p_trades30": [
+   0.34,
+   0.0001
+  ]
+ },
+ "logit_n30": {
+  "coef_log1p_untrig": [
+   0.259,
+   0.0998
+  ],
+  "coef_log1p_pub30": [
+   0.479,
+   0.0
+  ],
+  "coef_log1p_trades30": [
+   0.33,
+   0.0001
+  ]
+ },
+ "logit_n60": {
+  "coef_log1p_untrig": [
+   0.262,
+   0.0316
+  ],
+  "coef_log1p_pub30": [
+   0.489,
+   0.0
+  ],
+  "coef_log1p_trades30": [
+   0.322,
+   0.0002
+  ]
+ },
+ "direction_W10": {
+  "takes_with_signed_pulls": 2,
+  "aligned_share": 0.5,
+  "null_aligned_mean": 0.489,
+  "p_upper": 0.588
+ },
+ "direction_W30": {
+  "takes_with_signed_pulls": 7,
+  "aligned_share": 0.714,
+  "null_aligned_mean": 0.503,
+  "p_upper": 0.134
+ },
+ "direction_W60": {
+  "takes_with_signed_pulls": 11,
+  "aligned_share": 0.636,
+  "null_aligned_mean": 0.496,
+  "p_upper": 0.14
+ }
+}

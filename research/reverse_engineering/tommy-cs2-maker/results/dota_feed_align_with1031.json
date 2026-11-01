@@ -1,0 +1,188 @@
+{
+ "dota2-ty-gl-2026-10-22 map 1": {
+  "match_id": 9056215433,
+  "anchors": 39,
+  "pre_game_duration": 90,
+  "best_D_s": 1044,
+  "bought_hits": 12,
+  "other_hits": 0,
+  "top3_D": [
+   1044,
+   1042,
+   1043
+  ],
+  "top3_diff": [
+   12,
+   11,
+   10
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   5.5,
+   7.0
+  ],
+  "p_max": 0.0
+ },
+ "dota2-ty-gl-2026-10-22 map 2": {
+  "match_id": 9056271057,
+  "anchors": 18,
+  "pre_game_duration": 90,
+  "best_D_s": 1050,
+  "bought_hits": 5,
+  "other_hits": 0,
+  "top3_D": [
+   1054,
+   1050,
+   1061
+  ],
+  "top3_diff": [
+   5,
+   5,
+   4
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   4.0,
+   5.0
+  ],
+  "p_max": 0.07
+ },
+ "dota2-liquid-1win-2026-10-22 map 1": {
+  "match_id": 9056618744,
+  "anchors": 19,
+  "pre_game_duration": 90,
+  "best_D_s": 1035,
+  "bought_hits": 13,
+  "other_hits": 0,
+  "top3_D": [
+   1036,
+   1037,
+   1035
+  ],
+  "top3_diff": [
+   13,
+   13,
+   13
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   4.0,
+   7.0
+  ],
+  "p_max": 0.0
+ },
+ "dota2-liquid-1win-2026-10-22 map 2": {
+  "match_id": 9056794318,
+  "anchors": 10,
+  "pre_game_duration": 90,
+  "best_D_s": 1043,
+  "bought_hits": 6,
+  "other_hits": 0,
+  "top3_D": [
+   1047,
+   1046,
+   1045
+  ],
+  "top3_diff": [
+   6,
+   6,
+   6
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   3.0,
+   5.0
+  ],
+  "p_max": 0.02
+ },
+ "dota2-ty-gl-2026-10-31 map 1": {
+  "match_id": 9069952836,
+  "anchors": 0,
+  "pre_game_duration": 90,
+  "best_D_s": -300,
+  "bought_hits": 0,
+  "other_hits": 0,
+  "top3_D": [
+   1500,
+   1499,
+   1498
+  ],
+  "top3_diff": [
+   0,
+   0,
+   0
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": null,
+  "p_max": null
+ },
+ "dota2-ty-gl-2026-10-31 map 2": {
+  "match_id": 9070062078,
+  "anchors": 4,
+  "pre_game_duration": 90,
+  "best_D_s": 1485,
+  "bought_hits": 2,
+  "other_hits": 0,
+  "top3_D": [
+   1485,
+   1178,
+   1177
+  ],
+  "top3_diff": [
+   2,
+   1,
+   1
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   2.0,
+   2.0
+  ],
+  "p_max": 0.85
+ },
+ "dota2-ts8-legion1-2026-10-22 map 1": {
+  "match_id": 9056353535,
+  "anchors": 11,
+  "pre_game_duration": 90,
+  "best_D_s": 840,
+  "bought_hits": 7,
+  "other_hits": 1,
+  "top3_D": [
+   841,
+   845,
+   840
+  ],
+  "top3_diff": [
+   6,
+   6,
+   6
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   4.0,
+   5.0
+  ],
+  "p_max": 0.02
+ },
+ "dota2-ts8-legion1-2026-10-22 map 2": {
+  "match_id": 9056429802,
+  "anchors": 0,
+  "pre_game_duration": 90,
+  "best_D_s": -300,
+  "bought_hits": 0,
+  "other_hits": 0,
+  "top3_D": [
+   1500,
+   1499,
+   1498
+  ],
+  "top3_diff": [
+   0,
+   0,
+   0
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": null,
+  "p_max": null
+ }
+}

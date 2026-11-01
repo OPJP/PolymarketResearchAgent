@@ -1,0 +1,108 @@
+{
+ "dota2-ty-gl-2026-10-22 map 1": {
+  "anchors": 42,
+  "best_D_s": 1352,
+  "bought_hits": 7,
+  "other_hits": 1,
+  "top3_D": [
+   1354,
+   1353,
+   1619
+  ],
+  "null_max_p50_p95": [
+   6.0,
+   8.0
+  ],
+  "p_max": 0.845,
+  "D_feed_s": 1044,
+  "D_market_minus_D_feed_s": 308
+ },
+ "dota2-ty-gl-2026-10-22 map 2": {
+  "anchors": 18,
+  "best_D_s": 1064,
+  "bought_hits": 7,
+  "other_hits": 0,
+  "top3_D": [
+   1065,
+   1064,
+   1066
+  ],
+  "null_max_p50_p95": [
+   4.5,
+   7.0
+  ],
+  "p_max": 0.06,
+  "D_feed_s": 1050,
+  "D_market_minus_D_feed_s": 14
+ },
+ "dota2-liquid-1win-2026-10-22 map 1": {
+  "anchors": 49,
+  "best_D_s": 1038,
+  "bought_hits": 7,
+  "other_hits": 1,
+  "top3_D": [
+   1047,
+   1227,
+   1042
+  ],
+  "null_max_p50_p95": [
+   5.0,
+   7.0
+  ],
+  "p_max": 0.27,
+  "D_feed_s": 1035,
+  "D_market_minus_D_feed_s": 3
+ },
+ "dota2-liquid-1win-2026-10-22 map 2": {
+  "anchors": 26,
+  "best_D_s": 1052,
+  "bought_hits": 8,
+  "other_hits": 1,
+  "top3_D": [
+   1053,
+   1052,
+   1068
+  ],
+  "null_max_p50_p95": [
+   6.0,
+   8.0
+  ],
+  "p_max": 0.295,
+  "D_feed_s": 1043,
+  "D_market_minus_D_feed_s": 9
+ },
+ "dota2-ts8-legion1-2026-10-22 map 1": {
+  "anchors": 18,
+  "best_D_s": 507,
+  "bought_hits": 4,
+  "other_hits": 0,
+  "top3_D": [
+   507,
+   860,
+   1335
+  ],
+  "null_max_p50_p95": [
+   4.0,
+   5.0
+  ],
+  "p_max": 0.85,
+  "D_feed_s": 840,
+  "D_market_minus_D_feed_s": -333
+ },
+ "dota2-ts8-legion1-2026-10-22 map 2": {
+  "anchors": 2,
+  "best_D_s": 237,
+  "bought_hits": 2,
+  "other_hits": 0,
+  "top3_D": [
+   240,
+   239,
+   238
+  ],
+  "null_max_p50_p95": [
+   2.0,
+   2.0
+  ],
+  "p_max": 1.0
+ }
+}

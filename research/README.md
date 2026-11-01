@@ -45,7 +45,7 @@ The premise is that every screened wallet runs a real strategy, so not finding i
 | [directional-maker](reverse_engineering/directional-maker/NOTES.md) | in progress | 11 (753 min) | 0.772 | 1 | 0 (0) | no | partial | fail | fail | fail |
 | [dbdd-inplay-taker](reverse_engineering/dbdd-inplay-taker/NOTES.md) | in progress | 1 (50 min) | 0.731 | 0 | 0 (0) | - | - | - | - | - |
 | [rn1-inplay-maker](reverse_engineering/rn1-inplay-maker/NOTES.md) | not started | 0 (0 min) | - | 0 | 0 (0) | - | - | - | - | - |
-| [tommy-cs2-maker](reverse_engineering/tommy-cs2-maker/NOTES.md) | in progress | 8 (597 min) | 0.874 | 0 | 0 (0) | - | - | - | - | - |
+| [tommy-cs2-maker](reverse_engineering/tommy-cs2-maker/NOTES.md) | in progress | 8 (580 min) | 0.874 | 0 | 0 (0) | - | - | - | - | - |
 
 ## Criteria across deep-dived wallets
 

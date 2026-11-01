@@ -1,5 +1,5 @@
 {
- "generated_at": 1793496319,
+ "generated_at": 1793496763,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -370,17 +370,17 @@
    "status": "in_progress",
    "wall_reason": null,
    "iterations": 8,
-   "minutes": 597,
+   "minutes": 580,
    "hypotheses": 99,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.8739,
    "best_rule": "tommy-v4-grid-league-dota",
    "has_final_rule": true,
-   "strategy_statement": "CS2 and Dota 2 in-play bot; from 10-16 a buy-only two-sided maker plus an informed taker (one signing key, owner 0x8af810f0, for both legs and both regimes), before that a round-trip taker in GRID tier-1/2 events. [VALIDATE-only] Selection: whole events (match + all maps) of non-GRID leagues, tier 3 all, tier 4 by league, tier 5 rarely, never a GRID event (CS2 0/122, Dota 0/33); from 10-22 also PARI Universe Dota 2 events; this is the coverage of the push feed (P4e's presence has the same boundary); v4 event rule pooled AUC 0.953 vs activity 0.886, recall 0.74 at lift 3.25, coverage 1.0. [VALIDATE-only] Maker: whole-cent BUY ladders near the touch on both outcome tokens (100 shares in CS2, 10 in Dota 2), never sells, merges pairs in one 300-s loop (97% paired, pair cost 0.978). [hypothesis, BUILD-live] Protection: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices its ladder on the private input without any public trigger, and those re-pricings precede adverse moves (ground-truth wallet cancels -0.94c in 10 s). [hypothesis] Taker: FAK BUYs on raw in-round messages of a shared esports push feed (>= 19 subscribers at fixed lags, P4e 50 ms earlier, 29-39% of its take clusters co-signed, lag invariant across event classes, not shared outside esports) of the plant / turn kind, at the stale ask plus its own premium; ~16-20% of the informed bursts; its Dota takes come from the same fan-out (P4e 50 ms earlier on 22% of them). [VALIDATE-only] Economics: per-market PnL is the locked margin of pairs formed across the two legs; public maker replays (generic or balanced) do not track it (-0.13 / 0.03), so the outcome item needs the private taker leg.",
+   "strategy_statement": "CS2 and Dota 2 in-play bot; from 10-16 a buy-only two-sided maker plus an informed taker (one signing key, owner 0x8af810f0, for both legs and both regimes), before that a round-trip taker in GRID tier-1/2 events. [VALIDATE-only] Selection: whole events (match + all maps) of non-GRID leagues, tier 3 all, tier 4 by league, tier 5 rarely, never a GRID event (CS2 0/122, Dota 0/33); from 10-22 also PARI Universe Dota 2 events; this is the coverage of the push feed (P4e's presence has the same boundary); v4 event rule pooled AUC 0.953 vs activity 0.886, recall 0.74 at lift 3.25, coverage 1.0. [VALIDATE-only] Maker: whole-cent BUY ladders near the touch on both outcome tokens (100 shares in CS2, 10 in Dota 2), never sells, merges pairs in one 300-s loop (97% paired, pair cost 0.978). [hypothesis, BUILD-live] Protection: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices its ladder on the private input without any public trigger, and those re-pricings precede adverse moves (ground-truth wallet cancels -0.94c in 10 s). [hypothesis] Taker: FAK BUYs on raw in-round messages of a shared esports push feed (>= 19 subscribers at fixed lags, P4e 50 ms earlier, 29-39% of its take clusters co-signed, lag invariant across event classes, not shared outside esports) of the plant / turn kind, at the stale ask plus its own premium; ~16-20% of the informed bursts; its Dota takes come from the same fan-out (P4e 50 ms earlier on 22% of them). [VALIDATE-only] Economics: per-market PnL is the locked margin of pairs formed across the two legs; public maker replays (generic or balanced) do not track it (-0.13 / 0.03), so the outcome item needs the private taker leg. [hypothesis] Source: in Dota 2 the feed's messages (the wallet's and P4e's alike) follow in-game kills of the team they buy at one per-map offset (1035-1050 s after the replay start on four maps; side-label null p < 0.005-0.07), consistent with the tournament's 900-s spectator delay and a few seconds ahead of the public market: the leading reading (Z8, X117) is a broadcast-side reader of the games' spectator relays sold to many subscribers.",
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 6
+   "panels": 7
   }
  ],
  "wallets": [

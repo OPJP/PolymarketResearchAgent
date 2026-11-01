@@ -1,0 +1,269 @@
+{
+ "cs2": {
+  "events": 384,
+  "p4e_events": 58,
+  "grid": {
+   "False": [
+    0.221,
+    262
+   ],
+   "True": [
+    0.0,
+    122
+   ]
+  },
+  "auc_grid_insample": 0.6871,
+  "tier": {
+   "2": [
+    0.0,
+    6
+   ],
+   "3": [
+    1.0,
+    22
+   ],
+   "4": [
+    0.269,
+    134
+   ],
+   "5": [
+    0.0,
+    222
+   ]
+  },
+  "auc_tier_insample": 0.9067,
+  "gt": {
+   "G2": [
+    0.0,
+    6
+   ],
+   "G4": [
+    0.0,
+    38
+   ],
+   "G5": [
+    0.0,
+    78
+   ],
+   "N3": [
+    1.0,
+    22
+   ],
+   "N4": [
+    0.375,
+    96
+   ],
+   "N5": [
+    0.0,
+    144
+   ]
+  },
+  "auc_gt_insample": 0.9429,
+  "auc_league_insample": 0.9673,
+  "wallet_y_vs_label_auc": 0.8198,
+  "wallet_traded_given_p4e": 0.879,
+  "wallet_traded_given_no_p4e": 0.08,
+  "p4e_given_wallet_traded": 0.662,
+  "p4e_by_league_top": {
+   "CCT Europe": [
+    0.0,
+    59
+   ],
+   "DraculaN": [
+    0.37,
+    51
+   ],
+   "ESEA": [
+    0.0,
+    37
+   ],
+   "CCT South America": [
+    0.0,
+    24
+   ],
+   "NODWIN Clutch Series": [
+    0.0,
+    23
+   ],
+   "ESL Challenger League": [
+    0.0,
+    17
+   ],
+   "United21": [
+    0.0,
+    16
+   ],
+   "CIS LAN Championship": [
+    0.0,
+    16
+   ],
+   "Stake Ranked": [
+    0.43,
+    14
+   ],
+   "PGL": [
+    0.77,
+    13
+   ],
+   "Exort Fiesta": [
+    0.0,
+    11
+   ],
+   "1win Private Club": [
+    1.0,
+    10
+   ],
+   "Circuit X": [
+    0.1,
+    10
+   ],
+   "GLuck Yungstar": [
+    0.0,
+    10
+   ],
+   "Elisa BreakOut": [
+    0.0,
+    9
+   ],
+   "CyberClash": [
+    0.0,
+    8
+   ],
+   "Stake Pulse": [
+    1.0,
+    8
+   ],
+   "European Pro League": [
+    0.0,
+    8
+   ],
+   "Logitech G Pro Series": [
+    0.0,
+    8
+   ],
+   "VOID Autumn Cup": [
+    0.0,
+    7
+   ],
+   "Gamers Club Liga S\u00e9rie A": [
+    0.0,
+    7
+   ],
+   "Dust2.dk Ligaen": [
+    0.0,
+    6
+   ],
+   "Thunderpick World Championship": [
+    0.0,
+    6
+   ],
+   "1win": [
+    1.0,
+    4
+   ],
+   "DACH CS Masters": [
+    0.0,
+    2
+   ]
+  }
+ },
+ "dota2": {
+  "events": 68,
+  "sub_events": 60,
+  "grid": {
+   "False": [
+    0.824,
+    17
+   ],
+   "True": [
+    0.902,
+    51
+   ]
+  },
+  "auc_grid_insample": 0.5708,
+  "tier": {
+   "2": [
+    1.0,
+    4
+   ],
+   "4": [
+    0.9,
+    40
+   ],
+   "5": [
+    0.833,
+    24
+   ]
+  },
+  "auc_tier_insample": 0.6,
+  "gt": {
+   "G4": [
+    0.921,
+    38
+   ],
+   "G5": [
+    0.846,
+    13
+   ],
+   "N2": [
+    1.0,
+    4
+   ],
+   "N4": [
+    0.5,
+    2
+   ],
+   "N5": [
+    0.818,
+    11
+   ]
+  },
+  "auc_gt_insample": 0.6708,
+  "auc_league_insample": 0.6427,
+  "wallet_y_vs_label_auc": 0.5615,
+  "by_league": {
+   "1win Streamers League": [
+    0.9,
+    10
+   ],
+   "BLAST Slam": [
+    0.71,
+    7
+   ],
+   "DreamLeague": [
+    0.86,
+    14
+   ],
+   "EPL Masters": [
+    0.91,
+    33
+   ],
+   "PARI Universe": [
+    1.0,
+    4
+   ]
+  },
+  "wallet_traded_by_league": {
+   "1win Streamers League": [
+    0,
+    10
+   ],
+   "BLAST Slam": [
+    0,
+    7
+   ],
+   "DreamLeague": [
+    0,
+    14
+   ],
+   "EPL Masters": [
+    0,
+    33
+   ],
+   "PARI Universe": [
+    3,
+    4
+   ]
+  }
+ }
+}

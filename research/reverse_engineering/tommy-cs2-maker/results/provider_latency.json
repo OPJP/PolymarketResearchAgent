@@ -1,0 +1,303 @@
+{
+ "map_ends": 39,
+ "with_socket": 37,
+ "non_grid": {
+  "n": 20,
+  "events": 12,
+  "min_s": 16.2,
+  "p10_s": 25.8,
+  "median_s": 168.7,
+  "max_s": 591.1,
+  "p10_ci95": [
+   16.2,
+   64.8
+  ]
+ },
+ "grid": {
+  "n": 17,
+  "events": 9,
+  "min_s": 20.0,
+  "p10_s": 46.8,
+  "median_s": 195.5,
+  "max_s": 2175.8,
+  "p10_ci95": [
+   20.0,
+   165.2
+  ]
+ },
+ "rows": [
+  {
+   "event": "cs2-1win-5s-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 92.0
+  },
+  {
+   "event": "cs2-1win-5s-2026-10-31",
+   "map_no": 2,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 305.1
+  },
+  {
+   "event": "cs2-ssins-mis-2026-10-31",
+   "map_no": 1,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 416.0
+  },
+  {
+   "event": "cs2-ssins-mis-2026-10-31",
+   "map_no": 2,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 212.2
+  },
+  {
+   "event": "cs2-skr2-for10-2026-10-31",
+   "map_no": 1,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 271.7
+  },
+  {
+   "event": "cs2-skr2-for10-2026-10-31",
+   "map_no": 2,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 453.0
+  },
+  {
+   "event": "cs2-bhe-bar2-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 213.5
+  },
+  {
+   "event": "cs2-bhe-bar2-2026-10-31",
+   "map_no": 2,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 35.4
+  },
+  {
+   "event": "cs2-mnte-prodig-2026-10-31",
+   "map_no": 1,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 432.7
+  },
+  {
+   "event": "cs2-gls1-pcy-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 26.2
+  },
+  {
+   "event": "cs2-gls1-pcy-2026-10-31",
+   "map_no": 2,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 22.6
+  },
+  {
+   "event": "cs2-gg1-esprot-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 123.8
+  },
+  {
+   "event": "cs2-gg1-esprot-2026-10-31",
+   "map_no": 2,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 16.2
+  },
+  {
+   "event": "cs2-bca-9ine-2026-10-31",
+   "map_no": 1,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 1115.2
+  },
+  {
+   "event": "cs2-bca-9ine-2026-10-31",
+   "map_no": 2,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 165.3
+  },
+  {
+   "event": "cs2-invict1-don-2026-10-31",
+   "map_no": 1,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 2175.8
+  },
+  {
+   "event": "cs2-invict1-don-2026-10-31",
+   "map_no": 2,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 195.5
+  },
+  {
+   "event": "cs2-shin-isg-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 68.3
+  },
+  {
+   "event": "cs2-shin-isg-2026-10-31",
+   "map_no": 2,
+   "grid": false,
+   "series": "10310",
+   "lag_s": NaN
+  },
+  {
+   "event": "cs2-fokus-baks-2026-10-31",
+   "map_no": 1,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 165.2
+  },
+  {
+   "event": "cs2-fokus-baks-2026-10-31",
+   "map_no": 2,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 67.5
+  },
+  {
+   "event": "cs2-nao-pain-2026-10-31",
+   "map_no": 1,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 123.8
+  },
+  {
+   "event": "cs2-nao-pain-2026-10-31",
+   "map_no": 2,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 49.5
+  },
+  {
+   "event": "cs2-wraith-ntr-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 68.1
+  },
+  {
+   "event": "cs2-wraith-ntr-2026-10-31",
+   "map_no": 2,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 51.8
+  },
+  {
+   "event": "cs2-omega1-priv-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 258.2
+  },
+  {
+   "event": "cs2-hachae-wc1-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 215.5
+  },
+  {
+   "event": "cs2-hachae-wc1-2026-10-31",
+   "map_no": 2,
+   "grid": false,
+   "series": "10310",
+   "lag_s": NaN
+  },
+  {
+   "event": "cs2-lowcor1-tdp-2026-10-31",
+   "map_no": 1,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 120.5
+  },
+  {
+   "event": "cs2-lowcor1-tdp-2026-10-31",
+   "map_no": 2,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 20.0
+  },
+  {
+   "event": "cs2-jjh-bmb-2026-10-31",
+   "map_no": 1,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 42.8
+  },
+  {
+   "event": "cs2-jjh-bmb-2026-10-31",
+   "map_no": 2,
+   "grid": true,
+   "series": "10310",
+   "lag_s": 293.5
+  },
+  {
+   "event": "cs2-optibe-gg1-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10310",
+   "lag_s": 27.2
+  },
+  {
+   "event": "dota2-ty-gl-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10309",
+   "lag_s": 487.0
+  },
+  {
+   "event": "dota2-ty-gl-2026-10-31",
+   "map_no": 2,
+   "grid": false,
+   "series": "10309",
+   "lag_s": 591.1
+  },
+  {
+   "event": "dota2-xe-hn-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10309",
+   "lag_s": 379.7
+  },
+  {
+   "event": "dota2-xe-hn-2026-10-31",
+   "map_no": 2,
+   "grid": false,
+   "series": "10309",
+   "lag_s": 415.1
+  },
+  {
+   "event": "dota2-hkr-p-2026-10-31",
+   "map_no": 1,
+   "grid": false,
+   "series": "10309",
+   "lag_s": 498.5
+  },
+  {
+   "event": "dota2-hkr-p-2026-10-31",
+   "map_no": 2,
+   "grid": false,
+   "series": "10309",
+   "lag_s": 416.2
+  }
+ ]
+}

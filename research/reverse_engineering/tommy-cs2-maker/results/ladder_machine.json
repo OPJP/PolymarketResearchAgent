@@ -1,0 +1,54 @@
+{
+ "adds": 2739,
+ "bursts": 1694,
+ "share_with_refill": 0.747,
+ "share_with_own": 0.774,
+ "touch": {
+  "all": 0.472,
+  "first_half": 0.449,
+  "second_half": 0.495,
+  "first_level_only": 0.511
+ },
+ "refill": {
+  "all": 0.255,
+  "first_half": 0.362,
+  "second_half": 0.149,
+  "first_level_only": 0.202
+ },
+ "top": {
+  "all": 0.246,
+  "first_half": 0.168,
+  "second_half": 0.324,
+  "first_level_only": 0.335
+ },
+ "extend": {
+  "all": 0.089,
+  "first_half": 0.068,
+  "second_half": 0.11,
+  "first_level_only": 0.112
+ },
+ "machine": {
+  "all": 0.291,
+  "first_half": 0.407,
+  "second_half": 0.176,
+  "first_level_only": 0.238
+ },
+ "refill_when_available": 0.341,
+ "touch_when_refill_available": 0.459,
+ "oracle_union_of_4_rules": 0.726,
+ "offset_from_touch_cents": {
+  "-8": 0.017,
+  "-7": 0.007,
+  "-6": 0.017,
+  "-5": 0.13,
+  "-4": 0.086,
+  "-3": 0.073,
+  "-2": 0.057,
+  "-1": 0.101,
+  "0": 0.278,
+  "1": 0.136,
+  "2": 0.04,
+  "3": 0.019,
+  "4": 0.04
+ }
+}

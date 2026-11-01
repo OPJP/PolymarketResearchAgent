@@ -1,0 +1,59 @@
+{
+ "other_code0": {
+  "n": 17,
+  "mk2_c": -0.35,
+  "mk10_c": 0.735,
+  "mk30_c": -0.329,
+  "share_mk10_le_-1c": 0.0,
+  "share_mk10_ge_+1c": 0.353,
+  "null_mk10_mean_c": 0.067,
+  "p_lower": 0.8945
+ },
+ "other_code1": {
+  "n": 57,
+  "mk2_c": -0.035,
+  "mk10_c": -0.351,
+  "mk30_c": -0.474,
+  "share_mk10_le_-1c": 0.333,
+  "share_mk10_ge_+1c": 0.351,
+  "null_mk10_mean_c": 0.064,
+  "p_lower": 0.151
+ },
+ "other_code2": {
+  "n": 2,
+  "mk2_c": -0.25,
+  "mk10_c": -0.25,
+  "mk30_c": -0.0,
+  "share_mk10_le_-1c": 0.0,
+  "share_mk10_ge_+1c": 0.0
+ },
+ "wallet_code0": {
+  "n": 17,
+  "mk2_c": -0.676,
+  "mk10_c": -0.941,
+  "mk30_c": -0.471,
+  "share_mk10_le_-1c": 0.412,
+  "share_mk10_ge_+1c": 0.059,
+  "null_mk10_mean_c": -0.056,
+  "p_lower": 0.034
+ },
+ "wallet_code1": {
+  "n": 34,
+  "mk2_c": -0.574,
+  "mk10_c": -0.456,
+  "mk30_c": 0.544,
+  "share_mk10_le_-1c": 0.5,
+  "share_mk10_ge_+1c": 0.294,
+  "null_mk10_mean_c": -0.053,
+  "p_lower": 0.1425
+ },
+ "wallet_code2": {
+  "n": 2,
+  "mk2_c": -0.75,
+  "mk10_c": -0.5,
+  "mk30_c": -3.5,
+  "share_mk10_le_-1c": 0.5,
+  "share_mk10_ge_+1c": 0.0
+ },
+ "note": "code 0 = untriggered on every book of the event, 1 = triggered on the book / by a wallet take, 2 = cross-market trigger only; GT wallet cancels are not counted as non-own events; drop = a wallet take within 5 s after"
+}

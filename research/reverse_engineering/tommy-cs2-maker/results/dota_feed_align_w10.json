@@ -1,0 +1,143 @@
+{
+ "dota2-ty-gl-2026-10-22 map 1": {
+  "match_id": 9056215433,
+  "anchors": 39,
+  "pre_game_duration": 90,
+  "best_D_s": 1040,
+  "bought_hits": 17,
+  "other_hits": 2,
+  "top3_D": [
+   1042,
+   1041,
+   1040
+  ],
+  "top3_diff": [
+   15,
+   15,
+   15
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   6.0,
+   8.0
+  ],
+  "p_max": 0.0
+ },
+ "dota2-ty-gl-2026-10-22 map 2": {
+  "match_id": 9056271057,
+  "anchors": 18,
+  "pre_game_duration": 90,
+  "best_D_s": 1052,
+  "bought_hits": 7,
+  "other_hits": 1,
+  "top3_D": [
+   1052,
+   1053,
+   1054
+  ],
+  "top3_diff": [
+   6,
+   6,
+   6
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   4.0,
+   5.0
+  ],
+  "p_max": 0.03
+ },
+ "dota2-liquid-1win-2026-10-22 map 1": {
+  "match_id": 9056618744,
+  "anchors": 19,
+  "pre_game_duration": 90,
+  "best_D_s": 1031,
+  "bought_hits": 13,
+  "other_hits": 0,
+  "top3_D": [
+   1031,
+   1032,
+   1035
+  ],
+  "top3_diff": [
+   13,
+   13,
+   13
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   5.0,
+   7.0
+  ],
+  "p_max": 0.0
+ },
+ "dota2-liquid-1win-2026-10-22 map 2": {
+  "match_id": 9056794318,
+  "anchors": 10,
+  "pre_game_duration": 90,
+  "best_D_s": 1039,
+  "bought_hits": 7,
+  "other_hits": 0,
+  "top3_D": [
+   1047,
+   1046,
+   1039
+  ],
+  "top3_diff": [
+   7,
+   7,
+   7
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   4.0,
+   6.0
+  ],
+  "p_max": 0.035
+ },
+ "dota2-ts8-legion1-2026-10-22 map 1": {
+  "match_id": 9056353535,
+  "anchors": 11,
+  "pre_game_duration": 90,
+  "best_D_s": 838,
+  "bought_hits": 8,
+  "other_hits": 2,
+  "top3_D": [
+   841,
+   838,
+   839
+  ],
+  "top3_diff": [
+   6,
+   6,
+   6
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": [
+   4.0,
+   5.0
+  ],
+  "p_max": 0.03
+ },
+ "dota2-ts8-legion1-2026-10-22 map 2": {
+  "match_id": 9056429802,
+  "anchors": 0,
+  "pre_game_duration": 90,
+  "best_D_s": -300,
+  "bought_hits": 0,
+  "other_hits": 0,
+  "top3_D": [
+   1500,
+   1499,
+   1498
+  ],
+  "top3_diff": [
+   0,
+   0,
+   0
+  ],
+  "median_diff": 0.0,
+  "null_max_diff_p50_p95": null,
+  "p_max": null
+ }
+}

@@ -1,0 +1,256 @@
+{
+ "p4e_takes": 4018,
+ "p4e_alone": 3776,
+ "0xfe8a28be83ba295a9384f72f240d2cfa96bc23ce": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 82,
+   "null": 2.0,
+   "share": 0.0217,
+   "median_lag_ms": 570.0,
+   "iqr_ms": 178.0
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 18,
+   "null": 0.0,
+   "share": 0.0744,
+   "median_lag_ms": 640.5,
+   "iqr_ms": 346.0
+  }
+ },
+ "0x72aaaaf9f6b0286e390de5b568af0f99a00c90e0": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 94,
+   "null": 4.0,
+   "share": 0.0249,
+   "median_lag_ms": 577.5,
+   "iqr_ms": 199.5
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 22,
+   "null": 0.0,
+   "share": 0.0909,
+   "median_lag_ms": 662.0,
+   "iqr_ms": 141.5
+  }
+ },
+ "0x2529c68db36ce8aa64c64affe620267744a3548a": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 101,
+   "null": 4.0,
+   "share": 0.0267,
+   "median_lag_ms": 573.0,
+   "iqr_ms": 212.0
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 17,
+   "null": 0.0,
+   "share": 0.0702,
+   "median_lag_ms": 719.0,
+   "iqr_ms": 279.0
+  }
+ },
+ "0x67706ec33d1bc5ed0db5cf0681b74b57b64ec3bd": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 50,
+   "null": 6.0,
+   "share": 0.0132,
+   "median_lag_ms": 202.0,
+   "iqr_ms": 139.0
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 14,
+   "null": 0.0,
+   "share": 0.0579,
+   "median_lag_ms": 205.5,
+   "iqr_ms": 85.2
+  }
+ },
+ "0x14e72e19ea2f6e2be41504dd3268184ebe5fa32c": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 28,
+   "null": 2.0,
+   "share": 0.0074,
+   "median_lag_ms": 221.5,
+   "iqr_ms": 96.8
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 6,
+   "null": 0.0,
+   "share": 0.0248,
+   "median_lag_ms": 173.0,
+   "iqr_ms": 161.5
+  }
+ },
+ "0xc70974218b9c6570f7701cd6fafc04ed490fbda9": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 30,
+   "null": 5.0,
+   "share": 0.0079,
+   "median_lag_ms": 197.5,
+   "iqr_ms": 127.5
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 4,
+   "null": 1.0,
+   "share": 0.0165,
+   "median_lag_ms": 217.5,
+   "iqr_ms": 39.0
+  }
+ },
+ "0x7c8cc25556ef9c0962b41d0ebb74d2fd17a42d81": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 41,
+   "null": 2.0,
+   "share": 0.0109,
+   "median_lag_ms": 174.0,
+   "iqr_ms": 95.0
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 8,
+   "null": 0.0,
+   "share": 0.0331,
+   "median_lag_ms": 184.0,
+   "iqr_ms": 112.0
+  }
+ },
+ "0xe8e086f7ef06af27889edfb5026e1453c61d7eec": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 37,
+   "null": 8.0,
+   "share": 0.0098,
+   "median_lag_ms": 188.0,
+   "iqr_ms": 81.0
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 7,
+   "null": 1.0,
+   "share": 0.0289,
+   "median_lag_ms": 274.0,
+   "iqr_ms": 161.0
+  }
+ },
+ "0x42a1b2b43134d83f6ec639de4c2b40aa2a36a8e9": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 31,
+   "null": 4.0,
+   "share": 0.0082,
+   "median_lag_ms": 232.0,
+   "iqr_ms": 77.0
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 6,
+   "null": 0.0,
+   "share": 0.0248,
+   "median_lag_ms": 240.0,
+   "iqr_ms": 155.0
+  }
+ },
+ "0xbb8ef6381e4a35b4124584cfce1c73137e2508c1": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 12,
+   "null": 2.0,
+   "share": 0.0032,
+   "median_lag_ms": 172.0,
+   "iqr_ms": 79.5
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 4,
+   "null": 0.0,
+   "share": 0.0165,
+   "median_lag_ms": 181.5,
+   "iqr_ms": 91.5
+  }
+ },
+ "0xfca6d6452c039c139ad44449a13078c5a2366595": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 16,
+   "null": 2.0,
+   "share": 0.0042,
+   "median_lag_ms": 147.5,
+   "iqr_ms": 60.5
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 1,
+   "null": 1.0,
+   "share": 0.0041,
+   "median_lag_ms": 211.0,
+   "iqr_ms": null
+  }
+ },
+ "0x775d9de0c72c76a459fadfbb4cd79d5715236beb": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 18,
+   "null": 2.0,
+   "share": 0.0048,
+   "median_lag_ms": 214.5,
+   "iqr_ms": 58.2
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 4,
+   "null": 0.0,
+   "share": 0.0165,
+   "median_lag_ms": 241.5,
+   "iqr_ms": 128.0
+  }
+ },
+ "0x54e00a1ceb7f3b7c0bd240d1deeb0edb6b0eb02c": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 11,
+   "null": 2.0,
+   "share": 0.0029,
+   "median_lag_ms": 604.0,
+   "iqr_ms": 220.0
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 1,
+   "null": 0.0,
+   "share": 0.0041,
+   "median_lag_ms": 754.0,
+   "iqr_ms": null
+  }
+ },
+ "0xb7ab821f037a4c8deb9b23b8001a4be985d116d0": {
+  "p4e_alone": {
+   "anchors": 3776,
+   "cosigns": 20,
+   "null": 1.0,
+   "share": 0.0053,
+   "median_lag_ms": 589.0,
+   "iqr_ms": 125.2
+  },
+  "with_wallet": {
+   "anchors": 242,
+   "cosigns": 1,
+   "null": 0.0,
+   "share": 0.0041,
+   "median_lag_ms": 731.0,
+   "iqr_ms": null
+  }
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "orders": 1359,
+ "maker_orders": 1292,
+ "taker_orders": 67,
+ "maker_size_top": {
+  "10.0": 1292
+ },
+ "maker_whole_cent": 1.0,
+ "taker_size_median": 100.0,
+ "fills_maker": 1405,
+ "fills_taker": 67,
+ "taker_usd_share": 0.322,
+ "10-22": {
+  "trades": 1472,
+  "merges": 44,
+  "merge_usd": 9124.1,
+  "merges_within_30s_of_a_cs2_merge": 0.682,
+  "paired_share_of_shares": 0.977,
+  "avg_buy_price": 0.4883
+ },
+ "10-31_12-18_to_1455": {
+  "trades": 358,
+  "merges": 8,
+  "merge_usd": 1721.2,
+  "merges_within_30s_of_a_cs2_merge": 0.875,
+  "paired_share_of_shares": 0.979,
+  "avg_buy_price": 0.5014
+ }
+}

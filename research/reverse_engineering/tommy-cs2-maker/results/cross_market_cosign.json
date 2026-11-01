@@ -1,0 +1,8 @@
+{
+ "clusters": 1568,
+ "same_token_share": 0.314,
+ "cross_market_only_share": 0.071,
+ "any_share": 0.385,
+ "null_any_share": 0.004,
+ "null_same_token_share": 0.003
+}
