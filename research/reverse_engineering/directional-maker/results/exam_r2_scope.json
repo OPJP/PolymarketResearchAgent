@@ -1,0 +1,371 @@
+{
+ "pooled": {
+  "trades": 4884,
+  "share_trades_universe": 0.8437755937755937,
+  "usd": 147916.0,
+  "share_usd_universe": 0.8821486722675846,
+  "markets": 358,
+  "abs_pnl": 63866.0,
+  "share_abs_pnl_universe": 0.9137550264852657,
+  "pnl": 14807.8,
+  "pnl_universe": 13960.6,
+  "payout_missing": 0
+ },
+ "halves": {
+  "early": {
+   "trades": 1866,
+   "share_trades_universe": 0.8429796355841372,
+   "usd": 74464.0,
+   "share_usd_universe": 0.8813961529069894,
+   "markets": 156,
+   "abs_pnl": 34805.8,
+   "share_abs_pnl_universe": 0.9006573850245452,
+   "pnl": 16472.4,
+   "pnl_universe": 16459.1,
+   "payout_missing": 0
+  },
+  "late": {
+   "trades": 3018,
+   "share_trades_universe": 0.8442677269715043,
+   "usd": 73452.0,
+   "share_usd_universe": 0.8829115574504722,
+   "markets": 202,
+   "abs_pnl": 29060.2,
+   "share_abs_pnl_universe": 0.9294422300066676,
+   "pnl": -1664.6,
+   "pnl_universe": -2498.5,
+   "payout_missing": 0
+  }
+ },
+ "per_wallet": {
+  "bosona": {
+   "trades": 2549,
+   "share_trades_universe": 0.8905453118870145,
+   "usd": 65103.0,
+   "share_usd_universe": 0.9005303227304355,
+   "markets": 312,
+   "abs_pnl": 27313.8,
+   "share_abs_pnl_universe": 0.9154387939887253,
+   "pnl": 3813.1,
+   "pnl_universe": 3546.4,
+   "payout_missing": 0
+  },
+  "almach": {
+   "trades": 1105,
+   "share_trades_universe": 0.7764705882352941,
+   "usd": 39481.0,
+   "share_usd_universe": 0.844337446672593,
+   "markets": 212,
+   "abs_pnl": 18052.0,
+   "share_abs_pnl_universe": 0.90539124419453,
+   "pnl": 5136.5,
+   "pnl_universe": 4819.9,
+   "payout_missing": 0
+  },
+  "momoney": {
+   "trades": 1230,
+   "share_trades_universe": 0.8073170731707318,
+   "usd": 43332.0,
+   "share_usd_universe": 0.8889822392644202,
+   "markets": 227,
+   "abs_pnl": 19447.8,
+   "share_abs_pnl_universe": 0.9057828070445035,
+   "pnl": 5858.2,
+   "pnl_universe": 5594.4,
+   "payout_missing": 0
+  }
+ },
+ "per_wallet_half": {
+  "bosona_early": {
+   "trades": 562,
+   "share_trades_universe": 0.8309608540925267,
+   "usd": 20989.0,
+   "share_usd_universe": 0.8472705854342913,
+   "markets": 125,
+   "abs_pnl": 11521.8,
+   "share_abs_pnl_universe": 0.8838730028382081,
+   "pnl": 5769.8,
+   "pnl_universe": 5814.4,
+   "payout_missing": 0
+  },
+  "bosona_late": {
+   "trades": 1987,
+   "share_trades_universe": 0.9073980875691998,
+   "usd": 44115.0,
+   "share_usd_universe": 0.9258698924443186,
+   "markets": 187,
+   "abs_pnl": 15792.1,
+   "share_abs_pnl_universe": 0.9384690026952953,
+   "pnl": -1956.7,
+   "pnl_universe": -2268.0,
+   "payout_missing": 0
+  },
+  "almach_early": {
+   "trades": 635,
+   "share_trades_universe": 0.8299212598425196,
+   "usd": 25242.0,
+   "share_usd_universe": 0.8646869799260456,
+   "markets": 125,
+   "abs_pnl": 11255.0,
+   "share_abs_pnl_universe": 0.8998739607207145,
+   "pnl": 5071.9,
+   "pnl_universe": 5046.6,
+   "payout_missing": 0
+  },
+  "almach_late": {
+   "trades": 470,
+   "share_trades_universe": 0.7042553191489361,
+   "usd": 14239.0,
+   "share_usd_universe": 0.8082628486153727,
+   "markets": 87,
+   "abs_pnl": 6797.0,
+   "share_abs_pnl_universe": 0.9145271809246873,
+   "pnl": 64.5,
+   "pnl_universe": -226.7,
+   "payout_missing": 0
+  },
+  "momoney_early": {
+   "trades": 669,
+   "share_trades_universe": 0.8654708520179372,
+   "usd": 28233.0,
+   "share_usd_universe": 0.9217037972056611,
+   "markets": 130,
+   "abs_pnl": 12582.3,
+   "share_abs_pnl_universe": 0.9031860564040801,
+   "pnl": 5630.7,
+   "pnl_universe": 5598.1,
+   "payout_missing": 0
+  },
+  "momoney_late": {
+   "trades": 561,
+   "share_trades_universe": 0.7379679144385026,
+   "usd": 15099.0,
+   "share_usd_universe": 0.8277948544818026,
+   "markets": 97,
+   "abs_pnl": 6865.5,
+   "share_abs_pnl_universe": 0.9105418191085286,
+   "pnl": 227.5,
+   "pnl_universe": -3.8,
+   "payout_missing": 0
+  }
+ },
+ "by_family": {
+  "bnb-15m": {
+   "trades": 8,
+   "usd": 123.0,
+   "pnl": -85.9,
+   "markets": 2
+  },
+  "bnb-4h": {
+   "trades": 14,
+   "usd": 48.0,
+   "pnl": -6.2,
+   "markets": 3
+  },
+  "bnb-5m": {
+   "trades": 65,
+   "usd": 280.0,
+   "pnl": 84.8,
+   "markets": 19
+  },
+  "bnb-hourly": {
+   "trades": 45,
+   "usd": 364.0,
+   "pnl": 162.7,
+   "markets": 9
+  },
+  "btc-15m": {
+   "trades": 860,
+   "usd": 43668.0,
+   "pnl": 3713.0,
+   "markets": 45
+  },
+  "btc-4h": {
+   "trades": 61,
+   "usd": 1925.0,
+   "pnl": 80.4,
+   "markets": 3
+  },
+  "btc-5m": {
+   "trades": 3261,
+   "usd": 86816.0,
+   "pnl": 10247.6,
+   "markets": 176
+  },
+  "btc-hourly": {
+   "trades": 245,
+   "usd": 9520.0,
+   "pnl": 627.0,
+   "markets": 15
+  },
+  "doge-15m": {
+   "trades": 4,
+   "usd": 127.0,
+   "pnl": 12.6,
+   "markets": 2
+  },
+  "doge-4h": {
+   "trades": 3,
+   "usd": 16.0,
+   "pnl": -10.8,
+   "markets": 1
+  },
+  "doge-5m": {
+   "trades": 38,
+   "usd": 567.0,
+   "pnl": 114.1,
+   "markets": 13
+  },
+  "eth-15m": {
+   "trades": 68,
+   "usd": 839.0,
+   "pnl": -128.1,
+   "markets": 21
+  },
+  "eth-4h": {
+   "trades": 14,
+   "usd": 399.0,
+   "pnl": -98.2,
+   "markets": 1
+  },
+  "eth-5m": {
+   "trades": 34,
+   "usd": 1083.0,
+   "pnl": -460.2,
+   "markets": 16
+  },
+  "eth-hourly": {
+   "trades": 122,
+   "usd": 1276.0,
+   "pnl": 203.8,
+   "markets": 9
+  },
+  "sol-5m": {
+   "trades": 20,
+   "usd": 588.0,
+   "pnl": 302.1,
+   "markets": 13
+  },
+  "xrp-5m": {
+   "trades": 19,
+   "usd": 155.0,
+   "pnl": 34.3,
+   "markets": 9
+  },
+  "xrp-hourly": {
+   "trades": 3,
+   "usd": 122.0,
+   "pnl": 14.9,
+   "markets": 1
+  }
+ },
+ "by_family_half": {
+  "bnb-15m_early": 3,
+  "bnb-15m_late": 5,
+  "bnb-4h_early": 10,
+  "bnb-4h_late": 4,
+  "bnb-5m_early": 11,
+  "bnb-5m_late": 54,
+  "bnb-hourly_early": 22,
+  "bnb-hourly_late": 23,
+  "btc-15m_early": 335,
+  "btc-15m_late": 525,
+  "btc-4h_early": 43,
+  "btc-4h_late": 18,
+  "btc-5m_early": 1238,
+  "btc-5m_late": 2023,
+  "btc-hourly_early": 99,
+  "btc-hourly_late": 146,
+  "doge-15m_early": 4,
+  "doge-4h_late": 3,
+  "doge-5m_early": 36,
+  "doge-5m_late": 2,
+  "eth-15m_early": 22,
+  "eth-15m_late": 46,
+  "eth-4h_late": 14,
+  "eth-5m_early": 20,
+  "eth-5m_late": 14,
+  "eth-hourly_early": 17,
+  "eth-hourly_late": 105,
+  "sol-5m_early": 6,
+  "sol-5m_late": 14,
+  "xrp-5m_late": 19,
+  "xrp-hourly_late": 3
+ },
+ "by_block_hour": {
+  "10-31T06": {
+   "trades": 291,
+   "univ": 270
+  },
+  "10-31T07": {
+   "trades": 278,
+   "univ": 267
+  },
+  "10-31T08": {
+   "trades": 251,
+   "univ": 190
+  },
+  "10-31T09": {
+   "trades": 160,
+   "univ": 140
+  },
+  "10-31T10": {
+   "trades": 187,
+   "univ": 155
+  },
+  "10-31T11": {
+   "trades": 157,
+   "univ": 123
+  },
+  "10-31T18": {
+   "trades": 272,
+   "univ": 224
+  },
+  "10-31T19": {
+   "trades": 161,
+   "univ": 151
+  },
+  "10-31T20": {
+   "trades": 137,
+   "univ": 76
+  },
+  "10-31T21": {
+   "trades": 344,
+   "univ": 299
+  },
+  "10-31T22": {
+   "trades": 746,
+   "univ": 622
+  },
+  "10-31T23": {
+   "trades": 443,
+   "univ": 411
+  },
+  "11-01T00": {
+   "trades": 494,
+   "univ": 429
+  },
+  "11-01T01": {
+   "trades": 244,
+   "univ": 211
+  },
+  "11-01T02": {
+   "trades": 296,
+   "univ": 182
+  },
+  "11-01T03": {
+   "trades": 188,
+   "univ": 154
+  },
+  "11-01T04": {
+   "trades": 235,
+   "univ": 217
+  }
+ },
+ "activity_types_in_lot_units": {
+  "TRADE": 4884,
+  "REDEEM": 927,
+  "MERGE": 119
+ },
+ "secs": 10.6
+}

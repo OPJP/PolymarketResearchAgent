@@ -1,0 +1,524 @@
+{
+ "as_of": 1793491200,
+ "bosona": {
+  "persistence": {
+   "d_economic_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.7280906049644935,
+     "p_value": 0.002283835416336139,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 10.674549742892994,
+     "p_value": 9.855484935185055e-14,
+     "n": 121,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 0.12910143544929803,
+     "p_value": 0.54778566608558,
+     "n": 151,
+     "detail": "recent=3253.69 earlier=3134.81; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.419339729575364,
+     "p_value": 0.11119462636352398,
+     "n": 30,
+     "detail": "recent=2139.60 earlier=4367.79; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.2758019894872072,
+     "p_value": 0.8829630968611524,
+     "n": 151,
+     "detail": "slope_per_day=9.57; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.1077329260266084,
+     "p_value": 0.17176429138372667,
+     "n": 151,
+     "detail": "most_likely_break_index=64"
+    },
+    "rolling_sharpe_min": 15.15739995409826,
+    "rolling_sharpe_last": 15.15739995409826,
+    "share_positive_windows": 1.0
+   },
+   "d_trade_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.649150346684722,
+     "p_value": 0.0026257477894793702,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 10.401190071826797,
+     "p_value": 2.499792518629559e-13,
+     "n": 121,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 0.2957973672628214,
+     "p_value": 0.608286219296147,
+     "n": 151,
+     "detail": "recent=3288.45 earlier=3008.50; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.5343153173396264,
+     "p_value": 0.09455096485820647,
+     "n": 30,
+     "detail": "recent=2071.43 earlier=4505.47; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.438728298080744,
+     "p_value": 0.9094219598944194,
+     "n": 151,
+     "detail": "slope_per_day=10.84; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.174652399047805,
+     "p_value": 0.12659994577006933,
+     "n": 151,
+     "detail": "most_likely_break_index=64"
+    },
+    "rolling_sharpe_min": 15.19181572072783,
+    "rolling_sharpe_last": 15.19181572072783,
+    "share_positive_windows": 1.0
+   },
+   "d_position_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.398333175309168,
+     "p_value": 0.004087154791702982,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 9.564123585430218,
+     "p_value": 3.9982005073523544e-12,
+     "n": 121,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 0.20252467839577726,
+     "p_value": 0.5746779837178002,
+     "n": 151,
+     "detail": "recent=2880.46 earlier=2699.53; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.2582740277360855,
+     "p_value": 0.13831052674703326,
+     "n": 30,
+     "detail": "recent=1901.17 earlier=3859.75; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.2236228020004345,
+     "p_value": 0.8733677364467244,
+     "n": 151,
+     "detail": "slope_per_day=8.832; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.0423961195034384,
+     "p_value": 0.227294767382907,
+     "n": 151,
+     "detail": "most_likely_break_index=64"
+    },
+    "rolling_sharpe_min": 13.483395940244458,
+    "rolling_sharpe_last": 13.483395940244458,
+    "share_positive_windows": 1.0
+   }
+  },
+  "bonuses_removed": [],
+  "last_14_days": {
+   "2026-10-19": 780.9,
+   "2026-10-20": -2340.8,
+   "2026-10-21": 120.5,
+   "2026-10-22": 1613.9,
+   "2026-10-23": 7710.2,
+   "2026-10-24": -3828.0,
+   "2026-10-25": 911.3,
+   "2026-10-26": -89.9,
+   "2026-10-27": 4888.3,
+   "2026-10-28": 1904.5,
+   "2026-10-29": 5839.3,
+   "2026-10-30": 5153.1,
+   "2026-10-31": 7983.4,
+   "2026-11-01": 5604.4
+  },
+  "last_7_sum": 31283.2,
+  "last_30_sum": 97610.8
+ },
+ "almach": {
+  "persistence": {
+   "d_economic_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.026844037849599,
+     "p_value": 0.00783600438008501,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 8.413306160604304,
+     "p_value": 6.680591686748422e-11,
+     "n": 132,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.16782942163633768,
+     "p_value": 0.4380394916855131,
+     "n": 162,
+     "detail": "recent=2686.79 earlier=2846.21; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.4280865570409222,
+     "p_value": 0.10985142356335036,
+     "n": 30,
+     "detail": "recent=1600.12 earlier=3773.45; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.7857978859829566,
+     "p_value": 0.9510295826677004,
+     "n": 162,
+     "detail": "slope_per_day=13.89; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.4414701233694263,
+     "p_value": 0.031350379578765825,
+     "n": 162,
+     "detail": "most_likely_break_index=32"
+    },
+    "rolling_sharpe_min": 2.4020505589295125,
+    "rolling_sharpe_last": 12.671655117509435,
+    "share_positive_windows": 1.0
+   },
+   "d_trade_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 2.9895935516065357,
+     "p_value": 0.008360655164374285,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 8.349752877254025,
+     "p_value": 8.352567379950493e-11,
+     "n": 132,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 0.02677317970737669,
+     "p_value": 0.5099269338045485,
+     "n": 162,
+     "detail": "recent=2749.44 earlier=2723.31; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.5645001422070517,
+     "p_value": 0.09053456907818327,
+     "n": 30,
+     "detail": "recent=1540.32 earlier=3958.56; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.8995715518000544,
+     "p_value": 0.9603869914966835,
+     "n": 162,
+     "detail": "slope_per_day=14.53; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.411661873167523,
+     "p_value": 0.03716314540728113,
+     "n": 162,
+     "detail": "most_likely_break_index=32"
+    },
+    "rolling_sharpe_min": 2.5295955262677365,
+    "rolling_sharpe_last": 12.852202846177141,
+    "share_positive_windows": 1.0
+   },
+   "d_position_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 2.6747898939743875,
+     "p_value": 0.014387450392124636,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 7.596029610266776,
+     "p_value": 1.1659459690831951e-09,
+     "n": 132,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": -0.1496978246315371,
+     "p_value": 0.4446836473337572,
+     "n": 162,
+     "detail": "recent=2310.08 earlier=2448.07; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.2592313455620014,
+     "p_value": 0.1381356686788767,
+     "n": 30,
+     "detail": "recent=1358.81 earlier=3261.35; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 1.679601940192364,
+     "p_value": 0.9406890380985734,
+     "n": 162,
+     "detail": "slope_per_day=12.56; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 1.3881032702618774,
+     "p_value": 0.042403527345757835,
+     "n": 162,
+     "detail": "most_likely_break_index=32"
+    },
+    "rolling_sharpe_min": 0.7513722947151729,
+    "rolling_sharpe_last": 10.819977279309647,
+    "share_positive_windows": 1.0
+   }
+  },
+  "bonuses_removed": [],
+  "last_14_days": {
+   "2026-10-19": 1370.8,
+   "2026-10-20": -3081.2,
+   "2026-10-21": 1279.2,
+   "2026-10-22": -147.7,
+   "2026-10-23": 3941.4,
+   "2026-10-24": -4630.3,
+   "2026-10-25": 1758.5,
+   "2026-10-26": 20.5,
+   "2026-10-27": 3469.9,
+   "2026-10-28": 2510.7,
+   "2026-10-29": 6176.4,
+   "2026-10-30": 5160.7,
+   "2026-10-31": 5960.8,
+   "2026-11-01": 5371.3
+  },
+  "last_7_sum": 28670.3,
+  "last_30_sum": 80603.6
+ },
+ "momoney": {
+  "persistence": {
+   "d_economic_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.1354006217255237,
+     "p_value": 0.006483849421335181,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 5.773495481853119,
+     "p_value": 1.0569844134484813e-07,
+     "n": 239,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 0.997751517362337,
+     "p_value": 0.8182805333602072,
+     "n": 269,
+     "detail": "recent=2897.95 earlier=1918.00; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -2.0422243960731055,
+     "p_value": 0.04368061057422805,
+     "n": 30,
+     "detail": "recent=1359.00 earlier=4436.89; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 6.724652320603059,
+     "p_value": 0.9999999871436478,
+     "n": 269,
+     "detail": "slope_per_day=20.48; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 3.1352213008588463,
+     "p_value": 5.796114659517906e-09,
+     "n": 269,
+     "detail": "most_likely_break_index=132"
+    },
+    "rolling_sharpe_min": -3.396983548881504,
+    "rolling_sharpe_last": 14.463608458667327,
+    "share_positive_windows": 0.6
+   },
+   "d_trade_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 3.08636448557161,
+     "p_value": 0.007063714816339166,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 5.775436817436615,
+     "p_value": 1.048564449281432e-07,
+     "n": 239,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 1.0835305324883102,
+     "p_value": 0.8375587336449161,
+     "n": 269,
+     "detail": "recent=2970.19 earlier=1870.01; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -2.2088042175369798,
+     "p_value": 0.03333122629934771,
+     "n": 30,
+     "detail": "recent=1289.98 earlier=4650.41; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 6.692953894915717,
+     "p_value": 0.9999999855854432,
+     "n": 269,
+     "detail": "slope_per_day=20.36; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 3.12684061831887,
+     "p_value": 6.437553088858962e-09,
+     "n": 269,
+     "detail": "most_likely_break_index=132"
+    },
+    "rolling_sharpe_min": 0.15659501663322398,
+    "rolling_sharpe_last": 14.549338799726517,
+    "share_positive_windows": 0.6285714285714286
+   },
+   "d_position_pnl": {
+    "recent": {
+     "name": "hac_t",
+     "statistic": 2.7922252697306957,
+     "p_value": 0.011763420782195578,
+     "n": 30,
+     "detail": "lags=3; reference=exact"
+    },
+    "earlier": {
+     "name": "hac_t",
+     "statistic": 5.665843872972027,
+     "p_value": 1.6437690995336195e-07,
+     "n": 239,
+     "detail": "lags=4; reference=exact"
+    },
+    "decline": {
+     "name": "mean_decline",
+     "statistic": 0.8519401584533253,
+     "p_value": 0.782020683270039,
+     "n": 269,
+     "detail": "recent=2486.60 earlier=1686.64; exact reference"
+    },
+    "late_decline": {
+     "name": "mean_decline",
+     "statistic": -1.8345864082780374,
+     "p_value": 0.060511255607973866,
+     "n": 30,
+     "detail": "recent=1111.10 earlier=3862.10; exact reference"
+    },
+    "trend": {
+     "name": "trend",
+     "statistic": 6.245370041359068,
+     "p_value": 0.9999999277648771,
+     "n": 269,
+     "detail": "slope_per_day=17.78; exact reference"
+    },
+    "cusum_break": {
+     "name": "cusum",
+     "statistic": 3.0544617173967836,
+     "p_value": 1.575157328543114e-08,
+     "n": 269,
+     "detail": "most_likely_break_index=132"
+    },
+    "rolling_sharpe_min": -3.4075158720271057,
+    "rolling_sharpe_last": 12.606568075074568,
+    "share_positive_windows": 0.6
+   }
+  },
+  "bonuses_removed": [],
+  "last_14_days": {
+   "2026-10-19": 42.0,
+   "2026-10-20": -2304.7,
+   "2026-10-21": -1745.6,
+   "2026-10-22": 980.6,
+   "2026-10-23": 5069.6,
+   "2026-10-24": -4051.5,
+   "2026-10-25": 1797.3,
+   "2026-10-26": -110.7,
+   "2026-10-27": 3586.4,
+   "2026-10-28": 3679.0,
+   "2026-10-29": 4704.3,
+   "2026-10-30": 5421.7,
+   "2026-10-31": 3097.8,
+   "2026-11-01": 4082.9
+  },
+  "last_7_sum": 24461.5,
+  "last_30_sum": 86938.4
+ },
+ "cluster_pooled": {
+  "persistence": {
+   "recent": "TestResult(name='hac_t', statistic=3.3617764720023566, p_value=0.004358772767989134, n=30, detail='lags=3; reference=exact')",
+   "earlier": "TestResult(name='hac_t', statistic=5.887851960745763, p_value=6.585052796484142e-08, n=239, detail='lags=4; reference=exact')",
+   "decline": "TestResult(name='mean_decline', statistic=1.3594249459004226, p_value=0.8894807952462657, n=269, detail='recent=8838.42 earlier=5077.04; exact reference')",
+   "late_decline": "TestResult(name='mean_decline', statistic=-1.6706169887475912, p_value=0.07751491135113742, n=30, detail='recent=5098.72 earlier=12578.13; exact reference')",
+   "trend": "TestResult(name='trend', statistic=7.090108286136755, p_value=0.9999999965622839, n=269, detail='slope_per_day=57.61; exact reference')",
+   "cusum_break": "TestResult(name='cusum', statistic=3.169344102540529, p_value=3.769449376783745e-09, n=269, detail='most_likely_break_index=132')",
+   "rolling_sharpe_min": 0.45241473902884943,
+   "rolling_sharpe_last": 14.909282882463037,
+   "share_positive_windows": 0.6857142857142857
+  }
+ },
+ "cluster_last_14_days": {
+  "2026-10-19": 2193.6,
+  "2026-10-20": -7726.8,
+  "2026-10-21": -345.9,
+  "2026-10-22": 2446.8,
+  "2026-10-23": 16721.2,
+  "2026-10-24": -12509.8,
+  "2026-10-25": 4467.1,
+  "2026-10-26": -180.0,
+  "2026-10-27": 11944.5,
+  "2026-10-28": 8094.3,
+  "2026-10-29": 16720.0,
+  "2026-10-30": 15735.4,
+  "2026-10-31": 17042.1,
+  "2026-11-01": 15058.6
+ }
+}

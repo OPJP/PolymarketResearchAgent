@@ -1,108 +1,814 @@
 {
+ "exam_round": 2,
+ "lot": "f1",
  "strategy": "directional-maker",
- "wallets": [
-  "0x32ed2e546b187ca15e2841edc82b22c713cf8ec3",
-  "0x3725d52f3c252e8374999cc8617292ea2608ad88",
-  "0xc2ad03f79ca3f3c17d8c7de2612ce0c89b7d40ed"
+ "rule": "R8c (code/final_rule.py, frozen; iteration 17-18)",
+ "now_ts": 1793546111,
+ "intervals": [
+  [
+   1793426400,
+   1793448000
+  ],
+  [
+   1793469600,
+   1793512800
+  ]
  ],
- "rule": "R2-presence-lgbm-clean-path-xwin, code/final_rule.py unchanged",
- "holdout_sample": "All 2,304 BTC 5m Up/Down windows starting 2026-10-23 00:00 to 2026-10-31 00:00 UTC (8 days; 2026-10-30 is after as_of); 138,240 (window, side, 10-s bin) rows; 36,244 cluster maker BUY fills; 368,849 sampled taker prints for selection (all 33,697 cluster-filled + 10% of others). 12 windows on 10-29 18:00-19:00 UTC had no trades (market pause).",
+ "half_cut_ts": 1793478300,
+ "half_cut_utc": "2026-10-31 20:25",
+ "sample": {
+  "btc5m_windows": 203,
+  "btc15m_windows": 67,
+  "btc_5m_15m_scheduled_not_listed": 18,
+  "cluster_trades_in_lot_units": 4884,
+  "cluster_usd": 147916.0,
+  "btc5m_maker_fills": 3184,
+  "btc5m_taker_fills": 77,
+  "btc15m_maker_fills": 822
+ },
  "target_met": false,
  "criteria": {
-  "match": "partial",
+  "match": "fail",
   "backtest": "fail",
   "replicable": "fail",
   "persists": "fail"
  },
- "leakage_check": {
-  "passed": true,
-  "details": "Constants only; presence and selection models and THETA_SEL reproduced exactly by BUILD-only refits; dev data and fetches end before H; truncation/corruption at each bin start on 40 windows x 30 bins: 0 feature/prediction mismatches (positive control t-1: 1,042/1,200 bins changed); price rule 656/656; selection 359/360 (prints in first 2 s use strike seconds published by the print time but after ts-2: not future data); inputs delayed 2 s: presence 0.6965 vs 0.6996; on-chain roles 150/150."
- },
- "mechanical_fixes_made": "None in final_rule.py. Driver exam/exam_run_evaluate.py sets final_rule.CACHE to .cache/re/directional-maker/exam and uses local=True (holdout day files fetched through the same adapters by exam/exam_fetch.py), because the adapter path holds ~2 GB of tuples for 8 days. 2-h slice: local and adapter paths give identical presence/price/PnL (tape rows 31,584 vs 31,587).",
- "deploy_now": {
-  "supported": false,
-  "evidence": "Rule strict holdout return -12.8% (t=-7.1, p(profit)=1.0), negative every day, forward day -16.9%; the wallets' own BTC 5m maker fills +3.95% (p=0.005) and 30-day PnL significant (p 0.002-0.009), but that edge is not reproduced by public data."
+ "components": {
+  "selection": "fail",
+  "timing": "fail",
+  "side": "partial",
+  "price": "partial",
+  "size": "fail",
+  "exit": "partial"
  },
  "metrics": {
-  "selection_auc": 0.6814996455222433,
-  "selection_auc_strat_global": 0.6855405474698856,
-  "selection_auc_strat_window": 0.6427041186587269,
-  "selection_null_global_mean_sd": [
-   0.6241371573938861,
-   0.003941122093608689
-  ],
-  "selection_null_window_mean_sd": [
-   0.6314701364933245,
-   0.0043004727757695845
-  ],
-  "selection_p": 0.004975124378109453,
-  "selection_z_global": 15.580179608131719,
-  "selection_z_window": 2.612266778829225,
-  "recall": 0.3177434192954862,
-  "lift": 2.567155432227935,
-  "selection_activity_baseline_auc": 0.6558649795480437,
-  "selection_activity_baseline_strat_window": 0.6337048046047857,
-  "selection_activity_baseline_recall_lift": [
-   0.32637920289640027,
-   2.230031054906556
-  ],
-  "presence_auc": 0.6995702764604973,
-  "co_occurrence_baseline": 0.6808999771002039,
-  "presence_gain": 0.018670299360293408,
-  "presence_gain_ci95": [
-   0.01414621882779458,
-   0.02298418860308087
-  ],
-  "presence_auc_ci95": [
-   0.6928162132917873,
-   0.7068480239982509
-  ],
-  "presence_auc_with_own_inventory": 0.7723400247889921,
-  "presence_auc_within_active_windows": 0.7085142990669272,
-  "presence_auc_window_oracle_ceiling": 0.794101335184331,
-  "presence_auc_inputs_delayed_2s": 0.6965439122800098,
-  "presence_auc_forward_day": 0.6904482878045968,
-  "presence_baseline_forward_day": 0.630589727216355,
-  "side_accuracy": 0.6545031958163858,
-  "side_baseline": 0.599535153980244,
-  "side_baseline_name": "mkt_activity_model_higher_p",
-  "side_mcnemar_p": 2.358279593110254e-23,
-  "side_n": 8605,
-  "side_first_30s": 0.7346393588601959,
-  "price_within_tick": 0.688031122392672,
-  "price_exact": 0.3502648714269948,
-  "price_baseline_last_print_within_tick": 0.6093698267299416,
-  "pnl_correlation": 0.29461935227342423,
-  "pnl_correlation_spearman": 0.33401889746801544,
-  "pnl_correlation_strict_backtest_vs_wallet": 0.20329567181186456,
-  "rule_return_strict": -0.12805985781312557,
-  "rule_pnl_strict_usd": -12826.61607910104,
-  "rule_usd_bought": 100161.09886533365,
-  "rule_fills": 11428,
-  "rule_return_t": -7.081073724946064,
-  "rule_return_p": 0.999999999999054,
-  "rule_return_bootstrap_p": 1.0,
-  "rule_forward_day_return": -0.16939008157244342,
-  "rule_forward_day_p": 0.9997923912845695,
-  "rule_return_optimistic_slack0": -0.10643171372861264,
-  "rule_return_at_touch": -0.12577981054737025,
-  "wallet_return": 0.03953599702283506,
-  "wallet_pnl_usd": 28448.49073413695,
-  "wallet_usd": 719559.208730863,
-  "wallet_return_p": 0.005233037518671542,
-  "wallet_forward_day_return": 0.02945202750073831,
-  "cluster_total_pnl_holdout_8d": 61313.63415200001,
-  "cluster_total_pnl_holdout_p": 0.05949880147408335,
-  "wallet_30d_p": {
-   "momoney": 0.007011702992119372,
-   "almach": 0.009006671874682782,
-   "bosona": 0.0023540403196512013
+  "scope": {
+   "coverage_fills": 0.8438,
+   "coverage_usd": 0.8821,
+   "coverage_abs_pnl": 0.9138,
+   "halves": {
+    "early": [
+     0.843,
+     0.9007
+    ],
+    "late": [
+     0.8443,
+     0.9294
+    ]
+   },
+   "per_wallet": {
+    "bosona": [
+     0.8905,
+     0.9154
+    ],
+    "almach": [
+     0.7765,
+     0.9054
+    ],
+    "momoney": [
+     0.8073,
+     0.9058
+    ]
+   }
   },
-  "wallet_late15_decline_p": {
-   "momoney": 0.042689971670629184,
-   "almach": 0.08209066333434734,
-   "bosona": 0.11115604665049685
+  "presence_btc5m": {
+   "auc": 0.5973,
+   "re_activity_baseline": 0.632,
+   "examiner_activity_baseline": 0.6296,
+   "examiner_activity_plus_clock": 0.6093,
+   "gain_over_stronger": -0.0347,
+   "gain_ci95_2h_blocks": [
+    -0.0493,
+    -0.0088
+   ],
+   "gain_p_one_sided": 0.9985,
+   "with_own_inventory": 0.715,
+   "halves": {
+    "early": {
+     "auc": 0.5619,
+     "baseline": 0.6144,
+     "gain": -0.0525
+    },
+    "late": {
+     "auc": 0.6249,
+     "baseline": 0.6467,
+     "gain": -0.0218
+    }
+   },
+   "per_wallet": {
+    "bosona": {
+     "auc": 0.6026,
+     "baseline": 0.6398,
+     "early": 0.5862,
+     "late": 0.6198
+    },
+    "almach": {
+     "auc": 0.5987,
+     "baseline": 0.633,
+     "early": 0.5487,
+     "late": 0.6716
+    },
+    "momoney": {
+     "auc": 0.5901,
+     "baseline": 0.6282,
+     "early": 0.5405,
+     "late": 0.6667
+    }
+   }
+  },
+  "presence_btc15m": {
+   "auc": 0.7846,
+   "baseline": 0.8217
+  },
+  "presence_union_5m_15m": {
+   "auc": 0.7161,
+   "baseline": 0.7375
+  },
+  "selection_btc5m": {
+   "auc": 0.675,
+   "auc_strat_global": 0.6855,
+   "auc_strat_window": 0.6484,
+   "recall": 0.4921,
+   "lift": 2.008,
+   "re_activity_baseline": 0.6847,
+   "examiner_activity_baseline": 0.6867,
+   "gain_over_stronger": -0.0117,
+   "gain_ci95": [
+    -0.0229,
+    0.002
+   ],
+   "gain_p_one_sided": 0.952,
+   "rotation_null_2h_2000": {
+    "n_draws": 2000.0,
+    "global_mean": 0.6606,
+    "global_sd": 0.0139,
+    "global_max": 0.7005,
+    "window_mean": 0.6652,
+    "window_sd": 0.008,
+    "window_max": 0.6899,
+    "p_global": 0.0275,
+    "p_window": 0.987,
+    "z_global": 1.7882,
+    "z_window": -2.1094,
+    "p": 0.987
+   },
+   "halves": {
+    "early": {
+     "auc": 0.693,
+     "recall": 0.511,
+     "lift": 2.1662
+    },
+    "late": {
+     "auc": 0.6619,
+     "recall": 0.4814,
+     "lift": 1.8851
+    }
+   }
+  },
+  "side_btc5m_r8c": {
+   "accuracy": 0.6991,
+   "market_only_best": [
+    "cheaper",
+    0.6366
+   ],
+   "own_inventory_only_best": [
+    "prev_fill",
+    0.7974
+   ],
+   "held_outcome_baseline": 0.6492,
+   "mcnemar_vs_market_p": 1.8977527956203975e-21,
+   "rotation_null_2000": {
+    "null_mean": 0.6394,
+    "p": 0.0005,
+    "p_early": 0.0005,
+    "p_late": 0.0045
+   },
+   "halves": {
+    "early": 0.7094,
+    "late": 0.6929
+   },
+   "per_wallet": {
+    "bosona": 0.697,
+    "almach": 0.6846,
+    "momoney": 0.7166
+   },
+   "per_wallet_half": {
+    "bosona_early": 0.7201,
+    "bosona_late": 0.6915,
+    "almach_early": 0.6923,
+    "almach_late": 0.6698,
+    "momoney_early": 0.7172,
+    "momoney_late": 0.7157
+   },
+   "one_sided_windows_share": 0.4489,
+   "evaluate_r8c": 0.6991
+  },
+  "side_btc15m_r8c": {
+   "accuracy": 0.7737,
+   "cheaper": 0.3187,
+   "favourite": 0.6813
+  },
+  "price_btc5m": {
+   "r7_frozen_clock": 0.8684,
+   "r7_halves": {
+    "early": 0.8643,
+    "late": 0.8709
+   },
+   "r7_per_wallet": {
+    "bosona": 0.8881,
+    "almach": 0.8431,
+    "momoney": 0.8422
+   },
+   "r7_per_wallet_half": {
+    "bosona_early": 0.8863,
+    "bosona_late": 0.8885,
+    "almach_early": 0.863,
+    "almach_late": 0.8047,
+    "momoney_early": 0.8484,
+    "momoney_late": 0.8333
+   },
+   "block_clock": 0.75,
+   "inblock_all": 0.831,
+   "match_clock": {
+    "n": 2179.0,
+    "rule": 0.8816,
+    "last_print": 0.838,
+    "touch": 0.9706,
+    "touch_minus_tick": 0.9397,
+    "rule_block_same_fills": 0.7471
+   },
+   "union_r7": 0.856,
+   "btc15m_inblock": 0.8066,
+   "inblock_independent_sample_0612": {
+    "fills": 150,
+    "inblock_anchor_share": 0.72,
+    "within_tick_inblock": 0.86,
+    "within_tick_block_clock": 0.7666666666666667,
+    "rpc_positions": 1404
+   }
+  },
+  "outcome_btc5m": {
+   "pearson": 0.365,
+   "spearman": 0.2479,
+   "perm_p_2000": [
+    0.002,
+    0.0025
+   ],
+   "halves": {
+    "early": [
+     0.466,
+     0.1723
+    ],
+    "late": [
+     0.2081,
+     0.3193
+    ]
+   },
+   "per_wallet": {
+    "bosona": [
+     0.3761,
+     0.2517
+    ],
+    "almach": [
+     0.3897,
+     0.1899
+    ],
+    "momoney": [
+     0.3523,
+     0.2621
+    ]
+   },
+   "re_executable_variant": [
+    0.3281,
+    0.1111
+   ],
+   "btc15m": [
+    0.4119,
+    0.2826
+   ]
+  },
+  "backtest_btc5m_strict_L2_slack2_Q62": {
+   "pnl": -16567.8,
+   "usd": 113918.0,
+   "return": -0.1454,
+   "t": -3.1407,
+   "p_profit_one_sided": 0.999,
+   "block_boot_p_le0": 1.0,
+   "return_ci95": [
+    -0.2338,
+    -0.0657
+   ],
+   "early": -0.1289,
+   "late": -0.1649,
+   "latency5": -0.1862,
+   "q500": -0.163,
+   "clean_flow": -0.1506,
+   "re_executable": -0.1428
+  },
+  "backtest_btc15m": {
+   "return": -0.0423,
+   "p_profit_one_sided": 0.7214
+  },
+  "wallet_return_same_markets": {
+   "btc5m_maker_pnl": 10672.2,
+   "btc5m_maker_usd": 82496.0,
+   "btc5m_maker_return": 0.1294,
+   "block_boot_p_le0": 0.105,
+   "by_half": {
+    "early": 10851.6,
+    "late": -179.4
+   },
+   "btc15m_return": 0.0494,
+   "all_lot_trades_pnl": 14807.8,
+   "all_lot_trades_pnl_halves": {
+    "early": 16472.4,
+    "late": -1664.6
+   }
+  },
+  "persistence": {
+   "momoney": {
+    "recent": 0.0065,
+    "decline": 0.8183,
+    "late_decline": 0.0437,
+    "trend": 1.0
+   },
+   "almach": {
+    "recent": 0.0078,
+    "decline": 0.438,
+    "late_decline": 0.1099,
+    "trend": 0.951
+   },
+   "bosona": {
+    "recent": 0.0023,
+    "decline": 0.5478,
+    "late_decline": 0.1112,
+    "trend": 0.883
+   }
+  },
+  "persistence_cluster_last_14_days": {
+   "2026-10-19": 2193.6,
+   "2026-10-20": -7726.8,
+   "2026-10-21": -345.9,
+   "2026-10-22": 2446.8,
+   "2026-10-23": 16721.2,
+   "2026-10-24": -12509.8,
+   "2026-10-25": 4467.1,
+   "2026-10-26": -180.0,
+   "2026-10-27": 11944.5,
+   "2026-10-28": 8094.3,
+   "2026-10-29": 16720.0,
+   "2026-10-30": 15735.4,
+   "2026-10-31": 17042.1,
+   "2026-11-01": 15058.6
   }
  },
- "details_file": "results/exam_details.json"
+ "leakage": {
+  "truncation": {
+   "presence": {
+    "windows": 29,
+    "rows": 870,
+    "trunc_feature_mismatch": 0,
+    "corrupt_feature_mismatch": 0,
+    "trunc_pred_mismatch": 0,
+    "corrupt_pred_mismatch": 0,
+    "control_feature_mismatch": 756,
+    "control_pred_mismatch": 670,
+    "bad_features": {}
+   },
+   "side_r8c": {
+    "n": 300,
+    "trunc_mismatch": 0,
+    "corrupt_mismatch": 0,
+    "control_mismatch": 16,
+    "no_decision": 0
+   },
+   "price_block_clock": {
+    "n": 300,
+    "trunc_mismatch": 0,
+    "corrupt_mismatch": 0,
+    "control_mismatch": 79
+   },
+   "selection_print_features": {
+    "n": 300,
+    "dq_last_mismatch": 0,
+    "fair_p_mismatch": 0,
+    "fair_p_mismatch_first_2s": 0
+   }
+  },
+  "onchain_role": {
+   "sampled": 120,
+   "receipts_decoded": 120,
+   "role_agree": 120,
+   "shares_agree": 119,
+   "tape_taker_share": 0.023612388837779823
+  },
+  "refit_reproduces_frozen_models": {
+   "rule": {
+    "max_abs_pred_diff_on_lot": 0.0,
+    "trees": 300,
+    "frozen_trees": 300
+   },
+   "own": {
+    "max_abs_pred_diff_on_lot": 0.0,
+    "trees": 300,
+    "frozen_trees": 300
+   },
+   "activity": {
+    "max_abs_pred_diff_on_lot": 0.0
+   },
+   "build": {
+    "rows": 311040,
+    "start_min": 1791504000,
+    "start_max": 1793058900
+   }
+  }
+ },
+ "diagnosis_first_half": {
+  "scope": "early half only: BTC 5m windows starting 10-31 06:00-11:55 and 18:00-20:20 UTC (101 windows)",
+  "presence": {
+   "06-12": {
+    "rule": 0.6042514997179664,
+    "activity": 0.6431710851905681,
+    "own": 0.7204214855957083,
+    "pos_rate": 0.055092592592592596,
+    "mean_p_rule": 0.04258308424016753,
+    "mean_p_act": 0.050425916373892446,
+    "active_windows": 0.8194444444444444
+   },
+   "18-20:25": {
+    "rule": 0.5033826772989481,
+    "activity": 0.48350016966406517,
+    "own": 0.6018196470987445,
+    "pos_rate": 0.03218390804597701,
+    "mean_p_rule": 0.06741633030230447,
+    "mean_p_act": 0.04854974347684524,
+    "active_windows": 0.6206896551724138
+   },
+   "by_hour": {
+    "6": {
+     "rule": 0.63,
+     "act": 0.601,
+     "pos": 0.081,
+     "mp_rule": 0.032
+    },
+    "7": {
+     "rule": 0.662,
+     "act": 0.66,
+     "pos": 0.075,
+     "mp_rule": 0.029
+    },
+    "8": {
+     "rule": 0.72,
+     "act": 0.735,
+     "pos": 0.051,
+     "mp_rule": 0.034
+    },
+    "9": {
+     "rule": 0.577,
+     "act": 0.624,
+     "pos": 0.035,
+     "mp_rule": 0.056
+    },
+    "10": {
+     "rule": 0.593,
+     "act": 0.627,
+     "pos": 0.056,
+     "mp_rule": 0.042
+    },
+    "11": {
+     "rule": 0.689,
+     "act": 0.632,
+     "pos": 0.033,
+     "mp_rule": 0.062
+    },
+    "18": {
+     "rule": 0.602,
+     "act": 0.526,
+     "pos": 0.033,
+     "mp_rule": 0.074
+    },
+    "19": {
+     "rule": 0.407,
+     "act": 0.399,
+     "pos": 0.036,
+     "mp_rule": 0.068
+    },
+    "20": {
+     "rule": 0.527,
+     "act": 0.628,
+     "pos": 0.02,
+     "mp_rule": 0.05
+    }
+   },
+   "window_level_auc": {
+    "rule": 0.26136363636363635,
+    "activity": 0.33279220779220786,
+    "active_share": 0.7623762376237624
+   },
+   "within_active_windows": {
+    "rule": 0.5955636068574447,
+    "activity": 0.6368021549812712
+   },
+   "mean_within_window_auc": {
+    "rule": 0.6325077071258272,
+    "activity": 0.6608085632370339,
+    "windows": 77
+   },
+   "clock_counterfactual_dow_wednesday": 0.5803844257092362,
+   "rule_top_gain_features": {
+    "edge_s": 40920.0,
+    "last_s": 33603.0,
+    "hit_o10": 30247.0,
+    "sig": 20855.0,
+    "hit_s10": 16778.0,
+    "hour_utc": 11240.0,
+    "dow": 10228.0,
+    "rel": 8733.0
+   },
+   "by_rel": {
+    "0-30": {
+     "rule": 0.644,
+     "act": 0.69,
+     "pos": 0.054
+    },
+    "30-120": {
+     "rule": 0.54,
+     "act": 0.678,
+     "pos": 0.043
+    },
+    "120-240": {
+     "rule": 0.512,
+     "act": 0.563,
+     "pos": 0.062
+    },
+    "240-300": {
+     "rule": 0.672,
+     "act": 0.66,
+     "pos": 0.027
+    }
+   },
+   "fn_vs_tp": {
+    "fn_share_of_pos": 0.40816326530612246,
+    "last_s": [
+     0.315,
+     0.439
+    ],
+    "n_in": [
+     619.0,
+     502.0
+    ],
+    "hit_s10": [
+     13.0,
+     21.5
+    ],
+    "hit_o10": [
+     8.0,
+     17.0
+    ],
+    "vol_s30": [
+     1249.108,
+     1791.879
+    ],
+    "rel": [
+     160.0,
+     130.0
+    ],
+    "sig": [
+     0.258,
+     0.204
+    ],
+    "edge_s": [
+     -0.0,
+     0.063
+    ],
+    "fn_deep_price_share(last_s<0.1 or >0.9)": 0.5916666666666667,
+    "tp_deep_price_share": 0.14942528735632185
+   }
+  },
+  "side": {
+   "n": 1201,
+   "acc": 0.7094088259783514,
+   "by_branch": {
+    "decided": [
+     0.76,
+     450
+    ],
+    "posture": [
+     0.6790945406125166,
+     751
+    ]
+   },
+   "posture_by_edge": {
+    "(0.0, 0.02]": [
+     0.678,
+     59
+    ],
+    "(0.02, 0.05]": [
+     0.583,
+     156
+    ],
+    "(0.05, 0.1]": [
+     0.618,
+     220
+    ],
+    "(0.1, 0.2]": [
+     0.823,
+     220
+    ],
+    "(0.2, 1.01]": [
+     0.646,
+     96
+    ]
+   },
+   "by_rel": {
+    "(-1, 29]": [
+     0.644,
+     132
+    ],
+    "(29, 119]": [
+     0.736,
+     299
+    ],
+    "(119, 239]": [
+     0.784,
+     649
+    ],
+    "(239, 300]": [
+     0.337,
+     101
+    ]
+   },
+   "by_block": {
+    "06-12": [
+     0.704,
+     964
+    ],
+    "18-20:25": [
+     0.73,
+     237
+    ]
+   },
+   "by_wallet": {
+    "bosona": [
+     0.72,
+     343
+    ],
+    "almach": [
+     0.692,
+     416
+    ],
+    "momoney": [
+     0.717,
+     442
+    ]
+   },
+   "misses_where_prev_fill_same_side": 0.673352435530086,
+   "hits_where_prev_fill_same_side": 0.7546948356807511,
+   "posture_misses_bought_cheap_share": 0.14522821576763487,
+   "posture_hits_bought_cheap_share": 0.7549019607843137,
+   "decided_misses": {
+    "n": 108,
+    "bought_favourite_share": 1.0,
+    "median_price": 0.98
+   },
+   "windows": {
+    "n": 78,
+    "majority_wrong": 0.28205128205128205,
+    "all_right": 0.38461538461538464
+   }
+  },
+  "price": {
+   "block_clock_within_tick": 0.7776852622814321,
+   "miss_offsets_block": {
+    "-0.1": 25,
+    "-0.09": 3,
+    "-0.08": 1,
+    "-0.07": 11,
+    "-0.06": 9,
+    "-0.05": 8,
+    "-0.04": 18,
+    "-0.03": 34,
+    "-0.02": 62,
+    "0.02": 32,
+    "0.03": 25,
+    "0.04": 14,
+    "0.06": 2,
+    "0.09": 1,
+    "0.1": 22
+   },
+   "deep_price_fill_share (<0.10 or >0.90)": 0.3938384679433805,
+   "within_tick_deep": 0.9069767441860465,
+   "within_tick_mid": 0.6936813186813187,
+   "touch_vs_rule_on_match_clock (18-20:25 only)": {
+    "n": 233,
+    "rule": 0.9399141630901288,
+    "touch": 0.9783549783549783
+   }
+  },
+  "outcome": {
+   "windows_with_cluster": 78,
+   "corr": [
+    0.4660483201863413,
+    0.17234664070107106
+   ],
+   "sign_agree": 0.5512820512820513,
+   "cluster_win_replay_loss": 23,
+   "cluster_loss_replay_win": 12,
+   "replay_pnl": -7953.2,
+   "replay_usd": 61689.0,
+   "cluster_pnl": 10851.6,
+   "top10_cluster_windows_share_of_cluster_pnl": 1.3515497152195415,
+   "replay_pnl_in_top10_cluster_windows": 4213.2
+  },
+  "selection": {
+   "deep": {
+    "rule": 0.6660023412350015,
+    "activity": 0.6698863525509706,
+    "wallet_prints": 402
+   },
+   "mid": {
+    "rule": 0.7518608262138018,
+    "activity": 0.7672330130082934,
+    "wallet_prints": 686
+   }
+  }
+ },
+ "diagnosis_sizes_first_half": {
+  "early_fills": 1201,
+  "joined": 0.9966694421315571,
+  "class_share": {
+   "500x2^k": 0.834,
+   "other": 0.146,
+   "62/250": 0.017,
+   "unjoined": 0.003
+  },
+  "side_acc_by_class": {
+   "500x2^k": [
+    0.731,
+    1002
+   ],
+   "62/250": [
+    0.3,
+    20
+   ],
+   "other": [
+    0.634,
+    175
+   ],
+   "unjoined": [
+    0.75,
+    4
+   ]
+  },
+  "top_sizes": {
+   "500.0": 1002,
+   "100.0": 70,
+   "62.0": 20,
+   "383.54": 9,
+   "332.38": 8,
+   "400.0": 7,
+   "360.48": 7,
+   "116.43": 7
+  },
+  "by_block": {
+   "06-12": {
+    "500x2^k": 0.862,
+    "other": 0.137,
+    "unjoined": 0.001
+   },
+   "18-20:25": {
+    "500x2^k": 0.722,
+    "other": 0.181,
+    "62/250": 0.084,
+    "unjoined": 0.013
+   }
+  }
+ },
+ "evaluate_frozen_output_file": "results/exam_r2_evaluate.json",
+ "target_conditions": {
+  "scope": "met pooled: 0.844 of trades and 0.914 of abs PnL in BTC 5m+15m (halves 0.843/0.844 and 0.901/0.929); almach 0.776 of trades (reported)",
+  "presence_or_selection": "not met: presence AUC 0.597 < 0.85, gain over stronger activity baseline (RE 0.632) -0.035 [-0.049, -0.009]; selection AUC 0.675 < 0.80, recall 49% < 50%, lift 2.0 < 3, gain over the examiner's activity baseline (0.687) -0.012 [-0.023, +0.002]",
+  "side": "applies (45% of windows one-sided); not met: R8c 0.699 < 0.80 vs market-only cheaper token 0.637 and own-inventory-only previous-fill side 0.797",
+  "price": "met on the rule's own R7 clock (0.868; halves 0.864/0.871; every wallet-half >= 0.80) but it is the trivial anchor last print - 1 tick, below the touch anchor (0.971 on the match clock); the point-in-time-safe block clock gives 0.750",
+  "outcome": "not met: executable strict-fill replay vs cluster per-window PnL 0.365 Pearson / 0.248 Spearman < 0.5",
+  "significance": "not met: presence gain p 0.9985 and selection gain p 0.952 (wrong sign); selection rotation null p 0.987; side rotation p 0.0005 and PnL-correlation permutation p 0.002/0.0025 are significant on sub-threshold metrics",
+  "replication": "not met: no threshold of conditions 2, 3 or 5 holds even pooled; only price holds in both halves and for every wallet"
+ },
+ "criteria_details": {
+  "match": "fail: target not met; the methodology's selection match fails the 2-h rotation null within windows (p 0.987) and the rule is below market-activity baselines on presence and selection",
+  "backtest": "fail: -14.5% on $113.9k, strict fills, latency 2 s, slack 2, no rebates; t -3.14, p(profit) 0.999; both halves negative",
+  "replicable": "fail: public inputs, but at newcomer latency and queue position the copy gets only trade-throughs and loses 15-19% (more at 500 shares)",
+  "persists": "fail: the rule loses on the newest half (-16.5%); wallets' own 30-day PnL significant (p 0.002-0.008) but mo-money late decline p 0.044 and the lot's BTC 5m maker edge +12.9% is not significant (p 0.105) and flat in the late half"
+ },
+ "why_it_works": "A top-of-book maker on BTC Up/Down windows that only buys and holds to resolution or merges: 97% of its match-clock maker fills are at the best bid, quoted off a Chainlink-skewed fair and refreshed on each public report and Binance move. It is paid the spread by takers who cross into its bids (80% complementary-mint buyers of the other outcome, 20% sellers; 1,097 takers), plus maker rebates. On the lot its BTC 5m maker fills earned +12.9% (+$10.7k), mostly from a few underdog fills at 0.10-0.30; deep loser bids lost. The edge is queue priority and refresh speed, not a private signal: the public rule's side beats the cheaper token by only 6 points and a strict 2-s copy loses 14.5%.",
+ "deploy_now": {
+  "supported": false,
+  "evidence": "Executable R8c on lot f1: -14.5% (p(profit) 0.999), newest half -16.5%; every sensitivity negative. Wallets: 30-day p 0.002-0.008, cluster +$84k over the last 7 days, but mo-money late-decline p 0.044 and the lot BTC 5m maker edge is not significant (p 0.105). The edge depends on queue position a normal user does not have."
+ },
+ "leakage_check": {
+  "passed": true,
+  "details": "constants and exact BUILD refit (max diff 0.0); truncation/corruption 0 mismatches for presence (870 rows), R8c side (300 fills), block-clock price (300) and selection print features (300), positive controls 756/16/79; labels 100% equal, on-chain roles 120/120. Procedural notes: iteration-9 spot/DVOL lookback files include 10-31 10:00-12:00 of a sealed block; 3 Chainlink edge stamps; code/fetch_local.py reads .cache/re/btc5m-bot/tapes (pre-H data only)."
+ },
+ "mechanical_fixes_made": "none to any file: the driver sets final_rule.ALLOW_SEALED=True, POLYREA_CACHE_DIR, cl_source.CLDIR and r9_nonbtc.CACHE to the exam cache, and wraps build_panel/Spot/day_prints to save their outputs",
+ "released": "f until 1793512800"
 }
