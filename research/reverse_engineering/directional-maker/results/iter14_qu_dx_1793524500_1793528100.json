@@ -1,0 +1,96 @@
+{
+ "n": 756,
+ "n_scored": 745,
+ "n_exact_publish_clock": 738,
+ "rule": "posture at the post: latest Chainlink report published before it (dy_rtds publish ms), else stamp <= t - 1432 ms; k1.0 x futures sigma300",
+ "side_accuracy": [
+  0.545,
+  745
+ ],
+ "first_half": [
+  0.574,
+  439
+ ],
+ "second_half": [
+  0.5033,
+  306
+ ],
+ "btc5m": [
+  0.5491,
+  632
+ ],
+ "btc15m": [
+  0.5221,
+  113
+ ],
+ "baseline_always_up": 0.4242,
+ "baseline_cheaper": [
+  0.5544,
+  745
+ ],
+ "baseline_mid_rose_1s": [
+  0.6585,
+  325
+ ],
+ "caveat": "exact 500/1000 adds at the touch include other makers' orders (~12% of exact 500s, X36); unit = post, not wallet",
+ "law_E2": {
+  "rule": "E2: publish innovation |u| >= $1 within 150 ms -> sign(u); else futures move >= $2 over [t-500, t-50] ms; else posture",
+  "n": 364,
+  "law_E2": [
+   0.6841,
+   364
+  ],
+  "posture": [
+   0.5357,
+   364
+  ],
+  "cheaper": [
+   0.5549,
+   364
+  ],
+  "first_half": [
+   0.7235,
+   293
+  ],
+  "second_half": [
+   0.5211,
+   71
+  ],
+  "edge_lt0.05": {
+   "law_E2": [
+    0.7407,
+    189
+   ],
+   "posture": [
+    0.5767,
+    189
+   ]
+  },
+  "edge_0.05_0.1": {
+   "law_E2": [
+    0.6068,
+    117
+   ],
+   "posture": [
+    0.4615,
+    117
+   ]
+  },
+  "edge_ge0.1": {
+   "law_E2": [
+    0.6552,
+    58
+   ],
+   "posture": [
+    0.5517,
+    58
+   ]
+  },
+  "source_share": {
+   "publish_u": 0.055,
+   "futures_move": 0.288
+  },
+  "publishes": 3490,
+  "u_sd": 1.38
+ }
+}

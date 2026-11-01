@@ -1,4 +1,9 @@
 """Frozen rule for the directional-maker cluster (bosona, almach, mo-money).
+Iteration 18 (no frozen decision changed; R8c stays): evaluate()'s 'quote_unit_side' (code14/qu_dx.py) also reports
+'law_E2', the event law for the side of the at-touch 500/1000 posts (0.10-0.90) on the exam recorder: (1) a public
+Chainlink publish in (t - 150 ms, t] whose report-specific innovation |u| >= $1 (u = report change minus a frozen
+futures-only prediction, E2_BETA) -> sign(u); (2) else a Binance USD-M mid move >= $2 over [t - 500, t - 50] ms -> its
+direction; (3) else the posture. Held-out 11-01 09:15-12:00: 0.642 vs posture 0.520; reported, not counted (live-only).
 Iteration 17 rule R8c = R8 + the NYSE-open window side (code/side_sm.py, counted side 'r8c_no_own_state' inside
 'side_state_machine' and 'btc15m.side_state_machine'): the BTC 5m window that starts at 09:30 America/New_York on a
 weekday -> the cheaper token; everything else unchanged (pre-registered T5; VALIDATE per fill 0.6925 -> 0.7009).

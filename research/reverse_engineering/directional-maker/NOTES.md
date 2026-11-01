@@ -4819,3 +4819,508 @@ Final state of iteration 17 (11:33 UTC): frozen rule R8c; target_metrics side 0.
 with R8c on a VALIDATE slice (10-27 13:25-13:45); the full 11-01 06-12 block run was not done (it needs ~25 minutes after
 12:00 UTC, beyond the budget). Recorders: shared recorder and own recorders untouched; dp_perps running (to 11-03 00:00).
 The user should resync the Windows clock (offset 1.3 s at 09:26 UTC; agents may not change system settings).
+
+## Iteration 18 (started 2026-11-01 12:29:33 UTC; 1,161 of 1,200 minutes used)
+
+Situation: the current block 11-01 12-18 UTC is sealed (sealed.py), so no live data is read this iteration; the
+development live blocks are 10-31 00-06, 10-31 12-18 and 11-01 06-12 (next: 11-01 18-24, 11-02 00-06, 11-02 12-18).
+Three panels after iteration 17 (panels/iter17_*.md). Two of them (mechanics P1, assumptions P1) independently name one
+mechanism: the fair's sigma is a scheduled, forward-looking time-of-day volatility profile from about 10-01, and R8c (the
+NYSE-open window) is its symptom. The assumptions panel's history check: the window-level slope of the cluster's
+mid-band cheap share on log(profile) is negative in June-August, ~0 in September and +0.157 (s.e. 0.021) in October, flips
+on 10-01/10-02 and holds outside 13:00-15:55 UTC. The information panel's P1: the clean-regime post side also reacts to
+the report-specific Chainlink innovation u_i within (0, 150] ms of the public publish (0.71, n 65), never before it.
+Catalog: the 13 proposals are entered as X215-X227 (state.json).
+
+Competing explanations of the money this iteration (dimensions in `dimensions`; what tells them apart):
+- K1 scheduled-vol fair (dimension `scheduled_vol_profile`, have: Binance 1-s archives; X215): from 10-01 the engine's
+  sigma is k x a time-of-day profile (or max(v300, profile)), so at slots whose coming vol exceeds the trailing vol it
+  leans to the cheap token; the money is the market's trailing-vol mispricing of favourites at those moments. Tell: a
+  profile posture without any calendar branch reproduces the open window AND raises the small-edge side elsewhere; the
+  October slope sign flip is the cluster's, not the market's.
+- K2 configured calendar override (dimension `us_equity_market_open`, have): R8c is a hand-set rule at 09:30 New York;
+  the rest of the side is the trailing posture. Tell: the profile helps only at 13:30 UTC; on 11-02 the behaviour moves
+  to 14:30 UTC at once (exchange clock) or stays at 13:30 (UTC-keyed config).
+- K3 two-input event re-pricer (dimensions `binance_usdm_futures`, `pm_legacy_rtds` innovation, have; X220): the quote is
+  re-sided by futures jumps (50-150 ms) and the report innovation at public-relay timing; between events it is
+  replenishment; the side residual at small edges is k (unidentified in level postures). Tell: event law E beats the
+  posture at |F - mid| < 0.05 on blocks it was not frozen on.
+- K4 taker-chosen pairs (dimensions: taker commit times, have; the display the takers see, `pm_display_state`, proxy;
+  X221): the engine quotes both outcomes near the mid at small edges; which leg fills is the crowd's choice driven by the
+  page display (strike crossings, results strip). Tell: the crowd's buy side follows display events; the cluster's filled
+  side is its complement.
+- K5 own-state order types (dimension `own_inventory`, have; X226): the presence and side residuals are mostly pairing,
+  remainder and deep orders that no public feature can announce. Tell: >= 50% of the out-of-fold FN cells hold only
+  those types.
+- K6 (unlikely) hidden faster settlement feed (dimension `chainlink_data_streams_low_latency`, blocked): the engine sees
+  the report before the public publish. Tell: post-side agreement with u_i rises before P_i (information panel C2: 0.505
+  before, n 537: not supported; recorded as the trace test).
+- K7 (unlikely) information-shock operator (dimensions `news_wires`, `gdelt`, missing at 15-min resolution; X222): module
+  switches follow intraday news or vol shocks. Tell: off-run starts are preceded by GDELT bursts above placebo.
+
+This iteration discriminates K1 vs K2 (T1, T2), records the K2 clock test for 11-02 (T5), and tests K5 (T4) and K3 (T3)
+as far as time allows.
+
+**Pre-registration T1 = X215 (written 12:37 UTC 11-01, before any number below was computed): the profile posture.**
+- Profile P_d(s): UTC day d, 5-min UTC slot s; rv_d'(s) = sqrt(mean squared 1-s log return of Binance BTCUSDT spot
+  inside the slot) (the per-second scale of v300); P_d(s) = median of rv_d'(s) over the previous N days d' in [d - N,
+  d - 1] of the same day type. Variants (8): N in {28, 56}; day type pooled or split (NYSE trading day vs weekend /
+  NYSE holiday, 09-07 the only holiday in range); day-type date by the UTC date or by the New York date of the slot
+  (under DST the 00:00-04:00 UTC slots belong to the previous New York date). Source code18/slot_rv.py (archives 08-14..
+  10-07, checksum-verified; cached 1-s 10-08..10-30).
+- Fill slot = the window's start slot. Forms: F_max sigma = k x max(v300, P); F_geo(a) sigma = k x P^a x v300^(1 - a),
+  a in {0.25, 0.5, 0.75, 1}; k in {0.8, 1.0, 1.2, 1.4, 1.7, 2.0, 2.5, 3.0}. The decided branch (|Up mid - 0.5| > 0.4 ->
+  the cheaper token) is kept; the R8c calendar branch is removed (S1) or kept (S2).
+- Fit on BUILD 10-09..22 only: every BTC 5m cluster maker BUY fill (code17/inform_gate.build_fills: mid and side), the
+  Binance stand-in posture rebuilt from spot (S at b - 2, K = Binance mean of [st - 60, st), v300 at b - 2 over 300 s,
+  tau = en - (b - 2)); the chosen (variant, form, a, k) maximises the per-fill accuracy of S1 over all BUILD fills.
+- Score once on the lot (it12/typed_fills: R8's Chainlink posture where cl exists, else Binance; the same sigma
+  substitution in both): STUDY 10-23..26 case by case and VALIDATE 10-27..30 aggregate, per fill, against R8c and R8;
+  reported overall, in the open window, by |edge| band (|f_R8 - mid| < 0.05 / 0.05-0.1 / >= 0.1), by P / v300 band, per
+  wallet and per VALIDATE half.
+- Adoption: the better of S1 / S2 on VALIDATE replaces R8c iff VALIDATE per fill >= R8c + 0.005 and STUDY >= R8c - 0.01.
+  Mechanism signature (reported, not an adoption condition): S1 reaches >= 0.85 in the open window on STUDY and VALIDATE
+  with no calendar term, and its gain outside the open window is concentrated at |edge| < 0.05.
+
+**Pre-registration T2 = X215 identification with a market control (assumptions P1 step 2; written 12:37 UTC).** For
+BUILD 10-09..22 (the October fold with maker-row tapes on disk): per weekday BTC 5m window (>= 5 mid-band 0.15-0.85
+fills), the cheap share of (a) the cluster's maker BUY fills and (b) the other makers' maker-side fills in the same
+windows; OLS of the window cheap share on log P (N 28, pooled), with the window's realised |log return| and the trailing
+1-h mean |5-min return| as controls; the 13:30 / 13:35 windows excluded. Reading: the cluster's slope > 0 with p < 0.01
+and the market's slope at least 0.10 lower -> the October slope is the cluster's estimator, not a market effect.
+
+**Pre-registration T5 = X218 (mechanics P4 / information I17-4 live; written 12:37 UTC, before 11-02 13:20 UTC).** A
+full-depth recorder (code18/open_rec.py, pid 10460, Start-Process hidden; dm_* feeds through tools/live.py's Writer;
+11-02 13:15-13:50 and 14:15-14:50 UTC; 11-02 12-18 is a development block; own disk <= 60 MB) records the first post-DST
+NYSE open. Predictions, written now:
+- (a) K1 with a New York-keyed profile: at 14:30:00 UTC the cluster's fresh 500 rungs go to the token the opening move
+  makes cheap, and the ladder centre moves toward 0.5 within +-2 s of 14:30:00, before the first 3-sigma futures jump;
+  nothing special at 13:30 UTC.
+- (b) K1 with a UTC-keyed trailing-weeks profile: the lean stays at 13:30 UTC (an ordinary window after DST) for weeks.
+- (c) K2 calendar override on the exchange clock: fresh bids only on the cheap token at 14:30, the favourite's rungs
+  pulled, at 14:30 and not at 13:30.
+- (d) K2 UTC-keyed: the behaviour appears at 13:30 UTC.
+- Reading on 11-02: cheap share of the cluster's 14:30 window fills (shared recorder trades) >= 0.85 and the 13:30 window
+  at its ordinary level -> exchange clock (a or c; a vs c by the favourite rungs and the centre move); the reverse -> UTC
+  clock (b or d).
+
+**Pre-registration T6 = X215 step 4 (mechanics P1; written 12:42 UTC, before any number): is the k-cycle the profile?**
+Per day of BUILD 10-09..22 (best k from results/iter11_k_by_day_binance.json) and STUDY 10-23..26 (results/iter11_k_by_day.json;
+VALIDATE days not used case by case): the median of P / v300 (P = utc_N28 profile of the window's slot) over the cluster's
+non-decided BTC 5m fills of that day. Reading: Spearman(best k, median P / v300) >= 0.4 with p < 0.05 over the 18 days ->
+the drifting multiplier is the profile's excess over the trailing vol; else the k-cycle is not the profile.
+
+**Pre-registration T3b (written 12:46 UTC, after the freeze block and the 10-31 17:29-18:00 block were scored, BEFORE the
+11-01 09:15-12:00 posts exist): law E2 = (1) a publish in (t - 150, t] with |u| >= $1 -> sign(u); else (2) the futures
+mid moved >= $2 over [t - 500, t - 50] ms -> the direction of the move (the W500 'rose' rule of iteration 14); else (3)
+the posture.** Reason: on the freeze block the W500 'rose else posture' rule (0.719) beat law E (0.665), its jump
+detector covering 13% of posts against W500's wider move set. Scored once on 11-01 09:15-12:00 beside law E and the
+baselines, with the same readings as E (signature: (0, 150] agreement >= 0.65 and (-300, 0] <= 0.55 at n >= 40; the law
+beats the posture by >= 0.05 at |F - mid| < 0.05 and does not lose at >= 0.1).
+
+### Iteration 18 results (12:38-12:48 UTC 11-01)
+
+**Data added.** (1) `it18/slot_rv.parquet`: per-day x 5-min UTC slot 1-s realised vol of Binance BTCUSDT spot for 78 days
+(08-14..10-30; 55 daily 1s-kline archives from data.binance.vision, SHA-256 checked against `.CHECKSUM`, reduced at once,
+zips never written to disk; 10-08..10-30 from the cached 1-s files). (2) `it18/yahoo_1m*.parquet`: 1-minute bars of IBIT,
+QQQ, SPY, COIN, MSTR for 10-02 13:30 .. 10-30 UTC (Yahoo chart API, keyless; the 10-01 chunk returned HTTP 422 because
+1-minute history is kept for ~30 days; 10-02 was fetched at 12:40 UTC 11-01, minutes before it aged out). (3) The 11-01
+09:15-12:00 quote-unit posts rebuilt from the full-depth `dm_clob_raw` (code14/qu_oos.py; 2,412 at-touch schedule adds;
+`it14_qu_rebuilt_1793524500_1793534400.parquet`); never scored before this iteration. (4) Recorder X218 (code18/open_rec.py)
+armed for 11-02 13:15-13:50 and 14:15-14:50 UTC (sleeps until then).
+
+**T1 = X215 result (`code18/sched_vol.py`, results/iter18_sched_vol.json): the profile posture is NOT adopted.** BUILD
+(49,569 fills): R8 (1.4 x v300) 0.5961, R8c 0.6049, best trailing k (1.0) 0.6136; best profile rule over 6 variants x 2
+forms x 8 k x 4 a: utc_N28 (weekday/weekend profile over the previous 28 days, UTC date), sigma = 1.0 x max(v300, P):
+**0.6276** (BUILD open window 0.669 vs R8 0.386, cheaper 0.984). Lot, per fill:
+
+| fold | R8 | R8c | S1 (profile, no calendar) | S2 (profile + R8c branch) | cheaper | open window: R8c / S1 |
+| --- | --- | --- | --- | --- | --- | --- |
+| STUDY 10-23..26 (8,256) | 0.5693 | 0.5769 | 0.6142 | 0.6254 | 0.484 | 0.991 / **0.131** |
+| VALIDATE 10-27..30 (27,988, aggregate) | 0.6925 | **0.7009** | 0.6863 | 0.6906 | 0.6785 | 0.899 / 0.667 |
+| VALIDATE halves (S2) | | 0.6876 / 0.7101 | | 0.7286 / 0.6644 | | |
+
+Adoption fails (VALIDATE S2 -0.010 vs the +0.005 bar); the mechanism signature fails (S1 does not reproduce the open
+window: 0.13 STUDY, 0.67 VALIDATE). Decomposition (post hoc, descriptive; `code18/sched_vol_decomp.py`,
+results/iter18_sched_vol_decomp.json): S1's STUDY gain is the k change (trailing k 1.0 alone 0.6107 vs S1 0.6142), its
+VALIDATE loss too (trailing k 1.0 0.6344); at a fixed k the profile adds +0.052 (k 1.0) / +0.016 (k 1.4: 0.7081) on
+VALIDATE and +0.004 / -0.020 on STUDY. In the open window the posture picks the cheap token in 100% (STUDY) / 98.9%
+(VALIDATE) of fills only with 2 x max(v300, P): at the fill seconds P / v300 is just 1.33 / 1.64 (v300 at b - 2 already
+holds the opening seconds), so a profile at k 1.0 cannot pull the fair far enough.
+
+**T2 = X215 identification (`code18/ident_slope.py`, results/iter18_ident_slope.json): the slope is the cluster's, not the
+market's (reading met).** BUILD weekday windows of the maker-row tapes (13:30 / 13:35 excluded), mid-band 0.15-0.85:
+cluster cheap-share slope on log P **+0.229 (s.e. 0.080, one-sided p 0.002; 194 windows)**; the other makers in the same
+194 windows **-0.013 (s.e. 0.007)** by exposure token, -0.017 by BUY rows (over all 480 windows -0.012 / -0.014). The
+time-of-day gradient of the cheap share belongs to the cluster's own decision (or its quote's geometry), not to the
+market's flow or its makers.
+
+**T6 = X215 step 4 (`code18/k_vs_profile.py`, results/iter18_k_vs_profile.json): the k-cycle is not the profile.** 18 days
+(BUILD + STUDY): Spearman(best k of iteration 11, median P / v300 at the non-decided fills) = 0.161 (p 0.52). Reading not
+met.
+
+Reading of T1/T2/T6: the profile matters for the cluster (T2: a cluster-only gradient over the day), but not as the
+posture's sigma in these forms; the weekly k drift dominates every level posture, and the open window needs a fair
+pulled about twice as far toward 0.5 as max(v300, P) gives. K1 is supported as a gradient, not as a decoded rule; K2 (a
+configured open-window override) stays the frozen form (R8c), and the 11-02 recording (T5) decides its clock.
+
+**T3 = X220 result (`code18/event_law.py`, results/iter18_event_law.json): the report innovation and the futures move are
+two event inputs of the post side; confirmed out of sample.** Innovation model frozen on 11-01 07:00-08:00 (futures-only,
+4 increments; 3,473 publishes; beta 0.031 / 0.236 / 0.524 / 0.385 on the increments ending stamp + 300, -200, -700,
+-1,200 ms). Posts = at-touch 500/1000 schedule adds, 0.10-0.90:
+
+| block | posts | law E | law E2 (T3b) | posture | cheaper | W500 rose else posture | E at \|F-mid\| < 0.05 vs posture | E at >= 0.1 vs posture | (0,150] agree (n, p) | (-300,0] |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| freeze 11-01 07:00-09:15 (panel's look) | 1,018 | 0.665 | 0.721 | 0.590 | 0.618 | 0.719 | 0.622 vs 0.521 | 0.700 vs 0.647 | 0.729 (59, 3e-4) | 0.427 |
+| **11-01 09:15-12:00 (untouched)** | 1,108 | **0.608** | **0.642** | 0.520 | 0.525 | 0.631 | **0.555 vs 0.467** | 0.685 vs 0.610 | **0.800 (45, 3e-5)** | 0.531 |
+| **10-31 17:29-18:00 (noise regime)** | 418 | **0.792** | **0.804** | 0.713 | 0.306 | 0.751 | **0.674 vs 0.556** | 0.933 vs 0.942 | **0.856 (132, 9e-18)** | 0.400 |
+
+Swap null (u moved to the publish 1-3 before / after) on the (0, 150] agreement: 0.33-0.71 (clean) and 0.14-0.58 (noise).
+By source on 09:15-12:00: publish-u posts (4%) 0.80 vs posture 0.47; futures-jump posts (12%) 0.90 vs 0.29; the other 84%
+fall to the posture (0.556). The pre-registered signature holds on both confirmation blocks ((0, 150] >= 0.65 at n >= 40,
+(-300, 0] <= 0.55; law beats the posture by >= 0.05 at small edges); "not worse at >= 0.1" holds on the clean block and
+misses by 0.008 (one post of 120) on the noise block. E2 (pre-registered T3b before the 09:15-12:00 posts existed) is the
+better form on both confirmation blocks (+0.122 / +0.091 over the posture). No pre-publish reaction (K6 not supported,
+third block). Side residual still open: 84% of clean-block posts follow no event (posture 0.556; 'opposite of the last-hit
+token' 0.594, a flow-following lean). This is a live (match-clock) quote component; the historical VALIDATE per-fill side
+cannot use it (no ms reference there), so target_metrics do not move.
+
+**Pre-registration T4 = X226 (assumptions P4; written 12:50 UTC, before any number): the presence label by order type.**
+VALIDATE 10-27..30 aggregate: frozen R3 BTC 5m presence scores per (window, side, 10-s bin) (code8/union_val.fam_panel);
+filled cells typed by their fills' orders from the lot calldata (it12/typed_fills): pairing (original size within 2% of
+the wallet's imbalance, on the under-held outcome), deep (limit <= 0.10), remainder (a later fill of an order already
+filled in an earlier block second), main (a fresh schedule-size order), other. Cell classes: has_main_fresh (any main
+fill), own_state_only (only pairing / deep / remainder fills), other_mix. FN = filled cells below the 85th percentile of
+all cells' rule scores (E2's definition). Signature (panel): own_state_only cells hold >= 50% of FN cells and the
+main-ladder FN share is <= 0.35. Otherwise the taker-arrival account stands, now measured per class.
+
+**T4 = X226 result (`code18/fn_by_type.py`, results/iter18_fn_by_type.json): the taker-arrival account stands; own-state
+order types hold a third of the misses.** VALIDATE (aggregate): 69,120 BTC 5m cells, 6,735 filled; fills by class: main
+(fresh schedule-size orders) 49.7%, deep 18.7%, pairing 17.8%, remainder 13.3%, other 0.6%. FN share (below the 85th
+percentile of the R3 rule score) 0.664 overall (activity 0.704). Cells with a fresh main-ladder fill (4,600): FN 0.635;
+cells with only pairing / deep / remainder fills (2,100): FN 0.733 and **34.4% of all FN cells**; per class held: deep
+0.750, pairing 0.649, remainder 0.621. Signature not met (own-state-only share 0.34 < 0.50; main FN 0.635 > 0.35). So
+two-thirds of the misses are fresh main-ladder cells that the public score ranks low: the quiet-cell trigger (a taker's
+arrival) remains the main unexplained part of presence, measured now on the main ladder alone.
+
+**Pre-registration T7 = X223 (information I17-4, historical part; written 12:51 UTC, before any number): the equity open
+as an information input.** Weekday BTC 5m windows starting at 13:30 UTC (the NYSE open under DST), 10-02..10-26 case by
+case (VALIDATE 10-27..30 pooled only): the cluster's BUY trades (activity; cheap = price < 0.5), BTC's first-minute move
+(13:30:00 -> 13:31:00, Binance 1-m kline), the equity first-minute return (SPY + QQQ, open -> close of the 13:30 bar).
+agree = same sign. Reading (panel): the window cheap share differs by >= 0.3 between agreeing and diverging windows with
+Mann-Whitney p < 0.05 -> the module reads the equity open; else a calendar fade (R8c stays as frozen). Also reported:
+Spearman of the cheap share with |BTC move| and with |equity move|.
+
+**T7 = X223 result (`code18/equity_open.py`, results/iter18_equity_open.json): the open-window lean does not read the
+equity open (reading not met).** 17 development + STUDY open windows (10-02..10-26): the cluster's cheap share is 0.92-1.00
+in every one of them; windows where the SPY + QQQ first-minute return agrees with BTC's first-minute move 0.983 (9) vs
+diverging 0.988 (8), Mann-Whitney p 0.36; fills 73.6 vs 56.4 per window; Spearman with |BTC move| -0.005, with |equity
+move| 0.30 (p 0.25). VALIDATE pooled 0.954 (4 windows). The module buys the token below 0.5 at the open whatever the
+equities or BTC do, even with no BTC move (10-06: 0.0 bp, 69 fills, cheap 1.00): a fixed calendar fade, i.e. a fair held
+at about 0.5 in that window (T1: the posture reproduces it only with >= 2 x max(v300, P)). R8c stays as frozen; its clock
+(UTC vs New York) is the 11-02 test (T5).
+
+**E2 in the exam path.** `code14/qu_dx.py` (evaluate()'s `quote_unit_side`) now also reports `law_E2` (frozen constants
+from T3: innovation beta, |u| >= $1 within 150 ms, futures move >= $2 over [t - 500, t - 50] ms, else the posture) on the
+exam recorder's dx_clob posts. Smoke test 11-01 09:15-10:15 (development): 364 non-extreme posts, E2 0.684 vs posture 0.536
+(small edge 0.741 vs 0.577). Reported, not counted (a live-only input; dx_bnf / dy_rtds stop on 11-03 00:00).
+
+**Pre-registration T8 = X225 (assumptions P2; written 12:56 UTC, before any number): the money by forward / trailing
+volatility ratio.** Units: the cluster's BTC 5m BUY trades (activity, three accounts), windows 06-12..10-22 case by case,
+the lot 10-23..30 pooled. R = utc_N28 profile of the window's slot / realised 1-s vol of the 300 s before the start.
+Outcome: Binance proxy (sign of the window's close-to-close move), checked against Gamma on BUILD. Return per $ by month x
+R quintile (within month) x cheap / favourite; day-block bootstrap for October. Signature (panel): October cheap fills in
+the top R quintile earn >= 5 points per $ more than in the bottom quintile; June-August favourite fills in the top
+quintile lose; most of the September -> October change is in the top two quintiles.
+
+**T8 = X225 result (`code18/pnl_by_ratio.py`, results/iter18_pnl_by_ratio.json): the money is NOT where scheduled and
+trailing vol disagree (signature fails, opposite sign).** Outcomes are exact: the cluster's own REDEEM rows (usdcSize /
+size = 1 for the winner, 0 for the loser) for 33,463 windows (agreement with the Gamma resolution 100% on 4,387 overlapping
+windows; the Binance close-to-close proxy agreed only 82.6% and was dropped), Gamma for 65 more, 318 windows without an
+outcome dropped; settlement only. Cluster BTC 5m BUY trades, return per $ by month: June 2.35%, July 3.85%, August 4.09%,
+September 2.93%, October 1-22 1.17%, lot 10-23..30 (pooled) 3.75%. By R quintile (R = profile / trailing 300-s vol at the
+window start, within month), October: q0 +2.6%, q1 +1.7%, q2 +1.6%, q3 +3.8%, **q4 -2.5%** (cheap share 0.65; its cheap fills
+-4.1%); cheap fills top - bottom quintile **-5.4 points** (day-bootstrap 90% [-20.1, +7.2]); lot pooled q4 -3.2% vs +4.4% to
++5.6% in q0-q3. June-August favourite fills in q4: -1.1%, -0.2%, +3.6% (no consistent loss). September -> October change
+by quintile: +0.7, -0.5, -4.4, +0.1, -3.5 points. Reading: the October cheap lean at high forward / trailing ratios (T2's
+cluster-only gradient) is a cost, not the alpha; the profit sits in the ordinary-ratio windows. K1's economic form
+("the market misprices favourites at scheduled-vol moments and the cluster collects it") is rejected.
+
+**Pre-registration T9 = X222 (information I17-3, event version at hourly resolution; written 13:02 UTC, before any number).**
+GDELT DOC 2.0 returns hourly counts for 7-day ranges (checked 13:00 UTC: `date_resolution: hour`; 15-minute bins need
+ranges under ~3 days), so the test is hourly. Development 08-02..10-22. BTC 5m module on = >= 1 cluster BUY trade in the
+window; off-run = >= 12 consecutive off windows after >= 3 on windows. In the hour before each off-run start: a GDELT burst
+('bitcoin'; '(crypto OR fed OR cpi)') = the last complete hour's article count >= the 95th percentile of the previous 168
+hours; a vol jump = the max Binance slot rv of the 12 slots before >= the 95th percentile of the previous 7 days. Placebo:
+20 starts per off-run at the same hour-of-week in other weeks with the module on before. Reading: burst share >= 0.5 and
+>= 3 x placebo with binomial p < 0.01 -> a shock trigger of the switch-offs; else not shown (power stated).
+
+**Pre-registration T10 = X227 (assumptions P3, steps 1 and 3 of its test; written 13:03 UTC, before any number): the 11-01
+centre with the scheduled fair.** Centre units of iteration 16 (`it16_center_units_*`: 10-31 17:29-18:00, 11-01
+07:00-09:15). F_sched = Phi(Phi^-1(F1_rep) x s0 / max(s0, P x v)), where F1_rep is iteration 16's report fair at k 1.0 x
+futures sigma300 (s0, $ per root second, rebuilt from dm_bnf), v the report, P the utc_N28 profile (per-second log vol) of
+the unit's 5-min UTC slot (weekend profile for both blocks). Fit c - mid = const + w (F - mid) + g (0.5 - mid) per block
+with F1 and with F_sched (window-clustered s.e.), and w per 15-min bin on 11-01. Reading (panel): with F_sched |g| <= 0.03
+on both blocks, |w(10-31) - w(11-01)| <= 0.05 and the sd of the 15-min w on 11-01 at most half of F1's -> the 11-01 regime
+is the scheduled-vol excess; else the 11-01 change stays a configuration step.
+
+**T10 = X227 result (`code18/center_sched.py`, results/iter18_center_sched.json): the 11-01 centre is not the scheduled-vol
+excess (reading not met).** Centre units: 10-31 17:29-18:00 (437; the weekend profile binds in 54%, median profile / s0
+1.37) and 11-01 07:00-09:15 (1,138; binds in 35%, median 1.00: on the Sunday block realised futures vol was at the weekend
+profile, not below it). c - mid = const + w (F - mid) + g (0.5 - mid): with F1 w 0.294 / 0.061, g -0.018 / +0.091; with
+F_sched w 0.380 / 0.100, g -0.067 / +0.077 (s.e. 0.006 / 0.016); 15-min w sd on 11-01 0.148 (F1) -> 0.204 (F_sched). The
+cheapness term g does not vanish, w does not converge (gap 0.28), the drift grows: the 11-01 change stays a configuration
+step (X208 reading), not a scheduled-vol effect.
+
+**T11 (exploratory, on the two 11-01 full-depth blocks already used by T3; `code18/nonevent.py`,
+results/iter18_nonevent.json): the posts law E2 leaves to the posture.** 763 / 868 of 1,151 / 1,108 posts. Posture 0.663 /
+0.575; cheaper 0.666 / 0.558; opposite of the last-hit token 0.574 / 0.574; sign of the latest publish's innovation within
+1 s 0.475 / 0.531, its raw change 0.480 / 0.505 (the report reaches the side only through its first 150 ms); a futures move
+>= $1 over [t - 1,000, t - 50] ms (91 / 67 posts) 0.703 / 0.702, as a branch before the posture 0.699 / 0.595 (+0.035 /
++0.020); 5-s moves >= $2 0.534 / 0.434 (the side leans against slower moves). Three quarters of the clean-block posts
+follow no event we record, and their side is the posture at 0.57-0.66.
+
+**Pre-registration T12 (written 13:07 UTC 11-01, for the next development blocks; scored by evaluate()'s
+`quote_unit_side.law_E2` and the successor): law E3 = E2 with a third event branch, a futures mid move >= $1 over [t - 1,000,
+t - 50] ms -> its direction, before the posture.** Blocks: 11-01 18-24, 11-02 00-06, 11-02 12-18 (dx_clob posts, dx_bnf
+futures, dy_rtds publishes; the futures-only innovation with T3's frozen beta). Readings: E3 >= E2 + 0.01 and E2 >= posture
++ 0.05 on posts pooled over the three blocks, at |F - mid| < 0.05 as well; the (0, 150] publish agreement >= 0.65 (n >= 40)
+on each block with (-300, 0] <= 0.55.
+
+**X224 probe (information I17-5).** `wss://ws.perpetuals.polymarket.com/v1/ws` connects and answers
+`{"status":"err","error":"invalid request"}` to three common subscribe formats (op/args, type/channel, method/params;
+13:10 UTC); the subscription message is undocumented, so no 200-ms recorder was started. The 1-Hz REST recorder (X214,
+`dp_perps`) keeps running to 11-03 00:00. X224 open.
+
+**X218 recorder fix.** The first launch of code18/open_rec.py (pid 10460, 12:36 UTC) died at once: its status path pointed
+one level above the repository (`HERE.parents[3].parent`). Fixed and relaunched at 13:08 UTC (pid 27416); the status file
+shows it waiting for 11-02 13:15 UTC with a dm_* cap of 318.9 MB (own disk <= 60 MB).
+
+## Missing dimensions (E2 update, iteration 18)
+
+- **Which component fails, measured by order type (X226).** On VALIDATE 66% of filled BTC 5m cells score below the 85th
+  percentile of the public presence score. Two-thirds of those misses are cells with a fresh main-ladder fill (FN 0.635),
+  one third cells with only pairing / deep / remainder fills (FN 0.733). The main-ladder misses are the taker's arrival in
+  quiet cells, which no public series shows before the match (the 150-ms hold makes it visible only to the engine).
+- **Side, live quote unit.** Two event dimensions now explain part of the post side: the report innovation at public
+  timing (`pm_legacy_rtds`, drives) and the futures 0.5-s move (`binance_usdm_futures`, drives). Of the clean-block posts
+  75% follow neither; on them the posture scores 0.57-0.66 and no other recorded series adds more than +0.02-0.035 (a 1-s
+  futures move >= $1). That remainder points to replenishment / queue state (`pm_queue_and_cancels`: the post after a fill
+  of the same rung) or to an unrecorded input; the lag-floor test per venue (X217) is the next discriminator.
+- **Side, historical.** The October cheap lean has a cluster-only time-of-day gradient (`scheduled_vol_profile`, have), but
+  it is not a posture sigma (T1), not the weekly k drift (T6), not the 11-01 centre (T10), and not where the profit is
+  (T8). The k drift stays the main unexplained side state: a latent (E6) candidate.
+- **Selection.** No information dimension tested so far explains the module switches: daily GDELT / Fear & Greed (T14,
+  iteration 17), the equity open (X223); the intraday GDELT test (X222) is in "Iteration 18" below if the throttled fetch
+  completed.
+- **Lead.** Three blocks now show no reaction before the public publish (the Data Streams trace is absent).
+
+**Pre-registration T13 = X217 light form (mechanics P3; written 13:16 UTC, before any number).** Posts: at-touch 500/1000
+adds 0.10-0.90, 11-01 07:00-12:00 (both full-depth tables). Feeds on their own stamps: Binance USD-M bookTicker mid,
+Binance spot aggTrades, OKX swap ticker, Bybit linear best mid, Coinbase ticker, Hyperliquid bbo, Deribit index,
+Bitstamp trades, Chainlink publishes (dy_rtds P). Events = signed $1 bricks. Per post the lag to the last same-sign and
+opposite-sign brick; per feed the 5-ms mode of the same-sign lag in (0, 500] ms and the shares inside mode +- 15 ms.
+Signature (panel): one feed with >= 30% of posts in that band and <= 10% for the opposite-sign control.
+
+**T13 = X217 result (`code18/lag_floor.py`, results/iter18_lag_floor.json): no feed has a sharp reaction floor
+(signature not met).** 2,169 posts (11-01 07:00-12:00). Share of posts with a same-sign $1 brick in (0, 300] ms vs an
+opposite-sign one, and the 5-ms mode: Binance USD-M bookTicker 0.165 vs 0.085 (mode 97.5 ms), Binance spot aggTrade 0.132
+vs 0.073 (87.5 ms), OKX swap 0.120 vs 0.013 (102.5 ms), **Bybit linear 0.157 vs 0.015 (117.5 ms)**, Coinbase 0.192 vs
+0.100 (132.5 ms), Hyperliquid 0.050 vs 0.023, Deribit index 0.061 vs 0.029, Bitstamp 0.042 vs 0.012, Chainlink publish
+0.060 vs 0.027. Inside mode +- 15 ms no feed holds more than 3.5% of posts (bar 30%). Lead (not a test): the
+same-minus-opposite excess is largest for Bybit (0.142) and OKX (0.107) against Binance futures (0.080) because the
+opposite-sign control is ten times cleaner there; with fewer bricks on those venues this may be event density, not the
+consumed feed. Pre-registered follow-up for the next development block (T14 below).
+
+**Pre-registration T14 (written 13:17 UTC, for 11-01 18-24 / 11-02 00-06 / 11-02 12-18 with the dx_* and dm_* feeds that
+exist then): head-to-head of the futures branch of law E2 on Binance USD-M (frozen) vs Bybit linear vs OKX swap mid moves
+>= $2 over [t - 500, t - 50] ms.** Reading: a venue beats Binance by >= 0.03 on the posts its branch covers and by >= 0.01
+on all posts -> the engine's futures reference is that venue (or a composite); else Binance stays.
+
+**Pre-registration T15 = E3 screen of the report-innovation events (written 13:18 UTC, before any number).** Same BUILD
+blocks, decisions, units, null (swap, hour strata, 300 draws) and lag ranges (+-2 s at 0.1 s, +-60 s at 1 s) as iteration
+17's T13; events: public Chainlink publishes whose futures-only innovation |u| >= $1 and >= $2 (T3's frozen beta),
+signed by u. One joint BH over the 8 p-values (unsigned and signed p_link per indicator and lag range); survivors at
+q <= 0.10, to be confirmed once on the live VALIDATE blocks (11-02, 11-03 development blocks).
+
+**T15 result (`code18/e3_innov.py`, results/iter18_e3_innov.json): the screen sees the timing link, and its sharpest
+signed feature is before the publish.** 7,433 posts, 75 units (68-71 in the swap null), events: |u| >= $1 (u1) and >= $2
+(u2). Joint BH over 8 p-values: unsigned p_link u1 0.047 (q 0.074) at +-2 s and 0.003 (q 0.025) at +-60 s (shape peaks
+-1.65 s / -0.5 s, lifts 1.30 / 1.61), u2 0.027 / 0.030 (q 0.074); signed u1 at +-2 s 0.040 (q 0.074) with its peak at
+**-0.25 s and z -3.4** (posts just before a publish sit against sign(u)); signed u1 at +-60 s 0.36, u2 0.12 / 0.09.
+Reading: posts bunch around large-innovation publishes (unsigned survivors), and the signed screen's strongest localized
+feature is the pre-publish anti-agreement, which is mechanical: before the publish the posts follow the futures move, and
+u is the report's residual against exactly that move. The (0, 150] ms agreement of T3 (0.80 / 0.86) is a feature of a few
+dozen posts that 0.1-s bins over +-2 s do not isolate as the peak. Survivors go to the live VALIDATE confirmation with
+T3's (0, 150] ms window as the pre-registered signed test.
+
+**Pre-registration T16 = X221 light form (information I17-2 step 2 only; written 13:21 UTC, before any number): does the
+paying crowd buy what the page displays?** BUILD 10-09..15 BTC 5m windows; crowd = taker BUY prints of wallets that are
+neither HFT takers (code/hft_takers3.json) nor cluster accounts. Display, point in time with a Binance stand-in: D(t) =
+S(t - 1) - K (K = Binance mean of [st - 60, st)); displayed winner = Up iff D > 0; crossing = a sign change of D inside the
+window. Per crowd buy: bought the displayed winner, bought the favourite (price > 0.5), by seconds since the last crossing
+([0, 10), [10, 30), [30, 300), none yet). Reading: in [0, 10) s after a crossing the displayed-winner share exceeds the
+favourite share by >= 0.05 with a window-bootstrap 95% interval above 0 -> the crowd trades on the display beyond the
+price; else not shown.
+
+**T16 = X221 light result (`code18/display_crowd.py`, results/iter18_display_crowd.json): the crowd buys the price, not the
+display (reading not met).** 1,561,851 non-HFT, non-cluster taker BUY prints in 2,016 BUILD windows (10-09..15). Share on
+the displayed winner vs on the favourite: [0, 10) s after a displayed crossing 0.617 vs 0.614 (diff +0.0025, window
+bootstrap 95% [-0.004, +0.009]); [10, 30) s 0.622 vs 0.632; [30, 300) s 0.679 vs 0.687; no crossing yet 0.600 vs 0.612.
+Right after a crossing, where display and price disagree most, the crowd still follows the price. Caveat: the display is
+the Binance stand-in (the page shows the Chainlink value; BUILD has no Chainlink series), so crossings within the
+Binance-Chainlink basis are blurred. X221 stays open for its demand model and presence step with the real display (lot
+endpoint seconds, live dy_rtds).
+
+**T9 = X222 result (`code18/gdelt_fetch.py`, `code18/offrun_shocks.py`, results/iter18_offrun_shocks.json): not
+informative.** GDELT throttled the fetch (HTTP 429 on most chunks; 618 of ~1,970 hours returned for 'bitcoin', 406 for
+'(crypto OR fed OR cpi)'). The pre-registered off-run definition gives 7 BTC 5m off-runs in 08-02..10-22 (16 off stretches
+of >= 60 min exist, 9 of them without 3 on windows just before); bitcoin bursts 0 of 1 covered start (placebo 0 of 7);
+vol jumps 1 of 7 vs 12 of 56 placebo (0.14 vs 0.21, p 0.82). With n 7 only a burst share above ~0.6 against ~0.1 would be
+detectable. X222 stays open (needs the full GDELT series at a slower request rate, or the live RSS recording).
+
+**Pre-registration T17 = E5 hourly screen (information I17-3 regression form at hourly resolution; written 13:27 UTC,
+before any number).** Hours 08-02..10-22; dependent: the BTC 5m module-on share of the hour (12 windows, >= 1 cluster BUY
+trade). Regressors lagged one hour: z of log(1 + GDELT count) for 'bitcoin' and '(crypto OR fed OR cpi)' against the
+previous 168 hours; z of the log mean Binance slot rv of the previous hour. OLS with hour-of-week fixed effects, s.e.
+clustered by day, and per half. Reading: a news coefficient with p < 0.01, |effect| >= 0.05 on-share per sd and the same
+sign in both halves -> news relates to selection hourly; else no association. Runs on whatever the throttled GDELT fetch
+returned (coverage reported).
+
+## Iteration-18 checkpoint
+
+- Primary metric (historical VALIDATE 10-27..30, BTC 5m 10-s fill presence AUC, no own state): unchanged at **0.716**
+  (activity 0.684). No frozen decision changed: R8c stays (side 0.7009 vs cheaper 0.6785; union presence 0.788 / 0.780;
+  selection 0.685 / 29.5% / 2.87; price 0.803; pnl 0.207 / 0.218; coverage 0.868 / 0.891). The target is not met.
+- Paradigm: the panels' scheduled-volatility hypothesis tested as an input (posture sigma, T1), an identification with a
+  market control (T2), the k-cycle link (T6), the economics with exact outcomes (T8) and the 11-01 centre (T10); and, on
+  the uncensored quote unit, the report innovation and the futures move as event inputs, confirmed on held-out live blocks
+  (T3) and added to evaluate() (`quote_unit_side.law_E2`).
+- What it showed: (1) the October cheap lean has a cluster-only time-of-day gradient (slope +0.229, p 0.002; other makers
+  -0.013), but a profile posture loses to R8c on VALIDATE (-0.010), does not reproduce the open window (0.13 STUDY), is not
+  the k drift (rho 0.16), not the 11-01 centre, and the high-ratio windows lose money (October -2.5% per $ in the top
+  quintile vs +1.6% to +3.8% elsewhere; exact REDEEM outcomes); (2) the open window is a fixed fade (cheap 0.92-1.00 in
+  all 17 development / STUDY open windows, independent of the equity open); (3) law E2 (publish innovation within 150 ms,
+  else a futures 0.5-s move >= $2, else the posture) beats the posture by +0.12 / +0.09 on two held-out blocks, with the
+  publish reaction in (0, 150] ms and none before it (no Data Streams lead); (4) no venue shows a sharp reaction floor
+  (best band share 3.5%); Bybit / OKX $1 moves show the cleanest same-vs-opposite contrast (lead for T14); (5) 65% of
+  VALIDATE presence misses are fresh main-ladder cells (taker arrival), 34% own-state order types; (6) the paying crowd
+  buys the price, not the displayed strike crossing (Binance stand-in display); (7) GDELT throttled (HTTP 429), so the
+  news-vs-switch tests are not informative yet.
+- Catalog: closed this iteration X215, X219, X220, X223, X225, X226, X227 (tried), X59 and X118 (closed on the iter17
+  information panel's measurements), E4 (tried). Open: E3 (live VALIDATE confirmation pending), E5, E6, X214, X216, X217
+  (light form run), X218 (recorder armed for 11-02), X221 (light form run), X222 (GDELT throttled), X224 (subscription
+  format unknown), and the older open items.
+- Recorders: the shared recorder runs (clob_crypto, clob_wallets, rtds, sports); own examrec (dx_*), dy_rtds, dz_rtdsbn,
+  famrec and dp_perps run to 11-03 00:00 (status files updated 9-23 s before 13:27 UTC); code18/open_rec.py (pid 27416)
+  waits for 11-02 13:15 UTC. The laptop clock offset (1.3 s at 09:26 UTC) still needs a Windows time resync by the user.
+
+**For a successor.** (1) After 11-02 14:50 UTC read the 11-02 opens (code18/open_rec.py dm_* full depth plus the shared
+recorder's trades): score T5's readings (cheap share at 14:30 vs 13:30 UTC; ladder centre vs the first 3-sigma futures
+jump; favourite rungs pulled or not). That decides R8c's clock before the next exam, which runs on post-DST blocks.
+(2) Score T12 (law E3 vs E2 vs posture) and T14 (Binance vs Bybit vs OKX futures branch) on 11-01 18-24, 11-02 00-06 and
+11-02 12-18 (live VALIDATE days are 11-02 / 11-03 by the brief's split; 11-01 18-24 is BUILD); evaluate() already reports
+`quote_unit_side.law_E2`. (3) X216: dense per-minute calldata salts on 10-31 / 11-01 to calibrate the per-market quanta.
+(4) X221 with the real Chainlink display (lot endpoint seconds, dy_rtds). (5) Re-fetch GDELT at one request per 12 s
+(code18/gdelt_fetch.py 12 fills only missing chunks) and rerun code18/e5_hourly.py and offrun_shocks.py.
+
+**Pre-registration T18 = X216 step 1 light (mechanics P2; written 13:28 UTC, before any number): the salt rate across the
+10-31 16:53:54 BTC 5m switch-off.** Decoded calldata of the cluster's live 10-31 fills (calldata/live1031_0002..0004,
+~1,900 cluster orders), block times interpolated between two eth_getBlockByNumber calls. Per wallet: the slope of salt on
+time over [16:23:54, 16:53:54) vs [16:53:54, 17:05:00) (before the ad-hoc restarts), outlier-trimmed. Reading: the slope
+falls by >= 2 orders/s in every wallet -> the counter rate reads the module state (X216's premise); else not shown.
+
+**T18 = X216 result (`code18/salt_rate.py`, `code18/salt_rate2.py`, results/iter18_salt_rate*.json): the signing rate does
+not drop when the BTC 5m module stops (reading not met).** The live1031 calldata ends at 16:29:40 UTC (1.5 s per Polygon
+block), so the window was rebuilt from the cluster's own 10-31 activity (262 transactions decoded, 137 own orders). Slope
+of salt on time over [16:23:54, 16:53:54): almach 11.89, bosona 11.78, mo-money 11.82 orders/s (14:01-16:29 calldata:
+11.9-12.7). Across the switch-off the counters advanced 1,319 in 105 s (almach), 1,235 in 90 s (mo-money) and 271 in 21 s
+(bosona): 12.6-13.7 orders/s; almach after it 14.5 (n 7). So the per-wallet counter keeps its ~12 orders/s whether or not
+the BTC 5m ladder is quoted: it is not a fill-free readout of the module state (X216's premise fails at its first check);
+a constant-rate signing loop, or capacity moving to the other markets, both fit. X216 tried.
+
+**Pre-registration T19 = X202 light (written 13:31 UTC, before any number): one engine pass for all markets?** All at-touch
+schedule adds (62 / 250 / 500 / 1000) of 11-01 07:00-12:00 (full depth; BTC 5m current + next, BTC 15m current). A post is
+in a multi-window pass if another window has a post within +-25 ms; null: each window's times shifted by +-1-5 s (50
+draws). Readings: multi-window share >= 2 x null -> passes exist; side agreement across windows in a pass >= 0.8 -> one
+input re-sides all markets; the trigger mix of passes (publish innovation within 150 ms, futures move >= $2 over 0.5 s,
+neither) against single-window posts.
+
+**T19 = X202 result (`code18/passes.py`, results/iter18_passes.json): passes across markets exist but are rare, and inside
+a pass one input re-sides every market.** 4,422 at-touch adds in 79 windows: 3.4% sit within +-25 ms of another window's
+add (null 0.55%, p95 0.84%: 6x); inside those passes the other windows' adds go the same way in 0.96. Pass triggers: a
+futures move >= $2 over 0.5 s 29.5% (single-window posts 15.3%), a publish innovation 3.4% (4.4%), neither 67% (80%). So the
+engine mostly re-prices window by window; the joint passes are futures-driven and directional. X202 tried (light).
+
+**X218 readout prepared.** `code18/open_read.py <W> [<W2>]` reads, for BTC 5m windows starting at W, the full-depth
+cluster-size adds per outcome and 10-s bin (price, ladder centre vs mid), the first cheap-side add and the first 3-sigma
+futures jump after the open, and the cluster's BUY fills with their cheap share (data-api activity, development units).
+Smoke test on 11-01 07:30 UTC (development): 1,647 exact-size adds (other makers' exact sizes included, ~12%), first cheap
+add +0.06 s, cheap share of adds 0.30 (0-60 s) / 0.16 (60-300 s), first futures jump +49.7 s, 26 cluster fills (bosona
+only), cheap share 0.69. For 11-02: `open_read.py 1793629800 1793626200` (14:30 UTC treatment, 13:30 UTC placebo).
+
+**Pre-registration T20 = E7 on law E2 residual (written 13:35 UTC, before any number).** 11-01 07:00-09:15 and
+09:15-12:00 at-touch 500/1000 posts (0.10-0.90): E2 misses vs hits; residual_clustering, delta 0.5 s and 2 s, period
+900 s, 1,000 draws, market = window. Synchrony counts only with p <= 0.01, ratio >= 1.5 and a miss ratio >= hit ratio + 0.3.
+Reading: if the E2 misses still coincide across windows, a common driver beyond the futures and the publish remains.
+
+**T20 result (`code18/e7_e2.py`, results/iter18_e7_e2.json): E2's misses still coincide across windows at sub-second scale
+on one of two blocks.** 11-01 07:00-09:15 (1,065 posts, miss share 0.272): misses delta 0.5 s ratio 8.0 (p 0.12, n 290)
+vs hits 3.16 (p 0.003): not synchrony by the bar. 11-01 09:15-12:00 (1,108, miss share 0.358): misses 8.57 (p 0.006, n 397)
+vs hits 4.81 (p 0.007): **meets the bar at 0.5 s**; at 2 s misses 2.97 (p 0.03) vs hits 3.17: no. Reading: both hits and
+misses sit in cross-window passes (T19), and on the later block the wrong-side passes are tighter than the right-side
+ones, so a common sub-second driver beyond the Binance futures and the publish remains for part of the residual
+(candidates: another futures venue, the lead of T13, or the engine's own pass schedule). Pointer for T14.
+
+**Checkpoint addendum (13:38 UTC).** After the checkpoint above: T18 (X216: the per-wallet signing rate keeps ~12-14
+orders/s across the 10-31 BTC 5m switch-off, so it does not read the module state; X216 tried), T19 (X202: cross-window
+passes are 3.4% of posts, 6x the null, futures-driven, sides agree 0.96; X202 tried), T20 (E7 on E2's residual: misses
+synchronize at 0.5 s on 11-01 09:15-12:00, not on 07:00-09:15), the 11-02 readout code (code18/open_read.py, smoke-tested on
+11-01 07:30). The throttled GDELT re-fetch (code18/gdelt_fetch.py 12, missing chunks only) was still running at 13:38 UTC;
+code18/e5_hourly.py (T17, pre-registered) runs on whatever it returned.
+
+**Notes on the pre-registrations of this iteration.** T3 (law E) ran on the design the information panel fixed in its
+proposal I17-1 (innovation model, theta $1, the (0, 150] ms window, the k3 / 0.5-s jump detector, the confirmation blocks
+and the signature); no separate NOTES entry was written before it ran. T3b (law E2) was written at 12:46 UTC, after E had
+been scored on the freeze block and on 10-31 17:29-18:00 and before the 11-01 09:15-12:00 posts were rebuilt, so the
+09:15-12:00 numbers are out of sample for both laws, while E2's 10-31 number is not. T14 can be scored only where OKX and
+Bybit are recorded after 11-01 12:00: the 11-02 13:15-13:50 and 14:15-14:50 windows of code18/open_rec.py (dm_okx,
+dm_byb); dx_* carries Binance only. Times of the pre-registrations were corrected to the shell clock (`date -u`).
+
+**T3 robustness by hour (`code18/e2_hours.py`, results/iter18_e2_hours.json; descriptive, same frozen law).** E2 vs the
+posture per hour: 07:00 0.743 vs 0.599, 08:00 0.710 vs 0.586, 09:00 0.695 vs 0.513, 10:00 0.560 vs 0.414, 11:00 0.668 vs
+0.606: the gain holds in every hour (+0.06 to +0.18).
+
+**T21 (exploratory, in sample on the two 11-01 blocks; `code18/venue_h2h.py`, results/iter18_venue_h2h.json): which venue
+carries the futures branch?** E2 with its futures branch on each venue's own mid (move >= $2 over [t - 500, t - 50] ms):
+Binance USD-M 0.721 / 0.643 (07:00-09:15 / 09:15-12:00), Bybit linear 0.675 / 0.635, Binance spot 0.679 / 0.579, Coinbase
+0.670 / 0.599, OKX 0.666 / 0.592 (posture 0.590 / 0.520). Binance USD-M is the best single venue on both blocks; Bybit's
+branch is as accurate where it fires (0.85 / 0.95) but fires less. T13's Bybit / OKX contrast was event density, not the
+consumed feed; T14 stays pre-registered as the out-of-sample check.
+
+**T17 result (`code18/e5_hourly.py`, results/iter18_e5_hourly.json) after the slower GDELT re-fetch (1,979 hourly rows:
+953 'bitcoin', 1,026 macro, about half of 08-02..10-22; still partly refused with HTTP 429).** Module-on share per hour with
+hour-of-week fixed effects, day-clustered s.e.; the z needs >= 100 of the previous 168 hours, so the news regressors cover
+33-34% of the 1,968 hours (vol 95%): 'bitcoin' z +0.024 per sd (s.e. 0.012, p 0.046; first half +0.020, p 0.10; second half
+50 hours), macro z -0.012 (p 0.28), Binance vol z -0.006 (p 0.75). Reading not met (p < 0.01 and >= 0.05 per sd): no hourly
+association of news volume or volatility with the BTC 5m module state at this coverage; an effect of +-0.03 per sd would
+have been detectable. T9 rerun on the fuller series: bursts before off-run starts 0 of 2 covered ('bitcoin'; placebo
+0.06) and 0 of 1 (macro). X222 stays open (half the hours missing); E5 open.
+
+Final state of iteration 18 (13:47 UTC): frozen rule R8c unchanged; target_metrics unchanged; primary metric 0.716.
+evaluate() additionally reports `quote_unit_side.law_E2` (smoke-tested on 11-01 09:00-09:30: E2 0.779 vs posture 0.702,
+n 299). Recorders: shared recorder running; own recorders running to 11-03 00:00; code18/open_rec.py waiting for 11-02
+13:15 UTC. The cache folder is at its 1.5 GB cap (this iteration added 2.6 MB).
+
+**Pre-registration T22 = X207 light (written 13:48 UTC, before any number; own state, reported as such): a rolling loss
+breaker for the BTC 5m switch-offs.** Realised BTC 5m PnL per window (cluster BUY trades, exact REDEEM outcomes) booked at
+window end + 60 s; rolling 2-h and 6-h pooled sums at t. Events: every BTC 5m off stretch >= 60 min in 08-02..10-22;
+placebos: up to 20 per event at the same hour-of-week in other weeks with the module on in the previous 15 min. AUC of
+-PnL (events vs placebos), label-permutation p (2,000). Reading: AUC >= 0.75 with p < 0.01 -> a loss breaker; else not shown.
+
+**T22 = X207 result (`code18/mtm_breaker.py`, results/iter18_mtm_breaker.json; own state): switch-offs follow recent losses
+on average, but not as a sharp breaker (reading not met).** 16 off stretches (08-02..10-22) vs 312 placebos: rolling 2-h
+realised BTC 5m PnL AUC 0.624 (p 0.059; median -$211 before events vs +$366); rolling 6-h AUC **0.685 (p 0.0075; -$748 vs
++$929)**. The 6-h association is real at p < 0.01 but below the 0.75 bar: losses raise the chance of a switch-off without
+fixing its time (as X152 found with the drawdown since the restart). Reported as own state; selection stays a hypothesis.
+X207 tried (light).

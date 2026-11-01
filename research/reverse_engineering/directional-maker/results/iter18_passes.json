@@ -1,0 +1,24 @@
+{
+ "posts": 4422,
+ "windows": 79,
+ "multi_share": 0.0337,
+ "null_mean": 0.0055,
+ "null_p95": 0.0084,
+ "side_agreement_in_pass": 0.9597,
+ "trigger_share": {
+  "multi_window": {
+   "publish_u": 0.034,
+   "futures_move": 0.295,
+   "none": 0.671
+  },
+  "single_window": {
+   "publish_u": 0.044,
+   "futures_move": 0.153,
+   "none": 0.803
+  }
+ },
+ "reading": {
+  "passes_exist": true,
+  "one_input_resides_all": true
+ }
+}

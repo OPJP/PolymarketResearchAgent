@@ -1,0 +1,45 @@
+{
+ "crowd_buys": 1561851,
+ "windows": 2016,
+ "0-10": {
+  "n": 229718,
+  "displayed_winner_share": 0.6168,
+  "favourite_share": 0.6143,
+  "diff": 0.0025,
+  "diff_ci95": [
+   -0.0044,
+   0.0091
+  ]
+ },
+ "10-30": {
+  "n": 191607,
+  "displayed_winner_share": 0.6216,
+  "favourite_share": 0.6322,
+  "diff": -0.0106,
+  "diff_ci95": [
+   -0.0154,
+   -0.0062
+  ]
+ },
+ "30-300": {
+  "n": 555359,
+  "displayed_winner_share": 0.6788,
+  "favourite_share": 0.6869,
+  "diff": -0.0081,
+  "diff_ci95": [
+   -0.0123,
+   -0.0043
+  ]
+ },
+ "none": {
+  "n": 585167,
+  "displayed_winner_share": 0.6002,
+  "favourite_share": 0.6123,
+  "diff": -0.0121,
+  "diff_ci95": [
+   -0.0152,
+   -0.0095
+  ]
+ },
+ "reading_met": false
+}

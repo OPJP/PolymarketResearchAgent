@@ -118,7 +118,7 @@ def quote_unit_side(a: int, b: int, allow_sealed: bool = False, intervals=None) 
     cl = clv.reindex((t - QU_L_MS) // 1000).to_numpy(float)
     # exact public publish clock where the streaming recorder dy_rtds has the report's publish ms ('P'): the latest BTC
     # Chainlink report published before the post (strictly point in time); else the stamp-lag fallback above
-    pub = [(int(r["P"]), float(r["v"])) for r in _iter("dy_rtds", a - 10, b, allow_sealed)
+    pub = [(int(r["P"]), float(r["v"]), int(r.get("ts") or 0) // 1000) for r in _iter("dy_rtds", a - 10, b, allow_sealed)
            if r.get("tp") == "cl" and r.get("sy") == "btc" and r.get("P")]
     n_exact = 0
     if pub:
@@ -146,7 +146,73 @@ def quote_unit_side(a: int, b: int, allow_sealed: bool = False, intervals=None) 
            "baseline_always_up": round(float(y[ok].mean()), 4) if ok.any() else None,
            "baseline_cheaper": acc((mid0 < 0.5).astype(float), ok), "baseline_mid_rose_1s": acc(rose, ok),
            "caveat": "exact 500/1000 adds at the touch include other makers' orders (~12% of exact 500s, X36); unit = post, not wallet"}
+    # iteration 18 (reported, VALIDATE-only; X220 / information panel I17-1, confirmed on 11-01 09:15-12:00 and 10-31
+    # 17:29-18:00): event law E2 for the post side, frozen constants E2_*: (1) a public Chainlink publish in (t - 150 ms, t]
+    # whose report-specific innovation |u| >= $1 -> sign(u); (2) else the futures mid moved >= $2 over [t - 500, t - 50] ms ->
+    # its direction; (3) else the posture above. Non-extreme posts only (0.10 <= price <= 0.90), as frozen.
+    try:
+        out["law_E2"] = _law_e2(A, t, y, P, F, mid0, E, M, pub, ok)
+    except Exception as ex:  # noqa: BLE001
+        out["law_E2"] = {"error": repr(ex)[:300]}
     return out
+
+
+E2_BETA = (-0.0023, 0.0311, 0.2357, 0.5243, 0.3854)   # intercept, increments ending stamp + 300, -200, -700, -1200 ms
+E2_LAGS = (300, -200, -700, -1200)
+E2_U, E2_WIN_MS, E2_MOVE, E2_W_MS = 1.0, 150, 2.0, 500
+
+
+def _law_e2(A, t, y, P, F, mid0, E, M, pub, ok):
+    if not pub:
+        return {"n": 0, "note": "no dy_rtds publishes"}
+    cl, Pub = {}, {}
+    for Pi, v, st in sorted(pub):
+        if st and st not in cl:  # first publish of each report stamp
+            cl[st] = v
+            Pub[st] = Pi
+    secs = sorted(x for x in cl if (x - 1) in cl)
+    if not secs:
+        return {"n": 0, "note": "no consecutive report stamps"}
+    X = np.array([[_at(E, M, np.array([x * 1000 + g]))[0] - _at(E, M, np.array([x * 1000 + g - 500]))[0] for g in E2_LAGS] for x in secs])
+    dcl = np.array([cl[x] - cl[x - 1] for x in secs])
+    okx = np.all(np.isfinite(X), axis=1)
+    pred = np.where(okx, E2_BETA[0] + np.nan_to_num(X) @ np.array(E2_BETA[1:]), np.nan)
+    u = dcl - pred
+    o = np.argsort([Pub[x] for x in secs])
+    Pm = np.array([Pub[x] for x in secs], np.int64)[o]
+    um = u[o]
+    pr = A.p.to_numpy(float)
+    mask = ok & (pr >= 0.10) & (pr <= 0.90)
+    law = P.copy()
+    src = np.zeros(len(t), int)  # 0 posture, 1 publish innovation, 2 futures move
+    f50 = _at(E, M, t - 50)
+    dF = f50 - _at(E, M, t - E2_W_MS)
+    for k, tk in enumerate(t):
+        j = np.searchsorted(Pm, tk, side="right") - 1
+        while j >= 0 and Pm[j] > tk - E2_WIN_MS:
+            if np.isfinite(um[j]) and abs(um[j]) >= E2_U:
+                law[k] = float(um[j] > 0)
+                src[k] = 1
+                break
+            j -= 1
+        if src[k] == 0 and np.isfinite(dF[k]) and abs(dF[k]) >= E2_MOVE:
+            law[k] = float(dF[k] > 0)
+            src[k] = 2
+    edge = np.abs(F - mid0)
+
+    def acc(pred, m):
+        m = m & np.isfinite(pred)
+        return [round(float((pred[m] == y[m]).mean()), 4) if m.sum() else None, int(m.sum())]
+    half = t < (int(t.min()) + (int(t.max()) - int(t.min())) // 2)
+    return {"rule": "E2: publish innovation |u| >= $1 within 150 ms -> sign(u); else futures move >= $2 over [t-500, t-50] ms; else posture",
+            "n": int(mask.sum()), "law_E2": acc(law, mask), "posture": acc(P, mask), "cheaper": acc((mid0 < 0.5).astype(float), mask),
+            "first_half": acc(law, mask & half), "second_half": acc(law, mask & ~half),
+            "edge_lt0.05": {"law_E2": acc(law, mask & (edge < 0.05)), "posture": acc(P, mask & (edge < 0.05))},
+            "edge_0.05_0.1": {"law_E2": acc(law, mask & (edge >= 0.05) & (edge < 0.1)), "posture": acc(P, mask & (edge >= 0.05) & (edge < 0.1))},
+            "edge_ge0.1": {"law_E2": acc(law, mask & (edge >= 0.1)), "posture": acc(P, mask & (edge >= 0.1))},
+            "source_share": {"publish_u": round(float((src[mask] == 1).mean()), 3) if mask.any() else None,
+                             "futures_move": round(float((src[mask] == 2).mean()), 3) if mask.any() else None},
+            "publishes": int(len(Pm)), "u_sd": round(float(np.nanstd(um)), 3)}
 
 
 if __name__ == "__main__":

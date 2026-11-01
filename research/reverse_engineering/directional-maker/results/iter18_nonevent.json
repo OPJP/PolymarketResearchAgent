@@ -1,0 +1,124 @@
+{
+ "freeze_1101_0700_0915": {
+  "posts": 1151,
+  "non_event": 763,
+  "posture": [
+   0.6632,
+   763
+  ],
+  "cheaper": [
+   0.6658,
+   763
+  ],
+  "opposite_last_hit": [
+   0.574,
+   763
+  ],
+  "last_hit": [
+   0.426,
+   763
+  ],
+  "fut_move_1000ms_ge1.0": [
+   0.7033,
+   91
+  ],
+  "fut_move_1000ms_ge1.0_else_posture": [
+   0.6986,
+   763
+  ],
+  "fut_move_2000ms_ge1.0": [
+   0.5839,
+   137
+  ],
+  "fut_move_2000ms_ge1.0_else_posture": [
+   0.6802,
+   763
+  ],
+  "fut_move_5000ms_ge2.0": [
+   0.5337,
+   193
+  ],
+  "fut_move_5000ms_ge2.0_else_posture": [
+   0.654,
+   763
+  ],
+  "fut_move_500ms_ge0.5": [
+   0.6,
+   30
+  ],
+  "fut_move_500ms_ge0.5_else_posture": [
+   0.6645,
+   763
+  ],
+  "last_publish_u_within_1s": [
+   0.475,
+   280
+  ],
+  "last_publish_change_within_1s": [
+   0.4803,
+   635
+  ],
+  "since_last_publish_ms_median": 538.0
+ },
+ "confirm_1101_0915_1200": {
+  "posts": 1108,
+  "non_event": 868,
+  "posture": [
+   0.5749,
+   868
+  ],
+  "cheaper": [
+   0.5576,
+   868
+  ],
+  "opposite_last_hit": [
+   0.5744,
+   867
+  ],
+  "last_hit": [
+   0.4256,
+   867
+  ],
+  "fut_move_1000ms_ge1.0": [
+   0.7015,
+   67
+  ],
+  "fut_move_1000ms_ge1.0_else_posture": [
+   0.5945,
+   868
+  ],
+  "fut_move_2000ms_ge1.0": [
+   0.5946,
+   111
+  ],
+  "fut_move_2000ms_ge1.0_else_posture": [
+   0.5876,
+   868
+  ],
+  "fut_move_5000ms_ge2.0": [
+   0.4341,
+   182
+  ],
+  "fut_move_5000ms_ge2.0_else_posture": [
+   0.568,
+   868
+  ],
+  "fut_move_500ms_ge0.5": [
+   0.75,
+   40
+  ],
+  "fut_move_500ms_ge0.5_else_posture": [
+   0.5853,
+   868
+  ],
+  "last_publish_u_within_1s": [
+   0.5309,
+   405
+  ],
+  "last_publish_change_within_1s": [
+   0.5054,
+   734
+  ],
+  "since_last_publish_ms_median": 492.5
+ }
+}
