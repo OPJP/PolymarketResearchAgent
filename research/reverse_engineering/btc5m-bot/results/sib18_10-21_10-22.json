@@ -1,0 +1,130 @@
+{
+ "fit": [
+  "10-20"
+ ],
+ "score": [
+  "10-21",
+  "10-22"
+ ],
+ "R": 150,
+ "LSZ": 102.0,
+ "menu_rate": 0.1296,
+ "pub_coverage_sco": 0.58,
+ "agreement_with_true_S": {
+  "smach_own": 0.5564,
+  "smach_sib": 0.495,
+  "smach_hyb": 0.6096,
+  "n_states": 43203
+ },
+ "auc_large": {
+  "own": 0.7933,
+  "sib": 0.8001,
+  "hyb": 0.7994,
+  "true_state": 0.8183,
+  "DS_hyb": 0.6184,
+  "DS_own": 0.6018,
+  "DS_sib": 0.6452,
+  "DS_true_state": 0.6621,
+  "GF_hyb": 0.7098,
+  "GF_own": 0.7001,
+  "GF_sib": 0.6921,
+  "GF_true_state": 0.7593,
+  "XM_hyb": 0.624,
+  "XM_own": 0.6019,
+  "XM_sib": 0.6187,
+  "XM_true_state": 0.7138
+ },
+ "pnl_proxy": {
+  "menu": {
+   "rN": 0.2895,
+   "pnl_P": 0.1951,
+   "pnl_S": 0.2244,
+   "n": 494
+  },
+  "class_oracle": {
+   "rN": 0.5561,
+   "pnl_P": 0.5049,
+   "pnl_S": 0.5161,
+   "n": 494
+  },
+  "smach_own": {
+   "rN": 0.3034,
+   "pnl_P": 0.2329,
+   "pnl_S": 0.2678,
+   "n": 494
+  },
+  "smach_sib": {
+   "rN": 0.3872,
+   "pnl_P": 0.3242,
+   "pnl_S": 0.336,
+   "n": 494
+  },
+  "smach_hyb": {
+   "rN": 0.3524,
+   "pnl_P": 0.281,
+   "pnl_S": 0.3139,
+   "n": 494
+  },
+  "smach_true_state": {
+   "rN": 0.588,
+   "pnl_P": 0.5525,
+   "pnl_S": 0.5659,
+   "n": 494
+  }
+ },
+ "gain_vs_menu_block_boot": {
+  "smach_sib": {
+   "pnlS_gain_vs_menu": 0.1108,
+   "pnlS_CI": [
+    0.07,
+    0.1518
+   ],
+   "rN_gain_vs_menu": 0.0953,
+   "rN_CI": [
+    0.0562,
+    0.1334
+   ]
+  },
+  "smach_hyb": {
+   "pnlS_gain_vs_menu": 0.0891,
+   "pnlS_CI": [
+    0.0647,
+    0.1151
+   ],
+   "rN_gain_vs_menu": 0.0625,
+   "rN_CI": [
+    0.031,
+    0.0955
+   ]
+  },
+  "smach_own": {
+   "pnlS_gain_vs_menu": 0.0433,
+   "pnlS_CI": [
+    0.0153,
+    0.0716
+   ],
+   "rN_gain_vs_menu": 0.0138,
+   "rN_CI": [
+    -0.0168,
+    0.0459
+   ]
+  },
+  "smach_true_state": {
+   "pnlS_gain_vs_menu": 0.3388,
+   "pnlS_CI": [
+    0.2784,
+    0.4071
+   ],
+   "rN_gain_vs_menu": 0.2947,
+   "rN_CI": [
+    0.224,
+    0.3728
+   ]
+  }
+ },
+ "claims": {
+  "S_agree_ge_0.75_hyb": false,
+  "rN_ge_menu+0.05_hyb": true,
+  "rN_ge_menu+0.05_sib": true
+ }
+}

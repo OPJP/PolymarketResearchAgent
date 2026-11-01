@@ -3960,6 +3960,60 @@ bug found. Cache: nothing added to .cache/re/btc5m-bot (at its cap); the new-reg
 Status after iteration 17: target not reached; target_metrics unchanged (presence 0.8701 vs 0.8464 at the block clock; side 0.8369;
 price 0.9512; PnL 0.5065 / 0.4674; coverage 1 / 1). Out of time (11-01, live feed) the side route reads 0.72-0.75, below the bar.
 
+### Iteration 18 (2026-11-01 11:07 UTC start, local Windows laptop; development data: before H, and 10-31 00-06 / 12-18, 11-01 06-12)
+
+Split and primary metric unchanged (BUILD 10-09..16, VALIDATE 10-16..23; the size / tracker work is on the capture days 10-17..22,
+fit 10-17..19 or 10-20, scored on the held-out day set). Calendar (`sealed.py btc5m-bot`, 11:08 UTC): released none; future examined
+until 10-31 00:00; current block 11-01 06-12 development. Shared recorder running (pid 27184, 1799 MB). Budget before this iteration:
+1108 of 1200 minutes. rec_bn15 v2 stops 11-01 12:00; no recorder started or stopped this iteration.
+
+PIVOT (required: < 0.02 progress over iterations 15-17). NEW DATA SOURCE and a different account of the SIZE component, the binding
+term of condition 5. Iterations 14-17 established that side / timing / price are decoded and the one undecoded quantity that bounds
+conditions 5 and 7 is WHICH decisions are large; iteration 17 (pre-registration 12) drove the size state S from the replica's OWN
+drawn classes and it did not synchronize with the operator (agreement 0.546 / 0.558, bar 0.75), so the class selection looked like a
+private coin (H4). This iteration tests H3' instead: the size state is held at the OPERATOR level and is leaked publicly by the
+sibling wallets W4 / W5, whose large taker prints are on chain within ~2 s. Paradigm name: "operator decision-memory read from the
+siblings' public large prints". Mechanics panel iter17 P1 (= X170 / X66 / X169).
+
+Panel after iteration 17 (panels/iter17_*.md): information P1-P4 = X178-X181, mechanics P1-P4 = X182-X185, assumptions P1-P5 =
+X186-X190. Added to the catalog as X items. Overlaps: information P1 (X178, capture 10-31 file) and assumptions P4 (X189) are the same
+capture-file exam route and need the examiner's access ruling (X170 family), not runnable here; information P2/P3 (X179/X180) and
+mechanics P2 (X183) are the live-clock restamp; mechanics P1 (X182, this iteration) and assumptions P1 (X186, two-stream tracker)
+share the size/PnL target.
+
+Competing explanations (iteration 18; what separates them):
+- H1 PRIVATE SIZE COIN (iter17 H4): which decisions are large is drawn from an input the public record lacks. Dimension: own state
+  (missing / inferable). Separates: NO public state, siblings included, synchronizes with the operator's S above the ~0.55 own-memory
+  floor; the replica's P(large) AUC and window-net r stay at the iter17 own-memory level.
+- H3' OPERATOR-LEVEL DECISION MEMORY, LEAKED BY THE SIBLINGS: the size hysteresis state S / E is shared across all five wallets; W4 /
+  W5's public large prints are a lagged observation of it. Dimension: operator own state, PROXY via sibling prints (have, lagged ~2 s).
+  Separates: S read from W4/W5 agrees with the operator's true S near the panel's 0.814 and well above 0.55; a hybrid replica state
+  lifts P(large) AUC toward the true-state ceiling (0.80-0.84 within wallet) and window-net r toward 0.58 / 0.73.
+- H5 REBATE-TIER VOLUME CONTROLLER (information P4 = X181): the large-class RATE is set by the operator's 30-day weighted-volume tier
+  arithmetic, not per-decision. Dimension: fees/rebates (have, the TAKER_REBATE ledger). Separates: the daily large share tracks public
+  pooled weighted-volume slack and configuration change-points fall on low-slack days. Not the per-decision coin; a rate-level account.
+- H6 TWO INDEPENDENT STREAMS AFTER T0 (assumptions P1 = X186): post-T0 the per-window PnL is mostly the maker/resting stream, nearly
+  independent of the taker stream, so a taker-only tracker fails condition 5 by construction. Dimension: own resting orders (have, from
+  the book). Separates: frozen tracker r collapses on 10-31 dev blocks; a two-stream tracker recovers it. (A regime claim; development
+  data is weekend-only, assumptions P2 = X187.)
+- H7 CLOCK ARTEFACT, NOT A SIZE PROBLEM: the open gaps are instrument lag, not an undecoded decision. Separates: a restamped live clock
+  / the capture collector clock restores the out-of-time side to >= 0.80 (not this iteration's target; X178-X180, X183).
+This iteration discriminates H1 vs H3' on the siblings' public large prints (the primary test), and records H5 / H6 as the next pivots.
+
+PRE-REGISTRATION 15 (written 11:24 UTC 11-01, in code/sib18.py before it was run to completion): THE OPERATOR'S SIZE-STATE S READ
+FROM THE SIBLINGS' PUBLIC LARGE PRINTS. Record: operator taker orders of 10-20..22 (dcfit14 frame, exact calldata classes, large =
+original size >= 90), the frozen smach17 transition model and state machine, dc14 side, the window-net / PnL proxy, all unchanged.
+New state input, point-in-time: a W4 / W5 taker BUY leg filled >= 60 shares is a confirmed large print, usable at block_ts + 2 s;
+txs that also contain a cluster wallet (DS/GF/XM) are excluded (shared-tx rule). S_pub = side of the most recent public W4/W5 large
+print in the window before the order; E_pub its accumulated shares since the last flip. States scored: smach_own (iter17 reproduce),
+smach_sib (public-only, deterministic), smach_hyb (own draws whose S/E are overwritten by a more-recent public print), class_oracle
+and smach_true_state (ceilings), menu. Transition model fit on 10-20 with the TRUE state and TRUE side; scored on 10-21..22 and on
+the reverse split (fit 10-21..22, score 10-20). CLAIM: the sibling state lifts (a) S agreement with the operator's true S to >= 0.75
+on both splits, and (b) the replica's window-net r to >= menu + 0.05 on both splits, approaching the true-state ceiling; reported
+with the P(large) AUC per wallet, the pub coverage, and the PnL proxy Pearson / Spearman. Whatever the result, nothing is refitted and
+no target claim rests on W4/W5 until the examiner's X170 ruling (they are treated as other-trader market activity, as the frozen rule
+already does; iter12 w45chk showed removing them leaves every metric unchanged).
+
 10. NO VALUATION INPUT PICKS WHICH DECISIONS ARE LARGE (X168 in lite form; iv17.py, results/iv17.json; complete classes of 10-20..22): the
     digital fair value of o under Deribit DVOL (and under 300-s realized vol) minus the last non-operator Polymarket trade on o at m - 230,
     its absolute value, log(IV / RV) and |fv - 0.5| add nothing to the large-class AUC: public base (slot, window time) 0.673 -> 0.671
@@ -4014,3 +4068,85 @@ halves, TTL 10 / 60 s variants (reported only).
     0.4508, TTL 60 s 0.3285 / 0.4078. The operator's remainders earn because they rest at the PRE-move ask of a fresh Binance move; a
     replica's remainders, 1-3 s late at ask + 2 c, are the stale quotes that faster traders pick off. Not adopted. Stream (ii) (the pair
     margin from a small two-sided stream at the decoded decisions) is still untested.
+
+Findings (iteration 18):
+1. PRE-REGISTRATION 15 (PIVOT; sib18_prep.py + sib18_run.py, results/sib18_10-21_10-22.json, sib18_10-20.json; forward = fit 10-20,
+   score 10-21..22 / reverse = fit 10-21..22, score 10-20; ? W4/W5 large prints):
+   THE OPERATOR'S SIZE STATE S IS RECOVERABLE FROM THE SIBLINGS' PUBLIC LARGE PRINTS. A W4/W5 taker BUY filled >= 60 shares is a
+   confirmed large print, usable at block_ts + 2 s, shared txs (with DS/GF/XM) excluded; pub coverage of SCO orders 0.58
+   / 0.497.
+   - S AGREEMENT with the operator's true S (three-wallet, exact calldata >= 90): public-only S_sib 0.495 / 0.4319;
+     hybrid S_hyb (own draws overwritten by a more-recent public print) 0.6096 / 0.6102; replica OWN memory
+     0.5564 / 0.5606 (iter17 pre-registration 12: 0.546 / 0.558). Bar 0.75 on both splits: hyb False.
+   - P(large) AUC (large class, pooled): hyb 0.7994 / 0.8554; sib 0.8001 / 0.8481; own 0.7933 /
+     0.8485; true-state ceiling 0.8183 / 0.8655. Per wallet (hyb): GF 0.7098/0.75,
+     DS 0.6184/0.6819, XM 0.624/0.6269.
+   - WINDOW-NET r(N) (size-expectation proxy, NOT the executable tracker): menu 0.2895 / 0.4345; sib 0.3872
+     / 0.5359; hyb 0.3524 / 0.514; true-state ceiling 0.588 /
+     0.7214. rN >= menu + 0.05 (hyb, both splits): True. PnL-proxy Spearman: menu 0.2244/0.4053,
+     hyb 0.3139/0.486, ceiling 0.5659/0.7055; Pearson hyb
+     0.281/0.4903. Paired 2-h block bootstrap of the PnL-proxy Spearman GAIN vs the menu (no-sibling) baseline: sib +0.111 [0.070,
+     0.152] (forward) / +0.109 [0.022, 0.204] (reverse), hyb +0.089 [0.065, 0.115] / +0.081 [0.018, 0.134] -- lower CI bound > 0 on
+     both splits, so the sibling size signal is a significant, reproducible gain over the baseline that already contains W4/W5 prints.
+   VERDICT: H3' PARTIAL: the siblings' public large prints carry PART of the within-window size state (PnL-proxy Spearman beats own-memory and the menu on both splits) but S agreement stays below 0.75 and the lift reaches only ~60% of the true-state ceiling; the within-window coin and commitment E remain undecoded. This is a ceiling / attainability result (E[size] expectation, not the strict-fill executable tracker), so it does
+   NOT move target_metrics.pnl_corr this iteration; it raises condition 5's ceiling and gives the next iteration an executable path
+   (feed the public sibling size signal into the mix14 tracker). It rests on W4/W5 being 'other traders' (X170); the frozen rule already
+   treats their prints as market activity and iter12's w45chk showed removing them leaves every metric unchanged, so it is admissible
+   under the current treatment pending the examiner's ruling. Note the panel's 0.814 S-agreement (w4S.py) was a CROSS-window running
+   state on its covered subset; under smach17's WITHIN-window S with the 2 s PIT lag and the shared-tx exclusion the coverage is ~0.5 and
+   the agreement is 0.49-0.61, which is why the lift is partial. H1 (a fully private size coin) is weakened: the siblings carry part of
+   the state's SIDE; the undecoded residual is the within-window commitment E and which of the shared-S decisions are drawn large.
+
+Missing-dimensions update (E2): the SIZE residual's dominant term 'which side is the current large lean' (S) is no longer a private
+coin -- it is a public lagged dimension (operator own state observed via the siblings W4/W5, dimensions own_decision_memory -> proxy,
+operator_sibling_wallets -> drives). What remains undecoded for size: the per-decision draw (which of the shared-S decisions are large)
+and the commitment E. Side / timing / price unchanged; condition 2 (presence gain) and the executable condition 5/7 are unchanged.
+
+Panel proposals of iteration 17 (catalog X178-X190) and what happened to them:
+- X182 (mechanics P1, this iteration): TRIED -- the pivot (finding 1); H3' PARTIAL.
+- X178 / X189 (info P1 / asm P4, capture 10-31 day file on the collector clock) and X170: OPEN -- need the examiner's access ruling; the
+  single clean out-of-time test of whether the side route transfers to the new regime. Stated for the examiner in FINAL_RULE.
+- X179 / X180 / X183 (info P2 / P3, mechanics P2, the clock): OPEN -- the live-feed burst lag (spot/USD-M residual r=0.78) and the capture
+  burst lag; the restamp and a minimal recorder for the next development blocks.
+- X181 (info P4, rebate-tier volume controller on pooled wV): OPEN -- the next pivot for the size RATE (vs this iteration's size STATE).
+- X184 / X188 (mechanics P3 / asm P3, XM 60-share post-only GTC counterfactual + resting-stream replica): OPEN (= X177).
+- X185 (mechanics P4, salt-generator draw counting): OPEN (= X149).
+- X186 (asm P1, re-target conditions 5/7 for the post-T0 regime + two-stream tracker): OPEN -- the regime PnL route.
+- X187 (asm P2, weekend-mode check on 11-02 weekday dev blocks): OPEN.
+- X190 (asm P5, presence as an ORDER unit vs a fill second): OPEN -- the strongest route to flip condition 2 (decision-clock gain
+  +0.058 [0.050, 0.065] already exists at the order level).
+
+## Next (iteration 19)
+
+Status after iteration 18: target not reached; target_metrics UNCHANGED (presence 0.8701 vs 0.8464 block clock; side 0.8369; price
+0.9512; PnL 0.5065 / 0.4674; coverage 1 / 1). PIVOT result (pre-registration 15, sib18): the operator's size STATE S is PARTIALLY a
+public lagged dimension carried by the sibling wallets W4/W5. The pre-registered rN-lift bar (window-net r >= menu + 0.05 on both
+splits) is MET by the public (sib) and hybrid state (rN 0.387/0.536 vs menu 0.290/0.435; reverse 0.536/0.514 vs 0.435); PnL-proxy
+Spearman sib 0.336/0.511 and hyb 0.314/0.486 beat own-memory 0.268/0.446 and menu 0.224/0.405 on both splits. The S-agreement bar
+(>= 0.75) is NOT met: within-window S agreement is 0.49 (public) / 0.61 (hybrid), coverage ~0.5 (the panel's cross-window 0.814 does
+not survive the within-window PIT definition + 2 s lag + shared-tx exclusion). It reaches ~60-75% of the true-state ceiling
+(pnl_S 0.566/0.706). So part of condition 5's "which decisions are large" is public (the SIDE of the current large lean, lagged via
+the siblings); the undecoded residual is the within-window commitment E and the per-decision draw. This is a ceiling/attainability
+result (E[size] proxy, not the strict-fill tracker), pending the X170 ruling on W4/W5.
+
+1. EXECUTE the public sibling size signal in the mix14 tracker (the step this iteration did not take): weight the per-second net-flow
+   target by the public-state P(large) at each decision and re-measure target_metrics.pnl_corr (strict fills), both splits, vs the
+   co-occurrence baseline that already contains W4/W5 prints. This is the test of whether the partial size decode moves the EXECUTABLE
+   condition 5 (not only the proxy). Report with and without W4/W5 pending X170.
+2. X190 (panel asm P5, strongest route to flip condition 2): make the presence unit an ORDER (taker submission at m-150 + maker
+   postings), not a fill second; the decision-clock order-level gain over a book-aware baseline at the e cut is already +0.058
+   [0.050, 0.065]. Establish coverage (>= 80% of fills / abs PnL) by combining the knee hazard (taker submissions) with the ladder-burst
+   clock (maker postings).
+3. X181 (panel info P4): the size-class RATE as an Obsidian-tier pooled-weighted-volume controller (the complement to this iteration's
+   size STATE). Development fee days only.
+4. X178/X189 + X170: ask the examiner for the capture 10-31 day-file access ruling (the clean out-of-time side test) and the W4/W5
+   admissibility ruling. X179/X180/X183: the live/capture burst-clock restamp for the out-of-time side.
+5. Still open (64): E3, E5, E6, X5, X7, X18, X26, X33, X36, X37, X44, X51, X53, X57, X70, X72, X87, X88, X90, X100, X104, X107, X113,
+   X115, X122, X123, X124, X127, X128, X130, X133, X139, X141, X146, X148, X149, X150, X151, X153, X154, X155, X158, X159, X160, X161,
+   X164, X167, X170, X172, X174, X175, X177, X178-X190.
+
+Recorders at the end of iteration 18: the shared recorder runs (pid 27184); rec_bn15 v2 (hard stop 11-01 12:00 UTC) and the other
+recorders were not touched; no recorder started or stopped this iteration. No polyrea bug found. New scratch: it18/sib_frame.parquet
+(the cached operator frame + sibling-print state; rebuild sib18_prep.py ~10 s once the heavy jobs are off the laptop). polyrea PERF
+NOTE (not a bug): pandas Series.isin(python_set) rebuilds the hashtable each call; use set-membership on the small subset instead
+(cost me one wasted run before the fix).

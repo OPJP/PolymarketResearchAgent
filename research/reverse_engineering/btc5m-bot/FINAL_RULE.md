@@ -1,4 +1,29 @@
-# btc5m-bot: frozen rule (iteration 17: UNCHANGED from iteration 14; side = decision clock on Binance's own clock, dc_exam14; presence / price unchanged since iteration 8; the PnL rule is the exposure tracker with the mix14 target, pre-registration 7)
+# btc5m-bot: frozen rule (iteration 18: UNCHANGED executable rule from iteration 14; this iteration PARTIALLY decodes the SIZE STATE as a public lagged dimension carried by the sibling wallets)
+
+Iteration 18 in one paragraph (PIVOT; no executable candidate adopted; code/final_rule.py and target_metrics are UNCHANGED). New DATA
+SOURCE: the sibling wallets W4 / W5. The one undecoded quantity that bounds conditions 5 and 7 is WHICH decisions are large; iteration
+17 drove the size state S (side of the last large order) from a replica's OWN draws and it did not synchronize with the operator
+(agreement 0.55), so the class selection looked like a private coin. This iteration (pre-registration 15, sib18) reads S from the
+SIBLINGS' public large prints instead: a W4 / W5 taker BUY filled >= 60 shares is a confirmed large print, public on chain within ~2 s,
+shared txs excluded. RESULT (forward = fit 10-20 / score 10-21..22; reverse), PARTIAL: S read from the siblings agrees with the
+operator's WITHIN-window true S on 0.495 / 0.4319 (public only) and 0.6096 /
+0.6102 (hybrid: own draws overwritten by a more-recent public print), against 0.556 from own memory -- below the 0.75
+bar, coverage ~0.5 (the panel's 0.814 was a CROSS-window state on its covered subset). On the PnL proxy (window signed-net x payout vs
+window PnL, Spearman) the public sibling state BEATS own-memory and the menu on BOTH splits: sib 0.336 /
+0.5108, hyb 0.3139 / 0.486 vs own 0.2678 / 0.4459 vs menu
+0.2244 / 0.4053, but reaches only ~60% of the true-state ceiling 0.5659 / 0.7055
+(class-oracle 0.5161 / 0.6779); the hybrid P(large) AUC is 0.7994 / 0.8554 (own
+0.7933 / 0.8485; ceiling 0.8183 / 0.8655). So the size STATE 'which side is the current
+large lean' is PARTLY a public lagged dimension (the operator's decision memory, leaked by the siblings), not a fully private coin, but
+the within-window coin and commitment E remain undecoded. This is a VALIDATE ceiling / attainability result (an E[size] expectation
+proxy, not the strict-fill executable tracker), so it does not move target_metrics.pnl_corr this iteration; it raises condition 5's
+ceiling and points the next iteration at feeding the public sibling signal into the mix14 tracker. It rests on W4 / W5 being 'other
+traders' (X170, pending the examiner's ruling): the frozen rule already treats their prints as market activity and removing them leaves
+every metric unchanged (iter12). Pre-registration 15 scorecard: the rN-lift bar (window-net r >= menu + 0.05 on both splits) is MET by
+the public and the hybrid state (0.3872 / 0.5359 vs menu 0.2895 / 0.4345); a paired 2-h block bootstrap puts the PnL-proxy Spearman
+gain of the public sibling state over the menu at +0.111 [0.070, 0.152] (forward) and +0.109 [0.022, 0.204] (reverse), lower bound > 0
+on both splits; the S-agreement bar (>= 0.75) is NOT met (0.49 / 0.61). TAG: size = VALIDATE-only (the executable per-wallet menu rate is unchanged); the sibling-state enhancement
+is a hypothesis pending X170.
 
 Iteration 17 in one paragraph (no candidate adopted; the scored rule, code/final_rule.py and target_metrics are unchanged). The
 pivot was new DATA and a new UNIT: the first OUT-OF-TIME complete decision record, in the new routing regime (30 windows of the

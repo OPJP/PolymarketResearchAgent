@@ -10645,6 +10645,67 @@
     "E5 first screen: GDELT news volume at the dated configuration changes and outages",
     "E1 dimension inventory, E2 residual shape, E7 synchrony, indicators ledger backfill"
    ]
+  },
+  {
+   "n": 18,
+   "minutes": null,
+   "best_validate_score": 0.9132,
+   "block_seconds_presence": 0.8701,
+   "block_seconds_stronger_baseline": 0.8464,
+   "side_accuracy": 0.8369,
+   "pnl_corr": 0.5065,
+   "pnl_corr_spearman": 0.4674,
+   "paradigm": "Operator decision-memory size STATE read from the sibling wallets' (W4/W5) public large prints (a new data source): PARTIAL -- the siblings carry part of the within-window size state (PnL-proxy lift over own-memory/menu on both splits) but below the 0.75 agreement bar and ~60% of the true-state ceiling",
+   "size_state_S_agreement_hyb": [
+    0.6096,
+    0.6102
+   ],
+   "pnl_proxy_spearman_sib_vs_menu_vs_ceiling": {
+    "sib": [
+     0.336,
+     0.5108
+    ],
+    "menu": [
+     0.2244,
+     0.4053
+    ],
+    "true_state": [
+     0.5659,
+     0.7055
+    ]
+   },
+   "pnlS_gain_vs_menu_sib_boot": {
+    "forward": {
+     "pnlS_gain_vs_menu": 0.1108,
+     "pnlS_CI": [
+      0.07,
+      0.1518
+     ],
+     "rN_gain_vs_menu": 0.0953,
+     "rN_CI": [
+      0.0562,
+      0.1334
+     ]
+    },
+    "reverse": {
+     "pnlS_gain_vs_menu": 0.1092,
+     "pnlS_CI": [
+      0.0216,
+      0.2038
+     ],
+     "rN_gain_vs_menu": 0.1069,
+     "rN_CI": [
+      0.0297,
+      0.2141
+     ]
+    }
+   },
+   "families": [
+    "sibling public large prints as the operator's size-state input (pre-registration 15, X182 = panel mechanics P1)",
+    "S agreement with the operator's within-window true S: sib / hybrid / own, both splits (0.49-0.61, below 0.75)",
+    "replica P(large) AUC and PnL proxy under the hybrid/public state vs own-memory and the true-state ceiling",
+    "catalog additions X178-X190 (panel iter17); dimensions own_decision_memory -> proxy, operator_sibling_wallets -> drives"
+   ]
   }
  ],
  "frozen_rule": "code/final_rule.py (iteration 14: + dc_exam14 decision-clock side = target_metrics.side_accuracy; + dc_hazard14: decision-clock presence (reported) and the hazard imbalance in the PnL tracker target mix14 (pre-registration 7); block-second presence and price unchanged)",
@@ -11183,7 +11244,7 @@
   "X66": {
    "status": "open",
    "source": "panel iteration 8, mechanics P4 (operator completeness: W4 into the operator net and out of the market-activity baseline)",
-   "evidence": "Step 2 done (w4size9.py, results/w4size9.json): W4's 2,615 fills in the calldata sample hours (14.2% of the operator's flow); four-wallet operator net lifts the within-wallet VALIDATE AUC of the large size DS 0.578 -> 0.591, GF 0.751 -> 0.771, XM 0.666 -> 0.703. Open: step 3 (W4's prints out of the tape features of both presence models; needs the tapes) and step 4 (sibling census by mechanical fingerprint on a full-market calldata sample; iteration 9's other9 found no fingerprinted wallets on other assets)."
+   "evidence": "Step 2 done (w4size9.py, results/w4size9.json): W4's 2,615 fills in the calldata sample hours (14.2% of the operator's flow); four-wallet operator net lifts the within-wallet VALIDATE AUC of the large size DS 0.578 -> 0.591, GF 0.751 -> 0.771, XM 0.666 -> 0.703. Open: step 3 (W4's prints out of the tape features of both presence models; needs the tapes) and step 4 (sibling census by mechanical fingerprint on a full-market calldata sample; iteration 9's other9 found no fingerprinted wallets on other assets). | Iteration 18 (X182): W4/W5 confirmed-large (filled>=60) BUY prints carry part of the operator's within-window size state S (sib PnL-proxy Spearman 0.336/0.5108 vs menu 0.2244/0.4053)."
   },
   "X67": {
    "status": "tried",
@@ -11733,12 +11794,12 @@
   "X169": {
    "status": "tried",
    "source": "panel iter16 mechanics P1",
-   "evidence": "PRE-REGISTRATION 12 FAILED (smach17.py, results/smach17_10-21_10-22.json / smach17_10-20.json): step 1 S-relation AUC for the large class by slot: fast followers 0.84-0.88, first legs 0.69-0.80; replica with its OWN memory: S agreement 0.5464 / 0.5576 (bar 0.75), window-net r 0.3042 vs menu 0.2895 / 0.4776 vs 0.4345 (bar +0.05); with the operator's TRUE state 0.5828 / 0.731 (above the class oracle with the dc14 side 0.5561 / 0.7088). Step 3 (lost large legs from the event-level L2) not run."
+   "evidence": "PRE-REGISTRATION 12 FAILED (smach17.py, results/smach17_10-21_10-22.json / smach17_10-20.json): step 1 S-relation AUC for the large class by slot: fast followers 0.84-0.88, first legs 0.69-0.80; replica with its OWN memory: S agreement 0.5464 / 0.5576 (bar 0.75), window-net r 0.3042 vs menu 0.2895 / 0.4776 vs 0.4345 (bar +0.05); with the operator's TRUE state 0.5828 / 0.731 (above the class oracle with the dc14 side 0.5561 / 0.7088). Step 3 (lost large legs from the event-level L2) not run. | Iteration 18 (sib18): under the smach17 WITHIN-window S the siblings' public large prints carry PART of the state (S_hyb agree 0.6096/0.6102 vs own 0.556; PnL-proxy Spearman sib 0.336/0.5108 vs own 0.2678/0.4459 vs menu 0.2244/0.4053), short of the 0.75 bar and the true-state ceiling 0.5659/0.7055."
   },
   "X170": {
    "status": "open",
    "source": "panel iter16 mechanics P2",
-   "evidence": "Needs the examiner's ruling (W4 / W5 as the wallet or as other traders); stated in FINAL_RULE.md. Iteration 17: in the new regime XM is mostly a maker (92% of fills), which changes the premise for XM's taker allocation."
+   "evidence": "Needs the examiner's ruling (W4 / W5 as the wallet or as other traders); stated in FINAL_RULE.md. Iteration 17: in the new regime XM is mostly a maker (92% of fills), which changes the premise for XM's taker allocation. | Iteration 18: a reason to get the ruling: the size state is PARTLY recoverable from W4/W5 public large prints (X182), which would convert part of condition 5's size coin into a public lagged state IF they are 'other traders'."
   },
   "X171": {
    "status": "tried",
@@ -11774,6 +11835,71 @@
    "status": "open",
    "source": "iteration 17 finding 3",
    "evidence": "Decode XM's 60-share maker-first component (new regime 10-31 / 11-01; BUILD 10-09..13). Steps 1-3 done (post60_17.py, post60b_17.py, side60_17.py): postings found 274 of 274 in the recorded book; L = the bought outcome's best bid at posting in 0.6861, one tick below the ask in 0.5693; posting to first fill median 9.1 s; the ask equalled L 100 ms before posting in 0.6277 (DS 30-share lost-race control 0.4694): LOST RACES (or post-only orders at the ask), not quotes; frozen dc14 side at posting + 150 ms 0.7993 (placebo 0.5474 / 0.5073). Open: post-only vs always-late, and the stream's PnL (condition 7 for XM in the new regime)."
+  },
+  "X178": {
+   "status": "open",
+   "source": "panel iter17 information P1",
+   "evidence": "Score the frozen exam route (dc_exam14 side, dc_hazard14 presence, touch price) out of time on the public capture's own 10-31 / 11-01 day files on the collector clock (stable, +-9 ms/h). Needs the examiner's access ruling (footer-only row-group selection inside development blocks) + X170; not runnable by this agent. The clean out-of-time test of whether the side route transfers to the new regime."
+  },
+  "X179": {
+   "status": "open",
+   "source": "panel iter17 information P2",
+   "evidence": "Restamp the live Binance spot book with the same process's exchange-stamped USD-M + trade messages (spot/USD-M residual r=0.78; spot q90 42->9.6 ms after correction), pre-register '11c', score the 11-01 06-12 record with the cut-shift scan; build a minimal-latency recorder for the next dev blocks. Clock repair for the live route (condition 3 out of time)."
+  },
+  "X180": {
+   "status": "open",
+   "source": "panel iter17 information P3",
+   "evidence": "Re-stamp the CAPTURE's Binance book to exchange time in bursts (burst lag +6..13 ms median, opposite sign to the ~4 ms bookTicker lead), rebuild dcclock14/hazard14, refit conditions 2/3 once on 10-17..19 -> 10-20..22 + reverse, non-inferiority first. The condition-2 decision-clock gain is decided at tens of ms."
+  },
+  "X181": {
+   "status": "open",
+   "source": "panel iter17 information P4",
+   "evidence": "The size-class RATE as an Obsidian-tier weighted-volume controller on POOLED operator wV (no wallet reached $10M alone, all paid 50%, pooled $11.6-12.3M). Test: tier steps vs pooled/per-wallet wV crossings; daily large share vs projected pooled slack S(d) (Spearman, date-rotation null); config change-points on low-slack days; Wayback rule-change diffs. Development fee days only. The next pivot for the size RATE (vs this iteration's size STATE)."
+  },
+  "X182": {
+   "status": "tried",
+   "source": "panel iter17 mechanics P1",
+   "evidence": "PIVOT (sib18, pre-registration 15): the operator's size state S read from the siblings' public large prints (W4/W5 taker BUY filled>=60 confirmed-large, usable block_ts+2s, shared txs excluded). PARTIAL. Forward (fit 10-20, score 10-21..22) / reverse (fit 10-21..22, score 10-20). S agreement with the operator's true S: sib 0.495/0.4319, hyb 0.6096/0.6102, own 0.5564/0.5606 (iter17 own 0.546/0.558). P(large) AUC: hyb 0.7994/0.8554, sib 0.8001/0.8481, own 0.7933/0.8485, true_state 0.8183/0.8655. window-net rN: menu 0.2895/0.4345, sib 0.3872/0.5359, hyb 0.3524/0.514, true_state 0.588/0.7214; PnL proxy Spearman menu 0.2244/0.4053, hyb 0.3139/0.486, true_state 0.5659/0.7055. pub coverage 0.58/0.497. VERDICT: the siblings carry PART of the within-window size state (sib / hyb PnL-proxy Spearman beat own-memory 0.2678/0.4459 and menu 0.2244/0.4053 on both splits) but below the 0.75 agreement bar and ~60% of the true-state ceiling. Paired 2-h block bootstrap of the PnL-proxy Spearman gain vs the menu (no-sibling) baseline: sib 0.1108 [0.07, 0.1518] (forward) / 0.1092 [0.0216, 0.2038] (reverse), hyb 0.0891 [0.0647, 0.1151] / 0.0808 [0.0183, 0.1339] -- the lower CI bound is > 0 on both splits, so the sibling size signal is a significant, reproducible gain over the baseline that already contains W4/W5 prints as market activity. Size PROXY/ceiling only (E[size], not the executable tracker); pending X170 (W4/W5 admissibility); treated as other-trader market activity as the frozen rule already does."
+  },
+  "X183": {
+   "status": "open",
+   "source": "panel iter17 mechanics P2",
+   "evidence": "A stall-proof Binance clock for the live route: re-stamp every bookTicker by its arrival-order bracket [T_prev,T_next] (u strictly monotone in receive order), depth@100ms update-id anchors, an isolated recorder. Clean-feed frozen side already 0.78-0.80; 19% of 11-01 orders sit on a stalled feed (0.67-0.71). Clock repair; overlaps X179."
+  },
+  "X184": {
+   "status": "open",
+   "source": "panel iter17 mechanics P3",
+   "evidence": "Prove XM's 60-share class is post-only with a GTC counterfactual on the recorded event-level book (insert each XM-60 at t_post-150 ms; post-only predicts 0/274 takes, GTC predicts >=30%); then fit the XM-60 routing rule and replicate XM's resting stream. = X177 follow-on + X188."
+  },
+  "X185": {
+   "status": "open",
+   "source": "panel iter17 mechanics P4",
+   "evidence": "If the salt generator is recovered (JSC WeakRandom xorshift128+, carry-aware z3 SMT on 4-6 outputs), count its draws between a wallet's consecutive bursts = a direct measurement of the take coin's denominator. Self-test on synthetic JSC salts first. = X149 follow-on; 32-bit and V8 already excluded."
+  },
+  "X186": {
+   "status": "open",
+   "source": "panel iter17 assumptions P1",
+   "evidence": "Re-target conditions 5/7 for the post-T0 regime: score the frozen tracker on the 142 windows of the 10-31 development blocks and 11-01 06-12 (maker variance share 0.51-0.65 vs 0.165, corr(W,maker) 0.80-0.87, XM vs pooled 0.73-0.78); pre-register a two-stream tracker (taker trk_a + resting remainders + XM 60-share quote), fit 10-31 00-06, score 10-31 12-18 / 11-01 / 11-02. The regime-specific PnL route; overlaps X182/X133/X174."
+  },
+  "X187": {
+   "status": "open",
+   "source": "panel iter17 assumptions P2",
+   "evidence": "Is the 'new regime' a weekend mode? Every post-T0 development hour is 10-31 Sat / 11-01 Sun; pre-H weekends already show DS/GF maker shares 0.45-0.50 vs 0.29-0.38. Replicate census17 / regime_pnl31 on 11-02 00-06 / 12-18 (weekday dev blocks) when they end; regress pre-H day shares on weekday/weekend + BTC activity + crowd volume."
+  },
+  "X188": {
+   "status": "open",
+   "source": "panel iter17 assumptions P3",
+   "evidence": "Decode the 60-share class as a post-only quote with its own trigger (knee move toward o then o's ask steps up within the hold) and lifetime (from book traces); replica posts at L, decoded life, strict fills, queued behind operator size; per-window corr with XM's maker PnL. = X177 / X184."
+  },
+  "X189": {
+   "status": "open",
+   "source": "panel iter17 assumptions P4",
+   "evidence": "Run the exam route out of time on a development-only extract of the capture's 10-31 day file (examiner-made extract restricted to 00-06/12-18, or a footer-only row-group ruling). = X178; needs the examiner + X170."
+  },
+  "X190": {
+   "status": "open",
+   "source": "panel iter17 assumptions P5",
+   "evidence": "Make the presence unit an ORDER (taker submission at m-150 + maker postings from the book), not a fill second, before the next claim: on the 10-31 dev blocks split the frozen block-second presence gain by the role of each positive second (maker-only vs taker); the order-level knee hazard vs a book-aware baseline at the e cut (decision-clock gain +0.058 [0.050,0.065] already). = D1 / X146 / X72; the strongest route to flip condition 2."
   }
  },
  "components": {
@@ -11800,7 +11926,7 @@
   "size": {
    "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Iteration 16, on the COMPLETE calldata record of 10-20..22 (every operator taker order's original size): the ORIGINAL size is a large (100) / small (30) class with per-wallet base rates outside size phases (DS 3.8%, GF 32%, XM 34% on 10-20; size phases of hours raise every wallet, e.g. 10-19 01-13 h, 10-20 19 h), repeated on the side of the operator's realized large lean (GF / XM: P(large) ~0.5 with no lean, 0.51-0.59 with it, 0.13-0.15 against it = the small pairing stream), and coupled with the price (large orders priced ask + 1 c or more, small at the ask). DS's large class is public at AUC 0.77-0.84 (the 250-ms spot move at its own anchor, the book at its own view, an ask already moving toward o); GF / XM's is public at only 0.62-0.70 and own-lean driven (0.71-0.78 from the lean alone). The REALIZED taker fill is execution on the post-hold book: min(original, o's ask depth <= L ~35 ms before the match) at r 0.895 on all 27,008 orders of 10-20 (0.50 at the bot's view). A replica's own simulated lean carries no information on the size realizations (pre-registration 10 (b) failed). Carrier allocation: a fixed priority list over in-flight orders with a ~300-ms slot, DS > GF > (W4) > XM (0.778 of the three wallets' carriers on visible occupancy; with W4 / W5 as slots DS > GF > W4 > XM > W5 is best and 36.6% of XM-led first legs follow a W4 / W5 leg within 300 ms), with unseen lost legs ahead of GF / XM-led legs. The public book's cancel wave before a decision names XM's overflow legs at AUC 0.83 (true decision density 0.84), lifting XM's PnL ceiling to ~0.49-0.50 (iteration 16, not pre-registered). Iteration 17: the class is a decision-level variable whose RATE and carrier LIST are configuration (11-01: GF 0.08 vs 0.27, pooled first-leg large share 0.053 vs 0.083, large first legs GF 0.24 vs 0.53); within a regime it follows the operator's decision memory (S = side of its last large order, E = commitment; S-relation AUC 0.84-0.88 for fast followers), and the side of every large order is public (dc14 0.878, seeds 0.918), but WHICH decisions are large is a coin a replica cannot synchronize (own-memory agreement 0.55, window-net r +0.015 / +0.043 over the menu; pre-registration 12 failed). Class-keyed lists (small DS > GF > XM, large GF > DS > XM) name 0.656 of large carriers (size-blind 0.540)."
+   "description": "Original size is a large(>=90)/small class; the side of every large order is public (dc14 0.878). WHICH decisions are large follows the operator's shared decision memory S (side of the last large order) + commitment E. Iteration 18 (sib18, pre-registration 15): the siblings' public large prints (W4/W5 taker BUY filled>=60, lagged ~2 s, shared txs excluded) carry PART of the within-window state S but do NOT fully synchronise it: S_pub agrees with the operator's true S on 0.495/0.4319 (public only), S_hyb 0.6096/0.6102 (own memory 0.5564/0.5606), below the 0.75 bar, coverage 0.58/0.497. On the PnL proxy (window signed-net x payout vs window PnL, Spearman) the public state beats own-memory and the menu on BOTH splits: sib 0.336/0.5108, hyb 0.3139/0.486 vs own 0.2678/0.4459 vs menu 0.2244/0.4053, but reaches only ~60% of the true-state ceiling 0.5659/0.7055 (class-oracle 0.5161/0.6779). Paired 2-h block bootstrap of the PnL-proxy Spearman gain vs the menu (no-sibling) baseline: sib 0.1108 [0.07, 0.1518] (forward) / 0.1092 [0.0216, 0.2038] (reverse), hyb 0.0891 [0.0647, 0.1151] / 0.0808 [0.0183, 0.1339] -- the lower CI bound is > 0 on both splits, so the sibling size signal is a significant, reproducible gain over the baseline that already contains W4/W5 prints as market activity. So the size STATE is PARTLY a public lagged dimension (not a fully private coin); the undecoded residual is the within-window commitment E and which of the shared-S decisions are drawn large. Ceiling/attainability result (E[size] proxy, not the strict-fill tracker), pending the X170 ruling on W4/W5."
   },
   "exit": {
    "confidence": 0.9,
@@ -11808,7 +11934,7 @@
    "description": "Remainders and lost races rest as GTC bids at the old ask (cancelled never-filled remainders live DS median 328 ms, GF 240, XM 124); every position is held to resolution; 87% of shares end paired at 0.979; TAKER_REBATE = 0.5 x the previous day's taker fees. Iteration 12, the INVENTORY PATH: per window PnL = net x outcome (r 0.884); the net follows the current minute's BTC move (+), is bought back against the earlier minutes' moves (-) and leans with the previous window's outcome (+); public models predict the window net at r 0.46-0.48 (market activity alone 0.34), and an executable exposure tracker that buys the predicted net deficit with strict fills (latency >= 2 s) reproduces the per-window PnL at Pearson 0.476 / Spearman 0.440 (GF 0.34, DS 0.43, XM 0.06; market-only tracker 0.36 / 0.32); the wallets' per-window PnLs are nearly independent of each other (0.00-0.20). Iteration 13: the inventory path is two operator-level streams, a large-size lean (cross-wallet r 0.35-0.47) and a small-size taker counter-flow that buys back the REALIZED large inventory (within-wallet corr(L, S) -0.26..-0.60; dose-dependent pairing, t -26.5); public data predicts L at r 0.32 and the counter-flow residual at ~0.3, and a two-stream target adds nothing to the window-net prediction (0.4195 vs 0.4237). Per-wallet PnL is bounded by dispatch: XM <= 0.30-0.41 under every pooled-stream oracle. Iteration 14: a millisecond nowcast (nfms14) and a decision-hazard nowcast do not lift the tracker (pre-registrations 6 / 7); XM's PnL is a random thinning of the operator's decisions (oracle 0.3925, redraw ceiling 0.4304 < 0.47). Iteration 15: the depth-weighted hazard nowcast (pre-registration 8) does not lift the tracker (mix15 0.4772 / 0.4556 vs mix14 0.4792 / 0.4594 on 576 windows of 10-21..22). Iteration 17: a two-phase target does not lift the tracker (pre-registration 13: 0.5064 / 0.4675 vs 0.5065 / 0.4674). In the new regime XM's PnL is its maker stream (86% of its shares are maker fills), which the taker-only tracker does not trade."
   }
  },
- "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts 13-120 s ahead (1.66 ms per cent whatever the number of sizes per cent, so the signing is parallel or the timestamps are scheduled; the salts are not V8 Math.random output of nearby calls) [VALIDATE-only]. It sits next to Polymarket's engine and reads the Binance SPOT book ~80-110 ms after Binance stamps it; when the spot microprice shifts toward an outcome over the last ~100-250 ms it submits a pre-signed order at the ask it saw ~30-70 ms before arriving [VALIDATE-only]; the side is 0.8369 per taker order on the pre-registered split [VALIDATE-only]. Each decision goes to the first free wallet in a fixed priority list DS > GF > W4 > XM (> W5; W4 / W5 are the operator's other wallets), a wallet staying busy ~300 ms after its submission whether its order fills or not; GF- and XM-led legs are often a later slot behind lost legs nobody sees (tick lock shifted by the slot gaps; DS remainders exactly one cent below GF's limit; 37% of XM-led first legs follow a W4 / W5 leg within 300 ms) [VALIDATE-only]. The size is a large / small class with per-wallet base rates (DS ~4%, GF / XM ~32-34%), repeated on the side of the operator's realized large lean and priced one cent above the ask when large; DS's large class is predictable from public data (AUC ~0.8), GF's and XM's mostly from the operator's own realized lean [VALIDATE-only]. Polymarket holds every marketable order 150 ms; the makers cancel most of the depth the bot saw, and the order fills min(size, depth left ~35 ms before the match) (r 0.895) [VALIDATE-only]. Lost races rest at the old ask and sometimes fill as maker [VALIDATE-only]. Positions are held to resolution; most shares end paired; about half the profit is the taker-fee rebate [VALIDATE-only]. The window PnL is the size of the large lean: public data predicts it at r ~0.5 (exposure tracker 0.5065 / 0.4674 on 10-20..22), because the size realizations are coins conditioned on the operator's own realized lean, which a replica's own state cannot reproduce; which wallet carries a decision follows the dispatcher, and with the operator's occupancy or its local decision density known XM's PnL ceiling is 0.51-0.62 (0.43-0.46 under a lottery), but the public hazard does not reproduce that density (0.48) [VALIDATE-only]. Nothing is exam-verified yet. ITERATION 17 [VALIDATE-only unless noted]: out of time, in the 11-01 regime, the knee (255 ms) and the taker routing transfer, the frozen side route scores 0.72-0.75 on a live laptop feed whose clock drifts (not 0.80; the score moves ~5 points per 25 ms of clock mapping) [out-of-time development check], the large-class rate and list are configuration (GF 0.08 vs 0.27), and XM's fills became 92% maker fills from 60-share orders (a component last seen on 10-09..13 and absent from the whole VALIDATE week) that are the same decisions (dc14 side 0.80) priced at the ask of the bot's view and resting after the ask moved (lost races of the late slot, or post-only orders) [development block 11-01]. The size class is drawn per decision on the side the dc14 rule predicts (0.88) and kept by the operator's decision memory (side of its last large order); which decisions are large is a coin that a replica's own memory does not reproduce (pre-registration 12 failed).",
+ "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts 13-120 s ahead (1.66 ms per cent whatever the number of sizes per cent, so the signing is parallel or the timestamps are scheduled; the salts are not V8 Math.random output of nearby calls) [VALIDATE-only]. It sits next to Polymarket's engine and reads the Binance SPOT book ~80-110 ms after Binance stamps it; when the spot microprice shifts toward an outcome over the last ~100-250 ms it submits a pre-signed order at the ask it saw ~30-70 ms before arriving [VALIDATE-only]; the side is 0.8369 per taker order on the pre-registered split [VALIDATE-only]. Each decision goes to the first free wallet in a fixed priority list DS > GF > W4 > XM (> W5; W4 / W5 are the operator's other wallets), a wallet staying busy ~300 ms after its submission whether its order fills or not; GF- and XM-led legs are often a later slot behind lost legs nobody sees (tick lock shifted by the slot gaps; DS remainders exactly one cent below GF's limit; 37% of XM-led first legs follow a W4 / W5 leg within 300 ms) [VALIDATE-only]. The size is a large / small class with per-wallet base rates (DS ~4%, GF / XM ~32-34%), repeated on the side of the operator's realized large lean and priced one cent above the ask when large; DS's large class is predictable from public data (AUC ~0.8), GF's and XM's mostly from the operator's own realized lean [VALIDATE-only]. Polymarket holds every marketable order 150 ms; the makers cancel most of the depth the bot saw, and the order fills min(size, depth left ~35 ms before the match) (r 0.895) [VALIDATE-only]. Lost races rest at the old ask and sometimes fill as maker [VALIDATE-only]. Positions are held to resolution; most shares end paired; about half the profit is the taker-fee rebate [VALIDATE-only]. The window PnL is the size of the large lean: public data predicts it at r ~0.5 (exposure tracker 0.5065 / 0.4674 on 10-20..22), because the size realizations are coins conditioned on the operator's own realized lean, which a replica's own state cannot reproduce; which wallet carries a decision follows the dispatcher, and with the operator's occupancy or its local decision density known XM's PnL ceiling is 0.51-0.62 (0.43-0.46 under a lottery), but the public hazard does not reproduce that density (0.48) [VALIDATE-only]. Nothing is exam-verified yet. ITERATION 17 [VALIDATE-only unless noted]: out of time, in the 11-01 regime, the knee (255 ms) and the taker routing transfer, the frozen side route scores 0.72-0.75 on a live laptop feed whose clock drifts (not 0.80; the score moves ~5 points per 25 ms of clock mapping) [out-of-time development check], the large-class rate and list are configuration (GF 0.08 vs 0.27), and XM's fills became 92% maker fills from 60-share orders (a component last seen on 10-09..13 and absent from the whole VALIDATE week) that are the same decisions (dc14 side 0.80) priced at the ask of the bot's view and resting after the ask moved (lost races of the late slot, or post-only orders) [development block 11-01]. The size class is drawn per decision on the side the dc14 rule predicts (0.88) and kept by the operator's decision memory (side of its last large order); which decisions are large is a coin that a replica's own memory does not reproduce (pre-registration 12 failed). || iteration18 (size): the undecoded size STATE 'which side is the current large lean' is PARTLY recoverable from the sibling wallets' (W4/W5) public large prints (PnL-proxy Spearman sib 0.336/0.5108 vs own-memory 0.2678/0.4459 vs menu 0.2244/0.4053, both splits), but under the within-window PIT definition it stays below the 0.75 agreement bar (hyb 0.6096/0.6102) and ~60% of the true-state ceiling 0.5659/0.7055; the within-window coin and commitment E remain undecoded (pending X170).",
  "target_metrics": {
   "presence_auc": 0.8701,
   "presence_baseline": 0.8464,
@@ -11863,7 +11989,8 @@
    },
    "note": "frozen dc_exam14 model on rec_bn15 v2 (laptop receive clock), 30 windows of 11-01 06:00-09:30; not a target metric (VALIDATE keys unchanged)"
   },
-  "iteration17": "target_metrics unchanged: no candidate beat the frozen rule (pre-registrations 12 and 13 failed; 11 is an out-of-time check)."
+  "iteration17": "target_metrics unchanged: no candidate beat the frozen rule (pre-registrations 12 and 13 failed; 11 is an out-of-time check).",
+  "iteration18": "target_metrics UNCHANGED (no executable candidate adopted; sib18 is a size PROXY/ceiling result, not the mix14 tracker). PIVOT (pre-registration 15): the operator size state S read from the siblings' public large prints (W4/W5 filled>=60, 2 s lag, shared txs excluded). PARTIAL. S agreement with the operator's within-window true S: sib 0.495/0.4319, hyb 0.6096/0.6102 (iter17 own 0.546/0.558), below the 0.75 bar; pub coverage 0.58/0.497. PnL-proxy Spearman (window signed-net x payout vs PnL): sib 0.336/0.5108, hyb 0.3139/0.486 BEAT own 0.2678/0.4459 and menu 0.2244/0.4053 on both splits, ~60% of the true-state ceiling 0.5659/0.7055 (class-oracle 0.5161/0.6779). P(large) AUC hyb 0.7994/0.8554 (own 0.7933/0.8485; true-state 0.8183/0.8655). Signed-net rN hyb 0.3524/0.514 vs menu 0.2895/0.4345 (pre-registered bar rN>=menu+0.05 MET both splits). Paired 2-h block bootstrap of the PnL-proxy Spearman gain vs the menu (no-sibling) baseline: sib 0.1108 [0.07, 0.1518] (forward) / 0.1092 [0.0216, 0.2038] (reverse), hyb 0.0891 [0.0647, 0.1151] / 0.0808 [0.0183, 0.1339] -- the lower CI bound is > 0 on both splits, so the sibling size signal is a significant, reproducible gain over the baseline that already contains W4/W5 prints as market activity. Ceiling/attainability only; pending X170."
  },
  "catalog_open_after_iteration8": [
   "X5",
@@ -12347,11 +12474,11 @@
   },
   "own_decision_memory": {
    "family": "own_state",
-   "status": "have",
+   "status": "proxy",
    "source": "complete calldata (10-20..22, 11-01)",
    "resolution": "order",
    "publication_latency": "own (instant)",
-   "best_indicator": "side of the last large order S and commitment E",
+   "best_indicator": "S=side of last large order; recoverable from W4/W5 public large prints (S_hyb agree 0.6096/0.6102 with true S)",
    "verdict": "drives"
   },
   "own_pnl_capital": {
@@ -12405,7 +12532,7 @@
    "source": "W4 0xd84403ef / W5 0x03b4c58b (data-api, chain)",
    "resolution": "fill",
    "publication_latency": "block",
-   "best_indicator": "W4 / W5 leg in the 300 ms before an XM leg",
+   "best_indicator": "last W4/W5 large (>=60) print side = operator S (0.495/0.4319); hybrid lifts P(large) AUC to 0.7994/0.8554",
    "verdict": "drives"
   },
   "latency_colocation": {
@@ -12898,6 +13025,53 @@
     "p_link": 1.5765692599369934e-10
    },
    "verdict": "confirmed (at a NEGATIVE lag, -0.53 / -0.58 s: the operator decides before the crowd's burst; downstream of the same move, not an input)"
+  },
+  {
+   "dimension": "own_decision_memory / operator_sibling_wallets",
+   "definition": "S_hyb = size hysteresis state (side of last large order), replica own draws overwritten by W4/W5 public large (>=60) prints (block_ts+2s, shared txs excluded)",
+   "event": "state value at each operator taker order; target = original-size large class (>=90)",
+   "period": "VALIDATE (capture days 10-20..22, fit 10-20 / reverse)",
+   "result": {
+    "S_agreement_true": {
+     "sib": [
+      0.495,
+      0.4319
+     ],
+     "hyb": [
+      0.6096,
+      0.6102
+     ],
+     "own": [
+      0.5564,
+      0.5606
+     ]
+    },
+    "auc_large": {
+     "hyb": [
+      0.7994,
+      0.8554
+     ],
+     "true_state": [
+      0.8183,
+      0.8655
+     ]
+    },
+    "pnl_proxy_rN": {
+     "menu": [
+      0.2895,
+      0.4345
+     ],
+     "hyb": [
+      0.3524,
+      0.514
+     ],
+     "true_state": [
+      0.588,
+      0.7214
+     ]
+    }
+   },
+   "verdict": "drives (size STATE recoverable from public sibling prints); PnL proxy/ceiling only; pending X170"
   }
  ],
  "catalog_open_after_iteration17": [
@@ -12953,5 +13127,71 @@
   "X174",
   "X175",
   "X177"
+ ],
+ "catalog_open_after_iteration18": [
+  "E3",
+  "E5",
+  "E6",
+  "X5",
+  "X7",
+  "X18",
+  "X26",
+  "X33",
+  "X36",
+  "X37",
+  "X44",
+  "X51",
+  "X53",
+  "X57",
+  "X66",
+  "X70",
+  "X72",
+  "X87",
+  "X88",
+  "X90",
+  "X100",
+  "X104",
+  "X107",
+  "X113",
+  "X115",
+  "X122",
+  "X123",
+  "X124",
+  "X127",
+  "X128",
+  "X130",
+  "X133",
+  "X139",
+  "X141",
+  "X146",
+  "X148",
+  "X149",
+  "X150",
+  "X151",
+  "X153",
+  "X154",
+  "X155",
+  "X158",
+  "X159",
+  "X160",
+  "X161",
+  "X164",
+  "X167",
+  "X170",
+  "X174",
+  "X175",
+  "X177",
+  "X178",
+  "X179",
+  "X180",
+  "X181",
+  "X183",
+  "X184",
+  "X185",
+  "X186",
+  "X187",
+  "X188",
+  "X189",
+  "X190"
  ]
 }
