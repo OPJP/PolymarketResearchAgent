@@ -1,4 +1,4 @@
-# tommy-cs2-maker: frozen rule v4 (`tommy-v4-grid-league-dota`; v3 plus the Dota 2 universe and coverage on the lot, iteration 8, 2026-11-01)
+# tommy-cs2-maker: frozen rule v5 (`tommy-v5-grid-league-dota-groupP`; v4 plus group-P coverage in the selection score, iteration 9, 2026-11-01)
 
 Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
 
@@ -7,10 +7,47 @@ Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
 - BUILD = gameStartTime in [10-16, 10-21). VALIDATE = [10-21, 10-23).
 - Code: `code/final_rule.py`, which exposes `evaluate(start_ts, end_ts, intervals=None)`. CS2 selection constants are in
   `code/final_rule_v2_constants.json` (unchanged since v2); the Dota 2 league table (same recipe, same periods) is in
-  `code/final_rule_v4_dota.json`. The `build` set is fitted on BUILD and gives the VALIDATE numbers below. The `exam`
+  `code/final_rule_v4_dota.json`; the v5 group-P members and coefficients are in `code/final_rule_v5_groupP.json`. The `build` set is fitted on BUILD and gives the VALIDATE numbers below. The `exam`
   set is the same recipe refitted on all development data before H, and `evaluate()` uses it by default.
 - Nothing here is exam-verified. The rule does not meet the high-accuracy target: price and outcome fail, and presence
-  stays below its baseline (selection carries the presence-or-selection condition; scope now passes).
+  stays below its baseline (selection carries the presence-or-selection condition; scope passes).
+
+## What iteration 9 established (v5: the selection score adds group-P coverage; nothing else in the rule changed)
+
+- **Selection = the coverage of the feed product the wallet buys.** Fixed on BUILD only, the fixed-lag co-signers of
+  P4e split by their GRID share into group P (P4e, 0x2005d16a, the slow trio 0x72aaaaf9 / 0x2529c68d / 0xfe8a28be: at
+  most 1.6% of their prints in GRID events) and group G (the +150-230-ms group: 28-53%). v5 = logistic(1.248 logit(v4
+  score) + 1.189 log1p(gp72) - 1.113), gp72 = group-P members with a print in another event of the same league in the
+  previous 72 h (point-in-time, wallet-independent). Adopted under the criterion pre-registered before scoring. VALIDATE
+  pooled AUC 0.970 (v4 0.953) vs activity 0.886, gain +0.084 [0.030, 0.152], recall 0.744, lift 3.155; CS2 unseen
+  leagues 0.974 (v4 0.928). In development runs the earlier events of sealed periods are skipped, so on forward
+  development blocks gp72 is under-counted (10-31 block: recall 0); the examiner counts every earlier event.
+- **GRID is a coverage boundary, not a speed boundary.** Group G's fan-out has the same delivery order in GRID events
+  (lags behind 0xf1ee4842 within 2-15 ms of their non-GRID values) and is more informed there (60-s markout +2.80c vs
+  +1.57c, no pre-move). The wallet's product does not carry GRID events.
+- **The fan-out is one broadcast** (the order of co-signers is what their own lags predict; common-mode lag residual
+  r 0.86), with a load-dependent queue at the slow trio (+142-188 ms per extra message in 1 s). Isolated Dota kill
+  messages look machine-timed (77% of kill-linked hits inside a 0.8-s window), small n.
+- **The outcome item is the price item.** In the validated engine, the wallet's own prices quoted continuously earn
+  +1.3-1.4% and keep most of the per-market margin correlation (BUILD 0.66 / 0.61), while its own resting windows at the
+  public anchor lose 2.3-4.5% at pair cost ~1.00. The best executable public variant correlates 0.25 / 0.09 with its
+  per-market PnL (below the prints baseline 0.33 / 0.28).
+- **No public state predicts the price level.** A public game-state fair value for Dota (gold / xp / kill leads on the
+  feed's clock) scores 0.41 within one tick against the last print's 0.43; a public tape-state model 0.285 against
+  0.298; the Dota ladder is only weakly locked to kills (13% of bursts within 6 s vs 10% on shifted clocks). CS2 has no
+  public round clock for its events (P4e's take sequence does not align with bo3's round winners: identity 0.785 vs
+  0.792 permuted).
+- **Its residual is taken by group P** (14.8% of its maker shares; -4.1c per share on the residual), not group G (2.0%).
+- **Its quote level is an informed private value that leads the public book** (BUILD-live, uncensored adds). The
+  offset of each validated own add from the others' mid predicts the others' mid move: Spearman 0.52 / 0.44 / 0.34 at 2 /
+  10 / 30 s (other makers' adds 0.24 / 0.17 / 0.09; time-shift null ~0), 0.38 at 10 s without any own take or public
+  trade just before; the offset does not follow the prior 2-s move of its own or the sibling book (0.02 / 0.03). Its
+  informative re-pricings precede 11% of the slower subscribers' takes within 1 s (about 10x the shifted null): the
+  maker leg moves on the feed's messages, which is why no public anchor reaches the price item.
+- **Co-receivers.** Other makers cancel within 8 ms after its alone takes (0.115 vs 0.021 per take, p 0.007), before
+  its order or own pull can be visible: weak support for one feed with the kind filter at the takers.
+- **New key-free source.** Valve's dota2.com webapi spectator state (4-s snapshots) is recorded from 11-01 02:14 UTC
+  (`tommy_dota_rt`) for the pre-registered Dota timing tests.
 
 ## What iteration 8 established (v4: the universe adds Dota 2; nothing else in the rule changed)
 
@@ -177,7 +214,7 @@ order-level fill engine, a census of informed bursts) and found:
 
 | Component | Rule | Tag | Evidence |
 | --- | --- | --- | --- |
-| Selection | Unit = CS2 or Dota 2 event (match plus all map-winner markets; Gamma series 10310 and 10309). `s_lg` = 0 if `eventMetadata.gridSeriesId` is set (GRID official data), else the league's traded rate among fitted non-GRID events (CS2 table from v2, Dota 2 table added in v4 with the same recipe), shrunk (k = 3) toward the tier rate. Score = logistic(log1p pre-game taker prints, USD and distinct wallets in [gs-1h, gs) over the event's markets; `s_lg`). Trade the event iff score >= thr (20th percentile of the fitted positives' scores). | VALIDATE-only | v4 pooled VALIDATE AUC 0.953 vs pre-game activity 0.886, gain +0.067 [0.022, 0.118] (0 of 4,000 draws <= 0). Recall 0.744 at lift 3.25; CS2 part 0.954 / 0.892 / 0.722 / 3.30, Dota part 3 of 3 traded selected. GRID events traded: CS2 0 of 122, Dota 0 of 33. Mechanism: the feed's coverage (P4e's presence has the same tier x GRID boundary). Forward 10-31 12-18: AUC 0.851, recall 0.5, lift 3.13. |
+| Selection | Unit = CS2 or Dota 2 event (match plus all map-winner markets; Gamma series 10310 and 10309). v4 score: `s_lg` = 0 if `eventMetadata.gridSeriesId` is set, else the league's traded rate among fitted non-GRID events shrunk (k = 3) toward the tier rate; logistic(log1p pre-game taker prints, USD and distinct wallets in [gs-1h, gs); `s_lg`). v5 score = logistic(a logit(v4) + b log1p(gp72) + c), gp72 = distinct group-P members (P4e, 0x2005d16a, 0x72aaaaf9, 0x2529c68d, 0xfe8a28be; fixed on BUILD) with a public taker print in another event of the same league that started in [gs - 72 h, gs), prints before gs. Trade the event iff the v5 score >= thr (20th percentile of the fitted positives). | VALIDATE-only | v5 pooled VALIDATE AUC 0.970 vs pre-game activity 0.886, gain +0.084 [0.030, 0.152] (0 of 4,000 draws <= 0), recall 0.744 at lift 3.155; CS2 0.972 (unseen leagues 0.974 vs v4 0.928), Dota 0.926. GRID events traded: CS2 0 of 122, Dota 0 of 33. Mechanism: the coverage of its feed product (group P); GRID events are covered by group G's fan-out with the same delivery order. Forward 10-31 12-18 (development run, sealed earlier events skipped): AUC 0.842, recall 0. |
 | Timing (maker) | Quotes from game start to the end of each market, re-signing continuously in busy phases. At its own taker signal it cancels its complement ladder within 11-19 ms and re-quotes it about 1.04 s later, when its FAK returns. | VALIDATE-only (re-quote); live dev block (pull) | Own pull after 90-95% of live takes. Re-post hazard on the complement: 236x in [1.00, 1.14) s after its take. Its re-quote bursts co-occur symmetrically with other makers' changes (50 ms before 67%, after 69%, null 19%); no period. |
 | Timing (taker) | At messages of a shared CS2 push feed (>= 6 subscribers at fixed lags; P4e signs 50 ms before it), of the plant / turn kind only: typically the first informed move against the previous burst. Not decoded: on those events it signs before every public Polymarket trace, it acts on only about 16-20% of the informed 3c+ bursts in its markets, and it skips the round-win kind the other subscribers take, without an edge-based decline. | hypothesis (fan-out structure: development data, iteration 7) | Match / map books flat until it signs. Round-market takers precede it in 0.9% (controls 0.2-0.7%). Census: 80% of informed bursts wallet-absent; present 29-35% after a burst on the other team, 6-8% after one on the same team; point-in-time AUC 0.698 for which bursts it leads (pre-burst public features). Absent bursts follow round wins, its own follow bomb plants beyond wins (p 0.03). No delay-queue leak. |
 | Side (maker) | BUY both outcome tokens. | VALIDATE-only | 97.4% of bought shares end in pairs. |
@@ -188,14 +225,14 @@ order-level fill engine, a census of informed bursts) and found:
 | Size | Maker: 100 shares in CS2. In 36% of events an event-wide size starts at 50-96 (median 54) and steps up monotonically to 100. Exactly 10 shares in Dota 2 (1,292 of 1,292 orders). Taker: odd sizes about 0.3x of the pre-event depth up to its limit; 1000 / 2000 caps early and fading. | VALIDATE-only (maker 100 / 10 and the ramp's shape); hypothesis (ramp clock, taker) | CS2 100 shares: 92.1% (BUILD), 88.3% (VALIDATE). No global (a, b) schedule (0-4% of non-100 within one share). Start size vs pre-game USD: Spearman 0.55. |
 | Exit | Never sells. Pulls the complement at its takes and re-pairs it through bids posted 1.04 s later, which slower informed takers fill. Between takes it pulls the bids of the team about to lose value on private events (untriggered pulls: -0.6c others'-mid markout in 10 s). Merges complete pairs in a 300-s loop (minimum 100 shares) and holds the residual. (The iteration-6 public-wave follower is withdrawn: an artefact of the size label.) | VALIDATE-only (pairs, merge law); hypothesis (untriggered pulls, BUILD-live) | Pair cost 0.978, reproduced by the validated engine on its own orders (0.975). In bursts it misses, its complement is hit in 19-22% (-1.5 to -3.2c markouts). A public ladder 4c below the stale touch reaches 0.978 but loses $13.4k per split on its residual. |
 
-## Target metrics on VALIDATE (`state.json` `target_metrics`; v4, build constants)
+## Target metrics on VALIDATE (`state.json` `target_metrics`; v5, build constants)
 
 | Metric | Value | Baseline / note |
 | --- | --- | --- |
-| Selection AUC | 0.953 | Baseline 0.886 (pre-game activity). Recall 0.744, lift 3.25. Gain +0.067 [0.022, 0.118], 0 of 4,000 bootstrap draws <= 0. CS2 part unchanged (0.954 vs 0.892). |
-| Presence AUC | 0.874 | Baseline 0.891 (fill presence per 30-s bin). Forward block 0.917 vs 0.823. |
+| Selection AUC | 0.970 | Baseline 0.886 (pre-game activity). Recall 0.744, lift 3.155. Gain +0.084 [0.030, 0.152], 0 of 4,000 bootstrap draws <= 0. CS2 0.972 vs 0.892; Dota 0.926. v4 on the same events 0.953. |
+| Presence AUC | 0.883 | Baseline 0.891 (fill presence per 30-s bin; v5 event score x in-play). Forward block 0.911 vs 0.823. |
 | `price_within_tick` | 0.322 | In-play tick, last-print anchor. Live (BUILD-live): touch 0.472 per add, 0.471 on filled orders; own-state machines 0.09-0.50. |
-| `pnl_corr_pearson` / `pnl_corr_spearman` | -0.126 / -0.065 | Generic tape ladder. Balanced pair ladder +0.034 / -0.085. Co-occurrence baseline (in-play prints) +0.325 / +0.283. |
+| `pnl_corr_pearson` / `pnl_corr_spearman` | -0.131 / -0.081 | Generic tape ladder on v5's selected events. Validated-engine public ladder (knockout D) +0.245 / +0.089 on the wallet's markets; balanced pair ladder +0.034 / -0.085. Co-occurrence baseline (in-play prints) +0.325 / +0.283. |
 | Side | Not applicable at market level | The maker is two-sided in CS2 and Dota. The taker side follows the unobserved feed. |
 | Coverage | 1.000 of fills, 1.000 of absolute PnL | Computed on the lot by `evaluate()` (v4). A CS2-only universe: 0.927 / 0.990 on VALIDATE, 0.43-0.46 of fills on the 10-31 block. |
 
@@ -236,7 +273,10 @@ order-level fill engine, a census of informed bursts) and found:
    - It pays the informed pack at the events it does not detect: pack takers are 16-18% of its maker shares, at -1.5c
      to -4.5c per share.
 6. **Paid for:** information speed on its event class, intermediation inside the delay window, liquidity provision to
-   uninformed flow, and rebates.
+   uninformed flow, and rebates. Iteration 9: the margin is earned by the LEVEL of its bids (its own price sequence quoted
+   continuously earns +1.3%; the public anchor at its own resting windows loses 2.3-4.5%), so the private value prices the
+   ladder, not only the takes. The informed counterparty that takes its unpaired residual is group P, the earlier
+   subscribers of its own feed, on the messages it does not take.
 
 7. **Leading hypothesis for the source (iteration 8, untested):** the feed is a broadcast-side automated reader of the
    games' public spectator relays (CSTV+ / GOTV, DotaTV), which would explain the GRID and tier-5 gaps in its coverage,
@@ -263,7 +303,11 @@ order-level fill engine, a census of informed bursts) and found:
 - **What the feed is not** (iteration 8): not Polymarket's sports socket (16 s to minutes behind the market), not a
   multi-sport B2B feed (no fan-out in football / NBA / tennis), not an odds feed (no shared value with P4e). It is an
   esports push product of raw in-round events, tiered by tournament, without GRID's exclusive events.
-- **Expected edge without the feed:** negative.
+- **Expected edge without the feed:** negative. Iteration 9 measured it on the validated engine: a continuous public
+  ladder at the revealed others' best bid loses 1.9-3.2%, the same windows as the wallet's at the public anchor 2.3-4.5%.
+- **Dota 2 only:** Valve publishes the spectator-clock game state key-free (4-s snapshots); the feed's Dota messages sit
+  on that clock, so a replicator could in principle time Dota events from public data a few seconds behind the feed.
+  Whether that is fast enough against the 1-s in-play delay is the pre-registered X118 test.
 
 ## Not explained yet
 

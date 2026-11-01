@@ -1,0 +1,248 @@
+{
+ "BUILD": {
+  "markets": 113,
+  "wallet_pnl": 5105.7,
+  "real_maker_pnl": 19.6,
+  "real_maker_pnl_vs_wallet": [
+   0.385,
+   0.48,
+   113
+  ],
+  "real_maker_margin_vs_wallet": [
+   0.732,
+   0.663,
+   113
+  ],
+  "A": {
+   "pnl": -1059.8,
+   "usd": 363573.8,
+   "return": -0.0029,
+   "pnl_vs_wallet": [
+    0.407,
+    0.434,
+    113
+   ],
+   "margin_vs_wallet": [
+    0.717,
+    0.656,
+    113
+   ],
+   "pnl_vs_real_maker": [
+    0.976,
+    0.95,
+    113
+   ],
+   "pair_cost_median": 0.9757,
+   "pairs_vs_wallet_pairs": [
+    1.0,
+    1.0,
+    113
+   ],
+   "group_P_share": 0.1571
+  },
+  "B": {
+   "pnl": -16768.3,
+   "usd": 376010.6,
+   "return": -0.0446,
+   "pnl_vs_wallet": [
+    0.227,
+    0.182,
+    113
+   ],
+   "margin_vs_wallet": [
+    0.313,
+    0.336,
+    113
+   ],
+   "pnl_vs_real_maker": [
+    0.881,
+    0.748,
+    113
+   ],
+   "pair_cost_median": 1.0044,
+   "pairs_vs_wallet_pairs": [
+    0.998,
+    0.997,
+    113
+   ],
+   "group_P_share": 0.1818
+  },
+  "C": {
+   "pnl": 3539.9,
+   "usd": 254962.3,
+   "return": 0.0139,
+   "pnl_vs_wallet": [
+    0.288,
+    0.211,
+    113
+   ],
+   "margin_vs_wallet": [
+    0.663,
+    0.605,
+    113
+   ],
+   "pnl_vs_real_maker": [
+    0.782,
+    0.651,
+    113
+   ],
+   "pair_cost_median": 0.9809,
+   "pairs_vs_wallet_pairs": [
+    0.983,
+    0.98,
+    113
+   ],
+   "group_P_share": 0.1578
+  },
+  "D": {
+   "pnl": -14310.5,
+   "usd": 452320.4,
+   "return": -0.0316,
+   "pnl_vs_wallet": [
+    0.126,
+    0.114,
+    113
+   ],
+   "margin_vs_wallet": [
+    0.308,
+    0.17,
+    113
+   ],
+   "pnl_vs_real_maker": [
+    0.476,
+    0.402,
+    113
+   ],
+   "pair_cost_median": 0.9795,
+   "pairs_vs_wallet_pairs": [
+    0.85,
+    0.844,
+    113
+   ],
+   "group_P_share": 0.1857
+  }
+ },
+ "VALIDATE": {
+  "markets": 116,
+  "wallet_pnl": 8034.6,
+  "real_maker_pnl": 3797.4,
+  "real_maker_pnl_vs_wallet": [
+   0.388,
+   0.323,
+   116
+  ],
+  "real_maker_margin_vs_wallet": [
+   0.628,
+   0.566,
+   116
+  ],
+  "A": {
+   "pnl": 4588.7,
+   "usd": 432842.5,
+   "return": 0.0106,
+   "pnl_vs_wallet": [
+    0.434,
+    0.332,
+    116
+   ],
+   "margin_vs_wallet": [
+    0.614,
+    0.535,
+    116
+   ],
+   "pnl_vs_real_maker": [
+    0.96,
+    0.921,
+    116
+   ],
+   "pair_cost_median": 0.9735,
+   "pairs_vs_wallet_pairs": [
+    1.0,
+    1.0,
+    116
+   ],
+   "group_P_share": 0.1517
+  },
+  "B": {
+   "pnl": -10005.5,
+   "usd": 432363.1,
+   "return": -0.0231,
+   "pnl_vs_wallet": [
+    0.243,
+    0.055,
+    116
+   ],
+   "margin_vs_wallet": [
+    0.187,
+    0.142,
+    116
+   ],
+   "pnl_vs_real_maker": [
+    0.861,
+    0.728,
+    116
+   ],
+   "pair_cost_median": 1.0022,
+   "pairs_vs_wallet_pairs": [
+    0.997,
+    0.988,
+    116
+   ],
+   "group_P_share": 0.1818
+  },
+  "C": {
+   "pnl": 3715.8,
+   "usd": 288055.6,
+   "return": 0.0129,
+   "pnl_vs_wallet": [
+    0.368,
+    0.193,
+    116
+   ],
+   "margin_vs_wallet": [
+    0.468,
+    0.409,
+    116
+   ],
+   "pnl_vs_real_maker": [
+    0.805,
+    0.567,
+    116
+   ],
+   "pair_cost_median": 0.9811,
+   "pairs_vs_wallet_pairs": [
+    0.987,
+    0.987,
+    116
+   ],
+   "group_P_share": 0.1429
+  },
+  "D": {
+   "pnl": -9070.3,
+   "usd": 484020.1,
+   "return": -0.0187,
+   "pnl_vs_wallet": [
+    0.245,
+    0.089,
+    116
+   ],
+   "margin_vs_wallet": [
+    0.183,
+    0.122,
+    116
+   ],
+   "pnl_vs_real_maker": [
+    0.482,
+    0.362,
+    116
+   ],
+   "pair_cost_median": 0.9821,
+   "pairs_vs_wallet_pairs": [
+    0.963,
+    0.94,
+    116
+   ],
+   "group_P_share": 0.1571
+  }
+ }
+}

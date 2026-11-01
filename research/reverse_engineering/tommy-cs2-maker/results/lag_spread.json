@@ -1,0 +1,237 @@
+{
+ "per_map": {
+  "dota2-ty-gl-2026-10-22 map 1": {
+   "anchors": 31,
+   "w0.8": {
+    "bought": 4,
+    "other": 0,
+    "D": 1042.1
+   },
+   "w1.2": {
+    "bought": 4,
+    "other": 0,
+    "D": 1042.1
+   },
+   "w1.6": {
+    "bought": 5,
+    "other": 0,
+    "D": 1042.5
+   },
+   "w2.0": {
+    "bought": 6,
+    "other": 0,
+    "D": 1042.2
+   },
+   "w3.0": {
+    "bought": 6,
+    "other": 0,
+    "D": 1042.1
+   },
+   "w4.0": {
+    "bought": 6,
+    "other": 0,
+    "D": 1042.1
+   }
+  },
+  "dota2-ty-gl-2026-10-22 map 2": {
+   "anchors": 16,
+   "w0.8": {
+    "bought": 2,
+    "other": 0,
+    "D": 1043.8
+   },
+   "w1.2": {
+    "bought": 3,
+    "other": 0,
+    "D": 1054.5
+   },
+   "w1.6": {
+    "bought": 3,
+    "other": 0,
+    "D": 1054.1
+   },
+   "w2.0": {
+    "bought": 3,
+    "other": 0,
+    "D": 1052.8
+   },
+   "w3.0": {
+    "bought": 4,
+    "other": 0,
+    "D": 1052.7
+   },
+   "w4.0": {
+    "bought": 4,
+    "other": 0,
+    "D": 1051.7
+   }
+  },
+  "dota2-liquid-1win-2026-10-22 map 1": {
+   "anchors": 21,
+   "w0.8": {
+    "bought": 7,
+    "other": 0,
+    "D": 1037.5
+   },
+   "w1.2": {
+    "bought": 8,
+    "other": 0,
+    "D": 1037.2
+   },
+   "w1.6": {
+    "bought": 8,
+    "other": 0,
+    "D": 1036.8
+   },
+   "w2.0": {
+    "bought": 8,
+    "other": 0,
+    "D": 1036.4
+   },
+   "w3.0": {
+    "bought": 8,
+    "other": 0,
+    "D": 1035.4
+   },
+   "w4.0": {
+    "bought": 9,
+    "other": 0,
+    "D": 1036.8
+   }
+  },
+  "dota2-liquid-1win-2026-10-22 map 2": {
+   "anchors": 10,
+   "w0.8": {
+    "bought": 5,
+    "other": 0,
+    "D": 1047.2
+   },
+   "w1.2": {
+    "bought": 6,
+    "other": 0,
+    "D": 1047.1
+   },
+   "w1.6": {
+    "bought": 6,
+    "other": 0,
+    "D": 1046.7
+   },
+   "w2.0": {
+    "bought": 6,
+    "other": 0,
+    "D": 1046.3
+   },
+   "w3.0": {
+    "bought": 6,
+    "other": 0,
+    "D": 1045.3
+   },
+   "w4.0": {
+    "bought": 6,
+    "other": 0,
+    "D": 1044.3
+   }
+  },
+  "dota2-ts8-legion1-2026-10-22 map 1": {
+   "anchors": 14,
+   "w0.8": {
+    "bought": 5,
+    "other": 0,
+    "D": 844.8
+   },
+   "w1.2": {
+    "bought": 5,
+    "other": 0,
+    "D": 844.4
+   },
+   "w1.6": {
+    "bought": 5,
+    "other": 0,
+    "D": 844.4
+   },
+   "w2.0": {
+    "bought": 5,
+    "other": 0,
+    "D": 844.4
+   },
+   "w3.0": {
+    "bought": 6,
+    "other": 0,
+    "D": 844.5
+   },
+   "w4.0": {
+    "bought": 6,
+    "other": 1,
+    "D": 841.6
+   }
+  }
+ },
+ "pooled": {
+  "0.8": {
+   "bought": 23,
+   "other": 0,
+   "net": 23
+  },
+  "1.2": {
+   "bought": 26,
+   "other": 0,
+   "net": 26
+  },
+  "1.6": {
+   "bought": 27,
+   "other": 0,
+   "net": 27
+  },
+  "2.0": {
+   "bought": 28,
+   "other": 0,
+   "net": 28
+  },
+  "3.0": {
+   "bought": 30,
+   "other": 0,
+   "net": 30
+  },
+  "4.0": {
+   "bought": 31,
+   "other": 1,
+   "net": 30
+  }
+ },
+ "saturation_net_w_over_w3": {
+  "0.8": 0.767,
+  "1.2": 0.867,
+  "1.6": 0.9,
+  "2.0": 0.933,
+  "3.0": 1.0,
+  "4.0": 1.0
+ },
+ "hits": 30,
+ "lag_centered_sd": 0.656,
+ "lag_centered_iqr": 0.31,
+ "lag_skew": 0.683,
+ "uniform_1s_reference_sd_iqr": [
+  0.289,
+  0.5
+ ],
+ "isolated": {
+  "n": 26,
+  "median_lag_c": 0.0,
+  "sd": 0.408
+ },
+ "teamfight": {
+  "n": 4,
+  "median_lag_c": 0.546,
+  "sd": 1.645
+ },
+ "teamfight_first_kill": {
+  "n": 0,
+  "median_lag_c": null,
+  "sd": null
+ },
+ "teamfight_later_kill": {
+  "n": 4,
+  "median_lag_c": 0.546,
+  "sd": 1.645
+ }
+}

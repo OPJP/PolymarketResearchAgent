@@ -1,0 +1,20 @@
+{
+ "member_txs": 318,
+ "member_takes_on_books": 246,
+ "by_member": {
+  "0xfe8a28be": 64,
+  "0x2529c68d": 60,
+  "0x72aaaaf9": 60,
+  "0xf1ee4842": 42,
+  "0x7c8cc255": 19,
+  "0xb7ab821f": 1
+ },
+ "takes_with_own_up_add_on_token_1s_before": 8,
+ "null_mean_up": 1.33,
+ "null_p95_up": 4.0,
+ "p_up": 0.0,
+ "takes_with_own_down_add_on_complement_1s_before": 20,
+ "null_mean_down": 1.49,
+ "null_p95_down": 4.0,
+ "p_down": 0.0
+}

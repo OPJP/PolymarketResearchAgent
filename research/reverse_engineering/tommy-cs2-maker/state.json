@@ -52,19 +52,29 @@
    "what": "own recorder v2, feed tommy_dota_live (code/iter7/dota_live_recorder_v2.py): OpenDota /api/live league games every 15 s while ANY Polymarket Dota 2 event is in play (Gamma series 10309 checked every 10 min); records filed by unit through code/iter5/unit_writer.py (sealed if the game's activate_time or that time - 30 min is sealed) and by receive time; detached (pid 4452), hard stop 2026-11-03 00:00 UTC, 150 MB cap",
    "start": 1793488489,
    "end": 1793664000
+  },
+  {
+   "what": "own recorder, feed tommy_dota_rt (code/iter9/dota_rt_recorder.py): Valve's key-free dota2.com webapi, GetLiveGames every 30 s (all live league games) and GetRealtimeStats every 1 s for games matched to open Polymarket Dota 2 events (a record per new ~4-s snapshot: game time, team score / net worth, per-player kills / deaths / assists / net worth / gold / level / x / y, buildings, gold graph); filed by unit (sealed-start units always sealed) via code/iter5/unit_writer.py; detached (launcher 23824, worker 17524), hard stop 2026-11-03 00:00 UTC, 250 MB cap; v1 STOPPED 11-01 02:59 UTC (replaced by v2: a failing Gamma call no longer retries every loop; null JSON guarded)",
+   "start": 1793498874,
+   "end": 1793501990
+  },
+  {
+   "what": "own recorder v2, feed tommy_dota_rt (code/iter9/dota_rt_recorder.py, version 2): same as v1 (Valve GetLiveGames every 30 s, GetRealtimeStats every 1 s for games matched to open Polymarket Dota 2 events, unit-rule filing), hardened; detached (launcher 30744, worker 21056), hard stop 2026-11-03 00:00 UTC, 250 MB cap",
+   "start": 1793502009,
+   "end": 1793664000
   }
  ],
- "strategy_statement": "CS2 and Dota 2 in-play bot; from 10-16 a buy-only two-sided maker plus an informed taker (one signing key, owner 0x8af810f0, for both legs and both regimes), before that a round-trip taker in GRID tier-1/2 events. [VALIDATE-only] Selection: whole events (match + all maps) of non-GRID leagues, tier 3 all, tier 4 by league, tier 5 rarely, never a GRID event (CS2 0/122, Dota 0/33); from 10-22 also PARI Universe Dota 2 events; this is the coverage of the push feed (P4e's presence has the same boundary); v4 event rule pooled AUC 0.953 vs activity 0.886, recall 0.74 at lift 3.25, coverage 1.0. [VALIDATE-only] Maker: whole-cent BUY ladders near the touch on both outcome tokens (100 shares in CS2, 10 in Dota 2), never sells, merges pairs in one 300-s loop (97% paired, pair cost 0.978). [hypothesis, BUILD-live] Protection: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices its ladder on the private input without any public trigger, and those re-pricings precede adverse moves (ground-truth wallet cancels -0.94c in 10 s). [hypothesis] Taker: FAK BUYs on raw in-round messages of a shared esports push feed (>= 19 subscribers at fixed lags, P4e 50 ms earlier, 29-39% of its take clusters co-signed, lag invariant across event classes, not shared outside esports) of the plant / turn kind, at the stale ask plus its own premium; ~16-20% of the informed bursts; its Dota takes come from the same fan-out (P4e 50 ms earlier on 22% of them). [VALIDATE-only] Economics: per-market PnL is the locked margin of pairs formed across the two legs; public maker replays (generic or balanced) do not track it (-0.13 / 0.03), so the outcome item needs the private taker leg. [hypothesis] Source: in Dota 2 the feed's messages (the wallet's and P4e's alike) follow in-game kills of the team they buy at one per-map offset (1035-1050 s after the replay start on four maps; side-label null p < 0.005-0.07), consistent with the tournament's 900-s spectator delay and a few seconds ahead of the public market: the leading reading (Z8, X117) is a broadcast-side reader of the games' spectator relays sold to many subscribers.",
+ "strategy_statement": "CS2 and Dota 2 in-play bot; from 10-16 a buy-only two-sided maker plus an informed taker (one signing key, owner 0x8af810f0, for both legs and both regimes), before that a round-trip taker in GRID tier-1/2 events. [VALIDATE-only] Selection: whole events (match + all maps) of non-GRID CS2 / Dota 2 leagues that its push-feed product covers (group P: P4e, 0x2005d16a, the slow trio; GRID events are covered by another subscriber group with the same delivery order, so the boundary is its product, not data speed); frozen v5 (league / popularity score + group-P coverage in the previous 72 h) pooled AUC 0.970 vs activity 0.886, recall 0.74 at lift 3.16, coverage 1.0. [VALIDATE-only] Maker: whole-cent BUY ladders near the touch on both outcome tokens (100 shares in CS2, 10 in Dota 2), never sells, merges pairs in one 300-s loop (97% paired, pair cost 0.978); the per-market margin is made by its price level (its own prices quoted continuously earn +1.3%, the public anchor at its own windows loses 2.3-4.5%), and that level is not predicted by public game state or public tape state. [hypothesis, BUILD-live] Its quote level is an informed private value: the offset of its adds from the others' mid predicts the others' mid move (Spearman 0.44 at 10 s vs 0.17 for other makers; 0.38 without any public trigger), does not follow prior public moves of its own or the sibling book, and its informative re-pricings precede the slower feed subscribers' takes (11% of them within 1 s, ~10x null). [hypothesis, BUILD-live] Protection: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices on the private input (ground-truth wallet cancels -0.94c in 10 s). [hypothesis] Taker: FAK BUYs on raw in-round messages of one broadcast esports push feed (P4e first, the wallet +50 ms, a slow trio with a load-dependent queue; machine-timed on isolated Dota kills; its Dota half at the spectator delay) of the plant / turn kind, at the stale ask plus its own premium. [VALIDATE-only] Economics: per-market PnL is the locked pair margin; the informed counterparty that takes its residual is group P (14.8% of its maker shares); public replays do not track its per-market PnL (best executable 0.25 / 0.09, below the co-occurrence baseline).",
  "components": {
   "selection": {
-   "confidence": 0.72,
+   "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Whole events of non-GRID CS2 and Dota 2 leagues (never a GRID event: CS2 0/122, Dota EPL Masters 0/33); event logistic (league rate with GRID zeroing + pre-game popularity; v4 adds the Dota 2 league table) VALIDATE pooled AUC 0.953 vs activity 0.886 (gain +0.067 [0.022, 0.118]), recall 0.744 at lift 3.25; coverage of fills / abs PnL 1.0 / 1.0 (CS2-only 0.927; 0.43-0.46 on the 10-31 block). The boundary is the feed's coverage: P4e's in-event presence is GRID 0%, non-GRID tier 3 100%, tier 4 38%, tier 5 0%, and the wallet trades 88% of P4e's events vs 8% of the others. Forward 10-31 12-18: AUC 0.851, recall 0.5 (CS2 1 of 4 in an unseen league, Dota 2 of 2)."
+   "description": "Whole events of non-GRID CS2 and Dota 2 leagues (never a GRID event: CS2 0/122, Dota EPL Masters 0/33) covered by its feed product (group P: P4e, 0x2005d16a, the slow trio, fixed on BUILD). Frozen v5 = logistic(1.25 logit(v4 league/popularity score) + 1.19 log1p(gp72) - 1.11), gp72 = group-P members with a print in another event of the league in the previous 72 h: VALIDATE pooled AUC 0.970 vs activity 0.886 (gain +0.084 [0.030, 0.152]), recall 0.744 at lift 3.155; CS2 0.972, Dota 0.926; coverage 1.0 / 1.0. GRID events are covered by group G's fan-out (same delivery order, larger markouts there), so the boundary is the coverage of the wallet's product, not data speed. Forward 10-31 block: AUC 0.842 but recall 0 in development runs (earlier sealed events skipped)."
   },
   "timing": {
    "confidence": 0.6,
    "tag": "hypothesis",
-   "description": "Taker: messages of a shared esports push feed (>= 19 subscribers at fixed lags, 29% of its take clusters co-signed on the same token, 38.5% in any market of the event; P4e 0, 0x2005d16a +25, the wallet +50, three at ~+200, P93 ~+400 ms; lag invariant across event classes within ~10 ms; not shared in football / NBA / tennis), of the plant / turn kind; raw events priced by each subscriber (premium corr with P4e 0.21). Its Dota takes are on the same fan-out (P4e 50 ms earlier on 22% of them; slower co-signers 0xfe8a28be / 0x2529c68d / 0x72aaaaf9 at +450-500 ms). Maker: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices the ladder without any public trigger (single-order moves in 6 ms, multi-level pulls re-added in ~0.26 s), and these re-pricings precede adverse moves (validated label -0.60c, ground-truth wallet cancels -0.94c in 10 s, other makers' +0.74c); the take hazard rises with them (weak). Not a public execution filter (take vs strip-only AUC 0.52)."
+   "description": "Taker: messages of a shared esports push feed (>= 19 subscribers at fixed lags, 29% of its take clusters co-signed on the same token, 38.5% in any market of the event; P4e 0, 0x2005d16a +25, the wallet +50, three at ~+200, P93 ~+400 ms; lag invariant across event classes within ~10 ms; not shared in football / NBA / tennis), of the plant / turn kind; raw events priced by each subscriber (premium corr with P4e 0.21). Its Dota takes are on the same fan-out (P4e 50 ms earlier on 22% of them; slower co-signers 0xfe8a28be / 0x2529c68d / 0x72aaaaf9 at +450-500 ms). Maker: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices the ladder without any public trigger (single-order moves in 6 ms, multi-level pulls re-added in ~0.26 s), and these re-pricings precede adverse moves (validated label -0.60c, ground-truth wallet cancels -0.94c in 10 s, other makers' +0.74c); the take hazard rises with them (weak). Not a public execution filter (take vs strip-only AUC 0.52). Iteration 9: the fan-out is one broadcast (order consistency at the marginals' null, common-mode lag residual r 0.86) with a load-dependent slow tier (the trio); the Dota kill messages look machine-timed on isolated kills; the Dota maker bursts are only weakly locked to kills (13% vs 10% within 6 s). Uncensored adds: its informative re-pricings (up on the token / down on the complement) precede 11% of the slower subscribers' takes within 1 s (about 10x the shifted null): the maker leg moves on the feed's messages."
   },
   "side": {
    "confidence": 0.5,
@@ -72,9 +82,9 @@
    "description": "Maker: both outcomes in every market, CS2 and Dota (VALIDATE-only). Taker: the team that gained in-round on plant / turn events (first informed move against the previous burst). Side is not scored (two-sided at market level)."
   },
   "price": {
-   "confidence": 0.4,
+   "confidence": 0.45,
    "tag": "VALIDATE-only",
-   "description": "Maker: whole-cent BUY ladders near the touch (adds at touch 28%, +1 14%, -1 10%, down to -5 13%); historical last-print anchor 0.322 (VALIDATE, v4 rule metric). Live (BUILD-live): touch 0.472 per add (first level 0.511), 0.471 on filled orders; own-state machines (refill the vacated slot, own top, extend, hole-filling) 0.09-0.50, oracle union 0.73: the ladder re-anchors on its private value. Taker: limit = stale ask + its own premium (not a shared value)."
+   "description": "Maker: whole-cent BUY ladders near the touch (adds at touch 28%, +1 14%, -1 10%, down to -5 13%); historical last-print anchor 0.322 (VALIDATE). Live (BUILD-live): touch 0.472 per add. Iteration 9: the price level carries the per-market margin (knockout: its prices quoted continuously +1.3%, its windows at the public anchor -2.3 to -4.5%), but neither a public game-state value (Dota V: 0.41 vs 0.43) nor a public tape-state model (0.285 vs 0.298) predicts its offset from the last print: the level is its private value. Taker: limit = stale ask + its own premium. Uncensored adds (BUILD-live): its add level relative to the others' mid predicts the others' mid move (Spearman 0.44 at 10 s, untriggered 0.38) vs 0.17 / 0.15 for other makers: the level is an informed private value that leads the public book."
   },
   "size": {
    "confidence": 0.62,
@@ -84,7 +94,7 @@
   "exit": {
    "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Never sells. Pulls the complement at its takes and re-posts ~1.03 s later; re-prices bids away from private adverse events between takes; merges complete pairs in one 300-s loop for CS2 and Dota (300.22 s + 7.28 s per merge; Dota merges within 30 s of a CS2 pass 68-88%) and holds the residual. Pair cost 0.978 (CS2), ~0.98 (Dota)."
+   "description": "Never sells. Pulls the complement at its takes and re-posts ~1.03 s later; re-prices bids away from private adverse events between takes; merges complete pairs in one 300-s loop for CS2 and Dota (300.22 s + 7.28 s per merge; Dota merges within 30 s of a CS2 pass 68-88%) and holds the residual. Pair cost 0.978 (CS2), ~0.98 (Dota). Iteration 9: per-market residual is taken by group P (14.8% of maker shares, -4.1c per share on the residual), not group G (2.0%)."
   }
  },
  "catalog": {
@@ -310,8 +320,9 @@
    "evidence": "information panel P5 (iter 2). SX Bet: GET api.sx.bet/markets/active (no key) lists in-play CS2 markets of the same tier-3 events (e.g. FiReSPORTS ShindeN v Isurus, which the wallet trades on 10-31), but every odds / order endpoint needs a key: GET /orders-v3/odds/best -> 401 {\"message\":\"BAD_AUTH\"}, GET /orders-v3 -> 401, GET /orders/odds/best -> 400 \"OrderBook V2 is no longer supported\" (docs.sx.bet: V3 replaced V2). PandaScore /matches/<id> and /lives -> 403 \"Token is missing\". No account may be created here; both need a key or token from the user (asked in the return). Used instead: the CLOB server clock and the own recorder."
   },
   "X24": {
-   "status": "open",
-   "evidence": "information panel P6 (iter 2). Retrospective variant run (dota_align.json, dota_end.json): OpenDota parses its 6 Dota 2 maps (kills_log in game seconds, start_time, 90-s pre-game); its 72 Dota taker orders vs kills of the bought / other team show no sharp offset peak (best bins 10-13 vs 1-2 pairs at +1,036-1,044 s) and the market settlement offset is unstable (-1,024..+1,007 s): inconclusive, because game time does not map to wall time without draft and pause lengths. The live variant (record /api/live, verified 200, 143 KB per poll, with a 'delay' field, during dev blocks with Dota 2 events in its leagues) is still to run. Live variant STARTED 10-31 16:43 UTC (feed tommy_dota_live, live_lab): analyse on dev blocks against the wallet's Dota 2 taker signings. | Iteration 8 (dota_feed_align.json, dota_market_align.json): with P4e's Dota takes added as feed anchors, per-map alignment to the bought team's kills is significant against a side-label null on 4 of 5 maps (12/0, 13/0, 6/0, 7/1 hits; p < 0.005-0.02) at D = 1035-1050 s on four maps of two series (840 s on the fifth); public >= 3c moves peak +3 / +9 / +14 s later on three maps (n.s. per map). The wall-time meaning of D needs the live recorder's delay field (pre-registered); X24 stays open for that calibration. Per subscriber the wallet and P4e land on the same offsets (1042 / 1043, 1035 / 1033, 842 / 840 s)."
+   "status": "tried",
+   "source": "information panel P6 (iter 2)",
+   "evidence": "information panel P6 (iter 2). Retrospective variant run (dota_align.json, dota_end.json): OpenDota parses its 6 Dota 2 maps (kills_log in game seconds, start_time, 90-s pre-game); its 72 Dota taker orders vs kills of the bought / other team show no sharp offset peak (best bins 10-13 vs 1-2 pairs at +1,036-1,044 s) and the market settlement offset is unstable (-1,024..+1,007 s): inconclusive, because game time does not map to wall time without draft and pause lengths. The live variant (record /api/live, verified 200, 143 KB per poll, with a 'delay' field, during dev blocks with Dota 2 events in its leagues) is still to run. Live variant STARTED 10-31 16:43 UTC (feed tommy_dota_live, live_lab): analyse on dev blocks against the wallet's Dota 2 taker signings. | Iteration 8 (dota_feed_align.json, dota_market_align.json): with P4e's Dota takes added as feed anchors, per-map alignment to the bought team's kills is significant against a side-label null on 4 of 5 maps (12/0, 13/0, 6/0, 7/1 hits; p < 0.005-0.02) at D = 1035-1050 s on four maps of two series (840 s on the fifth); public >= 3c moves peak +3 / +9 / +14 s later on three maps (n.s. per map). The wall-time meaning of D needs the live recorder's delay field (pre-registered); X24 stays open for that calibration. Per subscriber the wallet and P4e land on the same offsets (1042 / 1043, 1035 / 1033, 842 / 840 s). | Closed (iterations 8-9): with the feed's own takes as anchors the Dota offset is found (finding 24 of iteration 8: D 1035-1050 s on four maps, side-label null p < 0.005-0.07; P4e-only within 2 s), and it was used for X123 (game-state V anchor, rejected), X119 (maker bursts vs kills, weak) and X129 (lag spread)."
   },
   "X25": {
    "status": "tried",
@@ -619,7 +630,7 @@
   "X88": {
    "status": "open",
    "source": "information panel P2 (iter 6): Dota 2 spectator feed with Valve's known delay as the key-free in-game clock",
-   "evidence": "Recorder widened (code/iter7/dota_live_recorder_v2.py, pid 4452, from 1793488489): every Polymarket Dota 2 event in play (v1: PARI Universe only), 15-s polls, records filed by unit through unit_writer (30-min fail-closed margin), hard stop 11-03 00:00 UTC. The lead statistic needs development blocks with Dota events in play. Side fact (coreceivers): none of P4e / 0x2005d16a / 0x51dbdd2b co-signs the wallet's 67 Dota takes of 16-22 Oct."
+   "evidence": "Recorder widened (code/iter7/dota_live_recorder_v2.py, pid 4452, from 1793488489): every Polymarket Dota 2 event in play (v1: PARI Universe only), 15-s polls, records filed by unit through unit_writer (30-min fail-closed margin), hard stop 11-03 00:00 UTC. The lead statistic needs development blocks with Dota events in play. Side fact (coreceivers): none of P4e / 0x2005d16a / 0x51dbdd2b co-signs the wallet's 67 Dota takes of 16-22 Oct. | Iteration 9: superseded for timing by X118 (Valve's 4-s spectator snapshots, recorder tommy_dota_rt)."
   },
   "X89": {
    "status": "tried",
@@ -669,7 +680,7 @@
   "X98": {
    "status": "open",
    "source": "assumptions panel P2 (iter 6): score selection out of time on every development block after T0",
-   "evidence": "exam_params.json (listing projection, aggregates): delay, clear-book, fee, rebate and reward parameters identical in 16-22 Oct, h1, h2 and the T0+ blocks. final_rule_v3_devblock_iter7.json: forward block 20 events, v3 AUC 0.797, recall 0.25 (1 of 4), lift 5.0; 'non-GRID and tier <= 4' 3 of 4 at lift 3.75; v3-tier logistic VALIDATE 0.926 / 0.556 / 3.23 (results/selection_variants.json). Pre-registered: pooled forward evaluation from 11-01 06:00, switching rule, schedule test via the first MERGE pass of 11-01. Open until the forward blocks are scored. | Iteration 8: v4 (v3 + Dota table) on the 10-31 12-18 block: pooled AUC 0.851 vs 0.640, recall 0.5, lift 3.13 (Dota 2 of 2 traded selected); variants activity + GRID + p4e24 and + cov24 + all24 added to the forward pool (scored without refit)."
+   "evidence": "exam_params.json (listing projection, aggregates): delay, clear-book, fee, rebate and reward parameters identical in 16-22 Oct, h1, h2 and the T0+ blocks. final_rule_v3_devblock_iter7.json: forward block 20 events, v3 AUC 0.797, recall 0.25 (1 of 4), lift 5.0; 'non-GRID and tier <= 4' 3 of 4 at lift 3.75; v3-tier logistic VALIDATE 0.926 / 0.556 / 3.23 (results/selection_variants.json). Pre-registered: pooled forward evaluation from 11-01 06:00, switching rule, schedule test via the first MERGE pass of 11-01. Open until the forward blocks are scored. | Iteration 8: v4 (v3 + Dota table) on the 10-31 12-18 block: pooled AUC 0.851 vs 0.640, recall 0.5, lift 3.13 (Dota 2 of 2 traded selected); variants activity + GRID + p4e24 and + cov24 + all24 added to the forward pool (scored without refit). | Iteration 9: v5 (v4 + group-P coverage) on the 10-31 12-18 block (exam constants): AUC 0.842 (v4 0.851) vs 0.640, recall 0.0 because development runs skip earlier sealed-start events (gp72 ~0); v5b (monotone boost, v4 threshold) added to the forward pool."
   },
   "X99": {
    "status": "tried",
@@ -762,66 +773,138 @@
    "evidence": "accumulation.json (BUILD-live, 22,011 1-s steps, 56 takes): take hazard by untriggered pulls in 10 s: 0.83% / 1.05% / 2.02% / 3.53% (0 / 1 / 2 / 3+); logit with public controls +0.48 per log1p count (p 0.051; 60 s +0.26, p 0.03); direction 64-71% aligned (n 7-11, p 0.13). Weak dose-response: weak support for a continuous private value; premium and add-top steps not run (n too small)."
   },
   "X117": {
-   "status": "open",
+   "status": "tried",
    "source": "self-proposed (iteration 8, Z8): the feed as a broadcast-side reader of public spectator relays (CSTV+ / GOTV, DotaTV)",
-   "evidence": "Motivated by dota_feed_align.json (the feed's Dota messages at the 900-s spectator delay + start -> horn, a few seconds ahead of the market) and vendor_boundary.json (GRID events 0%, tier 5 0%). Test: list which non-GRID CS2 / Dota events expose a public spectator relay (key-free, as a normal visitor) and compare with P4e's event set; measure the relay delay against the market on a development block. Not run. | Fine-grid fragment clock (fragment_clock.json): no period in [0.8, 8] s in the wallet's or P4e's CS2 take times (p 0.28-0.93): a fragment-arrival reader is excluded; a real-time player of the delayed relay is not."
+   "evidence": "Motivated by dota_feed_align.json (the feed's Dota messages at the 900-s spectator delay + start -> horn, a few seconds ahead of the market) and vendor_boundary.json (GRID events 0%, tier 5 0%). Test: list which non-GRID CS2 / Dota events expose a public spectator relay (key-free, as a normal visitor) and compare with P4e's event set; measure the relay delay against the market on a development block. Not run. | Fine-grid fragment clock (fragment_clock.json): no period in [0.8, 8] s in the wallet's or P4e's CS2 take times (p 0.28-0.93): a fragment-arrival reader is excluded; a real-time player of the delayed relay is not. | Iteration 9: X120 shows group G's fan-out covers GRID events with the same delivery order (so GRID events are not unreadable for every vendor), and X129 step 1 leans machine-timed on isolated Dota kills; the relay census itself is not run. | Closed as tried (iteration 9): in Dota the public relay set is broader than the feed's coverage: DotaTV (GetLiveGames, key-free) lists every ticketed league game, including the GRID-flagged EPL Masters / DreamLeague / BLAST Slam events that P4e, the slow trio and the wallet never trade (information panel iter8 check; 0 of 52 GRID-flagged Dota events), so coverage is not 'events with a public relay'; a reader of DotaTV's delayed state fits the timing (feed at the spectator delay; isolated kill messages machine-timed, lag_spread.json), not the coverage. A CS2 relay census has no key-free public list (CSTV relays are listed only inside the Steam client). The X118 recorder logs GetLiveGames every 30 s, so DotaTV visibility vs P4e's events can be tabulated on every development block."
+  },
+  "X118": {
+   "status": "open",
+   "source": "information panel P1 (iter 8): Valve's key-free Dota spectator state (dota2.com webapi GetLiveGames / GetRealtimeStats) as the public form of the feed's Dota half",
+   "evidence": "Endpoints verified key-free (probe_valve.py: GetLiveGames 200, 9 live league games; GetRealtimeStats 200, ~10 KB, new snapshot every ~4 s; api.steampowered.com needs a key per the panel). Recorder tommy_dota_rt (code/iter9/dota_rt_recorder.py) started 11-01 02:14 UTC: 30-s live list, 1-s snapshots of games matched to open Polymarket Dota events, unit-rule filing, hard stop 11-03 00:00, 250 MB cap. Tests (a)-(c) pre-registered in NOTES iteration 9; no development block with a Dota take yet. | v2 (hardened) running since 11-01 03:00 UTC, worker pid 21056."
+  },
+  "X119": {
+   "status": "tried",
+   "source": "information panel P2 (iter 8): rebuild the Dota ladder's price from spectator-clock events",
+   "evidence": "Price part = X123 (rejected: last print + dV 0.411 vs last print 0.431 on 857 VALIDATE Dota orders; placebo clocks 0.420-0.426). Timing part (dota_burst_events.json, 412 maker signing bursts of 10-22, P4e-only D): 0-6 s after an own-team kill 7.8% vs 5.2% on shifted clocks (p 0.045), any kill 13.4% vs 10.2% (p 0.075); the >= 50% signature fails. The uncensored live version (book events, net worth / positions) is part of X118."
+  },
+  "X120": {
+   "status": "tried",
+   "source": "information panel P3 (iter 8): GRID events as a natural experiment (coverage vs relative-speed boundary)",
+   "evidence": "grid_experiment.json (11,702 public taker txs of the 25 GRID CS2 events with most group-G prints decoded into calldata_grid/): group G's lags behind 0xf1ee4842 identical in GRID and non-GRID events (0x7c8cc255 +10.5 vs +6.5 ms, 0x8a80528d +63.5 vs +56.5, 0x67706ec3 +54 vs +57, 0xc7097421 +71.5 vs +66.5, 0xddb6e624 +57.5 vs +43; nulls 0-3); group-G clusters in GRID events have no pre-move (-0.01c vs -0.18c) and LARGER markouts (10 s +1.78 vs +0.89c, diff +0.90c [0.35, 1.45]; 60 s +2.80 vs +1.57c, +1.23c [0.46, 2.01]). The relative-speed reading (pre-moves, small markouts in GRID events) is rejected; the wallet's boundary is the coverage of its product. Step 3 (dota_grid_market_clock.json): GRID-flagged Dota markets (77 maps) follow kills at D 817-962 s after start_time on 10 of 15 significant maps (real time would be ~100-250 s); non-GRID 18 maps, 1 significant (1005 s): no real-time pricing visible in GRID Dota markets either. Step 4 is covered by iteration 7 (X65: the fan-out existed on 10-09..10-15 with the same lags; the wallet joined at its 10-16 switch)."
+  },
+  "X121": {
+   "status": "tried",
+   "source": "information panel P4 (iter 8): co-receiver makers as wallet-independent witnesses of the messages behind the alone takes and untriggered pulls",
+   "evidence": "First pass (coreceiver_cancels.json, BUILD-live): 71 wallet takes on the recorded books, 10 co-signed by a group P / G member within 0..+800 ms (members' calldata decoded), 61 alone. Non-own cancels per take vs shifted times: alone (-150,-60] 0.36 vs 0.25 (p 0.20), (-60,0] 0.26 vs 0.15 (p 0.17), (0,+8] ms 0.115 vs 0.021 (p 0.007); co-signed 0.30 / 0.10 / 0.0 vs 0.19 / 0.11 / 0.01 (n 10). Other makers cancel within 8 ms after its alone takes (before its order or own pull can be visible): weak support for one feed with the kind filter at the takers; co-signed class without power. Repeat pre-registered for VALIDATE-live (NOTES iteration 9 runbook)."
+  },
+  "X122": {
+   "status": "open",
+   "source": "information panel P5 (iter 8): the CS2 game clock from demos (Dota protocol on CS2 ticks)",
+   "evidence": "Needs the user's explicit consent to download demos (50-300 MB each, bo3.gg / HLTV) and to install a demo parser from PyPI; asked in the return. The Dota protocol it would reuse works (finding 24 of iteration 8; lag_spread.json)."
+  },
+  "X123": {
+   "status": "tried",
+   "source": "mechanics panel P1 (iter 8): Dota game-state fair value as the maker's anchor",
+   "evidence": "dota_v_anchor.json: V = logistic(gold / xp / kill leads x minute) on 160 OpenDota pro matches of 10-08..10-20 (6,326 minutes, in-sample AUC 0.837), P4e-only D per map, state at tau - 5 s. Within one tick: VALIDATE (857 Dota orders) last print 0.431, last print - s 0.443, last print + dV - s 0.411 (D +-120 / 300 s: 0.420-0.426), |V| - s 0.050; BUILD-live (197) 0.503 / 0.513 / 0.467 (0.411-0.472) / 0.030. Spearman(price - last print, dV) -0.189 at the true clock (bid-ask bounce after own-team gains). Rejected: the private V is not the public game state at minute / kill resolution."
+  },
+  "X124": {
+   "status": "tried",
+   "source": "mechanics panel P2 (iter 8): outcome by component knockout in the validated fill engine",
+   "evidence": "knockout.json (X57 engine, 229 markets): A own orders VALIDATE +1.1% (PnL vs wallet 0.43 / 0.33, margin 0.61 / 0.54); B own windows at the public anchor -2.3% (BUILD -4.5%), pair cost 1.002, margin vs wallet 0.19 / 0.14; C own prices quoted continuously +1.3% (BUILD +1.4%), margin vs wallet 0.47 / 0.41 (BUILD 0.66 / 0.61); D public anchor continuous -1.9%, PnL vs wallet 0.25 / 0.09 (below the prints baseline 0.33 / 0.28). The price level carries the margin, not the resting windows: the outcome item is the price item. Group-P share of fills highest for B (18.2%). | Uncensored follow-up (add_level_info.json, BUILD-live): Spearman(own add offset from the others' mid, others'-mid move) 0.5218 / 0.4422 / 0.3439 at 2 / 10 / 30 s (other makers' adds 0.2388 / 0.1686 / 0.0949; time-shift null ~0); untriggered own adds (no own take within -1..+3 s, no public trade in the 2 s before) 10 s 0.3808 vs others 0.1502: its quote level leads the public mid."
+  },
+  "X125": {
+   "status": "ruled_out",
+   "source": "mechanics panel P3 (iter 8): a CS2 round clock from P4e's round-win messages and a round-score fair value",
+   "evidence": "p4e_round_align.json (70 bo3-parsed maps): NW identity of P4e's bought-team sequence vs bo3's round winners 0.785 vs 0.792 permuted / 0.771 random, 2 of 70 maps at p < 0.05, Fisher p 1.0, team-share Spearman 0.12 (p 0.32). With the socket's round part constant for its events (X2) and bo3 timing alignment at the control (X10, 0 of 95 maps), no point-in-time CS2 round clock exists for its events, so the round-score V cannot be scored; the remaining clock is demos (X122, consent)."
+  },
+  "X126": {
+   "status": "tried",
+   "source": "mechanics panel P4 (iter 8): the fan-out's delivery structure (broadcast or sequential sender)",
+   "evidence": "fanout_structure.json (4,087 P4e messages, 157 with >= 3 acting subscribers): pair order consistency median 0.573 vs 0.612 under independent marginals (0 of 21 pairs above the null p95): no fixed sending order; lag-residual common mode r 0.864 (shuffled 0.008): one shared message time; queue load: the slow trio +142-188 ms per extra P4e message in the previous 1 s (t 2.6-4.3), the wallet and group G no slope. One broadcast; the trio consumes it sequentially."
+  },
+  "X127": {
+   "status": "tried",
+   "source": "assumptions panel P1 (iter 8): selection = group P's coverage (feature rebuilt on the right product)",
+   "evidence": "selection_groupP.json (pre-registered): BUILD-only membership = P4e, 0x2005d16a, 0x72aaaaf9, 0x2529c68d, 0xfe8a28be (GRID share <= 1.6%; group G 28-53%, P93 7.2%). VALIDATE CS2: raw gp72 0.892 (recall 0.917, lift 2.40); act + GRID + gp72 0.962 (unseen 0.974); v4 + gp72 0.973 (unseen 0.974, recall 0.75, lift 3.20) vs v4 0.957 (unseen 0.928). Criterion met -> frozen v5. v5 pooled via evaluate(): AUC 0.970 vs 0.886, gain +0.084 [0.030, 0.152], recall 0.744, lift 3.155; Dota part 0.926 / recall 0.667 (v4 0.963 / 1.0). Forward 10-31 block (development runs skip sealed earlier events): AUC 0.842, recall 0.0."
+  },
+  "X128": {
+   "status": "tried",
+   "source": "assumptions panel P2 (iter 8): decode group G's takes where Feed P is absent (vendor structure, Feed P's latency class)",
+   "evidence": "Run with X120 (grid_experiment.json): same delivery order of group G in GRID and non-GRID events (one vendor for group G); 33% of group-G clusters in GRID events led by another wallet (0x6e2c0e94, 0xc0e4f49b, 0x10d79cc7, 0xfc23869c; 41% of them also trade the wallet's markets) vs 10% (+7% group P) in non-GRID events; group G more informed in GRID events. Feed P's own latency class stays unmeasured (it never appears in GRID events). Step 4 (message kinds by class) not run."
+  },
+  "X129": {
+   "status": "tried",
+   "source": "assumptions panel P3 (iter 8): machine reader or human scouts (spread of the lag behind in-game events)",
+   "evidence": "Step 1 (lag_spread.json, 10-22 Dota maps, 30 kill-linked anchors, D in 0.1-s steps): net hits at w = 0.8 / 1.2 / 1.6 / 2 / 3 / 4 s = 0.77 / 0.87 / 0.90 / 0.93 / 1.0 / 1.0 of the 3-s count (machine ~0.80 at 0.8 s, scout SD 0.4 s ~0.6); isolated-kill lag SD 0.41 s (26); teamfight later-kill lags +0.55 s (4). Leaning machine on isolated kills, small n. Step 2 (replays, tick-level) needs the user's consent to download; step 3 (coordinated wrong-way clusters) not run."
+  },
+  "X130": {
+   "status": "tried",
+   "source": "assumptions panel P4 (iter 8): scope insurance for a third title",
+   "evidence": "scope_titles.json: the wallet's development TRADE rows are CS2 and Dota 2 only (16-22 Oct 35,194 / 1,472; 10-31 block 301 / 358). Group P: P4e CS2 4,796, Dota 91, LoL 3; the slow trio also NBA ~5,500, Valorant ~210, LoL ~190. A third module is possible; v5 keeps CS2 + Dota 2 and _coverage() reports any gap on the lot."
+  },
+  "X131": {
+   "status": "tried",
+   "source": "assumptions panel P5 (iter 8): attribute the per-market residual to group G's takes",
+   "evidence": "residual_attrib.json: taker class of the wallet's maker shares group P 14.8%, group G 2.0%, others 83.3%; residual (PnL - locked margin) drop-one partial R^2 group P 0.077, others 0.054, pairs 0.061, group G 0.007; per-share group P -4.1c, others -2.5c, group G +5.4c. Rejected: the residual is group P's (its own feed's earlier subscribers), not group G's; the group-G pull replay was not run (nothing to cut)."
   }
  },
  "target_metrics": {
-  "presence_auc": 0.8739,
-  "selection_auc": 0.9528,
+  "presence_auc": 0.8834,
+  "selection_auc": 0.9702,
   "selection_recall": 0.744,
-  "selection_lift": 3.253,
+  "selection_lift": 3.155,
   "presence_baseline": 0.8907,
   "selection_baseline": 0.8863,
   "side_accuracy": null,
   "side_baseline": null,
   "price_within_tick": 0.322,
-  "pnl_corr_pearson": -0.126,
-  "pnl_corr_spearman": -0.065,
+  "pnl_corr_pearson": -0.131,
+  "pnl_corr_spearman": -0.081,
   "coverage_fills": 1.0,
   "coverage_abs_pnl": 1.0
  },
  "best": {
-  "rule_id": "tommy-v4-grid-league-dota",
+  "rule_id": "tommy-v5-grid-league-dota-groupP",
   "validate_metrics": {
    "events": 140,
    "events_traded": 39,
-   "selection_auc": 0.9528,
+   "selection_auc": 0.9702,
+   "selection_auc_v4": 0.9528,
+   "gp72_events_gt0": 52,
    "selection_baseline": 0.8863,
-   "selection_gain": 0.0665,
+   "selection_gain": 0.0839,
    "selection_gain_ci95": [
-    0.0219,
-    0.1177
+    0.0302,
+    0.1517
    ],
    "selection_gain_p_le0": 0.0,
    "selection_recall": 0.744,
-   "selection_lift": 3.253,
+   "selection_lift": 3.155,
    "selection_cs2": {
     "events": 128,
     "traded": 36,
-    "auc": 0.9538,
+    "auc": 0.9721,
     "baseline": 0.8916,
-    "recall": 0.722,
-    "lift": 3.302
+    "recall": 0.75,
+    "lift": 3.2
    },
    "selection_dota2": {
     "events": 12,
     "traded": 3,
-    "auc": 0.963,
+    "auc": 0.9259,
     "baseline": 0.963,
-    "recall": 1.0,
-    "lift": 3.0
+    "recall": 0.667,
+    "lift": 2.667
    },
-   "presence_auc": 0.8739,
+   "presence_auc": 0.8834,
    "presence_baseline": 0.8907,
    "price_within_tick": 0.322,
    "price_exact_last_print": 0.123,
    "size_rule_accuracy": 0.894,
-   "pnl_corr_pearson": -0.126,
-   "pnl_corr_spearman": -0.065,
-   "pnl_baseline_prints_pearson": 0.325,
-   "pnl_baseline_prints_spearman": 0.283,
+   "pnl_corr_pearson": -0.131,
+   "pnl_corr_spearman": -0.081,
+   "pnl_baseline_prints_pearson": 0.329,
+   "pnl_baseline_prints_spearman": 0.289,
    "coverage_fills": 1.0,
    "coverage_abs_pnl": 1.0,
    "coverage_fills_cs2_only": 0.9273
@@ -2366,6 +2449,207 @@
     }
    },
    "verdict": "leading hypothesis in the 'real-time player of the delayed relay' form (no fragment clock, p 0.28-0.93); X117 and the Dota live calibration test it"
+  },
+  {
+   "id": "H96",
+   "family": "selection",
+   "description": "R6 / X127: the wallet's selection is the coverage of group P's product (BUILD-fixed members; gp72 in earlier events of the league).",
+   "validate_metrics": {
+    "raw_gp72_auc": 0.8919,
+    "v4_plus_gp72_auc_cs2": 0.9734,
+    "v4_auc_cs2": 0.9574,
+    "unseen_v5": 0.9737,
+    "unseen_v4": 0.9276,
+    "v5_pooled_auc": 0.9702,
+    "v5_gain_ci95": [
+     0.0302,
+     0.1517
+    ],
+    "v5_recall": 0.744,
+    "v5_lift": 3.155
+   },
+   "verdict": "supported; adopted as frozen v5 under the pre-registered criterion"
+  },
+  {
+   "id": "H97",
+   "family": "price",
+   "description": "R4 / X123: the Dota ladder is anchored on a public game-state value V (gold / xp / kills) on the feed's clock.",
+   "validate_metrics": {
+    "last_print": 0.4306,
+    "last_print_minus_s": 0.4434,
+    "last_print_plus_dV": 0.4107,
+    "placebo_clocks": [
+     0.4201,
+     0.4259,
+     0.4224,
+     0.4236
+    ],
+    "abs_V": 0.0502,
+    "spearman_dev_dV": -0.189
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H98b",
+   "family": "timing",
+   "description": "X119: Dota ladder re-pricings sit within 6 s of spectator-clock kills (>= 50%).",
+   "validate_metrics": {
+    "bursts": 412,
+    "own_kill_share": 0.0777,
+    "own_null": 0.0522,
+    "any_kill_share": 0.1335,
+    "any_null": 0.1021
+   },
+   "verdict": "rejected in the strong form (weak locking)"
+  },
+  {
+   "id": "H99b",
+   "family": "information source structure",
+   "description": "R7 / X120: GRID events are a relative-speed boundary (a faster official feed moves the market first).",
+   "validate_metrics": {
+    "groupG_lag_same_order": true,
+    "pre10_grid_minus_nongrid_c": 0.171,
+    "mk10_diff_c": [
+     0.896,
+     0.353,
+     1.447
+    ],
+    "mk60_diff_c": [
+     1.233,
+     0.461,
+     2.006
+    ]
+   },
+   "verdict": "rejected; coverage of the wallet's product"
+  },
+  {
+   "id": "H100",
+   "family": "outcome",
+   "description": "R5 / X124: the per-market margin is carried by the resting windows rather than the price level.",
+   "validate_metrics": {
+    "A_return": 0.0106,
+    "B_return": -0.0231,
+    "C_return": 0.0129,
+    "D_return": -0.0187,
+    "C_margin_corr": [
+     0.468,
+     0.409
+    ],
+    "B_margin_corr": [
+     0.187,
+     0.142
+    ],
+    "D_pnl_corr": [
+     0.245,
+     0.089
+    ]
+   },
+   "verdict": "rejected: the price level carries it (outcome = price item)"
+  },
+  {
+   "id": "H101",
+   "family": "price",
+   "description": "A public tape-state model predicts the wallet's maker offset from the last print.",
+   "validate_metrics": {
+    "gbm_within_tick_actual_prices": 0.2852,
+    "last_print_same_orders": 0.298,
+    "artefact_clipped_class_score": 0.3569
+   },
+   "verdict": "rejected (the first score was a clipped-class artefact)"
+  },
+  {
+   "id": "H102",
+   "family": "outcome",
+   "description": "X131: group G's takes carry the per-market residual.",
+   "validate_metrics": {
+    "share_P": 0.1478,
+    "share_G": 0.0196,
+    "partial_r2_resid": {
+     "P": 0.0767,
+     "G": 0.0074,
+     "O": 0.0542,
+     "pairs": 0.0607
+    }
+   },
+   "verdict": "rejected (group P is the informed counterparty)"
+  },
+  {
+   "id": "H103",
+   "family": "information source structure",
+   "description": "X126: the fan-out is a sequential sender (positions in a vendor queue).",
+   "validate_metrics": {
+    "order_consistency_median": 0.573,
+    "null_median": 0.612,
+    "pairs_above_null": 0,
+    "common_mode_r": 0.864,
+    "trio_ms_per_queued_msg": [
+     141.9,
+     169.3,
+     187.6
+    ]
+   },
+   "verdict": "rejected for the fast subscribers (one broadcast); the slow trio queues"
+  },
+  {
+   "id": "H104",
+   "family": "timing",
+   "description": "X125: P4e's take clusters are round-win announcements in sequence (a public CS2 round clock).",
+   "validate_metrics": {
+    "maps": 70,
+    "nw_identity": 0.7852,
+    "permuted": 0.7924,
+    "random": 0.7711,
+    "fisher_p": 1.0
+   },
+   "verdict": "rejected"
+  },
+  {
+   "id": "H105",
+   "family": "information source",
+   "description": "X129: the feed's kill messages are machine-timed (constant lag), not keyed by scouts.",
+   "validate_metrics": {
+    "saturation_w0.8": 0.767,
+    "saturation_w1.2": 0.867,
+    "isolated_sd_s": 0.408,
+    "n": 30
+   },
+   "verdict": "weakly supported on isolated kills (small n)"
+  },
+  {
+   "id": "H106",
+   "family": "price",
+   "description": "The wallet's maker quote LEVEL carries a private value that leads the public book (uncensored adds).",
+   "validate_metrics": {
+    "own_spearman_2_10_30s": [
+     0.5218,
+     0.4422,
+     0.3439
+    ],
+    "other_spearman_2_10_30s": [
+     0.2388,
+     0.1686,
+     0.0949
+    ],
+    "untriggered_own_10s": 0.3808,
+    "untriggered_other_10s": 0.1502,
+    "offset_vs_prior_2s_sibling_book": 0.0337,
+    "offset_vs_prior_2s_own_book": 0.0217,
+    "offset_vs_sibling_future_10s": 0.1304
+   },
+   "verdict": "supported (BUILD-live, one block; quote-follower confound possible at 2 s); pre-registered for VALIDATE-live"
+  },
+  {
+   "id": "H107",
+   "family": "maker information",
+   "description": "The wallet's informative re-pricings precede other feed subscribers' takes on the same token (the maker leg moves on the feed's messages).",
+   "validate_metrics": {
+    "member_takes": 246,
+    "preceded_up_1s": 8,
+    "null_up": 1.33,
+    "preceded_down_complement_1s": 20,
+    "null_down": 1.49
+   },
+   "verdict": "supported (BUILD-live, p < 1/300 for both); pre-registered for VALIDATE-live"
   }
  ],
  "data_sources": [
@@ -2404,7 +2688,11 @@
   "web search (normal visitor) for organiser / platform of the traded leagues; rdy.gg match page HTTP 403 (not bypassed)",
   "Gamma series 10309 (Dota 2) listing projection 10-01..now, resolution for development units only (.cache/re/tommy-cs2-maker/universe_dota.parquet); CS2 + Dota units from T0 (universe_t0.parquet)",
   "ERC-7739 nested signatures of 1,617 orders in 333 transactions (signers only: sig_signers.parquet); eip712Domain() of DepositWallet accounts via eth_call (publicnode)",
-  "Public activity of 0x2005d16a, 0x8a80528d, 0xddb6e624, 0xf1ee4842 (16-22 Oct) and the calldata of their 30,113 non-esports transactions (.cache/re/tommy-cs2-maker/multisport/, decoded fields only)"
+  "Public activity of 0x2005d16a, 0x8a80528d, 0xddb6e624, 0xf1ee4842 (16-22 Oct) and the calldata of their 30,113 non-esports transactions (.cache/re/tommy-cs2-maker/multisport/, decoded fields only)",
+  "Valve dota2.com webapi GetLiveGames / GetRealtimeStats (key-free; recorder tommy_dota_rt from 11-01 02:14 UTC)",
+  "OpenDota /proMatches and /matches of 160 pro matches started 10-08..10-20 (per-minute gold / xp leads and kills: dota_train_minutes.parquet)",
+  "Decoded public taker transactions of 25 GRID CS2 events of 16-22 Oct around group-G prints (11,702 txs: .cache/re/tommy-cs2-maker/calldata_grid/, decoded fields only)",
+  "Public data-api activity of the five group-P members, 16-22 Oct (titles only kept in scope_titles.json)"
  ],
  "iterations": [
   {
@@ -2610,6 +2898,31 @@
     "Dota feed messages vs OpenDota kills (per-map offset scan with a side-label null) and the public market on the same clock",
     "fine-grid relay-fragment clock scan of CS2 take times (Z8)"
    ]
+  },
+  {
+   "n": 9,
+   "minutes": 66,
+   "best_validate_score": 0.8834,
+   "paradigm": "public game-state fair value as the quote anchor (Dota spectator clock, CS2 round clock) plus a new key-free spectator-state source, the outcome decomposed by component knockout in the validated engine, and selection rebuilt on the feed product the wallet buys (group P)",
+   "families": [
+    "group-P product coverage selection, BUILD-fixed membership (X127, adopted as v5)",
+    "Dota game-state fair value V from OpenDota pro matches (X123)",
+    "Dota maker bursts vs kills on the feed clock (X119)",
+    "component knockout of the per-market margin in the X57 engine (X124)",
+    "public tape-state price-offset model and distillation",
+    "GRID natural experiment with decoded GRID-event calldata (X120 / X128)",
+    "fan-out delivery structure: order consistency, common mode, queue load (X126)",
+    "machine vs scout lag spread (X129 step 1)",
+    "P4e round-winner sequence alignment (X125)",
+    "residual attribution by taker class (X131)",
+    "scope titles of the wallet and group P (X130)",
+    "Valve spectator-state endpoints and recorder (X118)",
+    "add-level information on uncensored adds (the quote level leads the public mid)",
+    "cross-market public-source check of the add level",
+    "informative re-pricings before other subscribers' takes",
+    "co-receiver cancels at alone vs co-signed takes (X121 first pass)",
+    "GRID Dota market clock D-scan (X120 step 3)"
+   ]
   }
  ],
  "tool_bugs": [
@@ -2666,16 +2979,16 @@
   "selection_robust_baselines": "Iteration 6: stored v3 scores VALIDATE AUC 0.957 vs examiner-style activity logits fitted on BUILD: linear 0.893 (+0.065), degree-2 0.899 (+0.059), + pre-game favourite price 0.898 (+0.060) (selection_baseline_robust.json).",
   "selection_forward": "Iteration 7: frozen v3 on the 10-31 12-18 development block (20 events): AUC 0.797, baseline 0.438, recall 0.25 (1 of 4), lift 5.0; pooled forward evaluation with a switching rule pre-registered (X98). | Iteration 8: v4 on the same block (25 events incl. 5 Dota): AUC 0.851 vs 0.640, recall 0.5, lift 3.13.",
   "scope": "Iteration 8: v4 universe (CS2 + Dota 2 match / map winners) covers 1.0 of fills and abs PnL on VALIDATE and on the 10-31 12-18 block; CS2-only would cover 0.927 (VALIDATE) and 0.43-0.46 of fills (10-31 block). evaluate() now computes coverage on the lot.",
-  "primary_metric_change": "Iteration 8: presence_auc moves 0.8721 -> 0.8739 only because the universe now includes Dota 2 (same CS2 rule).",
-  "side": "Iteration 8: two-sided in all 229 markets of 16-22 Oct (min/max outcome share ratio never < 0.1, median 0.944): one-sided in 0% < 20%, so the side item does not apply (side_accuracy null)."
+  "primary_metric_change": "Iteration 9: presence_auc 0.8739 -> 0.8834 because the event score inside the presence rule is now v5's (baseline 0.8907 unchanged).",
+  "side": "Iteration 8: two-sided in all 229 markets of 16-22 Oct (min/max outcome share ratio never < 0.1, median 0.944): one-sided in 0% < 20%, so the side item does not apply (side_accuracy null).",
+  "selection_v5": "Iteration 9: v5 = v4 score + group-P coverage gp72 (pre-registered adoption). VALIDATE pooled AUC 0.9702 (v4 0.9528) vs activity 0.8863, gain +0.084 [0.030, 0.152]; recall 0.744, lift 3.155. Development runs on forward blocks skip earlier sealed-start events, so gp72 is under-counted there (10-31 block recall 0.0); the examiner counts all earlier events.",
+  "outcome_knockout": "Iteration 9 (X124): the validated engine's executable public variant D correlates 0.245 / 0.089 with the wallet's per-market PnL on VALIDATE (0.126 / 0.114 BUILD), below the prints baseline; not adopted. The wallet's own prices quoted continuously keep the margin (C +1.3%), its windows at the public anchor lose (B -2.3%)."
  },
  "next_steps": [
-  "11-01 06-12 (VALIDATE-live): score every pre-registered live test unchanged (touch price, H69 odd sizes, X94 (c) plus (c') GT-cancel markout and (c'') co-burst precision, own-take pull, X116 dose-response), X87 chat clock, X91 / X101 live pages (browser, dev units only), X97 step 2 / X115 if P4e trades on a recorded book; the schedule test (first MERGE pass).",
-  "Dota calibration (pre-registered, NOTES iteration 8 finding 24): on the next development block with a P4e / wallet Dota take, use tommy_dota_live (receive time, game_time, delay) to put wall(tau) on the server clock and measure the feed's lag behind kills (>= 60 s and near the delay -> broadcast clock; <= 10 s -> server-side real time). Decode the block's Dota public taker txs (dota_cosign.py pattern).",
-  "X117: list which non-GRID CS2 / Dota events expose a public spectator relay (key-free, normal visitor) and compare with P4e's event set; test hypothesis Z8 (broadcast-side relay reader).",
-  "X98 forward selection pooled over the development blocks from 11-01 06:00: v4, v3-tier, the tier rule, activity + GRID + p4e24, activity + GRID + cov24 + all24 (no refit; switching rule unchanged).",
-  "X106 steps 2-3 (feed-wide outages with the socket's live fields; common-mode lag shocks across titles), X111 step 3 (geography), X96 (salt PRNG, z3 in a separate folder) if the user consents.",
-  "Ask the user: live HLS playlist / chat route (X53), demos (X37), PandaScore token (X55, also X102 step 4), HLTV page checks (X64), odds probes (X48 b), Kick VOD segments (X4 / X22)."
+  "First development block with a Dota take: the X118 tests on tommy_dota_rt (kill-increment lag of P4e / wallet / trio takes; the wallet's 10-share ladder events; net worth / positions before kill-free takes), with the iteration-8 VALIDATE-live runbook unchanged.",
+  "X98 forward pool on every development block: v4, v5, v5b (monotone boost) and the earlier variants, no refit.",
+  "X121 on VALIDATE-live (co-receiver makers at alone vs co-signed takes, the block's public calldata decoded).",
+  "Ask the user: demos (X122 / X37) and Dota replays (X129 step 2) downloads, PandaScore token (X55), HLTV page checks (X64), stream / chat routes (X4 / X22 / X53), odds probes (X48 b), z3 for X96."
  ],
  "data_bugs": [
   "pack_orders.parquet (iteration 2) was built from calldata_pub only, which excludes every tx with a wallet order: 5,752 pack taker orders that hit the wallet's ladder were missing from pack-based analyses (clusters, pack-vs-rounds, P4e side shares). code/iter5/census.py rebuilds from both records.",

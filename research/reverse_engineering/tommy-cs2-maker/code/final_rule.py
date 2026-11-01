@@ -1,4 +1,14 @@
-"""tommy-cs2-maker frozen rule v4 (`tommy-v4-grid-league-dota`, iteration 8, 2026-11-01) = v3 (`tommy-v3-grid-league-upstream`,
+"""tommy-cs2-maker frozen rule v5 (`tommy-v5-grid-league-dota-groupP`, iteration 9, 2026-11-01) = v4 with the selection score
+combined with group-P coverage (X127, adopted under the criterion pre-registered in NOTES iteration 9): score =
+logistic(a * logit(v4 score) + b * log1p(gp72) + c), gp72 = distinct members of group P (P4e, 0x2005d16a and the slow trio,
+fixed on BUILD; final_rule_v5_groupP.json) with a public taker print in another event of the same league that started in
+the previous 72 h, prints stamped before the event's game start (point-in-time, wallet-independent); threshold = 20th
+percentile of the fitted positives. In development runs (ALLOW_SEALED False) earlier events that started in a sealed
+period are skipped, so gp72 is under-counted on forward development blocks; the examiner counts every earlier event.
+Every other component is v4's.
+
+v4 docstring follows.
+tommy-cs2-maker frozen rule v4 (`tommy-v4-grid-league-dota`, iteration 8, 2026-11-01) = v3 (`tommy-v3-grid-league-upstream`,
 iteration 3) with the rule universe widened to Dota 2 (Gamma series 10309: the wallet's Dota module since 10-22 is 15-54%
 of its fills) and scope item 1 computed on the lot (`coverage_fills`, `coverage_abs_pnl` from `_coverage()`). The Dota 2
 league table (`final_rule_v4_dota.json`) uses the v3 recipe on the same periods; every CS2 constant is unchanged.
@@ -218,6 +228,65 @@ def selection_score(ev: pd.DataFrame, C: dict) -> np.ndarray:
     slg = np.where(ev["grid"].to_numpy(), 0.0, ((s + C["k"] * tr) / (n + C["k"])).to_numpy())
     X = np.column_stack([np.log1p(ev[c].fillna(0).to_numpy(float)) for c in ACT] + [slg])
     z = X @ np.array(C["coef"]) + C["icpt"]
+    return 1 / (1 + np.exp(-z))
+
+
+V5 = json.load(open(HERE / "final_rule_v5_groupP.json"))  # v5 (iteration 9, X127): group-P coverage constants
+V5_MEMBERS = set(V5["members"])  # fixed on BUILD: P4e, 0x2005d16a and the slow trio (<= 2% of BUILD prints in GRID events)
+
+
+def _gp72(ev: pd.DataFrame, u: pd.DataFrame, tapes: dict, start: float, end: float, iv) -> np.ndarray:
+    """v5 feature (point-in-time, wallet-independent): distinct group-P members with a taker print in ANOTHER event of
+    the same league whose game start lies in [gs - 72 h, gs), prints stamped before gs. Earlier events come from the
+    listing (projection) and their public taker tapes; in development runs (ALLOW_SEALED False) events that started in a
+    sealed period are skipped (never loaded)."""
+    hrs = 3600 * V5.get("hours", 72)
+    lo, hi = min(a for a, _ in iv), max(b for _, b in iv)
+    try:
+        ux = _universe(lo - hrs, hi, [(lo - hrs, hi)])
+    except Exception:  # noqa: BLE001
+        ux = u
+    egs = ux.groupby("event_slug")["gs_ts"].transform("min")
+    ux = ux.assign(egs=egs.to_numpy())
+    if not ALLOW_SEALED:
+        try:
+            import sealed as _sealed
+            keep = [not _sealed.is_sealed(float(g), "tommy-cs2-maker") if g >= H else True for g in ux["egs"]]
+            ux = ux[np.array(keep, bool)]
+        except Exception:  # noqa: BLE001
+            ux = ux[ux["egs"] < H]
+    pr = {}  # event -> list of (member, ts)
+    for r in ux.itertuples():
+        d = tapes.get(r.cid)
+        if d is None:
+            try:
+                d = _tape(r.cid, int(r.gs_ts), end)
+            except Exception:  # noqa: BLE001
+                d = None
+        if d is None or len(d) == 0 or "proxyWallet" not in d:
+            continue
+        w = d["proxyWallet"].astype(str).str.lower()
+        m = w.isin(V5_MEMBERS)
+        if m.any():
+            pr.setdefault(r.event_slug, []).extend(zip(w[m], d["timestamp"].astype("int64")[m]))
+    eg = ux.groupby("event_slug").agg(gs=("egs", "min"), league=("league", "first")).reset_index()
+    by_lg = {lg: g for lg, g in eg.groupby("league")}
+    out = []
+    for r in ev.itertuples():
+        g = by_lg.get(r.league)
+        ss = set()
+        if g is not None:
+            prev = g[(g["gs"] >= r.gs - hrs) & (g["gs"] < r.gs) & (g["event_slug"] != r.event_slug)]
+            for e2 in prev["event_slug"]:
+                ss |= {w_ for w_, t in pr.get(e2, []) if t < r.gs}
+        out.append(len(ss))
+    return np.array(out, float)
+
+
+def selection_score_v5(ev: pd.DataFrame, C: dict, gp: np.ndarray) -> np.ndarray:
+    s = np.clip(selection_score(ev, C), 1e-6, 1 - 1e-6)
+    P = V5[CONSTANTS]
+    z = P["coef"][0] * np.log(s / (1 - s)) + P["coef"][1] * np.log1p(gp) + P["icpt"]
     return 1 / (1 + np.exp(-z))
 
 
@@ -729,14 +798,19 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
         u["series"] = "10310"
     u["series"] = u["series"].fillna("10310").astype(str)
     dser = dict(zip(u["event_slug"], u["series"]))
-    out = {"rule_id": "tommy-v4-grid-league-dota", "constants": CONSTANTS, "events": int(len(ev)), "events_traded": int(ev["y"].sum()),
+    out = {"rule_id": "tommy-v5-grid-league-dota-groupP", "constants": CONSTANTS, "events": int(len(ev)), "events_traded": int(ev["y"].sum()),
            "markets": int(len(u)), "markets_traded": int(u["y"].sum()), "grid_events": int(ev["grid"].sum()),
            "grid_events_traded": int(ev.loc[ev["grid"], "y"].sum())}
-    sc, ba = selection_score(ev, C), activity_baseline(ev, C)
+    sc4, ba = selection_score(ev, C), activity_baseline(ev, C)
     y = ev["y"].to_numpy()
+    # v5 (iteration 9, X127): v4 score + group-P coverage of the league in the previous 72 h (pre-registered adoption)
+    gp = _gp72(ev, u, tapes, start_ts, end_ts, iv)
+    sc = selection_score_v5(ev, C, gp)
+    out["selection_auc_v4"] = round(_auc(sc4, y), 4)
+    out["gp72_events_gt0"] = int((gp > 0).sum())
     out["selection_auc"] = round(_auc(sc, y), 4)
     out["selection_baseline"] = round(_auc(ba, y), 4)
-    sel = sc >= C["thr"]
+    sel = sc >= V5[CONSTANTS]["thr"]
     out["selection_recall"] = round(float(y[sel].sum() / max(y.sum(), 1)), 3)
     out["selection_lift"] = round(float(y[sel].mean() / max(y.mean(), 1e-9)), 3) if sel.sum() else None
     rng = np.random.default_rng(0)

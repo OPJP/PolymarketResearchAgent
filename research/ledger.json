@@ -1,5 +1,5 @@
 {
- "generated_at": 1793496763,
+ "generated_at": 1793502270,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -193,14 +193,14 @@
    ],
    "status": "in_progress",
    "wall_reason": null,
-   "iterations": 11,
-   "minutes": 752.6,
-   "hypotheses": 138,
+   "iterations": 12,
+   "minutes": 830.6,
+   "hypotheses": 152,
    "primary_metric": "presence_auc_validate: AUC of P(cluster gets >=1 maker BUY fill on side s in 10-s bin) over all (BTC 5m window, side, bin in [0,300) s) of VALIDATE, point-in-time features, no own-state, clean tape (every print in a cluster transaction removed). From iteration 4 VALIDATE = 2026-10-27..30.",
    "best_validate_score": 0.7723,
-   "best_rule": "R7 = R6 + in-block execution-order price clock (recording-free R4)",
+   "best_rule": "R8 = R7 + the window state-machine side (counted: the public part, decided -> cheaper else Chainlink posture; own-state composite reported)",
    "has_final_rule": true,
-   "strategy_statement": "[engine: VALIDATE-only] One engine family (timestamp-0 orders, per-wallet salt counters reset by the daily ~01:00 UTC restart) runs three wallets. [selection: hypothesis] It quotes nearly every crypto Up/Down window of the modules it runs; BTC 5m/15m are switched off for hours, mostly Fri-Sun US-Eastern evenings. [timing: VALIDATE-only] It re-prices on each Chainlink report within ~0-150 ms of the RTDS relay and after Binance moves; its filled orders are fresh posts at the touch. [side: VALIDATE-only for the US-session 500 ladder, hypothesis elsewhere; the engine's volatility multiplier changed over the 10-24/25 weekend (k ~0.5-0.9 -> ~1.7-2.0 x v300; the market prices ~1.15)] Its 500-share rungs buy the outcome whose Chainlink edge over the Polymarket mid is positive (live 0.79 per fill, 0.93-0.97 where the reference and the market disagree, historically too); the off-session 62/250 ladder follows no public reference; per window the first fill sets the terminal net side (0.81-0.90), and the net side moved from the favourite (won 62%, 10-23..26) to the underdog (won 33%, 10-27..30) while 81-88% of its fills are complementary mints, i.e. the fill side follows what the takers buy. [price: exam-verified (block clock) / VALIDATE-only (in-block and match clock)] Fill price = the last clean trade before the fill minus a tick: 0.80 within a tick on the in-block execution order (recording-free), 0.83-0.86 on the live match clock. [size: VALIDATE-only] 500 x 2^k schedule rungs in the US session, 62/250 outside, plus imbalance-sized pairing bids. [exit: VALIDATE-only] Holds to resolution, completes pairs, merges ~65 s before the end. [economics: VALIDATE-only] It earns as a fast two-sided-at-the-touch maker with a Chainlink skew: a strict-fill replay of its decoded quote loses 15-17% and tracks its window PnL at only 0.21 / 0.22 (oracle side 0.47 / 0.53), because its profit comes from touch fills of quotes refreshed within ~0.1-1 s, which a 2-s-latency replay on block-stamped prints cannot obtain.",
+   "strategy_statement": "[engine: VALIDATE-only] One engine family (timestamp-0 orders, per-wallet salt counters reset by the daily ~01:00 UTC restart) runs three accounts with three owner keys (mo-money: Safe of 0xd1f9bc03...; almach / bosona: ERC-1967 proxies of 0xb3f8b214... / 0x4acd0e52...) that share one position state per window. [selection: hypothesis] It quotes nearly every crypto Up/Down window of the modules it runs; BTC 5m/15m are switched off for hours, mostly Fri-Sun US-Eastern evenings. [timing: VALIDATE-only] It re-prices on each Chainlink report within ~0-150 ms of the RTDS relay and after Binance moves; its filled orders are fresh posts at the touch. [side: VALIDATE-only (public part); own-state description otherwise] The window entry buys the outcome whose Chainlink edge over the Polymarket mid is positive (digital, 1.4 x 300-s vol; 0.70 per entry fill on VALIDATE, the ladder center implies k 1.1-1.4 live); in decided windows a deep-bid module buys the cheap loser (switched up from Monday 10-26); after entry its fills come in same-side runs (the previous fill's side predicts 0.88) and imbalance-sized pairing bids buy the under-held outcome. Public per-fill side 0.69 on VALIDATE (cheaper-token baseline 0.68; own-history baseline 0.82). The fill-level favourite share drifts with the entry and deep-bid decisions; it is not a weekday, volatility or competitor effect. [price: exam-verified (block clock) / VALIDATE-only (in-block and match clock)] Fill price = the last clean trade before the fill minus a tick: 0.80 within a tick on the in-block execution order, 0.83-0.86 on the live match clock. [size: VALIDATE-only] 500 x 2^k schedule rungs in the US session, 62/250 outside, plus imbalance-sized pairing bids. [exit: VALIDATE-only] Holds to resolution, completes pairs with maker pairing bids, merges ~65 s before the end. [economics: VALIDATE-only] It earns as a fast at-the-touch maker with a Chainlink-skewed entry: its locked pairs (+$38k on VALIDATE) and its directional residual both depend on fills of quotes refreshed within ~0.1-1 s; a strict-fill replay of the decoded machine loses 11-16% and tracks its window PnL at <= 0.21 / 0.22 (oracle side 0.47 / 0.53 without the pairing leg, 0.25 / 0.30 with it).",
    "exam_rounds": 1,
    "wall_audits": 0,
    "walls_rejected": 0,
@@ -369,18 +369,18 @@
    ],
    "status": "in_progress",
    "wall_reason": null,
-   "iterations": 8,
-   "minutes": 580,
-   "hypotheses": 99,
+   "iterations": 9,
+   "minutes": 646,
+   "hypotheses": 111,
    "primary_metric": "presence_auc",
-   "best_validate_score": 0.8739,
-   "best_rule": "tommy-v4-grid-league-dota",
+   "best_validate_score": 0.8834,
+   "best_rule": "tommy-v5-grid-league-dota-groupP",
    "has_final_rule": true,
-   "strategy_statement": "CS2 and Dota 2 in-play bot; from 10-16 a buy-only two-sided maker plus an informed taker (one signing key, owner 0x8af810f0, for both legs and both regimes), before that a round-trip taker in GRID tier-1/2 events. [VALIDATE-only] Selection: whole events (match + all maps) of non-GRID leagues, tier 3 all, tier 4 by league, tier 5 rarely, never a GRID event (CS2 0/122, Dota 0/33); from 10-22 also PARI Universe Dota 2 events; this is the coverage of the push feed (P4e's presence has the same boundary); v4 event rule pooled AUC 0.953 vs activity 0.886, recall 0.74 at lift 3.25, coverage 1.0. [VALIDATE-only] Maker: whole-cent BUY ladders near the touch on both outcome tokens (100 shares in CS2, 10 in Dota 2), never sells, merges pairs in one 300-s loop (97% paired, pair cost 0.978). [hypothesis, BUILD-live] Protection: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices its ladder on the private input without any public trigger, and those re-pricings precede adverse moves (ground-truth wallet cancels -0.94c in 10 s). [hypothesis] Taker: FAK BUYs on raw in-round messages of a shared esports push feed (>= 19 subscribers at fixed lags, P4e 50 ms earlier, 29-39% of its take clusters co-signed, lag invariant across event classes, not shared outside esports) of the plant / turn kind, at the stale ask plus its own premium; ~16-20% of the informed bursts; its Dota takes come from the same fan-out (P4e 50 ms earlier on 22% of them). [VALIDATE-only] Economics: per-market PnL is the locked margin of pairs formed across the two legs; public maker replays (generic or balanced) do not track it (-0.13 / 0.03), so the outcome item needs the private taker leg. [hypothesis] Source: in Dota 2 the feed's messages (the wallet's and P4e's alike) follow in-game kills of the team they buy at one per-map offset (1035-1050 s after the replay start on four maps; side-label null p < 0.005-0.07), consistent with the tournament's 900-s spectator delay and a few seconds ahead of the public market: the leading reading (Z8, X117) is a broadcast-side reader of the games' spectator relays sold to many subscribers.",
+   "strategy_statement": "CS2 and Dota 2 in-play bot; from 10-16 a buy-only two-sided maker plus an informed taker (one signing key, owner 0x8af810f0, for both legs and both regimes), before that a round-trip taker in GRID tier-1/2 events. [VALIDATE-only] Selection: whole events (match + all maps) of non-GRID CS2 / Dota 2 leagues that its push-feed product covers (group P: P4e, 0x2005d16a, the slow trio; GRID events are covered by another subscriber group with the same delivery order, so the boundary is its product, not data speed); frozen v5 (league / popularity score + group-P coverage in the previous 72 h) pooled AUC 0.970 vs activity 0.886, recall 0.74 at lift 3.16, coverage 1.0. [VALIDATE-only] Maker: whole-cent BUY ladders near the touch on both outcome tokens (100 shares in CS2, 10 in Dota 2), never sells, merges pairs in one 300-s loop (97% paired, pair cost 0.978); the per-market margin is made by its price level (its own prices quoted continuously earn +1.3%, the public anchor at its own windows loses 2.3-4.5%), and that level is not predicted by public game state or public tape state. [hypothesis, BUILD-live] Its quote level is an informed private value: the offset of its adds from the others' mid predicts the others' mid move (Spearman 0.44 at 10 s vs 0.17 for other makers; 0.38 without any public trigger), does not follow prior public moves of its own or the sibling book, and its informative re-pricings precede the slower feed subscribers' takes (11% of them within 1 s, ~10x null). [hypothesis, BUILD-live] Protection: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices on the private input (ground-truth wallet cancels -0.94c in 10 s). [hypothesis] Taker: FAK BUYs on raw in-round messages of one broadcast esports push feed (P4e first, the wallet +50 ms, a slow trio with a load-dependent queue; machine-timed on isolated Dota kills; its Dota half at the spectator delay) of the plant / turn kind, at the stale ask plus its own premium. [VALIDATE-only] Economics: per-market PnL is the locked pair margin; the informed counterparty that takes its residual is group P (14.8% of its maker shares); public replays do not track its per-market PnL (best executable 0.25 / 0.09, below the co-occurrence baseline).",
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 7
+   "panels": 8
   }
  ],
  "wallets": [
