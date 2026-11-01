@@ -1,0 +1,100 @@
+{
+ "orders": 1054,
+ "maps": 8,
+ "by_map_n": {
+  "dota2-liquid-1win-2026-10-22#1": 310,
+  "dota2-liquid-1win-2026-10-22#2": 88,
+  "dota2-ts8-legion1-2026-10-22#1": 142,
+  "dota2-ts8-legion1-2026-10-22#2": 7,
+  "dota2-ty-gl-2026-10-22#1": 209,
+  "dota2-ty-gl-2026-10-22#2": 101,
+  "dota2-ty-gl-2026-10-31#1": 20,
+  "dota2-ty-gl-2026-10-31#2": 177
+ },
+ "clock_true": {
+  "logistic_ls": {
+   "within_tick": 0.169,
+   "mae_c": 5.36,
+   "by_period": {
+    "validate": 0.18,
+    "build_live": 0.122
+   }
+  },
+  "lgbm": {
+   "within_tick": 0.154,
+   "mae_c": 9.02,
+   "by_period": {
+    "validate": 0.139,
+    "build_live": 0.218
+   }
+  },
+  "lp_plus_dmodel": {
+   "within_tick": 0.414,
+   "mae_c": 2.8,
+   "by_period": {
+    "validate": 0.404,
+    "build_live": 0.457
+   }
+  }
+ },
+ "clock_m300": {
+  "logistic_ls": {
+   "within_tick": 0.068,
+   "mae_c": 11.33,
+   "by_period": {
+    "validate": 0.072,
+    "build_live": 0.051
+   }
+  },
+  "lgbm": {
+   "within_tick": 0.094,
+   "mae_c": 12.87,
+   "by_period": {
+    "validate": 0.085,
+    "build_live": 0.132
+   }
+  },
+  "lp_plus_dmodel": {
+   "within_tick": 0.423,
+   "mae_c": 2.67,
+   "by_period": {
+    "validate": 0.415,
+    "build_live": 0.457
+   }
+  }
+ },
+ "clock_p300": {
+  "logistic_ls": {
+   "within_tick": 0.088,
+   "mae_c": 15.74,
+   "by_period": {
+    "validate": 0.078,
+    "build_live": 0.132
+   }
+  },
+  "lgbm": {
+   "within_tick": 0.058,
+   "mae_c": 13.16,
+   "by_period": {
+    "validate": 0.065,
+    "build_live": 0.025
+   }
+  },
+  "lp_plus_dmodel": {
+   "within_tick": 0.415,
+   "mae_c": 2.85,
+   "by_period": {
+    "validate": 0.41,
+    "build_live": 0.437
+   }
+  }
+ },
+ "last_print": {
+  "within_tick": 0.42,
+  "mae_c": 2.58,
+  "by_period": {
+   "validate": 0.41,
+   "build_live": 0.467
+  }
+ }
+}

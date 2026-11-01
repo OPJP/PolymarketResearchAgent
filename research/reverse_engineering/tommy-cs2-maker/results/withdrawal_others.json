@@ -1,0 +1,18 @@
+{
+ "episodes": {
+  "n_book_episodes": 105,
+  "others_in_over_pre_median": 1.0,
+  "share_others_drop_ge50pct": 0.086,
+  "others_post_over_pre_median": 1.0,
+  "own_pre_median": 0.0,
+  "own_in_median": 0.0
+ },
+ "control": {
+  "n_book_episodes": 202,
+  "others_in_over_pre_median": 1.0,
+  "share_others_drop_ge50pct": 0.01,
+  "others_post_over_pre_median": 1.0,
+  "own_pre_median": 0.0,
+  "own_in_median": 0.0
+ }
+}

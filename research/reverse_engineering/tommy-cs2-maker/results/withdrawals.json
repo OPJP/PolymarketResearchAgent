@@ -1,0 +1,40 @@
+{
+ "events": 4,
+ "occupancy_changes": 5200,
+ "episodes_ge_2ticks": 64,
+ "dur_quantiles_s": {
+  "0.1": 1.46,
+  "0.25": 2.09,
+  "0.5": 12.54,
+  "0.75": 46.54,
+  "0.9": 113.33
+ },
+ "share_3ticks_pm60ms": 0.031,
+ "share_2to4ticks": 0.25,
+ "share_ge_3s": 0.641,
+ "share_ge_10s": 0.516,
+ "share_start_within_2s_after_own_take": 0.031,
+ "tick_hist_2_to_12": [
+  6,
+  1,
+  6,
+  2,
+  5,
+  1,
+  1,
+  1,
+  0,
+  0,
+  0,
+  1,
+  1,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  1,
+  0
+ ]
+}

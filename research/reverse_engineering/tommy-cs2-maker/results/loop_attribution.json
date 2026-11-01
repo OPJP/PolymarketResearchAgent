@@ -1,0 +1,116 @@
+{
+ "own_bursts": 2998,
+ "P_ms": 504.0,
+ "tol_ms": 15.0,
+ "uniform_rate": 0.06,
+ "on_tick_rate": {
+  "triggered_add": [
+   0.142,
+   1099
+  ],
+  "triggered_pull": [
+   0.127,
+   872
+  ],
+  "untriggered_add": [
+   0.728,
+   224
+  ],
+  "untriggered_pull": [
+   0.346,
+   182
+  ]
+ },
+ "takes_on_tick": [
+  0.0,
+  22
+ ],
+ "attribution": {
+  "off_tick_own": {
+   "n": 180,
+   "same_any_in_tick": 0.35,
+   "same_lag_le_40ms": 0.0,
+   "same_lag_40_504ms": 0.35,
+   "same_lag_median_ms": 405.0,
+   "sib_any_in_tick": 0.067,
+   "sib_lag_le_40ms": 0.0,
+   "sib_lag_40_504ms": 0.067,
+   "sib_lag_median_ms": 367.5
+  },
+  "off_tick_control": {
+   "n": 1664,
+   "same_any_in_tick": 0.441,
+   "same_lag_le_40ms": 0.115,
+   "same_lag_40_504ms": 0.326,
+   "same_lag_median_ms": 137.0,
+   "sib_any_in_tick": 0.197,
+   "sib_lag_le_40ms": 0.035,
+   "sib_lag_40_504ms": 0.162,
+   "sib_lag_median_ms": 169.5
+  },
+  "on_tick_own": {
+   "n": 226,
+   "same_any_in_tick": 0.42,
+   "same_lag_le_40ms": 0.0,
+   "same_lag_40_504ms": 0.42,
+   "same_lag_median_ms": 409.0,
+   "sib_any_in_tick": 0.093,
+   "sib_lag_le_40ms": 0.0,
+   "sib_lag_40_504ms": 0.093,
+   "sib_lag_median_ms": 387.0
+  },
+  "on_tick_control": {
+   "n": 2033,
+   "same_any_in_tick": 0.473,
+   "same_lag_le_40ms": 0.12,
+   "same_lag_40_504ms": 0.353,
+   "same_lag_median_ms": 139.0,
+   "sib_any_in_tick": 0.241,
+   "sib_lag_le_40ms": 0.052,
+   "sib_lag_40_504ms": 0.189,
+   "sib_lag_median_ms": 133.0
+  }
+ },
+ "sib_lag_hist_63ms_bins": {
+  "on": [
+   0,
+   0,
+   0,
+   0,
+   2,
+   4,
+   10,
+   5
+  ],
+  "on_control_per_own": [
+   15.8,
+   7.5,
+   5.5,
+   5.3,
+   5.7,
+   3.7,
+   3.3,
+   2.1
+  ],
+  "off": [
+   0,
+   0,
+   0,
+   0,
+   2,
+   5,
+   2,
+   3
+  ],
+  "off_control_per_own": [
+   8.6,
+   5.0,
+   3.7,
+   3.2,
+   3.9,
+   3.1,
+   2.6,
+   2.7
+  ]
+ }
+}

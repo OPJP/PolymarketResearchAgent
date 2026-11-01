@@ -1,0 +1,18 @@
+{
+ "on_tick": {
+  "n": 254,
+  "share_toward_mid": 0.736,
+  "null_p50": 0.728,
+  "p_ge": 0.3865,
+  "slope_dV_on_gap": 0.434,
+  "gap_median_c": 2.5
+ },
+ "off_tick": {
+  "n": 622,
+  "share_toward_mid": 0.846,
+  "null_p50": 0.83,
+  "p_ge": 0.0045,
+  "slope_dV_on_gap": 0.528,
+  "gap_median_c": 2.5
+ }
+}

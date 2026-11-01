@@ -3578,3 +3578,294 @@ the per-match object's cadence (X144 steps 1-2, X148 step 1).
 - Iteration 11 ended at about 06:30 UTC (about 68 wall-clock minutes; budget used about 765 of 1200 minutes). The
   development block 11-01 06-12 is in progress; the wallet's session usually starts 08:10-09:04 UTC, so the live
   tests (X133 / X144 / X118 / X154 replication / X156) run in the next iterations.
+
+# Iteration 12 (2026-11-01, started 07:09 UTC; 765 of 1200 budget minutes used before it)
+
+Read first: NOTES (iteration 11 in full, earlier sections by heading), state.json (catalog A1-X157, components, target
+metrics, live split, progress gauges), FINAL_RULE.md, panels/iter11_{information,mechanics,assumptions}.md. No EXAM or
+wall-audit files. Calendar (`tools/sealed.py`): no released lots, future examined up to 10-31 00:00; the current block
+11-01 06-12 is development (the wallet's session usually starts 08:10-09:04 UTC). Shared recorder OK at 07:09 UTC (pid
+27184, current block dev). The 14 iteration-11 panel proposals become X158-X171: information P1-P5 = X158-X162,
+mechanics P1-P4 = X163-X166, assumptions P1-P5 = X167-X171.
+
+**Pivot (required: the primary metric and the progress gauge did not move in iterations 9-11).** New target and new
+model class: the wallet's VALUE V itself, fitted as a hidden-state function of public game state, instead of
+anchors, fills or quote presence. (1) A clock-free hidden-Markov alignment (Viterbi over the round index) of its own
+levels to an MR12 / overtime round-score Markov valuation, with the true bo3 round-winner sequence against
+permutations and the public print as a control (X171, with X160's economy question); (2) the decomposition of the
+price item into one private number per burst plus a mechanical ladder, frozen as code (X163); (3) the live tests of
+the odds-product branch when the development block carries its session (X144 frozen tests, X159 / X168 suspension
+form).
+
+## Competing explanations (iteration 12) and the observation that separates them
+1. **E1a own in-round win-probability model anchored on the round score:** V = P(map win | score, side, economy) plus
+   in-round updates from Feed P's kill / plant messages. Separator: at round starts (freeze time, in-round state
+   reset) its level sits on an MR12 table with a per-map round-win probability, closer than the public print does
+   (X171: true sequence beats >= 99% of permutations, sigma_V <= sigma_print - 1.5c, freeze-time residual SD <= 3c).
+2. **E1b own model not anchored on a score table** (a learned model on raw feed events, or a market-anchored filter with
+   message jumps): V tracks round results only as much as the print does. Separator: X171 residuals of V no smaller
+   than the print's.
+3. **E4 a pushed in-play odds product minus a margin** (the vendor behind Thunderpick): separator: bookmaker-style
+   suspensions shared with its withdrawals and levels at the de-margined odds (X144 / X159 / X168, live only).
+4. **E16 own last level plus message increments, pulled to the market over time** (no absolute model): separator: its
+   quiet steps move toward the print with the gap length (assumptions panel: 0.43 at 0-2 s, 0.79 beyond 60 s) and its
+   freeze-time level is the print's, not the table's.
+5. **E17 V = public book state sampled at its 504-ms loop tick** (information P1 branch a): separator: at least half of
+   its on-tick V changes follow a same-sign non-own change in the previous tick interval (X158).
+6. **E18 (unlikely) V uses the same map's totals / handicap books:** separator: those books re-price before its V
+   changes (X164, live).
+7. **E19 (unlikely) a human desk overriding a model per match:** separator: event-level regimes in the residual of any
+   fitted V (the attention check of the assumptions panel excludes one person across concurrent matches only).
+
+## Pre-registration (X171, written before any number is computed)
+Units: the wallet's filled maker BUY orders on CS2 map-winner markets of 16-22 Oct with a bo3 round sequence, grouped
+into bursts (same token, signed within 50 ms; level = the burst's highest price), in team-A space (y = price for
+outcome 0, 1 - price for outcome 1), excluding band-edge levels (price <= 0.06 or >= 0.94). Model: hidden state k =
+completed rounds (0..R), non-decreasing, at most floor(gap / 40 s) + 1 round ends between consecutive bursts, free
+start state; emission y ~ N(M_k(p) + mu_token, sigma^2), M = MR12 with MR3 overtime at a constant round-win
+probability p (grid 0.35..0.65 by 0.05), mu per token and sigma by two Viterbi-EM passes. Statistics per map: the
+log-likelihood rank of the true winner sequence among 200 permutations with the same final score, sigma at the best
+path, and the residual SD of the first burst after each inferred round end (freeze time). Control: the same fit on the
+last public print (wallet transactions excluded) at the same times. Verdict (panel's, unchanged): round-state V iff the
+true sequence beats >= 99% of permutations on the median map, sigma_V <= sigma_print - 1.5c (median over maps), and the
+freeze-time residual SD <= 3c; otherwise V is not a score table even between events.
+
+## Findings (iteration 12); numbers in results/*.json, code in code/iter12/
+1. **Its CS2 value is not a round-score table (X171, assumptions P5; `round_markov_fit.py`, `round_markov_fit.json`;
+   pre-registered above).** 92 map markets of 16-22 Oct with a bo3 round sequence (4 dropped for unmatched team
+   names; a first run without that filter is kept as `iter12/round_markov_fit_v1_unfiltered.json`), 200 permutations
+   each. Median over maps: the true winner sequence ranks 0.14 among its permutations for the wallet's levels and
+   0.10 for the last public print (true sequence in the top 1% on 17% / 14% of maps); residual SD at the best path
+   3.22c (V) vs 3.21c (print), V smaller on 49% of maps; residual of the first burst after each inferred round end
+   2.69c vs 2.90c. BUILD 3.03c vs 3.21c, VALIDATE 3.28c vs 3.18c. **Pre-registered verdict: not a score table.** The
+   wallet's levels sit no closer to an MR12 / MR3 Markov valuation than the market's own print does; E1a in its
+   constant-p form fails. (The alignment has weak power even for the print, so the comparison V vs print is the
+   informative part.)
+2. **The ladder under V is mechanical; V must be exact to the cent (X163, mechanics P1; `ladder_machine.py`,
+   `ladder_machine.json`; BUILD-live, the panel's V-relative rows, 2,698 validated adds in 1,507 bursts).** Frozen
+   machine: a burst of n adds takes the n highest free whole-cent slots V, V - 1c, ..., V - 4c inside [0.05, 0.95],
+   top-first. With V = its own top after the burst (oracle): set unit (burst prices matched to slots by rank) 0.875,
+   per order without rank 0.730, whole burst correct 0.833; by class up 0.938 (989 adds), fresh 0.912 (1,141), down
+   0.869 (244), same-V 0.556 (324). V shifted by -1c / +1c: 0.701 / 0.813; by -2c / +2c: 0.215 / 0.083. A 1.5-s
+   cooldown on recently vacated slots LOWERS it (0.807): it re-uses vacated slots. Public V proxies through the
+   machine: others' best J 0.500 (set unit) / 0.412 (per order), J + 1c 0.472, its own top before 0.232. The same-V
+   residual adds spread evenly over slots 0..-5 (39 / 59 / 47 / 44 / 57 / 44), only 8.3% at a recently vacated price:
+   they are not top refills. **Correction of iteration 11 finding 3:** with V known the per-order ceiling is about
+   0.73-0.79 and the set unit 0.875, not 0.71-0.75; the price item fails because V is private, not because of the
+   ladder. Whether the examiner may score the set unit (orders of one burst share every field but price and are signed
+   in the same millisecond) is a question for the user.
+3. **The stale remainder does not survive the leader's match even without the wallet: the T_lo world is real (X169,
+   assumptions P3 step 1; `stale_remainder_absent.py`, `stale_remainder_absent.json`; the iteration-5 census of 3,786
+   informed bursts).** Leader limit L, match m = sign + 1,040 ms; later BUY takers on the token matched in (m, m + 4 s]
+   and their maker legs at an effective price <= L. In the 3,028 wallet-absent bursts, such later consumption occurs
+   in 8.2 / 6.4 / 5.5 / 4.1% of bursts per 1-s bin, mean 5.3 / 6.7 / 10.2 / 4.3 shares (the wallet's own resting
+   complement bids add about 1 share per bin). In matched wallet-present bursts (by move10) the wallet's own take
+   obtains a mean 193-220 shares at <= L. So at m + 2-3 s, wallet-absent bursts leave about 3-7% of what the wallet
+   takes (5.6-14.6 shares by move10 stratum): the panel's T_hi signature (>= 50%) fails clearly, and the "if false"
+   branch holds: the outcome wall's latency component stands on a natural experiment, not on a replay convention.
+   (Lower bound: only liquidity someone consumed; later takers exist in 4-8% of bursts, so cheap surviving depth would
+   have been taken.)
+4. **A point-in-time partial-fill book is no better than the last print (X165 step 1, mechanics P3;
+   `pit_partial_book.py`, `pit_partial_book.json`).** Other makers' BUY orders partly filled at or before t - 2 s and
+   below their size, with an age cutoff since the last fill: coverage 15 / 33 / 48 / 63 / 78% at 10 / 30 / 60 / 120 /
+   300 s (VALIDATE), within one tick on covered rows 0.34 / 0.30 / 0.25 / 0.21 / 0.16; with the last print as fallback
+   0.274 against the last print's 0.275 (age chosen on BUILD = 10 s; event-bootstrap gain -0.002 [-0.004, +0.001]); the
+   complement ask cap does not help. Not frozen. (Steps 2-3, followers and queue-inversion latency, not run.)
+5. **The take is consistent with one latent value: it takes when its revealed value reaches the stale ask (X170,
+   assumptions P4; `take_gap.py`, `take_gap.json`; BUILD-live raw book, 39 takes and 448 untriggered own bursts).**
+   gap = its own top on the bought token 1.5 s after the marker minus the others' best ask before it: takes median -1c
+   (IQR -2..+2c, n 33), untriggered re-pricings -3c (IQR -6..-1c, n 394), AUC 0.812 (permutation p < 0.0005); a
+   leave-one-event-out logistic with |dV| and ask depth 0.768. The complement form (0.99 - its complement top after -
+   ask) gives AUC 0.958 (takes median +5c vs -1c) but is inflated by the repair rule (it re-posts the complement at
+   K - limit after a take). Premium vs gap Spearman 0.31, premium median 2c. **Partly supported:** after takes its value
+   sits at the old ask, after untriggered re-pricings 3c below it, but no sharp threshold separates them (AUC < 0.85
+   on the non-circular form).
+6. **The quiet class lives on the 504-ms loop, and the public book explains little of it (X158 steps 1-2, information
+   P1; `loop_attribution.py`, `loop_attribution*.json`; BUILD-live server clock).** Phase from the latest earlier
+   untriggered own burst (P = 504 ms, +-15 ms; uniform 6.0%): untriggered adds 72.8% on tick (n 224), untriggered pulls
+   34.6% (182), triggered adds 14.2% (1,099), triggered pulls 12.7% (872), takes 0 of 22. Attribution over all own
+   bursts (uncensored window): off-tick bursts follow a same-book non-own change by a median 17 ms (61% within 40 ms vs
+   19.5% at same-phase control ticks): event-driven. On-tick bursts show no event-locked excess (18% within 40 ms vs
+   16%), a same-book non-own change somewhere in the previous tick interval in 67% vs 53% at control ticks (sibling
+   books 34% vs 32%), the excess sitting 250-504 ms before the tick (2.3x control: changes just after the previous
+   tick). So at most about 14 points of on-tick re-pricings are a sampled reaction to public book changes; branch (a)
+   (>= half) fails. The quiet value changes between ticks without a public trace in most cases. (The untriggered label
+   itself excludes public events in [-300, 0] ms, so its own attribution run, `loop_attribution.json`, is censored;
+   only the all-burst run, `loop_attribution_all.json`, is used.)
+7. **Event-wide withdrawals are variable-length and event-locked (X159 / X168 steps 1-2, information P2 / assumptions
+   P2; `withdrawals.py`, `withdrawals.json`; BUILD-live, 4 events, occupancy over its traded books of each event).**
+   64 episodes of >= 2 ticks with no own level on any of the event's books: duration p10 / p25 / p50 / p75 / p90 =
+   1.5 / 2.1 / 12.5 / 46.5 / 113 s; 3.1% at exactly three ticks (+-60 ms), 25% within 2-4 ticks, 64% >= 3 s, 52% >= 10 s;
+   3.1% start within 2 s after its own take. Across the episodes the match market's public print moves a median 1.0c
+   (control windows 0.0c; 22% >= 3c) and prints arrive 3-20x faster than in control windows. So the holes are not the
+   3-tick repair: it withdraws a whole event for seconds to minutes at moments of public action (round ends or
+   decisive events), which is what both an odds-product suspension (E4) and a round-boundary own policy predict. The
+   Thunderpick coincidence test (step 3) needs development records of matched in-play matches (none yet; the first
+   non-GRID matches of this block start at 09:00 UTC). Caveat: the occupancy covers only its traded books of each
+   event (one book for cs2-wraith-ntr).
+8. **No predecessor wallet under the owner key (X166, mechanics P4; `lineage.py`, `lineage.json`).** The deposit wallet
+   was deployed at block 88,606,547 (06-16 13:00 UTC), 5.5 h before its first trade, by a relayer (0x7cebbed5) through
+   the deposit-wallet factory 0x00000000000fb5c9...; its code is an ERC-1967 proxy with immutable args (the factory and
+   the owner 0x8af810f0). The owner is an EIP-7702 account (23-byte delegation designator) delegated to
+   0x63c0c19a282a1b52b07dd5a65b58948a07dae32b (11,185 bytes), nonce 3. Its Polymarket Safe (factory
+   computeProxyAddress(owner) = 0x08d5b3d9...) was never deployed, and neither the owner nor that Safe has Polymarket
+   activity. First funding in June: infeasible key-free (drpc: "ranges over 10000 blocks are not supported on free
+   plan" for archive-depth logs; publicnode: "Archive requests require a personal token"; 1rpc.io: 50-block range and
+   "Too Many Requests"; polygon.blockscout.com 403). October logs stay readable on publicnode and drpc (verified).
+9. **Dota: the public per-minute state does not reproduce its level (X167 step 1, assumptions P1;
+   `dota_inverse_fit.py`, `dota_inverse_fit.json`; 1,054 filled maker orders on 8 Dota maps, clock from P4e's takes).**
+   Inverse fit of its price on oriented gold / xp / kill leads, minute and the pre-game prior (leave one map out):
+   within one tick 0.169 (logistic-link least squares) / 0.154 (LightGBM), MAE 5.4c / 9.0c at the true clock, against
+   0.07-0.09 (MAE 11-16c) at clocks shifted by +-300 s and the last print's 0.420 (MAE 2.6c). The last print plus the
+   model's change since the print: 0.414 (placebo clocks 0.415-0.423). Public per-minute state carries the coarse level
+   (the correct clock beats shifted clocks) but nothing at one-tick precision; the strong form (Valve's live state at
+   receive time, X118 / X167 step 2) waits for development blocks with Dota in play.
+10. **Kick stream clock recorder started (X162, information P5; `kick_pdt_recorder.py`, feed `tommy_kick_pdt`).**
+    Key-free Kick channel API (verified 200, IVS playback URL present even offline) and the IVS HLS playlists as text
+    (no segment, no chat, no video): one record per new media sequence with the newest PROGRAM-DATE-TIME. Channels from
+    listing-time fields of non-GRID CS2 / Dota events in play; unit-rule filing; launcher pid 8260, worker 16248,
+    started 1793519469 (07:51 UTC), hard stop 11-03 00:00 UTC, 50 MB cap. Today's first non-GRID Kick event of a
+    development block is cs2-bca-pha (11:00 UTC, cct_cs2); the 09:00 Kick events are GRID.
+11. **Round economy is not a separate input of its value (X160 steps 4-5 in clock-free form, information P3;
+    `round_econ.py`, `round_econ.json`; the first burst after each round end inferred by the X171 fit, bo3 economy of
+    the new round).** Its level minus the last print rises with team A's equipment advantage (Spearman 0.54, +0.32c per
+    $1k, t 24.6), but that is the previous round's result: controlling the last round's winner, the last three rounds
+    and the score, the equipment term is +0.004c per $1k (t 0.2); within rounds A won -0.003 (t -0.1), within rounds A
+    lost +0.037 (t 1.5). The previous-round winner carries +4.5c (t 15.6): right after a round end its level sits ahead
+    of the print in the winner's direction (partly mechanical, since the inferred round ends are placed at its own
+    moves). Residuals against the table relate to equipment equally for V and the print (Spearman -0.29 vs -0.24). So
+    economy enters neither more nor earlier than the round result does; the pause-aware DP clock (steps 1-3) and the
+    anchor rule (step 6) were not run.
+12. **The loop carries small steps, the event path carries the jumps (X158 step 3; `loop_steps.py`, `loop_steps.json`;
+    BUILD-live, 834 value changes of validated add bursts).** On-tick changes: 68.7% are 1c steps, 18.5% 2c, 12.8% >= 3c;
+    off-tick (event-driven) changes: 57.3% / 20.9% / 21.8%. Consecutive changes on a token within 30 s share their sign
+    in 70.6% vs 64.5% under within-token shuffles (p < 0.003), but runs of >= 3 same-sign changes occur at the shuffled
+    rate (0.122 vs 0.126 per change). Branch (c) (a clock-driven in-round drift with long same-sign runs) fails; the
+    loop re-centres the value by single cents, and multi-cent moves come off the loop, at events. (Adds only, so the
+    sign shares are biased toward up-moves.)
+13. **Validation of the withdrawal episodes (finding 7).** 9.4% of the 64 episodes contain a filled wallet order signed
+    inside them and 7.8% an own add burst (label leakage, all in cs2-gls1-pcy and in episodes longer than 3 s); the
+    other ~90% are clean, and every 1-3 s episode is clean, so the variable-length distribution stands.
+
+## Hypothesis ledger (iteration 12)
+- E1a own model anchored on a round-score table: **rejected in its constant-p form** (finding 1: V no closer to the
+  MR12 table than the print; finding 11: no economy term beyond the round result).
+- E1b own model not anchored on a score table: **supported by elimination** (findings 1, 6, 9, 11, 12).
+- E4 pushed in-play odds product: **open; one prediction met** (finding 7: variable-length, event-locked event-wide
+  withdrawals rather than the 3-tick repair); the decisive Thunderpick coincidence test needs development records of
+  matched matches (from 11-01 09:00 UTC).
+- E16 own last level plus message increments pulled to the market: **partly consistent** (finding 12: the loop moves
+  the value in 1c steps; jumps come at events).
+- E17 value = sampled public book state: **rejected** (finding 6: at most ~14 points of on-tick re-pricings).
+- E18 totals / handicap books lead: **not tested** (X164 waits for VALIDATE-live).
+- E19 a human desk per match: **not tested** directly.
+- Mechanics: the ladder under V is mechanical (finding 2), the take is consistent with one latent value (finding 5),
+  the outcome latency bound is a property of the market (finding 3).
+
+## What is unexplained (quantitative)
+- Price: one number per burst, V, to the cent. Given V the ladder machine reaches 0.875 (set unit) / 0.73 (per order);
+  without V, public proxies reach 0.41-0.50 through the machine, the touch 0.45 (adds, live), the last print 0.305
+  (historical). V is not an MR12 table (residual 3.2c, no better than the print), not public per-minute Dota state
+  (0.17), not sampled public book state (<= 14 points of its quiet re-pricings); about 85% of its loop re-pricings have
+  no public trace in the previous tick.
+- Outcome: at any public lag the take finds 3-7% of the stale remainder the wallet gets (natural experiment); the item
+  needs V and the +50-ms take.
+- Selection passes on VALIDATE (unchanged).
+
+## Next iteration (plan; pivot rule: the primary metric did not move in iterations 9-12)
+1. VALIDATE-live from 11-01 09:00 UTC (the9-5s, jjh-mzp, bca-pha, dota2-synaps-hn) and the 18-24 block: X144 frozen
+   tests and the X159 step 3 / X168 coincidence of Thunderpick suspensions with its event-wide withdrawals (finding 7);
+   X158 replication and step 4; X163 machine with V proxies (touch, Thunderpick p minus margin); X164 rounds-book clock;
+   X167 step 2 / X118 on tommy_dota_rt; X162 once >= 15 Kick events exist.
+2. X160 with a public clock (pause-aware DP on signed public jumps), X161 Azuro mapping.
+3. Ask the user: may the examiner score the burst-set unit (X163)? (Plus the standing consent items.)
+
+## Iteration 12 closing state
+- Recorders: shared recorder OK at 07:09 UTC (pid 27184, current block dev); own recorders untouched except the new
+  `tommy_kick_pdt` (launcher 8260, worker 16248, from 07:51 UTC). `tommy_tp_odds2` had 4 development records and no
+  per-match polls by 07:37 UTC (no matched development match in play yet).
+- Sealed-data handling: the iteration ran inside the development block 11-01 06-12; nothing in `.cache/live/sealed/`
+  was opened and no recording of a sealed block was read (BUILD-live tables are 10-31 12-18). Gamma listings of today's
+  events were read for scheduled start, resolution source and the GRID flag only (listing-time fields). The lineage
+  calls read the deposit wallet's June deployment (before H) and current code / nonce of the owner (state, not
+  activity); data-api activity calls were clamped to before H.
+- Rule: v5 unchanged (nothing beat it on VALIDATE; the PIT partial-fill book tied the last print).
+- Catalog: X158-X171 added (tried: X158, X163, X165, X166, X169, X170, X171; open: X159, X160, X161, X162, X164,
+  X167, X168).
+
+## Pre-registrations for VALIDATE-live (written 11-01 ~08:08 UTC, before any development record of the 11-01 06-12 session exists)
+- **X163 (price, burst-set unit).** `code/iter12/ladder_machine.py` constants frozen (burst 20 ms, depth 5, band [0.05,
+  0.95], no cooldown). On every VALIDATE-live block, rows rebuilt with `code/iter12/slot_vrel_panel.py`'s machinery
+  (validated own adds, own levels before, V_after) and scored on three units (per order without rank, set unit, whole
+  burst) with V = V_after (oracle), the touch, others' best + 1c, and any external candidate (Thunderpick p minus the
+  X144 margin). Pass for the mechanism: oracle set unit >= 0.85 and per order >= 0.70 on VALIDATE-live. No refit.
+- **X158 (loop).** P = 504 ms, +-15 ms, reference = latest earlier untriggered own burst within 60 s. Replication bar:
+  untriggered adds on tick >= 4x the uniform rate (>= 24%) and takes <= 2x uniform; attribution as in
+  `loop_attribution.py --all` (excess of any same-book non-own change in the previous tick over control ticks reported,
+  no threshold).
+- **X159 / X168 step 3 (suspensions).** Event-wide withdrawal episodes as in `code/iter12/withdrawals.py` (>= 2 ticks, no
+  own level on any of its traded books of the event). Thunderpick suspension = a1 = a2 = 0 in `tommy_tp_odds2` (P records
+  if their median gap is >= 30% shorter than B's, else B). Statistic: share of withdrawal episodes whose start lies
+  within [s_TP - 20 s, s_TP + 2 s] of a suspension start, against 2,000 within-match circular shifts of the suspension
+  series. Verdict: shared event clock iff >= 3x the null median at one-sided p < 0.0025; else E4's suspension
+  prediction fails for Thunderpick (its withdrawals then come from its own policy).
+## Late additions (iteration 12, after the closing state above; numbers in results/*.json)
+- **Addendum to finding 7 (`withdrawal_others.py`, `withdrawal_others.json`).** During its event-wide withdrawals the
+  other makers keep their depth: others' size within 3c of their best bid and ask, 0.5 s into the episode over 3 s
+  before it, median 1.00 (105 book-episodes), with a drop of >= 50% in 8.6% against 1.0% at control instants (202). The
+  withdrawals are the wallet's own (or follow a source the other makers in its books do not use), not a market-wide
+  suspension.
+- **Withdrawals come before the public move (finding 7, timing).** Over 122 book-episodes, a >= 2c move of the public
+  print occurs in the 20 s after a withdrawal starts in 22.1% against 11.5% in the 20 s before it (prints per 20 s 0.65
+  vs 0.51): it pulls the whole event ahead of public action, on its private event stream, while the other makers keep
+  their depth.
+14. **Market pull of the loop steps is not separable from the sample (`results/loop_market_pull.json`).** The share of
+    value changes toward the others' mid (relative to its old top) is 0.736 on tick vs 0.728 under sign shuffles (p
+    0.39) and 0.846 off tick vs 0.830 (p 0.005); dV rises with the gap to the mid (slope 0.43 / 0.53 per cent). With
+    adds only (mostly up-moves at positive gaps) the test cannot separate a pull to the market (E16) from composition;
+    it needs pulls and adds together on VALIDATE-live.
+15. **No Azuro bets on chain under the documented events (X161, information P4; `results/azuro_probe.json`).** Event
+    signatures from Azuro's public indexer configuration (LiveCore `NewLiveBet`, Core v2 / v3 `NewBet`; keccak checked
+    on Transfer): topic-only getLogs on Polygon (drpc, 100-block windows) find 0 logs in 10-20 15:00-17:00 UTC and in
+    10-21 07:00-09:00 UTC; Gnosis (rpc.gnosischain.com) finds 0 for the same topics and 0 logs of any kind from the known
+    LP, factory and core v1 contracts in 10-20 15:00-17:00. publicnode refuses topic-only queries ("Please specify an
+    address"). So no historical on-chain in-play line exists under Azuro's documented contracts in the study period; a
+    newer, undocumented deployment cannot be excluded without Azuro's API (X41: DNS / 404).
+- **Nuance to finding 3 (same output).** Inside the bursts themselves the informed takers consume comparable stale
+  depth at <= the limit whether or not the wallet is there: mean 254 shares in wallet-absent bursts (all by other
+  subscribers) against 285 in wallet-led bursts (the wallet's ~200 included) and 932 in wallet-near bursts. Without the
+  wallet the other feed subscribers take the stale depth within the burst, so nothing is left for a 2-s copy: the
+  remainder the wallet would leave is absorbed by the pack, not by followers.
+- **Withdrawals run on the event path, not the loop (`results/withdrawal_phase.json`).** Episode starts are on the
+  504-ms tick in 7.8% (n 43 with a phase; uniform 6.0%) and ends in 6.2% (n 41). The own burst nearest the start
+  (within 30 ms) is a triggered pull in 33 of 64 episodes (untriggered 2; none in 29: the last level left by a fill or
+  an unlabelled cancel); the burst nearest the end is a triggered add in 53 (untriggered 8). It pulls the event on an
+  event and comes back on an event (a public book change, its timer or its take), never on the loop.
+
+## Iteration 12 end
+- About 70 wall-clock minutes (budget used about 835 of 1200 minutes). Rule v5 unchanged; target_metrics unchanged.
+- Recorders at the end: shared recorder OK (pid 27184); `tommy_kick_pdt` running (worker 16248), no live non-GRID
+  Kick channel yet; `tommy_tp_odds2`, `tommy_dota_rt`, `tommy_cs2_near`, `tommy_cs2_rounds`, `tommy_chat` untouched.
+- **Historical replication of the loop (`results/loop_historical.json`; 16-22 Oct signing clock, filled maker orders
+  grouped into 19,764 bursts, the same tracker).** Quiet-class bursts are on the tick in 11.7% (n 13,497; uniform 6.0%),
+  follow 8.1%, message 6.3%, own-message 3.3%, repair 5.7%; the wallet's 1,532 takes 5.6% (uniform). A period scan of
+  consecutive quiet bursts peaks at exactly 504.0 ms (0.117; 503.5 / 504.5 ms 0.106 / 0.113). The weaker lock than live
+  (72.8%) is the censoring of the filled-order record (the reference burst is rarely the previous loop action); the
+  period and the off-loop takes replicate on the client clock.
+- Disclosure (sealed-data handling): the lineage check read the owner EOA's CURRENT code and nonce (chain state, not
+  tied to any market unit; nonce 3) and the deposit wallet's June deployment; the owner / Safe activity calls were
+  clamped to before H. The Gamma listing check printed only listing-time fields (slug, scheduled start, resolution
+  source, GRID flag) of open CS2 / Dota events, some of them sealed units; nothing post-hoc was read or stored. The Kick
+  API probe printed only response keys, the playback host and the live flag (all three channels offline).
+- **Runbook addition for VALIDATE-live (iteration 12 scripts).** After the iteration-7..9 runbook has built a block's
+  `dev_markets{SUF}`, `calldata_dev{SUF}`, `level_events_dev{SUF}`, `linked_adds_dev{SUF}` (label_validate.py) and
+  `own_bursts_dev{SUF}` (untriggered_v2.py --bursts-only) with TOMMY_BLOCK_START / TOMMY_BLOCK_END / TOMMY_BLOCK_SUFFIX,
+  the same three variables drive `code/iter12/slot_vrel_panel.py` (rows) -> `ladder_machine.py` (X163),
+  `loop_attribution.py --all` and `loop_steps.py` (X158), `take_gap.py` (X170), `withdrawals.py` and
+  `withdrawal_others.py` (X159 steps 1-2); outputs carry the suffix. Re-run on BUILD-live after the change reproduced
+  every number above (set unit 0.875, on-tick untriggered adds 0.728, on-tick 1c steps 0.687).
+- **Withdrawals vs the feed subscribers' takes (`results/withdrawal_feed.json`).** A group-P / pack take on the event
+  within +-1.5 s of a withdrawal start: 0 of 64 (control 0.3%); in the 5 s before: 1.6% vs 0.8%; its own take within
+  +-1.5 s: 4.7% vs 0.3% (3 episodes). Pack takes are sparse in the block (229), so this is underpowered: the
+  withdrawals are not visibly tied to the take-kind messages, and their trigger stays to be named on VALIDATE-live
+  (candidates: round ends, pauses, an odds-product suspension, an inventory limit).

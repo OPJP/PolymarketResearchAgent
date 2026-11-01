@@ -1,0 +1,157 @@
+{
+ "own_bursts": 2998,
+ "P_ms": 504.0,
+ "tol_ms": 15.0,
+ "uniform_rate": 0.06,
+ "on_tick_rate": {
+  "triggered_add": [
+   0.142,
+   1099
+  ],
+  "triggered_pull": [
+   0.127,
+   872
+  ],
+  "untriggered_add": [
+   0.728,
+   224
+  ],
+  "untriggered_pull": [
+   0.346,
+   182
+  ]
+ },
+ "takes_on_tick": [
+  0.0,
+  22
+ ],
+ "attribution": {
+  "off_tick_own": {
+   "n": 1884,
+   "same_any_in_tick": 0.87,
+   "same_lag_le_40ms": 0.61,
+   "same_lag_40_504ms": 0.26,
+   "same_lag_median_ms": 17.0,
+   "sib_any_in_tick": 0.424,
+   "sib_lag_le_40ms": 0.233,
+   "sib_lag_40_504ms": 0.191,
+   "sib_lag_median_ms": 32.5
+  },
+  "off_tick_control": {
+   "n": 16731,
+   "same_any_in_tick": 0.588,
+   "same_lag_le_40ms": 0.195,
+   "same_lag_40_504ms": 0.393,
+   "same_lag_median_ms": 96.0,
+   "sib_any_in_tick": 0.307,
+   "sib_lag_le_40ms": 0.097,
+   "sib_lag_40_504ms": 0.21,
+   "sib_lag_median_ms": 102.0
+  },
+  "on_tick_own": {
+   "n": 493,
+   "same_any_in_tick": 0.669,
+   "same_lag_le_40ms": 0.181,
+   "same_lag_40_504ms": 0.489,
+   "same_lag_median_ms": 247.5,
+   "sib_any_in_tick": 0.341,
+   "sib_lag_le_40ms": 0.124,
+   "sib_lag_40_504ms": 0.217,
+   "sib_lag_median_ms": 83.5
+  },
+  "on_tick_control": {
+   "n": 4258,
+   "same_any_in_tick": 0.526,
+   "same_lag_le_40ms": 0.156,
+   "same_lag_40_504ms": 0.37,
+   "same_lag_median_ms": 123.0,
+   "sib_any_in_tick": 0.323,
+   "sib_lag_le_40ms": 0.083,
+   "sib_lag_40_504ms": 0.24,
+   "sib_lag_median_ms": 127.0
+  }
+ },
+ "sib_lag_hist_63ms_bins": {
+  "on": [
+   71,
+   26,
+   17,
+   16,
+   12,
+   6,
+   12,
+   8
+  ],
+  "on_control_per_own": [
+   49.0,
+   18.8,
+   16.6,
+   14.4,
+   13.9,
+   8.3,
+   9.1,
+   7.3
+  ],
+  "off": [
+   513,
+   76,
+   42,
+   48,
+   42,
+   27,
+   31,
+   19
+  ],
+  "off_control_per_own": [
+   201.9,
+   81.9,
+   54.1,
+   43.3,
+   35.8,
+   34.8,
+   35.7,
+   26.2
+  ],
+  "on_same": [
+   101,
+   18,
+   27,
+   22,
+   38,
+   38,
+   41,
+   45
+  ],
+  "on_same_control_per_own": [
+   84.0,
+   29.6,
+   20.0,
+   20.4,
+   16.3,
+   20.4,
+   19.0,
+   14.4
+  ],
+  "off_same": [
+   1241,
+   128,
+   57,
+   44,
+   56,
+   37,
+   46,
+   31
+  ],
+  "off_same_control_per_own": [
+   404.7,
+   146.9,
+   102.3,
+   88.7,
+   72.9,
+   60.3,
+   58.2,
+   49.3
+  ]
+ },
+ "population": "all own bursts (uncensored window)"
+}

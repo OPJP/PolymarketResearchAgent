@@ -1,0 +1,94 @@
+{
+ "BUILD": {
+  "orders": 10759,
+  "last_print_within_tick": 0.308,
+  "age10": {
+   "coverage": 0.168,
+   "bid_within_tick_covered": 0.357,
+   "bid_within_tick_fallback_last": 0.304,
+   "capped_within_tick_fallback_last": 0.304,
+   "union_bid_or_last": 0.313
+  },
+  "age30": {
+   "coverage": 0.374,
+   "bid_within_tick_covered": 0.303,
+   "bid_within_tick_fallback_last": 0.289,
+   "capped_within_tick_fallback_last": 0.293,
+   "union_bid_or_last": 0.324
+  },
+  "age60": {
+   "coverage": 0.537,
+   "bid_within_tick_covered": 0.261,
+   "bid_within_tick_fallback_last": 0.261,
+   "capped_within_tick_fallback_last": 0.271,
+   "union_bid_or_last": 0.332
+  },
+  "age120": {
+   "coverage": 0.71,
+   "bid_within_tick_covered": 0.213,
+   "bid_within_tick_fallback_last": 0.221,
+   "capped_within_tick_fallback_last": 0.234,
+   "union_bid_or_last": 0.341
+  },
+  "age300": {
+   "coverage": 0.879,
+   "bid_within_tick_covered": 0.172,
+   "bid_within_tick_fallback_last": 0.178,
+   "capped_within_tick_fallback_last": 0.193,
+   "union_bid_or_last": 0.354
+  }
+ },
+ "VALIDATE": {
+  "orders": 13421,
+  "last_print_within_tick": 0.275,
+  "age10": {
+   "coverage": 0.148,
+   "bid_within_tick_covered": 0.342,
+   "bid_within_tick_fallback_last": 0.274,
+   "capped_within_tick_fallback_last": 0.274,
+   "union_bid_or_last": 0.282
+  },
+  "age30": {
+   "coverage": 0.334,
+   "bid_within_tick_covered": 0.299,
+   "bid_within_tick_fallback_last": 0.26,
+   "capped_within_tick_fallback_last": 0.264,
+   "union_bid_or_last": 0.293
+  },
+  "age60": {
+   "coverage": 0.477,
+   "bid_within_tick_covered": 0.253,
+   "bid_within_tick_fallback_last": 0.233,
+   "capped_within_tick_fallback_last": 0.244,
+   "union_bid_or_last": 0.301
+  },
+  "age120": {
+   "coverage": 0.629,
+   "bid_within_tick_covered": 0.205,
+   "bid_within_tick_fallback_last": 0.198,
+   "capped_within_tick_fallback_last": 0.211,
+   "union_bid_or_last": 0.307
+  },
+  "age300": {
+   "coverage": 0.781,
+   "bid_within_tick_covered": 0.158,
+   "bid_within_tick_fallback_last": 0.153,
+   "capped_within_tick_fallback_last": 0.165,
+   "union_bid_or_last": 0.313
+  }
+ },
+ "chosen_on_BUILD": {
+  "bid_age": 10,
+  "VALIDATE_bid_fallback": 0.274,
+  "capped_age": 10,
+  "VALIDATE_capped_fallback": 0.274,
+  "VALIDATE_last_print": 0.275
+ },
+ "VALIDATE_gain_bid_fallback": {
+  "gain": -0.0016,
+  "ci95": [
+   -0.0043,
+   0.001
+  ]
+ }
+}

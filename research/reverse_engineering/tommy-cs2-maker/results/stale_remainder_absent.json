@@ -1,0 +1,527 @@
+{
+ "bursts": 3786,
+ "label_n": {
+  "wallet-absent": 3028,
+  "wallet-led": 387,
+  "wallet-near": 208,
+  "wallet-late": 163
+ },
+ "BUILD": {
+  "wallet-absent": {
+   "n": 1480,
+   "burst_own_consumed_le_L_nonwallet_mean": 273.0,
+   "burst_own_consumed_le_L_wallet_mean": 23.8,
+   "later_m+0-1s_share_any_nonwallet": 0.071,
+   "later_m+0-1s_mean_nonwallet_shares": 3.9,
+   "later_m+0-1s_mean_wallet_maker_shares": 0.7,
+   "later_m+1-2s_share_any_nonwallet": 0.068,
+   "later_m+1-2s_mean_nonwallet_shares": 8.1,
+   "later_m+1-2s_mean_wallet_maker_shares": 1.2,
+   "later_m+2-3s_share_any_nonwallet": 0.062,
+   "later_m+2-3s_mean_nonwallet_shares": 7.2,
+   "later_m+2-3s_mean_wallet_maker_shares": 0.6,
+   "later_m+3-4s_share_any_nonwallet": 0.045,
+   "later_m+3-4s_mean_nonwallet_shares": 2.4,
+   "later_m+3-4s_mean_wallet_maker_shares": 1.2,
+   "by_move10": {
+    "3-5c": {
+     "n": 521,
+     "share_any_nonwallet_m+1-3s": 0.132,
+     "mean_nonwallet_m+1-3s": 21.1,
+     "burst_own_nonwallet_mean": 291.8,
+     "burst_own_wallet_mean": 26.9
+    },
+    "5-8c": {
+     "n": 484,
+     "share_any_nonwallet_m+1-3s": 0.103,
+     "mean_nonwallet_m+1-3s": 17.2,
+     "burst_own_nonwallet_mean": 301.4,
+     "burst_own_wallet_mean": 23.1
+    },
+    ">=8c": {
+     "n": 475,
+     "share_any_nonwallet_m+1-3s": 0.116,
+     "mean_nonwallet_m+1-3s": 7.3,
+     "burst_own_nonwallet_mean": 223.3,
+     "burst_own_wallet_mean": 21.1
+    }
+   }
+  },
+  "wallet-late": {
+   "n": 78,
+   "burst_own_consumed_le_L_nonwallet_mean": 228.0,
+   "burst_own_consumed_le_L_wallet_mean": 10.7,
+   "later_m+0-1s_share_any_nonwallet": 0.128,
+   "later_m+0-1s_mean_nonwallet_shares": 1.1,
+   "later_m+0-1s_mean_wallet_maker_shares": 0.2,
+   "later_m+1-2s_share_any_nonwallet": 0.141,
+   "later_m+1-2s_mean_nonwallet_shares": 52.4,
+   "later_m+1-2s_mean_wallet_maker_shares": 0.7,
+   "later_m+2-3s_share_any_nonwallet": 0.115,
+   "later_m+2-3s_mean_nonwallet_shares": 61.0,
+   "later_m+2-3s_mean_wallet_maker_shares": 0.7,
+   "later_m+3-4s_share_any_nonwallet": 0.077,
+   "later_m+3-4s_mean_nonwallet_shares": 5.4,
+   "later_m+3-4s_mean_wallet_maker_shares": 4.0,
+   "by_move10": {
+    "3-5c": {
+     "n": 23,
+     "share_any_nonwallet_m+1-3s": 0.217,
+     "mean_nonwallet_m+1-3s": 186.2,
+     "burst_own_nonwallet_mean": 219.1,
+     "burst_own_wallet_mean": 4.8
+    },
+    "5-8c": {
+     "n": 23,
+     "share_any_nonwallet_m+1-3s": 0.261,
+     "mean_nonwallet_m+1-3s": 157.6,
+     "burst_own_nonwallet_mean": 365.0,
+     "burst_own_wallet_mean": 27.2
+    },
+    ">=8c": {
+     "n": 32,
+     "share_any_nonwallet_m+1-3s": 0.156,
+     "mean_nonwallet_m+1-3s": 29.3,
+     "burst_own_nonwallet_mean": 136.0,
+     "burst_own_wallet_mean": 3.1
+    }
+   }
+  },
+  "wallet-led": {
+   "n": 165,
+   "burst_own_consumed_le_L_nonwallet_mean": 332.8,
+   "burst_own_consumed_le_L_wallet_mean": 4.2,
+   "later_m+0-1s_share_any_nonwallet": 0.055,
+   "later_m+0-1s_mean_nonwallet_shares": 1.5,
+   "later_m+0-1s_mean_wallet_maker_shares": 0.0,
+   "later_m+1-2s_share_any_nonwallet": 0.048,
+   "later_m+1-2s_mean_nonwallet_shares": 1.6,
+   "later_m+1-2s_mean_wallet_maker_shares": 0.1,
+   "later_m+2-3s_share_any_nonwallet": 0.024,
+   "later_m+2-3s_mean_nonwallet_shares": 1.4,
+   "later_m+2-3s_mean_wallet_maker_shares": 1.2,
+   "later_m+3-4s_share_any_nonwallet": 0.024,
+   "later_m+3-4s_mean_nonwallet_shares": 9.8,
+   "later_m+3-4s_mean_wallet_maker_shares": 0.0,
+   "by_move10": {
+    "3-5c": {
+     "n": 50,
+     "share_any_nonwallet_m+1-3s": 0.06,
+     "mean_nonwallet_m+1-3s": 3.4,
+     "burst_own_nonwallet_mean": 511.0,
+     "burst_own_wallet_mean": 3.2
+    },
+    "5-8c": {
+     "n": 57,
+     "share_any_nonwallet_m+1-3s": 0.07,
+     "mean_nonwallet_m+1-3s": 4.0,
+     "burst_own_nonwallet_mean": 252.2,
+     "burst_own_wallet_mean": 0.0
+    },
+    ">=8c": {
+     "n": 58,
+     "share_any_nonwallet_m+1-3s": 0.052,
+     "mean_nonwallet_m+1-3s": 1.7,
+     "burst_own_nonwallet_mean": 258.3,
+     "burst_own_wallet_mean": 9.1
+    }
+   }
+  },
+  "wallet-near": {
+   "n": 122,
+   "burst_own_consumed_le_L_nonwallet_mean": 924.7,
+   "burst_own_consumed_le_L_wallet_mean": 16.8,
+   "later_m+0-1s_share_any_nonwallet": 0.148,
+   "later_m+0-1s_mean_nonwallet_shares": 3.8,
+   "later_m+0-1s_mean_wallet_maker_shares": 0.0,
+   "later_m+1-2s_share_any_nonwallet": 0.082,
+   "later_m+1-2s_mean_nonwallet_shares": 0.9,
+   "later_m+1-2s_mean_wallet_maker_shares": 0.0,
+   "later_m+2-3s_share_any_nonwallet": 0.041,
+   "later_m+2-3s_mean_nonwallet_shares": 6.8,
+   "later_m+2-3s_mean_wallet_maker_shares": 0.0,
+   "later_m+3-4s_share_any_nonwallet": 0.041,
+   "later_m+3-4s_mean_nonwallet_shares": 21.4,
+   "later_m+3-4s_mean_wallet_maker_shares": 0.2,
+   "by_move10": {
+    "3-5c": {
+     "n": 38,
+     "share_any_nonwallet_m+1-3s": 0.158,
+     "mean_nonwallet_m+1-3s": 20.5,
+     "burst_own_nonwallet_mean": 1067.1,
+     "burst_own_wallet_mean": 12.2
+    },
+    "5-8c": {
+     "n": 47,
+     "share_any_nonwallet_m+1-3s": 0.064,
+     "mean_nonwallet_m+1-3s": 0.9,
+     "burst_own_nonwallet_mean": 795.1,
+     "burst_own_wallet_mean": 14.9
+    },
+    ">=8c": {
+     "n": 37,
+     "share_any_nonwallet_m+1-3s": 0.108,
+     "mean_nonwallet_m+1-3s": 3.2,
+     "burst_own_nonwallet_mean": 943.1,
+     "burst_own_wallet_mean": 24.0
+    }
+   }
+  }
+ },
+ "VALIDATE": {
+  "wallet-absent": {
+   "n": 1548,
+   "burst_own_consumed_le_L_nonwallet_mean": 236.2,
+   "burst_own_consumed_le_L_wallet_mean": 27.5,
+   "later_m+0-1s_share_any_nonwallet": 0.093,
+   "later_m+0-1s_mean_nonwallet_shares": 6.6,
+   "later_m+0-1s_mean_wallet_maker_shares": 1.5,
+   "later_m+1-2s_share_any_nonwallet": 0.059,
+   "later_m+1-2s_mean_nonwallet_shares": 5.3,
+   "later_m+1-2s_mean_wallet_maker_shares": 1.0,
+   "later_m+2-3s_share_any_nonwallet": 0.048,
+   "later_m+2-3s_mean_nonwallet_shares": 13.1,
+   "later_m+2-3s_mean_wallet_maker_shares": 1.4,
+   "later_m+3-4s_share_any_nonwallet": 0.038,
+   "later_m+3-4s_mean_nonwallet_shares": 6.1,
+   "later_m+3-4s_mean_wallet_maker_shares": 2.0,
+   "by_move10": {
+    "3-5c": {
+     "n": 575,
+     "share_any_nonwallet_m+1-3s": 0.103,
+     "mean_nonwallet_m+1-3s": 25.3,
+     "burst_own_nonwallet_mean": 217.6,
+     "burst_own_wallet_mean": 22.9
+    },
+    "5-8c": {
+     "n": 443,
+     "share_any_nonwallet_m+1-3s": 0.102,
+     "mean_nonwallet_m+1-3s": 10.8,
+     "burst_own_nonwallet_mean": 184.4,
+     "burst_own_wallet_mean": 30.4
+    },
+    ">=8c": {
+     "n": 530,
+     "share_any_nonwallet_m+1-3s": 0.075,
+     "mean_nonwallet_m+1-3s": 17.3,
+     "burst_own_nonwallet_mean": 299.7,
+     "burst_own_wallet_mean": 30.0
+    }
+   }
+  },
+  "wallet-late": {
+   "n": 85,
+   "burst_own_consumed_le_L_nonwallet_mean": 236.1,
+   "burst_own_consumed_le_L_wallet_mean": 14.6,
+   "later_m+0-1s_share_any_nonwallet": 0.094,
+   "later_m+0-1s_mean_nonwallet_shares": 1.3,
+   "later_m+0-1s_mean_wallet_maker_shares": 0.4,
+   "later_m+1-2s_share_any_nonwallet": 0.165,
+   "later_m+1-2s_mean_nonwallet_shares": 10.7,
+   "later_m+1-2s_mean_wallet_maker_shares": 4.6,
+   "later_m+2-3s_share_any_nonwallet": 0.082,
+   "later_m+2-3s_mean_nonwallet_shares": 18.2,
+   "later_m+2-3s_mean_wallet_maker_shares": 2.1,
+   "later_m+3-4s_share_any_nonwallet": 0.047,
+   "later_m+3-4s_mean_nonwallet_shares": 50.6,
+   "later_m+3-4s_mean_wallet_maker_shares": 0.0,
+   "by_move10": {
+    "3-5c": {
+     "n": 32,
+     "share_any_nonwallet_m+1-3s": 0.219,
+     "mean_nonwallet_m+1-3s": 50.4,
+     "burst_own_nonwallet_mean": 153.0,
+     "burst_own_wallet_mean": 10.8
+    },
+    "5-8c": {
+     "n": 27,
+     "share_any_nonwallet_m+1-3s": 0.407,
+     "mean_nonwallet_m+1-3s": 28.1,
+     "burst_own_nonwallet_mean": 80.5,
+     "burst_own_wallet_mean": 22.0
+    },
+    ">=8c": {
+     "n": 26,
+     "share_any_nonwallet_m+1-3s": 0.038,
+     "mean_nonwallet_m+1-3s": 3.5,
+     "burst_own_nonwallet_mean": 499.9,
+     "burst_own_wallet_mean": 11.5
+    }
+   }
+  },
+  "wallet-led": {
+   "n": 222,
+   "burst_own_consumed_le_L_nonwallet_mean": 249.8,
+   "burst_own_consumed_le_L_wallet_mean": 15.6,
+   "later_m+0-1s_share_any_nonwallet": 0.041,
+   "later_m+0-1s_mean_nonwallet_shares": 3.3,
+   "later_m+0-1s_mean_wallet_maker_shares": 0.4,
+   "later_m+1-2s_share_any_nonwallet": 0.041,
+   "later_m+1-2s_mean_nonwallet_shares": 5.2,
+   "later_m+1-2s_mean_wallet_maker_shares": 1.3,
+   "later_m+2-3s_share_any_nonwallet": 0.027,
+   "later_m+2-3s_mean_nonwallet_shares": 1.3,
+   "later_m+2-3s_mean_wallet_maker_shares": 0.1,
+   "later_m+3-4s_share_any_nonwallet": 0.027,
+   "later_m+3-4s_mean_nonwallet_shares": 1.6,
+   "later_m+3-4s_mean_wallet_maker_shares": 0.3,
+   "by_move10": {
+    "3-5c": {
+     "n": 65,
+     "share_any_nonwallet_m+1-3s": 0.015,
+     "mean_nonwallet_m+1-3s": 9.3,
+     "burst_own_nonwallet_mean": 207.2,
+     "burst_own_wallet_mean": 17.0
+    },
+    "5-8c": {
+     "n": 72,
+     "share_any_nonwallet_m+1-3s": 0.097,
+     "mean_nonwallet_m+1-3s": 11.4,
+     "burst_own_nonwallet_mean": 296.5,
+     "burst_own_wallet_mean": 11.3
+    },
+    ">=8c": {
+     "n": 85,
+     "share_any_nonwallet_m+1-3s": 0.035,
+     "mean_nonwallet_m+1-3s": 0.3,
+     "burst_own_nonwallet_mean": 242.9,
+     "burst_own_wallet_mean": 18.2
+    }
+   }
+  },
+  "wallet-near": {
+   "n": 86,
+   "burst_own_consumed_le_L_nonwallet_mean": 942.2,
+   "burst_own_consumed_le_L_wallet_mean": 12.6,
+   "later_m+0-1s_share_any_nonwallet": 0.058,
+   "later_m+0-1s_mean_nonwallet_shares": 0.9,
+   "later_m+0-1s_mean_wallet_maker_shares": 0.2,
+   "later_m+1-2s_share_any_nonwallet": 0.035,
+   "later_m+1-2s_mean_nonwallet_shares": 0.6,
+   "later_m+1-2s_mean_wallet_maker_shares": 0.0,
+   "later_m+2-3s_share_any_nonwallet": 0.023,
+   "later_m+2-3s_mean_nonwallet_shares": 1.7,
+   "later_m+2-3s_mean_wallet_maker_shares": 0.0,
+   "later_m+3-4s_share_any_nonwallet": 0.035,
+   "later_m+3-4s_mean_nonwallet_shares": 10.4,
+   "later_m+3-4s_mean_wallet_maker_shares": 0.0,
+   "by_move10": {
+    "3-5c": {
+     "n": 23,
+     "share_any_nonwallet_m+1-3s": 0.087,
+     "mean_nonwallet_m+1-3s": 2.9,
+     "burst_own_nonwallet_mean": 1180.2,
+     "burst_own_wallet_mean": 1.3
+    },
+    "5-8c": {
+     "n": 29,
+     "share_any_nonwallet_m+1-3s": 0.069,
+     "mean_nonwallet_m+1-3s": 4.3,
+     "burst_own_nonwallet_mean": 967.2,
+     "burst_own_wallet_mean": 16.7
+    },
+    ">=8c": {
+     "n": 34,
+     "share_any_nonwallet_m+1-3s": 0.029,
+     "mean_nonwallet_m+1-3s": 0.1,
+     "burst_own_nonwallet_mean": 759.9,
+     "burst_own_wallet_mean": 16.7
+    }
+   }
+  }
+ },
+ "all": {
+  "wallet-absent": {
+   "n": 3028,
+   "burst_own_consumed_le_L_nonwallet_mean": 254.2,
+   "burst_own_consumed_le_L_wallet_mean": 25.7,
+   "later_m+0-1s_share_any_nonwallet": 0.082,
+   "later_m+0-1s_mean_nonwallet_shares": 5.3,
+   "later_m+0-1s_mean_wallet_maker_shares": 1.1,
+   "later_m+1-2s_share_any_nonwallet": 0.064,
+   "later_m+1-2s_mean_nonwallet_shares": 6.7,
+   "later_m+1-2s_mean_wallet_maker_shares": 1.1,
+   "later_m+2-3s_share_any_nonwallet": 0.055,
+   "later_m+2-3s_mean_nonwallet_shares": 10.2,
+   "later_m+2-3s_mean_wallet_maker_shares": 1.0,
+   "later_m+3-4s_share_any_nonwallet": 0.041,
+   "later_m+3-4s_mean_nonwallet_shares": 4.3,
+   "later_m+3-4s_mean_wallet_maker_shares": 1.6,
+   "by_move10": {
+    "3-5c": {
+     "n": 1096,
+     "share_any_nonwallet_m+1-3s": 0.117,
+     "mean_nonwallet_m+1-3s": 23.3,
+     "burst_own_nonwallet_mean": 252.9,
+     "burst_own_wallet_mean": 24.8
+    },
+    "5-8c": {
+     "n": 927,
+     "share_any_nonwallet_m+1-3s": 0.102,
+     "mean_nonwallet_m+1-3s": 14.1,
+     "burst_own_nonwallet_mean": 245.5,
+     "burst_own_wallet_mean": 26.6
+    },
+    ">=8c": {
+     "n": 1005,
+     "share_any_nonwallet_m+1-3s": 0.095,
+     "mean_nonwallet_m+1-3s": 12.6,
+     "burst_own_nonwallet_mean": 263.6,
+     "burst_own_wallet_mean": 25.8
+    }
+   }
+  },
+  "wallet-late": {
+   "n": 163,
+   "burst_own_consumed_le_L_nonwallet_mean": 232.2,
+   "burst_own_consumed_le_L_wallet_mean": 12.7,
+   "later_m+0-1s_share_any_nonwallet": 0.11,
+   "later_m+0-1s_mean_nonwallet_shares": 1.2,
+   "later_m+0-1s_mean_wallet_maker_shares": 0.3,
+   "later_m+1-2s_share_any_nonwallet": 0.153,
+   "later_m+1-2s_mean_nonwallet_shares": 30.6,
+   "later_m+1-2s_mean_wallet_maker_shares": 2.7,
+   "later_m+2-3s_share_any_nonwallet": 0.098,
+   "later_m+2-3s_mean_nonwallet_shares": 38.7,
+   "later_m+2-3s_mean_wallet_maker_shares": 1.4,
+   "later_m+3-4s_share_any_nonwallet": 0.061,
+   "later_m+3-4s_mean_nonwallet_shares": 28.9,
+   "later_m+3-4s_mean_wallet_maker_shares": 1.9,
+   "by_move10": {
+    "3-5c": {
+     "n": 55,
+     "share_any_nonwallet_m+1-3s": 0.218,
+     "mean_nonwallet_m+1-3s": 107.2,
+     "burst_own_nonwallet_mean": 180.7,
+     "burst_own_wallet_mean": 8.3
+    },
+    "5-8c": {
+     "n": 50,
+     "share_any_nonwallet_m+1-3s": 0.34,
+     "mean_nonwallet_m+1-3s": 87.7,
+     "burst_own_nonwallet_mean": 211.4,
+     "burst_own_wallet_mean": 24.3
+    },
+    ">=8c": {
+     "n": 58,
+     "share_any_nonwallet_m+1-3s": 0.103,
+     "mean_nonwallet_m+1-3s": 17.7,
+     "burst_own_nonwallet_mean": 299.1,
+     "burst_own_wallet_mean": 6.9
+    }
+   }
+  },
+  "wallet-led": {
+   "n": 387,
+   "burst_own_consumed_le_L_nonwallet_mean": 285.2,
+   "burst_own_consumed_le_L_wallet_mean": 10.7,
+   "later_m+0-1s_share_any_nonwallet": 0.047,
+   "later_m+0-1s_mean_nonwallet_shares": 2.6,
+   "later_m+0-1s_mean_wallet_maker_shares": 0.2,
+   "later_m+1-2s_share_any_nonwallet": 0.044,
+   "later_m+1-2s_mean_nonwallet_shares": 3.7,
+   "later_m+1-2s_mean_wallet_maker_shares": 0.8,
+   "later_m+2-3s_share_any_nonwallet": 0.026,
+   "later_m+2-3s_mean_nonwallet_shares": 1.4,
+   "later_m+2-3s_mean_wallet_maker_shares": 0.6,
+   "later_m+3-4s_share_any_nonwallet": 0.026,
+   "later_m+3-4s_mean_nonwallet_shares": 5.1,
+   "later_m+3-4s_mean_wallet_maker_shares": 0.2,
+   "by_move10": {
+    "3-5c": {
+     "n": 115,
+     "share_any_nonwallet_m+1-3s": 0.035,
+     "mean_nonwallet_m+1-3s": 6.7,
+     "burst_own_nonwallet_mean": 339.3,
+     "burst_own_wallet_mean": 11.0
+    },
+    "5-8c": {
+     "n": 129,
+     "share_any_nonwallet_m+1-3s": 0.085,
+     "mean_nonwallet_m+1-3s": 8.2,
+     "burst_own_nonwallet_mean": 276.9,
+     "burst_own_wallet_mean": 6.3
+    },
+    ">=8c": {
+     "n": 143,
+     "share_any_nonwallet_m+1-3s": 0.042,
+     "mean_nonwallet_m+1-3s": 0.9,
+     "burst_own_nonwallet_mean": 249.2,
+     "burst_own_wallet_mean": 14.5
+    }
+   }
+  },
+  "wallet-near": {
+   "n": 208,
+   "burst_own_consumed_le_L_nonwallet_mean": 931.9,
+   "burst_own_consumed_le_L_wallet_mean": 15.1,
+   "later_m+0-1s_share_any_nonwallet": 0.111,
+   "later_m+0-1s_mean_nonwallet_shares": 2.6,
+   "later_m+0-1s_mean_wallet_maker_shares": 0.1,
+   "later_m+1-2s_share_any_nonwallet": 0.062,
+   "later_m+1-2s_mean_nonwallet_shares": 0.8,
+   "later_m+1-2s_mean_wallet_maker_shares": 0.0,
+   "later_m+2-3s_share_any_nonwallet": 0.034,
+   "later_m+2-3s_mean_nonwallet_shares": 4.7,
+   "later_m+2-3s_mean_wallet_maker_shares": 0.0,
+   "later_m+3-4s_share_any_nonwallet": 0.038,
+   "later_m+3-4s_mean_nonwallet_shares": 16.8,
+   "later_m+3-4s_mean_wallet_maker_shares": 0.1,
+   "by_move10": {
+    "3-5c": {
+     "n": 61,
+     "share_any_nonwallet_m+1-3s": 0.131,
+     "mean_nonwallet_m+1-3s": 13.9,
+     "burst_own_nonwallet_mean": 1109.8,
+     "burst_own_wallet_mean": 8.1
+    },
+    "5-8c": {
+     "n": 76,
+     "share_any_nonwallet_m+1-3s": 0.066,
+     "mean_nonwallet_m+1-3s": 2.2,
+     "burst_own_nonwallet_mean": 860.7,
+     "burst_own_wallet_mean": 15.6
+    },
+    ">=8c": {
+     "n": 71,
+     "share_any_nonwallet_m+1-3s": 0.07,
+     "mean_nonwallet_m+1-3s": 1.7,
+     "burst_own_nonwallet_mean": 855.4,
+     "burst_own_wallet_mean": 20.5
+    }
+   }
+  }
+ },
+ "panel_signature_rows": [
+  {
+   "move10": "3-5c",
+   "present_n": 176,
+   "absent_n": 1096,
+   "absent_later_m+2-3s_mean": 14.6,
+   "absent_later_m+1-4s_mean": 28.2,
+   "present_wallet_take_le_L_mean": 219.3,
+   "present_burst_take_le_L_mean": 606.3,
+   "present_later_m+1-4s_mean": 16.9
+  },
+  {
+   "move10": "5-8c",
+   "present_n": 205,
+   "absent_n": 927,
+   "absent_later_m+2-3s_mean": 5.6,
+   "absent_later_m+1-4s_mean": 17.1,
+   "present_wallet_take_le_L_mean": 220.2,
+   "present_burst_take_le_L_mean": 493.4,
+   "present_later_m+1-4s_mean": 14.3
+  },
+  {
+   "move10": ">=8c",
+   "present_n": 214,
+   "absent_n": 1005,
+   "absent_later_m+2-3s_mean": 9.7,
+   "absent_later_m+1-4s_mean": 17.5,
+   "present_wallet_take_le_L_mean": 193.2,
+   "present_burst_take_le_L_mean": 450.3,
+   "present_later_m+1-4s_mean": 12.4
+  }
+ ]
+}

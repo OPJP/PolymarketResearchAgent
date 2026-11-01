@@ -17,6 +17,44 @@ Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
   no point-in-time own-state anchor beats the last print, that a fresh public touch is not the wallet's value, that
   even a rule knowing its value caps at about 0.71-0.75 per order, and that the outcome item breaks at any public
   lag of the take because its own take empties the stale remainder.
+- Iteration 12 changed no rule component. It took the wallet's value V itself as the target (hidden-Markov valuation
+  fits, the ladder under V, the loop as the decision unit, natural experiments) and corrected one wall number (the
+  price cap with V known).
+
+## What iteration 12 established (no rule change)
+
+- **The ladder under V is mechanical (VALIDATE-only, BUILD-live oracle; `code/iter12/ladder_machine.py`, constants
+  frozen).** A burst of n adds takes the n highest free whole-cent slots V, V - 1c, ..., V - 4c inside [0.05, 0.95],
+  top-first. With V known (its own top after the burst) this gets 0.875 of its 2,698 adds within one tick when the
+  burst's prices are matched to the slots by rank (the burst-set unit), 0.73 per order without that rank, 0.83 of whole
+  bursts; up / fresh / down bursts 0.87-0.94, unchanged-V bursts 0.56. V must be exact to the cent (+-1c: 0.70 / 0.81;
+  +-2c: 0.22 / 0.08). This corrects iteration 11: the price item fails because V is private, not because of the
+  ladder. Public V proxies through the machine stay at 0.41-0.50.
+- **V is not a round-score table (VALIDATE-only).** A clock-free hidden-Markov fit of its levels to an MR12 / MR3 Markov
+  valuation on 92 maps fits no better than the same fit of the public print (residual 3.22c vs 3.21c; the true bo3
+  winner sequence ranks 0.14 vs 0.10 among permutations). Pre-registered verdict: not a score table.
+- **V is not a map of public per-minute Dota state (VALIDATE-only).** An inverse fit of its Dota levels on gold / xp /
+  kill leads and the pre-game prior scores 0.17 within one tick (MAE 5.4c) against the last print's 0.42: the right
+  clock beats shifted clocks (0.07-0.09), so the state carries the coarse level, but not the cent.
+- **The quiet class runs on its ~504-ms loop (hypothesis, BUILD-live).** 73% of its untriggered adds fall within 15 ms
+  of the tick predicted from its previous untriggered burst (6% uniform); takes are never on the loop (0 of 22).
+  Public book changes in the previous tick explain at most about 14 points of those re-pricings.
+- **It takes when its revealed value reaches the stale ask (hypothesis, BUILD-live).** After its takes its own bid on
+  the bought token sits a median 1c under the old ask; after untriggered re-pricings 3c under it (AUC 0.81, no sharp
+  threshold).
+- **It withdraws whole events for variable lengths (hypothesis, BUILD-live).** 64 event-wide holes of two ticks or
+  more last a median 12.5 s (p90 113 s), only 3% at the three-tick repair, and bracket public price action. That is
+  what an odds-product suspension or a round-boundary policy would produce; the Thunderpick coincidence test waits
+  for development records of matched matches.
+- **The outcome bound at public latency is a property of the market (VALIDATE-only).** In 3,028 informed bursts
+  without the wallet, later takers obtain at the leader's limit after its match only 3-7% of what the wallet takes in
+  comparable bursts: the stale remainder is gone by the match anyway (the T_lo world is real, not a replay convention).
+- **Examinable historical price.** A point-in-time book built from other makers' partially filled orders does not
+  beat the last print (0.274 vs 0.275 on VALIDATE).
+- **No predecessor wallet.** The deposit wallet was created on 06-16 at 13:00 UTC, 5.5 h before its first trade; its
+  owner is an EIP-7702 account (nonce 3) whose Polymarket Safe was never deployed.
+- **Recorder.** Kick stream clocks (IVS playlist timestamps, text only) are recorded from 11-01 07:51 UTC
+  (`tommy_kick_pdt`).
 
 ## What iteration 11 established (no rule change)
 
@@ -35,7 +73,8 @@ Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
 - **The per-order price item is capped even with its value known.** With V = its own top after the burst (an oracle),
   its adds sit at slot 0 (44%), -1 (19%), -2 (13%), -3 (10%), -4 (13%): "price = V" is within one tick of 63% of adds and
   71% of filled orders, and a slot classifier on its own ladder and the book reaches 0.75. No rule that knows V reaches
-  0.80 per order; the unit a value decode could pass is its top level.
+  0.80 per order; the unit a value decode could pass is its top level. (Corrected in iteration 12: with ladder state
+  relative to V the oracle reaches 0.73-0.79 per order and 0.875 on the burst-set unit.)
 - **The outcome item hinges on the take, not on the maker's timing.** Its own maker orders delayed by up to 2 s plus
   its real taker leg still correlate 0.70 / 0.62 with its per-market PnL (VALIDATE; 0.89 / 0.82 at 0 s). Delaying the
   take is what breaks it on the observed record: its own FAK empties the stale remainder at its limit (median residual
@@ -309,11 +348,11 @@ order-level fill engine, a census of informed bursts) and found:
 | Component | Rule | Tag | Evidence |
 | --- | --- | --- | --- |
 | Selection | Unit = CS2 or Dota 2 event (match plus all map-winner markets; Gamma series 10310 and 10309). v4 score: `s_lg` = 0 if `eventMetadata.gridSeriesId` is set, else the league's traded rate among fitted non-GRID events shrunk (k = 3) toward the tier rate; logistic(log1p pre-game taker prints, USD and distinct wallets in [gs-1h, gs); `s_lg`). v5 score = logistic(a logit(v4) + b log1p(gp72) + c), gp72 = distinct group-P members (P4e, 0x2005d16a, 0x72aaaaf9, 0x2529c68d, 0xfe8a28be; fixed on BUILD) with a public taker print in another event of the same league that started in [gs - 72 h, gs), prints before gs. Trade the event iff the v5 score >= thr (20th percentile of the fitted positives). | VALIDATE-only | v5 pooled VALIDATE AUC 0.970 vs pre-game activity 0.886, gain +0.084 [0.030, 0.152] (0 of 4,000 draws <= 0), recall 0.744 at lift 3.155; CS2 0.972 (unseen leagues 0.974 vs v4 0.928), Dota 0.926. GRID events traded: CS2 0 of 122, Dota 0 of 33. Mechanism: the coverage of its feed product (group P); GRID events are covered by group G's fan-out with the same delivery order. Forward 10-31 12-18 (development run, sealed earlier events skipped): AUC 0.842, recall 0. |
-| Timing (maker) | Quotes from game start to the end of each market, re-signing continuously in busy phases. At its own taker signal it cancels its complement ladder within 11-19 ms and re-quotes it about 1.04 s later, when its FAK returns. | VALIDATE-only (re-quote); live dev block (pull) | Own pull after 90-95% of live takes. Re-post hazard on the complement: 236x in [1.00, 1.14) s after its take. Its re-quote bursts co-occur symmetrically with other makers' changes (50 ms before 67%, after 69%, null 19%); no period. |
+| Timing (maker) | Quotes from game start to the end of each market, re-signing continuously in busy phases. At its own taker signal it cancels its complement ladder within 11-19 ms and re-quotes it about 1.04 s later, when its FAK returns. | VALIDATE-only (re-quote); live dev block (pull) | Own pull after 90-95% of live takes. Re-post hazard on the complement: 236x in [1.00, 1.14) s after its take. Its re-quote bursts co-occur symmetrically with other makers' changes (50 ms before 67%, after 69%, null 19%). Iteration 12 (hypothesis, BUILD-live; X158): the quiet re-pricings run on a free ~504-ms loop (73% of untriggered adds within 15 ms of the predicted tick, 6% uniform; takes 0 of 22 on the loop), with little public trace in the previous tick; it withdraws whole events for a median 12.5 s at moments of public action (X159 steps 1-2). |
 | Timing (taker) | At messages of a shared CS2 push feed (>= 6 subscribers at fixed lags; P4e signs 50 ms before it), of the plant / turn kind only: typically the first informed move against the previous burst. Not decoded: on those events it signs before every public Polymarket trace, it acts on only about 16-20% of the informed 3c+ bursts in its markets, and it skips the round-win kind the other subscribers take, without an edge-based decline. | hypothesis (fan-out structure: development data, iteration 7) | Match / map books flat until it signs. Round-market takers precede it in 0.9% (controls 0.2-0.7%). Census: 80% of informed bursts wallet-absent; present 29-35% after a burst on the other team, 6-8% after one on the same team; point-in-time AUC 0.698 for which bursts it leads (pre-burst public features). Absent bursts follow round wins, its own follow bomb plants beyond wins (p 0.03). No delay-queue leak. |
 | Side (maker) | BUY both outcome tokens. | VALIDATE-only | 97.4% of bought shares end in pairs. |
 | Side (taker) | The team that just gained in-round on plant-type events. | hypothesis | The team gains +2.6-2.9c in 10 s. T side only 54% (p 0.13). |
-| Price (maker) | BUY at the other makers' best bid (join), whole cents (the in-play tick), in ladders 1c apart; one token per re-quote burst, the two tops summing to at most ~0.99. After its own take: complement top = K - L (K 0.94). | VALIDATE-only (historical anchor); live development block (join rule) | Last-print anchor within one tick: 0.305 (`price_within_tick`, VALIDATE). Live, own levels removed: re-quote top within one tick of others' best 67.4% (exact 37%). Revealed best bid from the matched-order record: 0.25-0.28 against last print 0.22-0.25 on the same rows. K - L: 57% in the first 1.04 s after a take (n 247), 6-14% later. Probe presence AUC 0.67. |
+| Price (maker) | BUY at the other makers' best bid (join), whole cents (the in-play tick), in ladders 1c apart; one token per re-quote burst, the two tops summing to at most ~0.99. After its own take: complement top = K - L (K 0.94). | VALIDATE-only (historical anchor); live development block (join rule) | Last-print anchor within one tick: 0.305 (`price_within_tick`, VALIDATE). Live, own levels removed: re-quote top within one tick of others' best 67.4% (exact 37%). Revealed best bid from the matched-order record: 0.25-0.28 against last print 0.22-0.25 on the same rows. K - L: 57% in the first 1.04 s after a take (n 247), 6-14% later. Probe presence AUC 0.67. Iteration 12 (VALIDATE-only as a mechanism, BUILD-live oracle; X163): given its value V, a burst of n adds takes the n highest free whole-cent slots V .. V - 4c, top-first (0.875 on the burst-set unit, 0.73 per order); V is not a round-score table (X171) nor a map of public Dota state (X167); a point-in-time partial-fill book does not beat the last print (X165). |
 | Price (maker, live, frozen) | `live_price` (re-frozen in iteration 7, before any VALIDATE-live record): primary = the touch, i.e. the full-book best bid on the order's token at sign - 100 ms (LIVE_PRICE_PRIMARY "touch"). Secondary = the join: others' best bid with the size-labelled own levels removed, min with 0.99 - own top on the other token (LIVE_VIEW_MS 100, PAIR_CAP 0.99). | hypothesis (BUILD-live only) | 10-31 block, 172 filled maker orders: touch 0.471, join 0.424 (0.419 with the calldata-validated label), last trade 0.187. The whole 12-18 block through `evaluate()` (328 orders, early books from the shared recorder): touch 0.280, join 0.256. To be scored on VALIDATE-live (11-01 06-12 on) and by the future-block examiner. |
 | Price (taker) | FAK at the stale ask + a premium that grows with the expected repricing (0-5c), kept below the post-event price; match-leg premium = map-leg premium x series sensitivity. | VALIDATE-only (premium-move relation); hypothesis as a rule | Controlled OLS: +0.87c of 10-s move per 1c of premium (p 7e-11, VALIDATE). Caps (1000 / 2000 shares) carry little of it. |
 | Size | Maker: 100 shares in CS2. In 36% of events an event-wide size starts at 50-96 (median 54) and steps up monotonically to 100. Exactly 10 shares in Dota 2 (1,292 of 1,292 orders). Taker: odd sizes about 0.3x of the pre-event depth up to its limit; 1000 / 2000 caps early and fading. | VALIDATE-only (maker 100 / 10 and the ramp's shape); hypothesis (ramp clock, taker) | CS2 100 shares: 92.1% (BUILD), 88.3% (VALIDATE). No global (a, b) schedule (0-4% of non-100 within one share). Start size vs pre-game USD: Spearman 0.55. |
@@ -413,6 +452,17 @@ order-level fill engine, a census of informed bursts) and found:
   Whether that is fast enough against the 1-s in-play delay is the pre-registered X118 test.
 
 ## Not explained yet
+
+- **Iteration 12 account.** Price: one private number per burst (V) plus a mechanical ladder; with V known the ladder
+  machine reaches 0.875 on the burst-set unit and 0.73 per order, so the item is gated by V alone, to the cent. V is not
+  an MR12 round-score table (no closer to it than the print), not a map of public per-minute Dota state (0.17 vs the
+  last print 0.42), not a sampled copy of public book changes (at most ~14 points of its on-tick re-pricings), and the
+  best examinable historical anchor stays the last print (a point-in-time partial-fill book ties it). What moves V
+  between ticks in about 85% of its quiet re-pricings has no public trace in the data obtained. Outcome: the stale
+  remainder is gone by the informed leader's match even when the wallet does not take (3-7% of its typical take
+  survives), so a public-lag rule cannot reach the item on the observed market. Open live tests: Thunderpick
+  suspensions vs its event-wide withdrawals (median 12.5 s), the rounds-book clock, Valve Dota state at receive time,
+  the Kick stream clock.
 
 - **Iteration 11 account.** Price: no examinable anchor beats the last print (0.305; point-in-time own level 0.280,
   union 0.418); live, the touch 0.42 / 0.45 and every fresh-touch variant lower; SX Bet sparse and off its level; and
