@@ -5,6 +5,32 @@ exactly as the public record allows, what one Polymarket trading strategy
 does: which markets it trades, when it acts, which side, at what price and
 size, how it exits or hedges, why, and how it makes money.
 
+> **Changed on 2026-11-01. Read "Hidden dimensions and indicators" before
+> anything else this iteration.** It is required. It adds:
+> - catalog items E1-E7 (open for every strategy, including those with a
+>   long history);
+> - the `dimensions` and `indicators` ledgers in `state.json`;
+> - a "Missing dimensions" section in `NOTES.md`;
+> - the tool `tools/indicators.py`.
+>
+> This iteration, at least:
+> 1. add catalog items E1-E7 to `state.json` with status `open`;
+> 2. write `state.json` `dimensions`, with at least one entry for each family
+>    in step 1 of the section (E1);
+> 3. write the `NOTES.md` "Missing dimensions" section from out-of-fold BUILD
+>    residuals (E2). If the wallet trades two or more markets at the same
+>    time, also run `residual_clustering` (E7);
+> 4. enter your earlier feed and event studies in `state.json` `indicators`
+>    as they are, with period `legacy` (no re-run needed);
+> 5. pre-register your first E3 screen in `NOTES.md`, for the dimension
+>    family the residual points to, and run it if time allows.
+>
+> The section's steps map to the catalog as follows:
+> - step 1 is E1;
+> - step 2 is E2 and E7;
+> - steps 3 and 4 are E3 and E4, and E5 for the information dimensions;
+> - step 5 is E6 (and live recording, which feeds the inventory).
+
 ## The premise: the strategy exists, and you are here to find it
 
 Every wallet in this study passed a strict significance screen (HAC t-test
@@ -180,6 +206,394 @@ the quote (when an order rests, at which price and size) instead of predicting
 whether a fill happens. The on-chain order record (catalog B1) and the live
 lab show quotes directly. A presence model that predicts fills from other
 traders' activity has decoded nothing (see the co-occurrence baseline).
+
+## Hidden dimensions and indicators (required; added 2026-11-01)
+
+Reverse engineering a strategy is a hard task, and one reason dominates:
+**the strategy may run on inputs you do not have.** Suppose it uses a
+dimension your data lacks, such as:
+
+- another venue's order book;
+- a sportsbook's odds;
+- a game-data feed;
+- posts on X, Reddit or Telegram;
+- a news wire or an official release;
+- its own risk state.
+
+Then no model built from Polymarket data can replicate it, however long you
+tune it. A metric that stops moving, a side or price that stays near the
+market-only baseline, or a residual with structure are the signatures of a
+missing dimension, not of noise. **Finding the hidden dimensions is part of
+the job, and usually the decisive part.** Start from it, not as an
+afterthought: each competing explanation you write at the start of an
+iteration (see the premise) names the dimensions it needs and their status
+in `dimensions`, and the residual component it would explain. At least one
+explanation must rest on a dimension marked `missing` or `blocked`. Work
+through the five steps below, and record them in the catalog as E1-E7.
+
+### 1. Keep a dimension inventory (E1)
+
+In `state.json` `dimensions`, list every dimension the decision process could
+plausibly use, not only those you have data for. Cover at least these
+families:
+
+- **Polymarket internal**:
+  - every book level, queue sizes and cancels;
+  - the tape and other wallets;
+  - listings and metadata, market comments (Gamma `/comments`);
+  - fees, rebates and rewards;
+  - operational events.
+- **Related markets**:
+  - spot venues, perpetuals, options, funding and liquidations;
+  - other prediction venues (Kalshi);
+  - sportsbooks and betting exchanges;
+  - correlated assets.
+- **Event state**:
+  - league and esports game feeds, and the official scorer;
+  - video streams and their chat;
+  - the settlement oracle (Chainlink reports, UMA proposals and disputes).
+- **Information**:
+  - news wires and RSS;
+  - social media (X, Reddit, Telegram, Bluesky, Discord, YouTube, Twitch);
+  - official calendars and releases;
+  - Wikipedia edits, search trends.
+- **Own state**: inventory, realized and unrealized PnL, drawdown, capital,
+  positions in other markets.
+- **Operator**:
+  - time of day and day of week;
+  - human reaction times;
+  - restarts and maintenance;
+  - the bot's processing loop and cadence.
+- **Infrastructure**: latency and colocation, engine restarts, API outages,
+  rate limits.
+
+Give each dimension
+`{family, status: have | proxy | missing | blocked | infeasible, source, resolution, publication_latency, best_indicator, min_detectable_share, verdict: drives | no_effect | untested | inferred}`.
+The inventory is complete when it has at least one entry per family above,
+plus every dimension that a panel or an audit names.
+
+- **Missing and blocked are to-dos, not resting states.** Fetch the data,
+  record it live, find a proxy, or infer it (step 5).
+- **Infeasible** needs the failing request and its response, the proxies
+  you tried, and an E6 latent fit with its event study against every
+  available series (step 5).
+- **No effect** needs the dimension's whole pre-registered family to have
+  failed on BUILD:
+  - every event type in step 3, at three or more horizons;
+  - the gated variants;
+  - at least one discrepancy against the Polymarket book.
+
+  It also needs a power statement, `min_detectable_share`: the smallest
+  share of the wallet's decisions that the screen detects.
+  1. Move a share s of the decisions so they follow events, keeping the
+     total count. Do it twice: once at a fixed lag inside the core
+     (|lag| < max_lag_s / 2), and once spread uniformly over 0-10 s.
+  2. Rerun the screen three times per s.
+  3. Report the smallest s found at the screen's q level in all three
+     runs, taking the larger of the two placements.
+
+  If that share is larger than the unexplained share of decisions (step 2),
+  the verdict stays `untested`.
+- **Not confirmed.** A BUILD survivor that fails its VALIDATE confirmation
+  gets `no_effect` only with its `min_detectable_share`. Otherwise it stays
+  `untested`.
+- **Own state** is never an event series. Inventory changes are the fills of
+  earlier decisions, so an event study of them against the wallet's
+  decisions finds a fake upstream input. Test own state as a conditioning
+  variable of the policy instead: side, size or price given inventory or
+  drawdown, reported with and without own-state features. Its verdict
+  comes from that test. Own fill counts, bursts of its own fills and times
+  since its last fill stay banned as indicators.
+
+### 2. Read the shape of what is unexplained (E2, E7)
+
+The residual of your best rule is the map to the missing dimension. Every
+iteration, take the BUILD decisions your rule misses or gets wrong,
+**out of fold**: refit the rule with GroupKFold over 2-hour blocks or games,
+because in-sample residuals of a fitted model are too small and lose their
+structure. Characterize them in `NOTES.md` under "Missing dimensions":
+
+- **Which component fails.** Each pattern points to a different missing
+  input:
+  - timing right, side or price wrong: a valuation input is missing (a fair
+    value from somewhere else);
+  - side right, timing wrong: a trigger is missing;
+  - selection wrong: a market-level input is missing (news, liquidity,
+    schedule, competition among makers);
+  - size unexplained: risk state or a confidence measure is missing.
+- **When.** Look at the time of day, the weekday, the time in the market and
+  the distance to scheduled events.
+- **Synchrony (E7).** Use `residual_clustering` to see whether misses in
+  unrelated markets coincide to the second.
+  - A common driver outside the per-market data shows up this way: a shared
+    feed, a headline, a cross-market signal, an operational event, or the
+    bot's own loop.
+  - For crypto windows, pass `period_s`: the least common multiple of the
+    window lengths in the set (900 for 5m + 15m, 3600 with 1h). Without it,
+    bunching at the open looks like synchrony.
+  - Markets with irregular start times (games after their kick-off) are
+    not covered by either null. For them, use only misses well after each
+    start, or mark the result as not interpretable.
+  - Synchrony counts only with p <= 0.01 and a ratio of at least 1.5.
+    Shared busy minutes leave a ratio of about 1.1.
+  - Look up the top cluster times in news, social and status archives.
+- **Lead.** Run `event_study` and look at negative lags: does the wallet act
+  before every public feed you have? If so, its real input is upstream of
+  them. Look for a faster or earlier source; do not fit the later one.
+  - This reading needs a localized peak (`p_shape`), not just a lifted
+    level.
+- **Who else.** Do other wallets act at the same moments with fixed lags? A
+  shared private feed shows up in its subscribers: tommy-cs2-maker found at
+  least 19 subscribers this way.
+  - That is evidence that a feed exists and of its timing, which tells you
+    what to look for. It is not a rule input that counts toward the target.
+  - If you use those wallets' prints anyway, identify them on BUILD only,
+    and measure the gain over a co-occurrence baseline that contains the
+    same wallets' prints.
+  - Prints from transactions that include the studied wallet stay
+    excluded.
+
+Report the unexplained share per component, its shape, and the dimensions it
+points to.
+
+### 3. Build indicators, and look for events rather than levels (E3, E4)
+
+An indicator turns a dimension into a number at each moment, point in time.
+There are three kinds:
+
+1. an algorithm over Polymarket's prices or books;
+2. several algorithms combined into one output;
+3. a value built from one or several external datasets.
+
+Correlating an indicator with the strategy tells you whether a dimension
+matters, and how.
+
+**Look for events, not levels.** A sophisticated trader rarely tracks a
+price. It reacts to specific events:
+
+- a move beyond its recent volatility, or a level crossing;
+- a regime change;
+- a queue at the touch running out;
+- one venue moving while another has not yet (a stale quote);
+- a burst of posts, or a headline;
+- a scoring play, or an oracle report.
+
+So a moving average of Binance against one of Polymarket will usually show
+nothing, even when Binance drives the bot. For each dimension:
+
+- **Build a family of indicators** at several horizons, from under a second
+  to hours.
+- **Give each indicator several event definitions.** `tools/indicators.py`
+  has causal versions of each:
+  - a jump of k sigma over h (`jumps`);
+  - a threshold crossing (`crossings`);
+  - a CUSUM regime change (`cusum`);
+  - a divergence between two dimensions (`divergence`);
+  - a burst of counts (`burst`);
+  - the first occurrence of a condition since a reset such as a window open
+    or a map start (`first_occurrence`).
+- **Condition and combine events.** A sophisticated trader's events usually
+  depend on state. For example:
+  - a Binance queue move only while the outcome is near the strike late in
+    the window;
+  - a Chainlink report only when it sits far from the book;
+  - a round end only on map point.
+
+  Gate events on the state the strategy plausibly cares about (`gate`):
+  moneyness `|S-K|/(sigma sqrt(tau))`, time to expiry, a regime, the game
+  score. Combine them into compounds (`compound`): A fired and B has not
+  moved within d; A, then B within d. Pre-register the gates and the
+  compounds as part of the family. An ungated screen pools the regime where
+  the event matters with the ones where it does not.
+- **Turn events into rule inputs** with `event_features`: the time since the
+  last event, its sign, and trailing counts, all causal.
+- **Include discrepancy indicators (E4).** Edges live in mispricings between
+  dimensions, for example:
+  - a fair value from dimension A minus the Polymarket price;
+  - the move of venue A minus that of venue B over the same horizon;
+  - implied minus realized volatility;
+  - a bookmaker's line minus the Polymarket price.
+- **Include composite indicators (E4).** Build them wherever the strategy
+  plausibly values something, for example:
+  - z-scored combinations;
+  - a digital-option fair value from realized volatility and the settlement
+    feed;
+  - a win-probability model from score, time and map state;
+  - a weighted cross-venue microprice.
+
+Starting points by strategy type:
+
+- **Crypto windows**:
+  - book imbalance and microprice;
+  - queue depletion at the touch;
+  - the gap between Binance's fair value and the Polymarket book;
+  - Chainlink report arrival and the TWAP lock-in;
+  - funding and liquidation bursts;
+  - cross-asset jumps.
+- **Sports and esports**:
+  - scoring plays and round or map state from each feed (shifted by the
+    stream delay);
+  - win-probability jumps;
+  - sportsbook line moves;
+  - co-signer timing, as evidence of a feed (see "Who else" in step 2).
+- **Events and carry**:
+  - headline and official-release times;
+  - social bursts;
+  - comment-count spikes (comments on sealed units are sealed records;
+    clamp to development units and to comments posted at or before t);
+  - UMA proposals;
+  - the time left to resolution.
+
+### 4. Test the link rigorously (E3)
+
+For every indicator-event pair:
+
+- **Timing.** Run `event_study` on the wallet's decisions, never on its
+  fill times, at positive and negative lags.
+  - **Which decisions.** For takers, the B1 signing times. For makers, also
+    every post, re-price and cancel of its quotes from the live lab and B2
+    (B1 holds filled orders only). Run withdrawals and re-sides as decision
+    series of their own.
+  - **The null.** It keeps each unit's time-in-unit structure and its
+    activity level.
+    - The swap null moves each unit's event track to another unit of the
+      same stratum, at the same offsets from the unit start. A stratum
+      combines a length class, an event-count class and a decision-count
+      class.
+    - Pass `strata` for the confounders you know: a realized-volatility
+      class, the hour of day, the tournament tier.
+    - If fewer than 80% of units find a partner, it swaps within length
+      classes only. If that also fails, it shifts events within each unit
+      (the jitter null), which is the weakest of the three.
+    - Check `null` and `units_in_null` in the result.
+    - Use windows, games or maps as units, or hours with the hour of day
+      as `strata`.
+  - **What counts as a link.** It needs both a level excess and a peak
+    localized in lag (`p_link` = max of `p_level` and `p_shape`). A lift
+    that is flat across all lags means volatile periods carry both more
+    events and more decisions: shared activity, not timing.
+  - **Windows.** Both tests scan windows of 1-16 lag bins, so broad
+    responses count as well as sharp ones.
+  - **Lag ranges.** The shape test looks only inside
+    |lag| < max_lag_s / 2. So set max_lag_s to at least twice the longest
+    lag of interest, and pre-register two or more lag ranges per family
+    (for example +-2 s, +-60 s and +-600 s).
+    - `level_peak_in_flank` flags a level peak outside that core: rerun
+      with a wider max_lag_s.
+    - Never count such a row toward `no_effect`.
+  - **What to report.** The shape peak's lag, width and lift, the median
+    lift, `p_level`, `p_shape`, `p_link`, the null used and
+    `units_in_null`.
+  - **Cost.** About 3 minutes per indicator at 8,640 five-minute windows,
+    0.25-s bins, +-60-s lags and 1,000 null draws. Screen at 1-s bins
+    first, and refine the survivors.
+- **Direction.** Does the side follow the sign of the event? Use the signed
+  event study, or side accuracy conditional on the event. Do the price
+  offset and the size scale with the event's magnitude?
+- **Incremental value.** Use `incremental_auc`, with groups that are 2-hour
+  blocks or games. Does the indicator add to your best rule? And does it add
+  to the co-occurrence baseline? An indicator that only predicts what other
+  traders' activity already predicts has decoded nothing.
+- **Multiple testing.**
+  1. Pre-register each screen in `NOTES.md` before running it: dimension
+     family, indicators, event definitions, gates, compounds, lags.
+  2. Screen on BUILD (`screen`). It runs BH over one joint family: every
+     indicator's `p_link`, plus the signed `p_link` of those with signs.
+     Survivors have q <= 0.10. Its p-values use a Gumbel tail when no null
+     draw reaches the observed value, so a permutation floor of 1/(n+1) does
+     not block large families.
+  3. Confirm the survivors once on VALIDATE, one-sided at alpha = 0.01, with
+     Holm across that screen's survivors.
+  4. Count every VALIDATE confirmation in the ledger (`period: VALIDATE`).
+     The family of confirmations on one VALIDATE set grows across
+     iterations, so the gain it shows on the target metrics still has to
+     pass the exam.
+
+  Log every indicator you tried, failures included, in `state.json`
+  `indicators` (`ledger_row`). Trying hundreds of indicators and keeping the
+  best is overfitting unless the survivors confirm.
+- **Live-only dimensions** (recorded from 2026-10-31 on, and every new
+  recorder) have no pre-T0 BUILD data. If you have not already
+  pre-registered a split of the development blocks after `T0`, use this one,
+  and record it in `state.json`:
+  - a development 6-hour block (`sealed.block_bounds`) on day d after `T0`
+    is BUILD if `floor(d / 2)` is even, and VALIDATE otherwise;
+  - so days 0-1 are BUILD, days 2-3 VALIDATE, days 4-5 BUILD, and so on;
+  - each pair of days covers all four times of day once, so BUILD and
+    VALIDATE both see every time of day.
+
+  A target claim that rests on a live-only input must report coverage, and
+  how the rule behaves, on the pre-T0 VALIDATE where that input is
+  missing.
+- **Point in time.** An indicator's value at t uses only data published at
+  or before t (see "No future data"). Stamp external series with their
+  publication time, not their event time: a post at its posting time, a
+  headline at its first appearance, a game event at its feed time.
+
+Then distill the result: each surviving indicator becomes an explicit input
+of the rule, with its event definition and lag. Re-run the target metrics.
+
+### 5. When a dimension cannot be fetched (E6)
+
+- **Proxy.** Find a public series that moves with the missing one:
+  - another venue for a blocked one;
+  - Telegram channels, Bluesky or Reddit for X;
+  - Google News or GDELT for wires;
+  - co-signing wallets for a private feed. These show that the feed exists
+    and when it fires; see "Who else" in step 2 for what they may not be
+    used for.
+- **Record it live.** Record it from now on with `tools/live.py`'s
+  `Writer` (rules in "The live lab"). Future development blocks then have it.
+- **Infer it (E6).**
+  1. Treat the missing input as a latent variable. Fit a hidden-state or
+     state-space model (or a factor) to the decisions of the wallet and of
+     related wallets.
+  2. Measure what the latent adds, on VALIDATE, with `incremental_auc`.
+     Measure it over the co-occurrence baseline plus a self-excitation
+     baseline: the same model fitted on the wallet's own past decisions
+     only. Any bursty process looks explained by its own past.
+     - The latent's inputs exclude the wallet's own fills, unless it is
+       reported as own state.
+     - Identify related wallets on BUILD only ("Who else" in step 2).
+  3. Run an event study of the latent's changes against every available
+     series. A match means you have found the dimension, or a proxy for it.
+     A fit without that event study closes nothing.
+- **Quantify** the share of decisions the dimension would have to explain,
+  and the evidence that it is the right one.
+
+A wall claim must include the dimension inventory, with every missing
+dimension handled in one of these ways.
+
+**Information sources checked from this laptop on 2026-11-01.**
+
+- **Work**:
+  - Telegram public channel previews (`https://t.me/s/<channel>`): HTML with
+    a timestamp on each post; page back with `?before=<post id>`.
+  - Reddit RSS (`https://www.reddit.com/r/<sub>/new/.rss`, Atom).
+    `old.reddit.com` redirects to a login page with HTTP 200, so check the
+    content type, not only the status.
+  - Bluesky public author feeds
+    (`public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed`).
+  - Mastodon tag timelines (`mastodon.social/api/v1/timelines/tag/<tag>`).
+    The global public timeline needs an account.
+  - The GDELT DOC 2.0 API: `startdatetime`/`enddatetime` within a rolling
+    3-month window, at 15-minute resolution. At most one request every 5 s,
+    or it returns 429.
+  - Google News RSS search, and the CoinDesk and Bloomberg markets RSS.
+  - Federal Reserve press RSS, and YouTube channel RSS.
+  - Wikimedia EventStreams (live edits), and the Hacker News API.
+  - Polymarket's Gamma `/comments`, with `parent_entity_type` and
+    `parent_entity_id` (422 without them). Comments on sealed units are
+    sealed.
+  - The alternative.me Fear & Greed index, and CoinGecko.
+- **Blocked**:
+  - X (Nitter returns no posts);
+  - the Reddit JSON API and Bluesky search (403);
+  - BLS RSS (403);
+  - CryptoPanic (403).
+- **Caveat**: most RSS and preview feeds hold only recent items, so record
+  them live for future development blocks. Verify any source before relying
+  on it, and log the request in `NOTES.md`.
 
 ## The direction catalog: try every item or rule it out with evidence
 
@@ -367,6 +781,28 @@ the feed to the rule closes the gap.
   price, rebates, rewards, carry), and check that the decoded rule earns the
   same components.
 
+**E. Hidden dimensions and indicators** (see the section of that name; open
+for every strategy from 2026-11-01):
+
+- E1 **Dimension inventory**: every family listed there in `state.json`
+  `dimensions`, with a status, a source, a resolution and a verdict.
+- E2 **Residual shape**: the unexplained share per component; when the
+  residual falls; whether it leads the feeds; who else acts with it.
+- E3 **Indicator screen per dimension family**: event definitions at several
+  horizons, pre-registered, with BH on BUILD and confirmation on VALIDATE,
+  plus a timing, direction and incremental test for each.
+- E4 **Discrepancy and composite indicators** between dimensions.
+- E5 **Information dimensions**: news, social and official sources (see the
+  sources checked on 2026-11-01), screened against selection and timing
+  even for crypto bots (which windows or days it skips), and recorded live
+  where only recent items are available.
+- E6 **Latent-dimension inference**: a fitted hidden state, its
+  incremental gain on VALIDATE over the co-occurrence and self-excitation
+  baselines, and its event study against every available series.
+- E7 **Residual synchrony across markets**: `residual_clustering` (with
+  `period_s` for scheduled markets; p <= 0.01 and a ratio of at least 1.5),
+  with the top clusters looked up in news, social and status archives.
+
 ## Data: expand it (the earlier studies used too little)
 
 The HTTP cache `.cache/http.sqlite` is shared and safe for concurrent use. Go
@@ -451,6 +887,19 @@ the research folder.
   - `polyrea/analysis/rebates.py`;
   - `polyrea/pit.py` (point-in-time store and guarded view);
   - `polyrea/stats/`.
+- `research/reverse_engineering/tools/indicators.py` (read its docstring;
+  `python .../indicators.py selftest`):
+  - causal grids and transforms (`grid`, `asof`, `counts`, `ewm`, `zscore`,
+    `jump_z`);
+  - event detectors (`jumps`, `crossings`, `cusum`, `divergence`, `burst`,
+    `first_occurrence`), with `gate`, `compound` and `event_features`;
+  - `event_study`, with an activity-stratified swap null (falling back to
+    length classes, then a within-unit jitter), level and shape tests over
+    windows of 1-16 lag bins, and a signed version for side;
+  - `screen`, with BH q-values over one joint family;
+  - `incremental_auc` over a base score with a block bootstrap;
+  - `residual_clustering`;
+  - `ledger_row`.
 - Python packages: numpy, pandas, scipy, statsmodels, scikit-learn, lightgbm,
   pyarrow, websockets, httpx (`pip install -e '.[test,research]'`; already
   installed in `.venv`). Interpreter: `.venv/Scripts/python.exe` on Windows
@@ -461,9 +910,14 @@ the research folder.
 1. Read your dossier and, if continuing, `NOTES.md`, `state.json`,
    `FINAL_RULE.md`, the panel files in `panels/` and any `EXAM*.md` and
    `results/wall_audit_*.json`.
-2. Write the five-or-more competing explanations (see the premise) and pick
-   what this iteration will discriminate between.
-3. Expand the data and measure what you could not see before.
+2. Write the five-or-more competing explanations (see the premise). Each
+   names the dimensions it needs and their status in `dimensions`, and at
+   least one rests on a missing or blocked dimension. Pick what this
+   iteration will discriminate between.
+3. Expand the data and measure what you could not see before. Update the
+   dimension inventory and read the residual's shape ("Hidden dimensions
+   and indicators", steps 1-2). Pick the dimensions it points to, and build
+   and test indicators from them (steps 3-4).
 4. Describe the behaviour precisely, component by component: per market and
    per second, what the wallet does (orders, fills, sides, prices relative to
    the touch and to fair value, sizes and lifetimes, inventory paths, timing
@@ -564,6 +1018,13 @@ met.
   - you have worked at least 10 hours on the strategy;
   - every catalog item, including every panel and audit proposal (X items),
     is `tried`, `ruled_out`, `not_applicable` or `infeasible`, with evidence;
+  - the dimension inventory (E1) is complete, and every missing or blocked
+    dimension has been fetched, proxied, recorded live or inferred (E6), or
+    closed as `infeasible` as step 1 of that section defines it, with its
+    indicator results in the `indicators` ledger;
+  - no dimension has verdict `untested`: every `have` and `proxy` dimension
+    has had its pre-registered family screened, and every `no_effect`
+    carries its `min_detectable_share`;
   - you show quantitatively where the unexplained part of the decisions
     comes from. For example: the wallet's decisions precede every public feed
     you obtained (by how much, and how often); or the remaining decisions are
@@ -643,6 +1104,8 @@ free), about 15 GB of free disk, one home internet connection.
 
 - **`NOTES.md`**, the lab notebook: data gathered, competing explanations,
   hypotheses, evidence, metrics, decisions, open questions, what to try next.
+  It also holds a "Missing dimensions" section (the residual's shape, and the
+  dimensions it points to) and the pre-registration of each indicator screen.
 - **`state.json`** holds:
   - `primary_metric`;
   - `status`: continue | target_reached | wall, plus `wall_reason`;
@@ -660,6 +1123,13 @@ free), about 15 GB of free disk, one home internet connection.
   - `best: {rule_id, validate_metrics}`;
   - `hypotheses: [{id, family, description, validate_metrics, verdict}]`;
   - `data_sources: [...]`;
+  - `dimensions: {<name>: {family, status, source, resolution, publication_latency, best_indicator, min_detectable_share, verdict}}`
+    (E1);
+  - `indicators: [...]`: every indicator tried, with its dimension,
+    definition, event definition, period (BUILD, VALIDATE or legacy),
+    result (lags, lifts, `p_level`, `p_shape`, `p_link`, q, incremental gain
+    and interval) and verdict (`ledger_row`, which keeps legacy results
+    whole);
   - `iterations: [{n, minutes, best_validate_score, families}]`. Append one
     entry per iteration.
 - **`FINAL_RULE.md`** and **`code/final_rule.py`**: the best rule so far,
