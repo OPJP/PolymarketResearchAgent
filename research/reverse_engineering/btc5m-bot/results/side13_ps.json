@@ -1,0 +1,97 @@
+{
+ "n": 90170,
+ "psb_acc": 0.7666,
+ "share_small_seconds": 0.7882,
+ "mechanism_offset_logit": {
+  "small": {
+   "n": 71071,
+   "coef": {
+    "const": -0.0344,
+    "KL": -0.3038,
+    "KS": 0.0441,
+    "CR": -0.0001
+   },
+   "t": {
+    "const": -3.09,
+    "KL": -26.5,
+    "KS": 4.0,
+    "CR": -0.01
+   }
+  },
+  "large": {
+   "n": 19099,
+   "coef": {
+    "const": -0.0685,
+    "KL": 0.268,
+    "KS": 0.1211,
+    "CR": -0.0456
+   },
+   "t": {
+    "const": -2.84,
+    "KL": 8.56,
+    "KS": 5.12,
+    "CR": -1.71
+   }
+  },
+  "all": {
+   "n": 90170,
+   "coef": {
+    "const": -0.0404,
+    "KL": -0.1705,
+    "KS": 0.0732,
+    "CR": -0.0063
+   },
+   "t": {
+    "const": -3.98,
+    "KL": -16.73,
+    "KS": 7.39,
+    "CR": -0.6
+   }
+  }
+ },
+ "small_seconds_KL30": {
+  "n": 53159,
+  "complement_rate": 0.5686,
+  "psb_acc_there": 0.7624
+ },
+ "small_seconds_KS30_placebo": {
+  "n": 50415,
+  "complement_rate": 0.4624
+ },
+ "own_inventory_only_rule_complement_of_KL": {
+  "coverage": 0.8708,
+  "acc_where_nonzero": 0.5266
+ },
+ "tilt_cross_fit": {
+  "fit_h1_score_h2": {
+   "coef": {
+    "const": -0.0037,
+    "zK": -0.1442,
+    "zK_abs": -0.0349
+   },
+   "acc_tilt": 0.7766,
+   "acc_psb": 0.7744
+  },
+  "fit_h2_score_h1": {
+   "coef": {
+    "const": -0.0743,
+    "zK": -0.1729,
+    "zK_abs": -0.0267
+   },
+   "acc_tilt": 0.7595,
+   "acc_psb": 0.7576
+  },
+  "pooled_cross_fit": {
+   "acc_tilt": 0.7687,
+   "acc_psb": 0.7666
+  },
+  "by_class_small": {
+   "acc_tilt": 0.7719,
+   "acc_psb": 0.7676
+  },
+  "by_class_large": {
+   "acc_tilt": 0.7568,
+   "acc_psb": 0.7628
+  }
+ }
+}

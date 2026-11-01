@@ -1,0 +1,45 @@
+{
+ "taker_buy_orders_in_sample": 11382,
+ "matched": 2476,
+ "ask_m": {
+  "within_tick": 0.813,
+  "exact": 0.4237,
+  "above_by_1c_plus": 0.0739,
+  "n": 2476
+ },
+ "ask_0": {
+  "within_tick": 0.9342,
+  "exact": 0.7431,
+  "above_by_1c_plus": 0.231,
+  "n": 2476
+ },
+ "ask_30": {
+  "within_tick": 0.9273,
+  "exact": 0.733,
+  "above_by_1c_plus": 0.2407,
+  "n": 2476
+ },
+ "ask_100": {
+  "within_tick": 0.8918,
+  "exact": 0.6381,
+  "above_by_1c_plus": 0.2997,
+  "n": 2476
+ },
+ "ask_180": {
+  "within_tick": 0.8102,
+  "exact": 0.5392,
+  "above_by_1c_plus": 0.3481,
+  "n": 2476
+ },
+ "ask_500": {
+  "within_tick": 0.6187,
+  "exact": 0.3643,
+  "above_by_1c_plus": 0.4136,
+  "n": 2476
+ },
+ "by_wallet_ask_30": {
+  "GF": 0.9148,
+  "XM": 0.6643,
+  "DS": 0.9552
+ }
+}

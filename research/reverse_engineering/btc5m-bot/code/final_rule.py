@@ -1,6 +1,13 @@
 """btc5m-bot frozen rule (iteration 8; iteration 10 adds pre-registered point-in-time clean live versions; iteration 12
 adds the exposure-tracker replica for the PnL condition).
 
+Iteration 13: the scored rule and target_metrics are unchanged (the pre-registered two-stream tracker was not adopted). NEW
+reported component 'side_decision_clock' (pre-registration 4, X113 step 6; code/dc_exam13.py): per cluster taker order, the
+matching-engine ms from the public CC0 capture Fahri-5/updown-5m-polymarket-raw (revision pinned in dc_exam13.REV), the
+decision instant a = m - 180 ms, Binance spot book microprice / mid returns over [a - K, a) from the same capture, and the frozen
+model_it13_dcside_spot.txt (fitted on 10-17..19; VALIDATE 10-20..22: 74.2% per order, XM one-sided windows 81.4%). Development
+runs never open a capture day file that starts at or after H; the examiner's ALLOW_SEALED = True reaches those days.
+
 Iteration 12 (PIVOT: condition 5 as an exposure-path target; NOTES.md iteration 12, pre-registered 00:20 and 00:36 UTC
 11-01, before scoring): the executable rule for the PnL condition is now an EXPOSURE TRACKER. Per window, target net
 N*(s) = sum_{t <= s} flow(t), flow = 0.5 x the frozen it4b per-second netflow model (MODEL_NETFLOW, BUILD-fitted) + 0.5 x
@@ -1301,6 +1308,11 @@ def _evaluate_live_only(start_ts: int, end_ts: int, intervals, err: str) -> dict
            "note": "historical components need the Binance daily archives (published the next day UTC); live components only"}
     fills = cluster_fills(start_ts, end_ts, win)
     out["fills"] = int(len(fills))
+    try:  # iteration 13: decision-clock side from the public HF capture (needs no Binance daily archive)
+        import dc_exam13
+        out["side_decision_clock"] = dc_exam13.decision_clock_side(fills, start_ts, end_ts, allow_sealed=ALLOW_SEALED)
+    except Exception as e:
+        out["side_decision_clock"] = {"error": f"{type(e).__name__}: {e}"[:200]}
     for key, fn in (("side_live_decision", lambda: _live_vote(fills, win, start_ts, end_ts)),
                     ("side_live_decision_ext", lambda: _live_vote(fills, win, start_ts, end_ts, feeds=LIVE_VOTE_FEEDS_EXT, venues=LIVE_VOTE_VENUES_EXT)),
                     ("presence_live_decision", lambda: _live_hazard(fills, start_ts, end_ts, intervals)),
@@ -1620,6 +1632,13 @@ def _evaluate_full(start_ts: int, end_ts: int, intervals=None) -> dict:
         out["price"]["live_book_pit"] = _live_touch(fills, win, start_ts, end_ts, pre_ms=PRE_MATCH_MS_PIT)
     except Exception as e:
         out["price"]["live_book_pit"] = {"error": type(e).__name__}
+    # iteration 13 (PRE-REGISTRATION 4, X113 step 6): the side at the DECISION clock from the public HF capture (matching-engine ms
+    # by tx hash; Binance spot book at a = m - 180 ms; frozen model_it13_dcside_spot.txt). Reported; not a target_metrics key.
+    try:
+        import dc_exam13
+        out["side_decision_clock"] = dc_exam13.decision_clock_side(fills, start_ts, end_ts, allow_sealed=ALLOW_SEALED)
+    except Exception as e:
+        out["side_decision_clock"] = {"error": f"{type(e).__name__}: {e}"[:200]}
     try:
         res_o["pnl_overlap_diagnostics"] = _pnl_overlap(fills, win)
     except Exception as e:

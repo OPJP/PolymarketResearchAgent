@@ -1,0 +1,43 @@
+{
+ "per_order_by_wallet_halves": {
+  "DS": {
+   "all": 0.7425,
+   "by_day": {
+    "2026-10-20": 0.7375,
+    "2026-10-21": 0.7366,
+    "2026-10-22": 0.7534
+   }
+  },
+  "GF": {
+   "all": 0.7972,
+   "by_day": {
+    "2026-10-20": 0.8184,
+    "2026-10-21": 0.7931,
+    "2026-10-22": 0.782
+   }
+  },
+  "XM": {
+   "all": 0.7997,
+   "by_day": {
+    "2026-10-20": 0.8398,
+    "2026-10-21": 0.8033,
+    "2026-10-22": 0.7572
+   }
+  }
+ },
+ "XM_windows": 692,
+ "XM_one_sided_windows_by_taker_orders": 172,
+ "XM_one_sided_share": 0.2486,
+ "XM_one_sided_window_side_acc": 0.843,
+ "XM_one_sided_window_side_acc_by_day": {
+  "2026-10-20": 0.942,
+  "2026-10-21": 0.8293,
+  "2026-10-22": 0.7419
+ },
+ "XM_one_sided_multi_order_windows": 69,
+ "XM_one_sided_multi_order_acc": 0.8696,
+ "DS_one_sided_share": 0.0013,
+ "DS_one_sided_window_acc": 1.0,
+ "GF_one_sided_share": 0.0172,
+ "GF_one_sided_window_acc": 0.8462
+}

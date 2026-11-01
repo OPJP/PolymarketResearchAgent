@@ -1,0 +1,38 @@
+{
+ "GF": {
+  "oracle_true_share_x_pooledN": 0.7121,
+  "build_hour_share_x_pooledN": 0.6885,
+  "validate_hour_share_x_pooledN_insample": 0.693,
+  "active_x_pooledN": 0.695,
+  "share_sd_validate": 0.118,
+  "share_mean_validate": 0.307,
+  "hour_share_range_validate": [
+   0.267,
+   0.337
+  ]
+ },
+ "XM": {
+  "oracle_true_share_x_pooledN": 0.4063,
+  "build_hour_share_x_pooledN": 0.3002,
+  "validate_hour_share_x_pooledN_insample": 0.3015,
+  "active_x_pooledN": 0.308,
+  "share_sd_validate": 0.052,
+  "share_mean_validate": 0.068,
+  "hour_share_range_validate": [
+   0.05,
+   0.092
+  ]
+ },
+ "DS": {
+  "oracle_true_share_x_pooledN": 0.6465,
+  "build_hour_share_x_pooledN": 0.6251,
+  "validate_hour_share_x_pooledN_insample": 0.6282,
+  "active_x_pooledN": 0.6299,
+  "share_sd_validate": 0.174,
+  "share_mean_validate": 0.569,
+  "hour_share_range_validate": [
+   0.51,
+   0.622
+  ]
+ }
+}

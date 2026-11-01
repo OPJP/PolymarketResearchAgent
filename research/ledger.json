@@ -1,5 +1,5 @@
 {
- "generated_at": 1793502383,
+ "generated_at": 1793502979,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -107,18 +107,18 @@
    ],
    "status": "in_progress",
    "wall_reason": null,
-   "iterations": 12,
-   "minutes": 754.9,
-   "hypotheses": 162,
+   "iterations": 13,
+   "minutes": 827.9,
+   "hypotheses": 180,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.9132,
    "best_rule": "it12: presence / side / price rule unchanged since iteration 8 (code/final_rule.py); PnL rule = exposure tracker trk_a_avg (0.5 it4b netflow + 0.5 nf12b), convention (a)",
    "has_final_rule": true,
-   "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts each window (three bursts at -89.5 / +42 / +173 s since 08-22; other two-burst schedules in early August) [VALIDATE-only]. It submits one at the ask it saw ~30 ms before arriving; a minority of submissions (~9% beyond a placebo: the strong-tick snipes that carry the large size) come 100-150 ms after a sharp microprice move of the Binance USD-M / OKX / Bybit / Hyperliquid BTC and ETH perps toward the outcome, and most have no sharp clock in any recorded feed [VALIDATE-only]; it runs near Polymarket's engine [VALIDATE-only, location hypothesis]. Polymarket holds every marketable order 150 ms, so the bot races the crowd in that delay queue [VALIDATE-only]. It takes about one in three flagged episodes; which ones is not decoded: no recorded public input separates taken from skipped strong ticks beyond small gains (Coinbase freshness +0.015 AUC), the take rate follows an operator-level state with a 30-60-s time scale shared by the wallets, and the independent fast crowd takes the same onsets on an input the recorded feeds explain only 14-21% of [VALIDATE-only; open]. The side is the tick direction (83% per decision live, 77% at the block clock) [VALIDATE-only]. Lost races rest at the old ask for ~0.1-1 s and fill as maker about half the time [VALIDATE-only]. The size is small unless the operator's intended position is flat or long the outcome [VALIDATE-only, own state, tentative]. Inside a window the net exposure follows the current minute's move and is bought back against earlier moves; it is predictable from public data at r ~0.48, and an executable exposure tracker built on that prediction reproduces the cluster's per-window PnL at r 0.4758 / 0.4404 under strict fills with >= 2 s latency (per wallet 0.06-0.43) [VALIDATE-only]. Positions are held to resolution; 87% of shares end in complete sets bought at 0.979 [VALIDATE-only]. Income = locked sets (~2.1 c per pair) and the 50% taker-fee rebate; the lean is a coin with respect to the outcome and carries the per-window PnL variance [VALIDATE-only]. Nothing is exam-verified.",
+   "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts each window (three bursts at -89.5 / +42 / +173 s since 08-22) [VALIDATE-only]. It submits one at the ask it saw ~30 ms before arriving (93% within a tick of the archive ask at the arrival on VALIDATE weekdays) [VALIDATE-only]. Polymarket holds every marketable order 150 ms, so the bot races the crowd in that delay queue [VALIDATE-only]. Which flagged episodes it takes is not decoded beyond small gains; the take rate follows an operator-level state with a 30-60-s time scale, and the independent fast crowd takes the same onsets on an input the recorded feeds explain only 14-21% of [VALIDATE-only; open]. The side is the direction of the fast venues' microprice over the last ~100-250 ms (live 83% where the six-series vote fires; on VALIDATE weekdays at the historical decision clock 77% of taker orders at full coverage, 81-83% in the first two minutes and 62-72% after three; 76.7% per one-sided block second) [VALIDATE-only]. Lost races rest at the old ask for ~0.1-1 s and fill as maker about half the time [VALIDATE-only]. The inventory is two operator-level streams: a large-size lean fanned out to every wallet and pyramided, and a small-size taker counter-flow that buys the complement of the REALIZED large inventory within ~2 minutes (own-state feedback, t -26) [VALIDATE-only]. Public data predicts the window net at r ~0.48 (the lean at ~0.32), and an executable exposure tracker reproduces the pooled per-window PnL at r 0.4758 / 0.4404 under strict fills with >= 2 s latency (per wallet 0.06-0.43; XM is bounded at 0.30-0.41 even by perfect pooled-stream oracles, because its PnL is the side of its own dispatched legs) [VALIDATE-only]. Positions are held to resolution; 87% of shares end in complete sets bought at 0.979; income = locked sets (~2.1 c per pair) and the 50% taker-fee rebate; the lean is a coin with respect to the outcome and carries the per-window PnL variance [VALIDATE-only]. Nothing is exam-verified.",
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 7
+   "panels": 8
   },
   {
    "key": "elmcap2-carry",

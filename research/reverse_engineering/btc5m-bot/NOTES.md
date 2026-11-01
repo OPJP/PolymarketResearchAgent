@@ -2581,3 +2581,312 @@ ticker in btc5m_xeu as a replication) to the evt10-style FULL logistic fitted on
 onsets. Same protocol for Bitstamp and Kraken classes (rec_eu11) as secondary. Also: run final_rule.evaluate on 10-31 00-06 and
 12-18 once the 10-31 daily archives are published (out-of-time test of the exposure tracker).
 Iteration 12 ended 01:24 UTC (about 72 minutes of work).
+
+### Iteration 13 (2026-11-01 02:02 UTC start, local Windows laptop; development data: before H, and 10-31 00-06 / 12-18)
+
+Split and primary metric unchanged (BUILD = 10-09..16, VALIDATE = 10-16..23). Calendar (`sealed.py btc5m-bot`, 02:03 UTC): released
+lots none; the current block 11-01 00-06 is sealed; no new live development data during this iteration (next development block
+11-01 06:00). Shared recorder running (`live.py status` 02:03 UTC: clob_crypto, clob_wallets, rtds, sports connected). Nothing
+sealed was read. Panel after iteration 12 (panels/iter12_*.md): 12 proposals, added as X113-X124 (information P1-P5 = X113-X117,
+mechanics P1-P3 = X118-X120, assumptions P1-P4 = X121-X124).
+
+Competing explanations (iteration 13; what separates them):
+- E1 TWO-STREAM OPERATOR: a large-size directional lean (fanned out to every wallet, seeded near the open, pyramided) plus a
+  small-size taker counter-flow that buys back the operator's REALIZED large inventory within ~2 min. Separates: a dose-response
+  kernel of the small orders' side on the realized large fills that survives the crowd's path and a small-fill placebo; stream
+  models that predict the window net better than a model trained on the cancelling sum; per-wallet nets as loadings on two
+  shared streams.
+- E2 REBATE / COMPLETE-SET HARVESTER WITH A RANDOM LEAN: the 'pairing' is the mechanical consequence of buying both sides when
+  the ask sum < 1. Separates: after a large fill the small orders' complement share equals that after a same-side small fill
+  of the same size class (placebo), once the ask state is controlled.
+- E3 STALE-QUOTE SNIPER ON A FASTER CLOCK: side and selection live at ms; the block clock (decision ~2 s before the block) costs the
+  side its last points. Separates: the decision-clock vote on VALIDATE (public HF capture with server-ms trades and tx hashes)
+  is >= 80% where the block-clock model is 76.7%.
+- E4 OWN FAIR VALUE WITH IMPLIED VOL: the buy-back strength scales with IV / RV across windows. Separates: an (earlier move) x
+  log(IV / RV) term in the window-minute net path with the same sign in BUILD and VALIDATE.
+- E5 SETTLEMENT-BASIS ANCHOR: the bot prices off Chainlink Data Streams while the crowd prices off Binance; the net residual
+  follows the Chainlink - Binance basis. Separates: a Delta-basis term in the residual of the window net, stable across halves.
+- E6 QUEUE READER: the quiet majority of decisions is triggered by size-only requotes at o's touch (touch-queue fade).
+  Separates: queue terms lift quiet-instant AUC by >= 0.03 in both halves and absorb the crowd co-take.
+- E7 PRIVATE / INTERNAL: the residual after every public input is unrelated to every public series (dispatch and race luck).
+This iteration discriminates E1 vs E2 (stream decomposition, kernel with placebo and crowd control, two-stream tracker),
+measures the per-wallet consequence of E1 (condition-7 ceilings), and starts E3 on the public archive (ingest and coverage).
+
+PRE-REGISTRATION (written 02:17 UTC 11-01, before any two-stream model is fitted or scored on VALIDATE):
+- Stream labels (two13.py): LARGE = an order (fills grouped by order hash) with total filled shares >= 80 for windows starting
+  before 10-12 00:00 UTC (60/100 menu) and >= 45 later; SMALL otherwise.
+- Models (ls13.py): LightGBM per-second regressions L13 (target: the operator's large-order signed flow per block second, Up +)
+  and S13 (small-order flow), BUILD 10-09..15 only, nf12's PARAMS / ROUNDS, features = nf12b's set (spot-only slow features,
+  no Gamma priceToBeat) + W13 window-state features (for k in 1.5 / 3.0 bp: the sign and rel of the first 1-s Binance move with
+  |r| >= k since the open, as of s - 2; the counts of such up / down moves so far). No own state. T13 (same features, target
+  the sum) is trained as a diagnostic only.
+- PRIMARY CANDIDATE 'trk_a_2s' = trk_a (same TRK constants, convention a, strict fills) with target flow 0.5 x (nf_it4b + L13 +
+  S13). It replaces trk_a_avg as the primary ONLY IF it beats trk_a_avg (0.4758 / 0.4404) on BOTH pooled Pearson and Spearman on
+  VALIDATE. This is the only candidate scored for adoption this iteration.
+- Secondary (reported, never adopted this iteration): window-net r of L13 / S13 / L13 + S13 / T13; 'trk_a_LS' (target L13 +
+  S13 alone); per-wallet trackers with target a_w L13 + b_w S13 (a_w, b_w = BUILD per-window OLS of the wallet's net on the
+  pooled L and S nets); per-wallet PnL r.
+- Side tilt (side13.py, own state, reported with and without, never part of the presence rule): logit(p) = logit(psb) + b1 z(K)
+  + b2 z(K) x |logit(psb)|, K = sum over the operator's realized LARGE fills in [s - 180, s - 2] of signed shares x exp(-(s -
+  t) / 60); b1, b2 cross-fitted on VALIDATE halves (fit one half, score the other); pre-registered success = pooled side >= 78%.
+PRE-REGISTRATION 2 (02:33 UTC, before basis13 is run; X116 = information P4): basis b(t) = RTDS Chainlink btc/usd (HF capture
+revision f848a77c, timestampMs second) minus the Binance 1-s close; per window the residual of the pooled net after the frozen
+primary target's window sum; OLS on [b at the open, Delta b per window minute 0..4] fitted on 10-17..19, scored on 10-20..22 and
+the reverse. Success = out-of-sample window-net r gain >= +0.03 in both directions with the same signs.
+PRE-REGISTRATION 3 (02:36 UTC, before dcside13 is run; X113 step 3): DECISION-CLOCK side model on VALIDATE (code/dcside13.py
+docstring has the exact feature list): unit = operator taker order with an archive match ms m (HF capture revision f848a77c),
+decision instant a = m - 180 ms; Up-signed returns over [a - K, a) (K = 100..2000 ms) of Binance spot book microprice / mid
+(archive receive clock), Bybit BTC / ETH perp microprice (100-ms bins, + 150 ms), Binance USD-M BTC / ETH and OKX swap last
+trade (+ 131 ms), and the Polymarket state at a; LightGBM binary (15 leaves, 300 rounds) fitted on 10-17..19 orders, scored on
+10-20..22. Success = full-coverage per-order accuracy >= 80% on 10-20..22. Reported against the Polymarket-only model and the
+block-clock side model ps on the same orders.
+
+Findings (iteration 13):
+1. THE TWO STREAMS ARE REAL, AND THEIR CANCELLATION IS WHY THE WALLET TOTALS LOOK INDEPENDENT (two13.py, results/two13.json;
+   replicates both panels): VALIDATE cross-wallet correlations of the window nets: large-order nets L 0.35-0.47 (DS-GF 0.456, DS-XM
+   0.346, GF-XM 0.468), small-order nets S 0.25-0.51, totals 0.00-0.21; within wallet corr(L, S) GF -0.60, XM -0.46, DS -0.26, pooled
+   -0.60 (BUILD: cross-wallet L 0.24-0.45, within -0.16..-0.41). Large share of shares on VALIDATE: GF 45%, XM 53%, DS 17%.
+2. CONDITION 7 IS BOUNDED BY DISPATCH, MEASURED (two13.json 'oracle_ceilings_validate'; upper bounds): per-wallet PnL r against a
+   PERFECT pooled net x outcome: GF 0.695, DS 0.630, XM 0.304 (halves XM 0.320 / 0.292); against a perfect pooled LARGE lean: GF
+   0.753, DS 0.339, XM 0.366; a_w L + b_w S with BUILD loadings: GF 0.766, DS 0.640, XM 0.218; from the OTHER wallets' legs only
+   (the shared operator part, no own flow): GF 0.420, DS 0.175, XM 0.036. So no rule that predicts the operator's pooled streams,
+   however well, can give XM the ~0.47 that condition 7 asks. XM's net is its own dispatch share (XM-specific legs), and no public
+   input carries it (per-wallet nf12_XM 0.045). This is a measured wall component for condition 7 (XM), not a missing input.
+3. THE PRE-REGISTERED TWO-STREAM TRACKER IS NOT ADOPTED (ls13.py, track13.py; results/ls13.json, track13.json): L13 predicts the
+   VALIDATE window L at r 0.324 (nf12b 0.309), S13 the window S at 0.098 (nf12b 0.048), and L13 + S13 the net N at 0.4195 (nf12b
+   0.4237; T13 on the sum with the same features 0.4212). corr(L13 + S13, nf12b) = 0.957: the same public information. The W13
+   window-state features (first k-bp move after the open, move counts) carry 2.0-2.3% of the gain. trk_a_2s (the primary
+   candidate) scores 0.4681 / 0.4320 (block CI [0.416, 0.519]) against trk_a_avg's 0.4758 / 0.4404: lower on both, so it is NOT
+   adopted. trk_a_LS 0.425 / 0.376; per-wallet trackers with BUILD loadings GF 0.318, XM 0.064, DS 0.361 (all below the pooled
+   tracker's per-wallet values). The panels' 'signature if false' holds: the public share of the window net is bounded by the
+   public share of the lean L (r ~0.32 at the block clock).
+4. THE PAIRING MECHANISM IS CONFIRMED, BUT IT IS OWN STATE AND MOVES THE SIDE BY < 0.5 POINT (side13.py, results/side13.json,
+   side13_ps.json; VALIDATE one-sided seconds, offset = the frozen side model, window-clustered):
+   - On SMALL-order seconds (79% of one-sided seconds) the operator's realized LARGE net over [s - 180, s - 2] (60-s decay) has
+     coefficient -0.30 (t -26.5): the small orders buy the complement of the realized large inventory.
+   - The SMALL-order placebo K_S is +0.04 (t +4.0): same-side clustering, not pairing.
+   - The crowd's 120-s Up-signed taker flow is 0.000 (t -0.01): the pairing is not market-driven.
+   - On LARGE-order seconds the sign flips: +0.27 (t 8.6). The large leg pyramids.
+   - Raw: small seconds with |K_L| >= 30 buy the complement 56.9% of the time (n 53,159); placebo |K_S| >= 30: 46.2%.
+   E1 (two-stream operator) is supported over E2 (mechanical complete-set pairing). The pre-registered tilt logit(ps) + b1 z(K_L) +
+   b2 z(K_L) |logit ps|, cross-fitted on VALIDATE halves: 76.87% vs 76.66% (psb version 75.43% vs 75.28%); small seconds +0.4,
+   large seconds -0.6 points (the rule cannot know the size class in advance). Pre-registered success (>= 78%) NOT met. The
+   own-inventory-only rule (complement of K_L) is right 52.7% of the time on 87% coverage.
+5. THE PUBLIC HF CAPTURE IS A VERIFIED HISTORICAL DECISION CLOCK FOR VALIDATE (session scratchpad it13/hfprobe13.py,
+   it13/hfingest13.py; results/dc13_2026-10-20.json):
+   - Fahri-5/updown-5m-polymarket-raw, CC0, not gated, revision pinned f848a77ccfce4421d3cedbbe585576db77d36662 (last modified
+     11-01 01:16 UTC); day files polymarket/ and btc/ for 10-17..22. Only the names of days < H were kept from the listing.
+   - polymarket/2026-10-20: 97.7M rows in 698 row groups, 5.4 GB. The needed columns (eventType, exchangeTimestampMs,
+     transactionHash, tokenId, trade price / size / side, bestBid / bestAsk) are 392 MB of range requests (218 s), reduced to
+     399k trades and 421k touch changes.
+   - 97.3% of the operator's 39,899 txs on 10-20 carry an archive match ms (99.1-100% in hours 0-22). The day file covers
+     00:00-23:00 server time, so hour 23 is in the next file. Block ts minus match ms q05 / q50 / q95 = 1,247 / 2,202 / 3,138 ms
+     (no negative lags; the live lab measured 1.29-3.20 s).
+   - btc/: Binance spot BTCUSDT book (12.2M rows, collector receive clock; spot trade transit receive - exchange 131-132 ms),
+     trades (3.0M), and Polymarket's RTDS Chainlink btc/usd (81k 'ticker' rows, ~0.95 / s, serverTimestampMs ~1.7 s after the
+     price's own timestamp).
+   - HF answered 429 when two ingests ran in parallel (6 + 4 threads). The ingest now coalesces column-chunk ranges and backs off
+     45 s on 429.
+6. AT THE DECISION CLOCK, THE SIDE IS THE LAST 100-250 MS OF THE BINANCE SPOT BOOK: 77% PER ORDER AT FULL COVERAGE (dcfeat13.py,
+   dcside13.py, dcown13.py; results/dcfeat13_2026-10-20.json, dcside13_2021.json, dcown13_2021.json).
+   - Univariate on 10-20 (27,008 taker orders, decision a = m - 180 ms): the Binance spot microprice over [a - 250, a) agrees
+     70.9% on 93.5% of orders, over 500 ms 67.2%, 1 s 62.7%, 2 s 58.5%. The sharp decay with the horizon marks a trigger, not a
+     trend. USD-M last trade 250 ms: 59.6% on 37%. Chainlink RTDS: 48-49% (slightly contrarian).
+   - The frozen live vote windows with only these two series agree 65.7% on 57% ([m - 600, m - 100)) and 55.9% on 52% (PIT
+     [m - 650, m - 180)). The live six-series vote's 83% needed the USD-M bookTicker and ETH series that the archive lacks.
+   - LightGBM on the decision-clock features (spot book, Bybit BTC / ETH 100-ms book, USD-M BTC / ETH and OKX trades,
+     Polymarket state), fit 10-20 -> score 10-21 and the reverse. This is a disclosed deviation from pre-registration 3, whose
+     10-17..19 fit needs the trades-only ingest. FULL coverage per taker order: 77.2% / 77.3% (GF 80.9 / 82.2%, XM 80.4 /
+     84.7%, DS 74.8 / 74.8%); venue-only 76.1 / 76.3%; Polymarket-state-only (market-only) 58.8 / 58.6%; with the own-state
+     pairing kernel 77.6 / 77.4% (DS +0.5). Top inputs: spot microprice 250 ms (26% of gain), 100 ms (19-22%), 500 ms (6-9%).
+   - The block-clock per-order side was 72.7% (VALIDATE chunks): the decision clock adds ~4.5 points per order.
+   - On the 65% of orders that fall in one-sided block seconds, the block-clock ps scores 81.5-82.6% against the decision
+     clock's 79.1-79.9%. The block-clock features (spot <= block ts - 2 s, a median ~0.2 s AFTER the match) partly read the
+     post-decision continuation: on 10-20 the 1-s Binance mid move ending at block ts - 2 s agrees 69% vs 54% at the decision,
+     and o's ask rose over the last 500 ms before block ts - 2 s for 71.8% of orders vs 56.0% at the decision. The block-clock
+     side is PIT by the block-time rule, but part of it is co-movement, not the decision's input.
+7. THE SIDE RULE HOLDS EARLY IN THE WINDOW AND FADES LATE (dcown13_2021.json, late13_2021.json):
+   - Decision-clock full-model accuracy by window time: 81-83% in [0, 120) s, 78% in [120, 180), 72% in [180, 240), 62-65% in
+     [240, 270). There are no operator taker orders after 270 s.
+   - Late, the spot tick agrees 62-66% and the complement of the operator's realized net 55.5-58.6% (own state, rising toward
+     the end).
+   - The partial settlement TWAP (RTDS mean from second 240 to a) vs the strike agrees 52% (near / far from the strike 52.0 /
+     51.9%): no last-minute lock-in by the settlement TWAP (B3b).
+   - The Chainlink favourite vs the strike: 44-48% in the first 4 minutes (the bot leans to the Chainlink underdog), 53% at
+     240-270 s.
+   The late decisions are a mix of weaker tick-following and inventory pairing.
+8. THE OPEN IS NOT A SEPARATE DECISION TYPE (X124 step 1 on the archive; open13.py, results/open13_2021.json): decisions in [0, 15) s
+   follow the same tick (73.8% vs 70.7% after 30 s). The exact-strike value side (FV from RTDS Chainlink, Gamma priceToBeat and the
+   15-min RV) agrees 45.0% (43.3% where |gap| > 5 c: the bot's FV is wider than an RV digital, the known underdog tilt), and the
+   exact-strike favourite 48%. P(large) is 9.0% vs 6.6% later (1.4x, not the panel's 2x). Signature (>= 75% value-following, 2x
+   large) not met.
+9. NO SETTLEMENT-BASIS INPUT IN THE NET PATH (X116, pre-registration 2; basis13.py, results/basis13.json): Chainlink btc/usd minus
+   Binance BTCUSDT is -$102 median (q05 / q95 -$119 / -$71; the USDT premium). Basis terms vs the residual of the window net: |r| <=
+   0.045. OLS fit 10-17..19 -> 10-20..22 gain -0.007, reverse +0.0004 (base r 0.504 / 0.488). E5 not supported.
+10. THE 'IMPLIED-VOL SCALE' OF THE BUY-BACK IS A REALIZED-VOL SCALE (X117; iv13.py, results/iv13.json, iv13_split.json; Deribit DVOL
+    at 1 min, 20,190 minutes 10-09..22, end < H): in the window-minute panel (minutes 1..4), earlier-move x log(DVOL / RV15) is
+    -2.40 (t -6.4) on BUILD and -2.80 (t -7.3) on VALIDATE; current-move x z +2.99 (t 2.4) / +3.01 (t 2.9): replicated. Split into
+    log RV15 and log DVOL, the earlier-move interaction is all realized vol (+2.13, t 4.9 / +2.79, t 7.4 on log RV), and DVOL's own
+    term is insignificant (t 1.15 / 0.24). The bot scales its buy-back by recent realized vol (moves in sigma units), which the nf
+    features already carry (rn*, sig, since_open_n); no new nf candidate was pre-registered. E4 (implied-vol fair value) is not
+    supported.
+11. THE WALLET THAT CARRIES AN ORDER IS NOT PREDICTABLE FROM PUBLIC STATE; THE LEG ORDER IS (X120 step 5 / X122 step 2; dispatch13.py,
+    share13 inline, results/dispatch13_2021.json, share13.json):
+    - On the archive decision clock (10-20 / 10-21; DS 64%, GF 29%, XM 6% of taker orders), a multiclass model on public state at the
+      decision (rel, ask level and changes, |spot tick|, hour) gets accuracy 0.612 / 0.677 against base rates of 0.607 / 0.674 (log
+      loss 0.80 / 0.71 vs 0.87 / 0.79). XM's share by predicted decile runs from 0.5% to 25%, so some states are XM states, but they
+      carry no side.
+    - Fan-out events (same token, match ms within 300 ms): 29,127 single-leg, 6,661 two-leg and 1,620 three-or-more-leg events. In
+      multi-leg events the FIRST leg is DS 79%, the SECOND GF 74%, the third DS 47% / GF 27% / XM 27%: a fixed leg order.
+    - Even with XM's TRUE per-window gross share times the PERFECT pooled net, XM's PnL r is only 0.406 (hour-of-day share 0.30):
+      condition 7 for XM needs the side of XM's own legs.
+12. THE PAY-UP RISES WITH THE LEG RANK AND DIFFERS BY WALLET (payrank13.py, results/payrank13.json; 2,476 calldata taker orders on 10-20
+    11:00 and 10-21 13:00 against the archive ask at arrival - 30 ms):
+    - limit - ask in cents: DS 0 for 87.5% (+1 c 7.1%); GF 0 for 49.5%, +1 c 41.4%; XM 0 for 31.5%, +1 c 35.0%, +2 c 16.8%, +3 c 11.2%.
+    - Mean premium by leg rank: first leg 0.18 c, second 0.78 c, third 0.72 c, later 1.11 c (single-leg events 0.15 c, multi-leg 0.60 c).
+      By wallet and rank: DS 0.10 / 0.51 / 0.97, GF 0.37 / 0.79 / 0.54, XM 0.96 / 1.33 / 1.34. The later legs price over the level the
+      earlier legs consume, and XM pays up even as a first leg.
+    - A per-wallet anchor ask + c_w (DS 0, GF 1 c, XM 1 c; chosen on the same orders, descriptive) is within a tick for 94.5% pooled
+      (DS 95.5%, GF 94.4%, XM 83.2%), against 92.7% (XM 66.4%) for the plain ask. Condition 7's price part for XM needs this per-wallet
+      term (VALIDATE-only, two calldata hours; not frozen).
+13. PER DECISION THE DECISION-CLOCK SIDE IS ~75%, PER ORDER 77% (dclegs13 inline, results/dclegs13.json; the dcside13 full model fit on
+    one of 10-20 / 10-21 and scored on the other). Fan-out follower legs score 80-87%: they arrive up to 300 ms after the first leg,
+    and their features already contain more of the move. FIRST legs, which are the operator's decisions, score 75.4% / 74.9%.
+    Single-leg orders: DS 74.0 / 73.6%, GF 79.0 / 78.5%, XM 77.4 / 85.5%. The honest decision-level figure is about 75%. The
+    per-order 77% is what an examiner scoring orders or fills would see.
+14. THE MISSING USD-M BOOKTICKER DOES NOT CLOSE THE GAP (rabbit13.py, session scratchpad it13/rabbit_bf13.py; results/rabbit13.json).
+    Source: RabbitGo777/polymarket.btc_20261020.v4.parquet, not gated, revision 1e0218e12491c7e1d6183350a424fb3489539129, a one-day
+    all-venue capture of 10-20 (binance 1.35 GB, bybit, okx, coinbase, chainlink, Polymarket 5m / 15m). The binance file has 200M
+    rows in 4,011 row groups (kind_local, e, ts_local in microseconds on a Finland collector, E_, b / B_ / a / A_). Its USD-M
+    BTCUSDT bookTicker rows were read for the 133 row groups wholly inside 10-20 11:00-12:00 UTC: 1.33M rows, ts_local - E_ =
+    136 ms median.
+    On the 926 operator taker orders of that hour:
+    - the USD-M microprice over [a - 250, a) agrees 72.7% on 98% of orders, against 70.9% on 89% for the archive's spot book;
+    - over 100 ms: 72.0% on 89%;
+    - the frozen-style vote with USD-M (0.002 bp, 500 ms): 64.6% on 32%;
+    - the decision-clock model (fit on 10-21, without USD-M): 76.5%. With the USD-M 250-ms tick taking precedence where it moved
+      it is 75.6%.
+    The live six-series 83% (10-31, a Saturday, on the voted 68%) is therefore not a missing-series effect. On VALIDATE weekdays
+    the public side information at the decision instant is ~75-77% at full coverage.
+15. PRE-REGISTRATION 3 SCORED: THE DECISION-CLOCK SIDE IS 76.3% ON 10-20..22, SUCCESS NOT MET (dcside13.py, results/dcside13.json).
+    - Ingest: trades-only (pmtx) for 10-17, 10-18, 10-19 and 10-22, so the Polymarket touch exists only on 10-20 / 10-21. Spot
+      book for all six days.
+    - Archive coverage of operator taker orders: 99.4% / 95.6% / 93.5% / 97.5% / 95.3% / 96.2% (10-17..22).
+    - Fit 10-17..19 -> score 10-20..22: full coverage per taker order 76.28% (DS 74.3%, GF 79.7%, XM 80.0%; by day 76.5 / 76.0 /
+      76.3%; large 78.3%, small 76.1%).
+    - The Polymarket features are missing on the fit days, so 'full' equals 'venue-only' (76.28%). Market-only: 50.4%.
+    - Reverse (fit 10-20..22 -> score 10-17..19, the weekend first): 74.1% (venue-only 75.9%).
+    - On the 61% of scored orders that fall in one-sided block seconds: decision clock 78.3% vs block-clock ps 81.9%.
+    Pre-registered success (>= 80%) is NOT met. The decision-clock side on VALIDATE is 74-77% per order and ~75% per decision.
+    The six-series live 83% was a voted subset on a Saturday (finding 14: no missing-series effect).
+
+16. FOR XM, THE WALLET THE SIDE CONDITION APPLIES TO, THE DECISION CLOCK PASSES 80% (dcwin13 inline, results/dcwin13.json; the
+    pre-registered model fitted on 10-17..19, saved as code/model_it13_dcside_A.txt, scored on 10-20..22).
+    - XM is one-sided by its taker orders in 172 of its 692 windows (24.9%; the condition applies at >= 20%). DS and GF are
+      one-sided in 0.1% and 1.7% of their windows, so the condition does not apply to them.
+    - XM's window side, predicted by the mean decision-clock probability of its orders in the window: 84.3% (by day 94.2 / 82.9 /
+      74.2%; 87.0% on the 69 multi-order windows).
+    - XM per taker order: 80.0% (by day 84.0 / 80.3 / 75.7%).
+    - The block clock gave XM 72.6% per one-sided second, 73.1% per taker order and 69% per window by first decision.
+    The daily spread (74-94% on ~57 windows a day) is wide, so condition 7's 3-point replication across halves is not assured.
+    This is the best side result so far for the wallet the examiner is likely to test. It is VALIDATE-only and not yet in
+    evaluate(); that is item 1 of the next iteration.
+
+Panel proposals of iteration 12 (catalog X113-X124) and what happened to them:
+- X113 (information P1, the public HF capture as the decision clock): steps 1-4 tried (findings 5-6 and 12). The pre-registered
+  10-17..19 -> 10-20..22 side split is below (run at the end of the iteration if the trades-only ingest completed). Step 5
+  (decision-level replica on the archive book) and step 6 (the exam route in evaluate()) are open. Open.
+- X114 (information P2, touch-queue fade): not tested. Open.
+- X115 (information P3, crowd co-arrival kernel search): not tested (needs the 11-01 feeds). Open.
+- X116 (information P4, settlement basis): tried, no gain (finding 9).
+- X117 (information P5, implied-vol scale): tried; the interaction is realized vol (finding 10).
+- X118 (mechanics P1, two-leg inventory policy): tried. The mechanism is confirmed (finding 4), the side tilt adds < 0.5 point, and
+  the two-leg tracker is X121's (not adopted).
+- X119 (mechanics P2, pre-onset repricing state): not tested. Open.
+- X120 (mechanics P3, per-wallet allocation of the two legs): steps 1-3 and 5 tried (findings 2, 3, 11); step 4 (version transfer)
+  not run. Tried.
+- X121 (assumptions P1, two-stream target): tried; pre-registered and not adopted (finding 3).
+- X122 (assumptions P2, dispatch roles and the attainability ledger): ledger done (findings 2, 11); role table and W4 / W5
+  test-retest open. Open.
+- X123 (assumptions P3, co-takers' signing ms as clocks): not tested. Open.
+- X124 (assumptions P4, the open as a decision type): step 1 on the archive (finding 8: not distinct); step 2 open. Open.
+- X84 (iteration-9 panel, large and small as two decision streams) is closed as tried with X121's evidence.
+
+## Next (iteration 14)
+
+1. The decision-clock exam route (X113 step 6). It is the top item, because XM's one-sided windows reach 81-84% at the decision
+   clock against 69-73% at the block clock (findings 16-17). The spot-book-only route is DONE: final_rule.evaluate() reports
+   'side_decision_clock' (code/dc_exam13.py, pre-registration 4). Still to do:
+   - route the full venue model (model_it13_dcside_A.txt: + Bybit ob, USD-M / ETH / OKX trades through final_rule's archive
+     helpers) the same way;
+   - decide, before the next exam, whether the decision-clock XM window side should become target_metrics.side_accuracy
+     (the condition applies to XM only);
+   - check the daily spread (74-94%) on the 10-31 / 11-01 development blocks, from the shared recorder's btc5m clob trades
+     with tx hashes.
+   Ingest politely: coalesced ranges, <= 2 threads, 429 backoff. The exam days' files must not be opened by me.
+2. Condition 7, price part: freeze the per-wallet / per-leg pay-up anchor (finding 12) on BUILD-era calldata hours (10-09..15
+   sample hours with the block-clock touch), then score it on the 10-20 / 10-21 archive orders.
+3. Presence gain margin (+0.054 vs the 0.05 bar): rebuild the block-second presence model and its market-activity baseline with
+   millisecond Binance spot book features that end before s - 1 (the archive, PIT by the block-time rule), fitted on 10-17..19 and
+   scored on 10-20..22, both models with the same data, pre-registered.
+4. On 11-01 06-12 (development, from 06:00 UTC): every pre-registered live test of iterations 9-12 (PIT vote / price / hazard, the
+   Coinbase class rule of cbx12 = X100 step 2, edge_rule_V8, size-from-tick, PolyBolt X76), and X114 / X115 / X119 / X123 on the
+   new feeds.
+5. Condition 5 stays bounded by the public share of the lean (r ~0.32 for L, 0.48 for the net). The remaining candidates are the
+   decision-level replica on the archive book (X113 step 5) and sub-second net-flow inputs. A further block-clock net-flow model is
+   not one.
+6. Still open from earlier: X5, X7 (funding), X9, X18, X26, X33, X36, X37, X44, X51, X53, X57, X59, X66, X70, X72, X76, X87, X88, X89, X90,
+   X93, X98, X99, X100, X101, X104, X105, X107, X108, X109, X111.
+
+Recorders at 02:51 UTC: shared recorder (pid 27184; clob_crypto, clob_wallets, rtds, sports connected), rec_lab6 v2 (14304),
+rec_exam7 (32576), rec_fam8 (20608), rec_exam8 launcher (19600, starts 11-02 05:59), rec_pb10 launcher (15792, starts 11-01
+06:00) and rec_eu11 (14192, asleep until 11-01 05:59): all alive. No new recorder this iteration. No polyrea bug found.
+Cache: it13/ adds ~19 MB (stream labels, two-stream predictions, the decision-clock frame). The stale iteration-5
+val_decision_presence.parquet (23 MB, used only by block_bins.py / decision_presence.py, which can rebuild it) was deleted, so
+.cache/re/btc5m-bot stays at ~1.55e9 bytes (1.44 GiB). The reduced HF capture (trades with server ms, touch, Binance spot book,
+RTDS) lives in the session scratchpad it13/hf_dl only (~1 GB). Re-ingest with it13/hfingest13.py (pinned revision, <= 2
+threads, coalesced ranges).
+
+Status after iteration 13: target not reached; target_metrics unchanged (presence 0.8747 vs 0.8211; side 0.7666; price 0.9512;
+PnL 0.4758 / 0.4404; coverage 1 / 1). What changed is the account of the two failing conditions:
+- condition 5 is bounded by the public share of the lean (two-stream models carry the same information);
+- condition 7 is bounded by dispatch for XM under every pooled-stream oracle (0.30-0.41);
+- the side at the true decision instant on VALIDATE is measurable from a public capture: 76.3% of taker orders at full coverage
+  on the pre-registered split (~75% per decision). It is not limited by a missing venue series (the USD-M bookTicker adds
+  nothing, finding 14) but by the late-window decisions and by DS's single-leg orders (74%).
+
+PRE-REGISTRATION 4 (03:06 UTC, before it is fitted or scored): the EXAM-ROUTE decision-clock side model uses only inputs that the
+public HF capture itself carries for every day, exam days included: Binance spot book microprice and mid returns over [a - K, a)
+for K = 100 / 250 / 500 / 1000 / 2000 ms and rel. LightGBM with dcside13's PARAMS / ROUNDS, fitted on the 10-17..19 operator taker
+orders and scored once on 10-20..22 (per order pooled and per wallet, and XM's one-sided windows). It goes into evaluate() as the
+reported component 'side_decision_clock' whatever its score. It does not replace the frozen block-clock side in target_metrics in
+this iteration.
+
+17. PRE-REGISTRATION 4 SCORED AND THE EXAM ROUTE BUILT (results/dcside13_spot.json; code/dc_exam13.py, model_it13_dcside_spot.txt;
+    final_rule.evaluate() now reports 'side_decision_clock').
+    - The spot-book-only model (fitted on 10-17..19), scored once on 10-20..22: 74.2% per taker order (DS 72.1%, GF 77.8%, XM
+      78.1%; by day 74.2 / 73.9 / 74.5%).
+    - XM's one-sided windows: 81.4% (by day 89.9 / 80.5 / 72.6%), against 84.3% for the full venue model, which needs
+      non-capture venue files and is therefore not exam-routed.
+    - End to end, decision_clock_side() on 10-20 11:00-12:00 reads only the overlapping row groups (53 s) and reproduces the
+      offline frame exactly (929 orders, 71.04%; DS 69.0%, GF 77.9%, XM 62.8%).
+    - The development guard skips every capture day file that starts at or after H. The examiner's ALLOW_SEALED = True reaches
+      the h1 / h2 day files that the listing shows exist.
+    - The full venue model (model_it13_dcside_A.txt, 76.3%) is saved for the next iteration. Its exam route needs the Bybit
+      ob / USD-M / OKX day archives that final_rule already downloads for the block-clock models.
+
+Catalog closures this iteration besides the panel items: X84 (two decision streams, iteration-9 panel) is closed as tried with X121's
+evidence. X59, X89 and X108 (anchor-interpolated historical match clocks) are closed as tried: X113 supersedes them, because the public
+capture gives the server-ms match time directly (97% of txs). Open after iteration 13: 36 items (state.json
+catalog_open_after_iteration13).
+18. NO VALID OUT-OF-TIME CHECK ON THE LIVE RECORDINGS (dclive13.py, results/dclive13.json). The frozen spot route was scored on the
+    2,155 live decisions of 10-31 12-18 with the spot bookTicker recorded by rec_exam7 (btc5m_xven 'bs'), shifted to the capture's
+    clock (laptop t - median(t - E) of the USD-M records, which is -1,406 ms, + 131 ms).
+    - The result is 59.6% (DS 59.8%, GF 59.9%, XM 58.4%; large 75.7%, small 58.7%; 64.8% in minutes 0-1).
+    - The recorder keeps price-change-only, 30-ms-coalesced quotes: 6.8 records/s against ~140/s in the capture. So the 100-250-ms
+      microprice returns the model depends on mostly do not exist there.
+    This is an input-density mismatch, not evidence against the model. It also means the future-block exams must read the
+    capture's own day files (which evaluate() does through dc_exam13), not the live recordings. An out-of-time development
+    check needs the capture's 10-31 / 11-01 day files. Those files also contain sealed blocks, so they stay unopened until the
+    question whether a footer-only row-group selection is allowed is settled (they are not opened now).
+Iteration 13 ended 03:15 UTC (about 73 minutes of work).

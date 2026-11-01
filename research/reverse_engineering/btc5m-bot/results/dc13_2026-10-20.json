@@ -1,0 +1,143 @@
+{
+ "day": "2026-10-20",
+ "taker_orders": 27709,
+ "with_archive_ms": 0.9747,
+ "btc_types": {
+  "book": 12170266,
+  "trade": 3046604,
+  "ticker": 81393
+ },
+ "btc_symbols": {
+  "BTCUSDT": 15216870,
+  "btc/usd": 81393
+ },
+ "spot_transit_ms_median": 132.0,
+ "block_clock_ps_on_same_orders": {
+  "coverage": 0.632,
+  "accuracy": 0.8256
+ },
+ "windows": {
+  "frozen_600_100": {
+   "per_series": {
+    "bs_book": {
+     "voted": 0.244,
+     "agree": 0.7263
+    },
+    "bf_trade": {
+     "voted": 0.5543,
+     "agree": 0.6448
+    }
+   },
+   "cover": 0.5724,
+   "agree_on_voted": 0.6566,
+   "placebo_cover": 0.4735,
+   "placebo_agree": 0.5056,
+   "full_coverage": {
+    "covered": 1.0,
+    "accuracy": 0.6258,
+    "by_source": {
+     "vote": [
+      0.6566,
+      15460
+     ],
+     "pm_ask_rose_600": [
+      0.6317,
+      5104
+     ],
+     "pm_ask_fell_3000": [
+      0.5369,
+      5262
+     ],
+     "underdog": [
+      0.5939,
+      1182
+     ]
+    },
+    "by_wallet": {
+     "DS": 0.5984,
+     "GF": 0.6853,
+     "XM": 0.668
+    }
+   },
+   "voted_by_size": {
+    "large": 0.7556,
+    "small": 0.6492
+   },
+   "by_wallet_voted": {
+    "DS": [
+     0.6393,
+     9819
+    ],
+    "GF": [
+     0.6976,
+     4514
+    ],
+    "XM": [
+     0.6433,
+     1127
+    ]
+   }
+  },
+  "pit_650_180": {
+   "per_series": {
+    "bs_book": {
+     "voted": 0.1864,
+     "agree": 0.6016
+    },
+    "bf_trade": {
+     "voted": 0.4999,
+     "agree": 0.5507
+    }
+   },
+   "cover": 0.5167,
+   "agree_on_voted": 0.5588,
+   "placebo_cover": 0.4631,
+   "placebo_agree": 0.5069,
+   "full_coverage": {
+    "covered": 1.0,
+    "accuracy": 0.5687,
+    "by_source": {
+     "vote": [
+      0.5588,
+      13955
+     ],
+     "pm_ask_rose_600": [
+      0.6703,
+      5523
+     ],
+     "pm_ask_fell_3000": [
+      0.4971,
+      6123
+     ],
+     "underdog": [
+      0.5792,
+      1407
+     ]
+    },
+    "by_wallet": {
+     "DS": 0.5372,
+     "GF": 0.6325,
+     "XM": 0.6396
+    }
+   },
+   "voted_by_size": {
+    "large": 0.6561,
+    "small": 0.5518
+   },
+   "by_wallet_voted": {
+    "DS": [
+     0.5326,
+     8854
+    ],
+    "GF": [
+     0.6073,
+     4016
+    ],
+    "XM": [
+     0.5926,
+     1085
+    ]
+   }
+  }
+ }
+}

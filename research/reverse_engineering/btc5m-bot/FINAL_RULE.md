@@ -1,4 +1,26 @@
-# btc5m-bot: frozen rule (iteration 12; presence / side / price unchanged since iteration 8; the PnL rule is the iteration-12 exposure tracker)
+# btc5m-bot: frozen rule (iteration 13; presence / side / price unchanged since iteration 8; the PnL rule is the iteration-12 exposure tracker)
+
+Iteration 13 in one paragraph (nothing in the scored rule or target_metrics changed and no candidate was adopted; `evaluate()`
+gains one reported component, `side_decision_clock`, described below). The inventory path is two
+operator-level streams. A LARGE-size lean is fanned out to every wallet (cross-wallet window-net correlation 0.35-0.47) and
+pyramided. A SMALL-size taker counter-flow buys the complement of the operator's REALIZED large inventory within about two
+minutes: on small-order seconds the realized large net has t = -26.5 beyond the frozen side model, a small-order placebo goes
+the other way (+4.0), and the crowd's flow has no effect. Inside each wallet the two streams cancel (corr -0.26 to -0.60),
+which is why the wallets' total nets look independent. A pre-registered two-stream net-flow model and tracker were NOT
+adopted (0.468 / 0.432 against 0.476 / 0.440): public data sees the same information either way (corr 0.957 with nf12b), and
+the public share of the window net is bounded by the public share of the lean (r ~0.32). Condition 7 is now a measured
+limit. Even a PERFECT copy of the pooled net gives XM only 0.30 (0.41 with XM's true per-window share, 0.04 from the other
+wallets' legs), because XM's PnL is the side of its own dispatched legs, and no public state predicts which wallet carries an
+order (accuracy 0.61 against a base rate of 0.61 at the decision clock). New data: a public CC0 capture of Polymarket's BTC 5m
+market channel (Hugging Face Fahri-5/updown-5m-polymarket-raw, revision f848a77c) gives the operator's server-ms match time
+for 97% of its VALIDATE txs. At that decision clock the side is the Binance spot microprice over the last 100-250 ms, which
+gives 77.2-77.3% of taker orders at full coverage (fit 10-20 -> score 10-21 and the reverse), +4.5 points over the
+block-clock per-order 72.7%. It is 81-83% in the first two minutes of the window and 62-72% after three, where the decisions
+mix weak tick-following with pairing; there is no settlement-TWAP lock-in. The block-clock side model's inputs end a median
+~0.2 s after the match, so part of its 76.7% is post-decision continuation. The limit is within a tick of the archive ask at
+the arrival for 93.4% of 2,476 calldata taker orders. Rejected this iteration: a settlement-basis input (no gain), an
+implied-vol scale of the buy-back (the replicated interaction is realized vol), and the open as a separate decision type.
+
 
 Iteration 12 in one paragraph (PIVOT: condition 5 as an exposure-path target). Per VALIDATE window the cluster's PnL is its
 signed net exposure times the outcome (r = 0.884 pooled, 0.887-0.921 per wallet), so the PnL condition does not need the
@@ -48,6 +70,14 @@ the size depends on the operator's own net (large orders pyramid the leg it hold
 true rule's test-retest correlation is only 0.47-0.58 pooled (0.41-0.62 per wallet). The per-window PnL is the large-order
 lean, a coin with respect to the outcome that race outcomes seed and the size rule amplifies, so condition 5 is at the edge
 of what even a perfect decode could reach. Target not reached; nothing is exam-verified.
+
+Iteration 13 addition to `evaluate()` (reported, not a target key): `side_decision_clock` (`code/dc_exam13.py`, pre-registration 4).
+For each cluster taker order it reads the matching-engine ms from the public CC0 capture Fahri-5/updown-5m-polymarket-raw
+(revision f848a77c, range requests over the row groups of the evaluation period only) and the Binance spot book of the same
+capture. The decision instant is a = m - 180 ms; the features are the microprice / mid returns over [a - K, a) and rel; the model is
+`model_it13_dcside_spot.txt`, frozen. It reports the per-order accuracy per wallet and per half, and the one-sided-window side per
+wallet. Development runs never open a capture day file that starts at or after H. The end-to-end check on 10-20 11:00-12:00
+reproduces the offline frame exactly (929 orders, 71.0%).
 
 Code: `code/final_rule.py`, `evaluate(start_ts, end_ts, intervals=None) -> dict` (with `intervals`, only windows that start
 in one of the `[a, b)` pairs count; live recordings are read through `iter_live(..., allow_sealed=ALLOW_SEALED)` with the
@@ -284,6 +314,11 @@ including the 10-31 live development blocks), **hypothesis** (supported by littl
 | oracle: own decisions, fills in the same block window | true size pool 0.68 / 0.66; 30 shares 0.26 / 0.31 | (ceiling of convention b) |
 | oracle: own orders, no fill model | 30 shares pool 0.41 / 0.49; size class (30 / 100) 0.88 / 0.87 | |
 | B1 ladder check (orders signed in the three predicted bursts) | 99.9% (chance 5%) | (component check) |
+| iteration 13: side at the DECISION clock (public HF capture, a = match - 180 ms; fit 10-20 -> score 10-21 and reverse; not frozen) | 77.2% / 77.3% of taker orders at full coverage (GF 81-82%, XM 80-85%, DS 75%); venue-only 76.1-76.3%; Polymarket-only 58.6-58.8%; 81-83% in minutes 0-2, 62-72% after 180 s | >= 80% (not met) |
+| iteration 13: `side_decision_clock` in evaluate() (pre-registration 4; spot-book-only exam route, `code/dc_exam13.py`, model fit on 10-17..19) | 74.2% per taker order on 10-20..22 (DS 72.1%, GF 77.8%, XM 78.1%); XM one-sided windows (24.9% of its windows) 81.4% (by day 89.9 / 80.5 / 72.6%); the full venue model (not exam-routed) 76.3% / XM windows 84.3% | >= 80% where the condition applies (XM) |
+| iteration 13: price at the decision clock (2,476 calldata taker orders, 10-20 / 10-21) | limit within a tick of the archive ask at the arrival 93.4% (exact 74.3%); per-wallet anchor ask + c_w (0 / 1 / 1 c) 94.5% (XM 83%); touch at the match 81.3% | >= 80% |
+| iteration 13: two-stream tracker (pre-registered, not adopted) | 0.4681 / 0.4320 vs the primary 0.4758 / 0.4404 | |
+| iteration 13: per-wallet PnL ceilings under PERFECT pooled-stream oracles (condition 7) | pooled net: GF 0.695, DS 0.630, XM 0.304; pooled large lean: GF 0.753, DS 0.339, XM 0.366; XM with its true per-window share 0.406; other wallets' legs only GF 0.420, DS 0.175, XM 0.036 | each >= 0.47 (XM unreachable by any pooled rule) |
 
 Live development blocks of 10-31 (not VALIDATE; reported for the future-block exam, never counted toward the target):
 
@@ -333,6 +368,14 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   of the lost races are maker requotes during the hold. The crowd it races is mostly driven by Polymarket's own activity
   (its fresh-signed decisions are predicted better by Polymarket trades than by the venues), the bot by the venue ticks.
 
+- **The inventory loop (iteration 13):** the window's unpaired position is built by the LARGE leg (fanned out to every wallet,
+  pyramided) and taken apart by the SMALL leg, whose side tilts toward the complement of the operator's REALIZED large fills
+  within ~2 minutes (t -26.5 beyond the side model; a small-fill placebo and the crowd's flow do not do this). The small leg
+  turns lean into locked sets; what is left unpaired at the end is the coin that carries the per-window PnL variance.
+  The side of each submission follows the last 100-250 ms of the Binance spot / perp microprice (77% of taker orders on
+  VALIDATE weekdays at the true decision instant, 81-83% in the first two minutes), i.e. the bot is paid for being ~100 ms
+  faster than the makers it lifts, not for a better forecast of the outcome.
+
 ## Can a normal user deploy it now
 
 - Location (iteration 11): the bot's limits match the Polymarket ask ~30 ms before its order arrives, while its reaction to
@@ -353,7 +396,22 @@ End-to-end `evaluate(1792706400, 1792713600)` (last 2 VALIDATE hours, 51 s, iter
   +0.5% before rebates for every size rule tried. Without the rebate a slow copy loses money; with it, it roughly breaks
   even. Dropping the large-size overlay would raise the bot's own return (small orders earn +0.2 to +1.3 c per share).
 
+- Iteration 13: the decision-clock side needs only public, historical data (the CC0 Hugging Face capture of Polymarket's market
+  channel and the Binance spot book at ms), so the side rule is reproducible by anyone near London; the edge it reflects is
+  speed against stale makers inside Polymarket's 150-ms taker delay, which a home connection does not have.
+
 ## Known limitations
+
+- Iteration 13, condition 7 is a MEASURED limit for XM, not a missing input (results/two13.json, share13.json). Per-wallet PnL r against PERFECT
+  oracles of the pooled operator streams: pooled net x outcome GF 0.695, DS 0.630, XM 0.304 (halves 0.32 / 0.29); pooled large lean GF 0.753,
+  DS 0.339, XM 0.366; BUILD-loaded L + S GF 0.766, DS 0.640, XM 0.218; XM's TRUE per-window gross share x the perfect pooled net 0.406; the
+  other wallets' legs alone GF 0.420, DS 0.175, XM 0.036. XM's PnL is the side of its own dispatched legs, and the wallet that carries an
+  order is barely predictable from public state at the decision clock (multiclass accuracy 0.61-0.68 vs base 0.61-0.67). With the current
+  public predictions the per-wallet tracker values are GF 0.34, DS 0.43, XM 0.06. Any pooled rule fails condition 7 for XM on VALIDATE.
+- Iteration 13, the side at the block clock: its inputs (spot closes <= block ts - 2 s, others' prints <= block ts - 1 s) end a median ~0.2 s
+  AFTER the operator's match (block - match 1.25 / 2.20 / 3.14 s), so part of the 76.7% is post-decision continuation. That is legal under the
+  block-time PIT rule but is co-movement rather than the decision's input. At the true decision instant (public HF capture) the public
+  venues give 77.2-77.3% per taker order at full coverage (VALIDATE 10-20 / 10-21), not yet frozen into evaluate() (exam route: X113 step 6).
 
 - Iteration 12 supersedes the decision-replay account below for the pooled PnL condition: the exposure tracker reaches
   0.476 / 0.440 under the >= 2 s convention (above the 0.40 'oracle' of the wallet's own decisions, because it re-sends

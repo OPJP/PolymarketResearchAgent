@@ -7417,6 +7417,1453 @@
     }
    },
    "verdict": "taker lean carries 70-79%; per-wallet replication needs the wallet's own taker leg"
+  },
+  {
+   "id": "H160",
+   "family": "two-stream decomposition (X121 / X118 step 0)",
+   "description": "cross-wallet and within-wallet correlations of large / small window nets; oracle ceilings per wallet",
+   "validate_metrics": {
+    "validate": {
+     "n_windows": 2016,
+     "cross_DS_GF": {
+      "L": 0.4557,
+      "S": 0.3499,
+      "T": 0.209
+     },
+     "cross_DS_XM": {
+      "L": 0.3463,
+      "S": 0.2453,
+      "T": 0.0011
+     },
+     "cross_GF_XM": {
+      "L": 0.4684,
+      "S": 0.5125,
+      "T": 0.1202
+     },
+     "within_corr_L_S": {
+      "GF": -0.5992,
+      "XM": -0.4626,
+      "DS": -0.2567,
+      "pool": -0.601
+     },
+     "sd": {
+      "L": 533.8,
+      "S": 325.0,
+      "N": 426.7
+     },
+     "corr_T_w_with_L_w": {
+      "GF": 0.9021,
+      "XM": 0.83,
+      "DS": 0.6049
+     },
+     "pnl_vs_net_x_outcome": {
+      "GF": 0.9213,
+      "XM": 0.9165,
+      "DS": 0.8874,
+      "pool": 0.8845
+     }
+    },
+    "oracle_ceilings_validate": {
+     "GF": {
+      "T_pool": 0.695,
+      "L_pool": 0.7529,
+      "aL_bS_pool_BUILDload": 0.7659,
+      "load_pool": [
+       0.333,
+       0.178
+      ],
+      "aL_bS_others_BUILDload": 0.4201,
+      "load_others": [
+       0.205,
+       -0.007
+      ],
+      "T_others": 0.1687,
+      "own_T": 0.9213,
+      "windows_with_fills": 1892
+     },
+     "XM": {
+      "T_pool": 0.3038,
+      "L_pool": 0.3664,
+      "aL_bS_pool_BUILDload": 0.2175,
+      "load_pool": [
+       0.292,
+       0.429
+      ],
+      "aL_bS_others_BUILDload": 0.0362,
+      "load_others": [
+       0.051,
+       0.06
+      ],
+      "T_others": 0.0658,
+      "own_T": 0.9165,
+      "windows_with_fills": 1727
+     },
+     "DS": {
+      "T_pool": 0.6299,
+      "L_pool": 0.3385,
+      "aL_bS_pool_BUILDload": 0.6396,
+      "load_pool": [
+       0.374,
+       0.393
+      ],
+      "aL_bS_others_BUILDload": 0.1748,
+      "load_others": [
+       0.223,
+       0.109
+      ],
+      "T_others": 0.1696,
+      "own_T": 0.8874,
+      "windows_with_fills": 1903
+     },
+     "pool": {
+      "T_pool": 0.8845,
+      "L_pool": 0.7767
+     }
+    }
+   },
+   "verdict": "streams real (L cross-wallet 0.35-0.47, within corr(L,S) -0.26..-0.60); XM bounded <= 0.37 by pooled oracles"
+  },
+  {
+   "id": "H161",
+   "family": "two-stream net-flow models + tracker (X121, pre-registered)",
+   "description": "L13 / S13 per-second LightGBM (nf12b + W13 features), trk_a_2s",
+   "validate_metrics": {
+    "window": {
+     "L13_vs_L": 0.3236,
+     "S13_vs_S": 0.0981,
+     "LS_vs_N": 0.4195,
+     "T13_vs_N": 0.4212,
+     "nf12b_vs_L": 0.3093,
+     "nf12b_vs_S": 0.0482,
+     "nf12b_vs_N": 0.4237,
+     "avg_it4b_nf12b_vs_N": 0.4797,
+     "avg_it4b_LS_vs_N": 0.4784,
+     "corr_LS_nf12b": 0.9566,
+     "corr_L13_S13": 0.4036,
+     "spearman_LS_vs_N": 0.4065,
+     "GF": {
+      "L13_vs_Lw": 0.2955,
+      "S13_vs_Sw": 0.0094,
+      "LS_vs_Tw": 0.305,
+      "nf12b_vs_Tw": 0.3077,
+      "avg_it4b_LS_vs_Tw": 0.3545
+     },
+     "XM": {
+      "L13_vs_Lw": 0.1758,
+      "S13_vs_Sw": -0.0403,
+      "LS_vs_Tw": 0.0804,
+      "nf12b_vs_Tw": 0.0817,
+      "avg_it4b_LS_vs_Tw": 0.0645
+     },
+     "DS": {
+      "L13_vs_Lw": 0.26,
+      "S13_vs_Sw": 0.1654,
+      "LS_vs_Tw": 0.3551,
+      "nf12b_vs_Tw": 0.3587,
+      "avg_it4b_LS_vs_Tw": 0.4099
+     }
+    },
+    "trk_a_2s": {
+     "pearson": 0.4681,
+     "spearman": 0.432
+    },
+    "trk_a_avg": {
+     "pearson": 0.4758,
+     "spearman": 0.4404
+    }
+   },
+   "verdict": "not adopted (lower on both); same public information as nf12b (corr 0.957)"
+  },
+  {
+   "id": "H162",
+   "family": "pairing kernel mechanism + side tilt (X118, pre-registered tilt)",
+   "description": "operator realized large net K_L (60-s decay) on small / large one-sided seconds; tilt cross-fit",
+   "validate_metrics": {
+    "mechanism": {
+     "small": {
+      "n": 71071,
+      "coef": {
+       "const": -0.0344,
+       "KL": -0.3038,
+       "KS": 0.0441,
+       "CR": -0.0001
+      },
+      "t": {
+       "const": -3.09,
+       "KL": -26.5,
+       "KS": 4.0,
+       "CR": -0.01
+      }
+     },
+     "large": {
+      "n": 19099,
+      "coef": {
+       "const": -0.0685,
+       "KL": 0.268,
+       "KS": 0.1211,
+       "CR": -0.0456
+      },
+      "t": {
+       "const": -2.84,
+       "KL": 8.56,
+       "KS": 5.12,
+       "CR": -1.71
+      }
+     },
+     "all": {
+      "n": 90170,
+      "coef": {
+       "const": -0.0404,
+       "KL": -0.1705,
+       "KS": 0.0732,
+       "CR": -0.0063
+      },
+      "t": {
+       "const": -3.98,
+       "KL": -16.73,
+       "KS": 7.39,
+       "CR": -0.6
+      }
+     }
+    },
+    "tilt": {
+     "acc_tilt": 0.7687,
+     "acc_psb": 0.7666
+    }
+   },
+   "verdict": "mechanism confirmed (t -26.5, placebo opposite, crowd null); tilt +0.2 point, success not met"
+  },
+  {
+   "id": "H163",
+   "family": "decision-clock side model (X113 step 3)",
+   "description": "HF capture match ms, a = m - 180; Binance spot book / Bybit / USD-M / OKX / Polymarket features; fit 10-20 -> 10-21 and reverse",
+   "validate_metrics": {
+    "fit_A_score_B": {
+     "full": {
+      "acc": 0.7715,
+      "by_wallet": {
+       "DS": 0.7476,
+       "GF": 0.8094,
+       "XM": 0.804
+      }
+     },
+     "importance_top12": {
+      "bs_mic_250": 0.2586,
+      "bs_mic_100": 0.2194,
+      "bs_mic_500": 0.0616,
+      "daskD_500": 0.0343,
+      "daskU_500": 0.033,
+      "by_btc_250": 0.0278,
+      "rel": 0.0256,
+      "bf_eth_100": 0.0232,
+      "bf_btc_1000": 0.0228,
+      "by_btc_100": 0.022,
+      "bs_mic_1000": 0.022,
+      "by_btc_500": 0.0218
+     },
+     "same_orders_with_ps": {
+      "n": 13829,
+      "dc_full_acc": 0.7909,
+      "block_ps_acc": 0.8152
+     },
+     "by_size": {
+      "large": 0.7966,
+      "small": 0.7695
+     },
+     "by_day": {
+      "2026-10-21": 0.7715
+     },
+     "market_only": {
+      "acc": 0.5879,
+      "by_wallet": {
+       "DS": 0.5664,
+       "GF": 0.6234,
+       "XM": 0.6107
+      }
+     },
+     "venue_only": {
+      "acc": 0.7629,
+      "by_wallet": {
+       "DS": 0.7409,
+       "GF": 0.795,
+       "XM": 0.806
+      }
+     }
+    },
+    "fit_B_score_A": {
+     "full": {
+      "acc": 0.7731,
+      "by_wallet": {
+       "DS": 0.7475,
+       "GF": 0.8218,
+       "XM": 0.8472
+      }
+     },
+     "importance_top12": {
+      "bs_mic_250": 0.2607,
+      "bs_mic_100": 0.1909,
+      "bs_mic_500": 0.0914,
+      "rel": 0.0339,
+      "daskD_500": 0.0336,
+      "by_eth_250": 0.0253,
+      "bs_mic_1000": 0.0247,
+      "by_btc_250": 0.0232,
+      "daskU_500": 0.023,
+      "by_btc_500": 0.0228,
+      "daskU_3000": 0.0179,
+      "askD_0": 0.0176
+     },
+     "same_orders_with_ps": {
+      "n": 17070,
+      "dc_full_acc": 0.7988,
+      "block_ps_acc": 0.8256
+     },
+     "by_size": {
+      "large": 0.8428,
+      "small": 0.7686
+     },
+     "by_day": {
+      "2026-10-20": 0.7731
+     },
+     "market_only": {
+      "acc": 0.5855,
+      "by_wallet": {
+       "DS": 0.5586,
+       "GF": 0.6345,
+       "XM": 0.6734
+      }
+     },
+     "venue_only": {
+      "acc": 0.7612,
+      "by_wallet": {
+       "DS": 0.7346,
+       "GF": 0.8113,
+       "XM": 0.8404
+      }
+     }
+    },
+    "own_state": {
+     "fit_2026-10-20": {
+      "acc": 0.7758,
+      "by_wallet": {
+       "DS": 0.7523,
+       "GF": 0.8109,
+       "XM": 0.8173
+      },
+      "small": 0.7762,
+      "large": 0.7703
+     },
+     "fit_2026-10-21": {
+      "acc": 0.7741,
+      "by_wallet": {
+       "DS": 0.7478,
+       "GF": 0.8223,
+       "XM": 0.858
+      },
+      "small": 0.7717,
+      "large": 0.8098
+     }
+    }
+   },
+   "verdict": "77.2-77.3% full coverage per order (+4.5 over the block-clock per-order 72.7%); below 80%; pre-registered 10-17..19 split pending"
+  },
+  {
+   "id": "H164",
+   "family": "late-window side drivers / settlement TWAP lock-in (B3b)",
+   "description": "agreement of late decisions with partial TWAP, Chainlink favourite, complement of net, tick",
+   "validate_metrics": {
+    "fav_spot": {
+     "0-60": [
+      0.4978,
+      13484
+     ],
+     "60-180": [
+      0.4959,
+      21107
+     ],
+     "180-240": [
+      0.5,
+      10561
+     ],
+     "240-270": [
+      0.5005,
+      3085
+     ],
+     "270-300": [
+      null,
+      0
+     ]
+    },
+    "fav_chainlink": {
+     "0-60": [
+      0.4501,
+      13484
+     ],
+     "60-180": [
+      0.4412,
+      21107
+     ],
+     "180-240": [
+      0.4819,
+      10561
+     ],
+     "240-270": [
+      0.529,
+      3085
+     ],
+     "270-300": [
+      null,
+      0
+     ]
+    },
+    "twap_part_fav": {
+     "0-60": [
+      null,
+      0
+     ],
+     "60-180": [
+      null,
+      0
+     ],
+     "180-240": [
+      null,
+      0
+     ],
+     "240-270": [
+      0.5196,
+      2852
+     ],
+     "270-300": [
+      null,
+      0
+     ]
+    },
+    "underdog": {
+     "0-60": [
+      0.5456,
+      13484
+     ],
+     "60-180": [
+      0.5481,
+      21107
+     ],
+     "180-240": [
+      0.5208,
+      10561
+     ],
+     "240-270": [
+      0.4823,
+      3085
+     ],
+     "270-300": [
+      null,
+      0
+     ]
+    },
+    "complement_of_net": {
+     "0-60": [
+      0.5278,
+      11525
+     ],
+     "60-180": [
+      0.5322,
+      21073
+     ],
+     "180-240": [
+      0.5554,
+      10561
+     ],
+     "240-270": [
+      0.5864,
+      3085
+     ],
+     "270-300": [
+      null,
+      0
+     ]
+    },
+    "bs_mic_250": {
+     "0-60": [
+      0.7463,
+      12799
+     ],
+     "60-180": [
+      0.7313,
+      19877
+     ],
+     "180-240": [
+      0.6585,
+      9715
+     ],
+     "240-270": [
+      0.6179,
+      2842
+     ],
+     "270-300": [
+      null,
+      0
+     ]
+    },
+    "twap_part_fav_near_strike_240_300": 0.52,
+    "twap_part_fav_far_strike_240_300": 0.5193
+   },
+   "verdict": "no TWAP lock-in (52%); late = weak tick + pairing"
+  },
+  {
+   "id": "H165",
+   "family": "opening decision type (X124 step 1)",
+   "description": "decisions in [0, 15) s vs later: tick, exact-strike value, P(large)",
+   "validate_metrics": {
+    "tick_bs_mic_250": {
+     "-60-0": [
+      null,
+      0
+     ],
+     "0-15": [
+      0.738,
+      3679
+     ],
+     "15-30": [
+      0.7499,
+      3327
+     ],
+     "30-300": [
+      0.7071,
+      38227
+     ]
+    },
+    "value_exact_strike": {
+     "-60-0": [
+      null,
+      0
+     ],
+     "0-15": [
+      0.4495,
+      3831
+     ],
+     "15-30": [
+      0.4553,
+      3514
+     ],
+     "30-300": [
+      0.4696,
+      40892
+     ]
+    },
+    "underdog": {
+     "-60-0": [
+      null,
+      0
+     ],
+     "0-15": [
+      0.5176,
+      3831
+     ],
+     "15-30": [
+      0.5652,
+      3514
+     ],
+     "30-300": [
+      0.5366,
+      40892
+     ]
+    },
+    "fav_exact_strike": {
+     "-60-0": [
+      null,
+      0
+     ],
+     "0-15": [
+      0.4798,
+      3831
+     ],
+     "15-30": [
+      0.4311,
+      3514
+     ],
+     "30-300": [
+      0.4585,
+      40892
+     ]
+    },
+    "p_large": {
+     "-60-0": NaN,
+     "0-15": 0.0903,
+     "15-30": 0.0652,
+     "30-300": 0.0658
+    },
+    "open_value_gap_abs_q": [
+     0.0358,
+     0.0779,
+     0.1335
+    ],
+    "open_value_side_when_gap_gt_5c": [
+     0.4334,
+     2531
+    ]
+   },
+   "verdict": "not a distinct decision type"
+  },
+  {
+   "id": "H166",
+   "family": "settlement basis (X116, pre-registered)",
+   "description": "Chainlink - Binance basis terms on the window-net residual",
+   "validate_metrics": {
+    "fit_17_19_score_20_22": {
+     "beta": {
+      "const": -356.23,
+      "b_open": -3.4,
+      "db0": -5.07,
+      "db1": -4.27,
+      "db2": 1.46,
+      "db3": 3.98,
+      "db4": -0.65
+     },
+     "r_base": 0.5043,
+     "r_aug": 0.4974,
+     "gain": -0.007,
+     "r_pred_residual": 0.033
+    },
+    "fit_20_22_score_17_19": {
+     "beta": {
+      "const": -76.38,
+      "b_open": -0.33,
+      "db0": -2.34,
+      "db1": -1.04,
+      "db2": 3.21,
+      "db3": 1.2,
+      "db4": 2.17
+     },
+     "r_base": 0.488,
+     "r_aug": 0.4884,
+     "gain": 0.0004,
+     "r_pred_residual": 0.0343
+    }
+   },
+   "verdict": "no gain (-0.007 / +0.0004)"
+  },
+  {
+   "id": "H167",
+   "family": "implied vs realized vol scale of the buy-back (X117)",
+   "description": "window-minute panel with DVOL / RV interactions",
+   "validate_metrics": {
+    "iv13": {
+     "dvol_minutes": 20190,
+     "z_q": [
+      -0.175,
+      0.473,
+      0.798,
+      1.18,
+      1.804
+     ],
+     "BUILD": {
+      "n": 8028,
+      "coef": {
+       "w": 9.751,
+       "E": -3.716,
+       "zc": 2.653,
+       "w_z": 2.993,
+       "E_z": -2.4
+      },
+      "t": {
+       "w": 10.61,
+       "E": -9.39,
+       "zc": 0.75,
+       "w_z": 2.43,
+       "E_z": -6.4
+      },
+      "R2": 0.0307
+     },
+     "VALIDATE": {
+      "n": 8064,
+      "coef": {
+       "w": 9.449,
+       "E": -4.181,
+       "zc": -7.765,
+       "w_z": 3.009,
+       "E_z": -2.799
+      },
+      "t": {
+       "w": 12.34,
+       "E": -13.32,
+       "zc": -1.9,
+       "w_z": 2.91,
+       "E_z": -7.34
+      },
+      "R2": 0.0467
+     }
+    },
+    "split": {
+     "BUILD": {
+      "w": [
+       9.81,
+       10.57
+      ],
+      "E": [
+       -3.71,
+       -9.64
+      ],
+      "w_rv": [
+       -2.03,
+       -1.49
+      ],
+      "E_rv": [
+       2.13,
+       4.92
+      ],
+      "w_dv": [
+       -45.71,
+       -1.53
+      ],
+      "E_dv": [
+       13.18,
+       1.15
+      ]
+     },
+     "VALIDATE": {
+      "w": [
+       9.4,
+       11.99
+      ],
+      "E": [
+       -4.17,
+       -13.37
+      ],
+      "w_rv": [
+       -2.99,
+       -2.89
+      ],
+      "E_rv": [
+       2.79,
+       7.44
+      ],
+      "w_dv": [
+       11.93,
+       0.33
+      ],
+      "E_dv": [
+       3.56,
+       0.24
+      ]
+     }
+    }
+   },
+   "verdict": "replicated interaction is realized vol; IV not supported"
+  },
+  {
+   "id": "H168",
+   "family": "decision-clock price (X113 step 4)",
+   "description": "taker limit vs archive ask at arrival - Lambda",
+   "validate_metrics": {
+    "taker_buy_orders_in_sample": 11382,
+    "matched": 2476,
+    "ask_m": {
+     "within_tick": 0.813,
+     "exact": 0.4237,
+     "above_by_1c_plus": 0.0739,
+     "n": 2476
+    },
+    "ask_0": {
+     "within_tick": 0.9342,
+     "exact": 0.7431,
+     "above_by_1c_plus": 0.231,
+     "n": 2476
+    },
+    "ask_30": {
+     "within_tick": 0.9273,
+     "exact": 0.733,
+     "above_by_1c_plus": 0.2407,
+     "n": 2476
+    },
+    "ask_100": {
+     "within_tick": 0.8918,
+     "exact": 0.6381,
+     "above_by_1c_plus": 0.2997,
+     "n": 2476
+    },
+    "ask_180": {
+     "within_tick": 0.8102,
+     "exact": 0.5392,
+     "above_by_1c_plus": 0.3481,
+     "n": 2476
+    },
+    "ask_500": {
+     "within_tick": 0.6187,
+     "exact": 0.3643,
+     "above_by_1c_plus": 0.4136,
+     "n": 2476
+    },
+    "by_wallet_ask_30": {
+     "GF": 0.9148,
+     "XM": 0.6643,
+     "DS": 0.9552
+    }
+   },
+   "verdict": "93.4% within a tick at the arrival; trivial touch anchor"
+  },
+  {
+   "id": "H169",
+   "family": "dispatch predictability (X120 step 5 / X122 step 2)",
+   "description": "multiclass P(wallet | public state at the decision), fan-out leg order",
+   "validate_metrics": {
+    "share": {
+     "DS": 0.6444,
+     "GF": 0.2939,
+     "XM": 0.0618
+    },
+    "fit_2026-10-20": {
+     "acc": 0.6122,
+     "acc_base": 0.607,
+     "logloss": 0.8013,
+     "logloss_base": 0.8652,
+     "xm_share_by_pred_decile": [
+      0.0066,
+      0.0057,
+      0.0108,
+      0.0146,
+      0.0203,
+      0.0452,
+      0.0697,
+      0.1008,
+      0.1748,
+      0.2581
+     ]
+    },
+    "fit_2026-10-21": {
+     "acc": 0.6768,
+     "acc_base": 0.6737,
+     "logloss": 0.7143,
+     "logloss_base": 0.7888,
+     "xm_share_by_pred_decile": [
+      0.0048,
+      0.0033,
+      0.0078,
+      0.0067,
+      0.0133,
+      0.0185,
+      0.0363,
+      0.0718,
+      0.1392,
+      0.2458
+     ]
+    },
+    "legs_per_event": {
+     "1": 29127,
+     "2": 6661,
+     "3": 1126,
+     "4": 338,
+     "5": 109,
+     "6": 47
+    },
+    "first_leg_share": {
+     "DS": 0.7641,
+     "GF": 0.1935,
+     "XM": 0.0424
+    },
+    "first_leg_share_multi": {
+     "DS": 0.7877,
+     "GF": 0.1439,
+     "XM": 0.0684
+    },
+    "wallets_in_event_xm_share_by_rank": {
+     "0": {
+      "DS": 0.7877,
+      "GF": 0.1439,
+      "XM": 0.0684
+     },
+     "1": {
+      "DS": 0.1646,
+      "GF": 0.7403,
+      "XM": 0.0951
+     },
+     "2": {
+      "DS": 0.4663,
+      "GF": 0.2686,
+      "XM": 0.265
+     }
+    }
+   },
+   "verdict": "barely above base rate; DS-first / GF-second"
+  },
+  {
+   "id": "H170",
+   "family": "per-wallet / per-leg pay-up (X113 step 4 follow-up)",
+   "description": "limit - archive ask at arrival - 30 ms by wallet and fan-out leg rank",
+   "validate_metrics": {
+    "n": 2476,
+    "premium_by_wallet": {
+     "DS": {
+      "-2": 0.007,
+      "-1": 0.01,
+      "0": 0.875,
+      "1": 0.071,
+      "2": 0.019,
+      "3": 0.007,
+      "4": 0.012
+     },
+     "GF": {
+      "-2": 0.013,
+      "-1": 0.007,
+      "0": 0.495,
+      "1": 0.414,
+      "2": 0.035,
+      "3": 0.021,
+      "4": 0.015
+     },
+     "XM": {
+      "-2": 0.014,
+      "-1": 0.007,
+      "0": 0.315,
+      "1": 0.35,
+      "2": 0.168,
+      "3": 0.112,
+      "4": 0.035
+     }
+    },
+    "mean_premium_by_rank": {
+     "0": [
+      0.183,
+      1914
+     ],
+     "1": [
+      0.777,
+      394
+     ],
+     "2": [
+      0.72,
+      93
+     ],
+     "3": [
+      1.107,
+      75
+     ]
+    },
+    "mean_premium_single_vs_multi": {
+     "single": 0.154,
+     "multi": 0.598
+    },
+    "by_wallet_rank": {
+     "DS_0": [
+      0.099,
+      1501
+     ],
+     "DS_1": [
+      0.514,
+      74
+     ],
+     "DS_2": [
+      0.974,
+      77
+     ],
+     "GF_0": [
+      0.373,
+      332
+     ],
+     "GF_1": [
+      0.786,
+      290
+     ],
+     "GF_2": [
+      0.542,
+      59
+     ],
+     "XM_0": [
+      0.963,
+      81
+     ],
+     "XM_1": [
+      1.333,
+      30
+     ],
+     "XM_2": [
+      1.344,
+      32
+     ]
+    },
+    "within_tick_ask": {
+     "pool": 0.9273,
+     "DS": 0.9552,
+     "GF": 0.9148,
+     "XM": 0.6643
+    },
+    "within_tick_ask_plus_cw": {
+     "pool": 0.9451,
+     "DS": 0.9552,
+     "GF": 0.9442,
+     "XM": 0.8322
+    }
+   },
+   "verdict": "premium rises with leg rank; XM pays up 1-3 c; ask + c_w within a tick 94.5% (XM 83%)"
+  },
+  {
+   "id": "H171",
+   "family": "decision-clock side + signed flow / imbalance (secondary, not pre-registered)",
+   "description": "dcside13 with DC_EXTRA=1 on 10-20 / 10-21",
+   "validate_metrics": {
+    "fit_A_score_B": {
+     "acc": 0.7761,
+     "by_wallet": {
+      "DS": 0.7533,
+      "GF": 0.8108,
+      "XM": 0.8133
+     }
+    },
+    "fit_B_score_A": {
+     "acc": 0.7767,
+     "by_wallet": {
+      "DS": 0.7513,
+      "GF": 0.8248,
+      "XM": 0.8506
+     }
+    }
+   },
+   "verdict": "+0.4 point (77.6-77.7%); saturates below 80%"
+  },
+  {
+   "id": "H172",
+   "family": "decision-clock side per decision vs per order (X113)",
+   "description": "first legs vs follower legs of fan-out events",
+   "validate_metrics": {
+    "2026-10-20": {
+     "single_leg": {
+      "DS": [
+       0.7395,
+       8997
+      ],
+      "GF": [
+       0.7903,
+       3272
+      ],
+      "XM": [
+       0.7744,
+       523
+      ]
+     },
+     "multi_leg_first": {
+      "DS": [
+       0.7544,
+       2695
+      ],
+      "GF": [
+       0.7637,
+       622
+      ],
+      "XM": [
+       0.7148,
+       277
+      ]
+     },
+     "multi_leg_follow": {
+      "DS": [
+       0.8065,
+       1194
+      ],
+      "GF": [
+       0.8342,
+       2949
+      ],
+      "XM": [
+       0.8514,
+       700
+      ]
+     },
+     "events_acc_first_leg": 0.7537
+    },
+    "2026-10-21": {
+     "single_leg": {
+      "DS": [
+       0.7357,
+       13063
+      ],
+      "GF": [
+       0.7845,
+       2775
+      ],
+      "XM": [
+       0.8551,
+       497
+      ]
+     },
+     "multi_leg_first": {
+      "DS": [
+       0.7538,
+       3851
+      ],
+      "GF": [
+       0.7439,
+       574
+      ],
+      "XM": [
+       0.7835,
+       291
+      ]
+     },
+     "multi_leg_follow": {
+      "DS": [
+       0.8409,
+       1282
+      ],
+      "GF": [
+       0.8559,
+       3984
+      ],
+      "XM": [
+       0.8698,
+       691
+      ]
+     },
+     "events_acc_first_leg": 0.7491
+    }
+   },
+   "verdict": "per decision ~75%, per order 77%"
+  },
+  {
+   "id": "H173",
+   "family": "USD-M bookTicker at the decision clock (X113)",
+   "description": "RabbitGo777 10-20 11-12 UTC USD-M microprice vs the archive spot book on the same orders",
+   "validate_metrics": {
+    "orders": 926,
+    "usdm_rows": 1334226,
+    "ts_local_minus_E_ms_median": 135.8,
+    "usdm_100": [
+     0.7197,
+     0.8898
+    ],
+    "spot_100_same_orders": [
+     0.6983,
+     0.716
+    ],
+    "usdm_250": [
+     0.7272,
+     0.9816
+    ],
+    "spot_250_same_orders": [
+     0.7089,
+     0.8942
+    ],
+    "usdm_500": [
+     0.6991,
+     0.9978
+    ],
+    "spot_500_same_orders": [
+     0.6711,
+     0.9816
+    ],
+    "usdm_1000": [
+     0.6447,
+     1.0
+    ],
+    "spot_1000_same_orders": [
+     0.6303,
+     0.9989
+    ],
+    "vote_two_series_500": {
+     "cover": 0.3294,
+     "agree": 0.659
+    },
+    "vote_spot_only_500": {
+     "cover": 0.149,
+     "agree": 0.5507
+    },
+    "vote_usdm_only_500": {
+     "cover": 0.3175,
+     "agree": 0.6463
+    },
+    "dc_model_same_orders": 0.7646,
+    "usdm250_vote_then_model": 0.7559
+   },
+   "verdict": "no gain: the side information at the decision instant is ~75-77% on VALIDATE weekdays"
+  },
+  {
+   "id": "H174",
+   "family": "decision-clock side, pre-registered split (pre-registration 3)",
+   "description": "fit 10-17..19 -> score 10-20..22",
+   "validate_metrics": {
+    "coverage_archive_ms": {
+     "2026-10-17": [
+      11353,
+      11417
+     ],
+     "2026-10-18": [
+      13132,
+      13733
+     ],
+     "2026-10-19": [
+      19729,
+      21096
+     ],
+     "2026-10-20": [
+      27008,
+      27709
+     ],
+     "2026-10-21": [
+      21229,
+      22282
+     ],
+     "2026-10-22": [
+      25340,
+      26352
+     ]
+    },
+    "fit_days": [
+     "2026-10-17",
+     "2026-10-18",
+     "2026-10-19"
+    ],
+    "days": [
+     "2026-10-17",
+     "2026-10-18",
+     "2026-10-19",
+     "2026-10-20",
+     "2026-10-21",
+     "2026-10-22"
+    ],
+    "fit_A_score_B": {
+     "full": {
+      "acc": 0.7628,
+      "by_wallet": {
+       "DS": 0.7425,
+       "GF": 0.7972,
+       "XM": 0.7997
+      }
+     },
+     "importance_top12": {
+      "bs_mic_250": 0.3415,
+      "bs_mic_100": 0.1564,
+      "bs_mic_500": 0.1064,
+      "rel": 0.0507,
+      "bf_btc_1000": 0.0449,
+      "bs_mic_1000": 0.0334,
+      "by_btc_250": 0.0236,
+      "bf_eth_100": 0.0229,
+      "by_btc_500": 0.02,
+      "by_btc_100": 0.0193,
+      "by_eth_1000": 0.0182,
+      "by_eth_250": 0.0141
+     },
+     "same_orders_with_ps": {
+      "n": 48705,
+      "dc_full_acc": 0.7831,
+      "block_ps_acc": 0.8193
+     },
+     "by_size": {
+      "large": 0.7834,
+      "small": 0.7613
+     },
+     "by_day": {
+      "2026-10-20": 0.7651,
+      "2026-10-21": 0.7595,
+      "2026-10-22": 0.7631
+     },
+     "market_only": {
+      "acc": 0.504,
+      "by_wallet": {
+       "DS": 0.5038,
+       "GF": 0.5038,
+       "XM": 0.5081
+      }
+     },
+     "venue_only": {
+      "acc": 0.7628,
+      "by_wallet": {
+       "DS": 0.7425,
+       "GF": 0.7972,
+       "XM": 0.7997
+      }
+     }
+    },
+    "fit_B_score_A": {
+     "full": {
+      "acc": 0.7408,
+      "by_wallet": {
+       "DS": 0.7166,
+       "GF": 0.7876,
+       "XM": 0.7796
+      }
+     },
+     "importance_top12": {
+      "bs_mic_250": 0.2848,
+      "bs_mic_100": 0.1806,
+      "bs_mic_500": 0.1351,
+      "rel": 0.0343,
+      "bs_mic_1000": 0.0331,
+      "daskD_500": 0.0263,
+      "daskU_500": 0.0258,
+      "by_btc_250": 0.025,
+      "by_btc_500": 0.0235,
+      "bf_eth_100": 0.0199,
+      "daskU_3000": 0.0159,
+      "by_btc_100": 0.0152
+     },
+     "same_orders_with_ps": {
+      "n": 31340,
+      "dc_full_acc": 0.776,
+      "block_ps_acc": 0.8055
+     },
+     "by_size": {
+      "large": 0.7096,
+      "small": 0.7524
+     },
+     "by_day": {
+      "2026-10-17": 0.7529,
+      "2026-10-18": 0.7422,
+      "2026-10-19": 0.7329
+     },
+     "market_only": {
+      "acc": 0.5014,
+      "by_wallet": {
+       "DS": 0.5021,
+       "GF": 0.4989,
+       "XM": 0.5059
+      }
+     },
+     "venue_only": {
+      "acc": 0.7588,
+      "by_wallet": {
+       "DS": 0.7341,
+       "GF": 0.8047,
+       "XM": 0.8068
+      }
+     }
+    }
+   },
+   "verdict": "success >= 0.80 not met"
+  },
+  {
+   "id": "H175",
+   "family": "exam-route decision-clock side (pre-registration 4)",
+   "description": "spot-book-only LightGBM fit 10-17..19, scored 10-20..22; XM one-sided windows",
+   "validate_metrics": {
+    "features": [
+     "rel",
+     "bs_mic_100",
+     "bs_mic_250",
+     "bs_mic_500",
+     "bs_mic_1000",
+     "bs_mic_2000",
+     "bs_mid_100",
+     "bs_mid_250",
+     "bs_mid_500",
+     "bs_mid_1000",
+     "bs_mid_2000"
+    ],
+    "per_order": 0.7421,
+    "by_wallet": {
+     "DS": 0.7208,
+     "GF": 0.7779,
+     "XM": 0.781
+    },
+    "by_day": {
+     "2026-10-20": 0.7417,
+     "2026-10-21": 0.7388,
+     "2026-10-22": 0.7451
+    },
+    "XM_one_sided_windows": [
+     172,
+     692
+    ],
+    "XM_one_sided_window_acc": 0.814,
+    "XM_one_sided_by_day": {
+     "2026-10-20": 0.8986,
+     "2026-10-21": 0.8049,
+     "2026-10-22": 0.7258
+    }
+   },
+   "verdict": "74.2% per order; XM windows 81.4%; in evaluate() as side_decision_clock"
+  },
+  {
+   "id": "H176",
+   "family": "XM one-sided window side at the decision clock (full venue model)",
+   "description": "window side = mean predicted probability of XM's orders",
+   "validate_metrics": {
+    "per_order_by_wallet_halves": {
+     "DS": {
+      "all": 0.7425,
+      "by_day": {
+       "2026-10-20": 0.7375,
+       "2026-10-21": 0.7366,
+       "2026-10-22": 0.7534
+      }
+     },
+     "GF": {
+      "all": 0.7972,
+      "by_day": {
+       "2026-10-20": 0.8184,
+       "2026-10-21": 0.7931,
+       "2026-10-22": 0.782
+      }
+     },
+     "XM": {
+      "all": 0.7997,
+      "by_day": {
+       "2026-10-20": 0.8398,
+       "2026-10-21": 0.8033,
+       "2026-10-22": 0.7572
+      }
+     }
+    },
+    "XM_windows": 692,
+    "XM_one_sided_windows_by_taker_orders": 172,
+    "XM_one_sided_share": 0.2486,
+    "XM_one_sided_window_side_acc": 0.843,
+    "XM_one_sided_window_side_acc_by_day": {
+     "2026-10-20": 0.942,
+     "2026-10-21": 0.8293,
+     "2026-10-22": 0.7419
+    },
+    "XM_one_sided_multi_order_windows": 69,
+    "XM_one_sided_multi_order_acc": 0.8696,
+    "DS_one_sided_share": 0.0013,
+    "DS_one_sided_window_acc": 1.0,
+    "GF_one_sided_share": 0.0172,
+    "GF_one_sided_window_acc": 0.8462
+   },
+   "verdict": "XM windows 84.3% (24.9% one-sided); DS / GF not one-sided"
+  },
+  {
+   "id": "H177",
+   "family": "out-of-time check of the exam-route side on live recordings (10-31 12-18)",
+   "description": "frozen model_it13_dcside_spot on 2,155 live decisions with rec_exam7's price-change-only, 30-ms-coalesced spot bookTicker",
+   "validate_metrics": {
+    "decisions": 2155,
+    "bs_records": 73705,
+    "laptop_lag_bf_ms": -1406.0,
+    "accuracy": 0.5958,
+    "by_wallet": {
+     "DS": [
+      0.5984,
+      1230
+     ],
+     "GF": [
+      0.5992,
+      509
+     ],
+     "XM": [
+      0.5841,
+      416
+     ]
+    },
+    "large": 0.7568,
+    "small": 0.5871,
+    "by_rel": {
+     "0-120": [
+      0.6482,
+      847
+     ],
+     "120-180": [
+      0.59,
+      561
+     ],
+     "180-300": [
+      0.5408,
+      747
+     ]
+    },
+    "XM_windows": 33,
+    "XM_one_sided": 2,
+    "XM_one_sided_window_acc": 1.0
+   },
+   "verdict": "59.6%: input-density mismatch (6.8 vs ~140 records/s); the exam route must read the capture's own day files"
   }
  ],
  "data_sources": [
@@ -7466,7 +8913,10 @@
   "Iteration 12: data-api taker tapes of the 2,016 VALIDATE and 2,016 BUILD windows rebuilt from the shared HTTP cache into the session scratchpad (tapes12.py; not kept)",
   "Iteration 12: it12/nf12_val.parquet, nf12b_val.parquet, nf12c_val.parquet (VALIDATE predictions of the BUILD-fitted net-flow models), it12_win_net.parquet",
   "Iteration 12: btc5m_venues2 Coinbase 'cbT' ticker at the 10-31 onsets (cbx12.py)",
-  "Iteration 12: fingerprint census of the 10-31 match-tx calldata (it9/cd9 + it10/cdall10): burst phase, pre-signing lag, same-ms copies per wallet"
+  "Iteration 12: fingerprint census of the 10-31 match-tx calldata (it9/cd9 + it10/cdall10): burst phase, pre-signing lag, same-ms copies per wallet",
+  "Iteration 13: Hugging Face Fahri-5/updown-5m-polymarket-raw (CC0, not gated), revision f848a77ccfce4421d3cedbbe585576db77d36662, polymarket/ and btc/ day files for 10-17..22 only, read by HTTP range requests and reduced at once (trades with server ms + tx hash, touch changes, Binance spot book / trades, RTDS Chainlink); reduced copies in the session scratchpad it13/hf_dl (not in the workspace cache); HF answers 429 under parallel ingests",
+  "Iteration 13: Hugging Face RabbitGo777/polymarket.btc_20261020.v4.parquet (not gated), revision 1e0218e12491c7e1d6183350a424fb3489539129: footer of binance.btc_20261020.v4.parquet and its USD-M BTCUSDT bookTicker rows for 10-20 11:00-12:00 UTC (133 row groups by ts_local statistics, microseconds); reduced copy in the session scratchpad it13/rabbit",
+  "Iteration 13: Deribit public get_volatility_index_data BTC resolution 60 (1-min DVOL), 10-09..22, end < H, via the polyrea HTTP cache"
  ],
  "iterations": [
   {
@@ -7792,6 +9242,31 @@
     "joint take across wallets (X106 step 2)",
     "leak check: W4 / W5 prints removed from the tape features",
     "Hawkes kernel vs slow regime (X109 step 2)"
+   ]
+  },
+  {
+   "n": 13,
+   "minutes": 73.0,
+   "best_validate_score": 0.9132,
+   "block_seconds_presence": 0.8747,
+   "block_seconds_stronger_baseline": 0.8211,
+   "pnl_corr": 0.4758,
+   "pnl_corr_spearman": 0.4404,
+   "paradigm": "Two-stream inventory account (large lean + small pairing counter-flow) with per-wallet attainability ceilings for condition 7; the public HF capture as a historical decision clock (side and price at the decision instant on VALIDATE)",
+   "families": [
+    "two-stream decomposition and per-wallet oracle ceilings (X121, X120, X122 step 3)",
+    "pre-registered two-stream net-flow models and tracker (X121)",
+    "pairing kernel mechanism with placebo and crowd control; pre-registered side tilt (X118)",
+    "public HF capture ingest and verification (X113 steps 1-2)",
+    "decision-clock side model and per-horizon information content (X113 step 3)",
+    "decision-clock price vs archive touch (X113 step 4)",
+    "late-window side drivers and settlement-TWAP lock-in (B3b)",
+    "opening decision type on the archive (X124 step 1)",
+    "settlement basis (X116, pre-registered)",
+    "implied vs realized vol scale of the buy-back (X117)",
+    "dispatch predictability at the decision clock (X120 step 5 / X122 step 2)",
+    "out-of-time check of the exam-route side on live recordings (input mismatch)",
+    "exam route of the decision-clock side in evaluate() (X113 step 6, pre-registration 4)"
    ]
   }
  ],
@@ -8284,9 +9759,9 @@
    "evidence": "tilt8.py (results/tilt8.json; 147,489 VALIDATE cluster taker orders): at matched |p - 0.5| the median 4-s BTC move before a buy (given a move toward o) is equal for favourite and underdog buys (ratio 0.96-1.03; return-threshold prediction 1.28-5.14): return-unit threshold rejected. Underdog buys come on flat 4-s moves (78-79% vs 72-74%) and after adverse 12-s moves (23-25% vs 13-15%; mean -0.15..-0.26 bp vs +0.35..+0.53 bp): a value / fade component on the underdog side (wider-vol or slower FV). Liquidity-shape (round-price exclusion) step not done."
   },
   "X59": {
-   "status": "open",
+   "status": "tried",
    "source": "panel iteration 8, information P1 (per-block historical match clock from fresh-signed anchors; strong form of X12 / X22 / X40)",
-   "evidence": "Not tested in iteration 9 (the decision-record pivot came first). Panel numbers: within-block log-index vs match-ms Spearman 0.80; oracle-anchor interpolation 54.9% of txs within 200 ms vs 24.5% for a constant lag; naive fresh-signed anchors 38.9% vs 25.3%."
+   "evidence": "Not tested in iteration 9 (the decision-record pivot came first). Panel numbers: within-block log-index vs match-ms Spearman 0.80; oracle-anchor interpolation 54.9% of txs within 200 ms vs 24.5% for a constant lag; naive fresh-signed anchors 38.9% vs 25.3%. | Iteration 13: SUPERSEDED by X113: the public HF capture (Fahri-5/updown-5m-polymarket-raw, revision f848a77c) gives the operator's server-ms match time directly for 97.3% of its txs on 10-20 (99.1-100% in hours 0-22; block - match q05 / q50 / q95 1,247 / 2,202 / 3,138 ms) and lists day files for every development and exam day; an anchor-interpolated clock is no longer needed. Tried (the historical decision clock exists)."
   },
   "X60": {
    "status": "tried",
@@ -8409,9 +9884,9 @@
    "evidence": "flag10.py / flag10b.py: episodes of top-3% points (gap <= 1 s) A 252 / C 173, take rate 41.7% / 35.3% (points 27.1% / 20.4%); constant hazard p = 0.094 reproduces C by run length (9.7 / 29.6 / 38.8 / 61.3% vs 9.4 / 22.0 / 44.0 / 78.5%) but the first-decision hazard by step is 26.2% / 23.1% at the onset point and 2.4-8.4% afterwards; onset take rate by onset-tick tercile C 17 / 28 / 50% (A 23 / 29 / 29%); per-step AUC on C: steps 0.723, + instantaneous 0.735, + accumulated evidence 0.728. Neither a memoryless thinning nor accumulation: a reaction to the onset event with probability ~1/4-1/2 rising with its strength. Window chi2 / df 2.01 (A), 1.97 (C)."
   },
   "X84": {
-   "status": "open",
+   "status": "tried",
    "source": "panel iteration 9, assumptions P3 (large and small as two decision streams; the large stream as a window-level state machine)",
-   "evidence": "Partial (lean10): P(large | operator net state on o) short 9.6%, flat 13.5%, long 17.9% on VALIDATE; large orders on the long leg 56.8%, short 33.3%, flat 9.9%; BUILD table by wallet DS 4.5 / 6.5 / 9.7%, GF 6.6 / 14.9 / 19.9%, XM 2.4 / 6.0 / 8.6% (short / flat / long). Live quick check (results/large10.json, 2,155 sized decisions of 10-31 14:55-17:55, 5.2% large): P(large) 4.7% at episode onsets vs 5.7% later, 5.9 / 4.9 / 5.2% by window rank: no initiation structure on this Saturday. Initiation from public features while flat needs the weekday development blocks."
+   "evidence": "Partial (lean10): P(large | operator net state on o) short 9.6%, flat 13.5%, long 17.9% on VALIDATE; large orders on the long leg 56.8%, short 33.3%, flat 9.9%; BUILD table by wallet DS 4.5 / 6.5 / 9.7%, GF 6.6 / 14.9 / 19.9%, XM 2.4 / 6.0 / 8.6% (short / flat / long). Live quick check (results/large10.json, 2,155 sized decisions of 10-31 14:55-17:55, 5.2% large): P(large) 4.7% at episode onsets vs 5.7% later, 5.9 / 4.9 / 5.2% by window rank: no initiation structure on this Saturday. Initiation from public features while flat needs the weekday development blocks. | Iteration 13 (X121): large and small as two BUILD-fitted per-second streams with window-level initiation features (first k-bp move after the open, move counts) on the weekday VALIDATE week: L13 vs the window L r 0.324 (nf12b 0.309), initiation features 2.0-2.3% of the gain, the two-stream tracker not adopted; the open is not a distinct side regime (X124 step 1). Tried."
   },
   "X85": {
    "status": "tried",
@@ -8434,9 +9909,9 @@
    "evidence": "Recorder rec_eu11 (feed btc5m_xeu: Binance USD-M bookTicker, Bybit orderbook.1, OKX bbo-tbt for SOL / XRP / DOGE / BNB, 30 ms) from 11-01 05:59 UTC; subscriptions acknowledged (probe 22:55 UTC, acks only). Live kernels / weak-vote agreement / pre-registered extended vote need the next development block; historical step 6 (Bybit orderbook.200 alts into the VALIDATE side model) not run (cache at the 1.5 GB cap). Historical H29 at 1 s: 54.5-55.5% where neither BTC nor ETH moved."
   },
   "X89": {
-   "status": "open",
+   "status": "tried",
    "source": "panel iteration 10, information P3 (historical match clock from complete blocks: anchors from every Polymarket market)",
-   "evidence": "Not tested in iteration 11 (the live selection / size tests came first). Note for the test: on 10-31 the race outcome is ~deterministic given the arrival (race11), so a sub-second historical clock matters for the side and the PIT live components on h1 / h2, not for the PnL condition under the >= 2 s convention."
+   "evidence": "Not tested in iteration 11 (the live selection / size tests came first). Note for the test: on 10-31 the race outcome is ~deterministic given the arrival (race11), so a sub-second historical clock matters for the side and the PIT live components on h1 / h2, not for the PnL condition under the >= 2 s convention. | Iteration 13: SUPERSEDED by X113: the public HF capture (Fahri-5/updown-5m-polymarket-raw, revision f848a77c) gives the operator's server-ms match time directly for 97.3% of its txs on 10-20 (99.1-100% in hours 0-22; block - match q05 / q50 / q95 1,247 / 2,202 / 3,138 ms) and lists day files for every development and exam day; an anchor-interpolated clock is no longer needed. Tried (the historical decision clock exists)."
   },
   "X90": {
    "status": "open",
@@ -8529,9 +10004,9 @@
    "evidence": "Not tested in iteration 12. Open. | Iteration 12 note: the iteration-11 assumptions panel measured that only 6.6% of 196 cancelled remainders have a same-wallet arrival within +-100 ms of the removal (17 vs 4 expected at +100-250 ms): cancel-then-send is not the TTL rule; the simulator part is not built."
   },
   "X108": {
-   "status": "open",
+   "status": "tried",
    "source": "panel iteration 11, mechanics P5 (requote-echo anchors: fill-reactive makers re-sign 0-20 ms after the match, a ~10-ms historical clock)",
-   "evidence": "Not tested in iteration 12 (with X89). Open."
+   "evidence": "Not tested in iteration 12 (with X89). Open. | Iteration 13: SUPERSEDED by X113: the public HF capture (Fahri-5/updown-5m-polymarket-raw, revision f848a77c) gives the operator's server-ms match time directly for 97.3% of its txs on 10-20 (99.1-100% in hours 0-22; block - match q05 / q50 / q95 1,247 / 2,202 / 3,138 ms) and lists day files for every development and exam day; an anchor-interpolated clock is no longer needed. Tried (the historical decision clock exists)."
   },
   "X109": {
    "status": "open",
@@ -8552,6 +10027,66 @@
    "status": "tried",
    "source": "panel iteration 11, assumptions P4 (a competition-aware controller: the regime is the bot's recent race success)",
    "evidence": "ctrl12.py (results/ctrl12.json): decisions of large_dec labelled won / lost (all 829 located lost races of ins9b_M matched); for every clean onset of 10-31 A / C the operator's decisions on the window in [tau - 120 s, tau) and the share that won. P(take) by win-share tercile with the count held fixed: A {\"n1-3\": {\"events\": 549, \"mean_win_share\": 0.576, \"take_low_ws\": 0.0667, \"take_mid_ws\": 0.0944, \"take_high_ws\": null}, \"n3-8\": {\"events\": 3660, \"mean_win_share\": 0.789, \"take_low_ws\": 0.0559, \"take_mid_ws\": 0.0447, \"take_high_ws\": null}, \"n8-20\": {\"events\": 8572, \"mean_win_share\": 0.754, \"take_low_ws\": 0.068, \"take_mid_ws\": 0.0517, \"take_high_ws\": 0.0304}, \"n20-1000000\": {\"events\": 14318, \"mean_win_share\": 0.616, \"take_low_ws\": 0.0623, \"take_mid_ws\": 0.0813, \"take_high_ws\": 0.0815}}; C {\"n1-3\": {\"events\": 2670, \"mean_win_share\": 0.537, \"take_low_ws\": 0.0263, \"take_mid_ws\": null, \"take_high_ws\": 0.0432}, \"n3-8\": {\"events\": 5283, \"mean_win_share\": 0.696, \"take_low_ws\": 0.0402, \"take_mid_ws\": 0.0232, \"take_high_ws\": 0.0429}, \"n8-20\": {\"events\": 10421, \"mean_win_share\": 0.585, \"take_low_ws\": 0.0346, \"take_mid_ws\": 0.052, \"take_high_ws\": 0.0499}, \"n20-1000000\": {\"events\": 9782, \"mean_win_share\": 0.592, \"take_low_ws\": 0.0576, \"take_mid_ws\": 0.077, \"take_high_ws\": 0.0722}}. LPM win-share coefficient with 120-s FE A 0.0134, C 0.0156; window FE A -0.0229, C 0.0211. The signature (take after mostly won races >= 2x after mostly lost, count fixed) is absent: high / low ratios 0.45-1.6 with inconsistent signs; with the mechanics panel's equal 1-s re-fire after won vs exogenously lost races (33.4% vs 33.3%), the race-success controller is rejected. The exogenous-loss split (crowd queued ahead) and the crowd-count 'off'-state proxy were not run (no effect to split)."
+  },
+  "X113": {
+   "status": "open",
+   "source": "panel iteration 12, information P1 (public historical Polymarket capture Fahri-5/updown-5m-polymarket-raw as the decision clock and book for VALIDATE and h1)",
+   "evidence": "Steps 1-4 tried on development days (NOTES iteration 13 findings 5-6; session scratchpad it13/ (hfprobe13.py, hfingest13.py); code/dc13.py, dcfeat13.py, dcside13.py, dcown13.py, dcprice13.py). Dataset CC0, not gated, revision pinned f848a77ccfce4421d3cedbbe585576db77d36662; only day names < H kept from the listing. 10-20: 97.3% of the operator's 39,899 txs carry an archive match ms (99.1-100% in hours 0-22; the day file ends 23:00), block - match q05/q50/q95 1,247 / 2,202 / 3,138 ms. Decision-clock side (a = m - 180 ms), fit 10-20 -> score 10-21 and the reverse (a disclosed deviation from the pre-registered 10-17..19 fit): full coverage per taker order 0.7715 / 0.7731 (GF 0.81-0.82, XM 0.80-0.85, DS 0.75), venue-only 0.761 / 0.763, Polymarket-state-only 0.588 / 0.586, + own-state pairing kernel 0.776 / 0.774; top input the Binance spot book microprice over the last 250 / 100 ms; 81-83% in minutes 0-2, 62-72% after 180 s. The frozen live vote windows with the archive's two Binance series agree only 0.657 on 57% (frozen) / 0.559 on 52% (PIT): the live 83% needs USD-M bookTicker + ETH series the archive lacks. Price: the taker limit is within a tick of o's archive ask at the arrival for 0.9342 of 2476 calldata orders (exact 0.7431; at a - 30 ms 0.9273; touch at the match 0.813; XM 0.6643). The pre-registered split (fit 10-17..19, score 10-20..22), the decision-level replica (step 5) and the exam route through evaluate() (step 6) are open. PRE-REGISTERED split (pre-registration 3; fit ['2026-10-17', '2026-10-18', '2026-10-19'] -> score the rest of ['2026-10-17', '2026-10-18', '2026-10-19', '2026-10-20', '2026-10-21', '2026-10-22']; Polymarket touch only on 10-20 / 10-21, NaN elsewhere): full 0.7628 (by wallet {'DS': 0.7425, 'GF': 0.7972, 'XM': 0.7997}), venue-only 0.7628, market-only 0.504; reverse 0.7408. Success (>= 0.80) NOT met. Per-wallet pay-up (payrank13): limit - ask premium rises with the leg rank (mean {\"0\": [0.183, 1914], \"1\": [0.777, 394], \"2\": [0.72, 93], \"3\": [1.107, 75]} c by rank); anchor ask + c_w (DS 0, GF 1 c, XM 1 c) within a tick {\"pool\": 0.9451, \"DS\": 0.9552, \"GF\": 0.9442, \"XM\": 0.8322} vs plain ask {\"pool\": 0.9273, \"DS\": 0.9552, \"GF\": 0.9148, \"XM\": 0.6643}. Per DECISION (first legs of fan-out events) the decision-clock side is [0.7537, 0.7491] (follower legs 80-87%: they see more of the move). The missing USD-M bookTicker (RabbitGo777 10-20 capture, revision 1e0218e1, 11:00-12:00 UTC, 926 orders) does not close the gap: USD-M 250 ms [0.7272, 0.9816] vs spot [0.7089, 0.8942] [agree, cover]; decision-clock model 0.7646, with the USD-M tick first 0.7559. Pre-registration 4 (exam route, spot-book-only model fitted on 10-17..19): 10-20..22 per order 0.7421 (by wallet {'DS': 0.7208, 'GF': 0.7779, 'XM': 0.781}), XM one-sided windows 0.814 (by day {'2026-10-20': 0.8986, '2026-10-21': 0.8049, '2026-10-22': 0.7258}); built into final_rule.evaluate() as 'side_decision_clock' (code/dc_exam13.py), reproducing the offline frame exactly on 10-20 11:00-12:00 (929 orders, 0.7104). Step 6 is done for the spot route; the full-venue route and the decision-level replica (step 5) remain. Full venue model (model_it13_dcside_A.txt): XM one-sided windows 0.843 of 172 (share 0.2486), XM per order 0.7997. Out-of-time check on the live recordings (dclive13): 59.6% on 10-31 12-18, an input-density mismatch (the recorder keeps price-change-only coalesced spot quotes); the capture's 10-31 / 11-01 day files also hold sealed blocks and were not opened."
+  },
+  "X114": {
+   "status": "open",
+   "source": "panel iteration 12, information P2 (Polymarket touch-queue fade: size-only maker requotes as the trigger of the quiet decisions)",
+   "evidence": "Not tested in iteration 13 (the quiet-instant event unit on 10-31 A / C and its 11-01 replication). Note for the test: book state counts as market activity for the examiner's baseline, so it cannot raise the presence gain over a market-activity baseline. Open."
+  },
+  "X115": {
+   "status": "open",
+   "source": "panel iteration 12, information P3 (crowd co-arrival instants as the event clock: kernel search feed by feed)",
+   "evidence": "Not tested in iteration 13 (needs the 11-01 06-12 / 18-24 recordings for the new feeds). Open."
+  },
+  "X116": {
+   "status": "tried",
+   "source": "panel iteration 12, information P4 (settlement-feed basis Chainlink RTDS vs Binance as the slow input of the window net path)",
+   "evidence": "Pre-registered (NOTES iteration 13, pre-registration 2) and run on VALIDATE (code/basis13.py, results/basis13.json; RTDS Chainlink btc/usd from the HF capture, 6 days, 1646 windows): the basis is [-119.49, -108.45, -102.57, -93.42, -71.23] USD (q05..q95; the USDT premium); basis terms vs the residual of the window net |r| <= 0.045; OLS fit 10-17..19 -> 10-20..22 gain -0.007, reverse 0.0004 (threshold +0.03). E5 not supported. The RabbitGo777 constituent and August Data Streams steps were not run after the main test failed."
+  },
+  "X117": {
+   "status": "tried",
+   "source": "panel iteration 12, information P5 (short-dated implied vol as the scale of the buy-back)",
+   "evidence": "Deribit DVOL 1-min (public get_volatility_index_data, resolution 60, 10-09..22, end < H; 20,190 minutes; code/iv13.py, results/iv13.json, iv13_split.json). Window-minute panel: earlier-move x log(DVOL / RV15) BUILD -2.4 (t -6.4), VALIDATE -2.799 (t -7.34): replicated, but split into log RV15 and log DVOL the interaction is realized vol (E x log RV [2.13, 4.92] / [2.79, 7.44], [coef, t]) and DVOL's own term is insignificant ([13.18, 1.15] / [3.56, 0.24]). The buy-back scales with recent realized vol (sigma-unit moves), which the nf features already carry; the implied-vol fair value (E4) is not supported, so no nf candidate was pre-registered (step 3)."
+  },
+  "X118": {
+   "status": "tried",
+   "source": "panel iteration 12, mechanics P1 (two-leg inventory policy: large directional fills plus operator-level complement pairing by the small orders)",
+   "evidence": "Step 1 (code/side13.py, results/side13_ps.json; VALIDATE one-sided seconds, offset = the frozen side model, window-clustered): on small-order seconds the realized operator LARGE net over [s - 180, s - 2] (60-s decay) has coef -0.3038 (t -26.5), the small-order placebo 0.0441 (t 4.0), the crowd's 120-s flow -0.0001 (t -0.01); on large-order seconds 0.268 (t 8.56): small orders pair the realized large inventory, large orders pyramid. Step 2 (pre-registered tilt, cross-fit on VALIDATE halves): {'acc_tilt': 0.7687, 'acc_psb': 0.7666} (success >= 0.78 not met); at the decision clock + 0.1-0.4 points (dcown13). Step 3 = X121's two-stream tracker (not adopted). Step 4 (decision replica on recorded books) not run. Tried: the mechanism is real own-state feedback; it does not close the side gap."
+  },
+  "X119": {
+   "status": "open",
+   "source": "panel iteration 12, mechanics P2 (the selection shared with the crowd as a pre-onset Polymarket repricing state: the maker requote cascade)",
+   "evidence": "Not tested in iteration 13. Open."
+  },
+  "X120": {
+   "status": "tried",
+   "source": "panel iteration 12, mechanics P3 (per-wallet allocation of the two legs: sticky dispatcher plus per-wallet menus, the route to condition 7)",
+   "evidence": "Steps 1-3 (code/two13.py, track13.py, results/two13.json, track13.json): BUILD per-window loadings of each wallet's net on the pooled L / S nets {\"GF\": [0.3334, 0.1781], \"XM\": [0.2922, 0.4286], \"DS\": [0.3745, 0.3933]}; per-wallet trackers with those loadings on the public L13 / S13 predictions: GF {'pearson': 0.3182, 'spearman': 0.321}, XM {'pearson': 0.0643, 'spearman': 0.0625}, DS {'pearson': 0.3606, 'spearman': 0.3195} (all below the pooled tracker). Thinning ceilings (TRUE pooled legs, BUILD loadings): GF 0.7659, DS 0.6396, XM 0.2175; from the other wallets' legs only GF 0.4201, DS 0.1748, XM 0.0362; with the TRUE per-window gross share x the perfect pooled net XM 0.4063. Step 5 on the archive decision clock (dispatch13): the carrying wallet is barely predictable from public state (accuracy 0.6122 vs base 0.607); in fan-out events the legs go DS first (0.7877), GF second, then DS / GF / XM. Step 4 (version transfer of the loadings) not run."
+  },
+  "X121": {
+   "status": "tried",
+   "source": "panel iteration 12, assumptions P1 (two-stream exposure target: large-order lean L and small-order counter-flow S)",
+   "evidence": "Pre-registered (NOTES iteration 13, 02:17 UTC) and scored once (code/ls13.py, track13.py; results/ls13.json, track13.json): window r L13 vs L 0.3236 (nf12b 0.3093), S13 vs S 0.0981, L13 + S13 vs N 0.4195 (nf12b 0.4237; corr with nf12b 0.9566); the window-state features carry {\"L13\": 0.0229, \"S13\": 0.0201, \"T13\": 0.016} of the gain. Primary candidate trk_a_2s {'pearson': 0.4681, 'spearman': 0.432} vs trk_a_avg {'pearson': 0.4758, 'spearman': 0.4404}: NOT adopted. The panel's 'signature if false' holds: the public share of the window net is bounded by the public share of L."
+  },
+  "X122": {
+   "status": "open",
+   "source": "panel iteration 12, assumptions P2 (condition 7 as a dispatch problem with version-specific roles; per-wallet attainability ledger)",
+   "evidence": "Step 3 (attainability ledger) done (two13.json, share13.json): per-wallet PnL r under (i) the pooled T oracle GF 0.695, DS 0.6299, XM 0.3038; (ii) pooled L + S with BUILD mixes GF 0.7659, DS 0.6396, XM 0.2175; (iii) the TRUE per-window share x pooled net GF 0.7121, DS 0.6465, XM 0.4063: XM stays below 0.47 under every pooled-stream oracle. Step 2 partly (dispatch13 on the archive clock: the wallet is barely predictable from public state; DS-first / GF-second leg order). Steps 1 (role table per version), 4 and (iv) the W4 / W5 test-retest are open."
+  },
+  "X123": {
+   "status": "open",
+   "source": "panel iteration 12, assumptions P3 (the ~25 independent fresh-signing co-taker bots: their signing ms as exact decision clocks)",
+   "evidence": "Not tested in iteration 13. Open."
+  },
+  "X124": {
+   "status": "open",
+   "source": "panel iteration 12, assumptions P4 (the window open as its own decision type: the opening snipe seeds the lean)",
+   "evidence": "Step 1 run on the public archive instead of the live lab (code/open13.py, results/open13_2021.json; 10-20 / 10-21 taker orders): decisions in [0, 15) s follow the spot tick [0.738, 3679] (after 30 s [0.7071, 38227]); the exact-strike value side [0.4495, 3831] (anti-value: the bot's FV is wider than an RV digital), favourite [0.4798, 3831]; P(large) {\"-60-0\": NaN, \"0-15\": 0.0903, \"15-30\": 0.0652, \"30-300\": 0.0658} (1.4x, not 2x). The signature is not met. Step 2 (BUILD side model of each window's first fills vs sign(netLarge)) is open; X121's window-state features (first k-bp move) carried 2% of L13's gain."
   }
  },
  "components": {
@@ -8563,17 +10098,17 @@
   "timing": {
    "confidence": 0.75,
    "tag": "VALIDATE-only",
-   "description": "Decision = submission of a pre-signed ladder order; a time-locked MINORITY (~9% beyond a placebo: 13.2% vs 4.7%) comes 100-150 ms after a sharp venue microprice move toward the outcome (strong ticks, large size, early, more often won); ~90% have no sharp clock in any recorded feed (61% without a six-series tick). Under Polymarket's 150-ms taker delay the order ARRIVES ~150 ms before its match; the bot reads Polymarket's book ~30 ms old and Binance ~100+ ms old (near the engine). Selective: it reacts mostly at the onset of a flagged episode; no self-kept vol scale, snapshot gate, cross-market confirmation or crowd timing selects the onsets; the recorded Coinbase ticker adds a small replicated out-of-sample gain (+0.014 / +0.016 AUC; strong Binance ticks are taken more when Coinbase has not yet moved). Iteration 12: the take rate's window-level heterogeneity is an OPERATOR-level state with a 30-60-s time scale (a kernel of the operator's own decisions with 30-60-s decay predicts held-out takes best; inside 2-minute segments the 30-s count is within a redraw null; GF / XM follow the other wallets' recent decisions and are refractory to their own); not a race-success controller. Historically presence on block seconds 0.875 vs 0.821 (+0.054)."
+   "description": "Decision = submission of a pre-signed ladder order; a time-locked MINORITY (~9% beyond a placebo: 13.2% vs 4.7%) comes 100-150 ms after a sharp venue microprice move toward the outcome (strong ticks, large size, early, more often won); ~90% have no sharp clock in any recorded feed (61% without a six-series tick). Under Polymarket's 150-ms taker delay the order ARRIVES ~150 ms before its match; the bot reads Polymarket's book ~30 ms old and Binance ~100+ ms old (near the engine). Selective: it reacts mostly at the onset of a flagged episode; no self-kept vol scale, snapshot gate, cross-market confirmation or crowd timing selects the onsets; the recorded Coinbase ticker adds a small replicated out-of-sample gain (+0.014 / +0.016 AUC; strong Binance ticks are taken more when Coinbase has not yet moved). Iteration 12: the take rate's window-level heterogeneity is an OPERATOR-level state with a 30-60-s time scale (a kernel of the operator's own decisions with 30-60-s decay predicts held-out takes best; inside 2-minute segments the 30-s count is within a redraw null; GF / XM follow the other wallets' recent decisions and are refractory to their own); not a race-success controller. Historically presence on block seconds 0.875 vs 0.821 (+0.054). Iteration 13: the decision instant is now observable on VALIDATE from the public HF capture (97% of operator txs matched to a server-ms trade); block - match 1.25 / 2.20 / 3.14 s (q05 / q50 / q95) on 10-20."
   },
   "side": {
-   "confidence": 0.6,
+   "confidence": 0.62,
    "tag": "VALIDATE-only",
-   "description": "Per decision (live): the microprice vote of the fast venues before the decision; PIT-clean window [m - 650, m - 180) (= [a - 500, a - delta)) 83.3% on 67.6% voted vs the frozen [m - 600, m - 100) 83.2% on 65.8% (16:04-17:55, exam feeds; pre-registered for 11-01 06-12); the same for won and lost races (80.6 / 80.5%); full-coverage fallbacks ~75%; at the block clock 72.7% per order (76.7% side model). No wallet is one-sided beyond its order-count null, so the side condition does not bind in substance. The side does not reference the operator's book, an exact-strike FV or a stale-quote edge; the underdog tilt is consistent with an implied-vol FV (hypothesis)."
+   "description": "Per decision: the direction of the fast venues' microprice over the last ~100-250 ms before the decision. Live (10-31) the six-series vote [m - 650, m - 180) 83.3% on 67.6% voted. Iteration 13, HISTORICAL decision clock (public HF capture, VALIDATE weekdays 10-20 / 10-21, fit one day, score the other): full coverage per taker order 77.2-77.3% (GF 81-82%, XM 80-85%, DS 75%), Binance spot microprice 250 / 100 ms the top inputs, 81-83% in minutes 0-2 and 62-72% after 180 s (late decisions mix weak tick-following and pairing of the operator's realized inventory). At the block clock 76.7% per one-sided second (72.7% per taker order); part of the block clock's accuracy is post-decision continuation (its inputs end a median ~0.2 s after the match). Small orders buy the complement of the operator's realized LARGE inventory (t -26.5, placebo opposite, crowd null) and large orders pyramid, but this own-state tilt adds < 0.5 point. No settlement-TWAP lock-in late (52%). No wallet is one-sided beyond its order-count null pooled; XM is one-sided in 24% of its windows. Iteration 13 exam route: final_rule.evaluate() reports 'side_decision_clock' (spot-book-only frozen model on the public capture; 74.2% per order on 10-20..22, XM one-sided windows 81.4%; the full venue model 76.3% / 84.3%). XM is the only wallet the side condition applies to (one-sided in 24.9% of its windows)."
   },
   "price": {
    "confidence": 0.9,
    "tag": "VALIDATE-only",
-   "description": "Limit = o's ask the bot saw ~30 ms before arriving (peak of P(limit == ask(a - Lambda)) at Lambda = 30 ms; DS 50, GF 10, XM 30); o's ask at m - 180 within a tick 90.7% live, 95.1% on VALIDATE calldata (trivial touch anchor, stated as such); lost races are the decisions priced on an ask that moved 30-180 ms before the arrival (their Lambda peak is 180 ms); 16% of taker orders 1+ c above the touch."
+   "description": "Limit = o's ask the bot saw ~30 ms before arriving (peak of P(limit == ask(a - Lambda)) at Lambda = 30 ms; DS 50, GF 10, XM 30); o's ask at m - 180 within a tick 90.7% live, 95.1% on VALIDATE calldata (trivial touch anchor, stated as such); lost races are the decisions priced on an ask that moved 30-180 ms before the arrival (their Lambda peak is 180 ms); 16% of taker orders 1+ c above the touch. Iteration 13: at the decision clock on VALIDATE (public capture, 2,476 calldata taker orders on 10-20 / 10-21) the limit is within a tick of o's archive ask at the arrival for 93.4% (exact 74.3%), at arrival - 30 ms 92.7%, vs 81.3% for the touch at the match itself; XM 66%."
   },
   "size": {
    "confidence": 0.7,
@@ -8583,10 +10118,10 @@
   "exit": {
    "confidence": 0.9,
    "tag": "VALIDATE-only",
-   "description": "Remainders and lost races rest as GTC bids at the old ask (cancelled never-filled remainders live DS median 328 ms, GF 240, XM 124); every position is held to resolution; 87% of shares end paired at 0.979; TAKER_REBATE = 0.5 x the previous day's taker fees. Iteration 12, the INVENTORY PATH: per window PnL = net x outcome (r 0.884); the net follows the current minute's BTC move (+), is bought back against the earlier minutes' moves (-) and leans with the previous window's outcome (+); public models predict the window net at r 0.46-0.48 (market activity alone 0.34), and an executable exposure tracker that buys the predicted net deficit with strict fills (latency >= 2 s) reproduces the per-window PnL at Pearson 0.476 / Spearman 0.440 (GF 0.34, DS 0.43, XM 0.06; market-only tracker 0.36 / 0.32); the wallets' per-window PnLs are nearly independent of each other (0.00-0.20)."
+   "description": "Remainders and lost races rest as GTC bids at the old ask (cancelled never-filled remainders live DS median 328 ms, GF 240, XM 124); every position is held to resolution; 87% of shares end paired at 0.979; TAKER_REBATE = 0.5 x the previous day's taker fees. Iteration 12, the INVENTORY PATH: per window PnL = net x outcome (r 0.884); the net follows the current minute's BTC move (+), is bought back against the earlier minutes' moves (-) and leans with the previous window's outcome (+); public models predict the window net at r 0.46-0.48 (market activity alone 0.34), and an executable exposure tracker that buys the predicted net deficit with strict fills (latency >= 2 s) reproduces the per-window PnL at Pearson 0.476 / Spearman 0.440 (GF 0.34, DS 0.43, XM 0.06; market-only tracker 0.36 / 0.32); the wallets' per-window PnLs are nearly independent of each other (0.00-0.20). Iteration 13: the inventory path is two operator-level streams, a large-size lean (cross-wallet r 0.35-0.47) and a small-size taker counter-flow that buys back the REALIZED large inventory (within-wallet corr(L, S) -0.26..-0.60; dose-dependent pairing, t -26.5); public data predicts L at r 0.32 and the counter-flow residual at ~0.3, and a two-stream target adds nothing to the window-net prediction (0.4195 vs 0.4237). Per-wallet PnL is bounded by dispatch: XM <= 0.30-0.41 under every pooled-stream oracle."
   }
  },
- "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts each window (three bursts at -89.5 / +42 / +173 s since 08-22; other two-burst schedules in early August) [VALIDATE-only]. It submits one at the ask it saw ~30 ms before arriving; a minority of submissions (~9% beyond a placebo: the strong-tick snipes that carry the large size) come 100-150 ms after a sharp microprice move of the Binance USD-M / OKX / Bybit / Hyperliquid BTC and ETH perps toward the outcome, and most have no sharp clock in any recorded feed [VALIDATE-only]; it runs near Polymarket's engine [VALIDATE-only, location hypothesis]. Polymarket holds every marketable order 150 ms, so the bot races the crowd in that delay queue [VALIDATE-only]. It takes about one in three flagged episodes; which ones is not decoded: no recorded public input separates taken from skipped strong ticks beyond small gains (Coinbase freshness +0.015 AUC), the take rate follows an operator-level state with a 30-60-s time scale shared by the wallets, and the independent fast crowd takes the same onsets on an input the recorded feeds explain only 14-21% of [VALIDATE-only; open]. The side is the tick direction (83% per decision live, 77% at the block clock) [VALIDATE-only]. Lost races rest at the old ask for ~0.1-1 s and fill as maker about half the time [VALIDATE-only]. The size is small unless the operator's intended position is flat or long the outcome [VALIDATE-only, own state, tentative]. Inside a window the net exposure follows the current minute's move and is bought back against earlier moves; it is predictable from public data at r ~0.48, and an executable exposure tracker built on that prediction reproduces the cluster's per-window PnL at r 0.4758 / 0.4404 under strict fills with >= 2 s latency (per wallet 0.06-0.43) [VALIDATE-only]. Positions are held to resolution; 87% of shares end in complete sets bought at 0.979 [VALIDATE-only]. Income = locked sets (~2.1 c per pair) and the 50% taker-fee rebate; the lean is a coin with respect to the outcome and carries the per-window PnL variance [VALIDATE-only]. Nothing is exam-verified.",
+ "strategy_statement": "One operator runs a TypeScript clob-client bot on three (plus a fourth and a fifth) wallets in every BTC 5-minute Up/Down window, and only there [VALIDATE-only]. It pre-signs BUY orders on both outcomes at every cent in bursts each window (three bursts at -89.5 / +42 / +173 s since 08-22) [VALIDATE-only]. It submits one at the ask it saw ~30 ms before arriving (93% within a tick of the archive ask at the arrival on VALIDATE weekdays) [VALIDATE-only]. Polymarket holds every marketable order 150 ms, so the bot races the crowd in that delay queue [VALIDATE-only]. Which flagged episodes it takes is not decoded beyond small gains; the take rate follows an operator-level state with a 30-60-s time scale, and the independent fast crowd takes the same onsets on an input the recorded feeds explain only 14-21% of [VALIDATE-only; open]. The side is the direction of the fast venues' microprice over the last ~100-250 ms (live 83% where the six-series vote fires; on VALIDATE weekdays at the historical decision clock 77% of taker orders at full coverage, 81-83% in the first two minutes and 62-72% after three; 76.7% per one-sided block second) [VALIDATE-only]. Lost races rest at the old ask for ~0.1-1 s and fill as maker about half the time [VALIDATE-only]. The inventory is two operator-level streams: a large-size lean fanned out to every wallet and pyramided, and a small-size taker counter-flow that buys the complement of the REALIZED large inventory within ~2 minutes (own-state feedback, t -26) [VALIDATE-only]. Public data predicts the window net at r ~0.48 (the lean at ~0.32), and an executable exposure tracker reproduces the pooled per-window PnL at r 0.4758 / 0.4404 under strict fills with >= 2 s latency (per wallet 0.06-0.43; XM is bounded at 0.30-0.41 even by perfect pooled-stream oracles, because its PnL is the side of its own dispatched legs) [VALIDATE-only]. Positions are held to resolution; 87% of shares end in complete sets bought at 0.979; income = locked sets (~2.1 c per pair) and the 50% taker-fee rebate; the lean is a coin with respect to the outcome and carries the per-window PnL variance [VALIDATE-only]. Nothing is exam-verified.",
  "target_metrics": {
   "presence_auc": 0.8747,
   "presence_baseline": 0.8211,
@@ -8676,7 +10211,8 @@
   "X85"
  ],
  "environment_notes": [
-  "10-31 21:50 UTC: drpc free plan refuses eth_getLogs above ~100-199 blocks (HTTP 400, misleading message 'ranges over 10000 blocks'); publicnode refuses archive ranges without a token. final_rule.cluster_fills falls back to 100-block chunks."
+  "10-31 21:50 UTC: drpc free plan refuses eth_getLogs above ~100-199 blocks (HTTP 400, misleading message 'ranges over 10000 blocks'); publicnode refuses archive ranges without a token. final_rule.cluster_fills falls back to 100-block chunks.",
+  "Iteration 13: HF range reads of ~6,300 requests per day file are fine alone but draw 429 when two run in parallel; hfingest13.py coalesces column chunks and backs off 45 s."
  ],
  "catalog_open_after_iteration11": [
   "X5",
@@ -8739,5 +10275,43 @@
   "X108",
   "X109",
   "X111"
+ ],
+ "catalog_open_after_iteration13": [
+  "X5",
+  "X7",
+  "X9",
+  "X18",
+  "X26",
+  "X33",
+  "X36",
+  "X37",
+  "X44",
+  "X51",
+  "X53",
+  "X57",
+  "X66",
+  "X70",
+  "X72",
+  "X76",
+  "X87",
+  "X88",
+  "X90",
+  "X93",
+  "X98",
+  "X99",
+  "X100",
+  "X101",
+  "X104",
+  "X105",
+  "X107",
+  "X109",
+  "X111",
+  "X113",
+  "X114",
+  "X115",
+  "X119",
+  "X122",
+  "X123",
+  "X124"
  ]
 }
