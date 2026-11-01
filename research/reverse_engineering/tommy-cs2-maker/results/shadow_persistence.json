@@ -1,0 +1,102 @@
+{
+ "activity_rows": {
+  "0x10d79cc7": 14280,
+  "0x52661b8e": 2216,
+  "0x67119033": 1174,
+  "0xd2bb9459": 14773
+ },
+ "shadow_events_not_traded_by_wallet": {
+  "0x52661b8e": 11,
+  "0x67119033": 22
+ },
+ "txs_to_decode": 1761,
+ "result": {
+  "0x67119033": {
+   "orders": 533,
+   "0xd2bb9459": {
+    "pairs_0_5ms": 0,
+    "pairs_5_50ms": 0,
+    "per_ms_ratio": null,
+    "shadow_orders_with_same_price_leader_0_5ms": 0,
+    "leader_orders": 261
+   },
+   "0x10d79cc7": {
+    "pairs_0_5ms": 7,
+    "pairs_5_50ms": 1,
+    "per_ms_ratio": 52.5,
+    "shadow_orders_with_same_price_leader_0_5ms": 4,
+    "leader_orders": 1128
+   },
+   "control_top": [
+    [
+     "0x2b55d2ee",
+     0,
+     3,
+     0.0
+    ],
+    [
+     "0x893575c7",
+     0,
+     3,
+     0.0
+    ],
+    [
+     "0xc4fe8174",
+     0,
+     1,
+     0.0
+    ]
+   ],
+   "control_median_ratio": 0.0
+  },
+  "0x52661b8e": {
+   "orders": 373,
+   "0xd2bb9459": {
+    "pairs_0_5ms": 0,
+    "pairs_5_50ms": 0,
+    "per_ms_ratio": null,
+    "shadow_orders_with_same_price_leader_0_5ms": 0,
+    "leader_orders": 261
+   },
+   "0x10d79cc7": {
+    "pairs_0_5ms": 3,
+    "pairs_5_50ms": 1,
+    "per_ms_ratio": 22.5,
+    "shadow_orders_with_same_price_leader_0_5ms": 0,
+    "leader_orders": 1128
+   },
+   "control_top": [
+    [
+     "0x5d40576b",
+     0,
+     1,
+     0.0
+    ],
+    [
+     "0x6e2c0e94",
+     0,
+     1,
+     0.0
+    ],
+    [
+     "0x758dac51",
+     0,
+     1,
+     0.0
+    ]
+   ],
+   "control_median_ratio": 0.0
+  }
+ },
+ "by_day_shadow_orders": {
+  "0x67119033": {
+   "10-16": 449,
+   "10-17": 84
+  },
+  "0x52661b8e": {
+   "10-16": 228,
+   "10-18": 33,
+   "10-22": 112
+  }
+ }
+}

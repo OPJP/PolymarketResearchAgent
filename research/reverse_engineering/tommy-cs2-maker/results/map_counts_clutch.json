@@ -1,0 +1,160 @@
+{
+ "maps": 94,
+ "corr_kills_rounds": 0.974,
+ "kpr_sd": 0.373,
+ "ppr_sd": 0.133,
+ "means": {
+  "rounds": 22.35,
+  "kills": 146.19,
+  "plants": 12.02,
+  "n_all": 64.17,
+  "n_large": 27.71,
+  "n_small": 36.46,
+  "n_co_large": 0.73,
+  "n_co_small": 0.51,
+  "own_orders": 91.45,
+  "pub_prints": 240.16
+ },
+ "clutch_per_round_mean_sd": [
+  0.112,
+  0.066
+ ],
+ "n_all|offset_only": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.288,
+   "se": 0.156,
+   "p": 0.0638
+  },
+  "ppr_c": {
+   "coef": -0.019,
+   "se": 0.394,
+   "p": 0.9621
+  },
+  "cpr_c": {
+   "coef": 0.84,
+   "se": 0.901,
+   "p": 0.3511
+  }
+ },
+ "n_all|with_controls": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.116,
+   "se": 0.065,
+   "p": 0.0717
+  },
+  "ppr_c": {
+   "coef": -0.112,
+   "se": 0.165,
+   "p": 0.4971
+  },
+  "cpr_c": {
+   "coef": 0.122,
+   "se": 0.377,
+   "p": 0.7461
+  },
+  "l_own": {
+   "coef": 0.814,
+   "se": 0.053,
+   "p": 0.0
+  },
+  "l_pub": {
+   "coef": -0.039,
+   "se": 0.038,
+   "p": 0.2993
+  }
+ },
+ "n_large|offset_only": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.193,
+   "se": 0.159,
+   "p": 0.2236
+  },
+  "ppr_c": {
+   "coef": -0.16,
+   "se": 0.408,
+   "p": 0.6951
+  },
+  "cpr_c": {
+   "coef": 1.036,
+   "se": 0.907,
+   "p": 0.2532
+  }
+ },
+ "n_large|with_controls": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.027,
+   "se": 0.07,
+   "p": 0.6989
+  },
+  "ppr_c": {
+   "coef": -0.235,
+   "se": 0.183,
+   "p": 0.2003
+  },
+  "cpr_c": {
+   "coef": 0.331,
+   "se": 0.414,
+   "p": 0.4246
+  },
+  "l_own": {
+   "coef": 0.889,
+   "se": 0.059,
+   "p": 0.0
+  },
+  "l_pub": {
+   "coef": -0.143,
+   "se": 0.043,
+   "p": 0.0009
+  }
+ },
+ "n_small|offset_only": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.353,
+   "se": 0.176,
+   "p": 0.0447
+  },
+  "ppr_c": {
+   "coef": 0.069,
+   "se": 0.442,
+   "p": 0.8758
+  },
+  "cpr_c": {
+   "coef": 0.665,
+   "se": 1.031,
+   "p": 0.519
+  }
+ },
+ "n_small|with_controls": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.18,
+   "se": 0.104,
+   "p": 0.0829
+  },
+  "ppr_c": {
+   "coef": -0.03,
+   "se": 0.26,
+   "p": 0.9083
+  },
+  "cpr_c": {
+   "coef": -0.097,
+   "se": 0.607,
+   "p": 0.873
+  },
+  "l_own": {
+   "coef": 0.76,
+   "se": 0.084,
+   "p": 0.0
+  },
+  "l_pub": {
+   "coef": 0.031,
+   "se": 0.06,
+   "p": 0.6055
+  }
+ }
+}

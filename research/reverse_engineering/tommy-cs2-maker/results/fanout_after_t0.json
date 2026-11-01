@@ -1,0 +1,208 @@
+{
+ "reference": {
+  "clusters": 2579,
+  "events_with_clusters": 76,
+  "first_signer": {
+   "trio1": 306,
+   "trio2": 303,
+   "0xddb6e624": 268,
+   "trio3": 266,
+   "P4e": 251,
+   "0x8a80528d": 240,
+   "0xe8e086f7": 227,
+   "0x67706ec3": 193
+  },
+  "members": {
+   "trio2": {
+    "in_clusters": 787,
+    "share_of_clusters": 0.305,
+    "lag_median_ms": 4.0,
+    "lag_iqr_ms": 22.0,
+    "lag_nonfirst_median_ms": 16.0
+   },
+   "0x8a80528d": {
+    "in_clusters": 777,
+    "share_of_clusters": 0.301,
+    "lag_median_ms": 2.0,
+    "lag_iqr_ms": 102.0,
+    "lag_nonfirst_median_ms": 44.5
+   },
+   "0xddb6e624": {
+    "in_clusters": 763,
+    "share_of_clusters": 0.296,
+    "lag_median_ms": 1.0,
+    "lag_iqr_ms": 27.5,
+    "lag_nonfirst_median_ms": 12.0
+   },
+   "trio1": {
+    "in_clusters": 762,
+    "share_of_clusters": 0.295,
+    "lag_median_ms": 3.0,
+    "lag_iqr_ms": 19.0,
+    "lag_nonfirst_median_ms": 16.0
+   },
+   "trio3": {
+    "in_clusters": 750,
+    "share_of_clusters": 0.291,
+    "lag_median_ms": 5.0,
+    "lag_iqr_ms": 23.0,
+    "lag_nonfirst_median_ms": 17.0
+   },
+   "0x67706ec3": {
+    "in_clusters": 675,
+    "share_of_clusters": 0.262,
+    "lag_median_ms": 3.0,
+    "lag_iqr_ms": 105.0,
+    "lag_nonfirst_median_ms": 67.0
+   },
+   "0xc7097421": {
+    "in_clusters": 618,
+    "share_of_clusters": 0.24,
+    "lag_median_ms": 3.0,
+    "lag_iqr_ms": 102.0,
+    "lag_nonfirst_median_ms": 29.5
+   },
+   "0xe8e086f7": {
+    "in_clusters": 607,
+    "share_of_clusters": 0.235,
+    "lag_median_ms": 1.0,
+    "lag_iqr_ms": 20.5,
+    "lag_nonfirst_median_ms": 15.0
+   },
+   "0x14e72e19": {
+    "in_clusters": 337,
+    "share_of_clusters": 0.131,
+    "lag_median_ms": 9.0,
+    "lag_iqr_ms": 109.0,
+    "lag_nonfirst_median_ms": 94.0
+   },
+   "P4e": {
+    "in_clusters": 285,
+    "share_of_clusters": 0.111,
+    "lag_median_ms": 0.0,
+    "lag_iqr_ms": 0.0,
+    "lag_nonfirst_median_ms": 43.0
+   },
+   "0x42a1b2b4": {
+    "in_clusters": 252,
+    "share_of_clusters": 0.098,
+    "lag_median_ms": 1.0,
+    "lag_iqr_ms": 105.0,
+    "lag_nonfirst_median_ms": 47.5
+   },
+   "0xf1ee4842": {
+    "in_clusters": 168,
+    "share_of_clusters": 0.065,
+    "lag_median_ms": 35.0,
+    "lag_iqr_ms": 115.0,
+    "lag_nonfirst_median_ms": 109.0
+   },
+   "0x775d9de0": {
+    "in_clusters": 139,
+    "share_of_clusters": 0.054,
+    "lag_median_ms": 2.0,
+    "lag_iqr_ms": 44.5,
+    "lag_nonfirst_median_ms": 29.0
+   },
+   "RN1": {
+    "in_clusters": 124,
+    "share_of_clusters": 0.048,
+    "lag_median_ms": 12.0,
+    "lag_iqr_ms": 47.2,
+    "lag_nonfirst_median_ms": 42.5
+   },
+   "0x7c8cc255": {
+    "in_clusters": 119,
+    "share_of_clusters": 0.046,
+    "lag_median_ms": 46.0,
+    "lag_iqr_ms": 124.0,
+    "lag_nonfirst_median_ms": 56.0
+   },
+   "0xb7ab821f": {
+    "in_clusters": 36,
+    "share_of_clusters": 0.014,
+    "lag_median_ms": 47.0,
+    "lag_iqr_ms": 110.5,
+    "lag_nonfirst_median_ms": 101.5
+   }
+  },
+  "period": "16-22 Oct (before H)",
+  "takes_by_member_ref_per_event": 115.86
+ },
+ "after_t0": {
+  "clusters": 22,
+  "events_with_clusters": 5,
+  "first_signer": {
+   "trio2": 8,
+   "trio1": 6,
+   "0xf1ee4842": 2,
+   "0xb7ab821f": 2,
+   "RN1": 2,
+   "trio3": 1,
+   "0x7d67f01d": 1
+  },
+  "members": {
+   "trio1": {
+    "in_clusters": 16,
+    "share_of_clusters": 0.727,
+    "lag_median_ms": 3.0,
+    "lag_iqr_ms": 9.8,
+    "lag_nonfirst_median_ms": 6.5
+   },
+   "trio2": {
+    "in_clusters": 14,
+    "share_of_clusters": 0.636,
+    "lag_median_ms": 0.0,
+    "lag_iqr_ms": 14.8,
+    "lag_nonfirst_median_ms": 22.5
+   },
+   "trio3": {
+    "in_clusters": 11,
+    "share_of_clusters": 0.5,
+    "lag_median_ms": 9.0,
+    "lag_iqr_ms": 37.5,
+    "lag_nonfirst_median_ms": 23.0
+   },
+   "0xb7ab821f": {
+    "in_clusters": 5,
+    "share_of_clusters": 0.227,
+    "lag_median_ms": 39.0,
+    "lag_iqr_ms": 78.0,
+    "lag_nonfirst_median_ms": 78.0
+   },
+   "RN1": {
+    "in_clusters": 3,
+    "share_of_clusters": 0.136,
+    "lag_median_ms": 0.0,
+    "lag_iqr_ms": 101.5,
+    "lag_nonfirst_median_ms": 203.0
+   },
+   "0xf1ee4842": {
+    "in_clusters": 3,
+    "share_of_clusters": 0.136,
+    "lag_median_ms": 0.0,
+    "lag_iqr_ms": 23.0,
+    "lag_nonfirst_median_ms": 46.0
+   }
+  },
+  "period": "development blocks 10-31 12-18 and 11-01 06-12 (decoded units only)",
+  "events": [
+   "cs2-1win-5s-2026-10-31",
+   "cs2-bca-pha-2026-11-01",
+   "cs2-fokus-baks-2026-10-31",
+   "cs2-jjh-bmb-2026-10-31",
+   "cs2-jjh-mzp-2026-11-01",
+   "cs2-lowcor1-tdp-2026-10-31",
+   "cs2-skr2-for10-2026-10-31",
+   "cs2-the9-5s-2026-11-01",
+   "dota2-synaps-hn-2026-11-01",
+   "dota2-xe-hn-2026-10-31"
+  ],
+  "takes_by_member_after_t0": {
+   "RN1": 40,
+   "trio1": 39,
+   "trio2": 34,
+   "trio3": 25
+  }
+ }
+}

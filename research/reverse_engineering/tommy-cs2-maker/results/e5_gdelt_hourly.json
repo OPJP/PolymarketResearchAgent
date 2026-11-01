@@ -1,0 +1,30 @@
+{
+ "hours": 163,
+ "articles_total": 24,
+ "articles_hour_quantiles": [
+  0.0,
+  1.0,
+  2.0
+ ],
+ "spearman_art_dec": [
+  -0.074,
+  0.3474
+ ],
+ "spearman_art_orders": [
+  -0.076,
+  0.3331
+ ],
+ "spearman_art_events": [
+  -0.037,
+  0.643
+ ],
+ "partial_rank_corr_art_dec_given_events_hod": [
+  -0.152,
+  0.0524
+ ],
+ "active_hours_spearman_art_vs_decisions_per_event": [
+  -0.196,
+  0.0842,
+  79
+ ]
+}

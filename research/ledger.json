@@ -1,5 +1,5 @@
 {
- "generated_at": 1793547632,
+ "generated_at": 1793548665,
  "as_of": 1793318400,
  "criteria": [
   {
@@ -2094,7 +2094,7 @@
    "primary_metric": "presence_auc (pre-registered in iteration 1): VALIDATE 2026-10-16..22 ROC AUC of the rule's score for 'RN1 has >= 1 maker fill in this (market, 60-s bin)' over cells of the sampled events' markets (all sibling markets) in [gameStart-2h, gameStart+5h] that have >= 1 public taker print in the bin; point in time, no own-state features",
    "best_validate_score": null,
    "best_rule": null,
-   "has_final_rule": false,
+   "has_final_rule": true,
    "strategy_statement": "",
    "exam_rounds": 0,
    "wall_audits": 0,
@@ -2109,18 +2109,18 @@
    ],
    "status": "in_progress",
    "wall_reason": null,
-   "iterations": 15,
-   "minutes": 1058.9,
-   "hypotheses": 158,
+   "iterations": 16,
+   "minutes": 1124.9,
+   "hypotheses": 165,
    "primary_metric": "presence_auc",
    "best_validate_score": 0.8834,
    "best_rule": "tommy-v6-groupP-bidside-outcome",
    "has_final_rule": true,
-   "strategy_statement": "[VALIDATE-only] A CS2 and Dota 2 in-play bot of one operator who signs for several accounts with one process (the wallet 'TommyLeePeeca'; 0x52661b8e 'TommyLeePeeecan'; 0x67119033; 0x7d67f01d 'BACKTESTEOCARAIO1', confirmed again in iteration 15 by cross-market 0-5 ms co-signing at 4.4x). Two large GRID-event accounts proposed by the panel (0xd2bb9459, 0x10d79cc7) do not co-sign across markets with it and run other designs, so they are not attributed. [VALIDATE-only] Selection: whole events of non-GRID CS2 / Dota 2 leagues covered by its push-feed product, minus a small share routed to 0x7d67f01d; frozen v5 AUC 0.970 vs activity 0.886, recall 0.74 at lift 3.16, coverage 1.0. [VALIDATE-only] Maker: whole-cent BUY ladders on both outcome tokens (100 shares in CS2, 10 in Dota 2, an event-wide 54-100 ramp in some events), never sells, merges pairs in a 300-s loop (pair cost 0.978), band [0.05, 0.95], net position capped near 600 CS2 shares with a long-side taper from 200; a burst of n adds takes the n highest free slots V .. V - 4c (oracle 0.875 live). [hypothesis] V is its own in-round win-probability value fed by a private esports push feed; its value moves at the feed's messages, which are mostly round results delivered before and around the market's reaction (the restart-window moves follow the round just won, not the buy; beyond the previous round's result its mid-round moves predict the current round only weakly), with a small in-round part (no delay in decided-early rounds; informed re-pricings that no taker prints): it steps at the feed's messages, leads the public print by 2-5 s on them (10-45 s on average), moves before the print's jump as much in decided-early rounds as in elimination rounds, and is written to the map and match books along the Bo3 series slope (not an exact single identity). Candidate vendor: PandaScore's Low Latency Feed (titles and data points match; needs a token to test). [hypothesis] Taker: FAK buys of the team that gained on the feed's messages (>= 19 co-subscribers at fixed lags, it at +30-65 ms behind the fastest), with maker re-pricings a median 1.1 s after the first visible co-receiver take. Not decoded to the exam bar: the price item needs V to the cent at the message (a source must arrive <= ~0.25 s after it), and the outcome item needs its informed takes; the frozen v6 rule replaces V with public anchors (price 0.322 within one tick; outcome 0.197 / 0.027).",
+   "strategy_statement": "[VALIDATE-only] A CS2 and Dota 2 in-play bot of one operator who signs for several accounts (the wallet 'TommyLeePeeca'; 0x7d67f01d, the earlier account of the same maker strategy; the shadow accounts 0x52661b8e and 0x67119033; and, from the shadows' 0-5 ms fingerprint in iteration 16, 0x10d79cc7, a separate 20-share GRID / LoL loop). [VALIDATE-only] Selection: whole events of non-GRID CS2 / Dota 2 leagues covered by its push-feed product, minus a small share routed to 0x7d67f01d; frozen v5 AUC 0.970 vs activity 0.886, recall 0.74 at lift 3.16, coverage 1.0. [VALIDATE-only] Maker: whole-cent BUY ladders on both outcome tokens (100 shares in CS2, 10 in Dota 2, an event-wide 54-100 ramp in some events), never sells, merges pairs in a 300-s loop (pair cost 0.978), band [0.05, 0.95], net position capped near 600 CS2 shares with a long-side taper from 200 and a 1-2c price skew when long; a burst of n adds takes the n highest free slots V .. V - 4c, clamped at or below others' ask - 1c (oracle 0.875 live). [hypothesis] V is its own win-probability value driven by a private esports push feed whose informative messages are mostly round results delivered early (no kills or plants effect on clock-free per-map counts; decided-early rounds compatible with round-end messages on the match-time clock), with a small in-round part; it re-prices in the same second as the informed trades at their CLOB match and at many messages no public trade shows. Vendor unidentified (no pre-game veto fan-out; PandaScore needs a token). [hypothesis] Taker: FAK buys of the team that gained on the feed's messages (>= 19 co-subscribers at fixed lags in 16-22 Oct; the first signer P4e is absent after T0). Not decoded to the exam bar: the price item needs V to the cent at the message, and the outcome item needs its informed takes; the frozen v6 rule replaces V with public anchors (price 0.322 within one tick; outcome 0.197 / 0.027).",
    "exam_rounds": 0,
    "wall_audits": 0,
    "walls_rejected": 0,
-   "panels": 14
+   "panels": 15
   }
  ],
  "wallets": [

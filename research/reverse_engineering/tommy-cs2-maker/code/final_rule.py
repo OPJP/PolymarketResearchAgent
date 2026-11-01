@@ -7,6 +7,12 @@ block; pair cap 0.99; band [0.05, 0.95]; 100 shares (Dota 10) refilled every 10 
 replay is still reported as pnl_corr_*_v5replay. Iteration 15 also adds a reported (non-target) fill-unit price metric,
 price_within_tick_at_fill_m1c. Selection, presence, price (order unit at signing) and size are unchanged from v5.
 
+Iteration-16 note (2026-11-01; no functional change, v6 stays frozen): no candidate beat v6 on VALIDATE under its
+pre-registered rule (own-inventory price skew +0.006 only, not adopted; small net caps on the outcome ladder all negative
+on VALIDATE, NOTES iteration 16 finding 14). clob_wallets (the shared recorder's book of markets the studied wallets traded)
+is subscribed only after the wallet's first trade in 8 of 9 markets (X222): it is used here only as the fallback book of
+the live price rule for orders that already exist, never as a presence or selection input.
+
 Iteration-11 note (2026-11-01; no functional change, v5 stays frozen): no candidate beat v5 on VALIDATE. Measured
 bounds (NOTES iteration 11): no point-in-time own-state price anchor beats the last print (0.280 vs 0.305), SX Bet
 on chain is too sparse to anchor (11 CS2 markets / 63 fills in 16-22 Oct), a fresh public touch scores below the touch,

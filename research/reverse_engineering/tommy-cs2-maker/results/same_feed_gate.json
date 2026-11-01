@@ -1,0 +1,130 @@
+{
+ "units": {
+  "cs2-1win-5s-2026-10-31": {
+   "a7_takes": 19,
+   "groupPG_takes": 15,
+   "groupPG_members": {
+    "0xfe8a28be": 5,
+    "0x72aaaaf9": 4,
+    "0x2529c68d": 3,
+    "0x2005d16a": 2,
+    "0xf1ee4842": 1
+   },
+   "cosigned": 1,
+   "share": 0.053,
+   "null_share": 0.0021,
+   "ratio": 25.0,
+   "lag_ms_median": 78.0,
+   "lag_ms_iqr": 0.0,
+   "lag_ms_quartiles": [
+    78.0,
+    78.0,
+    78.0,
+    78.0,
+    78.0
+   ]
+  },
+  "cs2-the9-5s-2026-11-01": {
+   "a7_takes": 30,
+   "groupPG_takes": 132,
+   "groupPG_members": {
+    "0x2005d16a": 38,
+    "0x72aaaaf9": 30,
+    "0x2529c68d": 28,
+    "0xfe8a28be": 14,
+    "0xb7ab821f": 12,
+    "0xf1ee4842": 7,
+    "0x7c8cc255": 3
+   },
+   "cosigned": 4,
+   "share": 0.133,
+   "null_share": 0.0084,
+   "ratio": 15.79,
+   "lag_ms_median": 54.0,
+   "lag_ms_iqr": 69.5,
+   "lag_ms_quartiles": [
+    -17.2,
+    26.0,
+    54.0,
+    95.5,
+    163.0
+   ]
+  },
+  "dota2-synaps-hn-2026-11-01": {
+   "a7_takes": 38,
+   "groupPG_takes": 16,
+   "groupPG_members": {
+    "0xf1ee4842": 13,
+    "0x7c8cc255": 3
+   },
+   "cosigned": 0,
+   "share": 0.0,
+   "null_share": 0.0013,
+   "ratio": 0.0,
+   "lag_ms_median": null,
+   "lag_ms_iqr": null,
+   "lag_ms_quartiles": null
+  },
+  "dota2-xe-hn-2026-10-31": {
+   "a7_takes": 40,
+   "groupPG_takes": 23,
+   "groupPG_members": {
+    "0xb7ab821f": 13,
+    "0xf1ee4842": 8,
+    "0x7c8cc255": 2
+   },
+   "cosigned": 0,
+   "share": 0.0,
+   "null_share": 0.0052,
+   "ratio": 0.0,
+   "lag_ms_median": null,
+   "lag_ms_iqr": null,
+   "lag_ms_quartiles": null
+  }
+ },
+ "n_trades_rows": 8170,
+ "n_decoded_orders": 2941,
+ "G2_newhigh": {
+  "n": 87,
+  "mean_m60_c": 0.982,
+  "by_event": {
+   "cs2-1win-5s-2026-10-31": {
+    "n": 10,
+    "mean_m60_c": 1.9
+   },
+   "cs2-the9-5s-2026-11-01": {
+    "n": 37,
+    "mean_m60_c": 0.159
+   },
+   "dota2-synaps-hn-2026-11-01": {
+    "n": 13,
+    "mean_m60_c": 0.735
+   },
+   "dota2-xe-hn-2026-10-31": {
+    "n": 27,
+    "mean_m60_c": 1.888
+   }
+  }
+ },
+ "a7_maker_orders": 388,
+ "a7_sizes_top": {
+  "100.0": 43,
+  "60.0": 35,
+  "62.0": 23,
+  "58.0": 20,
+  "56.0": 19,
+  "50.0": 17
+ },
+ "G1_pooled": {
+  "a7_takes": 127,
+  "cosigned": 5,
+  "share": 0.039,
+  "null_share_mean": 0.0042
+ },
+ "gate": {
+  "G1_ratio_and_count": true,
+  "G1_lag_structure": false,
+  "G2": false,
+  "pass": false
+ }
+}

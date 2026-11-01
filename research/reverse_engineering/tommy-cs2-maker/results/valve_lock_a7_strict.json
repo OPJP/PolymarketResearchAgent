@@ -1,0 +1,46 @@
+{
+ "games": [
+  "9071281369",
+  "9071365885"
+ ],
+ "snapshots": 1669,
+ "kill_events": 128,
+ "decisions": 70,
+ "windows": {
+  "-10..0s": {
+   "obs": 5,
+   "null_mean": 9.9,
+   "ratio": 0.51,
+   "p": 0.877
+  },
+  "0..10s": {
+   "obs": 8,
+   "null_mean": 10.1,
+   "ratio": 0.79,
+   "p": 0.66
+  },
+  "-30..-10s": {
+   "obs": 10,
+   "null_mean": 19.6,
+   "ratio": 0.51,
+   "p": 0.873
+  },
+  "10..30s": {
+   "obs": 10,
+   "null_mean": 19.9,
+   "ratio": 0.5,
+   "p": 0.878
+  }
+ },
+ "direction_agreement": {
+  "after_0_10s": {
+   "n": 6,
+   "agreement": 0.5
+  },
+  "before_0_10s": {
+   "n": 5,
+   "agreement": 0.6
+  }
+ },
+ "note": "exploratory: the same-feed gate failed (same_feed_gate.json)"
+}

@@ -1,0 +1,54 @@
+{
+ "BUILD": {
+  "n": 7640,
+  "dark_share": 0.821,
+  "dark_m60_c": 1.88,
+  "class1_cosign_0_100ms": {
+   "n": 159,
+   "share_of_all": 0.0208,
+   "any_take_share": 0.0229,
+   "null_share": 0.0013,
+   "m60_c": 5.44
+  },
+  "class2_in_delay_0.1_1.04s": {
+   "n": 345,
+   "share_of_all": 0.0452,
+   "any_take_share": 0.0548,
+   "null_share": 0.0109,
+   "m60_c": 5.76
+  },
+  "class3_after_match_1.04_3s": {
+   "n": 634,
+   "share_of_all": 0.083,
+   "any_take_share": 0.1008,
+   "null_share": 0.0223,
+   "m60_c": 6.0
+  }
+ },
+ "VALIDATE": {
+  "n": 9384,
+  "dark_share": 0.854,
+  "dark_m60_c": 1.78,
+  "class1_cosign_0_100ms": {
+   "n": 117,
+   "share_of_all": 0.0125,
+   "any_take_share": 0.0144,
+   "null_share": 0.0012,
+   "m60_c": 5.68
+  },
+  "class2_in_delay_0.1_1.04s": {
+   "n": 341,
+   "share_of_all": 0.0363,
+   "any_take_share": 0.0448,
+   "null_share": 0.0107,
+   "m60_c": 5.81
+  },
+  "class3_after_match_1.04_3s": {
+   "n": 678,
+   "share_of_all": 0.0723,
+   "any_take_share": 0.0872,
+   "null_share": 0.0198,
+   "m60_c": 6.94
+  }
+ }
+}

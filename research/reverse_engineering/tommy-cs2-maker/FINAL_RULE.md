@@ -27,11 +27,47 @@ Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
   out-of-fold residual shape, cross-event synchrony, a pre-registered event-state indicator screen confirmed on
   VALIDATE) and measured the price item's lag tolerance, an own-state transport rule, a phase-gated public ladder, the
   value's path on the feed's own clock, and the operator's sports quoting and further accounts.
+- Iteration 16 changed no rule component. It moved the R-vs-K reading toward round results (clock-free per-map counts,
+  a match-time print clock), split the price item's private part by the clock of the visible message, re-attributed
+  0x10d79cc7 to the operator by the shadow fingerprint, found that the fan-out lost P4e after T0, and verified that a
+  vendor sells the historical book for the development period (key needed).
 - Iteration 15 changed only the outcome component (v6): the executable replay in `evaluate()` now quotes one BUY level
   per token at the others' bid on that token (the latest wallet-free print that consumed bids on it, usable 2 s after
   its block) under a 0.99 pair cap, instead of anchoring both tokens on the last print. Selection, presence, price and
   size are v5's. It also re-decided which accounts are the operator's, tested the wallet's exit policy as the outcome
   carrier, and found the first evidence that the private value prices in-round events rather than round results only.
+
+## What iteration 16 established (no rule change; v6 stays frozen)
+
+- **R vs K now leans R** (hypothesis). Clock-free per-map counts (94 maps of 16-22 Oct) show no kills-per-round or
+  plants-per-round effect on its value changes at fixed rounds, and its large moves scale with the map's rounds
+  (coefficient 1.34), with the count of rounds rather than with the map's duration when both are in the model; the
+  one-move-per-kill form is excluded. Re-stamping the public tape at the CLOB match (instead of
+  the block) leaves the print clock as weak as before (1.33x vs 1.30x over a reversed sequence) and turns the
+  decided-early contrast to -0.14 [-0.45, +0.09], which no longer excludes round-end messages. So, on the filled record, the private input is
+  mostly round results delivered early, with a small in-round part not excluded. On the one live block the filled
+  record is not a jump-timed sample of its quote moves (6.0% of filled vs 7.4% of unfilled value changes sit within
+  10 s of a 2c print jump), so censoring does not explain the pattern there; the uncensored 16-22 Oct ladder (Telonex
+  files) would settle it with power.
+- **Where the private part of the price item sits.** Of its value changes, 82-85% have no visible informed take in the
+  3 s before (dark), 4-5% come ahead of or inside the informed takers' 1-s delay, and 5-6% come after the informed trade
+  has matched (public on the market socket). About 90% of the decisions therefore carry V before any public trade.
+- **Operator accounts.** The operator's shadow accounts sign 0-5 ms behind 0x10d79cc7 at the same price in 16-22 Oct
+  (10 vs 2 pairs at 5-50 ms; every other maker 0), so 0x10d79cc7 (20-share ladders in GRID and LoL events) is the
+  operator's, as a separate quoting loop; 0xd2bb9459 is not attributed. Its GRID quotes are not the public print plus an
+  offset (at most 0.147 within one tick), so that arm runs on another input (GRID's official data is the candidate).
+  "Never GRID" is therefore the boundary of the wallet's loop, not of the operator.
+- **After T0 the fan-out lost its first signer.** P4e has no take on the operator's four development-block units; the
+  trio and RN1 still take with unchanged internal lags. The sibling 0x7d67f01d fails a pre-registered same-feed gate
+  there (lag spread, markout +0.98c against the +1c bar), so the recorded Thunderpick / Valve / Kick tests could not be
+  read on it (no Thunderpick record of any operator unit in any case). Exam risk is small for selection: the frozen v5
+  with gp72 recomputed without P4e scores AUC 0.972, recall 0.667, lift 3.33 on VALIDATE (0.970 / 0.744 / 3.155 with
+  it). The wallet's own information edge persists on 10-31 (new-high markout +1.89c at 60 s vs +2.5c in 16-22 Oct).
+- **The historical book exists.** Telonex's key-free availability endpoint lists full book snapshots, quotes and
+  on-chain fills for the wallet's 16-22 Oct CS2 markets; downloads need an API key (the user's account).
+- **Closed without a rule change:** an own-inventory price skew (real, 1-2c when long, +0.006 on VALIDATE), small net
+  caps on the public ladder (all negative on VALIDATE), a pre-game vendor fingerprint (none), and `clob_wallets` as an
+  input (subscribed only after the wallet's first trade in 8 of 9 markets: never a presence or selection input).
 
 ## What iteration 15 established (v6: the outcome replay; nothing else changed)
 
@@ -505,6 +541,9 @@ order-level fill engine, a census of informed bursts) and found:
   - The outcome replay on tape and calldata does not track the wallet, so h1 / h2 cannot pass outcome with any
     public-data rule found so far.
   - Sweep probes exist on h1 / h2 too (on-chain), but no rule predicts them well (AUC 0.67).
+- **`clob_wallets` is never a presence or selection input** (iteration 16, X222): in 8 of 9 of the wallet's markets of
+  the 10-31 development block it was first subscribed 3-19 min after the wallet's first trade. It serves only as the
+  fallback book of the live price rule, for orders that already exist.
 - **Future sealed blocks.** `evaluate()` reads `tommy_cs2_near`, then `clob_wallets`, through
   `iter_live(..., allow_sealed=ALLOW_SEALED)`, on the server clock, and reports a taker diagnostic and the frozen live
   price rule (`live_price`). From 10-31 19:28 UTC the
@@ -512,6 +551,7 @@ order-level fill engine, a census of informed bursts) and found:
 
 ## Why it works (economic mechanism)
 
+- **Iteration 16 note** (hypothesis). The clock-free counts and the match-time clock point to round results as the content of the feed's informative messages; what the operator is paid for is knowing who won the round before the market does, and quoting the new value on both books while the stale makers and the slower subscribers still trade at the old one. The operator runs the same business on GRID events through a separate account (0x10d79cc7) whose quotes are not the public print either.
 - **Iteration 15 note** (hypothesis). The private input is a push feed whose messages are mostly round results, delivered before and around the market's reaction, with a small in-round part. The operator is paid for pricing those results a second or more before the market does. Its counterparties are the makers it picks off and the takers who sell into its bids after it has already moved.
 
 1. **Universe** (VALIDATE-only). It trades only events without official GRID data, in CS2 and (from 10-22) Dota 2; the set is the coverage of its push feed (P4e's presence follows the same tier x GRID boundary, iteration 8). There, Polymarket's own sports
@@ -560,6 +600,7 @@ order-level fill engine, a census of informed bursts) and found:
 
 ## Can a normal user deploy it now
 
+- **Iteration 16 note.** Two conditions changed after T0: the fan-out's fastest subscriber (P4e) no longer takes in the operator's development-block events, and the wallet itself made no trade in the 11-01 06-12 block. A replicator would still need a round-result source that beats the market by about a second; neither Polymarket's sports socket (20.2-s polling, GRID only) nor any key-free score source found so far does. A historical tick-level book for back-testing a copy is for sale (Telonex), not free.
 - **Iteration 15 note.** The feed has to deliver its messages within about 0.25 s of the first co-receiver to precede 85% of the wallet's message-locked re-pricings. Polymarket's sports socket polls round scores every 20.2 s and only for GRID events, and Valve's Dota snapshots arrive every 4 s, so neither can stand in for it. A public-only copy of the ladder (v6's outcome replay) earns about zero and does not track the wallet's per-market PnL.
 
 - **Needs:**
@@ -606,6 +647,8 @@ order-level fill engine, a census of informed bursts) and found:
   Whether that is fast enough against the 1-s in-play delay is the pre-registered X118 test.
 
 ## Not explained yet
+
+- **Iteration 16 account.** Price: V at the message for about 90% of its value changes (82-85% dark, 4-5% ahead of or inside the informed takers' delay; 5-6% follow a public trade); the messages are mostly round results (R favoured on clock-free counts and on the match-time clock), so the missing input is a real-time round-end source faster than the market, or the vendor feed itself (PandaScore token) and, for the uncensored ladder, the historical book (Telonex key). Outcome: unchanged (v6 0.197 / 0.027); no inventory cap from 20 to 600 shares lets a public ladder track the wallet. Selection: explained on VALIDATE; the post-T0 exit of P4e from the fan-out is a drift risk for gp72.
 
 - **Iteration 15 account.** Price: V at the message; the messages are mostly round results with a small in-round part (R vs K not decided, weak clocks). Outcome: 0.197 / 0.027 for the frozen executable replay, 0.315 / 0.238 for the best public replay in the calldata engine; the wallet's exit policy does not change that. Selection: explained on VALIDATE; a small, drifting share of the operator's non-GRID events goes to 0x7d67f01d, which no listing field predicts out of fold with 20 cases.
 

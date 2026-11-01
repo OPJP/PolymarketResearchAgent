@@ -1,0 +1,83 @@
+{
+ "own_net_definition": "orders_inv.own_net (net shares of the order's token minus its complement at signing, from earlier own fills)",
+ "eval_tape": {
+  "n_build": 10738,
+  "n_validate": 12099,
+  "validate_k0": 0.357,
+  "global_k_build": 0,
+  "validate_global_k": 0.357,
+  "bucket_k_build": {
+   "0-200": 0,
+   "<=0": 0,
+   "200-600": 1,
+   ">600": 1
+  },
+  "validate_bucket_k_own_state": 0.361,
+  "validate_by_bucket": {
+   "0-200": {
+    "n": 2297,
+    "k0": 0.37,
+    "k_fit": 0.37,
+    "median_offset_c": -1.0
+   },
+   "200-600": {
+    "n": 1541,
+    "k0": 0.365,
+    "k_fit": 0.391,
+    "median_offset_c": -2.0
+   },
+   "<=0": {
+    "n": 8244,
+    "k0": 0.352,
+    "k_fit": 0.352,
+    "median_offset_c": -1.0
+   },
+   ">600": {
+    "n": 17,
+    "k0": 0.353,
+    "k_fit": 0.588,
+    "median_offset_c": -2.0
+   }
+  }
+ },
+ "wallet_free": {
+  "n_build": 10727,
+  "n_validate": 12099,
+  "validate_k0": 0.305,
+  "global_k_build": 0,
+  "validate_global_k": 0.305,
+  "bucket_k_build": {
+   "0-200": 0,
+   "<=0": 0,
+   "200-600": 1,
+   ">600": 2
+  },
+  "validate_bucket_k_own_state": 0.311,
+  "validate_by_bucket": {
+   "0-200": {
+    "n": 2297,
+    "k0": 0.309,
+    "k_fit": 0.309,
+    "median_offset_c": -1.0
+   },
+   "200-600": {
+    "n": 1541,
+    "k0": 0.306,
+    "k_fit": 0.35,
+    "median_offset_c": -2.0
+   },
+   "<=0": {
+    "n": 8244,
+    "k0": 0.304,
+    "k_fit": 0.304,
+    "median_offset_c": -1.0
+   },
+   ">600": {
+    "n": 17,
+    "k0": 0.294,
+    "k_fit": 0.588,
+    "median_offset_c": -3.0
+   }
+  }
+ }
+}

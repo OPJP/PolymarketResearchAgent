@@ -4961,3 +4961,427 @@ Each names its dimensions (state.json `dimensions`) and the residual component i
   current round (0.53-0.55), and the restart window follows the round just won. Its value moves at feed messages that
   are mostly round results. The price and outcome items stay bound to that feed; the user-gated asks (PandaScore token,
   demos, the exam's wallet list) are the remaining routes to it.
+
+---
+
+# Iteration 16 (2026-11-01, started 14:50 UTC; 1055 of 1200 budget minutes used before it)
+
+Read first: BRIEF.md (unchanged since 11-01), NOTES iteration 15 in full, state.json (catalog A1-X218 and E1-E7,
+components, target metrics, gauges, live_lab), FINAL_RULE.md (rule table, mechanism, deployability, account),
+panels/iter15_{information,mechanics,assumptions}.md in full. No EXAM or wall-audit files. Calendar at 14:51 UTC: no
+released lots, future examined up to 10-31 00:00; development blocks after H are 10-31 00-06, 10-31 12-18 and 11-01
+06-12; the current block 11-01 12-18 is sealed (nothing of it is read; the next development block, 11-01 18-24, starts
+after this iteration). Shared recorder running. The 12 iteration-15 panel proposals become X219-X230: information
+P1-P4 = X219-X222, mechanics P1-P4 = X223-X226, assumptions P1-P4 = X227-X230.
+
+**Pivot (required: the primary metric has not moved since iteration 9).** The unit changes from the wallet's own
+censored record to (1) the operator's sibling account on the only development units that have live external
+recordings (same-feed gate instead of same-process gate, X227), (2) clock-free per-map totals (X226), and (3) the
+public tape re-stamped at the CLOB match instead of the block (X229), which the assumptions panel showed moves the
+"2.5-5 s lead" to the same second.
+
+## Competing explanations (iteration 16) and the observation that separates them
+Each names its dimensions (state.json `dimensions`) and the residual component it would explain (price, outcome).
+1. **R: round results from the push feed, early** (dims `push_feed_inround_events` proxy, `feed_time_round_end_clock`
+   proxy). Separates: per-map counts of its large co-repricings scale with the map's rounds and not with kills or plants
+   per round (X226); on a match-time print clock the in-round part vanishes once the previous winner is controlled (X229).
+2. **K: in-round kill / bomb state from a vendor low-latency feed** (dims `kill_level_inround_state` missing,
+   `feed_vendor_identity` blocked: PandaScore 403 'Token is missing'). Separates: positive kills-per-round or
+   plants-per-round coefficient at fixed rounds in X226; pre-game veto / draft fan-out clusters at the in-play lags (X221).
+3. **T: V* is a public round-score table, hidden by the clamp and fill censoring** (mechanics P1; dims
+   `pm_book_levels_queue_cancels` have (live), `feed_time_round_end_clock` proxy). Separates: free quiet tops within 1c of a
+   table (X223).
+4. **D: the feed's Dota half is Valve's public spectator state** (dim `dota_spectator_state_valve` have, live only).
+   Separates: the operator's Dota value changes lock to Valve snapshot kill / tower events at a fixed lag (X227 on
+   dota2-synaps-hn, the only operator unit with Valve snapshots).
+5. **O: the value is a bookmaker's in-play line** (dim `sportsbook_inplay_cs2_thunderpick` proxy through bo3's relay).
+   Separates: its value changes coincide with Thunderpick suspensions / re-opens (X227 / X168), if any operator unit
+   has Thunderpick records.
+6. **Unlikely, W: the dark re-pricings read other makers' public cancel waves** (dims `pm_book_levels_queue_cancels` have, live
+   only; `pm_book_history_vendor` blocked: Telonex, user-gated). Separates: dark V-changes with a public cancel wave in [-50, 0] ms on the live
+   book (X220 step 3 form; BUILD-live only).
+7. **Unlikely, F: the feed or the routing changed after H** (dims `operator_account_routing`, `pm_other_wallets_feed_subscribers`).
+   Separates: fan-out lags and members on the development blocks after T0 against 16-22 Oct (X230).
+
+## Pre-registration (iteration 16, written 14:59 UTC before any number below is computed)
+- **X227 (same-feed gate, then the frozen live tests on the operator's units).** Units: 0x7d67f01d's development
+  units cs2-1win-5s-2026-10-31, dota2-xe-hn-2026-10-31, dota2-synaps-hn-2026-11-01 and cs2-the9-5s (11-01), each start
+  checked with `sealed.is_sealed`. Gate, both required: (G1) its taker orders co-sign with wallet-free group-P / group-G
+  takes on the same event within +-300 ms at >= 5x a +-30..120-s shifted null, on >= 3 takes, with the median lag
+  behind the first group-P signer in [0, 150] ms and IQR <= 40 ms; (G2) its new-high value changes (burst top above the
+  previous three tops on the token) move the clean print their way by >= +1c at 60 s (mean, n >= 20). If the gate
+  passes: Dota (X118 form) on dota2-synaps-hn: its V-change decisions against Valve snapshot events (team kill-count
+  change, building change) at receive time, event study over lags -60..+60 s in 1-s bins against 2,000 circular shifts
+  of its decision times inside the map; "spectator state drives it" iff a localized peak at a fixed lag with >= 2x the
+  null (p <= 0.01) and direction agreement with the kill team >= 0.65; "no" iff ratio <= 1.3 or p > 0.05. Thunderpick
+  (X168) and Kick / chat (X162 / X87) run unchanged where the recorders hold records of an operator unit.
+- **X226 (clock-free per-map counts).** Maps: CS2 map books of 16-22 Oct with >= 30 wallet maker orders and bo3 rounds.
+  Per map: its V-change decisions on the map book inside [bo3 begin_at - 60 s, begin_at + duration + 120 s], split
+  large (|dV| >= 4c) / small (1-3c), and co-repricings (a V-change on another book of the event within 5 ms). Negative
+  binomial (Poisson with map-robust SEs as the fallback) of each count on kills per round and plants per round with
+  log(rounds) as offset, with and without log(own filled maker orders) and log(public prints in the window) as
+  controls. R: no kills / plants effect for the large class; K: a positive kills-per-round or plants-per-round
+  coefficient (p < 0.05) in either class.
+- **X229 step 1 (match-time print clock).** Re-stamp every wallet-free taker print at min(block, taker sign + 1.04 s)
+  when 0 <= block - sign <= 5 s (else the block), then rerun the print-anchored round clock of `decided_early.py`
+  unchanged. Pre-registered: the clock improves iff snapped / reversed-sequence snaps >= 1.6 (block time 1.30x). Then
+  report the decided-early contrast (finding 7) and the previous-winner-controlled agreement (finding 23) on it.
+- **X221 (pre-game vendor fingerprint, key-free part of X219).** Pre-start fan-out clusters: >= 2 distinct
+  group-P / group-G subscribers signing takes within 300 ms on wallet-free txs before the event's scheduled start, 16-22
+  Oct. Rate per minute by time to start against a +-30..60-s shifted null; share of each event's pre-start clusters in
+  its busiest 3-min window. LLF-like iff the rate is >= 3x the null and >= half of the clusters of the events with any
+  sit in one 3-min window 5-30 min before the start.
+- **X222 (clob_wallets presence leak).** On the three development blocks after T0, per market: the first
+  `clob_wallets` record against the first trade of the studied wallet in it; coverage of untraded events against
+  `tommy_cs2_near`. Leaky iff >= 90% of traded markets have no `clob_wallets` record before the wallet's first trade.
+- **X224 (own-inventory skew, historical part).** Order unit at signing: floor(last wallet-free print) - k(net bucket of
+  its token: <= 0, 0-200, 200-600, > 600 shares), k per bucket fitted on BUILD (the integer cent that maximizes the
+  within-tick share), scored on VALIDATE against the frozen 0.322, with and without own state.
+- **X220 (Telonex).** One key-free availability request; if it needs a key, the item is user-gated with the response on
+  file.
+- **X231 (self-proposed, written 15:25 UTC before its run).** Does a SMALL net cap turn the public bid-side ladder's
+  realized PnL into locked pair margin (the 81% component of the wallet's per-market PnL variance)? Examinable tape
+  engine of iteration 15 (`tape_exit_policy.py`, unchanged), one level at others' bid, variants net cap 20 / 50 / 100
+  CS2 shares (x0.1 Dota) and pair cap 0.99 / 0.97, plus v6 (no cap). Chosen on BUILD by min(Pearson, Spearman);
+  VALIDATE once; adopted into `evaluate()` only if the choice beats v6 (0.197 / 0.027) on VALIDATE in both coefficients.
+
+## Findings (iteration 16); numbers in results/*.json, code in code/iter16/
+1. **The operator sibling fails the pre-registered same-feed gate on its development units (X227; `same_feed_gate.py`,
+   `same_feed_gate.json`).** 0x7d67f01d on cs2-1win-5s, dota2-xe-hn (10-31 12-18), dota2-synaps-hn and cs2-the9-5s
+   (11-01 06-12), every unit start checked development; 8,170 data-api rows, 2,941 decoded orders (publicnode).
+   - G1: 5 of its 127 takes co-sign with a wallet-free group-P / group-G take within +-300 ms (3.9% against a 0.4%
+     shifted null, about 10x; the count / ratio part passes). The lag structure does not: one co-signed take on
+     1win-5s (+78 ms) and four on the9-5s (median +54 ms, IQR 69.5 ms against the bar of 40 ms). Its 78 Dota takes have
+     0 co-signers; the Dota events had no group-P take at all (only group G: 0xf1ee4842, 0x7c8cc255, 0xb7ab821f).
+     For scale: in 16-22 Oct the wallet's take clusters were co-signed 29-38.5% of the time.
+   - G2: its new-high value changes move the clean print +0.98c at 60 s (n 87; bar +1.0c): 1win-5s +1.90 (10), xe-hn
+     +1.89 (27), synaps-hn +0.74 (13), the9-5s +0.16 (37).
+   - **Verdict: gate failed** (lag IQR, and G2 by 0.02c). By the pre-registration the live tests are not read as
+     same-feed tests. Two of them could not run anyway: `tommy_tp_odds2` has no record of any operator unit (bo3's live
+     index carried Thunderpick odds for 5 matches in 11-01 06-12; the two that match Polymarket events are the GRID
+     events jjh-mzp and bca-pha), so X168 has no unit; Kick / chat have no operator unit either.
+   - Exploratory only (`valve_lock_a7.py`, `valve_lock_a7.json`): its 70 Dota value changes on synaps-hn against 601
+     Valve kill-count events (7,458 snapshots at receive time) show no lock at any lag window (observed / circular-shift
+     null 0.56-0.85, p >= 0.74). The snapshots carry 11 match ids for the event, so the event-to-game match is loose;
+     no reading beyond "no visible lock".
+   - Its maker sizes on these units (100, 62, 60, 58, 56, 50) are the wallet's event-wide size ramp.
+2. **Clock-free per-map counts favour round results over kills (X226; `map_counts.py`, `map_counts.json`; 94 bo3-matched
+   maps of 16-22 Oct).** Per map: 22.4 rounds, 146 kills, 12.0 plants, 64.2 V-changes (27.7 of >= 4c, 36.5 of 1-3c);
+   kills and rounds correlate 0.974, so the K terms are kills per round (SD 0.37) and plants per round (SD 0.13) with
+   log(rounds) as offset. Negative binomial:
+   - all V-changes: kills per round -0.22 (SE 0.14, p 0.11); with log own orders and log prints as controls -0.11
+     (p 0.057); plants per round +0.10 (p 0.79) / -0.10 (p 0.54);
+   - large (>= 4c): kills per round -0.11 (p 0.44) / +0.00 (p 0.99); plants -0.02 / -0.19 (n.s.); with log(rounds)
+     free its coefficient is 1.34 (SE 0.22): the large moves scale with the map's rounds;
+   - small (1-3c): kills per round -0.30 (p 0.053) / -0.19 (p 0.03): if anything fewer small moves on kill-heavy maps;
+   - ms-synchronous co-repricings are rare (0.73 large + 0.51 small per map), with fewer on plant-heavy maps (-2.45,
+     p 0.02).
+   K's one-move-per-kill form predicts about +0.15 per kill per round; the all-moves CI excludes it (upper bound +0.05,
+   +0.002 with controls). The plant form (about +0.4) is not excluded by power (SE 0.38). Pre-registered reading: **R
+   (no kills / plants effect, large moves scale with rounds); the K signature is absent.** The counts are censored by
+   fills (log own orders is the control), so this bounds the filled record.
+3. **Re-stamping the public tape at the CLOB match does not sharpen the print clock, and it removes the decided-early
+   evidence for K (X229 step 1; `decided_early_match.py`; `decided_early_clock_printmatch_15_30.json`,
+   `decided_early_printmatch.json`, `dark_round_winner_printmatch.json`).** Each wallet-free print re-stamped at
+   min(block, taker sign + 1.04 s) when 0 <= block - sign <= 5 s.
+   - Snaps 862 vs 646 with the winner sequence reversed (**1.33x**; block time 875 vs 673, 1.30x; pre-registered bar
+     1.6): the block-time jitter is not why the print clock is weak.
+   - Its value's winner-signed move by window (mid / late / end / after): 0.473 / 0.145 / 0.177 / 0.205 of the total
+     (block clock 0.494 / 0.268 / 0.091 / 0.146). About 0.14 of the move that the block clock put before the print moves
+     to the end and after windows once the print is stamped at its match: part of the "lead" was the block lag, as the
+     assumptions panel said.
+   - Decided-early vs elimination rounds: the before-anchor share is 0.489 (n 128) vs 0.627 (n 246), difference
+     **-0.138, CI [-0.451, +0.085]** (block clock +0.002 [-0.203, +0.176]). R predicted about -0.28, now inside the CI;
+     the iteration-15 reading "the CI excludes R" (finding 7) does not survive the match-time clock.
+   - Where the round's winner differs from the previous round's, dark new highs agree with the current winner 0.500
+     (n 152), all dark 0.540 (n 413), visible informed takes 0.529 (n 68); logistic for all dark: current +0.364
+     (p < 0.001), previous +0.211 (p 0.001). Finding 23 replicates.
+   - **R vs K now leans R**: no kills effect on the clock-free counts (finding 2), the decided-early contrast is
+     R-compatible on the match clock, and the mid-round component beyond the previous round stays small (0.50-0.54).
+     A small in-round part (plants / decisive duels) is not excluded.
+4. **No vendor-level pre-game veto fingerprint (X221, the key-free part of X219; `pregame_clusters.py`,
+   `pregame_clusters.json`).** 73 events, 2,580 group-P / group-G takes in [-60, +30] min of the scheduled start, 146 of
+   them before it. Fan-out clusters (>= 2 members within 300 ms): 20 before the start (2 / 4 / 3 / 11 in the -60..-30 /
+   -30..-15 / -15..-5 / -5..0 min bins; null 0.97 in total), against 47 in the first 5 min of play and 308 in 5-30 min.
+   Only 5 of 73 events have any pre-start cluster, 15 of the 20 sit in two events whose clusters are spread over 10-30
+   min like in-play activity (ef1-bcg from -31.6 min, busiest 3-min share 0.33; imp11-shin from -9.5 min, 0.75), which
+   reads as matches that started before their scheduled time; only 1 of 5 has half its clusters in one 3-min window 5-30
+   min before the start. Pre-registered verdict: **not LLF-like** (the panel's "signature if false": no pre-start
+   clusters beyond the map-1 start). The feed's subscribers do not trade veto information, so either the vendor sends
+   no veto messages or they move nothing; weak evidence for an in-game reader over a vendor product.
+5. **`clob_wallets` is conditioned on the wallet's presence (X222; `clob_wallets_leak.py`, `clob_wallets_leak.json`).**
+   10-31 12-18, the only development block with wallet trades and a recording: 8 of its 9 traded markets were first
+   subscribed 190-1,139 s after its first trade there (2 never in the readable record); 1 (wraith-ntr) was subscribed 71
+   min earlier. Share 0.889 against the 0.90 bar, so "leaky" by the letter is false, but in substance the feed exists for
+   its markets only after it trades. `evaluate()` uses `clob_wallets` only as the fallback book of the live price rule
+   (never for presence or selection); FINAL_RULE.md now forbids it as a presence or selection input. The `subs` hour
+   file of 10-31 12:00-13:00 is unreadable (zlib "invalid block type"; 4 of 4 slices lost), the same corrupted-file
+   class as iteration 15's `sports` hour. The own wallet-independent recorders stop 11-03 00:00; no successor was
+   started: the first exam uses h1 (before T0, no live input), and a later future-block exam would need the user's
+   go-ahead on a longer run.
+6. **The own-inventory price skew is real and tiny (X224, historical part; `inventory_skew.py`, `inventory_skew.json`).**
+   Order unit at signing, VALIDATE (12,099 maker orders): median offset from the last print -1c at net <= 200 shares,
+   -2c at 200-600, -2 to -3c above 600 (n 17). BUILD fits k = 0 / 0 / 1 / 1-2c; on VALIDATE the within-tick share moves
+   from 0.305 to **0.311** with the wallet-free tape (0.357 to 0.361 with `evaluate()`'s tape, which keeps the wallet's
+   own takes), +2.6 to +4.4 points inside the 200-600 bucket only. Not adopted: +0.4-0.6 points with own state is below
+   any useful step towards 0.80. The live part (regime classifier, machine set unit) has no VALIDATE-live unit.
+7. **The historical tick-level Polymarket book exists for the development period (X220; `telonex_availability.json`).**
+   Telonex's availability endpoint answers without a key (`https://api.telonex.io/v1/availability/polymarket?asset_id=`):
+   for three development CS2 markets (cs2-priv-fnc-2026-10-21, cs2-faze-jjh-2026-10-21, cs2-fnc-prv-2026-10-20) it lists
+   `book_snapshot_full`, `book_snapshot_25`, `book_snapshot_5`, `quotes` and `onchain_fills` from 10-19 / 10-20 to
+   10-21 / 10-22. Downloads need an API key (`api_key` is required in the SDK), i.e. an account that only the user can
+   create (free trial with 5 file downloads, or $99 a month). This is the data the investigation has lacked since X18:
+   the uncensored ladder, others' best bid J at signing (the best public anchor, 0.499 vs 0.322 on BUILD-live), the
+   cancel waves (explanation W) and match-time prints. No sealed date was requested.
+8. **The shadow fingerprint re-attributes 0x10d79cc7 to the operator, not 0xd2bb9459 (X228 step 1;
+   `shadow_persistence.py`, `shadow_persistence.json`; 16-22 Oct, before H).** Activity of the four accounts (0x10d79cc7
+   14,280 trade rows, 0xd2bb9459 14,773, 0x52661b8e 2,216, 0x67119033 1,174), 1,761 txs decoded in the shadows' 22 / 11
+   events the wallet did not trade (plus the leaders' txs within +-1 h in the same markets). Same-token orders signed 0-5
+   ms before a shadow order against 5-50 ms:
+   - 0x67119033 (533 orders: 449 on 10-16, 84 on 10-17) vs 0x10d79cc7: 7 vs 1 (**52.5x per ms**, 4 at the same
+     price); vs 0xd2bb9459: 0 vs 0 (261 leader orders decoded);
+   - 0x52661b8e (373 orders: 10-16, 10-18, 10-22) vs 0x10d79cc7: 3 vs 1 (22.5x); vs 0xd2bb9459: 0 vs 0;
+   - controls (every other maker with >= 30 orders in those txs): 0 pairs at 0-5 ms (median ratio 0).
+   So by X176's bar 0x10d79cc7 is the operator's (a separate quoting loop, since it does not co-sign across markets
+   with the wallet: iteration 15 finding 3); 0xd2bb9459 stays unattributed in 16-22 Oct (the panel's 10-12..10-16 pairs
+   do not recur; low power). The operator therefore also quotes GRID events (and LoL) through 0x10d79cc7: "never GRID"
+   is the wallet's loop's boundary, not the operator's. The user question on the exam wallet list now names 0x10d79cc7.
+9. **The operator's GRID arm is not a public-print quoter either (X228 step 2; `grid_arm_anchor.py`,
+   `grid_arm_anchor.json`).** 0x10d79cc7's 816 decoded orders in 9 GRID events of 10-16 (20 shares in 98%; 346 single
+   bursts, 154 multi-order ladders of 2-8): within one tick of the last clean print + k at signing, at most **0.147**
+   (k = +1c; 0.138 at k = 0; median offset +1c), against the pre-registered bar of 0.45 and the wallet's own 0.305. The
+   GRID arm's value is not print + offset; it has its own input (GRID's official data is the obvious candidate), so the
+   "public-information control" premise fails by measurement. Step 3 (LoL twin via Leaguepedia / Riot) not run.
+10. **The fan-out lost its first signer after T0 (X230; `fanout_after_t0.py`, `fanout_after_t0.json`).** Reference 16-22
+    Oct: 2,579 fan-out clusters in 76 events, first signers the trio (875), group-G members (about 1,000) and P4e (251);
+    the trio co-sign within 3-5 ms (IQR 19-23 ms). After T0 (the four operator units, complete decode): **P4e has 0
+    takes** (it was in 285 clusters before); RN1 40 and the trio 98 takes; the trio's internal lags are unchanged
+    (median 0-9 ms, IQR 10-37 ms). The six GRID units' decode is partial (operator-candidate txs only), so cluster counts
+    are not compared. P4e is one of v5's five gp72 members, so an exam lot after its exit sees gp72 lower by at most 1
+    in leagues it alone covered; h1 (10-23..29) lies before T0 and cannot be checked (sealed). Handling: `evaluate()` is
+    not changed; the examiner's halves (listing metadata) already separate earlier from later units.
+11. **The message-locked decisions split by the clock of the visible message (X229 step 2; `message_classes.py`,
+    `message_classes.json`; 16-22 Oct V-change decisions).** Lag of each decision behind the latest wallet-free group-P
+    take on the event that agrees with it, against the same with the take times shifted by +-30..120 s:
+
+    | Class (share of all V-changes; null) | BUILD (n 7,640) | VALIDATE (n 9,384) | 60-s markout BUILD / VALIDATE |
+    | --- | --- | --- | --- |
+    | Dark (no group-P take in the 3 s before) | 0.821 | 0.854 | +1.88c / +1.78c |
+    | 1: co-sign, 0-100 ms after the take's signing | 0.021 (0.001) | 0.013 (0.001) | +5.4c / +5.7c |
+    | 2: inside the 1-s delay, 0.1-1.04 s | 0.045 (0.011) | 0.036 (0.011) | +5.8c / +5.8c |
+    | 3: after the CLOB match, 1.04-3 s | 0.083 (0.022) | 0.072 (0.020) | +6.0c / +6.9c |
+
+    Net of the null, class 3 (a reaction once the informed trade is public on the market socket) is 5-6% of all its
+    value changes, classes 1 + 2 (ahead of or inside the delay) 4-5%, and the dark 82-85%. So about 90% of the decisions
+    carry V before any public trade could show it, which states the private part of the price item exactly; class 3 is
+    the only part a live public rule could reach (step 3, its level against post-trade book quantities on BUILD-live,
+    not run). All three visible classes carry the same +5.4..+6.9c markout: class 3 is as informed as classes 1-2.
+12. **Mechanics P1's diagnostic clock does not exist on the filled record (X223, from finding 2).** Its own
+    ms-synchronous map / match co-repricings number 1.2 per map against 22.4 rounds, so they cannot mark round ends;
+    the BUILD-live maps have no usable clock either (X212). The level test (free quiet tops against a score table with
+    clamped tops censored) needs the uncensored 16-22 Oct ladder (Telonex, finding 7) or a real-time round score. The
+    panel's clamp numbers (BUILD-live: 57% of tops at J or at ask - 1c, 97% at or below ask - 1c; an oracle choosing
+    between the two anchors reaches 0.703 on burst tops) are recorded as the clamp component of the price rule.
+13. **Explanation W (dark re-pricings read other makers' public cancel waves) has an existing answer.** Iteration 7-9's
+    live measurement: its re-quote bursts co-occur with other makers' changes symmetrically (50 ms before in 67%, after
+    in 69%, null 19%), the signature of a common driver, not of a follower; the dark markouts survive the joiner filter
+    (iteration 15 finding 17). W stays a hypothesis only for the historical book (Telonex) and is not pursued further.
+14. **A small net cap does not turn the public ladder's PnL into pair margin (X231; `tiny_cap_pairlock.py`,
+    `tiny_cap_pairlock.json`; examinable tape engine).** One level at others' bid with a net cap of 20 / 50 / 100 CS2
+    shares (pair cap 0.99 or 0.97): BUILD Pearson / Spearman -0.21..-0.26 / -0.06..-0.13 for every capped variant (v6's
+    uncapped L1_C0 -0.127 / +0.023 is the BUILD choice); VALIDATE -0.17..-0.46 / -0.08..-0.31 (v6 0.197 / 0.027). The cap
+    stops the losing side's fills only after they have happened, and the complement it waits for rarely fills: the
+    capped ladders lose $0.7-3.6k on VALIDATE and their losses grow with the same market activity that grows the
+    wallet's profit, hence the negative correlations. Not adopted; v6 stays. With X218 (the wallet's own cap) this
+    closes the inventory-cap family: no cap size makes a public ladder track the wallet's per-market PnL.
+
+## Missing dimensions (iteration 16 update; the rule is unchanged, so iteration 14's out-of-fold residual stands)
+- **Price (unexplained about 90% of decisions).** Class split of its V-changes (finding 11): 82-85% dark, 4-5% ahead
+  of or inside the informed takers' delay, 5-6% after the informed trade is public on the market socket. The pointed
+  dimension is `push_feed_inround_events` with mostly round-result content (findings 2-3: R favoured), i.e. a
+  real-time round-end source faster than the market (`feed_time_round_end_clock`); `kill_level_inround_state` is not
+  needed in its per-kill form. Vendor: `feed_vendor_identity` (blocked: PandaScore token), with no pre-game veto
+  fingerprint (finding 4). Historical book: `pm_book_history_vendor` (blocked: Telonex key; availability verified).
+- **Outcome.** Unchanged: the informed takes and V gate it; every public ladder family (anchors, phase gates, exit
+  policy, caps from 20 to 600 shares) stays at or below 0.32 / 0.24 on VALIDATE.
+- **Selection.** Explained on VALIDATE; after T0 the fan-out's first signer is gone (finding 10), a drift risk for gp72.
+- **Synchrony (E7).** Not rerun (iteration 14's residual clustering stands; no new rule).
+
+## Hypothesis ledger (iteration 16)
+- R (round results early): **favoured** (no kills / plants effect on clock-free counts; decided-early contrast
+  R-compatible on the match clock).
+- K (kill / bomb state): **disfavoured in its per-kill form**; a plant / duel component is not excluded by power.
+- T (V* a public score table under clamp and censoring): **untestable on the filled record** (no clock); needs the
+  Telonex ladder.
+- D (Dota half = Valve spectator state): **not testable** on the operator's units (same-feed gate failed); exploratory
+  null.
+- O (bookmaker line): **no unit** (no Thunderpick record of any operator unit).
+- W (others' cancel waves): **disfavoured** by the earlier symmetric co-occurrence (finding 13).
+- F (feed change after H): **partly true**: P4e is absent after T0; the trio and RN1 are unchanged.
+- Operator accounts: 0x10d79cc7 **attributed** (shadow fingerprint; separate GRID / LoL loop, not print-anchored);
+  0xd2bb9459 not attributed.
+- Small-cap pair lock (X231): **rejected**.
+
+## What is unexplained (quantitative)
+- Price: V at the message for about 90% of its value changes (82-85% dark, 4-5% ahead of the public trade); public
+  ceilings unchanged (last print 0.322 per order at signing; own-state skew 0.311 vs 0.305 wallet-free; J 0.499 on the
+  BUILD-live set unit; oracle 0.875 / 0.73).
+- Outcome: frozen v6 0.197 / 0.027; best public replay 0.315 / 0.238 (calldata engine); no cap size helps (X218, X231).
+- Selection: explained on VALIDATE (0.970); routing to 0x7d67f01d and the post-T0 fan-out change are the drift risks.
+
+## Next iteration (plan; about 45 budget minutes remain after this one)
+1. User asks, ranked: PandaScore token (X219), Telonex key (X220), demos (X37 / X122), the exam wallet list
+   (0x7d67f01d, 0x52661b8e, 0x67119033, 0x10d79cc7).
+2. If a Telonex key arrives: label the wallet's uncensored ladder on 5 BUILD map-days and run X223 (free tops against a
+   round-score table), the cancel-wave lock (W) and J at t - 100 ms.
+3. X207 (LoL twin on 0x10d79cc7, key-free Leaguepedia / Riot), X229 step 3 (class-3 level on BUILD-live).
+4. Keep v6 frozen.
+
+## Late additions (iteration 16)
+15. **In the taker regime the operator re-armed about once per round, and less on kill- and plant-heavy maps (X225,
+    clock-free step 4; `taker_map_counts.py`, `taker_map_counts.json`; 10-01..10-15, development).** 231 bo3-matched
+    GRID-era maps with its FAK orders (544 bo3 finished matches listed for 10-01..10-15): 21.8 rounds, 145 kills, 11.9
+    plants and **23.4 sign moments per map (1.07 per round)**. Negative binomial with log(rounds) as offset: kills per
+    round -0.27 (SE 0.12, p 0.03), plants per round -0.81 (SE 0.37, p 0.03); with log(rounds) free its coefficient is
+    1.58 (SE 0.23). This is the mechanics panel's R signature for the earlier version ("about one sign moment per round"),
+    with no positive kill or plant term; the operator's valuation then was updated per round result. Steps 1-3 (bracket
+    midpoints and widths against a score table at the sign moment) still need a taker-regime round clock.
+16. **E5: CS2 news volume is negligible and does not move with its activity (`e5_gdelt_hourly.py`,
+    `e5_gdelt_hourly.json`).** GDELT DOC 2.0 answered this time (HTTP 200, one request): 24 articles matching
+    "counter-strike" in the 163 hours of 16-22 Oct (median 0 per hour, 99th percentile 2). Spearman with its hourly
+    V-change decisions -0.07 (p 0.35), with maker orders -0.08, with events in play -0.04; partial rank correlation with
+    decisions given events in play and hour of day -0.15 (p 0.05, negative); in active hours, articles against decisions
+    per event -0.20 (p 0.08). No news input at the hour scale; the sub-second timing is out of a wire's reach anyway. E5
+    is tried (one indicator, hourly); the selection residual is allocation (iteration 15), not news.
+
+## Hypothesis ledger update (late)
+- (Superseded by the final ledger update below: finding 15's per-round reading is withdrawn in finding 17.) R is
+  supported by the maker regime's clock-free counts (finding 2) and the match-time clock (finding 3).
+  K in any per-event form (kills, plants) is disfavoured; a residual in-round part (finding 3, 0.50-0.54 agreement with
+  the current winner where it changes) remains small.
+
+17. **Correction to finding 15: the taker regime's sign moments are not a round clock (X225 steps 4b-4c;
+    `taker_moment_clock.py`, `taker_moment_tracker.py`; pre-registered above).** Fitting round ends from bo3 durations
+    (G and an offset free per map) snaps 1,185 of 4,869 rounds against 1,113 with the reversed duration sequence
+    (**1.065x**, bar 1.5); the print-clock tracker with the moments as anchors and the round winner's direction snaps
+    1,144 vs 1,104 reversed (1.04x). The gaps between moments have a median CV of 1.05 (Poisson-like) against 0.35 for
+    round durations. So "1.07 sign moments per round" is a rate, not a re-arm at each round end: the operator armed its
+    taker orders at a roughly constant rate per unit of play.
+18. **Duration control for the per-map counts (`counts_duration_control.py`, `counts_duration_control.json`).** With
+    log(map duration) added (it correlates 0.94 with log(rounds) in the maker regime, 0.75 in the taker regime):
+    - maker regime (94 maps): all V-changes follow rounds (1.81, p 0.006), not duration (-0.23, p 0.69); large moves
+      rounds 2.12 (p 0.001), duration -0.23; kills per round stays <= 0 (all -0.25, p 0.07; small -0.32, p 0.04), plants
+      n.s.;
+    - taker regime (230 maps): sign moments follow both rounds (0.94, p 0.003) and duration (0.67, p 0.003); kills per
+      round -0.27 (p 0.03), plants per round -0.79 (p 0.03).
+    The maker regime's value changes are tied to the count of rounds rather than to time, with no positive kills or
+    plants term: the R reading of finding 2 survives the duration control. The taker regime's arming is partly
+    time-driven (finding 17), so finding 15's "per round result" interpretation is withdrawn; only its negative kills /
+    plants terms remain.
+
+19. **The wallet's information edge is still there after T0 (X230 step 3; `wallet_markouts_t0.py`,
+    `wallet_markouts_t0.json`).** On the 10-31 12-18 development block (9 markets, 712 maker orders signed before 18:00,
+    data-api taker tape clamped to the block end, its own txs removed), its 131 new-high value changes move the clean
+    print their way by **+1.89c at 60 s** (up 46%, down 21%), against +2.62c (BUILD, n 2,605) / +2.50c (VALIDATE, n 3,095)
+    for the same statistic in 16-22 Oct: about three quarters of the earlier size on one block.
+20. **P4e stopped trading the operator's markets after T0 (X230 qualifier; `p4e_after_t0.py`, `p4e_after_t0.json`).**
+    data-api activity in the two development blocks with live units: P4e has 127 trade rows in 10-31 12-18, none in a
+    known development CS2 / Dota unit (all 127 dropped unread as unknown or sealed-start events), and **no trade at all in
+    11-01 06-12**; RN1 (4,721 / 860 rows; 49 and 96 in development units) and trio member 0x72aaaaf9 (646 / 138 rows;
+    473 and 91 in development units, across 8 CS2 events on 10-31) are active. So the fan-out's first signer is gone
+    from the development units, while the slower subscribers and the wallet's own information edge remain.
+
+21. **The frozen selection survives P4e's exit (exam-risk check for X230; `selection_without_p4e.py`,
+    `selection_without_p4e.json`).** The v5 selection on VALIDATE (build constants, the same code path as `evaluate()`,
+    which reproduces 0.9702 / 0.744 / 3.155) with gp72 recomputed without P4e and the coefficients and threshold
+    unchanged: AUC **0.972**, recall 0.667, lift 3.33 (28 events selected instead of 33; gp72 mean 1.29 instead of 1.51).
+    If P4e had already left during an exam lot, the selection item would still meet AUC >= 0.80 with recall >= 0.5 at
+    lift >= 3; only recall falls by about 8 points.
+22. **X191 / X207 endpoint probe.** One Leaguepedia cargo query (ScoreboardGames, 2026-10-20, key-free MediaWiki API)
+    answered HTTP 200 with `{"error": {"code": "ratelimited"}}` on the shared connection; the LoL twin stays open.
+
+23. **The side item stays not applicable (`side_onesided.py`, `side_onesided.json`).** Share of its filled shares on
+    token 0 per traded market: quantiles 0.46 / 0.48 / 0.50 / 0.51 / 0.53 (BUILD, 113 markets) and 0.47 / 0.48 / 0.50 /
+    0.51 / 0.54 (VALIDATE, 116); **0 markets one-sided** at the 0.95 or the 0.90 cut, so the examiner's 20% condition for
+    scoring side is not met on development data. Every market is a balanced pair book (pairs merged, net capped).
+
+24. **On the uncensored live book, fills do not over-sample round-result moments (`censoring_check.py`,
+    `censoring_check.json`; BUILD-live 10-31 12-18, server clock).** Of its 1,107 uncensored value changes (burst top
+    moving >= 1c; 6 tokens), only 67 (6.1%) are visible on the filled record. Filled vs unfilled: within +-10 s of a >= 2c
+    clean-print jump 6.0% vs 7.4%; a wallet-free print within 3 s after 6.0% vs 3.5%; |dV| median 4c vs 3c (>= 4c 0.48 vs
+    0.37). Fill rate near jumps 4.9%, elsewhere 6.1%. So the filled record is a size-biased but not a jump-timed sample
+    of its quote moves: the censoring route by which a filled record could fake the R pattern (fills only at round-result
+    sweeps) is not seen on the one live block. The uncensored quote moves are far more frequent than rounds (about 8 per
+    minute on shin-isg map 1), most of them anchor moves (the mechanics panel's clamp: 57% of tops at J or ask - 1c).
+
+25. **No public live-book feature picks the clamp anchor (X224 live part; `clamp_regime.py`, `clamp_regime.json`;
+    BUILD-live adds, first half fit, second half scored).** Regimes of the new top: below J 0.268, between J and
+    ask - 1c 0.240, pinned at ask - 1c 0.232, join J 0.231, crossing 0.030. A gradient-boosted classifier on spread, J
+    freshness, J size and level reaches 0.387 accuracy (largest class 0.305; bar 0.75), 0.469 with own state; the rule
+    "ask - 1c if predicted pinned, else J" scores 0.636 / 0.646 within one tick of the top against J alone 0.661 and the
+    oracle choice 0.742. The panel's "if false" branch: the anchor choice is itself V*, and the live price item stays
+    bounded near 0.74 on tops even with an oracle selector. The frozen live rule (the touch) is kept.
+
+26. **X229 step 3 has no live sample.** On BUILD-live the wallet-free group-P takes decoded in the wallet's recorded
+    markets (243 trio taker orders in 10-31 12-18) share only 2 tokens with its add rows (`class3_live.py`: no add with a
+    take in the 3 s before), so the class-3 level test cannot run on the live book. The historical answer stands
+    (information panel iteration 15, `mode2_price.json`): its same-token re-posts about 1.05 s after an informed take sit
+    within 1c of that take's executed price in 0.656 of cases (n 151), against 0.423 at 1.5-3 s; complement re-posts sit
+    a median 3c under 1 - fill (the pair constant). Class 3 (5-6% of decisions) is partly a public function of the
+    informed trade's price; it is too small a share to move the price item.
+
+27. **Clutch rounds add no detectable in-round term (`map_counts_clutch.py`, `map_counts_clutch.json`).** With clutches per
+    round (bo3, mean 0.112, SD 0.066) added to the X226 model: all V-changes +0.84 (SE 0.90, p 0.35), large +1.04 (SE 0.91),
+    with controls +0.12 / +0.33 (n.s.); kills per round stays negative. Underpowered (a one-move-per-clutch form predicts
+    about +0.34), so this neither supports nor excludes a clutch component.
+
+28. **Exploratory Valve lock with the games matched strictly (X227; `valve_lock_a7_strict.py`,
+    `valve_lock_a7_strict.json`).** The recorder had attached 11 concurrent games to the event; restricted to the two
+    whose names match the outcomes (Team Synapse vs HellNight, match ids 9071281369 and 9071365885; 128 kill events), the
+    sibling's 70 Dota value changes show no excess around kill snapshots (observed / circular-shift null 0.50-0.79 in
+    every window, p >= 0.66) and direction agreement 0.50 (n 6) after and 0.60 (n 5) before. Not a verdict (the gate
+    failed, n is small); it gives no sign that this account's Dota value follows Valve's spectator state.
+
+## Hypothesis ledger update (final for iteration 16)
+- R is supported on the maker regime's record by two independent tests (clock-free counts that follow rounds, not time,
+  with no kills / plants term; the decided-early contrast on the match-time clock). The taker regime's arming does not
+  lock to round ends and is partly time-driven. K in its per-event forms stays disfavoured; a small in-round part remains.
+- Clocks: every public or own anchor set measured so far fails as a non-GRID round clock (block print 1.30x, match print
+  1.33x, informed takes 1.34-1.39x, taker sign moments 1.04-1.07x; the sports socket has rounds for GRID events only).
+- **Caveat on the R reading (censoring).** Both maker-regime tests read V from FILLED bursts. Fills concentrate where
+  takers sweep, and sweeps concentrate at round results, so a filled record can follow rounds even if the unfilled quotes
+  also move at kills or plants. The log(own filled orders) control removes the first-order part of this, not all of it.
+  R is therefore favoured on the filled record. Finding 24 checks the mechanism on the one live block: fills there are
+  not concentrated at print jumps (6.0% vs 7.4% near a >= 2c jump), so this route is not seen; the uncensored 16-22 Oct
+  ladder (Telonex files, user-gated) is still what would decide it with power.
+
+## Iteration 16 closing state
+- Status: continue. Rule v6 (`tommy-v6-groupP-bidside-outcome`) unchanged. target_metrics: presence 0.8834 vs 0.8907;
+  selection 0.970 vs 0.886, recall 0.744, lift 3.155; price 0.322; pnl 0.197 / 0.027; coverage 1.0 / 1.0.
+- Catalog: X219-X231 added (tried X220, X221, X222, X224, X225 (clock-free steps; bracket fit still needs a clock),
+  X226, X227, X228, X229, X230, X231; open X219 (user-gated token), X223 (needs Telonex books)); X207 re-opened (premise
+  restored for 0x10d79cc7); X216 tried; E5 tried (GDELT hourly); X189, X190 and X195 tried (every available clock
+  measured: 1.04-1.45x over reversed sequences).
+- Recorders: shared recorder running; own recorders untouched (hard stops 11-03 00:00); no new recorder.
+- Sealed-data handling: nothing in `.cache/live/sealed/` was opened; live reads only through `iter_live` (development
+  blocks 10-31 12-18 and 11-01 06-12). Data-api trades and calldata only for development units (asserted with
+  `sealed.is_sealed`) or before H; Telonex availability was requested for development tokens only.
+- Tool note (not polyrea): `iter_live('subs', ...)` raises zlib "invalid block type" on the 10-31 12:00 hour file too.
+
+## Pre-registration written during the iteration (kept where and when it was written; results in findings 17-18)
+- **X225 step 4b (written 15:40 UTC before its run): the taker regime's sign moments as a round clock.** Per map, round
+  ends e_r = begin + delta + sum_{i<=r}(d_i + G) with bo3 round durations d_i, G in {0, 5, 10, 15, 20} s and delta in
+  [-180, +180] s (5-s grid) fitted per map to maximize snaps (a sign moment within +-5 s of e_r); the same fit with the
+  reversed duration sequence. The moments act as a round clock iff total snaps >= 1.5x the reversed fit. Also the CV of
+  within-map gaps between moments (>= 5 s) against the CV of bo3 round durations.
+
+## Iteration 16 end
+- About 66 wall-clock minutes (14:50-15:56 UTC); budget used about 1121 of 1200 minutes. Rule v6 unchanged
+  (`tommy-v6-groupP-bidside-outcome`). target_metrics: presence 0.8834 vs 0.8907; selection 0.970 vs 0.886, recall 0.744,
+  lift 3.155; price 0.322; pnl 0.197 / 0.027; coverage 1.0 / 1.0. Status continue.
+- What changed in the picture: on the filled record the feed's informative content is mostly round results delivered
+  early (R favoured: per-map counts follow rounds, not time or kills; the decided-early evidence for K does not survive a
+  match-time clock; fills are not jump-timed on the live block). About 90% of its value changes come before any public
+  trade. The operator also runs GRID / LoL events through 0x10d79cc7 on a non-public input. After T0 the fan-out's first
+  signer P4e is gone, the wallet's own edge persists, and the frozen selection survives without P4e (AUC 0.972, recall
+  0.667, lift 3.33). The historical book needed for the uncensored ladder is for sale (Telonex, key needed).

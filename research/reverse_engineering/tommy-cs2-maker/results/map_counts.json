@@ -1,0 +1,313 @@
+{
+ "maps": 94,
+ "corr_kills_rounds": 0.974,
+ "kpr_sd": 0.373,
+ "ppr_sd": 0.133,
+ "means": {
+  "rounds": 22.35,
+  "kills": 146.19,
+  "plants": 12.02,
+  "n_all": 64.17,
+  "n_large": 27.71,
+  "n_small": 36.46,
+  "n_co_large": 0.73,
+  "n_co_small": 0.51,
+  "own_orders": 91.45,
+  "pub_prints": 240.16
+ },
+ "n_all|offset_only": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.22,
+   "se": 0.138,
+   "p": 0.1095
+  },
+  "ppr_c": {
+   "coef": 0.1,
+   "se": 0.376,
+   "p": 0.7914
+  }
+ },
+ "n_all|with_controls": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.106,
+   "se": 0.055,
+   "p": 0.057
+  },
+  "ppr_c": {
+   "coef": -0.096,
+   "se": 0.157,
+   "p": 0.5425
+  },
+  "l_own": {
+   "coef": 0.815,
+   "se": 0.053,
+   "p": 0.0
+  },
+  "l_pub": {
+   "coef": -0.039,
+   "se": 0.038,
+   "p": 0.3024
+  }
+ },
+ "n_all|rounds_free": {
+  "model": "negbin",
+  "l_rounds": {
+   "coef": 0.854,
+   "se": 0.2,
+   "p": 0.0
+  },
+  "kpr_c": {
+   "coef": -0.169,
+   "se": 0.105,
+   "p": 0.1072
+  },
+  "ppr_c": {
+   "coef": -0.038,
+   "se": 0.295,
+   "p": 0.8987
+  },
+  "l_pub": {
+   "coef": 0.409,
+   "se": 0.051,
+   "p": 0.0
+  }
+ },
+ "n_large|offset_only": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.11,
+   "se": 0.141,
+   "p": 0.4379
+  },
+  "ppr_c": {
+   "coef": -0.015,
+   "se": 0.391,
+   "p": 0.97
+  }
+ },
+ "n_large|with_controls": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": 0.001,
+   "se": 0.061,
+   "p": 0.9918
+  },
+  "ppr_c": {
+   "coef": -0.191,
+   "se": 0.175,
+   "p": 0.2747
+  },
+  "l_own": {
+   "coef": 0.888,
+   "se": 0.059,
+   "p": 0.0
+  },
+  "l_pub": {
+   "coef": -0.141,
+   "se": 0.043,
+   "p": 0.001
+  }
+ },
+ "n_large|rounds_free": {
+  "model": "negbin",
+  "l_rounds": {
+   "coef": 1.34,
+   "se": 0.223,
+   "p": 0.0
+  },
+  "kpr_c": {
+   "coef": -0.096,
+   "se": 0.117,
+   "p": 0.4149
+  },
+  "ppr_c": {
+   "coef": -0.205,
+   "se": 0.33,
+   "p": 0.5356
+  },
+  "l_pub": {
+   "coef": 0.302,
+   "se": 0.059,
+   "p": 0.0
+  }
+ },
+ "n_small|offset_only": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.298,
+   "se": 0.154,
+   "p": 0.0529
+  },
+  "ppr_c": {
+   "coef": 0.163,
+   "se": 0.419,
+   "p": 0.6971
+  }
+ },
+ "n_small|with_controls": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.189,
+   "se": 0.088,
+   "p": 0.0318
+  },
+  "ppr_c": {
+   "coef": -0.043,
+   "se": 0.246,
+   "p": 0.8601
+  },
+  "l_own": {
+   "coef": 0.759,
+   "se": 0.084,
+   "p": 0.0
+  },
+  "l_pub": {
+   "coef": 0.031,
+   "se": 0.06,
+   "p": 0.6061
+  }
+ },
+ "n_small|rounds_free": {
+  "model": "negbin",
+  "l_rounds": {
+   "coef": 0.475,
+   "se": 0.222,
+   "p": 0.0326
+  },
+  "kpr_c": {
+   "coef": -0.221,
+   "se": 0.117,
+   "p": 0.0591
+  },
+  "ppr_c": {
+   "coef": 0.082,
+   "se": 0.33,
+   "p": 0.8034
+  },
+  "l_pub": {
+   "coef": 0.486,
+   "se": 0.058,
+   "p": 0.0
+  }
+ },
+ "n_co_large|offset_only": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.23,
+   "se": 0.404,
+   "p": 0.5688
+  },
+  "ppr_c": {
+   "coef": -2.449,
+   "se": 1.067,
+   "p": 0.0217
+  }
+ },
+ "n_co_large|with_controls": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.063,
+   "se": 0.37,
+   "p": 0.8652
+  },
+  "ppr_c": {
+   "coef": -2.502,
+   "se": 0.961,
+   "p": 0.0092
+  },
+  "l_own": {
+   "coef": 0.159,
+   "se": 0.305,
+   "p": 0.6024
+  },
+  "l_pub": {
+   "coef": 0.566,
+   "se": 0.237,
+   "p": 0.0167
+  }
+ },
+ "n_co_large|rounds_free": {
+  "model": "negbin",
+  "l_rounds": {
+   "coef": 0.81,
+   "se": 0.627,
+   "p": 0.1965
+  },
+  "kpr_c": {
+   "coef": -0.049,
+   "se": 0.381,
+   "p": 0.8969
+  },
+  "ppr_c": {
+   "coef": -2.452,
+   "se": 0.964,
+   "p": 0.011
+  },
+  "l_pub": {
+   "coef": 0.687,
+   "se": 0.208,
+   "p": 0.001
+  }
+ },
+ "n_co_small|offset_only": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.593,
+   "se": 0.413,
+   "p": 0.1516
+  },
+  "ppr_c": {
+   "coef": -1.812,
+   "se": 1.165,
+   "p": 0.1198
+  }
+ },
+ "n_co_small|with_controls": {
+  "model": "negbin",
+  "kpr_c": {
+   "coef": -0.494,
+   "se": NaN,
+   "p": NaN
+  },
+  "ppr_c": {
+   "coef": -1.967,
+   "se": NaN,
+   "p": NaN
+  },
+  "l_own": {
+   "coef": 0.992,
+   "se": NaN,
+   "p": NaN
+  },
+  "l_pub": {
+   "coef": -0.14,
+   "se": NaN,
+   "p": NaN
+  }
+ },
+ "n_co_small|rounds_free": {
+  "model": "negbin",
+  "l_rounds": {
+   "coef": 0.429,
+   "se": 0.754,
+   "p": 0.5695
+  },
+  "kpr_c": {
+   "coef": -0.486,
+   "se": 0.413,
+   "p": 0.2394
+  },
+  "ppr_c": {
+   "coef": -1.719,
+   "se": 1.097,
+   "p": 0.1169
+  },
+  "l_pub": {
+   "coef": 0.502,
+   "se": 0.228,
+   "p": 0.0276
+  }
+ }
+}

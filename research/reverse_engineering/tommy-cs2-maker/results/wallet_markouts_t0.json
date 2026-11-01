@@ -1,0 +1,19 @@
+{
+ "block": "10-31 12-18",
+ "markets": 9,
+ "wallet_maker_orders": 712,
+ "new_highs": 131,
+ "mean_m60_c": 1.893,
+ "share_up": 0.458,
+ "share_down": 0.214,
+ "reference_16_22_oct_all_new_highs": {
+  "BUILD": {
+   "n": 2605,
+   "mean_m60_c": 2.623
+  },
+  "VALIDATE": {
+   "n": 3095,
+   "mean_m60_c": 2.502
+  }
+ }
+}

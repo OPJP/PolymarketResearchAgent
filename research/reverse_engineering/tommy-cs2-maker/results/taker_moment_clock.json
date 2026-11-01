@@ -1,0 +1,22 @@
+{
+ "maps": 222,
+ "rounds": 4869,
+ "moments": 5378,
+ "snaps": 1185,
+ "snaps_reversed": 1113,
+ "ratio": 1.065,
+ "clock": false,
+ "share_rounds_snapped": 0.243,
+ "share_rounds_snapped_reversed": 0.229,
+ "cv_gap_median": 1.049,
+ "cv_round_duration_median": 0.351,
+ "maps_ratio_gt_1": 0.365,
+ "maps_ratio_lt_1": 0.198,
+ "G_counts": {
+  "0": 101,
+  "5": 81,
+  "10": 32,
+  "15": 5,
+  "20": 3
+ }
+}
