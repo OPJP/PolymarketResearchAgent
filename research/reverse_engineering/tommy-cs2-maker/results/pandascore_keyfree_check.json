@@ -1,0 +1,12 @@
+{
+ "https://api.pandascore.co/csgo/matches/1746842": {
+  "status": 403,
+  "content_type": "application/json; charset=utf-8",
+  "body": "{\"error\":\"Token is missing\"}"
+ },
+ "https://api.pandascore.co/low_latency_feeds": {
+  "status": 403,
+  "content_type": "application/json; charset=utf-8",
+  "body": "{\"error\":\"Token is missing\"}"
+ }
+}

@@ -4611,3 +4611,353 @@ LightGBM presence on market activity plus listing meta (tier, scheduled hour, le
   re-pricings, the public tape follows its decisions by 2.5-5 s), narrowed the vendor (esports-only), dated the
   private-value design (09-17) and found two more operator accounts. Round results vs in-round events stays undecided
   (no public anchor set gives a reliable round clock).
+
+---
+
+# Iteration 15 (2026-11-01, started 12:58 UTC; 983 of 1200 budget minutes used before it)
+
+Read first: BRIEF.md (unchanged since 11-01), NOTES iteration 14 in full, state.json (catalog A1-X203 and E1-E7, components,
+target metrics, progress gauges), FINAL_RULE.md, panels/iter14_{information,mechanics,assumptions}.md. No EXAM or
+wall-audit files. Calendar at 12:58 UTC: no released lots, future examined up to 10-31 00:00; the current block 11-01 12-18
+is sealed (nothing of it is read). Shared recorder running (pid 27184). The 15 iteration-14 panel proposals become
+X204-X218: information P1-P5 = X204-X208, mechanics P1-P5 = X209-X213, assumptions P1-P5 = X214-X218.
+
+**Pivot (required: the progress gauge stayed at 0.600625 for three iterations).** The unit of decision changes from the
+studied address to the operator's process, and the outcome item gets the wallet's own exit policy. Concretely:
+(1) outcome = a public five-slot ladder carrying the wallet's measured exit policy (net cap about 600 CS2 shares with a
+200-600 taper), chosen on BUILD and scored once on VALIDATE (X218); (2) selection relabelled at the operator level
+(the wallet is one of six outlets; events are routed one account each) with an allocation model (X214 / X205);
+(3) new data: the sports socket's round-score clock on the operator's GRID maps of the development blocks, against
+0xd2bb9459's quotes (X204 / X210, the R vs K natural experiment).
+
+## Competing explanations (iteration 15) and the observation that separates them
+Each names its dimensions (state.json `dimensions`) and the residual component it would explain.
+1. **R: round results from the push feed, 10-45 s before the market** (dims `push_feed_inround_events` proxy,
+   `feed_time_round_end_clock` proxy). Explains price. On a true round clock (the sports socket's round-score ticks on
+   GRID maps) V's >= 1c moves sit at the round ends at a constant lag and the mid-round winner AUC of V is the print's.
+2. **K: a kill-level in-round state (alive counts, bomb, timer) on the feed, e.g. PandaScore's Low Latency Feed**
+   (dims `kill_level_inround_state` missing, `feed_vendor_identity` missing: token needed). Explains price. On the true
+   clock V moves mid-round toward the round winner (AUC >= 0.65 above the print's).
+3. **A: allocation.** The decision process is the operator's; each event is routed to one of six accounts by a rule
+   (dims `operator_account_routing` new, `own_capital_by_account` proxy). Explains the selection residual (false alarms in
+   its own leagues) and the forward silence. Separates: an out-of-fold allocation model, and pooled operator-level
+   selection vs the wallet level.
+4. **M: the outcome is margin harvesting under a hard inventory cap.** Per-market PnL = locked pair margin (81% of the
+   variance) plus a cap-bounded adverse residual (dims `own_inventory_pair_balance` have, `pm_tape_prints` have).
+   Explains the outcome item. Separates: a public five-slot ladder with the same cap reaches per-market Pearson and
+   Spearman >= 0.5 against the wallet on VALIDATE; without the cap it does not (0.315 / 0.238, X202).
+5. **G2: on GRID events the same machine runs on a public value** (dims `pm_tape_prints`, `push_feed_inround_events`).
+   Separates: the GRID accounts' V follows public print jumps (positive lags), sits within one tick of the print at a
+   constant offset, and carries no mid-round information on the socket clock.
+6. **Unlikely, O2: a calendar rotation of accounts (A/B or "backtest" schedule)** (dim `operator_time_of_day`). The
+   routing follows days or hours, not event fields. Separates: daily account shares with change points and no
+   event-field effect in the allocation model.
+7. **Unlikely, V: the feed is an odds product (bookmaker price stream), not a state stream** (dim
+   `sportsbook_live_odds` blocked). Separates: map/match co-repricings that break any single series identity (X213).
+
+## Pre-registration (iteration 15, written 13:05 UTC before any number below is computed)
+- **X218 (outcome with the exit policy).** Engine: the validated X57 engine (strict price-time re-allocation of each
+  public tx's maker volume, the wallet's own rows removed, the public anchor usable 2 s after its wallet-free tx), quote
+  set L5 of X202 (five slots anchor .. anchor - 4c, capacity 100, reset 10 s, pair cap 0.99, band [0.05, 0.95]), plus an
+  exit policy: net(z) = shares(z) - shares(1 - z); variants C0 no cap, C400 / C600 hard caps (no fill on z when
+  net(z) >= cap), T26 taper (capacity x clip((600 - net) / 400, 0, 1) above net 200). Chosen on BUILD by
+  min(Pearson, Spearman) of the per-market PnL with the wallet's; scored once on VALIDATE with halves. The same set is
+  run in the examinable tape engine (data-api taker tape, strict trade-through fills, anchor = floor(last print) usable
+  2 s after its block) that `evaluate()` uses; adoption into `evaluate()` iff the tape-engine choice beats the frozen
+  outcome (-0.131 / -0.081) on VALIDATE in both Pearson and Spearman. The prints baseline and the partial correlation
+  given log prints are reported beside it.
+- **X214 / X205 (operator level).** Operator label per CS2 event of 16-22 Oct = any of the six accounts traded it
+  (activity, development only). Report v5 selection AUC / recall / lift against the wallet label and the operator label
+  on VALIDATE (BUILD-fitted constants), and an allocation model (wallet vs sibling among operator events) fitted on
+  BUILD from listing-time fields only, scored on VALIDATE.
+- **X204 / X210 (GRID arm on the socket's round clock; written 13:13 UTC, after the socket ticks were parsed but before
+  any operator quote was decoded or aligned).** Units: the GRID events of the development blocks with round-level
+  socket scores and operator quotes (cs2-fokus-baks, cs2-jjh-bmb on 10-31; cs2-bca-pha, cs2-jjh-mzp on 11-01, all
+  quoted by 0xd2bb9459; skr2-for10 / lowcor1-tdp have socket rounds but no operator fills). Observation made while
+  parsing: the socket's round ticks are quantized to a ~20.2-s polling grid (intervals 20.9 / 40.2 / 60.5 / 80.8 / 100.8 /
+  121.1 s), so the true round end lies in [t_r - L - 20, t_r - L] for a per-event lag L. L is fitted on the clean print
+  only (L in 0..60 s maximizing the mean winner-signed print change inside that window). Windows: mid = [t_{r-1} - L + 5,
+  t_r - L - 25], end = [t_r - L - 25, t_r - L + 5], after = [t_r - L + 5, t_r - L + 25]. V = top of 0xd2bb9459's filled
+  burst on each token (calldata sign times; orders chained within 50 ms), in team-A space. Statistics: winner-signed
+  change of V and of the clean print per window; AUC of the mid-round change of V for the round winner against the
+  print's. Verdicts: R if V's mid AUC <= print's + 0.05 and >= 50% of V's winner-signed move falls in the end window;
+  K if V's mid AUC >= 0.65 and >= print's + 0.10. Also the G2 reading: share of its orders within one tick of the last
+  clean print at signing (>= 0.45 at a constant offset = public value), and the lead / follow of its V changes against
+  >= 2c clean-print moves.
+
+## Findings (iteration 15); numbers in results/*.json, code in code/iter15/
+1. **The wallet's exit policy does not carry the outcome item (X218, assumptions P4; `exit_policy_ladder.py`,
+   `exit_policy_ladder.json`; validated X57 engine, strict fills, anchor usable 2 s after its wallet-free tx).** Five-slot
+   public ladder (X202's L5) with the measured exit policy, per-market Pearson / Spearman with the wallet's PnL:
+
+   | Variant | BUILD | VALIDATE | VALIDATE return |
+   | --- | --- | --- | --- |
+   | C0 (no cap, X202) | 0.067 / 0.275 | 0.315 / 0.238 | -0.06% |
+   | C400 | -0.325 / -0.023 | 0.352 / 0.108 | -0.07% |
+   | C600 | -0.250 / 0.061 | 0.408 / 0.178 | +0.09% |
+   | T26 (taper 200-600) | -0.258 / 0.058 | 0.432 / 0.181 | +0.23% |
+   | T26S (taper + 1c skew) | -0.271 / 0.040 | 0.479 / 0.210 | +0.55% |
+
+   BUILD chooses C0 (min(P, S) 0.067), so the pre-registered VALIDATE score is X202's 0.315 / 0.238 (halves 0.03 / 0.06
+   and 0.55 / 0.40). The caps raise VALIDATE Pearson but turn BUILD Pearson negative and keep Spearman at or below 0.21:
+   the cap bounds the ladder's residual, yet on BUILD the wallet's per-market PnL is carried by markets where its informed
+   takes bought the winner while any public ladder buys the loser. Hypothesis M (explanation 4) is rejected: with the
+   wallet's own exit policy the outcome item is still gated by its value (a sharper wall clause than X155, as the panel
+   framed it). In the examinable tape engine (`tape_exit_policy.py`, `tape_exit_policy.json`; data-api taker tape,
+   strict trade-through fills) the caps are worse (VALIDATE Pearson -0.20 to -0.29).
+2. **v6 outcome component (adopted under the pre-registered rule).** In the tape engine the BUILD choice among the new
+   variants is L1_C0: one BUY level per token at floor(others' bid on that token), where others' bid is the latest
+   wallet-free taker print that consumed bids on that token, usable 2 s after its block, refilled every 10 s, pair cap
+   0.99, band [0.05, 0.95], no inventory cap. VALIDATE 0.197 / 0.027 (frozen v5 replay -0.131 / -0.081; prints baseline
+   0.329 / 0.289; partial correlation given log prints 0.176; halves -0.05 / 0.04 and 0.34 / 0.04; BUILD -0.127 / 0.023).
+   It beats the frozen outcome in both coefficients on VALIDATE, so it replaces `_replay` in `evaluate()` as v6
+   (`final_rule_v6_validate.json`; every other metric is identical to v5). Honest reading: the gain only removes the v5
+   replay's ask-side quotes (it anchored both tokens on the last print, so half of its quotes sat at the ask). Spearman
+   stays at zero and the item stays far below 0.5. This is not a decode of the outcome.
+3. **0xd2bb9459 and 0x10d79cc7 are not the operator's process at the cross-market co-signing bar (mechanics critique
+   4, X205 step 5; `sibling_identity.py`, `sibling_identity.json`, `same_process_gate.py`, `same_process_gate.json`).**
+   700 sampled trade txs per account in 16-22 Oct were decoded (publicnode). Co-signing of their orders with the
+   wallet's 25,878 orders at 0-5 ms against 5-50 ms (per-ms ratio; X176 bar: siblings 7.8-28.9x, others at most 4.5x):
+   - 0xd2bb9459: 0 pairs vs 6 (no excess);
+   - 0x10d79cc7: 1 vs 6 (1.4x);
+   - the known sibling 0x7d67f01d: 13 vs 24 (**4.4x**), the positive control.
+
+   On 10-31 12-18, with both active beside the wallet, 0xd2bb9459 has 0 pairs within 50 ms (246 orders). The designs
+   differ as well: 0xd2bb9459 places single orders (708 of 718 bursts) of 50-600 shares at whole cents 0.88; 0x10d79cc7
+   places 20-share 1c ladders at whole cents 1.00. The X203 evidence (9-12.6x) was SAME-market co-signing, which two
+   subscribers of one feed produce by reacting to the same message. A single process shows CROSS-market co-signing,
+   and only 0x7d67f01d does. So the panels' "the operator trades GRID at scale on other accounts" rests on accounts
+   that are feed co-subscribers or other operators. As far as attribution goes, the GRID boundary stays the
+   operator's boundary, and the operator is the wallet plus 0x7d67f01d, 0x52661b8e and 0x67119033.
+4. **Operator-level selection (X214 / X205; `operator_selection.py`, `operator_selection.json`).** With the panel's
+   account lists (development activity), v5 (BUILD constants) on VALIDATE scores:
+   - wallet label: AUC 0.973 (CS2), recall 0.75, lift 3.2;
+   - "any of six accounts" label: 0.904 / 0.596 / 2.54 (the GRID events of the two unattributed accounts become
+     positives that v5 never selects);
+   - the same label on non-GRID events only: 0.961 / 0.737.
+
+   Allocation among non-GRID operator events: 77 of 97 went to the wallet. v5 separates wallet from sibling-only events
+   at AUC 0.777 (gp72 0.71, hour 0.61). The wallet's share rises from 4/10 on the 10-16 switch day to 36/38 on
+   10-21/22, then falls after H (10-31 7/12, 11-01 0/4 by the panel's count, which also counts 0xd2bb9459).
+   Sibling-only events in its leagues (0x7d67f01d): DraculaN 7, Stake Ranked 2, Stake Pulse 2, CIS LAN 2, PGL 1. With
+   20 sibling-only events no allocation model can be fitted out of fold. Random thinning keeps lift and recall and
+   lowers the AUC (about 0.88 at 42% thinning, computed), so the exam risk from routing is moderate. Pooling the
+   strongly attributed accounts is the user's call (question recorded).
+5. **GRID arm on the socket's round clock (X204 / X210; `grid_socket_data.py`, `grid_socket_clock.py`,
+   `grid_socket_clock2.py`; development units 10-31 12-18 and 11-01 06-12).**
+   - **The clock.** The sports socket carries round scores for GRID events only (fokus-baks 48 round ticks, jjh-bmb 37,
+     bca-pha 22, jjh-mzp 35); non-GRID events carry map scores only. The ticks sit on a **20.2-s polling grid** (tick
+     intervals are multiples of 20.2 s), with the print's winner-direction jump inside the last 20 s before the tick
+     (L fitted on the print: 2 / 10 s on 10-31). One 10-31 hour file of `sports` is unreadable (zlib "invalid block
+     type"; read in 15-min slices, 12:00-13:00 lost).
+   - **The quotes.** 0xd2bb9459's filled bursts (659 orders) in the clean mid window [t_{r-1} + 25, t_r - 25]: the
+     round-winner AUC of its value's mid-round change is 0.703 against the print's 0.622 (183 rounds, the two 10-31
+     events: the data-api taker tape of the 11-01 events was empty at fetch time). Map books 0.766 vs 0.736 (equal);
+     match books 0.614 vs 0.489 (the match print is stale). Placebo with the previous round's winner: 0.56 / 0.49
+     (rounds repeat their winner 63% of the time).
+   - **Verdict.** Neither pre-registered verdict holds: the share of its move in the end window is 0.38 (< 0.5), and
+     its mid AUC is not >= the print's + 0.10. Finding 3 shows 0xd2bb9459 is a different design and not the
+     operator's process, so this arm is not "the same machine with another input" (X216's premise fails). It shows
+     only that a GRID maker's value carries no in-round information beyond the liquid map print.
+6. **The same-process gate on the development-block units fails (X215; `same_process_gate.json`).** 0x7d67f01d (a true
+   sibling) on cs2-1win-5s and dota2-xe-hn (10-31) and dota2-synaps-hn (11-01): 318 orders, BUY 1.00, whole cents
+   0.975, band 1.00, sizes 50-60 and 100. 277 of 296 bursts are single orders; the multi-order bursts sit at one price
+   (gap 0c, split orders), with no 1c ladder. It has 0 co-signed pairs with the wallet within 50 ms on 10-31 (189
+   orders). The wallet itself on 10-31 shows 1c ladders (107 slot gaps of 1c) with sizes 10, 100 and 54-60. The
+   pre-registered live tests therefore cannot borrow the siblings' units (the panel's "if false" branch); they wait
+   for the wallet.
+7. **Decided-early rounds favour K over R (X209, mechanics P1; `decided_early.py`, `decided_early_stats.py`,
+   `decided_early_print.json`).** Iteration 14's print-anchored clock, 412 rounds with both ends snapped, joined to the
+   bo3 end classes. Share of its value's winner-signed move before the print's anchor (mid + late windows):
+   - elimination rounds (CT_elim_T, T_elim_CT; n 262): **0.680**;
+   - decided-early rounds (defuse after a T wipe, bomb with CTs alive; n 115): **0.682**;
+   - difference +0.002, map-cluster bootstrap CI [-0.203, +0.176]; the print control -0.014 [-0.35, +0.26].
+
+   R (its value steps at the official round-end message) predicted a fall to 0.40 or less in decided-early rounds, a
+   difference of about -0.28, which the CI excludes. The K signature (no class difference) holds. In save rounds
+   (bombed_CT_alive, 72) its value moves +2.18c mid-round and +1.57c late, against the print's +1.45c / -0.57c: it prices
+   the plant and alive state before any round-end message could exist. Tagged hypothesis-level (the clock snaps only
+   1.30x as often as a reversed sequence).
+8. **Kill margin (X211 step 3, simplified; `kill_margin.py`, `kill_margin.json`).** Its mid-round winner-signed move
+   rises with the round's kill margin (0.65c per kill, CI [-0.01, 1.31]), and so does the print's (0.47c, CI [-0.24,
+   1.18]). The lead slope is 0.21c per kill, CI [-0.27, 0.75]. In close rounds (margin at most 1, n 96) its value still
+   moves +2.84c toward the winner before the anchor while the print moves -0.87c. Consistent with K, not decisive.
+9. **Latency of its re-pricing behind the visible message (X217 step 2; `message_latency.py`, `message_latency.json`).**
+   The unit is its V-change decisions locked to a wallet-free group-P take on the event in the same direction (excess
+   over the shifted null: 1,003 BUILD / 975 VALIDATE). Lag quantiles: 10% 0.10 s, 25% 0.60-0.65 s, **median 1.10 s**,
+   75% 1.55-1.65 s, 90% 2.2 s. There are two modes: a co-signing mode in the first 100 ms and a broad mode around 1 s
+   (the take-then-repost cycle of earlier iterations). A source that delivers the message L after the first
+   co-receiver precedes 85% of these decisions at L = 0.25 s, 79% / 77% at 0.5 s and 67% at 1 s (informed clusters: 93%
+   / 86-87% / 63-66%). So a vendor or public source with sub-second latency after the feed's message could carry most
+   of the price item on the message-locked decisions; Valve's 4-s snapshots and the socket's 20.2-s polling cannot.
+10. **Series identity on filled co-repricings (X213, first pass; `series_identity.py`, `series_identity.json`).** Only
+    15 (event, map, token) units have >= 4 map / match filled bursts signed within 50 ms (70 pairs). Residual SD around
+    one line per unit 1.34c (null with random match moments 5.64c); 56% of pairs within 1c of the line (null 12%); 1 of
+    15 units at the rounding-only SD (<= 0.6c). The slopes, 0.46 (map 1) and 0.56 (map 2), are what the series formula
+    predicts (2q(1-q) at 0-0; 1-q or q at 1-0 / 0-1). The exact single-identity signature (>= 90%) is not met, but
+    filled tops are censored (a lower slot reads as a 1-4c offset), so this is no evidence for an odds feed. It needs
+    the uncensored live pairs.
+11. **The E5 news check could not run.** GDELT DOC 2.0 returned HTTP 429 twice ("Please limit requests to one every 5
+    seconds") with >= 6 s spacing on the shared connection (`e5_gdelt_check.json`). Market comments are empty
+    (iteration 14). E5 stays open.
+12. **The other 100-share makers of the 10-31 GRID books are not the operator either (`grid_candidates.py`,
+    `grid_candidates.json`).** 0x68915897 and 0x5d40576b co-sign with the wallet at 0-5 ms inside the wallet's own 10-31
+    txs (same market; 9.8x on 6 pairs, 8.2x on 1). Their 10-31 12-18 activity, filtered to development-unit events
+    before any use (rows of other events discarded unread), decoded: 729 / 324 orders, single-order bursts (707 of 718;
+    324 of 324), 100-share orders 64% / 11%, whole cents 0.82 / 0.99, events across Dota (ty-gl, ts8-gl, xe-hn) and CS2
+    (the wallet's gls1-pcy, bhe-bar2 and the GRID fokus-baks, jjh-bmb, skr2-for10, lowcor1-tdp). **Cross-market
+    co-signing with the wallet: 0 pairs within 50 ms for both.** They react to the same messages on the same books
+    (co-subscribers or followers), not one process. No attributed account of the operator quotes GRID events on the
+    development blocks, so the socket's GRID round clock has no unit of the wallet's machine.
+13. **Single-take clock replication of X209 (`decided_early_takes.json`, 141 rounds).** Before-anchor share 0.425
+    (decided-early, 43) vs 0.204 (elimination, 85): difference +0.221, CI [-0.31, +0.73]; no fall, wide.
+14. **Fill-unit price metric (X217 step 1).** `evaluate()` v6 reports `price_within_tick_at_fill_m1c` = 0.496 on
+    VALIDATE (each filled maker order at its first fill against the last wallet-free print before the fill block, minus
+    1c), beside the order unit at signing (0.322, unchanged as the target metric). The maker population at the fill reaches
+    0.605 against the same anchor (assumptions panel), so the wallet is less print-anchored than a generic maker even when
+    the market has caught up; neither unit reaches 0.80 without V.
+
+15. **X212 first pass: no usable clock on the wallet's own live maps (`refractory_live.py`, `refractory_live.json`).**
+    bo3 has parsed the wallet's 10-31 maps (development units). The uncensored add-burst rows of iteration 12 cover only
+    shin-isg map 1 (457 value moments in about 56 min, both tokens) and gls1-pcy map 2 (75). The print-anchored tracker
+    snaps 11 of 23 rounds on shin-isg map 1 against 9 with the winner sequence reversed (chance level), 1 of 21 on
+    gls1-pcy map 2, so only 6 rounds have both ends; the refractory hazard (0.25 vs 0.48 value moments per 5 s in the
+    0-20 s after an end vs 25-60 s) cannot be read. X212 stays open; it needs a real round clock on a non-GRID map,
+    which no public source provides.
+16. **The dark re-pricings are informed even when censoring cannot explain them (X211 step 1, simplified;
+    `dark_newhigh.py`, `dark_newhigh.json`; the mechanics panel's decision split, 16-22 Oct).** Keeping only rising tops
+    that set a new high against the previous three burst tops on the token (a refill-then-return cannot do that), the
+    dark decisions (no visible group-P take in the 3 s before) move the clean print their way by **+2.30c (BUILD,
+    n 2,177) / +1.98c (VALIDATE, n 2,669) at 60 s** (up 56% / 50%, down 20% / 19%), more than all dark rising tops
+    (+1.29c / +1.14c) and about a third of the visible-agree decisions (+5.85c / +6.47c). So the artefact reading of
+    mechanics critique 1 does not explain the dark decisions' information; followers (joiners at its new top) remain a
+    possible carrier, which needs the joiner-free markout (step 2, not run). If they are value updates, its value moves
+    at many more messages than the takers print, which fits K (several informative moves per round) better than R.
+17. **Followers do not carry it either (X211 step 2, simplified; `dark_joinerfree.py`, `dark_joinerfree.json`).** Of the
+    dark new highs, 36% have a non-own maker joining the new top (+-1c, or the complement at 1 - top) within 2 s
+    (calldata of every public tx). The joiner-free ones still move the clean print their way by **+1.80c (BUILD, n
+    1,390) / +1.89c (VALIDATE, n 1,708) at 60 s** (up 51% / 49%, down 21% / 19%); the joined ones +3.19c / +2.16c;
+    joiner-free visible-agree new highs +5.10c / +6.92c. So most of the dark decisions' information survives both the
+    censoring and the follower filters: they are value updates at messages that no wallet-free taker prints.
+18. **The count of its value moves per round does not rise with kills (X211 step 3; `dark_per_round.py`,
+    `dark_per_round.json`; 412 print-clock rounds).** Per round (median clock length 132 s): 1.13 dark new highs and
+    4.35 V-changes on the filled record. Poisson with the round length as offset and map-clustered SEs: dark new highs
+    -0.048 per death (p 0.07), all V-changes -0.067 per death (p 0.013); winner and loser deaths alike. K in its
+    "one move per kill" form is not supported on the censored record, and neither is a pure R (one step per round):
+    its informed moves come at a few in-round moments per round (plant, decisive duels) rather than at every kill. The
+    count is censored by fills, so this is a bound on the filled record, not on its quotes.
+19. **v6 on the 10-31 12-18 development block runs end to end (`final_rule_v6_devblock_1031b.json`).** 25 events (10
+    GRID), 6 traded; selection AUC 0.842 vs activity 0.640 with recall 0 (in development runs gp72 skips the earlier
+    sealed events, as noted since iteration 9; the examiner counts them); presence 0.911 vs 0.823; price 0.403 (fill unit
+    0.444); pnl not defined (no selected market, so the rule's PnL is constant); coverage 1.0 / 1.0. Valve snapshots
+    (`tommy_dota_rt`) have no records in that block, so X118 cannot use the wallet's ty-gl map.
+20. **PandaScore without a token (X206, `pandascore_keyfree_check.json`).** GET
+    `https://api.pandascore.co/csgo/matches/1746842` (bca-pha's pandascoreMatchId) and `/low_latency_feeds` both return
+    HTTP 403 `{"error":"Token is missing"}`. The per-match `low_latency_feed` flag and the historical event stream need a
+    token, which only the user can create; dimension `feed_vendor_identity` is now `blocked` with this request on file.
+21. **No freeze-time refractory on the historical record (X212 historical form; `freeze_rate.py`, `freeze_rate.json`;
+    405 print-clock rounds).** Rates per minute in the restart + freeze window (2-20 s after the print-anchored end of the
+    previous round) against the action window (30 s after it to 5 s before the round's own anchor): dark new highs
+    0.576 vs 0.493 (ratio 1.17; both informed, +3.01c / +2.73c at 60 s), all V-changes 2.35 vs 1.77 (1.33), visible
+    informed takes 0.42 vs 0.25 (**1.65**). A kills-only feed would leave the freeze window quiet. Either the print
+    clock often misplaces round ends by more than 20 s (it snaps only 1.30x as often as a reversed sequence), or the
+    feed and its value move in the restart / buy phase (round-end messages arriving after the market's reaction, or
+    economy / buy information). This tempers finding 18's reading and keeps R vs K (and an economy input) open until a
+    true round clock exists on a non-GRID map.
+22. **The restart-window moves point to the round just won, not to the buy (`freeze_direction.py`,
+    `freeze_direction.json`; 317 print-clock rounds with bo3 equipment values of the new round).** Its V-changes in the
+    2-20 s after the anchored end of round r - 1 (n 197) agree in direction with the winner of round r - 1 in 0.655,
+    with the team holding the higher equipment value in round r in 0.614, with round r's winner in 0.589; where the two
+    disagree (n 32) it follows the equipment side only 0.375. Logistic, map-clustered: previous winner +0.59 (p 0.03),
+    equipment +0.06 (p 0.82). Dark new highs there (n 47) follow the previous winner 0.766; visible informed takes (n 36)
+    0.694. So the busy restart window is late repricing of the round just finished (round-end messages that arrive after
+    the print's first jump, or anchors placed early), not buy-phase economy information; with X160 (economy explained by
+    previous rounds) the economy input is not supported. In the action window the visible takes alone carry a partial
+    equipment effect (+0.58, p 0.03, n 138).
+23. **Controlled for the previous round, its mid-round moves say little about the current round (X211 step 2(a);
+    `dark_round_winner.py`, `dark_round_winner.json`; 412 print-clock rounds, mid window a + 30 .. z - 1 s).** Direction
+    agreement with the current round's winner / the previous round's winner: dark new highs 0.690 / 0.674 (n 371), all
+    dark 0.614 / 0.582 (n 1,105), visible informed takes 0.689 / 0.680 (n 241). In the informative rounds, where the
+    winner differs from the previous round's, the agreement with the current winner falls to **0.526** (dark new highs,
+    n 116), 0.547 (all dark, n 373) and 0.513 (visible takes, n 76). Logistic with both: current +0.40 (p < 0.001) and
+    previous +0.21 (p 0.0004) for all dark decisions. So most of the "in-round" information on this clock is the previous
+    round's result (rounds repeat their winner 63% of the time) plus the end of the current round; the mid-round component
+    beyond them is small, and even the feed's visible takes show it no better. This tempers findings 7, 8 and 16-17 and
+    X181's AUC 0.90 (which did not control the previous winner): **R vs K is not decided**; what is established is that its
+    value moves at feed messages (visible or not) that are mostly round results, delivered before and around the
+    market's reaction, with a small mid-round part.
+24. **Single-take clock replication of finding 23 (`dark_round_winner_takes.json`, 141 rounds).** Where the winner
+    changes from the previous round, dark new highs agree with the current winner 0.579 (n 38), all dark decisions 0.568
+    (n 118); logistic for all dark: current +0.355 (p 0.004), previous +0.085 (p 0.55). On this clock the previous-round
+    effect is weaker and a modest current-round effect remains: the mid-round component is small but positive on both
+    clocks (0.53-0.58 where the winner changes).
+25. **The pre-game veto fingerprint cannot be read from the data in hand (X206 key-free part; `pregame_corepricing.py`,
+    `pregame_corepricing.json`).** The filled record of 16-22 Oct holds only 70 pre-game V-changes on map books and no
+    event with pre-game V-changes on two map books. On the uncensored BUILD-live rows only shin-isg has pre-game adds
+    (map 1 and match books, 3 co-repricing moments at -86, -82 and -34 s), with no Map 2 / Map 3 books. Needs future live
+    pre-game books of Bo3 events with all map books recorded.
+
+## Hypothesis ledger (iteration 15)
+- R vs K: **not decided.** For K: no fall of the before-anchor share in decided-early rounds (finding 7; CI excludes
+  R's predicted -0.28; +0.22 on the take clock, finding 13), and the dark re-pricings are informed beyond censoring and
+  followers (findings 16, 17). For R: the restart-window moves follow the round just won, not the buy (findings 21, 22),
+  and once the previous round's winner is controlled its mid-round moves point to the current winner only 0.53-0.58
+  (findings 23, 24); the count per round does not rise with kills (finding 18). Reading: its value moves at feed messages that
+  are mostly round results, before and around the market's reaction, with a small mid-round part. The clocks are weak;
+  the GRID socket clock could not test this on the wallet's machine (findings 3, 5, 12).
+- A (allocation among accounts): **real but small** in 16-22 Oct (20 of 97 non-GRID operator events to 0x7d67f01d);
+  not fittable out of fold (finding 4). The two large GRID accounts are **not** the operator's (finding 3).
+- M (exit-policy margin harvesting carries the outcome): **rejected** (finding 1).
+- G2 (GRID arm on a public value): **not testable as stated**: no attributed account quotes GRID events (findings 3, 12).
+- O2 (calendar rotation): a trend (0.4 -> 0.95 over 16-22 Oct, then down after H), no rotation evidence.
+- V (odds feed): **open**: the exact single identity fails on filled and uncensored pairs (finding 10), which censoring
+  and in-map q updates can also produce.
+
+## What is unexplained (quantitative)
+- Price: the private value V at the moment it changes (90% of filled orders are V-change bursts). Public ceilings: last
+  print 0.322 (order unit), 0.496 at the fill (minus 1c), population 0.605 at the fill; own state 0.44; V known 0.73 per
+  order / 0.875 per burst set. A source must deliver the feed's message within about 0.25 s of the first co-receiver to
+  precede 85% of the message-locked re-pricings (finding 9). Pointed dimension: `push_feed_inround_events` with in-round
+  content (`kill_level_inround_state`, K favored), vendor `feed_vendor_identity` (candidate PandaScore LLF; token needed).
+- Outcome: frozen v6 0.197 / 0.027 (VALIDATE); best public replay 0.315 / 0.238 (X57 engine, calldata); the wallet's own
+  exit policy does not lift it (finding 1); an oracle copy at 2 s caps at 0.43 / 0.40 (X155).
+- Selection: explained on VALIDATE (0.970); routing to 0x7d67f01d is a small, drifting second decision.
+
+## Next iteration (plan; the last one in the budget)
+1. User-gated asks (in the return): PandaScore token (X206), demos (X37 / X122), the exam's wallet list (attributed
+   accounts).
+2. X211 steps 1-2 and X212 (bo3 rounds of the 10-31 maps against the uncensored BUILD-live path) for R vs K on the
+   wallet's own machine.
+3. X206 key-free veto-timing test; E5 GDELT retry; close the live-only items that cannot get units within the budget
+   with that reason.
+4. Final checks of `evaluate()` v6 on the development blocks after T0 (10-31 00-06, 12-18, 11-01 06-12).
+
+## Iteration 15 closing state
+- Status: continue. Rule v6 (`tommy-v6-groupP-bidside-outcome`): v5 with the outcome replay replaced (finding 2).
+  target_metrics: presence 0.8834 vs 0.8907; selection 0.970 vs 0.886, recall 0.744, lift 3.155; price 0.322; pnl
+  **0.197 / 0.027** (was -0.131 / -0.081); coverage 1.0 / 1.0.
+- Catalog: X204-X218 added (tried X204, X205, X209, X210, X211, X213, X214, X217, X218; ruled out X207, X215, X216;
+  open X206, X208, X212). E5 still open (GDELT 429). 46 items open.
+- Recorders: shared recorder running (pid 27184); own recorders untouched; no new recorder. One `sports` hour file of
+  10-31 (12:00-13:00) is unreadable by `iter_live` (zlib "invalid block type"); the reader was wrapped per 15-min slice.
+- Sealed-data handling: nothing in `.cache/live/sealed/` was opened; live reads only through `iter_live` (development
+  blocks 10-31 12-18 and 11-01 06-12). Data-api trades and calldata only for development units (asserted with
+  `sealed.is_sealed` on each unit's start); the candidates' activity window was filtered to development-unit events
+  before use. Sibling activity and calldata of 16-22 Oct are before H.
+- Tool note (not polyrea): `tools/live.py iter_live` raises `zlib.error` ("invalid block type") on a corrupted hour file
+  of the `sports` feed (10-31 12:00-13:00 UTC) and stops the generator; callers must read in slices and catch it (the
+  same class of bug as iteration 1's partial-file case, now on a closed file).
+- GDELT DOC 2.0 was retried a third time (artlist mode, 8-s initial wait, 7-s spacing): HTTP 429 again.
+
+## Iteration 15 end
+- About 72 wall-clock minutes (12:58-14:10 UTC); budget used about 1055 of 1200 minutes. Rule v6 frozen
+  (`tommy-v6-groupP-bidside-outcome`). target_metrics: presence 0.8834 vs 0.8907; selection 0.970 vs 0.886, recall
+  0.744, lift 3.155; price 0.322 (order unit; fill unit 0.496 reported); pnl 0.197 / 0.027; coverage 1.0 / 1.0.
+  Status continue.
+- What changed in the picture: the operator's attributed accounts do not quote GRID events (the panels' GRID-arm premise
+  fails at the one-process test), and the wallet's exit policy does not carry the outcome. On R vs K the evidence is
+  mixed: no delay in decided-early rounds and informed dark re-pricings (beyond censoring and followers) point to more
+  than round-end messages, but with the previous round's winner controlled its mid-round moves barely predict the
+  current round (0.53-0.55), and the restart window follows the round just won. Its value moves at feed messages that
+  are mostly round results. The price and outcome items stay bound to that feed; the user-gated asks (PandaScore token,
+  demos, the exam's wallet list) are the remaining routes to it.

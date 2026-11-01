@@ -1,0 +1,108 @@
+{
+ "0xd2bb9459": {
+  "design": {
+   "orders": 659,
+   "buy_share": 1.0,
+   "whole_cent": 0.994,
+   "band": 0.971,
+   "sizes_top": {
+    "200.0": 39,
+    "60.0": 39,
+    "100.0": 29,
+    "400.0": 24,
+    "340.0": 23,
+    "440.0": 19,
+    "380.0": 18,
+    "360.0": 17
+   },
+   "burst_size_counts": {
+    "1": 659
+   },
+   "multi_level_share_of_orders": 0.0,
+   "slot_gap_c_counts": {}
+  },
+  "cosign_with_wallet_1031": {
+   "pairs_0_5ms": 0,
+   "pairs_5_50ms": 1,
+   "per_ms_ratio": null
+  },
+  "orders_1031": 246
+ },
+ "0x7d67f01d": {
+  "design": {
+   "orders": 318,
+   "buy_share": 1.0,
+   "whole_cent": 0.975,
+   "band": 1.0,
+   "sizes_top": {
+    "60.0": 40,
+    "100.0": 31,
+    "50.0": 23,
+    "56.0": 21,
+    "58.0": 21,
+    "59.0": 13,
+    "53.0": 10,
+    "52.0": 9
+   },
+   "burst_size_counts": {
+    "1": 277,
+    "2": 17,
+    "3": 1,
+    "4": 1
+   },
+   "multi_level_share_of_orders": 0.129,
+   "slot_gap_c_counts": {
+    "-0.0": 22
+   }
+  },
+  "cosign_with_wallet_1031": {
+   "pairs_0_5ms": 0,
+   "pairs_5_50ms": 0,
+   "per_ms_ratio": null
+  },
+  "orders_1031": 189
+ },
+ "control_other_makers_top": [
+  [
+   "0x68915897",
+   16.36,
+   6
+  ],
+  [
+   "0x5d40576b",
+   8.18,
+   1
+  ],
+  [
+   "0x904ed7c7",
+   8.18,
+   1
+  ],
+  [
+   "0x758dac51",
+   7.16,
+   7
+  ],
+  [
+   "0x52ca116f",
+   6.14,
+   3
+  ],
+  [
+   "0x893575c7",
+   3.68,
+   9
+  ],
+  [
+   "0x51dbdd2b",
+   3.07,
+   3
+  ],
+  [
+   "0xb4cd4d6f",
+   2.73,
+   1
+  ]
+ ],
+ "control_other_makers_median_ratio": 3.375
+}

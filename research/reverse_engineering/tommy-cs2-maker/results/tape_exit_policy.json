@@ -1,0 +1,266 @@
+{
+ "BUILD": {
+  "markets": 170,
+  "wallet_pnl": 5105.7,
+  "prints_baseline": [
+   0.238,
+   0.134,
+   170
+  ],
+  "OLD": {
+   "pnl": -22263.5,
+   "usd": 0.0,
+   "corr": [
+    -0.032,
+    -0.004,
+    170
+   ],
+   "partial_given_prints": -0.014,
+   "corr_traded_only": [
+    -0.05,
+    -0.026,
+    113
+   ]
+  },
+  "L1_C0": {
+   "pnl": -7315.0,
+   "usd": 198153.9,
+   "corr": [
+    -0.127,
+    0.023,
+    170
+   ],
+   "partial_given_prints": -0.159,
+   "corr_traded_only": [
+    -0.179,
+    -0.012,
+    113
+   ]
+  },
+  "L5_C0": {
+   "pnl": -16226.0,
+   "usd": 300706.9,
+   "corr": [
+    -0.23,
+    -0.013,
+    170
+   ],
+   "partial_given_prints": -0.242,
+   "corr_traded_only": [
+    -0.279,
+    -0.043,
+    113
+   ]
+  },
+  "L5_C400": {
+   "pnl": -16054.3,
+   "usd": 239292.8,
+   "corr": [
+    -0.261,
+    -0.092,
+    170
+   ],
+   "partial_given_prints": -0.195,
+   "corr_traded_only": [
+    -0.375,
+    -0.151,
+    113
+   ]
+  },
+  "L5_C600": {
+   "pnl": -18330.3,
+   "usd": 261196.3,
+   "corr": [
+    -0.242,
+    -0.05,
+    170
+   ],
+   "partial_given_prints": -0.185,
+   "corr_traded_only": [
+    -0.322,
+    -0.094,
+    113
+   ]
+  },
+  "L5_T26": {
+   "pnl": -17942.6,
+   "usd": 257565.3,
+   "corr": [
+    -0.24,
+    -0.054,
+    170
+   ],
+   "partial_given_prints": -0.182,
+   "corr_traded_only": [
+    -0.325,
+    -0.098,
+    113
+   ]
+  },
+  "L3_T26": {
+   "pnl": -17055.2,
+   "usd": 246713.8,
+   "corr": [
+    -0.234,
+    -0.06,
+    170
+   ],
+   "partial_given_prints": -0.175,
+   "corr_traded_only": [
+    -0.317,
+    -0.106,
+    113
+   ]
+  }
+ },
+ "VALIDATE": {
+  "markets": 131,
+  "wallet_pnl": 8034.6,
+  "prints_baseline": [
+   0.329,
+   0.289,
+   131
+  ],
+  "OLD": {
+   "pnl": -8523.4,
+   "usd": 0.0,
+   "corr": [
+    -0.131,
+    -0.081,
+    131
+   ],
+   "partial_given_prints": -0.087,
+   "corr_traded_only": [
+    -0.123,
+    -0.075,
+    116
+   ]
+  },
+  "L1_C0": {
+   "pnl": 269.4,
+   "usd": 115174.6,
+   "corr": [
+    0.197,
+    0.027,
+    131
+   ],
+   "partial_given_prints": 0.176,
+   "corr_traded_only": [
+    0.212,
+    0.046,
+    116
+   ]
+  },
+  "L5_C0": {
+   "pnl": -6.8,
+   "usd": 177739.7,
+   "corr": [
+    0.038,
+    -0.07,
+    131
+   ],
+   "partial_given_prints": 0.014,
+   "corr_traded_only": [
+    0.045,
+    -0.053,
+    116
+   ]
+  },
+  "L5_C400": {
+   "pnl": -5820.8,
+   "usd": 144172.8,
+   "corr": [
+    -0.292,
+    -0.213,
+    131
+   ],
+   "partial_given_prints": -0.202,
+   "corr_traded_only": [
+    -0.292,
+    -0.207,
+    116
+   ]
+  },
+  "L5_C600": {
+   "pnl": -5208.3,
+   "usd": 157946.4,
+   "corr": [
+    -0.225,
+    -0.163,
+    131
+   ],
+   "partial_given_prints": -0.156,
+   "corr_traded_only": [
+    -0.22,
+    -0.152,
+    116
+   ]
+  },
+  "L5_T26": {
+   "pnl": -5275.9,
+   "usd": 155638.8,
+   "corr": [
+    -0.22,
+    -0.146,
+    131
+   ],
+   "partial_given_prints": -0.145,
+   "corr_traded_only": [
+    -0.214,
+    -0.13,
+    116
+   ]
+  },
+  "L3_T26": {
+   "pnl": -4653.1,
+   "usd": 147420.6,
+   "corr": [
+    -0.2,
+    -0.108,
+    131
+   ],
+   "partial_given_prints": -0.129,
+   "corr_traded_only": [
+    -0.195,
+    -0.092,
+    116
+   ]
+  }
+ },
+ "build_scores": {
+  "L1_C0": -0.127,
+  "L5_C0": -0.23,
+  "L5_C400": -0.261,
+  "L5_C600": -0.242,
+  "L5_T26": -0.24,
+  "L3_T26": -0.234
+ },
+ "chosen_on_BUILD": "L1_C0",
+ "VALIDATE_chosen": {
+  "pnl": 269.4,
+  "usd": 115174.6,
+  "corr": [
+   0.197,
+   0.027,
+   131
+  ],
+  "partial_given_prints": 0.176,
+  "corr_traded_only": [
+   0.212,
+   0.046,
+   116
+  ]
+ },
+ "VALIDATE_chosen_halves": [
+  [
+   -0.053,
+   0.035,
+   65
+  ],
+  [
+   0.335,
+   0.037,
+   66
+  ]
+ ]
+}

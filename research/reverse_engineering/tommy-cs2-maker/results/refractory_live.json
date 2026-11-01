@@ -1,0 +1,92 @@
+{
+ "maps": {
+  "cs2-shin-isg-2026-10-31-game1": {
+   "rounds": 23,
+   "snapped": 11,
+   "snapped_reversed": 9,
+   "G": 0.0,
+   "rounds_both_ends": 6,
+   "value_moments": 457,
+   "anchors": 67
+  },
+  "cs2-gls1-pcy-2026-10-31-game1": "anchors 76 V rows 0",
+  "cs2-gls1-pcy-2026-10-31-game2": {
+   "rounds": 21,
+   "snapped": 1,
+   "snapped_reversed": 1,
+   "G": 0.0,
+   "rounds_both_ends": 0,
+   "value_moments": 75,
+   "anchors": 17
+  },
+  "cs2-bhe-bar2-2026-10-31-game1": "anchors 14 V rows 0"
+ },
+ "hazard_bins_s": [
+  "0-5",
+  "5-10",
+  "10-15",
+  "15-20",
+  "20-25",
+  "25-30",
+  "30-35",
+  "35-40",
+  "40-45",
+  "45-50",
+  "50-55",
+  "55-60",
+  "60-65"
+ ],
+ "rounds_exposed_per_bin": [
+  6,
+  6,
+  6,
+  6,
+  6,
+  6,
+  6,
+  6,
+  6,
+  6,
+  6,
+  6,
+  6
+ ],
+ "moments_ge1c_per_round_per_5s": [
+  0.5,
+  0.333,
+  0.0,
+  0.167,
+  0.0,
+  0.0,
+  0.333,
+  0.167,
+  0.0,
+  0.833,
+  0.5,
+  1.5,
+  1.5
+ ],
+ "moments_ge3c_per_round_per_5s": [
+  0.333,
+  0.167,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.167,
+  0.0,
+  0.167,
+  0.167
+ ],
+ "early_0_20s_vs_action_25_60s_ge1c": [
+  0.25,
+  0.476
+ ],
+ "early_0_20s_vs_action_25_60s_ge3c": [
+  0.125,
+  0.048
+ ]
+}

@@ -1,0 +1,249 @@
+{
+ "rounds": 141,
+ "by_class": {
+  "CT_elim_T": {
+   "n": 49,
+   "V_c": {
+    "mid": 1.88,
+    "late": 0.14,
+    "end": 2.45,
+    "after": 1.74,
+    "post": 1.08
+   },
+   "P_c": {
+    "mid": 2.56,
+    "late": 0.36,
+    "end": 1.25,
+    "after": 3.02,
+    "post": 0.76
+   },
+   "V_before_share": 0.277,
+   "P_before_share": 0.368
+  },
+  "T_elim_CT": {
+   "n": 36,
+   "V_c": {
+    "mid": 0.6,
+    "late": -0.09,
+    "end": 2.4,
+    "after": 3.12,
+    "post": 0.23
+   },
+   "P_c": {
+    "mid": -0.79,
+    "late": -0.26,
+    "end": 2.29,
+    "after": 4.53,
+    "post": 0.26
+   },
+   "V_before_share": 0.082,
+   "P_before_share": -0.175
+  },
+  "bombed_CT_alive": {
+   "n": 22,
+   "V_c": {
+    "mid": 3.09,
+    "late": 0.36,
+    "end": 2.1,
+    "after": 0.5,
+    "post": 0.34
+   },
+   "P_c": {
+    "mid": 1.91,
+    "late": 0.39,
+    "end": 1.61,
+    "after": 1.56,
+    "post": 0.62
+   },
+   "V_before_share": 0.541,
+   "P_before_share": 0.378
+  },
+  "bombed_CT_wiped": {
+   "n": 4,
+   "V_c": {
+    "mid": 16.75,
+    "late": 0.5,
+    "end": 3.5,
+    "after": -5.75,
+    "post": 0.27
+   },
+   "P_c": {
+    "mid": 9.2,
+    "late": 2.87,
+    "end": 1.2,
+    "after": -0.62,
+    "post": -6.75
+   },
+   "V_before_share": 1.13,
+   "P_before_share": 2.044
+  },
+  "defuse_T_alive": {
+   "n": 2,
+   "V_c": {
+    "mid": 1.0,
+    "late": 0.0,
+    "end": 2.0,
+    "after": 0.25,
+    "post": -0.5
+   },
+   "P_c": {
+    "mid": 6.02,
+    "late": -0.0,
+    "end": 1.59,
+    "after": 1.91,
+    "post": 1.0
+   },
+   "V_before_share": 0.364,
+   "P_before_share": 0.572
+  },
+  "defuse_after_T_wiped": {
+   "n": 21,
+   "V_c": {
+    "mid": 2.4,
+    "late": -0.77,
+    "end": 0.64,
+    "after": 1.8,
+    "post": 1.57
+   },
+   "P_c": {
+    "mid": 0.26,
+    "late": -1.27,
+    "end": 1.5,
+    "after": 3.16,
+    "post": 0.63
+   },
+   "V_before_share": 0.288,
+   "P_before_share": -0.235
+  },
+  "time_out": {
+   "n": 7,
+   "V_c": {
+    "mid": -1.75,
+    "late": 0.0,
+    "end": 2.67,
+    "after": -0.33,
+    "post": 1.83
+   },
+   "P_c": {
+    "mid": -1.5,
+    "late": -1.61,
+    "end": 1.91,
+    "after": 1.95,
+    "post": 1.7
+   },
+   "V_before_share": -0.724,
+   "P_before_share": -1.266
+  },
+  "ALL": {
+   "n": 141,
+   "V_c": {
+    "mid": 2.11,
+    "late": -0.02,
+    "end": 2.14,
+    "after": 1.57,
+    "post": 0.81
+   },
+   "P_c": {
+    "mid": 1.31,
+    "late": -0.07,
+    "end": 1.64,
+    "after": 3.01,
+    "post": 0.43
+   },
+   "V_before_share": 0.316,
+   "P_before_share": 0.197
+  }
+ },
+ "by_group": {
+  "decided_early": {
+   "n": 43,
+   "V_c": {
+    "mid": 2.75,
+    "late": -0.19,
+    "end": 1.39,
+    "after": 1.13,
+    "post": 0.94
+   },
+   "P_c": {
+    "mid": 1.1,
+    "late": -0.42,
+    "end": 1.55,
+    "after": 2.34,
+    "post": 0.62
+   },
+   "V_before_share": 0.425,
+   "P_before_share": 0.132
+  },
+  "elimination": {
+   "n": 85,
+   "V_c": {
+    "mid": 1.36,
+    "late": 0.05,
+    "end": 2.43,
+    "after": 2.32,
+    "post": 0.73
+   },
+   "P_c": {
+    "mid": 1.17,
+    "late": 0.1,
+    "end": 1.68,
+    "after": 3.64,
+    "post": 0.56
+   },
+   "V_before_share": 0.204,
+   "P_before_share": 0.177
+  },
+  "other": {
+   "n": 13,
+   "V_c": {
+    "mid": 5.23,
+    "late": 0.17,
+    "end": 2.83,
+    "after": -2.04,
+    "post": 0.92
+   },
+   "P_c": {
+    "mid": 2.95,
+    "late": 0.02,
+    "end": 1.64,
+    "after": 1.15,
+    "post": -1.01
+   },
+   "V_before_share": 0.759,
+   "P_before_share": 0.624
+  }
+ },
+ "diff_before_share_decided_minus_elim_V": {
+  "point": 0.221,
+  "ci95": [
+   -0.311,
+   0.731
+  ],
+  "draws": 2000
+ },
+ "diff_before_share_decided_minus_elim_P": {
+  "point": -0.045,
+  "ci95": [
+   -0.782,
+   0.486
+  ],
+  "draws": 2000
+ },
+ "bombed_CT_alive_by_duration": {
+  "short": {
+   "n": 8,
+   "V_before_share": 0.141,
+   "P_before_share": -0.067
+  },
+  "mid": {
+   "n": 7,
+   "V_before_share": 0.732,
+   "P_before_share": 0.769
+  },
+  "long": {
+   "n": 7,
+   "V_before_share": 0.655,
+   "P_before_share": 0.328
+  }
+ }
+}

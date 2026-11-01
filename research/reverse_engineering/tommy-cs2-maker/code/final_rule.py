@@ -1,4 +1,13 @@
-"""Iteration-11 note (2026-11-01; no functional change, v5 stays frozen): no candidate beat v5 on VALIDATE. Measured
+"""tommy-cs2-maker frozen rule v6 (`tommy-v6-groupP-bidside-outcome`, iteration 15, 2026-11-01) = v5 with the outcome
+replay replaced by `_replay_v6` (adopted under the rule pre-registered in NOTES iteration 15: the tape-engine variant chosen
+on BUILD replaces the frozen replay iff it beats it on VALIDATE in both Pearson and Spearman; VALIDATE 0.197 / 0.027 vs
+-0.131 / -0.081): one BUY level per token at floor(others' bid on that token), where others' bid = the latest wallet-free
+taker print that consumed bids on the token (taker SELL of it, or taker BUY of the complement), usable 2 s after its
+block; pair cap 0.99; band [0.05, 0.95]; 100 shares (Dota 10) refilled every 10 s; strict trade-through fills. The v5
+replay is still reported as pnl_corr_*_v5replay. Iteration 15 also adds a reported (non-target) fill-unit price metric,
+price_within_tick_at_fill_m1c. Selection, presence, price (order unit at signing) and size are unchanged from v5.
+
+Iteration-11 note (2026-11-01; no functional change, v5 stays frozen): no candidate beat v5 on VALIDATE. Measured
 bounds (NOTES iteration 11): no point-in-time own-state price anchor beats the last print (0.280 vs 0.305), SX Bet
 on chain is too sparse to anchor (11 CS2 markets / 63 fills in 16-22 Oct), a fresh public touch scores below the touch,
 even a rule knowing the wallet's own value caps at about 0.71-0.75 within one tick per order, and the outcome item
@@ -337,6 +346,56 @@ def _replay(d, gs, pay0, delta=0.0, levels=1, req=10, lat=2, size=100.0):
                 if f > 0:
                     sh[o] += f
                     cost += f * q
+    return float(sh[0] * pay0 + sh[1] * (1 - pay0) - cost)
+
+
+def _replay_v6(d, gs, pay0, size=100.0, lat=2.0, req=10.0, pair_cap=0.99, band=(0.05, 0.95)):
+    """v6 outcome component (iteration 15, X218 examinable form, adopted under the rule pre-registered in NOTES
+    iteration 15): one BUY level per token at floor(others' bid on that token), where others' bid on z = the price of
+    the latest wallet-free taker print that consumed bids on z (taker SELL of z at p, or taker BUY of the complement at
+    q -> 1 - q), usable 2 s after its block; capacity `size`, refilled every 10 s; no quote unless the two anchors sum
+    to <= 0.99 (pair cap); band [0.05, 0.95]; strict fills: a print on z whose average price is strictly below our level
+    fills it, up to the taker's size. Settlement PnL (pairs pay 1). No inventory cap (BUILD chose the uncapped form)."""
+    if d is None or len(d) < 5:
+        return 0.0
+    d = d.sort_values("timestamp")
+    ts = d["timestamp"].to_numpy(float)
+    oi = d["outcomeIndex"].astype(int).to_numpy()
+    side = d["side"].to_numpy()
+    pr = d["price"].astype(float).to_numpy()
+    sz = d["size"].astype(float).to_numpy()
+    zt = np.where(side == "SELL", oi, 1 - oi)
+    pz = np.where(side == "SELL", pr, 1 - pr)
+    anc, pend = [None, None], []
+    sh, cost = np.zeros(2), 0.0
+    lev = [None, None]
+    for i in range(len(ts)):
+        t = ts[i]
+        while pend and pend[0][0] <= t:
+            _, zz, val = pend.pop(0)
+            anc[zz] = val
+        z = int(zt[i])
+        if t >= gs and anc[0] is not None and anc[1] is not None:
+            a = [np.floor(x * 100 + 1e-6) / 100 for x in anc]
+            if a[0] + a[1] <= pair_cap + 1e-9:
+                want = [a[z]] if band[0] - 1e-9 <= a[z] <= band[1] + 1e-9 else []
+                cur = lev[z]
+                if cur is None or t - cur["reset"] >= req or cur["anc"] != a[z]:
+                    old = {} if cur is None else cur["lv"]
+                    fresh = cur is None or t - cur["reset"] >= req
+                    lev[z] = {"lv": {q: (size if (fresh or q not in old) else old[q]) for q in want},
+                              "reset": t if fresh else cur["reset"], "anc": a[z]}
+                left = float(sz[i])
+                for q in sorted(lev[z]["lv"], reverse=True):
+                    c = lev[z]["lv"][q]
+                    if left <= 1e-9 or c <= 1e-9 or not (pz[i] < q - 1e-9):
+                        continue
+                    f = min(c, left)
+                    lev[z]["lv"][q] -= f
+                    left -= f
+                    sh[z] += f
+                    cost += f * q
+        pend.append((t + lat, z, float(pz[i])))
     return float(sh[0] * pay0 + sh[1] * (1 - pay0) - cost)
 
 
@@ -812,7 +871,7 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
         u["series"] = "10310"
     u["series"] = u["series"].fillna("10310").astype(str)
     dser = dict(zip(u["event_slug"], u["series"]))
-    out = {"rule_id": "tommy-v5-grid-league-dota-groupP", "constants": CONSTANTS, "events": int(len(ev)), "events_traded": int(ev["y"].sum()),
+    out = {"rule_id": "tommy-v6-groupP-bidside-outcome", "constants": CONSTANTS, "events": int(len(ev)), "events_traded": int(ev["y"].sum()),
            "markets": int(len(u)), "markets_traded": int(u["y"].sum()), "grid_events": int(ev["grid"].sum()),
            "grid_events_traded": int(ev.loc[ev["grid"], "y"].sum())}
     sc4, ba = selection_score(ev, C), activity_baseline(ev, C)
@@ -891,6 +950,27 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
             out["price_within_tick"] = round(float((np.abs(a["p"] - a["a"]) <= tick + 1e-9).mean()), 3)
             out["price_exact_last_print"] = round(float((np.abs(a["p"] - a["a"]) <= 0.001 + 1e-9).mean()), 3)
             out["price_within_cent"] = round(float((np.abs(a["p"] - a["a"]) <= 0.01 + 1e-9).mean()), 3)
+        # iteration 15 (X217 step 1, secondary; the target metric stays the order unit at signing above): the fill unit,
+        # i.e. each filled maker order (first fill) against the last wallet-free print strictly before its fill block,
+        # minus 1c (the BUILD median offset), the censored observation of the quote; trivial-anchor rule, said so.
+        if "bts" in mo:
+            af = []
+            mof = fills[fills["role"] == "maker"].sort_values("bts")
+            mof = mof.drop_duplicates(["salt", "sign_ms"]) if "salt" in mof else mof
+            for cid, g2 in mof.groupby("cid"):
+                d = tapes.get(cid)
+                if d is None or len(d) == 0:
+                    continue
+                ts = d["timestamp"].to_numpy(float)
+                p0 = np.where(d["outcomeIndex"].astype(int) == 0, d["price"].astype(float), 1 - d["price"].astype(float))
+                k = np.searchsorted(ts, g2["bts"].to_numpy(float), side="left")
+                lp = np.where(k > 0, p0[np.maximum(k - 1, 0)], np.nan)
+                lp = np.where(g2["oi"].to_numpy() == 0, lp, 1 - lp)
+                af.append(pd.DataFrame({"p": g2["price"].to_numpy(), "a": np.round(lp - 0.01, 2)}))
+            if af:
+                a2 = pd.concat(af).dropna()
+                tick2 = np.where((a2["a"] >= 0.04) & (a2["a"] <= 0.96), 0.01, 0.001)
+                out["price_within_tick_at_fill_m1c"] = round(float((np.abs(a2["p"] - a2["a"]) <= tick2 + 1e-9).mean()), 3)
         out["size_100_accuracy"] = round(float((mo["shares"].round(0) == 100).mean()), 3)
         # size rule v3: CS2 markets 100 shares, Dota 2 markets 10 shares (all 10-share maker orders are Dota 2)
         evs = dict(zip(u["cid"], u["event_slug"]))
@@ -902,17 +982,23 @@ def evaluate(start_ts: float, end_ts: float, intervals=None) -> dict:
     for r in u.itertuples():
         if r.cid not in pay or (r.event_slug not in selected and r.cid not in traded):
             continue
-        rp = (_replay(tapes.get(r.cid), r.gs_ts, pay[r.cid], size=10.0 if str(r.series) == "10309" else 100.0)
-              if r.event_slug in selected else 0.0)
+        sz_ = 10.0 if str(r.series) == "10309" else 100.0
+        # v6 (iteration 15): bid-side anchored single level with the pair cap (_replay_v6); v5's _replay kept as a diagnostic
+        rp = _replay_v6(tapes.get(r.cid), r.gs_ts, pay[r.cid], size=sz_) if r.event_slug in selected else 0.0
+        rp5 = _replay(tapes.get(r.cid), r.gs_ts, pay[r.cid], size=sz_) if r.event_slug in selected else 0.0
         f = fills[fills["cid"] == r.cid] if len(fills) else fills
         wp = float((f["fill"] * np.where(f["oi"] == 0, pay[r.cid], 1 - pay[r.cid]) - f["usdc"]).sum()) if len(f) else 0.0
         dt = tapes.get(r.cid)
         npr = int((dt["timestamp"].to_numpy(np.int64) >= r.gs_ts).sum()) if dt is not None and len(dt) else 0
-        pm.append((rp, wp, npr, r.cid in traded))
+        pm.append((rp, wp, npr, r.cid in traded, rp5))
     if len(pm) >= 5:
-        x = pd.DataFrame(pm, columns=["r", "w", "prints", "traded"])
-        out["pnl_corr_pearson"] = round(float(np.corrcoef(x["r"], x["w"])[0, 1]), 3)
-        out["pnl_corr_spearman"] = round(float(x["r"].rank().corr(x["w"].rank())), 3)
+        x = pd.DataFrame(pm, columns=["r", "w", "prints", "traded", "r5"])
+        out["pnl_corr_pearson"] = round(float(np.corrcoef(x["r"], x["w"])[0, 1]), 3) if x["r"].std() > 0 else None
+        out["pnl_corr_spearman"] = round(float(x["r"].rank().corr(x["w"].rank())), 3) if x["r"].std() > 0 else None
+        out["pnl_corr_pearson_v5replay"] = round(float(np.corrcoef(x["r5"], x["w"])[0, 1]), 3) if x["r5"].std() > 0 else None
+        out["pnl_corr_spearman_v5replay"] = round(float(x["r5"].rank().corr(x["w"].rank())), 3) if x["r5"].std() > 0 else None
+        out["pnl_rule_total"] = round(float(x["r"].sum()), 1)
+        out["pnl_wallet_total"] = round(float(x["w"].sum()), 1)
         out["pnl_markets"] = int(len(x))
         # iteration 6 (X82): co-occurrence baseline for the outcome item = a "c x in-play public prints" pseudo-PnL
         # (wallet txs excluded); its correlation with the wallet's PnL does not depend on c. Reported on the same

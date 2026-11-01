@@ -1,0 +1,180 @@
+{
+ "label_counts": {
+  "build_grid0": {
+   "events": 171,
+   "wallet": 41,
+   "operator": 59,
+   "sibling_only": 18
+  },
+  "build_grid1": {
+   "events": 85,
+   "wallet": 0,
+   "operator": 65,
+   "sibling_only": 65
+  },
+  "validate_grid0": {
+   "events": 91,
+   "wallet": 36,
+   "operator": 38,
+   "sibling_only": 2
+  },
+  "validate_grid1": {
+   "events": 37,
+   "wallet": 0,
+   "operator": 9,
+   "sibling_only": 9
+  }
+ },
+ "build": {
+  "y_w": {
+   "events": 256,
+   "positives": 41,
+   "auc": 0.9548,
+   "recall": 0.805,
+   "lift": 3.888,
+   "precision": 0.623,
+   "selected": 53,
+   "baseline_auc": 0.8665,
+   "v4_auc": 0.9467,
+   "nongrid_only": {
+    "events": 171,
+    "positives": 41,
+    "auc": 0.931,
+    "recall": 0.805,
+    "lift": 2.699,
+    "precision": 0.647,
+    "selected": 51
+   }
+  },
+  "y_op": {
+   "events": 256,
+   "positives": 124,
+   "auc": 0.7064,
+   "recall": 0.339,
+   "lift": 1.636,
+   "precision": 0.792,
+   "selected": 53,
+   "baseline_auc": 0.7367,
+   "v4_auc": 0.7137,
+   "nongrid_only": {
+    "events": 171,
+    "positives": 59,
+    "auc": 0.8811,
+    "recall": 0.678,
+    "lift": 2.273,
+    "precision": 0.784,
+    "selected": 51
+   }
+  }
+ },
+ "validate": {
+  "y_w": {
+   "events": 128,
+   "positives": 36,
+   "auc": 0.9734,
+   "recall": 0.75,
+   "lift": 3.2,
+   "precision": 0.9,
+   "selected": 30,
+   "baseline_auc": 0.8967,
+   "v4_auc": 0.9574,
+   "nongrid_only": {
+    "events": 91,
+    "positives": 36,
+    "auc": 0.9576,
+    "recall": 0.75,
+    "lift": 2.275,
+    "precision": 0.9,
+    "selected": 30
+   }
+  },
+  "y_op": {
+   "events": 128,
+   "positives": 47,
+   "auc": 0.9044,
+   "recall": 0.596,
+   "lift": 2.542,
+   "precision": 0.933,
+   "selected": 30,
+   "baseline_auc": 0.8892,
+   "v4_auc": 0.9012,
+   "nongrid_only": {
+    "events": 91,
+    "positives": 38,
+    "auc": 0.9613,
+    "recall": 0.737,
+    "lift": 2.235,
+    "precision": 0.933,
+    "selected": 30
+   }
+  }
+ },
+ "allocation": {
+  "n": 97,
+  "to_wallet": 77,
+  "by_day": {
+   "10-16": {
+    "size": 10,
+    "sum": 4
+   },
+   "10-17": {
+    "size": 11,
+    "sum": 8
+   },
+   "10-18": {
+    "size": 1,
+    "sum": 1
+   },
+   "10-19": {
+    "size": 20,
+    "sum": 16
+   },
+   "10-20": {
+    "size": 17,
+    "sum": 12
+   },
+   "10-21": {
+    "size": 23,
+    "sum": 22
+   },
+   "10-22": {
+    "size": 15,
+    "sum": 14
+   }
+  },
+  "by_league_sibling_only": {
+   "DraculaN": 7,
+   "CCT South America": 3,
+   "European Pro League": 3,
+   "Stake Ranked": 2,
+   "Stake Pulse": 2,
+   "CIS LAN Championship": 2,
+   "PGL": 1
+  },
+  "v5_score_wallet_vs_sibling_auc": 0.777,
+  "gp72_wallet_vs_sibling_auc": 0.71,
+  "hour_wallet_vs_sibling_auc": 0.607,
+  "tier_counts": {
+   "(3, 0)": 2,
+   "(3, 1)": 20,
+   "(4, 0)": 10,
+   "(4, 1)": 49,
+   "(5, 0)": 8,
+   "(5, 1)": 8
+  },
+  "in_league_skips": {
+   "build": {
+    "n": 48,
+    "sibling_traded": 11,
+    "v5_selected": 18,
+    "v5_selected_sibling_traded": 7
+   },
+   "validate": {
+    "n": 8,
+    "sibling_traded": 1,
+    "v5_selected": 3,
+    "v5_selected_sibling_traded": 1
+   }
+  }
+ }
+}

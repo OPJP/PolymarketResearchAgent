@@ -1,4 +1,4 @@
-# tommy-cs2-maker: frozen rule v5 (`tommy-v5-grid-league-dota-groupP`; v4 plus group-P coverage in the selection score, iteration 9, 2026-11-01)
+# tommy-cs2-maker: frozen rule v6 (`tommy-v6-groupP-bidside-outcome`; v5 with a bid-side anchored outcome replay, iteration 15, 2026-11-01)
 
 Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
 
@@ -27,6 +27,41 @@ Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
   out-of-fold residual shape, cross-event synchrony, a pre-registered event-state indicator screen confirmed on
   VALIDATE) and measured the price item's lag tolerance, an own-state transport rule, a phase-gated public ladder, the
   value's path on the feed's own clock, and the operator's sports quoting and further accounts.
+- Iteration 15 changed only the outcome component (v6): the executable replay in `evaluate()` now quotes one BUY level
+  per token at the others' bid on that token (the latest wallet-free print that consumed bids on it, usable 2 s after
+  its block) under a 0.99 pair cap, instead of anchoring both tokens on the last print. Selection, presence, price and
+  size are v5's. It also re-decided which accounts are the operator's, tested the wallet's exit policy as the outcome
+  carrier, and found the first evidence that the private value prices in-round events rather than round results only.
+
+## What iteration 15 established (v6: the outcome replay; nothing else changed)
+
+- **Outcome component replaced** (VALIDATE-only). `_replay_v6`: one level per token at floor(others' bid on that
+  token), pair cap 0.99, band [0.05, 0.95], 100 shares (10 in Dota) refilled every 10 s, strict trade-through fills on the
+  data-api taker tape. It was the BUILD choice among the pre-registered tape-engine variants and beat the frozen replay
+  on VALIDATE in both coefficients: per-market Pearson / Spearman **0.197 / 0.027** (v5 replay -0.131 / -0.081; prints
+  baseline 0.329 / 0.289). The gain removes the old replay's ask-side quotes; it is not a decode of the outcome.
+- **The wallet's own exit policy does not carry the outcome** (X218). A five-slot public ladder with the measured net
+  cap (about 600 CS2 shares) and the 200-600 taper, in the validated calldata engine: BUILD chooses no cap (0.067 /
+  0.275), so VALIDATE stays at 0.315 / 0.238; capped variants reach 0.41-0.48 Pearson on VALIDATE but 0.11-0.21
+  Spearman and negative BUILD Pearson.
+- **Which accounts are the operator's.** Cross-market 0-5 ms co-signing with the wallet (the one-process test) confirms
+  0x7d67f01d (4.4x) and refutes 0xd2bb9459, 0x10d79cc7, 0x68915897 and 0x5d40576b (0-1 pairs). Their earlier
+  same-market co-signing is what co-subscribers of one feed produce. No attributed account quotes GRID events, so
+  "never GRID" stays the operator's boundary. In 16-22 Oct 20 of 97 non-GRID operator events went to 0x7d67f01d only;
+  that routing is too sparse to fit.
+- **R vs K: not decided** (hypothesis). For K: on the print-anchored round clock the share of its value's move before
+  the print's jump is the same in decided-early rounds (defuse after a wipe, bomb with CTs saving) as in elimination
+  rounds (0.682 vs 0.680; R predicted 0.40 or less), and its dark re-pricings stay informed after removing censoring
+  artefacts and followers (+1.8-1.9c at 60 s). For R: the busy 2-20 s after a round end follow the round just won (not
+  the new round's buy), and with the previous round's winner controlled its mid-round moves point to the current
+  winner only 0.53-0.55. Reading: its value moves at feed messages that are mostly round results, before and around
+  the market's reaction, with a small in-round part. PandaScore's Low Latency Feed remains the candidate vendor (the
+  API answers 403 'Token is missing'; a token is the user's to create).
+- **Latency yardstick.** Its message-locked re-pricings come a median 1.1 s after the first visible co-receiver's take;
+  a source arriving 0.25 s after the message would precede 85% of them.
+- **New reported metric.** `price_within_tick_at_fill_m1c` = 0.496 on VALIDATE (the fill unit, last wallet-free print
+  before the fill block minus 1c); the target metric stays the order unit at signing (0.322). Generic makers reach
+  0.605 at the fill.
 
 ## What iteration 14 established (no rule change)
 
@@ -449,16 +484,17 @@ order-level fill engine, a census of informed bursts) and found:
 | Price (maker, live, frozen) | `live_price` (re-frozen in iteration 7, before any VALIDATE-live record): primary = the touch, i.e. the full-book best bid on the order's token at sign - 100 ms (LIVE_PRICE_PRIMARY "touch"). Secondary = the join: others' best bid with the size-labelled own levels removed, min with 0.99 - own top on the other token (LIVE_VIEW_MS 100, PAIR_CAP 0.99). | hypothesis (BUILD-live only) | 10-31 block, 172 filled maker orders: touch 0.471, join 0.424 (0.419 with the calldata-validated label), last trade 0.187. The whole 12-18 block through `evaluate()` (328 orders, early books from the shared recorder): touch 0.280, join 0.256. To be scored on VALIDATE-live (11-01 06-12 on) and by the future-block examiner. |
 | Price (taker) | FAK at the stale ask + a premium that grows with the expected repricing (0-5c), kept below the post-event price; match-leg premium = map-leg premium x series sensitivity. | VALIDATE-only (premium-move relation); hypothesis as a rule | Controlled OLS: +0.87c of 10-s move per 1c of premium (p 7e-11, VALIDATE). Caps (1000 / 2000 shares) carry little of it. |
 | Size | Maker: 100 shares in CS2. In 36% of events an event-wide size starts at 50-96 (median 54) and steps up monotonically to 100. Exactly 10 shares in Dota 2 (1,292 of 1,292 orders). Taker: odd sizes about 0.3x of the pre-event depth up to its limit; 1000 / 2000 caps early and fading. | VALIDATE-only (maker 100 / 10 and the ramp's shape); hypothesis (ramp clock, taker) | CS2 100 shares: 92.1% (BUILD), 88.3% (VALIDATE). No global (a, b) schedule (0-4% of non-100 within one share). Start size vs pre-game USD: Spearman 0.55. |
-| Exit | Never sells. Pulls the complement at its takes and re-pairs it through bids posted 1.04 s later, which slower informed takers fill. Between takes it pulls the bids of the team about to lose value on private events (untriggered pulls: -0.6c others'-mid markout in 10 s). Merges complete pairs in a 300-s loop (minimum 100 shares) and holds the residual. Hard price band: it never bids below 0.05 or above 0.95, and it keeps bidding a collapsing team down to that floor (no earlier stop). (The iteration-6 public-wave follower is withdrawn: an artefact of the size label.) | VALIDATE-only (pairs, merge law, band); hypothesis (untriggered pulls, BUILD-live) | Pair cost 0.978, reproduced by the validated engine on its own orders (0.975). In bursts it misses, its complement is hit in 19-22% (-1.5 to -3.2c markouts). A public ladder 4c below the stale touch reaches 0.978 but loses $13.4k per split on its residual. Band (iteration 10): 0 of 25,878 orders outside [0.05, 0.95] against 10.0% of public maker BUYs; last fill on the eventual loser p50 0.11, minimum <= 0.06 in 24% of markets; the band does not repair public replays (D 0.245 / 0.087 with it, 0.245 / 0.089 without). |
+| Outcome (executable, v6) | `_replay_v6`: one BUY level per token at floor(others' bid on that token) = the latest wallet-free taker print that consumed bids on the token, usable 2 s after its block; pair cap 0.99; band [0.05, 0.95]; 100 shares (Dota 10) refilled every 10 s; strict trade-through fills; settlement PnL per market of v5-selected events. | VALIDATE-only | Per-market Pearson / Spearman with the wallet 0.197 / 0.027 (v5 replay -0.131 / -0.081; prints baseline 0.329 / 0.289; partial given prints 0.176). Not the wallet's process: its outcome needs its value and its informed takes (an oracle copy at 2 s caps at 0.43 / 0.40; the wallet's exit policy in a public ladder does not lift it, X218). |
+| Exit | Never sells. Pulls the complement at its takes and re-pairs it through bids posted 1.04 s later, which slower informed takers fill. Between takes it pulls the bids of the team about to lose value on private events (untriggered pulls: -0.6c others'-mid markout in 10 s). Merges complete pairs in a 300-s loop (minimum 100 shares) and holds the residual. Hard price band: it never bids below 0.05 or above 0.95, and it keeps bidding a collapsing team down to that floor (no earlier stop). (The iteration-6 public-wave follower is withdrawn: an artefact of the size label.) | VALIDATE-only (pairs, merge law, band); hypothesis (untriggered pulls, BUILD-live) | Pair cost 0.978, reproduced by the validated engine on its own orders (0.975). In bursts it misses, its complement is hit in 19-22% (-1.5 to -3.2c markouts). A public ladder 4c below the stale touch reaches 0.978 but loses $13.4k per split on its residual. Band (iteration 10): 0 of 25,878 orders outside [0.05, 0.95] against 10.0% of public maker BUYs; last fill on the eventual loser p50 0.11, minimum <= 0.06 in 24% of markets; the band does not repair public replays (D 0.245 / 0.087 with it, 0.245 / 0.089 without). Iteration 15: net position capped near 600 CS2 shares with a long-side taper from 200 (share of fills on the long side 0.44 below 200, 0.21 at 400-600, 0.00-0.03 above 600). |
 
-## Target metrics on VALIDATE (`state.json` `target_metrics`; v5, build constants)
+## Target metrics on VALIDATE (`state.json` `target_metrics`; v6, build constants)
 
 | Metric | Value | Baseline / note |
 | --- | --- | --- |
 | Selection AUC | 0.970 | Baseline 0.886 (pre-game activity). Recall 0.744, lift 3.155. Gain +0.084 [0.030, 0.152], 0 of 4,000 bootstrap draws <= 0. CS2 0.972 vs 0.892; Dota 0.926. v4 on the same events 0.953. |
 | Presence AUC | 0.883 | Baseline 0.891 (fill presence per 30-s bin; v5 event score x in-play). Forward block 0.911 vs 0.823. |
-| `price_within_tick` | 0.322 | In-play tick, last-print anchor. Live (BUILD-live): touch 0.472 per add, 0.471 on filled orders; own-state machines 0.09-0.50. |
-| `pnl_corr_pearson` / `pnl_corr_spearman` | -0.131 / -0.081 | Generic tape ladder on v5's selected events. Validated-engine public ladder (knockout D) +0.245 / +0.089 on the wallet's markets; balanced pair ladder +0.034 / -0.085. Co-occurrence baseline (in-play prints) +0.325 / +0.283. |
+| `price_within_tick` | 0.322 | In-play tick, last-print anchor at signing (order unit). Fill unit (iteration 15, reported, not the target unit): 0.496 against the last print before the fill minus 1c; generic makers 0.605. Live (BUILD-live): touch 0.472 per add, 0.471 on filled orders; own-state machines 0.09-0.50. |
+| `pnl_corr_pearson` / `pnl_corr_spearman` | 0.197 / 0.027 (v6) | v6 bid-side anchored replay; the v5 generic tape ladder scored -0.131 / -0.081 on v5's selected events. Validated-engine public ladder (knockout D) +0.245 / +0.089 on the wallet's markets; balanced pair ladder +0.034 / -0.085. Co-occurrence baseline (in-play prints) +0.325 / +0.283. |
 | Side | Not applicable at market level | The maker is two-sided in CS2 and Dota. The taker side follows the unobserved feed. |
 | Coverage | 1.000 of fills, 1.000 of absolute PnL | Computed on the lot by `evaluate()` (v4). A CS2-only universe: 0.927 / 0.990 on VALIDATE, 0.43-0.46 of fills on the 10-31 block. |
 
@@ -475,6 +511,8 @@ order-level fill engine, a census of informed bursts) and found:
   own recorders `tommy_cs2_rounds` (round markets) and `tommy_chat` (chat clock) record every block too.
 
 ## Why it works (economic mechanism)
+
+- **Iteration 15 note** (hypothesis). The private input is a push feed whose messages are mostly round results, delivered before and around the market's reaction, with a small in-round part. The operator is paid for pricing those results a second or more before the market does. Its counterparties are the makers it picks off and the takers who sell into its bids after it has already moved.
 
 1. **Universe** (VALIDATE-only). It trades only events without official GRID data, in CS2 and (from 10-22) Dota 2; the set is the coverage of its push feed (P4e's presence follows the same tier x GRID boundary, iteration 8). There, Polymarket's own sports
    feed has map scores but no round scores, so most makers price in-round swings late. The informed pack was already
@@ -522,6 +560,8 @@ order-level fill engine, a census of informed bursts) and found:
 
 ## Can a normal user deploy it now
 
+- **Iteration 15 note.** The feed has to deliver its messages within about 0.25 s of the first co-receiver to precede 85% of the wallet's message-locked re-pricings. Polymarket's sports socket polls round scores every 20.2 s and only for GRID events, and Valve's Dota snapshots arrive every 4 s, so neither can stand in for it. A public-only copy of the ladder (v6's outcome replay) earns about zero and does not track the wallet's per-market PnL.
+
 - **Needs:**
   - a subscription to the real-time in-round push feed that the informed wallets share for non-GRID CS2 matches (at
     least six subscribers; not GRID, not Polymarket's sports socket, not bo3.gg; its vendor is not identified), with a
@@ -566,6 +606,8 @@ order-level fill engine, a census of informed bursts) and found:
   Whether that is fast enough against the 1-s in-play delay is the pre-registered X118 test.
 
 ## Not explained yet
+
+- **Iteration 15 account.** Price: V at the message; the messages are mostly round results with a small in-round part (R vs K not decided, weak clocks). Outcome: 0.197 / 0.027 for the frozen executable replay, 0.315 / 0.238 for the best public replay in the calldata engine; the wallet's exit policy does not change that. Selection: explained on VALIDATE; a small, drifting share of the operator's non-GRID events goes to 0x7d67f01d, which no listing field predicts out of fold with 20 cases.
 
 - **Iteration 14 account.** Price: its value moves at the push feed's messages (a step within 0-3 s of the visible
   informed clusters, no private ramp before them), and only 12-18% of its re-pricings have a visible message in the

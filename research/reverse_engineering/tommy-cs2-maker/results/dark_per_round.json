@@ -1,0 +1,43 @@
+{
+ "rounds": 412,
+ "mean_dark_new_high_per_round": 1.133,
+ "mean_all_vchanges_per_round": 4.352,
+ "n_dark~deaths": {
+  "deaths": {
+   "coef": -0.0478,
+   "se": 0.0261,
+   "p": 0.0668
+  }
+ },
+ "n_dark~winner_deaths+loser_deaths": {
+  "winner_deaths": {
+   "coef": -0.0492,
+   "se": 0.0508,
+   "p": 0.3327
+  },
+  "loser_deaths": {
+   "coef": -0.0457,
+   "se": 0.0515,
+   "p": 0.3752
+  }
+ },
+ "n_all~deaths": {
+  "deaths": {
+   "coef": -0.0669,
+   "se": 0.027,
+   "p": 0.0131
+  }
+ },
+ "n_all~winner_deaths+loser_deaths": {
+  "winner_deaths": {
+   "coef": -0.0849,
+   "se": 0.0377,
+   "p": 0.0244
+  },
+  "loser_deaths": {
+   "coef": -0.0403,
+   "se": 0.0376,
+   "p": 0.2831
+  }
+ }
+}

@@ -1,0 +1,112 @@
+{
+ "rounds": 317,
+ "decisions": 1102,
+ "freeze_all": {
+  "n": 197,
+  "agree_prev_winner": 0.655,
+  "agree_equipment": 0.614,
+  "agree_round_winner": 0.589,
+  "agree_equipment_when_prev_disagrees": 0.375,
+  "n_prev_disagrees_eq": 32,
+  "logit": {
+   "prev": {
+    "coef": 0.591,
+    "p": 0.0289
+   },
+   "eq": {
+    "coef": 0.055,
+    "p": 0.8156
+   }
+  }
+ },
+ "freeze_dark_new_high": {
+  "n": 47,
+  "agree_prev_winner": 0.766,
+  "agree_equipment": 0.617,
+  "agree_round_winner": 0.617,
+  "agree_equipment_when_prev_disagrees": 0.0,
+  "n_prev_disagrees_eq": 7,
+  "logit": {
+   "prev": {
+    "coef": 12.628,
+    "p": NaN
+   },
+   "eq": {
+    "coef": -11.67,
+    "p": NaN
+   }
+  }
+ },
+ "freeze_visible_agree": {
+  "n": 36,
+  "agree_prev_winner": 0.694,
+  "agree_equipment": 0.639,
+  "agree_round_winner": 0.583,
+  "agree_equipment_when_prev_disagrees": 0.0,
+  "n_prev_disagrees_eq": 2,
+  "logit": {
+   "prev": {
+    "coef": 12.399,
+    "p": 0.0
+   },
+   "eq": {
+    "coef": -11.671,
+    "p": 0.0
+   }
+  }
+ },
+ "action_all": {
+  "n": 898,
+  "agree_prev_winner": 0.607,
+  "agree_equipment": 0.586,
+  "agree_round_winner": 0.6,
+  "agree_equipment_when_prev_disagrees": 0.434,
+  "n_prev_disagrees_eq": 145,
+  "logit": {
+   "prev": {
+    "coef": 0.366,
+    "p": 0.001
+   },
+   "eq": {
+    "coef": 0.101,
+    "p": 0.3753
+   }
+  }
+ },
+ "action_dark_new_high": {
+  "n": 245,
+  "agree_prev_winner": 0.727,
+  "agree_equipment": 0.665,
+  "agree_round_winner": 0.678,
+  "agree_equipment_when_prev_disagrees": 0.326,
+  "n_prev_disagrees_eq": 43,
+  "logit": {
+   "prev": {
+    "coef": 0.887,
+    "p": 0.0001
+   },
+   "eq": {
+    "coef": 0.166,
+    "p": 0.5043
+   }
+  }
+ },
+ "action_visible_agree": {
+  "n": 138,
+  "agree_prev_winner": 0.739,
+  "agree_equipment": 0.732,
+  "agree_round_winner": 0.645,
+  "agree_equipment_when_prev_disagrees": 0.478,
+  "n_prev_disagrees_eq": 23,
+  "logit": {
+   "prev": {
+    "coef": 0.694,
+    "p": 0.0214
+   },
+   "eq": {
+    "coef": 0.582,
+    "p": 0.0328
+   }
+  }
+ }
+}

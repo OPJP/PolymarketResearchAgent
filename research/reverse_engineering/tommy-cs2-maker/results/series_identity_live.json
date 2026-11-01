@@ -1,0 +1,46 @@
+{
+ "units": [
+  {
+   "event": "cs2-gls1-pcy-2026-10-31",
+   "map": "2",
+   "oi": 0,
+   "pairs": 21,
+   "sd_c": 0.0,
+   "within1c": 1.0,
+   "slope": 1.0,
+   "null_sd_c": 10.456,
+   "null_within1c": 0.048,
+   "map_range_c": 1.0
+  },
+  {
+   "event": "cs2-shin-isg-2026-10-31",
+   "map": "1",
+   "oi": 0,
+   "pairs": 22,
+   "sd_c": 2.008,
+   "within1c": 0.409,
+   "slope": 0.293,
+   "null_sd_c": 9.697,
+   "null_within1c": 0.0,
+   "map_range_c": 26.0
+  },
+  {
+   "event": "cs2-shin-isg-2026-10-31",
+   "map": "1",
+   "oi": 1,
+   "pairs": 28,
+   "sd_c": 1.17,
+   "within1c": 0.429,
+   "slope": 0.24,
+   "null_sd_c": 7.908,
+   "null_within1c": 0.036,
+   "map_range_c": 31.0
+  }
+ ],
+ "pairs": 71,
+ "median_sd_c": 1.17,
+ "median_null_sd_c": 9.7,
+ "pairs_weighted_within1c": 0.592,
+ "null_within1c_mean": 0.028,
+ "units_sd_below_0p6c": 1
+}

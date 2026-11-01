@@ -1,0 +1,12 @@
+{
+ "\"Counter-Strike\" (DraculaN OR \"Stake Ranked\" OR \"Circuit X\" OR \"1win\")": {
+  "status": 429,
+  "err": "JSONDecodeError('Expecting value: line 1 column 1 (char 0)')",
+  "body": "Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic us"
+ },
+ "\"Counter-Strike\"": {
+  "status": 429,
+  "err": "JSONDecodeError('Expecting value: line 1 column 1 (char 0)')",
+  "body": "Please limit requests to one every 5 seconds or contact kalev.leetaru5@gmail.com for larger queries. All high-traffic us"
+ }
+}

@@ -79,17 +79,17 @@
    "end": 1793664000
   }
  ],
- "strategy_statement": "CS2 and Dota 2 in-play bot of one operator who signs for at least four accounts with one process (the wallet 'TommyLeePeeca'; 0x52661b8e 'TommyLeePeeecan'; 0x67119033, owned by the wallet owner's $2,000 recipient; 0x7d67f01d 'BACKTESTEOCARAIO1'). The maker strategy ran on 0x7d67f01d (non-GRID CS2, Dota and LoL, from at least 09-21) and moved to the main account on 10-16, when the main account stopped its GRID taker; it has the same maker prices, feed position and selection on both accounts; in June the same design quoted at the stale public print (0.455 within one tick), and the private value appeared by late September, in the feed era [VALIDATE-only]. [VALIDATE-only] Selection: whole events of non-GRID CS2 / Dota 2 leagues covered by its push-feed product; frozen v5 pooled AUC 0.970 vs activity 0.886, recall 0.74 at lift 3.16, coverage 1.0; its league / GRID component also scores the operator's earlier account's event choice at AUC 0.94 out of sample. [VALIDATE-only] Maker: whole-cent BUY ladders on both outcome tokens (100 shares in CS2, 10 in Dota 2), never sells, merges pairs in a 300-s loop (pair cost 0.978); a burst of n adds takes the n highest free slots V, V - 1c, ..., V - 4c inside [0.05, 0.95] (oracle 0.875 live; confirmed historically through the 5-share accounts). [hypothesis, historical outcome-validated] V is its own in-round win-probability state fed by a private esports push feed: within a round its value drifts toward the eventual round winner (AUC 0.90 vs the print's 0.68), one value per event is written to the map and match books, and the value leads other traders' executed prices (Spearman 0.32 vs 0.15 for other makers). No public source obtained reproduces V to the cent (bookmaker lines, round tables, public game state, filters of prints or book deltas all score at or below the last print). [hypothesis] Taker: FAK buys of the team that gained on messages of the shared push feed (>= 19 subscribers at fixed lags; the operator sat at +30-65 ms behind P4e since late September), taken when its revealed value reaches the stale ask; its maker leg also re-prices at the messages it does not take. Exit: never sells; pulls and re-pairs the complement around its takes; merges complete pairs; holds the residual. Not decoded to the exam bar: the price item needs V to the cent and the outcome item needs the +50-ms take; both stand on a private feed (measured bounds in FINAL_RULE.md). [hypothesis, iteration 14] The private part of V is the push feed's message stream priced at the message: on the feed's clock (informed take clusters) its value steps within 0-3 s and is flat before, the market follows 2-5 s later on those messages (10-45 s on average); a value lagged by even 0.25 s loses the price item (X201), so only the feed itself, not a delayed public source, can carry it.",
+ "strategy_statement": "[VALIDATE-only] A CS2 and Dota 2 in-play bot of one operator who signs for several accounts with one process (the wallet 'TommyLeePeeca'; 0x52661b8e 'TommyLeePeeecan'; 0x67119033; 0x7d67f01d 'BACKTESTEOCARAIO1', confirmed again in iteration 15 by cross-market 0-5 ms co-signing at 4.4x). Two large GRID-event accounts proposed by the panel (0xd2bb9459, 0x10d79cc7) do not co-sign across markets with it and run other designs, so they are not attributed. [VALIDATE-only] Selection: whole events of non-GRID CS2 / Dota 2 leagues covered by its push-feed product, minus a small share routed to 0x7d67f01d; frozen v5 AUC 0.970 vs activity 0.886, recall 0.74 at lift 3.16, coverage 1.0. [VALIDATE-only] Maker: whole-cent BUY ladders on both outcome tokens (100 shares in CS2, 10 in Dota 2, an event-wide 54-100 ramp in some events), never sells, merges pairs in a 300-s loop (pair cost 0.978), band [0.05, 0.95], net position capped near 600 CS2 shares with a long-side taper from 200; a burst of n adds takes the n highest free slots V .. V - 4c (oracle 0.875 live). [hypothesis] V is its own in-round win-probability value fed by a private esports push feed; its value moves at the feed's messages, which are mostly round results delivered before and around the market's reaction (the restart-window moves follow the round just won, not the buy; beyond the previous round's result its mid-round moves predict the current round only weakly), with a small in-round part (no delay in decided-early rounds; informed re-pricings that no taker prints): it steps at the feed's messages, leads the public print by 2-5 s on them (10-45 s on average), moves before the print's jump as much in decided-early rounds as in elimination rounds, and is written to the map and match books along the Bo3 series slope (not an exact single identity). Candidate vendor: PandaScore's Low Latency Feed (titles and data points match; needs a token to test). [hypothesis] Taker: FAK buys of the team that gained on the feed's messages (>= 19 co-subscribers at fixed lags, it at +30-65 ms behind the fastest), with maker re-pricings a median 1.1 s after the first visible co-receiver take. Not decoded to the exam bar: the price item needs V to the cent at the message (a source must arrive <= ~0.25 s after it), and the outcome item needs its informed takes; the frozen v6 rule replaces V with public anchors (price 0.322 within one tick; outcome 0.197 / 0.027).",
  "components": {
   "selection": {
    "confidence": 0.78,
    "tag": "VALIDATE-only",
-   "description": "Whole events of non-GRID CS2 and Dota 2 leagues (never a GRID event: CS2 0/122, Dota EPL Masters 0/33) covered by its feed product (group P: P4e, 0x2005d16a, the slow trio, fixed on BUILD). Frozen v5 = logistic(1.25 logit(v4 league/popularity score) + 1.19 log1p(gp72) - 1.11), gp72 = group-P members with a print in another event of the league in the previous 72 h: VALIDATE pooled AUC 0.970 vs activity 0.886 (gain +0.084 [0.030, 0.152]), recall 0.744 at lift 3.155; CS2 0.972, Dota 0.926; coverage 1.0 / 1.0. GRID events are covered by group G's fan-out (same delivery order, larger markouts there), so the boundary is the coverage of the wallet's product, not data speed. Forward 10-31 block: AUC 0.842 but recall 0 in development runs (earlier sealed events skipped). Iteration 10 (X140): the exam lots' only non-GRID tier-1/2 stratum is PGL Masters (h1 18, h2 21 events; never in development); pre-registered treatment = v5 unchanged, i.e. gp72 decides it by group-P coverage of earlier PGL Masters events (examiner counts them); h1 is not lift-ceiling-bound (base rate 0.145-0.222). Iteration 13 (X187, VALIDATE-only): the frozen league / GRID component replicates out of sample on the operator's earlier maker account (0x7d67f01d, 10-01..10-15, 718 events): AUC 0.942 (non-GRID only 0.868); the selection belongs to the maker strategy and moved with it on 10-16."
+   "description": "Whole events of non-GRID CS2 and Dota 2 leagues (never a GRID event: CS2 0/122, Dota EPL Masters 0/33) covered by its feed product (group P: P4e, 0x2005d16a, the slow trio, fixed on BUILD). Frozen v5 = logistic(1.25 logit(v4 league/popularity score) + 1.19 log1p(gp72) - 1.11), gp72 = group-P members with a print in another event of the league in the previous 72 h: VALIDATE pooled AUC 0.970 vs activity 0.886 (gain +0.084 [0.030, 0.152]), recall 0.744 at lift 3.155; CS2 0.972, Dota 0.926; coverage 1.0 / 1.0. GRID events are covered by group G's fan-out (same delivery order, larger markouts there), so the boundary is the coverage of the wallet's product, not data speed. Forward 10-31 block: AUC 0.842 but recall 0 in development runs (earlier sealed events skipped). Iteration 10 (X140): the exam lots' only non-GRID tier-1/2 stratum is PGL Masters (h1 18, h2 21 events; never in development); pre-registered treatment = v5 unchanged, i.e. gp72 decides it by group-P coverage of earlier PGL Masters events (examiner counts them); h1 is not lift-ceiling-bound (base rate 0.145-0.222). Iteration 13 (X187, VALIDATE-only): the frozen league / GRID component replicates out of sample on the operator's earlier maker account (0x7d67f01d, 10-01..10-15, 718 events): AUC 0.942 (non-GRID only 0.868); the selection belongs to the maker strategy and moved with it on 10-16. | Iteration 15: of the operator's attributed accounts only 0x7d67f01d takes non-GRID events the wallet skips (20 of 97 in 16-22 Oct, share rising to 36/38 on 10-21/22); the large GRID accounts 0xd2bb9459 / 0x10d79cc7 are not the operator's (no cross-market co-signing), so never-GRID stays the operator's boundary."
   },
   "timing": {
    "confidence": 0.68,
    "tag": "hypothesis",
-   "description": "Taker: messages of a shared esports push feed (>= 19 subscribers at fixed lags, 29% of its take clusters co-signed on the same token, 38.5% in any market of the event; P4e 0, 0x2005d16a +25, the wallet +50, three at ~+200, P93 ~+400 ms; lag invariant across event classes within ~10 ms; not shared in football / NBA / tennis), of the plant / turn kind; raw events priced by each subscriber (premium corr with P4e 0.21). Its Dota takes are on the same fan-out (P4e 50 ms earlier on 22% of them; slower co-signers 0xfe8a28be / 0x2529c68d / 0x72aaaaf9 at +450-500 ms). Maker: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices the ladder without any public trigger (single-order moves in 6 ms, multi-level pulls re-added in ~0.26 s), and these re-pricings precede adverse moves (validated label -0.60c, ground-truth wallet cancels -0.94c in 10 s, other makers' +0.74c); the take hazard rises with them (weak). Not a public execution filter (take vs strip-only AUC 0.52). Iteration 9: the fan-out is one broadcast (order consistency at the marginals' null, common-mode lag residual r 0.86) with a load-dependent slow tier (the trio); the Dota kill messages look machine-timed on isolated kills; the Dota maker bursts are only weakly locked to kills (13% vs 10% within 6 s). Uncensored adds: its informative re-pricings (up on the token / down on the complement) precede 11% of the slower subscribers' takes within 1 s (about 10x the shifted null): the maker leg moves on the feed's messages. Iteration 10 (X136): the maker re-pricing on P4e-alone messages is EVENT-locked (signs before or < 20 ms after the fastest co-receiver maker 0xed446954 on 33% of shared messages, lag corr -0.48; same lag with and without any leader), so it is not a book reaction to a faster maker. Iteration 12: two clocks. Event path (off-tick): takes (0 of 22 on the loop) and triggered actions within a median 17 ms of a book change. Loop path: a free-running ~504-ms loop carries the quiet re-pricings (72.8% of untriggered adds within 15 ms of the predicted tick vs 6% uniform; X158), whose inputs leave a public trace in at most ~14 points of cases. It withdraws whole events for variable lengths (median 12.5 s, 3% at the 3-tick repair) at moments of public action (X159 steps 1-2). The take is consistent with its revealed value reaching the stale ask (X170, AUC 0.81). Event-wide withdrawals start with triggered pulls and end with triggered adds, off the loop (7.8% / 6.2% on tick vs 6% uniform). Iteration 13: the event path is co-reception of a dense hidden stream shared with other operators' makers (65-81% of 'triggered' adds signed before their trigger reached the book; withdrawals start on the same co-mover cluster as other pulls); its maker leg re-prices at the pack's messages it does not take (5.3x shifted), so the take's kind filter sits at the take decision (value threshold), not at its input. Iteration 14 (E3-1, pre-registered, BH on BUILD, VALIDATE confirmation): its maker re-pricing decisions follow the informed takers' signatures (peak +0.4-0.6 s, sign-concordant) and precede public print events by 2.5-5 s; no cross-event synchrony of the unexplained decisions (E7)."
+   "description": "Taker: messages of a shared esports push feed (>= 19 subscribers at fixed lags, 29% of its take clusters co-signed on the same token, 38.5% in any market of the event; P4e 0, 0x2005d16a +25, the wallet +50, three at ~+200, P93 ~+400 ms; lag invariant across event classes within ~10 ms; not shared in football / NBA / tennis), of the plant / turn kind; raw events priced by each subscriber (premium corr with P4e 0.21). Its Dota takes are on the same fan-out (P4e 50 ms earlier on 22% of them; slower co-signers 0xfe8a28be / 0x2529c68d / 0x72aaaaf9 at +450-500 ms). Maker: at its own takes it pulls the complement at +11-19 ms and re-posts after the FAK returns (~1.03 s); between takes it re-prices the ladder without any public trigger (single-order moves in 6 ms, multi-level pulls re-added in ~0.26 s), and these re-pricings precede adverse moves (validated label -0.60c, ground-truth wallet cancels -0.94c in 10 s, other makers' +0.74c); the take hazard rises with them (weak). Not a public execution filter (take vs strip-only AUC 0.52). Iteration 9: the fan-out is one broadcast (order consistency at the marginals' null, common-mode lag residual r 0.86) with a load-dependent slow tier (the trio); the Dota kill messages look machine-timed on isolated kills; the Dota maker bursts are only weakly locked to kills (13% vs 10% within 6 s). Uncensored adds: its informative re-pricings (up on the token / down on the complement) precede 11% of the slower subscribers' takes within 1 s (about 10x the shifted null): the maker leg moves on the feed's messages. Iteration 10 (X136): the maker re-pricing on P4e-alone messages is EVENT-locked (signs before or < 20 ms after the fastest co-receiver maker 0xed446954 on 33% of shared messages, lag corr -0.48; same lag with and without any leader), so it is not a book reaction to a faster maker. Iteration 12: two clocks. Event path (off-tick): takes (0 of 22 on the loop) and triggered actions within a median 17 ms of a book change. Loop path: a free-running ~504-ms loop carries the quiet re-pricings (72.8% of untriggered adds within 15 ms of the predicted tick vs 6% uniform; X158), whose inputs leave a public trace in at most ~14 points of cases. It withdraws whole events for variable lengths (median 12.5 s, 3% at the 3-tick repair) at moments of public action (X159 steps 1-2). The take is consistent with its revealed value reaching the stale ask (X170, AUC 0.81). Event-wide withdrawals start with triggered pulls and end with triggered adds, off the loop (7.8% / 6.2% on tick vs 6% uniform). Iteration 13: the event path is co-reception of a dense hidden stream shared with other operators' makers (65-81% of 'triggered' adds signed before their trigger reached the book; withdrawals start on the same co-mover cluster as other pulls); its maker leg re-prices at the pack's messages it does not take (5.3x shifted), so the take's kind filter sits at the take decision (value threshold), not at its input. Iteration 14 (E3-1, pre-registered, BH on BUILD, VALIDATE confirmation): its maker re-pricing decisions follow the informed takers' signatures (peak +0.4-0.6 s, sign-concordant) and precede public print events by 2.5-5 s; no cross-event synchrony of the unexplained decisions (E7). | Iteration 15: message-locked re-pricings lag the first visible informed take by a median 1.1 s (two modes: 0-100 ms co-signing and ~1 s after its own take)."
   },
   "side": {
    "confidence": 0.5,
@@ -97,9 +97,9 @@
    "description": "Maker: both outcomes in every market, CS2 and Dota (VALIDATE-only). Taker: the team that gained in-round on plant / turn events (first informed move against the previous burst). Side is not scored (two-sided at market level)."
   },
   "price": {
-   "confidence": 0.58,
+   "confidence": 0.6,
    "tag": "VALIDATE-only",
-   "description": "Maker: one private value V per burst plus a mechanical ladder: a burst of n adds takes the n highest free whole-cent slots V .. V - 4c inside [0.05, 0.95], top-first (X163, BUILD-live oracle: set unit 0.875, per order 0.73, up / fresh / down bursts 0.87-0.94; V must be exact to the cent: +-1c gives 0.70 / 0.81, +-2c 0.22 / 0.08). V is not a round-score Markov table (X171: residual 3.22c vs the print's 3.21c), not the others' fresh levels (X153), not SX Bet (X145), not a public per-minute Dota state map (X167 step 1: 0.17 vs the last print 0.42); its quiet re-pricings are sampled on its 504-ms loop with little public trace (X158). Examinable historical anchor: the last print 0.305-0.322 within one tick (VALIDATE); a point-in-time partial-fill book does not beat it (X165, 0.274 vs 0.275). Live: touch 0.42 (fills) / 0.45 (adds). Pre-game 1-2c under Polymarket's print. Iteration 13: V is an in-round win-probability state (its within-round drift predicts the round winner at AUC 0.90 vs the print's 0.68; 0.79 vs 0.62 even 45 s before the print-inferred round end); one value per event written to the map and match books by the same cents (96% direction agreement); not a de-margined BetBoom / SpinBetter / Parimatch Dota line (no closer than the print), not an EMA of prints (<= 0.30), not its own top plus the public delta (<= 0.46 through the machine); the five-slot ladder is confirmed historically through the operator's 5-share accounts (98% of co-bursts inside V - 4c). Iteration 14: the price item tolerates no input lag (X201: a value lagged 0.25 s keeps 0.355 of the set unit, 4 s 0.293; 90% of filled orders are V-change bursts, 0.20-0.23 at any lag); own state transported over the complement and the series map reaches 0.44 (X198; 0.26-0.27 when only on-chain-public own fills are used); on the feed's own clock its value steps at the informed messages (57% / 42% of the 60-s move in (-1, +3] s) with no private pre-message ramp, and the clean print reacts 2-5 s later (X189 first pass). V = map value written into the match book through a series map (slope 0.46)."
+   "description": "Maker: one private value V per burst plus a mechanical ladder: a burst of n adds takes the n highest free whole-cent slots V .. V - 4c inside [0.05, 0.95], top-first (X163, BUILD-live oracle: set unit 0.875, per order 0.73, up / fresh / down bursts 0.87-0.94; V must be exact to the cent: +-1c gives 0.70 / 0.81, +-2c 0.22 / 0.08). V is not a round-score Markov table (X171: residual 3.22c vs the print's 3.21c), not the others' fresh levels (X153), not SX Bet (X145), not a public per-minute Dota state map (X167 step 1: 0.17 vs the last print 0.42); its quiet re-pricings are sampled on its 504-ms loop with little public trace (X158). Examinable historical anchor: the last print 0.305-0.322 within one tick (VALIDATE); a point-in-time partial-fill book does not beat it (X165, 0.274 vs 0.275). Live: touch 0.42 (fills) / 0.45 (adds). Pre-game 1-2c under Polymarket's print. Iteration 13: V is an in-round win-probability state (its within-round drift predicts the round winner at AUC 0.90 vs the print's 0.68; 0.79 vs 0.62 even 45 s before the print-inferred round end); one value per event written to the map and match books by the same cents (96% direction agreement); not a de-margined BetBoom / SpinBetter / Parimatch Dota line (no closer than the print), not an EMA of prints (<= 0.30), not its own top plus the public delta (<= 0.46 through the machine); the five-slot ladder is confirmed historically through the operator's 5-share accounts (98% of co-bursts inside V - 4c). Iteration 14: the price item tolerates no input lag (X201: a value lagged 0.25 s keeps 0.355 of the set unit, 4 s 0.293; 90% of filled orders are V-change bursts, 0.20-0.23 at any lag); own state transported over the complement and the series map reaches 0.44 (X198; 0.26-0.27 when only on-chain-public own fills are used); on the feed's own clock its value steps at the informed messages (57% / 42% of the 60-s move in (-1, +3] s) with no private pre-message ramp, and the clean print reacts 2-5 s later (X189 first pass). V = map value written into the match book through a series map (slope 0.46). | Iteration 15 [hypothesis]: R vs K not decided: no delay of its move in decided-early rounds (0.682 vs 0.680 before the print's jump; R predicted <= 0.40), but with the previous round's winner controlled its mid-round moves predict the current round only 0.53-0.55, and the restart-window moves follow the round just won: mostly round results with a small in-round part; message-locked re-pricings lag the first co-receiver by a median 1.1 s, so a source <= 0.25 s after the message would precede 85% of them."
   },
   "size": {
    "confidence": 0.58,
@@ -109,7 +109,7 @@
   "exit": {
    "confidence": 0.8,
    "tag": "VALIDATE-only",
-   "description": "Never sells. Pulls the complement at its takes and re-posts ~1.03 s later; re-prices bids away from private adverse events between takes; merges complete pairs in one 300-s loop for CS2 and Dota (300.22 s + 7.28 s per merge on 16-22 Oct; on 10-31 the per-merge increment drifted, X156) and holds the residual. Pair cost 0.978 (CS2), ~0.98 (Dota). Hard client band [0.05, 0.95]; bids the eventual loser down to the band with no early stop. Outcome (iteration 11, X155 / X149 / X151): its own maker orders delayed up to 2 s with the real taker leg keep 0.70 / 0.62 (VALIDATE); the take is binding: on the observed book its own FAK empties the stale remainder (median residual 0 after its match), so a public-lag copy reaches at most 0.50 / 0.41. Iteration 12 (X169): on 3,028 wallet-absent informed bursts later takers obtain only 3-7% of the wallet's typical take at <= the leader's limit after its match: the stale remainder is gone by the match, so the T_lo world (outcome <= 0.50 / 0.41 at any public lag of the take) is real, not a replay convention. Iteration 13: the same BUY-only + MERGE design ran on the operator's earlier account (0x7d67f01d) in September-October. Iteration 14 (X202): a round-phase-gated public ladder does not earn the wallet's per-market PnL profile (VALIDATE 0.25 / 0.05)."
+   "description": "Never sells. Pulls the complement at its takes and re-posts ~1.03 s later; re-prices bids away from private adverse events between takes; merges complete pairs in one 300-s loop for CS2 and Dota (300.22 s + 7.28 s per merge on 16-22 Oct; on 10-31 the per-merge increment drifted, X156) and holds the residual. Pair cost 0.978 (CS2), ~0.98 (Dota). Hard client band [0.05, 0.95]; bids the eventual loser down to the band with no early stop. Outcome (iteration 11, X155 / X149 / X151): its own maker orders delayed up to 2 s with the real taker leg keep 0.70 / 0.62 (VALIDATE); the take is binding: on the observed book its own FAK empties the stale remainder (median residual 0 after its match), so a public-lag copy reaches at most 0.50 / 0.41. Iteration 12 (X169): on 3,028 wallet-absent informed bursts later takers obtain only 3-7% of the wallet's typical take at <= the leader's limit after its match: the stale remainder is gone by the match, so the T_lo world (outcome <= 0.50 / 0.41 at any public lag of the take) is real, not a replay convention. Iteration 13: the same BUY-only + MERGE design ran on the operator's earlier account (0x7d67f01d) in September-October. Iteration 14 (X202): a round-phase-gated public ladder does not earn the wallet's per-market PnL profile (VALIDATE 0.25 / 0.05). | Iteration 15: the measured exit policy (net cap about 600 CS2 shares, long-side taper from 200) does not carry the outcome item in a public ladder (X218: BUILD chooses no cap; capped VALIDATE Spearman <= 0.21)."
   }
  },
  "catalog": {
@@ -1005,7 +1005,7 @@
   "X160": {
    "status": "open",
    "source": "information panel P3 (iter 11): historical in-round clock and economy from bo3 with a pause-aware DP",
-   "evidence": "Clock-free form of steps 4-5 (round_econ.json, code/iter12/round_econ.py; first burst after each round end inferred by the X171 fit, bo3 round economy of the new round): residual vs table ~ equipment difference Spearman -0.287 [-0.336, -0.235] (V) vs -0.238 [-0.302, -0.173] (print); its level minus the last print ~ equipment difference: Spearman 0.54, OLS 0.317c per $1k (t 24.6); controlling the previous rounds' winners and the score: 0.004c per $1k (t 0.2), previous-round winner 4.527c (t 15.59); offset_vs_print_prev_A_won: -0.003c per $1k (t -0.11); offset_vs_print_prev_A_lost: 0.037c per $1k (t 1.5). Steps 1-3 (pause-aware DP clock on public jumps, causal round starts) and step 6 (anchor rule) not run."
+   "evidence": "Clock-free form of steps 4-5 (round_econ.json, code/iter12/round_econ.py; first burst after each round end inferred by the X171 fit, bo3 round economy of the new round): residual vs table ~ equipment difference Spearman -0.287 [-0.336, -0.235] (V) vs -0.238 [-0.302, -0.173] (print); its level minus the last print ~ equipment difference: Spearman 0.54, OLS 0.317c per $1k (t 24.6); controlling the previous rounds' winners and the score: 0.004c per $1k (t 0.2), previous-round winner 4.527c (t 15.59); offset_vs_print_prev_A_won: -0.003c per $1k (t -0.11); offset_vs_print_prev_A_lost: 0.037c per $1k (t 1.5). Steps 1-3 (pause-aware DP clock on public jumps, causal round starts) and step 6 (anchor rule) not run. | Iteration 15 (code/iter15/freeze_direction.py, results/freeze_direction.json; 317 print-clock rounds): its V-changes in the 2-20 s restart / buy window follow the winner of the round just finished (0.655; dark new highs 0.766), not the team with the higher equipment value of the new round (0.614 overall, 0.375 where the two disagree; logit equipment +0.06, p 0.82): no buy-phase economy input."
   },
   "X161": {
    "status": "tried",
@@ -1145,7 +1145,7 @@
   "X188": {
    "status": "open",
    "source": "self-proposed (iteration 13): the operator's other accounts in GRID CS2 events (0x67119033 27 GRID events, 0x52661b8e 13 in October) as a window on the same process where round scores are public",
-   "evidence": "First pass (grid_inround.json, code/iter13/grid_inround.py): their October GRID CS2 quoting has the maker design (0x67119033 27 events, BUY 0.995, whole cents 0.984, band 1.0, 20 shares; 0x52661b8e 13 events, BUY 1.00, 5 shares); 2,078 GRID-event transactions decoded; only 11 maps / 71 rounds usable: within-round AUC 0.660 for their level vs 0.357 for the print (unreliable with so few rounds). Open: needs their full GRID record and the sports socket's GRID round clock on development blocks."
+   "evidence": "First pass (grid_inround.json, code/iter13/grid_inround.py): their October GRID CS2 quoting has the maker design (0x67119033 27 events, BUY 0.995, whole cents 0.984, band 1.0, 20 shares; 0x52661b8e 13 events, BUY 1.00, 5 shares); 2,078 GRID-event transactions decoded; only 11 maps / 71 rounds usable: within-round AUC 0.660 for their level vs 0.357 for the print (unreliable with so few rounds). Open: needs their full GRID record and the sports socket's GRID round clock on development blocks. | Iteration 15: the two large GRID accounts (0xd2bb9459, 0x10d79cc7) are not attributed to the operator (no cross-market co-signing, X205 step 5); the GRID books of 10-31 have a socket round clock (X204) and two other co-signing candidates (0x68915897, 0x5d40576b) to decode next."
   },
   "E1": {
    "status": "tried",
@@ -1170,7 +1170,7 @@
   "E5": {
    "status": "open",
    "source": "BRIEF 11-01",
-   "evidence": "News / social / official sources against selection (which matches it skips) not screened; chat recorders exist (X38 / X87)."
+   "evidence": "News / social / official sources against selection (which matches it skips) not screened; chat recorders exist (X38 / X87). | Iteration 15: GDELT DOC 2.0 timeline queries for CS2 and the wallet's leagues (16-22 Oct) returned HTTP 429 ('Please limit requests to one every 5 seconds') twice with >= 6 s spacing on the shared connection (results/e5_gdelt_check.json); Gamma comments are empty for its events (iteration 14). The selection residual is allocation to the sibling 0x7d67f01d (operator_selection.json), not an information input; timing is sub-second and feed-locked. Still open for a successful news query."
   },
   "E6": {
    "status": "tried",
@@ -1185,7 +1185,7 @@
   "X189": {
    "status": "open",
    "source": "panel iteration 13 information P1: round-END clock on the feed's time, then V as a side / economy-aware score table",
-   "evidence": "First pass, step 1 on the feed's own clock (code/iter14/message_profile.py, results/message_profile.json): 2,111 informed take clusters (>= 2 group-P / G takers within 300 ms, wallet-free txs). Its value steps at the message: BUILD 57% / VALIDATE 42% of its 60-s signed move in (-1, +3] s, 3.5% / 25% before (the print shows the same pre-trend on VALIDATE); V - P +1.72 / +0.79c at +2 s, ~0 by +60 s; the print reacts at +3..+5 s. Steps 2-5 (bo3 alignment of the clusters, union-top uncensoring, table fit on the clock, opener / plant regressions on clock rounds) not run."
+   "evidence": "First pass, step 1 on the feed's own clock (code/iter14/message_profile.py, results/message_profile.json): 2,111 informed take clusters (>= 2 group-P / G takers within 300 ms, wallet-free txs). Its value steps at the message: BUILD 57% / VALIDATE 42% of its 60-s signed move in (-1, +3] s, 3.5% / 25% before (the print shows the same pre-trend on VALIDATE); V - P +1.72 / +0.79c at +2 s, ~0 by +60 s; the print reacts at +3..+5 s. Steps 2-5 (bo3 alignment of the clusters, union-top uncensoring, table fit on the clock, opener / plant regressions on clock rounds) not run. | Iteration 15: decided-early contrast (X209) and kill-margin slope (X211 step 3) favour in-round events (K) over round results only (R), at hypothesis level."
   },
   "X190": {
    "status": "open",
@@ -1215,7 +1215,7 @@
   "X195": {
    "status": "open",
    "source": "panel iteration 13 mechanics P2: a wallet-independent true round clock, then the kill-state vs early-result test",
-   "evidence": "First pass with the feed's own messages as the clock (X189 step 1, results/message_profile.json): no pre-message ramp of V beyond the print's own (K reading unsupported in this unit); its move is a step at the message. Clock first pass (code/iter14/round_clock.py, results/round_clock_clusters_*.json): bo3 durations snapped to winner-direction informed clusters in [-15, +30] s: 286 snaps vs 206 with the winner sequence reversed (1.39x; weak clock); on 61 rounds with both ends snapped its winner-signed change mid-round -0.47c, at the message +2.84c (mid-round AUC 0.537 vs print 0.569); single-take anchors (results/round_clock_takes_*.json): 515 vs 383 snaps (1.34x), 141 rounds, mid-round +2.11c (VALIDATE +3.02c), at the message +2.14c, mid AUC 0.638 vs 0.605: the R-vs-K split depends on the anchor set, and no public anchor set is a reliable clock (1.3-1.45x over the reversed sequence). Print-anchored variant (results/round_clock_print_15_30.json): 875 vs 673 snaps (1.30x), 412 rounds; its value moves +2.85c mid-round and +1.55c late before the print jump (mid AUC 0.675 vs 0.606): the 10-45 s lead. Survivor gradient and a better anchor set (co-receiver maker clusters, all books) not run."
+   "evidence": "First pass with the feed's own messages as the clock (X189 step 1, results/message_profile.json): no pre-message ramp of V beyond the print's own (K reading unsupported in this unit); its move is a step at the message. Clock first pass (code/iter14/round_clock.py, results/round_clock_clusters_*.json): bo3 durations snapped to winner-direction informed clusters in [-15, +30] s: 286 snaps vs 206 with the winner sequence reversed (1.39x; weak clock); on 61 rounds with both ends snapped its winner-signed change mid-round -0.47c, at the message +2.84c (mid-round AUC 0.537 vs print 0.569); single-take anchors (results/round_clock_takes_*.json): 515 vs 383 snaps (1.34x), 141 rounds, mid-round +2.11c (VALIDATE +3.02c), at the message +2.14c, mid AUC 0.638 vs 0.605: the R-vs-K split depends on the anchor set, and no public anchor set is a reliable clock (1.3-1.45x over the reversed sequence). Print-anchored variant (results/round_clock_print_15_30.json): 875 vs 673 snaps (1.30x), 412 rounds; its value moves +2.85c mid-round and +1.55c late before the print jump (mid AUC 0.675 vs 0.606): the 10-45 s lead. Survivor gradient and a better anchor set (co-receiver maker clusters, all books) not run. | Iteration 15: the sports socket gives a true round clock only for GRID events (20.2-s polling grid, X204); none for the wallet's non-GRID events (map scores only). Decided-early contrast on the print clock favours K (X209)."
   },
   "X196": {
    "status": "tried",
@@ -1256,6 +1256,81 @@
    "status": "tried",
    "source": "panel iteration 13 assumptions P5: find the operator's other processes by key fingerprint (7702 delegate 0x63c0c19a), funding and names",
    "evidence": "Steps 1 and 4 (code/iter14/owner_census.py, owner_census_cosign.py; results/owner_census*.json; chain state at latest, read-only): all 499 sigType-3 addresses with >= 50 orders in the decoded calldata are factory proxies (125- or 146-byte); owners 472 EOAs, 19 delegate to 0x63c0c19a (the four known operator owners included, 0x116342d6 too), 8 to other delegates. Behaviour: 0x10d79cc7 (890 CS2 orders 09-24..10-16, BUY-only whole-cent 20-share maker) 7 orders within 0-5 ms of an operator order vs 5 in 5-50 ms (12.6x per ms); 0xd2bb9459 (372 CS2 orders 10-12..10-16, BUY-only maker, 100-200 shares) 16 vs 16 (9.0x); the other 13 show no excess; no taker-only account at feed speed (0xaadb0195 +1.76 s behind P4e). So >= 6 operator accounts, all CS2 here (no LoL / GRID window). Steps 2 (USDC funding links) and 3 (profile names) not run."
+  },
+  "X204": {
+   "status": "tried",
+   "source": "panel iteration 14 information P1: GRID-map natural experiment, the operator's quotes against the sports socket's public round-END clock",
+   "evidence": "code/iter15/grid_socket_data.py, grid_socket_clock.py, grid_socket_clock2.py; results/grid_socket_clock*.json (development units 10-31 12-18, 11-01 06-12). The socket carries round scores for GRID events only (48 / 37 / 22 / 35 round ticks), on a 20.2-s polling grid, the print's winner-direction jump in the 20 s before the tick (L 2 / 10 s). 0xd2bb9459's filled bursts (659 orders): mid-round round-winner AUC 0.703 vs the print's 0.622 (183 rounds, two 10-31 events), map books 0.766 vs 0.736, match books 0.614 vs 0.489 (stale match print); share of its move in the end window 0.38; neither pre-registered R nor K verdict holds. 0xd2bb9459 is not the operator's process (X205 step 5: no cross-market co-signing, different design), so the arm is not the wallet's machine; it shows a GRID maker's value carries no in-round information beyond the liquid map print."
+  },
+  "X205": {
+   "status": "tried",
+   "source": "panel iteration 14 information P2: label the operator, not the address; routing of events to accounts",
+   "evidence": "code/iter15/operator_selection.py, sibling_identity.py; results/operator_selection.json, sibling_identity.json. Step 5 first: cross-market 0-5 ms co-signing with the wallet's 25,878 orders (16-22 Oct, 700 sampled txs each): 0xd2bb9459 0 vs 6 pairs at 5-50 ms, 0x10d79cc7 1 vs 6 (1.4x), the known sibling 0x7d67f01d 13 vs 24 (4.4x); designs differ (single 50-600-share orders; 20-share ladders). So 0xd2bb9459 / 0x10d79cc7 are not attributed (X203's 9-12.6x was same-market co-signing, which co-subscribers of one feed produce). Operator relabel with the panel's lists: v5 VALIDATE wallet label 0.973 / recall 0.75 / lift 3.2; six-account label 0.904 / 0.596 / 2.54; non-GRID only 0.961 / 0.737. Routing among non-GRID operator events: 77 of 97 to the wallet, v5 separates wallet vs sibling-only at AUC 0.777 (gp72 0.71, hour 0.61); share 4/10 on 10-16 rising to 36/38 on 10-21/22; 20 sibling-only events, too few for an out-of-fold allocation model. Whether the exam's wallet list should be the operator's attributed accounts is the user's call (asked in the return)."
+  },
+  "X206": {
+   "status": "open",
+   "source": "panel iteration 14 information P3: name the vendor (PandaScore Low Latency Feed); key-free fingerprints and a user-gated token test",
+   "evidence": "Not run beyond what the notebook holds: the fixed-lag cross-operator fan-out exists in CS2, LoL and Dota and not in Valorant (subscribers_other_titles.json), which matches the LLF's title list. Iteration-15 support for an in-round event stream (X209: no decided-early drop; K favored) fits the LLF's kill / bomb / alive data points. The decisive test needs a PandaScore token (account creation is the user's), asked in the return; the key-free veto-timing test is not run. | Iteration 15 key-free request (results/pandascore_keyfree_check.json): GET https://api.pandascore.co/csgo/matches/1746842 and /low_latency_feeds return HTTP 403 {\"error\":\"Token is missing\"}; the per-match low_latency_feed flag and the historical events need a token the agent may not create. | Key-free veto test (code/iter15/pregame_corepricing.py, results/pregame_corepricing.json): the filled record has only 70 pre-game map-book V-changes and no event with two map books re-priced pre-game; BUILD-live has pre-game adds for one event (map 1 + match only): not testable with the data in hand."
+  },
+  "X207": {
+   "status": "ruled_out",
+   "source": "panel iteration 14 information P4: LoL as the public-state twin on 0xd2bb9459's LoL trades",
+   "evidence": "Its premise fails by measurement: 0xd2bb9459 is not the operator's process (X205 step 5: 0 cross-market co-signed pairs at 0-5 ms vs 6 at 5-50 ms with the wallet's orders in 16-22 Oct, 0 within 50 ms on 10-31; single-order design of 50-600 shares), so its LoL quoting is not a twin of the wallet's machine. The operator's attributed accounts' LoL (0x7d67f01d 730 LoL trades in 10-15..22) remains a candidate under X191."
+  },
+  "X208": {
+   "status": "open",
+   "source": "panel iteration 14 information P5: is the Dota half read from Valve's public spectator state?",
+   "evidence": "Not run: the development-block Dota units were traded by 0x7d67f01d, which fails the same-process gate on those units (X215: single orders of 50-60 shares, no 1c ladder, no co-signing with the wallet on 10-31); the wallet's own Dota units of the development blocks remain the test units."
+  },
+  "X209": {
+   "status": "tried",
+   "source": "panel iteration 14 mechanics P1: decided-early rounds, the sign of V's lead over the print separates R from K",
+   "evidence": "code/iter15/decided_early.py, decided_early_stats.py; results/decided_early_print.json, decided_early_takes.json, decided_early_clock_*.json. Print-anchored clock (412 rounds): share of its value's winner-signed move before the anchor 0.680 in elimination rounds (262) vs 0.682 in decided-early rounds (115; defuse after T wipe, bomb with CTs alive); difference +0.002, map-cluster bootstrap CI [-0.203, +0.176]; print control -0.014 [-0.35, +0.26]. R predicted about -0.28 (excluded); K's no-difference signature holds. Single-take clock (141 rounds): +0.221 [-0.31, +0.73] (no fall). In save rounds its value moves +2.18c mid and +1.57c late vs the print's +1.45 / -0.57c. Hypothesis-level (weak clock, 1.30x placebo). | Tempered by X211 step 2(a): beyond the previous round's result the mid-round direction is weak (0.53-0.55), so R vs K is not decided."
+  },
+  "X210": {
+   "status": "tried",
+   "source": "panel iteration 14 mechanics P2: the operator's GRID ladders on BUILD-live with the socket's round scores as a true clock",
+   "evidence": "Run with X204 (same data): socket clock characterized (20.2-s polling, GRID only); 0xd2bb9459 fails identity (no cross-market co-signing) and the process signatures (single orders, no five-slot bursts: 649 of 654 bursts single; sizes 60-440 in steps of 20); its mid-round AUC equals the map print's. The other accounts in the four GRID books of 10-31 (0xca0b532d, 0x2b55d2ee, 0xd3bd48ab, 0x68915897, 0x5d40576b) were not decoded; 0x68915897 and 0x5d40576b (both among the 100-share whole-cent BUY makers of those GRID books, iteration 6 timer_owner) show 16x / 8x per-ms 0-5 ms co-signing with the wallet's 10-31 orders inside the wallet's own txs (same_process_gate.json control list, 6 / 1 pairs); that is same-market co-signing; the cross-market test (code/iter15/grid_candidates.py, results/grid_candidates.json; their 10-31 12-18 activity filtered to development-unit events, 729 / 324 orders decoded) finds 0 pairs within 50 ms for both, single-order designs (707 of 718; 324 of 324), so neither is the operator's process: no attributed account quotes GRID events on the development blocks."
+  },
+  "X211": {
+   "status": "tried",
+   "source": "panel iteration 14 mechanics P3: are the dark re-pricings messages? censoring-free and follower-free informativeness, count per round",
+   "evidence": "Step 3 simplified only (code/iter15/kill_margin.py, results/kill_margin.json): its mid-round winner-signed move rises 0.65c per kill of margin (CI [-0.01, 1.31]) like the print's 0.47c; lead slope 0.21c per kill (CI [-0.27, 0.75]); in close rounds (margin <= 1) +2.84c toward the winner before the print anchor vs the print's -0.87c. Steps 1-2 (censoring-free label with the union top, joiner-free markout) not run. | Step 1 simplified (code/iter15/dark_newhigh.py, results/dark_newhigh.json): dark rising tops that set a new high against the previous three burst tops (censoring-free for rises) move the clean print their way by +2.30c (BUILD, n 2,177) / +1.98c (VALIDATE, n 2,669) at 60 s (up 56% / 50%, down 20% / 19%), more than all dark rising tops (+1.29 / +1.14c), about a third of visible-agree (+5.85 / +6.47c): the censoring artefact does not explain the dark decisions' information; the joiner-free markout (step 2) is still needed to exclude followers. | Step 2 simplified (code/iter15/dark_joinerfree.py, results/dark_joinerfree.json): 36% of dark new highs have a non-own maker joining the new top within 2 s; the joiner-free ones still move the clean print their way by +1.80c (BUILD, n 1,390) / +1.89c (VALIDATE, n 1,708) at 60 s (up 51% / 49%, down 21% / 19%). Step 3 (code/iter15/dark_per_round.py, results/dark_per_round.json): per print-clock round 1.13 dark new highs and 4.35 V-changes; Poisson with the round length offset: -0.048 per death (p 0.07) for dark new highs, -0.067 (p 0.013) for all V-changes: the count does not rise with kills. Reading: the dark re-pricings are informed value updates (not censoring artefacts, not followers) at a few in-round moments per round, neither one step per round (pure R) nor one per kill. Simplified forms of steps 1-3 (no union top, markout not round-winner AUC). | Step 2(a) (code/iter15/dark_round_winner.py, results/dark_round_winner.json): mid-round dark new highs agree with the current round's winner 0.690 and the previous round's 0.674 (n 371); where the winner changes, 0.526 (n 116; all dark 0.547, n 373; visible takes 0.513, n 76); logit all dark: current +0.40 (p < 0.001), previous +0.21: the mid-round component beyond round results is small on this clock. | Single-take clock (results/dark_round_winner_takes.json, 141 rounds): where the winner changes, dark new highs agree with the current winner 0.579 (n 38), all dark 0.568 (n 118); logit current +0.355 (p 0.004), previous +0.085 (p 0.55): a small but positive mid-round component on both clocks."
+  },
+  "X212": {
+   "status": "open",
+   "source": "panel iteration 14 mechanics P4: uncensored BUILD-live path against the bo3 rounds of the same maps; freeze-time refractory test",
+   "evidence": "First pass (code/iter15/refractory_live.py, results/refractory_live.json): bo3 has parsed the wallet's 10-31 maps (shin-isg, gls1-pcy, bhe-bar2; development units); the uncensored X163 rows cover only shin-isg map 1 (457 value moments) and gls1-pcy map 2 (75); the print-anchored tracker snaps 11 of 23 rounds on shin-isg map 1 against 9 with the winner sequence reversed (chance level) and 1 of 21 on gls1-pcy map 2, leaving 6 rounds with both ends: no usable clock, so the refractory hazard (0.25 vs 0.48 moments per 5 s early vs action phase) is not interpretable. The wallet's non-GRID events have no socket round clock (map scores only). Open. | Historical form on the filled record (code/iter15/freeze_rate.py, results/freeze_rate.json; 405 print-clock rounds): rates per minute in the 2-20 s restart / freeze window vs the action window: dark new highs 0.576 vs 0.493 (ratio 1.17, both informed), all V-changes 2.35 vs 1.77, visible informed takes 0.42 vs 0.25 (1.65): no refractory. Either the print clock misplaces many round ends by > 20 s, or the feed and its value move in the restart / buy phase (late round-end messages or economy information). Open: a true round clock on a non-GRID map is needed. | The busy restart window points to the previous round's winner (freeze_direction.json), i.e. late round-end repricing or early anchors, not economy."
+  },
+  "X213": {
+   "status": "tried",
+   "source": "panel iteration 14 mechanics P5: exact series identity and rounding rule as the feed-class fingerprint",
+   "evidence": "code/iter15/series_identity.py, series_identity_live.py; results/series_identity*.json. Filled co-repricings (15 units, 70 pairs within 50 ms): residual SD 1.34c around one line per (event, map, token) vs 5.64c for random pairings; 56% within 1c (null 12%); slopes 0.46 (map 1) / 0.56 (map 2) as the Bo3 formula predicts. Uncensored BUILD-live add bursts (3 units, 71 pairs; one unit trivial): SD 1.17-2.01c over 26-31c of map range, slopes 0.24-0.29, 41-43% within 1c (null SD 8-10c). The exact single-identity signature (>= 90% of pairs) fails on both records: the match quote is a strong but not exact linear function of the map quote at the same ms (consistent with an in-map update of q or a separate match input); rounding rule not identifiable at this n."
+  },
+  "X214": {
+   "status": "tried",
+   "source": "panel iteration 14 assumptions P1: decode the operator, not the wallet: account allocation as a decision component, pooled selection",
+   "evidence": "Same measurements as X205 (operator_selection.json, sibling_identity.json): allocation among the attributed accounts is not fittable out of fold (20 sibling-only events in 16-22 Oct, mostly 0x7d67f01d in DraculaN / Stake / CIS LAN / PGL); v5 separates them at AUC 0.777; the two big GRID accounts are not attributed (no cross-market co-signing), so the operator's selection boundary stays non-GRID. Random-thinning bound: lift and recall unchanged, AUC about 0.88 at 42% thinning. USDC balances at listing not fetched."
+  },
+  "X215": {
+   "status": "ruled_out",
+   "source": "panel iteration 14 assumptions P2: run the frozen VALIDATE-live tests on the operator's units (declared amendment)",
+   "evidence": "The pre-registered same-process gate fails (code/iter15/same_process_gate.py, results/same_process_gate.json): 0x7d67f01d on cs2-1win-5s, dota2-xe-hn (10-31) and dota2-synaps-hn (11-01): 318 orders, BUY 1.00, whole cents 0.975, band 1.00, sizes 50-60 / 100, 277 of 296 bursts single, multi-order bursts at one price (no 1c ladder), 0 co-signed pairs with the wallet within 50 ms on 10-31 (189 orders); 0xd2bb9459: single orders, no co-signing. The panel's if-false branch: the live tests wait for the wallet's own units."
+  },
+  "X216": {
+   "status": "ruled_out",
+   "source": "panel iteration 14 assumptions P3: the GRID arm via 0x10d79cc7 / 0xd2bb9459 calldata (same machine, different information set)",
+   "evidence": "Premise refuted by measurement (sibling_identity.json): neither account co-signs across markets with the wallet (0 / 1 pairs at 0-5 ms vs 6 / 6 at 5-50 ms, the known sibling 13 vs 24), and their designs differ from the five-slot 100-share machine (0xd2bb9459 single 50-600-share orders, whole cents 0.88; 0x10d79cc7 20-share ladders). The on-chain GRID quoting is not the wallet's process; the GRID socket test of their values is in X204."
+  },
+  "X217": {
+   "status": "tried",
+   "source": "panel iteration 14 assumptions P5: measure the two yardsticks correctly (price against the maker population at fill time; latency against the message)",
+   "evidence": "Step 2 (code/iter15/message_latency.py, results/message_latency.json): lag of its message-locked V-change decisions behind the first visible informed take: median 1.10 s (quantiles 0.10 / 0.60-0.65 / 1.10 / 1.55-1.65 / 2.2 s), co-signing mode in the first 100 ms plus a broad mode near 1 s; a source with latency L after the message precedes 85% (0.25 s), 77-79% (0.5 s), 67% (1 s). Step 1: evaluate() v6 reports price_within_tick_at_fill_m1c (the fill unit, last wallet-free print before the fill block minus 1c) beside the order unit; the population baseline at the fill (0.605, other makers' whole-cent BUY fills) is the panel's measurement (it needs public calldata, not in evaluate())."
+  },
+  "X218": {
+   "status": "tried",
+   "source": "panel iteration 14 assumptions P4: outcome replay with the wallet's own exit policy (net cap about 600, taper, re-pair)",
+   "evidence": "code/iter15/exit_policy_ladder.py (X57 engine), tape_exit_policy.py (tape engine); results/exit_policy_ladder.json, tape_exit_policy.json. X57 engine: BUILD C0 0.067 / 0.275, C400 -0.325 / -0.023, C600 -0.250 / 0.061, T26 -0.258 / 0.058, T26S -0.271 / 0.040; BUILD chooses C0 -> VALIDATE 0.315 / 0.238 (the capped forms reach 0.41-0.48 Pearson but 0.11-0.21 Spearman on VALIDATE). Tape engine: caps -0.20..-0.29 Pearson on VALIDATE; its BUILD choice L1_C0 (bid-side anchor, pair cap, no cap on inventory) scores 0.197 / 0.027 on VALIDATE and replaces the v5 replay in evaluate() (v6) under the pre-registered rule. Hypothesis M rejected: with the wallet's exit policy the outcome item stays gated by its value. The re-pair variant was not run."
   }
  },
  "target_metrics": {
@@ -1268,28 +1343,32 @@
   "side_accuracy": null,
   "side_baseline": null,
   "price_within_tick": 0.322,
-  "pnl_corr_pearson": -0.131,
-  "pnl_corr_spearman": -0.081,
+  "pnl_corr_pearson": 0.197,
+  "pnl_corr_spearman": 0.027,
   "coverage_fills": 1.0,
   "coverage_abs_pnl": 1.0
  },
  "best": {
-  "rule_id": "tommy-v5-grid-league-dota-groupP",
+  "rule_id": "tommy-v6-groupP-bidside-outcome",
   "validate_metrics": {
    "events": 140,
    "events_traded": 39,
-   "selection_auc": 0.9702,
+   "markets": 394,
+   "markets_traded": 116,
+   "grid_events": 45,
+   "grid_events_traded": 0,
    "selection_auc_v4": 0.9528,
    "gp72_events_gt0": 52,
+   "selection_auc": 0.9702,
    "selection_baseline": 0.8863,
+   "selection_recall": 0.744,
+   "selection_lift": 3.155,
    "selection_gain": 0.0839,
    "selection_gain_ci95": [
     0.0302,
     0.1517
    ],
    "selection_gain_p_le0": 0.0,
-   "selection_recall": 0.744,
-   "selection_lift": 3.155,
    "selection_cs2": {
     "events": 128,
     "traded": 36,
@@ -1310,13 +1389,32 @@
    "presence_baseline": 0.8907,
    "price_within_tick": 0.322,
    "price_exact_last_print": 0.123,
+   "price_within_cent": 0.322,
+   "price_within_tick_at_fill_m1c": 0.496,
+   "size_100_accuracy": 0.798,
    "size_rule_accuracy": 0.894,
-   "pnl_corr_pearson": -0.131,
-   "pnl_corr_spearman": -0.081,
+   "pnl_corr_pearson": 0.197,
+   "pnl_corr_spearman": 0.027,
+   "pnl_corr_pearson_v5replay": -0.131,
+   "pnl_corr_spearman_v5replay": -0.081,
+   "pnl_rule_total": 269.4,
+   "pnl_wallet_total": 8034.6,
+   "pnl_markets": 131,
    "pnl_baseline_prints_pearson": 0.329,
    "pnl_baseline_prints_spearman": 0.289,
+   "pnl_baseline_prints_traded_pearson": 0.336,
+   "pnl_baseline_prints_traded_spearman": 0.303,
+   "pnl_corr_partial_given_prints": 0.176,
+   "side_accuracy": null,
+   "live_trigger": null,
+   "live_taker_diagnostic_server_clock": null,
+   "live_price": {
+    "n_orders": 0
+   },
    "coverage_fills": 1.0,
    "coverage_abs_pnl": 1.0,
+   "coverage_markets": 116,
+   "coverage_markets_in_universe": 116,
    "coverage_fills_cs2_only": 0.9273
   }
  },
@@ -3567,6 +3665,97 @@
     "e3": "BUILD survivors 18 of 18 rows; VALIDATE confirmed 13: I1_informed_take pm2s peak 0.375 s p_link 0.00044 signed 0.03596403596403597; I3_print_jump_2c pm60s peak -3.5 s p_link 1.8e-08 signed 5.300050455445684e-12; I4_print_jump_3sigma pm60s peak -3.5 s p_link 4.3e-09 signed 9.21765172330827e-10; I1_in"
    },
    "verdict": "supported (BUILD screen; VALIDATE confirmation in e3_screen.json)"
+  },
+  {
+   "id": "H152",
+   "family": "price",
+   "description": "R: its value steps only at the feed's round-result messages (iteration-15 explanation 1).",
+   "validate_metrics": {
+    "decided_early_diff": {
+     "point": 0.002,
+     "ci95": [
+      -0.203,
+      0.176
+     ],
+     "draws": 2000
+    }
+   },
+   "verdict": "not decided: no decided-early delay (X209) against it; restart-window moves follow the round just won and mid-round moves beyond the previous winner are weak (0.53-0.55) for it"
+  },
+  {
+   "id": "H153",
+   "family": "price",
+   "description": "K: its value prices in-round events (kills, plant, alive state) delivered by the feed (explanation 2).",
+   "validate_metrics": {
+    "decided_early_diff": {
+     "point": 0.002,
+     "ci95": [
+      -0.203,
+      0.176
+     ],
+     "draws": 2000
+    },
+    "kill_margin_lead_slope_c": 0.21
+   },
+   "verdict": "not decided: decided-early contrast and informed dark re-pricings for it; with the previous winner controlled, mid-round direction agrees with the current winner only 0.53-0.55 (dark_round_winner.json) and the count per round does not rise with kills, against it"
+  },
+  {
+   "id": "H154",
+   "family": "selection",
+   "description": "A: allocation of events among the operator's accounts (explanation 3).",
+   "validate_metrics": {
+    "v5_wallet_vs_sibling_auc": 0.777,
+    "sibling_only_events": 20
+   },
+   "verdict": "real but small in 16-22 Oct; not fittable; the two GRID accounts are not the operator's"
+  },
+  {
+   "id": "H155",
+   "family": "exit",
+   "description": "M: the outcome is margin harvesting under the wallet's inventory cap; a capped public ladder reproduces it (explanation 4).",
+   "validate_metrics": {
+    "build_choice": "C0",
+    "validate": [
+     0.315,
+     0.238
+    ],
+    "capped_validate": [
+     0.479,
+     0.21
+    ]
+   },
+   "verdict": "rejected (X218)"
+  },
+  {
+   "id": "H156",
+   "family": "price",
+   "description": "G2: on GRID events the operator runs the machine on a public value (explanation 5).",
+   "validate_metrics": {
+    "attribution": "0xd2bb9459 0 vs 6 cross-market co-signed pairs"
+   },
+   "verdict": "untestable as stated: the GRID accounts are not the operator's"
+  },
+  {
+   "id": "H157",
+   "family": "selection",
+   "description": "O2: calendar rotation of accounts (explanation 6).",
+   "validate_metrics": {
+    "wallet_share_by_day": "0.4 (10-16) -> 0.95 (10-21/22)"
+   },
+   "verdict": "a trend, not a rotation; untested beyond 16-22 Oct"
+  },
+  {
+   "id": "H158",
+   "family": "price",
+   "description": "V: the feed is an odds product; map and match quotes come separately (explanation 7).",
+   "validate_metrics": {
+    "series_identity_within1c": 0.56,
+    "live_sd_c": [
+     1.17,
+     2.01
+    ]
+   },
+   "verdict": "open: the exact single identity fails, but censoring and in-map q updates can produce that"
   }
  ],
  "data_sources": [
@@ -3620,7 +3809,8 @@
   "hawk.live series pages (Inertia data-page JSON): per-map in-play map-winner odds of BetBoom / SpinBetter / Parimatch with a site-wide update id (no timestamps), game states every ~20 s of game time, picks, streams; development series only (hawk/ in the cache)",
   "data-api activity and profile names of the operator's other accounts (0x7d67f01d, 0x52661b8e, 0x67119033) before H",
   "V2 calldata of 0x7d67f01d's sampled CS2 / Dota transactions (10-08..10-15: 3,253; 09-21..09-30: 3,000) and P4e's 1,718 September transactions on its markets",
-  "chain state at latest (eth_getCode / nonce) of the operator's deposit wallets and owners (proxy immutable args, EIP-7702 designators)"
+  "chain state at latest (eth_getCode / nonce) of the operator's deposit wallets and owners (proxy immutable args, EIP-7702 designators)",
+  "iteration 15: Polymarket sports socket (shared recorder, development blocks, iter_live in 15-min slices) for GRID round ticks; data-api trades of the development-block GRID / sibling units; publicnode calldata of 0xd2bb9459 / 0x10d79cc7 / 0x7d67f01d samples (16-22 Oct and the development blocks)"
  ],
  "iterations": [
   {
@@ -3966,6 +4156,38 @@
     "delta integrator ruled out by measurement (X200)",
     "legacy indicator ledger (31 rows)"
    ]
+  },
+  {
+   "n": 15,
+   "minutes": 71.9,
+   "best_validate_score": 0.8834,
+   "status": "continue",
+   "paradigm": "operator-level unit and the GRID socket clock as a natural experiment, plus the wallet's exit policy in the outcome replay; the same-process gate and cross-market co-signing re-decide which accounts are the operator",
+   "families": [
+    "exit-policy outcome replay in the X57 and tape engines (X218)",
+    "v6 bid-side anchored outcome component",
+    "cross-market co-signing identity of the sibling accounts (X205 step 5)",
+    "operator-level selection relabel and allocation (X214 / X205)",
+    "GRID socket round clock: 20.2-s polling, L fit, GRID maker value vs print (X204 / X210)",
+    "same-process gate on development-block units (X215)",
+    "decided-early rounds R vs K (X209)",
+    "kill-margin slope (X211 step 3)",
+    "message-locked decision latency CDF (X217 step 2)",
+    "series identity on filled and uncensored co-repricings (X213)",
+    "fill-unit price metric in evaluate() (X217 step 1)",
+    "E5 GDELT attempt (429)",
+    "censoring-free dark re-pricings, new-high subset (X211 step 1 simplified)",
+    "uncensored live path vs bo3 rounds of the 10-31 maps, first pass (X212)",
+    "joiner-free dark markouts (X211 step 2 simplified)",
+    "per-round count of value moves vs kills (X211 step 3)",
+    "v6 run on the 10-31 12-18 development block",
+    "freeze-window rate of informed moves on the print clock (X212 historical form)",
+    "direction of restart-window moves: previous winner vs equipment (X160 / X212)",
+    "mid-round direction vs current and previous round winners (X211 step 2(a))",
+    "single-take clock replication of the round-winner direction test",
+    "pre-game cross-book co-repricing (X206 key-free part; not testable)"
+   ],
+   "now_ts": 1793542170
   }
  ],
  "tool_bugs": [
@@ -4029,20 +4251,23 @@
   "iteration10": "Rule unchanged (v5): target_metrics are the iteration-9 VALIDATE values. Outcome feasibility (X138): with the real taker leg its own maker orders replayed reach 0.87 / 0.80; with the taker at its first public trace at most 0.60 / 0.44 (oracle maker leg); executable public sets <= 0.33 / 0.21. Price: best historical own-state anchor 0.500 (previous own level), public 0.305.",
   "iteration_11": "No rule change; target_metrics unchanged (v5). Measured bounds: price per order capped at about 0.71-0.75 even with the wallet's own value known (X150); the best examinable historical anchor stays the last print (0.305), point-in-time own state 0.280 (X152); outcome at public lag of the take <= 0.50 / 0.41 on the observed record (X155 / X149).",
   "iteration_12": "No rule change; target_metrics unchanged (v5). New measured bounds: the price item with V known is 0.73 per order / 0.875 on the burst-set unit (X163), so it is gated only by V; the PIT partial-fill book does not beat the last print (X165); the T_lo outcome world is confirmed on wallet-absent bursts (X169).",
-  "iter14": "Unchanged (v5 frozen). Candidate outcome component not frozen: the continuous five-slot public ladder in the X57 engine scores VALIDATE 0.315 / 0.238 (BUILD 0.067 / 0.275) against the frozen generic replay -0.131 / -0.081; it would need the lot public calldata inside evaluate()."
+  "iter14": "Unchanged (v5 frozen). Candidate outcome component not frozen: the continuous five-slot public ladder in the X57 engine scores VALIDATE 0.315 / 0.238 (BUILD 0.067 / 0.275) against the frozen generic replay -0.131 / -0.081; it would need the lot public calldata inside evaluate().",
+  "pnl_iter15": "v6 outcome (bid-side anchored single level with pair cap, tape engine) 0.197 / 0.027 on VALIDATE (v5 replay -0.131 / -0.081; prints baseline 0.329 / 0.289; partial given prints 0.176); the X57-engine five-slot ladder 0.315 / 0.238 needs the lot's public calldata; capped forms rejected on BUILD (X218)",
+  "price_iter15": "order unit at signing unchanged (0.322); the fill unit (last wallet-free print before the fill block minus 1c) is reported by evaluate() as price_within_tick_at_fill_m1c; population of other whole-cent makers at the fill 0.605 (assumptions panel); neither reaches 0.80 without V"
  },
  "next_steps": [
-  "X194 steps 3-5: the operator's football / MLB quoting against ESPN key events and MLB statsapi playEvents (event study, public in-play model, co-receivers).",
-  "X189 steps 2-5 / X195: align the informed-cluster clock to bo3 rounds (winner direction, durations); regress V's steps at clock round ends on opener / plant / alive_time; union-top uncensoring.",
-  "X203 owner census by the 7702 delegate; X196 July-September versions; X197 price-time bounds; X191 LoL; X199 kill lattice.",
-  "E4 composite event indicators, E5 news / social for selection, E6 latent fit with incremental_auc over co-occurrence + self-excitation baselines.",
-  "VALIDATE-live: no wallet record in 11-01 06-12 (bca-pha still untraded at 11:56 UTC); the next development blocks fall after the budget."
+  "Ask the user (unchanged and new): a PandaScore token for the Low Latency Feed test (X206); demos (X37 / X122); whether the exam's wallet list should include the attributed accounts 0x7d67f01d / 0x52661b8e / 0x67119033 (X205 / X214).",
+  "Close the live-only catalog items that cannot get a development unit of the wallet within the budget (the next development block, 11-01 18-24, starts after the projected end), with that reason; keep their frozen tests for the examiner's blocks.",
+  "X211 steps 1-2 (censoring-free dark re-pricings with the union top; joiner-free markouts) and X212 (bo3 rounds of the 10-31 maps against the uncensored BUILD-live path).",
+  "X206 key-free part: pre-game Map-N re-pricing clusters at the veto's end (LLF lists map picks; a relay reader cannot see vetoes).",
+  "E5: retry GDELT when the connection is quiet; X191 LoL on the attributed accounts; X208 Dota on the wallet's own development units.",
+  "Before the exam: re-fit the taker size and merge timing drift (X156) if the forward build changed; keep v6 frozen otherwise."
  ],
  "data_bugs": [
   "pack_orders.parquet (iteration 2) was built from calldata_pub only, which excludes every tx with a wallet order: 5,752 pack taker orders that hit the wallet's ladder were missing from pack-based analyses (clusters, pack-vs-rounds, P4e side shares). code/iter5/census.py rebuilds from both records.",
   "iteration 7: exam_params.py first run also counted the state field acceptingOrders per lot (h1 / h2 / sealed T0 included); removed from results/exam_params.json and from the script; not used anywhere."
  ],
- "updated": "2026-11-01T12:03:08Z",
+ "updated": 1793542170,
  "progress_gauges": {
   "registered": "2026-11-01 ~06:15 UTC (iteration 11), before any VALIDATE-live record of the wallet exists; the primary metric presence_auc stays as pre-registered in iteration 1 and is still reported",
   "reason": "presence_auc cannot register progress for a two-sided maker present in every in-play bin (co-occurrence by construction, assumptions panel iter-10 critique 5); the binding items are price and outcome",
@@ -4060,7 +4285,8 @@
    "definition": "per-market Pearson / Spearman of an oracle copy of its decisions at the executable latency (2 s) on the observed record",
    "value": "0.431 / 0.404 VALIDATE, 0.233 / 0.357 BUILD (latency_bound.json, corrected follower direction): below 0.5 whatever the decode; T_lo confirmed on 3,028 wallet-absent bursts (X169)"
   },
-  "iter14_note": "No gauge moved: X201 / X198 / X202 measure why the price and outcome items stay out of reach of public and own-state inputs; the burst-set unit live bound is unchanged (0.875 oracle, 0.499 public J)."
+  "iter14_note": "No gauge moved: X201 / X198 / X202 measure why the price and outcome items stay out of reach of public and own-state inputs; the burst-set unit live bound is unchanged (0.875 oracle, 0.499 public J).",
+  "iter15_note": "g3 unchanged (outcome bound 0.43 / 0.40 for an oracle copy at 2 s). The frozen executable outcome moved from -0.131 / -0.081 to 0.197 / 0.027 (v6); the exit policy does not lift it (X218)."
  },
  "dimensions": {
   "pm_tape_prints": {
@@ -4149,7 +4375,7 @@
    "best_indicator": "",
    "min_detectable_share": null,
    "verdict": "untested",
-   "note": "live only; GRID CS2 round scores; no wallet record on VALIDATE-live blocks yet"
+   "note": "live only; GRID CS2 round scores; no wallet record on VALIDATE-live blocks yet | iteration 15: round scores for GRID events only, on a 20.2-s polling grid that trails the print's jump; the wallet trades no GRID event, and a 20-s clock cannot carry a price item that tolerates < 0.25 s (X201 / X217). No screen run: its events carry no round ticks, so the dimension has no content in the wallet's units"
   },
   "pm_same_event_other_books": {
    "family": "related_markets",
@@ -4259,7 +4485,7 @@
    "best_indicator": "",
    "min_detectable_share": null,
    "verdict": "untested",
-   "note": "information iter-13: V does not load on openers / plants; assumptions iter-13: V moves toward T in T eliminations without plant"
+   "note": "information iter-13: V does not load on openers / plants; assumptions iter-13: V moves toward T in T eliminations without plant | iteration 15: decided-early rounds show the same share of its move before the print's jump as elimination rounds (0.682 vs 0.680, CI of the difference [-0.20, +0.18]; R predicted -0.28), and in save rounds it moves before any round-end message could exist: its input carries in-round state (kills / plant / alive), hypothesis-level | later in iteration 15: with the previous round's winner controlled, its mid-round direction agrees with the current winner only 0.53-0.55 (dark_round_winner.json), so the in-round share is small and the verdict returns to untested pending a true clock"
   },
   "dota_spectator_state_valve": {
    "family": "event_state",
@@ -4424,7 +4650,7 @@
    "best_indicator": "0-5 ms co-signing",
    "min_detectable_share": null,
    "verdict": "drives",
-   "note": "one operator, four accounts; the 10-16 switch is an account migration"
+   "note": "one operator, four accounts; the 10-16 switch is an account migration | iteration 15: cross-market 0-5 ms co-signing confirms 0x7d67f01d (4.4x) and refutes 0xd2bb9459 / 0x10d79cc7 (0 / 1 pairs vs 6 / 6); on 10-31 / 11-01 0x7d67f01d runs single 50-60-share orders, not the five-slot ladder"
   },
   "operator_human_reaction": {
    "family": "operator",
@@ -4461,14 +4687,14 @@
   },
   "feed_vendor_identity": {
    "family": "event_state",
-   "status": "missing",
-   "source": "commercial esports data feeds (not identified; GRID excluded by selection)",
+   "status": "blocked",
+   "source": "PandaScore REST / Low Latency Feed (candidate); token required (HTTP 403 'Token is missing', iteration 15)",
    "resolution": "ms",
    "publication_latency": "push",
-   "best_indicator": "",
+   "best_indicator": "message-locked decision lag (results/message_latency.json)",
    "min_detectable_share": null,
    "verdict": "untested",
-   "note": "iteration 14: the operator's sports account shows no push-feed play reaction (MLB), so the feed is an esports product; the private-value design starts 09-17"
+   "note": "iteration 14: the operator's sports account shows no push-feed play reaction (MLB), so the feed is an esports product; the private-value design starts 09-17 | iteration 15: candidate PandaScore Low Latency Feed (titles CS2 / Dota / LoL match the fan-out; kill / bomb / alive data match the K reading); a token is needed (user); latency needed to carry the price item: about 0.25 s after the first co-receiver (85% of message-locked decisions)"
   },
   "infra_rate_limits": {
    "family": "infrastructure",
@@ -4480,6 +4706,17 @@
    "min_detectable_share": null,
    "verdict": "untested",
    "note": "not observable from the public record"
+  },
+  "operator_account_routing": {
+   "family": "operator",
+   "status": "have",
+   "source": "data-api activity of the attributed accounts (development)",
+   "resolution": "per event",
+   "publication_latency": "on chain",
+   "best_indicator": "v5 score (wallet vs sibling AUC 0.777)",
+   "min_detectable_share": null,
+   "verdict": "inferred",
+   "note": "iteration 15: 20 of 97 non-GRID operator events of 16-22 Oct went to siblings only (0x7d67f01d mostly); share rising 0.4 -> 0.95 over 16-22 Oct; too few for an out-of-fold model"
   }
  },
  "indicators": [
@@ -5951,6 +6188,723 @@
     "q_bh": 1.4632452296247381e-06
    },
    "verdict": "confirmed"
+  },
+  {
+   "name": "X209_decided_early_before_share",
+   "dimension": "kill_level_inround_state",
+   "definition": "share of V's winner-signed move before the print-anchored round end, decided-early minus elimination rounds",
+   "event": "bo3 end class on the print-anchored clock",
+   "period": "BUILD+VALIDATE (descriptive, historical)",
+   "result": {
+    "point": 0.002,
+    "ci95": [
+     -0.203,
+     0.176
+    ],
+    "print_control": {
+     "point": -0.014,
+     "ci95": [
+      -0.346,
+      0.26
+     ],
+     "draws": 2000
+    },
+    "rounds": 412
+   },
+   "verdict": "K favored (R's predicted drop excluded)"
+  },
+  {
+   "name": "X211_kill_margin_slope",
+   "dimension": "kill_level_inround_state",
+   "definition": "slope of V's mid-round winner-signed move on the round's kill margin",
+   "event": "bo3 round margin",
+   "period": "BUILD+VALIDATE (descriptive)",
+   "result": {
+    "slope_dV_mid_per_kill_c": 0.65,
+    "slope_dP_mid_per_kill_c": 0.471,
+    "slope_lead_mid_per_kill_c": 0.21,
+    "slope_early_per_kill_c": 0.676,
+    "slope_P_early_per_kill_c": 0.498,
+    "slope_dV_mid_ci95_c": [
+     -0.009,
+     1.312
+    ],
+    "slope_dP_mid_ci95_c": [
+     -0.235,
+     1.18
+    ],
+    "slope_lead_mid_ci95_c": [
+     -0.273,
+     0.749
+    ],
+    "slope_early_ci95_c": [
+     -0.047,
+     1.477
+    ]
+   },
+   "verdict": "shared with the print (lead slope CI covers 0)"
+  },
+  {
+   "name": "X217_message_lag_cdf",
+   "dimension": "push_feed_inround_events",
+   "definition": "lag of message-locked V-change decisions behind the first visible informed take (excess over shifted null)",
+   "event": "I1 / I2 of E3-1",
+   "period": "BUILD and VALIDATE",
+   "result": {
+    "BUILD_I1_informed_take": {
+     "q": {
+      "0.1": 0.1,
+      "0.25": 0.6,
+      "0.5": 1.1,
+      "0.75": 1.55,
+      "0.9": 2.2
+     },
+     "after_L": {
+      "0.1": 0.846,
+      "0.25": 0.817,
+      "0.35": 0.806,
+      "0.5": 0.774,
+      "1.0": 0.67
+     }
+    },
+    "BUILD_I2_informed_cluster": {
+     "q": {
+      "0.1": 0.4,
+      "0.25": 0.7,
+      "0.5": 1.1,
+      "0.75": 1.7,
+      "0.9": 2.2
+     },
+     "after_L": {
+      "0.1": 0.956,
+      "0.25": 0.927,
+      "0.35": 0.906,
+      "0.5": 0.87,
+      "1.0": 0.664
+     }
+    },
+    "VALIDATE_I1_informed_take": {
+     "q": {
+      "0.1": 0.1,
+      "0.25": 0.65,
+      "0.5": 1.1,
+      "0.75": 1.65,
+      "0.9": 2.25
+     },
+     "after_L": {
+      "0.1": 0.891,
+      "0.25": 0.85,
+      "0.35": 0.833,
+      "0.5": 0.793,
+      "1.0": 0.667
+     }
+    },
+    "VALIDATE_I2_informed_cluster": {
+     "q": {
+      "0.1": 0.45,
+      "0.25": 0.65,
+      "0.5": 1.1,
+      "0.75": 1.95,
+      "0.9": 2.5
+     },
+     "after_L": {
+      "0.1": 0.968,
+      "0.25": 0.935,
+      "0.35": 0.931,
+      "0.5": 0.857,
+      "1.0": 0.628
+     }
+    }
+   },
+   "verdict": "median 1.1 s; a source must be < ~0.25 s after the message to precede 85%"
+  },
+  {
+   "name": "X204_grid_socket_mid_round_auc",
+   "dimension": "pm_sports_websocket_scores",
+   "definition": "round-winner AUC of the mid-round change of a GRID maker's value (0xd2bb9459) vs the print, on the socket's round ticks",
+   "event": "socket round-score change (20.2-s polling)",
+   "period": "development live blocks (10-31 12-18)",
+   "result": {
+    "all": {
+     "rounds": 183,
+     "auc_V": 0.703,
+     "auc_P": 0.622,
+     "auc_V_resid_given_P": 0.629
+    },
+    "map_books": {
+     "rounds": 89,
+     "auc_V": 0.766,
+     "auc_P": 0.736,
+     "auc_V_resid_given_P": 0.626
+    },
+    "match_books": {
+     "rounds": 94,
+     "auc_V": 0.614,
+     "auc_P": 0.489,
+     "auc_V_resid_given_P": 0.604
+    }
+   },
+   "verdict": "no in-round lead beyond the map print; not the wallet's process"
+  },
+  {
+   "name": "X211_dark_new_high_markout",
+   "dimension": "push_feed_inround_events",
+   "definition": "signed clean-print markout of dark V-change decisions that set a new 3-burst high on the token",
+   "event": "own V-change decision without a visible group-P take in the 3 s before",
+   "period": "BUILD and VALIDATE (descriptive)",
+   "result": {
+    "BUILD": {
+     "dark_all": {
+      "n": 6276,
+      "m10_c": 0.8,
+      "m60_c": 1.88,
+      "share_up60": 0.536,
+      "share_down60": 0.25
+     },
+     "dark_up": {
+      "n": 3608,
+      "m10_c": 0.67,
+      "m60_c": 1.29,
+      "share_up60": 0.481,
+      "share_down60": 0.299
+     },
+     "dark_down": {
+      "n": 2668,
+      "m10_c": 0.97,
+      "m60_c": 2.67,
+      "share_up60": 0.611,
+      "share_down60": 0.184
+     },
+     "dark_new_high": {
+      "n": 2177,
+      "m10_c": 1.03,
+      "m60_c": 2.3,
+      "share_up60": 0.564,
+      "share_down60": 0.201
+     },
+     "dark_new_low": {
+      "n": 1880,
+      "m10_c": 1.18,
+      "m60_c": 3.23,
+      "share_up60": 0.652,
+      "share_down60": 0.143
+     },
+     "visible_agree": {
+      "n": 1138,
+      "m10_c": 4.44,
+      "m60_c": 5.85,
+      "share_up60": 0.829,
+      "share_down60": 0.129
+     },
+     "visible_agree_new_high": {
+      "n": 354,
+      "m10_c": 4.41,
+      "m60_c": 5.75,
+      "share_up60": 0.845,
+      "share_down60": 0.113
+     }
+    },
+    "VALIDATE": {
+     "dark_all": {
+      "n": 8011,
+      "m10_c": 0.83,
+      "m60_c": 1.78,
+      "share_up60": 0.469,
+      "share_down60": 0.229
+     },
+     "dark_up": {
+      "n": 4548,
+      "m10_c": 0.63,
+      "m60_c": 1.14,
+      "share_up60": 0.427,
+      "share_down60": 0.267
+     },
+     "dark_down": {
+      "n": 3463,
+      "m10_c": 1.09,
+      "m60_c": 2.64,
+      "share_up60": 0.524,
+      "share_down60": 0.178
+     },
+     "dark_new_high": {
+      "n": 2669,
+      "m10_c": 1.05,
+      "m60_c": 1.98,
+      "share_up60": 0.496,
+      "share_down60": 0.19
+     },
+     "dark_new_low": {
+      "n": 2379,
+      "m10_c": 1.31,
+      "m60_c": 3.25,
+      "share_up60": 0.563,
+      "share_down60": 0.136
+     },
+     "visible_agree": {
+      "n": 1137,
+      "m10_c": 4.76,
+      "m60_c": 6.47,
+      "share_up60": 0.807,
+      "share_down60": 0.128
+     },
+     "visible_agree_new_high": {
+      "n": 351,
+      "m10_c": 5.01,
+      "m60_c": 6.95,
+      "share_up60": 0.852,
+      "share_down60": 0.097
+     }
+    }
+   },
+   "verdict": "informed beyond the censoring artefact; followers not excluded"
+  },
+  {
+   "name": "X211_dark_joinerfree_markout",
+   "dimension": "push_feed_inround_events",
+   "definition": "dark new-high decisions without a joiner at the new top within 2 s: signed clean-print markout",
+   "event": "own V-change decision",
+   "period": "BUILD and VALIDATE (descriptive)",
+   "result": {
+    "BUILD": {
+     "dark_new_high_all": {
+      "n": 2177,
+      "m10_c": 1.03,
+      "m60_c": 2.3,
+      "share_up60": 0.564,
+      "share_down60": 0.201
+     },
+     "dark_new_high_joinerfree": {
+      "n": 1390,
+      "m10_c": 0.7,
+      "m60_c": 1.8,
+      "share_up60": 0.514,
+      "share_down60": 0.207
+     },
+     "dark_new_high_joined": {
+      "n": 787,
+      "m10_c": 1.62,
+      "m60_c": 3.19,
+      "share_up60": 0.653,
+      "share_down60": 0.191
+     },
+     "visible_new_high_joinerfree": {
+      "n": 163,
+      "m10_c": 3.54,
+      "m60_c": 5.1,
+      "share_up60": 0.822,
+      "share_down60": 0.11
+     },
+     "joined_share_dark": 0.362
+    },
+    "VALIDATE": {
+     "dark_new_high_all": {
+      "n": 2669,
+      "m10_c": 1.05,
+      "m60_c": 1.98,
+      "share_up60": 0.496,
+      "share_down60": 0.19
+     },
+     "dark_new_high_joinerfree": {
+      "n": 1708,
+      "m10_c": 0.85,
+      "m60_c": 1.89,
+      "share_up60": 0.489,
+      "share_down60": 0.186
+     },
+     "dark_new_high_joined": {
+      "n": 961,
+      "m10_c": 1.43,
+      "m60_c": 2.16,
+      "share_up60": 0.509,
+      "share_down60": 0.199
+     },
+     "visible_new_high_joinerfree": {
+      "n": 190,
+      "m10_c": 4.77,
+      "m60_c": 6.92,
+      "share_up60": 0.895,
+      "share_down60": 0.063
+     },
+     "joined_share_dark": 0.36
+    }
+   },
+   "verdict": "informed (+1.8-1.9c at 60 s)"
+  },
+  {
+   "name": "X211_dark_per_round_vs_kills",
+   "dimension": "kill_level_inround_state",
+   "definition": "Poisson count of dark new highs / V-changes per print-clock round on deaths, length offset",
+   "event": "bo3 round deaths",
+   "period": "BUILD+VALIDATE (descriptive)",
+   "result": {
+    "rounds": 412,
+    "mean_dark_new_high_per_round": 1.133,
+    "mean_all_vchanges_per_round": 4.352,
+    "n_dark~deaths": {
+     "deaths": {
+      "coef": -0.0478,
+      "se": 0.0261,
+      "p": 0.0668
+     }
+    },
+    "n_dark~winner_deaths+loser_deaths": {
+     "winner_deaths": {
+      "coef": -0.0492,
+      "se": 0.0508,
+      "p": 0.3327
+     },
+     "loser_deaths": {
+      "coef": -0.0457,
+      "se": 0.0515,
+      "p": 0.3752
+     }
+    },
+    "n_all~deaths": {
+     "deaths": {
+      "coef": -0.0669,
+      "se": 0.027,
+      "p": 0.0131
+     }
+    },
+    "n_all~winner_deaths+loser_deaths": {
+     "winner_deaths": {
+      "coef": -0.0849,
+      "se": 0.0377,
+      "p": 0.0244
+     },
+     "loser_deaths": {
+      "coef": -0.0403,
+      "se": 0.0376,
+      "p": 0.2831
+     }
+    }
+   },
+   "verdict": "no rise with kills (negative coefficients)"
+  },
+  {
+   "name": "X212_freeze_window_rate",
+   "dimension": "kill_level_inround_state",
+   "definition": "rate of informed dark moves / V-changes / visible takes 2-20 s after the print-anchored round end vs the action window",
+   "event": "print-anchored round end",
+   "period": "BUILD+VALIDATE (descriptive)",
+   "result": {
+    "rounds": 405,
+    "freeze_dark_nh": {
+     "n": 70,
+     "rate_per_min": 0.576,
+     "m60_c": 3.01,
+     "up": 0.586,
+     "down": 0.271
+    },
+    "action_dark_nh": {
+     "n": 350,
+     "rate_per_min": 0.493,
+     "m60_c": 2.73,
+     "up": 0.623,
+     "down": 0.309
+    },
+    "freeze_all": {
+     "n": 286,
+     "rate_per_min": 2.354
+    },
+    "action_all": {
+     "n": 1255,
+     "rate_per_min": 1.768
+    },
+    "freeze_visible": {
+     "n": 51,
+     "rate_per_min": 0.42
+    },
+    "action_visible": {
+     "n": 180,
+     "rate_per_min": 0.254
+    },
+    "ratio_freeze_over_action_dark_nh": 1.168,
+    "ratio_freeze_over_action_all": 1.331,
+    "ratio_freeze_over_action_visible": 1.654
+   },
+   "verdict": "no freeze-time refractory (ratios 1.17-1.65); clock-limited"
+  },
+  {
+   "name": "X160_freeze_window_direction",
+   "dimension": "round_results_bo3",
+   "definition": "direction of its moves in the 2-20 s after the anchored round end vs the previous winner and the new round's equipment advantage",
+   "event": "print-anchored round end",
+   "period": "BUILD+VALIDATE (descriptive)",
+   "result": {
+    "freeze_all": {
+     "n": 197,
+     "agree_prev_winner": 0.655,
+     "agree_equipment": 0.614,
+     "agree_round_winner": 0.589,
+     "agree_equipment_when_prev_disagrees": 0.375,
+     "n_prev_disagrees_eq": 32,
+     "logit": {
+      "prev": {
+       "coef": 0.591,
+       "p": 0.0289
+      },
+      "eq": {
+       "coef": 0.055,
+       "p": 0.8156
+      }
+     }
+    },
+    "freeze_dark_new_high": {
+     "n": 47,
+     "agree_prev_winner": 0.766,
+     "agree_equipment": 0.617,
+     "agree_round_winner": 0.617,
+     "agree_equipment_when_prev_disagrees": 0.0,
+     "n_prev_disagrees_eq": 7,
+     "logit": {
+      "prev": {
+       "coef": 12.628,
+       "p": NaN
+      },
+      "eq": {
+       "coef": -11.67,
+       "p": NaN
+      }
+     }
+    },
+    "freeze_visible_agree": {
+     "n": 36,
+     "agree_prev_winner": 0.694,
+     "agree_equipment": 0.639,
+     "agree_round_winner": 0.583,
+     "agree_equipment_when_prev_disagrees": 0.0,
+     "n_prev_disagrees_eq": 2,
+     "logit": {
+      "prev": {
+       "coef": 12.399,
+       "p": 0.0
+      },
+      "eq": {
+       "coef": -11.671,
+       "p": 0.0
+      }
+     }
+    },
+    "action_all": {
+     "n": 898,
+     "agree_prev_winner": 0.607,
+     "agree_equipment": 0.586,
+     "agree_round_winner": 0.6,
+     "agree_equipment_when_prev_disagrees": 0.434,
+     "n_prev_disagrees_eq": 145,
+     "logit": {
+      "prev": {
+       "coef": 0.366,
+       "p": 0.001
+      },
+      "eq": {
+       "coef": 0.101,
+       "p": 0.3753
+      }
+     }
+    },
+    "action_dark_new_high": {
+     "n": 245,
+     "agree_prev_winner": 0.727,
+     "agree_equipment": 0.665,
+     "agree_round_winner": 0.678,
+     "agree_equipment_when_prev_disagrees": 0.326,
+     "n_prev_disagrees_eq": 43,
+     "logit": {
+      "prev": {
+       "coef": 0.887,
+       "p": 0.0001
+      },
+      "eq": {
+       "coef": 0.166,
+       "p": 0.5043
+      }
+     }
+    },
+    "action_visible_agree": {
+     "n": 138,
+     "agree_prev_winner": 0.739,
+     "agree_equipment": 0.732,
+     "agree_round_winner": 0.645,
+     "agree_equipment_when_prev_disagrees": 0.478,
+     "n_prev_disagrees_eq": 23,
+     "logit": {
+      "prev": {
+       "coef": 0.694,
+       "p": 0.0214
+      },
+      "eq": {
+       "coef": 0.582,
+       "p": 0.0328
+      }
+     }
+    }
+   },
+   "verdict": "previous-round result, no economy effect"
+  },
+  {
+   "name": "X211_dark_mid_round_vs_round_winner",
+   "dimension": "kill_level_inround_state",
+   "definition": "direction of dark / visible mid-round decisions vs the current and previous round winners, print clock",
+   "event": "own V-change decision",
+   "period": "BUILD+VALIDATE (descriptive)",
+   "result": {
+    "dark_new_high_ALL": {
+     "n": 371,
+     "agree_cur": 0.69,
+     "agree_prev": 0.674,
+     "agree_cur_when_cur_ne_prev": 0.526,
+     "n_cur_ne_prev": 116,
+     "logit": {
+      "cur": {
+       "coef": 0.665,
+       "p": 0.0
+      },
+      "prev": {
+       "coef": 0.553,
+       "p": 0.0007
+      }
+     }
+    },
+    "dark_new_high_BUILD": {
+     "n": 133,
+     "agree_cur": 0.707,
+     "agree_prev": 0.707,
+     "agree_cur_when_cur_ne_prev": 0.5,
+     "n_cur_ne_prev": 30,
+     "logit": {
+      "cur": {
+       "coef": 0.643,
+       "p": 0.0124
+      },
+      "prev": {
+       "coef": 0.787,
+       "p": 0.0007
+      }
+     }
+    },
+    "dark_new_high_VALIDATE": {
+     "n": 238,
+     "agree_cur": 0.681,
+     "agree_prev": 0.655,
+     "agree_cur_when_cur_ne_prev": 0.535,
+     "n_cur_ne_prev": 86,
+     "logit": {
+      "cur": {
+       "coef": 0.663,
+       "p": 0.0
+      },
+      "prev": {
+       "coef": 0.509,
+       "p": 0.024
+      }
+     }
+    },
+    "dark_all_ALL": {
+     "n": 1105,
+     "agree_cur": 0.614,
+     "agree_prev": 0.582,
+     "agree_cur_when_cur_ne_prev": 0.547,
+     "n_cur_ne_prev": 373,
+     "logit": {
+      "cur": {
+       "coef": 0.398,
+       "p": 0.0
+      },
+      "prev": {
+       "coef": 0.21,
+       "p": 0.0004
+      }
+     }
+    },
+    "dark_all_BUILD": {
+     "n": 378,
+     "agree_cur": 0.616,
+     "agree_prev": 0.616,
+     "agree_cur_when_cur_ne_prev": 0.5,
+     "n_cur_ne_prev": 100,
+     "logit": {
+      "cur": {
+       "coef": 0.328,
+       "p": 0.0026
+      },
+      "prev": {
+       "coef": 0.331,
+       "p": 0.0001
+      }
+     }
+    },
+    "dark_all_VALIDATE": {
+     "n": 727,
+     "agree_cur": 0.612,
+     "agree_prev": 0.564,
+     "agree_cur_when_cur_ne_prev": 0.564,
+     "n_cur_ne_prev": 273,
+     "logit": {
+      "cur": {
+       "coef": 0.418,
+       "p": 0.0
+      },
+      "prev": {
+       "coef": 0.161,
+       "p": 0.0395
+      }
+     }
+    },
+    "visible_agree_ALL": {
+     "n": 241,
+     "agree_cur": 0.689,
+     "agree_prev": 0.68,
+     "agree_cur_when_cur_ne_prev": 0.513,
+     "n_cur_ne_prev": 76,
+     "logit": {
+      "cur": {
+       "coef": 0.64,
+       "p": 0.0003
+      },
+      "prev": {
+       "coef": 0.594,
+       "p": 0.0007
+      }
+     }
+    },
+    "visible_agree_BUILD": {
+     "n": 102,
+     "agree_cur": 0.765,
+     "agree_prev": 0.725,
+     "agree_cur_when_cur_ne_prev": 0.571,
+     "n_cur_ne_prev": 28,
+     "logit": {
+      "cur": {
+       "coef": 1.044,
+       "p": 0.0004
+      },
+      "prev": {
+       "coef": 0.676,
+       "p": 0.0411
+      }
+     }
+    },
+    "visible_agree_VALIDATE": {
+     "n": 139,
+     "agree_cur": 0.633,
+     "agree_prev": 0.647,
+     "agree_cur_when_cur_ne_prev": 0.479,
+     "n_cur_ne_prev": 48,
+     "logit": {
+      "cur": {
+       "coef": 0.366,
+       "p": 0.0813
+      },
+      "prev": {
+       "coef": 0.534,
+       "p": 0.0162
+      }
+     }
+    }
+   },
+   "verdict": "weak beyond the previous round's result (0.53-0.55 where the winner changes)"
   }
  ],
  "live_split_e3_note": "Live-only dimensions: the iteration-6 live split (BUILD-live 10-31 12-18, VALIDATE-live 11-01 06-12 and later development blocks) is kept (it predates the brief's default split)."
