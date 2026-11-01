@@ -143,4 +143,26 @@ def side_state_machine(mk: pd.DataFrame, buys: pd.DataFrame, w: pd.DataFrame, cl
     out["halves"] = {"first": acc(comp, h1), "second": acc(comp, ~h1)}
     out["branches"] = {"decided": acc(comp, dec), "entry": acc(comp, ~dec & (net == 0)), "after_schedule_held": acc(comp, ~dec & (net != 0) & ~(known & ~sched)),
                        "after_nonschedule_under": acc(comp, ~dec & (net != 0) & known & ~sched)}
+    # iteration 13 (reporting only; panel iter12 information C1/C4): the side per burst start, the quote-decision unit.
+    # A burst = consecutive cluster fills of one window on one outcome with block-second gaps < 3 s; its start is the
+    # first fill. Reported for every burst start and for starts after a gap of >= 30 s since the previous cluster fill.
+    try:
+        o_ = np.lexsort((D["ts"].to_numpy(), D["cid"].astype(str).to_numpy()))
+        cid_o = D["cid"].astype(str).to_numpy()[o_]
+        ts_o = D["ts"].to_numpy().astype(float)[o_]
+        up_o = D["is_up"].to_numpy()[o_]
+        same = np.r_[False, cid_o[1:] == cid_o[:-1]]
+        gap = np.r_[np.inf, np.diff(ts_o)]
+        gap[~same] = np.inf
+        chg = np.r_[True, up_o[1:] != up_o[:-1]] | ~same
+        bs = (gap >= 3) | chg
+        m_all = np.zeros(len(y), dtype=bool)
+        m_all[o_[bs]] = True
+        m_long = np.zeros(len(y), dtype=bool)
+        m_long[o_[bs & (gap >= 30)]] = True
+        keys = ("no_own_state", "posture", "cheaper", "composite_own_state", "own_history_prev_fill")
+        out["per_burst_start"] = {"n": int(m_all.sum()), **{k: acc(rules[k], m_all) for k in keys},
+                                  "gap_ge_30s": {"n": int(m_long.sum()), **{k: acc(rules[k], m_long) for k in keys}}}
+    except Exception as ex:  # noqa: BLE001
+        out["per_burst_start_error"] = repr(ex)[:200]
     return out

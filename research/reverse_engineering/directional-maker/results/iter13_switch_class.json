@@ -1,0 +1,80 @@
+{
+ "orders": 1406,
+ "post_found": 0.922475106685633,
+ "all": {
+  "n": 1406,
+  "post_found": 0.922475106685633,
+  "quote_move_share": 0.7262914417887433,
+  "age_median_s": 0.855,
+  "age_q75_s": 2.857,
+  "dist_below_touch_median": -0.020000000000000018
+ },
+ "continuation": {
+  "n": 1272,
+  "post_found": 0.9308176100628931,
+  "quote_move_share": 0.7263513513513513,
+  "age_median_s": 0.895,
+  "age_q75_s": 3.2272499999999997,
+  "dist_below_touch_median": -0.020000000000000018
+ },
+ "entry_run_start": {
+  "n": 23,
+  "post_found": 0.9130434782608695,
+  "quote_move_share": 0.8095238095238095,
+  "age_median_s": 0.731,
+  "age_q75_s": 1.137,
+  "dist_below_touch_median": -0.015
+ },
+ "switch": {
+  "n": 111,
+  "post_found": 0.8288288288288288,
+  "quote_move_share": 0.7065217391304348,
+  "age_median_s": 0.419,
+  "age_q75_s": 1.9297499999999999,
+  "dist_below_touch_median": -0.01999999999999999
+ },
+ "switch_by_class": {
+  "schedule": {
+   "n": 82,
+   "post_found": 0.8780487804878049,
+   "quote_move_share": 0.75,
+   "age_median_s": 0.3505,
+   "age_q75_s": 1.9035,
+   "dist_below_touch_median": -0.020000000000000018
+  },
+  "pairing": {
+   "n": 29,
+   "post_found": 0.6896551724137931,
+   "quote_move_share": 0.55,
+   "age_median_s": 0.6495,
+   "age_q75_s": 2.22175,
+   "dist_below_touch_median": -0.010000000000000009
+  }
+ },
+ "by_wallet": {
+  "momoney": {
+   "n": 524,
+   "post_found": 0.8816793893129771,
+   "quote_move_share": 0.7121212121212122,
+   "age_median_s": 0.891,
+   "age_q75_s": 3.1830000000000003,
+   "dist_below_touch_median": -0.020000000000000018
+  },
+  "almach": {
+   "n": 460,
+   "post_found": 0.9521739130434783,
+   "quote_move_share": 0.7465753424657534,
+   "age_median_s": 0.804,
+   "age_q75_s": 2.6647499999999997,
+   "dist_below_touch_median": -0.020000000000000018
+  },
+  "bosona": {
+   "n": 422,
+   "post_found": 0.9407582938388626,
+   "quote_move_share": 0.7204030226700252,
+   "age_median_s": 0.837,
+   "age_q75_s": 3.19,
+   "dist_below_touch_median": -0.020000000000000018
+  }
+ }
+}

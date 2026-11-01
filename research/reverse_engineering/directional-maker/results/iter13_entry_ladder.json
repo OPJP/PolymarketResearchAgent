@@ -1,0 +1,24 @@
+{
+ "windows": 24,
+ "with_adds_first30": 23,
+ "onesided_share_first30_q": [
+  0.524,
+  0.539,
+  0.582
+ ],
+ "share_windows_ge90pct_one_outcome_first30": 0.0,
+ "pre_first_fill_windows": 17,
+ "onesided_pre_first_fill_q": [
+  0.519,
+  0.556,
+  0.625
+ ],
+ "share_ge90pct_pre_first_fill": 0.0,
+ "dominant_outcome_is_first_fill_outcome": 0.3333333333333333,
+ "n_agree": 15,
+ "first_fill_time_in_window_q": [
+  7.4,
+  30.6,
+  72.1
+ ]
+}

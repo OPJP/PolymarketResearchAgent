@@ -1,0 +1,30 @@
+{
+ "all": {
+  "n": 1297,
+  "posture_at_post": 0.7247494217424827,
+  "cheaper_at_post": 0.5250578257517348,
+  "share_5m": 0.8481110254433307
+ },
+ "class_i_quote_move": {
+  "n": 942,
+  "posture_at_post": 0.8067940552016986,
+  "cheaper_at_post": 0.5615711252653928,
+  "share_5m": 0.8312101910828026
+ },
+ "class_ii_market_came": {
+  "n": 355,
+  "posture_at_post": 0.5070422535211268,
+  "cheaper_at_post": 0.428169014084507,
+  "share_5m": 0.8929577464788733
+ },
+ "class_pairing": {
+  "n": 85,
+  "posture_at_post": 0.7294117647058823,
+  "quote_move": 0.6823529411764706
+ },
+ "class_schedule": {
+  "n": 1212,
+  "posture_at_post": 0.7244224422442245,
+  "quote_move": 0.7293729372937293
+ }
+}

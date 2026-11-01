@@ -1,0 +1,94 @@
+{
+ "L1000": {
+  "momoney": {
+   "n": 462,
+   "class_i_share": 0.712,
+   "posture_all": 0.686,
+   "posture_class_i": 0.842,
+   "posture_class_ii": 0.301
+  },
+  "almach": {
+   "n": 438,
+   "class_i_share": 0.747,
+   "posture_all": 0.824,
+   "posture_class_i": 0.893,
+   "posture_class_ii": 0.622
+  },
+  "bosona": {
+   "n": 397,
+   "class_i_share": 0.72,
+   "posture_all": 0.809,
+   "posture_class_i": 0.892,
+   "posture_class_ii": 0.595
+  }
+ },
+ "L1250": {
+  "momoney": {
+   "n": 462,
+   "class_i_share": 0.712,
+   "posture_all": 0.639,
+   "posture_class_i": 0.772,
+   "posture_class_ii": 0.308
+  },
+  "almach": {
+   "n": 438,
+   "class_i_share": 0.747,
+   "posture_all": 0.797,
+   "posture_class_i": 0.853,
+   "posture_class_ii": 0.631
+  },
+  "bosona": {
+   "n": 397,
+   "class_i_share": 0.72,
+   "posture_all": 0.746,
+   "posture_class_i": 0.794,
+   "posture_class_ii": 0.622
+  }
+ },
+ "L1500": {
+  "momoney": {
+   "n": 462,
+   "class_i_share": 0.712,
+   "posture_all": 0.69,
+   "posture_class_i": 0.778,
+   "posture_class_ii": 0.474
+  },
+  "almach": {
+   "n": 438,
+   "class_i_share": 0.747,
+   "posture_all": 0.783,
+   "posture_class_i": 0.835,
+   "posture_class_ii": 0.631
+  },
+  "bosona": {
+   "n": 397,
+   "class_i_share": 0.72,
+   "posture_all": 0.698,
+   "posture_class_i": 0.745,
+   "posture_class_ii": 0.577
+  }
+ },
+ "L2000": {
+  "momoney": {
+   "n": 462,
+   "class_i_share": 0.712,
+   "posture_all": 0.639,
+   "posture_class_i": 0.714,
+   "posture_class_ii": 0.451
+  },
+  "almach": {
+   "n": 438,
+   "class_i_share": 0.747,
+   "posture_all": 0.79,
+   "posture_class_i": 0.81,
+   "posture_class_ii": 0.73
+  },
+  "bosona": {
+   "n": 397,
+   "class_i_share": 0.72,
+   "posture_all": 0.615,
+   "posture_class_i": 0.664,
+   "posture_class_ii": 0.486
+  }
+ }
+}

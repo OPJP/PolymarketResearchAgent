@@ -1,4 +1,49 @@
-# directional-maker: frozen rule R8 (iteration 12 = R7 + the window state-machine side)
+# directional-maker: frozen rule R8 (iteration 12 = R7 + the window state-machine side; iteration 13: unchanged, burst-start reporting added)
+
+**Iteration 13 (no frozen decision changed; R8 stays; one reporting block added).** `code/side_sm.py` now also reports the
+side per burst start (`side_state_machine.per_burst_start`, all starts and starts after a gap of >= 30 s; burst =
+consecutive cluster fills of one window on one outcome with block-second gaps < 3 s). Smoke test through `evaluate()` on
+the historical VALIDATE hour 10-29 12-13 reproduces iteration 12 (680 fills, public 0.678, own-state composite 0.825) and
+adds 121 burst starts (public 0.628, composite 0.785, previous-fill baseline 0.669; gap >= 30 s: 0.634 / 0.756 / 0.610).
+Lot per burst start (`code13/burst_side_lot.py`): public 0.539 STUDY / 0.637 VALIDATE (per fill 0.569 / 0.693), cheaper
+0.434 / 0.602, previous fill 0.735 / 0.712; after a gap >= 30 s: public 0.512 / 0.587 vs previous fill 0.534 / 0.522;
+window first bursts (entries) 0.619 / 0.725.
+What iteration 13 established about the components (details in NOTES, results/iter13_*.json):
+- **Side, decomposed on the exact live clock (10-31 14-18, VALIDATE-only):** 73% of fills are class (i), an order the
+  cluster posted at or above the touch a median 0.9 s before the fill, and 27% are class (ii), a resting order 2 c below
+  the touch that the market came down to. The Chainlink posture at the POST time decodes the class-(i) quote moves (0.81;
+  0.84 out of sample after 16:00) and is at chance on class (ii) (0.51), whose side follows the book's lean (book-only
+  0.72). Run switches are quote moves too (71%). The public side gap is therefore (a) the class-(ii) fills, which are the
+  takers' choice of which resting ladder to sweep, and (b) the block clock, which cannot see the post time.
+- **Version shift (VALIDATE-only, pre-registered stable sample 09-11..10-11):** in the most profitable stable weeks the
+  frozen functions decode less, not more: per-fill side 0.525 (09-11..25) with the cheaper token at 0.709, posture at
+  chance; presence gain over activity +0.020-0.022. The posture side rises week by week into October (0.475 -> 0.672)
+  while the return falls (11.2% -> -6.7% per $ on the sampled hours). The posture-skewed engine is the October
+  configuration, not the strategy's steady state.
+  Refitted on the panel's stable BUILD fold (08-14..09-10), the R3 class gains only +0.026 / +0.027 over activity on
+  STUDY-/VALIDATE-stable (0.721 / 0.731): the fill-level presence gap is intrinsic to this maker, not an October effect.
+- **Withdrawal (identified by the settlement switches, VALIDATE-only):** the cluster's last fill per window comes a
+  median 45 / 71.5 / 101 s before the end under spot / TWAP-30 / TWAP-60 settlement (07-31..08-20; 98.5 s in October),
+  about 43 s plus `twapLookbackSeconds`, adopted within 1-3 days of each listing change; the market keeps printing to
+  1-3 s before the end.
+- **Price of the pairing bid (not decoded):** the imbalance bids rest a median 11 c below the touch (at or above it in
+  10% of re-signs), track the latest public Chainlink report (stamp lag 1.25 s, no lead), and no law (fair cap, mid skew,
+  complement or cost lock, touch peg) puts more than 27% of re-sign prices within a tick. Only 19% of imbalance changes
+  get an exact-size pairing bid within 10 s, so "every unbalancing fill is followed by a bid for the missing shares" is
+  withdrawn.
+- **Wallet differences (VALIDATE-only):** mo-money's lower posture share comes from its resting rungs: 41% of its class-(ii)
+  fills were 500 rungs placed against the posture and still against when swept (almach 14%, bosona 19%); its quote moves
+  follow the posture like the others (0.84 vs 0.89). The raw match-time book lean (0.78) is the cluster's own resting
+  order; with the filled order removed the book adds about one point to the posture (X144).
+- **Lot replication of the fill classes (VALIDATE aggregate):** fills whose transaction also fills another maker at a better
+  level (the taker swept through, 8.6% of VALIDATE fills) score 0.50 on the public side against 0.71 for top-of-book fills.
+- **Outcome (X137):** pricing the replay's pairing leg at the tracer depth (0.11 below the last print) turns its locked
+  pairs from -$106k into +$225k on VALIDATE (+$111k STUDY), but the window correlation stays at 0.185 / 0.191, below the
+  frozen one-sided replay (0.207 / 0.218): the outcome gap is the main rung's execution, not the pairing price.
+- Rejected this iteration: online configuration from the previous development block (X143), the level-crossing switch
+  rule on the block clock (X136 step 2), the TWAP-60 reference (X134: wins on lot VALIDATE 0.707 vs 0.615 but loses on the
+  exact live clock 0.62 vs 0.81; not adopted).
+
 
 **Iteration 12 change (side component; counted part is public): R8-side.** The side of each BTC 5m maker fill is
 described by a window state machine (`code/side_sm.py`, reported by `evaluate()` as `side_state_machine` and
@@ -156,7 +201,8 @@ Quantitative account of what is still unexplained:
 
 It is a two-sided liquidity provider whose ladders hang off each market's Polymarket mid and are skewed toward the
 settlement source, the Chainlink BTC/USD report, re-priced the moment Polymarket's public relay publishes each report. It
-completes pairs: every own fill that leaves a window unbalanced is followed by a maker bid for exactly the missing shares on
+completes pairs with maker bids for exactly the missing shares (iteration 13: for only about a fifth of the imbalance
+changes, resting a median 11 c below the touch) on
 the other outcome. Its BTC 5m fills earn 2-4% of volume (BUILD +2.2% on $1.6M, VALIDATE +4.3%); maker and taker rebates and
 rewards add about a fifth of net PnL ($23.0k of $111.7k over 10-08..30, measured by the assumptions panel; BUILD maker
 rebates $14.5k against BTC 5m's $35k), and BTC 15m is near break-even before rebates (0.4% on $1.26M). Iteration 10 shows
@@ -172,6 +218,8 @@ PnL at only 0.21 / 0.22. What the cluster is paid for is being first at the touc
 the last trade and of each Chainlink report: the takers who buy one outcome (88% of its VALIDATE fills are complementary
 mints) fill its bid on the other at the touch; a slower copy only gets the trade-throughs, which are the adverse moves. Iteration 12 sharpens who pays: the maker-row tapes show the market's other makers keep a flat favourite share (0.50-0.51) while the cluster's own share of the underdog side rose from 1.5% to 2.6% of maker volume between the halves (its favourite-side share stayed 2.2%), and its deep loser bids captured 2.3-5.5% of the takers' >= 0.90 favourite buys from Monday 10-26 (0.2-0.4% before). Those longshot fills returned +13.5% on VALIDATE and -36.8% on STUDY (mechanics panel): it is paid by takers who pay 0.90-0.99 for near-certain favourites through complement mints, and by takers whose buys of its held outcome fill its imbalance bids at the touch.
 
+Iteration 13 adds the time dimension of the economics. On a pre-registered sample of the stable weeks (BTC 5m windows of the hours 02/08/14/20, 09-11..10-11) its maker fills earned +9.3% (09-11..25) and +7.4% (09-26..10-11) per dollar held to resolution, against +0.6% on the same hours of 10-12..22; in those profitable weeks it bought the cheaper token on 71% of fills (09-11..25) and its side did not follow the Chainlink posture (0.49). So the money of the stable version came from buying below the outcome probability on whichever side the takers sold, mostly the underdog by count and the favourite by dollars (assumptions panel F2), and the Chainlink-skewed quoting is the configuration that ran while the return fell. On the live block, the fills split into quote moves to the touch (73%, side = the Chainlink posture 0.81) and resting rungs about 2 c below the touch that the takers sweep (27%, side = the book's lean, not the posture): the second group is paid by takers who push one outcome down through several price levels in one block.
+
 ## Can a normal user deploy it now
 
 Not from the public-data rule. The tape-only version lost 12.8% under strict fills at 2-s latency in exam round 1. What it
@@ -181,6 +229,8 @@ re-prices within ~0.1 s of each publish and of Binance moves, capital for 500-sh
 connection receives the relay 0.12-0.35 s after its publish stamp and would be one of the slower makers this strategy
 profits from: expect zero or a loss without low latency. In the new Chainlink noise regime the strategy itself lost money
 on BTC 5m (10-31), and its operator switched BTC 5m off and restarted two of the three engines. Iteration 12: the three accounts have three different owner keys (a Safe for mo-money, ERC-1967 smart-wallet proxies for almach and bosona) whose fill sides move together; mo-money's owner has a Hyperliquid account with no fills in the 120 days before T0. A copy would also need the queue priority: replaying its own decoded pairing leg with strict fills turns the +$38k of locked pairs into a loss of $0.1-0.2M.
+
+Iteration 13: the configuration that earned 7-9% per dollar in September (module always on, underdog-heavy fills) is no longer what runs; the October configuration earned +0.6% per dollar on the October BUILD sample hours before rebates, and the operator updates the engine within 1-3 days of listing changes (the last-fill time moved from ~45 s to ~100 s before the end when the settlement switched to TWAP-60). A replicator would be copying a moving target whose current version earns little before rebates.
 
 ## Open leads (not part of the frozen rule)
 

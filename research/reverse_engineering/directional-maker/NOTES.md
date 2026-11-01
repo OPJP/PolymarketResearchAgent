@@ -3031,3 +3031,323 @@ public input predicts, each repeated ~8-10 times by same-side fill runs; the per
 of the two.
 
 **X116 addendum.** Second live development segment 10-31 17:29-18:00 (`results/iter12_quote_k_1793467740_1793469600.json`): BTC 15m ladder-center k 1.13 (700 s, 2 windows); BTC 5m had only 11 usable seconds (switched off at 16:53). Cache housekeeping: deleted agg_2026-10-26 / aggfut_2026-10-26 (iteration-4 one-day Binance reductions, regenerable) and it12/machine_windows_touch.parquet (its scored result stays in results/iter12_replay_machine_touch.json); the workspace cache is 1,510 MB. Shared live.py running at 03:04 UTC (not touched).
+
+## Iteration 13 (started 2026-11-01 03:40 UTC; 802 of 1,200 minutes used)
+
+Current block 11-01 00-06 is sealed; the next development block (11-01 06-12) starts after this iteration ends, so no
+new live development data is available this iteration. Development live data: 10-31 00-06 and 10-31 12-18 only.
+Recorders checked 03:43 UTC: examrec (dx_*), rtdsstream (dy_rtds), rtdsbn (dz_rtdsbn), famrec (dw/dx family books)
+running; X102 endpoint fetcher 27,120 / 46,610 done; shared live.py running (not touched).
+
+**Competing explanations (iteration 13) and the observation that separates them.**
+1. *Settlement-fair ladder (public law a).* At each pass the engine prices every rung of an outcome at
+   F_CL(k, lag) - h(tau, rung) and posts it unless it would cross; it is at an outcome's touch only when F - h >= the
+   touch. Separator: the uncensored tracer re-sign prices follow F_CL - h within a tick >= 60% with no own-state residual;
+   switches are level crossings of F_CL(under) - h into the touch.
+2. *Mid-anchored skew (public law b).* The quote is the ex-cluster mid plus a fraction beta of the Chainlink edge minus h.
+   Separator: beta well below 1 and a better tracer fit than (a); the quote follows the book, not the fair.
+3. *Pair lock (own-state law c/d).* The under-held ladder is priced to lock a pair: 1 - m - (held outcome's top rung in
+   the same pass) or 1 - m - held VWAP. Separator: tracer prices track the held side's rung (c) or are flat between own
+   fills (d); the pair sum is constant.
+4. *Touch peg (market-only law e).* touch - j ticks, j decreasing with time since the imbalance changed. Separator: the
+   tracer's distance to its own touch is a function of age only, not of any fair.
+5. *Private / faster reference (H8).* The engine sees the Chainlink report before the public RTDS relay. Separator:
+   tracer re-signs that move in the direction of the next report precede its RTDS publish ms.
+6. *Degraded October configuration (assumption panel).* The decision functions are stable and decodable in the Jun-Sep
+   version; October (the whole development lot) is a wind-down with competitors near the strike. Separator: R8's public
+   side, entry run and presence gain on 09-26..10-11 vs October with the same frozen functions.
+7. *Calibration maker (side as a by-product).* Profit is bid price below outcome probability on whichever outcome is
+   offered, largest in the tails; side is a consequence. Separator: per-bucket returns of fills vs the engine's fair;
+   the late-window lock-in fair at the settlement switches (08-07, 08-14).
+
+This iteration discriminates 1-5 with the tracer orders (new unit: the re-sign of a uniquely sized order, uncensored and
+wallet-attributed; new data: the full-depth raw book with exact size deltas), tests the level-crossing switch rule on
+the lot, and starts the data for 6 and the family settlement streams (I12-2).
+
+**X131 step 1 (I12-2): family settlement-stream recorder started (03:44 UTC).** `code13/rtdsfam.py` = `code7/rtdsstream.py`
+with KEEP = xrp/doge/bnb/hype and feed `dv_rtds` (Chainlink + TWAP-60 streaming updates with publish ms), hard stop
+11-03 00:00, disk cap 60 MB, detached (Start-Process). Its status counter shows writes within the first minute, so RTDS
+publishes at least one of those symbols; the current block is sealed, so the per-symbol check waits for 11-01 06:00.
+
+**X135 (mechanics P1): tracer orders (`code13/tracers.py`, `tracer_laws.py`, `tracer_lag_scan.py`, `tracer_own.py`,
+`tracer_touch.py`; results/iter13_tracer_*.json).** 10-31 14-18 dm_clob_raw (hour 14 cut by the corrupt gzip block): 619
+cluster maker BUY orders in the live calldata, 92 with non-schedule sizes, 57 with an exact-size chain before their fill,
+859 re-sign events (5m 683, 15m 176; momoney 416, almach 266, bosona 177). Split pre-registered: orders by fill time,
+earlier half FIT, later half TEST.
+- *Existence and size are own state, deterministic:* the tracer sits on the wallet's under-held outcome in 0.93 of
+  re-signs and its size equals the wallet's own |Up - Down| (data-api activity) exactly in 0.78 (the rest is the block-
+  second timing of the activity rows).
+- *Level: no law decodes it.* Within one tick on TEST: (a) fair cap min(F_own - h, ask - 0.01) 0.233 (h = -0.035);
+  (a2) h by time left 0.233; (b) mid skew 0.205 (beta 0.6); (c) complement lock vs the other outcome's same-pass top
+  rung 0.173 (coverage 20%); (d) cost lock 1 - VWAP_held - m 0.169; (a + d) 0.207; (e) touch peg 0.120, by age 0.158;
+  anchors: ex-tracer bid 0.193, bid - 0.01 0.270, last ex-cluster trade - 0.01 0.205. MAE 7-11 c for every law. The
+  pair cost at the re-sign (tracer + held VWAP) spreads 0.61-1.19 (q10-q90): not a lock at a margin.
+- *The reference is the latest public Chainlink report, with no lead:* the within-order Spearman correlation of the
+  re-sign price with the Chainlink digital peaks sharply at a stamp lag of 1,250 ms (0.54-0.56; 0.49 at 1,000 and 1,750
+  ms; 0.30 at 3,000 ms) and is 0.14-0.18 for future stamps (L < 0): the engine prices off the report already published
+  on the relay, not the next one (explanation 5, a private faster reference, is rejected at this resolution). The
+  multiplier is not identified by the order (k 0.7-1.4 within 0.02 of rho).
+- *Where it rests:* at or above its own ex-tracer touch in only 10% of re-signs; the median depth goes from -17 c
+  (edge F_own - touch < -0.3) to -5 c (edge > 0.3); at-touch AUC by the edge 0.69, by age 0.54. Even with the fair far
+  above the touch it joins the touch only 17-20% of the time. So the pairing bid is a deep passive bid whose depth
+  shrinks with the Chainlink edge, not a fair-capped bid at the touch.
+- *Per wallet (X138):* the fair-cap h fitted per wallet (almach 0.00, bosona 0.105, momoney -0.035) does not transfer
+  (TEST 0.11-0.24) and the pooled h does as well or better (bosona 0.31): no per-wallet parameter is identifiable from 57
+  orders.
+
+**X136 step 1 (mechanics P2): switches are mostly quote moves (`code13/switch_class.py`, results/iter13_switch_class.json).**
+1,406 cluster filled orders on 10-31 14-18; the post (latest exact-size add at exactly the order's limit before the
+fill) is found for 92%. Class (i) "the post was at or above the own touch" 0.73 of all fills (median age 0.86 s,
+q75 2.9 s); class (ii) "rested below the touch (median 2 c) until the market came to it" 0.27. Switch fills (first fill
+of every run after the first, n 111): class (i) 0.71 (schedule sizes 0.75, pairing 0.55), median age 0.42 s; entry-run
+starts 0.81. The panel's signature "(i) carries >= 70% of switches" holds (0.71): a switch is the cluster moving its
+quote to the other outcome's touch, not a taker sweep.
+
+**X130 (information I12-1, partial): the side residual is the class-(ii) fills (`code13/post_posture.py`,
+results/iter13_post_posture.json).** The Chainlink posture at the POST time (F_up at stamp lag 1,250 ms, 1.4 x 300-s vol,
+Gamma strike, vs the Up mid carried by the add's price_change row): class (i) quote moves 0.807 (942 fills; cheaper
+0.56), class (ii) resting orders reached by the market 0.507 (355 fills; chance), all 0.725. The posture decodes the
+quote moves; the fills of resting deep rungs follow the market's move into the ladder (taker choice), which no
+quote-side input can predict. (The match-clock posture scores 0.84 because the mid at the match already includes the move
+that brought the market to the resting rung.)
+
+**X143 (assumptions P4): online configuration rejected (`code13/online_config.py`, results/iter13_online_config.json).**
+Calendar emulated on the lot (sealed-pattern iff d + j odd). k (0.5-3.0) and the decided-window branch read from the most
+recent development-pattern block: per-fill gain over the frozen constants -0.007 on STUDY (0.593 vs 0.600; 2-h bootstrap
+95% [-0.090, 0.098]) and -0.010 on VALIDATE aggregate (0.697 vs 0.707; [-0.051, 0.027]); entry run +0.035 STUDY,
+-0.028 VALIDATE. The parameter swings do not persist at a 6-12-h horizon.
+
+**X140 (assumptions P1): the frozen functions on the stable profitable version (`code13/fetch_stable.py`,
+`code13/stable_score.py`, results/iter13_stable_score.json).** Pre-registered sample (written before any tape was read):
+every BTC 5m window starting in the UTC hours 02, 08, 14, 20 of 09-11..10-11 (1,488 windows, 2.28M taker rows,
+fetched in 12 min) plus the same hours of the October BUILD days 10-12..22 as a control (528 windows; tapes on disk).
+No refit: frozen R3 presence model and activity baseline (BUILD 10-09..26 fit, so the October control is IN-SAMPLE for
+the presence model), R8 public side with the Binance stand-in (no Chainlink history before ~10-01). 41,748 cluster maker
+BUY fills.
+
+| fold | windows | presence AUC | activity | gain | public side / fill | cheaper | entry run (public) | return / $ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| STUDY-stable 09-11..25 | 718 | 0.722 | 0.703 | +0.020 | 0.525 | **0.709** | 0.554 (cheaper 0.591) | +9.3% |
+| VALIDATE-stable 09-26..10-11 | 768 | 0.754 | 0.732 | +0.022 | 0.621 | 0.582 | 0.664 (cheaper 0.509) | +7.4% |
+| October control 10-12..22 | 528 | 0.815 (in-sample) | 0.776 | +0.039 | 0.666 | 0.452 | 0.679 | +0.6% |
+
+By week from 09-11: public side 0.475, 0.566, 0.594, 0.633, 0.672, 0.623 while the cheaper-token share falls 0.774, 0.634,
+0.645, 0.596, 0.500, 0.379 and the return goes 11.2%, 8.3%, 5.6%, 8.7%, 8.4%, -6.7%; presence gain 0.022, 0.020, 0.020,
+0.034, 0.027, 0.044 (activity baselines 0.694 -> 0.775). Per wallet within 0.02 in every fold. Active windows 91% in
+September (the module was always on), 64% in October.
+**Verdict: the assumption panel's hypothesis is falsified in its strong form.** The stable, most profitable version is
+LESS decodable by the frozen functions, not more: its fill side follows the cheaper token (0.71 per fill in 09-11..25)
+and the posture is at chance there (0.49); the presence gain over activity is +0.02. The Chainlink posture side grows
+week by week into October while the return falls. So the strategy changed configuration across September-October: a
+profitable underdog-heavy maker (by fill count; favourites by dollars, F2) became a posture-skewed maker. The October
+lot is not a degraded copy of a more decodable September; the side is a configuration-dependent by-product (explanation
+7), and the September side's only good description is the market-only cheaper-token baseline.
+
+**X139 (mechanics P5): the pairing bid is not posted for every imbalance change (`code13/pairing_process.py`,
+results/iter13_pairing_process.json).** 876 changes of a wallet's net position to a new nonzero value (10-31 14:00-16:53,
+activity block seconds): an add of exactly |Z| on the under-held side appears within [-3, +10] s of the block second
+for 18.7% (placebo |Z| + 0.37: 0.1%); latency median -1.7 s from the block stamp (about 0.3 s after the match), first
+add a median 11 c below the own touch (q10 -25 c, q90 0); no dependence on size (17-19%) or wallet (17-21%). When a
+tracer exists its size is the wallet's imbalance (X135: 0.78) and it sits on the under-held outcome (0.93), but most
+imbalance states get no exact-size pairing bid: the panel's signature (>= 90% within 1.5 s) fails, so the existence of
+the pairing order is not a deterministic function of the wallet's imbalance.
+
+**X134 (information I12-5): slow references, a conflict between the lot and the live clock (`code13/slow_ref.py`,
+`slow_ref_lag.py`, `post_posture_twap.py`; results/iter13_slow_ref*.json, iter13_post_posture_twap.json).** Lot fills
+with >= 20 endpoint grid values in the 60 s before b - 4 (X102 partial: 1,892 fills, 144 windows): STUDY 170 not-decided
+fills, 17 disagreements (9 windows): TWAP-60 wins 0.47 (too few). VALIDATE aggregate 1,261 fills: current-report posture
+0.615, TWAP-60 0.707, EWMA-30 0.673, EWMA-60 0.678, EWMA-10 0.606; in 275 disagreement fills (27 windows) TWAP-60 wins
+0.709 (US 0.72, off-session 0.69, 62/250 0.79, 500 0.81). The win holds against every stamp alignment of the current
+report (b - 0 .. b - 10: current 0.54-0.67 vs TWAP-60 0.69-0.76), so it is not a block-clock misalignment. **But on the
+live exact clock (10-31 14-18, posts)** the current report wins decisively: quote moves 0.807 vs TWAP-60 0.620 /
+EWMA-30 0.623; in 334 disagreement posts (18 windows) TWAP-60 wins 0.24. Not adopted: STUDY cannot confirm it and the
+exact-clock sample rejects it; re-test when X102 completes (STUDY coverage) and on the 11-01 / 11-02 development blocks
+(dy_rtds records the TWAP-60 topic).
+
+**X130 (I12-1) book race at the decision unit (`code13/post_book.py`, results/iter13_post_book.json).** The Up book just
+before each post's price_change message (1,293 posts of filled orders, 10-31 14-18; fit on posts before 16:00, test
+after; logistic on standardised inputs): all posts: Chainlink posture sign 0.730, Chainlink-only logistic 0.755, book-only
+(microprice - mid, top-of-book and 3-tick depth imbalance) 0.628, both 0.775. Class (i) quote moves (338 test): posture
+sign 0.843, Chainlink-only 0.808, book-only 0.657, both 0.831. Class (ii) resting fills (159 test): posture 0.49, book-only
+0.717, both 0.742 (microprice coefficient negative: the outcome whose book leans to the sell side is the one swept into the
+resting ladder). The book adds about +0.02 to the Chainlink model on the quote moves and carries the class-(ii) fills;
+the panel's signature (book term >= +0.10, side >= 0.80 in both sessions) is not met. A side rule with a book term would
+have to be stated against a market-only baseline that includes the same book term.
+
+**X138 / X76: per-wallet lag from tracers (`code13/tracer_lag_wallet.py`, results/iter13_tracer_lag_wallet.json).** Peak of
+the within-order rank correlation by stamp lag: bosona 1,000 ms (order bootstrap q10-q90 1,000-1,750), mo-money 1,250
+(1,000-1,500), almach 2,000 (1,000-2,000), pooled 1,250 (1,000-1,500). Same order as iteration 9 (bosona 1,083, almach
+1,432); mo-money is not the slowest, so its posture deficit is not a slower feed. The intervals overlap; with 15-23
+orders per wallet no per-wallet parameter is significant.
+
+**X136 step 2: the level-crossing rule fails historically (`code13/level_cross.py`, results/iter13_level_cross.json).** Lot
+fills after entry (not decided, cluster position != 0; block clock): predict the under-held outcome when F_CL(u) - h >=
+mid(u) - 0.01, else the held one; h chosen on STUDY = 0.15 (edge of the grid, 0.664 vs held 0.690). VALIDATE aggregate:
+0.695 per fill (held 0.667, posture 0.645, previous fill 0.932); at the first fill of later runs (1,144): 0.267 (posture
+0.557, held 0.218). The rule degenerates to the held outcome; the panel's signature (later runs >= 0.70) fails. With
+step 1 (switches are 71% quote moves and the quote moves follow the posture 0.81-0.84 at the post), the historical
+failure is the block clock: the post time and the touch at the post are not observable on the lot.
+
+**X142 (assumptions P3): the settlement switches identify the withdrawal rule (`code13/fetch_switch.py`,
+`switch_score.py`, `withdraw_time.py`; results/iter13_switch_score.json, iter13_withdraw_time.json).** Pre-registered
+sample: BTC 5m windows of the UTC hours 02/08/14/20 of 07-31..08-20 (1,007 windows; regime from each window's own
+listing: spot 335, TWAP-30 336, TWAP-60 336; 23,285 cluster maker BUY fills).
+- *Withdrawal, with the market as control:* median seconds left at the cluster's last fill per window 45 (spot), 71.5
+  (TWAP-30), 101 (TWAP-60); the market's last clean print stays at 1-3 s left in every regime. Over the same sample
+  hours the median is 85 s in 09-11..10-11 and 98.5 s in 10-12..22. So the cluster stops filling about 43 s + the
+  settlement lookback before the end (43 / 73 / 103 predicted, 45 / 71.5 / 101 observed), and the market does not. The
+  dollar share in the last 30 s fell for both (cluster 0.160 / 0.164 / 0.062, market 0.165 / 0.134 / 0.057), so that
+  part is market-wide. By day the shift is gradual: 08-07..08 still 42-56 s, 08-10..13 48-95 s, 08-14..16 61-95 s,
+  08-17 onward 106-140 s: an operator update within 1-3 days of each listing change, not a same-minute switch.
+- *Late fair (fills with 0 < end - ts <= 90 s; Binance-consistent strikes, 1.4 x 300-s vol):* the fill prices are
+  closest to the regime's own fair (MAD spot 0.142 in the spot week; TWAP-30 0.172 in the TWAP-30 week; TWAP-60 0.295
+  in the TWAP-60 week; best fair per window spot 75% / TWAP-30 37% (spot 44%) / TWAP-60 45%). Since the cluster fills at
+  the touch this mostly shows that the market prices the settlement rule. The cluster-specific signal is weak: the
+  share of late fills with a positive edge is 0.58 / 0.52 / 0.72 and in the TWAP-60 week it is the same under all three
+  fairs (0.716-0.721), so the edge criterion cannot tell the fair forms apart.
+- *Verdict:* the withdrawal time is decoded with identification (a listing field, `twapLookbackSeconds`, plus ~43 s,
+  adopted by the operator within days); the late-window fair form is not identified beyond the market's own pricing.
+
+**Side per burst start (reporting added to `code/side_sm.py`; `code13/burst_side_lot.py`, results/iter13_burst_side_lot.json).**
+Lot, block clock, bursts = consecutive cluster fills of one window on one outcome with block-second gaps < 3 s: public R8
+side per burst start 0.539 STUDY (2,525 starts) / 0.637 VALIDATE (7,313) against per fill 0.569 / 0.693; cheaper 0.434 /
+0.602; previous fill 0.735 / 0.712. By gap since the previous cluster fill: 3-10 s public 0.529 / 0.653 (previous 0.893 /
+0.874), 10-30 s 0.500 / 0.620 (0.769 / 0.737), >= 30 s 0.512 / 0.587 (0.534 / 0.522). Window first bursts 0.619 / 0.725.
+`evaluate()` smoke test on the historical VALIDATE hour 10-29 12-13 (`code13/smoke_r8_burst.py`): unchanged per-fill numbers
+(680 fills, public 0.678, composite 0.825) plus `per_burst_start` (121 starts: public 0.628, composite 0.785, previous 0.669).
+
+**X141 (assumptions P2): a cohort of entrant makers took a sixth of the maker volume across the boundary
+(`code13/fetch_makers_stable.py`, `x141_makers.py`; results/iter13_x141_makers.json).** Maker-row tapes of the stable
+sample (1,487 windows, 09-11..10-11; 6.6M rows) + the iteration-12 sample from 10-12 (912 windows; lot VALIDATE days only
+as weekly aggregates). Entrants = makers with < 0.2% of maker BUY dollars in 09-11..19 and >= 1% in a later week (17
+wallets). Their share of maker BUY dollars near the strike (0.40-0.60) by week from 09-11: 0.7%, 1.6%, 4.9%, 7.6%, 11.1%,
+16.2%, 13.9%, 14.6% (tails 0.5% -> 15.5%: the entry is not specific to the strike). The cluster's own share near the
+strike 1.9%, 3.0%, 3.1%, 3.6%, 2.5%, 2.1%, 1.8%; its near-strike return held to resolution +12.7%, +9.7%, -13.8%, -3.0%,
++8.4%, -34.2%, -4.8%, (+11.2% partial week). Spearman of entrant share and cluster near-strike return: over 8 weeks
+-0.48 (p 0.23), over 719 windows -0.03 (p 0.47); entrants are active before almost every cluster fill from week 1, so the
+with/without split is uninformative. Verdict: the competitive entry is real and large (17 new makers, ~15% of maker
+volume by October), it coincides with the falling return, but the per-window markout does not depend on their presence;
+the panel's signature (window Spearman <= -0.3) fails. Entrants listed in the result file for a follow-up (speed,
+quote placement near the touch, signing-time lag to the RTDS publish).
+
+**Match-time book race (`code13/match_book.py`, results/iter13_match_book.json) and a caution.** At the match time (Up book
+just before the fill's trade, 10-31 14-18; fit before 16:00, test after, 570 test fills): Chainlink posture sign 0.775,
+Chainlink-only 0.768, book-only 0.784 (top-of-book imbalance coefficient +1.41), both 0.782; class (i) 0.84 / 0.831 /
+0.846; per wallet (both) momoney 0.72, almach 0.88, bosona 0.77. The book at the match contains the cluster's own resting
+order, often the touch itself, so its lean is an own-quote oracle, not market information: not a public side rule. The
+post-time race (book before the post, X130) is the valid one, and there the book adds only +0.02.
+
+## Iteration-13 checkpoint
+- Primary metric (historical VALIDATE 10-27..30, BTC 5m 10-s fill presence AUC, no own state): unchanged at **0.716**
+  (activity 0.684). R8 stays frozen; no decision changed; `side_sm.py` reports the side per burst start (reporting only,
+  smoke-tested). target_metrics unchanged (union presence 0.788 / 0.780; selection 0.685 / 29.5% / 2.87; side 0.693 /
+  0.679; price 0.803; pnl 0.207 / 0.218; coverage 0.868 / 0.891).
+- Paradigm (pivot): the uncensored quote and the decision at its post time. New unit: the re-sign of a uniquely sized
+  order (tracer) and the post of every filled order (quote move vs resting rung). New data: tracer chains and post times
+  from the full-depth book; 3,500 more windows of tapes from July-October (stable version, settlement switches, maker rows
+  across the September -> October boundary); the family settlement-stream recorder (dv_rtds).
+- What it showed, in one paragraph: the cluster's quote moves (73% of live fills) follow the latest public Chainlink
+  report (posture 0.81 at the post; tracer re-signs peak at a 1.25-s stamp lag, no lead), and the rest of its fills are
+  resting rungs that the takers sweep (posture at chance, book lean 0.72). The deep pairing bids are not decoded (no
+  law > 0.27 within a tick) and exist for only a fifth of imbalance changes. The withdrawal time is decoded with an
+  intervention (about 43 s + twapLookbackSeconds before the end). The profitable stable version (September) is not a
+  more decodable version of October: its side followed the cheaper token and its presence gain was +0.02 (+0.026-0.027
+  with the R3 class refitted on its own BUILD fold), while 17 entrant makers grew from 1% to ~15% of maker volume and
+  the posture-skewed configuration took over. The strict replay with the pairing leg at the tracer depth makes the
+  locked pairs profitable (+$225k VALIDATE) but does not raise the window correlation (0.185 < 0.207).
+- Closed: X76, X91, X94, X105, X128, X130, X135, X136, X137, X138, X139, X140, X141, X142, X143, X144 (own). Open (32):
+  X9, X41, X57, X59, X61, X62, X67, X71, X75, X83, X87, X89, X90, X95, X99, X101-X104, X107, X112, X113, X116, X118,
+  X119, X121, X123, X131 (step 1 done), X132, X133, X134 (conflict), X145 (own, new).
+- Cache: `.cache/re/directional-maker` at ~1,506 MB after deleting the iteration-13 tapes (re-fetchable with
+  `code13/fetch_stable.py` / `fetch_switch.py`, which skip existing files; the HTTP cache holds the responses), the raw
+  maker-row files (compacted to `it13/makers_entrants_cluster.parquet`, 266k rows) and two unreferenced iteration-4 spot
+  files. The successor should prune ~10-50 MB more if it adds data.
+
+**Next steps (iteration 14; the next development blocks are 11-01 06-12, then 11-01 18-24 and 11-02 00-06).**
+1. 11-01 06-12 is an off-session development block with a full-depth recording (`code8/delayed_rawrec.py`, dm_* feeds;
+   check that its disk cap of 280 MB over all dm_* files does not stop it early): replicate X135 (tracer lag and laws),
+   X136 step 1 (post classes) and the post-time posture (0.81 on quote moves?) on the 62/250 ladder. Freeze the post-time
+   decomposition before reading it.
+2. Mo-money's stale-rung test (X91 follow-up): for class-(ii) fills, the time since the last posture flip at the post
+   and at the fill, and per-wallet cancel latency from the raw book; the book term (X144) adds only ~1 point once the
+   filled order is removed, so do not build the side on it.
+3. X131: check `dv_rtds` per symbol at 06:00 (development); score the posture side per family on `dw_clob` with it;
+   compute per-block scope of the family universe.
+4. X134: when X102 completes (~10:00) re-run `code13/slow_ref.py` (STUDY coverage) and the live TWAP-60 race on 06-12.
+5. X145: schedule a full-depth recorder (new feed prefix, every size delta within 0.15 of the touch, hard stop, < 300 MB)
+   for 11-01 18-24 and 11-02 00-06.
+6. X141 follow-up: who are the 17 entrants (signing-time lag to the RTDS publish from calldata; placement at the touch);
+   X132 (ms clock of burst starts with futures aggTrades) and X133 (aggregate delta) remain open.
+
+**X144 step 0: the match-time book lean is the cluster's own order (`code13/match_book.py --exclude-own`,
+results/iter13_match_book_exown.json).** Removing only the filled order's own size from its level before computing the
+book features: book-only falls from 0.784 to 0.663 on the test half (class (i) 0.831 -> 0.725, class (ii) 0.742 -> 0.566);
+Chainlink + book 0.784 vs Chainlink-only 0.770 (+0.014). Most of the raw match-time book signal was the cluster's own
+resting order; what is left adds about one point to the posture.
+
+**X91 / X94: mo-money's posture deficit is in its resting-rung fills, not its quote moves (`code13/wallet_class.py`,
+results/iter13_wallet_class.json).** Posture at the post time (stamp lag 1,000 ms, the best lag for all three wallets on
+this measure): class (i) quote moves momoney 0.842, almach 0.893, bosona 0.892 (shares of class (i) 0.71 / 0.75 / 0.72);
+class (ii) resting fills momoney **0.301**, almach 0.622, bosona 0.595 (mostly 500 schedule rungs 2 c below the touch:
+momoney 124 schedule + 9 pairing). So mo-money's resting 500s are filled on the anti-posture outcome 70% of the time,
+twice as often as the other wallets'. Lead for iteration 14: are they stale rungs it fails to cancel after a posture flip
+(time since the last flip at post vs fill; cancel latency per wallet from the raw book)?
+
+**X91 follow-up: mo-money's anti-posture resting rungs are placed, not stale (`code13/stale_rungs.py`,
+results/iter13_stale_rungs.json).** Class-(ii) fills by the posture at the post and at the fill (stamp lag 1,000 ms; the
+mid at the fill implied by the order being at the touch): posted with the posture and filled after a flip (stale) momoney
+7.5%, almach 7.2%, bosona 4.5%; **posted against the posture and still against at the fill: momoney 40.6%, almach 13.5%,
+bosona 18.9%**; posted against and filled once the posture moved in their favour 22-29% for all three. Class (i) is alike
+across wallets (with the posture throughout 0.77 / 0.85 / 0.84). So mo-money keeps resting 500 rungs about 2 c below the
+touch on the anti-posture outcome two to three times as often as the other wallets, and takers sweep them: a ladder
+placement difference, not a slower cancel or a different reference.
+
+**X128 (own): the opening 500 ladder is two-sided (`code13/entry_ladder.py`, results/iter13_entry_ladder.json).** BTC 5m
+windows of 10-31 14:00-16:50 (24): exact 500/1000 adds within 0.20 of the touch in the first 30 s split evenly between
+the outcomes (dominant share median 0.54, no window >= 0.9); in the 10 s before the window's first cluster fill also even
+(median 0.56; 17 windows) and the outcome with more adds is the first fill's outcome in only 5 of 15. Caveat: exact-500
+adds include other makers' orders. The entry is not a one-sided opening ladder; which outcome fills first is decided by
+which ladder reaches the touch (the class-(i) quote moves follow the posture 0.81-0.89).
+
+**X137 (mechanics P3): the pairing leg at the tracer depth (`code13/replay_pair_depth.py`, results/iter13_replay_pair_depth.json).**
+The iteration-12 full-machine strict replay (lot BTC 5m, L = 2 s, slack 2, trade-through) with the pairing bid at last
+clean print - 0.01 - depth. Main = posture, VALIDATE aggregate (STUDY in brackets): no pairing (R7's replay) window corr
+0.207 / 0.218 [0.033 / 0.070], PnL -$216k; pairing at the market (depth 0, iteration 12) -0.016 / -0.002, PnL -$466k,
+locked -$106k; depth 0.05: 0.147 / 0.123, locked +$135k; **depth 0.11 (tracer median): 0.185 / 0.191, PnL -$341k, locked
++$225k [+$111k]** (cluster: PnL +$23.7k, locked +$38.1k). Main = held: depth 0.11 0.127 / 0.166. The tracer depth turns
+the replay's locked pairs from a loss into a gain on both halves (the panel's first signature holds), but the window
+correlation stays below the one-sided replay (0.185 vs 0.207) and the total PnL stays far negative: the missing piece of
+the outcome is the main rung's execution (queue position and the sub-second re-pricing), not the pairing price.
+
+**Historical replication of the fill classes on the lot (`code13/sweep_lot.py`, results/iter13_sweep_lot.json).** Proxy for
+class (ii) on the block clock: a cluster fill whose transaction also fills another maker at a strictly better Up-book
+price on the same side (the taker swept through a better level first). Sweep share 12.8% STUDY / 8.6% VALIDATE. Public R8
+side on top fills 0.586 / 0.711 vs sweep fills 0.455 / 0.501 (cheaper 0.50 / 0.70 vs 0.38 / 0.45); the same contrast in
+every wallet. So on the lot too the swept resting rungs are at chance while the top-of-book fills carry the posture; the
+remaining gap of the top fills (0.71 vs 0.81-0.84 live) is the block clock.
+
+**X140 limitation (for the auditors).** The stable-version test scored the FROZEN October functions; the panel's refit design
+(BUILD 08-14..09-10 for a stable-version presence model and side rule, STUDY 09-11..25, VALIDATE 09-26..10-11) was not run,
+so "less decodable" means "less decodable by the October rule". A refit needs taker tapes for 08-14..09-10 (same
+pre-registered hours; `code13/fetch_stable.py` with other dates, ~10 min) and the R3 feature build on them; the
+cheaper-token share (0.71 per fill in 09-11..25, 0.77 in its first week) is the first candidate side rule for that
+version.
+
+**Tool bug (not polyrea; reported, not fixed): `research/reverse_engineering/tools/live.py` `iter_live`** catches `EOFError`
+and `OSError` but not `zlib.error`: `.cache/live/dev/dm_clob_raw/20261031T14.jsonl.gz` raises "Error -3 ... invalid block
+type" part-way and aborts any iterator spanning that hour (confirmed this iteration; the code13 readers wrap each hour and
+catch `zlib.error`, so 14:00 is read up to the corrupt block).
+
+**X140 refit, the panel's pre-registered folds (`code13/fetch_stable_build.py`, `code13/stable_refit.py`,
+results/iter13_stable_refit.json).** BUILD-stable 08-14..09-10 (1,313 windows of the same hours, 2.39M taker rows) -> the
+R3 model class (final_rule FEATS rule / activity, train2 PARAMS, 300 rounds) refitted there: STUDY-stable 0.721 vs
+activity 0.695 (gain +0.026), VALIDATE-stable 0.731 vs 0.704 (+0.027); the frozen October model on the same panels
+0.722 / 0.703 and 0.754 / 0.732. Per wallet 0.714-0.735 vs 0.689-0.707. Bin-level side of the refitted score 0.639 /
+0.589 (activity 0.571 / 0.554), i.e. mostly the cheaper token (favourite at the last print 0.36 / 0.46). So with its
+own fit the stable version is exactly as (un)decodable as October by this model class (gain +0.03): the panel's "if
+false" branch holds, over 15 weeks of the most profitable configuration. The fill-level presence gap is intrinsic to a
+two-sided maker whose fills are joint outcomes with the takers, not a by-product of the October regime.
+
+Recorders at 05:02 UTC: rtdsfam (dv_rtds) writing (pid 25172), examrec / rtdsstream / rtdsbn / famrec running, the
+X102 endpoint fetcher running, the delayed full-depth recorder waiting for 05:55; shared live.py running (not touched).
+(Iteration 13 ended 2026-11-01 05:06 UTC, about 86 minutes.)
