@@ -1,0 +1,61 @@
+{
+ "dev_rates_cs2_nongrid_by_tier": {
+  "3": 0.909,
+  "4": 0.51,
+  "5": 0.056
+ },
+ "h1": {
+  "events_cs2": 184,
+  "events_dota": 29,
+  "expected_positives_excl_big": 30.8,
+  "big_nongrid_tier12_events": 18,
+  "base_rate_range": [
+   0.145,
+   0.222
+  ],
+  "lift_ceiling_range": [
+   4.51,
+   6.91
+  ],
+  "precision_needed_for_lift3": [
+   0.434,
+   0.665
+  ]
+ },
+ "h2": {
+  "events_cs2": 165,
+  "events_dota": 31,
+  "expected_positives_excl_big": 29.4,
+  "big_nongrid_tier12_events": 21,
+  "base_rate_range": [
+   0.15,
+   0.247
+  ],
+  "lift_ceiling_range": [
+   4.04,
+   6.67
+  ],
+  "precision_needed_for_lift3": [
+   0.45,
+   0.742
+  ]
+ },
+ "fwd": {
+  "events_cs2": 109,
+  "events_dota": 15,
+  "expected_positives_excl_big": 15.6,
+  "big_nongrid_tier12_events": 14,
+  "base_rate_range": [
+   0.126,
+   0.228
+  ],
+  "lift_ceiling_range": [
+   4.38,
+   7.95
+  ],
+  "precision_needed_for_lift3": [
+   0.377,
+   0.685
+  ]
+ }
+}

@@ -1,0 +1,80 @@
+{
+ "messages_with_msg_orders": 2706,
+ "map1": {
+  "n": 180,
+  "slope_match_on_map": 0.397,
+  "corr": 0.477,
+  "same_sign_share": 0.778,
+  "ratio_median": 0.5
+ },
+ "map2": {
+  "n": 301,
+  "slope_match_on_map": 0.285,
+  "corr": 0.411,
+  "same_sign_share": 0.744,
+  "ratio_median": 0.4
+ },
+ "map3": {
+  "n": 5,
+  "slope_match_on_map": 1.204,
+  "corr": 0.77,
+  "same_sign_share": 1.0,
+  "ratio_median": 0.444
+ },
+ "within_event_permutation_null": {
+  "map1": {
+   "n": 180,
+   "obs_same_sign": 0.778,
+   "null_same_sign_mean_p95": [
+    0.557,
+    0.611
+   ],
+   "obs_corr": 0.477,
+   "null_corr_mean_p95": [
+    0.189,
+    0.305
+   ],
+   "p_corr": 0.0
+  },
+  "map2": {
+   "n": 301,
+   "obs_same_sign": 0.744,
+   "null_same_sign_mean_p95": [
+    0.523,
+    0.565
+   ],
+   "obs_corr": 0.411,
+   "null_corr_mean_p95": [
+    0.055,
+    0.151
+   ],
+   "p_corr": 0.0
+  }
+ },
+ "by_split": {
+  "BUILD_map1": {
+   "n": 82,
+   "same_sign": 0.829,
+   "corr": 0.479,
+   "ratio_median": 0.608
+  },
+  "BUILD_map2": {
+   "n": 138,
+   "same_sign": 0.754,
+   "corr": 0.487,
+   "ratio_median": 0.5
+  },
+  "VALIDATE_map1": {
+   "n": 98,
+   "same_sign": 0.735,
+   "corr": 0.48,
+   "ratio_median": 0.444
+  },
+  "VALIDATE_map2": {
+   "n": 163,
+   "same_sign": 0.736,
+   "corr": 0.369,
+   "ratio_median": 0.299
+  }
+ }
+}

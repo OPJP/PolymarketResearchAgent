@@ -11,6 +11,49 @@ Wallet TommyLeePeeca `0x0063b23cdeb43166d6c0246c05baaf9b9bd72dd2`.
   set is the same recipe refitted on all development data before H, and `evaluate()` uses it by default.
 - Nothing here is exam-verified. The rule does not meet the high-accuracy target: price and outcome fail, and presence
   stays below its baseline (selection carries the presence-or-selection condition; scope passes).
+- Iteration 10 changed no rule component (v5 stays frozen); it added the decoded exit band, the pre-registered treatment
+  of the exam lots' PGL Masters stratum, and quantified why price and outcome are out of reach of public data.
+
+## What iteration 10 established (no rule change)
+
+- **PGL Masters is the exam lots' only non-GRID tier-1/2 stratum, and v5 treats it by coverage** (listing projection;
+  pre-registered before any exam). h1 holds 18 PGL Masters events and h2 21; development had none (every development
+  tier-1/2 CS2 event was GRID-flagged). The league first appears on 10-24, an h2 day, so every h1 PGL Masters event has
+  an earlier event of the league within 72 h. v5 then decides each event by gp72 (group-P prints in those earlier
+  events, which the examiner counts): about 0.40 at gp72 = 0 (not selected; threshold 0.472), 0.57 at 1 and 0.66 at 2
+  (selected). The organiser's lower-tier league PGL was traded 9 of 13 in development, and non-GRID traded rates rise
+  as the tier number falls (tier 5 0.06, tier 4 0.51, tier 3 0.91). Residual risk: if the wallet trades PGL Masters
+  but group P does not print in the earlier events, h1 recall falls to about 0.45. h1's expected base rate is
+  0.145-0.222, so the lift ceiling (4.5-6.9) does not bind.
+- **Exit band.** All 25,878 of its orders (maker bids and taker limits) lie in [0.05, 0.95], while 10% of the public
+  makers' bids in the same markets lie outside: a client constant. It bids the eventual loser down to that floor
+  without an earlier stop.
+- **The message re-pricing is event-locked.** On P4e's messages the wallet signs before, or less than 20 ms after, the
+  fastest co-receiver maker (0xed446954, +18 ms) on 33% of shared messages (a book reaction needs >= 20-30 ms). The two
+  lags correlate -0.48, and the wallet's lag is the same with and without any faster maker's order. It is not copying
+  a faster maker's book move.
+- **The feed carries events, not a price.** Across 501 messages with two or more takers on the same token, the
+  receivers' limit premiums over the stale print share little (ICC 0.28-0.43 after receiver fixed effects; a broadcast
+  price would give >= 0.8). Each receiver values the raw events with its own model.
+- **Its add level is its own information.** Measured from 100 ms after the add, its level predicts the others' mid
+  (Spearman 0.24 at 10 s, 0.36 in quiet books) far better than every subscriber-like maker class (5-share 0.10,
+  10-share 0.08, 20-share 0.13; quiet books <= 0.10).
+- **One valuation per event.** On the same feed message, its re-pricing of the match market follows its re-pricing of
+  the current map market at about the BO3 series sensitivity (median ratio 0.50 on map 1, 0.40 on map 2; same sign
+  0.78 / 0.74 against a within-event permutation null of 0.56 / 0.52). Its maker leg prices every market of the event
+  from one model of the game, as its taker leg does. That reduces the price unknown to its map value, which is the
+  private value itself.
+- **The price gap is everywhere, not at messages.** 71% of its filled maker orders are signed more than 5 s after any
+  message or own take, and even these sit within one tick of the last print only 37.5% of the time (54% of its own
+  previous level). Message phase explains 4% of the offset at the true clock. Own-state persistence is the best
+  historical anchor (0.500; 0.72 within 2 s of its previous order on the token).
+- **The outcome item needs its +50-ms take timing.** With its real taker leg, a replay of its own maker orders
+  correlates 0.87 / 0.80 with its per-market PnL (VALIDATE). With the taker moved to its earliest public trace, even
+  that oracle maker leg reaches at most 0.60 / 0.44 (BUILD 0.46 / 0.50), and every executable public set stays at or
+  below 0.33 / 0.21.
+- **New source.** Thunderpick's in-play odds, relayed key-free by bo3.gg's live index, are recorded from 11-01 03:59 UTC
+  (`tommy_tp_odds`). Tests (a)-(f) and verdicts are pre-registered (NOTES iteration 10). This is the only external
+  in-play price obtained so far.
 
 ## What iteration 9 established (v5: the selection score adds group-P coverage; nothing else in the rule changed)
 
@@ -223,7 +266,7 @@ order-level fill engine, a census of informed bursts) and found:
 | Price (maker, live, frozen) | `live_price` (re-frozen in iteration 7, before any VALIDATE-live record): primary = the touch, i.e. the full-book best bid on the order's token at sign - 100 ms (LIVE_PRICE_PRIMARY "touch"). Secondary = the join: others' best bid with the size-labelled own levels removed, min with 0.99 - own top on the other token (LIVE_VIEW_MS 100, PAIR_CAP 0.99). | hypothesis (BUILD-live only) | 10-31 block, 172 filled maker orders: touch 0.471, join 0.424 (0.419 with the calldata-validated label), last trade 0.187. The whole 12-18 block through `evaluate()` (328 orders, early books from the shared recorder): touch 0.280, join 0.256. To be scored on VALIDATE-live (11-01 06-12 on) and by the future-block examiner. |
 | Price (taker) | FAK at the stale ask + a premium that grows with the expected repricing (0-5c), kept below the post-event price; match-leg premium = map-leg premium x series sensitivity. | VALIDATE-only (premium-move relation); hypothesis as a rule | Controlled OLS: +0.87c of 10-s move per 1c of premium (p 7e-11, VALIDATE). Caps (1000 / 2000 shares) carry little of it. |
 | Size | Maker: 100 shares in CS2. In 36% of events an event-wide size starts at 50-96 (median 54) and steps up monotonically to 100. Exactly 10 shares in Dota 2 (1,292 of 1,292 orders). Taker: odd sizes about 0.3x of the pre-event depth up to its limit; 1000 / 2000 caps early and fading. | VALIDATE-only (maker 100 / 10 and the ramp's shape); hypothesis (ramp clock, taker) | CS2 100 shares: 92.1% (BUILD), 88.3% (VALIDATE). No global (a, b) schedule (0-4% of non-100 within one share). Start size vs pre-game USD: Spearman 0.55. |
-| Exit | Never sells. Pulls the complement at its takes and re-pairs it through bids posted 1.04 s later, which slower informed takers fill. Between takes it pulls the bids of the team about to lose value on private events (untriggered pulls: -0.6c others'-mid markout in 10 s). Merges complete pairs in a 300-s loop (minimum 100 shares) and holds the residual. (The iteration-6 public-wave follower is withdrawn: an artefact of the size label.) | VALIDATE-only (pairs, merge law); hypothesis (untriggered pulls, BUILD-live) | Pair cost 0.978, reproduced by the validated engine on its own orders (0.975). In bursts it misses, its complement is hit in 19-22% (-1.5 to -3.2c markouts). A public ladder 4c below the stale touch reaches 0.978 but loses $13.4k per split on its residual. |
+| Exit | Never sells. Pulls the complement at its takes and re-pairs it through bids posted 1.04 s later, which slower informed takers fill. Between takes it pulls the bids of the team about to lose value on private events (untriggered pulls: -0.6c others'-mid markout in 10 s). Merges complete pairs in a 300-s loop (minimum 100 shares) and holds the residual. Hard price band: it never bids below 0.05 or above 0.95, and it keeps bidding a collapsing team down to that floor (no earlier stop). (The iteration-6 public-wave follower is withdrawn: an artefact of the size label.) | VALIDATE-only (pairs, merge law, band); hypothesis (untriggered pulls, BUILD-live) | Pair cost 0.978, reproduced by the validated engine on its own orders (0.975). In bursts it misses, its complement is hit in 19-22% (-1.5 to -3.2c markouts). A public ladder 4c below the stale touch reaches 0.978 but loses $13.4k per split on its residual. Band (iteration 10): 0 of 25,878 orders outside [0.05, 0.95] against 10.0% of public maker BUYs; last fill on the eventual loser p50 0.11, minimum <= 0.06 in 24% of markets; the band does not repair public replays (D 0.245 / 0.087 with it, 0.245 / 0.089 without). |
 
 ## Target metrics on VALIDATE (`state.json` `target_metrics`; v5, build constants)
 
@@ -305,6 +348,10 @@ order-level fill engine, a census of informed bursts) and found:
   esports push product of raw in-round events, tiered by tournament, without GRID's exclusive events.
 - **Expected edge without the feed:** negative. Iteration 9 measured it on the validated engine: a continuous public
   ladder at the revealed others' best bid loses 1.9-3.2%, the same windows as the wallet's at the public anchor 2.3-4.5%.
+- **Public-lag copying of its takes does not rescue it (iteration 10).** Re-executing each of its takes at its
+  earliest public trace (the block of its own take, prices up to its limit plus 2c) refills only 22-34% of its shares,
+  and combined with the public ladder the per-market result tracks the wallet at 0.33 / 0.21 at best. Its edge is the
+  50-ms position in the feed's fan-out, which a replicator cannot buy on the open market (vendor unidentified).
 - **Dota 2 only:** Valve publishes the spectator-clock game state key-free (4-s snapshots); the feed's Dota messages sit
   on that clock, so a replicator could in principle time Dota events from public data a few seconds behind the feed.
   Whether that is fast enough against the 1-s in-play delay is the pre-registered X118 test.
@@ -329,5 +376,11 @@ order-level fill engine, a census of informed bursts) and found:
   - Twitch VOD chat (X53), bo3 demo ticks (X37) and HLTV page checks (X64) need the user.
 - **The maker quote.** Its resting presence is not a public function (probe AUC 0.67), and the price is anchored
   within one tick only right after its takes.
+- **Iteration 10 account.** Price: the best public anchor on the historical record is the last print (0.305 within
+  one tick, VALIDATE), the best own-state anchor its previous level (0.500), the touch on live adds 0.47; the offset
+  from any public value (SD 6.0c) is not message phase (R^2 0.04), not a shared receiver value (ICC <= 0.43), not a
+  faster maker's book move (event-locked), not public tape or game state. Outcome: reachable only with the +50-ms take
+  timing (0.87 / 0.80 with it; at most 0.60 / 0.44 without it, executable <= 0.33 / 0.21). The only untested external
+  candidate for the private value is an in-play bookmaker price (Thunderpick, recording).
 - **The outcome target.** Its residual control depends on the private leg: the maker leg alone settles at 0.38 /
   0.34 against the target 0.5, an activity-only pseudo-PnL at 0.51 / 0.37.

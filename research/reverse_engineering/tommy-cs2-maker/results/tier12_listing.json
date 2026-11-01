@@ -1,0 +1,218 @@
+{
+ "tables_known_leagues": {
+  "cs2": 22,
+  "dota2": 5
+ },
+ "cs2_fwd": {
+  "events": 14,
+  "by_league": {
+   "BLAST Rivals": {
+    "events": 4,
+    "tier": [
+     "1"
+    ],
+    "known_to_table": false,
+    "gp72_zero_by_construction": 1
+   },
+   "IEM": {
+    "events": 8,
+    "tier": [
+     "1"
+    ],
+    "known_to_table": false,
+    "gp72_zero_by_construction": 2
+   },
+   "PGL Masters": {
+    "events": 2,
+    "tier": [
+     "2"
+    ],
+    "known_to_table": false,
+    "gp72_zero_by_construction": 0
+   }
+  }
+ },
+ "cs2_h1": {
+  "events": 18,
+  "by_league": {
+   "PGL Masters": {
+    "events": 18,
+    "tier": [
+     "2"
+    ],
+    "known_to_table": false,
+    "gp72_zero_by_construction": 0
+   }
+  }
+ },
+ "cs2_h2": {
+  "events": 21,
+  "by_league": {
+   "PGL Masters": {
+    "events": 21,
+    "tier": [
+     "2"
+    ],
+    "known_to_table": false,
+    "gp72_zero_by_construction": 1
+   }
+  }
+ },
+ "dota2_dev": {
+  "events": 4,
+  "by_league": {
+   "PARI Universe": {
+    "events": 4,
+    "tier": [
+     "2"
+    ],
+    "known_to_table": true,
+    "gp72_zero_by_construction": 1
+   }
+  }
+ },
+ "dota2_fwd": {
+  "events": 4,
+  "by_league": {
+   "PARI Universe": {
+    "events": 4,
+    "tier": [
+     "2"
+    ],
+    "known_to_table": true,
+    "gp72_zero_by_construction": 0
+   }
+  }
+ },
+ "dota2_h1": {
+  "events": 15,
+  "by_league": {
+   "PARI Universe": {
+    "events": 15,
+    "tier": [
+     "2"
+    ],
+    "known_to_table": true,
+    "gp72_zero_by_construction": 0
+   }
+  }
+ },
+ "dota2_h2": {
+  "events": 15,
+  "by_league": {
+   "PARI Universe": {
+    "events": 15,
+    "tier": [
+     "2"
+    ],
+    "known_to_table": true,
+    "gp72_zero_by_construction": 0
+   }
+  }
+ },
+ "cs2_lot_mix": {
+  "dev": {
+   "events": 432,
+   "grid": 143,
+   "nongrid_by_tier": {
+    "5": 168,
+    "4": 96,
+    "3": 25
+   },
+   "grid_by_tier": {
+    "5": 90,
+    "4": 43,
+    "2": 10
+   }
+  },
+  "fwd": {
+   "events": 109,
+   "grid": 19,
+   "nongrid_by_tier": {
+    "5": 60,
+    "4": 16,
+    "1": 12,
+    "2": 2
+   },
+   "grid_by_tier": {
+    "4": 13,
+    "5": 6
+   }
+  },
+  "h1": {
+   "events": 184,
+   "grid": 80,
+   "nongrid_by_tier": {
+    "5": 62,
+    "2": 18,
+    "4": 16,
+    "3": 8
+   },
+   "grid_by_tier": {
+    "4": 44,
+    "5": 36
+   }
+  },
+  "h2": {
+   "events": 165,
+   "grid": 62,
+   "nongrid_by_tier": {
+    "5": 60,
+    "2": 21,
+    "4": 16,
+    "3": 6
+   },
+   "grid_by_tier": {
+    "4": 34,
+    "5": 28
+   }
+  }
+ },
+ "dota2_lot_mix": {
+  "dev": {
+   "events": 93,
+   "grid": 72,
+   "nongrid_by_tier": {
+    "5": 14,
+    "2": 4,
+    "4": 3
+   },
+   "grid_by_tier": {
+    "4": 56,
+    "5": 16
+   }
+  },
+  "fwd": {
+   "events": 15,
+   "grid": 0,
+   "nongrid_by_tier": {
+    "5": 7,
+    "4": 4,
+    "2": 4
+   },
+   "grid_by_tier": {}
+  },
+  "h1": {
+   "events": 29,
+   "grid": 7,
+   "nongrid_by_tier": {
+    "2": 15,
+    "5": 7
+   },
+   "grid_by_tier": {
+    "4": 7
+   }
+  },
+  "h2": {
+   "events": 31,
+   "grid": 4,
+   "nongrid_by_tier": {
+    "2": 15,
+    "5": 12
+   },
+   "grid_by_tier": {
+    "4": 4
+   }
+  }
+ }
+}

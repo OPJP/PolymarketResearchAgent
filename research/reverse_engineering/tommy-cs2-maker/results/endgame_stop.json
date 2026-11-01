@@ -1,0 +1,90 @@
+{
+ "BUILD": {
+  "markets": 113,
+  "with_loser_maker_fills": 113,
+  "loser_public_reaches_0.10": 1.0,
+  "loser_public_reaches_0.05": 1.0,
+  "w_last_loser_fill_px_p10_p50_p90": [
+   0.05,
+   0.1,
+   0.22
+  ],
+  "w_min_loser_px_p10_p50_p90": [
+   0.05,
+   0.09,
+   0.168
+  ],
+  "share_markets_w_min_px_le_0.06": 0.248,
+  "share_loser_shares_bought_le_0.10": 0.058,
+  "share_loser_shares_after_public_0.25": 0.445,
+  "share_loser_shares_after_public_0.10": 0.129,
+  "usd_on_loser_after_public_0.10": 11316.1,
+  "w_last_fill_minus_t10_s_p10_p50_p90": [
+   -218.6,
+   76.0,
+   1624.0
+  ],
+  "share_w_fills_after_t10": 0.584,
+  "w_share_of_public_buy_after_t10": 0.118,
+  "corr_resid_pnl": [
+   0.458,
+   0.33,
+   113
+  ],
+  "corr_margin_pnl": [
+   0.852,
+   0.661,
+   113
+  ],
+  "corr_resid_vs_usd_after_t10": [
+   -0.202,
+   -0.265,
+   113
+  ],
+  "resid_sum": -4539.7
+ },
+ "VALIDATE": {
+  "markets": 107,
+  "with_loser_maker_fills": 107,
+  "loser_public_reaches_0.10": 1.0,
+  "loser_public_reaches_0.05": 1.0,
+  "w_last_loser_fill_px_p10_p50_p90": [
+   0.05,
+   0.11,
+   0.31
+  ],
+  "w_min_loser_px_p10_p50_p90": [
+   0.05,
+   0.09,
+   0.212
+  ],
+  "share_markets_w_min_px_le_0.06": 0.243,
+  "share_loser_shares_bought_le_0.10": 0.043,
+  "share_loser_shares_after_public_0.25": 0.48,
+  "share_loser_shares_after_public_0.10": 0.148,
+  "usd_on_loser_after_public_0.10": 19396.7,
+  "w_last_fill_minus_t10_s_p10_p50_p90": [
+   -347.4,
+   94.0,
+   1942.0
+  ],
+  "share_w_fills_after_t10": 0.57,
+  "w_share_of_public_buy_after_t10": 0.134,
+  "corr_resid_pnl": [
+   0.438,
+   0.416,
+   107
+  ],
+  "corr_margin_pnl": [
+   0.824,
+   0.751,
+   107
+  ],
+  "corr_resid_vs_usd_after_t10": [
+   -0.177,
+   -0.031,
+   107
+  ],
+  "resid_sum": -3792.5
+ }
+}

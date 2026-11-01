@@ -1,4 +1,11 @@
-"""tommy-cs2-maker frozen rule v5 (`tommy-v5-grid-league-dota-groupP`, iteration 9, 2026-11-01) = v4 with the selection score
+"""Iteration-10 note (2026-11-01; no functional change, v5 stays frozen): (1) exit band decoded: the wallet never bids
+below 0.05 or above 0.95 (0 of 25,878 orders outside, 10% of public makers' bids are); (2) pre-registered treatment of the
+exam lots' only non-GRID tier-1/2 stratum (PGL Masters, h1 18 / h2 21 events, never in development): unchanged v5, i.e.
+gp72 decides each event by group-P prints in earlier PGL Masters events (counted by the examiner with ALLOW_SEALED);
+(3) the outcome item needs the wallet's +50-ms take timing (NOTES iteration 10, finding 2), so pnl_corr_* stays low by
+construction for every public rule.
+
+tommy-cs2-maker frozen rule v5 (`tommy-v5-grid-league-dota-groupP`, iteration 9, 2026-11-01) = v4 with the selection score
 combined with group-P coverage (X127, adopted under the criterion pre-registered in NOTES iteration 9): score =
 logistic(a * logit(v4 score) + b * log1p(gp72) + c), gp72 = distinct members of group P (P4e, 0x2005d16a and the slow trio,
 fixed on BUILD; final_rule_v5_groupP.json) with a public taker print in another event of the same league that started in

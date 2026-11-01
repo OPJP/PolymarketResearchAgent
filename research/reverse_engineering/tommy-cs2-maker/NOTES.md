@@ -3021,3 +3021,268 @@ selection feature rebuilt on the right feed product (group P).
     makers cancel within 8 ms after its alone takes, before its order or its own pull (+11-19 ms) can be visible: the
     alone takes' messages reach other makers too (one feed, kind filter at the takers), weakly and with a possible
     residue of unlabelled own pulls; the co-signed class has no power. Repeat on VALIDATE-live (runbook above).
+
+# Iteration 10 (2026-11-01, started 03:44 UTC; 642 of 1200 budget minutes used before it)
+
+Read first: NOTES (iterations 1-9), state.json, FINAL_RULE.md, panels/iter9_{information,mechanics,assumptions}.md. No
+EXAM or wall-audit files. Calendar: no released lots; the whole iteration runs in the SEALED block 11-01 00-06 (next
+development block 11-01 06-12), so no new development live data arrive during it. Shared recorder status OK at 03:45 UTC
+(current block sealed, pid 27184). The 12 iteration-9 panel proposals become X132-X143: information P1-P4 = X132-X135,
+mechanics P1-P4 = X136-X139, assumptions P1-P4 = X140-X143.
+
+**Pivot (required: iterations 8 and 9 each moved the primary metric by < 0.01).** New unit of decision and new data:
+(1) the MESSAGE x token unit on the full on-chain order record (message ledger, cascade lock, receiver ICC), instead of
+fills, bins or adds; (2) taker-side knockouts in the validated engine as a feasibility bound for the outcome item;
+(3) a new external information class never obtained before, an in-play bookmaker price (Thunderpick odds relayed
+key-free by bo3.gg's live index), recorded from this iteration on.
+
+## Competing explanations (iteration 10) and the observation that separates them
+1. **E1 own model on its own feed:** the maker's level is the wallet's own valuation of Feed P's raw events, re-priced
+   at ~+51 ms on the messages; nobody else shares the level. Separator: event-locked timing (no dependence on faster
+   co-receivers), low cross-receiver ICC beyond the stale print, its level more informative than every subscriber-class
+   maker's.
+2. **E2 book-cascade follower (mechanics P1):** its re-pricing reacts in 10-20 ms to the fastest co-receiver maker
+   (0xed446954 at +14 ms), so the price input is public on the live book. Separator: the wallet never signs before the
+   leader + sign-to-book; its lag tracks the leader's message by message.
+3. **E3 broadcast fair-price product (mechanics P4):** the vendor pushes a value; every receiver quotes / takes around it
+   with its own margin. Separator: within-message ICC of receivers' premiums >= 0.8 beyond the stale print.
+4. **E4 external in-play bookmaker price (information P2):** it quotes p_ext - margin; Polymarket follows p_ext.
+   Separator: p_TP leads the mid; SD(burst top - p_TP) <= 1.5c (recorder started; test on VALIDATE-live).
+5. **E5 event-hazard spread (information P3):** the offset from value is set by message phase / intensity.
+   Separator: R^2 of the offset on phase variables at the TRUE message clock >= 0.4.
+6. **E6 mechanical ladder between messages (mechanics P2):** V moves only at messages by a fixed step; quiet orders are
+   mechanical. Separator: quiet-class orders >= 0.6 within one tick; dV clustered.
+7. **E7 the outcome item is reachable at public lag (mechanics P3):** a lagged copy of the take + complement pairs
+   keeps the per-market variation. Separator: F (oracle maker + taker delayed to its first public trace) >= 0.5.
+8. **E8 (unlikely) the endgame stop / band drives the residual (assumptions P2):** a replay with the wallet's band and
+   stop reproduces its residual. Separator: band replays and the loser-collapse description.
+9. **E9 (selection) Feed P covers big non-GRID events vs a tier boundary (assumptions P1).** Separator: listing
+   strata of h1 / h2, organiser analogues, the gp72 mechanics.
+
+## Findings (iteration 10); numbers in results/*.json, code in code/iter10/
+1. **The wallet's message re-pricing is EVENT-locked, not leader-locked (X136, mechanics P1; `cascade_lock.py`,
+   `cascade_lock.json`).** 3,674 P4e messages (16-22 Oct). The wallet has a filled maker order signed within 150 ms on
+   446; any of the six fastest co-receiver makers has a filled order signed >= 20 ms before the wallet's on only 6.1% of
+   them. Against 0xed446954 (n 21 shared messages; leader median +18 ms, wallet +51 ms): wallet minus leader p10 / p50
+   / p90 = -23 / +35 / +56 ms, the wallet signs FIRST on 14% and less than 20 ms after the leader on 33% (a book
+   reaction needs >= ~20-30 ms), raw lag correlation -0.48 (slope -0.43; leader-locking predicts ~+1). Its TAKES against
+   0xed446954's re-pricing (n 27): first on 22%, < 20 ms on 41%, corr -0.04. Against 0x2005d16a (maker, n 19): first on
+   26%, < 20 ms on 63%. Its lag is the same with a leader order (p50 51 ms) and without any (53 ms, n 355). The
+   panel's 'signature if false' holds: the private value is its own, on its own feed. (Censoring: filled orders only;
+   the re-estimated-message slope is not reported because subtracting one noisy message time from both lags induces
+   correlation.) 0xed446954: 8,325 orders, 74 takes, signature type 3, USDC-sized odd sizes, only 0.4% of its maker
+   orders filled by P4e (the wallet's 5.2%): the fastest maker receiver of Feed P, not a wallet sibling by sizes.
+2. **Outcome feasibility bound: the item needs the wallet's take timing itself (X138, mechanics P3; `outcome_bound.py`,
+   `outcome_bound*.json`).** Per market (229; legs from chain fills; A / D from the validated engine of iteration 9):
+
+   | Set (Pearson / Spearman vs the wallet's per-market PnL) | BUILD (113) | VALIDATE (116) |
+   | --- | --- | --- |
+   | real maker leg + real taker leg (sanity) | 0.98 / 0.95 | 0.98 / 0.97 |
+   | real maker leg alone / real taker leg alone | 0.39 / 0.50, 0.17 / -0.06 | 0.38 / 0.34, 0.13 / 0.14 |
+   | E = engine replay of its own maker orders (A) + real taker leg | 0.89 / 0.68 | 0.87 / 0.80 |
+   | F = A + taker delayed to block + 1 s (prints <= its limit; 12.8% of shares refilled) | 0.36 / 0.47 | 0.43 / 0.39 |
+   | F at the take's own block (lag 0; 21.6% refilled) / lag 0 and +2c tolerance (33.6%) | 0.44 / 0.45, 0.46 / 0.50 | 0.60 / 0.40, 0.60 / 0.44 |
+   | G = public-anchor ladder (D) + real taker leg | 0.28 / 0.04 | 0.33 / 0.29 |
+   | H = D + delayed taker (fully executable): block + 1 s / lag 0 / lag 0 + 2c | 0.07 / 0.13, 0.08 / 0.05, 0.08 / 0.06 | 0.22 / 0.10, 0.33 / 0.16, 0.33 / 0.21 |
+
+   The legs correlate -0.84 to -0.87 per market; the maker leg carries 74-82% of the PnL variance (covariance share),
+   the taker leg 27-32%. With the real (+50-ms) taker leg even a perfect maker replay passes (0.87 / 0.80); with the
+   taker leg moved to its earliest public trace, the ORACLE maker leg still fails one coefficient on each split (best
+   0.60 / 0.44 VALIDATE, 0.46 / 0.50 BUILD), and every executable public set stays at 0.33 / 0.21 or below. 'Signature
+   if false': the outcome item needs the +50-ms take timing (the private feed), so it is a quantified wall item, and the
+   maker-price search is not justified by the outcome item alone.
+3. **The price gap is not localized in the message class; dV is not a fixed step (X137, mechanics P2;
+   `message_ledger.py`, `message_ledger.json`, rows in `.cache/re/tommy-cs2-maker/ledger_rows_iter10.parquet`).**
+   Wallet-independent message clock (P4e + 0x2005d16a + the trio with their lags removed, merged within 50 ms): 6,628
+   messages. 24,180 filled maker orders by class (VALIDATE; BUILD similar):
+
+   | Class | Share of orders | Share of maker PnL | Within one tick: last print / own previous level on the token / K - own complement level |
+   | --- | --- | --- | --- |
+   | quiet (> 5 s after any message or own take) | 0.706 | 0.56 | 0.375 / 0.543 / 0.315 |
+   | follow (0.15-5 s) | 0.215 | 0.26 | 0.166 / 0.404 / 0.186 |
+   | msg (0-150 ms after a message) | 0.037 | -0.03 | 0.167 / 0.451 / 0.104 |
+   | repair (0.9-1.2 s after its own take) | 0.037 | 0.19 | 0.077 / 0.321 / 0.114 |
+   | own_msg (0-150 ms after its own take) | 0.005 | 0.02 | 0.286 / 0.403 / 0.194 |
+   | all | 1.0 | 1.0 | 0.305 / 0.500 / 0.271 |
+
+   Offsets from the last print: quiet -8 / -1 / +4c (p10 / p50 / p90), msg -13 / -6 / +1c. At messages its new level
+   on the hurt token moves by a median -3c (p10 -10c, p90 0c; 588 same-market orders; siblings -3c, 349), on the helped
+   token -1c (107); dV = 0 in only 4-6%. Quiet orders reach 0.38 (public) / 0.54 (own state), below the panel's 0.6:
+   the ladder between messages is not mechanical either. Own-state persistence (the previous own level on the token)
+   is the best anchor found on the historical record (0.500 on VALIDATE and BUILD), reported as own state only.
+4. **Message phase does not set the offset (X134, information P3 ceiling; `offset_phase.py`, `offset_phase.json`).**
+   Offset from the last print on class, log time since the last message, log time since its own take, messages in the
+   last 5 / 30 s and price level, at the TRUE message clock (a ceiling, not point-in-time): R^2 0.071 BUILD / 0.043
+   VALIDATE (LightGBM 0.037), within one tick 0.281 vs the last print's 0.306; offset SD 6.0c, residual 5.9c. The
+   ceiling fails (needed: R^2 >= 0.4, +0.10 within one tick), so the point-in-time echo step was not run.
+5. **Receivers do not share a value beyond the stale print: an event feed, not a price feed (X139, mechanics P4;
+   `receiver_icc.py`, `receiver_icc.json`).** 501 P4e messages with >= 2 receivers' FAK BUYs on the same token in
+   [-100, +900] ms (1,370 limits; P4e, the wallet, 0x2005d16a, the trio, 11 group-G members). ICC(1) of premiums
+   (limit - last print): raw 0.15-0.17; after receiver fixed effects (BUILD medians) 0.43 BUILD / 0.28 VALIDATE / 0.35
+   pooled; raw limits 0.75-0.77 (the shared price level). Within-message spread of adjusted premiums median 3c, p90
+   11-21c; all receivers within 1c on 21-28% of messages. Receiver premiums: wallet 3c, P4e 5c, trio 4-5c, most of group
+   G 7-11c, two group-G members +45c / +56c (marketable limits). The panel's threshold for a price feed (>= 0.8) is far
+   off: each receiver prices the raw events with its own model.
+6. **Its add level is more informative than every subscriber-like maker class (X135, information P4;
+   `subscriber_makers.py`, `subscriber_makers.json`; BUILD-live, moves measured from +100 ms, so the concurrent window is
+   excluded).** Spearman(offset from the others' mid, others'-mid move at 2 / 10 / 30 s): wallet 0.31 / 0.24 / 0.18 (2,740
+   adds), in books quiet for 1 s before 0.47 / 0.36 / 0.29 (328); 5-share adds (trio-like) 0.14 / 0.10 / 0.07 (quiet
+   0.03 / 0.02 / 0.01); 10-share (group-G-like) 0.11 / 0.08 / 0.03 (quiet 0.09 / 0.10 / 0.01); 20-share
+   (0x2e3c40fa-like) 0.14 / 0.13 / 0.09; other sizes 0.14 / 0.10 / 0.05. Fill-selected comparisons stay within
+   selection (linked others 0.34 at 10 s, n 618; the wallet's linked adds 0.64, iteration-9 panel; 0x51dbdd2b, a cascade
+   member at +91 ms, 0.49). Signature C (unique value): its 10-s Spearman >= 0.24 (0.36 quiet) against <= 0.13 (<= 0.10
+   quiet) for every subscriber-like class; the edge is not merely its position in the fan-out.
+7. **The GRID x tier stratum of the exam lots is one league, PGL Masters, and v5 already treats it by coverage (X140,
+   assumptions P1; `tier12_listing.py`, `tier12_listing.json`, listing projection `listing_proj_iter10.parquet`).**
+   - Development CS2 has no non-GRID tier-1/2 event (GRID tier 1/2: Thunderpick World Championship 14, ESL Pro League 2).
+   - h1: 18 non-GRID tier-2 CS2 events, all `PGL Masters` (10-24..10-31, never in development, unknown to the v2 table);
+     h2: 21; the first PGL Masters event is on 10-24 (an h2 day), so every h1 PGL Masters event has an earlier event of
+     the league within 72 h (gp72 = 0 by construction for 0 of 18 in h1, 1 of 21 in h2).
+   - Forward: IEM (tier 1, 8 events on 11-02 02:00-09:30; 4 start in the development block 11-02 00-06) and BLAST
+     Rivals (tier 1, 4 events on 11-11), GRID key not attached yet. PGL Masters' two 10-31 events lie in a sealed block.
+   - Analogues: the organiser's lower-tier league `PGL` (tier 4) was traded 9 of 13 in development; non-GRID traded
+     rates fall with the tier number (tier 3 0.91, tier 4 0.51, tier 5 0.06); Dota PARI Universe (non-GRID tier 2) 3 of
+     4 (h1 and h2 each hold 15 PARI events, a known league in the v4 table).
+   - **Pre-registered treatment (before any exam): B, coverage-first through the existing v5 (no rule change).** An
+     unseen tier-2 league gets the prior tier rate (0.294) in v4, so v5 is ~0.40 at gp72 = 0 (not selected, thr 0.472),
+     ~0.57 at gp72 = 1 and ~0.66 at gp72 = 2 (selected). The examiner counts group-P prints in the earlier PGL Masters
+     events (sealed for us), so v5 selects the stratum from its second event on if Feed P covers it, and skips it if
+     not. Options A (tier 3's rate for tiers 1-2) and C (zero) were not adopted: A selects the stratum even when the
+     feed does not cover it, C misses it when it does. Residual risk: the wallet trades PGL Masters while group P does
+     not print in the earlier events; then h1 recall falls to about 0.45 (18 of ~49 positives missed).
+8. **Exit: a hard client band [0.05, 0.95] and an endgame without an early stop; the band does not repair the replays
+   (X141, assumptions P2; `endgame_stop.py`, `endgame_stop.json`, `knockout_band.py`, `knockout_band.json`).**
+   - 0 of 24,180 maker orders and 0 of 1,698 taker limits lie outside [0.05, 0.95] (75 maker orders at 0.05, 42 at
+     0.95), while 10.0% of the public maker BUY orders in the same markets do: a client constant.
+   - Endgame (VALIDATE, 107 markets; BUILD similar): its last fill on the eventual loser is at 0.05 / 0.11 / 0.31
+     (p10 / p50 / p90); its minimum loser price is <= 0.06 in 24% of markets; only 4.3% of its loser shares are bought
+     at <= 0.10; in 57% of markets it still fills on the loser after the loser's first public print <= 0.10. It bids
+     the collapse down to the band, with no stop before it.
+   - Residual (PnL - locked margin) vs PnL 0.44 / 0.42 (margin 0.82 / 0.75); the residual is not explained by loser
+     buying after the public 0.10 crossing (-0.18 / -0.03).
+   - The band applied to the public-anchor quote sets of the validated engine changes nothing that matters: VALIDATE D
+     0.245 / 0.087 (without the band 0.245 / 0.089), B 0.244 / 0.052 (0.243 / 0.055); returns unchanged (-1.9%, -2.4%).
+     'Signature if true' (replay residual >= 0.5 once the band applies) fails.
+9. **Item 2 is not ceiling-bound on h1 / h2 (X142 step 1; `lift_ceiling.py`, `lift_ceiling.json`).** Expected base
+   rates from the listing projection and development stratum rates: h1 0.145-0.222 (PGL Masters skipped / traded like
+   tier 3), lift ceiling 4.5-6.9, precision needed for lift 3: 0.43-0.67; h2 0.150-0.247 (4.0-6.7); forward 0.13-0.23.
+   The 20th-percentile threshold is kept. Labelled skips (step 3): no exchange pause is known in the development
+   periods; the 10-29 one-hour pause falls inside h1 but cannot remove whole events (matches last 1-3 h), so no universe
+   exclusion is pre-registered. Resting-order presence (step 2) not run: selection already carries item 2.
+10. **New key-free external price recorder (X133, information P2; `tp_odds_recorder.py`).** bo3.gg's live index
+    (`api/v1/matches?filter[matches.status][in]=current&filter[matches.discipline_id][eq]=1`, verified 200, keys
+    total / results / links, ~1.4 KB per live match) carries `bet_updates` (Thunderpick: team coefficients, active flags,
+    max_coeff, markets_count, additional handicap markets) for every live CS2 match, so ONE request every 3 s covers all
+    of them (< 0.4 request/s, no per-match page, no bookmaker site). Feed `tommy_tp_odds`, filed by the unit rule (bo3
+    start, matched Polymarket game start, or either minus 30 min, or the receive time in a sealed block => sealed),
+    detached worker pid 31860 (launcher 21048), started 1793505571 (03:59 UTC), hard stop 1793599200 (11-02 06:00 UTC),
+    150 MB cap. It records only state changes. Only status counters were read (in the sealed block: 1 live match, 4
+    state changes in ~20 min of polls); no record content was opened.
+11. **Not run, with the measurement that defers it.** X132 (uncensored Dota ladder on the 10-31 books): the 10-31 Dota
+    maps have no wallet-independent clock (P4e anchors 0 and 4 on ty-gl maps 1 / 2; D-scan p 0.85), and fitting D on
+    the wallet's own events would make the kill-locking test circular; it moves to X118 (Valve receive-time clock) on
+    VALIDATE-live. X143 (lead budget of game-state inputs after the publication delay): no frozen or candidate rule has
+    a game-state input (X123 failed at the true clock: 0.411 vs the last print's 0.431), so there is nothing to
+    re-score at +5 s; the Valve receive-time lead is X118's pre-registered test (b).
+
+## Pre-registration (iteration 10, written before any development record of `tommy_tp_odds` exists): X133 tests
+On every development block with a bo3-matched CS2 event the wallet trades (first: 11-01 06-12), per matched match:
+(a) cadence: distinct (c1, c2, a1, a2) states per in-play minute and the median interval between changes; suspension
+episodes (a1 = a2 = 0) and their durations. (b) p_TP = (1/c1) / (1/c1 + 1/c2) mapped to the Polymarket match token by
+team name; cross-correlation of 5-s changes of p_TP and of the others' mid (or, without books, the last public print) of
+the match market at lags -60..+60 s; p_TP leads iff the peak lies at p_TP-first lags with a block-bootstrap 95% interval
+excluding 0. (c) SD of (the wallet's burst top on the match market - p_TP) against SD(top - others' mid) on the same
+bursts (3.2c in BUILD-live). (d) within one tick of round(p_TP - delta), delta fitted on the first half of the block,
+against the touch on the second half. (e) the wallet's takes and untriggered pulls within 10 s after an active -> inactive
+transition, vs 2,000 shifted transitions. (f) lag of p_TP changes behind the feed's messages (P4e / member takes from
+the block's calldata). Verdicts: **p_TP is the private value** iff (b) p_TP leads AND (c) SD <= 1.5c AND (d) >= touch +
+0.10; **not the input** iff p_TP trails the market or (c) SD >= 3c; a refresh slower than 30 s rules out the timing role
+whatever (c) / (d) give.
+
+## Hypothesis ledger (iteration 10)
+- E1 own model on its own feed: **supported** (findings 1, 5, 6; by elimination of E2 / E3 / E5 / E6).
+- E2 book-cascade follower: **rejected** (finding 1).
+- E3 broadcast fair-price product: **rejected** (finding 5; ICC 0.28-0.43 vs >= 0.8).
+- E4 external bookmaker price: **open** (recorder started; pre-registered above).
+- E5 event-hazard spread: **rejected** at the true clock (finding 4).
+- E6 mechanical ladder / fixed-step updater: **rejected** (finding 3).
+- E7 outcome reachable at public lag: **rejected** (finding 2): the outcome item needs the take timing.
+- E8 band / stop drives the residual: **rejected** as the outcome fix; the band itself is decoded (finding 8).
+- E9 PGL Masters treatment: **pre-registered** (finding 7; keep v5).
+
+## What is unexplained (quantitative)
+- Price: the best public anchor on the historical record is the last print (0.305 within one tick on VALIDATE), the
+  best own-state anchor the previous own level (0.500); on live adds the touch (0.47). Even an oracle future mid with
+  the ladder index stops at ~0.52 (iteration-9 panel). The offset from any public value (SD 6.0c from the last print)
+  is not message phase (R^2 0.04), not a shared receiver value (ICC 0.28-0.43), not a leader's book move (event-locked),
+  not public tape or game state (iteration 9). Its level carries information no subscriber-class maker has (Spearman
+  0.24 vs <= 0.13 at 10 s). The remaining input is the wallet's own valuation of Feed P's events; its only untested
+  external candidate is an in-play bookmaker price (E4).
+- Outcome: needs the wallet's +50-ms take timing; with it, a perfect maker replay passes (0.87 / 0.80); without it,
+  even the oracle maker leg fails (best 0.60 / 0.44), and executable public sets reach 0.33 / 0.21 at best.
+- Selection: passes on VALIDATE; the PGL Masters stratum (10% of h1's events) is decided by group-P coverage via gp72.
+
+## Next iteration (plan; it must pivot again: the primary metric did not move in iterations 9-10)
+1. VALIDATE-live (11-01 06-12 and later development blocks): the X133 tests above (new external data class), the X118
+   Valve tests with X132 folded in (uncensored Dota ladder on the Valve receive-time clock), and the iteration-8/9
+   runbooks (finding 14 / 16 repeats with the X135 classes, X121, X98 pool scoring of v4 / v5 / v5b).
+2. If p_TP passes: a price rule on p_TP (point-in-time at receive time) for the future-block exams, and a re-check of
+   the outcome bound with p_TP as the maker anchor.
+3. Ask the user (unchanged list): demos (X122 / X37), Dota replays (X129 step 2), PandaScore token (X55), HLTV page
+   checks (X64), stream / chat routes (X4 / X22 / X53), direct bookmaker probes (X48 b), z3 for X96.
+
+## Iteration 10 closing state
+- Recorders: shared recorder OK (03:45 UTC); new own recorder `tommy_tp_odds` (worker pid 31860, hard stop 11-02 06:00
+  UTC); earlier own recorders untouched.
+- Sealed-data handling: the whole iteration ran in the sealed block 11-01 00-06. Nothing in `.cache/live/sealed/` was
+  opened or listed; no live recording was read (the BUILD-live tables of 10-31 12-18 come from earlier iterations).
+  The listing projection keeps only slug, scheduled start, lot, league, tier and the GRID flag (fetched without the
+  shared cache, nothing raw stored). The bo3.gg endpoint check printed only key names and counts; the recorder's
+  records of sealed units are filed sealed and were not opened (only status counters read). Historical reads end
+  before H (calldata sign times asserted < H).
+- Late checks (iteration 10): bo3.gg has no odds-history endpoint for finished development matches (six candidate
+  paths answer 404 on match 131343), so E4 can only be tested on the live recording. The chain-fill legs of finding 2
+  omit the taker fee (3,550 on 16-22 Oct); legs vs the per-market PnL still correlate 0.98. Own-state persistence by the
+  gap since its previous order on the token (`own_persistence.json`, VALIDATE): 0-2 s 0.716 (26% of orders), 2-10 s
+  0.591, 10-60 s 0.516, > 60 s 0.233; oracle union of {previous own level, last print} 0.599 (BUILD 0.611): no rule
+  choosing between these two anchors can pass 0.62.
+- Owner check (iteration 10, from the X110 table `sig_signers.parquet`): the fastest maker receiver 0xed446954 signs with
+  ERC-7739 owner 0x1aaef256..., P4e with 0xbf6461fa..., the wallet with 0x8af810f0...: three different keys, so
+  0xed446954 is neither P4e's own maker leg nor a sibling of the wallet; Feed P has at least one maker-only receiver that
+  re-prices ~35 ms before the wallet and is almost never filled by P4e (0.4% of its maker orders vs the wallet's 5.2%).
+- X98 pool, development block 10-31 00-06 (`final_rule_v5_devblock0_iter10.json`, exam constants, no refit): the block's
+  universe holds a single CS2 event (GRID-flagged, not traded, not selected), so it carries no selection information.
+- X73 (SX Bet chain half): a web search for the SX Bet exchange contract and the SX Rollup RPC returned no address (SX
+  Rollup is described as an Arbitrum Orbit chain; the protocol's contracts are not listed); the item stays open at low
+  priority (sparse in-play fills expected for tier-3/4 CS2).
+- X71 closed as infeasible for its key-free remainder: rdy.gg and Liquipedia tournament pages answer HTTP 403 to a plain
+  fetch (bot protection, not bypassed), the MediaWiki API requires a contact User-Agent (the user's address is not
+  sent), and no public CSTV / GOTV+ relay was found; used instead: the organiser identities of the first pass, bo3.gg
+  (X133) and Valve's Dota webapi (X118). The organisers' own betting pages need the user's consent (X48 b).
+- Planning note (listing projection only): the coming development blocks are thin for CS2. 11-01 06-12 holds 5 CS2
+  events (all non-GRID: CCT Europe t4, Circuito Retake t4, European Pro League t5, Moscow Cyber Games t5, United21 t5),
+  11-01 18-24 holds 4 (ESEA t5 x2, Exort Fiesta t5, Gamers Club Masters t4); 11-02 00-06 adds the first IEM events
+  (tier 1, GRID key pending). The X133 / X118 tests will have few traded units per block; pool blocks before verdicts.
+- Finding 4 robustness (`offset_phase_dv.json`, VALIDATE 11,851 orders): message phase does not predict its level
+  CHANGE either (target = price - its previous own level on the token): LightGBM R^2 0.018, within one tick 0.444 vs
+  0.490 for persistence alone; adding the gap between its previous level and the last print gives R^2 0.25 (it moves
+  toward the print when far from it) but within one tick 0.373, below persistence.
+12. **One coherent event valuation across the event's markets (price component, follow-up of X137;
+    `series_coherence.py`, `series_coherence_mf.py`, `series_coherence*.json`; filled maker orders 16-22 Oct, BUILD and
+    VALIDATE pooled, descriptive).** On the same feed message (orders within 5 s of it), the wallet's implied change of
+    team A's value on the MATCH market moves with its change on the current MAP market: map 1 (180 messages) same sign
+    0.778 (within-event permutation null 0.557, p95 0.611), corr 0.477 (null 0.189, p95 0.305, p < 1/2000), median ratio
+    0.50; map 2 (301) same sign 0.744 (null 0.523), corr 0.411 (null 0.055), median ratio 0.40; map 3 (5) slope 1.20.
+    BO3 series math predicts a sensitivity of about 0.5 on maps 1-2 and 1 on map 3, which the ratios follow: its maker
+    leg re-prices every market of the event from one valuation of the game (as its taker leg does: match premium = map
+    premium x series sensitivity). The 0-150-ms msg class alone is underpowered (map 1 n 15: corr 0.83, ratio 0.67).
+    This narrows the price unknown to one number per event and moment (its map value), but that number is the private
+    value itself.
+    By split (`series_coherence_msg_follow.json` by_split): BUILD map 1 / 2 same sign 0.83 / 0.75, corr 0.48 / 0.49,
+    median ratio 0.61 / 0.50 (n 82 / 138); VALIDATE 0.74 / 0.74, 0.48 / 0.37, 0.44 / 0.30 (n 98 / 163): stable.
+- Regression check of the frozen rule after the docstring-only edit (`final_rule_v5_validate_exam_intervals_iter10check.json`,
+  exam constants on the VALIDATE intervals): identical to iteration 9 on every reported key (140 events, selection AUC
+  0.9725, baseline 0.884, recall 0.769, lift 3.077, presence 0.876, price 0.322, PnL -0.124 / -0.077, coverage 1.0 / 1.0).
+- Iteration 10 ended at about 04:40 UTC (about 55 wall-clock minutes; budget used about 697 of 1200 minutes). The
+  remaining time was left unused on purpose: the decisive new data (X133 odds, X118 Valve state) arrive only with the
+  development block 11-01 06-12.

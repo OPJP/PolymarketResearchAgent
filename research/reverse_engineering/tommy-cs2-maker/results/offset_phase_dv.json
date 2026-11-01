@@ -1,0 +1,12 @@
+{
+ "phase_only": {
+  "r2_validate": 0.0177,
+  "within_tick_validate": 0.444
+ },
+ "phase_plus_own_vs_last": {
+  "r2_validate": 0.2506,
+  "within_tick_validate": 0.373
+ },
+ "own_prev_alone_within_tick": 0.49,
+ "n_validate": 11851
+}
